@@ -34,11 +34,17 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
-     
-     # Grant permissions for gradlew 
+          
+     # Set java version to 17
+      - name: set up JDK 17
+        uses: actions/setup-java@v1.4.4
+        with:
+         java-version: '17'
+
+      # Grant permissions for gradlew
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
-      #- name: Kotlin checkstyle
-       # run: ./gradlew ktlintCheck
-      - name: Build with Gradle
+      - name: Kotlin checkstyle
+        run: ./gradlew ktlintCheck
+      - name: Run tests
         run: ./gradlew test

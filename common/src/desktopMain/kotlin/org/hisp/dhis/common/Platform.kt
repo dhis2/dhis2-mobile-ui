@@ -1,5 +1,5 @@
 package org.hisp.dhis.common
 
 actual fun getPlatformName(): String {
-    return "Android"
+    return "Desktop"
 }

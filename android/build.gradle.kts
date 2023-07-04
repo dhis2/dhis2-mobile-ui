@@ -2,6 +2,7 @@ plugins {
     id("org.jetbrains.compose")
     id("com.android.application")
     kotlin("android")
+    id("org.jlleitschuh.gradle.ktlint")
 }
 
 group = "org.hisp.dhis"
@@ -22,8 +23,8 @@ android {
         versionName = "1.0-SNAPSHOT"
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     buildTypes {
         getByName("release") {
@@ -31,4 +32,9 @@ android {
         }
     }
     namespace = "org.hisp.dhis.android"
+}
+
+ktlint {
+    verbose.set(true)
+    outputToConsole.set(true)
 }
