@@ -2,6 +2,7 @@ plugins {
     kotlin("multiplatform")
     id("org.jetbrains.compose")
     id("com.android.library")
+    id("org.jlleitschuh.gradle.ktlint")
 }
 
 group = "org.hisp.dhis"
@@ -57,4 +58,9 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
     namespace = "org.hisp.dhis.common"
+}
+
+ktlint {
+    verbose.set(true)
+    outputToConsole.set(true)
 }

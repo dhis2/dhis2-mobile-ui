@@ -38,7 +38,7 @@ jobs:
      # Grant permissions for gradlew 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
-      #- name: Kotlin checkstyle
-       # run: ./gradlew ktlintCheck
+      - name: Kotlin checkstyle
+        run: ./gradlew ktlintCheck
       - name: Build with Gradle
         run: ./gradlew test

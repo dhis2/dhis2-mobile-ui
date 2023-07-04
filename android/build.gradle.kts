@@ -2,6 +2,7 @@ plugins {
     id("org.jetbrains.compose")
     id("com.android.application")
     kotlin("android")
+    id("org.jlleitschuh.gradle.ktlint")
 }
 
 group = "org.hisp.dhis"
@@ -31,4 +32,9 @@ android {
         }
     }
     namespace = "org.hisp.dhis.android"
+}
+
+ktlint {
+    verbose.set(true)
+    outputToConsole.set(true)
 }
