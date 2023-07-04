@@ -3,6 +3,7 @@ plugins {
     id("com.android.application")
     kotlin("android")
     id("org.jlleitschuh.gradle.ktlint")
+    id("kotlin-kapt")
 }
 
 group = "org.hisp.dhis"
@@ -11,6 +12,8 @@ version = "1.0-SNAPSHOT"
 dependencies {
     implementation(project(":common"))
     implementation("androidx.activity:activity-compose:1.7.2")
+    implementation("com.airbnb.android:showkase:1.0.0-beta18")
+    kapt("com.airbnb.android:showkase-processor:1.0.0-beta18")
 }
 
 android {
