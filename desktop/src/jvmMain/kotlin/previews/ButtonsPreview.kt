@@ -2,17 +2,19 @@ package previews
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.runtime.Composable
-import org.hisp.dhis.common.components.Dhis2ButtonPreview
-import org.hisp.dhis.common.components.Dhis2TextButtonPreview
+import org.hisp.dhis.common.previews.ButtonsPreview
 
-@Preview
-@Composable
-fun TextButtonPreview() {
-    Dhis2TextButtonPreview()
-}
+class ButtonsPreview: ButtonsPreview {
 
-@Preview
-@Composable
-fun ButtonPReview() {
-    Dhis2ButtonPreview()
+    @Preview
+    @Composable
+    override fun TextButtonPreview() {
+        super.TextButtonPreview()
+    }
+
+    @Preview
+    @Composable
+    override fun ButtonPReview() {
+        super.ButtonPReview()
+    }
 }
