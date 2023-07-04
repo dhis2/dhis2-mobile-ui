@@ -10,10 +10,10 @@ import org.hisp.dhis.common.screens.HomeScreen
 
 @Composable
 fun App() {
-    val currentScreen = remember { mutableStateOf(Components.HOME)}
+    val currentScreen = remember { mutableStateOf(Components.HOME) }
 
     MaterialTheme {
-        when(currentScreen.value) {
+        when (currentScreen.value) {
             Components.BUTTON -> ButtonScreen()
             else -> HomeScreen { currentScreen.value = it }
         }

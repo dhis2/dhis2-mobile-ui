@@ -18,7 +18,7 @@ fun HomeScreen(onButtonClick: (Components) -> Unit) {
             content = { Text(text = "Buttons") },
             onClick = {
                 onButtonClick(Components.BUTTON)
-            },
+            }
         )
     }
 }
