@@ -48,3 +48,6 @@ jobs:
         run: ./gradlew ktlintCheck
       - name: Run tests
         run: ./gradlew test
+      - name: Android Builder
+        uses: b4s36t4/Android-Action@0.0.1
+
