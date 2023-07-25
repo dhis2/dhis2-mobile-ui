@@ -1,6 +1,8 @@
-# This is a basic workflow to help you get started with Actions
-
 name: CI
+
+env:
+  # The name of the main module repository
+  main_project_module: android
 
 on:
   push:
@@ -12,10 +14,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
-
+  push_job:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v3
 
@@ -40,3 +40,40 @@ jobs:
       # Run Build Project
       - name: Build gradle project
         run: ./gradlew build
+
+  pull_request_job:
+    runs-on: ubuntu-latest
+    needs: push_job
+    if: github.event_name == 'pull_request' && needs.push_job.result == 'success'
+    steps:
+      - uses: actions/checkout@v3
+
+      # Set Current Date As Env Variable
+      - name: Set current date as env variable
+        run: echo "date_today=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
+
+      # Set Repository Name As Env Variable
+      - name: Set repository name as env variable
+        run: echo "repository_name=$(echo '${{ github.repository }}' | awk -F '/' '{print $2}')" >> $GITHUB_ENV
+
+      - name: Set Up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu' # See 'Supported distributions' for available options
+          java-version: '17'
+          cache: 'gradle'
+
+      - name: Change wrapper permissions
+        run: chmod +x ./gradlew
+
+      # Create APK Debug
+      - name: Build apk debug project (APK) - ${{ env.main_project_module }} module
+        run: ./gradlew assembleDebug
+
+      # Upload Artifact Build
+      # Noted For Output [main_project_module]/build/outputs/apk/debug/
+      - name: Upload APK Debug - ${{ env.repository_name }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.date_today }} - ${{ env.playstore_name }} - ${{ env.repository_name }} - APK(s) debug generated
+          path: ${{ env.main_project_module }}/build/outputs/apk/debug/
