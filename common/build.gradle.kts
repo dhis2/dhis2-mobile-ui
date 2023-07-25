@@ -5,9 +5,6 @@ plugins {
     id("org.jlleitschuh.gradle.ktlint")
 }
 
-group = "org.hisp.dhis"
-version = "1.0-SNAPSHOT"
-
 kotlin {
     android()
     jvm("desktop") {
@@ -48,11 +45,11 @@ kotlin {
 }
 
 android {
-    compileSdk = 33
+    compileSdk = (findProperty("android.compileSdk") as String).toInt()
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {
-        minSdk = 24
-        targetSdk = 33
+        minSdk = (findProperty("android.minSdk") as String).toInt()
+        targetSdk = (findProperty("android.targetSdk") as String).toInt()
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
