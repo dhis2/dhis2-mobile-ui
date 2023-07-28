@@ -23,7 +23,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           distribution: 'zulu' # See 'Supported distributions' for available options
-          java-version: '17'
+          java-version: '11'
           cache: 'gradle'
 
       - name: Change wrapper permissions
@@ -60,7 +60,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           distribution: 'zulu' # See 'Supported distributions' for available options
-          java-version: '17'
+          java-version: '11'
           cache: 'gradle'
 
       - name: Change wrapper permissions
