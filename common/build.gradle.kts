@@ -7,9 +7,9 @@ plugins {
 
 kotlin {
     android()
-    jvm("desktop") {
-        jvmToolchain(11)
-    }
+
+    jvm("desktop")
+
     sourceSets {
         val commonMain by getting {
             dependencies {
@@ -52,8 +52,8 @@ android {
         targetSdk = (findProperty("android.targetSdk") as String).toInt()
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     namespace = "org.hisp.dhis.common"
 }
