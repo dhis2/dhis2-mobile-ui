@@ -7,11 +7,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.hisp.dhis.common.designsystem.component.Dhis2ButtonPreview
 import org.hisp.dhis.common.designsystem.component.Dhis2TextButtonPreview
+import org.hisp.dhis.common.designsystem.component.SquareIconButtonPreview
 
 @Composable
 fun ButtonScreen() {
     Column(modifier = Modifier.padding(10.dp)) {
-        Dhis2ButtonPreview()
         Dhis2TextButtonPreview()
+        Dhis2ButtonPreview()
+        SquareIconButtonPreview()
     }
 }

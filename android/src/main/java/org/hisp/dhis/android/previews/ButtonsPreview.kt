@@ -8,13 +8,22 @@ class ButtonsPreview : ButtonsPreview {
 
     @ShowkaseComposable(name = "Dhis2TextButton", group = "Buttons")
     @Composable
-    override fun TextButtonPreview() {
-        super.TextButtonPreview()
+    override fun Dhis2TextButtonPreview() {
+        super.Dhis2TextButtonPreview()
     }
 
     @ShowkaseComposable(name = "Simple Button", group = "Buttons")
     @Composable
-    override fun ButtonPReview() {
-        super.ButtonPReview()
+    override fun Dhis2ButtonPreview() {
+        super.Dhis2ButtonPreview()
+    }
+
+    @ShowkaseComposable(
+        group = "Buttons",
+        name = "SquareIconButton"
+    )
+    @Composable
+    override fun SquareIconButtonPreview() {
+        super.SquareIconButtonPreview()
     }
 }
