@@ -5,8 +5,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import org.hisp.dhis.common.components.Dhis2ButtonPreview
-import org.hisp.dhis.common.components.Dhis2TextButtonPreview
+import org.hisp.dhis.common.designsystem.component.Dhis2ButtonPreview
+import org.hisp.dhis.common.designsystem.component.Dhis2TextButtonPreview
 
 @Composable
 fun ButtonScreen() {

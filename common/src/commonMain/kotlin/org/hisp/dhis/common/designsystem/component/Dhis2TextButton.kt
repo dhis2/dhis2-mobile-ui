@@ -1,4 +1,4 @@
-package org.hisp.dhis.common.components
+package org.hisp.dhis.common.designsystem.component
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size

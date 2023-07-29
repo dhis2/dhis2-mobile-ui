@@ -1,4 +1,4 @@
-package org.hisp.dhis.common.components
+package org.hisp.dhis.common.designsystem.component
 
 enum class Components {
     HOME,
