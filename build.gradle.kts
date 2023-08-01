@@ -1,4 +1,4 @@
-group = "org.hisp.dhis"
+group = "org.hisp.dhis.mobileui"
 version = "1.0-SNAPSHOT"
 
 plugins {
