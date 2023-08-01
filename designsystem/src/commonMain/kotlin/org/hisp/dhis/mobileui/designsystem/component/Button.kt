@@ -1,4 +1,4 @@
-package org.hisp.dhis.common.designsystem.component
+package org.hisp.dhis.mobileui.designsystem.component
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -7,7 +7,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import org.hisp.dhis.common.designsystem.theme.Dimen
+import org.hisp.dhis.mobileui.designsystem.theme.Dimen
 
 /**
  * DHIS2 square icon button with generic icon slot. Wraps Material 3 [ElevatedButton].

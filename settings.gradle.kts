@@ -3,6 +3,7 @@ rootProject.name = "mobile-ui"
 include(":android")
 include(":desktop")
 include(":common")
+include(":designsystem")
 
 pluginManagement {
     repositories {

@@ -2,9 +2,9 @@ package org.hisp.dhis.common.screens
 
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
-import org.hisp.dhis.common.designsystem.component.IconButton
-import org.hisp.dhis.common.designsystem.component.SquareIconButton
-import org.hisp.dhis.common.designsystem.icon.Icons
+import org.hisp.dhis.mobileui.designsystem.component.IconButton
+import org.hisp.dhis.mobileui.designsystem.component.SquareIconButton
+import org.hisp.dhis.mobileui.designsystem.icon.Icons
 
 @Composable
 internal fun SquareIconButtonPreview(enabled: Boolean = true) {

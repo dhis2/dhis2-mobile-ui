@@ -13,11 +13,12 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api(compose.runtime)
-                api(compose.foundation)
-                api(compose.ui)
-                api(compose.material3)
-                api(compose.materialIconsExtended)
+                implementation(compose.runtime)
+                implementation(compose.foundation)
+                implementation(compose.ui)
+                implementation(compose.material3)
+                implementation(compose.materialIconsExtended)
+                implementation(project(":designsystem"))
             }
         }
         val commonTest by getting {
