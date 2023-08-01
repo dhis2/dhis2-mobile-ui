@@ -2,9 +2,7 @@ package org.hisp.dhis.common.designsystem.theme
 
 import androidx.compose.ui.graphics.Color
 
-internal val Blue10 = Color(0xFF001F28)
-internal val Blue20 = Color(0xFF003544)
-internal val Blue30 = Color(0xFF004D61)
+internal val colorBlue100: Color = Color(0xFFE2F2FF)
 internal val PrimaryColor = Color(0xFF007DEB)
 internal val OnPrimaryColor = Color.White
 internal val PrimaryContainerColor = Color(0xFFF1F9FF)
