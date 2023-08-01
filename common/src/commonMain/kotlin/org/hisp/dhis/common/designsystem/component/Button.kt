@@ -3,14 +3,20 @@ package org.hisp.dhis.common.designsystem.component
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ElevatedButton
-import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import org.hisp.dhis.common.designsystem.icon.Icons
 import org.hisp.dhis.common.designsystem.theme.Dimen
 
+/**
+ * DHIS2 square icon button with generic icon slot. Wraps Material 3 [ElevatedButton].
+ *
+ * @param enabled Controls the enabled state of the button. When `false`, this button will not be
+ * clickable and will appear disabled to accessibility services.
+ * @param icon The button icon content.
+ * @param onClick Will be called when the user clicks the button.
+ */
 @Composable
 fun SquareIconButton(
     enabled: Boolean = true,
@@ -28,19 +34,14 @@ fun SquareIconButton(
     }
 }
 
-@Composable
-internal fun SquareIconButtonPreview(enabled: Boolean = true) {
-    SquareIconButton(
-        enabled = enabled,
-        icon = {
-            Icon(
-                imageVector = Icons.FileDownload,
-                contentDescription = ""
-            )
-        } // TODO("Do we need content description?")
-    ) { }
-}
-
+/**
+ * DHIS2 icon button with generic icon slot. Wraps Material 3 [IconButton].
+ *
+ * @param enabled Controls the enabled state of the button. When `false`, this button will not be
+ * clickable and will appear disabled to accessibility services.
+ * @param icon The button icon content.
+ * @param onClick Will be called when the user clicks the button.
+ */
 @Composable
 fun IconButton(
     enabled: Boolean = true,
@@ -54,17 +55,4 @@ fun IconButton(
     ) {
         icon()
     }
-}
-
-@Composable
-internal fun IconButtonPreview(enabled: Boolean = true) {
-    IconButton(
-        enabled = enabled,
-        icon = {
-            Icon(
-                imageVector = Icons.FileDownload,
-                contentDescription = ""
-            )
-        } // TODO("Do we need content description?")
-    ) { }
 }
