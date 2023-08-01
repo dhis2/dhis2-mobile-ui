@@ -1,27 +1,29 @@
-package org.hisp.dhis.common.components
+package org.hisp.dhis.common.designsystem.component
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.Button
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun Dhis2Button(
+fun Dhis2TextButton(
     modifier: Modifier = Modifier,
     leadingIcon: @Composable (() -> Unit)? = null,
     text: String,
+    enabled: Boolean = true,
     onClick: () -> Unit
 ) {
-    Button(
+    TextButton(
         modifier = modifier,
-        onClick = onClick
+        onClick = onClick,
+        enabled = enabled
     ) {
         leadingIcon?.let {
             it.invoke()
@@ -35,11 +37,11 @@ fun Dhis2Button(
 }
 
 @Composable
-fun Dhis2ButtonPreview() {
-    Dhis2Button(
+internal fun Dhis2TextButtonPreview() {
+    Dhis2TextButton(
         leadingIcon = {
             Icon(imageVector = Icons.Default.Add, contentDescription = "")
         },
-        text = "Dhis2ButtonPreview"
+        text = "Dhis2TextButtonPreview"
     ) {}
 }

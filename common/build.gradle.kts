@@ -15,8 +15,9 @@ kotlin {
             dependencies {
                 api(compose.runtime)
                 api(compose.foundation)
-                api(compose.material)
                 api(compose.ui)
+                api(compose.material3)
+                api(compose.materialIconsExtended)
             }
         }
         val commonTest by getting {

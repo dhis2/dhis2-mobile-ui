@@ -8,13 +8,19 @@ class ButtonsPreview: ButtonsPreview {
 
     @Preview
     @Composable
-    override fun TextButtonPreview() {
-        super.TextButtonPreview()
+    override fun Dhis2TextButtonPreview() {
+        super.Dhis2TextButtonPreview()
     }
 
     @Preview
     @Composable
-    override fun ButtonPReview() {
-        super.ButtonPReview()
+    override fun Dhis2ButtonPreview() {
+        super.Dhis2ButtonPreview()
+    }
+
+    @Preview
+    @Composable
+    override fun SquareIconButtonPreview() {
+        super.SquareIconButtonPreview()
     }
 }
