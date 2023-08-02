@@ -2,12 +2,14 @@ package org.hisp.dhis.mobileui.designsystem.component
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import org.hisp.dhis.mobileui.designsystem.theme.Dimen
+import androidx.compose.ui.graphics.Color
+import org.hisp.dhis.mobileui.designsystem.theme.Radius
+import org.hisp.dhis.mobileui.designsystem.theme.Spacing
 
 /**
  * DHIS2 square icon button with generic icon slot. Wraps Material 3 [ElevatedButton].
@@ -27,8 +29,11 @@ fun SquareIconButton(
         onClick = onClick,
         modifier = Modifier,
         enabled = enabled,
-        shape = RoundedCornerShape(10.dp),
-        contentPadding = PaddingValues(Dimen.spacing4)
+        shape = RoundedCornerShape(Radius.S),
+        colors = ButtonDefaults.elevatedButtonColors(
+            disabledContainerColor = Color.Transparent
+        ),
+        contentPadding = PaddingValues(Spacing.spacing8)
     ) {
         icon()
     }
