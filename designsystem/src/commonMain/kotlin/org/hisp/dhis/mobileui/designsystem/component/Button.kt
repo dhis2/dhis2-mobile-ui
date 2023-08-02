@@ -33,7 +33,7 @@ fun SquareIconButton(
         colors = ButtonDefaults.elevatedButtonColors(
             disabledContainerColor = Color.Transparent
         ),
-        contentPadding = PaddingValues(Spacing.spacing8)
+        contentPadding = PaddingValues(Spacing.Spacing8)
     ) {
         icon()
     }
