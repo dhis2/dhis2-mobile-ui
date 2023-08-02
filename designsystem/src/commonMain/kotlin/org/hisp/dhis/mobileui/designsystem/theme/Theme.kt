@@ -1,4 +1,4 @@
-package org.hisp.dhis.common.designsystem.theme
+package org.hisp.dhis.mobileui.designsystem.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
