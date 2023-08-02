@@ -77,3 +77,14 @@ jobs:
         with:
           name: ${{ env.date_today }} - ${{ env.playstore_name }} - ${{ env.repository_name }} - APK(s) debug generated
           path: ${{ env.main_project_module }}/build/outputs/apk/debug/
+
+      #Create binaries
+      - name: Create desktop binaries
+        run: ./gradlew createDistributable
+
+      #Upload binaries artifact
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v3.1.2
+        with:
+          name: my-artifact
+          path: ${{ github.workspace }}/desktop/build/compose/binaries/main/app
