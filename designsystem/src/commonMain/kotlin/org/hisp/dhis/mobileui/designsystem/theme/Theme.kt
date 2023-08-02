@@ -29,7 +29,7 @@ val DHIS2LightColorScheme = lightColorScheme(
 //    surfaceVariant = PurpleGray90,
     onSurfaceVariant = Surface.OnSurfaceVariant,
     inverseSurface = Surface.InverseSurface,
-    inverseOnSurface = Surface.InverseOnSurface,
+//    inverseOnSurface = Surface.InverseOnSurface,
     outline = Surface.OutlineDark
 )
 
