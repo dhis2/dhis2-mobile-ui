@@ -10,5 +10,5 @@ object Radius {
     val M: Dp = 12.dp
     val L: Dp = 16.dp
     val XL: Dp = 28.dp
-    val FULL: Dp = 100000.dp
+    val Full: Dp = 100000.dp
 }
