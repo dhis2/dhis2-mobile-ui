@@ -29,7 +29,7 @@ internal fun IconButtonPreview(enabled: Boolean = true, style: IconStyle = IconS
         icon = {
             Icon(
                 imageVector = Icons.FileDownload,
-                contentDescription = "Icon Button",
+                contentDescription = "Icon Button"
             )
         }
     ) { }
