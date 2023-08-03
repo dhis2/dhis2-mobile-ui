@@ -71,20 +71,19 @@ jobs:
         run: ./gradlew assembleDebug
 
       # Upload Artifact Build
-      # Noted For Output [main_project_module]/build/outputs/apk/debug/
-      - name: Upload APK Debug - ${{ env.repository_name }}
+      - name: Upload Android artifacts
         uses: actions/upload-artifact@v3
         with:
           name: ${{ env.repository_name }} - Android APK
           path: ${{ env.main_project_module }}/build/outputs/apk/debug/
 
       #Create binaries
-      - name: Create desktop binaries
+      - name: Create desktop jar for Windows
         run: ./gradlew packageUberJarForCurrentOS
 
       #Upload binaries artifact
-      - name: Upload a Build Artifact
+      - name: Upload Desktop artifacts
         uses: actions/upload-artifact@v3.1.2
         with:
-          name: ${{ env.repository_name }} - Desktop jar
-          path: ${{ github.workspace }}/desktop/build/compose/jars/mobile-ui-linux-x64-1.0.0.jar
+          name: ${{ env.repository_name }} - Desktop jar - Windows
+          path: ${{ github.workspace }}/desktop/build/compose/jars/mobile-ui-windows-x64-1.0.0.jar
