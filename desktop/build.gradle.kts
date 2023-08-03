@@ -12,6 +12,7 @@ kotlin {
             dependencies {
                 implementation(project(":common"))
                 implementation(compose.desktop.currentOs)
+                implementation(compose.desktop.windows_x64)
             }
         }
         val jvmTest by getting

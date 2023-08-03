@@ -42,7 +42,7 @@ jobs:
         run: ./gradlew build
 
   deployment_job:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     needs: ci_job
     if: github.event_name == 'pull_request' && needs.ci_job.result == 'success'
     steps:
