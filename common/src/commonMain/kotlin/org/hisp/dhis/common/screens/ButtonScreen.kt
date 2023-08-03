@@ -19,7 +19,8 @@ fun ButtonScreen() {
             title = "SquareIconButton",
             content = {
                 Row(
-                    horizontalArrangement = Arrangement.spacedBy(10.dp)
+                    horizontalArrangement = Arrangement.spacedBy(10.dp),
+                    modifier = Modifier.padding(10.dp)
                 ) {
                     SquareIconButtonPreview()
                     SquareIconButtonPreview(false)
