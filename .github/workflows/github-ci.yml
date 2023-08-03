@@ -75,16 +75,16 @@ jobs:
       - name: Upload APK Debug - ${{ env.repository_name }}
         uses: actions/upload-artifact@v3
         with:
-          name: ${{ env.date_today }} - ${{ env.playstore_name }} - ${{ env.repository_name }} - APK(s) debug generated
+          name: ${{ env.repository_name }} - Android APK
           path: ${{ env.main_project_module }}/build/outputs/apk/debug/
 
       #Create binaries
       - name: Create desktop binaries
-        run: ./gradlew createDistributable
+        run: ./gradlew packageUberJarForCurrentOS
 
       #Upload binaries artifact
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v3.1.2
         with:
-          name: my-artifact
-          path: ${{ github.workspace }}/desktop/build/compose/binaries/main/app
+          name: ${{ env.repository_name }} - Desktop jar
+          path: ${{ github.workspace }}/desktop/build/compose/jars/mobile-ui-linux-x64-1.0.0.jar
