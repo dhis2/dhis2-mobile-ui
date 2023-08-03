@@ -39,21 +39,20 @@ fun ButtonScreen() {
                         content = {
                             Row(
                                 horizontalArrangement = Arrangement.spacedBy(10.dp)
-                            ){
+                            ) {
                                 IconButtonPreview()
                                 IconButtonPreview(false)
                             }
                         }
                     )
-
                 }
                 ComponentContainer(
                     title = "Filled",
                     content = {
                         Row(
                             horizontalArrangement = Arrangement.spacedBy(10.dp)
-                        ){
-                            IconButtonPreview( true, IconStyle.FILLED)
+                        ) {
+                            IconButtonPreview(true, IconStyle.FILLED)
                             IconButtonPreview(false, IconStyle.FILLED)
                         }
                     }
@@ -63,9 +62,8 @@ fun ButtonScreen() {
                     content = {
                         Row(
                             horizontalArrangement = Arrangement.spacedBy(10.dp)
-                        ){
-
-                            IconButtonPreview( true, IconStyle.TONAL)
+                        ) {
+                            IconButtonPreview(true, IconStyle.TONAL)
                             IconButtonPreview(false, IconStyle.TONAL)
                         }
                     }
@@ -75,8 +73,8 @@ fun ButtonScreen() {
                     content = {
                         Row(
                             horizontalArrangement = Arrangement.spacedBy(10.dp)
-                        ){
-                            IconButtonPreview( true, IconStyle.OUTLINED)
+                        ) {
+                            IconButtonPreview(true, IconStyle.OUTLINED)
                             IconButtonPreview(false, IconStyle.OUTLINED)
                         }
                     }

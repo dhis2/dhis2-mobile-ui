@@ -22,7 +22,6 @@ internal fun SquareIconButtonPreview(enabled: Boolean = true) {
 
 @Composable
 internal fun IconButtonPreview(enabled: Boolean = true, style: IconStyle = IconStyle.STANDARD) {
-
     IconButton(
         style = style,
         enabled = enabled,

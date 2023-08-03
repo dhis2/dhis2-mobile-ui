@@ -40,7 +40,7 @@ fun SquareIconButton(
 ) {
     ElevatedButton(
         onClick = onClick,
-        elevation =  ButtonDefaults.elevatedButtonElevation(Spacing.Spacing1),
+        elevation = ButtonDefaults.elevatedButtonElevation(Spacing.Spacing1),
         modifier = Modifier
             .size(Spacing.Spacing48)
             .padding(Spacing.Spacing4),
@@ -75,7 +75,6 @@ fun IconButton(
     val iconButtonColors = getIconButtonColors(style)
     val borderColor = getBorderColor(style, enabled)
 
-
     if (style == IconStyle.FILLED) {
         OutlinedButton(
             onClick = onClick,
@@ -86,12 +85,12 @@ fun IconButton(
             shape = CircleShape,
             border = BorderStroke(Spacing.Spacing1, borderColor),
             contentPadding = PaddingValues(Spacing.Spacing8),
-            colors = iconButtonColors,
+            colors = iconButtonColors
         ) {
             icon()
         }
     } else {
-        CompositionLocalProvider(LocalRippleTheme provides  CustomDHISRippleTheme) {
+        CompositionLocalProvider(LocalRippleTheme provides CustomDHISRippleTheme) {
             OutlinedButton(
                 onClick = onClick,
                 modifier = Modifier
@@ -101,38 +100,40 @@ fun IconButton(
                 shape = CircleShape,
                 border = BorderStroke(Spacing.Spacing1, borderColor),
                 contentPadding = PaddingValues(Spacing.Spacing8),
-                colors = iconButtonColors,
+                colors = iconButtonColors
             ) {
                 icon()
             }
         }
     }
 }
+
 @Composable
 fun getIconButtonColors(style: IconStyle): ButtonColors {
-    val iconButtonColors =  when (style) {
+    val iconButtonColors = when (style) {
         IconStyle.FILLED -> ButtonDefaults.filledTonalButtonColors(SurfaceColor.Primary, TextColor.OnPrimary)
-        IconStyle.OUTLINED -> ButtonDefaults.outlinedButtonColors(Color.Transparent,TextColor.OnPrimaryContainer)
+        IconStyle.OUTLINED -> ButtonDefaults.outlinedButtonColors(Color.Transparent, TextColor.OnPrimaryContainer)
         IconStyle.TONAL -> ButtonDefaults.filledTonalButtonColors(SurfaceColor.PrimaryContainer, TextColor.OnPrimaryContainer)
-        else -> ButtonDefaults.buttonColors(Color.Transparent,TextColor.OnSurfaceVariant, Color.Transparent,TextColor.OnDisabledSurface)
+        else -> ButtonDefaults.buttonColors(Color.Transparent, TextColor.OnSurfaceVariant, Color.Transparent, TextColor.OnDisabledSurface)
     }
     return iconButtonColors
 }
+
 @Composable
 fun getBorderColor(style: IconStyle, enabled: Boolean): Color {
-    val borderColor =  if (style == IconStyle.OUTLINED) {
+    val borderColor = if (style == IconStyle.OUTLINED) {
         if (enabled) Outline.Dark else SurfaceColor.DisabledSurface
-    }else {
+    } else {
         Color.Transparent
     }
     return borderColor
 }
 
- enum class IconStyle {
-    STANDARD,FILLED, TONAL, OUTLINED
+enum class IconStyle {
+    STANDARD, FILLED, TONAL, OUTLINED
 }
 
- object CustomDHISRippleTheme : RippleTheme {
+object CustomDHISRippleTheme : RippleTheme {
 
     @Composable
     override fun defaultColor(): Color = SurfaceColor.Primary
