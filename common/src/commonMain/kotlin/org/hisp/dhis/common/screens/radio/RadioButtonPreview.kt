@@ -4,28 +4,20 @@ import androidx.compose.runtime.Composable
 import org.hisp.dhis.mobileui.designsystem.component.RadioButton
 
 @Composable
-internal fun RadioButtonPreview(enabled: Boolean = true) {
+internal fun RadioButtonPreview(selected: Boolean = true, enabled: Boolean = true) {
     RadioButton(
-        selected = true,
+        selected = selected,
         enabled = enabled,
         textInput = null
     ) { }
 }
 
 @Composable
-internal fun RadioButtonDisabledPreview(enabled: Boolean = false) {
+internal fun TextRadioButtonPreview(selected: Boolean = false, enabled: Boolean = true, text: String = "Option", changeOption: () -> Unit) {
     RadioButton(
-        selected = true,
-        enabled = enabled,
-        textInput = null
-    ) { }
-}
-
-@Composable
-internal fun TextRadioButtonPreview(enabled: Boolean = true, text: String = "Option") {
-    RadioButton(
-        selected = true,
+        selected = selected,
+        onClick = changeOption,
         enabled = enabled,
         textInput = text
-    ) { }
+    )
 }
