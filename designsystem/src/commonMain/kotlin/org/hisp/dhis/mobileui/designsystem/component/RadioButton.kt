@@ -60,13 +60,22 @@ fun RadioButton(
                         disabledUnselectedColor = TextColor.OnDisabledSurface
                     )
                 )
-                Text(
+                Row(
                     modifier = Modifier
                         .width(800.dp)
-                        .height(Spacing.Spacing24),
-                    text = textInput,
-                    style = DHISTypography.bodyLarge
-                )
+                        .height(40.dp)
+                        .padding(top = Spacing.Spacing8, bottom = Spacing.Spacing8),
+                    horizontalArrangement = Arrangement.spacedBy(0.dp, Alignment.Start),
+                    verticalAlignment = Alignment.Top,
+                ) {
+                    Text(
+                        modifier = Modifier
+                            .width(800.dp)
+                            .height(Spacing.Spacing24),
+                        text = textInput,
+                        style = DHISTypography.bodyLarge
+                    )
+                }
             }
         }
 }
