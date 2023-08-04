@@ -1,5 +1,6 @@
 package org.hisp.dhis.mobileui.designsystem.component
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
@@ -71,9 +72,15 @@ fun RadioButton(
                     Text(
                         modifier = Modifier
                             .width(800.dp)
-                            .height(Spacing.Spacing24),
+                            .height(Spacing.Spacing24)
+                            .clickable { onClick() },
                         text = textInput,
-                        style = DHISTypography.bodyLarge
+                        style = DHISTypography.bodyLarge,
+                        color = if (enabled) {
+                            TextColor.OnSurface
+                        } else {
+                            TextColor.OnDisabledSurface
+                        },
                     )
                 }
             }
