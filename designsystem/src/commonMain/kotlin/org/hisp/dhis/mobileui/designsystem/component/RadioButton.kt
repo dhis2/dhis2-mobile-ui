@@ -22,6 +22,15 @@ import org.hisp.dhis.mobileui.designsystem.theme.Spacing
 import org.hisp.dhis.mobileui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobileui.designsystem.theme.TextColor
 
+/**
+ * DHIS2 radio button with or without text. Wraps Material 3 [RadioButton].
+ *
+ * @param selected Controls the selected option state for multiple options.
+ * @param enabled Controls the enabled state of the button. When `false`, this button will not be
+ * clickable and will appear disabled to accessibility services.
+ * @param textInput The button option text.
+ * @param onClick Will be called when the user clicks the button.
+ */
 @Composable
 fun RadioButton(
     selected: Boolean,
