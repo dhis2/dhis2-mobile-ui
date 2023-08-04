@@ -1,9 +1,12 @@
 package org.hisp.dhis.mobileui.designsystem.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material.ripple.RippleAlpha
+import androidx.compose.material.ripple.RippleTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 
 val DHIS2LightColorScheme = lightColorScheme(
     primary = SurfaceColor.Primary,
@@ -39,5 +42,17 @@ fun DHIS2Theme(
         typography = DHISTypography,
         shapes = DHISShapes,
         content = content
+    )
+}
+
+object CustomDHISRippleTheme : RippleTheme {
+
+    @Composable
+    override fun defaultColor(): Color = SurfaceColor.Primary
+
+    @Composable
+    override fun rippleAlpha(): RippleAlpha = RippleTheme.defaultRippleAlpha(
+        SurfaceColor.Primary,
+        lightTheme = true
     )
 }
