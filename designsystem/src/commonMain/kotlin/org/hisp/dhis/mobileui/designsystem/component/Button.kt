@@ -2,6 +2,7 @@ package org.hisp.dhis.mobileui.designsystem.component
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -9,15 +10,30 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ripple.LocalRippleTheme
 import androidx.compose.material.ripple.RippleAlpha
 import androidx.compose.material.ripple.RippleTheme
-import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ElevatedButton
+import androidx.compose.material3.FilledIconButton
+import androidx.compose.material3.FilledTonalIconButton
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.IconButtonDefaults
+import androidx.compose.material3.OutlinedIconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Paint
+import androidx.compose.ui.graphics.drawscope.clipRect
+import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
+import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.input.pointer.PointerEventType
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobileui.designsystem.theme.Outline
 import org.hisp.dhis.mobileui.designsystem.theme.Radius
 import org.hisp.dhis.mobileui.designsystem.theme.Spacing
@@ -72,61 +88,94 @@ fun IconButton(
     icon: @Composable (() -> Unit),
     onClick: () -> Unit
 ) {
-    val iconButtonColors = getIconButtonColors(style)
-    val borderColor = getBorderColor(style, enabled)
+    when (style) {
+        IconStyle.FILLED -> CustomFilledIconButton(enabled, icon, onClick)
+        IconStyle.TONAL -> CustomFilledTonalIconButton(enabled, icon, onClick)
+        IconStyle.OUTLINED -> CustomOutlinedIconButton(enabled, icon, onClick)
+        else -> StandardIconButton(enabled, icon, onClick)
+    }
+}
 
-    if (style == IconStyle.FILLED) {
-        OutlinedButton(
+@Composable
+fun StandardIconButton(
+    enabled: Boolean = true,
+    icon: @Composable (() -> Unit),
+    onClick: () -> Unit
+) {
+    CompositionLocalProvider(LocalRippleTheme provides CustomDHISRippleTheme) {
+        FilledIconButton(
+            onClick = onClick,
+            modifier = Modifier
+                .size(Spacing.Spacing48)
+                .padding(Spacing.Spacing4),
+            enabled = enabled,
+            colors = IconButtonDefaults.iconButtonColors(Color.Transparent, TextColor.OnSurfaceVariant, Color.Transparent, TextColor.OnDisabledSurface)
+        ) {
+            icon()
+        }
+    }
+}
+
+@Composable
+fun CustomFilledIconButton(
+    enabled: Boolean = true,
+    icon: @Composable (() -> Unit),
+    onClick: () -> Unit
+) {
+    FilledIconButton(
+        onClick = onClick,
+        modifier = Modifier
+            .size(Spacing.Spacing48)
+            .padding(Spacing.Spacing4),
+        enabled = enabled,
+        colors = IconButtonDefaults.iconButtonColors(SurfaceColor.Primary, TextColor.OnPrimary, SurfaceColor.DisabledSurface, TextColor.OnDisabledSurface)
+    ) {
+        icon()
+    }
+}
+
+@Composable
+fun CustomFilledTonalIconButton(
+    enabled: Boolean = true,
+    icon: @Composable (() -> Unit),
+    onClick: () -> Unit
+) {
+    CompositionLocalProvider(LocalRippleTheme provides CustomDHISRippleTheme) {
+        FilledTonalIconButton(
             onClick = onClick,
             modifier = Modifier
                 .size(Spacing.Spacing48)
                 .padding(Spacing.Spacing4),
             enabled = enabled,
             shape = CircleShape,
-            border = BorderStroke(Spacing.Spacing1, borderColor),
-            contentPadding = PaddingValues(Spacing.Spacing8),
-            colors = iconButtonColors
+            colors = IconButtonDefaults.filledTonalIconButtonColors(SurfaceColor.PrimaryContainer, TextColor.OnPrimaryContainer, SurfaceColor.DisabledSurface, TextColor.OnDisabledSurface)
+
         ) {
             icon()
         }
-    } else {
-        CompositionLocalProvider(LocalRippleTheme provides CustomDHISRippleTheme) {
-            OutlinedButton(
-                onClick = onClick,
-                modifier = Modifier
-                    .size(Spacing.Spacing48)
-                    .padding(Spacing.Spacing4),
-                enabled = enabled,
-                shape = CircleShape,
-                border = BorderStroke(Spacing.Spacing1, borderColor),
-                contentPadding = PaddingValues(Spacing.Spacing8),
-                colors = iconButtonColors
-            ) {
-                icon()
-            }
+    }
+}
+
+@Composable
+fun CustomOutlinedIconButton(
+    enabled: Boolean = true,
+    icon: @Composable (() -> Unit),
+    onClick: () -> Unit
+) {
+    CompositionLocalProvider(LocalRippleTheme provides CustomDHISRippleTheme) {
+        OutlinedIconButton(
+            onClick = onClick,
+            modifier = Modifier
+                .size(Spacing.Spacing48)
+                .padding(Spacing.Spacing4),
+            enabled = enabled,
+            shape = CircleShape,
+            border = BorderStroke(Spacing.Spacing1, if (enabled) Outline.Dark else SurfaceColor.DisabledSurface),
+            colors = IconButtonDefaults.outlinedIconButtonColors(Color.Transparent, TextColor.OnPrimaryContainer)
+        ) {
+            icon()
         }
     }
-}
-
-@Composable
-fun getIconButtonColors(style: IconStyle): ButtonColors {
-    val iconButtonColors = when (style) {
-        IconStyle.FILLED -> ButtonDefaults.filledTonalButtonColors(SurfaceColor.Primary, TextColor.OnPrimary)
-        IconStyle.OUTLINED -> ButtonDefaults.outlinedButtonColors(Color.Transparent, TextColor.OnPrimaryContainer)
-        IconStyle.TONAL -> ButtonDefaults.filledTonalButtonColors(SurfaceColor.PrimaryContainer, TextColor.OnPrimaryContainer)
-        else -> ButtonDefaults.buttonColors(Color.Transparent, TextColor.OnSurfaceVariant, Color.Transparent, TextColor.OnDisabledSurface)
-    }
-    return iconButtonColors
-}
-
-@Composable
-fun getBorderColor(style: IconStyle, enabled: Boolean): Color {
-    val borderColor = if (style == IconStyle.OUTLINED) {
-        if (enabled) Outline.Dark else SurfaceColor.DisabledSurface
-    } else {
-        Color.Transparent
-    }
-    return borderColor
 }
 
 enum class IconStyle {
