@@ -41,8 +41,8 @@ jobs:
       - name: Build gradle project
         run: ./gradlew build
 
-  testing_job:
-    runs-on: ubuntu-latest
+  deployment_job:
+    runs-on: windows-latest
     needs: ci_job
     if: github.event_name == 'pull_request' && needs.ci_job.result == 'success'
     steps:
@@ -71,9 +71,19 @@ jobs:
         run: ./gradlew assembleDebug
 
       # Upload Artifact Build
-      # Noted For Output [main_project_module]/build/outputs/apk/debug/
-      - name: Upload APK Debug - ${{ env.repository_name }}
+      - name: Upload Android artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: ${{ env.date_today }} - ${{ env.playstore_name }} - ${{ env.repository_name }} - APK(s) debug generated
+          name: ${{ env.repository_name }} - Android APK
           path: ${{ env.main_project_module }}/build/outputs/apk/debug/
+
+      #Create binaries
+      - name: Create desktop jar for Windows
+        run: ./gradlew packageUberJarForCurrentOS
+
+      #Upload binaries artifact
+      - name: Upload Desktop artifacts
+        uses: actions/upload-artifact@v3.1.2
+        with:
+          name: ${{ env.repository_name }} - Desktop jar - Windows
+          path: ${{ github.workspace }}/desktop/build/compose/jars/mobile-ui-windows-x64-1.0.0.jar
