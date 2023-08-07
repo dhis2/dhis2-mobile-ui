@@ -2,10 +2,12 @@ package org.hisp.dhis.common.screens.previews
 
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import dev.icerock.moko.resources.compose.painterResource
 import org.hisp.dhis.mobileui.designsystem.component.IconButton
 import org.hisp.dhis.mobileui.designsystem.component.IconButtonStyle
 import org.hisp.dhis.mobileui.designsystem.component.SquareIconButton
 import org.hisp.dhis.mobileui.designsystem.icon.Icons
+import org.hisp.dhis.mobileui.designsystem.library.MR
 
 @Composable
 internal fun SquareIconButtonPreview(enabled: Boolean = true) {
@@ -27,7 +29,7 @@ internal fun IconButtonPreview(enabled: Boolean = true, style: IconButtonStyle =
         enabled = enabled,
         icon = {
             Icon(
-                imageVector = Icons.FileDownload,
+                painter = painterResource(MR.images.add),
                 contentDescription = "Icon Button"
             )
         }
