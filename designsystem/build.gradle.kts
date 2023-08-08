@@ -47,6 +47,11 @@ android {
 }
 
 ktlint {
+    filter {
+        exclude { entry ->
+            entry.file.toString().contains("generated")
+        }
+    }
     verbose.set(true)
     outputToConsole.set(true)
 }

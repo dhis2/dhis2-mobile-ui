@@ -73,9 +73,7 @@ ktlint {
     verbose.set(true)
     outputToConsole.set(true)
     filter {
-        exclude { entry ->
-            entry.file.toString().contains("generated")
-        }
+        exclude { element -> element.file.path.contains("generated") }
     }
 }
 
