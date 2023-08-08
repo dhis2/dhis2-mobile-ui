@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.ripple.LocalRippleTheme
 import androidx.compose.material3.RadioButton
@@ -36,22 +37,36 @@ fun RadioButton(
     selected: Boolean,
     enabled: Boolean,
     textInput: String?,
-    onClick: () -> Unit) {
-        CompositionLocalProvider(LocalRippleTheme provides CustomDHISRippleTheme) {
-            if (textInput.isNullOrEmpty()) {
+    onClick: () -> Unit
+) {
+    CompositionLocalProvider(LocalRippleTheme provides CustomDHISRippleTheme) {
+        if (textInput.isNullOrEmpty()) {
+            RadioButton(
+                selected = selected,
+                onClick = onClick,
+                enabled = enabled,
+                modifier = Modifier
+                    .size(Spacing.Spacing40)
+                    .padding(Spacing.Spacing8),
+                colors = RadioButtonDefaults.colors(
+                    selectedColor = SurfaceColor.Primary,
+                    unselectedColor = Outline.Dark,
+                    disabledSelectedColor = TextColor.OnDisabledSurface,
+                    disabledUnselectedColor = TextColor.OnDisabledSurface
+                )
+            )
+        } else {
+            Row(
+                modifier = Modifier.width(840.dp).height(Spacing.Spacing40),
+                horizontalArrangement = Arrangement.spacedBy(0.dp, Alignment.Start),
+                verticalAlignment = Alignment.Top
+            ) {
                 RadioButton(
                     selected = selected,
                     onClick = onClick,
                     enabled = enabled,
                     modifier = Modifier
-                        .width(Spacing.Spacing40)
-                        .height(Spacing.Spacing40)
-                        .padding(
-                            start = Spacing.Spacing8,
-                            top = Spacing.Spacing8,
-                            end = Spacing.Spacing8,
-                            bottom = Spacing.Spacing8
-                        ),
+                        .size(Spacing.Spacing40),
                     colors = RadioButtonDefaults.colors(
                         selectedColor = SurfaceColor.Primary,
                         unselectedColor = Outline.Dark,
@@ -59,49 +74,29 @@ fun RadioButton(
                         disabledUnselectedColor = TextColor.OnDisabledSurface
                     )
                 )
-            } else {
                 Row(
-                    modifier = Modifier.width(840.dp).height(Spacing.Spacing40),
+                    modifier = Modifier
+                        .width(800.dp)
+                        .height(40.dp)
+                        .padding(top = Spacing.Spacing8, bottom = Spacing.Spacing8),
                     horizontalArrangement = Arrangement.spacedBy(0.dp, Alignment.Start),
-                    verticalAlignment = Alignment.Top,
+                    verticalAlignment = Alignment.Top
                 ) {
-                    RadioButton(
-                        selected = selected,
-                        onClick = onClick,
-                        enabled = enabled,
-                        modifier = Modifier
-                            .width(Spacing.Spacing40)
-                            .height(Spacing.Spacing40),
-                        colors = RadioButtonDefaults.colors(
-                            selectedColor = SurfaceColor.Primary,
-                            unselectedColor = Outline.Dark,
-                            disabledSelectedColor = TextColor.OnDisabledSurface,
-                            disabledUnselectedColor = TextColor.OnDisabledSurface
-                        )
-                    )
-                    Row(
+                    Text(
                         modifier = Modifier
                             .width(800.dp)
-                            .height(40.dp)
-                            .padding(top = Spacing.Spacing8, bottom = Spacing.Spacing8),
-                        horizontalArrangement = Arrangement.spacedBy(0.dp, Alignment.Start),
-                        verticalAlignment = Alignment.Top,
-                    ) {
-                        Text(
-                            modifier = Modifier
-                                .width(800.dp)
-                                .height(Spacing.Spacing24)
-                                .clickable { onClick() },
-                            text = textInput,
-                            style = DHISTypography.bodyLarge,
-                            color = if (enabled) {
-                                TextColor.OnSurface
-                            } else {
-                                TextColor.OnDisabledSurface
-                            },
-                        )
-                    }
+                            .height(Spacing.Spacing24)
+                            .clickable { onClick() },
+                        text = textInput,
+                        style = DHISTypography.bodyLarge,
+                        color = if (enabled) {
+                            TextColor.OnSurface
+                        } else {
+                            TextColor.OnDisabledSurface
+                        }
+                    )
                 }
             }
         }
+    }
 }

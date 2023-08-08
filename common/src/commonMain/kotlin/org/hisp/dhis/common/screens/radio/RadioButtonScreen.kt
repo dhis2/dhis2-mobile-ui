@@ -16,7 +16,6 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun RadioButtonScreen() {
-
     val option1 = "Option 1"
     val option2 = "Option 2"
     val option3 = "Option 3"
@@ -34,21 +33,19 @@ fun RadioButtonScreen() {
                 Column(
                     verticalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
-
-                        TextRadioButtonPreview(selected == option1, true, option1) {
-                            selected = option1
-                        }
-                        TextRadioButtonPreview(selected == option2, true, option2) {
-                            selected = option2
-                        }
-                        TextRadioButtonPreview(selected == option3, true, option3) {
-                            selected = option3
-                        }
-                        TextRadioButtonPreview(selected == option4, false, option4) {
-                            selected = option1
-                        }
-
+                    TextRadioButtonPreview(selected == option1, true, option1) {
+                        selected = option1
                     }
+                    TextRadioButtonPreview(selected == option2, true, option2) {
+                        selected = option2
+                    }
+                    TextRadioButtonPreview(selected == option3, true, option3) {
+                        selected = option3
+                    }
+                    TextRadioButtonPreview(selected == option4, false, option4) {
+                        selected = option1
+                    }
+                }
             }
         )
         ComponentContainer(
