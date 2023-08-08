@@ -9,10 +9,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import org.hisp.dhis.mobileui.designsystem.component.IconStyle
+import org.hisp.dhis.mobileui.designsystem.component.IconButtonStyle
 
 @Composable
-fun ButtonScreen() {
+fun IconButtonScreen() {
     Column(modifier = Modifier.padding(10.dp)) {
         // SquareIconButton
         ComponentContainer(
@@ -52,8 +52,8 @@ fun ButtonScreen() {
                         Row(
                             horizontalArrangement = Arrangement.spacedBy(10.dp)
                         ) {
-                            IconButtonPreview(true, IconStyle.FILLED)
-                            IconButtonPreview(false, IconStyle.FILLED)
+                            IconButtonPreview(true, IconButtonStyle.FILLED)
+                            IconButtonPreview(false, IconButtonStyle.FILLED)
                         }
                     }
                 )
@@ -63,8 +63,8 @@ fun ButtonScreen() {
                         Row(
                             horizontalArrangement = Arrangement.spacedBy(10.dp)
                         ) {
-                            IconButtonPreview(true, IconStyle.TONAL)
-                            IconButtonPreview(false, IconStyle.TONAL)
+                            IconButtonPreview(true, IconButtonStyle.TONAL)
+                            IconButtonPreview(false, IconButtonStyle.TONAL)
                         }
                     }
                 )
@@ -74,8 +74,8 @@ fun ButtonScreen() {
                         Row(
                             horizontalArrangement = Arrangement.spacedBy(10.dp)
                         ) {
-                            IconButtonPreview(true, IconStyle.OUTLINED)
-                            IconButtonPreview(false, IconStyle.OUTLINED)
+                            IconButtonPreview(true, IconButtonStyle.OUTLINED)
+                            IconButtonPreview(false, IconButtonStyle.OUTLINED)
                         }
                     }
                 )

@@ -23,8 +23,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import org.hisp.dhis.common.screens.ButtonScreen
 import org.hisp.dhis.common.screens.Components
+import org.hisp.dhis.common.screens.IconButtonScreen
 import org.hisp.dhis.mobileui.designsystem.theme.DHIS2Theme
 
 @Composable
@@ -37,7 +37,7 @@ fun App() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Main() {
-    val currentScreen = remember { mutableStateOf(Components.BUTTON) }
+    val currentScreen = remember { mutableStateOf(Components.ICON_BUTTON) }
     var expanded by remember { mutableStateOf(false) }
     var selectedOptionText by remember { mutableStateOf(currentScreen.value.name) }
 
@@ -70,9 +70,9 @@ fun Main() {
                 onDismissRequest = { expanded = false }
             ) {
                 DropdownMenuItem(
-                    text = { Text("Buttons") },
+                    text = { Text("Icon Button") },
                     onClick = {
-                        currentScreen.value = Components.BUTTON
+                        currentScreen.value = Components.ICON_BUTTON
                         selectedOptionText = currentScreen.value.name
                         expanded = false
                     }
@@ -81,7 +81,7 @@ fun Main() {
         }
 
         when (currentScreen.value) {
-            Components.BUTTON -> ButtonScreen()
+            Components.ICON_BUTTON -> IconButtonScreen()
             else -> {}
         }
     }

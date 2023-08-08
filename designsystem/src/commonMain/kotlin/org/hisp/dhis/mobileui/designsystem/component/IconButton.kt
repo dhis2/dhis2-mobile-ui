@@ -7,8 +7,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ripple.LocalRippleTheme
-import androidx.compose.material.ripple.RippleAlpha
-import androidx.compose.material.ripple.RippleTheme
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.FilledIconButton
@@ -20,11 +18,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobileui.designsystem.theme.Outline
 import org.hisp.dhis.mobileui.designsystem.theme.Radius
+import org.hisp.dhis.mobileui.designsystem.theme.Ripple
 import org.hisp.dhis.mobileui.designsystem.theme.Spacing
 import org.hisp.dhis.mobileui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobileui.designsystem.theme.TextColor
+import org.hisp.dhis.mobileui.designsystem.theme.shadow
 
 /**
  * DHIS2 square icon button with generic icon slot. Wraps Material 3 [ElevatedButton].
@@ -40,12 +41,14 @@ fun SquareIconButton(
     icon: @Composable (() -> Unit),
     onClick: () -> Unit
 ) {
+    val shadowColor = if (enabled) SurfaceColor.ContainerHighest else Color.Transparent
     ElevatedButton(
         onClick = onClick,
-        elevation = ButtonDefaults.elevatedButtonElevation(Spacing.Spacing1),
+        elevation = ButtonDefaults.elevatedButtonElevation(0.dp),
         modifier = Modifier
             .size(Spacing.Spacing48)
-            .padding(Spacing.Spacing4),
+            .padding(Spacing.Spacing4)
+            .shadow(shadowColor, Radius.S),
         enabled = enabled,
         shape = RoundedCornerShape(Radius.S),
         colors = ButtonDefaults.elevatedButtonColors(
@@ -69,26 +72,26 @@ fun SquareIconButton(
  */
 @Composable
 fun IconButton(
-    style: IconStyle = IconStyle.STANDARD,
+    style: IconButtonStyle = IconButtonStyle.STANDARD,
     enabled: Boolean = true,
     icon: @Composable (() -> Unit),
     onClick: () -> Unit
 ) {
     when (style) {
-        IconStyle.FILLED -> CustomFilledIconButton(enabled, icon, onClick)
-        IconStyle.TONAL -> CustomFilledTonalIconButton(enabled, icon, onClick)
-        IconStyle.OUTLINED -> CustomOutlinedIconButton(enabled, icon, onClick)
+        IconButtonStyle.FILLED -> FilledIconButton(enabled, icon, onClick)
+        IconButtonStyle.TONAL -> FilledTonalIconButton(enabled, icon, onClick)
+        IconButtonStyle.OUTLINED -> OutlinedIconButton(enabled, icon, onClick)
         else -> StandardIconButton(enabled, icon, onClick)
     }
 }
 
 @Composable
-fun StandardIconButton(
+private fun StandardIconButton(
     enabled: Boolean = true,
     icon: @Composable (() -> Unit),
     onClick: () -> Unit
 ) {
-    CompositionLocalProvider(LocalRippleTheme provides CustomDHISRippleTheme) {
+    CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
         FilledIconButton(
             onClick = onClick,
             modifier = Modifier
@@ -103,7 +106,7 @@ fun StandardIconButton(
 }
 
 @Composable
-fun CustomFilledIconButton(
+private fun FilledIconButton(
     enabled: Boolean = true,
     icon: @Composable (() -> Unit),
     onClick: () -> Unit
@@ -121,12 +124,12 @@ fun CustomFilledIconButton(
 }
 
 @Composable
-fun CustomFilledTonalIconButton(
+private fun FilledTonalIconButton(
     enabled: Boolean = true,
     icon: @Composable (() -> Unit),
     onClick: () -> Unit
 ) {
-    CompositionLocalProvider(LocalRippleTheme provides CustomDHISRippleTheme) {
+    CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
         FilledTonalIconButton(
             onClick = onClick,
             modifier = Modifier
@@ -143,12 +146,12 @@ fun CustomFilledTonalIconButton(
 }
 
 @Composable
-fun CustomOutlinedIconButton(
+private fun OutlinedIconButton(
     enabled: Boolean = true,
     icon: @Composable (() -> Unit),
     onClick: () -> Unit
 ) {
-    CompositionLocalProvider(LocalRippleTheme provides CustomDHISRippleTheme) {
+    CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
         OutlinedIconButton(
             onClick = onClick,
             modifier = Modifier
@@ -164,18 +167,6 @@ fun CustomOutlinedIconButton(
     }
 }
 
-enum class IconStyle {
+enum class IconButtonStyle {
     STANDARD, FILLED, TONAL, OUTLINED
-}
-
-object CustomDHISRippleTheme : RippleTheme {
-
-    @Composable
-    override fun defaultColor(): Color = SurfaceColor.Primary
-
-    @Composable
-    override fun rippleAlpha(): RippleAlpha = RippleTheme.defaultRippleAlpha(
-        SurfaceColor.Primary,
-        lightTheme = true
-    )
 }
