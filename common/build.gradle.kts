@@ -2,7 +2,7 @@ plugins {
     kotlin("multiplatform")
     id("org.jetbrains.compose")
     id("com.android.library")
-//    id("org.jlleitschuh.gradle.ktlint")
+    id("org.jlleitschuh.gradle.ktlint")
     id("dev.icerock.mobile.multiplatform-resources")
 }
 
@@ -69,7 +69,7 @@ android {
     }
 }
 
-/*ktlint {
+ktlint {
     verbose.set(true)
     outputToConsole.set(true)
     filter {
@@ -77,7 +77,7 @@ android {
             entry.file.toString().contains("generated")
         }
     }
-}*/
+}
 
 multiplatformResources {
     multiplatformResourcesPackage = "org.hisp.dhis.mobileui.library"
