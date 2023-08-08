@@ -32,4 +32,5 @@ compose.desktop {
 
 multiplatformResources {
     multiplatformResourcesPackage = "org.hisp.dhis.mobileui"
+    multiplatformResourcesClassName = "SharedRes" // optional, default MR
 }

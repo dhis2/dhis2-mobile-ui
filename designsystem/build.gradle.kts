@@ -53,6 +53,5 @@ ktlint {
 
 multiplatformResources {
     multiplatformResourcesPackage = "org.hisp.dhis.mobileui.designsystem.library" // required
-//    multiplatformResourcesClassName = "SharedRes" // optional, default MR
-//    multiplatformResourcesVisibility = MRVisibility.Internal // optional, default Public
+    multiplatformResourcesClassName = "SharedRes" // optional, default MR
 }

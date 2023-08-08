@@ -81,4 +81,5 @@ ktlint {
 
 multiplatformResources {
     multiplatformResourcesPackage = "org.hisp.dhis.mobileui.library"
+    multiplatformResourcesClassName = "SharedRes" // optional, default MR
 }
