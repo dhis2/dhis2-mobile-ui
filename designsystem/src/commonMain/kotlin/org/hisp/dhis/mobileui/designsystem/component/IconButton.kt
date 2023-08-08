@@ -11,7 +11,6 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.FilledIconButton
 import androidx.compose.material3.FilledTonalIconButton
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.OutlinedIconButton
 import androidx.compose.runtime.Composable
@@ -61,8 +60,7 @@ fun SquareIconButton(
 }
 
 /**
- * DHIS2 icon button with generic icon slot. Wraps Material 3 [IconButton].
- *
+ * DHIS2 icon button with generic icon slot.
  * @param enabled Controls the enabled state of the button. When `false`, this button will not be
  * clickable and will appear disabled to accessibility services.
  * @param icon The button icon content.
