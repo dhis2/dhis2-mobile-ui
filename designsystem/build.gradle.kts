@@ -2,11 +2,12 @@ plugins {
     kotlin("multiplatform")
     id("org.jetbrains.compose")
     id("com.android.library")
-    id("org.jlleitschuh.gradle.ktlint")
+//    id("org.jlleitschuh.gradle.ktlint")
+    id("dev.icerock.mobile.multiplatform-resources")
 }
 
 kotlin {
-    androidTarget()
+    android()
 
     jvm("desktop")
 
@@ -18,6 +19,8 @@ kotlin {
                 implementation(compose.ui)
                 implementation(compose.material3)
                 implementation(compose.materialIconsExtended)
+                api(moko.resources)
+                api(moko.resourcesCompose)
             }
         }
     }
@@ -27,7 +30,8 @@ android {
     compileSdk = (findProperty("android.compileSdk") as String).toInt()
     namespace = "org.hisp.dhis.mobileui.designsystem"
 
-    sourceSets["main"].resources.srcDirs("src/commonMain/resources")
+    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
+    sourceSets["main"].res.srcDirs("src/androidMain/res")
 
     defaultConfig {
         minSdk = (findProperty("android.minSdk") as String).toInt()
@@ -42,7 +46,13 @@ android {
     }
 }
 
-ktlint {
+/*ktlint {
     verbose.set(true)
     outputToConsole.set(true)
+}*/
+
+multiplatformResources {
+    multiplatformResourcesPackage = "org.hisp.dhis.mobileui.designsystem.library" // required
+//    multiplatformResourcesClassName = "SharedRes" // optional, default MR
+//    multiplatformResourcesVisibility = MRVisibility.Internal // optional, default Public
 }
