@@ -40,14 +40,18 @@ fun RadioButton(
     onClick: () -> Unit
 ) {
     CompositionLocalProvider(LocalRippleTheme provides CustomDHISRippleTheme) {
-        if (textInput.isNullOrEmpty()) {
+
+        Row(
+            modifier = Modifier.width(Spacing.Spacing840).height(Spacing.Spacing40),
+            horizontalArrangement = Arrangement.spacedBy(0.dp, Alignment.Start),
+            verticalAlignment = Alignment.Top
+        ) {
             RadioButton(
                 selected = selected,
                 onClick = onClick,
                 enabled = enabled,
                 modifier = Modifier
-                    .size(Spacing.Spacing40)
-                    .padding(Spacing.Spacing8),
+                    .size(Spacing.Spacing40),
                 colors = RadioButtonDefaults.colors(
                     selectedColor = SurfaceColor.Primary,
                     unselectedColor = Outline.Dark,
@@ -55,36 +59,18 @@ fun RadioButton(
                     disabledUnselectedColor = TextColor.OnDisabledSurface
                 )
             )
-        } else {
-            Row(
-                modifier = Modifier.width(840.dp).height(Spacing.Spacing40),
-                horizontalArrangement = Arrangement.spacedBy(0.dp, Alignment.Start),
-                verticalAlignment = Alignment.Top
-            ) {
-                RadioButton(
-                    selected = selected,
-                    onClick = onClick,
-                    enabled = enabled,
-                    modifier = Modifier
-                        .size(Spacing.Spacing40),
-                    colors = RadioButtonDefaults.colors(
-                        selectedColor = SurfaceColor.Primary,
-                        unselectedColor = Outline.Dark,
-                        disabledSelectedColor = TextColor.OnDisabledSurface,
-                        disabledUnselectedColor = TextColor.OnDisabledSurface
-                    )
-                )
+            if (!textInput.isNullOrEmpty()) {
                 Row(
                     modifier = Modifier
-                        .width(800.dp)
-                        .height(40.dp)
+                        .width(Spacing.Spacing800)
+                        .height(Spacing.Spacing40)
                         .padding(top = Spacing.Spacing8, bottom = Spacing.Spacing8),
                     horizontalArrangement = Arrangement.spacedBy(0.dp, Alignment.Start),
                     verticalAlignment = Alignment.Top
                 ) {
                     Text(
                         modifier = Modifier
-                            .width(800.dp)
+                            .width(Spacing.Spacing800)
                             .height(Spacing.Spacing24)
                             .clickable { onClick() },
                         text = textInput,
