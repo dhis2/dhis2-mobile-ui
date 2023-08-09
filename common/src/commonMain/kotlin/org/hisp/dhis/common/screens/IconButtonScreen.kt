@@ -4,8 +4,12 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import org.hisp.dhis.common.screens.previews.IconButtonPreview
 import org.hisp.dhis.common.screens.previews.SquareIconButtonPreview
@@ -13,7 +17,7 @@ import org.hisp.dhis.mobileui.designsystem.component.IconButtonStyle
 
 @Composable
 fun IconButtonScreen() {
-    Column(modifier = Modifier.padding(10.dp)) {
+    Column(modifier = Modifier.padding(10.dp).verticalScroll(rememberScrollState())) {
         // SquareIconButton
         ComponentContainer(
             title = "SquareIconButton",
@@ -81,5 +85,16 @@ fun IconButtonScreen() {
                 )
             }
         )
+    }
+}
+
+@Composable
+fun ComponentContainer(
+    title: String,
+    content: @Composable (() -> Unit)
+) {
+    Column(modifier = Modifier.padding(10.dp)) {
+        Text(text = title, fontWeight = FontWeight.Bold)
+        content()
     }
 }
