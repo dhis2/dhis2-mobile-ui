@@ -4,18 +4,21 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.ripple.LocalRippleTheme
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobileui.designsystem.theme.Outline
 import org.hisp.dhis.mobileui.designsystem.theme.Radius
+import org.hisp.dhis.mobileui.designsystem.theme.Ripple
 import org.hisp.dhis.mobileui.designsystem.theme.Spacing
 import org.hisp.dhis.mobileui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobileui.designsystem.theme.TextColor
@@ -103,21 +106,22 @@ fun Button(
         }
         ButtonStyle.TONAL -> {
             val textColor = if (enabled) TextColor.OnPrimaryContainer else TextColor.OnDisabledSurface
+            CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
+                Button(
+                    onClick = { onClick() },
+                    modifier = Modifier,
+                    enabled = enabled,
+                    colors = ButtonDefaults.filledTonalButtonColors(SurfaceColor.PrimaryContainer, TextColor.OnPrimaryContainer, SurfaceColor.DisabledSurface, TextColor.OnDisabledSurface),
+                    shape = ButtonDefaults.outlinedShape,
+                    contentPadding = paddingValues
+                ) {
+                    if (icon != null) {
+                        icon()
+                        Spacer(Modifier.size(Spacing.Spacing8))
+                    }
 
-            Button(
-                onClick = { onClick() },
-                modifier = Modifier,
-                enabled = enabled,
-                colors = ButtonDefaults.filledTonalButtonColors(SurfaceColor.PrimaryContainer, TextColor.OnPrimaryContainer, SurfaceColor.DisabledSurface, TextColor.OnDisabledSurface),
-                shape = ButtonDefaults.outlinedShape,
-                contentPadding = paddingValues
-            ) {
-                if (icon != null) {
-                    icon()
-                    Spacer(Modifier.size(Spacing.Spacing8))
+                    Text(text, color = textColor, textAlign = TextAlign.Center)
                 }
-
-                Text(text, color = textColor, textAlign = TextAlign.Center)
             }
         }
         ButtonStyle.KEYBOARDKEY -> {
