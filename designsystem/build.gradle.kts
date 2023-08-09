@@ -50,7 +50,7 @@ ktlint {
     verbose.set(true)
     outputToConsole.set(true)
     filter {
-        exclude { it.file.absolutePath.contains("/generated/") }
+        exclude({ projectDir.toURI().relativize(it.file.toURI()).path.contains("/generated/") })
     }
 }
 
