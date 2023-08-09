@@ -4,17 +4,19 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Text
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import org.hisp.dhis.common.screens.previews.ButtonPreview
+import org.hisp.dhis.common.screens.previews.ButtonPreviewWithIcon
 import org.hisp.dhis.mobileui.designsystem.component.ButtonStyle
 import org.hisp.dhis.mobileui.designsystem.theme.Spacing
 
 @Composable
 fun ButtonScreen() {
-    Column(modifier = Modifier.padding(10.dp)) {
+    Column(modifier = Modifier.padding(10.dp).verticalScroll(rememberScrollState())) {
         // Filled
         ComponentContainer(
             title = "Filled",
@@ -121,17 +123,5 @@ fun ButtonScreen() {
                 }
             }
         )
-    }
-}
-
-// TODO refactor with extracted class when Radio Buttons issue branch has been merged
-@Composable
-fun ComponentContainer(
-    title: String,
-    content: @Composable (() -> Unit)
-) {
-    Column(modifier = Modifier.padding(10.dp)) {
-        Text(text = title, fontWeight = FontWeight.Bold)
-        content()
     }
 }

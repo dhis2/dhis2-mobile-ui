@@ -25,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.hisp.dhis.common.screens.ButtonScreen
 import org.hisp.dhis.common.screens.Components
+import org.hisp.dhis.common.screens.IconButtonScreen
 import org.hisp.dhis.mobileui.designsystem.theme.DHIS2Theme
 
 @Composable
@@ -70,9 +71,17 @@ fun Main() {
                 onDismissRequest = { expanded = false }
             ) {
                 DropdownMenuItem(
-                    text = { Text("Buttons") },
+                    text = { Text("Button") },
                     onClick = {
                         currentScreen.value = Components.BUTTON
+                        selectedOptionText = currentScreen.value.name
+                        expanded = false
+                    }
+                )
+                DropdownMenuItem(
+                    text = { Text("Icon Button") },
+                    onClick = {
+                        currentScreen.value = Components.ICON_BUTTON
                         selectedOptionText = currentScreen.value.name
                         expanded = false
                     }
@@ -81,7 +90,9 @@ fun Main() {
         }
 
         when (currentScreen.value) {
+            Components.ICON_BUTTON -> IconButtonScreen()
             Components.BUTTON -> ButtonScreen()
+
             else -> {}
         }
     }

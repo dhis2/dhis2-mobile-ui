@@ -1,5 +1,4 @@
-package org.hisp.dhis.common.screens
-
+package org.hisp.dhis.common.screens.previews
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import org.hisp.dhis.mobileui.designsystem.component.Button
