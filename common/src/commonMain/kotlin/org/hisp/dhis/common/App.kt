@@ -78,6 +78,14 @@ fun Main() {
                         expanded = false
                     }
                 )
+                DropdownMenuItem(
+                    text = { Text("Radio") },
+                    onClick = {
+                        currentScreen.value = Components.RADIO
+                        selectedOptionText = currentScreen.value.name
+                        expanded = false
+                    }
+                )
             }
         }
 
