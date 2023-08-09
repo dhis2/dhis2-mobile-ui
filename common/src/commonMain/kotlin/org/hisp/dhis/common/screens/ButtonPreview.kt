@@ -2,31 +2,29 @@ package org.hisp.dhis.common.screens
 
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
-import org.hisp.dhis.mobileui.designsystem.component.IconButton
-import org.hisp.dhis.mobileui.designsystem.component.SquareIconButton
+import org.hisp.dhis.mobileui.designsystem.component.Button
+import org.hisp.dhis.mobileui.designsystem.component.ButtonStyle
 import org.hisp.dhis.mobileui.designsystem.icon.Icons
 
 @Composable
-internal fun SquareIconButtonPreview(enabled: Boolean = true) {
-    SquareIconButton(
+internal fun ButtonPreview(text: String, style: ButtonStyle = ButtonStyle.OUTLINED, enabled: Boolean = true) {
+    Button(
         enabled = enabled,
-        icon = {
-            Icon(
-                imageVector = Icons.FileDownload,
-                contentDescription = "Square Icon Button"
-            )
-        }
+        style,
+        text
     ) { }
 }
 
 @Composable
-internal fun IconButtonPreview(enabled: Boolean = true) {
-    IconButton(
+internal fun ButtonPreviewWithIcon(text: String, style: ButtonStyle = ButtonStyle.OUTLINED, enabled: Boolean = true) {
+    Button(
         enabled = enabled,
+        style,
+        text,
         icon = {
             Icon(
-                imageVector = Icons.FileDownload,
-                contentDescription = "Icon Button"
+                imageVector = Icons.Plus,
+                contentDescription = "Button"
             )
         }
     ) { }
