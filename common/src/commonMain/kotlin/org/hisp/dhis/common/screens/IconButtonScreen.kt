@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import org.hisp.dhis.common.screens.previews.IconButtonPreview
+import org.hisp.dhis.common.screens.previews.SquareIconButtonPreview
 import org.hisp.dhis.mobileui.designsystem.component.IconButtonStyle
 
 @Composable
