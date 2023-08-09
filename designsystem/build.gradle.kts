@@ -49,8 +49,9 @@ android {
 ktlint {
     verbose.set(true)
     outputToConsole.set(true)
+    enableExperimentalRules.set(true)
     filter {
-        exclude({ projectDir.toURI().relativize(it.file.toURI()).path.contains("/generated/") })
+        exclude { projectDir.toURI().relativize(it.file.toURI()).path.contains("/generated/") }
     }
 }
 
