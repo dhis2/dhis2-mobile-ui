@@ -4,6 +4,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -15,7 +17,7 @@ import org.hisp.dhis.mobileui.designsystem.component.IconButtonStyle
 
 @Composable
 fun IconButtonScreen() {
-    Column(modifier = Modifier.padding(10.dp)) {
+    Column(modifier = Modifier.padding(10.dp).verticalScroll(rememberScrollState())) {
         // SquareIconButton
         ComponentContainer(
             title = "SquareIconButton",
