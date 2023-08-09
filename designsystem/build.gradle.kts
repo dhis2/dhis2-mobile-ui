@@ -47,13 +47,11 @@ android {
 }
 
 ktlint {
-    filter {
-        exclude { entry ->
-            entry.file.toString().contains("generated")
-        }
-    }
     verbose.set(true)
     outputToConsole.set(true)
+    filter {
+        exclude{it.file.absolutePath.contains("/generated/")}
+    }
 }
 
 multiplatformResources {
