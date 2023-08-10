@@ -2,6 +2,7 @@ package org.hisp.dhis.common.screens.radio
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -52,10 +53,14 @@ fun RadioButtonScreen() {
                 Column(
                     verticalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
-                    RadioButtonPreview(true, true)
-                    RadioButtonPreview(false, true)
-                    RadioButtonPreview(true, false)
-                    RadioButtonPreview(false, false)
+                    Row {
+                        RadioButtonPreview(true, true)
+                        RadioButtonPreview(true, false)
+                    }
+                    Row {
+                        RadioButtonPreview(false, true)
+                        RadioButtonPreview(false, false)
+                    }
                 }
             }
         )
