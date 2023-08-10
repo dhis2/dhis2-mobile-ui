@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.ripple.LocalRippleTheme
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.OutlinedButton
@@ -49,40 +50,28 @@ fun Button(
         ButtonStyle.FILLED -> {
             val textColor = if (enabled) TextColor.OnPrimary else TextColor.OnDisabledSurface
 
-            Button(
+            SimpleButton(
                 onClick = { onClick() },
                 modifier = Modifier,
                 enabled = enabled,
-                colors = ButtonDefaults.filledTonalButtonColors(SurfaceColor.Primary, TextColor.OnPrimary, SurfaceColor.DisabledSurface, TextColor.OnDisabledSurface),
-                shape = ButtonDefaults.outlinedShape,
-                contentPadding = paddingValues
-            ) {
-                if (icon != null) {
-                    icon()
-                    Spacer(Modifier.size(Spacing.Spacing8))
-                }
+                buttonColors = ButtonDefaults.filledTonalButtonColors(SurfaceColor.Primary, TextColor.OnPrimary, SurfaceColor.DisabledSurface, TextColor.OnDisabledSurface),
+                text = text,
+                textColor = textColor,
+                icon = icon
 
-                Text(text, color = textColor, textAlign = TextAlign.Center)
-            }
+            )
         }
         ButtonStyle.TEXT -> {
             val textColor = if (enabled) SurfaceColor.Primary else TextColor.OnDisabledSurface
-
-            Button(
+            SimpleButton(
                 onClick = { onClick() },
                 modifier = Modifier,
                 enabled = enabled,
-                colors = ButtonDefaults.filledTonalButtonColors(Color.Transparent, SurfaceColor.Primary, Color.Transparent, TextColor.OnDisabledSurface),
-                shape = ButtonDefaults.outlinedShape,
-                contentPadding = paddingValues
-            ) {
-                if (icon != null) {
-                    icon()
-                    Spacer(Modifier.size(Spacing.Spacing8))
-                }
-
-                Text(text, color = textColor, textAlign = TextAlign.Center)
-            }
+                buttonColors = ButtonDefaults.filledTonalButtonColors(Color.Transparent, SurfaceColor.Primary, Color.Transparent, TextColor.OnDisabledSurface),
+                text = text,
+                textColor = textColor,
+                icon = icon
+            )
         }
         ButtonStyle.ELEVATED -> {
             val textColor = if (enabled) SurfaceColor.Primary else TextColor.OnDisabledSurface
@@ -96,52 +85,36 @@ fun Button(
                 shape = ButtonDefaults.outlinedShape,
                 contentPadding = paddingValues
             ) {
-                if (icon != null) {
-                    icon()
-                    Spacer(Modifier.size(Spacing.Spacing8))
-                }
-
-                Text(text, color = textColor, textAlign = TextAlign.Center)
+                TextWithIcon(text, textColor, icon)
             }
         }
         ButtonStyle.TONAL -> {
             val textColor = if (enabled) TextColor.OnPrimaryContainer else TextColor.OnDisabledSurface
             CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
-                Button(
+                SimpleButton(
                     onClick = { onClick() },
                     modifier = Modifier,
                     enabled = enabled,
-                    colors = ButtonDefaults.filledTonalButtonColors(SurfaceColor.PrimaryContainer, TextColor.OnPrimaryContainer, SurfaceColor.DisabledSurface, TextColor.OnDisabledSurface),
-                    shape = ButtonDefaults.outlinedShape,
-                    contentPadding = paddingValues
-                ) {
-                    if (icon != null) {
-                        icon()
-                        Spacer(Modifier.size(Spacing.Spacing8))
-                    }
-
-                    Text(text, color = textColor, textAlign = TextAlign.Center)
-                }
+                    buttonColors = ButtonDefaults.filledTonalButtonColors(SurfaceColor.PrimaryContainer, TextColor.OnPrimaryContainer, SurfaceColor.DisabledSurface, TextColor.OnDisabledSurface),
+                    text = text,
+                    textColor = textColor,
+                    icon = icon
+                )
             }
         }
         ButtonStyle.KEYBOARDKEY -> {
             val textColor = if (enabled) SurfaceColor.Primary else TextColor.OnDisabledSurface
             val shadowColor = if (enabled) SurfaceColor.ContainerHighest else Color.Transparent
-            Button(
+
+            SimpleButton(
                 onClick = { onClick() },
                 modifier = Modifier.buttonShadow(shadowColor, Radius.Full, icon != null),
                 enabled = enabled,
-                colors = ButtonDefaults.filledTonalButtonColors(SurfaceColor.Container, SurfaceColor.Primary, SurfaceColor.DisabledSurface, TextColor.OnDisabledSurface),
-                shape = ButtonDefaults.outlinedShape,
-                contentPadding = paddingValues
-            ) {
-                if (icon != null) {
-                    icon()
-                    Spacer(Modifier.size(Spacing.Spacing8))
-                }
-
-                Text(text, color = textColor, textAlign = TextAlign.Center)
-            }
+                buttonColors = ButtonDefaults.filledTonalButtonColors(SurfaceColor.Container, SurfaceColor.Primary, SurfaceColor.DisabledSurface, TextColor.OnDisabledSurface),
+                text = text,
+                textColor = textColor,
+                icon = icon
+            )
         }
         else -> {
             val textColor = if (enabled) SurfaceColor.Primary else TextColor.OnDisabledSurface
@@ -153,14 +126,49 @@ fun Button(
                 border = BorderStroke(1.dp, Outline.Dark),
                 contentPadding = paddingValues
             ) {
-                if (icon != null) {
-                    icon()
-                    Spacer(Modifier.size(Spacing.Spacing8))
-                }
-                Text(text, color = textColor, textAlign = TextAlign.Center)
+                TextWithIcon(text, textColor, icon)
             }
         }
     }
+}
+
+@Composable
+fun SimpleButton(
+    enabled: Boolean = true,
+    buttonColors: ButtonColors,
+    text: String,
+    textColor: Color,
+    modifier: Modifier,
+    icon: @Composable
+    (() -> Unit)? = null,
+    onClick: () -> Unit
+) {
+    val paddingValues = getPaddingValues(icon != null)
+
+    Button(
+        onClick = { onClick() },
+        modifier = modifier,
+        enabled = enabled,
+        colors = buttonColors,
+        shape = ButtonDefaults.outlinedShape,
+        contentPadding = paddingValues
+    ) {
+        TextWithIcon(text, textColor, icon)
+    }
+}
+
+@Composable
+private fun TextWithIcon(
+    text: String,
+    textColor: Color,
+    icon: @Composable
+    (() -> Unit)? = null
+) {
+    if (icon != null) {
+        icon()
+        Spacer(Modifier.size(Spacing.Spacing8))
+    }
+    Text(text, color = textColor, textAlign = TextAlign.Center)
 }
 
 private fun getPaddingValues(hasIcon: Boolean): PaddingValues {
