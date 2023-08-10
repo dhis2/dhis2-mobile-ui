@@ -40,3 +40,14 @@ fun ButtonScreen() {
         )
     }
 }
+
+@Composable
+fun ComponentContainer(
+    title: String,
+    content: @Composable (() -> Unit)
+) {
+    Column(modifier = Modifier.padding(10.dp)) {
+        Text(text = title, fontWeight = FontWeight.Bold)
+        content()
+    }
+}

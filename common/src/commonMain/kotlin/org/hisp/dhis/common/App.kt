@@ -25,7 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.hisp.dhis.common.screens.ButtonScreen
 import org.hisp.dhis.common.screens.Components
-import org.hisp.dhis.common.screens.radio.RadioButtonScreen
+import org.hisp.dhis.common.screens.IconButtonScreen
 import org.hisp.dhis.mobileui.designsystem.theme.DHIS2Theme
 
 @Composable
@@ -90,8 +90,7 @@ fun Main() {
         }
 
         when (currentScreen.value) {
-            Components.BUTTON -> ButtonScreen()
-            Components.RADIO -> RadioButtonScreen()
+            Components.ICON_BUTTON -> IconButtonScreen()
             else -> {}
         }
     }
