@@ -24,7 +24,7 @@ import org.hisp.dhis.mobileui.designsystem.theme.Ripple
 import org.hisp.dhis.mobileui.designsystem.theme.Spacing
 import org.hisp.dhis.mobileui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobileui.designsystem.theme.TextColor
-import org.hisp.dhis.mobileui.designsystem.theme.shadow
+import org.hisp.dhis.mobileui.designsystem.theme.iconButtonshadow
 
 /**
  * DHIS2 square icon button with generic icon slot. Wraps Material 3 [ElevatedButton].
@@ -47,7 +47,7 @@ fun SquareIconButton(
         modifier = Modifier
             .size(Spacing.Spacing48)
             .padding(Spacing.Spacing4)
-            .shadow(shadowColor, Radius.S),
+            .iconButtonshadow(shadowColor, Radius.S),
         enabled = enabled,
         shape = RoundedCornerShape(Radius.S),
         colors = ButtonDefaults.elevatedButtonColors(

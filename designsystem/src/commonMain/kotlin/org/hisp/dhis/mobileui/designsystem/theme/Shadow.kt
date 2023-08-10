@@ -14,7 +14,7 @@ private const val DEFAULT_SPREAD = 1.5f
 private const val DEFAULT_SIZE = 1.5f
 private const val DEFAULT_PADDING = 1.5f
 
-internal fun Modifier.shadow(
+internal fun Modifier.iconButtonshadow(
     color: Color,
     borderRadius: Dp = 0.dp,
     spread: Dp = DEFAULT_SPREAD.dp,
