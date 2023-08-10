@@ -55,23 +55,17 @@ fun RadioButton(
                 )
             )
             if (!textInput.isNullOrEmpty()) {
-                Row(
+                Text(
                     modifier = Modifier
-                        .padding(top = Spacing.Spacing8, bottom = Spacing.Spacing8),
-                    horizontalArrangement = Arrangement.spacedBy(0.dp, Alignment.Start),
-                    verticalAlignment = Alignment.Top
-                ) {
-                    Text(
-                        modifier = Modifier
-                            .clickable { onClick() },
-                        text = textInput,
-                        color = if (enabled) {
-                            TextColor.OnSurface
-                        } else {
-                            TextColor.OnDisabledSurface
-                        }
-                    )
-                }
+                        .padding(top = Spacing.Spacing8, bottom = Spacing.Spacing8)
+                        .clickable { onClick() },
+                    text = textInput,
+                    color = if (enabled) {
+                        TextColor.OnSurface
+                    } else {
+                        TextColor.OnDisabledSurface
+                    }
+                )
             }
         }
     }
