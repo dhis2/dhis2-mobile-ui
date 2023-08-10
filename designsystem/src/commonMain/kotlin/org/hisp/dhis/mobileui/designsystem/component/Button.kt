@@ -2,20 +2,16 @@ package org.hisp.dhis.mobileui.designsystem.component
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.size
 import androidx.compose.material.ripple.LocalRippleTheme
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobileui.designsystem.theme.Outline
 import org.hisp.dhis.mobileui.designsystem.theme.Radius
@@ -85,7 +81,7 @@ fun Button(
                 shape = ButtonDefaults.outlinedShape,
                 contentPadding = paddingValues
             ) {
-                TextWithIcon(text, textColor, icon)
+                ButtonText(text, textColor, icon)
             }
         }
         ButtonStyle.TONAL -> {
@@ -116,7 +112,7 @@ fun Button(
                 icon = icon
             )
         }
-        else -> {
+        ButtonStyle.OUTLINED -> {
             val textColor = if (enabled) SurfaceColor.Primary else TextColor.OnDisabledSurface
             OutlinedButton(
                 onClick = { onClick() },
@@ -126,7 +122,7 @@ fun Button(
                 border = BorderStroke(1.dp, Outline.Dark),
                 contentPadding = paddingValues
             ) {
-                TextWithIcon(text, textColor, icon)
+                ButtonText(text, textColor, icon)
             }
         }
     }
@@ -153,22 +149,8 @@ fun SimpleButton(
         shape = ButtonDefaults.outlinedShape,
         contentPadding = paddingValues
     ) {
-        TextWithIcon(text, textColor, icon)
+        ButtonText(text, textColor, icon)
     }
-}
-
-@Composable
-private fun TextWithIcon(
-    text: String,
-    textColor: Color,
-    icon: @Composable
-    (() -> Unit)? = null
-) {
-    if (icon != null) {
-        icon()
-        Spacer(Modifier.size(Spacing.Spacing8))
-    }
-    Text(text, color = textColor, textAlign = TextAlign.Center)
 }
 
 private fun getPaddingValues(hasIcon: Boolean): PaddingValues {
