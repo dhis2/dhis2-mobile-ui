@@ -3,10 +3,8 @@ package org.hisp.dhis.mobileui.designsystem.component
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.material.ripple.LocalRippleTheme
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.RadioButtonDefaults
@@ -16,9 +14,8 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import org.hisp.dhis.mobileui.designsystem.theme.CustomDHISRippleTheme
-import org.hisp.dhis.mobileui.designsystem.theme.DHISTypography
 import org.hisp.dhis.mobileui.designsystem.theme.Outline
+import org.hisp.dhis.mobileui.designsystem.theme.Ripple
 import org.hisp.dhis.mobileui.designsystem.theme.Spacing
 import org.hisp.dhis.mobileui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobileui.designsystem.theme.TextColor
@@ -39,10 +36,8 @@ fun RadioButton(
     textInput: String?,
     onClick: () -> Unit
 ) {
-    CompositionLocalProvider(LocalRippleTheme provides CustomDHISRippleTheme) {
-
+    CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
         Row(
-            modifier = Modifier.width(Spacing.Spacing840).height(Spacing.Spacing40),
             horizontalArrangement = Arrangement.spacedBy(0.dp, Alignment.Start),
             verticalAlignment = Alignment.Top
         ) {
@@ -62,19 +57,14 @@ fun RadioButton(
             if (!textInput.isNullOrEmpty()) {
                 Row(
                     modifier = Modifier
-                        .width(Spacing.Spacing800)
-                        .height(Spacing.Spacing40)
                         .padding(top = Spacing.Spacing8, bottom = Spacing.Spacing8),
                     horizontalArrangement = Arrangement.spacedBy(0.dp, Alignment.Start),
                     verticalAlignment = Alignment.Top
                 ) {
                     Text(
                         modifier = Modifier
-                            .width(Spacing.Spacing800)
-                            .height(Spacing.Spacing24)
                             .clickable { onClick() },
                         text = textInput,
-                        style = DHISTypography.bodyLarge,
                         color = if (enabled) {
                             TextColor.OnSurface
                         } else {
