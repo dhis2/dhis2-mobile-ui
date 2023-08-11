@@ -102,6 +102,8 @@ fun Main() {
             Components.BUTTON -> ButtonScreen()
             Components.ICON_BUTTON -> IconButtonScreen()
             Components.RADIO -> RadioButtonScreen()
+            Components.BUTTON -> ButtonScreen()
+
             else -> {}
         }
     }
