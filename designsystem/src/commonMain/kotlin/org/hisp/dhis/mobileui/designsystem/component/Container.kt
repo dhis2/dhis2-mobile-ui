@@ -10,10 +10,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -21,6 +21,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import jdk.jfr.Enabled
 import org.hisp.dhis.mobileui.designsystem.component.internal.ValueType
 import org.hisp.dhis.mobileui.designsystem.theme.Spacing
 
@@ -41,7 +42,7 @@ fun RowComponentContainer(
     title: String = "",
     content: @Composable (() -> Unit)
 ) {
-    if (!title.isNullOrEmpty()) Text(title)
+    if (title.isNotEmpty()) Text(title)
 
     Row(
         horizontalArrangement = Arrangement.spacedBy(10.dp),
@@ -66,14 +67,29 @@ fun EmptyInput() {
     }
 }
 
+/**
+ * DHIS2 Text Input Field. Wraps Material· [TextField].
+ * ValueType will allways be TEXT
+ * @param title Controls the selected option state for multiple options.
+ * @param enabled Controls the enabled state of the component. When `false`, this component will not be
+ * clickable and will appear disabled to accessibility services.
+ * @param showResetButton Controls reset button visibility
+ * @param showSeparator Controls separator visibility
+ * @param showActionButton Controls action button visibility
+ * @param showLegend Controls action button visibility
+ * @param valueType Controls the input field valueType.
+ * @param onClick Will be called when the user clicks the action button.
+ */
 @Composable
 fun InputShell(
     title: String,
+    enabled: Boolean = true,
     valueType: ValueType = ValueType.TEXT,
     showResetButton: Boolean = true,
     showSeparator: Boolean = true,
     showActionButton: Boolean = true,
-    showLegend: Boolean = false
+    showLegend: Boolean = false,
+    onClick: () -> Unit
 ) {
-    TextInputField(title)
+    TextInputField(title, onClick = onClick)
 }

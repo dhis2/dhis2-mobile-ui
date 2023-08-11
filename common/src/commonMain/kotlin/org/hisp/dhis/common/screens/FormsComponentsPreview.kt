@@ -11,5 +11,5 @@ internal fun EmptyInputPreview() {
 
 @Composable
 internal fun InputShellPreview() {
-    InputShell("Label")
+    InputShell("Label") {}
 }
