@@ -21,7 +21,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import jdk.jfr.Enabled
 import org.hisp.dhis.mobileui.designsystem.component.internal.ValueType
 import org.hisp.dhis.mobileui.designsystem.theme.Spacing
 
