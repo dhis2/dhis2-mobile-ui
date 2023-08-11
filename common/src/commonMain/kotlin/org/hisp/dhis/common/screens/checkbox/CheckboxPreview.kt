@@ -9,7 +9,7 @@ internal fun CheckboxPreview(checked: Boolean = true, enabled: Boolean = true) {
         checked = checked,
         enabled = enabled,
         textInput = null
-    ) {  }
+    ) { }
 }
 
 @Composable
