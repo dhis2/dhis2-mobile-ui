@@ -5,6 +5,7 @@ enum class Components {
     ICON_BUTTON,
     BUTTON,
     FLOATING_BUTTON,
+    FORMS_COMPONENTS,
     CARD,
     CHIPS,
     DIALOGS,

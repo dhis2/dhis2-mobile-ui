@@ -25,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.hisp.dhis.common.screens.ButtonScreen
 import org.hisp.dhis.common.screens.Components
+import org.hisp.dhis.common.screens.FormsComponentsScreen
 import org.hisp.dhis.common.screens.IconButtonScreen
 import org.hisp.dhis.common.screens.radio.RadioButtonScreen
 import org.hisp.dhis.mobileui.designsystem.theme.DHIS2Theme
@@ -88,6 +89,14 @@ fun Main() {
                     }
                 )
                 DropdownMenuItem(
+                    text = { Text("Forms Components") },
+                    onClick = {
+                        currentScreen.value = Components.FORMS_COMPONENTS
+                        selectedOptionText = currentScreen.value.name
+                        expanded = false
+                    }
+                )
+                DropdownMenuItem(
                     text = { Text("Radio") },
                     onClick = {
                         currentScreen.value = Components.RADIO
@@ -101,6 +110,8 @@ fun Main() {
         when (currentScreen.value) {
             Components.BUTTON -> ButtonScreen()
             Components.ICON_BUTTON -> IconButtonScreen()
+            Components.FORMS_COMPONENTS -> FormsComponentsScreen()
+
             Components.RADIO -> RadioButtonScreen()
             Components.BUTTON -> ButtonScreen()
 
