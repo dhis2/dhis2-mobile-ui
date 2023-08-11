@@ -12,7 +12,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobileui.designsystem.theme.Outline
 import org.hisp.dhis.mobileui.designsystem.theme.Radius
 import org.hisp.dhis.mobileui.designsystem.theme.Ripple
@@ -115,7 +114,7 @@ fun Button(
                 enabled = enabled,
                 shape = ButtonDefaults.outlinedShape,
                 colors = ButtonDefaults.outlinedButtonColors(Color.Transparent, SurfaceColor.Primary, Color.Transparent, TextColor.OnDisabledSurface),
-                border = BorderStroke(1.dp, Outline.Dark),
+                border = BorderStroke(Spacing.Spacing1, Outline.Dark),
                 contentPadding = paddingValues
             ) {
                 ButtonText(text, textColor, icon)
