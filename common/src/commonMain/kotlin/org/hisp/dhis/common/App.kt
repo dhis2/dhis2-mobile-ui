@@ -24,8 +24,6 @@ import org.hisp.dhis.common.screens.ButtonScreen
 import org.hisp.dhis.common.screens.Components
 import org.hisp.dhis.common.screens.FormsComponentsScreen
 import org.hisp.dhis.common.screens.IconButtonScreen
-import org.hisp.dhis.common.screens.NotImplementedScreen
-import org.hisp.dhis.common.screens.ProgressScreen
 import org.hisp.dhis.common.screens.radio.RadioButtonScreen
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
@@ -42,6 +40,7 @@ fun App() {
 fun Main() {
     val currentScreen = remember { mutableStateOf(Components.FORMS_COMPONENTS) }
     var expanded by remember { mutableStateOf(false) }
+    var selectedOptionText by remember { mutableStateOf(currentScreen.value.name) }
 
     Column(modifier = Modifier.padding(Spacing.Spacing16)) {
         Box(
@@ -51,7 +50,7 @@ fun Main() {
         ) {
             TextField(
                 readOnly = true,
-                value = currentScreen.value.label,
+                value = selectedOptionText,
                 onValueChange = {},
                 label = { Text("Components") },
                 leadingIcon = {
@@ -88,6 +87,7 @@ fun Main() {
             Components.ICON_BUTTON -> IconButtonScreen()
             Components.FORMS_COMPONENTS -> FormsComponentsScreen()
             Components.RADIO -> RadioButtonScreen()
+            Components.CHECK_BOX -> CheckboxScreen()
             Components.PROGRESS -> ProgressScreen()
             else -> NotImplementedScreen()
         }
