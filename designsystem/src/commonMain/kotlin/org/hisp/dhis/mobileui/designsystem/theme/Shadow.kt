@@ -28,7 +28,7 @@ internal fun Modifier.iconButtonshadow(
             val spreadPixel = spread.toPx()
             val leftPixel = DEFAULT_PADDING
             val topPixel = 0f
-            val rightPixel = (this.size.width - DEFAULT_PADDING.dp.toPx())
+            val rightPixel = (this.size.width - 0.5f.dp.toPx())
             val bottomPixel = (this.size.height + spreadPixel)
 
             frameworkPaint.color = color.toArgb()
@@ -43,4 +43,34 @@ internal fun Modifier.iconButtonshadow(
             )
         }
     }.size(size)
+)
+
+internal fun Modifier.buttonShadow(
+    color: Color,
+    borderRadius: Dp = 0.dp,
+    hasIcon: Boolean = true,
+    modifier: Modifier = Modifier
+) = this.then(
+    modifier.drawBehind {
+        this.drawIntoCanvas {
+            val paint = Paint()
+            val frameworkPaint = paint.asFrameworkPaint()
+            val spreadPixel = if (hasIcon) 0f.dp.toPx() else 1.5f.dp.toPx()
+            val leftPixel = DEFAULT_PADDING
+            val topPixel = 15f
+            val rightPixel = (this.size.width - 0.5f.dp.toPx())
+            val bottomPixel = (this.size.height - spreadPixel)
+
+            frameworkPaint.color = color.toArgb()
+            it.drawRoundRect(
+                left = leftPixel,
+                top = topPixel,
+                right = rightPixel,
+                bottom = bottomPixel,
+                radiusX = borderRadius.toPx(),
+                radiusY = borderRadius.toPx(),
+                paint
+            )
+        }
+    }
 )
