@@ -18,7 +18,7 @@ import org.hisp.dhis.mobileui.designsystem.theme.Spacing
  * required Button component spacing will be applied
  */
 @Composable
-fun ButtonText(
+internal fun ButtonText(
     text: String,
     textColor: Color,
     icon: @Composable

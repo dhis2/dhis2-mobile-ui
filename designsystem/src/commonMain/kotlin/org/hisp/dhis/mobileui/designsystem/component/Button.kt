@@ -48,7 +48,6 @@ fun Button(
 
             SimpleButton(
                 onClick = { onClick() },
-                modifier = Modifier,
                 enabled = enabled,
                 buttonColors = ButtonDefaults.filledTonalButtonColors(SurfaceColor.Primary, TextColor.OnPrimary, SurfaceColor.DisabledSurface, TextColor.OnDisabledSurface),
                 text = text,
@@ -61,7 +60,6 @@ fun Button(
             val textColor = if (enabled) SurfaceColor.Primary else TextColor.OnDisabledSurface
             SimpleButton(
                 onClick = { onClick() },
-                modifier = Modifier,
                 enabled = enabled,
                 buttonColors = ButtonDefaults.filledTonalButtonColors(Color.Transparent, SurfaceColor.Primary, Color.Transparent, TextColor.OnDisabledSurface),
                 text = text,
@@ -74,7 +72,6 @@ fun Button(
 
             ElevatedButton(
                 onClick = { onClick() },
-                modifier = Modifier,
                 elevation = ButtonDefaults.elevatedButtonElevation(),
                 enabled = enabled,
                 colors = ButtonDefaults.filledTonalButtonColors(SurfaceColor.ContainerLow, SurfaceColor.Primary, SurfaceColor.DisabledSurface, TextColor.OnDisabledSurface),
@@ -89,7 +86,6 @@ fun Button(
             CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
                 SimpleButton(
                     onClick = { onClick() },
-                    modifier = Modifier,
                     enabled = enabled,
                     buttonColors = ButtonDefaults.filledTonalButtonColors(SurfaceColor.PrimaryContainer, TextColor.OnPrimaryContainer, SurfaceColor.DisabledSurface, TextColor.OnDisabledSurface),
                     text = text,
@@ -129,12 +125,12 @@ fun Button(
 }
 
 @Composable
-fun SimpleButton(
+private fun SimpleButton(
     enabled: Boolean = true,
     buttonColors: ButtonColors,
     text: String,
     textColor: Color,
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     icon: @Composable
     (() -> Unit)? = null,
     onClick: () -> Unit
