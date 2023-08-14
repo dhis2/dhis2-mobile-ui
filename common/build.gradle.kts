@@ -82,3 +82,12 @@ multiplatformResources {
     multiplatformResourcesPackage = "org.hisp.dhis.mobileui.library"
     multiplatformResourcesClassName = "SharedRes" // optional, default MR
 }
+
+tasks.named("runKtlintCheckOverDesktopMainSourceSet") {
+    mustRunAfter("generateMRcommonMain")
+    mustRunAfter("generateMRdesktopMain")
+}
+
+tasks.named("runKtlintCheckOverCommonMainSourceSet") {
+    mustRunAfter("generateMRcommonMain")
+}
