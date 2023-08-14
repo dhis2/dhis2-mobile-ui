@@ -4,6 +4,7 @@ plugins {
     kotlin("multiplatform")
     id("org.jetbrains.compose")
     id("dev.icerock.mobile.multiplatform-resources")
+    id("org.jlleitschuh.gradle.ktlint")
 }
 
 kotlin {
@@ -30,7 +31,23 @@ compose.desktop {
     }
 }
 
+ktlint {
+    verbose.set(true)
+    outputToConsole.set(true)
+    filter {
+        exclude { projectDir.toURI().relativize(it.file.toURI()).path.contains("/generated/") }
+    }
+}
+
 multiplatformResources {
     multiplatformResourcesPackage = "org.hisp.dhis.mobileui"
-    multiplatformResourcesClassName = "SharedRes" // optional, default MR
+    multiplatformResourcesClassName = "SharedRes"
+}
+
+tasks.named("runKtlintCheckOverCommonMainSourceSet") {
+    mustRunAfter("generateMRcommonMain")
+}
+
+tasks.named("runKtlintCheckOverJvmMainSourceSet") {
+    mustRunAfter("generateMRjvmMain")
 }

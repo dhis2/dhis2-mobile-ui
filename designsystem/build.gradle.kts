@@ -49,15 +49,14 @@ android {
 ktlint {
     verbose.set(true)
     outputToConsole.set(true)
-    enableExperimentalRules.set(true)
     filter {
         exclude { projectDir.toURI().relativize(it.file.toURI()).path.contains("/generated/") }
     }
 }
 
 multiplatformResources {
-    multiplatformResourcesPackage = "org.hisp.dhis.mobileui.designsystem.library" // required
-    multiplatformResourcesClassName = "SharedRes" // optional, default MR
+    multiplatformResourcesPackage = "org.hisp.dhis.mobileui.designsystem.library"
+    multiplatformResourcesClassName = "SharedRes"
 }
 
 tasks.named("runKtlintCheckOverCommonMainSourceSet") {
