@@ -2,6 +2,7 @@ package org.hisp.dhis.mobileui.designsystem.component
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -28,5 +29,5 @@ internal fun ButtonText(
         it.invoke()
         Spacer(Modifier.size(Spacing.Spacing8))
     }
-    Text(text, color = textColor, textAlign = TextAlign.Center)
+    Text(text, color = textColor, textAlign = TextAlign.Center, style = MaterialTheme.typography.titleSmall)
 }
