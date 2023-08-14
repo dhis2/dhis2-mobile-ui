@@ -48,7 +48,12 @@ fun Button(
             SimpleButton(
                 onClick = { onClick() },
                 enabled = enabled,
-                buttonColors = ButtonDefaults.filledTonalButtonColors(SurfaceColor.Primary, TextColor.OnPrimary, SurfaceColor.DisabledSurface, TextColor.OnDisabledSurface),
+                buttonColors = ButtonDefaults.filledTonalButtonColors(
+                    SurfaceColor.Primary,
+                    TextColor.OnPrimary,
+                    SurfaceColor.DisabledSurface,
+                    TextColor.OnDisabledSurface
+                ),
                 text = text,
                 textColor = textColor,
                 icon = icon
@@ -60,7 +65,12 @@ fun Button(
             SimpleButton(
                 onClick = { onClick() },
                 enabled = enabled,
-                buttonColors = ButtonDefaults.filledTonalButtonColors(Color.Transparent, SurfaceColor.Primary, Color.Transparent, TextColor.OnDisabledSurface),
+                buttonColors = ButtonDefaults.filledTonalButtonColors(
+                    Color.Transparent,
+                    SurfaceColor.Primary,
+                    Color.Transparent,
+                    TextColor.OnDisabledSurface
+                ),
                 text = text,
                 textColor = textColor,
                 icon = icon
@@ -73,7 +83,12 @@ fun Button(
                 onClick = { onClick() },
                 elevation = ButtonDefaults.elevatedButtonElevation(),
                 enabled = enabled,
-                colors = ButtonDefaults.filledTonalButtonColors(SurfaceColor.ContainerLow, SurfaceColor.Primary, SurfaceColor.DisabledSurface, TextColor.OnDisabledSurface),
+                colors = ButtonDefaults.filledTonalButtonColors(
+                    SurfaceColor.ContainerLow,
+                    SurfaceColor.Primary,
+                    SurfaceColor.DisabledSurface,
+                    TextColor.OnDisabledSurface
+                ),
                 shape = ButtonDefaults.outlinedShape,
                 contentPadding = paddingValues
             ) {
@@ -86,7 +101,12 @@ fun Button(
                 SimpleButton(
                     onClick = { onClick() },
                     enabled = enabled,
-                    buttonColors = ButtonDefaults.filledTonalButtonColors(SurfaceColor.PrimaryContainer, TextColor.OnPrimaryContainer, SurfaceColor.DisabledSurface, TextColor.OnDisabledSurface),
+                    buttonColors = ButtonDefaults.filledTonalButtonColors(
+                        SurfaceColor.PrimaryContainer,
+                        TextColor.OnPrimaryContainer,
+                        SurfaceColor.DisabledSurface,
+                        TextColor.OnDisabledSurface
+                    ),
                     text = text,
                     textColor = textColor,
                     icon = icon
@@ -101,7 +121,12 @@ fun Button(
                 onClick = { onClick() },
                 modifier = Modifier.buttonShadow(shadowColor, Radius.Full, icon != null),
                 enabled = enabled,
-                buttonColors = ButtonDefaults.filledTonalButtonColors(SurfaceColor.Container, SurfaceColor.Primary, SurfaceColor.DisabledSurface, TextColor.OnDisabledSurface),
+                buttonColors = ButtonDefaults.filledTonalButtonColors(
+                    SurfaceColor.Container,
+                    SurfaceColor.Primary,
+                    SurfaceColor.DisabledSurface,
+                    TextColor.OnDisabledSurface
+                ),
                 text = text,
                 textColor = textColor,
                 icon = icon
@@ -113,7 +138,12 @@ fun Button(
                 onClick = { onClick() },
                 enabled = enabled,
                 shape = ButtonDefaults.outlinedShape,
-                colors = ButtonDefaults.outlinedButtonColors(Color.Transparent, SurfaceColor.Primary, Color.Transparent, TextColor.OnDisabledSurface),
+                colors = ButtonDefaults.outlinedButtonColors(
+                    Color.Transparent,
+                    SurfaceColor.Primary,
+                    Color.Transparent,
+                    TextColor.OnDisabledSurface
+                ),
                 border = BorderStroke(Spacing.Spacing1, Outline.Dark),
                 contentPadding = paddingValues
             ) {
@@ -149,8 +179,18 @@ private fun SimpleButton(
 }
 
 private fun getPaddingValues(hasIcon: Boolean): PaddingValues {
-    val buttonWithIconPaddingValues = PaddingValues(Spacing.Spacing16, Spacing.Spacing10, Spacing.Spacing24, Spacing.Spacing10)
-    val buttonWithoutIconPaddingValues = PaddingValues(Spacing.Spacing24, Spacing.Spacing10, Spacing.Spacing24, Spacing.Spacing10)
+    val buttonWithIconPaddingValues = PaddingValues(
+        Spacing.Spacing16,
+        Spacing.Spacing10,
+        Spacing.Spacing24,
+        Spacing.Spacing10
+    )
+    val buttonWithoutIconPaddingValues = PaddingValues(
+        Spacing.Spacing24,
+        Spacing.Spacing10,
+        Spacing.Spacing24,
+        Spacing.Spacing10
+    )
 
     return if (hasIcon) buttonWithIconPaddingValues else buttonWithoutIconPaddingValues
 }
