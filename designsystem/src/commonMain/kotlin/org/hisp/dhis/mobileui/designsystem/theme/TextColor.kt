@@ -6,7 +6,7 @@ object TextColor {
     val OnSurface = Color.Charcoal800
     val OnSurfaceVariant = Color.Charcoal500
     val OnSurfaceLight = Color.Charcoal300
-    val OnError = Color.NeutralWhite
+    val OnError = Color.Red600
     val OnErrorContainer = Color.Red900
     val OnDisabledSurface = Color.Ash800
 }
