@@ -6,30 +6,29 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.hisp.dhis.common.screens.previews.ButtonPreview
 import org.hisp.dhis.common.screens.previews.ButtonPreviewWithIcon
 import org.hisp.dhis.mobileui.designsystem.component.ButtonStyle
+import org.hisp.dhis.mobileui.designsystem.component.ColumnComponentContainer
+import org.hisp.dhis.mobileui.designsystem.component.RowComponentContainer
 import org.hisp.dhis.mobileui.designsystem.theme.Spacing
 
 @Composable
 fun ButtonScreen() {
     Column(modifier = Modifier.padding(10.dp).verticalScroll(rememberScrollState())) {
         // Filled
-        ComponentContainer(
+        ColumnComponentContainer(
             title = "Filled",
             content = {
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(Spacing.Spacing10)
-                ) {
+                RowComponentContainer() {
                     ButtonPreview("Label", ButtonStyle.FILLED)
                     ButtonPreview("Label", ButtonStyle.FILLED, false)
                 }
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(Spacing.Spacing10)
-                ) {
+                RowComponentContainer {
                     ButtonPreviewWithIcon("Label", ButtonStyle.FILLED)
                     ButtonPreviewWithIcon("Label", ButtonStyle.FILLED, false)
                 }
@@ -37,7 +36,7 @@ fun ButtonScreen() {
         )
 
         // Outlined
-        ComponentContainer(
+        ColumnComponentContainer(
             title = "Outlined",
             content = {
                 Row(
@@ -55,7 +54,7 @@ fun ButtonScreen() {
             }
         )
         // Text
-        ComponentContainer(
+        ColumnComponentContainer(
             title = "Text",
             content = {
                 Row(
@@ -72,7 +71,7 @@ fun ButtonScreen() {
                 }
             }
         )
-        ComponentContainer(
+        ColumnComponentContainer(
             title = "Elevated",
             content = {
                 Row(
@@ -89,39 +88,32 @@ fun ButtonScreen() {
                 }
             }
         )
-        ComponentContainer(
-            title = "Tonal",
-            content = {
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(Spacing.Spacing10)
-                ) {
-                    ButtonPreview("Label", ButtonStyle.TONAL)
-                    ButtonPreview("Label", ButtonStyle.TONAL, false)
-                }
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(Spacing.Spacing10)
-                ) {
-                    ButtonPreviewWithIcon("Label", ButtonStyle.TONAL)
-                    ButtonPreviewWithIcon("Label", ButtonStyle.TONAL, false)
-                }
-            }
-        )
-        ComponentContainer(
-            title = "KeyboardKey",
-            content = {
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(Spacing.Spacing10)
-                ) {
-                    ButtonPreview("Label", ButtonStyle.KEYBOARDKEY)
-                    ButtonPreview("Label", ButtonStyle.KEYBOARDKEY, false)
-                }
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(Spacing.Spacing10)
-                ) {
-                    ButtonPreviewWithIcon("Label", ButtonStyle.KEYBOARDKEY)
-                    ButtonPreviewWithIcon("Label", ButtonStyle.KEYBOARDKEY, false)
-                }
-            }
-        )
+        Text("Tonal")
+
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(Spacing.Spacing10)
+        ) {
+            ButtonPreview("Label", ButtonStyle.TONAL)
+            ButtonPreview("Label", ButtonStyle.TONAL, false)
+        }
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(Spacing.Spacing10)
+        ) {
+            ButtonPreviewWithIcon("Label", ButtonStyle.TONAL)
+            ButtonPreviewWithIcon("Label", ButtonStyle.TONAL, false)
+        }
+
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(Spacing.Spacing10)
+        ) {
+            ButtonPreview("Label", ButtonStyle.KEYBOARDKEY)
+            ButtonPreview("Label", ButtonStyle.KEYBOARDKEY, false)
+        }
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(Spacing.Spacing10)
+        ) {
+            ButtonPreviewWithIcon("Label", ButtonStyle.KEYBOARDKEY)
+            ButtonPreviewWithIcon("Label", ButtonStyle.KEYBOARDKEY, false)
+        }
     }
 }
