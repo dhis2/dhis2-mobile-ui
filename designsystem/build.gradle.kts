@@ -2,7 +2,7 @@ plugins {
     kotlin("multiplatform")
     id("org.jetbrains.compose")
     id("com.android.library")
-//    id("org.jlleitschuh.gradle.ktlint")
+    id("org.jlleitschuh.gradle.ktlint")
     id("dev.icerock.mobile.multiplatform-resources")
 }
 
@@ -46,13 +46,19 @@ android {
     }
 }
 
-/*ktlint {
+ktlint {
     verbose.set(true)
     outputToConsole.set(true)
-}*/
+    filter {
+        exclude { projectDir.toURI().relativize(it.file.toURI()).path.contains("/generated/") }
+    }
+}
 
 multiplatformResources {
-    multiplatformResourcesPackage = "org.hisp.dhis.mobileui.designsystem.library" // required
-//    multiplatformResourcesClassName = "SharedRes" // optional, default MR
-//    multiplatformResourcesVisibility = MRVisibility.Internal // optional, default Public
+    multiplatformResourcesPackage = "org.hisp.dhis.mobileui.designsystem.library"
+    multiplatformResourcesClassName = "SharedRes"
+}
+
+tasks.named("runKtlintCheckOverCommonMainSourceSet") {
+    mustRunAfter("generateMRcommonMain")
 }
