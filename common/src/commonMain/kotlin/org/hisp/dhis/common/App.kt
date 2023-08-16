@@ -110,7 +110,6 @@ fun Main() {
             Components.ICON_BUTTON -> IconButtonScreen()
             Components.FORMS_COMPONENTS -> FormsComponentsScreen()
             Components.RADIO -> RadioButtonScreen()
-            else -> {}
         }
     }
 }

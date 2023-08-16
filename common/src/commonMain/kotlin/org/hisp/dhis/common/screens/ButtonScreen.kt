@@ -58,6 +58,7 @@ fun ButtonScreen() {
             ButtonPreviewWithIcon("Label", ButtonStyle.TONAL)
             ButtonPreviewWithIcon("Label", ButtonStyle.TONAL, false)
         }
+        Text("Keyboard")
         RowComponentContainer() {
             ButtonPreview("Label", ButtonStyle.KEYBOARDKEY)
             ButtonPreview("Label", ButtonStyle.KEYBOARDKEY, false)

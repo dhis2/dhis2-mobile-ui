@@ -45,15 +45,16 @@ import org.hisp.dhis.mobileui.designsystem.theme.TextColor
  */
 @Composable
 fun ColumnComponentContainer(
-    title: String = "",
+    title: String? = null,
     content: @Composable (() -> Unit)
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(Spacing.Spacing16),
         modifier = Modifier.padding(Spacing.Spacing10).verticalScroll(rememberScrollState())
     ) {
-        if (title.isNotEmpty()) Text(title, style = MaterialTheme.typography.titleMedium)
-
+        title?.let {
+            Text(title, style = MaterialTheme.typography.titleMedium)
+        }
         Spacer(Modifier.size(Spacing.Spacing4))
         content()
     }
@@ -67,11 +68,12 @@ fun ColumnComponentContainer(
 
 @Composable
 fun RowComponentContainer(
-    title: String = "",
+    title: String? = null,
     content: @Composable (() -> Unit)
 ) {
-    if (title.isNotEmpty()) Text(title)
-
+    title?.let {
+        Text(title, style = MaterialTheme.typography.titleMedium)
+    }
     Row(
         horizontalArrangement = Arrangement.spacedBy(Spacing.Spacing10),
         modifier = Modifier.padding(Spacing.Spacing10)
@@ -224,6 +226,6 @@ fun InputShellIndicator(
 enum class InputShellState(val color: Color) {
     FOCUSED(SurfaceColor.Primary),
     UNFOCUSED(TextColor.OnSurfaceVariant),
-    ERROR(TextColor.OnError),
+    ERROR(SurfaceColor.Error),
     DISABLED(TextColor.OnDisabledSurface)
 }
