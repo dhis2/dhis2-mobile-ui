@@ -1,10 +1,10 @@
 package org.hisp.dhis.mobileui.designsystem.component
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.material.ripple.LocalRippleTheme
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobileui.designsystem.theme.Outline
 import org.hisp.dhis.mobileui.designsystem.theme.Ripple
@@ -39,11 +40,17 @@ fun CheckBox(
     CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
         Row(
             horizontalArrangement = Arrangement.spacedBy(0.dp, Alignment.Start),
-            verticalAlignment = Alignment.Top
+            verticalAlignment = Alignment.Top,
+            modifier = Modifier
+                .toggleable(
+                    value = checked,
+                    role = Role.Checkbox,
+                    onValueChange = { onClick(!checked) }
+                )
         ) {
             Checkbox(
                 checked = checked,
-                onCheckedChange = onClick,
+                onCheckedChange = null,
                 enabled = enabled,
                 modifier = Modifier
                     .size(Spacing.Spacing40),
@@ -57,8 +64,7 @@ fun CheckBox(
             if (!textInput.isNullOrEmpty()) {
                 Text(
                     modifier = Modifier
-                        .padding(top = Spacing.Spacing8, bottom = Spacing.Spacing8)
-                        .clickable { onClick(!checked) },
+                        .padding(top = Spacing.Spacing8, bottom = Spacing.Spacing8),
                     text = textInput,
                     color = if (enabled) {
                         TextColor.OnSurface
