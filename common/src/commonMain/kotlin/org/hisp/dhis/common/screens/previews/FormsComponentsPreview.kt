@@ -57,8 +57,6 @@ internal fun InputShellPreview(
                 modifier = Modifier.padding(Spacing.Spacing16, Spacing.Spacing4, Spacing.Spacing16, 0.dp)
             )
         },
-        onClickPrimary = { onPrimaryClick() },
-        onClickSecondary = { onSecondaryClick() },
         state = state
     )
 }

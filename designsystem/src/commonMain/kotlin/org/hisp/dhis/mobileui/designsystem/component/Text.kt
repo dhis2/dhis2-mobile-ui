@@ -11,7 +11,8 @@ import androidx.compose.ui.text.style.TextAlign
 import org.hisp.dhis.mobileui.designsystem.theme.Spacing
 
 /**
- * DHIS2 Text with generic icon slot.
+ * DHIS2 Text with generic icon slot. Wraps Material 3 [Text]
+ * used for the [Button] component
  * @param text The text to display within.
  * @param textColor The color of text to display within.
  * @param icon The icon content is optional.
@@ -32,6 +33,14 @@ internal fun ButtonText(
     Text(text, color = textColor, textAlign = TextAlign.Center, style = MaterialTheme.typography.titleSmall)
 }
 
+/**
+ * DHIS2 Text with generic icon slot. Wraps Material 3 [Text]
+ * used for the [InputShell] component
+ * @param text The text to display within.
+ * @param textColor The color of text to display within.
+ * Content will be aligned to the left
+ * required Button component spacing will be applied
+ */
 @Composable
 internal fun InputShellLabelText(
     text: String,

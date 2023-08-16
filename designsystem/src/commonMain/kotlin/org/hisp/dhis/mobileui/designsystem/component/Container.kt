@@ -27,17 +27,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.geometry.CornerRadius
-import androidx.compose.ui.graphics.Canvas
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobileui.designsystem.theme.Outline
 import org.hisp.dhis.mobileui.designsystem.theme.Radius
 import org.hisp.dhis.mobileui.designsystem.theme.Spacing
 import org.hisp.dhis.mobileui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobileui.designsystem.theme.TextColor
 
+/**
+ * DHIS2 ColumnComponentContainer wraps Material 3 [Column]
+ * has a default spacing between items of 10 dp
+ * vertical scroll enabled
+ * @param title is the value of the text to be shown for the row.
+ * @param content controls the content to be shown
+ */
 @Composable
 fun ColumnComponentContainer(
     title: String = "",
@@ -54,6 +59,12 @@ fun ColumnComponentContainer(
     }
 }
 
+/**
+ * DHIS2 RowComponentContainer wraps Material 3 [Row]
+ * @param title is the value of the text to be shown for the row.
+ * @param content controls the content to be shown
+ */
+
 @Composable
 fun RowComponentContainer(
     title: String = "",
@@ -62,8 +73,8 @@ fun RowComponentContainer(
     if (title.isNotEmpty()) Text(title)
 
     Row(
-        horizontalArrangement = Arrangement.spacedBy(10.dp),
-        modifier = Modifier.padding(10.dp)
+        horizontalArrangement = Arrangement.spacedBy(Spacing.Spacing10),
+        modifier = Modifier.padding(Spacing.Spacing10)
     ) {
         content()
     }
@@ -72,13 +83,13 @@ fun RowComponentContainer(
 /**
  * DHIS2 Input Shell
  * @param title is the value of the text to be shown.
- * @param state Controls the  state of the component. Will be Unfocused by default
- * @param primaryIcon controls
- * @param showSeparator Controls separator visibility
- * @param showActionButton Controls action button visibility
- * @param showLegend Controls action button visibility
- * @param valueType Controls the input field valueType.
- * @param onClick Will be called when the user clicks the action button.
+ * @param state controls the  state of the component. Will be Unfocused by default
+ * @param primaryButton controls the primary button composable if null will show nothing
+ * @param showSeparator controls button separator visibility
+ * @param secondaryButton controls  action button composable, if null will show nothing
+ * @param legend controls the optional legend composable
+ * @param inputField controls the input field composable .
+ * @param supportingText controls the supporting text composable
  */
 @Composable
 fun InputShell(
@@ -89,11 +100,9 @@ fun InputShell(
     secondaryButton: @Composable (() -> Unit)? = null,
     inputField: @Composable (() -> Unit)? = null,
     supportingText: @Composable (() -> Unit)? = null,
-    legend: @Composable (() -> Unit)? = null,
-    onClickPrimary: (() -> Unit)? = null,
-    onClickSecondary: (() -> Unit)? = null
+    legend: @Composable (() -> Unit)? = null
 ) {
-    Column(modifier = Modifier.fillMaxWidth()) {
+    Column(modifier = Modifier.fillMaxWidth().clip(shape = RoundedCornerShape(Radius.XS, Radius.XS))) {
         var indicatorColor by remember { mutableStateOf(InputShellState.UNFOCUSED.color) }
         val backgroundColor = if (state != InputShellState.DISABLED) SurfaceColor.Surface else SurfaceColor.DisabledSurface
         InputShellRow(
@@ -114,21 +123,13 @@ fun InputShell(
             Row(
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                primaryButton?.let {
-                    if (onClickPrimary != null) {
-                        it.invoke()
-                    }
-                }
+                primaryButton?.invoke()
                 if (showSeparator) {
                     InputShellButtonSeparator()
-                    Spacer(modifier = Modifier.width(4.dp))
+                    Spacer(modifier = Modifier.width(Spacing.Spacing4))
                 }
-                secondaryButton?.let {
-                    if (onClickSecondary != null) {
-                        it.invoke()
-                    }
-                }
-                Spacer(modifier = Modifier.width(4.dp))
+                secondaryButton?.invoke()
+                Spacer(modifier = Modifier.width(Spacing.Spacing4))
             }
         }
         InputShellIndicator(color = indicatorColor)
@@ -137,6 +138,11 @@ fun InputShell(
     }
 }
 
+/**
+ * DHIS2 EmptyInput
+ * empty input container with dashed border
+ * used for internal test purposes
+ */
 @Composable
 fun EmptyInput(
     modifier: Modifier = Modifier
@@ -152,6 +158,13 @@ fun EmptyInput(
     }
 }
 
+/**
+ * DHIS2 InputShellRow, wraps Compose [Row]
+ * Row used in Input shell component for title, input field
+ * and buttons.
+ * @param backgroundColor controls the containers color
+ * @param content controls the content to be shown
+ */
 @Composable
 fun InputShellRow(
     modifier: Modifier = Modifier,
@@ -163,13 +176,16 @@ fun InputShellRow(
         verticalAlignment = Alignment.Top,
         modifier = modifier.fillMaxWidth()
             .background(backgroundColor)
-            .clip(shape = RoundedCornerShape(Radius.S, Radius.L))
-            .padding(Spacing.Spacing16, Spacing.Spacing8, 0.dp, Spacing.Spacing4)
+            .padding(Spacing.Spacing16, Spacing.Spacing8, Spacing.Spacing0, Spacing.Spacing4)
     ) {
         content()
     }
 }
 
+/**
+ * DHIS2 InputShellButtonSeparator, wraps Material 3 [Divider]
+ * used in the [InputShell] component
+ */
 @Composable
 fun InputShellButtonSeparator(
     modifier: Modifier = Modifier
@@ -183,6 +199,10 @@ fun InputShellButtonSeparator(
     )
 }
 
+/**
+ * DHIS2 InputShellIndicator, wraps Material 3 [Divider]
+ *  used in the [InputShell] component
+ */
 @Composable
 fun InputShellIndicator(
     color: Color,
@@ -197,6 +217,10 @@ fun InputShellIndicator(
     )
 }
 
+/**
+ * DHIS2 InputShellState,
+ *  enum class to control the state [InputShell] component
+ */
 enum class InputShellState(val color: Color) {
     FOCUSED(SurfaceColor.Primary),
     UNFOCUSED(TextColor.OnSurfaceVariant),
