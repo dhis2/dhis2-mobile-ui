@@ -87,7 +87,6 @@ fun RowComponentContainer(
  * @param title is the value of the text to be shown.
  * @param state controls the  state of the component. Will be Unfocused by default
  * @param primaryButton controls the primary button composable if null will show nothing
- * @param showSeparator controls button separator visibility
  * @param secondaryButton controls  action button composable, if null will show nothing
  * @param legend controls the optional legend composable
  * @param inputField controls the input field composable .
@@ -97,7 +96,6 @@ fun RowComponentContainer(
 fun InputShell(
     title: String,
     state: InputShellState = InputShellState.UNFOCUSED,
-    showSeparator: Boolean = true,
     primaryButton: @Composable (() -> Unit)? = null,
     secondaryButton: @Composable (() -> Unit)? = null,
     inputField: @Composable (() -> Unit)? = null,
@@ -126,7 +124,7 @@ fun InputShell(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 primaryButton?.invoke()
-                if (showSeparator) {
+                if (primaryButton != null && secondaryButton != null) {
                     InputShellButtonSeparator()
                     Spacer(modifier = Modifier.width(Spacing.Spacing4))
                 }
