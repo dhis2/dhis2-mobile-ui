@@ -31,3 +31,12 @@ internal fun ButtonText(
     }
     Text(text, color = textColor, textAlign = TextAlign.Center, style = MaterialTheme.typography.titleSmall)
 }
+
+@Composable
+internal fun InputShellLabelText(
+    text: String,
+    textColor: Color,
+    modifier: Modifier = Modifier
+) {
+    Text(text, modifier = modifier, color = textColor, style = MaterialTheme.typography.titleSmall, textAlign = TextAlign.Start)
+}
