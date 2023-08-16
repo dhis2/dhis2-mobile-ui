@@ -11,6 +11,7 @@ import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.Role
@@ -28,14 +29,12 @@ import org.hisp.dhis.mobileui.designsystem.theme.TextColor
  * @param enabled Controls the enabled state of the button. When `false`, this button will not be
  * clickable and will appear disabled to accessibility services.
  * @param textInput The checkbox option text.
- * @param onClick Will be called when the user clicks the box or the text.
  */
 @Composable
 fun CheckBox(
-    checked: Boolean,
+    checked: MutableState<Boolean>,
     enabled: Boolean,
-    textInput: String?,
-    onClick: (Boolean) -> Unit
+    textInput: String? = null
 ) {
     CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
         Row(
@@ -43,13 +42,13 @@ fun CheckBox(
             verticalAlignment = Alignment.Top,
             modifier = Modifier
                 .toggleable(
-                    value = checked,
+                    value = checked.value,
                     role = Role.Checkbox,
-                    onValueChange = { onClick(!checked) }
+                    onValueChange = { checked.value = !checked.value }
                 )
         ) {
             Checkbox(
-                checked = checked,
+                checked = checked.value,
                 onCheckedChange = null,
                 enabled = enabled,
                 modifier = Modifier
@@ -61,11 +60,11 @@ fun CheckBox(
                     disabledUncheckedColor = TextColor.OnDisabledSurface
                 )
             )
-            if (!textInput.isNullOrEmpty()) {
+            textInput?.let {
                 Text(
                     modifier = Modifier
                         .padding(top = Spacing.Spacing8, bottom = Spacing.Spacing8),
-                    text = textInput,
+                    text = it,
                     color = if (enabled) {
                         TextColor.OnSurface
                     } else {
