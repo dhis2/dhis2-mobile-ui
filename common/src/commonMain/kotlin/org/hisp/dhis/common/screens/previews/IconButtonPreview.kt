@@ -30,7 +30,7 @@ internal fun IconButtonPreview(enabled: Boolean = true, style: IconButtonStyle =
         enabled = enabled,
         icon = {
             Icon(
-                painter = painterResource(SharedRes.images.alert_outline),
+                painter = painterResource(SharedRes.images.dhis2_alert_outline),
                 contentDescription = "Icon Button"
             )
         }
