@@ -4,10 +4,10 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.FileDownload
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
-import dev.icerock.moko.resources.compose.painterResource
 import org.hisp.dhis.mobileui.designsystem.component.IconButton
 import org.hisp.dhis.mobileui.designsystem.component.IconButtonStyle
 import org.hisp.dhis.mobileui.designsystem.component.SquareIconButton
+import org.hisp.dhis.mobileui.designsystem.extensions.dhis2IconResource
 import org.hisp.dhis.mobileui.designsystem.library.SharedRes
 
 @Composable
@@ -30,7 +30,7 @@ internal fun IconButtonPreview(enabled: Boolean = true, style: IconButtonStyle =
         enabled = enabled,
         icon = {
             Icon(
-                painter = painterResource(SharedRes.images.dhis2_alert_outline),
+                painter = dhis2IconResource(SharedRes.images.dhis2_alert_outline),
                 contentDescription = "Icon Button"
             )
         }
