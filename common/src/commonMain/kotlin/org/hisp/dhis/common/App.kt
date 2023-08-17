@@ -24,6 +24,7 @@ import org.hisp.dhis.common.screens.ButtonScreen
 import org.hisp.dhis.common.screens.Components
 import org.hisp.dhis.common.screens.FormsComponentsScreen
 import org.hisp.dhis.common.screens.IconButtonScreen
+import org.hisp.dhis.common.screens.checkbox.CheckboxScreen
 import org.hisp.dhis.common.screens.radio.RadioButtonScreen
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
