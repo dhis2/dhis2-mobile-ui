@@ -7,8 +7,6 @@ import androidx.compose.runtime.Composable
 import org.hisp.dhis.mobileui.designsystem.component.IconButton
 import org.hisp.dhis.mobileui.designsystem.component.IconButtonStyle
 import org.hisp.dhis.mobileui.designsystem.component.SquareIconButton
-import org.hisp.dhis.mobileui.designsystem.extensions.dhis2IconResource
-import org.hisp.dhis.mobileui.designsystem.library.SharedRes
 
 @Composable
 internal fun SquareIconButtonPreview(enabled: Boolean = true) {
@@ -30,7 +28,7 @@ internal fun IconButtonPreview(enabled: Boolean = true, style: IconButtonStyle =
         enabled = enabled,
         icon = {
             Icon(
-                painter = dhis2IconResource(SharedRes.images.dhis2_alert_outline),
+                imageVector = Icons.Outlined.FileDownload,
                 contentDescription = "Icon Button"
             )
         }
