@@ -1,4 +1,4 @@
-package org.hisp.dhis.mobileui.designsystem.theme
+package org.hisp.dhis.mobile.ui.designsystem.theme
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Typography
@@ -8,7 +8,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import dev.icerock.moko.resources.compose.fontFamilyResource
-import org.hisp.dhis.mobileui.designsystem.library.SharedRes
+import org.hisp.dhis.mobile.ui.designsystem.SharedRes
 
 val DHIS2LightColorScheme = lightColorScheme(
     primary = SurfaceColor.Primary,

@@ -4,9 +4,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import org.hisp.dhis.common.screens.previews.ButtonPreview
 import org.hisp.dhis.common.screens.previews.ButtonPreviewWithIcon
-import org.hisp.dhis.mobileui.designsystem.component.ButtonStyle
-import org.hisp.dhis.mobileui.designsystem.component.ColumnComponentContainer
-import org.hisp.dhis.mobileui.designsystem.component.RowComponentContainer
+import org.hisp.dhis.mobile.ui.designsystem.component.ButtonStyle
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
+import org.hisp.dhis.mobile.ui.designsystem.component.RowComponentContainer
 
 @Composable
 fun ButtonScreen() {

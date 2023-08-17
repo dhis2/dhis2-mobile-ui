@@ -40,7 +40,7 @@ ktlint {
 }
 
 multiplatformResources {
-    multiplatformResourcesPackage = "org.hisp.dhis.mobileui"
+    multiplatformResourcesPackage = "org.hisp.dhis.mobile.ui.desktop"
     multiplatformResourcesClassName = "SharedRes"
 }
 

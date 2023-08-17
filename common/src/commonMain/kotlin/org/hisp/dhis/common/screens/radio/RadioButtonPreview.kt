@@ -1,7 +1,7 @@
 package org.hisp.dhis.common.screens.radio
 
 import androidx.compose.runtime.Composable
-import org.hisp.dhis.mobileui.designsystem.component.RadioButton
+import org.hisp.dhis.mobile.ui.designsystem.component.RadioButton
 
 @Composable
 internal fun RadioButtonPreview(selected: Boolean = true, enabled: Boolean = true) {
