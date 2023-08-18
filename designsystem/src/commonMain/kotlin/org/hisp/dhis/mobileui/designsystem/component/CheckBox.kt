@@ -1,10 +1,11 @@
 package org.hisp.dhis.mobileui.designsystem.component
 
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.selection.toggleable
 import androidx.compose.material.ripple.LocalRippleTheme
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
@@ -12,9 +13,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobileui.designsystem.theme.Outline
 import org.hisp.dhis.mobileui.designsystem.theme.Ripple
@@ -36,20 +37,18 @@ fun CheckBox(
     enabled: Boolean,
     textInput: String? = null
 ) {
-    CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(0.dp, Alignment.Start),
-            verticalAlignment = Alignment.Top,
-            modifier = Modifier
-                .toggleable(
-                    value = checked.value,
-                    role = Role.Checkbox,
-                    onValueChange = { checked.value = !checked.value }
-                )
-        ) {
+    Row(
+        horizontalArrangement = Arrangement.spacedBy(0.dp, Alignment.Start),
+        verticalAlignment = Alignment.Top
+    ) {
+        CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
             Checkbox(
                 checked = checked.value,
-                onCheckedChange = null,
+                onCheckedChange = {
+                    if (enabled) {
+                        checked.value = !checked.value
+                    }
+                },
                 enabled = enabled,
                 modifier = Modifier
                     .size(Spacing.Spacing40),
@@ -60,18 +59,27 @@ fun CheckBox(
                     disabledUncheckedColor = TextColor.OnDisabledSurface
                 )
             )
-            textInput?.let {
-                Text(
-                    modifier = Modifier
-                        .padding(top = Spacing.Spacing8, bottom = Spacing.Spacing8),
-                    text = it,
-                    color = if (enabled) {
-                        TextColor.OnSurface
-                    } else {
-                        TextColor.OnDisabledSurface
-                    }
-                )
-            }
+        }
+        textInput?.let {
+            val interactionSource = remember { MutableInteractionSource() }
+            Text(
+                modifier = Modifier
+                    .padding(top = Spacing.Spacing8, bottom = Spacing.Spacing8)
+                    .clickable(
+                        interactionSource = interactionSource,
+                        indication = null
+                    ) {
+                        if (enabled) {
+                            checked.value = !checked.value
+                        }
+                    },
+                text = it,
+                color = if (enabled) {
+                    TextColor.OnSurface
+                } else {
+                    TextColor.OnDisabledSurface
+                }
+            )
         }
     }
 }

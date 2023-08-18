@@ -17,13 +17,10 @@ fun CheckboxScreen() {
     val option3 = "Option 3"
     val option4 = "Option 4"
 
-    val state = mutableStateOf(true)
-
-    val state5 = mutableStateOf(false)
-
-    val state6 = mutableStateOf(true)
-
-    val state7 = mutableStateOf(false)
+    val state1 = mutableStateOf(true)
+    val state2 = mutableStateOf(false)
+    val state3 = mutableStateOf(true)
+    val state4 = mutableStateOf(false)
 
     Column(modifier = Modifier.padding(10.dp)) {
         ComponentContainer(
@@ -32,10 +29,10 @@ fun CheckboxScreen() {
                 Column(
                     verticalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
-                    TextCheckboxPreview(state, true, option1)
-                    TextCheckboxPreview(state5, true, option2)
-                    TextCheckboxPreview(state6, false, option3)
-                    TextCheckboxPreview(state7, false, option4)
+                    TextCheckboxPreview(state1, true, option1)
+                    TextCheckboxPreview(state2, true, option2)
+                    TextCheckboxPreview(state3, false, option3)
+                    TextCheckboxPreview(state4, enabled = false, text = option4)
                 }
             }
         )
