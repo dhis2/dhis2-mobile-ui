@@ -1,9 +1,13 @@
+group = "org.hisp.dhis.mobile"
+version = "1.0-SNAPSHOT"
+
 plugins {
     kotlin("multiplatform")
     id("org.jetbrains.compose")
     id("com.android.library")
     id("org.jlleitschuh.gradle.ktlint")
     id("dev.icerock.mobile.multiplatform-resources")
+    id("convention.publication")
 }
 
 kotlin {

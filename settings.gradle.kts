@@ -4,6 +4,7 @@ include(":android")
 include(":desktop")
 include(":common")
 include(":designsystem")
+includeBuild("convention-plugins")
 
 pluginManagement {
     repositories {
