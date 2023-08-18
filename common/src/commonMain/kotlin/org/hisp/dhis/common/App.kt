@@ -93,6 +93,7 @@ fun Main() {
             Components.RADIO -> RadioButtonScreen()
             Components.CHECK_BOX -> CheckboxScreen()
             Components.PROGRESS -> ProgressScreen()
+            Components.LEGEND -> LegendScreen()
             Components.INPUT -> InputScreen()
             Components.SUPPORTING_TEXT -> SupportingTextScreen()
             else -> NotImplementedScreen()
