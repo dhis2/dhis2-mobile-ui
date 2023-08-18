@@ -10,13 +10,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import org.hisp.dhis.mobileui.designsystem.component.EmptyInput
-import org.hisp.dhis.mobileui.designsystem.component.IconButton
-import org.hisp.dhis.mobileui.designsystem.component.InputShell
-import org.hisp.dhis.mobileui.designsystem.component.InputShellState
-import org.hisp.dhis.mobileui.designsystem.component.SquareIconButton
-import org.hisp.dhis.mobileui.designsystem.theme.Spacing
-import org.hisp.dhis.mobileui.designsystem.theme.TextColor
+import org.hisp.dhis.mobile.ui.designsystem.component.EmptyInput
+import org.hisp.dhis.mobile.ui.designsystem.component.IconButton
+import org.hisp.dhis.mobile.ui.designsystem.component.InputShell
+import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
+import org.hisp.dhis.mobile.ui.designsystem.component.SquareIconButton
+import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
+import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
 @Composable
 internal fun InputShellPreview(
