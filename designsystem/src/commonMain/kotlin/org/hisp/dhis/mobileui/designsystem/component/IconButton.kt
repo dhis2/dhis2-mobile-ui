@@ -38,20 +38,22 @@ import org.hisp.dhis.mobileui.designsystem.theme.iconButtonshadow
 fun SquareIconButton(
     enabled: Boolean = true,
     icon: @Composable (() -> Unit),
+    modifier: Modifier = Modifier,
     onClick: () -> Unit
 ) {
     val shadowColor = if (enabled) SurfaceColor.ContainerHighest else Color.Transparent
     ElevatedButton(
         onClick = onClick,
         elevation = ButtonDefaults.elevatedButtonElevation(0.dp),
-        modifier = Modifier
+        modifier = modifier
             .size(Spacing.Spacing48)
             .padding(Spacing.Spacing4)
             .iconButtonshadow(shadowColor, Radius.S),
         enabled = enabled,
         shape = RoundedCornerShape(Radius.S),
         colors = ButtonDefaults.elevatedButtonColors(
-            disabledContainerColor = Color.Transparent
+            disabledContainerColor = Color.Transparent,
+            containerColor = SurfaceColor.Container
         ),
         contentPadding = PaddingValues(Spacing.Spacing8)
     ) {
@@ -73,13 +75,14 @@ fun IconButton(
     style: IconButtonStyle = IconButtonStyle.STANDARD,
     enabled: Boolean = true,
     icon: @Composable (() -> Unit),
+    modifier: Modifier = Modifier,
     onClick: () -> Unit
 ) {
     when (style) {
-        IconButtonStyle.FILLED -> FilledIconButton(enabled, icon, onClick)
-        IconButtonStyle.TONAL -> FilledTonalIconButton(enabled, icon, onClick)
-        IconButtonStyle.OUTLINED -> OutlinedIconButton(enabled, icon, onClick)
-        else -> StandardIconButton(enabled, icon, onClick)
+        IconButtonStyle.FILLED -> FilledIconButton(enabled, icon, modifier = modifier, onClick = onClick)
+        IconButtonStyle.TONAL -> FilledTonalIconButton(enabled, icon, modifier, onClick)
+        IconButtonStyle.OUTLINED -> OutlinedIconButton(enabled, icon, modifier = modifier, onClick = onClick)
+        else -> StandardIconButton(enabled, icon, modifier = modifier, onClick)
     }
 }
 
@@ -87,12 +90,13 @@ fun IconButton(
 private fun StandardIconButton(
     enabled: Boolean = true,
     icon: @Composable (() -> Unit),
+    modifier: Modifier = Modifier,
     onClick: () -> Unit
 ) {
     CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
         FilledIconButton(
             onClick = onClick,
-            modifier = Modifier
+            modifier = modifier
                 .size(Spacing.Spacing48)
                 .padding(Spacing.Spacing4),
             enabled = enabled,
@@ -107,11 +111,12 @@ private fun StandardIconButton(
 private fun FilledIconButton(
     enabled: Boolean = true,
     icon: @Composable (() -> Unit),
+    modifier: Modifier = Modifier,
     onClick: () -> Unit
 ) {
     FilledIconButton(
         onClick = onClick,
-        modifier = Modifier
+        modifier = modifier
             .size(Spacing.Spacing48)
             .padding(Spacing.Spacing4),
         enabled = enabled,
@@ -125,12 +130,13 @@ private fun FilledIconButton(
 private fun FilledTonalIconButton(
     enabled: Boolean = true,
     icon: @Composable (() -> Unit),
+    modifier: Modifier = Modifier,
     onClick: () -> Unit
 ) {
     CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
         FilledTonalIconButton(
             onClick = onClick,
-            modifier = Modifier
+            modifier = modifier
                 .size(Spacing.Spacing48)
                 .padding(Spacing.Spacing4),
             enabled = enabled,
@@ -147,12 +153,13 @@ private fun FilledTonalIconButton(
 private fun OutlinedIconButton(
     enabled: Boolean = true,
     icon: @Composable (() -> Unit),
+    modifier: Modifier = Modifier,
     onClick: () -> Unit
 ) {
     CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
         OutlinedIconButton(
             onClick = onClick,
-            modifier = Modifier
+            modifier = modifier
                 .size(Spacing.Spacing48)
                 .padding(Spacing.Spacing4),
             enabled = enabled,

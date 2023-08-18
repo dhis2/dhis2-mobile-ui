@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.ArrowDropUp
@@ -20,14 +19,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import org.hisp.dhis.common.screens.ButtonScreen
 import org.hisp.dhis.common.screens.Components
+import org.hisp.dhis.common.screens.FormsComponentsScreen
 import org.hisp.dhis.common.screens.IconButtonScreen
 import org.hisp.dhis.common.screens.radio.RadioButtonScreen
 import org.hisp.dhis.mobileui.designsystem.theme.DHIS2Theme
+import org.hisp.dhis.mobileui.designsystem.theme.Spacing
 
 @Composable
 fun App() {
@@ -39,15 +38,15 @@ fun App() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Main() {
-    val currentScreen = remember { mutableStateOf(Components.BUTTON) }
+    val currentScreen = remember { mutableStateOf(Components.FORMS_COMPONENTS) }
     var expanded by remember { mutableStateOf(false) }
     var selectedOptionText by remember { mutableStateOf(currentScreen.value.name) }
 
-    Column(modifier = Modifier.padding(10.dp)) {
+    Column(modifier = Modifier.padding(Spacing.Spacing16)) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .wrapContentSize(Alignment.TopStart)
+
         ) {
             TextField(
                 readOnly = true,
@@ -88,6 +87,14 @@ fun Main() {
                     }
                 )
                 DropdownMenuItem(
+                    text = { Text("Forms Components") },
+                    onClick = {
+                        currentScreen.value = Components.FORMS_COMPONENTS
+                        selectedOptionText = currentScreen.value.name
+                        expanded = false
+                    }
+                )
+                DropdownMenuItem(
                     text = { Text("Radio") },
                     onClick = {
                         currentScreen.value = Components.RADIO
@@ -101,10 +108,8 @@ fun Main() {
         when (currentScreen.value) {
             Components.BUTTON -> ButtonScreen()
             Components.ICON_BUTTON -> IconButtonScreen()
+            Components.FORMS_COMPONENTS -> FormsComponentsScreen()
             Components.RADIO -> RadioButtonScreen()
-            Components.BUTTON -> ButtonScreen()
-
-            else -> {}
         }
     }
 }
