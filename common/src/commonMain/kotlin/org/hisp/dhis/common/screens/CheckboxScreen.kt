@@ -1,4 +1,4 @@
-package org.hisp.dhis.common.screens.checkbox
+package org.hisp.dhis.common.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -8,7 +8,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import org.hisp.dhis.common.screens.ComponentContainer
+import org.hisp.dhis.common.screens.previews.CheckboxPreview
+import org.hisp.dhis.common.screens.previews.TextCheckboxPreview
+import org.hisp.dhis.mobileui.designsystem.component.ColumnComponentContainer
 
 @Composable
 fun CheckboxScreen() {
@@ -23,7 +25,7 @@ fun CheckboxScreen() {
     val state4 = mutableStateOf(false)
 
     Column(modifier = Modifier.padding(10.dp)) {
-        ComponentContainer(
+        ColumnComponentContainer(
             title = "Text Check Box",
             content = {
                 Column(
@@ -36,7 +38,7 @@ fun CheckboxScreen() {
                 }
             }
         )
-        ComponentContainer(
+        ColumnComponentContainer(
             title = "Check Box",
             content = {
                 Column(

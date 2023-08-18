@@ -1,4 +1,4 @@
-package org.hisp.dhis.common.screens.checkbox
+package org.hisp.dhis.common.screens.previews
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
