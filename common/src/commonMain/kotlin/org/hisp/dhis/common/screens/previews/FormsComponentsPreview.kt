@@ -1,6 +1,9 @@
 package org.hisp.dhis.common.screens.previews
 
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Cancel
+import androidx.compose.material.icons.outlined.FileDownload
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -12,7 +15,6 @@ import org.hisp.dhis.mobileui.designsystem.component.IconButton
 import org.hisp.dhis.mobileui.designsystem.component.InputShell
 import org.hisp.dhis.mobileui.designsystem.component.InputShellState
 import org.hisp.dhis.mobileui.designsystem.component.SquareIconButton
-import org.hisp.dhis.mobileui.designsystem.icon.Icons
 import org.hisp.dhis.mobileui.designsystem.theme.Spacing
 import org.hisp.dhis.mobileui.designsystem.theme.TextColor
 
@@ -28,7 +30,7 @@ internal fun InputShellPreview(
             IconButton(
                 icon = {
                     Icon(
-                        imageVector = Icons.Cancel,
+                        imageVector = Icons.Outlined.Cancel,
                         contentDescription = "Icon Button"
                     )
                 },
@@ -41,7 +43,7 @@ internal fun InputShellPreview(
                 enabled = state != InputShellState.DISABLED,
                 icon = {
                     Icon(
-                        imageVector = Icons.FileDownload,
+                        imageVector = Icons.Outlined.FileDownload,
                         contentDescription = "Icon Button"
                     )
                 },
