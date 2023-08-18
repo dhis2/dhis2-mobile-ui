@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.HelpOutline
 import androidx.compose.material.ripple.LocalRippleTheme
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
@@ -21,7 +23,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import org.hisp.dhis.mobileui.designsystem.icon.Icons
 import org.hisp.dhis.mobileui.designsystem.theme.Ripple
 import org.hisp.dhis.mobileui.designsystem.theme.Spacing
 
@@ -47,7 +48,7 @@ fun Legend(color: Color, text: String, onClick: () -> Unit) {
                     style = MaterialTheme.typography.bodyMedium
                 )
                 Icon(
-                    imageVector = Icons.Help,
+                    imageVector = Icons.Outlined.HelpOutline,
                     contentDescription = "Legend Icon",
                     modifier = Modifier.size(Spacing.Spacing18)
                 )
