@@ -7,8 +7,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
+import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.unit.sp
 
 /**
  * DHIS2 Text with generic icon slot. Wraps Material 3 [Text]
@@ -31,6 +35,16 @@ internal fun ButtonText(
         Spacer(Modifier.size(Spacing.Spacing8))
     }
     Text(text, color = textColor, textAlign = TextAlign.Center, style = MaterialTheme.typography.titleSmall)
+}
+
+internal fun getSpanSupportingTextStyle(color: Color = SupportingTextState.DEFAULT.color, isexpandText: Boolean = false): SpanStyle {
+    return SpanStyle(
+        color = color,
+        fontSize = 14.sp,
+        fontWeight = if (isexpandText) FontWeight.Medium else FontWeight.Normal,
+        letterSpacing = if (isexpandText) 0.1.sp else 0.25.sp,
+        textDecoration = if (isexpandText) TextDecoration.Underline else TextDecoration.None
+    )
 }
 
 /**
