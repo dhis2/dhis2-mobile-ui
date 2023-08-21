@@ -7,15 +7,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import org.hisp.dhis.common.screens.previews.InputShellPreview
-import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
-import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
-import org.hisp.dhis.mobile.ui.designsystem.component.SimpleTextInputField
-import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.component.BasicInput
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.InputStyle
-import org.hisp.dhis.mobileui.designsystem.theme.Spacing
+import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
 @Composable
 fun FormsComponentsScreen() {

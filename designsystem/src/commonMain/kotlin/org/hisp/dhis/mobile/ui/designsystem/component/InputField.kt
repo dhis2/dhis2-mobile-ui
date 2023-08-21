@@ -20,6 +20,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.text.input.VisualTransformation
+import org.hisp.dhis.mobile.ui.designsystem.component.internal.PrefixTransformation
+import org.hisp.dhis.mobile.ui.designsystem.component.internal.SuffixTransformer
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
@@ -57,9 +59,10 @@ fun EmptyInput(
 fun BasicInput(
     helper: String? = null,
     enabled: Boolean = true,
-    helperStyle: InputStyle = InputStyle.NONE
+    helperStyle: InputStyle = InputStyle.NONE,
+    inputText: String = ""
 ) {
-    var text by remember { mutableStateOf("Input") }
+    var text by remember { mutableStateOf(inputText) }
 
     var visualTransformation = VisualTransformation.None
 
