@@ -33,7 +33,6 @@ fun SimpleTextInputField(
     enabled: Boolean = true
 ) {
     var text by remember { mutableStateOf("") }
-
     BasicTextField(
         modifier = Modifier
             .background(
@@ -77,4 +76,36 @@ fun EmptyInput(
             drawRoundRect(color = Outline.Light, style = stroke, cornerRadius = CornerRadius(x = Radius.XS.toPx(), y = Radius.XS.toPx()))
         }
     }
+}
+
+@Composable
+fun Input(
+    helper: String,
+    enabled: Boolean
+) {
+    var text by remember { mutableStateOf("") }
+    BasicTextField(
+        modifier = Modifier
+            .background(
+                SurfaceColor.Surface
+            )
+            .fillMaxWidth(),
+        value = text,
+        onValueChange = {
+            text = it
+        },
+        enabled = enabled,
+        textStyle = MaterialTheme.typography.titleMedium,
+        singleLine = true,
+        decorationBox = { innerTextField ->
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Box(Modifier.weight(1f)) {
+                    innerTextField()
+                }
+            }
+        },
+        visualTransformation = PrefixTransformation(helper)
+    )
 }
