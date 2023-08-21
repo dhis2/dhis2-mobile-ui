@@ -1,4 +1,4 @@
-package org.hisp.dhis.mobileui.designsystem.component
+package org.hisp.dhis.mobile.ui.designsystem.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -23,8 +23,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import org.hisp.dhis.mobileui.designsystem.theme.Ripple
-import org.hisp.dhis.mobileui.designsystem.theme.Spacing
+import org.hisp.dhis.mobile.ui.designsystem.theme.Ripple
+import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
 @Composable
 fun Legend(color: Color, text: String, onClick: () -> Unit) {
