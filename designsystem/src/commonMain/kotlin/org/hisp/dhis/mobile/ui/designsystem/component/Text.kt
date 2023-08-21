@@ -66,7 +66,13 @@ internal fun InputShellLabelText(
     textColor: Color,
     modifier: Modifier = Modifier
 ) {
-    Text(text, modifier = modifier, color = textColor, style = MaterialTheme.typography.titleSmall, textAlign = TextAlign.Start)
+    Text(
+        text,
+        modifier = modifier,
+        color = textColor,
+        style = MaterialTheme.typography.titleSmall,
+        textAlign = TextAlign.Start
+    )
 }
 
 class PrefixTransformation(val prefix: String) : VisualTransformation {
@@ -101,7 +107,7 @@ class SuffixTransformer(val suffix: String) : VisualTransformation {
     }
 }
 
-fun prefixFilter(number: AnnotatedString, prefix: String): TransformedText {
+fun prefixFilter(text: AnnotatedString, prefix: String): TransformedText {
     val out = AnnotatedString(
         "$prefix ",
         spanStyle = SpanStyle(
@@ -112,7 +118,7 @@ fun prefixFilter(number: AnnotatedString, prefix: String): TransformedText {
     )
         .plus(
             AnnotatedString(
-                number.text,
+                text.text,
                 spanStyle = SpanStyle(
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Normal,
@@ -128,7 +134,7 @@ fun prefixFilter(number: AnnotatedString, prefix: String): TransformedText {
         }
 
         override fun transformedToOriginal(offset: Int): Int {
-            if (offset > number.length) return number.length
+            if (offset > text.length) return text.length
             return offset
         }
     }

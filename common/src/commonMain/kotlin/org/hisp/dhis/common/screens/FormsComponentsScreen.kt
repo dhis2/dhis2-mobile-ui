@@ -11,12 +11,17 @@ import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.SimpleTextInputField
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
+import org.hisp.dhis.mobile.ui.designsystem.component.BasicInput
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
+import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
+import org.hisp.dhis.mobile.ui.designsystem.component.InputStyle
+import org.hisp.dhis.mobileui.designsystem.theme.Spacing
 
 @Composable
 fun FormsComponentsScreen() {
     ColumnComponentContainer("Input Shell") {
         Text("Sample functional Input Shell ", style = MaterialTheme.typography.titleSmall)
-        InputShellPreview("Label", inputField = { Input("Helper", true) })
+        InputShellPreview("Label", inputField = { BasicInput("Helper", true, InputStyle.WITH_HELPER_BEFORE) })
         Text("Unfocused Input shell ", style = MaterialTheme.typography.titleSmall)
         InputShellPreview("Label")
         Text("Focused ", style = MaterialTheme.typography.titleSmall)
