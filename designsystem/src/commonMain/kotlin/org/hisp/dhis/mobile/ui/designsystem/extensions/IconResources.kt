@@ -1,4 +1,4 @@
-package org.hisp.dhis.mobileui.designsystem.extensions
+package org.hisp.dhis.mobile.ui.designsystem.extensions
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.painter.Painter

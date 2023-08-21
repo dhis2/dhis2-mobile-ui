@@ -1,4 +1,4 @@
-package org.hisp.dhis.mobileui.designsystem.component
+package org.hisp.dhis.mobile.ui.designsystem.component
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
@@ -18,10 +18,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawscope.Stroke
-import org.hisp.dhis.mobileui.designsystem.theme.Outline
-import org.hisp.dhis.mobileui.designsystem.theme.Radius
-import org.hisp.dhis.mobileui.designsystem.theme.Spacing
-import org.hisp.dhis.mobileui.designsystem.theme.SurfaceColor
+import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
+import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
+import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
+import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 
 /**
  * DHIS2 Text Input Field. Wraps Material· [BasicTextField].

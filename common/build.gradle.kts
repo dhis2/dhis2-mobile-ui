@@ -51,7 +51,7 @@ kotlin {
 
 android {
     compileSdk = (findProperty("android.compileSdk") as String).toInt()
-    namespace = "org.hisp.dhis.mobileui.common"
+    namespace = "org.hisp.dhis.mobile.ui.common"
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     sourceSets["main"].res.srcDirs("src/androidMain/res")
@@ -78,7 +78,7 @@ ktlint {
 }
 
 multiplatformResources {
-    multiplatformResourcesPackage = "org.hisp.dhis.mobileui.library"
+    multiplatformResourcesPackage = "org.hisp.dhis.mobile.ui"
     multiplatformResourcesClassName = "SharedRes"
 }
 

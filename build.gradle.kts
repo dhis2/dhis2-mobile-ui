@@ -1,6 +1,3 @@
-group = "org.hisp.dhis.mobileui"
-version = "1.0-SNAPSHOT"
-
 plugins {
     kotlin("jvm") apply false
     kotlin("multiplatform") apply false

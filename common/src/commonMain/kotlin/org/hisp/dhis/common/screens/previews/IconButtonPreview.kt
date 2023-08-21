@@ -4,9 +4,9 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.FileDownload
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
-import org.hisp.dhis.mobileui.designsystem.component.IconButton
-import org.hisp.dhis.mobileui.designsystem.component.IconButtonStyle
-import org.hisp.dhis.mobileui.designsystem.component.SquareIconButton
+import org.hisp.dhis.mobile.ui.designsystem.component.IconButton
+import org.hisp.dhis.mobile.ui.designsystem.component.IconButtonStyle
+import org.hisp.dhis.mobile.ui.designsystem.component.SquareIconButton
 
 @Composable
 internal fun SquareIconButtonPreview(enabled: Boolean = true) {

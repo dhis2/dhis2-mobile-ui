@@ -1,4 +1,4 @@
-package org.hisp.dhis.mobileui.designsystem.theme
+package org.hisp.dhis.mobile.ui.designsystem.theme
 
 import androidx.compose.ui.graphics.Color
 

@@ -1,4 +1,4 @@
-package org.hisp.dhis.mobileui.designsystem.component
+package org.hisp.dhis.mobile.ui.designsystem.component
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -12,7 +12,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import org.hisp.dhis.mobileui.designsystem.theme.Spacing
+import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
 /**
  * DHIS2 ColumnComponentContainer wraps Material 3 [Column]

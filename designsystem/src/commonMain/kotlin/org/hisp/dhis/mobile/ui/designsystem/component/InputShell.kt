@@ -1,4 +1,4 @@
-package org.hisp.dhis.mobileui.designsystem.component
+package org.hisp.dhis.mobile.ui.designsystem.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -21,11 +21,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
-import org.hisp.dhis.mobileui.designsystem.theme.Outline
-import org.hisp.dhis.mobileui.designsystem.theme.Radius
-import org.hisp.dhis.mobileui.designsystem.theme.Spacing
-import org.hisp.dhis.mobileui.designsystem.theme.SurfaceColor
-import org.hisp.dhis.mobileui.designsystem.theme.TextColor
+import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
+import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
+import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
+import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
+import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
 /**
  * DHIS2 Input Shell

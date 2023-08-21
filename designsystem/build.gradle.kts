@@ -1,9 +1,13 @@
+group = "org.hisp.dhis.mobile"
+version = "1.0-SNAPSHOT"
+
 plugins {
     kotlin("multiplatform")
     id("org.jetbrains.compose")
     id("com.android.library")
     id("org.jlleitschuh.gradle.ktlint")
     id("dev.icerock.mobile.multiplatform-resources")
+    id("convention.publication")
 }
 
 kotlin {
@@ -28,7 +32,7 @@ kotlin {
 
 android {
     compileSdk = (findProperty("android.compileSdk") as String).toInt()
-    namespace = "org.hisp.dhis.mobileui.designsystem"
+    namespace = "org.hisp.dhis.mobile.ui.designsystem"
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     sourceSets["main"].res.srcDirs("src/androidMain/res")
@@ -55,7 +59,7 @@ ktlint {
 }
 
 multiplatformResources {
-    multiplatformResourcesPackage = "org.hisp.dhis.mobileui.designsystem.library"
+    multiplatformResourcesPackage = "org.hisp.dhis.mobile.ui.designsystem"
     multiplatformResourcesClassName = "SharedRes"
 }
 

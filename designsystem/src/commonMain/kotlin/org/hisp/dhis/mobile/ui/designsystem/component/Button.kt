@@ -1,4 +1,4 @@
-package org.hisp.dhis.mobileui.designsystem.component
+package org.hisp.dhis.mobile.ui.designsystem.component
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.PaddingValues
@@ -12,13 +12,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import org.hisp.dhis.mobileui.designsystem.theme.Outline
-import org.hisp.dhis.mobileui.designsystem.theme.Radius
-import org.hisp.dhis.mobileui.designsystem.theme.Ripple
-import org.hisp.dhis.mobileui.designsystem.theme.Spacing
-import org.hisp.dhis.mobileui.designsystem.theme.SurfaceColor
-import org.hisp.dhis.mobileui.designsystem.theme.TextColor
-import org.hisp.dhis.mobileui.designsystem.theme.buttonShadow
+import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
+import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
+import org.hisp.dhis.mobile.ui.designsystem.theme.Ripple
+import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
+import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
+import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
+import org.hisp.dhis.mobile.ui.designsystem.theme.buttonShadow
 
 /**
  * DHIS2 button with generic icon slot.

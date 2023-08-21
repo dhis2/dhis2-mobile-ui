@@ -33,5 +33,5 @@ jobs:
         run: chmod +x ./gradlew
 
       # Create publish to maven
-      - name: Build apk debug project (APK) - ${{ env.main_project_module }} module
+      - name: Publish to maven
         run: ./gradlew publishAllPublicationsToSonatypeRepository

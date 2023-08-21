@@ -1,4 +1,4 @@
-package org.hisp.dhis.mobileui.designsystem.component
+package org.hisp.dhis.mobile.ui.designsystem.component
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -14,11 +14,11 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import org.hisp.dhis.mobileui.designsystem.theme.Outline
-import org.hisp.dhis.mobileui.designsystem.theme.Ripple
-import org.hisp.dhis.mobileui.designsystem.theme.Spacing
-import org.hisp.dhis.mobileui.designsystem.theme.SurfaceColor
-import org.hisp.dhis.mobileui.designsystem.theme.TextColor
+import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
+import org.hisp.dhis.mobile.ui.designsystem.theme.Ripple
+import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
+import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
+import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
 /**
  * DHIS2 radio button with or without text. Wraps Material 3 [RadioButton].
