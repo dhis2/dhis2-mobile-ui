@@ -8,8 +8,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import org.hisp.dhis.common.screens.previews.SupportingTextPreview
-import org.hisp.dhis.mobileui.designsystem.component.SupportingTextState
-import org.hisp.dhis.mobileui.designsystem.theme.Spacing
+import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextState
+import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
 @Composable
 fun SupportingTextScreen() {
