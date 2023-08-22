@@ -2,7 +2,7 @@ package org.hisp.dhis.common.screens.previews
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
-import org.hisp.dhis.mobileui.designsystem.component.CheckBox
+import org.hisp.dhis.mobile.ui.designsystem.component.CheckBox
 
 @Composable
 internal fun CheckboxPreview(checked: MutableState<Boolean>, enabled: Boolean = true) {

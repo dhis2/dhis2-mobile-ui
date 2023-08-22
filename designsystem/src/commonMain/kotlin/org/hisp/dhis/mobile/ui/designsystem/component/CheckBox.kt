@@ -1,4 +1,4 @@
-package org.hisp.dhis.mobileui.designsystem.component
+package org.hisp.dhis.mobile.ui.designsystem.component
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
