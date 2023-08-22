@@ -17,11 +17,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import org.hisp.dhis.mobileui.designsystem.theme.Outline
-import org.hisp.dhis.mobileui.designsystem.theme.Ripple
-import org.hisp.dhis.mobileui.designsystem.theme.Spacing
-import org.hisp.dhis.mobileui.designsystem.theme.SurfaceColor
-import org.hisp.dhis.mobileui.designsystem.theme.TextColor
+import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
+import org.hisp.dhis.mobile.ui.designsystem.theme.Ripple
+import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
+import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
+import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
 /**
  * DHIS2 radio button with or without text. Wraps Material 3 [Checkbox].
@@ -37,42 +37,60 @@ fun CheckBox(
     enabled: Boolean,
     textInput: String? = null
 ) {
+    val interactionSource = remember { MutableInteractionSource() }
+
     Row(
         horizontalArrangement = Arrangement.spacedBy(0.dp, Alignment.Start),
-        verticalAlignment = Alignment.Top
-    ) {
-        CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
-            Checkbox(
-                checked = checked.value,
-                onCheckedChange = {
+        verticalAlignment = Alignment.Top,
+        modifier = Modifier
+            .clickable(
+                interactionSource = interactionSource,
+                indication = null,
+                onClick = {
                     if (enabled) {
                         checked.value = !checked.value
                     }
-                },
-                enabled = enabled,
-                modifier = Modifier
-                    .size(Spacing.Spacing40),
-                colors = CheckboxDefaults.colors(
-                    checkedColor = SurfaceColor.Primary,
-                    uncheckedColor = Outline.Dark,
-                    disabledCheckedColor = TextColor.OnDisabledSurface,
-                    disabledUncheckedColor = TextColor.OnDisabledSurface
-                )
+                }
             )
+    ) {
+        CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
+            if (enabled) {
+                Checkbox(
+                    checked = checked.value,
+                    onCheckedChange = {
+                        checked.value = it
+                    },
+                    interactionSource = interactionSource,
+                    enabled = true,
+                    modifier = Modifier
+                        .size(Spacing.Spacing40),
+                    colors = CheckboxDefaults.colors(
+                        checkedColor = SurfaceColor.Primary,
+                        uncheckedColor = Outline.Dark,
+                        disabledCheckedColor = TextColor.OnDisabledSurface,
+                        disabledUncheckedColor = TextColor.OnDisabledSurface
+                    )
+                )
+            } else {
+                Checkbox(
+                    checked = checked.value,
+                    onCheckedChange = null,
+                    enabled = false,
+                    modifier = Modifier
+                        .size(Spacing.Spacing40),
+                    colors = CheckboxDefaults.colors(
+                        checkedColor = SurfaceColor.Primary,
+                        uncheckedColor = Outline.Dark,
+                        disabledCheckedColor = TextColor.OnDisabledSurface,
+                        disabledUncheckedColor = TextColor.OnDisabledSurface
+                    )
+                )
+            }
         }
         textInput?.let {
-            val interactionSource = remember { MutableInteractionSource() }
             Text(
                 modifier = Modifier
-                    .padding(top = Spacing.Spacing8, bottom = Spacing.Spacing8)
-                    .clickable(
-                        interactionSource = interactionSource,
-                        indication = null
-                    ) {
-                        if (enabled) {
-                            checked.value = !checked.value
-                        }
-                    },
+                    .padding(top = Spacing.Spacing8, bottom = Spacing.Spacing8),
                 text = it,
                 color = if (enabled) {
                     TextColor.OnSurface
