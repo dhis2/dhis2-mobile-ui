@@ -21,6 +21,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import org.hisp.dhis.common.screens.ButtonScreen
+import org.hisp.dhis.common.screens.CheckboxScreen
 import org.hisp.dhis.common.screens.Components
 import org.hisp.dhis.common.screens.FormsComponentsScreen
 import org.hisp.dhis.common.screens.IconButtonScreen
@@ -88,6 +89,7 @@ fun Main() {
             Components.ICON_BUTTON -> IconButtonScreen()
             Components.FORMS_COMPONENTS -> FormsComponentsScreen()
             Components.RADIO -> RadioButtonScreen()
+            Components.CHECK_BOX -> CheckboxScreen()
             Components.PROGRESS -> ProgressScreen()
             else -> NotImplementedScreen()
         }

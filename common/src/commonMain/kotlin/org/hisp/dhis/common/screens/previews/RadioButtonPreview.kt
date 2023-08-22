@@ -1,4 +1,4 @@
-package org.hisp.dhis.common.screens.radio
+package org.hisp.dhis.common.screens.previews
 
 import androidx.compose.runtime.Composable
 import org.hisp.dhis.mobile.ui.designsystem.component.RadioButton

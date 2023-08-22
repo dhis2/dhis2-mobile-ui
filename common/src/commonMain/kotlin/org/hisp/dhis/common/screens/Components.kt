@@ -5,5 +5,6 @@ enum class Components(val label: String) {
     BUTTON("Button"),
     RADIO("Radio"),
     FORMS_COMPONENTS("Form components"),
-    PROGRESS("Progress")
+    PROGRESS("Progress"),
+    CHECK_BOX("Check Box")
 }
