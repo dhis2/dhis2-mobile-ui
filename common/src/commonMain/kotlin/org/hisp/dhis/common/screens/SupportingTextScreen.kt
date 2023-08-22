@@ -1,27 +1,22 @@
 package org.hisp.dhis.common.screens
 
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import org.hisp.dhis.common.screens.previews.SupportingTextPreview
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
+import org.hisp.dhis.mobile.ui.designsystem.component.SupportingText
 import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextState
-import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
 @Composable
 fun SupportingTextScreen() {
-    ColumnComponentContainer(title = "Supporting text") {
-        Spacer(Modifier.size(Spacing.Spacing24))
+    ColumnComponentContainer {
         Text("Standard Supporting Text")
-        SupportingTextPreview("Supporting text")
+        SupportingText("Supporting text")
         Text("Standard Warning Supporting Text")
-        SupportingTextPreview("Supporting Text", SupportingTextState.WARNING)
+        SupportingText("Supporting Text", SupportingTextState.WARNING)
         Text("Standard Error Supporting Text")
-        SupportingTextPreview("Supporting Text", SupportingTextState.ERROR)
+        SupportingText("Supporting Text", SupportingTextState.ERROR)
         Text("Overflow Default Supporting Text")
-        SupportingTextPreview(
+        SupportingText(
             "Lorem ipsum dolor sit amet," +
                 " consectetur adipiscing elit. Maecenas dolor lacus," +
                 " aliquam. Lorem ipsum dolor sit amet," +
@@ -29,7 +24,7 @@ fun SupportingTextScreen() {
                 " aliquam.Lorem ipsum dolor sit amet, consectetur adipiscing elit."
         )
         Text("Overflow Warning Supporting Text")
-        SupportingTextPreview(
+        SupportingText(
             "Lorem ipsum dolor sit amet," +
                 " consectetur adipiscing elit. Maecenas dolor lacus," +
                 " aliquam. Lorem ipsum dolor sit amet," +
@@ -38,7 +33,7 @@ fun SupportingTextScreen() {
             SupportingTextState.WARNING
         )
         Text("Overflow Error Supporting Text")
-        SupportingTextPreview(
+        SupportingText(
             "Lorem ipsum dolor sit amet," +
                 " consectetur adipiscing elit. Maecenas dolor lacus," +
                 " aliquam. Lorem ipsum dolor sit amet," +

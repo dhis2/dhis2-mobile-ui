@@ -10,7 +10,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.RowComponentContainer
 
 @Composable
 fun ButtonScreen() {
-    ColumnComponentContainer("Buttons") {
+    ColumnComponentContainer() {
         Text("Filled")
         RowComponentContainer() {
             ButtonPreview("Label", ButtonStyle.FILLED)
