@@ -3,7 +3,6 @@ plugins {
     id("org.jetbrains.compose")
     id("com.android.library")
     id("org.jlleitschuh.gradle.ktlint")
-    id("dev.icerock.mobile.multiplatform-resources")
 }
 
 kotlin {
@@ -20,8 +19,6 @@ kotlin {
                 implementation(compose.material3)
                 implementation(compose.materialIconsExtended)
                 implementation(project(":designsystem"))
-                api(moko.resources)
-                api(moko.resourcesCompose)
             }
         }
         val commonTest by getting {
@@ -72,21 +69,4 @@ android {
 ktlint {
     verbose.set(true)
     outputToConsole.set(true)
-    filter {
-        exclude { projectDir.toURI().relativize(it.file.toURI()).path.contains("/generated/") }
-    }
-}
-
-multiplatformResources {
-    multiplatformResourcesPackage = "org.hisp.dhis.mobile.ui"
-    multiplatformResourcesClassName = "SharedRes"
-}
-
-tasks.named("runKtlintCheckOverDesktopMainSourceSet") {
-    mustRunAfter("generateMRcommonMain")
-    mustRunAfter("generateMRdesktopMain")
-}
-
-tasks.named("runKtlintCheckOverCommonMainSourceSet") {
-    mustRunAfter("generateMRcommonMain")
 }
