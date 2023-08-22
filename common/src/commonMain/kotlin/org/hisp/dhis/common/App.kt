@@ -25,9 +25,9 @@ import org.hisp.dhis.common.screens.CheckboxScreen
 import org.hisp.dhis.common.screens.Components
 import org.hisp.dhis.common.screens.FormsComponentsScreen
 import org.hisp.dhis.common.screens.IconButtonScreen
+import org.hisp.dhis.common.screens.InputScreen
 import org.hisp.dhis.common.screens.NotImplementedScreen
 import org.hisp.dhis.common.screens.ProgressScreen
-import org.hisp.dhis.common.screens.InputScreen
 import org.hisp.dhis.common.screens.SupportingTextScreen
 import org.hisp.dhis.common.screens.radio.RadioButtonScreen
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
