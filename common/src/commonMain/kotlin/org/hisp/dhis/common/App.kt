@@ -43,7 +43,6 @@ fun App() {
 fun Main() {
     val currentScreen = remember { mutableStateOf(Components.FORMS_COMPONENTS) }
     var expanded by remember { mutableStateOf(false) }
-    var selectedOptionText by remember { mutableStateOf(currentScreen.value.name) }
 
     Column(modifier = Modifier.padding(Spacing.Spacing16)) {
         Box(
@@ -53,7 +52,7 @@ fun Main() {
         ) {
             TextField(
                 readOnly = true,
-                value = selectedOptionText,
+                value = currentScreen.value.name,
                 onValueChange = {},
                 label = { Text("Components") },
                 leadingIcon = {

@@ -15,7 +15,6 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.Ripple
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
@@ -39,7 +38,7 @@ fun RadioButton(
     onClick: () -> Unit
 ) {
     Row(
-        horizontalArrangement = Arrangement.spacedBy(0.dp, Alignment.Start),
+        horizontalArrangement = Arrangement.spacedBy(Spacing.Spacing0, Alignment.Start),
         verticalAlignment = Alignment.Top
     ) {
         CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
