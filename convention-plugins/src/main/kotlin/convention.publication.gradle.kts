@@ -30,8 +30,8 @@ if (secretPropsFile.exists()) {
     ext["signing.keyId"] = System.getenv("SIGNING_KEY_ID")
     ext["signing.password"] = System.getenv("SIGNING_PASSWORD")
     ext["signing.secretKeyRingFile"] = System.getenv("SIGNING_SECRET_KEY_RING_FILE")
-    ext["ossrhUsername"] = System.getenv("OSSRH_USERNAME")
-    ext["ossrhPassword"] = System.getenv("OSSRH_PASSWORD")
+    ext["ossrhUsername"] = System.getenv("SONATYPE_OSSRH_USERNAME")
+    ext["ossrhPassword"] = System.getenv("SONATYPE_OSSRH_PASSWORD")
 }
 
 val javadocJar by tasks.registering(Jar::class) {
