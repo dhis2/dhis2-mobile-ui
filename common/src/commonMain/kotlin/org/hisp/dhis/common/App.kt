@@ -20,6 +20,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import org.hisp.dhis.common.screens.ButtonBlockScreen
 import org.hisp.dhis.common.screens.ButtonScreen
 import org.hisp.dhis.common.screens.CheckboxScreen
 import org.hisp.dhis.common.screens.Components
@@ -29,6 +30,7 @@ import org.hisp.dhis.common.screens.InputScreen
 import org.hisp.dhis.common.screens.InputTextScreen
 import org.hisp.dhis.common.screens.LegendDescriptionScreen
 import org.hisp.dhis.common.screens.LegendScreen
+import org.hisp.dhis.common.screens.NotImplementedScreen
 import org.hisp.dhis.common.screens.ProgressScreen
 import org.hisp.dhis.common.screens.SupportingTextScreen
 import org.hisp.dhis.common.screens.radio.RadioButtonScreen
@@ -100,6 +102,8 @@ fun Main() {
             Components.SUPPORTING_TEXT -> SupportingTextScreen()
             Components.INPUT_TEXT -> InputTextScreen()
             Components.LEGEND_DESCRIPTION -> LegendDescriptionScreen()
+            Components.BUTTON_BLOCK -> ButtonBlockScreen()
+            else -> NotImplementedScreen()
         }
     }
 }

@@ -37,6 +37,7 @@ fun Button(
     text: String,
     icon: @Composable
     (() -> Unit)? = null,
+    modifier: Modifier = Modifier,
     onClick: () -> Unit,
 ) {
     val paddingValues = getPaddingValues(icon != null)
@@ -119,7 +120,7 @@ fun Button(
 
             SimpleButton(
                 onClick = { onClick() },
-                modifier = Modifier.buttonShadow(shadowColor, Radius.Full, icon != null),
+                modifier = modifier.buttonShadow(shadowColor, Radius.Full, icon != null),
                 enabled = enabled,
                 buttonColors = ButtonDefaults.filledTonalButtonColors(
                     SurfaceColor.Container,
