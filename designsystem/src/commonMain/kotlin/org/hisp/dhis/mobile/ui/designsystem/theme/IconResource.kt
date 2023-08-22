@@ -13,6 +13,6 @@ object IconResource {
      */
     @OptIn(ExperimentalResourceApi::class)
     @Composable
-    fun DHIS2Icon(resourceName: String): Painter =
+    fun dhis2Icon(resourceName: String): Painter =
         painterResource("drawable/$resourceName.xml")
 }
