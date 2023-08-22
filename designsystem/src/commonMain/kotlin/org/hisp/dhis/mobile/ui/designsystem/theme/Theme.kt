@@ -5,9 +5,9 @@ import androidx.compose.material3.Typography
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import org.hisp.dhis.mobile.ui.designsystem.resource.fontResources
 
 val DHIS2LightColorScheme = lightColorScheme(
     primary = SurfaceColor.Primary,
@@ -29,8 +29,6 @@ val DHIS2LightColorScheme = lightColorScheme(
     scrim = SurfaceColor.Scrim
 )
 
-expect val fontResource: FontFamily
-
 @Composable
 fun DHIS2Theme(content: @Composable () -> Unit) {
     MaterialTheme(
@@ -39,14 +37,14 @@ fun DHIS2Theme(content: @Composable () -> Unit) {
             titleLarge = TextStyle(
                 fontSize = 22.sp,
                 lineHeight = 28.sp,
-                fontFamily = fontResource,
+                fontFamily = fontResources(),
                 fontWeight = FontWeight.Normal,
                 color = TextColor.OnSurface
             ),
             titleMedium = TextStyle(
                 fontSize = 16.sp,
                 lineHeight = 24.sp,
-                fontFamily = fontResource,
+                fontFamily = fontResources(),
                 fontWeight = FontWeight.Medium,
                 color = TextColor.OnSurface,
                 letterSpacing = 0.15.sp
@@ -54,7 +52,7 @@ fun DHIS2Theme(content: @Composable () -> Unit) {
             titleSmall = TextStyle(
                 fontSize = 14.sp,
                 lineHeight = 20.sp,
-                fontFamily = fontResource,
+                fontFamily = fontResources(),
                 fontWeight = FontWeight.Medium,
                 color = TextColor.OnSurface,
                 letterSpacing = 0.1.sp
@@ -62,7 +60,7 @@ fun DHIS2Theme(content: @Composable () -> Unit) {
             labelLarge = TextStyle(
                 fontSize = 14.sp,
                 lineHeight = 20.sp,
-                fontFamily = fontResource,
+                fontFamily = fontResources(),
                 fontWeight = FontWeight.Medium,
                 color = TextColor.OnSurface,
                 letterSpacing = 0.1.sp
@@ -70,7 +68,7 @@ fun DHIS2Theme(content: @Composable () -> Unit) {
             labelMedium = TextStyle(
                 fontSize = 12.sp,
                 lineHeight = 16.sp,
-                fontFamily = fontResource,
+                fontFamily = fontResources(),
                 fontWeight = FontWeight.Medium,
                 color = TextColor.OnSurface,
                 letterSpacing = 0.5.sp
@@ -78,7 +76,7 @@ fun DHIS2Theme(content: @Composable () -> Unit) {
             labelSmall = TextStyle(
                 fontSize = 11.sp,
                 lineHeight = 16.sp,
-                fontFamily = fontResource,
+                fontFamily = fontResources(),
                 fontWeight = FontWeight.Medium,
                 color = TextColor.OnSurface,
                 letterSpacing = 0.5.sp
@@ -86,7 +84,7 @@ fun DHIS2Theme(content: @Composable () -> Unit) {
             bodyLarge = TextStyle(
                 fontSize = 16.sp,
                 lineHeight = 24.sp,
-                fontFamily = fontResource,
+                fontFamily = fontResources(),
                 fontWeight = FontWeight.Normal,
                 color = TextColor.OnSurface,
                 letterSpacing = 0.5.sp
@@ -94,7 +92,7 @@ fun DHIS2Theme(content: @Composable () -> Unit) {
             bodyMedium = TextStyle(
                 fontSize = 14.sp,
                 lineHeight = 20.sp,
-                fontFamily = fontResource,
+                fontFamily = fontResources(),
                 fontWeight = FontWeight.Normal,
                 color = TextColor.OnSurface,
                 letterSpacing = 0.25.sp
@@ -102,7 +100,7 @@ fun DHIS2Theme(content: @Composable () -> Unit) {
             bodySmall = TextStyle(
                 fontSize = 12.sp,
                 lineHeight = 16.sp,
-                fontFamily = fontResource,
+                fontFamily = fontResources(),
                 fontWeight = FontWeight.Normal,
                 color = TextColor.OnSurface,
                 letterSpacing = 0.4.sp

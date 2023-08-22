@@ -48,7 +48,7 @@ android {
     namespace = "org.hisp.dhis.mobile.ui.designsystem"
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
-    sourceSets["main"].res.srcDirs("src/commonMain/resources")
+    sourceSets["main"].res.srcDirs("src/androidMain/res", "src/commonMain/resources")
     sourceSets["main"].resources.srcDirs("src/commonMain/resources")
 
     defaultConfig {
