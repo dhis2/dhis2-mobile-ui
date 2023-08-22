@@ -9,7 +9,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.sp
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
-internal class PrefixTransformation(val prefix: String) : VisualTransformation {
+internal class PrefixTransformation(private val prefix: String) : VisualTransformation {
     override fun filter(text: AnnotatedString): TransformedText {
         return prefixFilter(text, prefix)
     }
