@@ -52,7 +52,7 @@ fun Main() {
         ) {
             TextField(
                 readOnly = true,
-                value = currentScreen.value.name,
+                value = currentScreen.value.label,
                 onValueChange = {},
                 label = { Text("Components") },
                 leadingIcon = {
