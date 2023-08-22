@@ -2,10 +2,10 @@ package org.hisp.dhis.common.screens
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import org.hisp.dhis.mobileui.designsystem.component.ColumnComponentContainer
-import org.hisp.dhis.mobileui.designsystem.component.ProgressIndicator
-import org.hisp.dhis.mobileui.designsystem.component.ProgressIndicatorType
-import org.hisp.dhis.mobileui.designsystem.component.RowComponentContainer
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
+import org.hisp.dhis.mobile.ui.designsystem.component.ProgressIndicator
+import org.hisp.dhis.mobile.ui.designsystem.component.ProgressIndicatorType
+import org.hisp.dhis.mobile.ui.designsystem.component.RowComponentContainer
 
 @Composable
 internal fun ProgressScreen() {
