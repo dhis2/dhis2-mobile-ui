@@ -14,7 +14,7 @@ actual fun stringResource(id: String): String {
 
 private fun getResources(): Map<String, String> {
     val stringsResources = mutableMapOf<String, String>()
-    //for translation we could use Locale.current.language to find the proper xml
+    // for translation we could use Locale.current.language to find the proper xml
     useResource("values/strings_en.xml") { inputStream ->
 
         val regex = Regex("""<string name="(.+?)">(.+?)</string>""")
