@@ -23,6 +23,17 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
+/**
+ * DHIS2 SupportingText component, wraps Compose's [ClickableText].
+ * @param text Controls the text to be shown
+ * @param state Controls state of the the component. WARNING and ERROR are available
+ * apart from default
+ * @param showMoreText the text to show for expansion will be in English by default.
+ * @param showLessText the text to be shown for shrinking, also English by default
+ * If the text to be shown has overflow the component will automatically add
+ * the expand functionality
+ * Translations will be allowed and hardcoded strings will be removed in near future
+ */
 @Composable
 fun SupportingText(
     text: String,
