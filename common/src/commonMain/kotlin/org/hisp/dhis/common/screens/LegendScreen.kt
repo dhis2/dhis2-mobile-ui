@@ -26,6 +26,12 @@ fun LegendScreen() {
         Legend(SurfaceColor.CustomOrange, "Legend") {}
 
         Text("Pink Legend")
-        Legend(SurfaceColor.CustomPink, "Legend") {}
+        Legend(
+            SurfaceColor.CustomPink,
+            "Lorem ipsum dolor sit amet," +
+                " consectetur adipiscing elit. Maecenas dolor lacus," +
+                " aliquam. Lorem ipsum dolor sit amet," +
+                " consectetur adipiscing elit. Maecenas dolor lacus,"
+        ) {}
     }
 }

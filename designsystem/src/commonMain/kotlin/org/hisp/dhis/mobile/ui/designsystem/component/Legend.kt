@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -36,11 +37,14 @@ fun Legend(color: Color, text: String, onClick: () -> Unit) {
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Box(
-                    modifier = Modifier.size(Spacing.Spacing12)
-                        .clip(CircleShape)
-                        .background(color)
-                )
+                Column(modifier = Modifier.align(Alignment.Top)) {
+                    Spacer(modifier = Modifier.size(Spacing.Spacing4).padding(end = Spacing.Spacing8))
+                    Box(
+                        modifier = Modifier.size(Spacing.Spacing12)
+                            .clip(CircleShape)
+                            .background(color)
+                    )
+                }
                 Text(
                     text,
                     Modifier.padding(start = Spacing.Spacing8)
