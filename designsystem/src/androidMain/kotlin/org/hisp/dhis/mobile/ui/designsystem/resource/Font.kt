@@ -6,7 +6,7 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 
 @Composable
-actual fun fontResources(font: String): FontFamily {
+actual fun provideFontResource(font: String): FontFamily {
     val context = LocalContext.current
     val name = font.substringBefore(".")
     val fontRes = context.resources.getIdentifier(name, "font", context.packageName)

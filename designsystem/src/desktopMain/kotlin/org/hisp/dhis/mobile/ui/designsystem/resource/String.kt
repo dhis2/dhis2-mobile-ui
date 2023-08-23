@@ -7,7 +7,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.res.useResource
 
 @Composable
-actual fun stringResource(id: String): String {
+actual fun provideStringResource(id: String): String {
     val res by remember { mutableStateOf(getResources()) }
     return res[id] ?: "Key not found"
 }

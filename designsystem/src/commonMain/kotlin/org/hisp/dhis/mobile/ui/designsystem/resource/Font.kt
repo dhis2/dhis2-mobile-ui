@@ -4,4 +4,4 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.font.FontFamily
 
 @Composable
-expect fun fontResources(font: String = "roboto_regular"): FontFamily
+expect fun provideFontResource(font: String = "roboto_regular"): FontFamily
