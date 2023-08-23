@@ -42,4 +42,5 @@ object Color {
     internal val Ash800: Color = Color(0xFFA5B2BD)
     internal val NeutralVariant: Color = Color(0xFFEFF6FA)
     internal val NeutralWhite: Color = Color(0xFFFFFFFF)
+    internal val CustomOrange: Color = Color(0xFFFAAD14)
 }

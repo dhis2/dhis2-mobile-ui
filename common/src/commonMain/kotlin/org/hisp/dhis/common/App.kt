@@ -27,6 +27,7 @@ import org.hisp.dhis.common.screens.FormsComponentsScreen
 import org.hisp.dhis.common.screens.IconButtonScreen
 import org.hisp.dhis.common.screens.NotImplementedScreen
 import org.hisp.dhis.common.screens.ProgressScreen
+import org.hisp.dhis.common.screens.SupportingTextScreen
 import org.hisp.dhis.common.screens.radio.RadioButtonScreen
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
@@ -41,7 +42,7 @@ fun App() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Main() {
-    val currentScreen = remember { mutableStateOf(Components.FORMS_COMPONENTS) }
+    val currentScreen = remember { mutableStateOf(Components.SUPPORTING_TEXT) }
     var expanded by remember { mutableStateOf(false) }
 
     Column(modifier = Modifier.padding(Spacing.Spacing16)) {
@@ -91,6 +92,7 @@ fun Main() {
             Components.RADIO -> RadioButtonScreen()
             Components.CHECK_BOX -> CheckboxScreen()
             Components.PROGRESS -> ProgressScreen()
+            Components.SUPPORTING_TEXT -> SupportingTextScreen()
             else -> NotImplementedScreen()
         }
     }

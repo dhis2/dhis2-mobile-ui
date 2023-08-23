@@ -14,7 +14,6 @@ import org.hisp.dhis.mobile.ui.designsystem.component.RowComponentContainer
 @Composable
 fun IconButtonScreen() {
     ColumnComponentContainer(
-        title = "Icon Buttons ",
         content = {
             // SquareIconButton
             RowComponentContainer(
