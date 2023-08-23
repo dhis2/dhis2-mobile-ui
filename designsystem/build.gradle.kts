@@ -6,12 +6,13 @@ plugins {
     id("org.jetbrains.compose")
     id("com.android.library")
     id("org.jlleitschuh.gradle.ktlint")
-    id("dev.icerock.mobile.multiplatform-resources")
     id("convention.publication")
 }
 
 kotlin {
-    android()
+    androidTarget {
+        publishLibraryVariants("release")
+    }
 
     jvm("desktop")
 
@@ -22,9 +23,23 @@ kotlin {
                 implementation(compose.foundation)
                 implementation(compose.ui)
                 implementation(compose.material3)
-                implementation(compose.materialIconsExtended)
-                api(moko.resources)
-                api(moko.resourcesCompose)
+                api(compose.materialIconsExtended)
+                @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
+                implementation(compose.components.resources)
+            }
+        }
+
+        val androidMain by getting {
+            dependencies {
+                api("androidx.activity:activity-compose:1.7.2")
+                api("androidx.appcompat:appcompat:1.6.1")
+                api("androidx.core:core-ktx:1.10.1")
+            }
+        }
+
+        val desktopMain by getting {
+            dependencies {
+                implementation(compose.desktop.common)
             }
         }
     }
@@ -35,7 +50,8 @@ android {
     namespace = "org.hisp.dhis.mobile.ui.designsystem"
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
-    sourceSets["main"].res.srcDirs("src/androidMain/res")
+    sourceSets["main"].res.srcDirs("src/androidMain/res", "src/commonMain/resources")
+    sourceSets["main"].resources.srcDirs("src/commonMain/resources")
 
     defaultConfig {
         minSdk = (findProperty("android.minSdk") as String).toInt()
@@ -53,16 +69,4 @@ android {
 ktlint {
     verbose.set(true)
     outputToConsole.set(true)
-    filter {
-        exclude { projectDir.toURI().relativize(it.file.toURI()).path.contains("/generated/") }
-    }
-}
-
-multiplatformResources {
-    multiplatformResourcesPackage = "org.hisp.dhis.mobile.ui.designsystem"
-    multiplatformResourcesClassName = "SharedRes"
-}
-
-tasks.named("runKtlintCheckOverCommonMainSourceSet") {
-    mustRunAfter("generateMRcommonMain")
 }
