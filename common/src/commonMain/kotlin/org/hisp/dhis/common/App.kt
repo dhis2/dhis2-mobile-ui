@@ -26,6 +26,7 @@ import org.hisp.dhis.common.screens.Components
 import org.hisp.dhis.common.screens.FormsComponentsScreen
 import org.hisp.dhis.common.screens.IconButtonScreen
 import org.hisp.dhis.common.screens.InputScreen
+import org.hisp.dhis.common.screens.LegendScreen
 import org.hisp.dhis.common.screens.NotImplementedScreen
 import org.hisp.dhis.common.screens.ProgressScreen
 import org.hisp.dhis.common.screens.SupportingTextScreen
@@ -93,6 +94,7 @@ fun Main() {
             Components.RADIO -> RadioButtonScreen()
             Components.CHECK_BOX -> CheckboxScreen()
             Components.PROGRESS -> ProgressScreen()
+            Components.LEGEND -> LegendScreen()
             Components.INPUT -> InputScreen()
             Components.SUPPORTING_TEXT -> SupportingTextScreen()
             else -> NotImplementedScreen()

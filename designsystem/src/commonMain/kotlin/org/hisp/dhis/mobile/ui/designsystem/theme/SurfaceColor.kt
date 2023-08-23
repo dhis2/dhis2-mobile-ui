@@ -16,4 +16,7 @@ object SurfaceColor {
     val ContainerHigh = Color.Blue150
     val ContainerHighest = Color.Blue200
     val Scrim = Color.Charcoal800A32
+    val CustomGreen = Color.CustomGreen
+    val CustomPink = Color.CustomDarkPink
+    val CustomOrange = Color.CustomOrange
 }
