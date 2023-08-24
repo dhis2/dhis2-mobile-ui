@@ -96,17 +96,18 @@ fun CheckBox(
 @Composable
 fun CheckBoxBlock(
     orientation: Orientation,
-    content: List<CheckBoxState>
+    content: List<CheckBoxData>
 ) {
     if (orientation == Orientation.HORIZONTAL) {
-        FlowRow(
-            horizontalArrangement = Arrangement.spacedBy(Spacing.Spacing16, Alignment.Start),
-            verticalAlignment = Alignment.Top
-        ) {
-            content.map {
-                CheckBox(it.checked, it.enabled, it.textInput)
+        FlowRowComponentsContainer(
+            null,
+            Spacing.Spacing16,
+            content = {
+                content.map {
+                    CheckBox(it.checked, it.enabled, it.textInput)
+                }
             }
-        }
+        )
     } else {
         Column(
             verticalArrangement = Arrangement.spacedBy(Spacing.Spacing0, Alignment.Top),
@@ -119,7 +120,7 @@ fun CheckBoxBlock(
     }
 }
 
-data class CheckBoxState(
+data class CheckBoxData(
     val checked: MutableState<Boolean>,
     val enabled: Boolean,
     val textInput: String?
