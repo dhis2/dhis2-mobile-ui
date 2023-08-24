@@ -15,6 +15,7 @@ import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -129,7 +130,7 @@ fun Button(
             val interactionSource = remember { MutableInteractionSource() }
             val isPressed by interactionSource.collectIsPressedAsState()
             var topPadding = mutableStateOf(0)
-            var shadowColor = mutableStateOf(SurfaceColor.ContainerHighest)
+            val shadowColor: MutableState<Color>
             if (enabled) {
                 if (isPressed) {
                     shadowColor = mutableStateOf(Color.Transparent)
@@ -139,7 +140,7 @@ fun Button(
                     topPadding = mutableStateOf(0)
                 }
             } else {
-                mutableStateOf(Color.Transparent)
+                shadowColor = mutableStateOf(Color.Transparent)
             }
 
             ElevatedButton(

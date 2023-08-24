@@ -1,6 +1,7 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -57,7 +58,9 @@ fun SquareIconButton(
         ),
         contentPadding = PaddingValues(Spacing.Spacing8),
     ) {
-        icon()
+        Box(Modifier.size(Spacing.Spacing24)) {
+            icon()
+        }
     }
 }
 
@@ -102,7 +105,9 @@ private fun StandardIconButton(
             enabled = enabled,
             colors = IconButtonDefaults.iconButtonColors(Color.Transparent, TextColor.OnSurfaceVariant, Color.Transparent, TextColor.OnDisabledSurface),
         ) {
-            icon()
+            Box(Modifier.size(Spacing.Spacing24)) {
+                icon()
+            }
         }
     }
 }
@@ -122,7 +127,9 @@ private fun FilledIconButton(
         enabled = enabled,
         colors = IconButtonDefaults.iconButtonColors(SurfaceColor.Primary, TextColor.OnPrimary, SurfaceColor.DisabledSurface, TextColor.OnDisabledSurface),
     ) {
-        icon()
+        Box(Modifier.size(Spacing.Spacing24)) {
+            icon()
+        }
     }
 }
 
@@ -144,7 +151,9 @@ private fun FilledTonalIconButton(
             colors = IconButtonDefaults.filledTonalIconButtonColors(SurfaceColor.PrimaryContainer, TextColor.OnPrimaryContainer, SurfaceColor.DisabledSurface, TextColor.OnDisabledSurface),
 
         ) {
-            icon()
+            Box(Modifier.size(Spacing.Spacing24)) {
+                icon()
+            }
         }
     }
 }
@@ -167,7 +176,9 @@ private fun OutlinedIconButton(
             border = BorderStroke(Spacing.Spacing1, if (enabled) Outline.Dark else SurfaceColor.DisabledSurface),
             colors = IconButtonDefaults.outlinedIconButtonColors(Color.Transparent, TextColor.OnPrimaryContainer),
         ) {
-            icon()
+            Box(Modifier.size(Spacing.Spacing24)) {
+                icon()
+            }
         }
     }
 }
