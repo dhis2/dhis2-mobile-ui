@@ -1,7 +1,12 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ripple.LocalRippleTheme
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
@@ -10,8 +15,12 @@ import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.IntOffset
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
 import org.hisp.dhis.mobile.ui.designsystem.theme.Ripple
@@ -93,7 +102,7 @@ fun Button(
                 shape = ButtonDefaults.outlinedShape,
                 contentPadding = paddingValues,
             ) {
-                ButtonText(text, textColor, icon)
+                ButtonText(text, textColor, icon, enabled)
             }
         }
         ButtonStyle.TONAL -> {
@@ -116,22 +125,42 @@ fun Button(
         }
         ButtonStyle.KEYBOARDKEY -> {
             val textColor = if (enabled) SurfaceColor.Primary else TextColor.OnDisabledSurface
-            val shadowColor = if (enabled) SurfaceColor.ContainerHighest else Color.Transparent
 
-            SimpleButton(
+            val interactionSource = remember { MutableInteractionSource() }
+            val isPressed by interactionSource.collectIsPressedAsState()
+            var topPadding = mutableStateOf(0)
+            var shadowColor = mutableStateOf(SurfaceColor.ContainerHighest)
+            if (enabled) {
+                if (isPressed) {
+                    shadowColor = mutableStateOf(Color.Transparent)
+                    topPadding = mutableStateOf(2)
+                } else {
+                    shadowColor = mutableStateOf(SurfaceColor.ContainerHighest)
+                    topPadding = mutableStateOf(0)
+                }
+            } else {
+                mutableStateOf(Color.Transparent)
+            }
+
+            ElevatedButton(
                 onClick = { onClick() },
-                modifier = modifier.buttonShadow(shadowColor, Radius.Full, icon != null),
+                interactionSource = interactionSource,
+                modifier = modifier
+                    .buttonShadow(shadowColor, Radius.Full, icon != null).offset {
+                        IntOffset(
+                            0,
+                            topPadding.value
+                        )
+                    },
                 enabled = enabled,
-                buttonColors = ButtonDefaults.filledTonalButtonColors(
-                    SurfaceColor.Container,
-                    SurfaceColor.Primary,
-                    SurfaceColor.DisabledSurface,
-                    TextColor.OnDisabledSurface,
-                ),
-                text = text,
-                textColor = textColor,
-                icon = icon,
-            )
+                colors = ButtonDefaults.elevatedButtonColors(
+                    disabledContainerColor = Color.Transparent,
+                    containerColor = SurfaceColor.Container
+                )
+
+            ) {
+                ButtonText(text, textColor, icon, enabled)
+            }
         }
         ButtonStyle.OUTLINED -> {
             val textColor = if (enabled) SurfaceColor.Primary else TextColor.OnDisabledSurface
@@ -145,10 +174,11 @@ fun Button(
                     Color.Transparent,
                     TextColor.OnDisabledSurface,
                 ),
-                border = BorderStroke(Spacing.Spacing1, Outline.Dark),
+                border = BorderStroke(Spacing.Spacing1, if (enabled) Outline.Dark else SurfaceColor.DisabledSurface),
                 contentPadding = paddingValues,
+                modifier = Modifier.height(Spacing.Spacing40)
             ) {
-                ButtonText(text, textColor, icon)
+                ButtonText(text, textColor, icon, enabled)
             }
         }
     }
@@ -172,10 +202,10 @@ private fun SimpleButton(
         modifier = modifier,
         enabled = enabled,
         colors = buttonColors,
-        shape = ButtonDefaults.outlinedShape,
-        contentPadding = paddingValues,
+        shape = RoundedCornerShape(Radius.Full),
+        contentPadding = paddingValues
     ) {
-        ButtonText(text, textColor, icon)
+        ButtonText(text, textColor, icon, enabled)
     }
 }
 
