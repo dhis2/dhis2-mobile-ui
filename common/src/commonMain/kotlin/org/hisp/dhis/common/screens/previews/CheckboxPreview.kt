@@ -3,6 +3,9 @@ package org.hisp.dhis.common.screens.previews
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import org.hisp.dhis.mobile.ui.designsystem.component.CheckBox
+import org.hisp.dhis.mobile.ui.designsystem.component.CheckBoxBlock
+import org.hisp.dhis.mobile.ui.designsystem.component.CheckBoxState
+import org.hisp.dhis.mobile.ui.designsystem.component.Orientation
 
 @Composable
 internal fun CheckboxPreview(checked: MutableState<Boolean>, enabled: Boolean = true) {
@@ -20,4 +23,9 @@ internal fun TextCheckboxPreview(checked: MutableState<Boolean>, enabled: Boolea
         enabled = enabled,
         textInput = text,
     )
+}
+
+@Composable
+internal fun CheckboxBlockPreview(orientation: Orientation, content: List<CheckBoxState>) {
+    CheckBoxBlock(orientation, content)
 }

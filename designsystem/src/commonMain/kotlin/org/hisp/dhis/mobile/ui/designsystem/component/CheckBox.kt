@@ -3,7 +3,11 @@ package org.hisp.dhis.mobile.ui.designsystem.component
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.ripple.LocalRippleTheme
@@ -87,4 +91,41 @@ fun CheckBox(
             )
         }
     }
+}
+
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+fun CheckBoxBlock(
+    orientation: Orientation,
+    content: List<CheckBoxState>) {
+    if (orientation == Orientation.HORIZONTAL) {
+        FlowRow(
+            horizontalArrangement = Arrangement.spacedBy(Spacing.Spacing16, Alignment.Start),
+            verticalAlignment = Alignment.Top,
+        ) {
+            content.map {
+                CheckBox(it.checked, it.enabled, it.textInput)
+            }
+        }
+    } else {
+        Column(
+            verticalArrangement = Arrangement.spacedBy(Spacing.Spacing0, Alignment.Top),
+            horizontalAlignment = Alignment.Start,
+        ) {
+            content.map {
+                CheckBox(it.checked, it.enabled, it.textInput)
+            }
+        }
+    }
+}
+
+data class CheckBoxState(
+    val checked: MutableState<Boolean>,
+    val enabled: Boolean,
+    val textInput: String?
+)
+
+enum class Orientation {
+    HORIZONTAL,
+    VERTICAL
 }
