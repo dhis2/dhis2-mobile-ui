@@ -9,6 +9,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
+/**
+ * DHIS2 ButtonBlock with generic buttons slot.
+ * @param primaryButton Controls first or primary button, if there is
+ * only one it will be centered, otherwise spaced equally
+ * @param secondaryButton Controls the second button to be shown
+ * @param modifier allow a modifier to be passed to the composable.
+ */
 @Composable
 fun ButtonBlock(
     primaryButton: @Composable (() -> Unit)? = null,
