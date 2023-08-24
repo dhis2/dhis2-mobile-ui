@@ -4,8 +4,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -34,6 +32,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
  * clickable and will appear disabled to accessibility services.
  * @param textInput The checkbox option text.
  */
+
 @Composable
 fun CheckBox(
     checked: MutableState<Boolean>,
@@ -92,7 +91,15 @@ fun CheckBox(
     }
 }
 
-@OptIn(ExperimentalLayoutApi::class)
+/**
+ * DHIS2 check box block.
+ *
+ * @param orientation Controls how the check boxes will be displayed, HORIZONTAL for rows or
+ * VERTICAL for columns.
+ * @param content Contains all the data that will be displayed, the list type is CheckBoxData,
+ * this data class contains all data for [CheckBox] composable.
+ */
+
 @Composable
 fun CheckBoxBlock(
     orientation: Orientation,
