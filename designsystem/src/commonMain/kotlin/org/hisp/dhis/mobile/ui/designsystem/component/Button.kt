@@ -250,21 +250,21 @@ enum class ButtonStyle {
  */
 @Composable
 fun ButtonBlock(
-    primaryButton: @Composable (() -> Unit)? = null,
+    primaryButton: @Composable (() -> Unit),
     secondaryButton: @Composable (() -> Unit)? = null,
     modifier: Modifier = Modifier
 ) {
     Row(horizontalArrangement = Arrangement.Center, modifier = modifier) {
         if (secondaryButton != null) {
             Box(modifier = Modifier.weight(0.5f)) {
-                primaryButton?.invoke()
+                primaryButton.invoke()
             }
             Spacer(Modifier.size(Spacing.Spacing16))
             Box(modifier = Modifier.weight(0.5f)) {
                 secondaryButton.invoke()
             }
         } else {
-            primaryButton?.invoke()
+            primaryButton.invoke()
         }
     }
 }
