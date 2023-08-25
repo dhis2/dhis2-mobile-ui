@@ -26,6 +26,7 @@ import org.hisp.dhis.common.screens.Components
 import org.hisp.dhis.common.screens.FormsComponentsScreen
 import org.hisp.dhis.common.screens.IconButtonScreen
 import org.hisp.dhis.common.screens.InputScreen
+import org.hisp.dhis.common.screens.LegendDescriptionScreen
 import org.hisp.dhis.common.screens.LegendScreen
 import org.hisp.dhis.common.screens.NotImplementedScreen
 import org.hisp.dhis.common.screens.ProgressScreen
@@ -44,7 +45,7 @@ fun App() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Main() {
-    val currentScreen = remember { mutableStateOf(Components.SUPPORTING_TEXT) }
+    val currentScreen = remember { mutableStateOf(Components.LEGEND_DESCRIPTION) }
     var expanded by remember { mutableStateOf(false) }
 
     Column(modifier = Modifier.padding(Spacing.Spacing16)) {
@@ -97,6 +98,8 @@ fun Main() {
             Components.LEGEND -> LegendScreen()
             Components.INPUT -> InputScreen()
             Components.SUPPORTING_TEXT -> SupportingTextScreen()
+            Components.LEGEND_DESCRIPTION -> LegendDescriptionScreen()
+
             else -> NotImplementedScreen()
         }
     }
