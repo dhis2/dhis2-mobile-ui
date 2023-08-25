@@ -1,7 +1,6 @@
 package org.hisp.dhis.common.screens
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.InputText
@@ -38,7 +37,13 @@ fun InputTextScreen() {
 
             ),
             legendText = "Legend",
-            state = mutableStateOf(InputShellState.ERROR)
+            state = InputShellState.ERROR
         )
+
+        SubTitle("Disabled Input text ", textColor = TextColor.OnSurfaceVariant)
+        InputText(title = "Label", inputText = "", state = InputShellState.DISABLED)
+
+        SubTitle("Disabled Input text with content ", textColor = TextColor.OnSurfaceVariant)
+        InputText(title = "Label", inputText = "Content", state = InputShellState.DISABLED)
     }
 }

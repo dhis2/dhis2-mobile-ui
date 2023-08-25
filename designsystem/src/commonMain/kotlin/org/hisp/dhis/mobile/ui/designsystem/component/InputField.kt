@@ -46,10 +46,12 @@ fun EmptyInput(
 
 /**
  * DHIS2 Basic Input. Wraps Material· [BasicTextField].
+ * @param helper Manages the helper text to be shown
  * @param enabled Controls the enabled state of the component. When `false`, this component will not be
  * clickable and will appear disabled to accessibility services.
- * @param helper Manages the helper text to be shown
  * @param helperStyle manages the helper text style, NONE by default
+ * @param inputText manages the value of the input field text
+ * @param onInputChanged gives access to the onTextChangedEvent
  */
 @Composable
 fun BasicInput(

@@ -4,7 +4,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Cancel
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -13,10 +12,20 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 
+/**
+ * DHIS2 Input Text. Wraps DHIS · [InputShell].
+ * @param title controls the text to be shown for the title
+ * @param state Manages the InputShell state
+ * @param supportingText is a list of SupportingTextData that
+ * manages all the messages to be shown
+ * @param legendText manages the text to be shown with the legend component
+ * @param inputText manages the value of the text in the input field
+ * @param modifier allows a modifier to be passed externally
+ */
 @Composable
 fun InputText(
     title: String,
-    state: MutableState<InputShellState> = mutableStateOf(InputShellState.UNFOCUSED),
+    state: InputShellState = InputShellState.UNFOCUSED,
     supportingText: List<SupportingTextData>? = null,
     legendText: String? = null,
     inputText: String = "",
@@ -40,11 +49,11 @@ fun InputText(
                         inputValue = ""
                         deleteButtonIsVisible = false
                     },
-                    enabled = state.value != InputShellState.DISABLED
+                    enabled = state != InputShellState.DISABLED
                 )
             }
         },
-        state = state.value,
+        state = state,
         legend = {
             legendText?.let {
                 Legend(SurfaceColor.CustomGreen, legendText) {}
@@ -54,10 +63,14 @@ fun InputText(
             supportingText?.forEach { label -> SupportingText(label.text, label.state) }
         },
         inputField = {
-            BasicInput(inputText = inputValue, onInputChanged = {
-                inputValue = it
-                deleteButtonIsVisible = inputValue.isNotEmpty()
-            })
+            BasicInput(
+                inputText = inputValue,
+                onInputChanged = {
+                    inputValue = it
+                    deleteButtonIsVisible = inputValue.isNotEmpty()
+                },
+                enabled = state != InputShellState.DISABLED
+            )
         }
     )
 }
