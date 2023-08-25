@@ -139,3 +139,5 @@ enum class SupportingTextState(val color: Color) {
     WARNING(TextColor.OnWarning),
     ERROR(SurfaceColor.Error)
 }
+
+data class SupportingTextData(val text: String, val state: SupportingTextState)

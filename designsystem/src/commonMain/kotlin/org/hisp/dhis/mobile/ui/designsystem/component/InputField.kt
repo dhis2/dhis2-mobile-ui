@@ -9,10 +9,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.CornerRadius
@@ -60,10 +56,9 @@ fun BasicInput(
     helper: String? = null,
     enabled: Boolean = true,
     helperStyle: InputStyle = InputStyle.NONE,
-    inputText: String = ""
+    inputText: String = "",
+    onInputChanged: (String) -> Unit
 ) {
-    var text by remember { mutableStateOf(inputText) }
-
     var visualTransformation = VisualTransformation.None
 
     if (helperStyle != InputStyle.NONE) {
@@ -81,10 +76,8 @@ fun BasicInput(
                 Color.Transparent
             )
             .fillMaxWidth(),
-        value = text,
-        onValueChange = {
-            text = it
-        },
+        value = inputText,
+        onValueChange = onInputChanged,
         enabled = enabled,
         textStyle = MaterialTheme.typography.bodyLarge.copy(color = if (enabled) TextColor.OnSurface else TextColor.OnDisabledSurface),
         singleLine = true,
