@@ -3,7 +3,6 @@ package org.hisp.dhis.mobile.ui.designsystem.component
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -13,8 +12,10 @@ import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
@@ -35,10 +36,13 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
 
 @Composable
 fun CheckBox(
-    checked: MutableState<Boolean>,
+    checked: Boolean,
     enabled: Boolean,
     textInput: String? = null,
 ) {
+    var isChecked by remember {
+        mutableStateOf(checked)
+    }
     val interactionSource = if (enabled) remember { MutableInteractionSource() } else MutableInteractionSource()
     val textColor = if (enabled) {
         TextColor.OnSurface
@@ -55,7 +59,7 @@ fun CheckBox(
                 indication = null,
                 onClick = {
                     if (enabled) {
-                        checked.value = !checked.value
+                        isChecked = !isChecked
                     }
                 },
                 enabled = enabled,
@@ -64,9 +68,9 @@ fun CheckBox(
     ) {
         CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
             Checkbox(
-                checked = checked.value,
+                checked = isChecked,
                 onCheckedChange = {
-                    if (enabled) checked.value = it
+                    if (enabled) isChecked = it
                 },
                 interactionSource = interactionSource,
                 enabled = enabled,
@@ -116,19 +120,20 @@ fun CheckBoxBlock(
             }
         )
     } else {
-        Column(
-            verticalArrangement = Arrangement.spacedBy(Spacing.Spacing0, Alignment.Top),
-            horizontalAlignment = Alignment.Start
-        ) {
-            content.map {
-                CheckBox(it.checked, it.enabled, it.textInput)
+        FlowColumnComponentsContainer(
+            null,
+            Spacing.Spacing0,
+            content = {
+                content.map {
+                    CheckBox(it.checked, it.enabled, it.textInput)
+                }
             }
-        }
+        )
     }
 }
 
 data class CheckBoxData(
-    val checked: MutableState<Boolean>,
+    val checked: Boolean,
     val enabled: Boolean,
     val textInput: String?
 )

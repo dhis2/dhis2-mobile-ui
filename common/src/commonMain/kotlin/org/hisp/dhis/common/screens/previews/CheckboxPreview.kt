@@ -5,7 +5,7 @@ import androidx.compose.runtime.MutableState
 import org.hisp.dhis.mobile.ui.designsystem.component.CheckBox
 
 @Composable
-internal fun CheckboxPreview(checked: MutableState<Boolean>, enabled: Boolean = true) {
+internal fun CheckboxPreview(checked: Boolean, enabled: Boolean = true) {
     CheckBox(
         checked = checked,
         enabled = enabled,
@@ -14,7 +14,7 @@ internal fun CheckboxPreview(checked: MutableState<Boolean>, enabled: Boolean = 
 }
 
 @Composable
-internal fun TextCheckboxPreview(checked: MutableState<Boolean>, enabled: Boolean = true, text: String = "Option") {
+internal fun TextCheckboxPreview(checked: Boolean, enabled: Boolean = true, text: String = "Option") {
     CheckBox(
         checked = checked,
         enabled = enabled,
