@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import org.hisp.dhis.mobile.ui.designsystem.component.Legend
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
+import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
 @Composable
 fun LegendScreen() {
@@ -23,7 +24,7 @@ fun LegendScreen() {
         Legend(SurfaceColor.CustomGreen, "Legend") {}
 
         Text("Orange Legend")
-        Legend(SurfaceColor.CustomOrange, "Legend") {}
+        Legend(TextColor.OnWarning, "Legend") {}
 
         Text("Pink Legend")
         Legend(

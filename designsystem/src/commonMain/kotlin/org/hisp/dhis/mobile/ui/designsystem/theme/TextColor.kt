@@ -9,5 +9,6 @@ object TextColor {
     val OnError = Color.NeutralWhite
     val OnErrorContainer = Color.Red900
     val OnDisabledSurface = Color.Ash800
-    val OnWarning = Color.CustomOrange
+    val OnWarning = Color.Orange800
+    val OnWarningContainer = Color.Orange900
 }
