@@ -4,13 +4,46 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import org.hisp.dhis.common.screens.previews.ButtonPreview
 import org.hisp.dhis.common.screens.previews.ButtonPreviewWithIcon
+import org.hisp.dhis.common.screens.previews.InputShellPreview
+import org.hisp.dhis.mobile.ui.designsystem.component.BasicInput
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
+import org.hisp.dhis.mobile.ui.designsystem.component.InputStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.RowComponentContainer
+import org.hisp.dhis.mobile.ui.designsystem.component.TextButtonSelector
 
 @Composable
 fun ButtonScreen() {
     ColumnComponentContainer() {
+        Text("TextButtonSelectors")
+        TextButtonSelector(
+            firstOptionText = "date of birth",
+            firstOptionComposable = {
+                InputShellPreview(
+                    "Date of birth",
+                    inputField = {
+                        BasicInput(
+                            "19/11/1991",
+                            true,
+                            InputStyle.WITH_HELPER_AFTER
+                        )
+                    }
+                )
+            },
+            secondOptionText = "age",
+            secondOptionComposable = {
+                InputShellPreview(
+                    "Years",
+                    inputField = {
+                        BasicInput(
+                            "Years",
+                            true,
+                            InputStyle.WITH_HELPER_AFTER
+                        )
+                    }
+                )
+            }
+        )
         Text("Filled")
         RowComponentContainer() {
             ButtonPreview("Label", ButtonStyle.FILLED)

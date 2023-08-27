@@ -5,6 +5,7 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -18,6 +19,7 @@ import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.MutableState
@@ -36,6 +38,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.buttonShadow
+import java.util.Locale
 
 /**
  * DHIS2 button with generic icon slot.
@@ -214,6 +217,50 @@ private fun SimpleButton(
         contentPadding = paddingValues,
     ) {
         ButtonText(text, textColor, icon, enabled)
+    }
+}
+
+@Composable
+fun TextButtonSelector(
+    enabled: Boolean = true,
+    firstOptionText: String,
+    secondOptionText: String,
+    firstOptionComposable: @Composable (() -> Unit),
+    secondOptionComposable: @Composable (() -> Unit)
+) {
+    var isTextVisible by remember { mutableStateOf(true) }
+    var isFirstComposableVisible by remember { mutableStateOf(false) }
+    var isSecondComposableVisible by remember { mutableStateOf(false) }
+
+    if (isTextVisible) {
+        Row {
+            Text(
+                text = firstOptionText.uppercase(Locale.getDefault()),
+                color = SurfaceColor.Primary,
+                modifier = Modifier.clickable {
+                    isFirstComposableVisible = true
+                    isTextVisible = false
+                    isSecondComposableVisible = false
+                }
+            )
+            Text(text = " OR ")
+
+            Text(
+                text = secondOptionText.uppercase(Locale.getDefault()),
+                color = SurfaceColor.Primary,
+                modifier = Modifier.clickable {
+                    isFirstComposableVisible = false
+                    isTextVisible = false
+                    isSecondComposableVisible = true
+                }
+            )
+        }
+    }
+    if (isFirstComposableVisible) {
+        firstOptionComposable.invoke()
+    }
+    if (isSecondComposableVisible) {
+        secondOptionComposable.invoke()
     }
 }
 
