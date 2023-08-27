@@ -74,7 +74,7 @@ fun LegendDescription(color: Color, text: String, range: IntRange) {
         Column(modifier = Modifier) {
             Row(
                 modifier = Modifier
-                    .padding(Spacing.Spacing16, Spacing.Spacing8, Spacing.Spacing8, Spacing.Spacing6),
+                    .padding(Spacing.Spacing0, Spacing.Spacing8, Spacing.Spacing8, Spacing.Spacing6),
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -88,7 +88,7 @@ fun LegendDescription(color: Color, text: String, range: IntRange) {
                 }
                 Text(
                     text,
-                    Modifier.padding(start = Spacing.Spacing8)
+                    Modifier.padding(start = Spacing.Spacing8, end = Spacing.Spacing16)
                         .weight(2f, true),
                     style = MaterialTheme.typography.bodyMedium
                 )
