@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.LegendDescription
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
+import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
 @Composable
 fun LegendDescriptionScreen() {
@@ -26,7 +27,7 @@ fun LegendDescriptionScreen() {
         Column {
             LegendDescription(SurfaceColor.CustomGreen, "Low", IntRange(0, 5))
             LegendDescription(SurfaceColor.CustomYellow, "Medium", IntRange(5, 10))
-            LegendDescription(SurfaceColor.CustomOrange, "High", IntRange(10, 20))
+            LegendDescription(TextColor.OnWarning, "High", IntRange(10, 20))
             LegendDescription(SurfaceColor.CustomPink, "Very high", IntRange(20, 40))
             LegendDescription(SurfaceColor.CustomBrown, "Extreme", IntRange(40, 120))
             LegendDescription(
