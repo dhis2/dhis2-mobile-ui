@@ -28,23 +28,20 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
 /**
  * DHIS2 check box with or without text. Wraps Material 3 [Checkbox].
  *
- * @param checked Controls if the option is checked.
- * @param enabled Controls the enabled state of the button. When `false`, this button will not be
- * clickable and will appear disabled to accessibility services.
- * @param textInput The checkbox option text.
+ * @param checkBoxData Contains all data for controlling the inner state of the component. It's parameters are uid for
+ * identifying the component, checked for controlling if the option is checked, enabled controls if the component is
+ * clickable and textInput displaying the option text.
  */
 
 @Composable
 fun CheckBox(
-    checked: Boolean,
-    enabled: Boolean,
-    textInput: String? = null,
+    checkBoxData: CheckBoxData
 ) {
     var isChecked by remember {
-        mutableStateOf(checked)
+        mutableStateOf(checkBoxData.checked)
     }
-    val interactionSource = if (enabled) remember { MutableInteractionSource() } else MutableInteractionSource()
-    val textColor = if (enabled) {
+    val interactionSource = if (checkBoxData.enabled) remember { MutableInteractionSource() } else MutableInteractionSource()
+    val textColor = if (checkBoxData.enabled) {
         TextColor.OnSurface
     } else {
         TextColor.OnDisabledSurface
@@ -58,22 +55,26 @@ fun CheckBox(
                 interactionSource = interactionSource,
                 indication = null,
                 onClick = {
-                    if (enabled) {
+                    if (checkBoxData.enabled) {
                         isChecked = !isChecked
+                        checkBoxData.checked = isChecked
                     }
                 },
-                enabled = enabled,
+                enabled = checkBoxData.enabled,
             )
-            .hoverPointerIcon(enabled),
+            .hoverPointerIcon(checkBoxData.enabled),
     ) {
         CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
             Checkbox(
                 checked = isChecked,
                 onCheckedChange = {
-                    if (enabled) isChecked = it
+                    if (checkBoxData.enabled) {
+                        isChecked = it
+                        checkBoxData.checked = isChecked
+                    }
                 },
                 interactionSource = interactionSource,
-                enabled = enabled,
+                enabled = checkBoxData.enabled,
                 modifier = Modifier
                     .size(Spacing.Spacing40),
                 colors = CheckboxDefaults.colors(
@@ -84,10 +85,11 @@ fun CheckBox(
                 ),
             )
         }
-        textInput?.let {
+        checkBoxData.textInput?.let {
             Text(
                 modifier = Modifier
-                    .padding(top = Spacing.Spacing8, bottom = Spacing.Spacing8),
+                    .padding(top = Spacing.Spacing8, bottom = Spacing.Spacing8)
+                    .hoverPointerIcon(checkBoxData.enabled),
                 text = it,
                 color = textColor,
             )
@@ -118,7 +120,7 @@ fun CheckBoxBlock(
                     val state by remember {
                         mutableStateOf(it)
                     }
-                    CheckBox(it.checked, it.enabled, it.textInput)
+                    CheckBox(it)
                 }
             }
         )
@@ -131,7 +133,7 @@ fun CheckBoxBlock(
                     val state by remember {
                         mutableStateOf(it)
                     }
-                    CheckBox(it.checked, it.enabled, it.textInput)
+                    CheckBox(it)
                 }
             }
         )

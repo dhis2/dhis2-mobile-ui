@@ -23,17 +23,17 @@ fun CheckboxScreen() {
     val state4 = false
 
     val checkBoxesStatesHorizontal = listOf(
-        CheckBoxData("", checked = true, enabled = true, textInput = option1),
-        CheckBoxData("", checked = false, enabled = true, textInput = option2),
-        CheckBoxData("", checked = true, enabled = false, textInput = option3),
-        CheckBoxData("", checked = false, enabled = false, textInput = option4)
+        CheckBoxData("4", checked = true, enabled = true, textInput = option1),
+        CheckBoxData("5", checked = false, enabled = true, textInput = option2),
+        CheckBoxData("6", checked = true, enabled = false, textInput = option3),
+        CheckBoxData("7", checked = false, enabled = false, textInput = option4)
     )
 
     val checkBoxesStatesVertical = listOf(
-        CheckBoxData("", checked = true, enabled = true, textInput = option1),
-        CheckBoxData("", checked = false, enabled = true, textInput = option2),
-        CheckBoxData("", checked = true, enabled = false, textInput = option3),
-        CheckBoxData("", checked = false, enabled = false, textInput = option4)
+        CheckBoxData("0", checked = true, enabled = true, textInput = option1),
+        CheckBoxData("1", checked = false, enabled = true, textInput = option2),
+        CheckBoxData("2", checked = true, enabled = false, textInput = option3),
+        CheckBoxData("3", checked = false, enabled = false, textInput = option4)
     )
 
     ColumnComponentContainer(
