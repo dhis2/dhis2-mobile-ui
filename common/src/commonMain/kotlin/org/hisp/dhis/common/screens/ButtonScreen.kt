@@ -4,11 +4,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import org.hisp.dhis.common.screens.previews.ButtonPreview
 import org.hisp.dhis.common.screens.previews.ButtonPreviewWithIcon
-import org.hisp.dhis.common.screens.previews.InputShellPreview
-import org.hisp.dhis.mobile.ui.designsystem.component.BasicInput
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
-import org.hisp.dhis.mobile.ui.designsystem.component.InputStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.RowComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.TextButtonSelector
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
@@ -19,31 +16,10 @@ fun ButtonScreen() {
         Text("TextButtonSelectors")
         TextButtonSelector(
             firstOptionText = provideStringResource("date_birth"),
-            firstOptionComposable = {
-                InputShellPreview(
-                    provideStringResource("date_birth"),
-                    inputField = {
-                        BasicInput(
-                            "19/11/1991",
-                            true,
-                            InputStyle.WITH_HELPER_AFTER
-                        )
-                    }
-                )
-            },
+            onClickFirstOption = {},
+            middleText = provideStringResource("or"),
             secondOptionText = provideStringResource("age"),
-            secondOptionComposable = {
-                InputShellPreview(
-                    provideStringResource("years"),
-                    inputField = {
-                        BasicInput(
-                            provideStringResource("years"),
-                            true,
-                            InputStyle.WITH_HELPER_AFTER
-                        )
-                    }
-                )
-            }
+            onClickSecondOption = {}
         )
         Text("Filled")
         RowComponentContainer() {

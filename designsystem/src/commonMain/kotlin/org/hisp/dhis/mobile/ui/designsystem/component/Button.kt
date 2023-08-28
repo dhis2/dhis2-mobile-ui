@@ -18,6 +18,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ElevatedButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -30,7 +31,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
-import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
 import org.hisp.dhis.mobile.ui.designsystem.theme.Ripple
@@ -224,60 +224,59 @@ private fun SimpleButton(
 fun TextButtonSelector(
     enabled: Boolean = true,
     firstOptionText: String,
+    middleText: String,
     secondOptionText: String,
     modifier: Modifier = Modifier,
-    firstOptionComposable: @Composable (() -> Unit),
-    secondOptionComposable: @Composable (() -> Unit)
+    onClickFirstOption: () -> Unit,
+    onClickSecondOption: () -> Unit
 ) {
     val interactionSourceOption1 = remember { MutableInteractionSource() }
     val interactionSourceOption2 = remember { MutableInteractionSource() }
 
-    var isTextVisible by remember { mutableStateOf(true) }
-    var isFirstComposableVisible by remember { mutableStateOf(false) }
-    var isSecondComposableVisible by remember { mutableStateOf(false) }
     val isPressed1 by interactionSourceOption1.collectIsPressedAsState()
     val isPressed2 by interactionSourceOption2.collectIsPressedAsState()
 
-    val clickableText1Color: MutableState<Color> = if (!isPressed1) mutableStateOf(SurfaceColor.Primary) else mutableStateOf(TextColor.OnSurfaceVariant)
-    val clickableText2Color: MutableState<Color> = if (!isPressed2) mutableStateOf(SurfaceColor.Primary) else mutableStateOf(TextColor.OnSurfaceVariant)
+    val clickableText1Color: MutableState<Color> = if (enabled) {
+        if (!isPressed1) mutableStateOf(SurfaceColor.Primary) else mutableStateOf(TextColor.OnSurfaceVariant)
+    } else {
+        mutableStateOf(TextColor.OnDisabledSurface)
+    }
+    val clickableText2Color: MutableState<Color> = if (enabled) {
+        if (!isPressed2) mutableStateOf(SurfaceColor.Primary) else mutableStateOf(TextColor.OnSurfaceVariant)
+    } else {
+        mutableStateOf(TextColor.OnDisabledSurface)
+    }
 
     Row(modifier = modifier) {
-        if (isTextVisible) {
-            Text(
-                text = firstOptionText,
-                color = clickableText1Color.value,
-                modifier = Modifier.clickable(
-                    interactionSource = interactionSourceOption1,
-                    onClick = {
-                        isFirstComposableVisible = true
-                        isTextVisible = false
-                        isSecondComposableVisible = false
-                    },
-                    indication = null
-                )
-
+        Text(
+            text = firstOptionText,
+            color = clickableText1Color.value,
+            style = MaterialTheme.typography.titleMedium,
+            modifier = Modifier.clickable(
+                interactionSource = interactionSourceOption1,
+                onClick = {
+                    onClickFirstOption()
+                },
+                indication = null
             )
-            Text(text = provideStringResource("or"), modifier = Modifier.padding(start = Spacing.Spacing8, end = Spacing.Spacing8))
-            Text(
-                text = secondOptionText,
-                color = clickableText2Color.value,
-                modifier = Modifier.clickable(
-                    interactionSource = interactionSourceOption2,
-                    onClick = {
-                        isFirstComposableVisible = false
-                        isTextVisible = false
-                        isSecondComposableVisible = true
-                    },
-                    indication = null
-                )
+        )
+        Text(
+            text = middleText,
+            modifier = Modifier.padding(start = Spacing.Spacing8, end = Spacing.Spacing8),
+            style = MaterialTheme.typography.titleMedium,
+            color = if (enabled) TextColor.OnSurfaceVariant else TextColor.OnDisabledSurface
+        )
+        Text(
+            text = secondOptionText,
+            color = clickableText2Color.value,
+            modifier = Modifier.clickable(
+                interactionSource = interactionSourceOption2,
+                onClick = {
+                    onClickSecondOption()
+                },
+                indication = null
             )
-        }
-        if (isFirstComposableVisible) {
-            firstOptionComposable.invoke()
-        }
-        if (isSecondComposableVisible) {
-            secondOptionComposable.invoke()
-        }
+        )
     }
 }
 
