@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ripple.LocalRippleTheme
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
@@ -30,6 +29,7 @@ import androidx.compose.ui.unit.IntOffset
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
 import org.hisp.dhis.mobile.ui.designsystem.theme.Ripple
+import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
@@ -208,7 +208,7 @@ private fun SimpleButton(
         modifier = modifier,
         enabled = enabled,
         colors = buttonColors,
-        shape = RoundedCornerShape(Radius.Full),
+        shape = Shape.Full,
         contentPadding = paddingValues
     ) {
         ButtonText(text, textColor, icon, enabled)
