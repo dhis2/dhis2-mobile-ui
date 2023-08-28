@@ -30,6 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
+import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
 import org.hisp.dhis.mobile.ui.designsystem.theme.Ripple
@@ -38,7 +39,6 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.buttonShadow
-import java.util.Locale
 
 /**
  * DHIS2 button with generic icon slot.
@@ -225,42 +225,59 @@ fun TextButtonSelector(
     enabled: Boolean = true,
     firstOptionText: String,
     secondOptionText: String,
+    modifier: Modifier = Modifier,
     firstOptionComposable: @Composable (() -> Unit),
     secondOptionComposable: @Composable (() -> Unit)
 ) {
+    val interactionSourceOption1 = remember { MutableInteractionSource() }
+    val interactionSourceOption2 = remember { MutableInteractionSource() }
+
     var isTextVisible by remember { mutableStateOf(true) }
     var isFirstComposableVisible by remember { mutableStateOf(false) }
     var isSecondComposableVisible by remember { mutableStateOf(false) }
+    val isPressed1 by interactionSourceOption1.collectIsPressedAsState()
+    val isPressed2 by interactionSourceOption2.collectIsPressedAsState()
 
-    if (isTextVisible) {
-        Row {
+    val clickableText1Color: MutableState<Color> = if (!isPressed1) mutableStateOf(SurfaceColor.Primary) else mutableStateOf(TextColor.OnSurfaceVariant)
+    val clickableText2Color: MutableState<Color> = if (!isPressed2) mutableStateOf(SurfaceColor.Primary) else mutableStateOf(TextColor.OnSurfaceVariant)
+
+    Row(modifier = modifier) {
+        if (isTextVisible) {
             Text(
-                text = firstOptionText.uppercase(Locale.getDefault()),
-                color = SurfaceColor.Primary,
-                modifier = Modifier.clickable {
-                    isFirstComposableVisible = true
-                    isTextVisible = false
-                    isSecondComposableVisible = false
-                }
+                text = firstOptionText,
+                color = clickableText1Color.value,
+                modifier = Modifier.clickable(
+                    interactionSource = interactionSourceOption1,
+                    onClick = {
+                        isFirstComposableVisible = true
+                        isTextVisible = false
+                        isSecondComposableVisible = false
+                    },
+                    indication = null
+                )
+
             )
-            Text(text = " OR ")
-
+            Text(text = provideStringResource("or"), modifier = Modifier.padding(start = Spacing.Spacing8, end = Spacing.Spacing8))
             Text(
-                text = secondOptionText.uppercase(Locale.getDefault()),
-                color = SurfaceColor.Primary,
-                modifier = Modifier.clickable {
-                    isFirstComposableVisible = false
-                    isTextVisible = false
-                    isSecondComposableVisible = true
-                }
+                text = secondOptionText,
+                color = clickableText2Color.value,
+                modifier = Modifier.clickable(
+                    interactionSource = interactionSourceOption2,
+                    onClick = {
+                        isFirstComposableVisible = false
+                        isTextVisible = false
+                        isSecondComposableVisible = true
+                    },
+                    indication = null
+                )
             )
         }
-    }
-    if (isFirstComposableVisible) {
-        firstOptionComposable.invoke()
-    }
-    if (isSecondComposableVisible) {
-        secondOptionComposable.invoke()
+        if (isFirstComposableVisible) {
+            firstOptionComposable.invoke()
+        }
+        if (isSecondComposableVisible) {
+            secondOptionComposable.invoke()
+        }
     }
 }
 

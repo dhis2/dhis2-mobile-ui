@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <resources>
     <string name="show_more">Show more</string>
+    <string name="show_less">Show less</string>
+    <string name="date_birth">DATE OF BIRTH</string>
+    <string name="age">AGE</string>
+    <string name="or"> OR </string>
+    <string name="years">Years</string>
 </resources>

@@ -11,16 +11,17 @@ import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InputStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.RowComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.TextButtonSelector
+import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 
 @Composable
 fun ButtonScreen() {
     ColumnComponentContainer() {
         Text("TextButtonSelectors")
         TextButtonSelector(
-            firstOptionText = "date of birth",
+            firstOptionText = provideStringResource("date_birth"),
             firstOptionComposable = {
                 InputShellPreview(
-                    "Date of birth",
+                    provideStringResource("date_birth"),
                     inputField = {
                         BasicInput(
                             "19/11/1991",
@@ -30,13 +31,13 @@ fun ButtonScreen() {
                     }
                 )
             },
-            secondOptionText = "age",
+            secondOptionText = provideStringResource("age"),
             secondOptionComposable = {
                 InputShellPreview(
-                    "Years",
+                    provideStringResource("years"),
                     inputField = {
                         BasicInput(
-                            "Years",
+                            provideStringResource("years"),
                             true,
                             InputStyle.WITH_HELPER_AFTER
                         )
