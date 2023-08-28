@@ -34,6 +34,27 @@ fun DHIS2Theme(content: @Composable () -> Unit) {
     MaterialTheme(
         colorScheme = DHIS2LightColorScheme,
         typography = Typography(
+            headlineLarge = TextStyle(
+                fontSize = 32.sp,
+                lineHeight = 40.sp,
+                fontFamily = provideFontResource(),
+                fontWeight = FontWeight.Normal,
+                color = TextColor.OnSurface
+            ),
+            headlineMedium = TextStyle(
+                fontSize = 28.sp,
+                lineHeight = 36.sp,
+                fontFamily = provideFontResource(),
+                fontWeight = FontWeight.Normal,
+                color = TextColor.OnSurface
+            ),
+            headlineSmall = TextStyle(
+                fontSize = 24.sp,
+                lineHeight = 32.sp,
+                fontFamily = provideFontResource(),
+                fontWeight = FontWeight.Normal,
+                color = TextColor.OnSurface
+            ),
             titleLarge = TextStyle(
                 fontSize = 22.sp,
                 lineHeight = 28.sp,

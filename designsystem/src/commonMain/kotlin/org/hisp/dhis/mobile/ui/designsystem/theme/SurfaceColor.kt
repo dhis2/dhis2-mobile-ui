@@ -10,6 +10,7 @@ object SurfaceColor {
     val DisabledSurface = Color.Ash300
     val DisabledSurfaceBright = Color.Ash200
     val ErrorContainer = Color.Red200
+    val WarningContainer = Color.Orange50
     val ContainerLowest = Color.NeutralWhite
     val ContainerLow = Color.Blue50
     val Container = Color.Blue100
@@ -18,5 +19,4 @@ object SurfaceColor {
     val Scrim = Color.Charcoal800A32
     val CustomGreen = Color.CustomGreen
     val CustomPink = Color.CustomDarkPink
-    val CustomOrange = Color.CustomOrange
 }
