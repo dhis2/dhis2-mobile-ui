@@ -115,6 +115,9 @@ fun CheckBoxBlock(
             Spacing.Spacing16,
             content = {
                 content.map {
+                    val state by remember {
+                        mutableStateOf(it)
+                    }
                     CheckBox(it.checked, it.enabled, it.textInput)
                 }
             }
@@ -125,6 +128,9 @@ fun CheckBoxBlock(
             Spacing.Spacing0,
             content = {
                 content.map {
+                    val state by remember {
+                        mutableStateOf(it)
+                    }
                     CheckBox(it.checked, it.enabled, it.textInput)
                 }
             }
@@ -133,6 +139,7 @@ fun CheckBoxBlock(
 }
 
 data class CheckBoxData(
+    val uid: String,
     val checked: Boolean,
     val enabled: Boolean,
     val textInput: String?
