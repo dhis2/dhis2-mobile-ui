@@ -72,7 +72,7 @@ internal fun InputShellLabelText(
 }
 
 @Composable
-fun LegendDescriptionRangeText(
+internal fun LegendDescriptionRangeText(
     text: String,
     textColor: Color = TextColor.OnSurfaceLight,
     modifier: Modifier = Modifier
