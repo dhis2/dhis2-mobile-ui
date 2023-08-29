@@ -11,6 +11,7 @@ import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import java.util.Locale
 
 private const val DEFAULT_SPREAD = 1.5f
 private const val DEFAULT_SIZE = 1.5f
@@ -58,12 +59,19 @@ internal fun Modifier.buttonShadow(
             val paint = Paint()
             val frameworkPaint = paint.asFrameworkPaint()
             val spreadPixel = if (hasIcon) Spacing.Spacing0.toPx() else Spacing.Spacing1_5.toPx()
-            val leftPixel = 0f
-            val topPixel = 15f
-            val rightPixel = (this.size.width)
-            val bottomPixel = (this.size.height - spreadPixel)
-
             frameworkPaint.color = color.value.toArgb()
+            var leftPixel = 0f
+            var topPixel = 15f
+            var rightPixel = (this.size.width)
+            var bottomPixel = (this.size.height - spreadPixel)
+            val platform = System.getProperty("os.name").lowercase(Locale.getDefault())
+
+            if (platform.contains("win")) {
+                leftPixel = 0.5f
+                topPixel = 10f
+                rightPixel = (this.size.width - 0.5F)
+                bottomPixel = (this.size.height - spreadPixel)
+            }
             it.drawRoundRect(
                 left = leftPixel,
                 top = topPixel,

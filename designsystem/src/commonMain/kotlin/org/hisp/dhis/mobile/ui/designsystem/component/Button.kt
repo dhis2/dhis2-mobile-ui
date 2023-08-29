@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.ripple.LocalRippleTheme
 import androidx.compose.material3.Button
@@ -26,6 +27,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.IntOffset
+import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
 import org.hisp.dhis.mobile.ui.designsystem.theme.Ripple
@@ -147,8 +149,8 @@ fun Button(
             } else {
                 shadowColor = mutableStateOf(Color.Transparent)
             }
-
             ElevatedButton(
+                elevation = ButtonDefaults.buttonElevation(0.dp),
                 onClick = { onClick() },
                 interactionSource = interactionSource,
                 modifier = modifier
@@ -254,7 +256,7 @@ fun ButtonBlock(
     secondaryButton: @Composable (() -> Unit)? = null,
     modifier: Modifier = Modifier
 ) {
-    Row(horizontalArrangement = Arrangement.Center, modifier = modifier) {
+    Row(horizontalArrangement = Arrangement.Center, modifier = modifier.padding(top = Spacing.Spacing8, bottom = Spacing.Spacing8)) {
         if (secondaryButton != null) {
             Box(modifier = Modifier.weight(0.5f)) {
                 primaryButton.invoke()
