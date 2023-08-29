@@ -12,9 +12,9 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
-private const val DEFAULT_SPREAD = 1.5f
-private const val DEFAULT_SIZE = 1.5f
-private const val DEFAULT_PADDING = 1.5f
+private val DEFAULT_SPREAD = InternalFloatValues.One_5
+private val DEFAULT_SIZE = InternalFloatValues.One_5
+private val DEFAULT_PADDING = InternalFloatValues.One_5
 
 internal fun Modifier.iconButtonshadow(
     color: Color,
@@ -29,8 +29,8 @@ internal fun Modifier.iconButtonshadow(
             val frameworkPaint = paint.asFrameworkPaint()
             val spreadPixel = spread.toPx()
             val leftPixel = DEFAULT_PADDING
-            val topPixel = 0f
-            val rightPixel = (this.size.width - Spacing.Spacing0_5.toPx())
+            val topPixel = InternalFloatValues.Zero
+            val rightPixel = (this.size.width - InternalFloatValues.Point_5)
             val bottomPixel = (this.size.height + spreadPixel)
 
             frameworkPaint.color = color.toArgb()

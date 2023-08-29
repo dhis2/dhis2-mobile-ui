@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.theme.Border
+import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
 import org.hisp.dhis.mobile.ui.designsystem.theme.Ripple
@@ -50,7 +51,7 @@ fun SquareIconButton(
         onClick = onClick,
         elevation = ButtonDefaults.elevatedButtonElevation(0.dp),
         modifier = modifier
-            .size(Size.Size48)
+            .size(InternalSizeValues.Size48)
             .padding(Spacing.Spacing4)
             .iconButtonshadow(shadowColor, Radius.S)
             .hoverPointerIcon(enabled),
@@ -104,7 +105,7 @@ private fun StandardIconButton(
         FilledIconButton(
             onClick = onClick,
             modifier = modifier
-                .size(Size.Size48)
+                .size(InternalSizeValues.Size48)
                 .padding(Spacing.Spacing4)
                 .hoverPointerIcon(enabled),
             enabled = enabled,
@@ -127,7 +128,7 @@ private fun FilledIconButton(
     FilledIconButton(
         onClick = onClick,
         modifier = modifier
-            .size(Size.Size48)
+            .size(InternalSizeValues.Size48)
             .padding(Spacing.Spacing4)
             .hoverPointerIcon(enabled),
         enabled = enabled,
@@ -150,7 +151,7 @@ private fun FilledTonalIconButton(
         FilledTonalIconButton(
             onClick = onClick,
             modifier = modifier
-                .size(Size.Size48)
+                .size(InternalSizeValues.Size48)
                 .padding(Spacing.Spacing4)
                 .hoverPointerIcon(enabled),
             enabled = enabled,
@@ -176,7 +177,7 @@ private fun OutlinedIconButton(
         OutlinedIconButton(
             onClick = onClick,
             modifier = modifier
-                .size(Size.Size48)
+                .size(InternalSizeValues.Size48)
                 .padding(Spacing.Spacing4)
                 .hoverPointerIcon(enabled),
             enabled = enabled,

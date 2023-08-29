@@ -18,6 +18,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.Ripple
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
@@ -81,7 +82,7 @@ fun CheckBox(
                 interactionSource = interactionSource,
                 enabled = checkBoxData.enabled,
                 modifier = Modifier
-                    .size(Spacing.Spacing40),
+                    .size(InternalSizeValues.Size40),
                 colors = CheckboxDefaults.colors(
                     checkedColor = SurfaceColor.Primary,
                     uncheckedColor = Outline.Dark,

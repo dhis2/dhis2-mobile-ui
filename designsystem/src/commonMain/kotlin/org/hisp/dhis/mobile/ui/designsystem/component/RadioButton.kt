@@ -18,9 +18,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.Ripple
-import org.hisp.dhis.mobile.ui.designsystem.theme.Size
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
@@ -68,7 +68,7 @@ fun RadioButton(
                 enabled = radioButtonData.enabled,
                 interactionSource = interactionSource,
                 modifier = Modifier
-                    .size(Size.Size40)
+                    .size(InternalSizeValues.Size40)
                     .hoverPointerIcon(radioButtonData.enabled),
                 colors = RadioButtonDefaults.colors(
                     selectedColor = SurfaceColor.Primary,

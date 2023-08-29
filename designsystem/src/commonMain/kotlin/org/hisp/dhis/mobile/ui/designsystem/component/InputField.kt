@@ -30,6 +30,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.VisualTransformation
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.PrefixTransformation
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.SuffixTransformer
+import org.hisp.dhis.mobile.ui.designsystem.theme.InternalFloatValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Color.Blue300
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
@@ -49,8 +50,8 @@ fun EmptyInput(
 ) {
     Row(modifier = modifier.fillMaxWidth().height(Spacing.Spacing24).background(SurfaceColor.SurfaceBright)) {
         val stroke = Stroke(
-            width = 2f,
-            pathEffect = PathEffect.dashPathEffect(floatArrayOf(10f, 10f), 0f),
+            width = InternalFloatValues.Two,
+            pathEffect = PathEffect.dashPathEffect(floatArrayOf(InternalFloatValues.Ten, InternalFloatValues.Ten), InternalFloatValues.Zero),
         )
         Canvas(Modifier.fillMaxWidth().height(Spacing.Spacing24)) {
             drawRoundRect(color = Outline.Light, style = stroke, cornerRadius = CornerRadius(x = Radius.XS.toPx(), y = Radius.XS.toPx()))
@@ -123,7 +124,7 @@ fun BasicInput(
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
-                    Box(Modifier.weight(1f)) {
+                    Box(Modifier.weight(InternalFloatValues.One)) {
                         innerTextField()
                     }
                 }
