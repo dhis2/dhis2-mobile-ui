@@ -38,7 +38,9 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
 fun CheckBox(
     checkBoxData: CheckBoxData,
     onCheckedChange: ((Boolean) -> Unit),
-) {
+    modifier: Modifier = Modifier,
+
+    ) {
     var isChecked by remember {
         mutableStateOf(checkBoxData.checked)
     }
@@ -53,7 +55,7 @@ fun CheckBox(
     Row(
         horizontalArrangement = Arrangement.spacedBy(Spacing.Spacing0, Alignment.Start),
         verticalAlignment = Alignment.Top,
-        modifier = Modifier
+        modifier = modifier
             .clickable(
                 interactionSource = interactionSource,
                 indication = null,

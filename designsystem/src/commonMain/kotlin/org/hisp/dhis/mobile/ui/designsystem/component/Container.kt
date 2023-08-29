@@ -28,11 +28,12 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 @Composable
 fun ColumnComponentContainer(
     title: String? = null,
+    modifier: Modifier = Modifier,
     content: @Composable (() -> Unit),
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(Spacing.Spacing16),
-        modifier = Modifier.padding(Spacing.Spacing10).verticalScroll(rememberScrollState()),
+        modifier = modifier.padding(Spacing.Spacing10).verticalScroll(rememberScrollState()),
     ) {
         title?.let {
             Text(title, style = MaterialTheme.typography.titleMedium)
@@ -51,6 +52,7 @@ fun ColumnComponentContainer(
 @Composable
 fun RowComponentContainer(
     title: String? = null,
+    modifier: Modifier = Modifier,
     content: @Composable (() -> Unit),
 ) {
     title?.let {
@@ -58,7 +60,7 @@ fun RowComponentContainer(
     }
     Row(
         horizontalArrangement = Arrangement.spacedBy(Spacing.Spacing10),
-        modifier = Modifier.padding(Spacing.Spacing10),
+        modifier = modifier.padding(Spacing.Spacing10),
     ) {
         content()
     }

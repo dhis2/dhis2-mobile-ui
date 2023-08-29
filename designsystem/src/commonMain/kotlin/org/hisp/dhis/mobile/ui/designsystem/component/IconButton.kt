@@ -18,9 +18,11 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import org.hisp.dhis.mobile.ui.designsystem.theme.Border
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
 import org.hisp.dhis.mobile.ui.designsystem.theme.Ripple
+import org.hisp.dhis.mobile.ui.designsystem.theme.Size
 import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
@@ -48,7 +50,7 @@ fun SquareIconButton(
         onClick = onClick,
         elevation = ButtonDefaults.elevatedButtonElevation(0.dp),
         modifier = modifier
-            .size(Spacing.Spacing48)
+            .size(Size.Size48)
             .padding(Spacing.Spacing4)
             .iconButtonshadow(shadowColor, Radius.S)
             .hoverPointerIcon(enabled),
@@ -102,7 +104,7 @@ private fun StandardIconButton(
         FilledIconButton(
             onClick = onClick,
             modifier = modifier
-                .size(Spacing.Spacing48)
+                .size(Size.Size48)
                 .padding(Spacing.Spacing4)
                 .hoverPointerIcon(enabled),
             enabled = enabled,
@@ -125,7 +127,7 @@ private fun FilledIconButton(
     FilledIconButton(
         onClick = onClick,
         modifier = modifier
-            .size(Spacing.Spacing48)
+            .size(Size.Size48)
             .padding(Spacing.Spacing4)
             .hoverPointerIcon(enabled),
         enabled = enabled,
@@ -148,7 +150,7 @@ private fun FilledTonalIconButton(
         FilledTonalIconButton(
             onClick = onClick,
             modifier = modifier
-                .size(Spacing.Spacing48)
+                .size(Size.Size48)
                 .padding(Spacing.Spacing4)
                 .hoverPointerIcon(enabled),
             enabled = enabled,
@@ -174,12 +176,12 @@ private fun OutlinedIconButton(
         OutlinedIconButton(
             onClick = onClick,
             modifier = modifier
-                .size(Spacing.Spacing48)
+                .size(Size.Size48)
                 .padding(Spacing.Spacing4)
                 .hoverPointerIcon(enabled),
             enabled = enabled,
             shape = CircleShape,
-            border = BorderStroke(Spacing.Spacing1, if (enabled) Outline.Dark else SurfaceColor.DisabledSurface),
+            border = BorderStroke(Border.Thin, if (enabled) Outline.Dark else SurfaceColor.DisabledSurface),
             colors = IconButtonDefaults.outlinedIconButtonColors(Color.Transparent, TextColor.OnPrimaryContainer),
         ) {
             Box(Modifier.size(Spacing.Spacing24)) {

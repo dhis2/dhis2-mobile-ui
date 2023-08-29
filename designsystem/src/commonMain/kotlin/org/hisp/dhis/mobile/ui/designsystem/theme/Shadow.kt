@@ -18,7 +18,7 @@ private const val DEFAULT_PADDING = 1.5f
 
 internal fun Modifier.iconButtonshadow(
     color: Color,
-    borderRadius: Dp = Spacing.Spacing0,
+    borderRadius: Dp = Radius.NoRounding,
     spread: Dp = DEFAULT_SPREAD.dp,
     modifier: Modifier = Modifier,
     size: Dp = DEFAULT_SIZE.dp,
@@ -52,7 +52,7 @@ expect val topPixel: Float
 
 internal fun Modifier.buttonShadow(
     color: MutableState<Color> = mutableStateOf(SurfaceColor.ContainerHighest),
-    borderRadius: Dp = Spacing.Spacing0,
+    borderRadius: Dp = Radius.NoRounding,
     hasIcon: Boolean = true,
     modifier: Modifier = Modifier,
 ) = this.then(
