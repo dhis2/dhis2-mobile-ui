@@ -13,6 +13,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.sp
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
+import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
 /**
  * DHIS2 Text with generic icon slot. Wraps Material 3 [Text]
@@ -66,6 +67,21 @@ internal fun InputShellLabelText(
         modifier = modifier,
         color = textColor,
         style = MaterialTheme.typography.titleSmall,
+        textAlign = TextAlign.Start
+    )
+}
+
+@Composable
+internal fun LegendDescriptionRangeText(
+    text: String,
+    textColor: Color = TextColor.OnSurfaceLight,
+    modifier: Modifier = Modifier
+) {
+    Text(
+        text,
+        modifier = modifier,
+        color = textColor,
+        style = MaterialTheme.typography.bodyMedium,
         textAlign = TextAlign.Start
     )
 }

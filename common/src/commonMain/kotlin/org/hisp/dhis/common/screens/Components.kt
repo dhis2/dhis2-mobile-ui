@@ -9,5 +9,6 @@ enum class Components(val label: String) {
     PROGRESS("Progress"),
     SUPPORTING_TEXT("Supporting Text"),
     LEGEND("Legend"),
-    INPUT("Input")
+    INPUT("Input"),
+    LEGEND_DESCRIPTION("Legend description")
 }

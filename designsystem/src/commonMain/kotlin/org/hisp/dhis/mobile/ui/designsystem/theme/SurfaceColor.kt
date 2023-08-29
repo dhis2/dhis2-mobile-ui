@@ -19,4 +19,7 @@ object SurfaceColor {
     val Scrim = Color.Charcoal800A32
     val CustomGreen = Color.CustomGreen
     val CustomPink = Color.CustomDarkPink
+    val CustomYellow = Color.CustomYellow
+    val CustomBrown = Color.CustomBrown
+    val CustomGray = Color.CustomGray
 }

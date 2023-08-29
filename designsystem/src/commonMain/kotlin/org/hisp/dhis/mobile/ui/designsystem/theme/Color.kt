@@ -54,4 +54,7 @@ object Color {
     internal val NeutralWhite: Color = Color(0xFFFFFFFF)
     internal val CustomGreen: Color = Color(0xFF00A940)
     internal val CustomDarkPink: Color = Color(0xFFE12F58)
+    internal val CustomYellow: Color = Color(0xFFFADB14)
+    internal val CustomBrown: Color = Color(0xFF7A130F)
+    internal val CustomGray: Color = Color(0xFFDADADA)
 }

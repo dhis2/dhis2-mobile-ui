@@ -67,3 +67,48 @@ fun Legend(color: Color, text: String, onClick: () -> Unit) {
         }
     }
 }
+
+@Composable
+internal fun LegendDescription(color: Color, text: String, range: IntRange) {
+    Row(
+        modifier = Modifier
+            .padding(Spacing.Spacing0, Spacing.Spacing8, Spacing.Spacing8, Spacing.Spacing6),
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.Top
+    ) {
+        Column(modifier = Modifier.align(Alignment.Top).padding(end = Spacing.Spacing8, top = Spacing.Spacing4, bottom = Spacing.Spacing4)) {
+            Box(
+                modifier = Modifier.size(Spacing.Spacing12)
+                    .clip(CircleShape)
+                    .background(color)
+            )
+        }
+        Text(
+            text,
+            Modifier.padding(start = Spacing.Spacing8, end = Spacing.Spacing16)
+                .weight(2f, true),
+            style = MaterialTheme.typography.bodyMedium
+        )
+        Column(modifier = Modifier.align(Alignment.Top)) {
+            LegendDescriptionRangeText(range.first.toString() + " - " + range.last.toString())
+        }
+    }
+}
+
+@Composable
+fun LegendRange(
+    legendDescriptionRangeDataList: List<LegendDescriptionData>,
+    modifier: Modifier = Modifier
+) {
+    Column(modifier = modifier) {
+        legendDescriptionRangeDataList.forEach { item ->
+            LegendDescription(item.color, item.text, item.range)
+        }
+    }
+}
+
+data class LegendDescriptionData(
+    val color: Color,
+    val text: String,
+    val range: IntRange
+)
