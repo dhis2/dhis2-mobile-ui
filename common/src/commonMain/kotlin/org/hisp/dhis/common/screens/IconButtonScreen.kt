@@ -2,7 +2,6 @@ package org.hisp.dhis.common.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
 import org.hisp.dhis.common.screens.previews.IconButtonPreview
@@ -10,14 +9,16 @@ import org.hisp.dhis.common.screens.previews.SquareIconButtonPreview
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.IconButtonStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.RowComponentContainer
+import org.hisp.dhis.mobile.ui.designsystem.component.Title
 
 @Composable
 fun IconButtonScreen() {
     ColumnComponentContainer(
         content = {
             // SquareIconButton
+            Title("Icon Buttons")
             RowComponentContainer(
-                title = "Square Icon Button",
+                title = "Square",
                 content = {
                     SquareIconButtonPreview()
                     SquareIconButtonPreview(false)
@@ -25,7 +26,6 @@ fun IconButtonScreen() {
             )
 
             // IconButton
-            Text("Icon Buttons")
             RowComponentContainer(
                 title = "Standard",
                 content = {

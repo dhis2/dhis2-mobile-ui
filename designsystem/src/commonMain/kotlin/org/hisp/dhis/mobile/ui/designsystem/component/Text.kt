@@ -97,7 +97,7 @@ internal fun LegendDescriptionRangeText(
 @Composable
 fun Title(
     text: String,
-    textColor: Color,
+    textColor: Color = TextColor.OnSurface,
     modifier: Modifier = Modifier,
 ) {
     Text(
@@ -111,7 +111,7 @@ fun Title(
 
 @Composable fun SubTitle(
     text: String,
-    textColor: Color,
+    textColor: Color = TextColor.OnSurface,
     modifier: Modifier = Modifier,
 ) {
     Text(

@@ -1,7 +1,6 @@
 package org.hisp.dhis.common.screens
 
 import androidx.compose.foundation.layout.Row
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import org.hisp.dhis.common.screens.previews.CheckboxPreview
 import org.hisp.dhis.common.screens.previews.TextCheckboxPreview
@@ -9,6 +8,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.CheckBoxBlock
 import org.hisp.dhis.mobile.ui.designsystem.component.CheckBoxData
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.Orientation
+import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
 
 @Composable
 fun CheckboxScreen() {
@@ -37,16 +37,17 @@ fun CheckboxScreen() {
     )
 
     ColumnComponentContainer(
+        title = "CheckBox",
         content = {
-            Text(
+            SubTitle(
                 text = "Text Check Box",
             )
             TextCheckboxPreview(state1, true, option1)
             TextCheckboxPreview(state2, true, option2)
             TextCheckboxPreview(state3, false, option3)
             TextCheckboxPreview(state4, enabled = false, text = option4)
-            Text(
-                text = "Check Box",
+            SubTitle(
+                text = "Simple Check Box",
             )
             Row {
                 CheckboxPreview(true, enabled = true)
@@ -56,11 +57,11 @@ fun CheckboxScreen() {
                 CheckboxPreview(false, enabled = true)
                 CheckboxPreview(false, enabled = false)
             }
-            Text(
+            SubTitle(
                 text = "Horizontal Check Box Block",
             )
             CheckBoxBlock(Orientation.HORIZONTAL, checkBoxesStatesHorizontal) {}
-            Text(
+            SubTitle(
                 text = "Vertical Check Box Block",
             )
             CheckBoxBlock(Orientation.VERTICAL, checkBoxesStatesVertical) {}
