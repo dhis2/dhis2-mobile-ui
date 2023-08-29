@@ -100,6 +100,7 @@ fun Main() {
             Components.INPUT -> InputScreen()
             Components.SUPPORTING_TEXT -> SupportingTextScreen()
             Components.INPUT_TEXT -> InputTextScreen()
+            Components.LEGEND_DESCRIPTION -> LegendDescriptionScreen()
             else -> NotImplementedScreen()
         }
     }
