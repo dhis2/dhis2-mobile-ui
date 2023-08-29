@@ -85,3 +85,47 @@ internal fun LegendDescriptionRangeText(
         textAlign = TextAlign.Start
     )
 }
+
+@Composable
+fun Title(
+    text: String,
+    textColor: Color,
+    modifier: Modifier = Modifier
+) {
+    Text(
+        text,
+        modifier = modifier,
+        color = textColor,
+        style = MaterialTheme.typography.titleMedium,
+        textAlign = TextAlign.Start
+    )
+}
+
+@Composable fun SubTitle(
+    text: String,
+    textColor: Color,
+    modifier: Modifier = Modifier
+) {
+    Text(
+        text,
+        modifier = modifier,
+        color = textColor,
+        style = MaterialTheme.typography.titleSmall,
+        textAlign = TextAlign.Start
+    )
+}
+
+@Composable
+internal fun Description(
+    text: String,
+    textColor: Color,
+    modifier: Modifier = Modifier
+) {
+    Text(
+        text,
+        modifier = modifier,
+        color = textColor,
+        style = MaterialTheme.typography.bodyMedium,
+        textAlign = TextAlign.Start
+    )
+}

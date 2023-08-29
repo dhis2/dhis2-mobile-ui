@@ -2,12 +2,14 @@ package org.hisp.dhis.mobile.ui.designsystem.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Divider
@@ -45,9 +47,10 @@ fun InputShell(
     secondaryButton: @Composable (() -> Unit)? = null,
     inputField: @Composable (() -> Unit)? = null,
     supportingText: @Composable (() -> Unit)? = null,
-    legend: @Composable (() -> Unit)? = null
+    legend: @Composable (() -> Unit)? = null,
+    modifier: Modifier = Modifier
 ) {
-    Column(modifier = Modifier.fillMaxWidth().clip(shape = RoundedCornerShape(Radius.XS, Radius.XS))) {
+    Column(modifier = modifier.fillMaxWidth().clip(shape = RoundedCornerShape(Radius.XS, Radius.XS))) {
         var indicatorColor by remember { mutableStateOf(InputShellState.UNFOCUSED.color) }
         val backgroundColor = if (state != InputShellState.DISABLED) SurfaceColor.Surface else SurfaceColor.DisabledSurface
         InputShellRow(
@@ -68,13 +71,20 @@ fun InputShell(
             Row(
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                primaryButton?.invoke()
+                primaryButton?.let {
+                    Box(Modifier.size(Spacing.Spacing48)) {
+                        it.invoke()
+                    }
+                }
                 if (primaryButton != null && secondaryButton != null) {
                     InputShellButtonSeparator()
                     Spacer(modifier = Modifier.width(Spacing.Spacing4))
                 }
-                secondaryButton?.invoke()
-                Spacer(modifier = Modifier.width(Spacing.Spacing4))
+                secondaryButton?.let {
+                    Box(Modifier.size(Spacing.Spacing48)) {
+                        it.invoke()
+                    }
+                }
             }
         }
         InputShellIndicator(color = indicatorColor)

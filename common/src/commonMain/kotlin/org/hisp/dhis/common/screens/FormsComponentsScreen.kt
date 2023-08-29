@@ -17,7 +17,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 fun FormsComponentsScreen() {
     ColumnComponentContainer("Input Shell") {
         Text("Sample functional Input Shell ", style = MaterialTheme.typography.titleSmall)
-        InputShellPreview("Label", inputField = { BasicInput("Helper", true, InputStyle.WITH_HELPER_BEFORE) })
+        InputShellPreview("Label", inputField = { BasicInput("Helper", true, InputStyle.WITH_HELPER_BEFORE) {} })
         Text("Unfocused Input shell ", style = MaterialTheme.typography.titleSmall)
         InputShellPreview("Label")
         Text("Focused ", style = MaterialTheme.typography.titleSmall)
