@@ -74,10 +74,9 @@ internal fun LegendDescription(color: Color, text: String, range: IntRange) {
         modifier = Modifier
             .padding(Spacing.Spacing0, Spacing.Spacing8, Spacing.Spacing8, Spacing.Spacing6),
         horizontalArrangement = Arrangement.Center,
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.Top
     ) {
-        Column(modifier = Modifier.align(Alignment.Top)) {
-            Spacer(modifier = Modifier.size(Spacing.Spacing4).padding(end = Spacing.Spacing8))
+        Column(modifier = Modifier.align(Alignment.Top).padding(end = Spacing.Spacing8, top = Spacing.Spacing4, bottom = Spacing.Spacing4)) {
             Box(
                 modifier = Modifier.size(Spacing.Spacing12)
                     .clip(CircleShape)
