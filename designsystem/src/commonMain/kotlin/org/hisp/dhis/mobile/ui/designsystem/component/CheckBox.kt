@@ -31,16 +31,19 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
  * @param checkBoxData Contains all data for controlling the inner state of the component. It's parameters are uid for
  * identifying the component, checked for controlling if the option is checked, enabled controls if the component is
  * clickable and textInput displaying the option text.
+ * @param onCheckedChange notify the selection change in the item
  */
 
 @Composable
 fun CheckBox(
-    checkBoxData: CheckBoxData
+    checkBoxData: CheckBoxData,
+    onCheckedChange: ((Boolean) -> Unit)
 ) {
     var isChecked by remember {
         mutableStateOf(checkBoxData.checked)
     }
-    val interactionSource = if (checkBoxData.enabled) remember { MutableInteractionSource() } else MutableInteractionSource()
+    val interactionSource =
+        if (checkBoxData.enabled) remember { MutableInteractionSource() } else MutableInteractionSource()
     val textColor = if (checkBoxData.enabled) {
         TextColor.OnSurface
     } else {
@@ -57,7 +60,7 @@ fun CheckBox(
                 onClick = {
                     if (checkBoxData.enabled) {
                         isChecked = !isChecked
-                        checkBoxData.checked = isChecked
+                        onCheckedChange.invoke(isChecked)
                     }
                 },
                 enabled = checkBoxData.enabled,
@@ -70,7 +73,7 @@ fun CheckBox(
                 onCheckedChange = {
                     if (checkBoxData.enabled) {
                         isChecked = it
-                        checkBoxData.checked = isChecked
+                        onCheckedChange.invoke(isChecked)
                     }
                 },
                 interactionSource = interactionSource,
@@ -104,23 +107,24 @@ fun CheckBox(
  * VERTICAL for columns.
  * @param content Contains all the data that will be displayed, the list type is CheckBoxData,
  * this data class contains all data for [CheckBox] composable.
+ * @param onItemChange is a callback to notify which item has changed into the block
  */
 
 @Composable
 fun CheckBoxBlock(
     orientation: Orientation,
-    content: List<CheckBoxData>
+    content: List<CheckBoxData>,
+    onItemChange: (CheckBoxData) -> Unit
 ) {
     if (orientation == Orientation.HORIZONTAL) {
         FlowRowComponentsContainer(
             null,
             Spacing.Spacing16,
             content = {
-                content.map {
-                    val state by remember {
-                        mutableStateOf(it)
+                content.map { checkBoxData ->
+                    CheckBox(checkBoxData) {
+                        onItemChange.invoke(checkBoxData)
                     }
-                    CheckBox(it)
                 }
             }
         )
@@ -129,11 +133,10 @@ fun CheckBoxBlock(
             null,
             Spacing.Spacing0,
             content = {
-                content.map {
-                    val state by remember {
-                        mutableStateOf(it)
+                content.map { checkBoxData ->
+                    CheckBox(checkBoxData) {
+                        onItemChange.invoke(checkBoxData)
                     }
-                    CheckBox(it)
                 }
             }
         )

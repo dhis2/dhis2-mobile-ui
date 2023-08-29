@@ -12,7 +12,11 @@ internal fun CheckboxPreview(checked: Boolean, enabled: Boolean = true) {
 }
 
 @Composable
-internal fun TextCheckboxPreview(checked: Boolean, enabled: Boolean = true, text: String = "Option") {
+internal fun TextCheckboxPreview(
+    checked: Boolean,
+    enabled: Boolean = true,
+    text: String = "Option"
+) {
     CheckBox(
         CheckBoxData("", checked, enabled, text,)
     )

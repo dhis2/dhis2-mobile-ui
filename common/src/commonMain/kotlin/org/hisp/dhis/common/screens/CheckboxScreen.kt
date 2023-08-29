@@ -59,11 +59,11 @@ fun CheckboxScreen() {
             Text(
                 text = "Horizontal Check Box Block"
             )
-            CheckBoxBlock(Orientation.HORIZONTAL, checkBoxesStatesHorizontal)
+            CheckBoxBlock(Orientation.HORIZONTAL, checkBoxesStatesHorizontal) {}
             Text(
                 text = "Vertical Check Box Block"
             )
-            CheckBoxBlock(Orientation.VERTICAL, checkBoxesStatesVertical)
+            CheckBoxBlock(Orientation.VERTICAL, checkBoxesStatesVertical) {}
         },
     )
 }
