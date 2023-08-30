@@ -37,7 +37,7 @@ fun Button(
     text: String,
     icon: @Composable
     (() -> Unit)? = null,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     val paddingValues = getPaddingValues(icon != null)
 
