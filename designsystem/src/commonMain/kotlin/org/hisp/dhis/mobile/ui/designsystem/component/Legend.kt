@@ -28,10 +28,15 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Ripple
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
 @Composable
-fun Legend(color: Color, text: String, onClick: () -> Unit) {
+fun Legend(
+    color: Color,
+    text: String,
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit,
+) {
     CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
         Column(
-            modifier = Modifier
+            modifier = modifier
                 .clickable(onClick = onClick),
         ) {
             Row(
