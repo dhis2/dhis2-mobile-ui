@@ -37,7 +37,7 @@ internal fun ButtonText(
         Box(
             Modifier
                 .size(Spacing.Spacing18)
-                .alpha(if (enabled) 1f else 0.34f)
+                .alpha(if (enabled) 1f else 0.34f),
         ) {
             it.invoke()
         }

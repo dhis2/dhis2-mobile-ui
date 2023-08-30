@@ -157,14 +157,14 @@ fun Button(
                     .buttonShadow(shadowColor, Radius.Full, icon != null).offset {
                         IntOffset(
                             0,
-                            topPadding.value
+                            topPadding.value,
                         )
                     },
                 enabled = enabled,
                 colors = ButtonDefaults.elevatedButtonColors(
                     disabledContainerColor = Color.Transparent,
-                    containerColor = SurfaceColor.Container
-                )
+                    containerColor = SurfaceColor.Container,
+                ),
 
             ) {
                 ButtonText(text, textColor, icon, enabled)
@@ -184,7 +184,7 @@ fun Button(
                 ),
                 border = BorderStroke(Spacing.Spacing1, if (enabled) Outline.Dark else SurfaceColor.DisabledSurface),
                 contentPadding = paddingValues,
-                modifier = Modifier.height(Spacing.Spacing40)
+                modifier = Modifier.height(Spacing.Spacing40),
             ) {
                 ButtonText(text, textColor, icon, enabled)
             }
@@ -211,7 +211,7 @@ private fun SimpleButton(
         enabled = enabled,
         colors = buttonColors,
         shape = Shape.Full,
-        contentPadding = paddingValues
+        contentPadding = paddingValues,
     ) {
         ButtonText(text, textColor, icon, enabled)
     }
@@ -254,7 +254,7 @@ enum class ButtonStyle {
 fun ButtonBlock(
     primaryButton: @Composable (() -> Unit),
     secondaryButton: @Composable (() -> Unit)? = null,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Row(horizontalArrangement = Arrangement.Center, modifier = modifier.padding(top = Spacing.Spacing8, bottom = Spacing.Spacing8)) {
         if (secondaryButton != null) {

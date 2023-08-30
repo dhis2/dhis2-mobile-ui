@@ -24,16 +24,16 @@ fun ButtonBlockScreen() {
                     icon = {
                         Icon(
                             imageVector = Icons.Filled.Add,
-                            contentDescription = "Button"
+                            contentDescription = "Button",
                         )
                     },
                     enabled = true,
                     text = "Label",
                     onClick = {
                     },
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
                 )
-            }
+            },
         )
         Text("Two button style")
         ButtonBlock(
@@ -43,14 +43,14 @@ fun ButtonBlockScreen() {
                     icon = {
                         Icon(
                             imageVector = Icons.Filled.Add,
-                            contentDescription = "Button"
+                            contentDescription = "Button",
                         )
                     },
                     enabled = true,
                     text = "Label",
                     onClick = {
                     },
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
                 )
             },
             secondaryButton = {
@@ -59,16 +59,16 @@ fun ButtonBlockScreen() {
                     icon = {
                         Icon(
                             imageVector = Icons.Filled.Add,
-                            contentDescription = "Button"
+                            contentDescription = "Button",
                         )
                     },
                     enabled = true,
                     text = "Label",
                     onClick = {
                     },
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
                 )
-            }
+            },
         )
     }
 }
