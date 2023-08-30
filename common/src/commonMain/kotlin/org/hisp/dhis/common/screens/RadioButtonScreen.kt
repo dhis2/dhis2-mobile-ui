@@ -1,4 +1,4 @@
-package org.hisp.dhis.common.screens.radio
+package org.hisp.dhis.common.screens
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -39,11 +39,11 @@ fun RadioButtonScreen() {
         }
         // RadioButton
         Text("Radio Button")
-        RowComponentContainer() {
+        RowComponentContainer {
             RadioButtonPreview(true, true)
             RadioButtonPreview(true, false)
         }
-        RowComponentContainer() {
+        RowComponentContainer {
             RadioButtonPreview(false, true)
             RadioButtonPreview(false, false)
         }
