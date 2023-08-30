@@ -19,7 +19,7 @@ fun ButtonScreen() {
             onClickFirstOption = {},
             middleText = provideStringResource("or"),
             secondOptionText = provideStringResource("age"),
-            onClickSecondOption = {}
+            onClickSecondOption = {},
         )
         TextButtonSelector(
             enabled = false,
@@ -27,7 +27,7 @@ fun ButtonScreen() {
             onClickFirstOption = {},
             middleText = provideStringResource("or"),
             secondOptionText = provideStringResource("age"),
-            onClickSecondOption = {}
+            onClickSecondOption = {},
         )
         Text("Filled")
         RowComponentContainer() {

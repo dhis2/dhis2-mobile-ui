@@ -228,7 +228,7 @@ fun TextButtonSelector(
     secondOptionText: String,
     modifier: Modifier = Modifier,
     onClickFirstOption: () -> Unit,
-    onClickSecondOption: () -> Unit
+    onClickSecondOption: () -> Unit,
 ) {
     val interactionSourceOption1 = remember { MutableInteractionSource() }
     val interactionSourceOption2 = remember { MutableInteractionSource() }
@@ -258,14 +258,14 @@ fun TextButtonSelector(
                 onClick = {
                     onClickFirstOption()
                 },
-                indication = null
-            )
+                indication = null,
+            ),
         )
         Text(
             text = middleText,
             modifier = Modifier.padding(start = Spacing.Spacing8, end = Spacing.Spacing8),
             style = MaterialTheme.typography.titleMedium,
-            color = if (enabled) TextColor.OnSurfaceVariant else TextColor.OnDisabledSurface
+            color = if (enabled) TextColor.OnSurfaceVariant else TextColor.OnDisabledSurface,
         )
         Text(
             text = secondOptionText,
@@ -276,8 +276,8 @@ fun TextButtonSelector(
                 onClick = {
                     onClickSecondOption()
                 },
-                indication = null
-            )
+                indication = null,
+            ),
         )
     }
 }
