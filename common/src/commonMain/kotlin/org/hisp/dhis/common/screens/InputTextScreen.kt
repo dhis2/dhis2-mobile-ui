@@ -33,11 +33,11 @@ fun InputTextScreen() {
             supportingText = listOf(
                 SupportingTextData("Supporting text", SupportingTextState.DEFAULT),
                 SupportingTextData("Supporting text", SupportingTextState.WARNING),
-                SupportingTextData("Supporting text", SupportingTextState.ERROR)
+                SupportingTextData("Supporting text", SupportingTextState.ERROR),
 
             ),
             legendText = "Legend",
-            state = InputShellState.ERROR
+            state = InputShellState.ERROR,
         )
 
         SubTitle("Disabled Input text ", textColor = TextColor.OnSurfaceVariant)

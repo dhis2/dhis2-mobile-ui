@@ -9,7 +9,7 @@ internal fun CheckboxPreview(checked: MutableState<Boolean>, enabled: Boolean = 
     CheckBox(
         checked = checked,
         enabled = enabled,
-        textInput = null
+        textInput = null,
     )
 }
 
@@ -18,6 +18,6 @@ internal fun TextCheckboxPreview(checked: MutableState<Boolean>, enabled: Boolea
     CheckBox(
         checked = checked,
         enabled = enabled,
-        textInput = text
+        textInput = text,
     )
 }

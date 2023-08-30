@@ -21,8 +21,8 @@ internal fun prefixFilter(text: AnnotatedString, prefix: String): TransformedTex
         spanStyle = SpanStyle(
             fontSize = 16.sp,
             fontWeight = FontWeight.Normal,
-            color = TextColor.OnDisabledSurface
-        )
+            color = TextColor.OnDisabledSurface,
+        ),
     )
         .plus(
             AnnotatedString(
@@ -30,9 +30,9 @@ internal fun prefixFilter(text: AnnotatedString, prefix: String): TransformedTex
                 spanStyle = SpanStyle(
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Normal,
-                    color = TextColor.OnSurface
-                )
-            )
+                    color = TextColor.OnSurface,
+                ),
+            ),
         )
     val prefixOffset = prefix.length + 1
 
@@ -57,8 +57,8 @@ internal class SuffixTransformer(val suffix: String) : VisualTransformation {
             spanStyle = SpanStyle(
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Normal,
-                color = TextColor.OnDisabledSurface
-            )
+                color = TextColor.OnDisabledSurface,
+            ),
         )
 
         val textWithSuffixMapping = object : OffsetMapping {

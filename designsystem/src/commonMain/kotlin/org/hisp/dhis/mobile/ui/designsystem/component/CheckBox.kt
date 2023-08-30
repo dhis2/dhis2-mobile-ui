@@ -34,7 +34,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 fun CheckBox(
     checked: MutableState<Boolean>,
     enabled: Boolean,
-    textInput: String? = null
+    textInput: String? = null,
 ) {
     val interactionSource = if (enabled) remember { MutableInteractionSource() } else MutableInteractionSource()
     val textColor = if (enabled) {
@@ -55,8 +55,8 @@ fun CheckBox(
                         checked.value = !checked.value
                     }
                 },
-                enabled = enabled
-            )
+                enabled = enabled,
+            ),
     ) {
         CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
             Checkbox(
@@ -72,8 +72,8 @@ fun CheckBox(
                     checkedColor = SurfaceColor.Primary,
                     uncheckedColor = Outline.Dark,
                     disabledCheckedColor = TextColor.OnDisabledSurface,
-                    disabledUncheckedColor = TextColor.OnDisabledSurface
-                )
+                    disabledUncheckedColor = TextColor.OnDisabledSurface,
+                ),
             )
         }
         textInput?.let {
@@ -81,7 +81,7 @@ fun CheckBox(
                 modifier = Modifier
                     .padding(top = Spacing.Spacing8, bottom = Spacing.Spacing8),
                 text = it,
-                color = textColor
+                color = textColor,
             )
         }
     }

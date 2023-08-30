@@ -39,7 +39,7 @@ fun SupportingText(
     text: String,
     state: SupportingTextState = SupportingTextState.DEFAULT,
     showMoreText: String = "Show more",
-    showLessText: String = "Show less"
+    showLessText: String = "Show less",
 ) {
     var isExpanded by remember { mutableStateOf(false) }
     val textLayoutResultState = remember { mutableStateOf<TextLayoutResult?>(null) }
@@ -50,7 +50,7 @@ fun SupportingText(
         mutableStateOf(
             buildAnnotatedString {
                 withStyle(style = nonClickableTextStyle) { append(text) }
-            }
+            },
         )
     }
     val seeMoreTag = "SEE_MORE"
@@ -82,7 +82,7 @@ fun SupportingText(
                         tag = seeMoreTag,
                         annotation = "Show more tag",
                         start = unexpandedText.length,
-                        end = unexpandedText.length + showMoreText.length
+                        end = unexpandedText.length + showMoreText.length,
                     )
                 }
 
@@ -93,12 +93,12 @@ fun SupportingText(
                     val expandedText = "$text "
                     withStyle(style = ParagraphStyle(lineHeight = 20.sp)) {
                         withStyle(
-                            style = nonClickableTextStyle
+                            style = nonClickableTextStyle,
                         ) {
                             append(expandedText)
                         }
                         withStyle(
-                            style = clickableTextStyle
+                            style = clickableTextStyle,
                         ) {
                             append(showLessText)
                         }
@@ -107,7 +107,7 @@ fun SupportingText(
                         tag = seeMoreTag,
                         annotation = "Show less tag",
                         start = expandedText.length,
-                        end = expandedText.length + showLessText.length
+                        end = expandedText.length + showLessText.length,
                     )
                 }
             }
@@ -129,7 +129,7 @@ fun SupportingText(
                 }
             },
             modifier = Modifier.animateContentSize()
-                .padding(start = Spacing.Spacing16, top = Spacing.Spacing4, end = Spacing.Spacing16)
+                .padding(start = Spacing.Spacing16, top = Spacing.Spacing4, end = Spacing.Spacing16),
         )
     }
 }
@@ -137,7 +137,7 @@ fun SupportingText(
 enum class SupportingTextState(val color: Color) {
     DEFAULT(TextColor.OnSurfaceVariant),
     WARNING(TextColor.OnWarning),
-    ERROR(SurfaceColor.Error)
+    ERROR(SurfaceColor.Error),
 }
 
 data class SupportingTextData(val text: String, val state: SupportingTextState)

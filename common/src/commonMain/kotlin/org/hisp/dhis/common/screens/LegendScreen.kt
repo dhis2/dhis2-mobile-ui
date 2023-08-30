@@ -18,7 +18,7 @@ fun LegendScreen() {
     Column(
         verticalArrangement = Arrangement.spacedBy(Spacing.Spacing16),
         modifier = Modifier.padding(Spacing.Spacing10)
-            .verticalScroll(rememberScrollState())
+            .verticalScroll(rememberScrollState()),
     ) {
         Text("Green Legend")
         Legend(SurfaceColor.CustomGreen, "Legend") {}
@@ -32,7 +32,7 @@ fun LegendScreen() {
             "Lorem ipsum dolor sit amet," +
                 " consectetur adipiscing elit. Maecenas dolor lacus," +
                 " aliquam. Lorem ipsum dolor sit amet," +
-                " consectetur adipiscing elit. Maecenas dolor lacus,"
+                " consectetur adipiscing elit. Maecenas dolor lacus,",
         ) {}
     }
 }

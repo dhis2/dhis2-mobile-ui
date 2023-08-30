@@ -21,7 +21,7 @@ fun IconButtonScreen() {
                 content = {
                     SquareIconButtonPreview()
                     SquareIconButtonPreview(false)
-                }
+                },
             )
 
             // IconButton
@@ -31,42 +31,42 @@ fun IconButtonScreen() {
                 content = {
                     IconButtonPreview()
                     IconButtonPreview(false)
-                }
+                },
             )
 
             RowComponentContainer(
                 title = "Filled",
                 content = {
                     Row(
-                        horizontalArrangement = Arrangement.spacedBy(10.dp)
+                        horizontalArrangement = Arrangement.spacedBy(10.dp),
                     ) {
                         IconButtonPreview(true, IconButtonStyle.FILLED)
                         IconButtonPreview(false, IconButtonStyle.FILLED)
                     }
-                }
+                },
             )
             RowComponentContainer(
                 title = "Tonal",
                 content = {
                     Row(
-                        horizontalArrangement = Arrangement.spacedBy(10.dp)
+                        horizontalArrangement = Arrangement.spacedBy(10.dp),
                     ) {
                         IconButtonPreview(true, IconButtonStyle.TONAL)
                         IconButtonPreview(false, IconButtonStyle.TONAL)
                     }
-                }
+                },
             )
             RowComponentContainer(
                 title = "Outlined",
                 content = {
                     Row(
-                        horizontalArrangement = Arrangement.spacedBy(10.dp)
+                        horizontalArrangement = Arrangement.spacedBy(10.dp),
                     ) {
                         IconButtonPreview(true, IconButtonStyle.OUTLINED)
                         IconButtonPreview(false, IconButtonStyle.OUTLINED)
                     }
-                }
+                },
             )
-        }
+        },
     )
 }

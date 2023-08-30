@@ -30,31 +30,34 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 @Composable
 fun Legend(color: Color, text: String, onClick: () -> Unit) {
     CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
-        Column(modifier = Modifier.clickable(onClick = onClick)) {
+        Column(
+            modifier = Modifier
+                .clickable(onClick = onClick),
+        ) {
             Row(
                 modifier = Modifier
                     .padding(Spacing.Spacing16, Spacing.Spacing8, Spacing.Spacing8, Spacing.Spacing6),
                 horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 Column(modifier = Modifier.align(Alignment.Top)) {
                     Spacer(modifier = Modifier.size(Spacing.Spacing4).padding(end = Spacing.Spacing8))
                     Box(
                         modifier = Modifier.size(Spacing.Spacing12)
                             .clip(CircleShape)
-                            .background(color)
+                            .background(color),
                     )
                 }
                 Text(
                     text,
                     Modifier.padding(start = Spacing.Spacing8)
                         .weight(2f, true),
-                    style = MaterialTheme.typography.bodyMedium
+                    style = MaterialTheme.typography.bodyMedium,
                 )
                 Icon(
                     imageVector = Icons.Outlined.HelpOutline,
                     contentDescription = "Legend Icon",
-                    modifier = Modifier.size(Spacing.Spacing18)
+                    modifier = Modifier.size(Spacing.Spacing18),
                 )
             }
             Divider(
@@ -62,7 +65,7 @@ fun Legend(color: Color, text: String, onClick: () -> Unit) {
                     .fillMaxWidth()
                     .padding(),
                 thickness = Spacing.Spacing2,
-                color = color
+                color = color,
             )
         }
     }
@@ -74,20 +77,20 @@ internal fun LegendDescription(color: Color, text: String, range: IntRange) {
         modifier = Modifier
             .padding(Spacing.Spacing0, Spacing.Spacing8, Spacing.Spacing8, Spacing.Spacing6),
         horizontalArrangement = Arrangement.Center,
-        verticalAlignment = Alignment.Top
+        verticalAlignment = Alignment.Top,
     ) {
         Column(modifier = Modifier.align(Alignment.Top).padding(end = Spacing.Spacing8, top = Spacing.Spacing4, bottom = Spacing.Spacing4)) {
             Box(
                 modifier = Modifier.size(Spacing.Spacing12)
                     .clip(CircleShape)
-                    .background(color)
+                    .background(color),
             )
         }
         Text(
             text,
             Modifier.padding(start = Spacing.Spacing8, end = Spacing.Spacing16)
                 .weight(2f, true),
-            style = MaterialTheme.typography.bodyMedium
+            style = MaterialTheme.typography.bodyMedium,
         )
         Column(modifier = Modifier.align(Alignment.Top)) {
             LegendDescriptionRangeText(range.first.toString() + " - " + range.last.toString())
@@ -98,7 +101,7 @@ internal fun LegendDescription(color: Color, text: String, range: IntRange) {
 @Composable
 fun LegendRange(
     legendDescriptionRangeDataList: List<LegendDescriptionData>,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier) {
         legendDescriptionRangeDataList.forEach { item ->
@@ -110,5 +113,5 @@ fun LegendRange(
 data class LegendDescriptionData(
     val color: Color,
     val text: String,
-    val range: IntRange
+    val range: IntRange,
 )

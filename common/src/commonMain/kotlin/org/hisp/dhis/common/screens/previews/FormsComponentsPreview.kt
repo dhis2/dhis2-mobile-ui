@@ -22,7 +22,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 internal fun InputShellPreview(
     title: String,
     state: InputShellState = InputShellState.UNFOCUSED,
-    inputField: @Composable (() -> Unit)? = null
+    inputField: @Composable (() -> Unit)? = null,
 ) {
     InputShell(
         title,
@@ -31,11 +31,11 @@ internal fun InputShellPreview(
                 icon = {
                     Icon(
                         imageVector = Icons.Outlined.Cancel,
-                        contentDescription = "Icon Button"
+                        contentDescription = "Icon Button",
                     )
                 },
-                onClick = { onPrimaryClick() },
-                enabled = state != InputShellState.DISABLED
+                onClick = { },
+                enabled = state != InputShellState.DISABLED,
             )
         },
         secondaryButton = {
@@ -44,10 +44,10 @@ internal fun InputShellPreview(
                 icon = {
                     Icon(
                         imageVector = Icons.Outlined.FileDownload,
-                        contentDescription = "Icon Button"
+                        contentDescription = "Icon Button",
                     )
                 },
-                onClick = { onSecondaryClick() }
+                onClick = { },
             )
         },
         inputField = { if (inputField != null) inputField.invoke() else EmptyInput() },
@@ -56,15 +56,14 @@ internal fun InputShellPreview(
                 "Supporting text",
                 color = TextColor.OnSurfaceVariant,
                 style = MaterialTheme.typography.titleSmall,
-                modifier = Modifier.padding(Spacing.Spacing16, Spacing.Spacing4, Spacing.Spacing16, 0.dp)
+                modifier = Modifier.padding(
+                    Spacing.Spacing16,
+                    Spacing.Spacing4,
+                    Spacing.Spacing16,
+                    0.dp,
+                ),
             )
         },
-        state = state
+        state = state,
     )
-}
-
-fun onPrimaryClick() {
-}
-
-fun onSecondaryClick() {
 }

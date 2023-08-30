@@ -12,7 +12,7 @@ internal fun ButtonPreview(text: String, style: ButtonStyle = ButtonStyle.OUTLIN
     Button(
         enabled = enabled,
         style,
-        text
+        text,
     ) { }
 }
 
@@ -25,8 +25,8 @@ internal fun ButtonPreviewWithIcon(text: String, style: ButtonStyle = ButtonStyl
         icon = {
             Icon(
                 imageVector = Icons.Filled.Add,
-                contentDescription = "Button"
+                contentDescription = "Button",
             )
-        }
+        },
     ) { }
 }

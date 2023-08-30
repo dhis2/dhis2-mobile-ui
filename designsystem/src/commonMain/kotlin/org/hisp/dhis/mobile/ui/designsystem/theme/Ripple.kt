@@ -14,7 +14,7 @@ object Ripple {
         @Composable
         override fun rippleAlpha(): RippleAlpha = RippleTheme.defaultRippleAlpha(
             SurfaceColor.Primary,
-            lightTheme = true
+            lightTheme = true,
         )
     }
 }

@@ -5,7 +5,6 @@ plugins {
     kotlin("multiplatform")
     id("org.jetbrains.compose")
     id("com.android.library")
-    id("org.jlleitschuh.gradle.ktlint")
     id("convention.publication")
 }
 
@@ -42,6 +41,13 @@ kotlin {
                 implementation(compose.desktop.common)
             }
         }
+
+        val desktopTest by getting {
+            dependencies {
+                implementation(compose.desktop.uiTestJUnit4)
+                implementation(compose.desktop.currentOs)
+            }
+        }
     }
 }
 
@@ -64,9 +70,4 @@ android {
     kotlin {
         jvmToolchain(17)
     }
-}
-
-ktlint {
-    verbose.set(true)
-    outputToConsole.set(true)
 }

@@ -37,7 +37,7 @@ fun Button(
     text: String,
     icon: @Composable
     (() -> Unit)? = null,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     val paddingValues = getPaddingValues(icon != null)
 
@@ -52,11 +52,11 @@ fun Button(
                     SurfaceColor.Primary,
                     TextColor.OnPrimary,
                     SurfaceColor.DisabledSurface,
-                    TextColor.OnDisabledSurface
+                    TextColor.OnDisabledSurface,
                 ),
                 text = text,
                 textColor = textColor,
-                icon = icon
+                icon = icon,
 
             )
         }
@@ -69,11 +69,11 @@ fun Button(
                     Color.Transparent,
                     SurfaceColor.Primary,
                     Color.Transparent,
-                    TextColor.OnDisabledSurface
+                    TextColor.OnDisabledSurface,
                 ),
                 text = text,
                 textColor = textColor,
-                icon = icon
+                icon = icon,
             )
         }
         ButtonStyle.ELEVATED -> {
@@ -87,10 +87,10 @@ fun Button(
                     SurfaceColor.ContainerLow,
                     SurfaceColor.Primary,
                     SurfaceColor.DisabledSurface,
-                    TextColor.OnDisabledSurface
+                    TextColor.OnDisabledSurface,
                 ),
                 shape = ButtonDefaults.outlinedShape,
-                contentPadding = paddingValues
+                contentPadding = paddingValues,
             ) {
                 ButtonText(text, textColor, icon)
             }
@@ -105,11 +105,11 @@ fun Button(
                         SurfaceColor.PrimaryContainer,
                         TextColor.OnPrimaryContainer,
                         SurfaceColor.DisabledSurface,
-                        TextColor.OnDisabledSurface
+                        TextColor.OnDisabledSurface,
                     ),
                     text = text,
                     textColor = textColor,
-                    icon = icon
+                    icon = icon,
                 )
             }
         }
@@ -125,11 +125,11 @@ fun Button(
                     SurfaceColor.Container,
                     SurfaceColor.Primary,
                     SurfaceColor.DisabledSurface,
-                    TextColor.OnDisabledSurface
+                    TextColor.OnDisabledSurface,
                 ),
                 text = text,
                 textColor = textColor,
-                icon = icon
+                icon = icon,
             )
         }
         ButtonStyle.OUTLINED -> {
@@ -142,10 +142,10 @@ fun Button(
                     Color.Transparent,
                     SurfaceColor.Primary,
                     Color.Transparent,
-                    TextColor.OnDisabledSurface
+                    TextColor.OnDisabledSurface,
                 ),
                 border = BorderStroke(Spacing.Spacing1, Outline.Dark),
-                contentPadding = paddingValues
+                contentPadding = paddingValues,
             ) {
                 ButtonText(text, textColor, icon)
             }
@@ -162,7 +162,7 @@ private fun SimpleButton(
     modifier: Modifier = Modifier,
     icon: @Composable
     (() -> Unit)? = null,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     val paddingValues = getPaddingValues(icon != null)
 
@@ -172,7 +172,7 @@ private fun SimpleButton(
         enabled = enabled,
         colors = buttonColors,
         shape = ButtonDefaults.outlinedShape,
-        contentPadding = paddingValues
+        contentPadding = paddingValues,
     ) {
         ButtonText(text, textColor, icon)
     }
@@ -183,13 +183,13 @@ private fun getPaddingValues(hasIcon: Boolean): PaddingValues {
         Spacing.Spacing16,
         Spacing.Spacing10,
         Spacing.Spacing24,
-        Spacing.Spacing10
+        Spacing.Spacing10,
     )
     val buttonWithoutIconPaddingValues = PaddingValues(
         Spacing.Spacing24,
         Spacing.Spacing10,
         Spacing.Spacing24,
-        Spacing.Spacing10
+        Spacing.Spacing10,
     )
 
     return if (hasIcon) buttonWithIconPaddingValues else buttonWithoutIconPaddingValues
@@ -201,5 +201,5 @@ enum class ButtonStyle {
     TEXT,
     ELEVATED,
     TONAL,
-    KEYBOARDKEY
+    KEYBOARDKEY,
 }

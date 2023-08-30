@@ -39,7 +39,7 @@ fun SquareIconButton(
     enabled: Boolean = true,
     icon: @Composable (() -> Unit),
     modifier: Modifier = Modifier,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     val shadowColor = if (enabled) SurfaceColor.ContainerHighest else Color.Transparent
     ElevatedButton(
@@ -53,9 +53,9 @@ fun SquareIconButton(
         shape = RoundedCornerShape(Radius.S),
         colors = ButtonDefaults.elevatedButtonColors(
             disabledContainerColor = Color.Transparent,
-            containerColor = SurfaceColor.Container
+            containerColor = SurfaceColor.Container,
         ),
-        contentPadding = PaddingValues(Spacing.Spacing8)
+        contentPadding = PaddingValues(Spacing.Spacing8),
     ) {
         icon()
     }
@@ -76,7 +76,7 @@ fun IconButton(
     enabled: Boolean = true,
     icon: @Composable (() -> Unit),
     modifier: Modifier = Modifier,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     when (style) {
         IconButtonStyle.FILLED -> FilledIconButton(enabled, icon, modifier = modifier, onClick = onClick)
@@ -91,7 +91,7 @@ private fun StandardIconButton(
     enabled: Boolean = true,
     icon: @Composable (() -> Unit),
     modifier: Modifier = Modifier,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
         FilledIconButton(
@@ -100,7 +100,7 @@ private fun StandardIconButton(
                 .size(Spacing.Spacing48)
                 .padding(Spacing.Spacing4),
             enabled = enabled,
-            colors = IconButtonDefaults.iconButtonColors(Color.Transparent, TextColor.OnSurfaceVariant, Color.Transparent, TextColor.OnDisabledSurface)
+            colors = IconButtonDefaults.iconButtonColors(Color.Transparent, TextColor.OnSurfaceVariant, Color.Transparent, TextColor.OnDisabledSurface),
         ) {
             icon()
         }
@@ -112,7 +112,7 @@ private fun FilledIconButton(
     enabled: Boolean = true,
     icon: @Composable (() -> Unit),
     modifier: Modifier = Modifier,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     FilledIconButton(
         onClick = onClick,
@@ -120,7 +120,7 @@ private fun FilledIconButton(
             .size(Spacing.Spacing48)
             .padding(Spacing.Spacing4),
         enabled = enabled,
-        colors = IconButtonDefaults.iconButtonColors(SurfaceColor.Primary, TextColor.OnPrimary, SurfaceColor.DisabledSurface, TextColor.OnDisabledSurface)
+        colors = IconButtonDefaults.iconButtonColors(SurfaceColor.Primary, TextColor.OnPrimary, SurfaceColor.DisabledSurface, TextColor.OnDisabledSurface),
     ) {
         icon()
     }
@@ -131,7 +131,7 @@ private fun FilledTonalIconButton(
     enabled: Boolean = true,
     icon: @Composable (() -> Unit),
     modifier: Modifier = Modifier,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
         FilledTonalIconButton(
@@ -141,7 +141,7 @@ private fun FilledTonalIconButton(
                 .padding(Spacing.Spacing4),
             enabled = enabled,
             shape = CircleShape,
-            colors = IconButtonDefaults.filledTonalIconButtonColors(SurfaceColor.PrimaryContainer, TextColor.OnPrimaryContainer, SurfaceColor.DisabledSurface, TextColor.OnDisabledSurface)
+            colors = IconButtonDefaults.filledTonalIconButtonColors(SurfaceColor.PrimaryContainer, TextColor.OnPrimaryContainer, SurfaceColor.DisabledSurface, TextColor.OnDisabledSurface),
 
         ) {
             icon()
@@ -154,7 +154,7 @@ private fun OutlinedIconButton(
     enabled: Boolean = true,
     icon: @Composable (() -> Unit),
     modifier: Modifier = Modifier,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
         OutlinedIconButton(
@@ -165,7 +165,7 @@ private fun OutlinedIconButton(
             enabled = enabled,
             shape = CircleShape,
             border = BorderStroke(Spacing.Spacing1, if (enabled) Outline.Dark else SurfaceColor.DisabledSurface),
-            colors = IconButtonDefaults.outlinedIconButtonColors(Color.Transparent, TextColor.OnPrimaryContainer)
+            colors = IconButtonDefaults.outlinedIconButtonColors(Color.Transparent, TextColor.OnPrimaryContainer),
         ) {
             icon()
         }

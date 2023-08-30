@@ -3,7 +3,6 @@ import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 plugins {
     kotlin("multiplatform")
     id("org.jetbrains.compose")
-    id("org.jlleitschuh.gradle.ktlint")
 }
 
 kotlin {
@@ -28,9 +27,4 @@ compose.desktop {
             packageVersion = "1.0.0"
         }
     }
-}
-
-ktlint {
-    verbose.set(true)
-    outputToConsole.set(true)
 }

@@ -29,7 +29,7 @@ fun InputText(
     supportingText: List<SupportingTextData>? = null,
     legendText: String? = null,
     inputText: String = "",
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     var inputValue by rememberSaveable { mutableStateOf(inputText) }
     var deleteButtonIsVisible by remember { mutableStateOf(false) }
@@ -42,14 +42,14 @@ fun InputText(
                     icon = {
                         Icon(
                             imageVector = Icons.Outlined.Cancel,
-                            contentDescription = "Icon Button"
+                            contentDescription = "Icon Button",
                         )
                     },
                     onClick = {
                         inputValue = ""
                         deleteButtonIsVisible = false
                     },
-                    enabled = state != InputShellState.DISABLED
+                    enabled = state != InputShellState.DISABLED,
                 )
             }
         },
@@ -69,8 +69,8 @@ fun InputText(
                     inputValue = it
                     deleteButtonIsVisible = inputValue.isNotEmpty()
                 },
-                enabled = state != InputShellState.DISABLED
+                enabled = state != InputShellState.DISABLED,
             )
-        }
+        },
     )
 }

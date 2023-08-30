@@ -29,7 +29,6 @@ import org.hisp.dhis.common.screens.InputScreen
 import org.hisp.dhis.common.screens.InputTextScreen
 import org.hisp.dhis.common.screens.LegendDescriptionScreen
 import org.hisp.dhis.common.screens.LegendScreen
-import org.hisp.dhis.common.screens.NotImplementedScreen
 import org.hisp.dhis.common.screens.ProgressScreen
 import org.hisp.dhis.common.screens.SupportingTextScreen
 import org.hisp.dhis.common.screens.radio.RadioButtonScreen
@@ -52,7 +51,7 @@ fun Main() {
     Column(modifier = Modifier.padding(Spacing.Spacing16)) {
         Box(
             modifier = Modifier
-                .fillMaxWidth()
+                .fillMaxWidth(),
 
         ) {
             TextField(
@@ -69,13 +68,13 @@ fun Main() {
                     Icon(
                         icon,
                         "contentDescription",
-                        Modifier.clickable { expanded = !expanded }
+                        Modifier.clickable { expanded = !expanded },
                     )
-                }
+                },
             )
             DropdownMenu(
                 expanded = expanded,
-                onDismissRequest = { expanded = false }
+                onDismissRequest = { expanded = false },
             ) {
                 Components.values().forEach {
                     DropdownMenuItem(
@@ -83,7 +82,7 @@ fun Main() {
                         onClick = {
                             currentScreen.value = it
                             expanded = false
-                        }
+                        },
                     )
                 }
             }
@@ -101,7 +100,6 @@ fun Main() {
             Components.SUPPORTING_TEXT -> SupportingTextScreen()
             Components.INPUT_TEXT -> InputTextScreen()
             Components.LEGEND_DESCRIPTION -> LegendDescriptionScreen()
-            else -> NotImplementedScreen()
         }
     }
 }
