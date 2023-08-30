@@ -41,6 +41,13 @@ kotlin {
                 implementation(compose.desktop.common)
             }
         }
+
+        val desktopTest by getting {
+            dependencies {
+                implementation(compose.desktop.uiTestJUnit4)
+                implementation(compose.desktop.currentOs)
+            }
+        }
     }
 }
 
