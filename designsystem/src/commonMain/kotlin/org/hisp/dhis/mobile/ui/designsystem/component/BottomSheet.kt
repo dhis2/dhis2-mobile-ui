@@ -20,12 +20,12 @@ fun BottomSheetHeader(
     description: String? = null,
     icon: @Composable
     (() -> Unit)? = null,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val horizontalAlignment = if (icon != null) Alignment.CenterHorizontally else Alignment.Start
     Column(
         modifier = modifier.padding(horizontal = Spacing.Spacing24, vertical = Spacing.Spacing0),
-        horizontalAlignment = horizontalAlignment
+        horizontalAlignment = horizontalAlignment,
     ) {
         icon?. let {
             it.invoke()
@@ -37,14 +37,14 @@ fun BottomSheetHeader(
             title,
             style = MaterialTheme.typography.headlineSmall,
             color = TextColor.OnPrimaryContainer,
-            modifier = Modifier.padding(bottom = Spacing.Spacing4)
+            modifier = Modifier.padding(bottom = Spacing.Spacing4),
         )
         subTitle?.let {
             Text(
                 subTitle,
                 style = MaterialTheme.typography.bodySmall,
                 color = TextColor.OnDisabledSurface,
-                modifier = Modifier.padding(bottom = Spacing.Spacing16)
+                modifier = Modifier.padding(bottom = Spacing.Spacing16),
             )
         }
 
@@ -52,7 +52,7 @@ fun BottomSheetHeader(
             Text(
                 description,
                 style = MaterialTheme.typography.bodyMedium,
-                color = TextColor.OnSurfaceLight
+                color = TextColor.OnSurfaceLight,
             )
         }
     }

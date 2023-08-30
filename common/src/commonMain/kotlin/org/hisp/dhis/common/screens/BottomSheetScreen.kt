@@ -27,9 +27,9 @@ fun BottomSheetScreen() {
                     Icon(
                         imageVector = Icons.Outlined.BookmarkBorder,
                         contentDescription = "Button",
-                        tint = SurfaceColor.Primary
+                        tint = SurfaceColor.Primary,
                     )
-                }
+                },
             )
         }
         SubTitle("Without Icon", TextColor.OnSurface)
@@ -38,7 +38,7 @@ fun BottomSheetScreen() {
             BottomSheetHeader(
                 title = "Title",
                 subTitle = "Subtitle",
-                description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce convallis, urna vitae lacinia feugiat"
+                description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce convallis, urna vitae lacinia feugiat",
             )
         }
     }
