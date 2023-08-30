@@ -42,7 +42,7 @@ fun SupportingText(
     showMoreText: String = provideStringResource("show_more"),
     showLessText: String = provideStringResource("show_less"),
     modifier: Modifier = Modifier,
-    ) {
+) {
     var isExpanded by remember { mutableStateOf(false) }
     val textLayoutResultState = remember { mutableStateOf<TextLayoutResult?>(null) }
     val nonClickableTextStyle = getSpanSupportingTextStyle(state.color)
