@@ -32,7 +32,6 @@ fun Legend(color: Color, text: String, onClick: () -> Unit) {
     CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
         Column(
             modifier = Modifier
-                .testTag("LEGEND")
                 .clickable(onClick = onClick),
         ) {
             Row(
