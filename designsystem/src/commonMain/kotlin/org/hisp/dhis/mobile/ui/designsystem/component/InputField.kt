@@ -60,6 +60,7 @@ fun BasicInput(
     helperStyle: InputStyle = InputStyle.NONE,
     inputText: String = "",
     onInputChanged: (String) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     var visualTransformation = VisualTransformation.None
 
@@ -73,7 +74,7 @@ fun BasicInput(
         }
     }
     BasicTextField(
-        modifier = Modifier
+        modifier = modifier
             .background(
                 Color.Transparent,
             )

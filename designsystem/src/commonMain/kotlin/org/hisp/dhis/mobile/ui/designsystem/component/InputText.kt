@@ -10,6 +10,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 
 /**
@@ -32,13 +33,14 @@ fun InputText(
     modifier: Modifier = Modifier,
 ) {
     var inputValue by rememberSaveable { mutableStateOf(inputText) }
-    var deleteButtonIsVisible by remember { mutableStateOf(false) }
+    var deleteButtonIsVisible by remember { mutableStateOf(inputText.isNotEmpty()) }
     InputShell(
         modifier = modifier,
         title = title,
         primaryButton = {
             if (deleteButtonIsVisible) {
                 IconButton(
+                    modifier = Modifier.testTag("INPUT_TEXT_RESET_BUTTON"),
                     icon = {
                         Icon(
                             imageVector = Icons.Outlined.Cancel,
@@ -56,14 +58,22 @@ fun InputText(
         state = state,
         legend = {
             legendText?.let {
-                Legend(SurfaceColor.CustomGreen, legendText) {}
+                Legend(SurfaceColor.CustomGreen, legendText, Modifier.testTag("INPUT_TEXT_LEGEND")) {}
             }
         },
         supportingText = {
-            supportingText?.forEach { label -> SupportingText(label.text, label.state) }
+            supportingText?.forEach {
+                    label ->
+                SupportingText(
+                    label.text,
+                    label.state,
+                    modifier = Modifier.testTag("INPUT_TEXT_SUPPORTING_TEXT"),
+                )
+            }
         },
         inputField = {
             BasicInput(
+                modifier = Modifier.testTag("INPUT_TEXT_FIELD"),
                 inputText = inputValue,
                 onInputChanged = {
                     inputValue = it

@@ -40,6 +40,7 @@ fun SupportingText(
     state: SupportingTextState = SupportingTextState.DEFAULT,
     showMoreText: String = "Show more",
     showLessText: String = "Show less",
+    modifier: Modifier = Modifier,
 ) {
     var isExpanded by remember { mutableStateOf(false) }
     val textLayoutResultState = remember { mutableStateOf<TextLayoutResult?>(null) }
@@ -128,7 +129,7 @@ fun SupportingText(
                     }
                 }
             },
-            modifier = Modifier.animateContentSize()
+            modifier = modifier.animateContentSize()
                 .padding(start = Spacing.Spacing16, top = Spacing.Spacing4, end = Spacing.Spacing16),
         )
     }
