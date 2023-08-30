@@ -25,6 +25,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
+import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
 import org.hisp.dhis.mobile.ui.designsystem.theme.iconButtonshadow
 
 /**
@@ -49,7 +50,8 @@ fun SquareIconButton(
         modifier = modifier
             .size(Spacing.Spacing48)
             .padding(Spacing.Spacing4)
-            .iconButtonshadow(shadowColor, Radius.S),
+            .iconButtonshadow(shadowColor, Radius.S)
+            .hoverPointerIcon(enabled),
         enabled = enabled,
         shape = Shape.Small,
         colors = ButtonDefaults.elevatedButtonColors(
@@ -101,7 +103,8 @@ private fun StandardIconButton(
             onClick = onClick,
             modifier = modifier
                 .size(Spacing.Spacing48)
-                .padding(Spacing.Spacing4),
+                .padding(Spacing.Spacing4)
+                .hoverPointerIcon(enabled),
             enabled = enabled,
             colors = IconButtonDefaults.iconButtonColors(Color.Transparent, TextColor.OnSurfaceVariant, Color.Transparent, TextColor.OnDisabledSurface),
         ) {
@@ -123,7 +126,8 @@ private fun FilledIconButton(
         onClick = onClick,
         modifier = modifier
             .size(Spacing.Spacing48)
-            .padding(Spacing.Spacing4),
+            .padding(Spacing.Spacing4)
+            .hoverPointerIcon(enabled),
         enabled = enabled,
         colors = IconButtonDefaults.iconButtonColors(SurfaceColor.Primary, TextColor.OnPrimary, SurfaceColor.DisabledSurface, TextColor.OnDisabledSurface),
     ) {
@@ -145,7 +149,8 @@ private fun FilledTonalIconButton(
             onClick = onClick,
             modifier = modifier
                 .size(Spacing.Spacing48)
-                .padding(Spacing.Spacing4),
+                .padding(Spacing.Spacing4)
+                .hoverPointerIcon(enabled),
             enabled = enabled,
             shape = CircleShape,
             colors = IconButtonDefaults.filledTonalIconButtonColors(SurfaceColor.PrimaryContainer, TextColor.OnPrimaryContainer, SurfaceColor.DisabledSurface, TextColor.OnDisabledSurface),
@@ -170,7 +175,8 @@ private fun OutlinedIconButton(
             onClick = onClick,
             modifier = modifier
                 .size(Spacing.Spacing48)
-                .padding(Spacing.Spacing4),
+                .padding(Spacing.Spacing4)
+                .hoverPointerIcon(enabled),
             enabled = enabled,
             shape = CircleShape,
             border = BorderStroke(Spacing.Spacing1, if (enabled) Outline.Dark else SurfaceColor.DisabledSurface),
