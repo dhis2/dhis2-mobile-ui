@@ -253,6 +253,7 @@ fun TextButtonSelector(
             color = clickableText1Color.value,
             style = MaterialTheme.typography.titleMedium,
             modifier = Modifier.clickable(
+                enabled = enabled,
                 interactionSource = interactionSourceOption1,
                 onClick = {
                     onClickFirstOption()
@@ -270,6 +271,7 @@ fun TextButtonSelector(
             text = secondOptionText,
             color = clickableText2Color.value,
             modifier = Modifier.clickable(
+                enabled = enabled,
                 interactionSource = interactionSourceOption2,
                 onClick = {
                     onClickSecondOption()

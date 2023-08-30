@@ -21,6 +21,14 @@ fun ButtonScreen() {
             secondOptionText = provideStringResource("age"),
             onClickSecondOption = {}
         )
+        TextButtonSelector(
+            enabled = false,
+            firstOptionText = provideStringResource("date_birth"),
+            onClickFirstOption = {},
+            middleText = provideStringResource("or"),
+            secondOptionText = provideStringResource("age"),
+            onClickSecondOption = {}
+        )
         Text("Filled")
         RowComponentContainer() {
             ButtonPreview("Label", ButtonStyle.FILLED)
