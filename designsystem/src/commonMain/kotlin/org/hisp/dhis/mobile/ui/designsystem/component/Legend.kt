@@ -27,7 +27,6 @@ import androidx.compose.ui.graphics.Color
 import org.hisp.dhis.mobile.ui.designsystem.theme.Ripple
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
-import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
 
 @Composable
 fun Legend(

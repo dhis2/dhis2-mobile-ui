@@ -22,7 +22,6 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
-import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
 
 /**
  * DHIS2 check box with or without text. Wraps Material 3 [Checkbox].
@@ -59,7 +58,7 @@ fun CheckBox(
                 },
                 enabled = enabled,
             )
-            .hoverPointerIcon(enabled)
+            .hoverPointerIcon(enabled),
     ) {
         CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
             Checkbox(
