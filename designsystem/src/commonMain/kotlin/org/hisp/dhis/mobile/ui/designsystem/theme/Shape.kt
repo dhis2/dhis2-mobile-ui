@@ -9,7 +9,7 @@ internal val DHISShapes = Shapes(
     small = Shape.Small,
     medium = Shape.Medium,
     large = Shape.Large,
-    extraLarge = Shape.ExtraLarge
+    extraLarge = Shape.ExtraLarge,
 )
 
 object Shape {
@@ -19,14 +19,14 @@ object Shape {
         topStart = CornerSize(Radius.XS),
         topEnd = CornerSize(Radius.XS),
         bottomEnd = CornerSize(Radius.NoRounding),
-        bottomStart = CornerSize(Radius.NoRounding)
+        bottomStart = CornerSize(Radius.NoRounding),
     )
     val Small = RoundedCornerShape(Radius.S)
     val SmallBottom = RoundedCornerShape(
         topStart = CornerSize(Radius.NoRounding),
         topEnd = CornerSize(Radius.NoRounding),
         bottomEnd = CornerSize(Radius.S),
-        bottomStart = CornerSize(Radius.S)
+        bottomStart = CornerSize(Radius.S),
     )
     val Medium = RoundedCornerShape(Radius.M)
     val Large = RoundedCornerShape(Radius.L)

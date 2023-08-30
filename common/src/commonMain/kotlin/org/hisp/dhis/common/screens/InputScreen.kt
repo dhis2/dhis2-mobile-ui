@@ -18,6 +18,6 @@ fun InputScreen() {
             BasicInput(inputText = "Input") {}
             Text("Disabled")
             BasicInput(enabled = false, inputText = "Input") {}
-        }
+        },
     )
 }

@@ -19,7 +19,7 @@ internal fun Modifier.iconButtonshadow(
     borderRadius: Dp = Spacing.Spacing0,
     spread: Dp = DEFAULT_SPREAD.dp,
     modifier: Modifier = Modifier,
-    size: Dp = DEFAULT_SIZE.dp
+    size: Dp = DEFAULT_SIZE.dp,
 ) = this.then(
     modifier.drawBehind {
         this.drawIntoCanvas {
@@ -39,17 +39,17 @@ internal fun Modifier.iconButtonshadow(
                 bottom = bottomPixel,
                 radiusX = borderRadius.toPx(),
                 radiusY = borderRadius.toPx(),
-                paint
+                paint,
             )
         }
-    }.size(size)
+    }.size(size),
 )
 
 internal fun Modifier.buttonShadow(
     color: Color,
     borderRadius: Dp = Spacing.Spacing0,
     hasIcon: Boolean = true,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) = this.then(
     modifier.drawBehind {
         this.drawIntoCanvas {
@@ -69,8 +69,8 @@ internal fun Modifier.buttonShadow(
                 bottom = bottomPixel,
                 radiusX = borderRadius.toPx(),
                 radiusY = borderRadius.toPx(),
-                paint
+                paint,
             )
         }
-    }
+    },
 )

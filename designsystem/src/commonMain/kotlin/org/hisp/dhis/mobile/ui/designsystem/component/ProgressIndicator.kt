@@ -8,7 +8,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 
 enum class ProgressIndicatorType {
     CIRCULAR,
-    LINEAR
+    LINEAR,
 }
 
 @Composable
@@ -16,7 +16,7 @@ fun ProgressIndicator(
     modifier: Modifier = Modifier,
     type: ProgressIndicatorType,
     progress: Float? = null,
-    hasError: Boolean = false
+    hasError: Boolean = false,
 ) {
     when (type) {
         ProgressIndicatorType.CIRCULAR -> CircularIndicator(modifier, progress, hasError)
@@ -33,13 +33,13 @@ internal fun LinearIndicator(modifier: Modifier, progress: Float?, hasError: Boo
             progress = progress,
             modifier = modifier,
             color = color,
-            trackColor = trackColor
+            trackColor = trackColor,
         )
     } else {
         LinearProgressIndicator(
             modifier = modifier,
             color = color,
-            trackColor = trackColor
+            trackColor = trackColor,
         )
     }
 }
@@ -51,12 +51,12 @@ internal fun CircularIndicator(modifier: Modifier, progress: Float?, hasError: B
         CircularProgressIndicator(
             progress = progress,
             modifier = modifier,
-            color = color
+            color = color,
         )
     } else {
         CircularProgressIndicator(
             modifier = modifier,
-            color = color
+            color = color,
         )
     }
 }

@@ -17,7 +17,7 @@ fun LegendDescriptionScreen() {
                 LegendDescriptionData(
                     SurfaceColor.CustomGreen,
                     "Legend",
-                    IntRange(0, 30)
+                    IntRange(0, 30),
                 ),
                 LegendDescriptionData(
                     SurfaceColor.CustomGreen,
@@ -26,9 +26,9 @@ fun LegendDescriptionScreen() {
                         "aliquam. Lorem ipsum dolor sit amet, " +
                         "consectetur adipiscing elit. Maecenas dolor lacus, " +
                         "aliquam.Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                    IntRange(0, 30)
-                )
-            )
+                    IntRange(0, 30),
+                ),
+            ),
         )
 
         Text("Legend Block")
@@ -37,7 +37,7 @@ fun LegendDescriptionScreen() {
                 LegendDescriptionData(
                     SurfaceColor.CustomGreen,
                     "Low",
-                    IntRange(0, 5)
+                    IntRange(0, 5),
                 ),
                 LegendDescriptionData(SurfaceColor.CustomYellow, "Medium", IntRange(5, 10)),
                 LegendDescriptionData(TextColor.OnWarning, "High", IntRange(10, 20)),
@@ -47,9 +47,9 @@ fun LegendDescriptionScreen() {
                     SurfaceColor.CustomGray,
                     "Lorem ipsum dolor sit amet, " +
                         "consectetur adipiscing elit. Fusce convallis",
-                    IntRange(120, 1000)
-                )
-            )
+                    IntRange(120, 1000),
+                ),
+            ),
         )
     }
 }

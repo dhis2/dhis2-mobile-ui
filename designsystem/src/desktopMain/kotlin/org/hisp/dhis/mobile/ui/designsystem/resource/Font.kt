@@ -6,7 +6,7 @@ import androidx.compose.ui.text.platform.Font
 
 @Composable
 actual fun provideFontResource(
-    font: String
+    font: String,
 ): FontFamily = FontFamily(
-    Font(resource = "font/$font.ttf")
+    Font(resource = "font/$font.ttf"),
 )

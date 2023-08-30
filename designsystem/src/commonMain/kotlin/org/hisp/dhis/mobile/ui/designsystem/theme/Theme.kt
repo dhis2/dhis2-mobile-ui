@@ -26,7 +26,7 @@ val DHIS2LightColorScheme = lightColorScheme(
     onSurfaceVariant = TextColor.OnSurfaceVariant,
     outline = Outline.Dark,
     outlineVariant = Outline.Light,
-    scrim = SurfaceColor.Scrim
+    scrim = SurfaceColor.Scrim,
 )
 
 @Composable
@@ -39,28 +39,28 @@ fun DHIS2Theme(content: @Composable () -> Unit) {
                 lineHeight = 40.sp,
                 fontFamily = provideFontResource(),
                 fontWeight = FontWeight.Normal,
-                color = TextColor.OnSurface
+                color = TextColor.OnSurface,
             ),
             headlineMedium = TextStyle(
                 fontSize = 28.sp,
                 lineHeight = 36.sp,
                 fontFamily = provideFontResource(),
                 fontWeight = FontWeight.Normal,
-                color = TextColor.OnSurface
+                color = TextColor.OnSurface,
             ),
             headlineSmall = TextStyle(
                 fontSize = 24.sp,
                 lineHeight = 32.sp,
                 fontFamily = provideFontResource(),
                 fontWeight = FontWeight.Normal,
-                color = TextColor.OnSurface
+                color = TextColor.OnSurface,
             ),
             titleLarge = TextStyle(
                 fontSize = 22.sp,
                 lineHeight = 28.sp,
                 fontFamily = provideFontResource(),
                 fontWeight = FontWeight.Normal,
-                color = TextColor.OnSurface
+                color = TextColor.OnSurface,
             ),
             titleMedium = TextStyle(
                 fontSize = 16.sp,
@@ -68,7 +68,7 @@ fun DHIS2Theme(content: @Composable () -> Unit) {
                 fontFamily = provideFontResource(),
                 fontWeight = FontWeight.Medium,
                 color = TextColor.OnSurface,
-                letterSpacing = 0.15.sp
+                letterSpacing = 0.15.sp,
             ),
             titleSmall = TextStyle(
                 fontSize = 14.sp,
@@ -76,7 +76,7 @@ fun DHIS2Theme(content: @Composable () -> Unit) {
                 fontFamily = provideFontResource(),
                 fontWeight = FontWeight.Medium,
                 color = TextColor.OnSurface,
-                letterSpacing = 0.1.sp
+                letterSpacing = 0.1.sp,
             ),
             labelLarge = TextStyle(
                 fontSize = 14.sp,
@@ -84,7 +84,7 @@ fun DHIS2Theme(content: @Composable () -> Unit) {
                 fontFamily = provideFontResource(),
                 fontWeight = FontWeight.Medium,
                 color = TextColor.OnSurface,
-                letterSpacing = 0.1.sp
+                letterSpacing = 0.1.sp,
             ),
             labelMedium = TextStyle(
                 fontSize = 12.sp,
@@ -92,7 +92,7 @@ fun DHIS2Theme(content: @Composable () -> Unit) {
                 fontFamily = provideFontResource(),
                 fontWeight = FontWeight.Medium,
                 color = TextColor.OnSurface,
-                letterSpacing = 0.5.sp
+                letterSpacing = 0.5.sp,
             ),
             labelSmall = TextStyle(
                 fontSize = 11.sp,
@@ -100,7 +100,7 @@ fun DHIS2Theme(content: @Composable () -> Unit) {
                 fontFamily = provideFontResource(),
                 fontWeight = FontWeight.Medium,
                 color = TextColor.OnSurface,
-                letterSpacing = 0.5.sp
+                letterSpacing = 0.5.sp,
             ),
             bodyLarge = TextStyle(
                 fontSize = 16.sp,
@@ -108,7 +108,7 @@ fun DHIS2Theme(content: @Composable () -> Unit) {
                 fontFamily = provideFontResource(),
                 fontWeight = FontWeight.Normal,
                 color = TextColor.OnSurface,
-                letterSpacing = 0.5.sp
+                letterSpacing = 0.5.sp,
             ),
             bodyMedium = TextStyle(
                 fontSize = 14.sp,
@@ -116,7 +116,7 @@ fun DHIS2Theme(content: @Composable () -> Unit) {
                 fontFamily = provideFontResource(),
                 fontWeight = FontWeight.Normal,
                 color = TextColor.OnSurface,
-                letterSpacing = 0.25.sp
+                letterSpacing = 0.25.sp,
             ),
             bodySmall = TextStyle(
                 fontSize = 12.sp,
@@ -124,10 +124,10 @@ fun DHIS2Theme(content: @Composable () -> Unit) {
                 fontFamily = provideFontResource(),
                 fontWeight = FontWeight.Normal,
                 color = TextColor.OnSurface,
-                letterSpacing = 0.4.sp
-            )
+                letterSpacing = 0.4.sp,
+            ),
         ),
         shapes = DHISShapes,
-        content = content
+        content = content,
     )
 }

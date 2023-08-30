@@ -48,7 +48,7 @@ fun InputShell(
     inputField: @Composable (() -> Unit)? = null,
     supportingText: @Composable (() -> Unit)? = null,
     legend: @Composable (() -> Unit)? = null,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier.fillMaxWidth().clip(shape = RoundedCornerShape(Radius.XS, Radius.XS))) {
         var indicatorColor by remember { mutableStateOf(InputShellState.UNFOCUSED.color) }
@@ -57,19 +57,19 @@ fun InputShell(
             modifier = Modifier.onFocusChanged {
                 indicatorColor = if (it.isFocused) InputShellState.FOCUSED.color else state.color
             },
-            backgroundColor = backgroundColor
+            backgroundColor = backgroundColor,
         ) {
             Column(
                 Modifier
                     .weight(4f, false)
                     .padding(end = Spacing.Spacing4),
-                verticalArrangement = Arrangement.Center
+                verticalArrangement = Arrangement.Center,
             ) {
                 InputShellLabelText(title, textColor = indicatorColor)
                 inputField?.invoke()
             }
             Row(
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 primaryButton?.let {
                     Box(Modifier.size(Spacing.Spacing48)) {
@@ -104,14 +104,14 @@ fun InputShell(
 private fun InputShellRow(
     modifier: Modifier = Modifier,
     backgroundColor: Color,
-    content: @Composable (() -> Unit)
+    content: @Composable (() -> Unit),
 ) {
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.Top,
         modifier = modifier.fillMaxWidth()
             .background(backgroundColor)
-            .padding(Spacing.Spacing16, Spacing.Spacing8, Spacing.Spacing0, Spacing.Spacing4)
+            .padding(Spacing.Spacing16, Spacing.Spacing8, Spacing.Spacing0, Spacing.Spacing4),
     ) {
         content()
     }
@@ -123,14 +123,14 @@ private fun InputShellRow(
  */
 @Composable
 private fun InputShellButtonSeparator(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Divider(
         color = Outline.Medium,
         thickness = Spacing.Spacing1,
         modifier = modifier
             .height(Spacing.Spacing40)
-            .width(Spacing.Spacing1)
+            .width(Spacing.Spacing1),
     )
 }
 
@@ -141,14 +141,14 @@ private fun InputShellButtonSeparator(
 @Composable
 private fun InputShellIndicator(
     color: Color,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Divider(
         modifier = modifier
             .fillMaxWidth()
             .padding(),
         thickness = Spacing.Spacing1,
-        color = color
+        color = color,
     )
 }
 
@@ -160,5 +160,5 @@ enum class InputShellState(val color: Color) {
     FOCUSED(SurfaceColor.Primary),
     UNFOCUSED(TextColor.OnSurfaceVariant),
     ERROR(SurfaceColor.Error),
-    DISABLED(TextColor.OnDisabledSurface)
+    DISABLED(TextColor.OnDisabledSurface),
 }

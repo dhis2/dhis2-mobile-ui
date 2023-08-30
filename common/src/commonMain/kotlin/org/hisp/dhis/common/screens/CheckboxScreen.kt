@@ -23,14 +23,14 @@ fun CheckboxScreen() {
     ColumnComponentContainer(
         content = {
             Text(
-                text = "Text Check Box"
+                text = "Text Check Box",
             )
             TextCheckboxPreview(state1, true, option1)
             TextCheckboxPreview(state2, true, option2)
             TextCheckboxPreview(state3, false, option3)
             TextCheckboxPreview(state4, enabled = false, text = option4)
             Text(
-                text = "Check Box"
+                text = "Check Box",
             )
             Row {
                 CheckboxPreview(mutableStateOf(true), enabled = true)
@@ -40,6 +40,6 @@ fun CheckboxScreen() {
                 CheckboxPreview(mutableStateOf(false), enabled = true)
                 CheckboxPreview(mutableStateOf(false), enabled = false)
             }
-        }
+        },
     )
 }

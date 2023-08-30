@@ -35,11 +35,11 @@ fun RadioButton(
     selected: Boolean,
     enabled: Boolean,
     textInput: String?,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     Row(
         horizontalArrangement = Arrangement.spacedBy(Spacing.Spacing0, Alignment.Start),
-        verticalAlignment = Alignment.Top
+        verticalAlignment = Alignment.Top,
     ) {
         CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
             RadioButton(
@@ -52,8 +52,8 @@ fun RadioButton(
                     selectedColor = SurfaceColor.Primary,
                     unselectedColor = Outline.Dark,
                     disabledSelectedColor = TextColor.OnDisabledSurface,
-                    disabledUnselectedColor = TextColor.OnDisabledSurface
-                )
+                    disabledUnselectedColor = TextColor.OnDisabledSurface,
+                ),
             )
         }
         if (!textInput.isNullOrEmpty()) {
@@ -63,14 +63,14 @@ fun RadioButton(
                     .padding(top = Spacing.Spacing8, bottom = Spacing.Spacing8)
                     .clickable(
                         interactionSource = interactionSource,
-                        indication = null
+                        indication = null,
                     ) { onClick() },
                 text = textInput,
                 color = if (enabled) {
                     TextColor.OnSurface
                 } else {
                     TextColor.OnDisabledSurface
-                }
+                },
             )
         }
     }

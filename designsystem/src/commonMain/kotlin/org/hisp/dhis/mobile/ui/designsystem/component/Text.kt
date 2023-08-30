@@ -29,7 +29,7 @@ internal fun ButtonText(
     text: String,
     textColor: Color,
     icon: @Composable
-    (() -> Unit)? = null
+    (() -> Unit)? = null,
 ) {
     icon?.let {
         it.invoke()
@@ -44,7 +44,7 @@ internal fun getSpanSupportingTextStyle(color: Color = SupportingTextState.DEFAU
         fontSize = 14.sp,
         fontWeight = if (isexpandText) FontWeight.Medium else FontWeight.Normal,
         letterSpacing = if (isexpandText) 0.1.sp else 0.25.sp,
-        textDecoration = if (isexpandText) TextDecoration.Underline else TextDecoration.None
+        textDecoration = if (isexpandText) TextDecoration.Underline else TextDecoration.None,
     )
 }
 
@@ -60,14 +60,14 @@ internal fun getSpanSupportingTextStyle(color: Color = SupportingTextState.DEFAU
 internal fun InputShellLabelText(
     text: String,
     textColor: Color,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Text(
         text,
         modifier = modifier,
         color = textColor,
         style = MaterialTheme.typography.titleSmall,
-        textAlign = TextAlign.Start
+        textAlign = TextAlign.Start,
     )
 }
 
@@ -75,14 +75,14 @@ internal fun InputShellLabelText(
 internal fun LegendDescriptionRangeText(
     text: String,
     textColor: Color = TextColor.OnSurfaceLight,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Text(
         text,
         modifier = modifier,
         color = textColor,
         style = MaterialTheme.typography.bodyMedium,
-        textAlign = TextAlign.Start
+        textAlign = TextAlign.Start,
     )
 }
 
@@ -90,28 +90,28 @@ internal fun LegendDescriptionRangeText(
 fun Title(
     text: String,
     textColor: Color,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Text(
         text,
         modifier = modifier,
         color = textColor,
         style = MaterialTheme.typography.titleMedium,
-        textAlign = TextAlign.Start
+        textAlign = TextAlign.Start,
     )
 }
 
 @Composable fun SubTitle(
     text: String,
     textColor: Color,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Text(
         text,
         modifier = modifier,
         color = textColor,
         style = MaterialTheme.typography.titleSmall,
-        textAlign = TextAlign.Start
+        textAlign = TextAlign.Start,
     )
 }
 
@@ -119,13 +119,13 @@ fun Title(
 internal fun Description(
     text: String,
     textColor: Color,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Text(
         text,
         modifier = modifier,
         color = textColor,
         style = MaterialTheme.typography.bodyMedium,
-        textAlign = TextAlign.Start
+        textAlign = TextAlign.Start,
     )
 }

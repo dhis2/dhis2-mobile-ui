@@ -21,7 +21,7 @@ fun SupportingTextScreen() {
                 " consectetur adipiscing elit. Maecenas dolor lacus," +
                 " aliquam. Lorem ipsum dolor sit amet," +
                 " consectetur adipiscing elit. Maecenas dolor lacus," +
-                " aliquam.Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                " aliquam.Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
         )
         Text("Overflow Warning Supporting Text")
         SupportingText(
@@ -30,7 +30,7 @@ fun SupportingTextScreen() {
                 " aliquam. Lorem ipsum dolor sit amet," +
                 " consectetur adipiscing elit. Maecenas dolor lacus," +
                 " aliquam.Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-            SupportingTextState.WARNING
+            SupportingTextState.WARNING,
         )
         Text("Overflow Error Supporting Text")
         SupportingText(
@@ -39,7 +39,7 @@ fun SupportingTextScreen() {
                 " aliquam. Lorem ipsum dolor sit amet," +
                 " consectetur adipiscing elit. Maecenas dolor lacus," +
                 " aliquam.Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-            SupportingTextState.ERROR
+            SupportingTextState.ERROR,
         )
     }
 }

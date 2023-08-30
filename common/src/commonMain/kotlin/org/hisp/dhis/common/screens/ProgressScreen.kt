@@ -14,79 +14,79 @@ internal fun ProgressScreen() {
         ProgressIndicator(
             progress = 0.25f,
             type = ProgressIndicatorType.LINEAR,
-            hasError = false
+            hasError = false,
         )
         ProgressIndicator(
             progress = 0.50f,
             type = ProgressIndicatorType.LINEAR,
-            hasError = false
+            hasError = false,
         )
         ProgressIndicator(
             progress = 0.75f,
             type = ProgressIndicatorType.LINEAR,
-            hasError = false
+            hasError = false,
         )
         ProgressIndicator(
             progress = 0.45f,
             type = ProgressIndicatorType.LINEAR,
-            hasError = false
+            hasError = false,
         )
         ProgressIndicator(
             type = ProgressIndicatorType.LINEAR,
-            hasError = false
+            hasError = false,
         )
         Text("Linear indicator - Error")
         ProgressIndicator(
             progress = 0.70f,
             type = ProgressIndicatorType.LINEAR,
-            hasError = true
+            hasError = true,
         )
         ProgressIndicator(
             type = ProgressIndicatorType.LINEAR,
-            hasError = true
+            hasError = true,
         )
         Text("Circular indicator")
         RowComponentContainer {
             ProgressIndicator(
                 progress = 0.25f,
                 type = ProgressIndicatorType.CIRCULAR,
-                hasError = false
+                hasError = false,
             )
             ProgressIndicator(
                 progress = 0.50f,
                 type = ProgressIndicatorType.CIRCULAR,
-                hasError = false
+                hasError = false,
             )
             ProgressIndicator(
                 progress = 0.75f,
                 type = ProgressIndicatorType.CIRCULAR,
-                hasError = false
+                hasError = false,
             )
             ProgressIndicator(
                 progress = 1f,
                 type = ProgressIndicatorType.CIRCULAR,
-                hasError = false
+                hasError = false,
             )
             ProgressIndicator(
                 progress = 0.6f,
                 type = ProgressIndicatorType.CIRCULAR,
-                hasError = false
+                hasError = false,
             )
         }
         ProgressIndicator(
             type = ProgressIndicatorType.CIRCULAR,
-            hasError = false
+            hasError = false,
         )
         Text("Circular indicator - Error")
         RowComponentContainer {
             ProgressIndicator(
                 progress = 0.70f,
                 type = ProgressIndicatorType.CIRCULAR,
-                hasError = true
+                hasError = true,
             )
             ProgressIndicator(
                 type = ProgressIndicatorType.CIRCULAR,
-                hasError = true
+                hasError = true,
             )
         }
     }

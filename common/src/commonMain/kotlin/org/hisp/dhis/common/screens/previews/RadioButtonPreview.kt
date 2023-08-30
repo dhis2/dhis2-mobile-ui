@@ -8,7 +8,7 @@ internal fun RadioButtonPreview(selected: Boolean = true, enabled: Boolean = tru
     RadioButton(
         selected = selected,
         enabled = enabled,
-        textInput = null
+        textInput = null,
     ) { }
 }
 
@@ -18,6 +18,6 @@ internal fun TextRadioButtonPreview(selected: Boolean = false, enabled: Boolean 
         selected = selected,
         onClick = changeOption,
         enabled = enabled,
-        textInput = text
+        textInput = text,
     )
 }

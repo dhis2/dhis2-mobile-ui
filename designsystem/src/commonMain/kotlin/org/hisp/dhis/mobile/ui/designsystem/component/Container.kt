@@ -24,11 +24,11 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 @Composable
 fun ColumnComponentContainer(
     title: String? = null,
-    content: @Composable (() -> Unit)
+    content: @Composable (() -> Unit),
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(Spacing.Spacing16),
-        modifier = Modifier.padding(Spacing.Spacing10).verticalScroll(rememberScrollState())
+        modifier = Modifier.padding(Spacing.Spacing10).verticalScroll(rememberScrollState()),
     ) {
         title?.let {
             Text(title, style = MaterialTheme.typography.titleMedium)
@@ -47,14 +47,14 @@ fun ColumnComponentContainer(
 @Composable
 fun RowComponentContainer(
     title: String? = null,
-    content: @Composable (() -> Unit)
+    content: @Composable (() -> Unit),
 ) {
     title?.let {
         Text(title, style = MaterialTheme.typography.titleMedium)
     }
     Row(
         horizontalArrangement = Arrangement.spacedBy(Spacing.Spacing10),
-        modifier = Modifier.padding(Spacing.Spacing10)
+        modifier = Modifier.padding(Spacing.Spacing10),
     ) {
         content()
     }

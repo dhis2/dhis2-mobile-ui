@@ -5,7 +5,6 @@ plugins {
     kotlin("multiplatform")
     id("org.jetbrains.compose")
     id("com.android.library")
-    id("org.jlleitschuh.gradle.ktlint")
     id("convention.publication")
 }
 
@@ -64,9 +63,4 @@ android {
     kotlin {
         jvmToolchain(17)
     }
-}
-
-ktlint {
-    verbose.set(true)
-    outputToConsole.set(true)
 }

@@ -15,9 +15,9 @@ internal fun SquareIconButtonPreview(enabled: Boolean = true) {
         icon = {
             Icon(
                 imageVector = Icons.Outlined.FileDownload,
-                contentDescription = "Square Icon Button"
+                contentDescription = "Square Icon Button",
             )
-        }
+        },
     ) { }
 }
 
@@ -29,8 +29,8 @@ internal fun IconButtonPreview(enabled: Boolean = true, style: IconButtonStyle =
         icon = {
             Icon(
                 imageVector = Icons.Outlined.FileDownload,
-                contentDescription = "Icon Button"
+                contentDescription = "Icon Button",
             )
-        }
+        },
     ) { }
 }
