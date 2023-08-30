@@ -36,6 +36,6 @@ fun InputScreen() {
             BasicInput(enabled = false, inputText = inputValue4) {
                 inputValue4 = it
             }
-        }
+        },
     )
 }

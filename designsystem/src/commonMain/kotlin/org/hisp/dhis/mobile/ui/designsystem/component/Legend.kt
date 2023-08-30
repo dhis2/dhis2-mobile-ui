@@ -71,7 +71,7 @@ fun Legend(
                 Icon(
                     imageVector = Icons.Outlined.HelpOutline,
                     contentDescription = "Legend Icon",
-                    modifier = Modifier.size(InternalSizeValues.Size18)
+                    modifier = Modifier.size(InternalSizeValues.Size18),
                 )
             }
             Divider(
