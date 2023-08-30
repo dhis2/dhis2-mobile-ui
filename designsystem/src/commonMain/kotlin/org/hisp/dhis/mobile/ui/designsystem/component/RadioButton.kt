@@ -12,7 +12,10 @@ import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
@@ -34,7 +37,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
 @Composable
 fun RadioButton(
     radioButtonData: RadioButtonData,
-    onClick: () -> Unit
+    onClick: (Boolean) -> Unit
 ) {
     val interactionSource = if (radioButtonData.enabled) remember { MutableInteractionSource() } else MutableInteractionSource()
     Row(
@@ -46,7 +49,7 @@ fun RadioButton(
                 indication = null,
                 onClick = {
                     if (radioButtonData.enabled) {
-                        onClick()
+                        onClick.invoke(true)
                     }
                 },
                 enabled = radioButtonData.enabled
@@ -55,7 +58,11 @@ fun RadioButton(
         CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
             RadioButton(
                 selected = radioButtonData.selected,
-                onClick = onClick,
+                onClick = {
+                    if (radioButtonData.enabled) {
+                        onClick.invoke(true)
+                    }
+                },
                 enabled = radioButtonData.enabled,
                 interactionSource = interactionSource,
                 modifier = Modifier
