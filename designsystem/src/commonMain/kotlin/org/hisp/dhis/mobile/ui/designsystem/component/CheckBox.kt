@@ -149,8 +149,3 @@ data class CheckBoxData(
     val enabled: Boolean,
     val textInput: String?,
 )
-
-enum class Orientation {
-    HORIZONTAL,
-    VERTICAL,
-}

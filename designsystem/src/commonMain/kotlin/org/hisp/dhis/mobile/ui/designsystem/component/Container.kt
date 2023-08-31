@@ -116,3 +116,8 @@ fun FlowColumnComponentsContainer(
         content()
     }
 }
+
+enum class Orientation {
+    HORIZONTAL,
+    VERTICAL,
+}
