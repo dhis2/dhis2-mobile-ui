@@ -45,7 +45,7 @@ fun Legend(
                     },
                 )
                 .hoverPointerIcon(true),
-            ) {
+        ) {
             Row(
                 modifier = Modifier
                     .padding(Spacing.Spacing16, Spacing.Spacing8, Spacing.Spacing8, Spacing.Spacing6),
