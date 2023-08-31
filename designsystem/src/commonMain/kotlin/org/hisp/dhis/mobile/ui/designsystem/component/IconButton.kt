@@ -1,11 +1,11 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ripple.LocalRippleTheme
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ElevatedButton
@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
 import org.hisp.dhis.mobile.ui.designsystem.theme.Ripple
+import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
@@ -50,14 +51,16 @@ fun SquareIconButton(
             .padding(Spacing.Spacing4)
             .iconButtonshadow(shadowColor, Radius.S),
         enabled = enabled,
-        shape = RoundedCornerShape(Radius.S),
+        shape = Shape.Small,
         colors = ButtonDefaults.elevatedButtonColors(
             disabledContainerColor = Color.Transparent,
             containerColor = SurfaceColor.Container,
         ),
         contentPadding = PaddingValues(Spacing.Spacing8),
     ) {
-        icon()
+        Box(Modifier.size(Spacing.Spacing24)) {
+            icon()
+        }
     }
 }
 
@@ -102,7 +105,9 @@ private fun StandardIconButton(
             enabled = enabled,
             colors = IconButtonDefaults.iconButtonColors(Color.Transparent, TextColor.OnSurfaceVariant, Color.Transparent, TextColor.OnDisabledSurface),
         ) {
-            icon()
+            Box(Modifier.size(Spacing.Spacing24)) {
+                icon()
+            }
         }
     }
 }
@@ -122,7 +127,9 @@ private fun FilledIconButton(
         enabled = enabled,
         colors = IconButtonDefaults.iconButtonColors(SurfaceColor.Primary, TextColor.OnPrimary, SurfaceColor.DisabledSurface, TextColor.OnDisabledSurface),
     ) {
-        icon()
+        Box(Modifier.size(Spacing.Spacing24)) {
+            icon()
+        }
     }
 }
 
@@ -144,7 +151,9 @@ private fun FilledTonalIconButton(
             colors = IconButtonDefaults.filledTonalIconButtonColors(SurfaceColor.PrimaryContainer, TextColor.OnPrimaryContainer, SurfaceColor.DisabledSurface, TextColor.OnDisabledSurface),
 
         ) {
-            icon()
+            Box(Modifier.size(Spacing.Spacing24)) {
+                icon()
+            }
         }
     }
 }
@@ -167,7 +176,9 @@ private fun OutlinedIconButton(
             border = BorderStroke(Spacing.Spacing1, if (enabled) Outline.Dark else SurfaceColor.DisabledSurface),
             colors = IconButtonDefaults.outlinedIconButtonColors(Color.Transparent, TextColor.OnPrimaryContainer),
         ) {
-            icon()
+            Box(Modifier.size(Spacing.Spacing24)) {
+                icon()
+            }
         }
     }
 }

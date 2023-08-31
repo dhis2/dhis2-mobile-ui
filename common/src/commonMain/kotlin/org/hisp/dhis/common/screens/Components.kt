@@ -11,5 +11,6 @@ enum class Components(val label: String) {
     LEGEND("Legend"),
     INPUT("Input"),
     LEGEND_DESCRIPTION("Legend description"),
+    BUTTON_BLOCK("Button block"),
     INPUT_TEXT("Input Text"),
 }

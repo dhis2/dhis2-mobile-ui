@@ -1,6 +1,8 @@
 package org.hisp.dhis.mobile.ui.designsystem.theme
 
 import androidx.compose.foundation.layout.size
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Color
@@ -45,8 +47,11 @@ internal fun Modifier.iconButtonshadow(
     }.size(size),
 )
 
+expect val leftPixel: Float
+expect val topPixel: Float
+
 internal fun Modifier.buttonShadow(
-    color: Color,
+    color: MutableState<Color> = mutableStateOf(SurfaceColor.ContainerHighest),
     borderRadius: Dp = Spacing.Spacing0,
     hasIcon: Boolean = true,
     modifier: Modifier = Modifier,
@@ -56,12 +61,10 @@ internal fun Modifier.buttonShadow(
             val paint = Paint()
             val frameworkPaint = paint.asFrameworkPaint()
             val spreadPixel = if (hasIcon) Spacing.Spacing0.toPx() else Spacing.Spacing1_5.toPx()
-            val leftPixel = DEFAULT_PADDING
-            val topPixel = 15f
-            val rightPixel = (this.size.width - Spacing.Spacing0_5.toPx())
-            val bottomPixel = (if (hasIcon) this.size.height + spreadPixel else this.size.height - spreadPixel)
+            frameworkPaint.color = color.value.toArgb()
 
-            frameworkPaint.color = color.toArgb()
+            val rightPixel = (this.size.width - leftPixel)
+            val bottomPixel = (this.size.height - spreadPixel)
             it.drawRoundRect(
                 left = leftPixel,
                 top = topPixel,
