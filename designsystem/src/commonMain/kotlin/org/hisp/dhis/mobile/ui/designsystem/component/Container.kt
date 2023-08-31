@@ -78,14 +78,14 @@ fun FlowRowComponentsContainer(
     title: String? = null,
     spacing: Dp,
     modifier: Modifier = Modifier,
-    content: @Composable (() -> Unit)
+    content: @Composable (() -> Unit),
 ) {
     title?.let {
         Text(title, style = MaterialTheme.typography.titleMedium)
     }
     FlowRow(
         horizontalArrangement = Arrangement.spacedBy(spacing),
-        modifier = modifier
+        modifier = modifier,
     ) {
         content()
     }
@@ -97,14 +97,14 @@ fun FlowColumnComponentsContainer(
     title: String? = null,
     spacing: Dp,
     modifier: Modifier = Modifier,
-    content: @Composable (() -> Unit)
+    content: @Composable (() -> Unit),
 ) {
     title?.let {
         Text(title, style = MaterialTheme.typography.titleMedium)
     }
     FlowColumn(
         verticalArrangement = Arrangement.spacedBy(spacing),
-        modifier = modifier
+        modifier = modifier,
     ) {
         content()
     }

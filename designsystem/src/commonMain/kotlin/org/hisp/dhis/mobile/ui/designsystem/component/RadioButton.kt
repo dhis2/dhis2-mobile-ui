@@ -37,7 +37,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
 @Composable
 fun RadioButton(
     radioButtonData: RadioButtonData,
-    onClick: (Boolean) -> Unit
+    onClick: (Boolean) -> Unit,
 ) {
     val interactionSource = if (radioButtonData.enabled) remember { MutableInteractionSource() } else MutableInteractionSource()
     Row(
@@ -52,8 +52,8 @@ fun RadioButton(
                         onClick.invoke(!radioButtonData.selected)
                     }
                 },
-                enabled = radioButtonData.enabled
-            )
+                enabled = radioButtonData.enabled,
+            ),
     ) {
         CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
             RadioButton(
@@ -72,7 +72,7 @@ fun RadioButton(
                     selectedColor = SurfaceColor.Primary,
                     unselectedColor = Outline.Dark,
                     disabledSelectedColor = TextColor.OnDisabledSurface,
-                    disabledUnselectedColor = TextColor.OnDisabledSurface
+                    disabledUnselectedColor = TextColor.OnDisabledSurface,
                 ),
             )
         }
@@ -87,7 +87,7 @@ fun RadioButton(
                     TextColor.OnSurface
                 } else {
                     TextColor.OnDisabledSurface
-                }
+                },
             )
         }
     }
@@ -108,7 +108,7 @@ fun RadioButtonBlock(
     orientation: Orientation,
     content: List<RadioButtonData>,
     itemSelected: RadioButtonData,
-    onItemChange: (RadioButtonData) -> Unit
+    onItemChange: (RadioButtonData) -> Unit,
 ) {
     var currentItem by remember {
         mutableStateOf(itemSelected)
@@ -124,14 +124,14 @@ fun RadioButtonBlock(
                             radioButtonData.uid,
                             if (radioButtonData.enabled) radioButtonData == currentItem else radioButtonData.selected,
                             radioButtonData.enabled,
-                            radioButtonData.textInput
-                        )
+                            radioButtonData.textInput,
+                        ),
                     ) {
                         currentItem = radioButtonData
                         onItemChange.invoke(radioButtonData)
                     }
                 }
-            }
+            },
         )
     } else {
         FlowColumnComponentsContainer(
@@ -144,14 +144,14 @@ fun RadioButtonBlock(
                             radioButtonData.uid,
                             if (radioButtonData.enabled) radioButtonData == currentItem else radioButtonData.selected,
                             radioButtonData.enabled,
-                            radioButtonData.textInput
-                        )
+                            radioButtonData.textInput,
+                        ),
                     ) {
                         currentItem = radioButtonData
                         onItemChange.invoke(radioButtonData)
                     }
                 }
-            }
+            },
         )
     }
 }
@@ -160,10 +160,10 @@ data class RadioButtonData(
     val uid: String,
     val selected: Boolean,
     val enabled: Boolean,
-    val textInput: String?
+    val textInput: String?,
 )
 
 enum class Orientation {
     HORIZONTAL,
-    VERTICAL
+    VERTICAL,
 }
