@@ -39,9 +39,6 @@ fun RadioButton(
     radioButtonData: RadioButtonData,
     onClick: (Boolean) -> Unit
 ) {
-    var isSelected by remember {
-        mutableStateOf(radioButtonData.selected)
-    }
     val interactionSource = if (radioButtonData.enabled) remember { MutableInteractionSource() } else MutableInteractionSource()
     Row(
         horizontalArrangement = Arrangement.spacedBy(Spacing.Spacing0, Alignment.Start),
@@ -52,7 +49,6 @@ fun RadioButton(
                 indication = null,
                 onClick = {
                     if (radioButtonData.enabled) {
-                        isSelected = !isSelected
                         onClick.invoke(!radioButtonData.selected)
                     }
                 },
@@ -64,7 +60,6 @@ fun RadioButton(
                 selected = radioButtonData.selected,
                 onClick = {
                     if (radioButtonData.enabled) {
-                        isSelected = !isSelected
                         onClick.invoke(!radioButtonData.selected)
                     }
                 },
