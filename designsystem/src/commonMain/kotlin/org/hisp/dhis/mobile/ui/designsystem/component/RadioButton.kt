@@ -76,13 +76,13 @@ fun RadioButton(
                 ),
             )
         }
-        if (!radioButtonData.textInput.isNullOrEmpty()) {
+        radioButtonData.textInput?.let {
             Text(
                 modifier = Modifier
                     .padding(top = Spacing.Spacing8, bottom = Spacing.Spacing8)
                     .hoverPointerIcon(radioButtonData.enabled)
                 ,
-                text = radioButtonData.textInput,
+                text = it,
                 color = if (radioButtonData.enabled) {
                     TextColor.OnSurface
                 } else {
