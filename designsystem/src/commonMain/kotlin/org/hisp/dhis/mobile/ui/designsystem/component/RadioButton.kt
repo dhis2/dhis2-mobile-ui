@@ -80,8 +80,7 @@ fun RadioButton(
             Text(
                 modifier = Modifier
                     .padding(top = Spacing.Spacing8, bottom = Spacing.Spacing8)
-                    .hoverPointerIcon(radioButtonData.enabled)
-                ,
+                    .hoverPointerIcon(radioButtonData.enabled),
                 text = it,
                 color = if (radioButtonData.enabled) {
                     TextColor.OnSurface
