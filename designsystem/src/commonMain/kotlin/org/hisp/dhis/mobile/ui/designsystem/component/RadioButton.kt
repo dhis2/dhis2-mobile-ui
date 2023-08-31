@@ -20,6 +20,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Ripple
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
+import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
 
 /**
  * DHIS2 radio button with or without text. Wraps Material 3 [RadioButton].
@@ -47,7 +48,8 @@ fun RadioButton(
                 onClick = onClick,
                 enabled = enabled,
                 modifier = Modifier
-                    .size(Spacing.Spacing40),
+                    .size(Spacing.Spacing40)
+                    .hoverPointerIcon(enabled),
                 colors = RadioButtonDefaults.colors(
                     selectedColor = SurfaceColor.Primary,
                     unselectedColor = Outline.Dark,
@@ -61,6 +63,7 @@ fun RadioButton(
             Text(
                 modifier = Modifier
                     .padding(top = Spacing.Spacing8, bottom = Spacing.Spacing8)
+                    .hoverPointerIcon(enabled)
                     .clickable(
                         interactionSource = interactionSource,
                         indication = null,

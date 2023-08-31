@@ -26,6 +26,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import org.hisp.dhis.mobile.ui.designsystem.theme.Ripple
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
+import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
 
 @Composable
 fun Legend(
@@ -37,7 +38,8 @@ fun Legend(
     CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
         Column(
             modifier = modifier
-                .clickable(onClick = onClick),
+                .clickable(onClick = onClick)
+                .hoverPointerIcon(true),
         ) {
             Row(
                 modifier = Modifier

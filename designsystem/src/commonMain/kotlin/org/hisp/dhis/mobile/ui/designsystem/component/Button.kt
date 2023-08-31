@@ -39,6 +39,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.buttonShadow
+import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
 
 /**
  * DHIS2 button with generic icon slot.
@@ -101,6 +102,7 @@ fun Button(
             val textColor = if (enabled) SurfaceColor.Primary else TextColor.OnDisabledSurface
 
             ElevatedButton(
+                modifier = Modifier.hoverPointerIcon(enabled),
                 onClick = { onClick() },
                 elevation = ButtonDefaults.elevatedButtonElevation(),
                 enabled = enabled,
@@ -176,6 +178,7 @@ fun Button(
         ButtonStyle.OUTLINED -> {
             val textColor = if (enabled) SurfaceColor.Primary else TextColor.OnDisabledSurface
             OutlinedButton(
+                modifier = Modifier.hoverPointerIcon(enabled).height(Spacing.Spacing40),
                 onClick = { onClick() },
                 enabled = enabled,
                 shape = ButtonDefaults.outlinedShape,
@@ -187,7 +190,6 @@ fun Button(
                 ),
                 border = BorderStroke(Spacing.Spacing1, if (enabled) Outline.Dark else SurfaceColor.DisabledSurface),
                 contentPadding = paddingValues,
-                modifier = Modifier.height(Spacing.Spacing40),
             ) {
                 ButtonText(text, textColor, icon, enabled)
             }
@@ -210,7 +212,7 @@ private fun SimpleButton(
 
     Button(
         onClick = { onClick() },
-        modifier = modifier,
+        modifier = modifier.hoverPointerIcon(enabled),
         enabled = enabled,
         colors = buttonColors,
         shape = Shape.Full,

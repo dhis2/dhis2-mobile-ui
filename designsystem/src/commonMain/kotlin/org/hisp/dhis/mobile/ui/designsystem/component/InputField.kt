@@ -23,6 +23,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
+import org.hisp.dhis.mobile.ui.designsystem.theme.textFieldHoverPointerIcon
 
 /**
  * DHIS2 EmptyInput
@@ -78,7 +79,8 @@ fun BasicInput(
             .background(
                 Color.Transparent,
             )
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .textFieldHoverPointerIcon(enabled),
         value = inputText,
         onValueChange = onInputChanged,
         enabled = enabled,
