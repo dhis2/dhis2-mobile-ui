@@ -11,6 +11,7 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
+import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.junit.Rule
 import org.junit.Test
 
@@ -94,7 +95,7 @@ class InputTextTest {
                 title = "Label",
                 modifier = Modifier.testTag("INPUT_TEXT"),
                 inputText = "Input",
-                legendText = "Legend",
+                legendData = LegendData(SurfaceColor.CustomGreen, "Legend"),
             )
         }
         rule.onNodeWithTag("INPUT_TEXT").assertExists()
