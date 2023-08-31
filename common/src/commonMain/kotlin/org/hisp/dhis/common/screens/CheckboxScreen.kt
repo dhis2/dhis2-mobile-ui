@@ -3,10 +3,12 @@ package org.hisp.dhis.common.screens
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
 import org.hisp.dhis.common.screens.previews.CheckboxPreview
 import org.hisp.dhis.common.screens.previews.TextCheckboxPreview
+import org.hisp.dhis.mobile.ui.designsystem.component.CheckBoxBlock
+import org.hisp.dhis.mobile.ui.designsystem.component.CheckBoxData
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
+import org.hisp.dhis.mobile.ui.designsystem.component.Orientation
 
 @Composable
 fun CheckboxScreen() {
@@ -15,10 +17,24 @@ fun CheckboxScreen() {
     val option3 = "Option 3"
     val option4 = "Option 4"
 
-    val state1 = mutableStateOf(true)
-    val state2 = mutableStateOf(false)
-    val state3 = mutableStateOf(true)
-    val state4 = mutableStateOf(false)
+    val state1 = true
+    val state2 = false
+    val state3 = true
+    val state4 = false
+
+    val checkBoxesStatesHorizontal = listOf(
+        CheckBoxData("4", checked = true, enabled = true, textInput = option1),
+        CheckBoxData("5", checked = false, enabled = true, textInput = option2),
+        CheckBoxData("6", checked = true, enabled = false, textInput = option3),
+        CheckBoxData("7", checked = false, enabled = false, textInput = option4),
+    )
+
+    val checkBoxesStatesVertical = listOf(
+        CheckBoxData("0", checked = true, enabled = true, textInput = option1),
+        CheckBoxData("1", checked = false, enabled = true, textInput = option2),
+        CheckBoxData("2", checked = true, enabled = false, textInput = option3),
+        CheckBoxData("3", checked = false, enabled = false, textInput = option4),
+    )
 
     ColumnComponentContainer(
         content = {
@@ -33,13 +49,21 @@ fun CheckboxScreen() {
                 text = "Check Box",
             )
             Row {
-                CheckboxPreview(mutableStateOf(true), enabled = true)
-                CheckboxPreview(mutableStateOf(true), enabled = false)
+                CheckboxPreview(true, enabled = true)
+                CheckboxPreview(true, enabled = false)
             }
             Row {
-                CheckboxPreview(mutableStateOf(false), enabled = true)
-                CheckboxPreview(mutableStateOf(false), enabled = false)
+                CheckboxPreview(false, enabled = true)
+                CheckboxPreview(false, enabled = false)
             }
+            Text(
+                text = "Horizontal Check Box Block",
+            )
+            CheckBoxBlock(Orientation.HORIZONTAL, checkBoxesStatesHorizontal) {}
+            Text(
+                text = "Vertical Check Box Block",
+            )
+            CheckBoxBlock(Orientation.VERTICAL, checkBoxesStatesVertical) {}
         },
     )
 }

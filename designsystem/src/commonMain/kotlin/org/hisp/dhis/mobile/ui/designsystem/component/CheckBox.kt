@@ -12,8 +12,10 @@ import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
@@ -26,19 +28,23 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
 /**
  * DHIS2 check box with or without text. Wraps Material 3 [Checkbox].
  *
- * @param checked Controls if the option is checked.
- * @param enabled Controls the enabled state of the button. When `false`, this button will not be
- * clickable and will appear disabled to accessibility services.
- * @param textInput The checkbox option text.
+ * @param checkBoxData Contains all data for controlling the inner state of the component. It's parameters are uid for
+ * identifying the component, checked for controlling if the option is checked, enabled controls if the component is
+ * clickable and textInput displaying the option text.
+ * @param onCheckedChange notify the selection change in the item
  */
+
 @Composable
 fun CheckBox(
-    checked: MutableState<Boolean>,
-    enabled: Boolean,
-    textInput: String? = null,
+    checkBoxData: CheckBoxData,
+    onCheckedChange: ((Boolean) -> Unit),
 ) {
-    val interactionSource = if (enabled) remember { MutableInteractionSource() } else MutableInteractionSource()
-    val textColor = if (enabled) {
+    var isChecked by remember {
+        mutableStateOf(checkBoxData.checked)
+    }
+    val interactionSource =
+        if (checkBoxData.enabled) remember { MutableInteractionSource() } else MutableInteractionSource()
+    val textColor = if (checkBoxData.enabled) {
         TextColor.OnSurface
     } else {
         TextColor.OnDisabledSurface
@@ -52,22 +58,26 @@ fun CheckBox(
                 interactionSource = interactionSource,
                 indication = null,
                 onClick = {
-                    if (enabled) {
-                        checked.value = !checked.value
+                    if (checkBoxData.enabled) {
+                        isChecked = !isChecked
+                        onCheckedChange.invoke(isChecked)
                     }
                 },
-                enabled = enabled,
+                enabled = checkBoxData.enabled,
             )
-            .hoverPointerIcon(enabled),
+            .hoverPointerIcon(checkBoxData.enabled),
     ) {
         CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
             Checkbox(
-                checked = checked.value,
+                checked = isChecked,
                 onCheckedChange = {
-                    if (enabled) checked.value = it
+                    if (checkBoxData.enabled) {
+                        isChecked = it
+                        onCheckedChange.invoke(isChecked)
+                    }
                 },
                 interactionSource = interactionSource,
-                enabled = enabled,
+                enabled = checkBoxData.enabled,
                 modifier = Modifier
                     .size(Spacing.Spacing40),
                 colors = CheckboxDefaults.colors(
@@ -78,13 +88,64 @@ fun CheckBox(
                 ),
             )
         }
-        textInput?.let {
+        checkBoxData.textInput?.let {
             Text(
                 modifier = Modifier
-                    .padding(top = Spacing.Spacing8, bottom = Spacing.Spacing8),
+                    .padding(top = Spacing.Spacing8, bottom = Spacing.Spacing8)
+                    .hoverPointerIcon(checkBoxData.enabled),
                 text = it,
                 color = textColor,
             )
         }
     }
 }
+
+/**
+ * DHIS2 check box block.
+ *
+ * @param orientation Controls how the check boxes will be displayed, HORIZONTAL for rows or
+ * VERTICAL for columns.
+ * @param content Contains all the data that will be displayed, the list type is CheckBoxData,
+ * this data class contains all data for [CheckBox] composable.
+ * @param onItemChange is a callback to notify which item has changed into the block
+ */
+
+@Composable
+fun CheckBoxBlock(
+    orientation: Orientation,
+    content: List<CheckBoxData>,
+    onItemChange: (CheckBoxData) -> Unit,
+) {
+    if (orientation == Orientation.HORIZONTAL) {
+        FlowRowComponentsContainer(
+            null,
+            Spacing.Spacing16,
+            content = {
+                content.map { checkBoxData ->
+                    CheckBox(checkBoxData) {
+                        onItemChange.invoke(checkBoxData)
+                    }
+                }
+            },
+        )
+    } else {
+        FlowColumnComponentsContainer(
+            null,
+            Spacing.Spacing0,
+            content = {
+                content.map { checkBoxData ->
+                    CheckBox(checkBoxData) {
+                        onItemChange.invoke(checkBoxData)
+                    }
+                }
+            },
+        )
+    }
+}
+
+data class CheckBoxData(
+    val uid: String,
+    val checked: Boolean,
+    val enabled: Boolean,
+    val textInput: String?,
+)
