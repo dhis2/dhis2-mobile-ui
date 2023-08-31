@@ -11,6 +11,8 @@ import org.hisp.dhis.mobile.ui.designsystem.component.Button
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonBlock
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
+import org.hisp.dhis.mobile.ui.designsystem.component.TextButtonSelector
+import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 
 @Composable
 fun ButtonBlockScreen() {
@@ -69,6 +71,22 @@ fun ButtonBlockScreen() {
                     modifier = Modifier.fillMaxWidth(),
                 )
             },
+        )
+        Text("Text Button Selectors")
+        TextButtonSelector(
+            firstOptionText = provideStringResource("date_birth"),
+            onClickFirstOption = {},
+            middleText = provideStringResource("or"),
+            secondOptionText = provideStringResource("age"),
+            onClickSecondOption = {},
+        )
+        TextButtonSelector(
+            enabled = false,
+            firstOptionText = provideStringResource("date_birth"),
+            onClickFirstOption = {},
+            middleText = provideStringResource("or"),
+            secondOptionText = provideStringResource("age"),
+            onClickSecondOption = {},
         )
     }
 }
