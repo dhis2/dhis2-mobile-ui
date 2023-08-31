@@ -4,10 +4,12 @@ import androidx.compose.runtime.Composable
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.InputText
+import org.hisp.dhis.mobile.ui.designsystem.component.LegendData
 import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
 import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextData
 import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextState
 import org.hisp.dhis.mobile.ui.designsystem.component.Title
+import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
 @Composable
@@ -18,13 +20,13 @@ fun InputTextScreen() {
         InputText(title = "Label", inputText = "")
 
         SubTitle("Input text with legend", textColor = TextColor.OnSurfaceVariant)
-        InputText(title = "Label", inputText = "", legendText = "Legend")
+        InputText(title = "Label", inputText = "", legendData = LegendData(SurfaceColor.CustomGreen, "Legend"))
 
         SubTitle("Input text with Supporting text", textColor = TextColor.OnSurfaceVariant)
         InputText(title = "Label", inputText = "", supportingText = listOf(SupportingTextData("Supporting text", SupportingTextState.DEFAULT)))
 
         SubTitle("Input text with Supporting text and legend", textColor = TextColor.OnSurfaceVariant)
-        InputText(title = "Label", inputText = "", supportingText = listOf(SupportingTextData("Supporting text", SupportingTextState.DEFAULT)), legendText = "Legend")
+        InputText(title = "Label", inputText = "", supportingText = listOf(SupportingTextData("Supporting text", SupportingTextState.DEFAULT)), legendData = LegendData(SurfaceColor.CustomGreen, "Legend"))
 
         SubTitle("Input text with error and warning text and legend", textColor = TextColor.OnSurfaceVariant)
         InputText(
@@ -36,7 +38,7 @@ fun InputTextScreen() {
                 SupportingTextData("Supporting text", SupportingTextState.ERROR),
 
             ),
-            legendText = "Legend",
+            legendData = LegendData(SurfaceColor.CustomGreen, "Legend"),
             state = InputShellState.ERROR,
         )
 

@@ -5,9 +5,11 @@ import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.Description
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.InputText
+import org.hisp.dhis.mobile.ui.designsystem.component.LegendData
 import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
 import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextData
 import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextState
+import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
 @Composable
@@ -143,7 +145,25 @@ fun FormShellsScreen() {
         InputText(
             "Label",
             inputText = "Input",
-            legendText = "Legend",
+            legendData = LegendData(SurfaceColor.CustomGreen, "Legend"),
+        )
+        InputText(
+            "Label",
+            inputText = "Input",
+            legendData = LegendData(SurfaceColor.CustomYellow, "Legend"),
+        )
+
+        Description("Legend and supporting text", TextColor.OnSurface)
+        InputText(
+            "Label",
+            inputText = "Input",
+            legendData = LegendData(SurfaceColor.CustomYellow, "Legend"),
+            supportingText = listOf(
+                SupportingTextData(
+                    "Supporting Text",
+                    SupportingTextState.DEFAULT,
+                ),
+            ),
         )
     }
 }

@@ -9,6 +9,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import org.hisp.dhis.mobile.ui.designsystem.component.Legend
+import org.hisp.dhis.mobile.ui.designsystem.component.LegendData
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
@@ -21,18 +22,20 @@ fun LegendScreen() {
             .verticalScroll(rememberScrollState()),
     ) {
         Text("Green Legend")
-        Legend(SurfaceColor.CustomGreen, "Legend") {}
+        Legend(LegendData(SurfaceColor.CustomGreen, "Legend"))
 
         Text("Orange Legend")
-        Legend(TextColor.OnWarning, "Legend") {}
+        Legend(LegendData(TextColor.OnWarning, "Legend"))
 
         Text("Pink Legend")
         Legend(
-            SurfaceColor.CustomPink,
-            "Lorem ipsum dolor sit amet," +
-                " consectetur adipiscing elit. Maecenas dolor lacus," +
-                " aliquam. Lorem ipsum dolor sit amet," +
-                " consectetur adipiscing elit. Maecenas dolor lacus,",
-        ) {}
+            LegendData(
+                SurfaceColor.CustomPink,
+                "Lorem ipsum dolor sit amet," +
+                    " consectetur adipiscing elit. Maecenas dolor lacus," +
+                    " aliquam. Lorem ipsum dolor sit amet," +
+                    " consectetur adipiscing elit. Maecenas dolor lacus,",
+            ),
+        )
     }
 }
