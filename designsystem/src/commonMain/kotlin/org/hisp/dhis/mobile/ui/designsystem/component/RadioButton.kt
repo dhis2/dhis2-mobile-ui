@@ -28,11 +28,11 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
 /**
  * DHIS2 radio button with or without text. Wraps Material 3 [RadioButton].
  *
- * @param selected Controls the selected option state for multiple options.
- * @param enabled Controls the enabled state of the button. When `false`, this button will not be
- * clickable and will appear disabled to accessibility services.
- * @param textInput The button option text.
+ * @param radioButtonData Contains all data for controlling the inner state of the component. It's parameters are uid for
+ * identifying the component, selected for controlling which option is selected, enabled controls if the component is
+ * clickable and textInput displaying the option text.
  * @param onClick Will be called when the user clicks the button.
+ *
  */
 @Composable
 fun RadioButton(
@@ -98,6 +98,16 @@ fun RadioButton(
     }
 }
 
+/**
+* DHIS2 radio button block.
+*
+* @param orientation Controls how the radio buttons will be displayed, HORIZONTAL for rows or
+* VERTICAL for columns.
+* @param content Contains all the data that will be displayed, the list type is RadioButtonData,
+* this data class contains all data for [RadioButton] composable.
+ * @param itemSelected controls which item is selected.
+* @param onItemChange is a callback to notify which item has changed into the block.
+*/
 @Composable
 fun RadioButtonBlock(
     orientation: Orientation,
