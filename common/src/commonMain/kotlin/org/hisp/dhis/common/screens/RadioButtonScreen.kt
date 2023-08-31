@@ -1,4 +1,4 @@
-package org.hisp.dhis.common.screens.radio
+package org.hisp.dhis.common.screens
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -9,6 +9,9 @@ import androidx.compose.runtime.setValue
 import org.hisp.dhis.common.screens.previews.RadioButtonPreview
 import org.hisp.dhis.common.screens.previews.TextRadioButtonPreview
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
+import org.hisp.dhis.mobile.ui.designsystem.component.Orientation
+import org.hisp.dhis.mobile.ui.designsystem.component.RadioButtonBlock
+import org.hisp.dhis.mobile.ui.designsystem.component.RadioButtonData
 import org.hisp.dhis.mobile.ui.designsystem.component.RowComponentContainer
 
 @Composable
@@ -20,6 +23,28 @@ fun RadioButtonScreen() {
 
     var selected by remember {
         mutableStateOf(option1)
+    }
+
+    val radioButtonDataItemsHorizontal = listOf(
+        RadioButtonData("4", selected = true, enabled = true, textInput = option1),
+        RadioButtonData("5", selected = false, enabled = true, textInput = option2),
+        RadioButtonData("6", selected = true, enabled = false, textInput = option3),
+        RadioButtonData("7", selected = false, enabled = false, textInput = option4),
+    )
+
+    val radioButtonDataItemsVertical = listOf(
+        RadioButtonData("0", selected = true, enabled = true, textInput = option1),
+        RadioButtonData("1", selected = false, enabled = true, textInput = option2),
+        RadioButtonData("2", selected = true, enabled = false, textInput = option3),
+        RadioButtonData("3", selected = false, enabled = false, textInput = option4),
+    )
+
+    var selectedItemVertical by remember {
+        mutableStateOf(radioButtonDataItemsVertical[0])
+    }
+
+    var selectedItemHorizontal by remember {
+        mutableStateOf(radioButtonDataItemsHorizontal[0])
     }
 
     ColumnComponentContainer("Radio Buttons") {
@@ -39,13 +64,22 @@ fun RadioButtonScreen() {
         }
         // RadioButton
         Text("Radio Button")
-        RowComponentContainer() {
-            RadioButtonPreview(true, true)
-            RadioButtonPreview(true, false)
+        RowComponentContainer {
+            RadioButtonPreview(selected = true, enabled = true)
+            RadioButtonPreview(selected = true, enabled = false)
         }
-        RowComponentContainer() {
-            RadioButtonPreview(false, true)
-            RadioButtonPreview(false, false)
+        RowComponentContainer {
+            RadioButtonPreview(selected = false, enabled = true)
+            RadioButtonPreview(selected = false, enabled = false)
+        }
+        // RadioButtonBlock
+        Text("Horizontal Radio Button Block")
+        RadioButtonBlock(Orientation.HORIZONTAL, radioButtonDataItemsHorizontal, selectedItemHorizontal) {
+            selectedItemHorizontal = it
+        }
+        Text("Vertical Radio Button Block")
+        RadioButtonBlock(Orientation.VERTICAL, radioButtonDataItemsVertical, selectedItemVertical) {
+            selectedItemVertical = it
         }
     }
 }

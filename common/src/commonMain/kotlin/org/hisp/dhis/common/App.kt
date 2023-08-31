@@ -32,8 +32,8 @@ import org.hisp.dhis.common.screens.LegendDescriptionScreen
 import org.hisp.dhis.common.screens.LegendScreen
 import org.hisp.dhis.common.screens.NotImplementedScreen
 import org.hisp.dhis.common.screens.ProgressScreen
+import org.hisp.dhis.common.screens.RadioButtonScreen
 import org.hisp.dhis.common.screens.SupportingTextScreen
-import org.hisp.dhis.common.screens.radio.RadioButtonScreen
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
