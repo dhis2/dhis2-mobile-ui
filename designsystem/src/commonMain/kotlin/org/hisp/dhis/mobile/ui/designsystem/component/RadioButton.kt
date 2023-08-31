@@ -39,6 +39,9 @@ fun RadioButton(
     radioButtonData: RadioButtonData,
     onClick: (Boolean) -> Unit
 ) {
+    var isSelected by remember {
+        mutableStateOf(radioButtonData.selected)
+    }
     val interactionSource = if (radioButtonData.enabled) remember { MutableInteractionSource() } else MutableInteractionSource()
     Row(
         horizontalArrangement = Arrangement.spacedBy(Spacing.Spacing0, Alignment.Start),
@@ -49,7 +52,8 @@ fun RadioButton(
                 indication = null,
                 onClick = {
                     if (radioButtonData.enabled) {
-                        onClick.invoke(true)
+                        isSelected = !isSelected
+                        onClick.invoke(!radioButtonData.selected)
                     }
                 },
                 enabled = radioButtonData.enabled
@@ -60,7 +64,8 @@ fun RadioButton(
                 selected = radioButtonData.selected,
                 onClick = {
                     if (radioButtonData.enabled) {
-                        onClick.invoke(true)
+                        isSelected = !isSelected
+                        onClick.invoke(!radioButtonData.selected)
                     }
                 },
                 enabled = radioButtonData.enabled,
@@ -97,15 +102,27 @@ fun RadioButton(
 fun RadioButtonBlock(
     orientation: Orientation,
     content: List<RadioButtonData>,
+    itemSelected: RadioButtonData,
     onItemChange: (RadioButtonData) -> Unit
 ) {
+    var currentItem by remember {
+        mutableStateOf(itemSelected)
+    }
     if (orientation == Orientation.HORIZONTAL) {
         FlowRowComponentsContainer(
             null,
             Spacing.Spacing16,
             content = {
                 content.map { radioButtonData ->
-                    RadioButton(radioButtonData) {
+                    RadioButton(
+                        RadioButtonData(
+                            radioButtonData.uid,
+                            if (radioButtonData.enabled) radioButtonData == currentItem else radioButtonData.selected,
+                            radioButtonData.enabled,
+                            radioButtonData.textInput
+                        )
+                    ) {
+                        currentItem = radioButtonData
                         onItemChange.invoke(radioButtonData)
                     }
                 }
@@ -117,7 +134,15 @@ fun RadioButtonBlock(
             Spacing.Spacing0,
             content = {
                 content.map { radioButtonData ->
-                    RadioButton(radioButtonData) {
+                    RadioButton(
+                        RadioButtonData(
+                            radioButtonData.uid,
+                            if (radioButtonData.enabled) radioButtonData == currentItem else radioButtonData.selected,
+                            radioButtonData.enabled,
+                            radioButtonData.textInput
+                        )
+                    ) {
+                        currentItem = radioButtonData
                         onItemChange.invoke(radioButtonData)
                     }
                 }

@@ -74,11 +74,11 @@ fun RadioButtonScreen() {
         }
         // RadioButtonBlock
         Text("Horizontal Radio Button Block")
-        RadioButtonBlock(Orientation.HORIZONTAL, radioButtonDataItemsHorizontal) {
+        RadioButtonBlock(Orientation.HORIZONTAL, radioButtonDataItemsHorizontal, selectedItemHorizontal) {
             selectedItemHorizontal = it
         }
         Text("Vertical Radio Button Block")
-        RadioButtonBlock(Orientation.VERTICAL, radioButtonDataItemsVertical) {
+        RadioButtonBlock(Orientation.VERTICAL, radioButtonDataItemsVertical, selectedItemVertical) {
             selectedItemVertical = it
         }
     }
