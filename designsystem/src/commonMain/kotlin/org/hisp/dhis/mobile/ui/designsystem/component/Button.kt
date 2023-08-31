@@ -1,6 +1,7 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Arrangement
@@ -17,7 +18,9 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ElevatedButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.MutableState
@@ -214,6 +217,68 @@ private fun SimpleButton(
         contentPadding = paddingValues,
     ) {
         ButtonText(text, textColor, icon, enabled)
+    }
+}
+
+@Composable
+fun TextButtonSelector(
+    enabled: Boolean = true,
+    firstOptionText: String,
+    middleText: String,
+    secondOptionText: String,
+    modifier: Modifier = Modifier,
+    onClickFirstOption: () -> Unit,
+    onClickSecondOption: () -> Unit,
+) {
+    val interactionSourceOption1 = remember { MutableInteractionSource() }
+    val interactionSourceOption2 = remember { MutableInteractionSource() }
+
+    val isPressed1 by interactionSourceOption1.collectIsPressedAsState()
+    val isPressed2 by interactionSourceOption2.collectIsPressedAsState()
+
+    val clickableText1Color: MutableState<Color> = if (enabled) {
+        if (!isPressed1) mutableStateOf(SurfaceColor.Primary) else mutableStateOf(TextColor.OnSurfaceVariant)
+    } else {
+        mutableStateOf(TextColor.OnDisabledSurface)
+    }
+    val clickableText2Color: MutableState<Color> = if (enabled) {
+        if (!isPressed2) mutableStateOf(SurfaceColor.Primary) else mutableStateOf(TextColor.OnSurfaceVariant)
+    } else {
+        mutableStateOf(TextColor.OnDisabledSurface)
+    }
+
+    Row(modifier = modifier) {
+        Text(
+            text = firstOptionText,
+            color = clickableText1Color.value,
+            style = MaterialTheme.typography.titleMedium,
+            modifier = Modifier.clickable(
+                enabled = enabled,
+                interactionSource = interactionSourceOption1,
+                onClick = {
+                    onClickFirstOption()
+                },
+                indication = null,
+            ),
+        )
+        Text(
+            text = middleText,
+            modifier = Modifier.padding(start = Spacing.Spacing8, end = Spacing.Spacing8),
+            style = MaterialTheme.typography.titleMedium,
+            color = if (enabled) TextColor.OnSurfaceVariant else TextColor.OnDisabledSurface,
+        )
+        Text(
+            text = secondOptionText,
+            color = clickableText2Color.value,
+            modifier = Modifier.clickable(
+                enabled = enabled,
+                interactionSource = interactionSourceOption2,
+                onClick = {
+                    onClickSecondOption()
+                },
+                indication = null,
+            ),
+        )
     }
 }
 

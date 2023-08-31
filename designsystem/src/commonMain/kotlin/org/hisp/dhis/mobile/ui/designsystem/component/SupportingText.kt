@@ -18,6 +18,7 @@ import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.sp
+import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.Ripple
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
@@ -38,8 +39,8 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 fun SupportingText(
     text: String,
     state: SupportingTextState = SupportingTextState.DEFAULT,
-    showMoreText: String = "Show more",
-    showLessText: String = "Show less",
+    showMoreText: String = provideStringResource("show_more"),
+    showLessText: String = provideStringResource("show_less"),
     modifier: Modifier = Modifier,
 ) {
     var isExpanded by remember { mutableStateOf(false) }
