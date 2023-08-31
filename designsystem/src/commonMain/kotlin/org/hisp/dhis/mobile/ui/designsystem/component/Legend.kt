@@ -86,9 +86,9 @@ fun Legend(
 }
 
 @Composable
-internal fun LegendDescription(color: Color, text: String, range: IntRange) {
+internal fun LegendDescription(color: Color, text: String, range: IntRange, modifier: Modifier = Modifier) {
     Row(
-        modifier = Modifier
+        modifier = modifier
             .padding(Spacing.Spacing0, Spacing.Spacing8, Spacing.Spacing8, Spacing.Spacing6),
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.Top,

@@ -17,7 +17,7 @@ private val DEFAULT_SIZE = InternalFloatValues.One_5
 private val DEFAULT_PADDING = InternalFloatValues.One_5
 
 internal fun Modifier.iconButtonshadow(
-    color: Color,
+    color: MutableState<Color> = mutableStateOf(SurfaceColor.ContainerHighest),
     borderRadius: Dp = Radius.NoRounding,
     spread: Dp = DEFAULT_SPREAD.dp,
     modifier: Modifier = Modifier,
@@ -33,7 +33,7 @@ internal fun Modifier.iconButtonshadow(
             val rightPixel = (this.size.width - InternalFloatValues.Point_5)
             val bottomPixel = (this.size.height + spreadPixel)
 
-            frameworkPaint.color = color.toArgb()
+            frameworkPaint.color = color.value.toArgb()
             it.drawRoundRect(
                 left = leftPixel,
                 top = topPixel,
@@ -49,18 +49,16 @@ internal fun Modifier.iconButtonshadow(
 
 expect val leftPixel: Float
 expect val topPixel: Float
-
+expect val spreadPixel: Float
 internal fun Modifier.buttonShadow(
     color: MutableState<Color> = mutableStateOf(SurfaceColor.ContainerHighest),
     borderRadius: Dp = Radius.NoRounding,
-    hasIcon: Boolean = true,
     modifier: Modifier = Modifier,
 ) = this.then(
     modifier.drawBehind {
         this.drawIntoCanvas {
             val paint = Paint()
             val frameworkPaint = paint.asFrameworkPaint()
-            val spreadPixel = if (hasIcon) Spacing.Spacing0.toPx() else Spacing.Spacing1_5.toPx()
             frameworkPaint.color = color.value.toArgb()
 
             val rightPixel = (this.size.width - leftPixel)

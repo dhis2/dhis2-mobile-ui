@@ -29,9 +29,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import org.hisp.dhis.mobile.ui.designsystem.theme.Border
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
+import org.hisp.dhis.mobile.ui.designsystem.theme.Border
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
 import org.hisp.dhis.mobile.ui.designsystem.theme.Ripple
@@ -164,7 +164,7 @@ fun Button(
                 onClick = { onClick() },
                 interactionSource = interactionSource,
                 modifier = modifier
-                    .buttonShadow(shadowColor, Radius.Full, icon != null).offset {
+                    .buttonShadow(shadowColor, Radius.Full).offset {
                         IntOffset(
                             0,
                             topPadding.value,
