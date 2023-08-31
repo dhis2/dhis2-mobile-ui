@@ -124,7 +124,7 @@ fun Title(
 }
 
 @Composable
-internal fun Description(
+fun Description(
     text: String,
     textColor: Color,
     modifier: Modifier = Modifier,

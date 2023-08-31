@@ -10,7 +10,6 @@ import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.ArrowDropUp
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -25,6 +24,7 @@ import org.hisp.dhis.common.screens.ButtonBlockScreen
 import org.hisp.dhis.common.screens.ButtonScreen
 import org.hisp.dhis.common.screens.CheckboxScreen
 import org.hisp.dhis.common.screens.Components
+import org.hisp.dhis.common.screens.FormShellsScreen
 import org.hisp.dhis.common.screens.FormsComponentsScreen
 import org.hisp.dhis.common.screens.IconButtonScreen
 import org.hisp.dhis.common.screens.InputScreen
@@ -34,6 +34,7 @@ import org.hisp.dhis.common.screens.LegendScreen
 import org.hisp.dhis.common.screens.ProgressScreen
 import org.hisp.dhis.common.screens.RadioButtonScreen
 import org.hisp.dhis.common.screens.SupportingTextScreen
+import org.hisp.dhis.common.screens.radio.RadioButtonScreen
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
@@ -44,10 +45,9 @@ fun App() {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Main() {
-    val currentScreen = remember { mutableStateOf(Components.INPUT_TEXT) }
+    val currentScreen = remember { mutableStateOf(Components.FORM_SHELLS) }
     var expanded by remember { mutableStateOf(false) }
 
     Column(modifier = Modifier.padding(Spacing.Spacing16)) {
@@ -102,6 +102,7 @@ fun Main() {
             Components.SUPPORTING_TEXT -> SupportingTextScreen()
             Components.INPUT_TEXT -> InputTextScreen()
             Components.LEGEND_DESCRIPTION -> LegendDescriptionScreen()
+            Components.FORM_SHELLS -> FormShellsScreen()
             Components.BUTTON_BLOCK -> ButtonBlockScreen()
             Components.BOTTOM_SHEET -> BottomSheetScreen()
         }

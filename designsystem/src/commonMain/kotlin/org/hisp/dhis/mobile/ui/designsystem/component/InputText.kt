@@ -30,12 +30,14 @@ fun InputText(
     supportingText: List<SupportingTextData>? = null,
     legendText: String? = null,
     inputText: String = "",
+    isRequiredField: Boolean = false,
     modifier: Modifier = Modifier,
 ) {
     var inputValue by rememberSaveable { mutableStateOf(inputText) }
     var deleteButtonIsVisible by remember { mutableStateOf(inputText.isNotEmpty()) }
     InputShell(
         modifier = modifier,
+        isRequiredField = isRequiredField,
         title = title,
         primaryButton = {
             if (deleteButtonIsVisible) {
@@ -80,6 +82,7 @@ fun InputText(
                     deleteButtonIsVisible = inputValue.isNotEmpty()
                 },
                 enabled = state != InputShellState.DISABLED,
+                state = state,
             )
         },
     )
