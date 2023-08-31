@@ -3,8 +3,8 @@ package org.hisp.dhis.mobile.ui.designsystem.component
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.FlowColumn
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
@@ -91,6 +91,13 @@ fun FlowRowComponentsContainer(
     }
 }
 
+/**
+ * DHIS2 FlowColumnComponentsContainer wraps Material 3 [FlowColumn]
+ * @param title is the value of the text to be shown for the column.
+ * @param spacing is the distance in dp between the column items
+ * @param modifier customs the column component.
+ * @param content controls the content to be shown
+ */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun FlowColumnComponentsContainer(
