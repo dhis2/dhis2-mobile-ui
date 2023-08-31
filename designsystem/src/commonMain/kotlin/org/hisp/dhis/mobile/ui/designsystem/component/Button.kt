@@ -178,7 +178,7 @@ fun Button(
         ButtonStyle.OUTLINED -> {
             val textColor = if (enabled) SurfaceColor.Primary else TextColor.OnDisabledSurface
             OutlinedButton(
-                modifier = Modifier.hoverPointerIcon(enabled),
+                modifier = Modifier.hoverPointerIcon(enabled).height(Spacing.Spacing40),
                 onClick = { onClick() },
                 enabled = enabled,
                 shape = ButtonDefaults.outlinedShape,
@@ -190,7 +190,6 @@ fun Button(
                 ),
                 border = BorderStroke(Spacing.Spacing1, if (enabled) Outline.Dark else SurfaceColor.DisabledSurface),
                 contentPadding = paddingValues,
-                modifier = Modifier.height(Spacing.Spacing40),
             ) {
                 ButtonText(text, textColor, icon, enabled)
             }
