@@ -26,14 +26,14 @@ fun CheckboxScreen() {
         CheckBoxData("4", checked = true, enabled = true, textInput = option1),
         CheckBoxData("5", checked = false, enabled = true, textInput = option2),
         CheckBoxData("6", checked = true, enabled = false, textInput = option3),
-        CheckBoxData("7", checked = false, enabled = false, textInput = option4)
+        CheckBoxData("7", checked = false, enabled = false, textInput = option4),
     )
 
     val checkBoxesStatesVertical = listOf(
         CheckBoxData("0", checked = true, enabled = true, textInput = option1),
         CheckBoxData("1", checked = false, enabled = true, textInput = option2),
         CheckBoxData("2", checked = true, enabled = false, textInput = option3),
-        CheckBoxData("3", checked = false, enabled = false, textInput = option4)
+        CheckBoxData("3", checked = false, enabled = false, textInput = option4),
     )
 
     ColumnComponentContainer(
@@ -57,11 +57,11 @@ fun CheckboxScreen() {
                 CheckboxPreview(false, enabled = false)
             }
             Text(
-                text = "Horizontal Check Box Block"
+                text = "Horizontal Check Box Block",
             )
             CheckBoxBlock(Orientation.HORIZONTAL, checkBoxesStatesHorizontal) {}
             Text(
-                text = "Vertical Check Box Block"
+                text = "Vertical Check Box Block",
             )
             CheckBoxBlock(Orientation.VERTICAL, checkBoxesStatesVertical) {}
         },

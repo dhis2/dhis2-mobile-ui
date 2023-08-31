@@ -37,7 +37,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
 @Composable
 fun CheckBox(
     checkBoxData: CheckBoxData,
-    onCheckedChange: ((Boolean) -> Unit)
+    onCheckedChange: ((Boolean) -> Unit),
 ) {
     var isChecked by remember {
         mutableStateOf(checkBoxData.checked)
@@ -114,7 +114,7 @@ fun CheckBox(
 fun CheckBoxBlock(
     orientation: Orientation,
     content: List<CheckBoxData>,
-    onItemChange: (CheckBoxData) -> Unit
+    onItemChange: (CheckBoxData) -> Unit,
 ) {
     if (orientation == Orientation.HORIZONTAL) {
         FlowRowComponentsContainer(
@@ -126,7 +126,7 @@ fun CheckBoxBlock(
                         onItemChange.invoke(checkBoxData)
                     }
                 }
-            }
+            },
         )
     } else {
         FlowColumnComponentsContainer(
@@ -138,7 +138,7 @@ fun CheckBoxBlock(
                         onItemChange.invoke(checkBoxData)
                     }
                 }
-            }
+            },
         )
     }
 }
@@ -147,10 +147,10 @@ data class CheckBoxData(
     val uid: String,
     val checked: Boolean,
     val enabled: Boolean,
-    val textInput: String?
+    val textInput: String?,
 )
 
 enum class Orientation {
     HORIZONTAL,
-    VERTICAL
+    VERTICAL,
 }

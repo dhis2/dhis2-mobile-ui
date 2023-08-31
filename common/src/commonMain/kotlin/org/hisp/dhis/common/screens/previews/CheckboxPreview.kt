@@ -7,17 +7,17 @@ import org.hisp.dhis.mobile.ui.designsystem.component.CheckBoxData
 @Composable
 internal fun CheckboxPreview(checked: Boolean, enabled: Boolean = true) {
     CheckBox(
-        CheckBoxData("", checked, enabled, null,)
-    )
+        CheckBoxData("", checked, enabled, null),
+    ) {}
 }
 
 @Composable
 internal fun TextCheckboxPreview(
     checked: Boolean,
     enabled: Boolean = true,
-    text: String = "Option"
+    text: String = "Option",
 ) {
     CheckBox(
-        CheckBoxData("", checked, enabled, text,)
-    )
+        CheckBoxData("", checked, enabled, text),
+    ) {}
 }
