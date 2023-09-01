@@ -1,14 +1,19 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
@@ -55,5 +60,42 @@ fun BottomSheetHeader(
                 color = TextColor.OnSurfaceLight,
             )
         }
+    }
+}
+
+
+@Composable
+fun BottomSheetShell(
+    title: String,
+    subtitle: String,
+    description: String,
+    searchBar: @Composable (() -> Unit)? = null,
+    buttonBlock: @Composable (() -> Unit)? = null,
+    content: @Composable (() -> Unit)? = null) {
+    Column(
+        modifier = Modifier
+            .padding(Spacing.Spacing24),
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        BottomSheetHeader(
+            title,
+            subtitle,
+            description
+        )
+        searchBar?.invoke()
+
+        Divider(
+            color = TextColor.OnDisabledSurface,
+            modifier = Modifier.fillMaxWidth().padding(top = Spacing.Spacing8, bottom = Spacing.Spacing8)
+        )
+
+        content?.let {
+            it.invoke()
+            Divider(
+                color = TextColor.OnDisabledSurface,
+                modifier = Modifier.fillMaxWidth().padding(Spacing.Spacing8)
+            )
+        }
+        buttonBlock?.invoke()
     }
 }
