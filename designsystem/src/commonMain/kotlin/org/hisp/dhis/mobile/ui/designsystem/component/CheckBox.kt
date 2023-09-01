@@ -38,10 +38,9 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
 @Composable
 fun CheckBox(
     checkBoxData: CheckBoxData,
-    onCheckedChange: ((Boolean) -> Unit),
     modifier: Modifier = Modifier,
-
-    ) {
+    onCheckedChange: ((Boolean) -> Unit),
+) {
     var isChecked by remember {
         mutableStateOf(checkBoxData.checked)
     }
