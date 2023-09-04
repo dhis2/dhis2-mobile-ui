@@ -4,6 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.text.input.ImeAction
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.InputText
@@ -20,22 +22,45 @@ fun InputTextScreen() {
     ColumnComponentContainer {
         Title("Input text component", textColor = TextColor.OnSurfaceVariant)
         SubTitle(" Basic Input text", textColor = TextColor.OnSurfaceVariant)
-        val inputValue1 by rememberSaveable { mutableStateOf("Input") }
+        var inputValue1 by rememberSaveable { mutableStateOf("Input") }
 
         InputText(
             title = "Label",
             inputText = inputValue1,
+            onValueChanged = {
+                if (it != null) {
+                    inputValue1 = it
+                }
+            },
         )
-        val inputValue2 by rememberSaveable { mutableStateOf("") }
+        var inputValue2 by rememberSaveable { mutableStateOf("") }
         SubTitle("Input text with legend", textColor = TextColor.OnSurfaceVariant)
-        InputText(title = "Label", inputText = inputValue2, legendData = LegendData(SurfaceColor.CustomGreen, "Legend"))
+        InputText(
+            title = "Label",
+            inputText = inputValue2,
+            legendData = LegendData(SurfaceColor.CustomGreen, "Legend"),
+            onValueChanged = {
+                if (it != null) {
+                    inputValue2 = it
+                }
+            },
+        )
 
-        val inputValue3 by rememberSaveable { mutableStateOf("") }
+        var inputValue3 by rememberSaveable { mutableStateOf("") }
 
         SubTitle("Input text with Supporting text", textColor = TextColor.OnSurfaceVariant)
-        InputText(title = "Label", inputText = inputValue3, supportingText = listOf(SupportingTextData("Supporting text", SupportingTextState.DEFAULT)))
+        InputText(
+            title = "Label",
+            inputText = inputValue3,
+            supportingText = listOf(SupportingTextData("Supporting text", SupportingTextState.DEFAULT)),
+            onValueChanged = {
+                if (it != null) {
+                    inputValue3 = it
+                }
+            },
+        )
 
-        val inputValue4 by rememberSaveable { mutableStateOf("") }
+        var inputValue4 by rememberSaveable { mutableStateOf("") }
 
         SubTitle("Input text with Supporting text and legend", textColor = TextColor.OnSurfaceVariant)
 
@@ -49,9 +74,14 @@ fun InputTextScreen() {
                 ),
             ),
             legendData = LegendData(SurfaceColor.CustomGreen, "Legend"),
+            onValueChanged = {
+                if (it != null) {
+                    inputValue4 = it
+                }
+            },
         )
         SubTitle("Input text with error and warning text and legend", textColor = TextColor.OnSurfaceVariant)
-        val inputValue5 by rememberSaveable { mutableStateOf("") }
+        var inputValue5 by rememberSaveable { mutableStateOf("") }
 
         InputText(
             title = "Label",
@@ -64,16 +94,39 @@ fun InputTextScreen() {
             ),
             legendData = LegendData(SurfaceColor.CustomGreen, "Legend"),
             state = InputShellState.ERROR,
-            isLastField = true,
+            imeAction = ImeAction.Done,
+            onValueChanged = {
+                if (it != null) {
+                    inputValue5 = it
+                }
+            },
         )
-        val inputValue6 by rememberSaveable { mutableStateOf("") }
+        var inputValue6 by rememberSaveable { mutableStateOf("") }
 
         SubTitle("Disabled Input text ", textColor = TextColor.OnSurfaceVariant)
-        InputText(title = "Label", inputText = inputValue6, state = InputShellState.DISABLED)
+        InputText(
+            title = "Label",
+            inputText = inputValue6,
+            state = InputShellState.DISABLED,
+            onValueChanged = {
+                if (it != null) {
+                    inputValue6 = it
+                }
+            },
+        )
 
-        val inputValue7 by rememberSaveable { mutableStateOf("Content") }
+        var inputValue7 by rememberSaveable { mutableStateOf("Content") }
 
         SubTitle("Disabled Input text with content ", textColor = TextColor.OnSurfaceVariant)
-        InputText(title = "Label", inputText = inputValue7, state = InputShellState.DISABLED)
+        InputText(
+            title = "Label",
+            inputText = inputValue7,
+            state = InputShellState.DISABLED,
+            onValueChanged = {
+                if (it != null) {
+                    inputValue7 = it
+                }
+            },
+        )
     }
 }

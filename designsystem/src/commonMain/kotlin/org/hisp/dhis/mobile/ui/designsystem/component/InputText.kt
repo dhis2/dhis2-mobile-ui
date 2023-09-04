@@ -35,7 +35,7 @@ fun InputText(
     isRequiredField: Boolean = false,
     onNextClicked: (() -> Unit)? = null,
     onValueChanged: ((String?) -> Unit)? = null,
-    isLastField: Boolean = false,
+    imeAction: ImeAction = ImeAction.Next,
     modifier: Modifier = Modifier,
 ) {
     val inputValue by remember(inputText) { mutableStateOf(inputText) }
@@ -43,8 +43,7 @@ fun InputText(
     var deleteButtonIsVisible by remember { mutableStateOf(!inputText.isNullOrEmpty()) }
     val focusManager = LocalFocusManager.current
 
-    val keyboardOptions by remember(isLastField) { if (isLastField) { mutableStateOf(KeyboardOptions(imeAction = ImeAction.Done)) } else { mutableStateOf(KeyboardOptions(imeAction = ImeAction.Next)) } }
-
+    val keyboardOptions = KeyboardOptions(imeAction = imeAction)
     InputShell(
         modifier = modifier,
         isRequiredField = isRequiredField,
@@ -60,7 +59,7 @@ fun InputText(
                         )
                     },
                     onClick = {
-                        onValueChanged?.invoke(null)
+                        onValueChanged?.invoke("")
                         deleteButtonIsVisible = false
                     },
                     enabled = state != InputShellState.DISABLED,
@@ -89,7 +88,7 @@ fun InputText(
                 inputText = inputValue ?: "",
                 onInputChanged = {
                     onValueChanged?.invoke(it)
-                    deleteButtonIsVisible = !inputValue.isNullOrEmpty()
+                    deleteButtonIsVisible = it.isNotEmpty()
                 },
                 enabled = state != InputShellState.DISABLED,
                 state = state,
