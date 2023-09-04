@@ -75,7 +75,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: ${{ env.repository_name }} - Android APK
-          path: ${{ env.main_project_module }}/build/outputs/apk/debug/
+          path: ${{ env.main_project_module }}/build/outputs/apk/debug/android-debug.apk
 
       #Create binaries
       - name: Create desktop jar for Windows
