@@ -1,5 +1,6 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Cancel
 import androidx.compose.material3.Icon
@@ -7,10 +8,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusDirection
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.text.input.ImeAction
 
 /**
  * DHIS2 Input Text. Wraps DHIS · [InputShell].
@@ -28,12 +31,20 @@ fun InputText(
     state: InputShellState = InputShellState.UNFOCUSED,
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
-    inputText: String = "",
+    inputText: String? = null,
     isRequiredField: Boolean = false,
+    onNextClicked: (() -> Unit)? = null,
+    onValueChanged: ((String?) -> Unit)? = null,
+    isLastField: Boolean = false,
     modifier: Modifier = Modifier,
 ) {
-    var inputValue by rememberSaveable { mutableStateOf(inputText) }
-    var deleteButtonIsVisible by remember { mutableStateOf(inputText.isNotEmpty()) }
+    val inputValue by remember(inputText) { mutableStateOf(inputText) }
+
+    var deleteButtonIsVisible by remember { mutableStateOf(!inputText.isNullOrEmpty()) }
+    val focusManager = LocalFocusManager.current
+
+    val keyboardOptions by remember(isLastField) { if (isLastField) { mutableStateOf(KeyboardOptions(imeAction = ImeAction.Done)) } else { mutableStateOf(KeyboardOptions(imeAction = ImeAction.Next)) } }
+
     InputShell(
         modifier = modifier,
         isRequiredField = isRequiredField,
@@ -49,7 +60,7 @@ fun InputText(
                         )
                     },
                     onClick = {
-                        inputValue = ""
+                        onValueChanged?.invoke(null)
                         deleteButtonIsVisible = false
                     },
                     enabled = state != InputShellState.DISABLED,
@@ -75,13 +86,21 @@ fun InputText(
         inputField = {
             BasicInput(
                 modifier = Modifier.testTag("INPUT_TEXT_FIELD"),
-                inputText = inputValue,
+                inputText = inputValue ?: "",
                 onInputChanged = {
-                    inputValue = it
-                    deleteButtonIsVisible = inputValue.isNotEmpty()
+                    onValueChanged?.invoke(it)
+                    deleteButtonIsVisible = !inputValue.isNullOrEmpty()
                 },
                 enabled = state != InputShellState.DISABLED,
                 state = state,
+                keyboardOptions = keyboardOptions,
+                onNextClicked = {
+                    if (onNextClicked != null) {
+                        onNextClicked.invoke()
+                    } else {
+                        focusManager.moveFocus(FocusDirection.Down)
+                    }
+                },
             )
         },
     )
