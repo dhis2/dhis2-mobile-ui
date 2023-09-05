@@ -66,7 +66,7 @@ fun InputShell(
                     .padding(end = Spacing.Spacing4),
                 verticalArrangement = Arrangement.Center,
             ) {
-                val titleText = if (isRequiredField) "$title*" else title
+                val titleText = if (isRequiredField) "$title *" else title
                 InputShellLabelText(titleText, textColor = indicatorColor)
                 inputField?.invoke()
             }
