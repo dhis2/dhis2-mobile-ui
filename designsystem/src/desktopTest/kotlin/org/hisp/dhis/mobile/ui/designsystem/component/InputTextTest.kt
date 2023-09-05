@@ -1,5 +1,9 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.test.assert
@@ -11,6 +15,7 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
+import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.junit.Rule
 import org.junit.Test
 
@@ -35,9 +40,16 @@ class InputTextTest {
     @Test
     fun shouldAllowUserInputWhenEnabled() {
         rule.setContent {
+            var inputValue by rememberSaveable { mutableStateOf("") }
             InputText(
                 title = "Label",
                 modifier = Modifier.testTag("INPUT_TEXT"),
+                inputText = inputValue,
+                onValueChanged = {
+                    if (it != null) {
+                        inputValue = it
+                    }
+                },
             )
         }
         rule.onNodeWithTag("INPUT_TEXT").assertExists()
@@ -61,12 +73,20 @@ class InputTextTest {
     @Test
     fun shouldShowResetButtonWhenTextFieldHasContent() {
         rule.setContent {
+            var inputValue by rememberSaveable { mutableStateOf("") }
             InputText(
                 title = "Label",
                 modifier = Modifier.testTag("INPUT_TEXT"),
+                inputText = inputValue,
+                onValueChanged = {
+                    if (it != null) {
+                        inputValue = it
+                    }
+                },
             )
         }
         rule.onNodeWithTag("INPUT_TEXT").assertExists()
+        rule.onNodeWithTag("INPUT_TEXT_FIELD").assertExists()
         rule.onNodeWithTag("INPUT_TEXT_FIELD").performTextInput("Input")
         rule.onNodeWithTag("INPUT_TEXT_RESET_BUTTON").assertExists()
     }
@@ -74,10 +94,17 @@ class InputTextTest {
     @Test
     fun shouldDeleteContentWhenResetButtonIsClickedAndHideResetButton() {
         rule.setContent {
+            var inputValue by rememberSaveable { mutableStateOf("Input") }
+
             InputText(
                 title = "Label",
                 modifier = Modifier.testTag("INPUT_TEXT"),
-                inputText = "Input",
+                inputText = inputValue,
+                onValueChanged = {
+                    if (it != null) {
+                        inputValue = it
+                    }
+                },
             )
         }
         rule.onNodeWithTag("INPUT_TEXT").assertExists()
@@ -94,7 +121,7 @@ class InputTextTest {
                 title = "Label",
                 modifier = Modifier.testTag("INPUT_TEXT"),
                 inputText = "Input",
-                legendText = "Legend",
+                legendData = LegendData(SurfaceColor.CustomGreen, "Legend"),
             )
         }
         rule.onNodeWithTag("INPUT_TEXT").assertExists()

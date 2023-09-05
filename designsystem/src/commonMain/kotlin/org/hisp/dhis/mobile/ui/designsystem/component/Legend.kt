@@ -30,15 +30,20 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
 
 @Composable
 fun Legend(
-    color: Color,
-    text: String,
+    legendData: LegendData,
     modifier: Modifier = Modifier,
-    onClick: () -> Unit,
 ) {
     CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
         Column(
             modifier = modifier
-                .clickable(onClick = onClick)
+                .clickable(
+                    onClick = {
+                        legendData.popUpLegendDescriptionData?.let {
+                            // Implement call to BottomSheetShell with legendDescriptionData list
+                            // here when component ready
+                        }
+                    },
+                )
                 .hoverPointerIcon(true),
         ) {
             Row(
@@ -52,11 +57,11 @@ fun Legend(
                     Box(
                         modifier = Modifier.size(Spacing.Spacing12)
                             .clip(CircleShape)
-                            .background(color),
+                            .background(legendData.color),
                     )
                 }
                 Text(
-                    text,
+                    legendData.title,
                     Modifier.padding(start = Spacing.Spacing8)
                         .weight(2f, true),
                     style = MaterialTheme.typography.bodyMedium,
@@ -72,7 +77,7 @@ fun Legend(
                     .fillMaxWidth()
                     .padding(),
                 thickness = Spacing.Spacing2,
-                color = color,
+                color = legendData.color,
             )
         }
     }
@@ -121,4 +126,10 @@ data class LegendDescriptionData(
     val color: Color,
     val text: String,
     val range: IntRange,
+)
+
+data class LegendData(
+    val color: Color,
+    val title: String,
+    val popUpLegendDescriptionData: List<LegendDescriptionData>? = null,
 )

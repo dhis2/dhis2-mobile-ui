@@ -48,6 +48,7 @@ fun InputShell(
     inputField: @Composable (() -> Unit)? = null,
     supportingText: @Composable (() -> Unit)? = null,
     legend: @Composable (() -> Unit)? = null,
+    isRequiredField: Boolean = false,
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier.fillMaxWidth().clip(shape = RoundedCornerShape(Radius.XS, Radius.XS))) {
@@ -55,7 +56,7 @@ fun InputShell(
         val backgroundColor = if (state != InputShellState.DISABLED) SurfaceColor.Surface else SurfaceColor.DisabledSurface
         InputShellRow(
             modifier = Modifier.onFocusChanged {
-                indicatorColor = if (it.isFocused) InputShellState.FOCUSED.color else state.color
+                indicatorColor = if (it.isFocused && state != InputShellState.ERROR && state != InputShellState.WARNING) InputShellState.FOCUSED.color else state.color
             },
             backgroundColor = backgroundColor,
         ) {
@@ -65,7 +66,8 @@ fun InputShell(
                     .padding(end = Spacing.Spacing4),
                 verticalArrangement = Arrangement.Center,
             ) {
-                InputShellLabelText(title, textColor = indicatorColor)
+                val titleText = if (isRequiredField) "$title *" else title
+                InputShellLabelText(titleText, textColor = indicatorColor)
                 inputField?.invoke()
             }
             Row(
@@ -90,6 +92,7 @@ fun InputShell(
         InputShellIndicator(color = indicatorColor)
         legend?.invoke()
         if (state != InputShellState.DISABLED) supportingText?.invoke()
+        if (isRequiredField && state == InputShellState.ERROR) SupportingText("Required", state = SupportingTextState.ERROR)
     }
 }
 
@@ -161,4 +164,5 @@ enum class InputShellState(val color: Color) {
     UNFOCUSED(TextColor.OnSurfaceVariant),
     ERROR(SurfaceColor.Error),
     DISABLED(TextColor.OnDisabledSurface),
+    WARNING(TextColor.OnWarning),
 }

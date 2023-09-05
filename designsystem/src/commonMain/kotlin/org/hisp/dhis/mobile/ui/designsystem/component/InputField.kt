@@ -7,17 +7,30 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.text.selection.LocalTextSelectionColors
+import androidx.compose.foundation.text.selection.TextSelectionColors
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.VisualTransformation
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.PrefixTransformation
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.SuffixTransformer
+import org.hisp.dhis.mobile.ui.designsystem.theme.Color.Blue300
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
@@ -54,6 +67,7 @@ fun EmptyInput(
  * @param inputText manages the value of the input field text
  * @param onInputChanged gives access to the onTextChangedEvent
  */
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun BasicInput(
     helper: String? = null,
@@ -62,7 +76,11 @@ fun BasicInput(
     inputText: String = "",
     onInputChanged: (String) -> Unit,
     modifier: Modifier = Modifier,
+    state: InputShellState = InputShellState.FOCUSED,
+    keyboardOptions: KeyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+    onNextClicked: (() -> Unit)? = null,
 ) {
+    val keyboardController = LocalSoftwareKeyboardController.current
     var visualTransformation = VisualTransformation.None
 
     if (helperStyle != InputStyle.NONE) {
@@ -74,29 +92,55 @@ fun BasicInput(
             }
         }
     }
-    BasicTextField(
-        modifier = modifier
-            .background(
-                Color.Transparent,
-            )
-            .fillMaxWidth()
-            .textFieldHoverPointerIcon(enabled),
-        value = inputText,
-        onValueChange = onInputChanged,
-        enabled = enabled,
-        textStyle = MaterialTheme.typography.bodyLarge.copy(color = if (enabled) TextColor.OnSurface else TextColor.OnDisabledSurface),
-        singleLine = true,
-        decorationBox = { innerTextField ->
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Box(Modifier.weight(1f)) {
-                    innerTextField()
-                }
-            }
-        },
-        visualTransformation = visualTransformation,
+
+    val cursorColor by remember {
+        if (state == InputShellState.UNFOCUSED || state == InputShellState.FOCUSED) {
+            mutableStateOf(InputShellState.FOCUSED.color)
+        } else {
+            mutableStateOf(state.color)
+        }
+    }
+
+    val customTextSelectionColors = TextSelectionColors(
+        handleColor = cursorColor,
+        backgroundColor = Blue300,
     )
+    CompositionLocalProvider(LocalTextSelectionColors provides customTextSelectionColors) {
+        BasicTextField(
+
+            modifier = modifier
+                .background(
+                    Color.Transparent,
+                )
+                .fillMaxWidth()
+                .textFieldHoverPointerIcon(enabled),
+            value = inputText,
+            onValueChange = onInputChanged,
+            enabled = enabled,
+            textStyle = MaterialTheme.typography.bodyLarge.copy(color = if (enabled) TextColor.OnSurface else TextColor.OnDisabledSurface),
+            singleLine = true,
+            decorationBox = { innerTextField ->
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Box(Modifier.weight(1f)) {
+                        innerTextField()
+                    }
+                }
+            },
+            keyboardOptions = keyboardOptions,
+            keyboardActions = KeyboardActions(
+                onNext = {
+                    onNextClicked?.invoke()
+                },
+                onDone = {
+                    keyboardController?.hide()
+                },
+            ),
+            visualTransformation = visualTransformation,
+            cursorBrush = SolidColor(cursorColor),
+        )
+    }
 }
 
 enum class InputStyle {

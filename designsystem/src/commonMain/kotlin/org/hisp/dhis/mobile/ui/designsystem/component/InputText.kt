@@ -1,5 +1,6 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Cancel
 import androidx.compose.material3.Icon
@@ -7,11 +8,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusDirection
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.testTag
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
+import androidx.compose.ui.text.input.ImeAction
 
 /**
  * DHIS2 Input Text. Wraps DHIS · [InputShell].
@@ -19,7 +21,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
  * @param state Manages the InputShell state
  * @param supportingText is a list of SupportingTextData that
  * manages all the messages to be shown
- * @param legendText manages the text to be shown with the legend component
+ * @param legendData manages the legendComponent
  * @param inputText manages the value of the text in the input field
  * @param modifier allows a modifier to be passed externally
  */
@@ -28,14 +30,23 @@ fun InputText(
     title: String,
     state: InputShellState = InputShellState.UNFOCUSED,
     supportingText: List<SupportingTextData>? = null,
-    legendText: String? = null,
-    inputText: String = "",
+    legendData: LegendData? = null,
+    inputText: String? = null,
+    isRequiredField: Boolean = false,
+    onNextClicked: (() -> Unit)? = null,
+    onValueChanged: ((String?) -> Unit)? = null,
+    imeAction: ImeAction = ImeAction.Next,
     modifier: Modifier = Modifier,
 ) {
-    var inputValue by rememberSaveable { mutableStateOf(inputText) }
-    var deleteButtonIsVisible by remember { mutableStateOf(inputText.isNotEmpty()) }
+    val inputValue by remember(inputText) { mutableStateOf(inputText) }
+
+    var deleteButtonIsVisible by remember { mutableStateOf(!inputText.isNullOrEmpty()) }
+    val focusManager = LocalFocusManager.current
+
+    val keyboardOptions = KeyboardOptions(imeAction = imeAction)
     InputShell(
         modifier = modifier,
+        isRequiredField = isRequiredField,
         title = title,
         primaryButton = {
             if (deleteButtonIsVisible) {
@@ -48,7 +59,7 @@ fun InputText(
                         )
                     },
                     onClick = {
-                        inputValue = ""
+                        onValueChanged?.invoke("")
                         deleteButtonIsVisible = false
                     },
                     enabled = state != InputShellState.DISABLED,
@@ -57,8 +68,8 @@ fun InputText(
         },
         state = state,
         legend = {
-            legendText?.let {
-                Legend(SurfaceColor.CustomGreen, legendText, Modifier.testTag("INPUT_TEXT_LEGEND")) {}
+            legendData?.let {
+                Legend(legendData, Modifier.testTag("INPUT_TEXT_LEGEND"))
             }
         },
         supportingText = {
@@ -74,12 +85,21 @@ fun InputText(
         inputField = {
             BasicInput(
                 modifier = Modifier.testTag("INPUT_TEXT_FIELD"),
-                inputText = inputValue,
+                inputText = inputValue ?: "",
                 onInputChanged = {
-                    inputValue = it
-                    deleteButtonIsVisible = inputValue.isNotEmpty()
+                    onValueChanged?.invoke(it)
+                    deleteButtonIsVisible = it.isNotEmpty()
                 },
                 enabled = state != InputShellState.DISABLED,
+                state = state,
+                keyboardOptions = keyboardOptions,
+                onNextClicked = {
+                    if (onNextClicked != null) {
+                        onNextClicked.invoke()
+                    } else {
+                        focusManager.moveFocus(FocusDirection.Down)
+                    }
+                },
             )
         },
     )
