@@ -12,7 +12,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
 fun FormsComponentsScreen() {
     ColumnComponentContainer("Input Shell") {
         SubTitle("Sample functional Input Shell ")
-        InputShellPreview("Label", inputField = { BasicInput("Helper", true, InputStyle.WITH_HELPER_BEFORE) {} })
+        InputShellPreview("Label", inputField = { BasicInput("Helper", true, InputStyle.WITH_HELPER_BEFORE, onInputChanged = {}) })
         SubTitle("Unfocused Input shell ")
         InputShellPreview("Label")
         SubTitle("Focused ")

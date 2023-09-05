@@ -21,21 +21,15 @@ fun InputScreen() {
         title = "Input",
         content = {
             SubTitle("With helper before")
-            BasicInput("Helper", helperStyle = InputStyle.WITH_HELPER_BEFORE, inputText = inputValue1) {
-                inputValue1 = it
-            }
+            BasicInput("Helper", helperStyle = InputStyle.WITH_HELPER_BEFORE, inputText = inputValue1, onInputChanged = { inputValue1 = it })
             SubTitle("With helper after")
-            BasicInput("Helper", helperStyle = InputStyle.WITH_HELPER_AFTER, inputText = inputValue2) {
-                inputValue2 = it
-            }
+            BasicInput("Helper", helperStyle = InputStyle.WITH_HELPER_AFTER, inputText = inputValue2, onInputChanged = { inputValue2 = it })
             SubTitle("No helper")
             BasicInput(inputText = inputValue3, onInputChanged = {
                 inputValue3 = it
             })
             SubTitle("Disabled")
-            BasicInput(enabled = false, inputText = inputValue4) {
-                inputValue4 = it
-            }
+            BasicInput(enabled = false, inputText = inputValue4, onInputChanged = { inputValue4 = it })
         },
     )
 }

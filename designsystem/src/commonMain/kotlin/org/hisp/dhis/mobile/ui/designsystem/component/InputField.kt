@@ -30,8 +30,8 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.VisualTransformation
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.PrefixTransformation
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.SuffixTransformer
-import org.hisp.dhis.mobile.ui.designsystem.theme.InternalFloatValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Color.Blue300
+import org.hisp.dhis.mobile.ui.designsystem.theme.InternalFloatValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing

@@ -22,9 +22,9 @@ fun LegendScreen() {
             LegendData(
                 SurfaceColor.CustomPink,
                 "Lorem ipsum dolor sit amet," +
-                        " consectetur adipiscing elit. Maecenas dolor lacus," +
-                        " aliquam. Lorem ipsum dolor sit amet," +
-                        " consectetur adipiscing elit. Maecenas dolor lacus,",
+                    " consectetur adipiscing elit. Maecenas dolor lacus," +
+                    " aliquam. Lorem ipsum dolor sit amet," +
+                    " consectetur adipiscing elit. Maecenas dolor lacus,",
             ),
         )
     }
