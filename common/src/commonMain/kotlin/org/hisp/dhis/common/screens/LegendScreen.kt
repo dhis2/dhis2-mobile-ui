@@ -1,33 +1,23 @@
 package org.hisp.dhis.common.screens
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.Legend
 import org.hisp.dhis.mobile.ui.designsystem.component.LegendData
-import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
+import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
 @Composable
 fun LegendScreen() {
-    Column(
-        verticalArrangement = Arrangement.spacedBy(Spacing.Spacing16),
-        modifier = Modifier.padding(Spacing.Spacing10)
-            .verticalScroll(rememberScrollState()),
-    ) {
-        Text("Green Legend")
+    ColumnComponentContainer(title = "Legend") {
+        SubTitle("Green Legend")
         Legend(LegendData(SurfaceColor.CustomGreen, "Legend"))
 
-        Text("Orange Legend")
+        SubTitle("Orange Legend")
         Legend(LegendData(TextColor.OnWarning, "Legend"))
 
-        Text("Pink Legend")
+        SubTitle("Pink Legend")
         Legend(
             LegendData(
                 SurfaceColor.CustomPink,

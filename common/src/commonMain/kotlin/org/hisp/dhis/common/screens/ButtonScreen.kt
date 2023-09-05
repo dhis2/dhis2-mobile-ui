@@ -1,35 +1,19 @@
 package org.hisp.dhis.common.screens
 
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import org.hisp.dhis.common.screens.previews.ButtonPreview
 import org.hisp.dhis.common.screens.previews.ButtonPreviewWithIcon
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.RowComponentContainer
-import org.hisp.dhis.mobile.ui.designsystem.component.TextButtonSelector
-import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
+import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
+import org.hisp.dhis.mobile.ui.designsystem.component.Title
 
 @Composable
 fun ButtonScreen() {
     ColumnComponentContainer() {
-        Text("TextButtonSelectors")
-        TextButtonSelector(
-            firstOptionText = provideStringResource("date_birth"),
-            onClickFirstOption = {},
-            middleText = provideStringResource("or"),
-            secondOptionText = provideStringResource("age"),
-            onClickSecondOption = {},
-        )
-        TextButtonSelector(
-            enabled = false,
-            firstOptionText = provideStringResource("date_birth"),
-            onClickFirstOption = {},
-            middleText = provideStringResource("or"),
-            secondOptionText = provideStringResource("age"),
-            onClickSecondOption = {},
-        )
-        Text("Filled")
+        Title("Buttons")
+        SubTitle("Filled")
         RowComponentContainer() {
             ButtonPreview("Label", ButtonStyle.FILLED)
             ButtonPreview("Label", ButtonStyle.FILLED, false)
@@ -38,8 +22,7 @@ fun ButtonScreen() {
             ButtonPreviewWithIcon("Label", ButtonStyle.FILLED)
             ButtonPreviewWithIcon("Label", ButtonStyle.FILLED, false)
         }
-        // Outlined
-        Text("Outlined")
+        SubTitle("Outlined")
         RowComponentContainer() {
             ButtonPreview("Label")
             ButtonPreview("Label", ButtonStyle.OUTLINED, false)
@@ -48,8 +31,7 @@ fun ButtonScreen() {
             ButtonPreviewWithIcon("Label")
             ButtonPreviewWithIcon("Label", ButtonStyle.OUTLINED, false)
         }
-        // Text
-        Text("Text")
+        SubTitle("Text")
         RowComponentContainer() {
             ButtonPreview("Label", ButtonStyle.TEXT)
             ButtonPreview("Label", ButtonStyle.TEXT, false)
@@ -58,7 +40,7 @@ fun ButtonScreen() {
             ButtonPreviewWithIcon("Label", ButtonStyle.TEXT)
             ButtonPreviewWithIcon("Label", ButtonStyle.TEXT, false)
         }
-        Text("Elevated")
+        SubTitle("Elevated")
         RowComponentContainer() {
             ButtonPreview("Label", ButtonStyle.ELEVATED)
             ButtonPreview("Label", ButtonStyle.ELEVATED, false)
@@ -67,7 +49,7 @@ fun ButtonScreen() {
             ButtonPreviewWithIcon("Label", ButtonStyle.ELEVATED)
             ButtonPreviewWithIcon("Label", ButtonStyle.ELEVATED, false)
         }
-        Text("Tonal")
+        SubTitle("Tonal")
         RowComponentContainer() {
             ButtonPreview("Label", ButtonStyle.TONAL)
             ButtonPreview("Label", ButtonStyle.TONAL, false)
@@ -76,7 +58,7 @@ fun ButtonScreen() {
             ButtonPreviewWithIcon("Label", ButtonStyle.TONAL)
             ButtonPreviewWithIcon("Label", ButtonStyle.TONAL, false)
         }
-        Text("Keyboard")
+        SubTitle("Keyboard")
         RowComponentContainer() {
             ButtonPreview("Label", ButtonStyle.KEYBOARDKEY)
             ButtonPreview("Label", ButtonStyle.KEYBOARDKEY, false)

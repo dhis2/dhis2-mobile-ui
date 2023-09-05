@@ -1,16 +1,16 @@
 package org.hisp.dhis.common.screens
 
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ProgressIndicator
 import org.hisp.dhis.mobile.ui.designsystem.component.ProgressIndicatorType
 import org.hisp.dhis.mobile.ui.designsystem.component.RowComponentContainer
+import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
 
 @Composable
 internal fun ProgressScreen() {
     ColumnComponentContainer(title = "Progress Indicator") {
-        Text("Linear indicator")
+        SubTitle("Linear indicator")
         ProgressIndicator(
             progress = 0.25f,
             type = ProgressIndicatorType.LINEAR,
@@ -35,7 +35,7 @@ internal fun ProgressScreen() {
             type = ProgressIndicatorType.LINEAR,
             hasError = false,
         )
-        Text("Linear indicator - Error")
+        SubTitle("Linear indicator - Error")
         ProgressIndicator(
             progress = 0.70f,
             type = ProgressIndicatorType.LINEAR,
@@ -45,7 +45,7 @@ internal fun ProgressScreen() {
             type = ProgressIndicatorType.LINEAR,
             hasError = true,
         )
-        Text("Circular indicator")
+        SubTitle("Circular indicator")
         RowComponentContainer {
             ProgressIndicator(
                 progress = 0.25f,
@@ -77,7 +77,7 @@ internal fun ProgressScreen() {
             type = ProgressIndicatorType.CIRCULAR,
             hasError = false,
         )
-        Text("Circular indicator - Error")
+        SubTitle("Circular indicator - Error")
         RowComponentContainer {
             ProgressIndicator(
                 progress = 0.70f,

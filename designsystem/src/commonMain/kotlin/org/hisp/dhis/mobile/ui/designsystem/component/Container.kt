@@ -6,9 +6,7 @@ import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowColumn
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
@@ -28,16 +26,16 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 @Composable
 fun ColumnComponentContainer(
     title: String? = null,
+    modifier: Modifier = Modifier,
     content: @Composable (() -> Unit),
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(Spacing.Spacing16),
-        modifier = Modifier.padding(Spacing.Spacing10).verticalScroll(rememberScrollState()),
+        modifier = modifier.padding(Spacing.Spacing10).verticalScroll(rememberScrollState()),
     ) {
         title?.let {
-            Text(title, style = MaterialTheme.typography.titleMedium)
+            Title(title)
         }
-        Spacer(Modifier.size(Spacing.Spacing4))
         content()
     }
 }
@@ -51,14 +49,15 @@ fun ColumnComponentContainer(
 @Composable
 fun RowComponentContainer(
     title: String? = null,
+    modifier: Modifier = Modifier,
     content: @Composable (() -> Unit),
 ) {
     title?.let {
-        Text(title, style = MaterialTheme.typography.titleMedium)
+        SubTitle(title)
     }
     Row(
         horizontalArrangement = Arrangement.spacedBy(Spacing.Spacing10),
-        modifier = Modifier.padding(Spacing.Spacing10),
+        modifier = modifier.padding(Spacing.Spacing10),
     ) {
         content()
     }

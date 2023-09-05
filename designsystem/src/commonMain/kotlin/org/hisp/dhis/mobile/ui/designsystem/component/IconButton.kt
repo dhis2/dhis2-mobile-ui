@@ -1,8 +1,11 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -15,9 +18,16 @@ import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.OutlinedIconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
+import org.hisp.dhis.mobile.ui.designsystem.theme.Border
+import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
 import org.hisp.dhis.mobile.ui.designsystem.theme.Ripple
@@ -43,14 +53,35 @@ fun SquareIconButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
 ) {
-    val shadowColor = if (enabled) SurfaceColor.ContainerHighest else Color.Transparent
+    val interactionSource = remember { MutableInteractionSource() }
+    val isPressed by interactionSource.collectIsPressedAsState()
+    var topPadding = mutableStateOf(0)
+    val shadowColor: MutableState<Color>
+    if (enabled) {
+        if (isPressed) {
+            shadowColor = mutableStateOf(Color.Transparent)
+            topPadding = mutableStateOf(1)
+        } else {
+            shadowColor = mutableStateOf(SurfaceColor.ContainerHighest)
+            topPadding = mutableStateOf(0)
+        }
+    } else {
+        shadowColor = mutableStateOf(Color.Transparent)
+    }
     ElevatedButton(
+        interactionSource = interactionSource,
         onClick = onClick,
         elevation = ButtonDefaults.elevatedButtonElevation(0.dp),
         modifier = modifier
-            .size(Spacing.Spacing48)
+            .size(InternalSizeValues.Size48)
             .padding(Spacing.Spacing4)
             .iconButtonshadow(shadowColor, Radius.S)
+            .offset {
+                IntOffset(
+                    0,
+                    topPadding.value,
+                )
+            }
             .hoverPointerIcon(enabled),
         enabled = enabled,
         shape = Shape.Small,
@@ -102,7 +133,7 @@ private fun StandardIconButton(
         FilledIconButton(
             onClick = onClick,
             modifier = modifier
-                .size(Spacing.Spacing48)
+                .size(InternalSizeValues.Size48)
                 .padding(Spacing.Spacing4)
                 .hoverPointerIcon(enabled),
             enabled = enabled,
@@ -125,7 +156,7 @@ private fun FilledIconButton(
     FilledIconButton(
         onClick = onClick,
         modifier = modifier
-            .size(Spacing.Spacing48)
+            .size(InternalSizeValues.Size48)
             .padding(Spacing.Spacing4)
             .hoverPointerIcon(enabled),
         enabled = enabled,
@@ -148,7 +179,7 @@ private fun FilledTonalIconButton(
         FilledTonalIconButton(
             onClick = onClick,
             modifier = modifier
-                .size(Spacing.Spacing48)
+                .size(InternalSizeValues.Size48)
                 .padding(Spacing.Spacing4)
                 .hoverPointerIcon(enabled),
             enabled = enabled,
@@ -174,12 +205,12 @@ private fun OutlinedIconButton(
         OutlinedIconButton(
             onClick = onClick,
             modifier = modifier
-                .size(Spacing.Spacing48)
+                .size(InternalSizeValues.Size48)
                 .padding(Spacing.Spacing4)
                 .hoverPointerIcon(enabled),
             enabled = enabled,
             shape = CircleShape,
-            border = BorderStroke(Spacing.Spacing1, if (enabled) Outline.Dark else SurfaceColor.DisabledSurface),
+            border = BorderStroke(Border.Thin, if (enabled) Outline.Dark else SurfaceColor.DisabledSurface),
             colors = IconButtonDefaults.outlinedIconButtonColors(Color.Transparent, TextColor.OnPrimaryContainer),
         ) {
             Box(Modifier.size(Spacing.Spacing24)) {

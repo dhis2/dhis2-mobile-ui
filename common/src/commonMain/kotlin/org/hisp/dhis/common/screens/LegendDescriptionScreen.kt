@@ -1,17 +1,16 @@
 package org.hisp.dhis.common.screens
 
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.LegendDescriptionData
 import org.hisp.dhis.mobile.ui.designsystem.component.LegendRange
+import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
 @Composable
 fun LegendDescriptionScreen() {
-    ColumnComponentContainer {
-        Text("Legend description")
+    ColumnComponentContainer(title = "LegendDescription") {
         LegendRange(
             listOf(
                 LegendDescriptionData(
@@ -31,7 +30,7 @@ fun LegendDescriptionScreen() {
             ),
         )
 
-        Text("Legend Block")
+        SubTitle("Legend Block")
         LegendRange(
             listOf(
                 LegendDescriptionData(

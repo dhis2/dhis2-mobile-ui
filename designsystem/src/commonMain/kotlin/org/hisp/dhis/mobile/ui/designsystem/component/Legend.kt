@@ -24,6 +24,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import org.hisp.dhis.mobile.ui.designsystem.theme.Border
+import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Ripple
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
@@ -55,7 +57,7 @@ fun Legend(
                 Column(modifier = Modifier.align(Alignment.Top)) {
                     Spacer(modifier = Modifier.size(Spacing.Spacing4).padding(end = Spacing.Spacing8))
                     Box(
-                        modifier = Modifier.size(Spacing.Spacing12)
+                        modifier = Modifier.size(InternalSizeValues.Size12)
                             .clip(CircleShape)
                             .background(legendData.color),
                     )
@@ -69,14 +71,14 @@ fun Legend(
                 Icon(
                     imageVector = Icons.Outlined.HelpOutline,
                     contentDescription = "Legend Icon",
-                    modifier = Modifier.size(Spacing.Spacing18),
+                    modifier = Modifier.size(InternalSizeValues.Size18),
                 )
             }
             Divider(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(),
-                thickness = Spacing.Spacing2,
+                thickness = Border.Regular,
                 color = legendData.color,
             )
         }
@@ -84,9 +86,9 @@ fun Legend(
 }
 
 @Composable
-internal fun LegendDescription(color: Color, text: String, range: IntRange) {
+internal fun LegendDescription(color: Color, text: String, range: IntRange, modifier: Modifier = Modifier) {
     Row(
-        modifier = Modifier
+        modifier = modifier
             .padding(Spacing.Spacing0, Spacing.Spacing8, Spacing.Spacing8, Spacing.Spacing6),
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.Top,

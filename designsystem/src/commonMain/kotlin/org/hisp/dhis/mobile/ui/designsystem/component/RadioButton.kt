@@ -18,6 +18,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.Ripple
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
@@ -37,13 +38,14 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
 @Composable
 fun RadioButton(
     radioButtonData: RadioButtonData,
+    modifier: Modifier = Modifier,
     onClick: (Boolean) -> Unit,
 ) {
     val interactionSource = if (radioButtonData.enabled) remember { MutableInteractionSource() } else MutableInteractionSource()
     Row(
         horizontalArrangement = Arrangement.spacedBy(Spacing.Spacing0, Alignment.Start),
         verticalAlignment = Alignment.Top,
-        modifier = Modifier
+        modifier = modifier
             .clickable(
                 interactionSource = interactionSource,
                 indication = null,
@@ -66,7 +68,7 @@ fun RadioButton(
                 enabled = radioButtonData.enabled,
                 interactionSource = interactionSource,
                 modifier = Modifier
-                    .size(Spacing.Spacing40)
+                    .size(InternalSizeValues.Size40)
                     .hoverPointerIcon(radioButtonData.enabled),
                 colors = RadioButtonDefaults.colors(
                     selectedColor = SurfaceColor.Primary,

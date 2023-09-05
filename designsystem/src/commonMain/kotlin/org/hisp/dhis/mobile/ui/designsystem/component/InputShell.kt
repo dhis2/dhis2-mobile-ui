@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
+import org.hisp.dhis.mobile.ui.designsystem.theme.Border
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
@@ -130,10 +131,10 @@ private fun InputShellButtonSeparator(
 ) {
     Divider(
         color = Outline.Medium,
-        thickness = Spacing.Spacing1,
+        thickness = Border.Thin,
         modifier = modifier
             .height(Spacing.Spacing40)
-            .width(Spacing.Spacing1),
+            .width(Border.Thin),
     )
 }
 
@@ -150,7 +151,7 @@ private fun InputShellIndicator(
         modifier = modifier
             .fillMaxWidth()
             .padding(),
-        thickness = Spacing.Spacing1,
+        thickness = Border.Thin,
         color = color,
     )
 }

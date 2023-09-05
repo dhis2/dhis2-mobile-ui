@@ -31,6 +31,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
+import org.hisp.dhis.mobile.ui.designsystem.theme.Border
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
 import org.hisp.dhis.mobile.ui.designsystem.theme.Ripple
@@ -68,6 +69,7 @@ fun Button(
             val textColor = if (enabled) TextColor.OnPrimary else TextColor.OnDisabledSurface
 
             SimpleButton(
+                modifier = modifier,
                 onClick = { onClick() },
                 enabled = enabled,
                 buttonColors = ButtonDefaults.filledTonalButtonColors(
@@ -85,6 +87,7 @@ fun Button(
         ButtonStyle.TEXT -> {
             val textColor = if (enabled) SurfaceColor.Primary else TextColor.OnDisabledSurface
             SimpleButton(
+                modifier = modifier,
                 onClick = { onClick() },
                 enabled = enabled,
                 buttonColors = ButtonDefaults.filledTonalButtonColors(
@@ -102,7 +105,8 @@ fun Button(
             val textColor = if (enabled) SurfaceColor.Primary else TextColor.OnDisabledSurface
 
             ElevatedButton(
-                modifier = Modifier.hoverPointerIcon(enabled),
+                modifier = modifier
+                    .hoverPointerIcon(enabled),
                 onClick = { onClick() },
                 elevation = ButtonDefaults.elevatedButtonElevation(),
                 enabled = enabled,
@@ -122,6 +126,7 @@ fun Button(
             val textColor = if (enabled) TextColor.OnPrimaryContainer else TextColor.OnDisabledSurface
             CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
                 SimpleButton(
+                    modifier = modifier,
                     onClick = { onClick() },
                     enabled = enabled,
                     buttonColors = ButtonDefaults.filledTonalButtonColors(
@@ -159,7 +164,7 @@ fun Button(
                 onClick = { onClick() },
                 interactionSource = interactionSource,
                 modifier = modifier
-                    .buttonShadow(shadowColor, Radius.Full, icon != null).offset {
+                    .buttonShadow(shadowColor, Radius.Full).offset {
                         IntOffset(
                             0,
                             topPadding.value,
@@ -178,7 +183,7 @@ fun Button(
         ButtonStyle.OUTLINED -> {
             val textColor = if (enabled) SurfaceColor.Primary else TextColor.OnDisabledSurface
             OutlinedButton(
-                modifier = Modifier.hoverPointerIcon(enabled).height(Spacing.Spacing40),
+                modifier = modifier.hoverPointerIcon(enabled).height(Spacing.Spacing40),
                 onClick = { onClick() },
                 enabled = enabled,
                 shape = ButtonDefaults.outlinedShape,
@@ -188,7 +193,7 @@ fun Button(
                     Color.Transparent,
                     TextColor.OnDisabledSurface,
                 ),
-                border = BorderStroke(Spacing.Spacing1, if (enabled) Outline.Dark else SurfaceColor.DisabledSurface),
+                border = BorderStroke(Border.Thin, if (enabled) Outline.Dark else SurfaceColor.DisabledSurface),
                 contentPadding = paddingValues,
             ) {
                 ButtonText(text, textColor, icon, enabled)

@@ -1,23 +1,35 @@
 package org.hisp.dhis.common.screens
 
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import org.hisp.dhis.mobile.ui.designsystem.component.BasicInput
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InputStyle
+import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
 
 @Composable
 fun InputScreen() {
+    var inputValue1: String by rememberSaveable { mutableStateOf("Input") }
+    var inputValue2: String by rememberSaveable { mutableStateOf("Input") }
+    var inputValue3: String by rememberSaveable { mutableStateOf("Input") }
+    var inputValue4: String by rememberSaveable { mutableStateOf("Input") }
+
     ColumnComponentContainer(
+        title = "Input",
         content = {
-            Text("With helper before")
-            BasicInput("Helper", helperStyle = InputStyle.WITH_HELPER_BEFORE, inputText = "Input", onInputChanged = {})
-            Text("With helper after")
-            BasicInput("Helper", helperStyle = InputStyle.WITH_HELPER_AFTER, inputText = "Input", onInputChanged = {})
-            Text("No helper")
-            BasicInput(inputText = "Input", onInputChanged = {})
-            Text("Disabled")
-            BasicInput(enabled = false, inputText = "Input", onInputChanged = {})
+            SubTitle("With helper before")
+            BasicInput("Helper", helperStyle = InputStyle.WITH_HELPER_BEFORE, inputText = inputValue1, onInputChanged = { inputValue1 = it })
+            SubTitle("With helper after")
+            BasicInput("Helper", helperStyle = InputStyle.WITH_HELPER_AFTER, inputText = inputValue2, onInputChanged = { inputValue2 = it })
+            SubTitle("No helper")
+            BasicInput(inputText = inputValue3, onInputChanged = {
+                inputValue3 = it
+            })
+            SubTitle("Disabled")
+            BasicInput(enabled = false, inputText = inputValue4, onInputChanged = { inputValue4 = it })
         },
     )
 }

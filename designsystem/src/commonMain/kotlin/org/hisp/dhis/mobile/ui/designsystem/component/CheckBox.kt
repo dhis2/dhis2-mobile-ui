@@ -18,6 +18,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.Ripple
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
@@ -37,6 +38,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
 @Composable
 fun CheckBox(
     checkBoxData: CheckBoxData,
+    modifier: Modifier = Modifier,
     onCheckedChange: ((Boolean) -> Unit),
 ) {
     var isChecked by remember {
@@ -53,7 +55,7 @@ fun CheckBox(
     Row(
         horizontalArrangement = Arrangement.spacedBy(Spacing.Spacing0, Alignment.Start),
         verticalAlignment = Alignment.Top,
-        modifier = Modifier
+        modifier = modifier
             .clickable(
                 interactionSource = interactionSource,
                 indication = null,
@@ -79,7 +81,7 @@ fun CheckBox(
                 interactionSource = interactionSource,
                 enabled = checkBoxData.enabled,
                 modifier = Modifier
-                    .size(Spacing.Spacing40),
+                    .size(InternalSizeValues.Size40),
                 colors = CheckboxDefaults.colors(
                     checkedColor = SurfaceColor.Primary,
                     uncheckedColor = Outline.Dark,
