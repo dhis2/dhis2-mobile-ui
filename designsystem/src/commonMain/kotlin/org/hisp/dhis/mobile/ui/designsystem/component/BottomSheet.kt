@@ -1,7 +1,10 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
-import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Box
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.shrinkVertically
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,10 +14,16 @@ import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.window.Dialog
+import kotlinx.coroutines.launch
+import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
+import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
 @Composable
@@ -72,30 +81,67 @@ fun BottomSheetShell(
     searchBar: @Composable (() -> Unit)? = null,
     buttonBlock: @Composable (() -> Unit)? = null,
     content: @Composable (() -> Unit)? = null) {
-    Column(
-        modifier = Modifier
-            .padding(Spacing.Spacing24),
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        BottomSheetHeader(
-            title,
-            subtitle,
-            description
-        )
-        searchBar?.invoke()
 
-        Divider(
-            color = TextColor.OnDisabledSurface,
-            modifier = Modifier.fillMaxWidth().padding(top = Spacing.Spacing8, bottom = Spacing.Spacing8)
-        )
-
-        content?.let {
-            it.invoke()
-            Divider(
-                color = TextColor.OnDisabledSurface,
-                modifier = Modifier.fillMaxWidth().padding(Spacing.Spacing8)
-            )
+    val animateTrigger = remember {
+        mutableStateOf(false)
+    }
+    LaunchedEffect(key1 = Unit) {
+        launch {
+            animateTrigger.value = true
         }
-        buttonBlock?.invoke()
+    }
+        Dialog(onDismissRequest = {}) {
+
+            AnimatedExpandTransition(animateTrigger.value) {
+                Column(
+                    modifier = Modifier
+                        .background(SurfaceColor.SurfaceBright, Shape.ExtraLarge)
+                        .padding(Spacing.Spacing24),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                ) {
+                    BottomSheetHeader(
+                        title,
+                        subtitle,
+                        description,
+                        modifier = Modifier
+                            .padding(horizontal = Spacing.Spacing24, vertical = Spacing.Spacing0),
+                    )
+                    searchBar?.invoke()
+
+                    Divider(
+                        color = TextColor.OnDisabledSurface,
+                        modifier = Modifier.fillMaxWidth()
+                            .padding(top = Spacing.Spacing8, bottom = Spacing.Spacing8)
+                    )
+
+                    content?.let {
+                        it.invoke()
+                        Divider(
+                            color = TextColor.OnDisabledSurface,
+                            modifier = Modifier.fillMaxWidth().padding(Spacing.Spacing8)
+                        )
+                    }
+                    buttonBlock?.invoke()
+                }
+            }
     }
 }
+
+
+@Composable
+internal fun AnimatedExpandTransition(
+    visible: Boolean,
+    content: @Composable AnimatedVisibilityScope.() -> Unit
+) {
+    AnimatedVisibility(
+        visible = visible,
+        enter = expandVertically(
+            expandFrom = Alignment.Bottom
+        ),
+        exit = shrinkVertically(
+            shrinkTowards = Alignment.Bottom
+        ),
+        content = content
+    )
+}
+
