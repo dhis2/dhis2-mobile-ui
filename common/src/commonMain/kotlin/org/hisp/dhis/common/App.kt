@@ -34,6 +34,7 @@ import org.hisp.dhis.common.screens.InputNegativeIntegerScreen
 import org.hisp.dhis.common.screens.InputNumberScreen
 import org.hisp.dhis.common.screens.InputPercentageScreen
 import org.hisp.dhis.common.screens.InputPositiveIntegerScreen
+import org.hisp.dhis.common.screens.InputLongTextScreen
 import org.hisp.dhis.common.screens.InputScreen
 import org.hisp.dhis.common.screens.InputTextScreen
 import org.hisp.dhis.common.screens.LegendDescriptionScreen
@@ -55,7 +56,7 @@ fun App() {
 
 @Composable
 fun Main() {
-    val currentScreen = remember { mutableStateOf(Components.INPUT_NUMBER) }
+    val currentScreen = remember { mutableStateOf(Components.INPUT_LONG_TEXT) }
     var expanded by remember { mutableStateOf(false) }
 
     Column(
@@ -66,7 +67,6 @@ fun Main() {
         Box(
             modifier = Modifier
                 .fillMaxWidth(),
-
         ) {
             TextField(
                 readOnly = true,
@@ -113,6 +113,7 @@ fun Main() {
             Components.INPUT -> InputScreen()
             Components.SUPPORTING_TEXT -> SupportingTextScreen()
             Components.INPUT_TEXT -> InputTextScreen()
+            Components.INPUT_LONG_TEXT -> InputLongTextScreen()
             Components.LEGEND_DESCRIPTION -> LegendDescriptionScreen()
             Components.FORM_SHELLS -> FormShellsScreen()
             Components.BUTTON_BLOCK -> ButtonBlockScreen()

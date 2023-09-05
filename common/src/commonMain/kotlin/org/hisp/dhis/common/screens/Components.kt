@@ -22,4 +22,5 @@ enum class Components(val label: String) {
     BOTTOM_SHEET("Bottom Sheet"),
     TAGS("Tags"),
     SECTIONS("Sections"),
+    INPUT_LONG_TEXT("Input Long Text"),
 }
