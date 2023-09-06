@@ -29,6 +29,7 @@ import org.hisp.dhis.common.screens.Components
 import org.hisp.dhis.common.screens.FormShellsScreen
 import org.hisp.dhis.common.screens.FormsComponentsScreen
 import org.hisp.dhis.common.screens.IconButtonScreen
+import org.hisp.dhis.common.screens.InputNumberScreen
 import org.hisp.dhis.common.screens.InputIntegerScreen
 import org.hisp.dhis.common.screens.InputNegativeIntegerScreen
 import org.hisp.dhis.common.screens.InputPercentageScreen
@@ -54,7 +55,7 @@ fun App() {
 
 @Composable
 fun Main() {
-    val currentScreen = remember { mutableStateOf(Components.INPUT_INTEGER) }
+    val currentScreen = remember { mutableStateOf(Components.INPUT_NUMBER) }
     var expanded by remember { mutableStateOf(false) }
 
     Column(
@@ -122,6 +123,7 @@ fun Main() {
             Components.INPUT_PERCENTAGE -> InputPercentageScreen()
             Components.INPUT_NEGATIVE_INTEGER -> InputNegativeIntegerScreen()
             Components.INPUT_INTEGER -> InputIntegerScreen()
+            Components.INPUT_NUMBER -> InputNumberScreen()
         }
     }
 }
