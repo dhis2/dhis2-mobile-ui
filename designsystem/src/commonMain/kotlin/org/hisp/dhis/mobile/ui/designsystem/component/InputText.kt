@@ -40,7 +40,7 @@ fun InputText(
 ) {
     val inputValue by remember(inputText) { mutableStateOf(inputText) }
 
-    var deleteButtonIsVisible by remember { mutableStateOf(!inputText.isNullOrEmpty()) }
+    var deleteButtonIsVisible by remember { mutableStateOf(!inputText.isNullOrEmpty() && state != InputShellState.DISABLED) }
     val focusManager = LocalFocusManager.current
 
     val keyboardOptions = KeyboardOptions(imeAction = imeAction)

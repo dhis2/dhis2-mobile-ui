@@ -44,10 +44,9 @@ fun InputNumber(
 ) {
     val inputValue by remember(inputText) { mutableStateOf(inputText) }
 
-    var deleteButtonIsVisible by remember { mutableStateOf(!inputText.isNullOrEmpty()) }
+    var deleteButtonIsVisible by remember { mutableStateOf(!inputText.isNullOrEmpty() && state != InputShellState.DISABLED) }
     val focusManager = LocalFocusManager.current
     val pattern = remember { Regex("^[1-9][[,.]\\d]*(,\\d+)?\$") }
-
     val keyboardOptions = KeyboardOptions(imeAction = imeAction, keyboardType = KeyboardType.Number)
     InputShell(
         modifier = modifier,
@@ -56,7 +55,7 @@ fun InputNumber(
         primaryButton = {
             if (deleteButtonIsVisible) {
                 IconButton(
-                    modifier = Modifier.testTag("INPUT_TEXT_RESET_BUTTON"),
+                    modifier = Modifier.testTag("INPUT_NUMBER_RESET_BUTTON"),
                     icon = {
                         Icon(
                             imageVector = Icons.Outlined.Cancel,
@@ -74,7 +73,7 @@ fun InputNumber(
         state = state,
         legend = {
             legendData?.let {
-                Legend(legendData, Modifier.testTag("INPUT_TEXT_LEGEND"))
+                Legend(legendData, Modifier.testTag("INPUT_NUMBER_LEGEND"))
             }
         },
         supportingText = {
@@ -83,13 +82,13 @@ fun InputNumber(
                 SupportingText(
                     label.text,
                     label.state,
-                    modifier = Modifier.testTag("INPUT_TEXT_SUPPORTING_TEXT"),
+                    modifier = Modifier.testTag("INPUT_NUMBER_SUPPORTING_TEXT"),
                 )
             }
         },
         inputField = {
             BasicInput(
-                modifier = Modifier.testTag("INPUT_TEXT_FIELD"),
+                modifier = Modifier.testTag("INPUT_NUMBER_FIELD"),
                 inputText = inputValue ?: "",
                 onInputChanged = {
                     if (it.matches(pattern) || it.isEmpty()) {

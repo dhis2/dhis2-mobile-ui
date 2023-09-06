@@ -151,7 +151,7 @@ private fun InputShellIndicator(
         modifier = modifier
             .fillMaxWidth()
             .padding(),
-        thickness = Border.Thin,
+        thickness = Border.Regular,
         color = color,
     )
 }
