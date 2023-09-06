@@ -62,7 +62,7 @@ fun InputLongText(
         primaryButton = {
             if (deleteButtonIsVisible) {
                 IconButton(
-                    modifier = Modifier.testTag("INPUT_TEXT_RESET_BUTTON"),
+                    modifier = Modifier.testTag("INPUT_LONG_TEXT_RESET_BUTTON"),
                     icon = {
                         Icon(
                             imageVector = Icons.Outlined.Cancel,
@@ -80,7 +80,7 @@ fun InputLongText(
         state = state,
         legend = {
             legendData?.let {
-                Legend(legendData, Modifier.testTag("INPUT_TEXT_LEGEND"))
+                Legend(legendData, Modifier.testTag("INPUT_LONG_TEXT_LEGEND"))
             }
         },
         supportingText = {
@@ -89,13 +89,13 @@ fun InputLongText(
                 SupportingText(
                     label.text,
                     label.state,
-                    modifier = Modifier.testTag("INPUT_TEXT_SUPPORTING_TEXT"),
+                    modifier = Modifier.testTag("INPUT_LONG_TEXT_SUPPORTING_TEXT"),
                 )
             }
         },
         inputField = {
             BasicInput(
-                modifier = Modifier.testTag("INPUT_TEXT_FIELD")
+                modifier = Modifier.testTag("INPUT_LONG_TEXT_FIELD")
                     .scrollable(
                         orientation = Orientation.Vertical,
                         state = rememberScrollState(),
