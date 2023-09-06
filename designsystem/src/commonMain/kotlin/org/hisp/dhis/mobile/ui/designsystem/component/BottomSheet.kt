@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -20,6 +22,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import kotlinx.coroutines.launch
 import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
@@ -80,7 +83,8 @@ fun BottomSheetShell(
     description: String,
     searchBar: @Composable (() -> Unit)? = null,
     buttonBlock: @Composable (() -> Unit)? = null,
-    content: @Composable (() -> Unit)? = null) {
+    content: @Composable (() -> Unit)? = null,
+    onDismiss: () -> Unit) {
 
     val animateTrigger = remember {
         mutableStateOf(false)
@@ -90,7 +94,13 @@ fun BottomSheetShell(
             animateTrigger.value = true
         }
     }
-        Dialog(onDismissRequest = {}) {
+        Dialog(
+            properties = DialogProperties(
+                dismissOnBackPress = true,
+                dismissOnClickOutside = true
+            ),
+            onDismissRequest = onDismiss,
+        ) {
 
             AnimatedExpandTransition(animateTrigger.value) {
                 Column(
@@ -115,7 +125,9 @@ fun BottomSheetShell(
                     )
 
                     content?.let {
-                        it.invoke()
+                        Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+                            it.invoke()
+                        }
                         Divider(
                             color = TextColor.OnDisabledSurface,
                             modifier = Modifier.fillMaxWidth().padding(Spacing.Spacing8)
