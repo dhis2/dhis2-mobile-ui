@@ -91,7 +91,6 @@ fun BottomSheetScreen() {
         when {
             showBottomSheetShell -> {
                 Box(modifier = Modifier.background(SurfaceColor.Container).padding(Spacing.Spacing4)) {
-
                     BottomSheetShell(
                         "Legend name",
                         "subtitle",
@@ -107,23 +106,23 @@ fun BottomSheetScreen() {
                                     LegendDescriptionData(
                                         SurfaceColor.CustomYellow,
                                         "Medium",
-                                        IntRange(5, 10)
+                                        IntRange(5, 10),
                                     ),
                                     LegendDescriptionData(TextColor.OnWarning, "High", IntRange(10, 20)),
                                     LegendDescriptionData(
                                         SurfaceColor.CustomPink,
                                         "Very high",
-                                        IntRange(20, 40)
+                                        IntRange(20, 40),
                                     ),
                                     LegendDescriptionData(
                                         SurfaceColor.CustomBrown,
                                         "Extreme",
-                                        IntRange(40, 120)
+                                        IntRange(40, 120),
                                     ),
                                     LegendDescriptionData(
                                         SurfaceColor.CustomGray,
                                         "Lorem fistrum torpedo está la cosa muy malar diodeno" +
-                                                " se calle ustée ahorarr al ataquerl condemor a wan. ",
+                                            " se calle ustée ahorarr al ataquerl condemor a wan. ",
                                         IntRange(120, 1000),
                                     ),
                                 ),
@@ -155,7 +154,7 @@ fun BottomSheetScreen() {
                                 },
                             )
                         },
-                        onDismiss = { showBottomSheetShell = !showBottomSheetShell }
+                        onDismiss = { showBottomSheetShell = !showBottomSheetShell },
                     )
                 }
             }

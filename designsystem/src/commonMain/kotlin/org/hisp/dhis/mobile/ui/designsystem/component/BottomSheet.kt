@@ -75,7 +75,6 @@ fun BottomSheetHeader(
     }
 }
 
-
 @Composable
 fun BottomSheetShell(
     title: String,
@@ -84,8 +83,8 @@ fun BottomSheetShell(
     searchBar: @Composable (() -> Unit)? = null,
     buttonBlock: @Composable (() -> Unit)? = null,
     content: @Composable (() -> Unit)? = null,
-    onDismiss: () -> Unit) {
-
+    onDismiss: () -> Unit,
+) {
     val animateTrigger = remember {
         mutableStateOf(false)
     }
@@ -94,66 +93,63 @@ fun BottomSheetShell(
             animateTrigger.value = true
         }
     }
-        Dialog(
-            properties = DialogProperties(
-                dismissOnBackPress = true,
-                dismissOnClickOutside = true
-            ),
-            onDismissRequest = onDismiss,
-        ) {
-
-            AnimatedExpandTransition(animateTrigger.value) {
-                Column(
+    Dialog(
+        properties = DialogProperties(
+            dismissOnBackPress = true,
+            dismissOnClickOutside = true,
+        ),
+        onDismissRequest = onDismiss,
+    ) {
+        AnimatedExpandTransition(animateTrigger.value) {
+            Column(
+                modifier = Modifier
+                    .background(SurfaceColor.SurfaceBright, Shape.ExtraLarge)
+                    .padding(Spacing.Spacing24),
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                BottomSheetHeader(
+                    title,
+                    subtitle,
+                    description,
                     modifier = Modifier
-                        .background(SurfaceColor.SurfaceBright, Shape.ExtraLarge)
-                        .padding(Spacing.Spacing24),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                ) {
-                    BottomSheetHeader(
-                        title,
-                        subtitle,
-                        description,
-                        modifier = Modifier
-                            .padding(horizontal = Spacing.Spacing24, vertical = Spacing.Spacing0),
-                    )
-                    searchBar?.invoke()
+                        .padding(horizontal = Spacing.Spacing24, vertical = Spacing.Spacing0),
+                )
+                searchBar?.invoke()
 
+                Divider(
+                    color = TextColor.OnDisabledSurface,
+                    modifier = Modifier.fillMaxWidth()
+                        .padding(top = Spacing.Spacing8, bottom = Spacing.Spacing8),
+                )
+
+                content?.let {
+                    Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+                        it.invoke()
+                    }
                     Divider(
                         color = TextColor.OnDisabledSurface,
-                        modifier = Modifier.fillMaxWidth()
-                            .padding(top = Spacing.Spacing8, bottom = Spacing.Spacing8)
+                        modifier = Modifier.fillMaxWidth().padding(Spacing.Spacing8),
                     )
-
-                    content?.let {
-                        Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
-                            it.invoke()
-                        }
-                        Divider(
-                            color = TextColor.OnDisabledSurface,
-                            modifier = Modifier.fillMaxWidth().padding(Spacing.Spacing8)
-                        )
-                    }
-                    buttonBlock?.invoke()
                 }
+                buttonBlock?.invoke()
             }
+        }
     }
 }
-
 
 @Composable
 internal fun AnimatedExpandTransition(
     visible: Boolean,
-    content: @Composable AnimatedVisibilityScope.() -> Unit
+    content: @Composable AnimatedVisibilityScope.() -> Unit,
 ) {
     AnimatedVisibility(
         visible = visible,
         enter = expandVertically(
-            expandFrom = Alignment.Bottom
+            expandFrom = Alignment.Bottom,
         ),
         exit = shrinkVertically(
-            shrinkTowards = Alignment.Bottom
+            shrinkTowards = Alignment.Bottom,
         ),
-        content = content
+        content = content,
     )
 }
-
