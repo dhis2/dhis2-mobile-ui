@@ -17,13 +17,18 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 
 /**
- * DHIS2 Input Text. Wraps DHIS · [InputShell].
+ * DHIS2 Input Integer. Wraps DHIS · [InputShell].
+ * Only positive or negative integers allowed, excluding 0
  * @param title controls the text to be shown for the title
  * @param state Manages the InputShell state
  * @param supportingText is a list of SupportingTextData that
  * manages all the messages to be shown
  * @param legendData manages the legendComponent
  * @param inputText manages the value of the text in the input field
+ * @param isRequiredField controls whether the field is mandatory or not
+ * @param onNextClicked gives access to the imeAction event
+ * @param onValueChanged gives access to the onValueChanged event
+ * @param imeAction controls the imeAction button to be shown
  * @param modifier allows a modifier to be passed externally
  */
 @Composable
