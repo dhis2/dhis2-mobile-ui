@@ -33,6 +33,20 @@ fun InputIntegerScreen() {
                 }
             },
         )
+        SubTitle("Basic Input Integer with error", textColor = TextColor.OnSurfaceVariant)
+        var inputValueError by rememberSaveable { mutableStateOf("") }
+
+        InputInteger(
+            title = "Label",
+            inputText = inputValueError,
+            onValueChanged = {
+                if (it != null) {
+                    inputValueError = it
+                }
+            },
+            state = InputShellState.ERROR,
+            supportingText = listOf(SupportingTextData("Numbers only", SupportingTextState.ERROR)),
+        )
         var inputValue2 by rememberSaveable { mutableStateOf("") }
         SubTitle("Input Integer with legend", textColor = TextColor.OnSurfaceVariant)
         InputInteger(
