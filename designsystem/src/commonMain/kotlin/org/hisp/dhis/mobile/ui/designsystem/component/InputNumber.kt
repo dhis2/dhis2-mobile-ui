@@ -18,6 +18,7 @@ import androidx.compose.ui.text.input.KeyboardType
 
 /**
  * DHIS2 Input Number. Wraps DHIS · [InputShell].
+ * Input that allows only numeric values.
  * @param title controls the text to be shown for the title
  * @param state Manages the InputShell state
  * @param supportingText is a list of SupportingTextData that
@@ -28,6 +29,9 @@ import androidx.compose.ui.text.input.KeyboardType
  * @param isRequiredField controls whether the field is mandatory or not
  * @param onNextClicked gives access to the imeAction event
  * @param onValueChanged gives access to the onValueChanged event
+ * @param imeAction controls the imeAction button to be shown
+ * @param notation controls the decimal notation to be used, will be European
+ * by default
  */
 @Composable
 fun InputNumber(
