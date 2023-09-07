@@ -4,3 +4,6 @@ import androidx.compose.runtime.Composable
 
 @Composable
 expect fun provideStringResource(id: String): String
+
+@Composable
+expect fun provideQuantityStringResource(id: String, quantity: Int): String
