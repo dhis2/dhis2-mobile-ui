@@ -1,6 +1,8 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
 import androidx.compose.animation.animateContentSize
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.PressInteraction
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.ripple.LocalRippleTheme
@@ -10,14 +12,17 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.ParagraphStyle
 import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.sp
+import kotlinx.coroutines.launch
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.Ripple
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
@@ -39,9 +44,15 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 fun SupportingText(
     text: String,
     state: SupportingTextState = SupportingTextState.DEFAULT,
+    maxLines: Int = 1,
     showMoreText: String = provideStringResource("show_more"),
     showLessText: String = provideStringResource("show_less"),
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier.padding(
+        start = Spacing.Spacing16,
+        top = Spacing.Spacing4,
+        end = Spacing.Spacing16,
+    ),
+    onNoInteraction: (() -> Pair<MutableInteractionSource, () -> Unit>)? = null,
 ) {
     var isExpanded by remember { mutableStateOf(false) }
     val textLayoutResultState = remember { mutableStateOf<TextLayoutResult?>(null) }
@@ -56,6 +67,7 @@ fun SupportingText(
         )
     }
     val seeMoreTag = "SEE_MORE"
+    val scope = rememberCoroutineScope()
 
     val textLayoutResult = textLayoutResultState.value
     LaunchedEffect(textLayoutResult) {
@@ -63,7 +75,7 @@ fun SupportingText(
 
         when {
             !isExpanded && textLayoutResult.hasVisualOverflow -> {
-                val lastCharIndex = textLayoutResult.getLineEnd(0)
+                val lastCharIndex = textLayoutResult.getLineEnd(maxLines - 1)
                 val adjustedText = text
                     .substring(startIndex = 0, endIndex = lastCharIndex)
                     .dropLast(showLessText.length + 5)
@@ -90,6 +102,7 @@ fun SupportingText(
 
                 isClickable = true
             }
+
             isExpanded -> {
                 annotatedText = buildAnnotatedString {
                     val expandedText = "$text "
@@ -119,19 +132,25 @@ fun SupportingText(
     CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
         ClickableText(
             text = annotatedText,
-            maxLines = if (isExpanded) Int.MAX_VALUE else 1,
+            maxLines = if (isExpanded) Int.MAX_VALUE else maxLines,
             onTextLayout = { textLayoutResultState.value = it },
-            onClick = {
-                    position ->
-                val annotations = annotatedText.getStringAnnotations(seeMoreTag, start = position, end = position)
+            onClick = { position ->
+                val annotations =
+                    annotatedText.getStringAnnotations(seeMoreTag, start = position, end = position)
                 annotations.firstOrNull()?.let {
                     if (isClickable) {
                         isExpanded = !isExpanded
                     }
+                } ?: onNoInteraction?.invoke()?.let { (interactionSource, action) ->
+                    scope.launch {
+                        action.invoke()
+                        val pressInteraction = PressInteraction.Press(Offset.Zero)
+                        interactionSource.emit(pressInteraction)
+                        interactionSource.emit(PressInteraction.Release(pressInteraction))
+                    }
                 }
             },
-            modifier = modifier.animateContentSize()
-                .padding(start = Spacing.Spacing16, top = Spacing.Spacing4, end = Spacing.Spacing16),
+            modifier = modifier.animateContentSize(),
         )
     }
 }

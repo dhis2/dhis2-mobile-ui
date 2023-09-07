@@ -60,10 +60,9 @@ fun Button(
     icon: @Composable
     (() -> Unit)? = null,
     modifier: Modifier = Modifier,
+    paddingValues: PaddingValues = getPaddingValues(icon != null),
     onClick: () -> Unit,
 ) {
-    val paddingValues = getPaddingValues(icon != null)
-
     when (style) {
         ButtonStyle.FILLED -> {
             val textColor = if (enabled) TextColor.OnPrimary else TextColor.OnDisabledSurface
@@ -81,7 +80,7 @@ fun Button(
                 text = text,
                 textColor = textColor,
                 icon = icon,
-
+                paddingValues = paddingValues,
             )
         }
         ButtonStyle.TEXT -> {
@@ -99,6 +98,7 @@ fun Button(
                 text = text,
                 textColor = textColor,
                 icon = icon,
+                paddingValues = paddingValues,
             )
         }
         ButtonStyle.ELEVATED -> {
@@ -138,6 +138,7 @@ fun Button(
                     text = text,
                     textColor = textColor,
                     icon = icon,
+                    paddingValues = paddingValues,
                 )
             }
         }
@@ -212,9 +213,8 @@ private fun SimpleButton(
     icon: @Composable
     (() -> Unit)? = null,
     onClick: () -> Unit,
+    paddingValues: PaddingValues,
 ) {
-    val paddingValues = getPaddingValues(icon != null)
-
     Button(
         onClick = { onClick() },
         modifier = modifier.hoverPointerIcon(enabled),

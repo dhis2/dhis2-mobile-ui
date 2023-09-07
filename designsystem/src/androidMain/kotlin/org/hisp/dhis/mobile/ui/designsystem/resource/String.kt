@@ -10,3 +10,12 @@ actual fun provideStringResource(id: String): String {
     if (resourceId == 0) return id
     return context.getString(resourceId)
 }
+
+@Composable
+actual fun provideQuantityStringResource(id: String, quantity: Int): String {
+    val appendToId = when (quantity) {
+        1 -> "one"
+        else -> "other"
+    }
+    return provideStringResource("${id}_$appendToId").format(quantity)
+}

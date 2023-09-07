@@ -8,13 +8,17 @@ import androidx.compose.ui.graphics.Color
 object Ripple {
     internal object CustomDHISRippleTheme : RippleTheme {
 
+        private val alpha = RippleAlpha(
+            focusedAlpha = 0.16f,
+            draggedAlpha = 0.16f,
+            hoveredAlpha = 0.16f,
+            pressedAlpha = 0.16f,
+        )
+
         @Composable
         override fun defaultColor(): Color = SurfaceColor.Primary
 
         @Composable
-        override fun rippleAlpha(): RippleAlpha = RippleTheme.defaultRippleAlpha(
-            SurfaceColor.Primary,
-            lightTheme = true,
-        )
+        override fun rippleAlpha(): RippleAlpha = alpha
     }
 }

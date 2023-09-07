@@ -1,5 +1,6 @@
 package org.hisp.dhis.common
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,6 +20,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import org.hisp.dhis.common.screens.BottomSheetScreen
 import org.hisp.dhis.common.screens.ButtonBlockScreen
 import org.hisp.dhis.common.screens.ButtonScreen
@@ -33,6 +35,7 @@ import org.hisp.dhis.common.screens.LegendDescriptionScreen
 import org.hisp.dhis.common.screens.LegendScreen
 import org.hisp.dhis.common.screens.ProgressScreen
 import org.hisp.dhis.common.screens.RadioButtonScreen
+import org.hisp.dhis.common.screens.SectionScreen
 import org.hisp.dhis.common.screens.SupportingTextScreen
 import org.hisp.dhis.common.screens.TagsScreen
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
@@ -50,7 +53,11 @@ fun Main() {
     val currentScreen = remember { mutableStateOf(Components.FORM_SHELLS) }
     var expanded by remember { mutableStateOf(false) }
 
-    Column(modifier = Modifier.padding(Spacing.Spacing16)) {
+    Column(
+        modifier = Modifier
+            .background(Color.White)
+            .padding(Spacing.Spacing16),
+    ) {
         Box(
             modifier = Modifier
                 .fillMaxWidth(),
@@ -106,6 +113,7 @@ fun Main() {
             Components.BUTTON_BLOCK -> ButtonBlockScreen()
             Components.BOTTOM_SHEET -> BottomSheetScreen()
             Components.TAGS -> TagsScreen()
+            Components.SECTIONS -> SectionScreen()
         }
     }
 }
