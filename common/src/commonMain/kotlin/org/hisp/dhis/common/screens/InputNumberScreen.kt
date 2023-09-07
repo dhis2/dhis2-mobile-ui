@@ -7,6 +7,8 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.text.input.ImeAction
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
+import org.hisp.dhis.mobile.ui.designsystem.component.DecimalNotation
+import org.hisp.dhis.mobile.ui.designsystem.component.Description
 import org.hisp.dhis.mobile.ui.designsystem.component.InputNumber
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.LegendData
@@ -21,9 +23,9 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 fun InputNumberScreen() {
     ColumnComponentContainer {
         Title("Input Number component", textColor = TextColor.OnSurfaceVariant)
-        SubTitle(" Basic Input Number", textColor = TextColor.OnSurfaceVariant)
+        SubTitle("Basic Input Number", textColor = TextColor.OnSurfaceVariant)
         var inputValue1 by rememberSaveable { mutableStateOf("") }
-
+        Description("British decimal notation", textColor = TextColor.OnSurfaceVariant)
         InputNumber(
             title = "Label",
             inputText = inputValue1,
@@ -32,6 +34,21 @@ fun InputNumberScreen() {
                     inputValue1 = it
                 }
             },
+            notation = DecimalNotation.BRITISH,
+        )
+
+        Description("European decimal notation", textColor = TextColor.OnSurfaceVariant)
+        var inputValueEuropean by rememberSaveable { mutableStateOf("") }
+
+        InputNumber(
+            title = "Label",
+            inputText = inputValueEuropean,
+            onValueChanged = {
+                if (it != null) {
+                    inputValueEuropean = it
+                }
+            },
+            notation = DecimalNotation.BRITISH,
         )
         var inputValue2 by rememberSaveable { mutableStateOf("") }
         SubTitle("Input Number with legend", textColor = TextColor.OnSurfaceVariant)
@@ -58,6 +75,7 @@ fun InputNumberScreen() {
                     inputValue3 = it
                 }
             },
+            notation = DecimalNotation.BRITISH,
         )
 
         var inputValue4 by rememberSaveable { mutableStateOf("") }

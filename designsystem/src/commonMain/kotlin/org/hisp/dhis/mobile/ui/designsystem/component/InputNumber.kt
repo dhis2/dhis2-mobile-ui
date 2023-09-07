@@ -40,13 +40,13 @@ fun InputNumber(
     onNextClicked: (() -> Unit)? = null,
     onValueChanged: ((String?) -> Unit)? = null,
     imeAction: ImeAction = ImeAction.Next,
+    notation: DecimalNotation = DecimalNotation.EUROPEAN,
     modifier: Modifier = Modifier,
 ) {
     val inputValue by remember(inputText) { mutableStateOf(inputText) }
-
     var deleteButtonIsVisible by remember { mutableStateOf(!inputText.isNullOrEmpty() && state != InputShellState.DISABLED) }
     val focusManager = LocalFocusManager.current
-    val pattern = remember { Regex("^[1-9][[,.]\\d]*(,\\d+)?\$") }
+    val pattern = remember { Regex(notation.regex) }
     val keyboardOptions = KeyboardOptions(imeAction = imeAction, keyboardType = KeyboardType.Number)
     InputShell(
         modifier = modifier,
@@ -109,4 +109,9 @@ fun InputNumber(
             )
         },
     )
+}
+
+enum class DecimalNotation(val regex: String) {
+    BRITISH("^(?!.*?[.]{2})[0-9.]+\$"),
+    EUROPEAN("^(?!.*,.*,)[0-9,]+\$"),
 }
