@@ -41,7 +41,7 @@ fun InputLetterScreen() {
             inputText = inputValueError,
             onValueChanged = {
                 if (it != null) {
-                    inputValueError  = it
+                    inputValueError = it
                 }
             },
             supportingText = listOf(SupportingTextData("Letters only. eg. A, B, C", SupportingTextState.ERROR)),
