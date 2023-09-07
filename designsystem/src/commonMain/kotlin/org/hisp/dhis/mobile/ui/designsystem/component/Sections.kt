@@ -36,8 +36,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.SemanticsPropertyKey
+import androidx.compose.ui.semantics.SemanticsPropertyReceiver
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
+import org.hisp.dhis.mobile.ui.designsystem.component.SectionSemantics.stateSemantic
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.bottomBorder
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideQuantityStringResource
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
@@ -113,7 +118,9 @@ fun Section(
             exit = shrinkVertically(shrinkTowards = Alignment.CenterVertically),
         ) {
             Column(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .testTag(SectionTestTag.CONTENT)
+                    .fillMaxWidth(),
                 verticalArrangement = spacedBy(Spacing16),
             ) {
                 content()
@@ -174,6 +181,10 @@ fun SectionHeader(
 
     Column(
         modifier = modifier
+            .testTag(SectionTestTag.HEADER)
+            .semantics {
+                stateSemantic = sectionState
+            }
             .fillMaxWidth()
             .background(color = Color.White, Shape.Small)
             .clip(Shape.Small)
@@ -196,12 +207,14 @@ fun SectionHeader(
                 modifier = Modifier.weight(1f),
             ) {
                 SectionTitle(
-                    modifier.fillMaxWidth(),
+                    modifier.fillMaxWidth()
+                        .testTag(SectionTestTag.TITLE),
                     title = title,
                 )
                 description?.let {
                     SupportingText(
-                        modifier = Modifier.padding(Spacing.Spacing0),
+                        modifier = Modifier.padding(Spacing.Spacing0)
+                            .testTag(SectionTestTag.DESCRIPTION),
                         text = it,
                         maxLines = 2,
                         onNoInteraction = {
@@ -212,6 +225,7 @@ fun SectionHeader(
             }
 
             CompletionLabel(
+                modifier = Modifier.testTag(SectionTestTag.FIELD_PROGRESS),
                 completedFields = completedFields,
                 totalFields = totalFields,
             )
@@ -231,12 +245,14 @@ fun SectionHeader(
             }
             if (errorCount > 0) {
                 Tag(
+                    modifier = Modifier.testTag(SectionTestTag.ERROR_LABEL),
                     label = provideQuantityStringResource("error", errorCount),
                     type = TagType.ERROR,
                 )
             }
             if (warningCount > 0) {
                 Tag(
+                    modifier = Modifier.testTag(SectionTestTag.WARNING_LABEL),
                     label = provideQuantityStringResource("warning", warningCount),
                     type = TagType.WARNING,
                 )
@@ -265,7 +281,7 @@ internal fun CompletionLabel(
     totalFields: Int,
 ) {
     Box(
-        modifier = modifier.padding(
+        modifier = Modifier.padding(
             start = Spacing.Spacing8,
             top = Spacing.Spacing4,
             bottom = Spacing.Spacing4,
@@ -284,6 +300,7 @@ internal fun CompletionLabel(
 internal fun StateIndicator(label: String, icon: ImageVector?) {
     Row(
         modifier = Modifier
+            .testTag(SectionTestTag.STATE_LABEL)
             .requiredHeight(20.dp)
             .padding(end = Spacing.Spacing4),
         horizontalArrangement = spacedBy(Spacing.Spacing8),
@@ -297,4 +314,20 @@ internal fun StateIndicator(label: String, icon: ImageVector?) {
             color = SurfaceColor.Primary,
         )
     }
+}
+
+internal object SectionTestTag {
+    const val CONTENT = "CONTENT"
+    const val HEADER = "HEADER"
+    const val TITLE = "TITLE"
+    const val DESCRIPTION = "DESCRIPTION"
+    const val FIELD_PROGRESS = "FIELD_PROGRESS"
+    const val STATE_LABEL = "STATE_LABEL"
+    const val ERROR_LABEL = "ERROR_LABEL"
+    const val WARNING_LABEL = "WARNING_LABEL"
+}
+
+internal object SectionSemantics {
+    val State = SemanticsPropertyKey<SectionState>("STATE")
+    var SemanticsPropertyReceiver.stateSemantic by State
 }
