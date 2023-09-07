@@ -35,6 +35,7 @@ import org.hisp.dhis.common.screens.InputNegativeIntegerScreen
 import org.hisp.dhis.common.screens.InputNumberScreen
 import org.hisp.dhis.common.screens.InputPercentageScreen
 import org.hisp.dhis.common.screens.InputPositiveIntegerScreen
+import org.hisp.dhis.common.screens.InputLetterScreen
 import org.hisp.dhis.common.screens.InputScreen
 import org.hisp.dhis.common.screens.InputTextScreen
 import org.hisp.dhis.common.screens.LegendDescriptionScreen
@@ -56,7 +57,7 @@ fun App() {
 
 @Composable
 fun Main() {
-    val currentScreen = remember { mutableStateOf(Components.INPUT_LONG_TEXT) }
+    val currentScreen = remember { mutableStateOf(Components.INPUT_LETTER) }
     var expanded by remember { mutableStateOf(false) }
 
     Column(
@@ -125,6 +126,7 @@ fun Main() {
             Components.INPUT_NEGATIVE_INTEGER -> InputNegativeIntegerScreen()
             Components.INPUT_INTEGER -> InputIntegerScreen()
             Components.INPUT_NUMBER -> InputNumberScreen()
+            Components.INPUT_LETTER -> InputLetterScreen()
         }
     }
 }
