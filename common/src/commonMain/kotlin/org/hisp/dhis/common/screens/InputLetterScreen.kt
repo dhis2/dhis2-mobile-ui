@@ -33,6 +33,20 @@ fun InputLetterScreen() {
                 }
             },
         )
+        SubTitle(" Basic Input Letter with erro", textColor = TextColor.OnSurfaceVariant)
+        var inputValueError by rememberSaveable { mutableStateOf("") }
+
+        InputLetter(
+            title = "Label",
+            inputText = inputValueError,
+            onValueChanged = {
+                if (it != null) {
+                    inputValueError  = it
+                }
+            },
+            supportingText = listOf(SupportingTextData("Letters only. eg. A, B, C", SupportingTextState.ERROR)),
+            state = InputShellState.ERROR,
+        )
         var inputValue2 by rememberSaveable { mutableStateOf("") }
         SubTitle("Input Letter with legend", textColor = TextColor.OnSurfaceVariant)
         InputLetter(
