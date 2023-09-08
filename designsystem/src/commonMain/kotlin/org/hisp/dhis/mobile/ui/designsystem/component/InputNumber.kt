@@ -14,9 +14,11 @@ import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 
 /**
- * DHIS2 Input Text. Wraps DHIS · [InputShell].
+ * DHIS2 Input Number. Wraps DHIS · [InputShell].
+ * Input that allows only numeric values.
  * @param title controls the text to be shown for the title
  * @param state Manages the InputShell state
  * @param supportingText is a list of SupportingTextData that
@@ -24,9 +26,15 @@ import androidx.compose.ui.text.input.ImeAction
  * @param legendData manages the legendComponent
  * @param inputText manages the value of the text in the input field
  * @param modifier allows a modifier to be passed externally
+ * @param isRequiredField controls whether the field is mandatory or not
+ * @param onNextClicked gives access to the imeAction event
+ * @param onValueChanged gives access to the onValueChanged event
+ * @param imeAction controls the imeAction button to be shown
+ * @param notation controls the decimal notation to be used, will be European
+ * by default
  */
 @Composable
-fun InputText(
+fun InputNumber(
     title: String,
     state: InputShellState = InputShellState.UNFOCUSED,
     supportingText: List<SupportingTextData>? = null,
@@ -36,14 +44,14 @@ fun InputText(
     onNextClicked: (() -> Unit)? = null,
     onValueChanged: ((String?) -> Unit)? = null,
     imeAction: ImeAction = ImeAction.Next,
+    notation: DecimalNotation = DecimalNotation.EUROPEAN,
     modifier: Modifier = Modifier,
 ) {
     val inputValue by remember(inputText) { mutableStateOf(inputText) }
-
     var deleteButtonIsVisible by remember { mutableStateOf(!inputText.isNullOrEmpty() && state != InputShellState.DISABLED) }
     val focusManager = LocalFocusManager.current
-
-    val keyboardOptions = KeyboardOptions(imeAction = imeAction)
+    val pattern = remember { Regex(notation.regex) }
+    val keyboardOptions = KeyboardOptions(imeAction = imeAction, keyboardType = KeyboardType.Number)
     InputShell(
         modifier = modifier,
         isRequiredField = isRequiredField,
@@ -51,7 +59,7 @@ fun InputText(
         primaryButton = {
             if (deleteButtonIsVisible) {
                 IconButton(
-                    modifier = Modifier.testTag("INPUT_TEXT_RESET_BUTTON"),
+                    modifier = Modifier.testTag("INPUT_NUMBER_RESET_BUTTON"),
                     icon = {
                         Icon(
                             imageVector = Icons.Outlined.Cancel,
@@ -69,7 +77,7 @@ fun InputText(
         state = state,
         legend = {
             legendData?.let {
-                Legend(legendData, Modifier.testTag("INPUT_TEXT_LEGEND"))
+                Legend(legendData, Modifier.testTag("INPUT_NUMBER_LEGEND"))
             }
         },
         supportingText = {
@@ -78,17 +86,19 @@ fun InputText(
                 SupportingText(
                     label.text,
                     label.state,
-                    modifier = Modifier.testTag("INPUT_TEXT_SUPPORTING_TEXT"),
+                    modifier = Modifier.testTag("INPUT_NUMBER_SUPPORTING_TEXT"),
                 )
             }
         },
         inputField = {
             BasicInput(
-                modifier = Modifier.testTag("INPUT_TEXT_FIELD"),
+                modifier = Modifier.testTag("INPUT_NUMBER_FIELD"),
                 inputText = inputValue ?: "",
                 onInputChanged = {
-                    onValueChanged?.invoke(it)
-                    deleteButtonIsVisible = it.isNotEmpty()
+                    if (it.matches(pattern) || it.isEmpty()) {
+                        onValueChanged?.invoke(it)
+                        deleteButtonIsVisible = it.isNotEmpty()
+                    }
                 },
                 enabled = state != InputShellState.DISABLED,
                 state = state,
@@ -103,4 +113,9 @@ fun InputText(
             )
         },
     )
+}
+
+enum class DecimalNotation(val regex: String) {
+    BRITISH("^(?!.*?[.]{2})[0-9.]+\$"),
+    EUROPEAN("^(?!.*,.*,)[0-9,]+\$"),
 }
