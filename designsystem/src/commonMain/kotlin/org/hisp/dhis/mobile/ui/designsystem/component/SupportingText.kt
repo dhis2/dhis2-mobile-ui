@@ -167,4 +167,4 @@ enum class SupportingTextState(val color: Color) {
     ERROR(SurfaceColor.Error),
 }
 
-data class SupportingTextData(val text: String, val state: SupportingTextState)
+data class SupportingTextData(val text: String, val state: SupportingTextState = SupportingTextState.DEFAULT)

@@ -30,6 +30,7 @@ import org.hisp.dhis.common.screens.FormShellsScreen
 import org.hisp.dhis.common.screens.FormsComponentsScreen
 import org.hisp.dhis.common.screens.IconButtonScreen
 import org.hisp.dhis.common.screens.InputIntegerScreen
+import org.hisp.dhis.common.screens.InputLetterScreen
 import org.hisp.dhis.common.screens.InputLongTextScreen
 import org.hisp.dhis.common.screens.InputNegativeIntegerScreen
 import org.hisp.dhis.common.screens.InputNumberScreen
@@ -56,7 +57,7 @@ fun App() {
 
 @Composable
 fun Main() {
-    val currentScreen = remember { mutableStateOf(Components.INPUT_LONG_TEXT) }
+    val currentScreen = remember { mutableStateOf(Components.INPUT_LETTER) }
     var expanded by remember { mutableStateOf(false) }
 
     Column(
@@ -125,6 +126,7 @@ fun Main() {
             Components.INPUT_NEGATIVE_INTEGER -> InputNegativeIntegerScreen()
             Components.INPUT_INTEGER -> InputIntegerScreen()
             Components.INPUT_NUMBER -> InputNumberScreen()
+            Components.INPUT_LETTER -> InputLetterScreen()
         }
     }
 }
