@@ -51,13 +51,13 @@ fun InputNegativeInteger(
     val pattern = remember { Regex("^(?!0)\\d*") }
     val keyboardOptions = KeyboardOptions(imeAction = imeAction, keyboardType = KeyboardType.Number)
     InputShell(
-        modifier = modifier.testTag("INPUT_POSITIVE_INTEGER"),
+        modifier = modifier.testTag("INPUT_NEGATIVE_INTEGER"),
         isRequiredField = isRequiredField,
         title = title,
         primaryButton = {
             if (deleteButtonIsVisible) {
                 IconButton(
-                    modifier = Modifier.testTag("INPUT_POSITIVE_INTEGER_RESET_BUTTON"),
+                    modifier = Modifier.testTag("INPUT_NEGATIVE_INTEGER_RESET_BUTTON"),
                     icon = {
                         Icon(
                             imageVector = Icons.Outlined.Cancel,
@@ -75,7 +75,7 @@ fun InputNegativeInteger(
         state = state,
         legend = {
             legendData?.let {
-                Legend(legendData, Modifier.testTag("INPUT_POSITIVE_INTEGER_LEGEND"))
+                Legend(legendData, Modifier.testTag("INPUT_NEGATIVE_INTEGER_LEGEND"))
             }
         },
         supportingText = {
@@ -84,13 +84,13 @@ fun InputNegativeInteger(
                 SupportingText(
                     label.text,
                     label.state,
-                    modifier = Modifier.testTag("INPUT_POSITIVE_INTEGER_SUPPORTING_TEXT"),
+                    modifier = Modifier.testTag("INPUT_NEGATIVE_INTEGER_SUPPORTING_TEXT"),
                 )
             }
         },
         inputField = {
             BasicInput(
-                modifier = Modifier.testTag("INPUT_POSITIVE_INTEGER_FIELD"),
+                modifier = Modifier.testTag("INPUT_NEGATIVE_INTEGER_FIELD"),
                 helper = "-",
                 helperStyle = InputStyle.WITH_HELPER_BEFORE,
                 inputText = inputValue ?: "",
