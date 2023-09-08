@@ -50,7 +50,7 @@ fun InputPercentage(
 
     var deleteButtonIsVisible by remember { mutableStateOf(!inputText.isNullOrEmpty() && state != InputShellState.DISABLED) }
     val focusManager = LocalFocusManager.current
-    val pattern = remember { Regex("^(?!0)\\d*") }
+    val pattern = remember { Regex("^([1-9]|[1-9][0-9]|100)\$") }
     val keyboardOptions = KeyboardOptions(imeAction = imeAction, keyboardType = KeyboardType.Number)
     InputShell(
         modifier = modifier.testTag("INPUT_PERCENTAGE"),
