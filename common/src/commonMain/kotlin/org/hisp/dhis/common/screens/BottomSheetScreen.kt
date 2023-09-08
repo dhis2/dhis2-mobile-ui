@@ -3,16 +3,20 @@ package org.hisp.dhis.common.screens
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.BookmarkBorder
 import androidx.compose.material.icons.outlined.HelpOutline
+import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material3.BottomSheetScaffold
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import org.hisp.dhis.mobile.ui.designsystem.component.BottomSheetHeader
@@ -30,8 +34,8 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
 @Composable
 fun BottomSheetScreen() {
-    ColumnComponentContainer(title = "Bottom Sheet Header") {
-        SubTitle("With Icon", TextColor.OnSurface)
+
+    /*SubTitle("With Icon", TextColor.OnSurface)
         Box(modifier = Modifier.border(Spacing.Spacing1, color = TextColor.OnDisabledSurface)) {
             BottomSheetHeader(
                 title = "Title",
@@ -83,86 +87,101 @@ fun BottomSheetScreen() {
                     )
                 },
             )
-        }
-        SubTitle("Bottom sheet shell with header, content and buttons", TextColor.OnSurface)
+        }*/
+    SubTitle("Bottom sheet shell with header, content and buttons", TextColor.OnSurface)
 
-        var showBottomSheetShell by remember { mutableStateOf(false) }
+    var showBottomSheetShell by rememberSaveable { mutableStateOf(false) }
 
-        when {
+
+    ColumnComponentContainer {
+        when (showBottomSheetShell) {
             showBottomSheetShell -> {
-                Box(modifier = Modifier.background(SurfaceColor.Container).padding(Spacing.Spacing4)) {
-                    BottomSheetShell(
-                        "Legend name",
-                        "subtitle",
-                        "Lorem fistrum a wan benemeritaar llevame al sircoo. ",
-                        content = {
-                            LegendRange(
-                                listOf(
-                                    LegendDescriptionData(
-                                        SurfaceColor.CustomGreen,
-                                        "Low",
-                                        IntRange(0, 5),
-                                    ),
-                                    LegendDescriptionData(
-                                        SurfaceColor.CustomYellow,
-                                        "Medium",
-                                        IntRange(5, 10),
-                                    ),
-                                    LegendDescriptionData(TextColor.OnWarning, "High", IntRange(10, 20)),
-                                    LegendDescriptionData(
-                                        SurfaceColor.CustomPink,
-                                        "Very high",
-                                        IntRange(20, 40),
-                                    ),
-                                    LegendDescriptionData(
-                                        SurfaceColor.CustomBrown,
-                                        "Extreme",
-                                        IntRange(40, 120),
-                                    ),
-                                    LegendDescriptionData(
-                                        SurfaceColor.CustomGray,
-                                        "Lorem fistrum torpedo está la cosa muy malar diodeno" +
-                                            " se calle ustée ahorarr al ataquerl condemor a wan. ",
-                                        IntRange(120, 1000),
-                                    ),
+
+                BottomSheetShell(
+                    "Legend name",
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Outlined.Info,
+                            contentDescription = "Button",
+                            tint = SurfaceColor.Primary,
+                        )
+                    },
+                    content = {
+                        LegendRange(
+                            listOf(
+                                LegendDescriptionData(
+                                    SurfaceColor.CustomGreen,
+                                    "Low",
+                                    IntRange(0, 5),
                                 ),
-                            )
-                        },
-                        buttonBlock = {
-                            ButtonBlock(
-                                primaryButton = {
-                                    Button(
-                                        style = ButtonStyle.FILLED,
-                                        enabled = true,
-                                        text = "Accept",
-                                        onClick = {
-                                            showBottomSheetShell = false
-                                        },
-                                        modifier = Modifier.fillMaxWidth(),
-                                    )
-                                },
-                                secondaryButton = {
-                                    Button(
-                                        style = ButtonStyle.FILLED,
-                                        enabled = true,
-                                        text = "Dismiss",
-                                        onClick = {
-                                            showBottomSheetShell = false
-                                        },
-                                        modifier = Modifier.fillMaxWidth(),
-                                    )
-                                },
-                            )
-                        },
-                        onDismiss = { showBottomSheetShell = !showBottomSheetShell },
-                    )
-                }
+                                LegendDescriptionData(
+                                    SurfaceColor.CustomYellow,
+                                    "Medium",
+                                    IntRange(5, 10),
+                                ),
+                                LegendDescriptionData(
+                                    TextColor.OnWarning,
+                                    "High",
+                                    IntRange(10, 20)
+                                ),
+                                LegendDescriptionData(
+                                    SurfaceColor.CustomPink,
+                                    "Very high",
+                                    IntRange(20, 40),
+                                ),
+                                LegendDescriptionData(
+                                    SurfaceColor.CustomBrown,
+                                    "Extreme",
+                                    IntRange(40, 120),
+                                ),
+                                LegendDescriptionData(
+                                    SurfaceColor.CustomGray,
+                                    "Lorem fistrum torpedo está la cosa muy malar diodeno" +
+                                            " se calle ustée ahorarr al ataquerl condemor a wan. ",
+                                    IntRange(120, 1000),
+                                ),
+                            ),
+                        )
+                    },
+                    buttonBlock = {
+                        ButtonBlock(
+                            primaryButton = {
+                                Button(
+                                    style = ButtonStyle.FILLED,
+                                    enabled = true,
+                                    text = "Accept",
+                                    onClick = {
+                                        showBottomSheetShell = false
+                                    },
+                                    modifier = Modifier.fillMaxWidth(),
+                                )
+                            },
+                            secondaryButton = {
+                                Button(
+                                    style = ButtonStyle.FILLED,
+                                    enabled = true,
+                                    text = "Dismiss",
+                                    onClick = {
+                                        showBottomSheetShell = false
+                                    },
+                                    modifier = Modifier.fillMaxWidth(),
+                                )
+                            },
+                        )
+                    },
+                    onDismiss = { showBottomSheetShell = !showBottomSheetShell },
+                )
             }
+
+            else -> {}
         }
         Button(
-            enabled = true,
-            ButtonStyle.FILLED,
-            "show bottom sheet shell",
-        ) { showBottomSheetShell = !showBottomSheetShell }
+            text = "show bottom sheet",
+            onClick = {
+                showBottomSheetShell = !showBottomSheetShell
+            }
+        )
+
     }
 }
+
