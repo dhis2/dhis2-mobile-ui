@@ -48,7 +48,7 @@ fun InputNumberScreen() {
                     inputValueEuropean = it
                 }
             },
-            notation = DecimalNotation.BRITISH,
+            notation = DecimalNotation.EUROPEAN,
         )
         var inputValue2 by rememberSaveable { mutableStateOf("") }
         SubTitle("Input Number with legend", textColor = TextColor.OnSurfaceVariant)
