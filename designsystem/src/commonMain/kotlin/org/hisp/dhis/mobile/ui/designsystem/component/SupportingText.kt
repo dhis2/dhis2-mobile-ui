@@ -3,6 +3,7 @@ package org.hisp.dhis.mobile.ui.designsystem.component
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.PressInteraction
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.ripple.LocalRippleTheme
@@ -48,6 +49,11 @@ fun SupportingText(
     showMoreText: String = provideStringResource("show_more"),
     showLessText: String = provideStringResource("show_less"),
     modifier: Modifier = Modifier.padding(
+        start = Spacing.Spacing16,
+        top = Spacing.Spacing4,
+        end = Spacing.Spacing16,
+    ),
+    paddingValues: PaddingValues = PaddingValues(
         start = Spacing.Spacing16,
         top = Spacing.Spacing4,
         end = Spacing.Spacing16,
@@ -150,7 +156,7 @@ fun SupportingText(
                     }
                 }
             },
-            modifier = modifier.animateContentSize(),
+            modifier = modifier.animateContentSize().padding(paddingValues),
         )
     }
 }

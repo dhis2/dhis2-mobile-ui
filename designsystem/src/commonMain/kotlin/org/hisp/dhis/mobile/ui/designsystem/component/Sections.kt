@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -213,10 +214,10 @@ fun SectionHeader(
                 )
                 description?.let {
                     SupportingText(
-                        modifier = Modifier.padding(Spacing.Spacing0)
-                            .testTag(SectionTestTag.DESCRIPTION),
+                        modifier = Modifier.testTag(SectionTestTag.DESCRIPTION),
                         text = it,
                         maxLines = 2,
+                        paddingValues = PaddingValues(Spacing.Spacing0),
                         onNoInteraction = {
                             Pair(interactionSource, onSectionClick)
                         },
