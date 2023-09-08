@@ -15,6 +15,7 @@ enum class Components(val label: String) {
     INPUT_TEXT("Input Text"),
     INPUT_NEGATIVE_INTEGER("Input Negative Integer"),
     INPUT_PERCENTAGE("Input Percentage"),
+    INPUT_POSITIVE_INTEGER("Input Positive Integer"),
     FORM_SHELLS("Form Shells"),
     BOTTOM_SHEET("Bottom Sheet"),
     TAGS("Tags"),
