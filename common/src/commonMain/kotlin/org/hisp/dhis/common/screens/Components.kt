@@ -13,6 +13,7 @@ enum class Components(val label: String) {
     LEGEND_DESCRIPTION("Legend description"),
     BUTTON_BLOCK("Button block"),
     INPUT_TEXT("Input Text"),
+    INPUT_NEGATIVE_INTEGER("Input Negative Integer"),
     INPUT_PERCENTAGE("Input Percentage"),
     FORM_SHELLS("Form Shells"),
     BOTTOM_SHEET("Bottom Sheet"),
