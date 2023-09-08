@@ -39,6 +39,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
  * @param legend controls the optional legend composable
  * @param inputField controls the input field composable .
  * @param supportingText controls the supporting text composable
+ * @param isRequiredField controls whether the field is mandatory
  */
 @Composable
 fun InputShell(
@@ -112,7 +113,7 @@ private fun InputShellRow(
 ) {
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.Top,
+        verticalAlignment = Alignment.CenterVertically,
         modifier = modifier.fillMaxWidth()
             .background(backgroundColor)
             .padding(Spacing.Spacing16, Spacing.Spacing8, Spacing.Spacing0, Spacing.Spacing4),
