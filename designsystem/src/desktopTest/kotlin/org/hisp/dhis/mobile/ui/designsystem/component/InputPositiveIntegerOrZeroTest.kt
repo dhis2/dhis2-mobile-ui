@@ -187,7 +187,25 @@ class InputPositiveIntegerOrZeroTest {
             )
         }
         rule.onNodeWithTag("INPUT_POSITIVE_INTEGER_OR_ZERO").assertExists()
-        rule.onNodeWithTag("INPUT_POSITIVE_INTEGER_OR_ZERO_FIELD").performTextInput("01212")
+        rule.onNodeWithTag("INPUT_POSITIVE_INTEGER_OR_ZERO_FIELD").performTextInput("012")
+        rule.onNodeWithTag("INPUT_POSITIVE_INTEGER_OR_ZERO_FIELD").assert(hasText(""))
+    }
+    @Test
+    fun shouldAllowZero() {
+        rule.setContent {
+            var inputValue by rememberSaveable { mutableStateOf("") }
+            InputPositiveIntegerOrZero(
+                title = "Label",
+                inputText = inputValue,
+                onValueChanged = {
+                    if (it != null) {
+                        inputValue = it
+                    }
+                },
+            )
+        }
+        rule.onNodeWithTag("INPUT_POSITIVE_INTEGER_OR_ZERO").assertExists()
+        rule.onNodeWithTag("INPUT_POSITIVE_INTEGER_OR_ZERO_FIELD").performTextInput("0")
         rule.onNodeWithTag("INPUT_POSITIVE_INTEGER_OR_ZERO_FIELD").assert(hasText("0"))
     }
 }
