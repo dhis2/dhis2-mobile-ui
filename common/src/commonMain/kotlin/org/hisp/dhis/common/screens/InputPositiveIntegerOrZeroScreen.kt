@@ -105,7 +105,7 @@ fun InputPositiveIntegerOrZeroScreen() {
                 SupportingTextData("Supporting text", SupportingTextState.WARNING),
                 SupportingTextData("Supporting text", SupportingTextState.ERROR),
 
-                ),
+            ),
             legendData = LegendData(SurfaceColor.CustomGreen, "Legend"),
             state = InputShellState.ERROR,
             imeAction = ImeAction.Done,

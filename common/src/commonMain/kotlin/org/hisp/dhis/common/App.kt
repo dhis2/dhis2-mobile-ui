@@ -35,8 +35,8 @@ import org.hisp.dhis.common.screens.InputLongTextScreen
 import org.hisp.dhis.common.screens.InputNegativeIntegerScreen
 import org.hisp.dhis.common.screens.InputNumberScreen
 import org.hisp.dhis.common.screens.InputPercentageScreen
-import org.hisp.dhis.common.screens.InputPositiveIntegerScreen
 import org.hisp.dhis.common.screens.InputPositiveIntegerOrZeroScreen
+import org.hisp.dhis.common.screens.InputPositiveIntegerScreen
 import org.hisp.dhis.common.screens.InputScreen
 import org.hisp.dhis.common.screens.InputTextScreen
 import org.hisp.dhis.common.screens.LegendDescriptionScreen

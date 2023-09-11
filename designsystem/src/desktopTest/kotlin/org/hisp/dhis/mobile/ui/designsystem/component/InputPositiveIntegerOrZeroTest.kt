@@ -190,6 +190,7 @@ class InputPositiveIntegerOrZeroTest {
         rule.onNodeWithTag("INPUT_POSITIVE_INTEGER_OR_ZERO_FIELD").performTextInput("012")
         rule.onNodeWithTag("INPUT_POSITIVE_INTEGER_OR_ZERO_FIELD").assert(hasText(""))
     }
+
     @Test
     fun shouldAllowZero() {
         rule.setContent {
