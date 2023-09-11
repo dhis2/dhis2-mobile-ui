@@ -24,4 +24,5 @@ enum class Components(val label: String) {
     TAGS("Tags"),
     SECTIONS("Sections"),
     INPUT_LONG_TEXT("Input Long Text"),
+    INPUT_POSITIVE_INTEGER_OR_ZERO("Input Positive Integer Or Zero"),
 }
