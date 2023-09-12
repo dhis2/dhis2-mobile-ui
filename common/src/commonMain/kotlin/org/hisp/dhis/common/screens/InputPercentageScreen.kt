@@ -32,7 +32,7 @@ fun InputPercentageScreen() {
                 }
             },
         )
-        Spacer(Modifier.size(Spacing.Spacing8))
+        Spacer(Modifier.size(Spacing.Spacing18))
 
         SubTitle("Basic Percentage required field", textColor = TextColor.OnSurfaceVariant)
         var inputValueRequired by rememberSaveable { mutableStateOf("") }
@@ -48,7 +48,7 @@ fun InputPercentageScreen() {
             state = InputShellState.ERROR,
             isRequiredField = true,
         )
-        Spacer(Modifier.size(Spacing.Spacing8))
+        Spacer(Modifier.size(Spacing.Spacing18))
 
         var inputValue6 by rememberSaveable { mutableStateOf("") }
 
@@ -63,7 +63,7 @@ fun InputPercentageScreen() {
                 }
             },
         )
-        Spacer(Modifier.size(Spacing.Spacing8))
+        Spacer(Modifier.size(Spacing.Spacing18))
 
         var inputValue7 by rememberSaveable { mutableStateOf("1234") }
 

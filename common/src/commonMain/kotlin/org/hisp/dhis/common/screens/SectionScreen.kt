@@ -1,11 +1,14 @@
 package org.hisp.dhis.common.screens
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import org.hisp.dhis.common.screens.previews.lorem
 import org.hisp.dhis.common.screens.previews.lorem_medium
 import org.hisp.dhis.common.screens.previews.lorem_short
@@ -14,6 +17,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.InputText
 import org.hisp.dhis.mobile.ui.designsystem.component.Section
 import org.hisp.dhis.mobile.ui.designsystem.component.SectionState
 import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
+import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
 @Composable
 fun SectionScreen() {
@@ -77,6 +81,8 @@ fun SectionScreen() {
                 onNextSection = { },
             )
         }
+
+        Spacer(Modifier.size(Spacing.Spacing18))
 
         SubTitle("Flat header")
         Section(

@@ -38,7 +38,7 @@ fun FormShellsScreen() {
                 }
             },
         )
-        Spacer(Modifier.size(Spacing.Spacing8))
+        Spacer(Modifier.size(Spacing.Spacing18))
 
         Description("Focused/Unfocused with content", TextColor.OnSurface)
 
@@ -53,7 +53,7 @@ fun FormShellsScreen() {
             },
 
         )
-        Spacer(Modifier.size(Spacing.Spacing8))
+        Spacer(Modifier.size(Spacing.Spacing18))
 
         Description("Error", TextColor.OnSurface)
         var inputValue3 by rememberSaveable { mutableStateOf("") }
@@ -67,7 +67,7 @@ fun FormShellsScreen() {
                 }
             },
         )
-        Spacer(Modifier.size(Spacing.Spacing8))
+        Spacer(Modifier.size(Spacing.Spacing18))
 
         Description("Error with content", TextColor.OnSurface)
         var inputValue4 by rememberSaveable { mutableStateOf("Input") }
@@ -82,7 +82,7 @@ fun FormShellsScreen() {
                 }
             },
         )
-        Spacer(Modifier.size(Spacing.Spacing8))
+        Spacer(Modifier.size(Spacing.Spacing18))
 
         Description("Disabled", TextColor.OnSurface)
         var inputValue5 by rememberSaveable { mutableStateOf("") }
@@ -96,7 +96,7 @@ fun FormShellsScreen() {
                 }
             },
         )
-        Spacer(Modifier.size(Spacing.Spacing8))
+        Spacer(Modifier.size(Spacing.Spacing18))
 
         Description("Disabled with content", TextColor.OnSurface)
         var inputValue6 by rememberSaveable { mutableStateOf("Input") }
@@ -110,7 +110,7 @@ fun FormShellsScreen() {
                 }
             },
         )
-        Spacer(Modifier.size(Spacing.Spacing8))
+        Spacer(Modifier.size(Spacing.Spacing18))
 
         Description("Required field", TextColor.OnSurface)
         var inputValue7 by rememberSaveable { mutableStateOf("") }
@@ -124,7 +124,7 @@ fun FormShellsScreen() {
                 }
             },
         )
-        Spacer(Modifier.size(Spacing.Spacing8))
+        Spacer(Modifier.size(Spacing.Spacing18))
 
         Description("Required field with error", TextColor.OnSurface)
         var inputValue8 by rememberSaveable { mutableStateOf("Input") }
@@ -139,7 +139,7 @@ fun FormShellsScreen() {
                 }
             },
         )
-        Spacer(Modifier.size(Spacing.Spacing8))
+        Spacer(Modifier.size(Spacing.Spacing18))
 
         SubTitle("Supporting text", TextColor.OnSurface)
         Description("Short text", TextColor.OnSurface)
@@ -159,7 +159,7 @@ fun FormShellsScreen() {
                 }
             },
         )
-        Spacer(Modifier.size(Spacing.Spacing8))
+        Spacer(Modifier.size(Spacing.Spacing18))
 
         Description("Long  text", TextColor.OnSurface)
         var inputValue10 by rememberSaveable { mutableStateOf("") }
@@ -178,7 +178,7 @@ fun FormShellsScreen() {
                 }
             },
         )
-        Spacer(Modifier.size(Spacing.Spacing8))
+        Spacer(Modifier.size(Spacing.Spacing18))
 
         Description("Error", TextColor.OnSurface)
         var inputValue11 by rememberSaveable { mutableStateOf("Input") }
@@ -198,7 +198,7 @@ fun FormShellsScreen() {
                 }
             },
         )
-        Spacer(Modifier.size(Spacing.Spacing8))
+        Spacer(Modifier.size(Spacing.Spacing18))
 
         Description("Warning", TextColor.OnSurface)
         var inputValue12 by rememberSaveable { mutableStateOf("Input") }
@@ -218,7 +218,7 @@ fun FormShellsScreen() {
                 }
             },
         )
-        Spacer(Modifier.size(Spacing.Spacing8))
+        Spacer(Modifier.size(Spacing.Spacing18))
 
         Description("Error and Warning", TextColor.OnSurface)
         var inputValue13 by rememberSaveable { mutableStateOf("Input") }
@@ -246,7 +246,7 @@ fun FormShellsScreen() {
                 }
             },
         )
-        Spacer(Modifier.size(Spacing.Spacing8))
+        Spacer(Modifier.size(Spacing.Spacing18))
 
         SubTitle("Form with legend", TextColor.OnSurface)
 
@@ -275,7 +275,7 @@ fun FormShellsScreen() {
                 }
             },
         )
-        Spacer(Modifier.size(Spacing.Spacing8))
+        Spacer(Modifier.size(Spacing.Spacing18))
 
         Description("Legend and supporting text", TextColor.OnSurface)
         var inputValue16 by rememberSaveable { mutableStateOf("Input") }

@@ -35,7 +35,7 @@ fun InputNumberScreen() {
             },
             notation = RegExValidations.BRITISH_DECIMAL_NOTATION,
         )
-        Spacer(Modifier.size(Spacing.Spacing8))
+        Spacer(Modifier.size(Spacing.Spacing18))
 
         Description("European decimal notation", textColor = TextColor.OnSurfaceVariant)
         var inputValueEuropean by rememberSaveable { mutableStateOf("") }
@@ -50,7 +50,7 @@ fun InputNumberScreen() {
             },
             notation = RegExValidations.EUROPEAN_DECIMAL_NOTATION,
         )
-        Spacer(Modifier.size(Spacing.Spacing8))
+        Spacer(Modifier.size(Spacing.Spacing18))
 
         var inputValue6 by rememberSaveable { mutableStateOf("") }
 
@@ -65,7 +65,7 @@ fun InputNumberScreen() {
                 }
             },
         )
-        Spacer(Modifier.size(Spacing.Spacing8))
+        Spacer(Modifier.size(Spacing.Spacing18))
 
         var inputValue7 by rememberSaveable { mutableStateOf("86") }
 

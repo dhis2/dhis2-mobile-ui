@@ -39,7 +39,7 @@ fun InputLongTextScreen() {
                 }
             },
         )
-        Spacer(Modifier.size(Spacing.Spacing8))
+        Spacer(Modifier.size(Spacing.Spacing18))
 
         SubTitle(" Basic Input Long Text with error message", textColor = TextColor.OnSurfaceVariant)
         var inputValueError by rememberSaveable {
@@ -64,7 +64,7 @@ fun InputLongTextScreen() {
             ),
             state = InputShellState.ERROR,
         )
-        Spacer(Modifier.size(Spacing.Spacing8))
+        Spacer(Modifier.size(Spacing.Spacing18))
 
         var inputValue6 by rememberSaveable { mutableStateOf("") }
 
@@ -79,7 +79,7 @@ fun InputLongTextScreen() {
                 }
             },
         )
-        Spacer(Modifier.size(Spacing.Spacing8))
+        Spacer(Modifier.size(Spacing.Spacing18))
 
         var inputValue7 by rememberSaveable { mutableStateOf("Content") }
 

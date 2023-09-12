@@ -27,7 +27,7 @@ fun ButtonScreen() {
             ButtonPreviewWithIcon("Label", ButtonStyle.FILLED, false)
         }
 
-        Spacer(Modifier.size(Spacing.Spacing12))
+        Spacer(Modifier.size(Spacing.Spacing18))
         SubTitle("Outlined")
         RowComponentContainer() {
             ButtonPreview("Label")
@@ -37,7 +37,7 @@ fun ButtonScreen() {
             ButtonPreviewWithIcon("Label")
             ButtonPreviewWithIcon("Label", ButtonStyle.OUTLINED, false)
         }
-        Spacer(Modifier.size(Spacing.Spacing12))
+        Spacer(Modifier.size(Spacing.Spacing18))
 
         SubTitle("Text")
         RowComponentContainer() {
@@ -48,6 +48,8 @@ fun ButtonScreen() {
             ButtonPreviewWithIcon("Label", ButtonStyle.TEXT)
             ButtonPreviewWithIcon("Label", ButtonStyle.TEXT, false)
         }
+        Spacer(Modifier.size(Spacing.Spacing18))
+
         SubTitle("Elevated")
         RowComponentContainer() {
             ButtonPreview("Label", ButtonStyle.ELEVATED)
@@ -57,6 +59,8 @@ fun ButtonScreen() {
             ButtonPreviewWithIcon("Label", ButtonStyle.ELEVATED)
             ButtonPreviewWithIcon("Label", ButtonStyle.ELEVATED, false)
         }
+        Spacer(Modifier.size(Spacing.Spacing18))
+
         SubTitle("Tonal")
         RowComponentContainer() {
             ButtonPreview("Label", ButtonStyle.TONAL)
@@ -66,6 +70,8 @@ fun ButtonScreen() {
             ButtonPreviewWithIcon("Label", ButtonStyle.TONAL)
             ButtonPreviewWithIcon("Label", ButtonStyle.TONAL, false)
         }
+        Spacer(Modifier.size(Spacing.Spacing18))
+
         SubTitle("Keyboard")
         RowComponentContainer() {
             ButtonPreview("Label", ButtonStyle.KEYBOARDKEY)

@@ -1,6 +1,8 @@
 package org.hisp.dhis.common.screens
 
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Icon
@@ -14,6 +16,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
 import org.hisp.dhis.mobile.ui.designsystem.component.TextButtonSelector
 import org.hisp.dhis.mobile.ui.designsystem.component.Title
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
+import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
 @Composable
 fun ButtonBlockScreen() {
@@ -38,6 +41,8 @@ fun ButtonBlockScreen() {
                 )
             },
         )
+        Spacer(Modifier.size(Spacing.Spacing18))
+
         SubTitle("Two button style")
         ButtonBlock(
             primaryButton = {

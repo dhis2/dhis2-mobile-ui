@@ -35,7 +35,7 @@ fun BottomSheetHeaderScreen() {
                 },
             )
         }
-        Spacer(Modifier.size(Spacing.Spacing12))
+        Spacer(Modifier.size(Spacing.Spacing18))
 
         SubTitle("Without Icon", TextColor.OnSurface)
 
@@ -46,6 +46,8 @@ fun BottomSheetHeaderScreen() {
                 description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce convallis, urna vitae lacinia feugiat",
             )
         }
+        Spacer(Modifier.size(Spacing.Spacing18))
+
         SubTitle("Without Icon, without subtitle", TextColor.OnSurface)
 
         Box(modifier = Modifier.border(Spacing.Spacing1, color = TextColor.OnDisabledSurface)) {
@@ -54,6 +56,8 @@ fun BottomSheetHeaderScreen() {
                 description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce convallis, urna vitae lacinia feugiat",
             )
         }
+        Spacer(Modifier.size(Spacing.Spacing18))
+
         SubTitle("Without Icon, subtitle or description", TextColor.OnSurface)
 
         Box(modifier = Modifier.border(Spacing.Spacing1, color = TextColor.OnDisabledSurface)) {
@@ -61,6 +65,8 @@ fun BottomSheetHeaderScreen() {
                 title = "Title",
             )
         }
+        Spacer(Modifier.size(Spacing.Spacing18))
+
         SubTitle("With Icon, without subtitle or description", TextColor.OnSurface)
 
         Box(modifier = Modifier.border(Spacing.Spacing1, color = TextColor.OnDisabledSurface)) {

@@ -34,7 +34,7 @@ fun InputPositiveIntegerOrZeroScreen() {
                 }
             },
         )
-        Spacer(Modifier.size(Spacing.Spacing8))
+        Spacer(Modifier.size(Spacing.Spacing18))
 
         SubTitle("Basic Input Integer with error", textColor = TextColor.OnSurfaceVariant)
         var inputValueError by rememberSaveable { mutableStateOf("") }
@@ -50,7 +50,7 @@ fun InputPositiveIntegerOrZeroScreen() {
             state = InputShellState.ERROR,
             supportingText = listOf(SupportingTextData("Numbers only", SupportingTextState.ERROR)),
         )
-        Spacer(Modifier.size(Spacing.Spacing8))
+        Spacer(Modifier.size(Spacing.Spacing18))
 
         var inputValue7 by rememberSaveable { mutableStateOf("1234") }
 

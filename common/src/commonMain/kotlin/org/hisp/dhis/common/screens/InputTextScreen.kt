@@ -13,8 +13,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.InputText
 import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
 import org.hisp.dhis.mobile.ui.designsystem.component.Title
-import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing12
-import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing8
+import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
 @Composable
@@ -33,7 +32,7 @@ fun InputTextScreen() {
                 }
             },
         )
-        Spacer(Modifier.size(Spacing12))
+        Spacer(Modifier.size(Spacing.Spacing18))
         SubTitle("Input text with error ")
         var inputValueError by rememberSaveable { mutableStateOf("Input") }
 
@@ -47,7 +46,7 @@ fun InputTextScreen() {
             },
             state = InputShellState.ERROR,
         )
-        Spacer(Modifier.size(Spacing8))
+        Spacer(Modifier.size(Spacing.Spacing18))
 
         var inputValue6 by rememberSaveable { mutableStateOf("") }
 
@@ -62,7 +61,7 @@ fun InputTextScreen() {
                 }
             },
         )
-        Spacer(Modifier.size(Spacing12))
+        Spacer(Modifier.size(Spacing.Spacing18))
 
         var inputValue7 by rememberSaveable { mutableStateOf("Content") }
 

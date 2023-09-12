@@ -34,7 +34,7 @@ fun InputLetterScreen() {
                 }
             },
         )
-        Spacer(Modifier.size(Spacing.Spacing8))
+        Spacer(Modifier.size(Spacing.Spacing18))
 
         SubTitle(" Basic Input Letter with error", textColor = TextColor.OnSurfaceVariant)
         var inputValueError by rememberSaveable { mutableStateOf("") }
@@ -50,7 +50,7 @@ fun InputLetterScreen() {
             supportingText = listOf(SupportingTextData("Letters only. eg. A, B, C", SupportingTextState.ERROR)),
             state = InputShellState.ERROR,
         )
-        Spacer(Modifier.size(Spacing.Spacing8))
+        Spacer(Modifier.size(Spacing.Spacing18))
 
         var inputValue6 by rememberSaveable { mutableStateOf("") }
 
@@ -65,7 +65,7 @@ fun InputLetterScreen() {
                 }
             },
         )
-        Spacer(Modifier.size(Spacing.Spacing8))
+        Spacer(Modifier.size(Spacing.Spacing18))
 
         var inputValue7 by rememberSaveable { mutableStateOf("A") }
 

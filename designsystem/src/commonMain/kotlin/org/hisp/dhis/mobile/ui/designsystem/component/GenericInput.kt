@@ -28,6 +28,7 @@ import java.util.Locale
  * @param isRequiredField controls whether the field is mandatory or not
  * @param onNextClicked gives access to the imeAction event
  * @param onValueChanged gives access to the onValueChanged event
+ * @param helper manages the helper text to show
  * @param modifier allows a modifier to be passed externally
  */
 @Composable
