@@ -2,7 +2,7 @@ package org.hisp.dhis.mobile.ui.designsystem.theme
 
 object TextColor {
     val OnPrimary = Color.NeutralWhite
-    val OnPrimaryContainer = Color.Blue900
+    val OnPrimaryContainer = Color.Blue700
     val OnSurface = Color.Charcoal800
     val OnSurfaceVariant = Color.Charcoal500
     val OnSurfaceLight = Color.Charcoal300
