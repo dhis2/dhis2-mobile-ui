@@ -13,7 +13,7 @@ enum class Components(val label: String) {
     INPUT_INTEGER("Input Integer"),
     INPUT_NUMBER("Input Number"),
     INPUT_LETTER("Input Letter"),
-    BOTTOM_SHEET("Bottom Sheet"),
+    BOTTOM_SHEET_HEADER("Bottom Sheet Header"),
     TAGS("Tags"),
     SECTIONS("Sections"),
     RADIO("Radio"),

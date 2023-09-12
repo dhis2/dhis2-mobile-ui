@@ -92,7 +92,7 @@ fun BasicInput(
 
     if (helperStyle != InputStyle.NONE) {
         if (helperStyle == InputStyle.WITH_HELPER_BEFORE) {
-            helper?.let { visualTransformation = PrefixTransformation(it) }
+            helper?.let { visualTransformation = PrefixTransformation(it, enabled) }
         } else {
             helper?.let {
                 visualTransformation = SuffixTransformer(it)

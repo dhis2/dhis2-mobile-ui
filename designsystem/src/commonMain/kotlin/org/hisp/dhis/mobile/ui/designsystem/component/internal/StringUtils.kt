@@ -9,13 +9,13 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.sp
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
-internal class PrefixTransformation(private val prefix: String) : VisualTransformation {
+internal class PrefixTransformation(private val prefix: String, val enabled: Boolean) : VisualTransformation {
     override fun filter(text: AnnotatedString): TransformedText {
-        return prefixFilter(text, prefix)
+        return prefixFilter(text, prefix, enabled = enabled)
     }
 }
 
-internal fun prefixFilter(text: AnnotatedString, prefix: String): TransformedText {
+internal fun prefixFilter(text: AnnotatedString, prefix: String, enabled: Boolean = true): TransformedText {
     val out = AnnotatedString(
         "$prefix ",
         spanStyle = SpanStyle(
@@ -30,7 +30,7 @@ internal fun prefixFilter(text: AnnotatedString, prefix: String): TransformedTex
                 spanStyle = SpanStyle(
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Normal,
-                    color = TextColor.OnSurface,
+                    color = if (enabled) TextColor.OnSurface else TextColor.OnDisabledSurface,
                 ),
             ),
         )

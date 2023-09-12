@@ -85,21 +85,22 @@ fun Button(
         }
         ButtonStyle.TEXT -> {
             val textColor = if (enabled) SurfaceColor.Primary else TextColor.OnDisabledSurface
-            SimpleButton(
-                modifier = modifier,
-                onClick = { onClick() },
-                enabled = enabled,
-                buttonColors = ButtonDefaults.filledTonalButtonColors(
-                    Color.Transparent,
-                    SurfaceColor.Primary,
-                    Color.Transparent,
-                    TextColor.OnDisabledSurface,
-                ),
-                text = text,
-                textColor = textColor,
-                icon = icon,
-                paddingValues = paddingValues,
-            )
+            CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
+                OutlinedButton(
+                    modifier = modifier,
+                    onClick = { onClick() },
+                    enabled = enabled,
+                    colors = ButtonDefaults.filledTonalButtonColors(
+                        Color.Transparent,
+                        SurfaceColor.Primary,
+                        SurfaceColor.DisabledSurface,
+                        TextColor.OnDisabledSurface,
+                    ),
+                    border = BorderStroke(Border.Thin, Color.Transparent),
+                ) {
+                    ButtonText(text, textColor, icon, enabled)
+                }
+            }
         }
         ButtonStyle.ELEVATED -> {
             val textColor = if (enabled) SurfaceColor.Primary else TextColor.OnDisabledSurface

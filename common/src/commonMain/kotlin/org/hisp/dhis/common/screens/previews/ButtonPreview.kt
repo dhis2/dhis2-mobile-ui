@@ -6,7 +6,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import org.hisp.dhis.mobile.ui.designsystem.component.Button
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonStyle
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 
 @Composable
 internal fun ButtonPreview(text: String, style: ButtonStyle = ButtonStyle.OUTLINED, enabled: Boolean = true) {
@@ -27,7 +26,6 @@ internal fun ButtonPreviewWithIcon(text: String, style: ButtonStyle = ButtonStyl
             Icon(
                 imageVector = Icons.Filled.Add,
                 contentDescription = "Button",
-                tint = SurfaceColor.Primary,
             )
         },
     ) { }

@@ -1,9 +1,5 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
-import androidx.compose.foundation.gestures.Orientation
-import androidx.compose.foundation.gestures.scrollable
-import androidx.compose.foundation.layout.heightIn
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Cancel
@@ -18,8 +14,6 @@ import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.ImeAction
-import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
-import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
 /**
  * DHIS2 Input Long Text. Wraps DHIS · [InputShell].
@@ -95,11 +89,7 @@ fun InputLongText(
         },
         inputField = {
             BasicInput(
-                modifier = Modifier.testTag("INPUT_LONG_TEXT_FIELD")
-                    .scrollable(
-                        orientation = Orientation.Vertical,
-                        state = rememberScrollState(),
-                    ).heightIn(Spacing.Spacing0, InternalSizeValues.Size300),
+                modifier = Modifier.testTag("INPUT_LONG_TEXT_FIELD"),
                 isSingleLine = false,
                 inputText = inputValue,
                 onInputChanged = {

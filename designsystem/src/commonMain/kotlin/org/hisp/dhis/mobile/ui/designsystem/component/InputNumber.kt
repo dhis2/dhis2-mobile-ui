@@ -50,7 +50,8 @@ fun InputNumber(
     val inputValue by remember(inputText) { mutableStateOf(inputText) }
     var deleteButtonIsVisible by remember { mutableStateOf(!inputText.isNullOrEmpty() && state != InputShellState.DISABLED) }
     val focusManager = LocalFocusManager.current
-    val pattern = remember { Regex(notation.regex) }
+    val pattern = remember { notation.regex.toRegex() }
+
     val keyboardOptions = KeyboardOptions(imeAction = imeAction, keyboardType = KeyboardType.Number)
     InputShell(
         modifier = modifier,
@@ -116,6 +117,6 @@ fun InputNumber(
 }
 
 enum class DecimalNotation(val regex: String) {
-    BRITISH("^(?!.*?[.]{2})[0-9.]+\$"),
-    EUROPEAN("^(?!.*,.*,)[0-9,]+\$"),
+    BRITISH("""^(?!\.)(?!.*-[^0-9])(?!(?:[^.]*\.){3})[-0-9]*(?:\.[0-9]*)?$"""),
+    EUROPEAN("""^(?!.*,.+,|.*-.*-)[0-9,-]*$"""),
 }
