@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.Dp
 import org.hisp.dhis.mobile.ui.designsystem.theme.Border
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
@@ -55,10 +56,12 @@ fun InputShell(
 ) {
     Column(modifier = modifier.fillMaxWidth().clip(shape = RoundedCornerShape(Radius.XS, Radius.XS))) {
         var indicatorColor by remember { mutableStateOf(InputShellState.UNFOCUSED.color) }
+        var indicatorThickness by remember { mutableStateOf(Border.Thin) }
         val backgroundColor = if (state != InputShellState.DISABLED) SurfaceColor.Surface else SurfaceColor.DisabledSurface
         InputShellRow(
             modifier = Modifier.onFocusChanged {
                 indicatorColor = if (it.isFocused && state != InputShellState.ERROR && state != InputShellState.WARNING) InputShellState.FOCUSED.color else state.color
+                indicatorThickness = if (it.isFocused) Border.Regular else Border.Thin
             },
             backgroundColor = backgroundColor,
         ) {
@@ -91,7 +94,7 @@ fun InputShell(
                 }
             }
         }
-        InputShellIndicator(color = indicatorColor)
+        InputShellIndicator(color = indicatorColor, thickness = indicatorThickness)
         legend?.invoke()
         if (state != InputShellState.DISABLED) supportingText?.invoke()
         if (isRequiredField && state == InputShellState.ERROR) SupportingText("Required", state = SupportingTextState.ERROR)
@@ -147,12 +150,13 @@ private fun InputShellButtonSeparator(
 private fun InputShellIndicator(
     color: Color,
     modifier: Modifier = Modifier,
+    thickness: Dp = Border.Thin,
 ) {
     Divider(
         modifier = modifier
             .fillMaxWidth()
             .padding(),
-        thickness = Border.Regular,
+        thickness = thickness,
         color = color,
     )
 }

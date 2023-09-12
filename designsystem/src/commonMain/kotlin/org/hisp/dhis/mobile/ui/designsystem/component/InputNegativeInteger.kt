@@ -92,6 +92,7 @@ fun InputNegativeInteger(
             BasicInput(
                 modifier = Modifier.testTag("INPUT_NEGATIVE_INTEGER_FIELD"),
                 helper = "-",
+                enabled = state != InputShellState.DISABLED,
                 helperStyle = InputStyle.WITH_HELPER_BEFORE,
                 inputText = inputValue ?: "",
                 onInputChanged = {
@@ -100,7 +101,6 @@ fun InputNegativeInteger(
                         deleteButtonIsVisible = it.isNotEmpty()
                     }
                 },
-                enabled = state != InputShellState.DISABLED,
                 state = state,
                 keyboardOptions = keyboardOptions,
                 onNextClicked = {
