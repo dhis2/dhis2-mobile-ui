@@ -87,7 +87,7 @@ class InputLetterTest {
         }
         rule.onNodeWithTag("INPUT_LETTER").assertExists()
         rule.onNodeWithTag("INPUT_LETTER_FIELD").assertExists()
-        rule.onNodeWithTag("INPUT_LETTER_FIELD").performTextInput("Input")
+        rule.onNodeWithTag("INPUT_LETTER_FIELD").performTextInput("A")
         rule.onNodeWithTag("INPUT_LETTER_RESET_BUTTON").assertExists()
     }
 

@@ -9,12 +9,12 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
-import org.hisp.dhis.mobile.ui.designsystem.component.DecimalNotation
 import org.hisp.dhis.mobile.ui.designsystem.component.Description
 import org.hisp.dhis.mobile.ui.designsystem.component.InputNumber
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
 import org.hisp.dhis.mobile.ui.designsystem.component.Title
+import org.hisp.dhis.mobile.ui.designsystem.component.internal.RegExValidations
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
@@ -33,7 +33,7 @@ fun InputNumberScreen() {
                     inputValue1 = it
                 }
             },
-            notation = DecimalNotation.BRITISH,
+            notation = RegExValidations.BRITISH_DECIMAL_NOTATION,
         )
         Spacer(Modifier.size(Spacing.Spacing8))
 
@@ -48,7 +48,7 @@ fun InputNumberScreen() {
                     inputValueEuropean = it
                 }
             },
-            notation = DecimalNotation.EUROPEAN,
+            notation = RegExValidations.EUROPEAN_DECIMAL_NOTATION,
         )
         Spacer(Modifier.size(Spacing.Spacing8))
 

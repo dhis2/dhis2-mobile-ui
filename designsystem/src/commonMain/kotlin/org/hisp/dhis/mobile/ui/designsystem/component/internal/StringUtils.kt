@@ -75,3 +75,14 @@ internal class SuffixTransformer(val suffix: String) : VisualTransformation {
         return TransformedText(result, textWithSuffixMapping)
     }
 }
+
+enum class RegExValidations(val regex: Regex) {
+    BRITISH_DECIMAL_NOTATION("""^(?!\.)(?!.*-[^0-9])(?!(?:[^.]*\.){3})[-0-9]*(?:\.[0-9]*)?$""".toRegex()),
+    EUROPEAN_DECIMAL_NOTATION("""^(?!.*,.+,|.*-.*-)[0-9,-]*$""".toRegex()),
+    ONLY_INTEGERS("^-?(?!0)\\d*".toRegex()),
+    SINGLE_LETTER("^[A-Z]\$".toRegex()),
+    NEGATIVE_INTEGERS("^(?!0)\\d*".toRegex()),
+    PERCENTAGE("^([1-9]|[1-9][0-9]|100)\$".toRegex()),
+    POSITIVE_INTEGER("^(?!0)\\d*".toRegex()),
+    POSITIVE_INTEGER_OR_ZERO("^(0|[1-9]\\d*)\$".toRegex()),
+}

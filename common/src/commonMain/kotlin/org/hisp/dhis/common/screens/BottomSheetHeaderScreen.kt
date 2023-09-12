@@ -2,6 +2,8 @@ package org.hisp.dhis.common.screens
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.BookmarkBorder
 import androidx.compose.material.icons.outlined.HelpOutline
@@ -33,6 +35,8 @@ fun BottomSheetHeaderScreen() {
                 },
             )
         }
+        Spacer(Modifier.size(Spacing.Spacing12))
+
         SubTitle("Without Icon", TextColor.OnSurface)
 
         Box(modifier = Modifier.border(Spacing.Spacing1, color = TextColor.OnDisabledSurface)) {
