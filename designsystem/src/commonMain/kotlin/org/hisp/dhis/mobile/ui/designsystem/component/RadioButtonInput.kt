@@ -53,6 +53,7 @@ fun RadioButtonInput(
                     state = state,
                     onSelectionChanged = onSelectionChanged,
                 )
+
                 VERTICAL -> RadioButtonInputColumn(
                     radioButtonData = radioButtonData,
                     state = state,
