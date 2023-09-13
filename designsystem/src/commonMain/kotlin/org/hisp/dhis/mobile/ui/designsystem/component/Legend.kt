@@ -29,6 +29,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import org.hisp.dhis.mobile.ui.designsystem.theme.Border
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Ripple
@@ -93,6 +94,7 @@ fun Legend(
 
     if (showBottomSheetShell) {
         BottomSheetShell(
+            modifier = Modifier.testTag("LEGEND_BOTTOM_SHEET"),
             title = legendData.title,
             icon = {
                 Icon(

@@ -16,6 +16,7 @@ actual fun BottomSheetShell(
     searchBar: @Composable (() -> Unit)?,
     buttonBlock: @Composable (() -> Unit)?,
     content: @Composable (() -> Unit)?,
+    modifier: Modifier,
     onDismiss: () -> Unit,
 ) {
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {

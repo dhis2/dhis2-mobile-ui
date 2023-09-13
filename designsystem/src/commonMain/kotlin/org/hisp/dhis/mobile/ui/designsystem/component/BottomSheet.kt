@@ -57,6 +57,19 @@ fun BottomSheetHeader(
     }
 }
 
+/**
+ * DHIS2 BottomSheetShell. Wraps compose · [ModalBottomSheet].
+ * desktop version to be implemented
+ * @param title: title to be shown
+ * @param subtitle: subTitle to be shown
+ * @param description: PopUp description
+ * @param icon: the icon to be shown
+ * @param searchBar: dhis searchBar
+ * @param buttonBlock: Space for the lower buttons
+ * @param content: to be shown under the header
+ * @param onDismiss: gives access to the onDismiss event
+ * @param modifier allows a modifier to be passed externally
+ */
 @Composable
 expect fun BottomSheetShell(
     title: String,
@@ -66,5 +79,6 @@ expect fun BottomSheetShell(
     searchBar: @Composable (() -> Unit)? = null,
     buttonBlock: @Composable (() -> Unit)? = null,
     content: @Composable (() -> Unit)? = null,
+    modifier: Modifier = Modifier,
     onDismiss: () -> Unit,
 )
