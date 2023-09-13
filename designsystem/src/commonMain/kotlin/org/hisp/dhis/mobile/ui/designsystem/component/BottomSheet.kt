@@ -73,66 +73,6 @@ expect fun BottomSheetShell(
     onDismiss: () -> Unit,
 )
 
-/*@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun BottomSheetShell(
-    title: String,
-    subtitle: String? = null,
-    description: String? = null,
-    icon: @Composable (() -> Unit)? = null,
-    searchBar: @Composable (() -> Unit)? = null,
-    buttonBlock: @Composable (() -> Unit)? = null,
-    content: @Composable (() -> Unit)? = null,
-    onDismiss: () -> Unit,
-) {
-    val animateTrigger = remember {
-        mutableStateOf(false)
-    }
-    val scope = rememberCoroutineScope()
-    val scaffoldState = rememberBottomSheetScaffoldState(
-        bottomSheetState = SheetState(
-            skipPartiallyExpanded = false, // pass false here
-            initialValue = SheetValue.Expanded
-        )
-    )
-
-
-            Column(
-                modifier = Modifier
-                    .background(SurfaceColor.SurfaceBright, Shape.ExtraLarge)
-                    .padding(Spacing.Spacing24),
-                horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
-                BottomSheetHeader(
-                    title,
-                    subtitle,
-                    description,
-                    icon,
-                    modifier = Modifier
-                        .padding(horizontal = Spacing.Spacing24, vertical = Spacing.Spacing0),
-                )
-                searchBar?.invoke()
-
-                Divider(
-                    color = TextColor.OnDisabledSurface,
-                    modifier = Modifier.fillMaxWidth()
-                        .padding(top = Spacing.Spacing8, bottom = Spacing.Spacing8),
-                )
-
-                content?.let {
-                    Column(modifier = Modifier.scrollable(orientation = Orientation.Vertical, state = rememberScrollState())) {
-                        it.invoke()
-                    }
-                    Divider(
-                        color = TextColor.OnDisabledSurface,
-                        modifier = Modifier.fillMaxWidth().padding(Spacing.Spacing8),
-                    )
-                }
-                buttonBlock?.invoke()
-
-    }
-}
-*/
 @Composable
 internal fun AnimatedExpandTransition(
     visible: Boolean,

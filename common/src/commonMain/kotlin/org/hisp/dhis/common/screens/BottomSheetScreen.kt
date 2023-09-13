@@ -3,7 +3,7 @@ package org.hisp.dhis.common.screens
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.PlusOne
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
@@ -20,14 +20,11 @@ import org.hisp.dhis.mobile.ui.designsystem.component.ButtonStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.LegendDescriptionData
 import org.hisp.dhis.mobile.ui.designsystem.component.LegendRange
-import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
 @Composable
 fun BottomSheetScreen() {
-    SubTitle("Bottom sheet shell with header, content and buttons", TextColor.OnSurface)
-
     var showBottomSheetShell by rememberSaveable { mutableStateOf(false) }
 
     if (showBottomSheetShell) {
@@ -40,7 +37,7 @@ fun BottomSheetScreen() {
                             style = ButtonStyle.FILLED,
                             icon = {
                                 Icon(
-                                    imageVector = Icons.Filled.PlusOne,
+                                    imageVector = Icons.Filled.Add,
                                     contentDescription = "Button",
                                 )
                             },

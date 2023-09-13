@@ -39,6 +39,7 @@ internal object InternalSizeValues {
     val Size48: Dp = 48.dp
     val Size300: Dp = 300.dp
     val Size386: Dp = 386.dp
+    val Size578: Dp = 578.dp
 }
 
 internal object InternalFloatValues {
