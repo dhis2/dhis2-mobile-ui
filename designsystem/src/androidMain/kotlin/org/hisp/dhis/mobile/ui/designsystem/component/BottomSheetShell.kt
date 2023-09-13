@@ -38,12 +38,14 @@ actual fun BottomSheetShell(
     searchBar: @Composable (() -> Unit)?,
     buttonBlock: @Composable (() -> Unit)?,
     content: @Composable (() -> Unit)?,
+    modifier: Modifier,
     onDismiss: () -> Unit,
 ) {
     val sheetState = rememberModalBottomSheetState(true)
     val scope = rememberCoroutineScope()
 
     ModalBottomSheet(
+        modifier = modifier,
         containerColor = Color.Transparent,
         onDismissRequest = {
             onDismiss()
