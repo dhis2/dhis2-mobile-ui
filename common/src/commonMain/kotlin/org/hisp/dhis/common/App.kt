@@ -22,7 +22,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import org.hisp.dhis.common.screens.BadgesScreen
-import org.hisp.dhis.common.screens.BottomSheetHeaderSceen
+import org.hisp.dhis.common.screens.BottomSheetHeaderScreen
 import org.hisp.dhis.common.screens.ButtonBlockScreen
 import org.hisp.dhis.common.screens.ButtonScreen
 import org.hisp.dhis.common.screens.CheckboxScreen
