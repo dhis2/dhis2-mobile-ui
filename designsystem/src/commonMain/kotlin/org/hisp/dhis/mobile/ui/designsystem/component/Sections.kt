@@ -6,6 +6,7 @@ import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -50,19 +51,21 @@ import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.Color.Ash600
 import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
+import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing0
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing16
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing24
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
 enum class SectionState {
-    OPEN, CLOSE, FIXED;
+    OPEN, CLOSE, FIXED, NO_HEADER;
 
     fun getNextState(): SectionState {
         return when (this) {
             OPEN -> CLOSE
             CLOSE -> OPEN
             FIXED -> FIXED
+            NO_HEADER -> NO_HEADER
         }
     }
 }
@@ -79,10 +82,47 @@ fun Section(
     errorCount: Int,
     warningCount: Int,
     onNextSection: () -> Unit,
+    onSectionClick: () -> Unit,
+    content: @Composable ColumnScope.() -> Unit,
+) {
+    when (state) {
+        SectionState.NO_HEADER -> SectionContent(spacedBy(Spacing0)) { content() }
+        else -> SectionBlock(
+            modifier = modifier,
+            isLastSection = isLastSection,
+            title = title,
+            description = description,
+            completedFields = completedFields,
+            totalFields = totalFields,
+            state = state,
+            errorCount = errorCount,
+            warningCount = warningCount,
+            onNextSection = onNextSection,
+            onSectionClick = onSectionClick,
+        ) {
+            content()
+        }
+    }
+}
+
+@Composable
+internal fun SectionBlock(
+    modifier: Modifier,
+    isLastSection: Boolean,
+    title: String,
+    description: String?,
+    completedFields: Int,
+    totalFields: Int,
+    state: SectionState,
+    errorCount: Int,
+    warningCount: Int,
+    onNextSection: () -> Unit,
+    onSectionClick: () -> Unit,
     content: @Composable ColumnScope.() -> Unit,
 ) {
     var sectionState by remember(state) { mutableStateOf(state) }
-    val bottomPadding = when (state) {
+
+    val bottomPadding = when (sectionState) {
         SectionState.FIXED -> Spacing.Spacing40
         else -> Spacing16
     }
@@ -92,7 +132,7 @@ fun Section(
             .fillMaxWidth()
             .background(Color.White)
             .run {
-                if (state != SectionState.FIXED) {
+                if (sectionState != SectionState.FIXED) {
                     bottomBorder(1.dp, Ash600)
                 } else {
                     this
@@ -111,6 +151,7 @@ fun Section(
             warningCount = warningCount,
             onSectionClick = {
                 sectionState = sectionState.getNextState()
+                onSectionClick()
             },
         )
         AnimatedVisibility(
@@ -118,34 +159,35 @@ fun Section(
             enter = expandVertically(expandFrom = Alignment.CenterVertically),
             exit = shrinkVertically(shrinkTowards = Alignment.CenterVertically),
         ) {
-            Column(
-                modifier = Modifier
-                    .testTag(SectionTestTag.CONTENT)
-                    .fillMaxWidth(),
-                verticalArrangement = spacedBy(Spacing16),
-            ) {
-                content()
-            }
+            SectionContent(verticalArrangement = spacedBy(Spacing16)) { content() }
         }
         if (!isLastSection && sectionState == SectionState.OPEN) {
-            Button(
+            NextSectionButton(
                 modifier = Modifier.align(Alignment.End),
-                style = ButtonStyle.TEXT,
-                text = provideStringResource("action_next"),
-                icon = {
-                    Icon(
-                        imageVector = Icons.Filled.ArrowForward,
-                        contentDescription = "Icon Button",
-                    )
-                },
-                onClick = onNextSection,
-            )
+            ) { onNextSection() }
         }
     }
 }
 
 @Composable
-fun SectionHeader(
+internal fun SectionContent(
+    verticalArrangement: Arrangement.HorizontalOrVertical,
+    content:
+    @Composable()
+    (ColumnScope.() -> Unit),
+) {
+    Column(
+        modifier = Modifier
+            .testTag(SectionTestTag.CONTENT)
+            .fillMaxWidth(),
+        verticalArrangement = verticalArrangement,
+    ) {
+        content()
+    }
+}
+
+@Composable
+internal fun SectionHeader(
     modifier: Modifier = Modifier,
     title: String,
     description: String?,
@@ -164,6 +206,7 @@ fun SectionHeader(
                 SectionState.OPEN -> hideFieldsLabel
                 SectionState.CLOSE -> showFieldsLabel
                 SectionState.FIXED -> ""
+                SectionState.NO_HEADER -> ""
             }
         }
     }
@@ -174,6 +217,7 @@ fun SectionHeader(
                 SectionState.OPEN -> Icons.Filled.KeyboardArrowUp
                 SectionState.CLOSE -> Icons.Filled.KeyboardArrowDown
                 SectionState.FIXED -> null
+                SectionState.NO_HEADER -> null
             }
         }
     }
@@ -315,6 +359,25 @@ internal fun StateIndicator(label: String, icon: ImageVector?) {
             color = SurfaceColor.Primary,
         )
     }
+}
+
+@Composable
+internal fun NextSectionButton(
+    modifier: Modifier,
+    onClick: () -> Unit,
+) {
+    Button(
+        modifier = modifier,
+        style = ButtonStyle.TEXT,
+        text = provideStringResource("action_next"),
+        icon = {
+            Icon(
+                imageVector = Icons.Filled.ArrowForward,
+                contentDescription = "Icon Button",
+            )
+        },
+        onClick = onClick,
+    )
 }
 
 internal object SectionTestTag {

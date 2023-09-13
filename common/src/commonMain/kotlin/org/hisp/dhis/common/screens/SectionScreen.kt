@@ -35,6 +35,7 @@ fun SectionScreen() {
                 warningCount = 0,
                 content = { TestingFields() },
                 onNextSection = { },
+                onSectionClick = { },
             )
             Section(
                 title = "Section title",
@@ -46,6 +47,7 @@ fun SectionScreen() {
                 warningCount = 1,
                 content = { TestingFields() },
                 onNextSection = { },
+                onSectionClick = { },
             )
             Section(
                 title = "Section title",
@@ -57,6 +59,7 @@ fun SectionScreen() {
                 warningCount = 1,
                 content = { TestingFields() },
                 onNextSection = { },
+                onSectionClick = { },
             )
             Section(
                 title = "Section title",
@@ -68,6 +71,7 @@ fun SectionScreen() {
                 warningCount = 0,
                 content = { TestingFields() },
                 onNextSection = { },
+                onSectionClick = { },
             )
             Section(
                 title = "Section title Section title Section title Section title Section title",
@@ -79,6 +83,7 @@ fun SectionScreen() {
                 warningCount = 0,
                 content = { TestingFields() },
                 onNextSection = { },
+                onSectionClick = { },
             )
         }
 
@@ -95,6 +100,7 @@ fun SectionScreen() {
             warningCount = 0,
             content = { TestingFields() },
             onNextSection = { },
+            onSectionClick = { },
         )
         Section(
             title = "Section title",
@@ -106,6 +112,7 @@ fun SectionScreen() {
             warningCount = 1,
             content = { TestingFields() },
             onNextSection = { },
+            onSectionClick = { },
         )
         Section(
             title = "Section title",
@@ -117,6 +124,7 @@ fun SectionScreen() {
             warningCount = 0,
             content = { TestingFields() },
             onNextSection = { },
+            onSectionClick = { },
         )
         Section(
             title = "Section title",
@@ -128,6 +136,7 @@ fun SectionScreen() {
             warningCount = 0,
             content = { TestingFields() },
             onNextSection = { },
+            onSectionClick = { },
         )
         Section(
             title = "Section title Section title Section title Section title Section title",
@@ -139,6 +148,7 @@ fun SectionScreen() {
             warningCount = 0,
             content = { TestingFields() },
             onNextSection = { },
+            onSectionClick = { },
         )
     }
 }
