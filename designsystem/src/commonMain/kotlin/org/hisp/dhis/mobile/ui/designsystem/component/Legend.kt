@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.outlined.HelpOutline
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.ripple.LocalRippleTheme
@@ -95,27 +94,6 @@ fun Legend(
     if (showBottomSheetShell) {
         BottomSheetShell(
             title = legendData.title,
-            buttonBlock = {
-                ButtonBlock(
-                    primaryButton = {
-                        Button(
-                            style = ButtonStyle.FILLED,
-                            icon = {
-                                Icon(
-                                    imageVector = Icons.Filled.Add,
-                                    contentDescription = "Button",
-                                )
-                            },
-                            enabled = true,
-                            text = "Label",
-                            onClick = {
-                                showBottomSheetShell = false
-                            },
-                            modifier = Modifier.fillMaxWidth(),
-                        )
-                    },
-                )
-            },
             icon = {
                 Icon(
                     imageVector = Icons.Outlined.Info,

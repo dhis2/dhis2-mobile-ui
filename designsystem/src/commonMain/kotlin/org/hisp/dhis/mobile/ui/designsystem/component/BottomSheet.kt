@@ -1,9 +1,5 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.AnimatedVisibilityScope
-import androidx.compose.animation.expandVertically
-import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
@@ -72,20 +68,3 @@ expect fun BottomSheetShell(
     content: @Composable (() -> Unit)? = null,
     onDismiss: () -> Unit,
 )
-
-@Composable
-internal fun AnimatedExpandTransition(
-    visible: Boolean,
-    content: @Composable AnimatedVisibilityScope.() -> Unit,
-) {
-    AnimatedVisibility(
-        visible = visible,
-        enter = expandVertically(
-            expandFrom = Alignment.Bottom,
-        ),
-        exit = shrinkVertically(
-            shrinkTowards = Alignment.Bottom,
-        ),
-        content = content,
-    )
-}

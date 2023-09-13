@@ -14,6 +14,7 @@ enum class Components(val label: String) {
     INPUT_NUMBER("Input Number"),
     INPUT_LETTER("Input Letter"),
     BOTTOM_SHEET_HEADER("Bottom Sheet Header"),
+    BOTTOM_SHEET("Bottom Sheet "),
     TAGS("Tags"),
     SECTIONS("Sections"),
     RADIO("Radio"),

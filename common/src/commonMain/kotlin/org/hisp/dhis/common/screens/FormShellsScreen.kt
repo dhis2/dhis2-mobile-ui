@@ -10,12 +10,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import org.hisp.dhis.common.screens.previews.lorem
+import org.hisp.dhis.common.screens.previews.regularLegendList
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.Description
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.InputText
 import org.hisp.dhis.mobile.ui.designsystem.component.LegendData
-import org.hisp.dhis.mobile.ui.designsystem.component.LegendDescriptionData
 import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
 import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextData
 import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextState
@@ -28,68 +28,6 @@ fun FormShellsScreen() {
     ColumnComponentContainer(title = "Form Shells") {
         SubTitle("Outer frames for form elements", TextColor.OnSurface)
         Description("Focused/Unfocused", TextColor.OnSurface)
-        val legendDescriptionData = listOf(
-            LegendDescriptionData(
-                SurfaceColor.CustomGreen,
-                "Low",
-                IntRange(0, 5),
-            ),
-            LegendDescriptionData(
-                SurfaceColor.CustomYellow,
-                "Medium",
-                IntRange(5, 10),
-            ),
-            LegendDescriptionData(
-                TextColor.OnWarning,
-                "High",
-                IntRange(10, 20),
-            ),
-            LegendDescriptionData(
-                SurfaceColor.CustomPink,
-                "Very high",
-                IntRange(20, 40),
-            ),
-            LegendDescriptionData(
-                SurfaceColor.CustomBrown,
-                "Extreme",
-                IntRange(40, 120),
-            ),
-            LegendDescriptionData(
-                SurfaceColor.CustomGray,
-                text = lorem,
-                IntRange(120, 1000),
-            ),
-            LegendDescriptionData(
-                SurfaceColor.CustomGreen,
-                "Low",
-                IntRange(0, 5),
-            ),
-            LegendDescriptionData(
-                SurfaceColor.CustomYellow,
-                "Medium",
-                IntRange(5, 10),
-            ),
-            LegendDescriptionData(
-                TextColor.OnWarning,
-                "High",
-                IntRange(10, 20),
-            ),
-            LegendDescriptionData(
-                SurfaceColor.CustomPink,
-                "Very high",
-                IntRange(20, 40),
-            ),
-            LegendDescriptionData(
-                SurfaceColor.CustomBrown,
-                "Extreme",
-                IntRange(40, 120),
-            ),
-            LegendDescriptionData(
-                SurfaceColor.CustomGray,
-                text = lorem,
-                IntRange(120, 1000),
-            ),
-        )
         var inputValue1 by rememberSaveable { mutableStateOf("Input") }
 
         InputText(
@@ -319,7 +257,7 @@ fun FormShellsScreen() {
         InputText(
             "Label",
             inputText = inputValue14,
-            legendData = LegendData(SurfaceColor.CustomGreen, "Legend", popUpLegendDescriptionData = legendDescriptionData),
+            legendData = LegendData(SurfaceColor.CustomGreen, "Legend", popUpLegendDescriptionData = regularLegendList),
             onValueChanged = {
                 if (it != null) {
                     inputValue14 = it
@@ -331,7 +269,7 @@ fun FormShellsScreen() {
         InputText(
             "Label",
             inputText = inputValue15,
-            legendData = LegendData(SurfaceColor.CustomYellow, "Legend", popUpLegendDescriptionData = legendDescriptionData),
+            legendData = LegendData(SurfaceColor.CustomYellow, "Legend", popUpLegendDescriptionData = regularLegendList),
             onValueChanged = {
                 if (it != null) {
                     inputValue15 = it
@@ -345,7 +283,7 @@ fun FormShellsScreen() {
         InputText(
             "Label",
             inputText = inputValue16,
-            legendData = LegendData(SurfaceColor.CustomYellow, "Legend", popUpLegendDescriptionData = legendDescriptionData),
+            legendData = LegendData(SurfaceColor.CustomYellow, "Legend", popUpLegendDescriptionData = regularLegendList),
             supportingText = listOf(
                 SupportingTextData(
                     "Supporting Text",
