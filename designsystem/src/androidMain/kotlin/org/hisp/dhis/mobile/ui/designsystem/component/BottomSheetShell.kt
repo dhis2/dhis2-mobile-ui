@@ -21,7 +21,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
@@ -76,7 +75,7 @@ actual fun BottomSheetShell(
             modifier = Modifier
                 .background(SurfaceColor.SurfaceBright, Shape.ExtraLargeTop)
                 .padding(Spacing.Spacing24)
-                .heightIn(Spacing.Spacing0, 800.dp)
+                .heightIn(Spacing.Spacing0, InternalSizeValues.Size800)
                 .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
@@ -91,20 +90,23 @@ actual fun BottomSheetShell(
             searchBar?.invoke()
             HorizontalDivider(
                 modifier = Modifier.fillMaxWidth()
-                    .padding(top = Spacing.Spacing8, bottom = Spacing.Spacing8),
+                    .padding(top = Spacing.Spacing24),
                 color = TextColor.OnDisabledSurface,
             )
-            Box(modifier = Modifier.align(Alignment.Start).heightIn(Spacing.Spacing0, InternalSizeValues.Size386)) {
+            Box(
+                modifier = Modifier.align(Alignment.Start)
+                    .heightIn(Spacing.Spacing0, InternalSizeValues.Size386)
+                    .padding(bottom = Spacing.Spacing24),
+            ) {
                 Column(
                     modifier = Modifier
                         .verticalScroll(rememberScrollState())
-                        .padding(bottom = Spacing.Spacing24)
                         .fillMaxHeight(1f),
                 ) {
                     content?.let {
                         it.invoke()
                         HorizontalDivider(
-                            modifier = Modifier.fillMaxWidth().padding(Spacing.Spacing8),
+                            modifier = Modifier.fillMaxWidth().padding(top = Spacing.Spacing8),
                             color = TextColor.OnDisabledSurface,
                         )
                     }
