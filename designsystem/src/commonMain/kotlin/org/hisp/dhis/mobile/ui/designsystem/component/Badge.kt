@@ -4,13 +4,13 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
@@ -25,14 +25,15 @@ fun Badge(
     Box(
         modifier
             .defaultMinSize(Spacing.Spacing6, Spacing.Spacing6)
-            .background(color, RoundedCornerShape(Spacing.Spacing24)),
+            .background(color, CircleShape),
     ) {
         text?.let {
             Text(
                 modifier = Modifier
                     .padding(horizontal = Spacing.Spacing4)
-                    .align(Alignment.Center),
+                    .padding(bottom = Spacing.Spacing1),
                 text = it,
+                textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.labelSmall.copy(color = textColor),
             )
         }

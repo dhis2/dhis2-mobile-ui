@@ -45,6 +45,7 @@ fun Chip(
                 label = { Text(label) },
                 selected = isSelected,
                 colors = FilterChipDefaults.filterChipColors(
+                    containerColor = SurfaceColor.SurfaceBright,
                     selectedContainerColor = SurfaceColor.Container,
                 ),
                 leadingIcon = if (isSelected) {
