@@ -1,10 +1,14 @@
 package org.hisp.dhis.common.screens
 
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.LegendDescriptionData
 import org.hisp.dhis.mobile.ui.designsystem.component.LegendRange
 import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
+import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
@@ -29,6 +33,7 @@ fun LegendDescriptionScreen() {
                 ),
             ),
         )
+        Spacer(Modifier.size(Spacing.Spacing18))
 
         SubTitle("Legend Block")
         LegendRange(

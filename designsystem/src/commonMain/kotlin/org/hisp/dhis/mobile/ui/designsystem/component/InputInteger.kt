@@ -1,23 +1,14 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Cancel
-import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusDirection
-import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import org.hisp.dhis.mobile.ui.designsystem.component.internal.RegExValidations
 
 /**
- * DHIS2 Input Integer. Wraps DHIS · [InputShell].
+ * DHIS2 Input Integer. Wraps DHIS · [BasicTextInput].
  * Only positive or negative integers allowed, excluding 0
  * @param title controls the text to be shown for the title
  * @param state Manages the InputShell state
@@ -44,71 +35,18 @@ fun InputInteger(
     imeAction: ImeAction = ImeAction.Next,
     modifier: Modifier = Modifier,
 ) {
-    val inputValue by remember(inputText) { mutableStateOf(inputText) }
-
-    var deleteButtonIsVisible by remember { mutableStateOf(!inputText.isNullOrEmpty() && state != InputShellState.DISABLED) }
-    val focusManager = LocalFocusManager.current
-    val pattern = remember { Regex("^-?(?!0)\\d*") }
-    val keyboardOptions = KeyboardOptions(imeAction = imeAction, keyboardType = KeyboardType.Number)
-    InputShell(
-        modifier = modifier.testTag("INPUT_INTEGER"),
-        isRequiredField = isRequiredField,
+    BasicTextInput(
         title = title,
-        primaryButton = {
-            if (deleteButtonIsVisible) {
-                IconButton(
-                    modifier = Modifier.testTag("INPUT_INTEGER_RESET_BUTTON"),
-                    icon = {
-                        Icon(
-                            imageVector = Icons.Outlined.Cancel,
-                            contentDescription = "Icon Button",
-                        )
-                    },
-                    onClick = {
-                        onValueChanged?.invoke("")
-                        deleteButtonIsVisible = false
-                    },
-                    enabled = state != InputShellState.DISABLED,
-                )
-            }
-        },
         state = state,
-        legend = {
-            legendData?.let {
-                Legend(legendData, Modifier.testTag("INPUT_INTEGER_LEGEND"))
-            }
-        },
-        supportingText = {
-            supportingText?.forEach {
-                    label ->
-                SupportingText(
-                    label.text,
-                    label.state,
-                    modifier = Modifier.testTag("INPUT_INTEGER_SUPPORTING_TEXT"),
-                )
-            }
-        },
-        inputField = {
-            BasicInput(
-                modifier = Modifier.testTag("INPUT_INTEGER_FIELD"),
-                inputText = inputValue ?: "",
-                onInputChanged = {
-                    if (it.matches(pattern) || it.isEmpty()) {
-                        onValueChanged?.invoke(it)
-                        deleteButtonIsVisible = it.isNotEmpty()
-                    }
-                },
-                enabled = state != InputShellState.DISABLED,
-                state = state,
-                keyboardOptions = keyboardOptions,
-                onNextClicked = {
-                    if (onNextClicked != null) {
-                        onNextClicked.invoke()
-                    } else {
-                        focusManager.moveFocus(FocusDirection.Down)
-                    }
-                },
-            )
-        },
+        supportingText = supportingText,
+        legendData = legendData,
+        inputText = inputText,
+        isRequiredField = isRequiredField,
+        onNextClicked = onNextClicked,
+        onValueChanged = onValueChanged,
+        keyboardOptions = KeyboardOptions(imeAction = imeAction, keyboardType = KeyboardType.Number),
+        allowedCharacters = RegExValidations.ONLY_INTEGERS.regex,
+        modifier = modifier,
+        testTag = "INTEGER",
     )
 }

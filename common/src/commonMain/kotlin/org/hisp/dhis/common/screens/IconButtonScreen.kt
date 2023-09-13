@@ -2,7 +2,10 @@ package org.hisp.dhis.common.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.hisp.dhis.common.screens.previews.IconButtonPreview
 import org.hisp.dhis.common.screens.previews.SquareIconButtonPreview
@@ -10,6 +13,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.IconButtonStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.RowComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.Title
+import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
 @Composable
 fun IconButtonScreen() {
@@ -24,6 +28,7 @@ fun IconButtonScreen() {
                     SquareIconButtonPreview(false)
                 },
             )
+            Spacer(Modifier.size(Spacing.Spacing18))
 
             // IconButton
             RowComponentContainer(
@@ -33,6 +38,7 @@ fun IconButtonScreen() {
                     IconButtonPreview(false)
                 },
             )
+            Spacer(Modifier.size(Spacing.Spacing18))
 
             RowComponentContainer(
                 title = "Filled",
@@ -45,6 +51,8 @@ fun IconButtonScreen() {
                     }
                 },
             )
+            Spacer(Modifier.size(Spacing.Spacing18))
+
             RowComponentContainer(
                 title = "Tonal",
                 content = {
@@ -56,6 +64,8 @@ fun IconButtonScreen() {
                     }
                 },
             )
+            Spacer(Modifier.size(Spacing.Spacing18))
+
             RowComponentContainer(
                 title = "Outlined",
                 content = {

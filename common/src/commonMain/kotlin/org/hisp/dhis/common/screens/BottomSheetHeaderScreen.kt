@@ -2,6 +2,8 @@ package org.hisp.dhis.common.screens
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.BookmarkBorder
 import androidx.compose.material.icons.outlined.HelpOutline
@@ -16,7 +18,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
 @Composable
-fun BottomSheetScreen() {
+fun BottomSheetHeaderScreen() {
     ColumnComponentContainer(title = "Bottom Sheet Header") {
         SubTitle("With Icon", TextColor.OnSurface)
         Box(modifier = Modifier.border(Spacing.Spacing1, color = TextColor.OnDisabledSurface)) {
@@ -33,6 +35,8 @@ fun BottomSheetScreen() {
                 },
             )
         }
+        Spacer(Modifier.size(Spacing.Spacing18))
+
         SubTitle("Without Icon", TextColor.OnSurface)
 
         Box(modifier = Modifier.border(Spacing.Spacing1, color = TextColor.OnDisabledSurface)) {
@@ -42,6 +46,8 @@ fun BottomSheetScreen() {
                 description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce convallis, urna vitae lacinia feugiat",
             )
         }
+        Spacer(Modifier.size(Spacing.Spacing18))
+
         SubTitle("Without Icon, without subtitle", TextColor.OnSurface)
 
         Box(modifier = Modifier.border(Spacing.Spacing1, color = TextColor.OnDisabledSurface)) {
@@ -50,6 +56,8 @@ fun BottomSheetScreen() {
                 description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce convallis, urna vitae lacinia feugiat",
             )
         }
+        Spacer(Modifier.size(Spacing.Spacing18))
+
         SubTitle("Without Icon, subtitle or description", TextColor.OnSurface)
 
         Box(modifier = Modifier.border(Spacing.Spacing1, color = TextColor.OnDisabledSurface)) {
@@ -57,6 +65,8 @@ fun BottomSheetScreen() {
                 title = "Title",
             )
         }
+        Spacer(Modifier.size(Spacing.Spacing18))
+
         SubTitle("With Icon, without subtitle or description", TextColor.OnSurface)
 
         Box(modifier = Modifier.border(Spacing.Spacing1, color = TextColor.OnDisabledSurface)) {

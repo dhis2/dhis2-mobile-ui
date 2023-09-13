@@ -56,8 +56,8 @@ fun RowComponentContainer(
         SubTitle(title)
     }
     Row(
+        modifier = modifier,
         horizontalArrangement = Arrangement.spacedBy(Spacing.Spacing10),
-        modifier = modifier.padding(Spacing.Spacing10),
     ) {
         content()
     }

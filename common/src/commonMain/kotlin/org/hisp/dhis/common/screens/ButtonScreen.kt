@@ -1,6 +1,9 @@
 package org.hisp.dhis.common.screens
 
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import org.hisp.dhis.common.screens.previews.ButtonPreview
 import org.hisp.dhis.common.screens.previews.ButtonPreviewWithIcon
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonStyle
@@ -8,6 +11,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.RowComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
 import org.hisp.dhis.mobile.ui.designsystem.component.Title
+import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
 @Composable
 fun ButtonScreen() {
@@ -22,6 +26,8 @@ fun ButtonScreen() {
             ButtonPreviewWithIcon("Label", ButtonStyle.FILLED)
             ButtonPreviewWithIcon("Label", ButtonStyle.FILLED, false)
         }
+
+        Spacer(Modifier.size(Spacing.Spacing18))
         SubTitle("Outlined")
         RowComponentContainer() {
             ButtonPreview("Label")
@@ -31,6 +37,8 @@ fun ButtonScreen() {
             ButtonPreviewWithIcon("Label")
             ButtonPreviewWithIcon("Label", ButtonStyle.OUTLINED, false)
         }
+        Spacer(Modifier.size(Spacing.Spacing18))
+
         SubTitle("Text")
         RowComponentContainer() {
             ButtonPreview("Label", ButtonStyle.TEXT)
@@ -40,6 +48,8 @@ fun ButtonScreen() {
             ButtonPreviewWithIcon("Label", ButtonStyle.TEXT)
             ButtonPreviewWithIcon("Label", ButtonStyle.TEXT, false)
         }
+        Spacer(Modifier.size(Spacing.Spacing18))
+
         SubTitle("Elevated")
         RowComponentContainer() {
             ButtonPreview("Label", ButtonStyle.ELEVATED)
@@ -49,6 +59,8 @@ fun ButtonScreen() {
             ButtonPreviewWithIcon("Label", ButtonStyle.ELEVATED)
             ButtonPreviewWithIcon("Label", ButtonStyle.ELEVATED, false)
         }
+        Spacer(Modifier.size(Spacing.Spacing18))
+
         SubTitle("Tonal")
         RowComponentContainer() {
             ButtonPreview("Label", ButtonStyle.TONAL)
@@ -58,6 +70,8 @@ fun ButtonScreen() {
             ButtonPreviewWithIcon("Label", ButtonStyle.TONAL)
             ButtonPreviewWithIcon("Label", ButtonStyle.TONAL, false)
         }
+        Spacer(Modifier.size(Spacing.Spacing18))
+
         SubTitle("Keyboard")
         RowComponentContainer() {
             ButtonPreview("Label", ButtonStyle.KEYBOARDKEY)

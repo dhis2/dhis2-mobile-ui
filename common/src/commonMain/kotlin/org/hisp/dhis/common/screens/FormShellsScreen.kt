@@ -1,11 +1,15 @@
 package org.hisp.dhis.common.screens
 
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
+import org.hisp.dhis.common.screens.previews.lorem
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.Description
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
@@ -14,6 +18,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.LegendData
 import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
 import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextData
 import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextState
+import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
@@ -33,6 +38,7 @@ fun FormShellsScreen() {
                 }
             },
         )
+        Spacer(Modifier.size(Spacing.Spacing18))
 
         Description("Focused/Unfocused with content", TextColor.OnSurface)
 
@@ -47,6 +53,7 @@ fun FormShellsScreen() {
             },
 
         )
+        Spacer(Modifier.size(Spacing.Spacing18))
 
         Description("Error", TextColor.OnSurface)
         var inputValue3 by rememberSaveable { mutableStateOf("") }
@@ -60,6 +67,7 @@ fun FormShellsScreen() {
                 }
             },
         )
+        Spacer(Modifier.size(Spacing.Spacing18))
 
         Description("Error with content", TextColor.OnSurface)
         var inputValue4 by rememberSaveable { mutableStateOf("Input") }
@@ -74,6 +82,7 @@ fun FormShellsScreen() {
                 }
             },
         )
+        Spacer(Modifier.size(Spacing.Spacing18))
 
         Description("Disabled", TextColor.OnSurface)
         var inputValue5 by rememberSaveable { mutableStateOf("") }
@@ -87,6 +96,7 @@ fun FormShellsScreen() {
                 }
             },
         )
+        Spacer(Modifier.size(Spacing.Spacing18))
 
         Description("Disabled with content", TextColor.OnSurface)
         var inputValue6 by rememberSaveable { mutableStateOf("Input") }
@@ -100,6 +110,7 @@ fun FormShellsScreen() {
                 }
             },
         )
+        Spacer(Modifier.size(Spacing.Spacing18))
 
         Description("Required field", TextColor.OnSurface)
         var inputValue7 by rememberSaveable { mutableStateOf("") }
@@ -113,6 +124,7 @@ fun FormShellsScreen() {
                 }
             },
         )
+        Spacer(Modifier.size(Spacing.Spacing18))
 
         Description("Required field with error", TextColor.OnSurface)
         var inputValue8 by rememberSaveable { mutableStateOf("Input") }
@@ -127,6 +139,7 @@ fun FormShellsScreen() {
                 }
             },
         )
+        Spacer(Modifier.size(Spacing.Spacing18))
 
         SubTitle("Supporting text", TextColor.OnSurface)
         Description("Short text", TextColor.OnSurface)
@@ -146,6 +159,7 @@ fun FormShellsScreen() {
                 }
             },
         )
+        Spacer(Modifier.size(Spacing.Spacing18))
 
         Description("Long  text", TextColor.OnSurface)
         var inputValue10 by rememberSaveable { mutableStateOf("") }
@@ -153,11 +167,7 @@ fun FormShellsScreen() {
             "Label",
             supportingText = listOf(
                 SupportingTextData(
-                    "Lorem ipsum dolor sit amet," +
-                        " consectetur adipiscing elit. Maecenas dolor lacus," +
-                        " aliquam. Lorem ipsum dolor sit amet," +
-                        " consectetur adipiscing elit. Maecenas dolor lacus," +
-                        " aliquam.Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                    lorem,
                     SupportingTextState.DEFAULT,
                 ),
             ),
@@ -168,6 +178,8 @@ fun FormShellsScreen() {
                 }
             },
         )
+        Spacer(Modifier.size(Spacing.Spacing18))
+
         Description("Error", TextColor.OnSurface)
         var inputValue11 by rememberSaveable { mutableStateOf("Input") }
         InputText(
@@ -186,6 +198,8 @@ fun FormShellsScreen() {
                 }
             },
         )
+        Spacer(Modifier.size(Spacing.Spacing18))
+
         Description("Warning", TextColor.OnSurface)
         var inputValue12 by rememberSaveable { mutableStateOf("Input") }
         InputText(
@@ -204,6 +218,8 @@ fun FormShellsScreen() {
                 }
             },
         )
+        Spacer(Modifier.size(Spacing.Spacing18))
+
         Description("Error and Warning", TextColor.OnSurface)
         var inputValue13 by rememberSaveable { mutableStateOf("Input") }
         InputText(
@@ -211,11 +227,7 @@ fun FormShellsScreen() {
             inputText = inputValue13,
             supportingText = listOf(
                 SupportingTextData(
-                    "Lorem ipsum dolor sit amet," +
-                        " consectetur adipiscing elit. Maecenas dolor lacus," +
-                        " aliquam. Lorem ipsum dolor sit amet," +
-                        " consectetur adipiscing elit. Maecenas dolor lacus," +
-                        " aliquam.Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                    lorem,
                     SupportingTextState.DEFAULT,
                 ),
                 SupportingTextData(
@@ -234,6 +246,8 @@ fun FormShellsScreen() {
                 }
             },
         )
+        Spacer(Modifier.size(Spacing.Spacing18))
+
         SubTitle("Form with legend", TextColor.OnSurface)
 
         Description("Just legend", TextColor.OnSurface)
@@ -249,6 +263,7 @@ fun FormShellsScreen() {
                 }
             },
         )
+
         var inputValue15 by rememberSaveable { mutableStateOf("Input") }
         InputText(
             "Label",
@@ -260,6 +275,7 @@ fun FormShellsScreen() {
                 }
             },
         )
+        Spacer(Modifier.size(Spacing.Spacing18))
 
         Description("Legend and supporting text", TextColor.OnSurface)
         var inputValue16 by rememberSaveable { mutableStateOf("Input") }

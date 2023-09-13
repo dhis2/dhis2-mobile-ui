@@ -1,10 +1,13 @@
 package org.hisp.dhis.common.screens
 
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import org.hisp.dhis.common.screens.previews.RadioButtonPreview
 import org.hisp.dhis.common.screens.previews.TextRadioButtonPreview
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
@@ -13,6 +16,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.RadioButtonBlock
 import org.hisp.dhis.mobile.ui.designsystem.component.RadioButtonData
 import org.hisp.dhis.mobile.ui.designsystem.component.RowComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
+import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
 @Composable
 fun RadioButtonScreen() {
@@ -62,6 +66,7 @@ fun RadioButtonScreen() {
         TextRadioButtonPreview(selected == option4, false, option4) {
             selected = option1
         }
+        Spacer(Modifier.size(Spacing.Spacing18))
         // RadioButton
         SubTitle("Radio Button")
         RowComponentContainer {
@@ -72,11 +77,13 @@ fun RadioButtonScreen() {
             RadioButtonPreview(selected = false, enabled = true)
             RadioButtonPreview(selected = false, enabled = false)
         }
+        Spacer(Modifier.size(Spacing.Spacing18))
         // RadioButtonBlock
         SubTitle("Horizontal Radio Button Block")
         RadioButtonBlock(Orientation.HORIZONTAL, radioButtonDataItemsHorizontal, selectedItemHorizontal) {
             selectedItemHorizontal = it
         }
+        Spacer(Modifier.size(Spacing.Spacing18))
         SubTitle("Vertical Radio Button Block")
         RadioButtonBlock(Orientation.VERTICAL, radioButtonDataItemsVertical, selectedItemVertical) {
             selectedItemVertical = it
