@@ -8,7 +8,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import org.hisp.dhis.mobile.ui.designsystem.component.BasicInput
+import org.hisp.dhis.mobile.ui.designsystem.component.BasicTextField
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InputStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
@@ -25,19 +25,19 @@ fun InputScreen() {
         title = "Input",
         content = {
             SubTitle("With helper before")
-            BasicInput("Helper", helperStyle = InputStyle.WITH_HELPER_BEFORE, inputText = inputValue1, onInputChanged = { inputValue1 = it })
+            BasicTextField("Helper", helperStyle = InputStyle.WITH_HELPER_BEFORE, inputText = inputValue1, onInputChanged = { inputValue1 = it })
             Spacer(Modifier.size(Spacing.Spacing18))
 
             SubTitle("With helper after")
-            BasicInput("Helper", helperStyle = InputStyle.WITH_HELPER_AFTER, inputText = inputValue2, onInputChanged = { inputValue2 = it })
+            BasicTextField("Helper", helperStyle = InputStyle.WITH_HELPER_AFTER, inputText = inputValue2, onInputChanged = { inputValue2 = it })
             Spacer(Modifier.size(Spacing.Spacing18))
             SubTitle("No helper")
-            BasicInput(inputText = inputValue3, onInputChanged = {
+            BasicTextField(inputText = inputValue3, onInputChanged = {
                 inputValue3 = it
             })
             Spacer(Modifier.size(Spacing.Spacing18))
             SubTitle("Disabled")
-            BasicInput(enabled = false, inputText = inputValue4, onInputChanged = { inputValue4 = it })
+            BasicTextField(enabled = false, inputText = inputValue4, onInputChanged = { inputValue4 = it })
         },
     )
 }

@@ -75,7 +75,7 @@ fun EmptyInput(
  */
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun BasicInput(
+fun BasicTextField(
     helper: String? = null,
     enabled: Boolean = true,
     isSingleLine: Boolean = true,

@@ -5,7 +5,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import org.hisp.dhis.common.screens.previews.InputShellPreview
-import org.hisp.dhis.mobile.ui.designsystem.component.BasicInput
+import org.hisp.dhis.mobile.ui.designsystem.component.BasicTextField
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.InputStyle
@@ -16,7 +16,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 fun FormsComponentsScreen() {
     ColumnComponentContainer("Input Shell") {
         SubTitle("Sample functional Input Shell ")
-        InputShellPreview("Label", inputField = { BasicInput("Helper", true, helperStyle = InputStyle.WITH_HELPER_BEFORE, onInputChanged = {}) })
+        InputShellPreview("Label", inputField = { BasicTextField("Helper", true, helperStyle = InputStyle.WITH_HELPER_BEFORE, onInputChanged = {}) })
         Spacer(Modifier.size(Spacing.Spacing18))
         SubTitle("Unfocused Input shell ")
         InputShellPreview("Label")

@@ -8,7 +8,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.RegExValidations
 
 /**
- * DHIS2 Input Number. Wraps DHIS · [InputShell].
+ * DHIS2 Input Number. Wraps DHIS · [BasicTextInput].
  * Input that allows only numeric values.
  * @param title controls the text to be shown for the title
  * @param state Manages the InputShell state
@@ -38,7 +38,7 @@ fun InputNumber(
     notation: RegExValidations = RegExValidations.EUROPEAN_DECIMAL_NOTATION,
     modifier: Modifier = Modifier,
 ) {
-    GenericInput(
+    BasicTextInput(
         title = title,
         state = state,
         supportingText = supportingText,

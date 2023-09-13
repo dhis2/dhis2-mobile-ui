@@ -6,7 +6,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 
 /**
- * DHIS2 Input Long Text. Wraps DHIS · [InputShell].
+ * DHIS2 Input Long Text. Wraps DHIS · [BasicTextInput].
  * @param title controls the text to be shown for the title
  * @param state Manages the InputShell state
  * @param supportingText is a list of SupportingTextData that
@@ -32,7 +32,7 @@ fun InputLongText(
     imeAction: ImeAction = ImeAction.Next,
     modifier: Modifier = Modifier,
 ) {
-    GenericInput(
+    BasicTextInput(
         title = title,
         state = state,
         supportingText = supportingText,

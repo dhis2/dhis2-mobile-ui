@@ -8,7 +8,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.RegExValidations
 
 /**
- * DHIS2 Input positive Integer or zero. Wraps DHIS · [InputShell].
+ * DHIS2 Input positive Integer or zero. Wraps DHIS · [BasicTextInput].
  * Only positive integers allowed, including 0
  * @param title controls the text to be shown for the title
  * @param state Manages the InputShell state
@@ -35,7 +35,7 @@ fun InputPositiveIntegerOrZero(
     imeAction: ImeAction = ImeAction.Next,
     modifier: Modifier = Modifier,
 ) {
-    GenericInput(
+    BasicTextInput(
         title = title,
         state = state,
         supportingText = supportingText,

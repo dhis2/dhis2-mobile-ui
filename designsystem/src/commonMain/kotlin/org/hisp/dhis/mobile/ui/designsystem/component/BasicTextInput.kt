@@ -17,8 +17,9 @@ import org.hisp.dhis.mobile.ui.designsystem.component.internal.RegExValidations
 import java.util.Locale
 
 /**
- * DHIS2 Input positive Integer. Wraps DHIS · [InputShell].
- * Only positive integers allowed, excluding 0
+ * DHIS2 BasicTextInput. Wraps DHIS · [InputShell].
+ * Generic text input component that allows for all the different
+ * implementations needed
  * @param title controls the text to be shown for the title
  * @param state Manages the InputShell state
  * @param supportingText is a list of SupportingTextData that
@@ -32,7 +33,7 @@ import java.util.Locale
  * @param modifier allows a modifier to be passed externally
  */
 @Composable
-internal fun GenericInput(
+internal fun BasicTextInput(
     title: String,
     state: InputShellState = InputShellState.UNFOCUSED,
     supportingText: List<SupportingTextData>? = null,
@@ -92,7 +93,7 @@ internal fun GenericInput(
             }
         },
         inputField = {
-            BasicInput(
+            BasicTextField(
                 modifier = Modifier.testTag("INPUT_" + testTag + "_FIELD"),
                 inputText = inputValue ?: "",
                 helper = helper,

@@ -8,7 +8,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.RegExValidations
 
 /**
- * DHIS2 Input negative Integer. Wraps DHIS · [InputShell].
+ * DHIS2 Input negative Integer. Wraps DHIS · [BasicTextInput].
  * Only negative integers allowed
  * @param title controls the text to be shown for the title
  * @param state Manages the InputShell state
@@ -35,7 +35,7 @@ fun InputNegativeInteger(
     imeAction: ImeAction = ImeAction.Next,
     modifier: Modifier = Modifier,
 ) {
-    GenericInput(
+    BasicTextInput(
         title = title,
         state = state,
         supportingText = supportingText,

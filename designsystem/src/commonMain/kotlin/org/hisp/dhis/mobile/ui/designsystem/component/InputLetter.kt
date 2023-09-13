@@ -9,7 +9,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.RegExValidations
 
 /**
- * DHIS2 Input Letter. Wraps DHIS · [InputShell].
+ * DHIS2 Input Letter. Wraps DHIS · [BasicTextInput].
  * Component that only allows a single character,
  * must be a single letter
  * @param title controls the text to be shown for the title
@@ -33,7 +33,7 @@ fun InputLetter(
     imeAction: ImeAction = ImeAction.Next,
     modifier: Modifier = Modifier,
 ) {
-    GenericInput(
+    BasicTextInput(
         title = title,
         state = state,
         supportingText = supportingText,
