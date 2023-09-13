@@ -1,5 +1,6 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -19,6 +20,7 @@ import androidx.compose.ui.platform.testTag
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.Ripple
+import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
@@ -151,6 +153,27 @@ fun RadioButtonBlock(
                 }
             },
         )
+    }
+}
+
+@Composable
+fun AgeFieldHelper(
+    orientation: Orientation,
+    options: List<RadioButtonData>,
+    optionSelected: RadioButtonData,
+    onClick: (RadioButtonData) -> Unit,
+) {
+    RowComponentContainer(
+        modifier = Modifier
+            .padding(
+                start = Spacing.Spacing8,
+                end = Spacing.Spacing8,
+            )
+            .background(color = SurfaceColor.Surface, Shape.SmallBottom),
+    ) {
+        RadioButtonBlock(orientation, options, optionSelected) {
+            onClick
+        }
     }
 }
 
