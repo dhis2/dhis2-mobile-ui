@@ -25,4 +25,5 @@ enum class Components(val label: String) {
     LEGEND_DESCRIPTION("Legend description"),
     INPUT("Input"),
     BUTTON_BLOCK("Button block"),
+    ICON_CARDS("Icon Cards"),
 }
