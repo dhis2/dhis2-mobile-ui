@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import org.hisp.dhis.common.screens.previews.RadioButtonPreview
 import org.hisp.dhis.common.screens.previews.TextRadioButtonPreview
 import org.hisp.dhis.mobile.ui.designsystem.component.AgeFieldHelper
+import org.hisp.dhis.mobile.ui.designsystem.component.AgeFieldHelperValues
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.Orientation
 import org.hisp.dhis.mobile.ui.designsystem.component.RadioButtonBlock
@@ -45,9 +46,9 @@ fun RadioButtonScreen() {
     )
 
     val ageFieldHelperHorizontal = listOf(
-        RadioButtonData("0", selected = true, enabled = true, textInput = "Years"),
-        RadioButtonData("1", selected = false, enabled = true, textInput = "Months"),
-        RadioButtonData("2", selected = false, enabled = true, textInput = "Days"),
+        RadioButtonData("0", selected = true, enabled = true, textInput = AgeFieldHelperValues.YEARS.value),
+        RadioButtonData("1", selected = false, enabled = true, textInput = AgeFieldHelperValues.MONTHS.value),
+        RadioButtonData("2", selected = false, enabled = true, textInput = AgeFieldHelperValues.DAYS.value),
     )
 
     var selectedItemVertical by remember {
@@ -100,7 +101,7 @@ fun RadioButtonScreen() {
             selectedItemVertical = it
         }
         SubTitle("Horizontal Age Field Helper")
-        AgeFieldHelper(Orientation.HORIZONTAL, ageFieldHelperHorizontal, selectedFieldHorizontal) {
+        AgeFieldHelper(Orientation.HORIZONTAL, AgeFieldHelperValues.YEARS.value) {
             selectedFieldHorizontal = it
         }
     }
