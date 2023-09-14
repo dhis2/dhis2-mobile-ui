@@ -25,7 +25,7 @@ object Color {
     internal val Red800: Color = Color(0xFF9D1F1A)
     internal val Red900: Color = Color(0xFF731814)
     internal val Charcoal200: Color = Color(0xFF93A1B0)
-    internal val Charcoal300: Color = Color(0xFF748494)
+    internal val Charcoal300: Color = Color(0xFF667685)
     internal val Charcoal400: Color = Color(0xFF556575)
     internal val Charcoal500: Color = Color(0xFF405261)
     internal val Charcoal600: Color = Color(0xFF314351)
