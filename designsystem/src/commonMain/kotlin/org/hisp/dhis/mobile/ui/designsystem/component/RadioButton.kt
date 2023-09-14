@@ -15,6 +15,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.Ripple
@@ -66,7 +67,8 @@ fun RadioButton(
                 interactionSource = interactionSource,
                 modifier = Modifier
                     .size(InternalSizeValues.Size40)
-                    .hoverPointerIcon(radioButtonData.enabled),
+                    .hoverPointerIcon(radioButtonData.enabled)
+                    .testTag("RADIO_BUTTON_${radioButtonData.uid}"),
                 colors = RadioButtonDefaults.colors(
                     selectedColor = SurfaceColor.Primary,
                     unselectedColor = Outline.Dark,
