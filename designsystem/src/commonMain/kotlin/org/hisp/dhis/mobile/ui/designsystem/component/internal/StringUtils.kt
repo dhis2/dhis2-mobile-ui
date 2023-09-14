@@ -4,7 +4,7 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.input.OffsetMapping
 import androidx.compose.ui.text.input.TransformedText
 import androidx.compose.ui.text.input.VisualTransformation
-import org.hisp.dhis.mobile.ui.designsystem.theme.DHISTypographyTheme
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2SCustomTextStyles
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
 internal class PrefixTransformation(private val prefix: String, val enabled: Boolean) : VisualTransformation {
@@ -16,12 +16,12 @@ internal class PrefixTransformation(private val prefix: String, val enabled: Boo
 internal fun prefixFilter(text: AnnotatedString, prefix: String, enabled: Boolean = true): TransformedText {
     val out = AnnotatedString(
         "$prefix ",
-        spanStyle = DHISTypographyTheme.inputFieldHelper,
+        spanStyle = DHIS2SCustomTextStyles.inputFieldHelper,
     )
         .plus(
             AnnotatedString(
                 text.text,
-                spanStyle = DHISTypographyTheme.inputField.copy(color = if (enabled) TextColor.OnSurface else TextColor.OnDisabledSurface),
+                spanStyle = DHIS2SCustomTextStyles.inputField.copy(color = if (enabled) TextColor.OnSurface else TextColor.OnDisabledSurface),
             ),
         )
     val prefixOffset = prefix.length + 1
@@ -44,7 +44,7 @@ internal class SuffixTransformer(val suffix: String) : VisualTransformation {
     override fun filter(text: AnnotatedString): TransformedText {
         val result = text + AnnotatedString(
             " $suffix",
-            spanStyle = DHISTypographyTheme.inputFieldHelper,
+            spanStyle = DHIS2SCustomTextStyles.inputFieldHelper,
         )
 
         val textWithSuffixMapping = object : OffsetMapping {

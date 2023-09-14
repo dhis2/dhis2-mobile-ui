@@ -135,7 +135,7 @@ fun DHIS2Theme(content: @Composable () -> Unit) {
     )
 }
 
-internal object DHISTypographyTheme {
+internal object DHIS2SCustomTextStyles {
 
     val titleBold = TextStyle(
         fontSize = 16.sp,

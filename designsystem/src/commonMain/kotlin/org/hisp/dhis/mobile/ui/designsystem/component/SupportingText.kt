@@ -25,7 +25,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.launch
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
-import org.hisp.dhis.mobile.ui.designsystem.theme.DHISTypographyTheme
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2SCustomTextStyles
 import org.hisp.dhis.mobile.ui.designsystem.theme.Ripple
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
@@ -63,8 +63,8 @@ fun SupportingText(
 ) {
     var isExpanded by remember { mutableStateOf(false) }
     val textLayoutResultState = remember { mutableStateOf<TextLayoutResult?>(null) }
-    val nonClickableTextStyle = DHISTypographyTheme.regularSupportingText.copy(color = state.color)
-    val clickableTextStyle = DHISTypographyTheme.clickableSupportingText.copy(color = state.color)
+    val nonClickableTextStyle = DHIS2SCustomTextStyles.regularSupportingText.copy(color = state.color)
+    val clickableTextStyle = DHIS2SCustomTextStyles.clickableSupportingText.copy(color = state.color)
     var isClickable by remember { mutableStateOf(false) }
     var annotatedText by remember {
         mutableStateOf(
