@@ -11,8 +11,8 @@ import androidx.compose.ui.graphics.Color
 import org.hisp.dhis.mobile.ui.designsystem.component.AvatarSize
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.IconCardData
-import org.hisp.dhis.mobile.ui.designsystem.component.InputIconCard
-import org.hisp.dhis.mobile.ui.designsystem.component.IconCardLayoutType
+import org.hisp.dhis.mobile.ui.designsystem.component.InputMatrix
+import org.hisp.dhis.mobile.ui.designsystem.component.InputSequential
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.MetadataAvatar
 import org.hisp.dhis.mobile.ui.designsystem.component.RowComponentContainer
@@ -111,11 +111,10 @@ fun IconCardsScreen() {
             )
         }
 
-        InputIconCard(
+        InputMatrix(
             title = "Label",
             data = inputCardData,
             selectedData = matrixSelectedItem,
-            layoutType = IconCardLayoutType.Matrix(),
             onSelectionChanged = { newSelectedItem ->
                 matrixSelectedItem = if (matrixSelectedItem == newSelectedItem) {
                     null
@@ -125,22 +124,21 @@ fun IconCardsScreen() {
             },
         )
 
-        InputIconCard(
+        InputMatrix(
             title = "Label",
             data = inputCardData,
             selectedData = matrixSelectedItem,
             state = InputShellState.DISABLED,
-            layoutType = IconCardLayoutType.Matrix(itemCount = 3),
+            itemCount = 3,
             onSelectionChanged = {
                 // no-op
             },
         )
 
-        InputIconCard(
+        InputSequential(
             title = "Label",
             data = inputCardData,
             selectedData = sequentialSelectedItem,
-            layoutType = IconCardLayoutType.Sequential,
             onSelectionChanged = { newSelectedItem ->
                 sequentialSelectedItem = if (matrixSelectedItem == newSelectedItem) {
                     null
@@ -150,11 +148,10 @@ fun IconCardsScreen() {
             },
         )
 
-        InputIconCard(
+        InputSequential(
             title = "Label",
             data = inputCardData,
             selectedData = sequentialSelectedItem,
-            layoutType = IconCardLayoutType.Sequential,
             state = InputShellState.DISABLED,
             onSelectionChanged = {
                 // no-op

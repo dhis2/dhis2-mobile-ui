@@ -25,8 +25,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
-import org.hisp.dhis.mobile.ui.designsystem.component.IconCardLayoutType.Matrix
-import org.hisp.dhis.mobile.ui.designsystem.component.IconCardLayoutType.Sequential
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState.UNFOCUSED
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.VerticalGrid
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
@@ -38,7 +36,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.bottomShadow
 
 /**
- * DHIS2 icon card input component
+ * DHIS2 icon card matrix input component
  * @param title: Label of the component
  * @param data: List of [IconCardData] to show
  * @param layoutType: [IconCardLayoutType] to render list in, Matrix or Sequential. Default is [IconCardLayoutType.Matrix]
@@ -50,10 +48,10 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.bottomShadow
  * @param onSelectionChanged: Callback to receive new selected item
  */
 @Composable
-fun InputIconCard(
+fun InputMatrix(
     title: String,
     data: List<IconCardData>,
-    layoutType: IconCardLayoutType,
+    itemCount: Int = 2,
     selectedData: IconCardData? = null,
     modifier: Modifier = Modifier,
     state: InputShellState = UNFOCUSED,
@@ -71,21 +69,29 @@ fun InputIconCard(
         secondaryButton = null,
         isRequiredField = isRequired,
         inputField = {
-            when (layoutType) {
-                is Matrix -> IconCardInputMatrix(
-                    data = data,
-                    itemCount = layoutType.itemCount,
-                    state = state,
-                    selectedData = selectedData,
-                    testTag = testTag,
-                    onSelectionChanged = onSelectionChanged,
-                )
-                is Sequential -> IconCardInputSequential(
-                    data = data,
-                    state = state,
-                    selectedData = selectedData,
-                    testTag = testTag,
-                    onSelectionChanged = onSelectionChanged,
+            VerticalGrid(
+                columns = itemCount,
+                itemCount = data.size,
+                horizontalArrangement = Arrangement.spacedBy(Spacing.Spacing8),
+                verticalArrangement = Arrangement.spacedBy(Spacing.Spacing8),
+                modifier = Modifier.padding(
+                    PaddingValues(
+                        start = Spacing.Spacing0,
+                        top = Spacing.Spacing8,
+                        end = Spacing.Spacing12,
+                        bottom = Spacing.Spacing8,
+                    ),
+                ).testTag("ICON_CARD_INPUT_MATRIX_$testTag"),
+            ) { index ->
+                val iconCardData = data[index]
+                MatrixIconCard(
+                    data = iconCardData,
+                    onClick = {
+                        onSelectionChanged(iconCardData)
+                    },
+                    selected = iconCardData == selectedData,
+                    enabled = state != InputShellState.DISABLED,
+                    modifier = Modifier.testTag("MATRIX_ICON_CARD_$testTag"),
                 )
             }
         },
@@ -106,73 +112,78 @@ fun InputIconCard(
     )
 }
 
+/**
+ * DHIS2 icon card sequential input component
+ * @param title: Label of the component
+ * @param data: List of [IconCardData] to show
+ * @param layoutType: [IconCardLayoutType] to render list in, Matrix or Sequential. Default is [IconCardLayoutType.Matrix]
+ * @param selectedData: Selected [IconCardData], renders selected UI around that item
+ * @param state: [InputShellState]
+ * @param supportingText: List of [SupportingTextData] that manages all the messages to be shown
+ * @param legendData: [LegendData] to be render below the input shell
+ * @param isRequired: Mark this input as marked
+ * @param onSelectionChanged: Callback to receive new selected item
+ */
 @Composable
-private fun IconCardInputMatrix(
+fun InputSequential(
+    title: String,
     data: List<IconCardData>,
-    itemCount: Int,
-    state: InputShellState,
-    selectedData: IconCardData?,
-    testTag: String,
+    selectedData: IconCardData? = null,
+    modifier: Modifier = Modifier,
+    state: InputShellState = UNFOCUSED,
+    supportingText: List<SupportingTextData>? = null,
+    legendData: LegendData? = null,
+    isRequired: Boolean = false,
+    testTag: String = "",
     onSelectionChanged: (IconCardData) -> Unit,
 ) {
-    VerticalGrid(
-        columns = itemCount,
-        itemCount = data.size,
-        horizontalArrangement = Arrangement.spacedBy(Spacing.Spacing8),
-        verticalArrangement = Arrangement.spacedBy(Spacing.Spacing8),
-        modifier = Modifier.padding(
-            PaddingValues(
-                start = Spacing.Spacing0,
-                top = Spacing.Spacing8,
-                end = Spacing.Spacing12,
-                bottom = Spacing.Spacing8,
-            ),
-        ).testTag("ICON_CARD_INPUT_MATRIX_$testTag"),
-    ) { index ->
-        val iconCardData = data[index]
-        MatrixIconCard(
-            data = iconCardData,
-            onClick = {
-                onSelectionChanged(iconCardData)
-            },
-            selected = iconCardData == selectedData,
-            enabled = state != InputShellState.DISABLED,
-            modifier = Modifier.testTag("MATRIX_ICON_CARD_$testTag"),
-        )
-    }
-}
-
-@Composable
-private fun IconCardInputSequential(
-    data: List<IconCardData>,
-    state: InputShellState,
-    selectedData: IconCardData?,
-    testTag: String,
-    onSelectionChanged: (IconCardData) -> Unit,
-) {
-    Column(
-        verticalArrangement = Arrangement.spacedBy(Spacing.Spacing8),
-        modifier = Modifier.padding(
-            PaddingValues(
-                start = Spacing.Spacing0,
-                top = Spacing.Spacing8,
-                end = Spacing.Spacing12,
-                bottom = Spacing.Spacing8,
-            ),
-        ).testTag("ICON_CARD_INPUT_SEQUENTIAL_$testTag"),
-    ) {
-        data.forEach { iconCardData ->
-            SequentialIconCard(
-                data = iconCardData,
-                onClick = {
-                    onSelectionChanged(iconCardData)
-                },
-                selected = iconCardData == selectedData,
-                enabled = state != InputShellState.DISABLED,
-                modifier = Modifier.testTag("SEQUENTIAL_ICON_CARD_$testTag"),
-            )
-        }
-    }
+    InputShell(
+        modifier = modifier.testTag("ICON_CARDS_INPUT_$testTag"),
+        title = title,
+        state = state,
+        primaryButton = null,
+        secondaryButton = null,
+        isRequiredField = isRequired,
+        inputField = {
+            Column(
+                verticalArrangement = Arrangement.spacedBy(Spacing.Spacing8),
+                modifier = Modifier.padding(
+                    PaddingValues(
+                        start = Spacing.Spacing0,
+                        top = Spacing.Spacing8,
+                        end = Spacing.Spacing12,
+                        bottom = Spacing.Spacing8,
+                    ),
+                ).testTag("ICON_CARD_INPUT_SEQUENTIAL_$testTag"),
+            ) {
+                data.forEach { iconCardData ->
+                    SequentialIconCard(
+                        data = iconCardData,
+                        onClick = {
+                            onSelectionChanged(iconCardData)
+                        },
+                        selected = iconCardData == selectedData,
+                        enabled = state != InputShellState.DISABLED,
+                        modifier = Modifier.testTag("SEQUENTIAL_ICON_CARD_$testTag"),
+                    )
+                }
+            }
+        },
+        supportingText = {
+            supportingText?.forEach { label ->
+                SupportingText(
+                    label.text,
+                    label.state,
+                    modifier = Modifier.testTag("ICON_CARDS_INPUT_" + testTag + "_SUPPORTING_TEXT"),
+                )
+            }
+        },
+        legend = {
+            legendData?.let {
+                Legend(legendData, Modifier.testTag("ICON_CARDS_INPUT_" + testTag + "_LEGEND"))
+            }
+        },
+    )
 }
 
 @Composable
@@ -337,8 +348,3 @@ data class IconCardData(
     val iconRes: String,
     val iconTint: Color,
 )
-
-sealed interface IconCardLayoutType {
-    data class Matrix(val itemCount: Int = 2) : IconCardLayoutType
-    data object Sequential : IconCardLayoutType
-}

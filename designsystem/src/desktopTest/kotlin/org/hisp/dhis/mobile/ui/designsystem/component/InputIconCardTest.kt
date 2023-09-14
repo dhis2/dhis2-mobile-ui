@@ -38,50 +38,14 @@ class InputIconCardTest {
     )
 
     @Test
-    fun shouldDisplayMatrixWhenLayoutTypeIsMatrix() {
-        rule.setContent {
-            InputIconCard(
-                title = "Label",
-                testTag = "TEST",
-                data = data,
-                selectedData = null,
-                layoutType = IconCardLayoutType.Matrix(2),
-                onSelectionChanged = {
-                    // no-op
-                },
-            )
-        }
-        rule.onNodeWithTag("ICON_CARD_INPUT_MATRIX_TEST").assertExists()
-        rule.onNodeWithTag("ICON_CARD_INPUT_SEQUENTIAL_TEST").assertDoesNotExist()
-    }
-
-    @Test
-    fun shouldDisplaySequentialWhenLayoutTypeIsSequential() {
-        rule.setContent {
-            InputIconCard(
-                title = "Label",
-                testTag = "TEST",
-                data = data,
-                selectedData = null,
-                layoutType = IconCardLayoutType.Sequential,
-                onSelectionChanged = {
-                    // no-op
-                },
-            )
-        }
-        rule.onNodeWithTag("ICON_CARD_INPUT_MATRIX_TEST").assertDoesNotExist()
-        rule.onNodeWithTag("ICON_CARD_INPUT_SEQUENTIAL_TEST").assertExists()
-    }
-
-    @Test
     fun shouldNotAllowMatrixUserInputWhenDisabled() {
         rule.setContent {
-            InputIconCard(
+            InputMatrix(
                 title = "Label",
                 testTag = "TEST",
                 data = data,
                 selectedData = null,
-                layoutType = IconCardLayoutType.Matrix(2),
+                itemCount = 2,
                 state = InputShellState.DISABLED,
                 onSelectionChanged = {
                     // no-op
@@ -95,12 +59,12 @@ class InputIconCardTest {
     @Test
     fun shouldAllowMatrixUserInputWhenEnabled() {
         rule.setContent {
-            InputIconCard(
+            InputMatrix(
                 title = "Label",
                 testTag = "TEST",
                 data = data,
                 selectedData = null,
-                layoutType = IconCardLayoutType.Matrix(2),
+                itemCount = 2,
                 state = InputShellState.UNFOCUSED,
                 onSelectionChanged = {
                     // no-op
@@ -114,12 +78,11 @@ class InputIconCardTest {
     @Test
     fun shouldNotAllowSequentialUserInputWhenDisabled() {
         rule.setContent {
-            InputIconCard(
+            InputSequential(
                 title = "Label",
                 testTag = "TEST",
                 data = data,
                 selectedData = null,
-                layoutType = IconCardLayoutType.Sequential,
                 state = InputShellState.DISABLED,
                 onSelectionChanged = {
                     // no-op
@@ -133,12 +96,11 @@ class InputIconCardTest {
     @Test
     fun shouldAllowSequentialUserInputWhenEnabled() {
         rule.setContent {
-            InputIconCard(
+            InputSequential(
                 title = "Label",
                 testTag = "TEST",
                 data = data,
                 selectedData = null,
-                layoutType = IconCardLayoutType.Sequential,
                 state = InputShellState.UNFOCUSED,
                 onSelectionChanged = {
                     // no-op
@@ -150,14 +112,14 @@ class InputIconCardTest {
     }
 
     @Test
-    fun shouldShowLegendCorrectly() {
+    fun shouldShowMatrixLegendCorrectly() {
         rule.setContent {
-            InputIconCard(
+            InputMatrix(
                 title = "Label",
                 testTag = "TEST",
                 data = data,
                 selectedData = null,
-                layoutType = IconCardLayoutType.Matrix(2),
+                itemCount = 2,
                 state = InputShellState.UNFOCUSED,
                 legendData = LegendData(SurfaceColor.CustomGreen, "Legend"),
                 onSelectionChanged = {
@@ -170,14 +132,52 @@ class InputIconCardTest {
     }
 
     @Test
-    fun shouldShowSupportingTextCorrectly() {
+    fun shouldShowMatrixSupportingTextCorrectly() {
         rule.setContent {
-            InputIconCard(
+            InputMatrix(
                 title = "Label",
                 testTag = "TEST",
                 data = data,
                 selectedData = null,
-                layoutType = IconCardLayoutType.Sequential,
+                state = InputShellState.UNFOCUSED,
+                supportingText = listOf(SupportingTextData("Supporting text", SupportingTextState.DEFAULT)),
+                onSelectionChanged = {
+                    // no-op
+                },
+            )
+        }
+
+        rule.onNodeWithTag("ICON_CARDS_INPUT_TEST_SUPPORTING_TEXT").assertExists()
+    }
+
+    @Test
+    fun shouldShowSequentialLegendCorrectly() {
+        rule.setContent {
+            InputMatrix(
+                title = "Label",
+                testTag = "TEST",
+                data = data,
+                selectedData = null,
+                itemCount = 2,
+                state = InputShellState.UNFOCUSED,
+                legendData = LegendData(SurfaceColor.CustomGreen, "Legend"),
+                onSelectionChanged = {
+                    // no-op
+                },
+            )
+        }
+
+        rule.onNodeWithTag("ICON_CARDS_INPUT_TEST_LEGEND").assertExists()
+    }
+
+    @Test
+    fun shouldShowSequentialSupportingTextCorrectly() {
+        rule.setContent {
+            InputSequential(
+                title = "Label",
+                testTag = "TEST",
+                data = data,
+                selectedData = null,
                 state = InputShellState.UNFOCUSED,
                 supportingText = listOf(SupportingTextData("Supporting text", SupportingTextState.DEFAULT)),
                 onSelectionChanged = {
