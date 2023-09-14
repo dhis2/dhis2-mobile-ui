@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -17,19 +18,24 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ReadOnlyComposable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.component.IconCardLayoutType.Matrix
 import org.hisp.dhis.mobile.ui.designsystem.component.IconCardLayoutType.Sequential
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState.UNFOCUSED
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.VerticalGrid
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHISShapes
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
+import org.hisp.dhis.mobile.ui.designsystem.theme.bottomShadow
 
 /**
  * DHIS2 icon card input component
@@ -268,8 +274,16 @@ private fun IconCard(
     onClick: () -> Unit,
     content: @Composable ColumnScope.() -> Unit,
 ) {
+    val cardShadowModifier = if (!selected && enabled) {
+        Modifier.clip(DHISShapes.medium)
+            .bottomShadow(color = mutableStateOf(Outline.Light))
+            .offset(y = (-2).dp)
+    } else {
+        Modifier
+    }
+
     Card(
-        modifier = modifier,
+        modifier = modifier.then(cardShadowModifier),
         colors = CardDefaults.cardColors(
             containerColor = if (selected) SurfaceColor.Container else SurfaceColor.SurfaceBright,
             disabledContainerColor = if (selected) SurfaceColor.DisabledSurface else SurfaceColor.DisabledSurfaceBright,
