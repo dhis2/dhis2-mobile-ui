@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
 @Composable
-fun VerticalGrid(
+internal fun VerticalGrid(
     columns: Int,
     itemCount: Int,
     modifier: Modifier = Modifier,
