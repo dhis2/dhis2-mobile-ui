@@ -38,12 +38,12 @@ import org.hisp.dhis.common.screens.InputNumberScreen
 import org.hisp.dhis.common.screens.InputPercentageScreen
 import org.hisp.dhis.common.screens.InputPositiveIntegerOrZeroScreen
 import org.hisp.dhis.common.screens.InputPositiveIntegerScreen
+import org.hisp.dhis.common.screens.InputRadioButtonScreen
 import org.hisp.dhis.common.screens.InputScreen
 import org.hisp.dhis.common.screens.InputTextScreen
 import org.hisp.dhis.common.screens.LegendDescriptionScreen
 import org.hisp.dhis.common.screens.LegendScreen
 import org.hisp.dhis.common.screens.ProgressScreen
-import org.hisp.dhis.common.screens.InputRadioButtonScreen
 import org.hisp.dhis.common.screens.RadioButtonScreen
 import org.hisp.dhis.common.screens.SectionScreen
 import org.hisp.dhis.common.screens.SupportingTextScreen
