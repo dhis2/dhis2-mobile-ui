@@ -1,6 +1,9 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Cancel
 import androidx.compose.material3.Icon
@@ -14,6 +17,8 @@ import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.testTag
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.RegExValidations
+import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
+import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import java.util.Locale
 
 /**
@@ -94,7 +99,9 @@ internal fun BasicTextInput(
         },
         inputField = {
             BasicTextField(
-                modifier = Modifier.testTag("INPUT_" + testTag + "_FIELD"),
+                modifier = Modifier.testTag("INPUT_" + testTag + "_FIELD")
+                    .heightIn(Spacing.Spacing0, InternalSizeValues.Size300)
+                    .verticalScroll(rememberScrollState()),
                 inputText = inputValue ?: "",
                 helper = helper,
                 isSingleLine = isSingleLine,
