@@ -233,15 +233,20 @@ internal fun SectionHeader(
             .fillMaxWidth()
             .background(color = Color.White, Shape.Small)
             .clip(Shape.Small)
-            .clickable(
-                enabled = sectionState != SectionState.FIXED,
-                role = Role.Button,
-                interactionSource = interactionSource,
-                indication = rememberRipple(
-                    color = SurfaceColor.Primary,
-                ),
-            ) {
-                onSectionClick()
+            .let {
+                if (sectionState == SectionState.FIXED) {
+                    it
+                } else {
+                    it.clickable(
+                        role = Role.Button,
+                        interactionSource = interactionSource,
+                        indication = rememberRipple(
+                            color = SurfaceColor.Primary,
+                        ),
+                    ) {
+                        onSectionClick()
+                    }
+                }
             }
             .padding(vertical = Spacing.Spacing8),
     ) {
