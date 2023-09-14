@@ -13,7 +13,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.RadioButtonData
 import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
 
 @Composable
-fun AgeFieldScreen() {
+fun InputAgeScreen() {
     ColumnComponentContainer("Age Field components") {
         SubTitle("Horizontal Age Field Helper")
         var selectedFieldHorizontal by remember {
