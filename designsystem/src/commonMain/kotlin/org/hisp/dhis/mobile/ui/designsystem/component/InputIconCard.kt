@@ -50,7 +50,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.bottomShadow
  * @param onSelectionChanged: Callback to receive new selected item
  */
 @Composable
-fun IconCardInput(
+fun InputIconCard(
     title: String,
     data: List<IconCardData>,
     layoutType: IconCardLayoutType,

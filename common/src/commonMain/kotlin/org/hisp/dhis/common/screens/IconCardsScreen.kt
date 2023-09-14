@@ -11,7 +11,7 @@ import androidx.compose.ui.graphics.Color
 import org.hisp.dhis.mobile.ui.designsystem.component.AvatarSize
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.IconCardData
-import org.hisp.dhis.mobile.ui.designsystem.component.IconCardInput
+import org.hisp.dhis.mobile.ui.designsystem.component.InputIconCard
 import org.hisp.dhis.mobile.ui.designsystem.component.IconCardLayoutType
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.MetadataAvatar
@@ -111,7 +111,7 @@ fun IconCardsScreen() {
             )
         }
 
-        IconCardInput(
+        InputIconCard(
             title = "Label",
             data = inputCardData,
             selectedData = matrixSelectedItem,
@@ -125,7 +125,7 @@ fun IconCardsScreen() {
             },
         )
 
-        IconCardInput(
+        InputIconCard(
             title = "Label",
             data = inputCardData,
             selectedData = matrixSelectedItem,
@@ -136,7 +136,7 @@ fun IconCardsScreen() {
             },
         )
 
-        IconCardInput(
+        InputIconCard(
             title = "Label",
             data = inputCardData,
             selectedData = sequentialSelectedItem,
@@ -150,7 +150,7 @@ fun IconCardsScreen() {
             },
         )
 
-        IconCardInput(
+        InputIconCard(
             title = "Label",
             data = inputCardData,
             selectedData = sequentialSelectedItem,

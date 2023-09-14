@@ -1,7 +1,6 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.test.assertAll
 import androidx.compose.ui.test.isEnabled
 import androidx.compose.ui.test.isNotEnabled
@@ -12,7 +11,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.junit.Rule
 import org.junit.Test
 
-class IconCardInputTest {
+class InputIconCardTest {
 
     @get:Rule
     val rule = createComposeRule()
@@ -41,7 +40,7 @@ class IconCardInputTest {
     @Test
     fun shouldDisplayMatrixWhenLayoutTypeIsMatrix() {
         rule.setContent {
-            IconCardInput(
+            InputIconCard(
                 title = "Label",
                 testTag = "TEST",
                 data = data,
@@ -59,7 +58,7 @@ class IconCardInputTest {
     @Test
     fun shouldDisplaySequentialWhenLayoutTypeIsSequential() {
         rule.setContent {
-            IconCardInput(
+            InputIconCard(
                 title = "Label",
                 testTag = "TEST",
                 data = data,
@@ -77,7 +76,7 @@ class IconCardInputTest {
     @Test
     fun shouldNotAllowMatrixUserInputWhenDisabled() {
         rule.setContent {
-            IconCardInput(
+            InputIconCard(
                 title = "Label",
                 testTag = "TEST",
                 data = data,
@@ -96,7 +95,7 @@ class IconCardInputTest {
     @Test
     fun shouldAllowMatrixUserInputWhenEnabled() {
         rule.setContent {
-            IconCardInput(
+            InputIconCard(
                 title = "Label",
                 testTag = "TEST",
                 data = data,
@@ -115,7 +114,7 @@ class IconCardInputTest {
     @Test
     fun shouldNotAllowSequentialUserInputWhenDisabled() {
         rule.setContent {
-            IconCardInput(
+            InputIconCard(
                 title = "Label",
                 testTag = "TEST",
                 data = data,
@@ -134,7 +133,7 @@ class IconCardInputTest {
     @Test
     fun shouldAllowSequentialUserInputWhenEnabled() {
         rule.setContent {
-            IconCardInput(
+            InputIconCard(
                 title = "Label",
                 testTag = "TEST",
                 data = data,
@@ -153,7 +152,7 @@ class IconCardInputTest {
     @Test
     fun shouldShowLegendCorrectly() {
         rule.setContent {
-            IconCardInput(
+            InputIconCard(
                 title = "Label",
                 testTag = "TEST",
                 data = data,
@@ -173,7 +172,7 @@ class IconCardInputTest {
     @Test
     fun shouldShowSupportingTextCorrectly() {
         rule.setContent {
-            IconCardInput(
+            InputIconCard(
                 title = "Label",
                 testTag = "TEST",
                 data = data,
