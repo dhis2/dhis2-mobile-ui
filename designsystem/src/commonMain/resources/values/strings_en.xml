@@ -6,6 +6,8 @@
     <string name="age">AGE</string>
     <string name="or"> OR </string>
     <string name="years">Years</string>
+    <string name="months">Months</string>
+    <string name="days">Days</string>
     <string name="error_one">%d error</string>
     <string name="error_other">%d errors</string>
     <string name="warning_one">%d warning</string>

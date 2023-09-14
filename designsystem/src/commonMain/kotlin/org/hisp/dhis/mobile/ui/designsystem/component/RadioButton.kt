@@ -13,10 +13,14 @@ import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.Ripple
@@ -33,7 +37,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
  * identifying the component, selected for controlling which option is selected, enabled controls if the component is
  * clickable and textInput displaying the option text.
  * @param onClick Will be called when the user clicks the button.
-*
+ *
  */
 @Composable
 fun RadioButton(
