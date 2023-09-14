@@ -16,7 +16,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.junit.Rule
 import org.junit.Test
 
-class RadioButtonInputTest {
+class InputRadioButtonTest {
 
     @get:Rule
     val rule = createComposeRule()
@@ -32,7 +32,7 @@ class RadioButtonInputTest {
             var selectedItem by remember {
                 mutableStateOf<RadioButtonData?>(radioButtonData[0])
             }
-            RadioButtonInput(
+            InputRadioButton(
                 title = "Label",
                 radioButtonData = radioButtonData,
                 itemSelected = selectedItem,
@@ -58,7 +58,7 @@ class RadioButtonInputTest {
             var selectedItem by remember {
                 mutableStateOf<RadioButtonData?>(radioButtonData[0])
             }
-            RadioButtonInput(
+            InputRadioButton(
                 title = "Label",
                 radioButtonData = radioButtonData,
                 modifier = Modifier.testTag("RADIO_BUTTON_INPUT"),
@@ -84,7 +84,7 @@ class RadioButtonInputTest {
             var selectedItem by remember {
                 mutableStateOf<RadioButtonData?>(radioButtonData[0])
             }
-            RadioButtonInput(
+            InputRadioButton(
                 title = "Label",
                 radioButtonData = radioButtonData,
                 modifier = Modifier.testTag("RADIO_BUTTON_INPUT"),
@@ -111,7 +111,7 @@ class RadioButtonInputTest {
             var selectedItem by remember {
                 mutableStateOf<RadioButtonData?>(radioButtonData[0])
             }
-            RadioButtonInput(
+            InputRadioButton(
                 title = "Label",
                 radioButtonData = radioButtonData,
                 modifier = Modifier.testTag("RADIO_BUTTON_INPUT"),
@@ -136,7 +136,7 @@ class RadioButtonInputTest {
             var selectedItem by remember {
                 mutableStateOf<RadioButtonData?>(null)
             }
-            RadioButtonInput(
+            InputRadioButton(
                 title = "Label",
                 radioButtonData = radioButtonData,
                 modifier = Modifier.testTag("RADIO_BUTTON_INPUT"),
@@ -160,7 +160,7 @@ class RadioButtonInputTest {
             var selectedItem by remember {
                 mutableStateOf<RadioButtonData?>(radioButtonData[0])
             }
-            RadioButtonInput(
+            InputRadioButton(
                 title = "Label",
                 radioButtonData = radioButtonData,
                 state = InputShellState.DISABLED,
@@ -186,7 +186,7 @@ class RadioButtonInputTest {
             var selectedItem by remember {
                 mutableStateOf<RadioButtonData?>(radioButtonData[0])
             }
-            RadioButtonInput(
+            InputRadioButton(
                 title = "Label",
                 radioButtonData = radioButtonData,
                 modifier = Modifier.testTag("RADIO_BUTTON_INPUT"),
@@ -211,7 +211,7 @@ class RadioButtonInputTest {
                 RadioButtonData("1", selected = false, enabled = true, textInput = "Option 2"),
                 RadioButtonData("2", selected = false, enabled = true, textInput = "Option 3"),
             )
-            RadioButtonInput(
+            InputRadioButton(
                 title = "Label",
                 radioButtonData = radioButtonData,
                 legendData = LegendData(SurfaceColor.CustomGreen, "Legend"),
@@ -232,7 +232,7 @@ class RadioButtonInputTest {
                 RadioButtonData("1", selected = false, enabled = true, textInput = "Option 2"),
                 RadioButtonData("2", selected = false, enabled = true, textInput = "Option 3"),
             )
-            RadioButtonInput(
+            InputRadioButton(
                 title = "Label",
                 radioButtonData = radioButtonData,
                 supportingText = listOf(SupportingTextData("Supporting text", SupportingTextState.DEFAULT)),

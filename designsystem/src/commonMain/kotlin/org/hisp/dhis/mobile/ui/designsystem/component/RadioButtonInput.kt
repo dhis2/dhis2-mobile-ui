@@ -12,7 +12,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState.UNFOCUSED
 import org.hisp.dhis.mobile.ui.designsystem.component.Orientation.VERTICAL
 
 /**
- * DHIS2 Radio Button Input. Wraps DHIS · [RadioButton].
+ * DHIS2 Input Radio Button. Wraps DHIS · [RadioButton].
  * @param title controls the text to be shown for the title
  * @param radioButtonData Contains all the data that will be displayed, the list type is RadioButtonData,
  * It's parameters are uid for identifying the component, selected for controlling which option is selected,
@@ -29,7 +29,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.Orientation.VERTICAL
  * @param onItemChange is a callback to notify which item has changed into the block.
  */
 @Composable
-fun RadioButtonInput(
+fun InputRadioButton(
     title: String,
     radioButtonData: List<RadioButtonData>,
     modifier: Modifier = Modifier,

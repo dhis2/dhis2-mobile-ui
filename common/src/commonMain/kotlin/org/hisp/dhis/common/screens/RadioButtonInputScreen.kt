@@ -12,12 +12,12 @@ import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.Orientation
 import org.hisp.dhis.mobile.ui.designsystem.component.RadioButtonData
-import org.hisp.dhis.mobile.ui.designsystem.component.RadioButtonInput
+import org.hisp.dhis.mobile.ui.designsystem.component.InputRadioButton
 import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
 @Composable
-fun RadioButtonInputScreen() {
+fun InputRadioButtonScreen() {
     val option1 = "Option 1"
     val option2 = "Option 2"
     val option3 = "Option 3"
@@ -69,7 +69,7 @@ fun RadioButtonInputScreen() {
     }
     ColumnComponentContainer("Radio Buttons") {
         SubTitle("Vertical")
-        RadioButtonInput(
+        InputRadioButton(
             title = "Label",
             radioButtonData = radioButtonDataItemsVertical,
             itemSelected = selectedItemVertical,
@@ -78,7 +78,7 @@ fun RadioButtonInputScreen() {
             },
         )
         Spacer(Modifier.size(Spacing.Spacing18))
-        RadioButtonInput(
+        InputRadioButton(
             title = "Label",
             radioButtonData = radioButtonDataItemsError,
             state = InputShellState.ERROR,
@@ -88,7 +88,7 @@ fun RadioButtonInputScreen() {
             },
         )
         Spacer(Modifier.size(Spacing.Spacing18))
-        RadioButtonInput(
+        InputRadioButton(
             title = "Label",
             radioButtonData = radioButtonDataItemsDisabled,
             state = InputShellState.DISABLED,
@@ -98,7 +98,7 @@ fun RadioButtonInputScreen() {
         )
         Spacer(Modifier.size(Spacing.Spacing18))
         SubTitle("Horizontal")
-        RadioButtonInput(
+        InputRadioButton(
             title = "Label",
             radioButtonData = radioButtonDataItemsHorizontal,
             orientation = Orientation.HORIZONTAL,
