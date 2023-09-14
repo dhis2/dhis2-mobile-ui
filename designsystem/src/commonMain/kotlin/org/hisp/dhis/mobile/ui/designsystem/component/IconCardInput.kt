@@ -291,9 +291,9 @@ private fun IconCard(
         border = BorderStroke(
             width = if (selected) Spacing.Spacing1 else Spacing.Spacing0,
             color = if (enabled) {
-                if (selected) SurfaceColor.Primary else Color.Transparent
+                if (selected) SurfaceColor.Primary else Color.Unspecified
             } else {
-                Outline.Medium
+                if (selected) Outline.Medium else Color.Unspecified
             },
         ),
         enabled = enabled,
