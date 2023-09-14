@@ -22,5 +22,4 @@ object SurfaceColor {
     val CustomYellow = Color.CustomYellow
     val CustomBrown = Color.CustomBrown
     val CustomGray = Color.CustomGray
-    val CustomDisabledSwitch = Color.CustomGraySwitch
 }

@@ -57,5 +57,4 @@ object Color {
     internal val CustomYellow: Color = Color(0xFFFADB14)
     internal val CustomBrown: Color = Color(0xFF7A130F)
     internal val CustomGray: Color = Color(0xFFDADADA)
-    internal val CustomGraySwitch: Color = Color(0xFFDADADA)
 }
