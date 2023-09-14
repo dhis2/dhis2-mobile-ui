@@ -23,6 +23,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import org.hisp.dhis.common.screens.BadgesScreen
 import org.hisp.dhis.common.screens.BottomSheetHeaderScreen
+import org.hisp.dhis.common.screens.AgeFieldScreen
+import org.hisp.dhis.common.screens.BottomSheetScreen
 import org.hisp.dhis.common.screens.ButtonBlockScreen
 import org.hisp.dhis.common.screens.ButtonScreen
 import org.hisp.dhis.common.screens.CheckboxScreen
@@ -67,7 +69,7 @@ fun App() {
 
 @Composable
 fun Main() {
-    val currentScreen = remember { mutableStateOf(Components.SWITCH) }
+    val currentScreen = remember { mutableStateOf(Components.FORM_SHELLS) }
     var expanded by remember { mutableStateOf(false) }
 
     Column(
@@ -139,6 +141,7 @@ fun Main() {
             Components.INPUT_INTEGER -> InputIntegerScreen()
             Components.INPUT_NUMBER -> InputNumberScreen()
             Components.INPUT_LETTER -> InputLetterScreen()
+            Components.AGE_FIELD -> AgeFieldScreen()
             Components.CHIPS -> ChipsScreen()
             Components.BADGES -> BadgesScreen()
             Components.SWITCH -> SwitchScreen()
