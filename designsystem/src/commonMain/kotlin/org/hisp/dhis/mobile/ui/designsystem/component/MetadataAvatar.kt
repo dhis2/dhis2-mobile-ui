@@ -37,16 +37,21 @@ fun MetadataAvatar(
         Normal -> 0.dp
         Large -> 4.dp
     }
+    val cornerRadius = when (size) {
+        Normal -> Radius.XS
+        Large -> Radius.S
+    }
     val boxBackgroundColor = if (backgroundColor != Color.Unspecified) {
         backgroundColor
     } else {
         iconTint.copy(alpha = 0.1f)
     }
+
     Box(
         modifier = modifier
             .background(
                 color = boxBackgroundColor,
-                shape = RoundedCornerShape(Radius.XS),
+                shape = RoundedCornerShape(cornerRadius),
             )
             .padding(backgroundPadding)
             .size(Spacing.Spacing40),
