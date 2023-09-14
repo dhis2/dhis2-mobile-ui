@@ -4,8 +4,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Typography
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.sp
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideFontResource
 
@@ -70,6 +72,7 @@ fun DHIS2Theme(content: @Composable () -> Unit) {
                 color = TextColor.OnSurface,
                 letterSpacing = 0.15.sp,
             ),
+
             titleSmall = TextStyle(
                 fontSize = 14.sp,
                 lineHeight = 20.sp,
@@ -129,5 +132,40 @@ fun DHIS2Theme(content: @Composable () -> Unit) {
         ),
         shapes = DHISShapes,
         content = content,
+    )
+}
+
+internal object DHIS2SCustomTextStyles {
+
+    val titleBold = TextStyle(
+        fontSize = 16.sp,
+        lineHeight = 24.sp,
+        fontWeight = FontWeight.Medium,
+        color = TextColor.OnSurface,
+        letterSpacing = 0.15.sp,
+    )
+
+    val clickableSupportingText = SpanStyle(
+        fontSize = 14.sp,
+        fontWeight = FontWeight.Medium,
+        letterSpacing = 0.1.sp,
+        textDecoration = TextDecoration.Underline,
+    )
+
+    val regularSupportingText = SpanStyle(
+        fontSize = 14.sp,
+        fontWeight = FontWeight.Normal,
+        letterSpacing = 0.25.sp,
+        textDecoration = TextDecoration.None,
+    )
+
+    val inputFieldHelper = SpanStyle(
+        fontSize = 16.sp,
+        fontWeight = FontWeight.Normal,
+        color = TextColor.OnDisabledSurface,
+    )
+    val inputField = SpanStyle(
+        fontSize = 16.sp,
+        fontWeight = FontWeight.Normal,
     )
 }

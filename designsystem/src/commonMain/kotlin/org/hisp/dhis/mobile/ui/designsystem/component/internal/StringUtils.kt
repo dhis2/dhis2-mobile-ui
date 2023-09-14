@@ -1,12 +1,10 @@
 package org.hisp.dhis.mobile.ui.designsystem.component.internal
 
 import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.OffsetMapping
 import androidx.compose.ui.text.input.TransformedText
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.unit.sp
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2SCustomTextStyles
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
 internal class PrefixTransformation(private val prefix: String, val enabled: Boolean) : VisualTransformation {
@@ -18,20 +16,12 @@ internal class PrefixTransformation(private val prefix: String, val enabled: Boo
 internal fun prefixFilter(text: AnnotatedString, prefix: String, enabled: Boolean = true): TransformedText {
     val out = AnnotatedString(
         "$prefix ",
-        spanStyle = SpanStyle(
-            fontSize = 16.sp,
-            fontWeight = FontWeight.Normal,
-            color = TextColor.OnDisabledSurface,
-        ),
+        spanStyle = DHIS2SCustomTextStyles.inputFieldHelper,
     )
         .plus(
             AnnotatedString(
                 text.text,
-                spanStyle = SpanStyle(
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.Normal,
-                    color = if (enabled) TextColor.OnSurface else TextColor.OnDisabledSurface,
-                ),
+                spanStyle = DHIS2SCustomTextStyles.inputField.copy(color = if (enabled) TextColor.OnSurface else TextColor.OnDisabledSurface),
             ),
         )
     val prefixOffset = prefix.length + 1
@@ -54,11 +44,7 @@ internal class SuffixTransformer(val suffix: String) : VisualTransformation {
     override fun filter(text: AnnotatedString): TransformedText {
         val result = text + AnnotatedString(
             " $suffix",
-            spanStyle = SpanStyle(
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Normal,
-                color = TextColor.OnDisabledSurface,
-            ),
+            spanStyle = DHIS2SCustomTextStyles.inputFieldHelper,
         )
 
         val textWithSuffixMapping = object : OffsetMapping {
