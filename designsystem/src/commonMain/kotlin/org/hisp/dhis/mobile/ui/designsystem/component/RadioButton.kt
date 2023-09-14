@@ -12,10 +12,7 @@ import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
@@ -33,7 +30,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
  * identifying the component, selected for controlling which option is selected, enabled controls if the component is
  * clickable and textInput displaying the option text.
  * @param onClick Will be called when the user clicks the button.
- *
+*
  */
 @Composable
 fun RadioButton(
@@ -108,12 +105,9 @@ fun RadioButton(
 fun RadioButtonBlock(
     orientation: Orientation,
     content: List<RadioButtonData>,
-    itemSelected: RadioButtonData,
-    onItemChange: (RadioButtonData) -> Unit,
+    itemSelected: RadioButtonData?,
+    onItemChange: ((RadioButtonData) -> Unit)? = null,
 ) {
-    var currentItem by remember {
-        mutableStateOf(itemSelected)
-    }
     if (orientation == Orientation.HORIZONTAL) {
         FlowRowComponentsContainer(
             null,
@@ -123,13 +117,12 @@ fun RadioButtonBlock(
                     RadioButton(
                         RadioButtonData(
                             radioButtonData.uid,
-                            if (radioButtonData.enabled) radioButtonData == currentItem else radioButtonData.selected,
+                            if (radioButtonData.enabled) radioButtonData == itemSelected else radioButtonData.selected,
                             radioButtonData.enabled,
                             radioButtonData.textInput,
                         ),
                     ) {
-                        currentItem = radioButtonData
-                        onItemChange.invoke(radioButtonData)
+                        onItemChange?.invoke(radioButtonData)
                     }
                 }
             },
@@ -143,13 +136,12 @@ fun RadioButtonBlock(
                     RadioButton(
                         RadioButtonData(
                             radioButtonData.uid,
-                            if (radioButtonData.enabled) radioButtonData == currentItem else radioButtonData.selected,
+                            if (radioButtonData.enabled) radioButtonData == itemSelected else radioButtonData.selected,
                             radioButtonData.enabled,
                             radioButtonData.textInput,
                         ),
                     ) {
-                        currentItem = radioButtonData
-                        onItemChange.invoke(radioButtonData)
+                        onItemChange?.invoke(radioButtonData)
                     }
                 }
             },

@@ -1,8 +1,5 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Cancel
 import androidx.compose.material3.Icon
@@ -11,7 +8,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState.DISABLED
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState.UNFOCUSED
-import org.hisp.dhis.mobile.ui.designsystem.component.Orientation.HORIZONTAL
 import org.hisp.dhis.mobile.ui.designsystem.component.Orientation.VERTICAL
 
 @Composable
@@ -24,8 +20,8 @@ fun RadioButtonInput(
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
     isRequired: Boolean = false,
-    onSelectionChanged: (uid: String) -> Unit,
-    onClearSelection: (() -> Unit)? = null,
+    itemSelected: RadioButtonData? = null,
+    onItemChange: ((RadioButtonData?) -> Unit)? = null,
 ) {
     InputShell(
         modifier = modifier.testTag("RADIO_BUTTON_INPUT"),
@@ -47,22 +43,19 @@ fun RadioButtonInput(
             }
         },
         inputField = {
-            when (orientation) {
-                HORIZONTAL -> RadioButtonInputRow(
-                    radioButtonData = radioButtonData,
-                    state = state,
-                    onSelectionChanged = onSelectionChanged,
-                )
-
-                VERTICAL -> RadioButtonInputColumn(
-                    radioButtonData = radioButtonData,
-                    state = state,
-                    onSelectionChanged = onSelectionChanged,
-                )
+            val updatedRadioButtonData = mutableListOf<RadioButtonData>()
+            radioButtonData.forEach {
+                updatedRadioButtonData.add(it.copy(enabled = state != DISABLED && it.enabled))
             }
+            RadioButtonBlock(
+                orientation = orientation,
+                content = updatedRadioButtonData,
+                itemSelected = itemSelected,
+                onItemChange = onItemChange,
+            )
         },
         primaryButton = {
-            val isClearButtonVisible = radioButtonData.firstOrNull { it.selected } != null && state != DISABLED
+            val isClearButtonVisible = itemSelected != null && state != DISABLED
             if (isClearButtonVisible) {
                 IconButton(
                     modifier = Modifier.testTag("RADIO_BUTTON_INPUT_CLEAR_BUTTON"),
@@ -73,61 +66,10 @@ fun RadioButtonInput(
                         )
                     },
                     onClick = {
-                        onClearSelection?.invoke()
+                        onItemChange?.invoke(null)
                     },
                 )
             }
-        },
-    )
-}
-
-@Composable
-private fun RadioButtonInputColumn(
-    radioButtonData: List<RadioButtonData>,
-    state: InputShellState,
-    onSelectionChanged: (uid: String) -> Unit,
-) {
-    Column {
-        radioButtonData.forEach { radioButtonData ->
-            RadioButton(
-                radioButtonData = radioButtonData,
-                state = state,
-                onSelectionChanged = onSelectionChanged,
-            )
-        }
-    }
-}
-
-@Composable
-@OptIn(ExperimentalLayoutApi::class)
-private fun RadioButtonInputRow(
-    radioButtonData: List<RadioButtonData>,
-    state: InputShellState,
-    onSelectionChanged: (uid: String) -> Unit,
-) {
-    FlowRow {
-        radioButtonData.forEach { radioButtonData ->
-            RadioButton(
-                radioButtonData = radioButtonData,
-                state = state,
-                onSelectionChanged = onSelectionChanged,
-            )
-        }
-    }
-}
-
-@Composable
-private fun RadioButton(
-    radioButtonData: RadioButtonData,
-    state: InputShellState,
-    onSelectionChanged: (uid: String) -> Unit,
-) {
-    RadioButton(
-        radioButtonData = radioButtonData.copy(
-            enabled = state != DISABLED,
-        ),
-        onClick = { _ ->
-            onSelectionChanged(radioButtonData.uid)
         },
     )
 }
