@@ -41,6 +41,7 @@ import org.hisp.dhis.common.screens.InputPositiveIntegerScreen
 import org.hisp.dhis.common.screens.InputRadioButtonScreen
 import org.hisp.dhis.common.screens.InputScreen
 import org.hisp.dhis.common.screens.InputTextScreen
+import org.hisp.dhis.common.screens.InputYesOnlyScreen
 import org.hisp.dhis.common.screens.LegendDescriptionScreen
 import org.hisp.dhis.common.screens.LegendScreen
 import org.hisp.dhis.common.screens.ProgressScreen
@@ -133,6 +134,7 @@ fun Main() {
             Components.INPUT_NUMBER -> InputNumberScreen()
             Components.INPUT_LETTER -> InputLetterScreen()
             Components.INPUT_RADIO_BUTTON -> InputRadioButtonScreen()
+            Components.INPUT_YES_ONLY -> InputYesOnlyScreen()
         }
     }
 }
