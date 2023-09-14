@@ -108,7 +108,7 @@ fun RadioButtonBlock(
     orientation: Orientation,
     content: List<RadioButtonData>,
     itemSelected: RadioButtonData?,
-    onItemChange: ((RadioButtonData) -> Unit)? = null,
+    onItemChange: (RadioButtonData) -> Unit,
 ) {
     if (orientation == Orientation.HORIZONTAL) {
         FlowRowComponentsContainer(
@@ -124,7 +124,7 @@ fun RadioButtonBlock(
                             radioButtonData.textInput,
                         ),
                     ) {
-                        onItemChange?.invoke(radioButtonData)
+                        onItemChange.invoke(radioButtonData)
                     }
                 }
             },
@@ -143,7 +143,7 @@ fun RadioButtonBlock(
                             radioButtonData.textInput,
                         ),
                     ) {
-                        onItemChange?.invoke(radioButtonData)
+                        onItemChange.invoke(radioButtonData)
                     }
                 }
             },

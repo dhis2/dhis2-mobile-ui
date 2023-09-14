@@ -60,6 +60,10 @@ fun RadioButtonInputScreen() {
         mutableStateOf<RadioButtonData?>(null)
     }
 
+    var selectedItemDisabled by remember {
+        mutableStateOf<RadioButtonData?>(null)
+    }
+
     var selectedItemHorizontal by remember {
         mutableStateOf<RadioButtonData?>(radioButtonDataItemsHorizontal[0])
     }
@@ -88,6 +92,9 @@ fun RadioButtonInputScreen() {
             title = "Label",
             radioButtonData = radioButtonDataItemsDisabled,
             state = InputShellState.DISABLED,
+            onItemChange = {
+                selectedItemDisabled = it
+            },
         )
         Spacer(Modifier.size(Spacing.Spacing18))
         SubTitle("Horizontal")

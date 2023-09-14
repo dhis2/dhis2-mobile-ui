@@ -29,7 +29,7 @@ class RadioButtonInputTest {
                 RadioButtonData("1", selected = false, enabled = true, textInput = "Option 2"),
                 RadioButtonData("2", selected = false, enabled = true, textInput = "Option 3"),
             )
-            val selectedItem by remember {
+            var selectedItem by remember {
                 mutableStateOf<RadioButtonData?>(radioButtonData[0])
             }
             RadioButtonInput(
@@ -37,6 +37,9 @@ class RadioButtonInputTest {
                 radioButtonData = radioButtonData,
                 itemSelected = selectedItem,
                 modifier = Modifier.testTag("RADIO_BUTTON_INPUT"),
+                onItemChange = {
+                    selectedItem = it
+                },
             )
         }
         rule.onNodeWithTag("RADIO_BUTTON_INPUT").assertExists()
@@ -105,7 +108,7 @@ class RadioButtonInputTest {
                 RadioButtonData("1", selected = false, enabled = true, textInput = "Option 2"),
                 RadioButtonData("2", selected = false, enabled = true, textInput = "Option 3"),
             )
-            val selectedItem by remember {
+            var selectedItem by remember {
                 mutableStateOf<RadioButtonData?>(radioButtonData[0])
             }
             RadioButtonInput(
@@ -113,6 +116,9 @@ class RadioButtonInputTest {
                 radioButtonData = radioButtonData,
                 modifier = Modifier.testTag("RADIO_BUTTON_INPUT"),
                 itemSelected = selectedItem,
+                onItemChange = {
+                    selectedItem = it
+                },
             )
         }
         rule.onNodeWithTag("RADIO_BUTTON_INPUT").assertExists()
@@ -127,11 +133,16 @@ class RadioButtonInputTest {
                 RadioButtonData("1", selected = false, enabled = true, textInput = "Option 2"),
                 RadioButtonData("2", selected = false, enabled = true, textInput = "Option 3"),
             )
-
+            var selectedItem by remember {
+                mutableStateOf<RadioButtonData?>(null)
+            }
             RadioButtonInput(
                 title = "Label",
                 radioButtonData = radioButtonData,
                 modifier = Modifier.testTag("RADIO_BUTTON_INPUT"),
+                onItemChange = {
+                    selectedItem = it
+                },
             )
         }
         rule.onNodeWithTag("RADIO_BUTTON_INPUT").assertExists()
@@ -146,7 +157,7 @@ class RadioButtonInputTest {
                 RadioButtonData("1", selected = false, enabled = true, textInput = "Option 2"),
                 RadioButtonData("2", selected = false, enabled = true, textInput = "Option 3"),
             )
-            val selectedItem by remember {
+            var selectedItem by remember {
                 mutableStateOf<RadioButtonData?>(radioButtonData[0])
             }
             RadioButtonInput(
@@ -155,6 +166,9 @@ class RadioButtonInputTest {
                 state = InputShellState.DISABLED,
                 itemSelected = selectedItem,
                 modifier = Modifier.testTag("RADIO_BUTTON_INPUT"),
+                onItemChange = {
+                    selectedItem = it
+                },
             )
         }
         rule.onNodeWithTag("RADIO_BUTTON_INPUT").assertExists()
@@ -201,6 +215,7 @@ class RadioButtonInputTest {
                 title = "Label",
                 radioButtonData = radioButtonData,
                 legendData = LegendData(SurfaceColor.CustomGreen, "Legend"),
+                onItemChange = {},
             )
         }
 
@@ -221,6 +236,7 @@ class RadioButtonInputTest {
                 title = "Label",
                 radioButtonData = radioButtonData,
                 supportingText = listOf(SupportingTextData("Supporting text", SupportingTextState.DEFAULT)),
+                onItemChange = {},
             )
         }
         rule.onNodeWithTag("RADIO_BUTTON_INPUT").assertExists()

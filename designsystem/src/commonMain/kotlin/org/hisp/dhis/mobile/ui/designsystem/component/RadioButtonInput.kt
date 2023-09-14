@@ -39,7 +39,7 @@ fun RadioButtonInput(
     legendData: LegendData? = null,
     isRequired: Boolean = false,
     itemSelected: RadioButtonData? = null,
-    onItemChange: ((RadioButtonData?) -> Unit)? = null,
+    onItemChange: (RadioButtonData?) -> Unit,
 ) {
     InputShell(
         modifier = modifier.testTag("RADIO_BUTTON_INPUT"),
@@ -84,7 +84,7 @@ fun RadioButtonInput(
                         )
                     },
                     onClick = {
-                        onItemChange?.invoke(null)
+                        onItemChange.invoke(null)
                     },
                 )
             }
