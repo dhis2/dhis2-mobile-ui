@@ -30,4 +30,6 @@ enum class Components(val label: String) {
     METADATA_AVATAR("Metadata Avatar"),
     INPUT_RADIO_BUTTON("Input Radio Button"),
     SWITCH("Switch"),
+    INPUT_MATRIX("Input Matrix"),
+    INPUT_SEQUENTIAL("Input Sequential"),
 }
