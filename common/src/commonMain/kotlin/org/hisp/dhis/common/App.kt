@@ -31,6 +31,7 @@ import org.hisp.dhis.common.screens.Components
 import org.hisp.dhis.common.screens.FormShellsScreen
 import org.hisp.dhis.common.screens.FormsComponentsScreen
 import org.hisp.dhis.common.screens.IconButtonScreen
+import org.hisp.dhis.common.screens.InputCheckBoxScreen
 import org.hisp.dhis.common.screens.InputIntegerScreen
 import org.hisp.dhis.common.screens.InputLetterScreen
 import org.hisp.dhis.common.screens.InputLongTextScreen
@@ -145,6 +146,7 @@ fun Main() {
             Components.INPUT_MATRIX -> InputMatrixScreen()
             Components.INPUT_SEQUENTIAL -> InputSequentialScreen()
             Components.QR_CODE_BLOCK -> QrCodeBlockScreen()
+            Components.INPUT_CHECK_BOX -> InputCheckBoxScreen()
         }
     }
 }
