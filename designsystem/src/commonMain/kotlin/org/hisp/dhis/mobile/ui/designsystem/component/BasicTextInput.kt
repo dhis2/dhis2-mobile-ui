@@ -58,9 +58,11 @@ internal fun BasicTextInput(
     var deleteButtonIsVisible by remember { mutableStateOf(!inputText.isNullOrEmpty() && state != InputShellState.DISABLED) }
     val focusManager = LocalFocusManager.current
 
-    val button: (@Composable () -> Unit)?
+    var deleteButton:
+        @Composable()
+        (() -> Unit)? = null
     if (deleteButtonIsVisible) {
-        button = {
+        deleteButton = {
             IconButton(
                 modifier = Modifier.testTag("INPUT_" + testTag + "_RESET_BUTTON").padding(Spacing.Spacing0),
                 icon = {
@@ -76,14 +78,12 @@ internal fun BasicTextInput(
                 enabled = state != InputShellState.DISABLED,
             )
         }
-    } else {
-        button = null
     }
     InputShell(
         modifier = modifier.testTag("INPUT_$testTag"),
         isRequiredField = isRequiredField,
         title = title,
-        primaryButton = button,
+        primaryButton = deleteButton,
         state = state,
         legend = {
             legendData?.let {
