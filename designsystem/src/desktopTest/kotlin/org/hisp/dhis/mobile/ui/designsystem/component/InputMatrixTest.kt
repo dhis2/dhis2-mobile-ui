@@ -7,11 +7,12 @@ import androidx.compose.ui.test.isNotEnabled
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onNodeWithTag
+import org.hisp.dhis.mobile.ui.designsystem.component.internal.IconCardData
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.junit.Rule
 import org.junit.Test
 
-class InputIconCardTest {
+class InputMatrixTest {
 
     @get:Rule
     val rule = createComposeRule()
@@ -76,42 +77,6 @@ class InputIconCardTest {
     }
 
     @Test
-    fun shouldNotAllowSequentialUserInputWhenDisabled() {
-        rule.setContent {
-            InputSequential(
-                title = "Label",
-                testTag = "TEST",
-                data = data,
-                selectedData = null,
-                state = InputShellState.DISABLED,
-                onSelectionChanged = {
-                    // no-op
-                },
-            )
-        }
-        rule.onNodeWithTag("ICON_CARD_INPUT_SEQUENTIAL_TEST").assertExists()
-        rule.onAllNodesWithTag("SEQUENTIAL_ICON_CARD_TEST").assertAll(isNotEnabled())
-    }
-
-    @Test
-    fun shouldAllowSequentialUserInputWhenEnabled() {
-        rule.setContent {
-            InputSequential(
-                title = "Label",
-                testTag = "TEST",
-                data = data,
-                selectedData = null,
-                state = InputShellState.UNFOCUSED,
-                onSelectionChanged = {
-                    // no-op
-                },
-            )
-        }
-        rule.onNodeWithTag("ICON_CARD_INPUT_SEQUENTIAL_TEST").assertExists()
-        rule.onAllNodesWithTag("SEQUENTIAL_ICON_CARD_TEST").assertAll(isEnabled())
-    }
-
-    @Test
     fun shouldShowMatrixLegendCorrectly() {
         rule.setContent {
             InputMatrix(
@@ -135,45 +100,6 @@ class InputIconCardTest {
     fun shouldShowMatrixSupportingTextCorrectly() {
         rule.setContent {
             InputMatrix(
-                title = "Label",
-                testTag = "TEST",
-                data = data,
-                selectedData = null,
-                state = InputShellState.UNFOCUSED,
-                supportingText = listOf(SupportingTextData("Supporting text", SupportingTextState.DEFAULT)),
-                onSelectionChanged = {
-                    // no-op
-                },
-            )
-        }
-
-        rule.onNodeWithTag("ICON_CARDS_INPUT_TEST_SUPPORTING_TEXT").assertExists()
-    }
-
-    @Test
-    fun shouldShowSequentialLegendCorrectly() {
-        rule.setContent {
-            InputMatrix(
-                title = "Label",
-                testTag = "TEST",
-                data = data,
-                selectedData = null,
-                itemCount = 2,
-                state = InputShellState.UNFOCUSED,
-                legendData = LegendData(SurfaceColor.CustomGreen, "Legend"),
-                onSelectionChanged = {
-                    // no-op
-                },
-            )
-        }
-
-        rule.onNodeWithTag("ICON_CARDS_INPUT_TEST_LEGEND").assertExists()
-    }
-
-    @Test
-    fun shouldShowSequentialSupportingTextCorrectly() {
-        rule.setContent {
-            InputSequential(
                 title = "Label",
                 testTag = "TEST",
                 data = data,
