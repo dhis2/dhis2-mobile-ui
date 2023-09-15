@@ -69,7 +69,8 @@ fun InputShell(
             Column(
                 Modifier
                     .weight(4f, false)
-                    .padding(end = Spacing.Spacing4),
+                    .padding(end = Spacing.Spacing4)
+                    .fillMaxWidth(1f),
                 verticalArrangement = Arrangement.Center,
             ) {
                 val titleText = if (isRequiredField) "$title *" else title
@@ -78,12 +79,9 @@ fun InputShell(
             }
             Row(
                 verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.height(Spacing.Spacing48),
             ) {
-                primaryButton?.let {
-                    Box(Modifier.size(Spacing.Spacing48)) {
-                        it.invoke()
-                    }
-                }
+                primaryButton?.invoke()
                 if (primaryButton != null && secondaryButton != null) {
                     InputShellButtonSeparator()
                     Spacer(modifier = Modifier.width(Spacing.Spacing4))
@@ -95,7 +93,12 @@ fun InputShell(
                 }
             }
         }
-        InputShellIndicator(color = indicatorColor, thickness = indicatorThickness)
+        Box {
+            InputShellIndicator(
+                color = indicatorColor,
+                thickness = indicatorThickness,
+            )
+        }
         legend?.invoke()
         if (state != InputShellState.DISABLED) supportingText?.invoke()
         if (isRequiredField && state == InputShellState.ERROR) SupportingText("Required", state = SupportingTextState.ERROR)
@@ -120,7 +123,7 @@ private fun InputShellRow(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier.fillMaxWidth()
             .background(backgroundColor)
-            .padding(Spacing.Spacing16, Spacing.Spacing8, Spacing.Spacing0, Spacing.Spacing4),
+            .padding(Spacing.Spacing16, Spacing.Spacing8, Spacing.Spacing0, Spacing.Spacing6),
     ) {
         content()
     }
@@ -156,7 +159,9 @@ private fun InputShellIndicator(
     Divider(
         modifier = modifier
             .fillMaxWidth()
-            .padding(),
+            .padding(
+                top = if (thickness == Border.Thin) Spacing.Spacing1 else Spacing.Spacing0,
+            ),
         thickness = thickness,
         color = color,
     )
