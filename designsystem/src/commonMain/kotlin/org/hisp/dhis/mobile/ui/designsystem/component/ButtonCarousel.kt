@@ -26,7 +26,7 @@ fun ButtonCarousel(
 
 @Composable
 fun CarouselButton(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     onClick: () -> Unit,
     enabled: Boolean,
     textInput: String,
