@@ -16,7 +16,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.Title
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
 @Composable
-fun InputYesOnlyScreen() {
+fun SwitchScreen() {
     ColumnComponentContainer {
         Title("Switches")
         SubTitle("Toggled enabled and disabled switch")
@@ -24,8 +24,6 @@ fun InputYesOnlyScreen() {
         var switchTwo by remember { mutableStateOf(true) }
         var switchThree by remember { mutableStateOf(false) }
         var switchFour by remember { mutableStateOf(false) }
-
-        SubTitle("Toggled enabled and disabled switch")
 
         RowComponentContainer {
             Switch(isChecked = switchOne, onCheckedChange = { switchOne = !it })

@@ -41,13 +41,13 @@ import org.hisp.dhis.common.screens.InputPositiveIntegerScreen
 import org.hisp.dhis.common.screens.InputRadioButtonScreen
 import org.hisp.dhis.common.screens.InputScreen
 import org.hisp.dhis.common.screens.InputTextScreen
-import org.hisp.dhis.common.screens.InputYesOnlyScreen
 import org.hisp.dhis.common.screens.LegendDescriptionScreen
 import org.hisp.dhis.common.screens.LegendScreen
 import org.hisp.dhis.common.screens.ProgressScreen
 import org.hisp.dhis.common.screens.RadioButtonScreen
 import org.hisp.dhis.common.screens.SectionScreen
 import org.hisp.dhis.common.screens.SupportingTextScreen
+import org.hisp.dhis.common.screens.SwitchScreen
 import org.hisp.dhis.common.screens.TagsScreen
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
@@ -61,7 +61,7 @@ fun App() {
 
 @Composable
 fun Main() {
-    val currentScreen = remember { mutableStateOf(Components.FORM_SHELLS) }
+    val currentScreen = remember { mutableStateOf(Components.SWITCH) }
     var expanded by remember { mutableStateOf(false) }
 
     Column(
@@ -133,8 +133,8 @@ fun Main() {
             Components.INPUT_INTEGER -> InputIntegerScreen()
             Components.INPUT_NUMBER -> InputNumberScreen()
             Components.INPUT_LETTER -> InputLetterScreen()
+            Components.SWITCH -> SwitchScreen()
             Components.INPUT_RADIO_BUTTON -> InputRadioButtonScreen()
-            Components.INPUT_YES_ONLY -> InputYesOnlyScreen()
         }
     }
 }
