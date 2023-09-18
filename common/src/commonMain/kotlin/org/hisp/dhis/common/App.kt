@@ -50,6 +50,7 @@ import org.hisp.dhis.common.screens.InputSequentialScreen
 import org.hisp.dhis.common.screens.InputTextScreen
 import org.hisp.dhis.common.screens.InputYesOnlyCheckBoxScreen
 import org.hisp.dhis.common.screens.InputYesOnlySwitchScreen
+import org.hisp.dhis.common.screens.InputYesNoFieldScreen
 import org.hisp.dhis.common.screens.LegendDescriptionScreen
 import org.hisp.dhis.common.screens.LegendScreen
 import org.hisp.dhis.common.screens.MetadataAvatarScreen
@@ -157,6 +158,7 @@ fun Main() {
             Components.BARCODE_BLOCK -> BarcodeBlockScreen()
             Components.INPUT_YES_ONLY_SWITCH -> InputYesOnlySwitchScreen()
             Components.INPUT_YES_ONLY_CHECKBOX -> InputYesOnlyCheckBoxScreen()
+            Components.INPUT_YES_NO_FIELD -> InputYesNoFieldScreen()
         }
     }
 }

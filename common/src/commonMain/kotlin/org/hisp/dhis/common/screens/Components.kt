@@ -39,4 +39,5 @@ enum class Components(val label: String) {
     AGE_FIELD("Age Field"),
     INPUT_YES_ONLY_SWITCH("Input yes only switch"),
     INPUT_YES_ONLY_CHECKBOX("Input yes only checkbox"),
+    INPUT_YES_NO_FIELD("Input Yes/No field"),
 }
