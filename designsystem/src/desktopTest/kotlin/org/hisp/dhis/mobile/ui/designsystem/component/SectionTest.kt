@@ -90,6 +90,7 @@ class SectionTest {
                 warningCount = 0,
                 onNextSection = {
                 },
+                onSectionClick = { },
                 content = {
                 },
             )
@@ -126,6 +127,7 @@ class SectionTest {
                 warningCount = 0,
                 onNextSection = {
                 },
+                onSectionClick = { },
                 content = {
                 },
             )

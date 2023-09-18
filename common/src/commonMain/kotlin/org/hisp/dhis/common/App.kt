@@ -31,6 +31,7 @@ import org.hisp.dhis.common.screens.Components
 import org.hisp.dhis.common.screens.FormShellsScreen
 import org.hisp.dhis.common.screens.FormsComponentsScreen
 import org.hisp.dhis.common.screens.IconButtonScreen
+import org.hisp.dhis.common.screens.IconCardsScreen
 import org.hisp.dhis.common.screens.InputIntegerScreen
 import org.hisp.dhis.common.screens.InputLetterScreen
 import org.hisp.dhis.common.screens.InputLongTextScreen
@@ -39,6 +40,7 @@ import org.hisp.dhis.common.screens.InputNumberScreen
 import org.hisp.dhis.common.screens.InputPercentageScreen
 import org.hisp.dhis.common.screens.InputPositiveIntegerOrZeroScreen
 import org.hisp.dhis.common.screens.InputPositiveIntegerScreen
+import org.hisp.dhis.common.screens.InputRadioButtonScreen
 import org.hisp.dhis.common.screens.InputScreen
 import org.hisp.dhis.common.screens.InputTextScreen
 import org.hisp.dhis.common.screens.LegendDescriptionScreen
@@ -47,6 +49,7 @@ import org.hisp.dhis.common.screens.ProgressScreen
 import org.hisp.dhis.common.screens.RadioButtonScreen
 import org.hisp.dhis.common.screens.SectionScreen
 import org.hisp.dhis.common.screens.SupportingTextScreen
+import org.hisp.dhis.common.screens.SwitchScreen
 import org.hisp.dhis.common.screens.TagsScreen
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
@@ -60,7 +63,7 @@ fun App() {
 
 @Composable
 fun Main() {
-    val currentScreen = remember { mutableStateOf(Components.FORM_SHELLS) }
+    val currentScreen = remember { mutableStateOf(Components.SWITCH) }
     var expanded by remember { mutableStateOf(false) }
 
     Column(
@@ -121,6 +124,7 @@ fun Main() {
             Components.LEGEND_DESCRIPTION -> LegendDescriptionScreen()
             Components.FORM_SHELLS -> FormShellsScreen()
             Components.BUTTON_BLOCK -> ButtonBlockScreen()
+            Components.ICON_CARDS -> IconCardsScreen()
             Components.BOTTOM_SHEET_HEADER -> BottomSheetHeaderScreen()
             Components.TAGS -> TagsScreen()
             Components.SECTIONS -> SectionScreen()
@@ -133,6 +137,8 @@ fun Main() {
             Components.INPUT_LETTER -> InputLetterScreen()
             Components.CHIPS -> ChipsScreen()
             Components.BADGES -> BadgesScreen()
+            Components.SWITCH -> SwitchScreen()
+            Components.INPUT_RADIO_BUTTON -> InputRadioButtonScreen()
         }
     }
 }
