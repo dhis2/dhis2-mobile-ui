@@ -21,10 +21,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import org.hisp.dhis.common.screens.BadgesScreen
 import org.hisp.dhis.common.screens.BottomSheetHeaderScreen
 import org.hisp.dhis.common.screens.ButtonBlockScreen
 import org.hisp.dhis.common.screens.ButtonScreen
 import org.hisp.dhis.common.screens.CheckboxScreen
+import org.hisp.dhis.common.screens.ChipsScreen
 import org.hisp.dhis.common.screens.Components
 import org.hisp.dhis.common.screens.FormShellsScreen
 import org.hisp.dhis.common.screens.FormsComponentsScreen
@@ -133,6 +135,8 @@ fun Main() {
             Components.INPUT_INTEGER -> InputIntegerScreen()
             Components.INPUT_NUMBER -> InputNumberScreen()
             Components.INPUT_LETTER -> InputLetterScreen()
+            Components.CHIPS -> ChipsScreen()
+            Components.BADGES -> BadgesScreen()
             Components.SWITCH -> SwitchScreen()
             Components.INPUT_RADIO_BUTTON -> InputRadioButtonScreen()
         }
