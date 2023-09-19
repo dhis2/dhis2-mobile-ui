@@ -60,7 +60,9 @@ fun MetadataAvatar(
         CompositionLocalProvider(
             LocalContentColor provides iconTint,
         ) {
-            icon()
+            Box(modifier = Modifier.clip(RoundedCornerShape(Radius.XS))) {
+                icon()
+            }
         }
     }
 }
