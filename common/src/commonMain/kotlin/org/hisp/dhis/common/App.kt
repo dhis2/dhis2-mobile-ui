@@ -42,6 +42,7 @@ import org.hisp.dhis.common.screens.InputMatrixScreen
 import org.hisp.dhis.common.screens.InputNegativeIntegerScreen
 import org.hisp.dhis.common.screens.InputNumberScreen
 import org.hisp.dhis.common.screens.InputPercentageScreen
+import org.hisp.dhis.common.screens.InputPhoneNumberScreen
 import org.hisp.dhis.common.screens.InputPositiveIntegerOrZeroScreen
 import org.hisp.dhis.common.screens.InputPositiveIntegerScreen
 import org.hisp.dhis.common.screens.InputRadioButtonScreen
@@ -159,6 +160,7 @@ fun Main() {
             Components.INPUT_YES_ONLY_SWITCH -> InputYesOnlySwitchScreen()
             Components.INPUT_YES_ONLY_CHECKBOX -> InputYesOnlyCheckBoxScreen()
             Components.INPUT_YES_NO_FIELD -> InputYesNoFieldScreen()
+            Components.INPUT_PHONE_NUMBER -> InputPhoneNumberScreen()
         }
     }
 }
