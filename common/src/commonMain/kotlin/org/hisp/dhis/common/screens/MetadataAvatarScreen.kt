@@ -11,7 +11,7 @@ import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 
 @Composable
-fun IconCardsScreen() {
+fun MetadataAvatarScreen() {
     ColumnComponentContainer(title = "Metadata Avatar") {
         RowComponentContainer {
             MetadataAvatar(
