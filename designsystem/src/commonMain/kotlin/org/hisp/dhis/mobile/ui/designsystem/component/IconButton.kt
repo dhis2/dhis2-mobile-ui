@@ -1,7 +1,9 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.PressInteraction
 import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -22,10 +24,15 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
+import org.hisp.dhis.mobile.ui.designsystem.component.internal.iconButton
 import org.hisp.dhis.mobile.ui.designsystem.theme.Border
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
@@ -114,11 +121,13 @@ fun IconButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
 ) {
+    val interactionSource = remember { MutableInteractionSource() }
+    val scope = rememberCoroutineScope()
     when (style) {
-        IconButtonStyle.FILLED -> FilledIconButton(enabled, icon, modifier = modifier, onClick = onClick)
-        IconButtonStyle.TONAL -> FilledTonalIconButton(enabled, icon, modifier, onClick)
-        IconButtonStyle.OUTLINED -> OutlinedIconButton(enabled, icon, modifier = modifier, onClick = onClick)
-        else -> StandardIconButton(enabled, icon, modifier = modifier, onClick)
+        IconButtonStyle.FILLED -> FilledIconButton(enabled, icon, modifier = modifier, onClick = onClick, interactionSource = interactionSource, scope = scope)
+        IconButtonStyle.TONAL -> FilledTonalIconButton(enabled, icon, modifier, onClick = onClick, interactionSource = interactionSource, scope = scope)
+        IconButtonStyle.OUTLINED -> OutlinedIconButton(enabled, icon, modifier = modifier, onClick = onClick, interactionSource = interactionSource, scope = scope)
+        else -> StandardIconButton(enabled, icon, modifier = modifier, onClick = onClick, interactionSource = interactionSource, scope = scope)
     }
 }
 
@@ -127,20 +136,32 @@ private fun StandardIconButton(
     enabled: Boolean = true,
     icon: @Composable (() -> Unit),
     modifier: Modifier = Modifier,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    scope: CoroutineScope = rememberCoroutineScope(),
     onClick: () -> Unit,
 ) {
     CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
-        FilledIconButton(
-            onClick = onClick,
-            modifier = modifier
-                .size(InternalSizeValues.Size48)
-                .padding(Spacing.Spacing4)
-                .hoverPointerIcon(enabled),
-            enabled = enabled,
-            colors = IconButtonDefaults.iconButtonColors(Color.Transparent, TextColor.OnSurfaceVariant, Color.Transparent, TextColor.OnDisabledSurface),
+        Box(
+            Modifier.size(InternalSizeValues.Size48).clickable(
+                enabled = enabled,
+                interactionSource = interactionSource,
+                onClick = {
+                    onClick.invoke()
+                    emitPressInteraction(scope, interactionSource)
+                },
+                indication = null,
+            ),
         ) {
-            Box(Modifier.size(Spacing.Spacing24)) {
-                icon()
+            FilledIconButton(
+                interactionSource = interactionSource,
+                onClick = onClick,
+                modifier = modifier.iconButton(enabled),
+                enabled = enabled,
+                colors = IconButtonDefaults.iconButtonColors(Color.Transparent, TextColor.OnSurfaceVariant, Color.Transparent, TextColor.OnDisabledSurface),
+            ) {
+                Box(Modifier.size(Spacing.Spacing24)) {
+                    icon()
+                }
             }
         }
     }
@@ -151,19 +172,36 @@ private fun FilledIconButton(
     enabled: Boolean = true,
     icon: @Composable (() -> Unit),
     modifier: Modifier = Modifier,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    scope: CoroutineScope = rememberCoroutineScope(),
     onClick: () -> Unit,
 ) {
-    FilledIconButton(
-        onClick = onClick,
-        modifier = modifier
-            .size(InternalSizeValues.Size48)
-            .padding(Spacing.Spacing4)
-            .hoverPointerIcon(enabled),
-        enabled = enabled,
-        colors = IconButtonDefaults.iconButtonColors(SurfaceColor.Primary, TextColor.OnPrimary, SurfaceColor.DisabledSurface, TextColor.OnDisabledSurface),
+    Box(
+        Modifier.size(InternalSizeValues.Size48).clickable(
+            enabled = enabled,
+            interactionSource = interactionSource,
+            onClick = {
+                onClick.invoke()
+                emitPressInteraction(scope, interactionSource)
+            },
+            indication = null,
+        ),
     ) {
-        Box(Modifier.size(Spacing.Spacing24)) {
-            icon()
+        FilledIconButton(
+            interactionSource = interactionSource,
+            onClick = onClick,
+            modifier = modifier.iconButton(enabled),
+            enabled = enabled,
+            colors = IconButtonDefaults.iconButtonColors(
+                SurfaceColor.Primary,
+                TextColor.OnPrimary,
+                SurfaceColor.DisabledSurface,
+                TextColor.OnDisabledSurface,
+            ),
+        ) {
+            Box(Modifier.size(Spacing.Spacing24)) {
+                icon()
+            }
         }
     }
 }
@@ -173,22 +211,38 @@ private fun FilledTonalIconButton(
     enabled: Boolean = true,
     icon: @Composable (() -> Unit),
     modifier: Modifier = Modifier,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    scope: CoroutineScope = rememberCoroutineScope(),
     onClick: () -> Unit,
 ) {
     CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
-        FilledTonalIconButton(
-            onClick = onClick,
-            modifier = modifier
-                .size(InternalSizeValues.Size48)
-                .padding(Spacing.Spacing4)
-                .hoverPointerIcon(enabled),
-            enabled = enabled,
-            shape = CircleShape,
-            colors = IconButtonDefaults.filledTonalIconButtonColors(SurfaceColor.PrimaryContainer, TextColor.OnPrimaryContainer, SurfaceColor.DisabledSurface, TextColor.OnDisabledSurface),
-
+        Box(
+            Modifier.size(InternalSizeValues.Size48).clickable(
+                enabled = enabled,
+                interactionSource = interactionSource,
+                onClick = {
+                    onClick.invoke()
+                    emitPressInteraction(scope, interactionSource)
+                },
+                indication = null,
+            ),
         ) {
-            Box(Modifier.size(Spacing.Spacing24)) {
-                icon()
+            FilledTonalIconButton(
+                onClick = onClick,
+                interactionSource = interactionSource,
+                modifier = modifier.iconButton(enabled),
+                enabled = enabled,
+                shape = CircleShape,
+                colors = IconButtonDefaults.filledTonalIconButtonColors(
+                    SurfaceColor.PrimaryContainer,
+                    TextColor.OnPrimaryContainer,
+                    SurfaceColor.DisabledSurface,
+                    TextColor.OnDisabledSurface,
+                ),
+            ) {
+                Box(Modifier.size(Spacing.Spacing24)) {
+                    icon()
+                }
             }
         }
     }
@@ -199,24 +253,53 @@ private fun OutlinedIconButton(
     enabled: Boolean = true,
     icon: @Composable (() -> Unit),
     modifier: Modifier = Modifier,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    scope: CoroutineScope = rememberCoroutineScope(),
     onClick: () -> Unit,
 ) {
     CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
-        OutlinedIconButton(
-            onClick = onClick,
-            modifier = modifier
-                .size(InternalSizeValues.Size48)
-                .padding(Spacing.Spacing4)
-                .hoverPointerIcon(enabled),
-            enabled = enabled,
-            shape = CircleShape,
-            border = BorderStroke(Border.Thin, if (enabled) Outline.Dark else SurfaceColor.DisabledSurface),
-            colors = IconButtonDefaults.outlinedIconButtonColors(Color.Transparent, TextColor.OnPrimaryContainer),
+        Box(
+            Modifier.size(InternalSizeValues.Size48).clickable(
+                enabled = enabled,
+                interactionSource = interactionSource,
+                onClick = {
+                    scope.launch {
+                        onClick.invoke()
+                        emitPressInteraction(scope, interactionSource)
+                    }
+                },
+                indication = null,
+            ),
         ) {
-            Box(Modifier.size(Spacing.Spacing24)) {
-                icon()
+            OutlinedIconButton(
+                onClick = onClick,
+                interactionSource = interactionSource,
+                modifier = modifier
+                    .iconButton(enabled),
+                enabled = enabled,
+                shape = CircleShape,
+                border = BorderStroke(
+                    Border.Thin,
+                    if (enabled) Outline.Dark else SurfaceColor.DisabledSurface,
+                ),
+                colors = IconButtonDefaults.outlinedIconButtonColors(
+                    Color.Transparent,
+                    TextColor.OnPrimaryContainer,
+                ),
+            ) {
+                Box(Modifier.size(Spacing.Spacing24)) {
+                    icon()
+                }
             }
         }
+    }
+}
+
+private fun emitPressInteraction(coroutineScope: CoroutineScope, interactionSource: MutableInteractionSource) {
+    coroutineScope.launch {
+        val pressInteraction = PressInteraction.Press(Offset.Zero)
+        interactionSource.emit(pressInteraction)
+        interactionSource.emit(PressInteraction.Release(pressInteraction))
     }
 }
 

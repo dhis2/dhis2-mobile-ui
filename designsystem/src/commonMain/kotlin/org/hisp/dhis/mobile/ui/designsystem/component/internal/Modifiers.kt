@@ -1,5 +1,7 @@
 package org.hisp.dhis.mobile.ui.designsystem.component.internal
 
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.draw.drawBehind
@@ -7,6 +9,9 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
+import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
+import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
+import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
 
 fun Modifier.bottomBorder(strokeWidth: Dp, color: Color) = composed(
     factory = {
@@ -25,4 +30,13 @@ fun Modifier.bottomBorder(strokeWidth: Dp, color: Color) = composed(
             )
         }
     },
+)
+
+internal fun Modifier.iconButton(
+    enabled: Boolean = true,
+    modifier: Modifier = Modifier,
+) = this.then(
+    modifier.size(InternalSizeValues.Size48)
+        .padding(Spacing.Spacing4)
+        .hoverPointerIcon(enabled),
 )
