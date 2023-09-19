@@ -34,6 +34,7 @@ import org.hisp.dhis.common.screens.Components
 import org.hisp.dhis.common.screens.FormShellsScreen
 import org.hisp.dhis.common.screens.FormsComponentsScreen
 import org.hisp.dhis.common.screens.IconButtonScreen
+import org.hisp.dhis.common.screens.ImageBlockScreen
 import org.hisp.dhis.common.screens.InputAgeScreen
 import org.hisp.dhis.common.screens.InputCheckBoxScreen
 import org.hisp.dhis.common.screens.InputEmailScreen
@@ -171,6 +172,7 @@ fun Main() {
             Components.INPUT_EMAIL -> InputEmailScreen()
             Components.CAROUSEL_BUTTONS -> ButtonCarouselScreen()
             Components.INPUT_ORG_UNIT -> InputOrgUnitScreen()
+            Components.IMAGE_BLOCK -> ImageBlockScreen()
         }
     }
 }
