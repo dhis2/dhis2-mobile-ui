@@ -27,7 +27,6 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
  * DHIS2 icon card sequential input component
  * @param title: Label of the component
  * @param data: List of [IconCardData] to show
- * @param layoutType: [IconCardLayoutType] to render list in, Matrix or Sequential. Default is [IconCardLayoutType.Matrix]
  * @param selectedData: Selected [IconCardData], renders selected UI around that item
  * @param state: [InputShellState]
  * @param supportingText: List of [SupportingTextData] that manages all the messages to be shown
