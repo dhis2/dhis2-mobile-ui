@@ -2,21 +2,18 @@ package org.hisp.dhis.mobile.ui.designsystem.component.internal
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.layout.offset
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHISShapes
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
-import org.hisp.dhis.mobile.ui.designsystem.theme.bottomShadow
+import org.hisp.dhis.mobile.ui.designsystem.theme.iconCardShadow
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
@@ -27,13 +24,17 @@ internal fun IconCard(
     onClick: () -> Unit,
     content: @Composable ColumnScope.() -> Unit,
 ) {
-    val cardShadowModifier = if (!selected && enabled) {
-        Modifier.clip(DHISShapes.medium)
-            .bottomShadow(color = mutableStateOf(Outline.Light))
-            .offset(y = (-2).dp)
-    } else {
-        Modifier
+    val cardShadowColor = when {
+        !selected && enabled -> {
+            Outline.Light
+        }
+        else -> {
+            Color.Unspecified
+        }
     }
+
+    val cardShadowModifier = Modifier.clip(DHISShapes.medium)
+        .iconCardShadow(color = cardShadowColor)
 
     Card(
         modifier = modifier.then(cardShadowModifier),
