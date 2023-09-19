@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.component.AvatarSize.Large
@@ -49,10 +50,9 @@ fun MetadataAvatar(
 
     Box(
         modifier = modifier
-            .background(
-                color = boxBackgroundColor,
-                shape = RoundedCornerShape(cornerRadius),
-            )
+            .clip(RoundedCornerShape(cornerRadius))
+            .background(color = Color.White)
+            .background(color = boxBackgroundColor)
             .padding(backgroundPadding)
             .size(Spacing.Spacing40),
         contentAlignment = Alignment.Center,
