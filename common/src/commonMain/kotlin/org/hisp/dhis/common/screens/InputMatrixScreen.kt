@@ -58,7 +58,7 @@ fun InputMatrixScreen() {
         )
     }
 
-    ColumnComponentContainer(title = "Metadata Avatar") {
+    ColumnComponentContainer(title = "Input Matrix") {
         InputMatrix(
             title = "Label",
             data = inputCardData,

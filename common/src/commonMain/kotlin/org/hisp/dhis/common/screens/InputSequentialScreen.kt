@@ -58,7 +58,7 @@ fun InputSequentialScreen() {
         )
     }
 
-    ColumnComponentContainer(title = "Metadata Avatar") {
+    ColumnComponentContainer(title = "Input Sequential") {
         InputSequential(
             title = "Label",
             data = inputCardData,
