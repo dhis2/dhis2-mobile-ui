@@ -106,7 +106,7 @@ fun InputShell(
         }
         legend?.invoke()
         if (state != InputShellState.DISABLED) supportingText?.invoke()
-        if (isRequiredField && state == InputShellState.ERROR) SupportingText("Required", state = SupportingTextState.ERROR)
+        if (isRequiredField && state == InputShellState.ERROR && supportingText == null) SupportingText("Required", state = SupportingTextState.ERROR)
     }
 }
 
