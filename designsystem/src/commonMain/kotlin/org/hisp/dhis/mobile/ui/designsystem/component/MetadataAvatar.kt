@@ -12,7 +12,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.component.AvatarSize.Large
 import org.hisp.dhis.mobile.ui.designsystem.component.AvatarSize.Normal
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
@@ -35,8 +34,8 @@ fun MetadataAvatar(
     size: AvatarSize = Normal,
 ) {
     val backgroundPadding = when (size) {
-        Normal -> 0.dp
-        Large -> 4.dp
+        Normal -> Spacing.Spacing0
+        Large -> Spacing.Spacing4
     }
     val cornerRadius = when (size) {
         Normal -> Radius.XS
