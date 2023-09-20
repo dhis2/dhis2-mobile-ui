@@ -27,14 +27,14 @@ import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
  * @param notation controls the decimal notation to be used, will be European
  * by default
  * @param onCallActionClicked callback to when call phone number button is clicked
- * @param characterLimit number of digits to be entered
+ * @param maxLength number of characters/digits that can be entered
  */
 @Composable
 fun InputPhoneNumber(
     title: String,
     onCallActionClicked: () -> Unit,
     modifier: Modifier = Modifier,
-    characterLimit: Int = 10,
+    maxLength: Int = 12,
     state: InputShellState = InputShellState.UNFOCUSED,
     legendData: LegendData? = null,
     inputText: String? = null,
@@ -44,7 +44,7 @@ fun InputPhoneNumber(
     imeAction: ImeAction = ImeAction.Next,
     notation: RegExValidations = RegExValidations.PHONE_NUMBER,
 ) {
-    val hasPhoneNumber = inputText?.length == characterLimit
+    val hasPhoneNumber = inputText?.length == maxLength
     val supportingText = if (state == InputShellState.ERROR) {
         listOf(
             SupportingTextData(
@@ -65,7 +65,7 @@ fun InputPhoneNumber(
         isRequiredField = isRequiredField,
         onNextClicked = onNextClicked,
         onValueChanged = {
-            if ((it?.length ?: 0) <= characterLimit) {
+            if ((it?.length ?: 0) <= maxLength) {
                 onValueChanged?.invoke(it)
             } else {
                 // no-op

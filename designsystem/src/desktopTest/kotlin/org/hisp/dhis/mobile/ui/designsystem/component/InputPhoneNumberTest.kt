@@ -52,6 +52,7 @@ class InputPhoneNumberTest {
             InputPhoneNumber(
                 title = "Phone Number",
                 inputText = inputValue,
+                maxLength = 10,
                 onValueChanged = {
                     if (it != null) {
                         inputValue = it
