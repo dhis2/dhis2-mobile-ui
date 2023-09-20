@@ -71,4 +71,5 @@ enum class RegExValidations(val regex: Regex) {
     PERCENTAGE("^([1-9]|[1-9][0-9]|100)\$".toRegex()),
     POSITIVE_INTEGER("^(?!0)\\d*".toRegex()),
     POSITIVE_INTEGER_OR_ZERO("^(0|[1-9]\\d*)\$".toRegex()),
+    PHONE_NUMBER("^[+0-9]+$".toRegex()),
 }

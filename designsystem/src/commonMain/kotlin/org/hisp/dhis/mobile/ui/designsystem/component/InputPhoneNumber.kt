@@ -42,7 +42,7 @@ fun InputPhoneNumber(
     onNextClicked: (() -> Unit)? = null,
     onValueChanged: ((String?) -> Unit)? = null,
     imeAction: ImeAction = ImeAction.Next,
-    notation: RegExValidations = RegExValidations.ONLY_INTEGERS,
+    notation: RegExValidations = RegExValidations.PHONE_NUMBER,
 ) {
     val hasPhoneNumber = inputText?.length == characterLimit
     val supportingText = if (state == InputShellState.ERROR) {
