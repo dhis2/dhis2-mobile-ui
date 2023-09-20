@@ -12,7 +12,7 @@ import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 
 /**
- * DHIS2 Input Phone Number. Wraps DHIS · [BasicTextInput].
+ * DHIS2 Input Phone Number
  * Input that allows only numeric values for entering phone number.
  *
  * @param title controls the text to be shown for the title
