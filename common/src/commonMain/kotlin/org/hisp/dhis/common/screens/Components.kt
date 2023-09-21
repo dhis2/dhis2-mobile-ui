@@ -32,4 +32,5 @@ enum class Components(val label: String) {
     SWITCH("Switch"),
     INPUT_MATRIX("Input Matrix"),
     INPUT_SEQUENTIAL("Input Sequential"),
+    QR_CODE_BLOCK("QR Code Block"),
 }

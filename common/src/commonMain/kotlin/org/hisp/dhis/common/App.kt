@@ -48,6 +48,7 @@ import org.hisp.dhis.common.screens.LegendDescriptionScreen
 import org.hisp.dhis.common.screens.LegendScreen
 import org.hisp.dhis.common.screens.MetadataAvatarScreen
 import org.hisp.dhis.common.screens.ProgressScreen
+import org.hisp.dhis.common.screens.QrCodeBlockScreen
 import org.hisp.dhis.common.screens.RadioButtonScreen
 import org.hisp.dhis.common.screens.SectionScreen
 import org.hisp.dhis.common.screens.SupportingTextScreen
@@ -143,6 +144,7 @@ fun Main() {
             Components.INPUT_RADIO_BUTTON -> InputRadioButtonScreen()
             Components.INPUT_MATRIX -> InputMatrixScreen()
             Components.INPUT_SEQUENTIAL -> InputSequentialScreen()
+            Components.QR_CODE_BLOCK -> QrCodeBlockScreen()
         }
     }
 }
