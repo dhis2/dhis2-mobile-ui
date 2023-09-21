@@ -75,8 +75,10 @@ fun InputShell(
                     .fillMaxWidth(1f),
                 verticalArrangement = Arrangement.Center,
             ) {
-                val titleText = if (isRequiredField) "$title *" else title
-                InputShellLabelText(titleText, textColor = indicatorColor)
+                if (title.isNotEmpty()) {
+                    val titleText = if (isRequiredField) "$title *" else title
+                    InputShellLabelText(titleText, textColor = indicatorColor)
+                }
                 inputField?.invoke()
             }
             Row(

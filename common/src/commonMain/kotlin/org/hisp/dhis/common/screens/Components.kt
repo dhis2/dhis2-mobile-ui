@@ -37,4 +37,5 @@ enum class Components(val label: String) {
     INPUT_CHECK_BOX("Input Check Box"),
     BARCODE_BLOCK("Barcode Block"),
     AGE_FIELD("Age Field"),
+    INPUT_YES_ONLY_SWITCH("Input yes only switch"),
 }
