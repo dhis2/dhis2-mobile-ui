@@ -63,7 +63,8 @@ fun InputShell(
         InputShellRow(
             modifier = Modifier
                 .onFocusChanged {
-                    indicatorColor = if (it.isFocused && state != InputShellState.ERROR && state != InputShellState.WARNING) InputShellState.FOCUSED.color else state.color
+                    indicatorColor =
+                        if (it.isFocused && state != InputShellState.ERROR && state != InputShellState.WARNING) InputShellState.FOCUSED.color else state.color
                     indicatorThickness = if (it.isFocused) Border.Regular else Border.Thin
                 },
             backgroundColor = backgroundColor,

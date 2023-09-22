@@ -11,6 +11,8 @@ import androidx.compose.ui.Modifier
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.InputYesOnlySwitch
+import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextData
+import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextState
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
 @Composable
@@ -39,6 +41,7 @@ fun InputYesOnlySwitchScreen() {
             title = "Label",
             isChecked = isSelected2,
             state = InputShellState.ERROR,
+            supportingText = listOf(SupportingTextData("Error text", SupportingTextState.ERROR)),
         ) {
             isSelected2 = !isSelected2
         }
