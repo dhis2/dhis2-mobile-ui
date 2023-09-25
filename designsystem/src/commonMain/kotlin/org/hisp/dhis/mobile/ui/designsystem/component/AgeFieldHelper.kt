@@ -18,7 +18,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
  * @param onClick is a callback to notify which item has changed into the block.
  */
 @Composable
-fun AgeFieldHelper(
+fun TimeUnitSelector(
     orientation: Orientation,
     optionSelected: String,
     onClick: (RadioButtonData) -> Unit,
@@ -31,7 +31,7 @@ fun AgeFieldHelper(
             )
             .background(color = SurfaceColor.Surface, Shape.SmallBottom),
     ) {
-        val options = AgeFieldHelperValues.values().map {
+        val options = TimeUnitValues.values().map {
             RadioButtonData(it.value, optionSelected == it.value, true, provideStringResource(it.value))
         }
         val selectedItem = options.find {
@@ -43,8 +43,8 @@ fun AgeFieldHelper(
     }
 }
 
-enum class AgeFieldHelperValues(val value: String) {
-    YEARS("Years"),
-    MONTHS("Months"),
-    DAYS("Days"),
+enum class TimeUnitValues(val value: String) {
+    YEARS("years"),
+    MONTHS("months"),
+    DAYS("days"),
 }

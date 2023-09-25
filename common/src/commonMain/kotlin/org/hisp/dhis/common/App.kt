@@ -142,7 +142,7 @@ fun Main() {
             Components.INPUT_INTEGER -> InputIntegerScreen()
             Components.INPUT_NUMBER -> InputNumberScreen()
             Components.INPUT_LETTER -> InputLetterScreen()
-            Components.AGE_FIELD -> AgeFieldScreen()
+            Components.AGE_FIELD -> InputAgeScreen()
             Components.CHIPS -> ChipsScreen()
             Components.BADGES -> BadgesScreen()
             Components.SWITCH -> SwitchScreen()
