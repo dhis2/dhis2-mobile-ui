@@ -160,27 +160,6 @@ fun RadioButtonBlock(
     }
 }
 
-@Composable
-fun AgeFieldHelper(
-    orientation: Orientation,
-    options: List<RadioButtonData>,
-    optionSelected: RadioButtonData,
-    onClick: (RadioButtonData) -> Unit,
-) {
-    RowComponentContainer(
-        modifier = Modifier
-            .padding(
-                start = Spacing.Spacing8,
-                end = Spacing.Spacing8,
-            )
-            .background(color = SurfaceColor.Surface, Shape.SmallBottom),
-    ) {
-        RadioButtonBlock(orientation, options, optionSelected) {
-            onClick
-        }
-    }
-}
-
 data class RadioButtonData(
     val uid: String,
     val selected: Boolean,

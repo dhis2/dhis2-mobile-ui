@@ -25,11 +25,11 @@ fun TimeUnitSelector(
 ) {
     RowComponentContainer(
         modifier = Modifier
+            .background(color = SurfaceColor.Surface, Shape.SmallBottom)
             .padding(
                 start = Spacing.Spacing8,
                 end = Spacing.Spacing8,
-            )
-            .background(color = SurfaceColor.Surface, Shape.SmallBottom),
+            ),
     ) {
         val options = TimeUnitValues.values().map {
             RadioButtonData(it.value, optionSelected == it.value, true, provideStringResource(it.value))
