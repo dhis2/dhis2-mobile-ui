@@ -31,7 +31,6 @@ import org.hisp.dhis.common.screens.Components
 import org.hisp.dhis.common.screens.FormShellsScreen
 import org.hisp.dhis.common.screens.FormsComponentsScreen
 import org.hisp.dhis.common.screens.IconButtonScreen
-import org.hisp.dhis.common.screens.IconCardsScreen
 import org.hisp.dhis.common.screens.InputIntegerScreen
 import org.hisp.dhis.common.screens.InputLetterScreen
 import org.hisp.dhis.common.screens.InputLongTextScreen
@@ -45,6 +44,7 @@ import org.hisp.dhis.common.screens.InputScreen
 import org.hisp.dhis.common.screens.InputTextScreen
 import org.hisp.dhis.common.screens.LegendDescriptionScreen
 import org.hisp.dhis.common.screens.LegendScreen
+import org.hisp.dhis.common.screens.MetadataAvatarScreen
 import org.hisp.dhis.common.screens.ProgressScreen
 import org.hisp.dhis.common.screens.RadioButtonScreen
 import org.hisp.dhis.common.screens.SectionScreen
@@ -124,7 +124,7 @@ fun Main() {
             Components.LEGEND_DESCRIPTION -> LegendDescriptionScreen()
             Components.FORM_SHELLS -> FormShellsScreen()
             Components.BUTTON_BLOCK -> ButtonBlockScreen()
-            Components.ICON_CARDS -> IconCardsScreen()
+            Components.METADATA_AVATAR -> MetadataAvatarScreen()
             Components.BOTTOM_SHEET_HEADER -> BottomSheetHeaderScreen()
             Components.TAGS -> TagsScreen()
             Components.SECTIONS -> SectionScreen()

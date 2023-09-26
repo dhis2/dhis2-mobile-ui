@@ -10,8 +10,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.component.AvatarSize.Large
 import org.hisp.dhis.mobile.ui.designsystem.component.AvatarSize.Normal
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
@@ -34,20 +34,24 @@ fun MetadataAvatar(
     size: AvatarSize = Normal,
 ) {
     val backgroundPadding = when (size) {
-        Normal -> 0.dp
-        Large -> 4.dp
+        Normal -> Spacing.Spacing0
+        Large -> Spacing.Spacing4
+    }
+    val cornerRadius = when (size) {
+        Normal -> Radius.XS
+        Large -> Radius.S
     }
     val boxBackgroundColor = if (backgroundColor != Color.Unspecified) {
         backgroundColor
     } else {
         iconTint.copy(alpha = 0.1f)
     }
+
     Box(
         modifier = modifier
-            .background(
-                color = boxBackgroundColor,
-                shape = RoundedCornerShape(Radius.XS),
-            )
+            .clip(RoundedCornerShape(cornerRadius))
+            .background(color = Color.White)
+            .background(color = boxBackgroundColor)
             .padding(backgroundPadding)
             .size(Spacing.Spacing40),
         contentAlignment = Alignment.Center,
@@ -55,7 +59,9 @@ fun MetadataAvatar(
         CompositionLocalProvider(
             LocalContentColor provides iconTint,
         ) {
-            icon()
+            Box(modifier = Modifier.clip(RoundedCornerShape(Radius.XS))) {
+                icon()
+            }
         }
     }
 }

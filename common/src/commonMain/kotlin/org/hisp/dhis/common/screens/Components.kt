@@ -27,7 +27,7 @@ enum class Components(val label: String) {
     BUTTON_BLOCK("Button block"),
     CHIPS("Chips"),
     BADGES("Badges"),
-    ICON_CARDS("Icon Cards"),
+    METADATA_AVATAR("Metadata Avatar"),
     INPUT_RADIO_BUTTON("Input Radio Button"),
     SWITCH("Switch"),
 }
