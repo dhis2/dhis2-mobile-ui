@@ -92,7 +92,10 @@ fun InputShell(
                     Spacer(modifier = Modifier.width(Spacing.Spacing4))
                 }
                 secondaryButton?.let {
-                    Box(Modifier.size(Spacing.Spacing48)) {
+                    Box(
+                        Modifier
+                            .padding(end = Spacing.Spacing4).size(Spacing.Spacing48),
+                    ) {
                         it.invoke()
                     }
                 }
