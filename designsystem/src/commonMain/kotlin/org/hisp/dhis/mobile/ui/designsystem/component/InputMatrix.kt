@@ -19,6 +19,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.internal.IconCard
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.IconCardData
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.VerticalGrid
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2SCustomTextStyles
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
@@ -170,4 +171,4 @@ private fun iconCardTextColor(enabled: Boolean) =
 
 @Composable
 private fun iconCardTextStyle(selected: Boolean) =
-    if (selected) MaterialTheme.typography.titleMedium else MaterialTheme.typography.bodyLarge
+    if (selected) DHIS2SCustomTextStyles.bodyLargeBold else MaterialTheme.typography.bodyLarge
