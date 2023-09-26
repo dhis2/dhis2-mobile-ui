@@ -44,7 +44,7 @@ fun InputPhoneNumber(
     imeAction: ImeAction = ImeAction.Next,
     notation: RegExValidations = RegExValidations.PHONE_NUMBER,
 ) {
-    val hasPhoneNumber = inputText?.length == maxLength
+    val hasMinimumPhoneNumberInput = inputText.orEmpty().length > 2
     val supportingText = if (state == InputShellState.ERROR) {
         listOf(
             SupportingTextData(
@@ -78,7 +78,7 @@ fun InputPhoneNumber(
         actionButton = {
             SquareIconButton(
                 modifier = Modifier.testTag("CALL_PHONE_NUMBER_BUTTON"),
-                enabled = hasPhoneNumber,
+                enabled = hasMinimumPhoneNumberInput,
                 icon = {
                     Icon(
                         painter = provideDHIS2Icon("dhis2_phone_positive"),
