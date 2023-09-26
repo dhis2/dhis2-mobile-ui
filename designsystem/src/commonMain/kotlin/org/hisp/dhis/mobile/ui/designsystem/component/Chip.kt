@@ -35,20 +35,15 @@ fun Chip(
 ) {
     Box(modifier = modifier) {
         CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
-            var isSelected by remember { mutableStateOf(selected) }
-
             FilterChip(
-                onClick = {
-                    isSelected = !isSelected
-                    onSelected?.invoke(isSelected)
-                },
+                onClick = { onSelected?.invoke(!selected) },
                 label = { Text(label) },
-                selected = isSelected,
+                selected = selected,
                 colors = FilterChipDefaults.filterChipColors(
                     containerColor = SurfaceColor.SurfaceBright,
                     selectedContainerColor = SurfaceColor.Container,
                 ),
-                leadingIcon = if (isSelected) {
+                leadingIcon = if (selected) {
                     {
                         Icon(
                             imageVector = Icons.Filled.Done,
