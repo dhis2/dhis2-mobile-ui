@@ -3,6 +3,10 @@ package org.hisp.dhis.mobile.ui.designsystem.component
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
@@ -37,7 +41,11 @@ fun TimeUnitSelector(
         val selectedItem = options.find {
             it.selected
         }
-        RadioButtonBlock(orientation, options, selectedItem ?: options[0]) {
+        var currentItem by remember {
+            mutableStateOf(selectedItem ?: options[0])
+        }
+        RadioButtonBlock(orientation, options, currentItem) {
+            currentItem = it
             onClick.invoke(it)
         }
     }
