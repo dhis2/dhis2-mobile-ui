@@ -1,11 +1,13 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
+import androidx.compose.foundation.layout.offset
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Cancel
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
 /**
  * DHIS2 Input Check Box. Wraps DHIS · [CheckBox].
@@ -64,6 +66,7 @@ fun InputCheckBox(
             CheckBoxBlock(
                 orientation = orientation,
                 content = updatedCheckBoxData,
+                modifier = Modifier.offset(x = -Spacing.Spacing8),
                 onItemChange = onItemChange,
             )
         },

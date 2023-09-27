@@ -108,12 +108,14 @@ fun RadioButtonBlock(
     orientation: Orientation,
     content: List<RadioButtonData>,
     itemSelected: RadioButtonData?,
+    modifier: Modifier = Modifier,
     onItemChange: (RadioButtonData) -> Unit,
 ) {
     if (orientation == Orientation.HORIZONTAL) {
         FlowRowComponentsContainer(
             null,
             Spacing.Spacing16,
+            modifier,
             content = {
                 content.map { radioButtonData ->
                     RadioButton(
@@ -133,6 +135,7 @@ fun RadioButtonBlock(
         FlowColumnComponentsContainer(
             null,
             Spacing.Spacing0,
+            modifier,
             content = {
                 content.map { radioButtonData ->
                     RadioButton(

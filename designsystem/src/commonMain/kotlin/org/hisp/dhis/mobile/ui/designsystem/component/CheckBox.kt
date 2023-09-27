@@ -110,12 +110,14 @@ fun CheckBox(
 fun CheckBoxBlock(
     orientation: Orientation,
     content: List<CheckBoxData>,
+    modifier: Modifier = Modifier,
     onItemChange: (CheckBoxData) -> Unit,
 ) {
     if (orientation == Orientation.HORIZONTAL) {
         FlowRowComponentsContainer(
             null,
             Spacing.Spacing16,
+            modifier,
             content = {
                 content.map { checkBoxData ->
                     CheckBox(checkBoxData) {
@@ -128,6 +130,7 @@ fun CheckBoxBlock(
         FlowColumnComponentsContainer(
             null,
             Spacing.Spacing0,
+            modifier,
             content = {
                 content.map { checkBoxData ->
                     CheckBox(checkBoxData) {

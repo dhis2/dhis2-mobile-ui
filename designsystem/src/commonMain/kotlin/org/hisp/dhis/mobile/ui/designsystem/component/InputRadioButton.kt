@@ -1,5 +1,6 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
+import androidx.compose.foundation.layout.offset
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Cancel
 import androidx.compose.material3.Icon
@@ -10,6 +11,7 @@ import androidx.compose.ui.platform.testTag
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState.DISABLED
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState.UNFOCUSED
 import org.hisp.dhis.mobile.ui.designsystem.component.Orientation.VERTICAL
+import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
 /**
  * DHIS2 Input Radio Button. Wraps DHIS · [RadioButton].
@@ -69,6 +71,7 @@ fun InputRadioButton(
                 orientation = orientation,
                 content = updatedRadioButtonData,
                 itemSelected = itemSelected,
+                modifier = Modifier.offset(x = -Spacing.Spacing8),
                 onItemChange = onItemChange,
             )
         },
