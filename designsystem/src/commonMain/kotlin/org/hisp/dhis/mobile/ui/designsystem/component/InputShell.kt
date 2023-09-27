@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -24,6 +25,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.IntOffset
 import org.hisp.dhis.mobile.ui.designsystem.theme.Border
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
@@ -93,7 +95,7 @@ fun InputShell(
                 }
             }
         }
-        Box {
+        Box(Modifier.height(Spacing.Spacing2)) {
             InputShellIndicator(
                 color = indicatorColor,
                 thickness = indicatorThickness,
@@ -160,8 +162,13 @@ private fun InputShellIndicator(
         modifier = modifier
             .fillMaxWidth()
             .padding(
-                top = if (thickness == Border.Thin) Spacing.Spacing1 else Spacing.Spacing0,
-            ),
+                top = Spacing.Spacing0,
+            ).offset {
+                IntOffset(
+                    0,
+                    if (thickness == Border.Thin) 0 else -2,
+                )
+            },
         thickness = thickness,
         color = color,
     )
