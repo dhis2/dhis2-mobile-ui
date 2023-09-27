@@ -78,7 +78,7 @@ fun App() {
 
 @Composable
 fun Main() {
-    val currentScreen = remember { mutableStateOf(Components.LIST_CARD) }
+    val currentScreen = remember { mutableStateOf(Components.CAROUSEL_BUTTONS) }
     var expanded by remember { mutableStateOf(false) }
 
     Column(

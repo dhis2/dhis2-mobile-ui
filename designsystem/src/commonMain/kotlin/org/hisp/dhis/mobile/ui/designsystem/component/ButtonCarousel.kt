@@ -6,23 +6,19 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.ripple.LocalRippleTheme
 import androidx.compose.material3.FilledIconButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Ripple
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
 
-@Composable
-fun ButtonCarousel(
-    items: List<CarouselButtonData>
-) {
-
-}
 
 @Composable
 fun CarouselButton(
@@ -54,4 +50,29 @@ fun CarouselButton(
     }
 }
 
-data class CarouselButtonData(val textInput: String, val iconResource: String)
+@Composable
+fun ButtonCarousel(
+    carouselButtonList: List<CarouselButtonData>,
+    onClick: () -> Unit
+) {
+   FlowRowComponentsContainer(
+       content = {
+           carouselButtonList.map {
+               CarouselButton(
+                   enabled = it.enabled,
+                   textInput = it.textInput,
+                   icon = {
+                       Icon(
+                           painter = provideDHIS2Icon(it.iconResource),
+                           contentDescription = ""
+                       )
+                   },
+                   onClick = onClick
+               )
+           }
+       },
+       spacing = Spacing.Spacing0
+   )
+}
+
+data class CarouselButtonData(val enabled: Boolean, val textInput: String, val iconResource: String)
