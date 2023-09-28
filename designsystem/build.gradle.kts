@@ -33,12 +33,14 @@ kotlin {
                 api("androidx.activity:activity-compose:1.7.2")
                 api("androidx.appcompat:appcompat:1.6.1")
                 api("androidx.core:core-ktx:1.10.1")
+                implementation("com.google.zxing:core:3.5.2")
             }
         }
 
         val desktopMain by getting {
             dependencies {
                 implementation(compose.desktop.common)
+                implementation("com.google.zxing:core:3.5.2")
             }
         }
 
