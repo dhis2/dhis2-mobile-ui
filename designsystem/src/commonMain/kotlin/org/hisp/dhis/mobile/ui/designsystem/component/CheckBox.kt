@@ -12,12 +12,10 @@ import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.Ripple
@@ -41,9 +39,6 @@ fun CheckBox(
     modifier: Modifier = Modifier,
     onCheckedChange: ((Boolean) -> Unit),
 ) {
-    var isChecked by remember {
-        mutableStateOf(checkBoxData.checked)
-    }
     val interactionSource =
         if (checkBoxData.enabled) remember { MutableInteractionSource() } else MutableInteractionSource()
     val textColor = if (checkBoxData.enabled) {
@@ -61,8 +56,7 @@ fun CheckBox(
                 indication = null,
                 onClick = {
                     if (checkBoxData.enabled) {
-                        isChecked = !isChecked
-                        onCheckedChange.invoke(isChecked)
+                        onCheckedChange.invoke(!checkBoxData.checked)
                     }
                 },
                 enabled = checkBoxData.enabled,
@@ -71,17 +65,17 @@ fun CheckBox(
     ) {
         CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
             Checkbox(
-                checked = isChecked,
+                checked = checkBoxData.checked,
                 onCheckedChange = {
                     if (checkBoxData.enabled) {
-                        isChecked = it
-                        onCheckedChange.invoke(isChecked)
+                        onCheckedChange.invoke(!checkBoxData.checked)
                     }
                 },
                 interactionSource = interactionSource,
                 enabled = checkBoxData.enabled,
                 modifier = Modifier
-                    .size(InternalSizeValues.Size40),
+                    .size(InternalSizeValues.Size40)
+                    .testTag("CHECK_BOX_${checkBoxData.uid}"),
                 colors = CheckboxDefaults.colors(
                     checkedColor = SurfaceColor.Primary,
                     uncheckedColor = Outline.Dark,
@@ -116,12 +110,14 @@ fun CheckBox(
 fun CheckBoxBlock(
     orientation: Orientation,
     content: List<CheckBoxData>,
+    modifier: Modifier = Modifier,
     onItemChange: (CheckBoxData) -> Unit,
 ) {
     if (orientation == Orientation.HORIZONTAL) {
         FlowRowComponentsContainer(
             null,
             Spacing.Spacing16,
+            modifier,
             content = {
                 content.map { checkBoxData ->
                     CheckBox(checkBoxData) {
@@ -134,6 +130,7 @@ fun CheckBoxBlock(
         FlowColumnComponentsContainer(
             null,
             Spacing.Spacing0,
+            modifier,
             content = {
                 content.map { checkBoxData ->
                     CheckBox(checkBoxData) {

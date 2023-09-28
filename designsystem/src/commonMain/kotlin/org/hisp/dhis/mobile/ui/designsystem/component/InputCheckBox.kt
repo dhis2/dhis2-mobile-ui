@@ -4,53 +4,49 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Cancel
 import androidx.compose.material3.Icon
-import androidx.compose.material3.RadioButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
-import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState.DISABLED
-import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState.UNFOCUSED
-import org.hisp.dhis.mobile.ui.designsystem.component.Orientation.VERTICAL
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
 /**
- * DHIS2 Input Radio Button. Wraps DHIS · [RadioButton].
+ * DHIS2 Input Check Box. Wraps DHIS · [CheckBox].
  * @param title controls the text to be shown for the title
- * @param radioButtonData Contains all the data that will be displayed, the list type is RadioButtonData,
- * It's parameters are uid for identifying the component, selected for controlling which option is selected,
+ * @param checkBoxData Contains all the data that will be displayed, the list type is CheckBoxData,
+ * It's parameters are uid for identifying the component, checked for controlling which option is checked,
  * enabled controls if the component is clickable and textInput displaying the option text.
  * @param modifier allows a modifier to be passed externally
- * @param orientation Controls how the radio buttons will be displayed, HORIZONTAL for rows or
+ * @param orientation Controls how the check boxes will be displayed, HORIZONTAL for rows or
  * VERTICAL for columns.
  * @param state Manages the InputShell state
  * @param supportingText is a list of SupportingTextData that
  * manages all the messages to be shown
  * @param legendData manages the legendComponent
  * @param isRequired controls whether the field is mandatory or not
- * @param itemSelected controls which item is selected.
  * @param onItemChange is a callback to notify which item has changed into the block.
+ * @param onClearSelection is a callback to notify all items has cleared into the block.
  */
 @Composable
-fun InputRadioButton(
+fun InputCheckBox(
     title: String,
-    radioButtonData: List<RadioButtonData>,
+    checkBoxData: List<CheckBoxData>,
     modifier: Modifier = Modifier,
-    orientation: Orientation = VERTICAL,
-    state: InputShellState = UNFOCUSED,
+    orientation: Orientation = Orientation.VERTICAL,
+    state: InputShellState = InputShellState.UNFOCUSED,
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
     isRequired: Boolean = false,
-    itemSelected: RadioButtonData? = null,
-    onItemChange: (RadioButtonData?) -> Unit,
+    onItemChange: (CheckBoxData) -> Unit,
+    onClearSelection: () -> Unit,
 ) {
     InputShell(
-        modifier = modifier.testTag("RADIO_BUTTON_INPUT"),
+        modifier = modifier.testTag("INPUT_CHECK_BOX"),
         isRequiredField = isRequired,
         title = title,
         state = state,
         legend = {
             legendData?.let {
-                Legend(legendData, modifier.testTag("RADIO_BUTTON_INPUT_LEGEND"))
+                Legend(legendData, modifier.testTag("INPUT_CHECK_BOX_LEGEND"))
             }
         },
         supportingText = {
@@ -58,28 +54,27 @@ fun InputRadioButton(
                 SupportingText(
                     label.text,
                     label.state,
-                    modifier = modifier.testTag("RADIO_BUTTON_INPUT_SUPPORTING_TEXT"),
+                    modifier = modifier.testTag("INPUT_CHECK_BOX_SUPPORTING_TEXT"),
                 )
             }
         },
         inputField = {
-            val updatedRadioButtonData = mutableListOf<RadioButtonData>()
-            radioButtonData.forEach {
-                updatedRadioButtonData.add(it.copy(enabled = state != DISABLED && it.enabled))
+            val updatedCheckBoxData = mutableListOf<CheckBoxData>()
+            checkBoxData.forEach {
+                updatedCheckBoxData.add(it.copy(enabled = state != InputShellState.DISABLED && it.enabled))
             }
-            RadioButtonBlock(
+            CheckBoxBlock(
                 orientation = orientation,
-                content = updatedRadioButtonData,
-                itemSelected = itemSelected,
+                content = updatedCheckBoxData,
                 modifier = Modifier.offset(x = -Spacing.Spacing8),
                 onItemChange = onItemChange,
             )
         },
         primaryButton = {
-            val isClearButtonVisible = itemSelected != null && state != DISABLED
+            val isClearButtonVisible = checkBoxData.firstOrNull { it.checked } != null && state != InputShellState.DISABLED
             if (isClearButtonVisible) {
                 IconButton(
-                    modifier = Modifier.testTag("RADIO_BUTTON_INPUT_CLEAR_BUTTON"),
+                    modifier = Modifier.testTag("INPUT_CHECK_BOX_CLEAR_BUTTON"),
                     icon = {
                         Icon(
                             imageVector = Icons.Outlined.Cancel,
@@ -87,7 +82,7 @@ fun InputRadioButton(
                         )
                     },
                     onClick = {
-                        onItemChange.invoke(null)
+                        onClearSelection.invoke()
                     },
                 )
             }
