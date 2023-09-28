@@ -23,7 +23,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import org.hisp.dhis.common.screens.BadgesScreen
 import org.hisp.dhis.common.screens.BottomSheetHeaderScreen
-import org.hisp.dhis.common.screens.BottomSheetScreen
 import org.hisp.dhis.common.screens.ButtonBlockScreen
 import org.hisp.dhis.common.screens.ButtonScreen
 import org.hisp.dhis.common.screens.CheckboxScreen
@@ -32,9 +31,8 @@ import org.hisp.dhis.common.screens.Components
 import org.hisp.dhis.common.screens.FormShellsScreen
 import org.hisp.dhis.common.screens.FormsComponentsScreen
 import org.hisp.dhis.common.screens.IconButtonScreen
-import org.hisp.dhis.common.screens.InputCheckBoxScreen
-import org.hisp.dhis.common.screens.IconCardsScreen
 import org.hisp.dhis.common.screens.InputAgeScreen
+import org.hisp.dhis.common.screens.InputCheckBoxScreen
 import org.hisp.dhis.common.screens.InputIntegerScreen
 import org.hisp.dhis.common.screens.InputLetterScreen
 import org.hisp.dhis.common.screens.InputLongTextScreen
