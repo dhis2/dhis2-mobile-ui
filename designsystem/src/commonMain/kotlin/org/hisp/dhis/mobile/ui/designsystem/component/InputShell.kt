@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -24,6 +25,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.IntOffset
 import org.hisp.dhis.mobile.ui.designsystem.theme.Border
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
@@ -69,7 +71,8 @@ fun InputShell(
             Column(
                 Modifier
                     .weight(4f, false)
-                    .padding(end = Spacing.Spacing4),
+                    .padding(end = Spacing.Spacing4)
+                    .fillMaxWidth(1f),
                 verticalArrangement = Arrangement.Center,
             ) {
                 val titleText = if (isRequiredField) "$title *" else title
@@ -78,12 +81,9 @@ fun InputShell(
             }
             Row(
                 verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.height(Spacing.Spacing48),
             ) {
-                primaryButton?.let {
-                    Box(Modifier.size(Spacing.Spacing48)) {
-                        it.invoke()
-                    }
-                }
+                primaryButton?.invoke()
                 if (primaryButton != null && secondaryButton != null) {
                     InputShellButtonSeparator()
                     Spacer(modifier = Modifier.width(Spacing.Spacing4))
@@ -95,7 +95,12 @@ fun InputShell(
                 }
             }
         }
-        InputShellIndicator(color = indicatorColor, thickness = indicatorThickness)
+        Box(Modifier.height(Spacing.Spacing2)) {
+            InputShellIndicator(
+                color = indicatorColor,
+                thickness = indicatorThickness,
+            )
+        }
         legend?.invoke()
         if (state != InputShellState.DISABLED) supportingText?.invoke()
         if (isRequiredField && state == InputShellState.ERROR) SupportingText("Required", state = SupportingTextState.ERROR)
@@ -120,7 +125,7 @@ private fun InputShellRow(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier.fillMaxWidth()
             .background(backgroundColor)
-            .padding(Spacing.Spacing16, Spacing.Spacing8, Spacing.Spacing0, Spacing.Spacing4),
+            .padding(Spacing.Spacing16, Spacing.Spacing8, Spacing.Spacing0, Spacing.Spacing6),
     ) {
         content()
     }
@@ -156,7 +161,14 @@ private fun InputShellIndicator(
     Divider(
         modifier = modifier
             .fillMaxWidth()
-            .padding(),
+            .padding(
+                top = Spacing.Spacing0,
+            ).offset {
+                IntOffset(
+                    0,
+                    if (thickness == Border.Thin) 0 else -2,
+                )
+            },
         thickness = thickness,
         color = color,
     )
