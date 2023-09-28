@@ -31,6 +31,7 @@ import org.hisp.dhis.common.screens.Components
 import org.hisp.dhis.common.screens.FormShellsScreen
 import org.hisp.dhis.common.screens.FormsComponentsScreen
 import org.hisp.dhis.common.screens.IconButtonScreen
+import org.hisp.dhis.common.screens.InputAgeScreen
 import org.hisp.dhis.common.screens.InputCheckBoxScreen
 import org.hisp.dhis.common.screens.InputIntegerScreen
 import org.hisp.dhis.common.screens.InputLetterScreen
@@ -67,7 +68,7 @@ fun App() {
 
 @Composable
 fun Main() {
-    val currentScreen = remember { mutableStateOf(Components.SWITCH) }
+    val currentScreen = remember { mutableStateOf(Components.FORM_SHELLS) }
     var expanded by remember { mutableStateOf(false) }
 
     Column(
@@ -139,6 +140,7 @@ fun Main() {
             Components.INPUT_INTEGER -> InputIntegerScreen()
             Components.INPUT_NUMBER -> InputNumberScreen()
             Components.INPUT_LETTER -> InputLetterScreen()
+            Components.AGE_FIELD -> InputAgeScreen()
             Components.CHIPS -> ChipsScreen()
             Components.BADGES -> BadgesScreen()
             Components.SWITCH -> SwitchScreen()

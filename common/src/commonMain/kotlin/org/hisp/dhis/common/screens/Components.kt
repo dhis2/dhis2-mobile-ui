@@ -34,4 +34,5 @@ enum class Components(val label: String) {
     INPUT_SEQUENTIAL("Input Sequential"),
     QR_CODE_BLOCK("QR Code Block"),
     INPUT_CHECK_BOX("Input Check Box"),
+    AGE_FIELD("Age Field"),
 }

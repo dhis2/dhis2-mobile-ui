@@ -31,7 +31,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
  * identifying the component, selected for controlling which option is selected, enabled controls if the component is
  * clickable and textInput displaying the option text.
  * @param onClick Will be called when the user clicks the button.
-*
+ *
  */
 @Composable
 fun RadioButton(
