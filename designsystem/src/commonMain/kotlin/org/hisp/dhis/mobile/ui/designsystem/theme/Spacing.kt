@@ -38,6 +38,8 @@ internal object InternalSizeValues {
     val Size20: Dp = 20.dp
     val Size40: Dp = 40.dp
     val Size48: Dp = 48.dp
+    val Size52: Dp = 52.dp
+    val Size64: Dp = 64.dp
     val Size300: Dp = 300.dp
     val Size386: Dp = 386.dp
     val Size578: Dp = 578.dp
