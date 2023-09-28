@@ -1,10 +1,13 @@
 package org.hisp.dhis.mobile.ui.designsystem.theme
 
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.draw.drawWithCache
+import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Paint
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
@@ -75,3 +78,18 @@ internal fun Modifier.buttonShadow(
         }
     },
 )
+
+internal fun Modifier.iconCardShadow(
+    color: Color = SurfaceColor.ContainerHighest,
+    borderRadius: Dp = Radius.NoRounding,
+    shadowRadius: Dp = Border.Regular,
+) = drawWithCache {
+    val cornerRadius = CornerRadius(borderRadius.toPx(), borderRadius.toPx())
+    onDrawBehind {
+        drawRoundRect(
+            color = color,
+            cornerRadius = cornerRadius,
+            size = size,
+        )
+    }
+}.padding(bottom = shadowRadius)

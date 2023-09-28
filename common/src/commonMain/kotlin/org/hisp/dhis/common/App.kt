@@ -34,6 +34,7 @@ import org.hisp.dhis.common.screens.IconButtonScreen
 import org.hisp.dhis.common.screens.InputIntegerScreen
 import org.hisp.dhis.common.screens.InputLetterScreen
 import org.hisp.dhis.common.screens.InputLongTextScreen
+import org.hisp.dhis.common.screens.InputMatrixScreen
 import org.hisp.dhis.common.screens.InputNegativeIntegerScreen
 import org.hisp.dhis.common.screens.InputNumberScreen
 import org.hisp.dhis.common.screens.InputPercentageScreen
@@ -41,6 +42,7 @@ import org.hisp.dhis.common.screens.InputPositiveIntegerOrZeroScreen
 import org.hisp.dhis.common.screens.InputPositiveIntegerScreen
 import org.hisp.dhis.common.screens.InputRadioButtonScreen
 import org.hisp.dhis.common.screens.InputScreen
+import org.hisp.dhis.common.screens.InputSequentialScreen
 import org.hisp.dhis.common.screens.InputTextScreen
 import org.hisp.dhis.common.screens.LegendDescriptionScreen
 import org.hisp.dhis.common.screens.LegendScreen
@@ -139,6 +141,8 @@ fun Main() {
             Components.BADGES -> BadgesScreen()
             Components.SWITCH -> SwitchScreen()
             Components.INPUT_RADIO_BUTTON -> InputRadioButtonScreen()
+            Components.INPUT_MATRIX -> InputMatrixScreen()
+            Components.INPUT_SEQUENTIAL -> InputSequentialScreen()
         }
     }
 }
