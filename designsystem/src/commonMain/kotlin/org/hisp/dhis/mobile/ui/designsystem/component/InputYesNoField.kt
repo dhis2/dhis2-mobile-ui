@@ -67,7 +67,7 @@ fun InputYesNoField(
                 Orientation.HORIZONTAL,
                 options,
                 options.find { it.selected },
-                Modifier.offset(x = -Spacing.Spacing8)
+                Modifier.offset(x = -Spacing.Spacing8),
             ) { radioButtonData ->
                 onItemChange.invoke(
                     InputYesNoFieldValues.values().firstOrNull { it.name.equals(radioButtonData.uid, true) },
