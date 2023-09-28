@@ -1,5 +1,6 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -48,7 +49,9 @@ fun InputYesOnlyCheckBox(
         },
         inputField = {
             CheckBox(
-                modifier = Modifier.padding(bottom = Spacing.Spacing4),
+                modifier = Modifier
+                    .padding(bottom = Spacing.Spacing4)
+                    .offset(x = -Spacing.Spacing8),
                 checkBoxData = CheckBoxData(
                     uid = checkBoxData.uid,
                     checked = checkBoxData.checked,
