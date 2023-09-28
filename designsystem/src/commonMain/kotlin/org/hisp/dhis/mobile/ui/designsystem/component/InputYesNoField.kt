@@ -1,5 +1,6 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
+import androidx.compose.foundation.layout.offset
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Cancel
 import androidx.compose.material3.Icon
@@ -8,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
+import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import java.util.Locale
 
 /**
@@ -65,6 +67,7 @@ fun InputYesNoField(
                 Orientation.HORIZONTAL,
                 options,
                 options.find { it.selected },
+                Modifier.offset(x = -Spacing.Spacing8)
             ) { radioButtonData ->
                 onItemChange.invoke(
                     InputYesNoFieldValues.values().firstOrNull { it.name.equals(radioButtonData.uid, true) },
