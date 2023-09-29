@@ -66,7 +66,7 @@ fun SupportingText(
     val nonClickableTextStyle = DHIS2SCustomTextStyles.regularSupportingText.copy(color = state.color)
     val clickableTextStyle = DHIS2SCustomTextStyles.clickableSupportingText.copy(color = state.color)
     var isClickable by remember { mutableStateOf(false) }
-    var annotatedText by remember {
+    var annotatedText by remember(text) {
         mutableStateOf(
             buildAnnotatedString {
                 withStyle(style = nonClickableTextStyle) { append(text) }
