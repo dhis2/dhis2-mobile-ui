@@ -35,4 +35,5 @@ enum class Components(val label: String) {
     QR_CODE_BLOCK("QR Code Block"),
     INPUT_CHECK_BOX("Input Check Box"),
     BARCODE_BLOCK("Barcode Block"),
+    AGE_FIELD("Age Field"),
 }
