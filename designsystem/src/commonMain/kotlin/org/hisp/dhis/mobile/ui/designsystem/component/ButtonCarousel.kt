@@ -1,5 +1,6 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -24,9 +25,12 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
 import androidx.compose.material3.Button
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.text.style.TextAlign
+import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
+import org.hisp.dhis.mobile.ui.designsystem.theme.iconButtonshadow
 
 
 @Composable
@@ -42,14 +46,15 @@ fun CarouselButton(
         FilledIconButton(
             onClick = onClick,
             modifier = modifier
-                .size(width = InternalSizeValues.Size64, height = InternalSizeValues.Size52)
-                //.padding(Spacing.Spacing4)
+                .size(width = Spacing.Spacing80, height = Spacing.Spacing80)
                 .hoverPointerIcon(enabled),
             enabled = enabled,
             colors = IconButtonDefaults.iconButtonColors(Color.Transparent, TextColor.OnSurfaceVariant, Color.Transparent, TextColor.OnDisabledSurface),
         ) {
             Column(
-                horizontalAlignment = Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center,
+                modifier = Modifier.size(InternalSizeValues.Size64, InternalSizeValues.Size52)
             ) {
                 Spacer(Modifier.size(Spacing.Spacing4))
                 icon.invoke()
@@ -82,7 +87,7 @@ fun ButtonCarousel(
                )
            }
        },
-       spacing = Spacing.Spacing0
+       spacing = Spacing.Spacing16
    )
 }
 
