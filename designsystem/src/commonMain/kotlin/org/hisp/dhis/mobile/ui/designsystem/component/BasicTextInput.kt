@@ -46,6 +46,7 @@ internal fun BasicTextInput(
     isRequiredField: Boolean = false,
     onNextClicked: (() -> Unit)? = null,
     onValueChanged: ((String?) -> Unit)? = null,
+    onFocusChanged: ((Boolean) -> Unit)? = null,
     keyboardOptions: KeyboardOptions,
     allowedCharacters: Regex? = null,
     helper: String? = null,
@@ -140,5 +141,6 @@ internal fun BasicTextInput(
                 },
             )
         },
+        onFocusChanged = onFocusChanged,
     )
 }

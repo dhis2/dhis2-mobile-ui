@@ -18,6 +18,12 @@ import org.hisp.dhis.mobile.ui.designsystem.component.internal.RegExValidations
  * manages all the messages to be shown
  * @param legendData manages the legendComponent
  * @param inputText manages the value of the text in the input field
+ * @param isRequiredField controls whether the field is mandatory or not
+ * @param onNextClicked gives access to the imeAction event
+ * @param onValueChanged gives access to the onValueChanged event
+ * @param onFocusChanged gives access to the onFocusChanged returns true if
+ * item is focused
+ * @param imeAction controls the imeAction button to be shown
  * @param modifier allows a modifier to be passed externally
  */
 @Composable
@@ -30,6 +36,7 @@ fun InputLetter(
     isRequiredField: Boolean = false,
     onNextClicked: (() -> Unit)? = null,
     onValueChanged: ((String?) -> Unit)? = null,
+    onFocusChanged: ((Boolean) -> Unit)? = null,
     imeAction: ImeAction = ImeAction.Next,
     modifier: Modifier = Modifier,
 ) {
@@ -50,5 +57,6 @@ fun InputLetter(
         allowedCharacters = RegExValidations.SINGLE_LETTER.regex,
         modifier = modifier,
         testTag = "LETTER",
+        onFocusChanged = onFocusChanged,
     )
 }
