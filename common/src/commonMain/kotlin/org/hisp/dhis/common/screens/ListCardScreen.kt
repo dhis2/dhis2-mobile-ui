@@ -24,6 +24,8 @@ import org.hisp.dhis.mobile.ui.designsystem.component.AvatarSize
 import org.hisp.dhis.mobile.ui.designsystem.component.Button
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
+import org.hisp.dhis.mobile.ui.designsystem.component.Legend
+import org.hisp.dhis.mobile.ui.designsystem.component.LegendData
 import org.hisp.dhis.mobile.ui.designsystem.component.ListAvatar
 import org.hisp.dhis.mobile.ui.designsystem.component.ListAvatarStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.ListCard
