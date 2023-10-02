@@ -55,7 +55,7 @@ fun BottomSheetHeader(
         Text(
             title,
             style = MaterialTheme.typography.headlineSmall,
-            color = TextColor.OnPrimaryContainer,
+            color = TextColor.OnSurface,
             modifier = Modifier.padding(bottom = Spacing.Spacing4),
         )
         subTitle?.let {
