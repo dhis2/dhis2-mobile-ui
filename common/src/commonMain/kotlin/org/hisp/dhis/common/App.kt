@@ -48,9 +48,9 @@ import org.hisp.dhis.common.screens.InputRadioButtonScreen
 import org.hisp.dhis.common.screens.InputScreen
 import org.hisp.dhis.common.screens.InputSequentialScreen
 import org.hisp.dhis.common.screens.InputTextScreen
+import org.hisp.dhis.common.screens.InputYesNoFieldScreen
 import org.hisp.dhis.common.screens.InputYesOnlyCheckBoxScreen
 import org.hisp.dhis.common.screens.InputYesOnlySwitchScreen
-import org.hisp.dhis.common.screens.InputYesNoFieldScreen
 import org.hisp.dhis.common.screens.LegendDescriptionScreen
 import org.hisp.dhis.common.screens.LegendScreen
 import org.hisp.dhis.common.screens.MetadataAvatarScreen
