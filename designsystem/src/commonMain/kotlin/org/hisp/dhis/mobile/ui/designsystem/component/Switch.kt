@@ -11,6 +11,7 @@ import androidx.compose.material3.SwitchDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.Ripple
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
@@ -25,7 +26,7 @@ fun Switch(
 ) {
     CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
         Switch(
-            modifier = modifier,
+            modifier = modifier.testTag("SWITCH"),
             checked = isChecked,
             onCheckedChange = { onCheckedChange.invoke(isChecked) },
             enabled = enabled,

@@ -63,7 +63,8 @@ fun InputShell(
         InputShellRow(
             modifier = Modifier
                 .onFocusChanged {
-                    indicatorColor = if (it.isFocused && state != InputShellState.ERROR && state != InputShellState.WARNING) InputShellState.FOCUSED.color else state.color
+                    indicatorColor =
+                        if (it.isFocused && state != InputShellState.ERROR && state != InputShellState.WARNING) InputShellState.FOCUSED.color else state.color
                     indicatorThickness = if (it.isFocused) Border.Regular else Border.Thin
                 },
             backgroundColor = backgroundColor,
@@ -75,8 +76,10 @@ fun InputShell(
                     .fillMaxWidth(1f),
                 verticalArrangement = Arrangement.Center,
             ) {
-                val titleText = if (isRequiredField) "$title *" else title
-                InputShellLabelText(titleText, textColor = indicatorColor)
+                if (title.isNotEmpty()) {
+                    val titleText = if (isRequiredField) "$title *" else title
+                    InputShellLabelText(titleText, textColor = indicatorColor)
+                }
                 inputField?.invoke()
             }
             Row(
