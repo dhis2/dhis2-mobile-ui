@@ -15,4 +15,6 @@
     <string name="show_fields">Show fields</string>
     <string name="hide_fields">Hide fields</string>
     <string name="action_next">Next</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>
