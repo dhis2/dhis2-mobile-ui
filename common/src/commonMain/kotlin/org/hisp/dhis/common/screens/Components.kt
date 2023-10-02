@@ -40,6 +40,7 @@ enum class Components(val label: String) {
     INPUT_YES_ONLY_SWITCH("Input yes only switch"),
     INPUT_YES_ONLY_CHECKBOX("Input yes only checkbox"),
     INPUT_YES_NO_FIELD("Input Yes/No field"),
+    LIST_CARD("List Card"),
     INPUT_PHONE_NUMBER("Input Phone Number"),
     INPUT_LINK("Input Link"),
     INPUT_EMAIL("Input Email"),

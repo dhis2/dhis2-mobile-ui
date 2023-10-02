@@ -56,6 +56,7 @@ import org.hisp.dhis.common.screens.InputYesOnlyCheckBoxScreen
 import org.hisp.dhis.common.screens.InputYesOnlySwitchScreen
 import org.hisp.dhis.common.screens.LegendDescriptionScreen
 import org.hisp.dhis.common.screens.LegendScreen
+import org.hisp.dhis.common.screens.ListCardScreen
 import org.hisp.dhis.common.screens.MetadataAvatarScreen
 import org.hisp.dhis.common.screens.ProgressScreen
 import org.hisp.dhis.common.screens.QrCodeBlockScreen
@@ -76,7 +77,7 @@ fun App() {
 
 @Composable
 fun Main() {
-    val currentScreen = remember { mutableStateOf(Components.INPUT_LINK) }
+    val currentScreen = remember { mutableStateOf(Components.LIST_CARD) }
     var expanded by remember { mutableStateOf(false) }
 
     Column(
@@ -162,6 +163,7 @@ fun Main() {
             Components.INPUT_YES_ONLY_SWITCH -> InputYesOnlySwitchScreen()
             Components.INPUT_YES_ONLY_CHECKBOX -> InputYesOnlyCheckBoxScreen()
             Components.INPUT_YES_NO_FIELD -> InputYesNoFieldScreen()
+            Components.LIST_CARD -> ListCardScreen()
             Components.INPUT_PHONE_NUMBER -> InputPhoneNumberScreen()
             Components.INPUT_LINK -> InputLinkScreen()
             Components.INPUT_EMAIL -> InputEmailScreen()
