@@ -25,6 +25,7 @@ object Spacing {
     val Spacing88: Dp = 88.dp
     val Spacing96: Dp = 96.dp
     val Spacing104: Dp = 104.dp
+    val Spacing416: Dp = 416.dp
     val Spacing112: Dp = 112.dp
     val Spacing120: Dp = 120.dp
     val Spacing800: Dp = 800.dp
@@ -37,6 +38,9 @@ internal object InternalSizeValues {
     val Size40: Dp = 40.dp
     val Size48: Dp = 48.dp
     val Size300: Dp = 300.dp
+    val Size386: Dp = 386.dp
+    val Size578: Dp = 578.dp
+    val Size800: Dp = 800.dp
 }
 
 internal object InternalFloatValues {

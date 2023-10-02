@@ -24,6 +24,7 @@ import androidx.compose.ui.graphics.Color
 import org.hisp.dhis.common.screens.BadgesScreen
 import org.hisp.dhis.common.screens.BarcodeBlockScreen
 import org.hisp.dhis.common.screens.BottomSheetHeaderScreen
+import org.hisp.dhis.common.screens.BottomSheetScreen
 import org.hisp.dhis.common.screens.ButtonBlockScreen
 import org.hisp.dhis.common.screens.ButtonScreen
 import org.hisp.dhis.common.screens.CheckboxScreen
@@ -132,6 +133,7 @@ fun Main() {
             Components.BUTTON_BLOCK -> ButtonBlockScreen()
             Components.METADATA_AVATAR -> MetadataAvatarScreen()
             Components.BOTTOM_SHEET_HEADER -> BottomSheetHeaderScreen()
+            Components.BOTTOM_SHEET -> BottomSheetScreen()
             Components.TAGS -> TagsScreen()
             Components.SECTIONS -> SectionScreen()
             Components.INPUT_POSITIVE_INTEGER_OR_ZERO -> InputPositiveIntegerOrZeroScreen()

@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.HelpOutline
+import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.ripple.LocalRippleTheme
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
@@ -20,14 +21,20 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import org.hisp.dhis.mobile.ui.designsystem.theme.Border
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Ripple
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
+import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
 
 @Composable
@@ -35,14 +42,15 @@ fun Legend(
     legendData: LegendData,
     modifier: Modifier = Modifier,
 ) {
+    var showBottomSheetShell by rememberSaveable { mutableStateOf(false) }
+
     CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
         Column(
             modifier = modifier
                 .clickable(
                     onClick = {
                         legendData.popUpLegendDescriptionData?.let {
-                            // Implement call to BottomSheetShell with legendDescriptionData list
-                            // here when component ready
+                            showBottomSheetShell = true
                         }
                     },
                 )
@@ -81,6 +89,25 @@ fun Legend(
                 thickness = Border.Regular,
                 color = legendData.color,
             )
+        }
+    }
+
+    if (showBottomSheetShell) {
+        BottomSheetShell(
+            modifier = Modifier.testTag("LEGEND_BOTTOM_SHEET"),
+            title = legendData.title,
+            icon = {
+                Icon(
+                    imageVector = Icons.Outlined.Info,
+                    contentDescription = "Button",
+                    tint = SurfaceColor.Primary,
+                )
+            },
+            content = {
+                legendData.popUpLegendDescriptionData?.let { LegendRange(it) }
+            },
+        ) {
+            showBottomSheetShell = false
         }
     }
 }

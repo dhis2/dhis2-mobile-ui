@@ -81,5 +81,6 @@ fun BottomSheetHeaderScreen() {
                 },
             )
         }
+        SubTitle("Bottom sheet shell with header, content and buttons", TextColor.OnSurface)
     }
 }

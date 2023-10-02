@@ -132,6 +132,28 @@ fun IconButton(
 }
 
 @Composable
+internal fun BottomSheetIconButton(
+    enabled: Boolean = true,
+    icon: @Composable (() -> Unit),
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit,
+) {
+    FilledIconButton(
+        onClick = onClick,
+        modifier = modifier
+            .size(InternalSizeValues.Size48)
+            .padding(Spacing.Spacing4)
+            .hoverPointerIcon(enabled),
+        enabled = enabled,
+        colors = IconButtonDefaults.iconButtonColors(SurfaceColor.Scrim.copy(alpha = 0.34f), SurfaceColor.SurfaceBright, SurfaceColor.DisabledSurface, TextColor.OnDisabledSurface),
+    ) {
+        Box(Modifier.size(Spacing.Spacing24)) {
+            icon()
+        }
+    }
+}
+
+@Composable
 private fun StandardIconButton(
     enabled: Boolean = true,
     icon: @Composable (() -> Unit),
