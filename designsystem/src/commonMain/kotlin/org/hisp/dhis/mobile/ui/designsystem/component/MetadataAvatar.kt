@@ -26,7 +26,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
  * @param size: size of the component [AvatarSize]
  */
 @Composable
-fun MetadataAvatar(
+fun MetadataAvatassr(
     icon: @Composable () -> Unit,
     modifier: Modifier = Modifier,
     iconTint: Color = Color.Unspecified,
