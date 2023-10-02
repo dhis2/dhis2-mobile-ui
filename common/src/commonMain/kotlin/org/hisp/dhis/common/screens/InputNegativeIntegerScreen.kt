@@ -23,7 +23,7 @@ fun InputNegativeIntegerScreen() {
     ColumnComponentContainer {
         Title("Input Negative Integer component", textColor = TextColor.OnSurfaceVariant)
         SubTitle("Basic Input Negative Integer", textColor = TextColor.OnSurfaceVariant)
-        var inputValue1 by rememberSaveable { mutableStateOf("12") }
+        var inputValue1 by rememberSaveable { mutableStateOf("-12") }
 
         InputNegativeInteger(
             title = "Label",
