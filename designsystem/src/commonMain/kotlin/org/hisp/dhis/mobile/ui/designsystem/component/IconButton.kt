@@ -132,7 +132,7 @@ fun IconButton(
 }
 
 @Composable
-fun BottomSheetIconButton(
+internal fun BottomSheetIconButton(
     enabled: Boolean = true,
     icon: @Composable (() -> Unit),
     modifier: Modifier = Modifier,
