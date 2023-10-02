@@ -35,6 +35,7 @@ object Spacing {
 internal object InternalSizeValues {
     val Size12: Dp = 12.dp
     val Size18: Dp = 18.dp
+    val Size20: Dp = 20.dp
     val Size40: Dp = 40.dp
     val Size48: Dp = 48.dp
     val Size300: Dp = 300.dp
