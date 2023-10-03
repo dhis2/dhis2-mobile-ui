@@ -2,6 +2,7 @@ package org.hisp.dhis.mobile.ui.designsystem.component
 
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -22,6 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import org.hisp.dhis.mobile.ui.designsystem.theme.Ripple
 import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
@@ -43,7 +45,6 @@ fun CarouselButton(
             modifier = modifier
                 .padding(top = Spacing.Spacing4)
                 .width(Spacing.Spacing80)
-                .wrapContentSize()
                 .hoverPointerIcon(enabled),
             shape = Shape.Full,
             enabled = enabled,
@@ -55,7 +56,7 @@ fun CarouselButton(
             ) {
                 icon.invoke()
                 Spacer(Modifier.size(Spacing.Spacing8))
-                Text(textInput, style = MaterialTheme.typography.labelSmall, textAlign = TextAlign.Center, maxLines = 2)
+                Text(textInput, style = MaterialTheme.typography.labelSmall, textAlign = TextAlign.Center, maxLines = 2, overflow = TextOverflow.Ellipsis)
             }
         }
     }
@@ -63,7 +64,7 @@ fun CarouselButton(
 
 @Composable
 fun ButtonCarousel(
-    carouselButtonList: @Composable () -> Unit,
+    carouselButtonList: List<@Composable () -> Unit>,
 ) {
     Row(
         Modifier
@@ -71,6 +72,21 @@ fun ButtonCarousel(
             .horizontalScroll(rememberScrollState()),
         horizontalArrangement = Arrangement.Center,
     ) {
-        carouselButtonList.invoke()
+        carouselButtonList.map {
+            if (carouselButtonList.size > 4) {
+                Box(
+                    contentAlignment = Alignment.Center,
+                ) {
+                    it.invoke()
+                }
+            } else {
+                Box(
+                    Modifier.weight(1f),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    it.invoke()
+                }
+            }
+        }
     }
 }

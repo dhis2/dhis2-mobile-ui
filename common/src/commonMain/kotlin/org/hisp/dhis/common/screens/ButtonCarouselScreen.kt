@@ -1,6 +1,5 @@
 package org.hisp.dhis.common.screens
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
@@ -12,7 +11,6 @@ import androidx.compose.material.icons.outlined.FileDownload
 import androidx.compose.material.icons.outlined.FilterAlt
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonCarousel
 import org.hisp.dhis.mobile.ui.designsystem.component.CarouselButton
@@ -46,11 +44,8 @@ fun ButtonCarouselScreen() {
                 Modifier.fillMaxWidth(),
             ) {
                 ButtonCarousel(
-                    carouselButtonList = {
-                        Box(
-                            Modifier.weight(1f),
-                            contentAlignment = Alignment.Center,
-                        ) {
+                    carouselButtonList = listOf(
+                        {
                             CarouselButton(
                                 enabled = true,
                                 textInput = "Share",
@@ -62,11 +57,8 @@ fun ButtonCarouselScreen() {
                                 },
                                 onClick = {},
                             )
-                        }
-                        Box(
-                            Modifier.weight(1f),
-                            contentAlignment = Alignment.Center,
-                        ) {
+                        },
+                        {
                             CarouselButton(
                                 enabled = true,
                                 textInput = "Scan",
@@ -78,11 +70,8 @@ fun ButtonCarouselScreen() {
                                 },
                                 onClick = {},
                             )
-                        }
-                        Box(
-                            Modifier.weight(1f),
-                            contentAlignment = Alignment.Center,
-                        ) {
+                        },
+                        {
                             CarouselButton(
                                 enabled = true,
                                 textInput = "Download",
@@ -94,16 +83,13 @@ fun ButtonCarouselScreen() {
                                 },
                                 onClick = {},
                             )
-                        }
-                    },
-
+                        },
+                    ),
                 )
 
                 ButtonCarousel(
-                    carouselButtonList = {
-                        Box(
-                            contentAlignment = Alignment.Center,
-                        ) {
+                    carouselButtonList = listOf(
+                        {
                             CarouselButton(
                                 enabled = true,
                                 textInput = "Two lines share label",
@@ -115,10 +101,8 @@ fun ButtonCarouselScreen() {
                                 },
                                 onClick = {},
                             )
-                        }
-                        Box(
-                            contentAlignment = Alignment.Center,
-                        ) {
+                        },
+                        {
                             CarouselButton(
                                 enabled = true,
                                 textInput = "Scan Barcode",
@@ -130,10 +114,8 @@ fun ButtonCarouselScreen() {
                                 },
                                 onClick = {},
                             )
-                        }
-                        Box(
-                            contentAlignment = Alignment.Center,
-                        ) {
+                        },
+                        {
                             CarouselButton(
                                 enabled = true,
                                 textInput = "Download files",
@@ -145,10 +127,8 @@ fun ButtonCarouselScreen() {
                                 },
                                 onClick = {},
                             )
-                        }
-                        Box(
-                            contentAlignment = Alignment.Center,
-                        ) {
+                        },
+                        {
                             CarouselButton(
                                 enabled = true,
                                 textInput = "Filter list",
@@ -160,10 +140,8 @@ fun ButtonCarouselScreen() {
                                 },
                                 onClick = {},
                             )
-                        }
-                        Box(
-                            contentAlignment = Alignment.Center,
-                        ) {
+                        },
+                        {
                             CarouselButton(
                                 enabled = true,
                                 textInput = "Add task to done",
@@ -175,9 +153,8 @@ fun ButtonCarouselScreen() {
                                 },
                                 onClick = {},
                             )
-                        }
-                    },
-
+                        },
+                    ),
                 )
             }
         }
