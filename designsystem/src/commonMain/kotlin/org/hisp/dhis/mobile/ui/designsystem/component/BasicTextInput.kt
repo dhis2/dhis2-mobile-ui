@@ -34,6 +34,7 @@ import java.util.Locale
  * @param onValueChanged gives access to the onValueChanged event
  * @param helper manages the helper text to show
  * @param modifier allows a modifier to be passed externally
+ * @param actionButton controls action button composable, if null will show nothing
  */
 @Composable
 internal fun BasicTextInput(
@@ -51,6 +52,7 @@ internal fun BasicTextInput(
     helperStyle: InputStyle = InputStyle.NONE,
     testTag: String = "",
     isSingleLine: Boolean = true,
+    actionButton: @Composable (() -> Unit)? = null,
     modifier: Modifier = Modifier,
 ) {
     val inputValue by remember(inputText) { mutableStateOf(inputText) }
@@ -84,6 +86,7 @@ internal fun BasicTextInput(
         isRequiredField = isRequiredField,
         title = title,
         primaryButton = deleteButton,
+        secondaryButton = actionButton,
         state = state,
         legend = {
             legendData?.let {

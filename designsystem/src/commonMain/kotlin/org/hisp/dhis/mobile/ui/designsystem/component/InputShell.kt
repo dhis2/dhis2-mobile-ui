@@ -60,12 +60,21 @@ fun InputShell(
         var indicatorColor by remember { mutableStateOf(InputShellState.UNFOCUSED.color) }
         var indicatorThickness by remember { mutableStateOf(Border.Thin) }
         val backgroundColor = if (state != InputShellState.DISABLED) SurfaceColor.Surface else SurfaceColor.DisabledSurface
+
         InputShellRow(
             modifier = Modifier
                 .onFocusChanged {
                     indicatorColor =
-                        if (it.isFocused && state != InputShellState.ERROR && state != InputShellState.WARNING) InputShellState.FOCUSED.color else state.color
-                    indicatorThickness = if (it.isFocused) Border.Regular else Border.Thin
+                        when {
+                            state == InputShellState.DISABLED -> InputShellState.DISABLED.color
+                            it.isFocused && state != InputShellState.ERROR && state != InputShellState.WARNING -> InputShellState.FOCUSED.color
+                            else -> state.color
+                        }
+                    indicatorThickness = when {
+                        state == InputShellState.DISABLED -> Border.Thin
+                        it.isFocused -> Border.Regular
+                        else -> Border.Thin
+                    }
                 },
             backgroundColor = backgroundColor,
         ) {
@@ -92,7 +101,10 @@ fun InputShell(
                     Spacer(modifier = Modifier.width(Spacing.Spacing4))
                 }
                 secondaryButton?.let {
-                    Box(Modifier.size(Spacing.Spacing48)) {
+                    Box(
+                        Modifier
+                            .padding(end = Spacing.Spacing4).size(Spacing.Spacing48),
+                    ) {
                         it.invoke()
                     }
                 }
@@ -106,7 +118,7 @@ fun InputShell(
         }
         legend?.invoke()
         if (state != InputShellState.DISABLED) supportingText?.invoke()
-        if (isRequiredField && state == InputShellState.ERROR) SupportingText("Required", state = SupportingTextState.ERROR)
+        if (isRequiredField && state == InputShellState.ERROR && supportingText == null) SupportingText("Required", state = SupportingTextState.ERROR)
     }
 }
 
