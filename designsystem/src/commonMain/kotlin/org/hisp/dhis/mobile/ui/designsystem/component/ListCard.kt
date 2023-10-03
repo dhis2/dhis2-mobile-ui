@@ -70,6 +70,7 @@ fun ListCard(
     actionButton: @Composable (() -> Unit)? = null,
     expandLabelText: String = provideStringResource("show_more"),
     shrinkLabelText: String = provideStringResource("show_less"),
+    showLoading: Boolean = false,
     onCardClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -112,6 +113,19 @@ fun ListCard(
                         modifier = Modifier.testTag("LIST_CARD_ADDITIONAL_INFO_COLUMN"),
                         expandLabelText = expandLabelText,
                         shrinkLabelText = shrinkLabelText,
+                        syncProgressItem = AdditionalInfoItem(
+                            icon = {
+                                ProgressIndicator(
+                                    type = ProgressIndicatorType.CIRCULAR,
+                                    hasError = false,
+                                )
+                            },
+                            value = "Syncing...",
+                            color = SurfaceColor.Primary,
+                            isConstantItem = false,
+                        ),
+                        showLoading = showLoading,
+
                     )
                     actionButton?.invoke()
                 }
@@ -180,14 +194,16 @@ private fun AdditionalInfoColumn(
     modifier: Modifier = Modifier,
     expandableItems: List<AdditionalInfoItem>? = null,
     constantItems: List<AdditionalInfoItem>,
+    syncProgressItem: AdditionalInfoItem,
+    showLoading: Boolean,
     expandLabelText: String,
     shrinkLabelText: String,
 ) {
+    val loadingSectionState by remember(showLoading) { mutableStateOf(showLoading) }
     var sectionState by remember(SectionState.CLOSE) { mutableStateOf(SectionState.CLOSE) }
 
     var hideableItemList: MutableList<AdditionalInfoItem>
     val hiddenItemList = mutableListOf<AdditionalInfoItem>()
-
     Column(
         modifier = modifier,
     ) {
@@ -208,7 +224,13 @@ private fun AdditionalInfoColumn(
                 KeyValueList(hiddenItemList)
             }
         }
-
+        AnimatedVisibility(
+            visible = loadingSectionState,
+            enter = expandVertically(expandFrom = Alignment.CenterVertically),
+            exit = shrinkVertically(shrinkTowards = Alignment.CenterVertically),
+        ) {
+            KeyValue(syncProgressItem)
+        }
         KeyValueList(constantItems)
 
         if (expandableItems != null) {

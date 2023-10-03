@@ -5,6 +5,10 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Sync
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import org.hisp.dhis.common.screens.previews.additionalItemList
 import org.hisp.dhis.mobile.ui.designsystem.component.Button
@@ -22,6 +26,10 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 @Composable
 fun ListCardScreen() {
     ColumnComponentContainer(title = "List Card Components") {
+        var showLoading1 by remember {
+            mutableStateOf(false)
+        }
+
         ListCard(
             listAvatar = {
                 ListAvatar(
@@ -44,12 +52,16 @@ fun ListCardScreen() {
                             tint = TextColor.OnPrimaryContainer,
                         )
                     },
-                    onClick = {},
+                    onClick = { showLoading1 = !showLoading1 },
                     modifier = Modifier.fillMaxWidth(),
                 )
             },
             onCardClick = {},
+            showLoading = showLoading1,
         )
+        var showLoading2 by remember {
+            mutableStateOf(false)
+        }
         ListCard(
             listAvatar = {
                 ListAvatar(
@@ -71,13 +83,17 @@ fun ListCardScreen() {
                             tint = TextColor.OnPrimaryContainer,
                         )
                     },
-                    onClick = {},
+                    onClick = { showLoading2 = !showLoading2 },
                     modifier = Modifier.fillMaxWidth(),
                 )
             },
             onCardClick = {},
+            showLoading = showLoading2,
         )
 
+        var showLoading3 by remember {
+            mutableStateOf(false)
+        }
         ListCard(
             listAvatar = {
                 ListAvatar(
@@ -109,11 +125,12 @@ fun ListCardScreen() {
                             tint = TextColor.OnPrimaryContainer,
                         )
                     },
-                    onClick = {},
+                    onClick = { showLoading3 = !showLoading3 },
                     modifier = Modifier.fillMaxWidth(),
                 )
             },
             onCardClick = {},
+            showLoading = showLoading3,
         )
     }
 }
