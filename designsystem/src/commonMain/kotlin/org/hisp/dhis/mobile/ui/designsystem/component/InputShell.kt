@@ -53,6 +53,7 @@ fun InputShell(
     inputField: @Composable (() -> Unit)? = null,
     supportingText: @Composable (() -> Unit)? = null,
     legend: @Composable (() -> Unit)? = null,
+    onFocusChanged: ((Boolean) -> Unit)? = null,
     isRequiredField: Boolean = false,
     modifier: Modifier = Modifier,
 ) {
@@ -60,7 +61,6 @@ fun InputShell(
         var indicatorColor by remember { mutableStateOf(InputShellState.UNFOCUSED.color) }
         var indicatorThickness by remember { mutableStateOf(Border.Thin) }
         val backgroundColor = if (state != InputShellState.DISABLED) SurfaceColor.Surface else SurfaceColor.DisabledSurface
-
         InputShellRow(
             modifier = Modifier
                 .onFocusChanged {
@@ -75,6 +75,7 @@ fun InputShell(
                         it.isFocused -> Border.Regular
                         else -> Border.Thin
                     }
+                    onFocusChanged?.invoke(it.isFocused)
                 },
             backgroundColor = backgroundColor,
         ) {

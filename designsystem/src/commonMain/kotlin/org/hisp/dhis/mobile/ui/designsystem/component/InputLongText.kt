@@ -22,6 +22,8 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
  * @param isRequiredField manages whether the field is mandatory or not
  * @param onNextClicked gives access to the ImeAction event
  * @param onValueChanged gives access to the onValueChanged event
+ * @param onFocusChanged gives access to the onFocusChanged returns true if
+ * item is focused
  * @param imeAction controls the ImeAction to show in the keyboard
  * @param modifier allows a modifier to be passed externally
  */
@@ -35,6 +37,7 @@ fun InputLongText(
     isRequiredField: Boolean = false,
     onNextClicked: (() -> Unit)? = null,
     onValueChanged: ((String?) -> Unit)? = null,
+    onFocusChanged: ((Boolean) -> Unit)? = null,
     imeAction: ImeAction = ImeAction.Next,
     modifier: Modifier = Modifier,
 ) {
@@ -54,5 +57,6 @@ fun InputLongText(
             state = rememberScrollState(),
         ).heightIn(Spacing.Spacing0, InternalSizeValues.Size300),
         testTag = "LONG_TEXT",
+        onFocusChanged = onFocusChanged,
     )
 }

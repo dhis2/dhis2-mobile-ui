@@ -20,6 +20,8 @@ import org.hisp.dhis.mobile.ui.designsystem.component.internal.RegExValidations
  * @param isRequiredField controls whether the field is mandatory or not
  * @param onNextClicked gives access to the imeAction event
  * @param onValueChanged gives access to the onValueChanged event
+ * @param onFocusChanged gives access to the onFocusChanged returns true if
+ * item is focused
  * @param imeAction controls the imeAction button to be shown
  * @param notation controls the decimal notation to be used, will be European
  * by default
@@ -34,6 +36,7 @@ fun InputNumber(
     isRequiredField: Boolean = false,
     onNextClicked: (() -> Unit)? = null,
     onValueChanged: ((String?) -> Unit)? = null,
+    onFocusChanged: ((Boolean) -> Unit)? = null,
     imeAction: ImeAction = ImeAction.Next,
     notation: RegExValidations = RegExValidations.EUROPEAN_DECIMAL_NOTATION,
     modifier: Modifier = Modifier,
@@ -51,5 +54,6 @@ fun InputNumber(
         allowedCharacters = notation.regex,
         modifier = modifier,
         testTag = "NUMBER",
+        onFocusChanged = onFocusChanged,
     )
 }

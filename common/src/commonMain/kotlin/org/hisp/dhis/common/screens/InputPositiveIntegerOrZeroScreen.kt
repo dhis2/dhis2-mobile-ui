@@ -21,7 +21,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 @Composable
 fun InputPositiveIntegerOrZeroScreen() {
     ColumnComponentContainer {
-        Title("Input Integer component", textColor = TextColor.OnSurfaceVariant)
+        Title("Input Positive or Zero Integer component", textColor = TextColor.OnSurfaceVariant)
         SubTitle("Basic Input Integer", textColor = TextColor.OnSurfaceVariant)
         var inputValue1 by rememberSaveable { mutableStateOf("123") }
 
