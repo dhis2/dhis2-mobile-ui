@@ -35,6 +35,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.testTag
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
@@ -82,7 +83,8 @@ fun ListCard(
     CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
         Box(
             modifier = modifier
-                .background(color = TextColor.OnPrimary, shape = RoundedCornerShape(Radius.S)),
+                .background(color = TextColor.OnPrimary, shape = RoundedCornerShape(Radius.S))
+                .testTag("LIST_CARD"),
         ) {
             Row(
                 modifier = modifier
@@ -100,7 +102,11 @@ fun ListCard(
                             ListCardLastUpdated(lastUpdated)
                         }
                     }
-                    AdditionalInfoColumn(expandableItems = expandableAdditionalInfoItemList, constantItems = constantAdditionalInfoItemList)
+                    AdditionalInfoColumn(
+                        expandableItems = expandableAdditionalInfoItemList,
+                        constantItems = constantAdditionalInfoItemList,
+                        modifier = Modifier.testTag("LIST_CARD_ADDITIONAL_INFO_COLUMN"),
+                    )
                     actionButton?.invoke()
                 }
             }
