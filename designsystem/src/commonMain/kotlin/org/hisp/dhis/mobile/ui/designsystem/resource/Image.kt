@@ -13,3 +13,8 @@ import org.jetbrains.compose.resources.painterResource
 @Composable
 fun provideDHIS2Icon(resourceName: String): Painter =
     painterResource("drawable/$resourceName.xml")
+
+@OptIn(ExperimentalResourceApi::class)
+@Composable
+fun provideImage(resourceName: String): Painter =
+    painterResource("drawable/$resourceName.jpg")

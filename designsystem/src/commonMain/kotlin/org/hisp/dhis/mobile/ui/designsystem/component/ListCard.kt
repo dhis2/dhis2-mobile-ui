@@ -55,6 +55,8 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
  * manages all the key value types that will be shown
  * if there are more than three items that are not constant
  * a show more/less button will appear and the rest of items will be hidden
+ * @param expandLabelText the text to be shown for expand button
+ * @param shrinkLabelText the text to be shown for shrink button
  * @param actionButton composable parameter for the sync button
  * @param onCardClick gives access to click event on the main container
  * @param modifier allows a modifier to be passed externally
@@ -66,6 +68,8 @@ fun ListCard(
     lastUpdated: String? = null,
     additionalInfoList: List<AdditionalInfoItem>,
     actionButton: @Composable (() -> Unit)? = null,
+    expandLabelText: String = provideStringResource("show_more"),
+    shrinkLabelText: String = provideStringResource("show_less"),
     onCardClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -106,6 +110,8 @@ fun ListCard(
                         expandableItems = expandableAdditionalInfoItemList,
                         constantItems = constantAdditionalInfoItemList,
                         modifier = Modifier.testTag("LIST_CARD_ADDITIONAL_INFO_COLUMN"),
+                        expandLabelText = expandLabelText,
+                        shrinkLabelText = shrinkLabelText,
                     )
                     actionButton?.invoke()
                 }
@@ -120,16 +126,17 @@ fun ListCard(
  *  must be one of the three styles given as parameters
  * @param style not nullable parameter that manages the avatar style
  * @param textAvatar style must be TEXT, will show a single character as avatar
- * @param imageAvatar style must be IMAGE, will display an image as avatar
+ * @param imagePainter style must be IMAGE, will display an image as avatar
  * @param metadataAvatar style must be METADATA, composable should be DHIS2 [MetadataAvatar]
  * @param modifier allows a modifier to be passed externally
  */
 @Composable
 fun ListAvatar(
     textAvatar: String? = null,
-    imageAvatar: (@Composable (image: Painter) -> Unit)? = null,
+    imagePainter: Painter = provideDHIS2Icon("dhis2_microscope_outline"),
     metadataAvatar: (@Composable () -> Unit)? = null,
     style: ListAvatarStyle = ListAvatarStyle.TEXT,
+    onImageClick: (() -> Unit)? = null,
     modifier: Modifier = Modifier,
 ) {
     when (style) {
@@ -151,16 +158,15 @@ fun ListAvatar(
             }
         }
         ListAvatarStyle.IMAGE -> {
-            imageAvatar?.let {
-                Image(
-                    painter = provideDHIS2Icon("dhis2_microscope_outline"),
-                    contentDescription = "avatar",
-                    contentScale = ContentScale.Crop, // crop the image if it's not a square
-                    modifier = modifier
-                        .size(Spacing.Spacing64)
-                        .clip(CircleShape), // clip to the circle shape
-                )
-            }
+            Image(
+                painter = imagePainter,
+                contentDescription = "avatarImage",
+                contentScale = ContentScale.Crop,
+                modifier = modifier
+                    .size(Spacing.Spacing40)
+                    .clip(CircleShape)
+                    .clickable(onClick = { onImageClick?.invoke() }),
+            )
         }
     }
 }
@@ -174,6 +180,8 @@ private fun AdditionalInfoColumn(
     modifier: Modifier = Modifier,
     expandableItems: List<AdditionalInfoItem>? = null,
     constantItems: List<AdditionalInfoItem>,
+    expandLabelText: String,
+    shrinkLabelText: String,
 ) {
     var sectionState by remember(SectionState.CLOSE) { mutableStateOf(SectionState.CLOSE) }
 
@@ -205,7 +213,7 @@ private fun AdditionalInfoColumn(
 
         if (expandableItems != null) {
             if (expandableItems.size > 3) {
-                val expandText = mutableStateOf(provideStringResource(if (sectionState == SectionState.OPEN) "show_less" else "show_more"))
+                val expandText = mutableStateOf(provideStringResource(if (sectionState == SectionState.OPEN) shrinkLabelText else expandLabelText))
 
                 val iconVector = if (sectionState == SectionState.CLOSE) {
                     Icons.Filled.KeyboardArrowDown // it requires androidx.compose.material:material-icons-extended
