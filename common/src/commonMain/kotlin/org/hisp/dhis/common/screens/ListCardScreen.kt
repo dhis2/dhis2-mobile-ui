@@ -4,7 +4,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material.icons.outlined.EventBusy
-import androidx.compose.material.icons.outlined.Refresh
+import androidx.compose.material.icons.outlined.Sync
 import androidx.compose.material.icons.outlined.SyncProblem
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
@@ -42,7 +42,6 @@ fun ListCardScreen() {
                         imageVector = Icons.Outlined.Close,
                         contentDescription = "Icon Button",
                         tint = TextColor.OnDisabledSurface,
-
                     )
                 },
                 value = "Enrollment cancelled",
@@ -88,7 +87,7 @@ fun ListCardScreen() {
                     text = "Retry sync",
                     icon = {
                         Icon(
-                            imageVector = Icons.Outlined.Refresh,
+                            imageVector = Icons.Outlined.Sync,
                             contentDescription = "Icon Button",
                             tint = TextColor.OnPrimaryContainer,
                         )
@@ -97,6 +96,7 @@ fun ListCardScreen() {
                     modifier = Modifier.fillMaxWidth(),
                 )
             },
+            onClick = {},
         )
     }
 }
