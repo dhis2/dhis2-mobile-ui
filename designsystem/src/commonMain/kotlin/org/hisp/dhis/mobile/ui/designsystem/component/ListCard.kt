@@ -45,14 +45,28 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
 
+/**
+ * DHIS2 ListCard.
+ * Component intended for TEI card display
+ * @param title is the card title
+ * @param lastUpdated shows the last time item was synchronized
+ * @param additionalInfoExpandableList is a list of AdditionalInfoItem that
+ * manages all the key value types that will be shown if there are more than three
+ * a show more/less button will appear and the rest of items will be hidden
+ * @param additionalInfoConstantList manages key value items that will always be shown
+ * @param actionButton composable parameter for the sync button
+ * @param onCardClick gives access to click event on the main container
+ * @param modifier allows a modifier to be passed externally
+ */
 @Composable
 fun ListCard(
     listAvatar: (@Composable () -> Unit)? = null,
     title: String,
     lastUpdated: String? = null,
-    additionalInfo: @Composable () -> Unit,
+    additionalInfoExpandableList: List<AdditionalInfoItem>? = null,
+    additionalInfoConstantList: List<AdditionalInfoItem>,
     actionButton: @Composable (() -> Unit)? = null,
-    onClick: () -> Unit,
+    onCardClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
@@ -62,7 +76,7 @@ fun ListCard(
         ) {
             Row(
                 modifier = modifier
-                    .clickable(onClick = onClick)
+                    .clickable(onClick = onCardClick)
                     .padding(Spacing.Spacing8)
                     .hoverPointerIcon(true),
             ) {
@@ -76,7 +90,7 @@ fun ListCard(
                             ListCardLastUpdated(lastUpdated)
                         }
                     }
-                    additionalInfo.invoke()
+                    AdditionalInfoColumn(expandableItems = additionalInfoExpandableList, constantItems = additionalInfoConstantList)
                     actionButton?.invoke()
                 }
             }
@@ -84,6 +98,16 @@ fun ListCard(
     }
 }
 
+/**
+ * DHIS2 ListAvatar,
+ *  used to display the avatar composable in card,
+ *  must be one of the three styles given as parameters
+ * @param style not nullable parameter that manages the avatar style
+ * @param textAvatar style must be TEXT, will show a single character as avatar
+ * @param imageAvatar style must be IMAGE, will display an image as avatar
+ * @param metadataAvatar style must be METADATA, composable should be DHIS2 [MetadataAvatar]
+ * @param modifier allows a modifier to be passed externally
+ */
 @Composable
 fun ListAvatar(
     textAvatar: String? = null,
@@ -125,10 +149,14 @@ fun ListAvatar(
     }
 }
 
+/**
+ * DHIS2 AdditionalInfoColumn,
+ *  used to display both key value lists, the constant one and the expandable one
+ */
 @Composable
-fun AdditionalInfoColumn(
+private fun AdditionalInfoColumn(
     modifier: Modifier = Modifier,
-    hideableItems: List<AdditionalInfoItem>? = null,
+    expandableItems: List<AdditionalInfoItem>? = null,
     constantItems: List<AdditionalInfoItem>,
 ) {
     var sectionState by remember(SectionState.CLOSE) { mutableStateOf(SectionState.CLOSE) }
@@ -139,11 +167,11 @@ fun AdditionalInfoColumn(
     Column(
         modifier = modifier,
     ) {
-        if (hideableItems != null && hideableItems.size > 3) {
-            hideableItemList = mutableListOf(hideableItems[0], hideableItems[1], hideableItems[2])
+        if (expandableItems != null && expandableItems.size > 3) {
+            hideableItemList = mutableListOf(expandableItems[0], expandableItems[1], expandableItems[2])
             KeyValueList(hideableItemList)
-            hideableItems.forEach { item ->
-                if (hideableItems.indexOf(item) > 3) {
+            expandableItems.forEach { item ->
+                if (expandableItems.indexOf(item) > 3) {
                     hiddenItemList.add(item)
                 }
             }
@@ -159,8 +187,8 @@ fun AdditionalInfoColumn(
 
         KeyValueList(constantItems)
 
-        if (hideableItems != null) {
-            if (hideableItems.size > 3) {
+        if (expandableItems != null) {
+            if (expandableItems.size > 3) {
                 val expandText = mutableStateOf(provideStringResource(if (sectionState == SectionState.OPEN) "show_less" else "show_more"))
 
                 val iconVector = if (sectionState == SectionState.CLOSE) {
@@ -187,8 +215,12 @@ fun AdditionalInfoColumn(
     }
 }
 
+/**
+ * DHIS2 KeyValue,
+ *  used to paint each individual KeyValueItem
+ */
 @Composable
-fun KeyValue(
+private fun KeyValue(
     additionalInfoItem: AdditionalInfoItem,
     modifier: Modifier = Modifier,
 ) {
@@ -208,8 +240,12 @@ fun KeyValue(
     }
 }
 
+/**
+ * DHIS2 KeyValueList,
+ *  used to paint a list of AdditionalInfoItems
+ */
 @Composable
-fun KeyValueList(
+private fun KeyValueList(
     itemList: List<AdditionalInfoItem>,
 ) {
     itemList.forEach { item ->
@@ -218,14 +254,10 @@ fun KeyValueList(
     }
 }
 
-/**
- * DHIS2 InputShellState,
- *  enum class to control the state [InputShell] component
- */
-enum class ListAvatarStyle() {
-    TEXT(),
-    IMAGE(),
-    METADATA(),
+enum class ListAvatarStyle {
+    TEXT,
+    IMAGE,
+    METADATA,
 }
 
 data class AdditionalInfoItem(
