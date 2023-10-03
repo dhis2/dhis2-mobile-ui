@@ -50,10 +50,10 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
  * Component intended for TEI card display
  * @param title is the card title
  * @param lastUpdated shows the last time item was synchronized
- * @param additionalInfoExpandableList is a list of AdditionalInfoItem that
- * manages all the key value types that will be shown if there are more than three
+ * @param additionalInfoList is a list of AdditionalInfoItem that
+ * manages all the key value types that will be shown
+ * if there are more than three items that are not constant
  * a show more/less button will appear and the rest of items will be hidden
- * @param additionalInfoConstantList manages key value items that will always be shown
  * @param actionButton composable parameter for the sync button
  * @param onCardClick gives access to click event on the main container
  * @param modifier allows a modifier to be passed externally
@@ -63,12 +63,22 @@ fun ListCard(
     listAvatar: (@Composable () -> Unit)? = null,
     title: String,
     lastUpdated: String? = null,
-    additionalInfoExpandableList: List<AdditionalInfoItem>? = null,
-    additionalInfoConstantList: List<AdditionalInfoItem>,
+    additionalInfoList: List<AdditionalInfoItem>,
     actionButton: @Composable (() -> Unit)? = null,
     onCardClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val expandableAdditionalInfoItemList = mutableListOf<AdditionalInfoItem>()
+    val constantAdditionalInfoItemList = mutableListOf<AdditionalInfoItem>()
+
+    additionalInfoList.forEach {
+            item ->
+        if (item.isConstantItem) {
+            constantAdditionalInfoItemList.add(item)
+        } else {
+            expandableAdditionalInfoItemList.add(item)
+        }
+    }
     CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
         Box(
             modifier = modifier
@@ -90,7 +100,7 @@ fun ListCard(
                             ListCardLastUpdated(lastUpdated)
                         }
                     }
-                    AdditionalInfoColumn(expandableItems = additionalInfoExpandableList, constantItems = additionalInfoConstantList)
+                    AdditionalInfoColumn(expandableItems = expandableAdditionalInfoItemList, constantItems = constantAdditionalInfoItemList)
                     actionButton?.invoke()
                 }
             }

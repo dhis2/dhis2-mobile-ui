@@ -6,8 +6,7 @@ import androidx.compose.material.icons.outlined.Sync
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import org.hisp.dhis.common.screens.previews.additionalConstantItemList
-import org.hisp.dhis.common.screens.previews.additionalhideableItemList
+import org.hisp.dhis.common.screens.previews.additionalItemList
 import org.hisp.dhis.mobile.ui.designsystem.component.Button
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
@@ -28,8 +27,7 @@ fun ListCardScreen() {
             },
             title = "Anita Mathews, F, 72",
             lastUpdated = "5 hours",
-            additionalInfoExpandableList = additionalhideableItemList,
-            additionalInfoConstantList = additionalConstantItemList,
+            additionalInfoList = additionalItemList,
             actionButton = {
                 Button(
                     style = ButtonStyle.TONAL,

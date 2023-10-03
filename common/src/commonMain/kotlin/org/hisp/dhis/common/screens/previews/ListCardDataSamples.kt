@@ -9,7 +9,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.AdditionalInfoItem
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
-val additionalhideableItemList = listOf(
+val additionalItemList = listOf(
     AdditionalInfoItem(key = "Phone:", value = "+234 123 111 6785"),
     AdditionalInfoItem(key = "Date of birth:", value = "12/12/1945"),
     AdditionalInfoItem(key = "Address:", value = "134 Main Road, Behind the temple, Citytown, Basil District, Granite State"),
@@ -19,9 +19,6 @@ val additionalhideableItemList = listOf(
         value = "Tuberculosis, Nutrition \n" +
             "Assistance Program, Malaria Diagnosis",
     ),
-)
-val additionalConstantItemList = listOf(
-
     AdditionalInfoItem(
         icon = {
             Icon(
@@ -32,6 +29,7 @@ val additionalConstantItemList = listOf(
         },
         value = "Enrollment cancelled",
         color = TextColor.OnDisabledSurface,
+        isConstantItem = true,
     ),
     AdditionalInfoItem(
         icon = {
@@ -43,6 +41,7 @@ val additionalConstantItemList = listOf(
         },
         value = "Sync warning",
         color = TextColor.OnWarning,
+        isConstantItem = true,
     ),
     AdditionalInfoItem(
         icon = {
@@ -54,5 +53,6 @@ val additionalConstantItemList = listOf(
         },
         value = "Baby post natal overdue 6 days",
         color = SurfaceColor.Error,
+        isConstantItem = true,
     ),
 )
