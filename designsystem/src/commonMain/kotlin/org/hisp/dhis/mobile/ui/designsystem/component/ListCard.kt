@@ -202,14 +202,14 @@ private fun AdditionalInfoColumn(
     val loadingSectionState by remember(showLoading) { mutableStateOf(showLoading) }
     var sectionState by remember(SectionState.CLOSE) { mutableStateOf(SectionState.CLOSE) }
 
-    var hideableItemList: MutableList<AdditionalInfoItem>
+    var expandableItemList: MutableList<AdditionalInfoItem>
     val hiddenItemList = mutableListOf<AdditionalInfoItem>()
     Column(
         modifier = modifier,
     ) {
         if (expandableItems != null && expandableItems.size > 3) {
-            hideableItemList = mutableListOf(expandableItems[0], expandableItems[1], expandableItems[2])
-            KeyValueList(hideableItemList)
+            expandableItemList = mutableListOf(expandableItems[0], expandableItems[1], expandableItems[2])
+            KeyValueList(expandableItemList)
             expandableItems.forEach { item ->
                 if (expandableItems.indexOf(item) > 3) {
                     hiddenItemList.add(item)
