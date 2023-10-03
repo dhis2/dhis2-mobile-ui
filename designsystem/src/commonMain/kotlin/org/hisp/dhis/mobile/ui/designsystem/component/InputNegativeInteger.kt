@@ -43,7 +43,7 @@ fun InputNegativeInteger(
     modifier: Modifier = Modifier,
 ) {
     var inputValue by rememberSaveable { mutableStateOf(inputText ?: "") }
-    if (inputValue.startsWith('-')) inputValue = inputValue.removeRange(0, 1)
+    inputValue = inputValue.replaceFirst("-", "")
     BasicTextInput(
         title = title,
         state = state,
@@ -54,7 +54,7 @@ fun InputNegativeInteger(
         onNextClicked = onNextClicked,
         onValueChanged = {
             onValueChanged?.invoke(if (it?.startsWith("-") == true) it else "-$it")
-            inputValue = if (it?.startsWith("-") == true) it.removeRange(0, 1) else it.toString()
+            inputValue = if (it?.startsWith("-") == true) inputValue.replaceFirst("-", "") else it.toString()
         },
         helperStyle = InputStyle.WITH_HELPER_BEFORE,
         helper = "-",
