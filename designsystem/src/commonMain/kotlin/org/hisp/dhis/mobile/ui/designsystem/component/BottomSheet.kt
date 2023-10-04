@@ -166,6 +166,7 @@ fun BottomSheetShell(
                     modifier = Modifier
                         .verticalScroll(rememberScrollState())
                         .fillMaxHeight(1f),
+                    horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
                     content?.let {
                         it.invoke()

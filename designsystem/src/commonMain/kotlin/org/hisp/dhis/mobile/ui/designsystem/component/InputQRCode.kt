@@ -10,10 +10,10 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.ImeAction
 
 /**
- * DHIS2 Input positive Integer. Wraps DHIS · [BasicTextInput].
- * Only positive integers allowed, excluding 0
+ * DHIS2 Input QR Code. Wraps DHIS · [BasicTextInput].
  * @param title controls the text to be shown for the title
  * @param state Manages the InputShell state
+ * @param onQRButtonClicked gives access to the action button event
  * @param supportingText is a list of SupportingTextData that
  * manages all the messages to be shown
  * @param legendData manages the legendComponent
@@ -52,12 +52,12 @@ fun InputQRCode(
         onValueChanged = onValueChanged,
         keyboardOptions = KeyboardOptions(imeAction = imeAction),
         modifier = modifier,
-        testTag = "TEXT",
+        testTag = "QR_CODE",
         onFocusChanged = onFocusChanged,
         actionButton = {
             SquareIconButton(
-                modifier = Modifier.testTag("CALL_PHONE_NUMBER_BUTTON"),
-                enabled = state != InputShellState.DISABLED,
+                modifier = Modifier.testTag("INPUT_QR_CODE_BUTTON"),
+                enabled = true,
                 icon = {
                     Icon(
                         imageVector = Icons.Outlined.QrCode2,
