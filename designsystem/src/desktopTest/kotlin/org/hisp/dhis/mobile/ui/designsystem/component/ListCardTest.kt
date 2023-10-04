@@ -73,6 +73,7 @@ class ListCardTest {
     fun shouldDisplayListCardCorrectly() {
         rule.setContent {
             ListCard(
+                modifier = Modifier.testTag("LIST_CARD"),
                 listAvatar = {
                     ListAvatar(
                         textAvatar = "X",
