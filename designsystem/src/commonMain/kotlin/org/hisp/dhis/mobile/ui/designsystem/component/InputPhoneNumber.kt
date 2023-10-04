@@ -24,8 +24,7 @@ import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
  * @param onNextClicked gives access to the imeAction event
  * @param onValueChanged gives access to the onValueChanged event
  * @param imeAction controls the imeAction button to be shown
- * @param notation controls the decimal notation to be used, will be European
- * by default
+ * @param allowedCharacters the characters to allow
  * @param onCallActionClicked callback to when call phone number button is clicked
  * @param maxLength number of characters/digits that can be entered
  */
@@ -41,14 +40,16 @@ fun InputPhoneNumber(
     isRequiredField: Boolean = false,
     onNextClicked: (() -> Unit)? = null,
     onValueChanged: ((String?) -> Unit)? = null,
+    onFocusChanged: ((Boolean) -> Unit),
     imeAction: ImeAction = ImeAction.Next,
-    notation: RegExValidations = RegExValidations.PHONE_NUMBER,
+    errorMessage: String = provideStringResource("enter_phone_number"),
+    allowedCharacters: RegExValidations = RegExValidations.PHONE_NUMBER,
 ) {
     val hasMinimumPhoneNumberInput = inputText.orEmpty().length > 2
     val supportingText = if (state == InputShellState.ERROR) {
         listOf(
             SupportingTextData(
-                text = provideStringResource("enter_phone_number"),
+                text = errorMessage,
                 state = SupportingTextState.ERROR,
             ),
         )
@@ -72,7 +73,7 @@ fun InputPhoneNumber(
             }
         },
         keyboardOptions = KeyboardOptions(imeAction = imeAction, keyboardType = KeyboardType.Number),
-        allowedCharacters = notation.regex,
+        allowedCharacters = allowedCharacters.regex,
         modifier = modifier,
         testTag = "PHONE_NUMBER",
         actionButton = {
@@ -88,5 +89,6 @@ fun InputPhoneNumber(
                 onClick = onCallActionClicked,
             )
         },
+        onFocusChanged = onFocusChanged,
     )
 }
