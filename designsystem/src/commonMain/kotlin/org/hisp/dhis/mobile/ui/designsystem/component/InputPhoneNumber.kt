@@ -40,7 +40,7 @@ fun InputPhoneNumber(
     isRequiredField: Boolean = false,
     onNextClicked: (() -> Unit)? = null,
     onValueChanged: ((String?) -> Unit)? = null,
-    onFocusChanged: ((Boolean) -> Unit),
+    onFocusChanged: ((Boolean) -> Unit) = {},
     imeAction: ImeAction = ImeAction.Next,
     errorMessage: String = provideStringResource("enter_phone_number"),
     allowedCharacters: RegExValidations = RegExValidations.PHONE_NUMBER,
