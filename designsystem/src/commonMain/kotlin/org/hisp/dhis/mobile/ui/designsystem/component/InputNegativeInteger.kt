@@ -2,6 +2,10 @@ package org.hisp.dhis.mobile.ui.designsystem.component
 
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -38,15 +42,20 @@ fun InputNegativeInteger(
     imeAction: ImeAction = ImeAction.Next,
     modifier: Modifier = Modifier,
 ) {
+    var inputValue by rememberSaveable { mutableStateOf(inputText ?: "") }
+    inputValue = inputValue.replaceFirst("-", "")
     BasicTextInput(
         title = title,
         state = state,
         supportingText = supportingText,
         legendData = legendData,
-        inputText = inputText,
+        inputText = inputValue,
         isRequiredField = isRequiredField,
         onNextClicked = onNextClicked,
-        onValueChanged = onValueChanged,
+        onValueChanged = {
+            onValueChanged?.invoke(if (it?.startsWith("-") == true) it else "-$it")
+            inputValue = if (it?.startsWith("-") == true) inputValue.replaceFirst("-", "") else it.toString()
+        },
         helperStyle = InputStyle.WITH_HELPER_BEFORE,
         helper = "-",
         keyboardOptions = KeyboardOptions(imeAction = imeAction, keyboardType = KeyboardType.Number),
