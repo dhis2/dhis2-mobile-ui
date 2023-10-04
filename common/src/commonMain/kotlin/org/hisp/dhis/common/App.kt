@@ -74,7 +74,7 @@ fun App() {
 
 @Composable
 fun Main() {
-    val currentScreen = remember { mutableStateOf(Components.FORM_SHELLS) }
+    val currentScreen = remember { mutableStateOf(Components.QR_CODE_BLOCK) }
     var expanded by remember { mutableStateOf(false) }
 
     Column(
