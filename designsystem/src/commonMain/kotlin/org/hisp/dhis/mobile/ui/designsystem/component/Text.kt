@@ -141,6 +141,19 @@ fun ListCardTitle(
 }
 
 @Composable
+fun TEIDetailTitle(
+    text: String,
+    modifier: Modifier = Modifier,
+) {
+    Text(
+        text,
+        color = TextColor.OnSurface,
+        style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
+        modifier = modifier.padding(bottom = Spacing.Spacing8),
+    )
+}
+
+@Composable
 fun ListCardLastUpdated(
     text: String,
     modifier: Modifier = Modifier,

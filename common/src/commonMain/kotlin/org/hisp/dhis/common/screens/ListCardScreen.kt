@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.outlined.Sync
 import androidx.compose.material.icons.outlined.SyncProblem
 import androidx.compose.material3.Icon
@@ -18,6 +19,7 @@ import androidx.compose.ui.graphics.Color
 import org.hisp.dhis.common.screens.previews.basicAdditionalItemList
 import org.hisp.dhis.common.screens.previews.enrollmentCompletedList
 import org.hisp.dhis.common.screens.previews.fullItemList
+import org.hisp.dhis.common.screens.previews.teiDetailList
 import org.hisp.dhis.mobile.ui.designsystem.component.AdditionalInfoItem
 import org.hisp.dhis.mobile.ui.designsystem.component.AdditionalInfoItemColor
 import org.hisp.dhis.mobile.ui.designsystem.component.AvatarSize
@@ -26,9 +28,11 @@ import org.hisp.dhis.mobile.ui.designsystem.component.ButtonStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.Legend
 import org.hisp.dhis.mobile.ui.designsystem.component.LegendData
+import org.hisp.dhis.mobile.ui.designsystem.component.InfoBar
 import org.hisp.dhis.mobile.ui.designsystem.component.ListAvatar
 import org.hisp.dhis.mobile.ui.designsystem.component.ListAvatarStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.ListCard
+import org.hisp.dhis.mobile.ui.designsystem.component.ListCardDetail
 import org.hisp.dhis.mobile.ui.designsystem.component.MetadataAvatar
 import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
@@ -39,6 +43,42 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 @Composable
 fun ListCardScreen() {
     ColumnComponentContainer(title = "List Card Components") {
+        InfoBar(
+            text = "Not Synced",
+            icon = {
+                Icon(
+                    imageVector = Icons.Outlined.Sync,
+                    contentDescription = "not synced",
+                    tint = TextColor.OnSurfaceLight,
+                )
+            },
+            onClick = {},
+            color = TextColor.OnSurfaceLight,
+            backgroundColor = Color(0xFFEFF6FA),
+        )
+        InfoBar(
+            text = "Enrollment completed",
+            icon = {
+                Icon(
+                    imageVector = Icons.Filled.CheckCircle,
+                    contentDescription = "not synced",
+                    tint = AdditionalInfoItemColor.SUCCESS.color,
+                )
+            },
+            color = AdditionalInfoItemColor.SUCCESS.color,
+            backgroundColor = AdditionalInfoItemColor.SUCCESS.color.copy(alpha = 0.1f),
+        )
+
+        ListCardDetail(
+            listAvatar = {
+                ListAvatar(
+                    imagePainter = provideImage("dog"),
+                    style = ListAvatarStyle.IMAGE,
+                )
+            },
+            title = "Narayan Khanna, M, 32",
+            additionalInfoList = teiDetailList,
+        )
         var showLoading1 by remember {
             mutableStateOf(false)
         }

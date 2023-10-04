@@ -35,10 +35,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.testTag
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
-import androidx.compose.ui.platform.testTag
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
 import org.hisp.dhis.mobile.ui.designsystem.theme.Ripple
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
@@ -134,6 +134,84 @@ fun ListCard(
 }
 
 /**
+ * DHIS2 ListCardDetail.
+ * Component intended for TEI Dashboard
+ * @param title is the card title
+ * @param additionalInfoList is a list of AdditionalInfoItem that
+ * manages all the key value types that will be shown
+ * if there are more than three items that are not constant
+ * a show more/less button will appear and the rest of items will be hidden
+ * @param expandLabelText the text to be shown for expand button
+ * @param shrinkLabelText the text to be shown for shrink button
+ * @param actionButton composable parameter for the sync button
+ * @param modifier allows a modifier to be passed externally
+ */
+@Composable
+fun ListCardDetail(
+    listAvatar: (@Composable () -> Unit)? = null,
+    title: String,
+    additionalInfoList: List<AdditionalInfoItem>,
+    actionButton: @Composable (() -> Unit)? = null,
+    expandLabelText: String = provideStringResource("show_more"),
+    shrinkLabelText: String = provideStringResource("show_less"),
+    showLoading: Boolean = false,
+    modifier: Modifier = Modifier,
+) {
+    val expandableItemList = mutableListOf<AdditionalInfoItem>()
+    val constantItemList = mutableListOf<AdditionalInfoItem>()
+
+    additionalInfoList.forEach {
+            item ->
+        if (item.isConstantItem) {
+            constantItemList.add(item)
+        } else {
+            expandableItemList.add(item)
+        }
+    }
+    Row(
+        modifier = modifier
+            .background(color = TextColor.OnPrimary)
+            .clip(shape = RoundedCornerShape(Radius.S))
+            .padding(Spacing.Spacing16)
+            .hoverPointerIcon(true),
+    ) {
+        Column(Modifier.fillMaxWidth().weight(1f)) {
+            Row(horizontalArrangement = Arrangement.SpaceBetween) {
+                // Row with header and last updated
+                TEIDetailTitle(text = title, modifier.weight(1f))
+
+                listAvatar?.let {
+                    Spacer(Modifier.size(Spacing.Spacing16))
+                    it.invoke()
+                }
+            }
+            AdditionalInfoColumn(
+                isTEIDetailItem = true,
+                expandableItems = expandableItemList,
+                constantItems = constantItemList,
+                modifier = Modifier.testTag("LIST_CARD_ADDITIONAL_INFO_COLUMN"),
+                expandLabelText = expandLabelText,
+                shrinkLabelText = shrinkLabelText,
+                syncProgressItem = AdditionalInfoItem(
+                    icon = {
+                        ProgressIndicator(
+                            type = ProgressIndicatorType.CIRCULAR,
+                            hasError = false,
+                        )
+                    },
+                    value = "Syncing...",
+                    color = SurfaceColor.Primary,
+                    isConstantItem = false,
+                ),
+                showLoading = showLoading,
+
+            )
+            actionButton?.invoke()
+        }
+    }
+}
+
+/**
  * DHIS2 ListAvatar,
  *  used to display the avatar composable in card,
  *  must be one of the three styles given as parameters
@@ -195,6 +273,7 @@ private fun AdditionalInfoColumn(
     constantItems: List<AdditionalInfoItem>,
     syncProgressItem: AdditionalInfoItem,
     showLoading: Boolean,
+    isTEIDetailItem: Boolean = false,
     expandLabelText: String,
     shrinkLabelText: String,
 ) {
@@ -208,7 +287,7 @@ private fun AdditionalInfoColumn(
     ) {
         if (expandableItems != null && expandableItems.size > 3) {
             expandableItemList = expandableItems.take(3).toMutableList()
-            KeyValueList(expandableItemList)
+            KeyValueList(expandableItemList, isTEIDetailItem = isTEIDetailItem)
             hiddenItemList = expandableItems.drop(3).toMutableList()
 
             AnimatedVisibility(
@@ -216,11 +295,11 @@ private fun AdditionalInfoColumn(
                 enter = expandVertically(expandFrom = Alignment.CenterVertically),
                 exit = shrinkVertically(shrinkTowards = Alignment.CenterVertically),
             ) {
-                KeyValueList(hiddenItemList)
+                KeyValueList(hiddenItemList, isTEIDetailItem = isTEIDetailItem)
             }
         } else {
             expandableItems?.let {
-                KeyValueList(expandableItems)
+                KeyValueList(expandableItems, isTEIDetailItem = isTEIDetailItem)
             }
         }
         AnimatedVisibility(
@@ -240,25 +319,28 @@ private fun AdditionalInfoColumn(
             } else {
                 Icons.Filled.KeyboardArrowUp
             }
-            Row(
-                Modifier
-                    .clip(RoundedCornerShape(Radius.XS))
-                    .clickable(onClick = {
-                        sectionState = if (sectionState == SectionState.CLOSE) SectionState.OPEN else SectionState.CLOSE
-                    }),
-            ) {
-                Icon(
-                    imageVector = iconVector,
-                    contentDescription = "Button",
-                    tint = SurfaceColor.Primary,
-                )
-                Spacer(modifier.size(Spacing.Spacing4))
-                Text(
-                    text = expandText.value,
-                    color = SurfaceColor.Primary,
-                    style = MaterialTheme.typography.bodyMedium,
-                    modifier = Modifier.padding(horizontal = Spacing.Spacing4),
-                )
+            CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
+                Row(
+                    Modifier
+                        .clip(RoundedCornerShape(Radius.M))
+                        .clickable(onClick = {
+                            sectionState =
+                                if (sectionState == SectionState.CLOSE) SectionState.OPEN else SectionState.CLOSE
+                        })
+                        .padding(vertical = Spacing.Spacing10),
+                ) {
+                    Icon(
+                        imageVector = iconVector,
+                        contentDescription = "Button",
+                        tint = SurfaceColor.Primary,
+                    )
+                    Text(
+                        text = expandText.value,
+                        color = SurfaceColor.Primary,
+                        style = MaterialTheme.typography.bodyMedium,
+                        modifier = Modifier.padding(horizontal = Spacing.Spacing4),
+                    )
+                }
             }
         }
     }
@@ -273,19 +355,59 @@ private fun KeyValue(
     additionalInfoItem: AdditionalInfoItem,
     modifier: Modifier = Modifier,
 ) {
-    Row(modifier = modifier) {
-        if (additionalInfoItem.icon != null) {
-            Box(Modifier.background(color = Color.Transparent).size(InternalSizeValues.Size20)) {
-                additionalInfoItem.icon.invoke()
+    Row(
+        modifier = modifier,
+    ) {
+        if (additionalInfoItem.action != null) {
+            // Consider adding : manually
+            val keyColor = AdditionalInfoItemColor.DEFAULT_KEY.color
+            additionalInfoItem.key?.let {
+                Text(
+                    text = it,
+                    color = keyColor,
+                    style = MaterialTheme.typography.bodyMedium,
+                )
+            }
+            Row(
+                modifier = Modifier
+                    .clip(shape = RoundedCornerShape(Radius.XS))
+                    .clickable(onClick = additionalInfoItem.action),
+            ) {
+                Spacer(Modifier.size(Spacing.Spacing4))
+                if (additionalInfoItem.icon != null) {
+                    Box(
+                        Modifier.background(color = Color.Transparent).size(InternalSizeValues.Size20),
+                    ) {
+                        additionalInfoItem.icon.invoke()
+                    }
+                }
+
+                Spacer(Modifier.size(Spacing.Spacing4))
+                val valueColor = SurfaceColor.Primary
+                ListCardValue(text = additionalInfoItem.value, color = valueColor)
+                Spacer(Modifier.size(Spacing.Spacing4))
             }
         } else {
-            // Consider adding : manually
-            val keyColor = additionalInfoItem.color ?: AdditionalInfoItemColor.DEFAULT_KEY.color
-            additionalInfoItem.key?.let { Text(text = it, color = keyColor, style = MaterialTheme.typography.bodyMedium) }
+            if (additionalInfoItem.icon != null) {
+                Box(
+                    Modifier.background(color = Color.Transparent).size(InternalSizeValues.Size20),
+                ) {
+                    additionalInfoItem.icon.invoke()
+                }
+            } else {
+                val keyColor = additionalInfoItem.color ?: AdditionalInfoItemColor.DEFAULT_KEY.color
+                additionalInfoItem.key?.let {
+                    Text(
+                        text = it,
+                        color = keyColor,
+                        style = MaterialTheme.typography.bodyMedium,
+                    )
+                }
+            }
+            Spacer(Modifier.size(Spacing.Spacing4))
+            val valueColor = additionalInfoItem.color ?: AdditionalInfoItemColor.DEFAULT_VALUE.color
+            ListCardValue(text = additionalInfoItem.value, color = valueColor)
         }
-        Spacer(Modifier.size(Spacing.Spacing4))
-        val valueColor = additionalInfoItem.color ?: AdditionalInfoItemColor.DEFAULT_VALUE.color
-        ListCardValue(text = additionalInfoItem.value, color = valueColor)
     }
 }
 
@@ -296,11 +418,12 @@ private fun KeyValue(
 @Composable
 private fun KeyValueList(
     itemList: List<AdditionalInfoItem>,
+    isTEIDetailItem: Boolean = false,
 ) {
     Column {
         itemList.forEach { item ->
             KeyValue(item)
-            Spacer(Modifier.size(Spacing.Spacing4))
+            Spacer(Modifier.size(if (isTEIDetailItem) Spacing.Spacing8 else Spacing.Spacing4))
         }
     }
 }
@@ -317,6 +440,7 @@ data class AdditionalInfoItem(
     val value: String,
     val isConstantItem: Boolean = false,
     val color: Color? = null,
+    val action: (() -> Unit)? = null,
 )
 
 enum class AdditionalInfoItemColor(val color: Color) {
