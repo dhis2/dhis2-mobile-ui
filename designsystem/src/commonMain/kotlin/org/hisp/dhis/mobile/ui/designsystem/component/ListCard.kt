@@ -86,49 +86,45 @@ fun ListCard(
         }
     }
     CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
-        Box(
+        Row(
             modifier = modifier
-                .background(color = TextColor.OnPrimary, shape = RoundedCornerShape(Radius.S))
-                .testTag("LIST_CARD"),
+                .background(color = TextColor.OnPrimary)
+                .clip(shape = RoundedCornerShape(Radius.S))
+                .clickable(onClick = onCardClick)
+                .padding(Spacing.Spacing8)
+                .hoverPointerIcon(true),
         ) {
-            Row(
-                modifier = modifier
-                    .clickable(onClick = onCardClick)
-                    .padding(Spacing.Spacing8)
-                    .hoverPointerIcon(true),
-            ) {
-                listAvatar?.invoke()
-                Spacer(Modifier.size(Spacing.Spacing16))
-                Column(Modifier.fillMaxWidth().weight(1f)) {
-                    Row(horizontalArrangement = Arrangement.SpaceBetween) {
-                        // Row with header and last updated
-                        ListCardTitle(text = title, modifier.weight(1f))
-                        if (lastUpdated != null) {
-                            ListCardLastUpdated(lastUpdated)
-                        }
+            listAvatar?.invoke()
+            Spacer(Modifier.size(Spacing.Spacing16))
+            Column(Modifier.fillMaxWidth().weight(1f)) {
+                Row(horizontalArrangement = Arrangement.SpaceBetween) {
+                    // Row with header and last updated
+                    ListCardTitle(text = title, modifier.weight(1f))
+                    if (lastUpdated != null) {
+                        ListCardLastUpdated(lastUpdated)
                     }
-                    AdditionalInfoColumn(
-                        expandableItems = expandableAdditionalInfoItemList,
-                        constantItems = constantAdditionalInfoItemList,
-                        modifier = Modifier.testTag("LIST_CARD_ADDITIONAL_INFO_COLUMN"),
-                        expandLabelText = expandLabelText,
-                        shrinkLabelText = shrinkLabelText,
-                        syncProgressItem = AdditionalInfoItem(
-                            icon = {
-                                ProgressIndicator(
-                                    type = ProgressIndicatorType.CIRCULAR,
-                                    hasError = false,
-                                )
-                            },
-                            value = "Syncing...",
-                            color = SurfaceColor.Primary,
-                            isConstantItem = false,
-                        ),
-                        showLoading = showLoading,
-
-                    )
-                    actionButton?.invoke()
                 }
+                AdditionalInfoColumn(
+                    expandableItems = expandableAdditionalInfoItemList,
+                    constantItems = constantAdditionalInfoItemList,
+                    modifier = Modifier.testTag("LIST_CARD_ADDITIONAL_INFO_COLUMN"),
+                    expandLabelText = expandLabelText,
+                    shrinkLabelText = shrinkLabelText,
+                    syncProgressItem = AdditionalInfoItem(
+                        icon = {
+                            ProgressIndicator(
+                                type = ProgressIndicatorType.CIRCULAR,
+                                hasError = false,
+                            )
+                        },
+                        value = "Syncing...",
+                        color = SurfaceColor.Primary,
+                        isConstantItem = false,
+                    ),
+                    showLoading = showLoading,
+
+                )
+                actionButton?.invoke()
             }
         }
     }
