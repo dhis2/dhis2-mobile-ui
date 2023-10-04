@@ -53,7 +53,7 @@ fun InputNegativeInteger(
         isRequiredField = isRequiredField,
         onNextClicked = onNextClicked,
         onValueChanged = {
-            onValueChanged?.invoke(if (it?.startsWith("-") == true) it else "-$it")
+            onValueChanged?.invoke(if (it?.startsWith("-") == true || it?.isEmpty() == true) it else "-$it")
             inputValue = if (it?.startsWith("-") == true) inputValue.replaceFirst("-", "") else it.toString()
         },
         helperStyle = InputStyle.WITH_HELPER_BEFORE,

@@ -77,6 +77,7 @@ internal fun BasicTextInput(
                 onClick = {
                     onValueChanged?.invoke("")
                     deleteButtonIsVisible = false
+                    onFocusChanged?.invoke(true)
                 },
                 enabled = state != InputShellState.DISABLED,
             )
