@@ -74,15 +74,15 @@ fun ListCard(
     onCardClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val expandableAdditionalInfoItemList = mutableListOf<AdditionalInfoItem>()
-    val constantAdditionalInfoItemList = mutableListOf<AdditionalInfoItem>()
+    val expandableItemList = mutableListOf<AdditionalInfoItem>()
+    val constantItemList = mutableListOf<AdditionalInfoItem>()
 
     additionalInfoList.forEach {
             item ->
         if (item.isConstantItem) {
-            constantAdditionalInfoItemList.add(item)
+            constantItemList.add(item)
         } else {
-            expandableAdditionalInfoItemList.add(item)
+            expandableItemList.add(item)
         }
     }
     CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
@@ -94,8 +94,10 @@ fun ListCard(
                 .padding(Spacing.Spacing8)
                 .hoverPointerIcon(true),
         ) {
-            listAvatar?.invoke()
-            Spacer(Modifier.size(Spacing.Spacing16))
+            listAvatar?.let {
+                it.invoke()
+                Spacer(Modifier.size(Spacing.Spacing16))
+            }
             Column(Modifier.fillMaxWidth().weight(1f)) {
                 Row(horizontalArrangement = Arrangement.SpaceBetween) {
                     // Row with header and last updated
@@ -105,8 +107,8 @@ fun ListCard(
                     }
                 }
                 AdditionalInfoColumn(
-                    expandableItems = expandableAdditionalInfoItemList,
-                    constantItems = constantAdditionalInfoItemList,
+                    expandableItems = expandableItemList,
+                    constantItems = constantItemList,
                     modifier = Modifier.testTag("LIST_CARD_ADDITIONAL_INFO_COLUMN"),
                     expandLabelText = expandLabelText,
                     shrinkLabelText = shrinkLabelText,
@@ -198,19 +200,15 @@ private fun AdditionalInfoColumn(
     val loadingSectionState by remember(showLoading) { mutableStateOf(showLoading) }
     var sectionState by remember(SectionState.CLOSE) { mutableStateOf(SectionState.CLOSE) }
 
-    var expandableItemList: MutableList<AdditionalInfoItem>
-    val hiddenItemList = mutableListOf<AdditionalInfoItem>()
+    var expandableItemList: List<AdditionalInfoItem>
+    var hiddenItemList: List<AdditionalInfoItem>
     Column(
         modifier = modifier,
     ) {
         if (expandableItems != null && expandableItems.size > 3) {
-            expandableItemList = mutableListOf(expandableItems[0], expandableItems[1], expandableItems[2])
+            expandableItemList = expandableItems.take(3).toMutableList()
             KeyValueList(expandableItemList)
-            expandableItems.forEach { item ->
-                if (expandableItems.indexOf(item) > 3) {
-                    hiddenItemList.add(item)
-                }
-            }
+            hiddenItemList = expandableItems.drop(3).toMutableList()
 
             AnimatedVisibility(
                 visible = sectionState != SectionState.CLOSE,
@@ -218,6 +216,10 @@ private fun AdditionalInfoColumn(
                 exit = shrinkVertically(shrinkTowards = Alignment.CenterVertically),
             ) {
                 KeyValueList(hiddenItemList)
+            }
+        } else {
+            expandableItems?.let {
+                KeyValueList(expandableItems)
             }
         }
         AnimatedVisibility(
@@ -229,29 +231,27 @@ private fun AdditionalInfoColumn(
         }
         KeyValueList(constantItems)
 
-        if (expandableItems != null) {
-            if (expandableItems.size > 3) {
-                val expandText = mutableStateOf(provideStringResource(if (sectionState == SectionState.OPEN) shrinkLabelText else expandLabelText))
+        if (expandableItems != null && expandableItems.size > 3) {
+            val expandText = mutableStateOf(provideStringResource(if (sectionState == SectionState.OPEN) shrinkLabelText else expandLabelText))
 
-                val iconVector = if (sectionState == SectionState.CLOSE) {
-                    Icons.Filled.KeyboardArrowDown // it requires androidx.compose.material:material-icons-extended
-                } else {
-                    Icons.Filled.KeyboardArrowUp
-                }
-                Row(
-                    Modifier
-                        .clickable(onClick = {
-                            sectionState = if (sectionState == SectionState.CLOSE) SectionState.OPEN else SectionState.CLOSE
-                        }),
-                ) {
-                    Icon(
-                        imageVector = iconVector,
-                        contentDescription = "Button",
-                        tint = SurfaceColor.Primary,
-                    )
-                    Spacer(modifier.size(Spacing.Spacing4))
-                    Text(text = expandText.value, color = SurfaceColor.Primary, style = MaterialTheme.typography.bodyMedium)
-                }
+            val iconVector = if (sectionState == SectionState.CLOSE) {
+                Icons.Filled.KeyboardArrowDown // it requires androidx.compose.material:material-icons-extended
+            } else {
+                Icons.Filled.KeyboardArrowUp
+            }
+            Row(
+                Modifier
+                    .clickable(onClick = {
+                        sectionState = if (sectionState == SectionState.CLOSE) SectionState.OPEN else SectionState.CLOSE
+                    }),
+            ) {
+                Icon(
+                    imageVector = iconVector,
+                    contentDescription = "Button",
+                    tint = SurfaceColor.Primary,
+                )
+                Spacer(modifier.size(Spacing.Spacing4))
+                Text(text = expandText.value, color = SurfaceColor.Primary, style = MaterialTheme.typography.bodyMedium)
             }
         }
     }
@@ -290,9 +290,11 @@ private fun KeyValue(
 private fun KeyValueList(
     itemList: List<AdditionalInfoItem>,
 ) {
-    itemList.forEach { item ->
-        KeyValue(item)
-        Spacer(Modifier.size(Spacing.Spacing4))
+    Column {
+        itemList.forEach { item ->
+            KeyValue(item)
+            Spacer(Modifier.size(Spacing.Spacing4))
+        }
     }
 }
 
@@ -313,4 +315,8 @@ data class AdditionalInfoItem(
 enum class AdditionalInfoItemColor(val color: Color) {
     DEFAULT_KEY(TextColor.OnSurfaceLight),
     DEFAULT_VALUE(TextColor.OnSurface),
+    ERROR(SurfaceColor.Error),
+    WARNING(TextColor.OnWarning),
+    DISABLED(TextColor.OnDisabledSurface),
+    SUCCESS(SurfaceColor.CustomGreen),
 }
