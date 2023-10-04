@@ -78,7 +78,6 @@ fun QrCodeBlockScreen() {
             "label",
             state = InputShellState.ERROR,
             onQRButtonClicked = {
-
             },
             inputText = inputValue2,
             onValueChanged = {
@@ -97,7 +96,6 @@ fun QrCodeBlockScreen() {
             "label",
             state = InputShellState.DISABLED,
             onQRButtonClicked = {
-          
             },
             inputText = inputValue,
             onValueChanged = {
