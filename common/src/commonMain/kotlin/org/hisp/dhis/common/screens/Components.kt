@@ -49,6 +49,7 @@ enum class Components(val label: String) {
     INPUT_POLYGON("Input Polygon"),
     INPUT_ORG_UNIT("Input Org. Unit"),
     IMAGE_BLOCK("Image Block"),
+    INPUT_FILE_RESOURCE("Input File Resource"),
     INPUT_DROPDOWN("Input Dropdown"),
     INPUT_DATE_TIME("Input Date Time"),
     INPUT_COORDINATE("Input Coordinate"),

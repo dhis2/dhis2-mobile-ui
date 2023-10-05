@@ -41,6 +41,7 @@ import org.hisp.dhis.common.screens.InputCheckBoxScreen
 import org.hisp.dhis.common.screens.InputCoordinateScreen
 import org.hisp.dhis.common.screens.InputDateTimeScreen
 import org.hisp.dhis.common.screens.InputDropDownScreen
+import org.hisp.dhis.common.screens.InputFileResourceScreen
 import org.hisp.dhis.common.screens.InputEmailScreen
 import org.hisp.dhis.common.screens.InputIntegerScreen
 import org.hisp.dhis.common.screens.InputLetterScreen
@@ -87,7 +88,7 @@ fun App() {
 
 @Composable
 fun Main() {
-    val currentScreen = remember { mutableStateOf(Components.INPUT_BARCODE) }
+    val currentScreen = remember { mutableStateOf(Components.CAROUSEL_BUTTONS) }
     var expanded by remember { mutableStateOf(false) }
 
     Column(
@@ -182,6 +183,7 @@ fun Main() {
             Components.INPUT_POLYGON -> InputPolygonScreen()
             Components.INPUT_ORG_UNIT -> InputOrgUnitScreen()
             Components.IMAGE_BLOCK -> ImageBlockScreen()
+            Components.INPUT_FILE_RESOURCE -> InputFileResourceScreen()
             Components.INPUT_DROPDOWN -> InputDropDownScreen()
             Components.INPUT_DATE_TIME -> InputDateTimeScreen()
             Components.INPUT_COORDINATE -> InputCoordinateScreen()
