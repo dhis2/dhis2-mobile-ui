@@ -54,6 +54,25 @@ fun InputFileResource(
         null
     }
 
+    var secondaryButton: @Composable (() -> Unit)? =
+        if (currentState == LOADED) {
+            {
+                SquareIconButton(
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Outlined.FileUpload,
+                            contentDescription = "Upload Icon Button",
+                        )
+                    }
+                ) {
+                    currentState = UPLOADING
+                    onUploadFile.invoke()
+                }
+            }
+        } else {
+            null
+        }
+
     InputShell(
         title,
         state = if(currentState == UPLOADING) InputShellState.FOCUSED else InputShellState.UNFOCUSED,
@@ -91,21 +110,7 @@ fun InputFileResource(
             }
         },
         primaryButton = primaryButton,
-        secondaryButton = {
-            if (currentState == LOADED) {
-                SquareIconButton(
-                    icon = {
-                        Icon(
-                            imageVector = Icons.Outlined.FileUpload,
-                            contentDescription = "Upload Icon Button",
-                        )
-                    }
-                ) {
-                    currentState = UPLOADING
-                    onUploadFile.invoke()
-                }
-            }
-        },
+        secondaryButton = secondaryButton,
     )
 }
 
