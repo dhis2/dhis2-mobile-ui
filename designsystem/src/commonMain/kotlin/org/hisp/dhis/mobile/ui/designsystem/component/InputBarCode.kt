@@ -38,11 +38,10 @@ fun InputBarCode(
     onNextClicked: (() -> Unit)? = null,
     onValueChanged: ((String?) -> Unit)? = null,
     onFocusChanged: ((Boolean) -> Unit)? = null,
-    enabled: Boolean = true,
     imeAction: ImeAction = ImeAction.Next,
     modifier: Modifier = Modifier,
 ) {
-    val actionButtonIconVector = mutableStateOf(if (inputText.isNullOrEmpty()) "barcode" else "barcode_scanner")
+    val actionButtonIconVector = mutableStateOf(if (inputText.isNullOrEmpty()) "barcode_scanner"  else "barcode")
     BasicTextInput(
         title = title,
         state = state,
@@ -59,7 +58,7 @@ fun InputBarCode(
         actionButton = {
             SquareIconButton(
                 modifier = Modifier.testTag("INPUT_BAR_CODE_BUTTON"),
-                enabled = enabled,
+                enabled = state != InputShellState.DISABLED,
                 icon = {
                     Icon(
                         painter = provideDHIS2Icon(actionButtonIconVector.value),

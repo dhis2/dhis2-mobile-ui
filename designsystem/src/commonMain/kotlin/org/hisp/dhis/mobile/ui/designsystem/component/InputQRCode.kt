@@ -60,7 +60,7 @@ fun InputQRCode(
         actionButton = {
             SquareIconButton(
                 modifier = Modifier.testTag("INPUT_QR_CODE_BUTTON"),
-                enabled = true,
+                enabled = state != InputShellState.DISABLED,
                 icon = {
                     Icon(
                         imageVector = actionButtonIconVector.value,

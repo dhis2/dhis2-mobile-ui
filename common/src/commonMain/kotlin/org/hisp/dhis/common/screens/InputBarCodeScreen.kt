@@ -198,7 +198,6 @@ fun InputBarCodeScreen() {
                     inputValue = it
                 }
             },
-            enabled = false,
         )
 
         Spacer(Modifier.size(Spacing.Spacing18))
@@ -215,7 +214,6 @@ fun InputBarCodeScreen() {
                     inputValue3 = it
                 }
             },
-            enabled = false,
         )
     }
 }
