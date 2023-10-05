@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
@@ -29,6 +28,8 @@ import kotlinx.coroutines.launch
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
+import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing24
+import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing40
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
@@ -43,7 +44,7 @@ fun BottomSheetHeader(
 ) {
     val horizontalAlignment = if (icon != null) Alignment.CenterHorizontally else Alignment.Start
     Column(
-        modifier = modifier.padding(horizontal = Spacing.Spacing24, vertical = Spacing.Spacing0),
+        modifier = modifier.padding(horizontal = Spacing24, vertical = Spacing.Spacing0),
         horizontalAlignment = horizontalAlignment,
     ) {
         icon?. let {
@@ -138,10 +139,8 @@ fun BottomSheetShell(
         Column(
             modifier = Modifier
                 .background(SurfaceColor.SurfaceBright, Shape.ExtraLargeTop)
-                .padding(top = Spacing.Spacing24, start = Spacing.Spacing24, end = Spacing.Spacing24, bottom = Spacing.Spacing56)
+                .padding(top = Spacing24, start = Spacing24, end = Spacing.Spacing24, bottom = Spacing.Spacing56)
                 .heightIn(Spacing.Spacing0, InternalSizeValues.Size800)
-                .verticalScroll(rememberScrollState()),
-            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             BottomSheetHeader(
                 title,
@@ -149,23 +148,22 @@ fun BottomSheetShell(
                 description,
                 icon,
                 modifier = Modifier
-                    .padding(horizontal = Spacing.Spacing24, vertical = Spacing.Spacing0),
+                    .padding(horizontal = Spacing24, vertical = Spacing.Spacing0),
             )
             searchBar?.invoke()
             Divider(
                 modifier = Modifier.fillMaxWidth()
-                    .padding(top = Spacing.Spacing24),
+                    .padding(top = Spacing24),
                 color = TextColor.OnDisabledSurface,
             )
             Box(
                 modifier = Modifier.align(Alignment.Start)
                     .heightIn(Spacing.Spacing0, InternalSizeValues.Size386)
-                    .padding(bottom = Spacing.Spacing24),
+                    .padding(bottom = Spacing24),
             ) {
                 Column(
                     modifier = Modifier
-                        .verticalScroll(rememberScrollState())
-                        .fillMaxHeight(1f),
+                        .verticalScroll(rememberScrollState()),
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
                     content?.let {
@@ -177,7 +175,14 @@ fun BottomSheetShell(
                     }
                 }
             }
-            buttonBlock?.invoke()
+            Spacer(Modifier.size(Spacing24))
+            Box(
+                Modifier.heightIn(Spacing40, Spacing.Spacing120),
+                contentAlignment = Alignment.BottomCenter,
+            ) {
+                buttonBlock?.invoke()
+            }
+            Spacer(Modifier.size(Spacing24))
         }
     }
 }
