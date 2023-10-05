@@ -30,7 +30,6 @@ import org.hisp.dhis.mobile.ui.designsystem.component.ListCard
 import org.hisp.dhis.mobile.ui.designsystem.component.MetadataAvatar
 import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
-import org.hisp.dhis.mobile.ui.designsystem.resource.provideImage
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
@@ -76,7 +75,7 @@ fun ListCardScreen() {
         ListCard(
             listAvatar = {
                 ListAvatar(
-                    imagePainter = provideImage("dog"),
+                    imagePainter = provideDHIS2Icon("dhis2_microscope_outline"),
                     style = ListAvatarStyle.IMAGE,
                 )
             },
