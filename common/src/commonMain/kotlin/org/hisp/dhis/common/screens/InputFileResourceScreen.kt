@@ -9,17 +9,23 @@ import org.hisp.dhis.mobile.ui.designsystem.component.UploadFileState
 fun InputFileResourceScreen() {
     ColumnComponentContainer {
         InputFileResource(
-            title = "Label"
+            title = "Label",
+            onSelectFile = {},
+            onUploadFile = {}
         )
         InputFileResource(
             title = "Label",
-            uploadFileState = UploadFileState.UPLOADING
+            uploadFileState = UploadFileState.UPLOADING,
+            onSelectFile = {},
+            onUploadFile = {}
         )
         InputFileResource(
             title = "Label",
             fileName = "filename.extension",
             fileWeight = "524kb",
-            uploadFileState = UploadFileState.LOADED
+            uploadFileState = UploadFileState.LOADED,
+            onSelectFile = {},
+            onUploadFile = {}
         )
     }
 }
