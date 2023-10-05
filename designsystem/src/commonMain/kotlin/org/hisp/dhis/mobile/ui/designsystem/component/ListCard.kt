@@ -241,6 +241,7 @@ private fun AdditionalInfoColumn(
             }
             Row(
                 Modifier
+                    .clip(RoundedCornerShape(Radius.XS))
                     .clickable(onClick = {
                         sectionState = if (sectionState == SectionState.CLOSE) SectionState.OPEN else SectionState.CLOSE
                     }),
@@ -251,7 +252,12 @@ private fun AdditionalInfoColumn(
                     tint = SurfaceColor.Primary,
                 )
                 Spacer(modifier.size(Spacing.Spacing4))
-                Text(text = expandText.value, color = SurfaceColor.Primary, style = MaterialTheme.typography.bodyMedium)
+                Text(
+                    text = expandText.value,
+                    color = SurfaceColor.Primary,
+                    style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier.padding(horizontal = Spacing.Spacing4),
+                )
             }
         }
     }
