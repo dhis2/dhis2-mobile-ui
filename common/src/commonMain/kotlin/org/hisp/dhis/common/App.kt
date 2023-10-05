@@ -35,6 +35,7 @@ import org.hisp.dhis.common.screens.FormsComponentsScreen
 import org.hisp.dhis.common.screens.IconButtonScreen
 import org.hisp.dhis.common.screens.InputAgeScreen
 import org.hisp.dhis.common.screens.InputCheckBoxScreen
+import org.hisp.dhis.common.screens.InputEmailScreen
 import org.hisp.dhis.common.screens.InputIntegerScreen
 import org.hisp.dhis.common.screens.InputLetterScreen
 import org.hisp.dhis.common.screens.InputLinkScreen
@@ -163,6 +164,7 @@ fun Main() {
             Components.INPUT_YES_NO_FIELD -> InputYesNoFieldScreen()
             Components.INPUT_PHONE_NUMBER -> InputPhoneNumberScreen()
             Components.INPUT_LINK -> InputLinkScreen()
+            Components.INPUT_EMAIL -> InputEmailScreen()
         }
     }
 }
