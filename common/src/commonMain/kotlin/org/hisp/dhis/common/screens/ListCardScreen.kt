@@ -76,7 +76,7 @@ fun ListCardScreen() {
         CardDetail(
             avatar = {
                 Avatar(
-                    imagePainter = provideImage("dog"),
+                    imagePainter = provideDHIS2Icon("dhis2_microscope_outline"),
                     style = AvatarStyle.IMAGE,
                 )
             },
@@ -123,7 +123,7 @@ fun ListCardScreen() {
         ListCard(
             listAvatar = {
                 Avatar(
-                    imagePainter = provideImage("dog"),
+                    imagePainter = provideDHIS2Icon("dhis2_microscope_outline"),
                     style = AvatarStyle.IMAGE,
                 )
             },

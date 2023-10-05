@@ -173,7 +173,6 @@ fun CardDetail(
             .background(color = TextColor.OnPrimary)
             .clip(shape = RoundedCornerShape(Radius.S))
             .padding(Spacing.Spacing16)
-            .hoverPointerIcon(true),
     ) {
         Column(Modifier.fillMaxWidth().weight(1f)) {
             Row(horizontalArrangement = Arrangement.SpaceBetween) {
@@ -398,6 +397,8 @@ private fun KeyValue(
                 ) {
                     additionalInfoItem.icon.invoke()
                 }
+                Spacer(Modifier.size(Spacing.Spacing4))
+
             } else {
                 val keyColor = additionalInfoItem.color ?: AdditionalInfoItemColor.DEFAULT_KEY.color
                 additionalInfoItem.key?.let {
@@ -405,11 +406,10 @@ private fun KeyValue(
                         text = it,
                         color = keyColor,
                         style = MaterialTheme.typography.bodyMedium,
-                        modifier = Modifier.padding(start = Spacing.Spacing4),
+                        modifier = Modifier,
                     )
                 }
             }
-            Spacer(Modifier.size(Spacing.Spacing4))
             val valueColor = additionalInfoItem.color ?: AdditionalInfoItemColor.DEFAULT_VALUE.color
             ListCardValue(text = additionalInfoItem.value, color = valueColor)
         }
