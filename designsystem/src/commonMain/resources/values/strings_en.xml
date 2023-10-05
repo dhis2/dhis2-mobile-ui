@@ -18,4 +18,5 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="enter_phone_number">Enter phone number</string>
+    <string name="qr_code">QR code</string>
 </resources>

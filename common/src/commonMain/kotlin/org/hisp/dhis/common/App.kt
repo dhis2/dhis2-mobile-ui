@@ -47,6 +47,7 @@ import org.hisp.dhis.common.screens.InputPercentageScreen
 import org.hisp.dhis.common.screens.InputPhoneNumberScreen
 import org.hisp.dhis.common.screens.InputPositiveIntegerOrZeroScreen
 import org.hisp.dhis.common.screens.InputPositiveIntegerScreen
+import org.hisp.dhis.common.screens.InputQRCodeScreen
 import org.hisp.dhis.common.screens.InputRadioButtonScreen
 import org.hisp.dhis.common.screens.InputScreen
 import org.hisp.dhis.common.screens.InputSequentialScreen
@@ -59,7 +60,6 @@ import org.hisp.dhis.common.screens.LegendScreen
 import org.hisp.dhis.common.screens.ListCardScreen
 import org.hisp.dhis.common.screens.MetadataAvatarScreen
 import org.hisp.dhis.common.screens.ProgressScreen
-import org.hisp.dhis.common.screens.QrCodeBlockScreen
 import org.hisp.dhis.common.screens.RadioButtonScreen
 import org.hisp.dhis.common.screens.SectionScreen
 import org.hisp.dhis.common.screens.SupportingTextScreen
@@ -157,7 +157,7 @@ fun Main() {
             Components.INPUT_RADIO_BUTTON -> InputRadioButtonScreen()
             Components.INPUT_MATRIX -> InputMatrixScreen()
             Components.INPUT_SEQUENTIAL -> InputSequentialScreen()
-            Components.QR_CODE_BLOCK -> QrCodeBlockScreen()
+            Components.INPUT_QR_CODE -> InputQRCodeScreen()
             Components.INPUT_CHECK_BOX -> InputCheckBoxScreen()
             Components.BARCODE_BLOCK -> BarcodeBlockScreen()
             Components.INPUT_YES_ONLY_SWITCH -> InputYesOnlySwitchScreen()
