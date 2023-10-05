@@ -21,4 +21,3 @@ fun ImageBlockScreen() {
 @Composable
 private fun provideSampleImage(): Painter =
     painterResource("drawable/sample.png")
-

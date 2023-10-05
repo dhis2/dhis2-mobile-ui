@@ -1,7 +1,6 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -16,7 +15,6 @@ import androidx.compose.runtime.produceState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
@@ -44,22 +42,22 @@ fun <T> ImageBlock(
     downloadButtonVisible: Boolean = true,
     onClick: () -> Unit,
 ) {
-    Box(
-        modifier = modifier
-            .padding(vertical = Spacing.Spacing8)
-            .testTag("IMAGE_BLOCK_CONTAINER"),
-    ) {
-        val image: T? by produceState<T?>(null) {
-            value = withContext(Dispatchers.IO) {
-                try {
-                    load()
-                } catch (e: IOException) {
-                    null
-                }
+    val image: T? by produceState<T?>(null) {
+        value = withContext(Dispatchers.IO) {
+            try {
+                load()
+            } catch (e: IOException) {
+                null
             }
         }
+    }
 
-        if (image != null) {
+    if (image != null) {
+        Box(
+            modifier = modifier
+                .padding(vertical = Spacing.Spacing8)
+                .testTag("IMAGE_BLOCK_CONTAINER"),
+        ) {
             Image(
                 painter = painterFor(image!!),
                 contentDescription = null,
@@ -67,23 +65,23 @@ fun <T> ImageBlock(
                 modifier = Modifier
                     .fillMaxWidth()
                     .clip(shape = RoundedCornerShape(Radius.S))
-                    .height(160.dp)
+                    .height(160.dp),
             )
-        }
-        if (downloadButtonVisible) {
-            SquareIconButton(
-                enabled = true,
-                modifier = Modifier
-                    .align(Alignment.BottomEnd)
-                    .padding(Spacing.Spacing4),
-                icon = {
-                    Icon(
-                        imageVector = Icons.Outlined.FileDownload,
-                        contentDescription = "File download Button",
-                    )
-                },
-            ) {
-                onClick.invoke()
+            if (downloadButtonVisible) {
+                SquareIconButton(
+                    enabled = true,
+                    modifier = Modifier
+                        .align(Alignment.BottomEnd)
+                        .padding(Spacing.Spacing4),
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Outlined.FileDownload,
+                            contentDescription = "File download Button",
+                        )
+                    },
+                ) {
+                    onClick.invoke()
+                }
             }
         }
     }
