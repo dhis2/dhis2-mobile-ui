@@ -134,7 +134,7 @@ fun ListCard(
 }
 
 /**
- * DHIS2 ListCardDetail.
+ * DHIS2 CardDetail.
  * Component intended for TEI Dashboard
  * @param title is the card title
  * @param additionalInfoList is a list of AdditionalInfoItem that
@@ -147,8 +147,8 @@ fun ListCard(
  * @param modifier allows a modifier to be passed externally
  */
 @Composable
-fun ListCardDetail(
-    listAvatar: (@Composable () -> Unit)? = null,
+fun CardDetail(
+    avatar: (@Composable () -> Unit)? = null,
     title: String,
     additionalInfoList: List<AdditionalInfoItem>,
     actionButton: @Composable (() -> Unit)? = null,
@@ -180,7 +180,7 @@ fun ListCardDetail(
                 // Row with header and last updated
                 TEIDetailTitle(text = title, modifier.weight(1f))
 
-                listAvatar?.let {
+                avatar?.let {
                     Spacer(Modifier.size(Spacing.Spacing16))
                     it.invoke()
                 }
@@ -212,7 +212,7 @@ fun ListCardDetail(
 }
 
 /**
- * DHIS2 ListAvatar,
+ * DHIS2 Avatar,
  *  used to display the avatar composable in card,
  *  must be one of the three styles given as parameters
  * @param style not nullable parameter that manages the avatar style
@@ -222,16 +222,16 @@ fun ListCardDetail(
  * @param modifier allows a modifier to be passed externally
  */
 @Composable
-fun ListAvatar(
+fun Avatar(
     textAvatar: String? = null,
     imagePainter: Painter = provideDHIS2Icon("dhis2_microscope_outline"),
     metadataAvatar: (@Composable () -> Unit)? = null,
-    style: ListAvatarStyle = ListAvatarStyle.TEXT,
+    style: AvatarStyle = AvatarStyle.TEXT,
     onImageClick: (() -> Unit)? = null,
     modifier: Modifier = Modifier,
 ) {
     when (style) {
-        ListAvatarStyle.TEXT -> {
+        AvatarStyle.TEXT -> {
             textAvatar?.let {
                 Box(
                     modifier = modifier
@@ -243,12 +243,12 @@ fun ListAvatar(
                 }
             }
         }
-        ListAvatarStyle.METADATA -> {
+        AvatarStyle.METADATA -> {
             metadataAvatar?.let {
                 metadataAvatar.invoke()
             }
         }
-        ListAvatarStyle.IMAGE -> {
+        AvatarStyle.IMAGE -> {
             Image(
                 painter = imagePainter,
                 contentDescription = "avatarImage",
@@ -428,7 +428,8 @@ private fun KeyValueList(
     }
 }
 
-enum class ListAvatarStyle {
+enum class
+AvatarStyle {
     TEXT,
     IMAGE,
     METADATA,

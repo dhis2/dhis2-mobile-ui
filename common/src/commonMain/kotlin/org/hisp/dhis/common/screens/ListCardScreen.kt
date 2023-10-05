@@ -22,17 +22,15 @@ import org.hisp.dhis.common.screens.previews.fullItemList
 import org.hisp.dhis.common.screens.previews.teiDetailList
 import org.hisp.dhis.mobile.ui.designsystem.component.AdditionalInfoItem
 import org.hisp.dhis.mobile.ui.designsystem.component.AdditionalInfoItemColor
+import org.hisp.dhis.mobile.ui.designsystem.component.Avatar
 import org.hisp.dhis.mobile.ui.designsystem.component.AvatarSize
+import org.hisp.dhis.mobile.ui.designsystem.component.AvatarStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.Button
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonStyle
+import org.hisp.dhis.mobile.ui.designsystem.component.CardDetail
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
-import org.hisp.dhis.mobile.ui.designsystem.component.Legend
-import org.hisp.dhis.mobile.ui.designsystem.component.LegendData
 import org.hisp.dhis.mobile.ui.designsystem.component.InfoBar
-import org.hisp.dhis.mobile.ui.designsystem.component.ListAvatar
-import org.hisp.dhis.mobile.ui.designsystem.component.ListAvatarStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.ListCard
-import org.hisp.dhis.mobile.ui.designsystem.component.ListCardDetail
 import org.hisp.dhis.mobile.ui.designsystem.component.MetadataAvatar
 import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
@@ -69,11 +67,11 @@ fun ListCardScreen() {
             backgroundColor = AdditionalInfoItemColor.SUCCESS.color.copy(alpha = 0.1f),
         )
 
-        ListCardDetail(
-            listAvatar = {
-                ListAvatar(
+        CardDetail(
+            avatar = {
+                Avatar(
                     imagePainter = provideImage("dog"),
-                    style = ListAvatarStyle.IMAGE,
+                    style = AvatarStyle.IMAGE,
                 )
             },
             title = "Narayan Khanna, M, 32",
@@ -85,9 +83,9 @@ fun ListCardScreen() {
         SubTitle("Tei list:")
         ListCard(
             listAvatar = {
-                ListAvatar(
+                Avatar(
                     textAvatar = "P",
-                    style = ListAvatarStyle.TEXT,
+                    style = AvatarStyle.TEXT,
                 )
             },
             title = "Palak Khanna, F, 61",
@@ -116,9 +114,9 @@ fun ListCardScreen() {
         }
         ListCard(
             listAvatar = {
-                ListAvatar(
-                    imagePainter = provideDHIS2Icon("dhis2_microscope_outline"),
-                    style = ListAvatarStyle.IMAGE,
+                Avatar(
+                    imagePainter = provideImage("dog"),
+                    style = AvatarStyle.IMAGE,
                 )
             },
             title = "Kunal Choudary, M, 55",
@@ -148,7 +146,7 @@ fun ListCardScreen() {
         }
         ListCard(
             listAvatar = {
-                ListAvatar(
+                Avatar(
                     metadataAvatar = {
                         MetadataAvatar(
                             icon = {
@@ -160,7 +158,7 @@ fun ListCardScreen() {
                             },
                         )
                     },
-                    style = ListAvatarStyle.METADATA,
+                    style = AvatarStyle.METADATA,
                 )
             },
             title = "Anita Mathews, F, 72",
@@ -216,9 +214,9 @@ fun ListCardScreen() {
 
         ListCard(
             listAvatar = {
-                ListAvatar(
+                Avatar(
                     textAvatar = "A",
-                    style = ListAvatarStyle.TEXT,
+                    style = AvatarStyle.TEXT,
                 )
             },
             title = "Aditi Singh, F, 61",
@@ -279,7 +277,7 @@ fun ListCardScreen() {
 
         ListCard(
             listAvatar = {
-                ListAvatar(
+                Avatar(
                     metadataAvatar = {
                         MetadataAvatar(
                             icon = {
@@ -293,7 +291,7 @@ fun ListCardScreen() {
                             size = AvatarSize.Large,
                         )
                     },
-                    style = ListAvatarStyle.METADATA,
+                    style = AvatarStyle.METADATA,
                 )
             },
             title = "12/18/2021 at 16:30",
