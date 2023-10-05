@@ -33,6 +33,7 @@ fun InputPhoneNumberScreen() {
             onCallActionClicked = {
                 // no-op
             },
+            onFocusChanged = {},
         )
         Spacer(Modifier.size(Spacing.Spacing18))
 
@@ -50,6 +51,7 @@ fun InputPhoneNumberScreen() {
             onCallActionClicked = {
                 // no-op
             },
+            onFocusChanged = {},
         )
         Spacer(Modifier.size(Spacing.Spacing18))
 
@@ -67,6 +69,7 @@ fun InputPhoneNumberScreen() {
             onCallActionClicked = {
                 // no-op
             },
+            onFocusChanged = {},
         )
         Spacer(Modifier.size(Spacing.Spacing18))
 
@@ -85,6 +88,7 @@ fun InputPhoneNumberScreen() {
             onCallActionClicked = {
                 // no-op
             },
+            onFocusChanged = {},
         )
         Spacer(Modifier.size(Spacing.Spacing18))
     }

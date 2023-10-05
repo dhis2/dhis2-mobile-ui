@@ -1,6 +1,8 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -8,7 +10,6 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.RegExValidations
-import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 
 /**
@@ -24,8 +25,7 @@ import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
  * @param onNextClicked gives access to the imeAction event
  * @param onValueChanged gives access to the onValueChanged event
  * @param imeAction controls the imeAction button to be shown
- * @param notation controls the decimal notation to be used, will be European
- * by default
+ * @param allowedCharacters the characters to allow
  * @param onCallActionClicked callback to when call phone number button is clicked
  * @param maxLength number of characters/digits that can be entered
  */
@@ -41,14 +41,15 @@ fun InputPhoneNumber(
     isRequiredField: Boolean = false,
     onNextClicked: (() -> Unit)? = null,
     onValueChanged: ((String?) -> Unit)? = null,
+    onFocusChanged: ((Boolean) -> Unit) = {},
     imeAction: ImeAction = ImeAction.Next,
-    notation: RegExValidations = RegExValidations.PHONE_NUMBER,
+    errorMessage: String = provideStringResource("enter_phone_number"),
+    allowedCharacters: RegExValidations = RegExValidations.PHONE_NUMBER,
 ) {
-    val hasMinimumPhoneNumberInput = inputText.orEmpty().length > 2
     val supportingText = if (state == InputShellState.ERROR) {
         listOf(
             SupportingTextData(
-                text = provideStringResource("enter_phone_number"),
+                text = errorMessage,
                 state = SupportingTextState.ERROR,
             ),
         )
@@ -72,21 +73,25 @@ fun InputPhoneNumber(
             }
         },
         keyboardOptions = KeyboardOptions(imeAction = imeAction, keyboardType = KeyboardType.Number),
-        allowedCharacters = notation.regex,
+        allowedCharacters = allowedCharacters.regex,
         modifier = modifier,
         testTag = "PHONE_NUMBER",
         actionButton = {
             SquareIconButton(
                 modifier = Modifier.testTag("CALL_PHONE_NUMBER_BUTTON"),
-                enabled = hasMinimumPhoneNumberInput,
+                enabled = state != InputShellState.DISABLED,
                 icon = {
                     Icon(
-                        painter = provideDHIS2Icon("dhis2_phone_positive"),
+                        imageVector = Icons.Filled.Phone,
                         contentDescription = null,
                     )
                 },
-                onClick = onCallActionClicked,
+                onClick = {
+                    onCallActionClicked.invoke()
+                    onFocusChanged(true)
+                },
             )
         },
+        onFocusChanged = onFocusChanged,
     )
 }

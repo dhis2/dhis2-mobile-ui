@@ -4,8 +4,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.test.assertIsEnabled
-import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
@@ -42,30 +40,6 @@ class InputPhoneNumberTest {
         rule.onNodeWithTag("INPUT_PHONE_NUMBER_FIELD").assertTextEquals("1111")
         rule.onNodeWithTag("INPUT_PHONE_NUMBER_FIELD").performTextInput("1111a")
         rule.onNodeWithTag("INPUT_PHONE_NUMBER_FIELD").assertTextEquals("1111")
-    }
-
-    @Test
-    fun shouldEnableCallActionButtonAfterInputTextReachesCharacterLimit() {
-        rule.setContent {
-            var inputValue by remember { mutableStateOf("") }
-
-            InputPhoneNumber(
-                title = "Phone Number",
-                inputText = inputValue,
-                maxLength = 10,
-                onValueChanged = {
-                    if (it != null) {
-                        inputValue = it
-                    }
-                },
-                onCallActionClicked = {
-                    // no-op
-                },
-            )
-        }
-        rule.onNodeWithTag("CALL_PHONE_NUMBER_BUTTON").assertIsNotEnabled()
-        rule.onNodeWithTag("INPUT_PHONE_NUMBER_FIELD").performTextInput("1111111111")
-        rule.onNodeWithTag("CALL_PHONE_NUMBER_BUTTON").assertIsEnabled()
     }
 
     @Test
