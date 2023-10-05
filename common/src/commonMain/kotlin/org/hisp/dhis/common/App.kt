@@ -37,6 +37,7 @@ import org.hisp.dhis.common.screens.InputAgeScreen
 import org.hisp.dhis.common.screens.InputCheckBoxScreen
 import org.hisp.dhis.common.screens.InputIntegerScreen
 import org.hisp.dhis.common.screens.InputLetterScreen
+import org.hisp.dhis.common.screens.InputLinkScreen
 import org.hisp.dhis.common.screens.InputLongTextScreen
 import org.hisp.dhis.common.screens.InputMatrixScreen
 import org.hisp.dhis.common.screens.InputNegativeIntegerScreen
@@ -74,7 +75,7 @@ fun App() {
 
 @Composable
 fun Main() {
-    val currentScreen = remember { mutableStateOf(Components.FORM_SHELLS) }
+    val currentScreen = remember { mutableStateOf(Components.INPUT_LINK) }
     var expanded by remember { mutableStateOf(false) }
 
     Column(
@@ -161,6 +162,7 @@ fun Main() {
             Components.INPUT_YES_ONLY_CHECKBOX -> InputYesOnlyCheckBoxScreen()
             Components.INPUT_YES_NO_FIELD -> InputYesNoFieldScreen()
             Components.INPUT_PHONE_NUMBER -> InputPhoneNumberScreen()
+            Components.INPUT_LINK -> InputLinkScreen()
         }
     }
 }

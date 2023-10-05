@@ -72,4 +72,5 @@ enum class RegExValidations(val regex: Regex) {
     POSITIVE_INTEGER("^(?!0)\\d*".toRegex()),
     POSITIVE_INTEGER_OR_ZERO("^(0|[1-9]\\d*)\$".toRegex()),
     PHONE_NUMBER("^[+0-9-()]+$".toRegex()),
+    LINK("((https?|ftp|smtp)://)?(www\\.)?[a-zA-Z0-9@:%._+~#=-]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_+.~#?&/=-]*)".toRegex()),
 }
