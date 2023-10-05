@@ -168,3 +168,19 @@ fun ListCardValue(
         modifier = modifier,
     )
 }
+
+@Composable
+internal fun CarouselButtonText(
+    text: String,
+    modifier: Modifier = Modifier,
+
+) {
+    Text(
+        text,
+        style = MaterialTheme.typography.labelSmall,
+        textAlign = TextAlign.Center,
+        maxLines = 2,
+        overflow = TextOverflow.Ellipsis,
+        modifier = modifier,
+    )
+}

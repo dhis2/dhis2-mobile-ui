@@ -1,6 +1,8 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,51 +13,60 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ripple.LocalRippleTheme
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.draw.clip
+import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
 import org.hisp.dhis.mobile.ui.designsystem.theme.Ripple
-import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
+import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing16
+import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing24
+import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing64
+import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
 
 @Composable
 fun CarouselButton(
+    buttonData: CarouselButtonData,
     modifier: Modifier = Modifier,
-    onClick: () -> Unit,
-    enabled: Boolean,
-    textInput: String,
-    icon: @Composable
-    (() -> Unit),
 ) {
     CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
-        Button(
-            onClick = onClick,
+        Box(
             modifier = modifier
-                .padding(top = Spacing.Spacing4)
-                .width(Spacing.Spacing80)
-                .hoverPointerIcon(enabled),
-            shape = Shape.Full,
-            enabled = enabled,
-            colors = ButtonDefaults.buttonColors(Color.Transparent, TextColor.OnSurfaceVariant, Color.Transparent, TextColor.OnDisabledSurface),
+                .size(Spacing.Spacing80)
+                .hoverPointerIcon(buttonData.enabled).clip(RoundedCornerShape(Radius.Full))
+                .clickable(
+                    interactionSource = remember { MutableInteractionSource() },
+                    onClick = {
+                        buttonData.onClick.invoke()
+                    },
+                    indication = rememberRipple(
+                        color = SurfaceColor.Primary,
+                    ),
+                    enabled = buttonData.enabled,
+                ),
+            contentAlignment = Alignment.Center,
+
         ) {
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center,
+            Box(
+                contentAlignment = Alignment.Center,
+                modifier = Modifier.width(Spacing64),
             ) {
-                icon.invoke()
-                Spacer(Modifier.size(Spacing.Spacing8))
-                Text(textInput, style = MaterialTheme.typography.labelSmall, textAlign = TextAlign.Center, maxLines = 2, overflow = TextOverflow.Ellipsis)
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center,
+
+                ) {
+                    buttonData.icon.invoke()
+                    Spacer(Modifier.size(Spacing.Spacing8))
+                    CarouselButtonText(text = buttonData.text)
+                }
             }
         }
     }
@@ -63,29 +74,27 @@ fun CarouselButton(
 
 @Composable
 fun ButtonCarousel(
-    carouselButtonList: List<@Composable () -> Unit>,
+    carouselButtonList: List<CarouselButtonData>,
 ) {
     Row(
         Modifier
             .fillMaxSize()
-            .horizontalScroll(rememberScrollState()),
+            .horizontalScroll(rememberScrollState())
+            .padding(horizontal = Spacing24),
         horizontalArrangement = Arrangement.Center,
     ) {
         carouselButtonList.map {
-            if (carouselButtonList.size > 4) {
-                Box(
-                    contentAlignment = Alignment.Center,
-                ) {
-                    it.invoke()
-                }
-            } else {
-                Box(
-                    Modifier.weight(1f),
-                    contentAlignment = Alignment.Center,
-                ) {
-                    it.invoke()
-                }
-            }
+                buttonData ->
+            CarouselButton(buttonData)
+            Spacer(Modifier.size(Spacing16))
         }
     }
 }
+
+data class CarouselButtonData(
+    val onClick: () -> Unit,
+    val enabled: Boolean,
+    val text: String,
+    val icon: @Composable
+    (() -> Unit),
+)
