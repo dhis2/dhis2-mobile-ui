@@ -175,14 +175,12 @@ fun BottomSheetShell(
                     }
                 }
             }
-            Spacer(Modifier.size(Spacing24))
             Box(
-                Modifier.heightIn(Spacing40, Spacing.Spacing120),
+                Modifier.heightIn(Spacing40, Spacing.Spacing96),
                 contentAlignment = Alignment.BottomCenter,
             ) {
                 buttonBlock?.invoke()
             }
-            Spacer(Modifier.size(Spacing24))
         }
     }
 }
