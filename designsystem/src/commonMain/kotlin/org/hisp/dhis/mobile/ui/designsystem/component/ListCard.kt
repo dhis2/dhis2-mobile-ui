@@ -187,7 +187,7 @@ fun CardDetail(
                 }
             }
             AdditionalInfoColumn(
-                isTEIDetailItem = true,
+                isDetailCard = true,
                 expandableItems = expandableItemList,
                 constantItems = constantItemList,
                 modifier = Modifier.testTag("LIST_CARD_ADDITIONAL_INFO_COLUMN"),
@@ -274,7 +274,7 @@ private fun AdditionalInfoColumn(
     constantItems: List<AdditionalInfoItem>,
     syncProgressItem: AdditionalInfoItem,
     showLoading: Boolean,
-    isTEIDetailItem: Boolean = false,
+    isDetailCard: Boolean = false,
     expandLabelText: String,
     shrinkLabelText: String,
 ) {
@@ -288,7 +288,7 @@ private fun AdditionalInfoColumn(
     ) {
         if (expandableItems != null && expandableItems.size > 3) {
             expandableItemList = expandableItems.take(3).toMutableList()
-            KeyValueList(expandableItemList, isTEIDetailItem = isTEIDetailItem)
+            KeyValueList(expandableItemList, isDetailCard = isDetailCard)
             hiddenItemList = expandableItems.drop(3).toMutableList()
 
             AnimatedVisibility(
@@ -296,11 +296,11 @@ private fun AdditionalInfoColumn(
                 enter = expandVertically(expandFrom = Alignment.CenterVertically),
                 exit = shrinkVertically(shrinkTowards = Alignment.CenterVertically),
             ) {
-                KeyValueList(hiddenItemList, isTEIDetailItem = isTEIDetailItem)
+                KeyValueList(hiddenItemList, isDetailCard = isDetailCard)
             }
         } else {
             expandableItems?.let {
-                KeyValueList(expandableItems, isTEIDetailItem = isTEIDetailItem)
+                KeyValueList(expandableItems, isDetailCard = isDetailCard)
             }
         }
         AnimatedVisibility(
@@ -320,8 +320,8 @@ private fun AdditionalInfoColumn(
             } else {
                 Icons.Filled.KeyboardArrowUp
             }
-            val verticalPadding = if (isTEIDetailItem) Spacing.Spacing10 else Spacing.Spacing0
-            val expandTextColor = if (isTEIDetailItem) TextColor.OnSurfaceLight else SurfaceColor.Primary
+            val verticalPadding = if (isDetailCard) Spacing.Spacing10 else Spacing.Spacing0
+            val expandTextColor = if (isDetailCard) TextColor.OnSurfaceLight else SurfaceColor.Primary
             CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
                 Row(
                     Modifier
@@ -422,12 +422,12 @@ private fun KeyValue(
 @Composable
 private fun KeyValueList(
     itemList: List<AdditionalInfoItem>,
-    isTEIDetailItem: Boolean = false,
+    isDetailCard: Boolean = false,
 ) {
     Column {
         itemList.forEach { item ->
             KeyValue(item)
-            Spacer(Modifier.size(if (isTEIDetailItem) Spacing.Spacing8 else Spacing.Spacing4))
+            Spacer(Modifier.size(if (isDetailCard) Spacing.Spacing8 else Spacing.Spacing4))
         }
     }
 }
