@@ -66,7 +66,7 @@ enum class RegExValidations(val regex: Regex) {
     BRITISH_DECIMAL_NOTATION("""^(?!\.)(?!.*-[^0-9])(?!(?:[^.]*\.){3})[-0-9]*(?:\.[0-9]*)?$""".toRegex()),
     EUROPEAN_DECIMAL_NOTATION("""^(?!.*,.+,|.*-.*-)[0-9,-]*$""".toRegex()),
     ONLY_INTEGERS("^-?(?!0)\\d*".toRegex()),
-    SINGLE_LETTER("^[A-Z]\$".toRegex()),
+    SINGLE_LETTER("^[^\\d.,;!?\\s]$".toRegex()),
     NEGATIVE_INTEGERS("^(?!0)\\d*".toRegex()),
     PERCENTAGE("^([1-9]|[1-9][0-9]|100)\$".toRegex()),
     POSITIVE_INTEGER("^(?!0)\\d*".toRegex()),
