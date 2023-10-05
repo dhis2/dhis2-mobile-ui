@@ -36,6 +36,7 @@ import org.hisp.dhis.common.screens.FormsComponentsScreen
 import org.hisp.dhis.common.screens.IconButtonScreen
 import org.hisp.dhis.common.screens.ImageBlockScreen
 import org.hisp.dhis.common.screens.InputAgeScreen
+import org.hisp.dhis.common.screens.InputBarCodeScreen
 import org.hisp.dhis.common.screens.InputCheckBoxScreen
 import org.hisp.dhis.common.screens.InputEmailScreen
 import org.hisp.dhis.common.screens.InputIntegerScreen
@@ -81,7 +82,7 @@ fun App() {
 
 @Composable
 fun Main() {
-    val currentScreen = remember { mutableStateOf(Components.CAROUSEL_BUTTONS) }
+    val currentScreen = remember { mutableStateOf(Components.INPUT_BARCODE) }
     var expanded by remember { mutableStateOf(false) }
 
     Column(
@@ -171,6 +172,7 @@ fun Main() {
             Components.INPUT_PHONE_NUMBER -> InputPhoneNumberScreen()
             Components.INPUT_LINK -> InputLinkScreen()
             Components.INPUT_EMAIL -> InputEmailScreen()
+            Components.INPUT_BARCODE -> InputBarCodeScreen()
             Components.CAROUSEL_BUTTONS -> ButtonCarouselScreen()
             Components.INPUT_POLYGON -> InputPolygonScreen()
             Components.INPUT_ORG_UNIT -> InputOrgUnitScreen()
