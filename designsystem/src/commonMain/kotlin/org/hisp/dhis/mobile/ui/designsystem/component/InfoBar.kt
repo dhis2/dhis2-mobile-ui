@@ -18,7 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
+import androidx.compose.ui.text.font.FontWeight
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
 import org.hisp.dhis.mobile.ui.designsystem.theme.Ripple
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
@@ -29,42 +29,46 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
  */
 @Composable
 fun InfoBar(
-    text: String,
-    icon: @Composable (() -> Unit)? = null,
-    color: Color,
-    backgroundColor: Color,
-    actionText: String = provideStringResource("sync"),
-    onClick: (() -> Unit)? = null,
+    infoBarData: InfoBarData,
     modifier: Modifier = Modifier,
 ) {
     Row(
         modifier = modifier
             .clip(shape = RoundedCornerShape(Radius.Full))
-            .background(color = backgroundColor)
+            .background(color = infoBarData.backgroundColor)
             .padding(start = Spacing.Spacing8)
             .fillMaxWidth()
             .height(Spacing.Spacing40),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        icon?.invoke()
+        infoBarData.icon?.invoke()
         Spacer(Modifier.size(Spacing.Spacing8))
-        Text(color = color, text = text, style = MaterialTheme.typography.bodyMedium)
+        Text(color = infoBarData.color, text = infoBarData.text, style = MaterialTheme.typography.bodyMedium)
         Spacer(Modifier.weight(1f))
-        onClick?.let {
+        if (infoBarData.onClick != null && infoBarData.actionText?.isNotEmpty() == true) {
             CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
                 Row(
                     Modifier
                         .clip(shape = RoundedCornerShape(Radius.L))
-                        .clickable(onClick = onClick)
+                        .clickable(onClick = infoBarData.onClick)
                         .padding(Spacing.Spacing10),
                 ) {
                     Text(
                         color = SurfaceColor.Primary,
-                        text = actionText,
-                        style = MaterialTheme.typography.labelLarge,
+                        text = infoBarData.actionText,
+                        style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.SemiBold),
                     )
                 }
             }
         }
     }
 }
+
+data class InfoBarData(
+    val text: String,
+    val icon: @Composable (() -> Unit)? = null,
+    val color: Color,
+    val backgroundColor: Color,
+    val actionText: String? = null,
+    val onClick: (() -> Unit)? = null,
+)

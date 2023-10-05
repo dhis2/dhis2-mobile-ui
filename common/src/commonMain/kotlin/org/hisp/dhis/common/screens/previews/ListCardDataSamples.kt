@@ -61,7 +61,7 @@ val teiDetailList = listOf(
     AdditionalInfoItem(key = "Enrolled in:", value = "PHC Blueberry"),
     AdditionalInfoItem(
         key = "Programs:",
-        value = "Tuberculosis, Nutrition \n" +
+        value = "Tuberculosis, Nutrition," +
             "Assistance Program, Malaria Diagnosis",
         action = {},
         color = SurfaceColor.Primary,

@@ -11,7 +11,7 @@ object Ripple {
         private val alpha = RippleAlpha(
             focusedAlpha = 0.16f,
             draggedAlpha = 0.16f,
-            hoveredAlpha = 0.16f,
+            hoveredAlpha = 0.04f,
             pressedAlpha = 0.16f,
         )
 

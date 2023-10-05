@@ -181,8 +181,10 @@ fun CardDetail(
                 TEIDetailTitle(text = title, modifier.weight(1f))
 
                 avatar?.let {
-                    Spacer(Modifier.size(Spacing.Spacing16))
-                    it.invoke()
+                    Box(Modifier.align(Alignment.CenterVertically)) {
+                        Spacer(Modifier.size(Spacing.Spacing16))
+                        it.invoke()
+                    }
                 }
             }
             AdditionalInfoColumn(
@@ -312,13 +314,15 @@ private fun AdditionalInfoColumn(
         KeyValueList(constantItems)
 
         if (expandableItems != null && expandableItems.size > 3) {
-            val expandText = mutableStateOf(provideStringResource(if (sectionState == SectionState.OPEN) shrinkLabelText else expandLabelText))
+            val expandText = mutableStateOf(if (sectionState == SectionState.OPEN) shrinkLabelText else expandLabelText)
 
             val iconVector = if (sectionState == SectionState.CLOSE) {
-                Icons.Filled.KeyboardArrowDown // it requires androidx.compose.material:material-icons-extended
+                Icons.Filled.KeyboardArrowDown
             } else {
                 Icons.Filled.KeyboardArrowUp
             }
+            val verticalPadding = if (isTEIDetailItem) Spacing.Spacing10 else Spacing.Spacing0
+            val expandTextColor = if (isTEIDetailItem) TextColor.OnSurfaceLight else SurfaceColor.Primary
             CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
                 Row(
                     Modifier
@@ -327,16 +331,16 @@ private fun AdditionalInfoColumn(
                             sectionState =
                                 if (sectionState == SectionState.CLOSE) SectionState.OPEN else SectionState.CLOSE
                         })
-                        .padding(vertical = Spacing.Spacing10),
+                        .padding(top = verticalPadding, end = Spacing.Spacing2, bottom = verticalPadding),
                 ) {
                     Icon(
                         imageVector = iconVector,
                         contentDescription = "Button",
-                        tint = SurfaceColor.Primary,
+                        tint = expandTextColor,
                     )
                     Text(
                         text = expandText.value,
-                        color = SurfaceColor.Primary,
+                        color = expandTextColor,
                         style = MaterialTheme.typography.bodyMedium,
                         modifier = Modifier.padding(horizontal = Spacing.Spacing4),
                     )
@@ -401,6 +405,7 @@ private fun KeyValue(
                         text = it,
                         color = keyColor,
                         style = MaterialTheme.typography.bodyMedium,
+                        modifier = Modifier.padding(start = Spacing.Spacing4),
                     )
                 }
             }
