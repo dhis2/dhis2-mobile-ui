@@ -44,7 +44,7 @@ class InputPhoneNumberTest {
     }
 
     @Test
-    fun shouldDisplaySupportTextIfInputStateIsError() {
+    fun shouldDisplaySupportText() {
         rule.setContent {
             InputPhoneNumber(
                 title = "Phone Number",
@@ -71,6 +71,7 @@ class InputPhoneNumberTest {
                 onCallActionClicked = {
                     // no-op
                 },
+                supportingText = listOf(SupportingTextData("Error", SupportingTextState.ERROR)),
             )
         }
         rule.onNodeWithTag("INPUT_PHONE_NUMBER_SUPPORTING_TEXT").assertExists()

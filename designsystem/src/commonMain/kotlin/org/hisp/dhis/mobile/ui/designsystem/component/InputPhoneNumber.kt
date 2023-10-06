@@ -76,7 +76,6 @@ fun InputPhoneNumber(
                 },
                 onClick = {
                     onCallActionClicked.invoke()
-                    onFocusChanged(true)
                 },
             )
         },
