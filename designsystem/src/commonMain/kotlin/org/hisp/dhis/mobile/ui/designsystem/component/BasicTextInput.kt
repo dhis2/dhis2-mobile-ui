@@ -1,6 +1,5 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
@@ -83,7 +82,6 @@ internal fun BasicTextInput(
                 onClick = {
                     onValueChanged?.invoke("")
                     deleteButtonIsVisible = false
-                    onFocusChanged?.invoke(true)
                     focusRequester.requestFocus()
                 },
                 enabled = state != InputShellState.DISABLED,
@@ -93,7 +91,6 @@ internal fun BasicTextInput(
     InputShell(
         modifier = modifier
             .testTag("INPUT_$testTag")
-            .clickable { focusRequester.requestFocus() }
             .focusRequester(focusRequester),
         isRequiredField = isRequiredField,
         title = title,
