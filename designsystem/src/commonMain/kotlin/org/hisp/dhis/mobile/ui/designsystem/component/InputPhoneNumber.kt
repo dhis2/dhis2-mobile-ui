@@ -10,7 +10,6 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.RegExValidations
-import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 
 /**
  * DHIS2 Input Phone Number
@@ -43,20 +42,9 @@ fun InputPhoneNumber(
     onValueChanged: ((String?) -> Unit)? = null,
     onFocusChanged: ((Boolean) -> Unit) = {},
     imeAction: ImeAction = ImeAction.Next,
-    errorMessage: String = provideStringResource("enter_phone_number"),
+    supportingText: List<SupportingTextData>? = emptyList(),
     allowedCharacters: RegExValidations = RegExValidations.PHONE_NUMBER,
 ) {
-    val supportingText = if (state == InputShellState.ERROR) {
-        listOf(
-            SupportingTextData(
-                text = errorMessage,
-                state = SupportingTextState.ERROR,
-            ),
-        )
-    } else {
-        emptyList()
-    }
-
     BasicTextInput(
         title = title,
         state = state,

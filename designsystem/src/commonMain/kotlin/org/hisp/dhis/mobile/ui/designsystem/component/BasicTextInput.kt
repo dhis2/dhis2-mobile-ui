@@ -41,7 +41,7 @@ import java.util.Locale
 @Composable
 internal fun BasicTextInput(
     title: String,
-    state: InputShellState = InputShellState.UNFOCUSED,
+    state: InputShellState,
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
     inputText: String? = null,
