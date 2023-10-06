@@ -2,8 +2,11 @@ package org.hisp.dhis.mobile.ui.designsystem.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -47,16 +50,18 @@ fun InfoBar(
         Spacer(Modifier.weight(1f))
         if (infoBarData.onClick != null && infoBarData.actionText?.isNotEmpty() == true) {
             CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
-                Row(
+                Column(
                     Modifier
                         .clip(shape = RoundedCornerShape(Radius.L))
                         .clickable(onClick = infoBarData.onClick)
-                        .padding(Spacing.Spacing10),
+                        .fillMaxHeight(),
+                    verticalArrangement = Arrangement.Center,
                 ) {
                     Text(
                         color = SurfaceColor.Primary,
                         text = infoBarData.actionText,
                         style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.SemiBold),
+                        modifier = Modifier.padding(start = Spacing.Spacing8, end = Spacing.Spacing8, bottom = Spacing.Spacing2),
                     )
                 }
             }

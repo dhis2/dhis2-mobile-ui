@@ -19,6 +19,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
+import androidx.compose.material.icons.outlined.Sync
 import androidx.compose.material.ripple.LocalRippleTheme
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -42,6 +43,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
 import org.hisp.dhis.mobile.ui.designsystem.theme.Ripple
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
+import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing4
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
@@ -114,9 +116,10 @@ fun ListCard(
                     shrinkLabelText = shrinkLabelText,
                     syncProgressItem = AdditionalInfoItem(
                         icon = {
-                            ProgressIndicator(
-                                type = ProgressIndicatorType.CIRCULAR,
-                                hasError = false,
+                            Icon(
+                                imageVector = Icons.Outlined.Sync,
+                                contentDescription = "Icon Button",
+                                tint = SurfaceColor.Primary,
                             )
                         },
                         value = "Syncing...",
@@ -195,9 +198,10 @@ fun CardDetail(
                 shrinkLabelText = shrinkLabelText,
                 syncProgressItem = AdditionalInfoItem(
                     icon = {
-                        ProgressIndicator(
-                            type = ProgressIndicatorType.CIRCULAR,
-                            hasError = false,
+                        Icon(
+                            imageVector = Icons.Outlined.Sync,
+                            contentDescription = "Icon Button",
+                            tint = SurfaceColor.Primary,
                         )
                     },
                     value = "Syncing...",
@@ -341,7 +345,7 @@ private fun AdditionalInfoColumn(
                         text = expandText.value,
                         color = expandTextColor,
                         style = MaterialTheme.typography.bodyMedium,
-                        modifier = Modifier.padding(horizontal = Spacing.Spacing4),
+                        modifier = Modifier.padding(horizontal = Spacing4),
                     )
                 }
             }
@@ -369,6 +373,7 @@ private fun KeyValue(
                     text = it,
                     color = keyColor,
                     style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier,
                 )
             }
             Row(
@@ -376,7 +381,7 @@ private fun KeyValue(
                     .clip(shape = RoundedCornerShape(Radius.XS))
                     .clickable(onClick = additionalInfoItem.action),
             ) {
-                Spacer(Modifier.size(Spacing.Spacing4))
+                Spacer(Modifier.size(Spacing4))
                 if (additionalInfoItem.icon != null) {
                     Box(
                         Modifier.background(color = Color.Transparent).size(InternalSizeValues.Size20),
@@ -385,10 +390,10 @@ private fun KeyValue(
                     }
                 }
 
-                Spacer(Modifier.size(Spacing.Spacing4))
+                Spacer(Modifier.size(Spacing4))
                 val valueColor = SurfaceColor.Primary
                 ListCardValue(text = additionalInfoItem.value, color = valueColor)
-                Spacer(Modifier.size(Spacing.Spacing4))
+                Spacer(Modifier.size(Spacing4))
             }
         } else {
             if (additionalInfoItem.icon != null) {
@@ -397,7 +402,7 @@ private fun KeyValue(
                 ) {
                     additionalInfoItem.icon.invoke()
                 }
-                Spacer(Modifier.size(Spacing.Spacing4))
+                Spacer(Modifier.size(Spacing4))
             } else {
                 val keyColor = additionalInfoItem.color ?: AdditionalInfoItemColor.DEFAULT_KEY.color
                 additionalInfoItem.key?.let {
@@ -405,7 +410,7 @@ private fun KeyValue(
                         text = it,
                         color = keyColor,
                         style = MaterialTheme.typography.bodyMedium,
-                        modifier = Modifier,
+                        modifier = Modifier.padding(end = Spacing4),
                     )
                 }
             }
@@ -427,7 +432,7 @@ private fun KeyValueList(
     Column {
         itemList.forEach { item ->
             KeyValue(item)
-            Spacer(Modifier.size(if (isDetailCard) Spacing.Spacing8 else Spacing.Spacing4))
+            Spacer(Modifier.size(if (isDetailCard) Spacing.Spacing8 else Spacing4))
         }
     }
 }
