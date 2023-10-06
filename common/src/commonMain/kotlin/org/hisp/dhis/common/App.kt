@@ -26,6 +26,7 @@ import org.hisp.dhis.common.screens.BarcodeBlockScreen
 import org.hisp.dhis.common.screens.BottomSheetHeaderScreen
 import org.hisp.dhis.common.screens.BottomSheetScreen
 import org.hisp.dhis.common.screens.ButtonBlockScreen
+import org.hisp.dhis.common.screens.ButtonCarouselScreen
 import org.hisp.dhis.common.screens.ButtonScreen
 import org.hisp.dhis.common.screens.CheckboxScreen
 import org.hisp.dhis.common.screens.ChipsScreen
@@ -77,7 +78,7 @@ fun App() {
 
 @Composable
 fun Main() {
-    val currentScreen = remember { mutableStateOf(Components.LIST_CARD) }
+    val currentScreen = remember { mutableStateOf(Components.CAROUSEL_BUTTONS) }
     var expanded by remember { mutableStateOf(false) }
 
     Column(
@@ -167,6 +168,7 @@ fun Main() {
             Components.INPUT_PHONE_NUMBER -> InputPhoneNumberScreen()
             Components.INPUT_LINK -> InputLinkScreen()
             Components.INPUT_EMAIL -> InputEmailScreen()
+            Components.CAROUSEL_BUTTONS -> ButtonCarouselScreen()
         }
     }
 }
