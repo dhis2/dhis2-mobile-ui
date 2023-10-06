@@ -43,6 +43,7 @@ import org.hisp.dhis.common.screens.InputDateTimeScreen
 import org.hisp.dhis.common.screens.InputDropDownScreen
 import org.hisp.dhis.common.screens.InputFileResourceScreen
 import org.hisp.dhis.common.screens.InputEmailScreen
+import org.hisp.dhis.common.screens.InputFileResourceScreen
 import org.hisp.dhis.common.screens.InputIntegerScreen
 import org.hisp.dhis.common.screens.InputLetterScreen
 import org.hisp.dhis.common.screens.InputLinkScreen
