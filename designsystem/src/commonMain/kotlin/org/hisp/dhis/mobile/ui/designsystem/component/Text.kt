@@ -128,7 +128,7 @@ fun Description(
 }
 
 @Composable
-fun ListCardTitle(
+internal fun ListCardTitle(
     text: String,
     modifier: Modifier = Modifier,
 ) {
@@ -141,7 +141,20 @@ fun ListCardTitle(
 }
 
 @Composable
-fun ListCardLastUpdated(
+internal fun TEIDetailTitle(
+    text: String,
+    modifier: Modifier = Modifier,
+) {
+    Text(
+        text,
+        color = TextColor.OnSurface,
+        style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
+        modifier = modifier.padding(bottom = Spacing.Spacing8),
+    )
+}
+
+@Composable
+internal fun ListCardLastUpdated(
     text: String,
     modifier: Modifier = Modifier,
 ) {
@@ -154,7 +167,7 @@ fun ListCardLastUpdated(
 }
 
 @Composable
-fun ListCardValue(
+internal fun ListCardValue(
     text: String,
     color: Color,
     modifier: Modifier = Modifier,

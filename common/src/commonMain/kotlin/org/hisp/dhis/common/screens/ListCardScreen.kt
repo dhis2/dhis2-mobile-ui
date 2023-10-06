@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.outlined.Sync
 import androidx.compose.material.icons.outlined.SyncProblem
 import androidx.compose.material3.Icon
@@ -18,14 +19,18 @@ import androidx.compose.ui.graphics.Color
 import org.hisp.dhis.common.screens.previews.basicAdditionalItemList
 import org.hisp.dhis.common.screens.previews.enrollmentCompletedList
 import org.hisp.dhis.common.screens.previews.fullItemList
+import org.hisp.dhis.common.screens.previews.teiDetailList
 import org.hisp.dhis.mobile.ui.designsystem.component.AdditionalInfoItem
 import org.hisp.dhis.mobile.ui.designsystem.component.AdditionalInfoItemColor
+import org.hisp.dhis.mobile.ui.designsystem.component.Avatar
 import org.hisp.dhis.mobile.ui.designsystem.component.AvatarSize
+import org.hisp.dhis.mobile.ui.designsystem.component.AvatarStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.Button
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonStyle
+import org.hisp.dhis.mobile.ui.designsystem.component.CardDetail
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
-import org.hisp.dhis.mobile.ui.designsystem.component.ListAvatar
-import org.hisp.dhis.mobile.ui.designsystem.component.ListAvatarStyle
+import org.hisp.dhis.mobile.ui.designsystem.component.InfoBar
+import org.hisp.dhis.mobile.ui.designsystem.component.InfoBarData
 import org.hisp.dhis.mobile.ui.designsystem.component.ListCard
 import org.hisp.dhis.mobile.ui.designsystem.component.MetadataAvatar
 import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
@@ -37,15 +42,58 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 @Composable
 fun ListCardScreen() {
     ColumnComponentContainer(title = "List Card Components") {
+        InfoBar(
+            InfoBarData(
+                text = "Not Synced",
+                icon = {
+                    Icon(
+                        imageVector = Icons.Outlined.Sync,
+                        contentDescription = "not synced",
+                        tint = TextColor.OnSurfaceLight,
+                    )
+                },
+                actionText = "Sync",
+                onClick = {},
+                color = TextColor.OnSurfaceLight,
+                backgroundColor = Color(0xFFEFF6FA),
+            ),
+        )
+        InfoBar(
+            InfoBarData(
+                text = "Enrollment completed",
+                icon = {
+                    Icon(
+                        imageVector = Icons.Filled.CheckCircle,
+                        contentDescription = "not synced",
+                        tint = AdditionalInfoItemColor.SUCCESS.color,
+                    )
+                },
+                color = AdditionalInfoItemColor.SUCCESS.color,
+                backgroundColor = AdditionalInfoItemColor.SUCCESS.color.copy(alpha = 0.1f),
+            ),
+        )
+
+        CardDetail(
+            avatar = {
+                Avatar(
+                    imagePainter = provideDHIS2Icon("dhis2_microscope_outline"),
+                    style = AvatarStyle.IMAGE,
+                )
+            },
+            title = "Narayan Khanna, M, 32",
+            additionalInfoList = teiDetailList,
+            expandLabelText = "Show more",
+            shrinkLabelText = "Show less",
+        )
         var showLoading1 by remember {
             mutableStateOf(false)
         }
         SubTitle("Tei list:")
         ListCard(
             listAvatar = {
-                ListAvatar(
+                Avatar(
                     textAvatar = "P",
-                    style = ListAvatarStyle.TEXT,
+                    style = AvatarStyle.TEXT,
                 )
             },
             title = "Palak Khanna, F, 61",
@@ -74,9 +122,9 @@ fun ListCardScreen() {
         }
         ListCard(
             listAvatar = {
-                ListAvatar(
+                Avatar(
                     imagePainter = provideDHIS2Icon("dhis2_microscope_outline"),
-                    style = ListAvatarStyle.IMAGE,
+                    style = AvatarStyle.IMAGE,
                 )
             },
             title = "Kunal Choudary, M, 55",
@@ -106,7 +154,7 @@ fun ListCardScreen() {
         }
         ListCard(
             listAvatar = {
-                ListAvatar(
+                Avatar(
                     metadataAvatar = {
                         MetadataAvatar(
                             icon = {
@@ -118,7 +166,7 @@ fun ListCardScreen() {
                             },
                         )
                     },
-                    style = ListAvatarStyle.METADATA,
+                    style = AvatarStyle.METADATA,
                 )
             },
             title = "Anita Mathews, F, 72",
@@ -174,9 +222,9 @@ fun ListCardScreen() {
 
         ListCard(
             listAvatar = {
-                ListAvatar(
+                Avatar(
                     textAvatar = "A",
-                    style = ListAvatarStyle.TEXT,
+                    style = AvatarStyle.TEXT,
                 )
             },
             title = "Aditi Singh, F, 61",
@@ -237,7 +285,7 @@ fun ListCardScreen() {
 
         ListCard(
             listAvatar = {
-                ListAvatar(
+                Avatar(
                     metadataAvatar = {
                         MetadataAvatar(
                             icon = {
@@ -251,7 +299,7 @@ fun ListCardScreen() {
                             size = AvatarSize.Large,
                         )
                     },
-                    style = ListAvatarStyle.METADATA,
+                    style = AvatarStyle.METADATA,
                 )
             },
             title = "12/18/2021 at 16:30",

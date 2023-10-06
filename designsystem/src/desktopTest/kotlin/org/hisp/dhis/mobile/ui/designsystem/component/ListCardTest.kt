@@ -75,9 +75,9 @@ class ListCardTest {
             ListCard(
                 modifier = Modifier.testTag("LIST_CARD"),
                 listAvatar = {
-                    ListAvatar(
+                    Avatar(
                         textAvatar = "X",
-                        style = ListAvatarStyle.TEXT,
+                        style = AvatarStyle.TEXT,
                     )
                 },
                 title = "Anita Mathews, F, 72",
