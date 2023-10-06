@@ -9,32 +9,34 @@ import androidx.compose.material.icons.outlined.Cancel
 import androidx.compose.material.icons.outlined.FileUpload
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import org.hisp.dhis.mobile.ui.designsystem.component.UploadFileState.ADD
 import org.hisp.dhis.mobile.ui.designsystem.component.UploadFileState.LOADED
 import org.hisp.dhis.mobile.ui.designsystem.component.UploadFileState.UPLOADING
-import org.hisp.dhis.mobile.ui.designsystem.component.UploadFileState.ADD
+import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
 @Composable
 fun InputFileResource(
     title: String,
-    fileName: String? = null,
-    fileWeight: String? = null,
+    fileName: MutableState<String?> = mutableStateOf(null),
+    fileWeight: MutableState<String?> = mutableStateOf(null),
     onSelectFile: () -> Unit,
     onUploadFile: () -> Unit,
     onClear: () -> Unit = {},
-    uploadFileState: UploadFileState = ADD
+    uploadFileState: UploadFileState = ADD,
 ) {
     var currentState by remember {
         mutableStateOf(uploadFileState)
     }
 
-    var primaryButton: @Composable (() -> Unit)? = if (currentState == LOADED) {
+    val primaryButton: @Composable (() -> Unit)? = if (currentState == LOADED) {
         {
             IconButton(
                 modifier = Modifier.testTag("INPUT_FILE_RESOURCE_CLEAR_BUTTON"),
@@ -54,7 +56,7 @@ fun InputFileResource(
         null
     }
 
-    var secondaryButton: @Composable (() -> Unit)? =
+    val secondaryButton: @Composable (() -> Unit)? =
         if (currentState == LOADED) {
             {
                 SquareIconButton(
@@ -63,7 +65,7 @@ fun InputFileResource(
                             imageVector = Icons.Outlined.FileUpload,
                             contentDescription = "Upload Icon Button",
                         )
-                    }
+                    },
                 ) {
                     currentState = UPLOADING
                     onUploadFile.invoke()
@@ -75,37 +77,35 @@ fun InputFileResource(
 
     InputShell(
         title,
-        state = if(currentState == UPLOADING) InputShellState.FOCUSED else InputShellState.UNFOCUSED,
+        state = if (currentState == UPLOADING) InputShellState.FOCUSED else InputShellState.UNFOCUSED,
         inputField = {
-            when(currentState) {
+            when (currentState) {
                 ADD -> {
                     Button(
                         modifier = Modifier.padding(end = Spacing.Spacing16).fillMaxWidth(),
                         style = ButtonStyle.ELEVATED,
-                        text = "Add file",
+                        text = provideStringResource("add_file"),
                         icon = {
                             Icon(
                                 imageVector = Icons.Outlined.FileUpload,
                                 contentDescription = "Upload Icon Button",
                             )
-                        }
+                        },
                     ) {
-                        currentState = LOADED
                         onSelectFile.invoke()
+                        currentState = LOADED
                     }
                 }
                 UPLOADING -> {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.Center
+                        horizontalArrangement = Arrangement.Center,
                     ) {
                         ProgressIndicator(type = ProgressIndicatorType.CIRCULAR)
                     }
                 }
                 LOADED -> {
-                    Row() {
-                        fileName?.let { BasicTextField(helper = fileWeight, helperStyle = InputStyle.WITH_HELPER_AFTER, inputText = it, onInputChanged = { }) }
-                    }
+                    fileName.value?.let { BasicTextField(helper = fileWeight.value, helperStyle = InputStyle.WITH_HELPER_AFTER, inputText = it, onInputChanged = { }) }
                 }
             }
         },
@@ -117,7 +117,5 @@ fun InputFileResource(
 enum class UploadFileState {
     ADD,
     UPLOADING,
-    LOADED
+    LOADED,
 }
-
-
