@@ -61,7 +61,7 @@ fun <T> ImageBlock(
             Image(
                 painter = painterFor(image!!),
                 contentDescription = null,
-                contentScale = ContentScale.FillBounds,
+                contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .fillMaxWidth()
                     .clip(shape = RoundedCornerShape(Radius.S))
