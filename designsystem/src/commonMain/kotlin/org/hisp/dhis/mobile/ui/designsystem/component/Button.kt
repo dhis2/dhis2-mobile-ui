@@ -83,8 +83,12 @@ fun Button(
                 paddingValues = paddingValues,
             )
         }
-        ButtonStyle.TEXT -> {
-            val textColor = if (enabled) SurfaceColor.Primary else TextColor.OnDisabledSurface
+        ButtonStyle.TEXT, ButtonStyle.TEXT_LIGHT -> {
+            val textColor = when {
+                !enabled -> TextColor.OnDisabledSurface
+                style == ButtonStyle.TEXT_LIGHT -> TextColor.OnPrimary
+                else -> SurfaceColor.Primary
+            }
             CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
                 OutlinedButton(
                     modifier = modifier,
@@ -311,6 +315,7 @@ enum class ButtonStyle {
     FILLED,
     OUTLINED,
     TEXT,
+    TEXT_LIGHT,
     ELEVATED,
     TONAL,
     KEYBOARDKEY,
