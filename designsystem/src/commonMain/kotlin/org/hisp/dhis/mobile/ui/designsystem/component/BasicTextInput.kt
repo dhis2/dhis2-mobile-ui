@@ -13,6 +13,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.testTag
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.RegExValidations
@@ -60,6 +62,7 @@ internal fun BasicTextInput(
 
     var deleteButtonIsVisible by remember { mutableStateOf(!inputText.isNullOrEmpty() && state != InputShellState.DISABLED) }
     val focusManager = LocalFocusManager.current
+    val focusRequester = remember { FocusRequester() }
 
     var deleteButton:
         @Composable()
@@ -67,7 +70,9 @@ internal fun BasicTextInput(
     if (deleteButtonIsVisible) {
         deleteButton = {
             IconButton(
-                modifier = Modifier.testTag("INPUT_" + testTag + "_RESET_BUTTON").padding(Spacing.Spacing0),
+                modifier = Modifier
+                    .testTag("INPUT_" + testTag + "_RESET_BUTTON")
+                    .padding(Spacing.Spacing0),
                 icon = {
                     Icon(
                         imageVector = Icons.Outlined.Cancel,
@@ -77,14 +82,16 @@ internal fun BasicTextInput(
                 onClick = {
                     onValueChanged?.invoke("")
                     deleteButtonIsVisible = false
-                    onFocusChanged?.invoke(true)
+                    focusRequester.requestFocus()
                 },
                 enabled = state != InputShellState.DISABLED,
             )
         }
     }
     InputShell(
-        modifier = modifier.testTag("INPUT_$testTag"),
+        modifier = modifier
+            .testTag("INPUT_$testTag")
+            .focusRequester(focusRequester),
         isRequiredField = isRequiredField,
         title = title,
         primaryButton = deleteButton,
@@ -96,8 +103,7 @@ internal fun BasicTextInput(
             }
         },
         supportingText = {
-            supportingText?.forEach {
-                    label ->
+            supportingText?.forEach { label ->
                 SupportingText(
                     label.text,
                     label.state,
@@ -115,7 +121,9 @@ internal fun BasicTextInput(
                 onInputChanged = {
                     if (allowedCharacters != null) {
                         if (allowedCharacters == RegExValidations.SINGLE_LETTER.regex) {
-                            if (it.uppercase(Locale.getDefault()).matches(allowedCharacters) || it.isEmpty()) {
+                            if (it.uppercase(Locale.getDefault())
+                                    .matches(allowedCharacters) || it.isEmpty()
+                            ) {
                                 onValueChanged?.invoke(it.uppercase(Locale.getDefault()))
                                 deleteButtonIsVisible = it.isNotEmpty()
                             }

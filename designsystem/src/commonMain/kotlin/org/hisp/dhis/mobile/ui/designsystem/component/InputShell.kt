@@ -58,7 +58,7 @@ fun InputShell(
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier.fillMaxWidth().clip(shape = RoundedCornerShape(Radius.XS, Radius.XS))) {
-        var indicatorColor by remember { mutableStateOf(InputShellState.UNFOCUSED.color) }
+        var indicatorColor by remember(state) { mutableStateOf(state.color) }
         var indicatorThickness by remember { mutableStateOf(Border.Thin) }
         val backgroundColor = if (state != InputShellState.DISABLED) SurfaceColor.Surface else SurfaceColor.DisabledSurface
         InputShellRow(
