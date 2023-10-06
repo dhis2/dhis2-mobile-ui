@@ -20,4 +20,6 @@
     <string name="enter_phone_number">Enter phone number</string>
     <string name="qr_code">QR code</string>
     <string name="sync">Sync</string>
+    <string name="add_polygon">Add polygon</string>
+    <string name="polygon_captured">Polygon captured</string>
 </resources>
