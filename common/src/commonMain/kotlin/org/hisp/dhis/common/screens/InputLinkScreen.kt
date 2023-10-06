@@ -35,6 +35,7 @@ fun InputLinkScreen() {
                 }
             },
             onLinkActionCLicked = {},
+            state = InputShellState.UNFOCUSED,
         )
         Spacer(Modifier.size(Spacing.Spacing18))
 
@@ -51,6 +52,7 @@ fun InputLinkScreen() {
                 }
             },
             onLinkActionCLicked = {},
+            state = InputShellState.UNFOCUSED,
         )
         Spacer(Modifier.size(Spacing.Spacing18))
 
@@ -67,6 +69,7 @@ fun InputLinkScreen() {
                 }
             },
             onLinkActionCLicked = {},
+            state = InputShellState.UNFOCUSED,
         )
         Spacer(Modifier.size(Spacing.Spacing18))
 

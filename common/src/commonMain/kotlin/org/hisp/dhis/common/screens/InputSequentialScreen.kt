@@ -70,6 +70,7 @@ fun InputSequentialScreen() {
                     newSelectedItem
                 }
             },
+            state = InputShellState.UNFOCUSED,
         )
 
         InputSequential(

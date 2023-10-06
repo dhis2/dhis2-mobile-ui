@@ -31,7 +31,7 @@ import androidx.compose.ui.text.input.ImeAction
 @Composable
 fun InputQRCode(
     title: String,
-    state: InputShellState = InputShellState.UNFOCUSED,
+    state: InputShellState,
     onQRButtonClicked: () -> Unit,
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,

@@ -30,6 +30,7 @@ class InputNumberTest {
             InputNumber(
                 title = "Label",
                 modifier = Modifier.testTag("INPUT_NUMBER"),
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_NUMBER").assertExists()
@@ -50,6 +51,7 @@ class InputNumberTest {
                         inputValue = it
                     }
                 },
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_NUMBER").assertExists()
@@ -83,6 +85,7 @@ class InputNumberTest {
                         inputValue = it
                     }
                 },
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_NUMBER").assertExists()
@@ -105,6 +108,7 @@ class InputNumberTest {
                         inputValue = it
                     }
                 },
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_NUMBER").assertExists()
@@ -122,6 +126,7 @@ class InputNumberTest {
                 modifier = Modifier.testTag("INPUT_NUMBER"),
                 inputText = "",
                 legendData = LegendData(SurfaceColor.CustomGreen, "Legend"),
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_NUMBER").assertExists()
@@ -137,6 +142,7 @@ class InputNumberTest {
                 modifier = Modifier.testTag("INPUT_NUMBER"),
                 inputText = "",
                 supportingText = listOf(SupportingTextData("Supporting text", SupportingTextState.DEFAULT)),
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_NUMBER").assertExists()
@@ -156,6 +162,7 @@ class InputNumberTest {
                         inputValue = it
                     }
                 },
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_NUMBER").assertExists()

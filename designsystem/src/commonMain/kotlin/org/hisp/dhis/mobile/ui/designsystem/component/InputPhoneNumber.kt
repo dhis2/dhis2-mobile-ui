@@ -34,7 +34,7 @@ fun InputPhoneNumber(
     onCallActionClicked: () -> Unit,
     modifier: Modifier = Modifier,
     maxLength: Int = 12,
-    state: InputShellState = InputShellState.UNFOCUSED,
+    state: InputShellState,
     legendData: LegendData? = null,
     inputText: String? = null,
     isRequiredField: Boolean = false,

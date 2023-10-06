@@ -38,6 +38,7 @@ fun FormShellsScreen() {
                     inputValue1 = it
                 }
             },
+            state = InputShellState.UNFOCUSED,
         )
         Spacer(Modifier.size(Spacing.Spacing18))
 
@@ -52,7 +53,7 @@ fun FormShellsScreen() {
                     inputValue2 = it
                 }
             },
-
+            state = InputShellState.UNFOCUSED,
         )
         Spacer(Modifier.size(Spacing.Spacing18))
 
@@ -124,6 +125,7 @@ fun FormShellsScreen() {
                     inputValue7 = it
                 }
             },
+            state = InputShellState.ERROR,
         )
         Spacer(Modifier.size(Spacing.Spacing18))
 
@@ -159,6 +161,7 @@ fun FormShellsScreen() {
                     inputValue9 = it
                 }
             },
+            state = InputShellState.UNFOCUSED,
         )
         Spacer(Modifier.size(Spacing.Spacing18))
 
@@ -178,6 +181,8 @@ fun FormShellsScreen() {
                     inputValue10 = it
                 }
             },
+            state = InputShellState.UNFOCUSED,
+
         )
         Spacer(Modifier.size(Spacing.Spacing18))
 
@@ -263,6 +268,7 @@ fun FormShellsScreen() {
                     inputValue14 = it
                 }
             },
+            state = InputShellState.UNFOCUSED,
         )
 
         var inputValue15 by rememberSaveable { mutableStateOf("Input") }
@@ -275,6 +281,7 @@ fun FormShellsScreen() {
                     inputValue15 = it
                 }
             },
+            state = InputShellState.UNFOCUSED,
         )
         Spacer(Modifier.size(Spacing.Spacing18))
 
@@ -296,6 +303,7 @@ fun FormShellsScreen() {
                     inputValue16 = it
                 }
             },
+            state = InputShellState.UNFOCUSED,
         )
     }
 }

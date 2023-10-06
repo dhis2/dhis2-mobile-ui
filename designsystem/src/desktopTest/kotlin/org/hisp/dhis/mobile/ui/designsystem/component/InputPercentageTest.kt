@@ -27,6 +27,7 @@ class InputPercentageTest {
         rule.setContent {
             InputPercentage(
                 title = "Label",
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_PERCENTAGE").assertExists()
@@ -46,6 +47,7 @@ class InputPercentageTest {
                         inputValue = it
                     }
                 },
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_PERCENTAGE").assertExists()
@@ -77,6 +79,7 @@ class InputPercentageTest {
                         inputValue = it
                     }
                 },
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_PERCENTAGE").assertExists()
@@ -98,6 +101,7 @@ class InputPercentageTest {
                         inputValue = it
                     }
                 },
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_PERCENTAGE").assertExists()
@@ -113,6 +117,7 @@ class InputPercentageTest {
                 title = "Label",
                 inputText = "",
                 legendData = LegendData(SurfaceColor.CustomGreen, "Legend"),
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_PERCENTAGE").assertExists()
@@ -127,6 +132,7 @@ class InputPercentageTest {
                 title = "Label",
                 inputText = "",
                 supportingText = listOf(SupportingTextData("Supporting text", SupportingTextState.DEFAULT)),
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_PERCENTAGE").assertExists()
@@ -145,6 +151,7 @@ class InputPercentageTest {
                         inputValue = it
                     }
                 },
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_PERCENTAGE").assertExists()
@@ -164,6 +171,7 @@ class InputPercentageTest {
                         inputValue = it
                     }
                 },
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_PERCENTAGE").assertExists()

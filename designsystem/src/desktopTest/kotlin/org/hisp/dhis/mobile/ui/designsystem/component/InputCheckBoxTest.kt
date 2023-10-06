@@ -41,6 +41,7 @@ class InputCheckBoxTest {
                     checkBoxDataList[index] = checkBoxData.copy(checked = !checkBoxData.checked)
                 },
                 onClearSelection = { checkBoxDataList.replaceAll { it.copy(checked = false) } },
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_CHECK_BOX").assertExists()
@@ -68,6 +69,7 @@ class InputCheckBoxTest {
                     checkBoxDataList[index] = checkBoxData.copy(checked = !checkBoxData.checked)
                 },
                 onClearSelection = { checkBoxDataList.replaceAll { it.copy(checked = false) } },
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_CHECK_BOX").assertExists()
@@ -121,6 +123,7 @@ class InputCheckBoxTest {
                     checkBoxDataList[index] = checkBoxData.copy(checked = !checkBoxData.checked)
                 },
                 onClearSelection = { checkBoxDataList.replaceAll { it.copy(checked = false) } },
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_CHECK_BOX").assertExists()
@@ -147,6 +150,7 @@ class InputCheckBoxTest {
                     checkBoxDataList[index] = checkBoxData.copy(checked = !checkBoxData.checked)
                 },
                 onClearSelection = { checkBoxDataList.replaceAll { it.copy(checked = false) } },
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_CHECK_BOX").assertExists()
@@ -197,6 +201,7 @@ class InputCheckBoxTest {
                     checkBoxDataList[index] = checkBoxData.copy(checked = !checkBoxData.checked)
                 },
                 onClearSelection = { checkBoxDataList.replaceAll { it.copy(checked = false) } },
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_CHECK_BOX").assertExists()
@@ -224,6 +229,7 @@ class InputCheckBoxTest {
                 legendData = LegendData(SurfaceColor.CustomGreen, "Legend"),
                 onItemChange = { },
                 onClearSelection = { },
+                state = InputShellState.UNFOCUSED,
             )
         }
 
@@ -249,6 +255,7 @@ class InputCheckBoxTest {
                 supportingText = listOf(SupportingTextData("Supporting text", SupportingTextState.DEFAULT)),
                 onItemChange = { },
                 onClearSelection = { },
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_CHECK_BOX").assertExists()

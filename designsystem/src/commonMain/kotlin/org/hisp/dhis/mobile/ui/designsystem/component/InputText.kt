@@ -24,7 +24,7 @@ import androidx.compose.ui.text.input.ImeAction
 @Composable
 fun InputText(
     title: String,
-    state: InputShellState = InputShellState.UNFOCUSED,
+    state: InputShellState,
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
     inputText: String? = null,

@@ -32,7 +32,7 @@ fun InputCheckBox(
     checkBoxData: List<CheckBoxData>,
     modifier: Modifier = Modifier,
     orientation: Orientation = Orientation.VERTICAL,
-    state: InputShellState = InputShellState.UNFOCUSED,
+    state: InputShellState,
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
     isRequired: Boolean = false,

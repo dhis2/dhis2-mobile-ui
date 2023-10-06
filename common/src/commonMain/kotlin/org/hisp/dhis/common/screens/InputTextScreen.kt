@@ -31,6 +31,7 @@ fun InputTextScreen() {
                     inputValue1 = it
                 }
             },
+            state = InputShellState.UNFOCUSED,
         )
         Spacer(Modifier.size(Spacing.Spacing18))
         SubTitle("Input text with error ")

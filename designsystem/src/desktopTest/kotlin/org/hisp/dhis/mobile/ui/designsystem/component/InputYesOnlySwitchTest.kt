@@ -34,6 +34,7 @@ class InputYesOnlySwitchTest {
                 onClick = {
                     selectedItem = it
                 },
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_YES_ONLY_SWITCH").assertExists()
@@ -54,6 +55,7 @@ class InputYesOnlySwitchTest {
                 onClick = {
                     selectedItem = it
                 },
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_YES_ONLY_SWITCH").assertExists()
@@ -94,6 +96,7 @@ class InputYesOnlySwitchTest {
                 onClick = {
                     selectedItem = it
                 },
+                state = InputShellState.UNFOCUSED,
             )
         }
 
@@ -115,6 +118,7 @@ class InputYesOnlySwitchTest {
                 onClick = {
                     selectedItem = it
                 },
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_YES_ONLY_SWITCH").assertExists()

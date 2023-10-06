@@ -33,6 +33,7 @@ class InputQRCodeTest {
                 onQRButtonClicked = {
                     // no-op
                 },
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_QR_CODE").assertExists()
@@ -54,6 +55,7 @@ class InputQRCodeTest {
                 onQRButtonClicked = {
                     // no-op
                 },
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_QR_CODE").assertExists()
@@ -79,6 +81,7 @@ class InputQRCodeTest {
                 onQRButtonClicked = {
                     // no-op
                 },
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_QR_CODE").assertExists()

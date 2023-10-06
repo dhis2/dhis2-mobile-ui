@@ -33,6 +33,7 @@ class InputPhoneNumberTest {
                 onCallActionClicked = {
                     // no-op
                 },
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_PHONE_NUMBER_FIELD").assertTextEquals("")
@@ -89,6 +90,7 @@ class InputPhoneNumberTest {
                 onCallActionClicked = {
                     // no-op
                 },
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_PHONE_NUMBER_RESET_BUTTON").assertExists()

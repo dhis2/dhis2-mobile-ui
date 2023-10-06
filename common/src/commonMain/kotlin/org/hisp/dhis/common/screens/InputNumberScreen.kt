@@ -34,6 +34,7 @@ fun InputNumberScreen() {
                 }
             },
             notation = RegExValidations.BRITISH_DECIMAL_NOTATION,
+            state = InputShellState.UNFOCUSED,
         )
         Spacer(Modifier.size(Spacing.Spacing18))
 
@@ -49,6 +50,7 @@ fun InputNumberScreen() {
                 }
             },
             notation = RegExValidations.EUROPEAN_DECIMAL_NOTATION,
+            state = InputShellState.UNFOCUSED,
         )
         Spacer(Modifier.size(Spacing.Spacing18))
 
