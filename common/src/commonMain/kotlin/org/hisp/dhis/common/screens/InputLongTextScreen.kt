@@ -38,6 +38,7 @@ fun InputLongTextScreen() {
                     inputValue1 = it
                 }
             },
+            state = InputShellState.UNFOCUSED,
         )
         Spacer(Modifier.size(Spacing.Spacing18))
 

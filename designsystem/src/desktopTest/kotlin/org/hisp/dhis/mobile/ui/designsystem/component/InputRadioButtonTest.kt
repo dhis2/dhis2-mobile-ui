@@ -40,6 +40,7 @@ class InputRadioButtonTest {
                 onItemChange = {
                     selectedItem = it
                 },
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("RADIO_BUTTON_INPUT").assertExists()
@@ -66,6 +67,7 @@ class InputRadioButtonTest {
                 onItemChange = {
                     selectedItem = it
                 },
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("RADIO_BUTTON_INPUT").assertExists()
@@ -119,6 +121,7 @@ class InputRadioButtonTest {
                 onItemChange = {
                     selectedItem = it
                 },
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("RADIO_BUTTON_INPUT").assertExists()
@@ -143,6 +146,7 @@ class InputRadioButtonTest {
                 onItemChange = {
                     selectedItem = it
                 },
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("RADIO_BUTTON_INPUT").assertExists()
@@ -194,6 +198,7 @@ class InputRadioButtonTest {
                 onItemChange = {
                     selectedItem = it
                 },
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("RADIO_BUTTON_INPUT").assertExists()
@@ -216,6 +221,7 @@ class InputRadioButtonTest {
                 radioButtonData = radioButtonData,
                 legendData = LegendData(SurfaceColor.CustomGreen, "Legend"),
                 onItemChange = {},
+                state = InputShellState.UNFOCUSED,
             )
         }
 
@@ -237,6 +243,7 @@ class InputRadioButtonTest {
                 radioButtonData = radioButtonData,
                 supportingText = listOf(SupportingTextData("Supporting text", SupportingTextState.DEFAULT)),
                 onItemChange = {},
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("RADIO_BUTTON_INPUT").assertExists()

@@ -27,7 +27,7 @@ class InputYesOnlyCheckBoxTest {
     @Test
     fun shouldDisplayInputYesOnlyCheckBoxCorrectly() {
         rule.setContent {
-            var checkboxData by rememberSaveable {
+            val checkboxData by rememberSaveable {
                 mutableStateOf(CheckBoxData(uid = "0", checked = false, enabled = true, textInput = "Label"))
             }
             InputYesOnlyCheckBox(
@@ -35,6 +35,7 @@ class InputYesOnlyCheckBoxTest {
                 modifier = Modifier.testTag("INPUT_YES_ONLY_CHECKBOX"),
                 onClick = {
                 },
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_YES_ONLY_CHECKBOX").assertExists()
@@ -54,6 +55,7 @@ class InputYesOnlyCheckBoxTest {
                 onClick = {
                     checkboxData = checkboxData.copy(checked = !checkboxData.checked)
                 },
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_YES_ONLY_CHECKBOX").assertExists()
@@ -95,6 +97,7 @@ class InputYesOnlyCheckBoxTest {
                 onClick = {
                     checkboxData = checkboxData.copy(enabled = !checkboxData.enabled)
                 },
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_YES_ONLY_CHECKBOX").assertExists()
@@ -114,6 +117,7 @@ class InputYesOnlyCheckBoxTest {
                 onClick = {
                     checkboxData = checkboxData.copy(enabled = !checkboxData.enabled)
                 },
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_YES_ONLY_CHECKBOX").assertExists()

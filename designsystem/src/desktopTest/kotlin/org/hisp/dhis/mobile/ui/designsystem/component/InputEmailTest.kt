@@ -30,6 +30,7 @@ class InputEmailTest {
             InputEmail(
                 title = "Label",
                 onEmailActionCLicked = {},
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_EMAIL").assertExists()
@@ -50,6 +51,7 @@ class InputEmailTest {
                     }
                 },
                 onEmailActionCLicked = {},
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_EMAIL").assertExists()
@@ -83,6 +85,7 @@ class InputEmailTest {
                     }
                 },
                 onEmailActionCLicked = {},
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_EMAIL").assertExists()
@@ -105,6 +108,7 @@ class InputEmailTest {
                     }
                 },
                 onEmailActionCLicked = {},
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_EMAIL").assertExists()
@@ -142,6 +146,7 @@ class InputEmailTest {
                 inputText = "Input",
                 legendData = LegendData(SurfaceColor.CustomGreen, "Legend"),
                 onEmailActionCLicked = {},
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_EMAIL").assertExists()
@@ -157,6 +162,7 @@ class InputEmailTest {
                 inputText = "Input",
                 supportingText = listOf(SupportingTextData("Supporting text", SupportingTextState.DEFAULT)),
                 onEmailActionCLicked = {},
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_EMAIL").assertExists()
@@ -177,6 +183,7 @@ class InputEmailTest {
                     }
                 },
                 onEmailActionCLicked = {},
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("EMAIL_BUTTON").assertIsNotEnabled()
@@ -211,6 +218,7 @@ class InputEmailTest {
                     }
                 },
                 onEmailActionCLicked = {},
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("EMAIL_BUTTON").assertIsEnabled()

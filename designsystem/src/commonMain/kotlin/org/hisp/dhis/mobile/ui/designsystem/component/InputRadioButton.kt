@@ -9,7 +9,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState.DISABLED
-import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState.UNFOCUSED
 import org.hisp.dhis.mobile.ui.designsystem.component.Orientation.VERTICAL
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
@@ -36,7 +35,7 @@ fun InputRadioButton(
     radioButtonData: List<RadioButtonData>,
     modifier: Modifier = Modifier,
     orientation: Orientation = VERTICAL,
-    state: InputShellState = UNFOCUSED,
+    state: InputShellState,
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
     isRequired: Boolean = false,

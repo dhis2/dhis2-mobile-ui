@@ -15,7 +15,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
-import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState.UNFOCUSED
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.IconCard
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.IconCardData
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
@@ -41,7 +40,7 @@ fun InputSequential(
     data: List<IconCardData>,
     selectedData: IconCardData? = null,
     modifier: Modifier = Modifier,
-    state: InputShellState = UNFOCUSED,
+    state: InputShellState,
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
     isRequired: Boolean = false,

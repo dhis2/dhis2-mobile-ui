@@ -31,7 +31,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.internal.RegExValidations
 @Composable
 fun InputLink(
     title: String,
-    state: InputShellState = InputShellState.UNFOCUSED,
+    state: InputShellState,
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
     inputText: String? = null,

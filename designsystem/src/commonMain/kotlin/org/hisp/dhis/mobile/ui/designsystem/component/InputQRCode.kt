@@ -3,8 +3,10 @@ package org.hisp.dhis.mobile.ui.designsystem.component
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.QrCode2
+import androidx.compose.material.icons.outlined.QrCodeScanner
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.ImeAction
@@ -29,7 +31,7 @@ import androidx.compose.ui.text.input.ImeAction
 @Composable
 fun InputQRCode(
     title: String,
-    state: InputShellState = InputShellState.UNFOCUSED,
+    state: InputShellState,
     onQRButtonClicked: () -> Unit,
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
@@ -41,6 +43,7 @@ fun InputQRCode(
     imeAction: ImeAction = ImeAction.Next,
     modifier: Modifier = Modifier,
 ) {
+    val actionButtonIconVector = mutableStateOf(if (!inputText.isNullOrEmpty()) Icons.Outlined.QrCode2 else Icons.Outlined.QrCodeScanner)
     BasicTextInput(
         title = title,
         state = state,
@@ -60,7 +63,7 @@ fun InputQRCode(
                 enabled = true,
                 icon = {
                     Icon(
-                        imageVector = Icons.Outlined.QrCode2,
+                        imageVector = actionButtonIconVector.value,
                         contentDescription = null,
                     )
                 },

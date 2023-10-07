@@ -34,6 +34,7 @@ class InputYesNoFieldTest {
                 onItemChange = {
                     selectedItem = it
                 },
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_YES_NO_FIELD").assertExists()
@@ -54,6 +55,7 @@ class InputYesNoFieldTest {
                 onItemChange = {
                     selectedItem = it
                 },
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_YES_NO_FIELD").assertExists()
@@ -95,6 +97,7 @@ class InputYesNoFieldTest {
                 onItemChange = {
                     selectedItem = it
                 },
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_YES_NO_FIELD").assertExists()
@@ -109,6 +112,7 @@ class InputYesNoFieldTest {
                 modifier = Modifier.testTag("INPUT_YES_NO_FIELD"),
                 onItemChange = {
                 },
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_YES_NO_FIELD").assertExists()
@@ -148,6 +152,7 @@ class InputYesNoFieldTest {
                 onItemChange = {
                     selectedItem = it
                 },
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_YES_NO_FIELD").assertExists()
@@ -164,6 +169,7 @@ class InputYesNoFieldTest {
                 title = "Label",
                 legendData = LegendData(SurfaceColor.CustomGreen, "Legend"),
                 onItemChange = {},
+                state = InputShellState.UNFOCUSED,
             )
         }
 
@@ -179,6 +185,7 @@ class InputYesNoFieldTest {
                 title = "Label",
                 supportingText = listOf(SupportingTextData("Supporting text", SupportingTextState.DEFAULT)),
                 onItemChange = {},
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_YES_NO_FIELD").assertExists()

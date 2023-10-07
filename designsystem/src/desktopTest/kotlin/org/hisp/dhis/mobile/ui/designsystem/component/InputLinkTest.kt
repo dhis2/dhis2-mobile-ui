@@ -31,6 +31,7 @@ class InputLinkTest {
             InputLink(
                 title = "Label",
                 onLinkActionCLicked = {},
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_LINK").assertExists()
@@ -51,6 +52,7 @@ class InputLinkTest {
                     }
                 },
                 onLinkActionCLicked = {},
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_LINK").assertExists()
@@ -84,6 +86,7 @@ class InputLinkTest {
                     }
                 },
                 onLinkActionCLicked = {},
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_LINK").assertExists()
@@ -106,6 +109,7 @@ class InputLinkTest {
                     }
                 },
                 onLinkActionCLicked = {},
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_LINK").assertExists()
@@ -143,6 +147,7 @@ class InputLinkTest {
                 inputText = "Input",
                 legendData = LegendData(SurfaceColor.CustomGreen, "Legend"),
                 onLinkActionCLicked = {},
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_LINK").assertExists()
@@ -158,6 +163,7 @@ class InputLinkTest {
                 inputText = "Input",
                 supportingText = listOf(SupportingTextData("Supporting text", SupportingTextState.DEFAULT)),
                 onLinkActionCLicked = {},
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_LINK").assertExists()
@@ -178,6 +184,7 @@ class InputLinkTest {
                     }
                 },
                 onLinkActionCLicked = {},
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("LINK_BUTTON").assertIsNotEnabled()
@@ -212,6 +219,7 @@ class InputLinkTest {
                     }
                 },
                 onLinkActionCLicked = {},
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("LINK_BUTTON").assertIsEnabled()

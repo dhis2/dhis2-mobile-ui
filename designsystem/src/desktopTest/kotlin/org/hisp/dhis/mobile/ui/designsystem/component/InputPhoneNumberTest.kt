@@ -33,6 +33,7 @@ class InputPhoneNumberTest {
                 onCallActionClicked = {
                     // no-op
                 },
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_PHONE_NUMBER_FIELD").assertTextEquals("")
@@ -43,7 +44,7 @@ class InputPhoneNumberTest {
     }
 
     @Test
-    fun shouldDisplaySupportTextIfInputStateIsError() {
+    fun shouldDisplaySupportText() {
         rule.setContent {
             InputPhoneNumber(
                 title = "Phone Number",
@@ -70,6 +71,7 @@ class InputPhoneNumberTest {
                 onCallActionClicked = {
                     // no-op
                 },
+                supportingText = listOf(SupportingTextData("Error", SupportingTextState.ERROR)),
             )
         }
         rule.onNodeWithTag("INPUT_PHONE_NUMBER_SUPPORTING_TEXT").assertExists()
@@ -89,6 +91,7 @@ class InputPhoneNumberTest {
                 onCallActionClicked = {
                     // no-op
                 },
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_PHONE_NUMBER_RESET_BUTTON").assertExists()

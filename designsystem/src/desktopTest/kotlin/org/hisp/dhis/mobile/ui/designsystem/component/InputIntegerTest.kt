@@ -27,6 +27,7 @@ class InputIntegerTest {
         rule.setContent {
             InputInteger(
                 title = "Label",
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_INTEGER").assertExists()
@@ -46,6 +47,7 @@ class InputIntegerTest {
                         inputValue = it
                     }
                 },
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_INTEGER").assertExists()
@@ -77,6 +79,7 @@ class InputIntegerTest {
                         inputValue = it
                     }
                 },
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_INTEGER").assertExists()
@@ -98,6 +101,7 @@ class InputIntegerTest {
                         inputValue = it
                     }
                 },
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_INTEGER").assertExists()
@@ -114,6 +118,7 @@ class InputIntegerTest {
                 title = "Label",
                 inputText = "Input",
                 legendData = LegendData(SurfaceColor.CustomGreen, "Legend"),
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_INTEGER").assertExists()
@@ -128,6 +133,7 @@ class InputIntegerTest {
                 title = "Label",
                 inputText = "Input",
                 supportingText = listOf(SupportingTextData("Supporting text", SupportingTextState.DEFAULT)),
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_INTEGER").assertExists()
@@ -146,6 +152,7 @@ class InputIntegerTest {
                         inputValue = it
                     }
                 },
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_INTEGER").assertExists()
@@ -166,6 +173,7 @@ class InputIntegerTest {
                         inputValue = it
                     }
                 },
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_INTEGER").assertExists()
@@ -186,6 +194,7 @@ class InputIntegerTest {
                         inputValue = it
                     }
                 },
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_INTEGER").assertExists()

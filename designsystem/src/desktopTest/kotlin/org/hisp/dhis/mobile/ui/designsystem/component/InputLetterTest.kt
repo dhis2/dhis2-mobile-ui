@@ -30,6 +30,7 @@ class InputLetterTest {
             InputLetter(
                 title = "Label",
                 modifier = Modifier.testTag("INPUT_LETTER"),
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_LETTER").assertExists()
@@ -50,6 +51,7 @@ class InputLetterTest {
                         inputValue = it
                     }
                 },
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_LETTER").assertExists()
@@ -83,6 +85,7 @@ class InputLetterTest {
                         inputValue = it
                     }
                 },
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_LETTER").assertExists()
@@ -105,6 +108,7 @@ class InputLetterTest {
                         inputValue = it
                     }
                 },
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_LETTER").assertExists()
@@ -122,6 +126,7 @@ class InputLetterTest {
                 modifier = Modifier.testTag("INPUT_LETTER"),
                 inputText = "Input",
                 legendData = LegendData(SurfaceColor.CustomGreen, "Legend"),
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_LETTER").assertExists()
@@ -137,6 +142,7 @@ class InputLetterTest {
                 modifier = Modifier.testTag("INPUT_LETTER"),
                 inputText = "Input",
                 supportingText = listOf(SupportingTextData("Supporting text", SupportingTextState.DEFAULT)),
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_LETTER").assertExists()
@@ -156,6 +162,7 @@ class InputLetterTest {
                         inputValue = it
                     }
                 },
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_LETTER").assertExists()

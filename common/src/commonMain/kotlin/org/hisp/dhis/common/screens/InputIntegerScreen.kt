@@ -33,6 +33,7 @@ fun InputIntegerScreen() {
                     inputValue1 = it
                 }
             },
+            state = InputShellState.UNFOCUSED,
         )
         Spacer(Modifier.size(Spacing.Spacing18))
 

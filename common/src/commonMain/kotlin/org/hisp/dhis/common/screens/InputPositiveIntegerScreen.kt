@@ -33,6 +33,7 @@ fun InputPositiveIntegerScreen() {
                     inputValue1 = it
                 }
             },
+            state = InputShellState.UNFOCUSED,
         )
         Spacer(Modifier.size(Spacing.Spacing18))
         SubTitle("Basic Input Integer with error", textColor = TextColor.OnSurfaceVariant)

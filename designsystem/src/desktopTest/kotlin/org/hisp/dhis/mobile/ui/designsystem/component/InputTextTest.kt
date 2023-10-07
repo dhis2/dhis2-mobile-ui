@@ -30,6 +30,7 @@ class InputTextTest {
             InputText(
                 title = "Label",
                 modifier = Modifier.testTag("INPUT_TEXT"),
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_TEXT").assertExists()
@@ -50,6 +51,7 @@ class InputTextTest {
                         inputValue = it
                     }
                 },
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_TEXT").assertExists()
@@ -83,6 +85,7 @@ class InputTextTest {
                         inputValue = it
                     }
                 },
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_TEXT").assertExists()
@@ -105,6 +108,7 @@ class InputTextTest {
                         inputValue = it
                     }
                 },
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_TEXT").assertExists()
@@ -122,6 +126,7 @@ class InputTextTest {
                 modifier = Modifier.testTag("INPUT_TEXT"),
                 inputText = "Input",
                 legendData = LegendData(SurfaceColor.CustomGreen, "Legend"),
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_TEXT").assertExists()
@@ -137,6 +142,7 @@ class InputTextTest {
                 modifier = Modifier.testTag("INPUT_TEXT"),
                 inputText = "Input",
                 supportingText = listOf(SupportingTextData("Supporting text", SupportingTextState.DEFAULT)),
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_TEXT").assertExists()

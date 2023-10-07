@@ -26,6 +26,7 @@ fun InputYesOnlySwitchScreen() {
         InputYesOnlySwitch(
             title = "Label",
             isChecked = isSelected,
+            state = InputShellState.UNFOCUSED,
         ) {
             isSelected = !isSelected
         }
@@ -33,6 +34,7 @@ fun InputYesOnlySwitchScreen() {
         InputYesOnlySwitch(
             title = "Label",
             isChecked = isSelected1,
+            state = InputShellState.UNFOCUSED,
         ) {
             isSelected1 = !isSelected1
         }
