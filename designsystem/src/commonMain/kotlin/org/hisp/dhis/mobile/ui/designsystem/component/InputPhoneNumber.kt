@@ -45,6 +45,7 @@ fun InputPhoneNumber(
     supportingText: List<SupportingTextData>? = emptyList(),
     allowedCharacters: RegExValidations = RegExValidations.PHONE_NUMBER,
 ) {
+    val hasMinimumPhoneNumberInput = inputText.orEmpty().length > 2
     BasicTextInput(
         title = title,
         state = state,
@@ -67,7 +68,7 @@ fun InputPhoneNumber(
         actionButton = {
             SquareIconButton(
                 modifier = Modifier.testTag("CALL_PHONE_NUMBER_BUTTON"),
-                enabled = state != InputShellState.DISABLED,
+                enabled = hasMinimumPhoneNumberInput,
                 icon = {
                     Icon(
                         imageVector = Icons.Filled.Phone,
