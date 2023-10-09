@@ -1,38 +1,23 @@
 package org.hisp.dhis.common.screens
 
-import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.FileDownload
 import androidx.compose.material.icons.outlined.Info
-import androidx.compose.material.icons.outlined.QrCodeScanner
-import androidx.compose.material.icons.outlined.Share
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
+import org.hisp.dhis.common.screens.previews.threeButtonCarousel
 import org.hisp.dhis.mobile.ui.designsystem.component.BarcodeBlock
 import org.hisp.dhis.mobile.ui.designsystem.component.BottomSheetShell
+import org.hisp.dhis.mobile.ui.designsystem.component.ButtonCarousel
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.Description
 import org.hisp.dhis.mobile.ui.designsystem.component.InputBarCode
@@ -40,7 +25,6 @@ import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextData
 import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextState
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
-import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
@@ -51,7 +35,7 @@ fun InputBarCodeScreen() {
         var inputValue1 by rememberSaveable { mutableStateOf("889026a1-d01e-4d34-8209-81e8ed5c614b") }
         var showEnabledBarCodeBottomSheet by rememberSaveable { mutableStateOf(false) }
 
-        Description("Default Input QR code", textColor = TextColor.OnSurfaceVariant)
+        Description("Default Input Barcode", textColor = TextColor.OnSurfaceVariant)
         InputBarCode(
             "label",
             state = InputShellState.UNFOCUSED,
@@ -83,83 +67,9 @@ fun InputBarCodeScreen() {
                     }
                 },
                 buttonBlock = {
-                    Row(
-                        Modifier
-                            .fillMaxSize()
-                            .horizontalScroll(rememberScrollState()),
-                        horizontalArrangement = Arrangement.Center,
-                    ) {
-                        Button(
-                            onClick = {},
-                            modifier = Modifier
-                                .padding(top = Spacing.Spacing4)
-                                .width(Spacing.Spacing80)
-                                .weight(1f),
-                            shape = Shape.Full,
-                            enabled = true,
-                            colors = ButtonDefaults.buttonColors(Color.Transparent, TextColor.OnSurfaceVariant, Color.Transparent, TextColor.OnDisabledSurface),
-                        ) {
-                            Column(
-                                horizontalAlignment = Alignment.CenterHorizontally,
-                                verticalArrangement = Arrangement.Center,
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Outlined.Share,
-                                    contentDescription = "Carousel Button",
-                                )
-
-                                Spacer(Modifier.size(Spacing.Spacing8))
-                                Text("Share", style = MaterialTheme.typography.labelSmall, textAlign = TextAlign.Center, maxLines = 2, overflow = TextOverflow.Ellipsis)
-                            }
-                        }
-                        Button(
-                            onClick = {},
-                            modifier = Modifier
-                                .padding(top = Spacing.Spacing4)
-                                .width(Spacing.Spacing80)
-                                .weight(1f),
-                            shape = Shape.Full,
-                            enabled = true,
-                            colors = ButtonDefaults.buttonColors(Color.Transparent, TextColor.OnSurfaceVariant, Color.Transparent, TextColor.OnDisabledSurface),
-                        ) {
-                            Column(
-                                horizontalAlignment = Alignment.CenterHorizontally,
-                                verticalArrangement = Arrangement.Center,
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Outlined.QrCodeScanner,
-                                    contentDescription = "Carousel Button",
-                                )
-
-                                Spacer(Modifier.size(Spacing.Spacing8))
-                                Text("Scan", style = MaterialTheme.typography.labelSmall, textAlign = TextAlign.Center, maxLines = 2, overflow = TextOverflow.Ellipsis)
-                            }
-                        }
-
-                        Button(
-                            onClick = {},
-                            modifier = Modifier
-                                .padding(top = Spacing.Spacing4)
-                                .width(Spacing.Spacing80)
-                                .weight(1f),
-                            shape = Shape.Full,
-                            enabled = true,
-                            colors = ButtonDefaults.buttonColors(Color.Transparent, TextColor.OnSurfaceVariant, Color.Transparent, TextColor.OnDisabledSurface),
-                        ) {
-                            Column(
-                                horizontalAlignment = Alignment.CenterHorizontally,
-                                verticalArrangement = Arrangement.Center,
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Outlined.FileDownload,
-                                    contentDescription = "Carousel Button",
-                                )
-
-                                Spacer(Modifier.size(Spacing.Spacing8))
-                                Text("Download", style = MaterialTheme.typography.labelSmall, textAlign = TextAlign.Center, maxLines = 2, overflow = TextOverflow.Ellipsis)
-                            }
-                        }
-                    }
+                    ButtonCarousel(
+                        carouselButtonList = threeButtonCarousel,
+                    )
                 },
             ) {
                 showEnabledBarCodeBottomSheet = false
