@@ -13,23 +13,21 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
-import kotlinx.coroutines.launch
 import org.hisp.dhis.mobile.ui.designsystem.component.UploadFileState.ADD
 import org.hisp.dhis.mobile.ui.designsystem.component.UploadFileState.LOADED
 import org.hisp.dhis.mobile.ui.designsystem.component.UploadFileState.UPLOADING
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
-const val inputFileTestTag = "INPUT_FILE_RESOURCE_"
-const val clearButtonTestTag = "CLEAR_BUTTON"
-const val uploadButtonTestTag = "UPLOAD_BUTTON"
-const val addButtonTestTag = "ADD_BUTTON"
-const val progressIndicatorTestTag = "PROGRESS_INDICATOR"
-const val uploadHelperTestTag = "UPLOAD_HELPER"
-
+const val INPUT_FILE_TEST_TAG = "INPUT_FILE_RESOURCE_"
+const val CLEAR_BUTTON_TEST_TAG = "CLEAR_BUTTON"
+const val UPLOAD_BUTTON_TEST_TAG = "UPLOAD_BUTTON"
+const val ADD_BUTTON_TEST_TAG = "ADD_BUTTON"
+const val PROGRESS_INDICATOR_TEST_TAG = "PROGRESS_INDICATOR"
+const val UPLOAD_HELPER_TEST_TAG = "UPLOAD_HELPER"
+const val SUPPORTING_TEXT_TEST_TAG = "SUPPORTING_TEXT"
 
 @Composable
 fun InputFileResource(
@@ -38,20 +36,21 @@ fun InputFileResource(
     fileName: MutableState<String?> = mutableStateOf(null),
     fileWeight: MutableState<String?> = mutableStateOf(null),
     onSelectFile: () -> Unit,
-    onUploadFile: suspend () -> Unit,
+    onUploadFile: () -> Unit,
     onClear: () -> Unit = {},
-    uploadFileState: MutableState<UploadFileState> = mutableStateOf(ADD),
+    uploadFileState: UploadFileState = ADD,
+    inputShellState: InputShellState = InputShellState.UNFOCUSED,
+    supportingText: List<SupportingTextData>? = null,
+    modifier: Modifier = Modifier,
 ) {
-
     var currentState by remember {
-        uploadFileState
+        mutableStateOf(uploadFileState)
     }
-    val scope = rememberCoroutineScope()
 
     val primaryButton: @Composable (() -> Unit)? = if (currentState == LOADED) {
         {
             IconButton(
-                modifier = Modifier.testTag(inputFileTestTag + clearButtonTestTag),
+                modifier = Modifier.testTag(INPUT_FILE_TEST_TAG + CLEAR_BUTTON_TEST_TAG),
                 icon = {
                     Icon(
                         imageVector = Icons.Outlined.Cancel,
@@ -59,7 +58,6 @@ fun InputFileResource(
                     )
                 },
                 onClick = {
-                    uploadFileState.value = ADD
                     currentState = ADD
                     onClear.invoke()
                 },
@@ -73,7 +71,7 @@ fun InputFileResource(
         if (currentState == LOADED) {
             {
                 SquareIconButton(
-                    modifier = Modifier.testTag(inputFileTestTag + uploadButtonTestTag),
+                    modifier = Modifier.testTag(INPUT_FILE_TEST_TAG + UPLOAD_BUTTON_TEST_TAG),
                     icon = {
                         Icon(
                             imageVector = Icons.Outlined.FileUpload,
@@ -81,11 +79,8 @@ fun InputFileResource(
                         )
                     },
                 ) {
-                    scope.launch {
-                        uploadFileState.value = UPLOADING
-                        currentState = UPLOADING
-                        onUploadFile.invoke()
-                    }
+                    currentState = UPLOADING
+                    onUploadFile.invoke()
                 }
             }
         } else {
@@ -94,13 +89,22 @@ fun InputFileResource(
 
     InputShell(
         title,
-        state = if (currentState == UPLOADING) InputShellState.FOCUSED else InputShellState.UNFOCUSED,
+        state = inputShellState,
+        supportingText = {
+            supportingText?.forEach { label ->
+                SupportingText(
+                    label.text,
+                    label.state,
+                    modifier = modifier.testTag(INPUT_FILE_TEST_TAG + SUPPORTING_TEXT_TEST_TAG),
+                )
+            }
+        },
         inputField = {
             when (currentState) {
                 ADD -> {
                     Button(
                         modifier = Modifier
-                            .testTag(inputFileTestTag + addButtonTestTag)
+                            .testTag(INPUT_FILE_TEST_TAG + ADD_BUTTON_TEST_TAG)
                             .padding(end = Spacing.Spacing16)
                             .fillMaxWidth(),
                         style = ButtonStyle.ELEVATED,
@@ -112,10 +116,8 @@ fun InputFileResource(
                             )
                         },
                     ) {
-                        uploadFileState.value = LOADED
                         currentState = LOADED
                         onSelectFile.invoke()
-
                     }
                 }
                 UPLOADING -> {
@@ -124,19 +126,19 @@ fun InputFileResource(
                         horizontalArrangement = Arrangement.Center,
                     ) {
                         ProgressIndicator(
-                            modifier = Modifier.testTag(inputFileTestTag + progressIndicatorTestTag),
-                            type = ProgressIndicatorType.CIRCULAR
+                            modifier = Modifier.testTag(INPUT_FILE_TEST_TAG + PROGRESS_INDICATOR_TEST_TAG),
+                            type = ProgressIndicatorType.CIRCULAR,
                         )
                     }
                 }
                 LOADED -> {
                     fileName.value?.let {
                         BasicTextField(
-                            modifier = Modifier.testTag(inputFileTestTag + uploadHelperTestTag),
+                            modifier = Modifier.testTag(INPUT_FILE_TEST_TAG + UPLOAD_HELPER_TEST_TAG),
                             helper = fileWeight.value,
                             helperStyle = InputStyle.WITH_HELPER_AFTER,
                             inputText = it,
-                            onInputChanged = { }
+                            onInputChanged = { },
                         )
                     }
                 }
@@ -144,6 +146,7 @@ fun InputFileResource(
         },
         primaryButton = primaryButton,
         secondaryButton = secondaryButton,
+        modifier = modifier,
     )
 }
 
