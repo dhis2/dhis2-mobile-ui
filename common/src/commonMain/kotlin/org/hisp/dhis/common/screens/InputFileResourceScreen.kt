@@ -12,7 +12,7 @@ import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 @Composable
 fun InputFileResourceScreen() {
     ColumnComponentContainer(
-        title = "Input File Component"
+        title = "Input File Component",
     ) {
         val currentFileName: MutableState<String?> =
             mutableStateOf("filename.extension")
