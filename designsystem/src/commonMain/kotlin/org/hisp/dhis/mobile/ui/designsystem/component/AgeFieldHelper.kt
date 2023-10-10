@@ -25,18 +25,26 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 fun TimeUnitSelector(
     orientation: Orientation,
     optionSelected: String,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
     onClick: (RadioButtonData) -> Unit,
 ) {
+    val backgroundColor = if (enabled) {
+        SurfaceColor.Surface
+    } else {
+        SurfaceColor.DisabledSurface
+    }
+
     RowComponentContainer(
-        modifier = Modifier
-            .background(color = SurfaceColor.Surface, Shape.SmallBottom)
+        modifier = modifier
+            .background(color = backgroundColor, Shape.SmallBottom)
             .padding(
                 start = Spacing.Spacing8,
                 end = Spacing.Spacing8,
             ),
     ) {
         val options = TimeUnitValues.values().map {
-            RadioButtonData(it.value, optionSelected == it.value, true, provideStringResource(it.value))
+            RadioButtonData(it.value, optionSelected == it.value, enabled, provideStringResource(it.value))
         }
         val selectedItem = options.find {
             it.selected

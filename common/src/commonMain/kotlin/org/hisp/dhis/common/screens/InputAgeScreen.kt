@@ -5,7 +5,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import org.hisp.dhis.mobile.ui.designsystem.component.AgeInputType
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
+import org.hisp.dhis.mobile.ui.designsystem.component.InputAge
+import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.Orientation
 import org.hisp.dhis.mobile.ui.designsystem.component.RadioButtonData
 import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
@@ -14,7 +17,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.TimeUnitValues
 
 @Composable
 fun InputAgeScreen() {
-    ColumnComponentContainer("Age Field components") {
+    ColumnComponentContainer {
         SubTitle("Horizontal Age Field Helper")
         var selectedFieldHorizontal by remember {
             mutableStateOf(RadioButtonData("0", selected = true, enabled = true, textInput = TimeUnitValues.YEARS.value))
@@ -22,5 +25,86 @@ fun InputAgeScreen() {
         TimeUnitSelector(Orientation.HORIZONTAL, TimeUnitValues.YEARS.value) {
             selectedFieldHorizontal = it
         }
+
+        SubTitle("Input Age Component - Idle")
+        var inputType by remember { mutableStateOf<AgeInputType>(AgeInputType.None) }
+
+        InputAge(
+            title = "Label",
+            inputType = inputType,
+            onCalendarActionClicked = {
+                // no-op
+            },
+            onValueChanged = { newInputType ->
+                inputType = newInputType
+            },
+        )
+
+        SubTitle("Input Age Component - Idle Disabled")
+        InputAge(
+            title = "Label",
+            inputType = AgeInputType.None,
+            state = InputShellState.DISABLED,
+            onCalendarActionClicked = {
+                // no-op
+            },
+            onValueChanged = { newInputType ->
+                inputType = newInputType
+            },
+        )
+
+        SubTitle("Input Age Component - Date Of Birth")
+        InputAge(
+            title = "Label",
+            inputType = AgeInputType.DateOfBirth("01011985"),
+            state = InputShellState.DISABLED,
+            onCalendarActionClicked = {
+                // no-op
+            },
+            onValueChanged = { newInputType ->
+                inputType = newInputType
+            },
+        )
+
+        SubTitle("Input Age Component - Date Of Birth Required Error")
+        InputAge(
+            title = "Label",
+            inputType = AgeInputType.DateOfBirth("010"),
+            state = InputShellState.ERROR,
+            isRequired = true,
+            onCalendarActionClicked = {
+                // no-op
+            },
+            onValueChanged = {
+                // no-op
+            },
+        )
+
+        SubTitle("Input Age Component - Age Disabled")
+        InputAge(
+            title = "Label",
+            inputType = AgeInputType.Age(value = "56", unit = TimeUnitValues.YEARS),
+            state = InputShellState.DISABLED,
+            onCalendarActionClicked = {
+                // no-op
+            },
+            onValueChanged = { newInputType ->
+                inputType = newInputType
+            },
+        )
+
+        SubTitle("Input Age Component - Age Required Error")
+        InputAge(
+            title = "Label",
+            inputType = AgeInputType.Age(value = "56", unit = TimeUnitValues.YEARS),
+            state = InputShellState.ERROR,
+            isRequired = true,
+            onCalendarActionClicked = {
+                // no-op
+            },
+            onValueChanged = {
+                // no-op
+            },
+        )
     }
 }
