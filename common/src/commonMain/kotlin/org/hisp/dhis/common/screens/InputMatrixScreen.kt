@@ -70,6 +70,7 @@ fun InputMatrixScreen() {
                     newSelectedItem
                 }
             },
+            state = InputShellState.UNFOCUSED,
         )
 
         InputMatrix(

@@ -26,6 +26,7 @@ class InputNegativeIntegerTest {
         rule.setContent {
             InputNegativeInteger(
                 title = "Label",
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_NEGATIVE_INTEGER").assertExists()
@@ -45,6 +46,7 @@ class InputNegativeIntegerTest {
                         inputValue = it
                     }
                 },
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_NEGATIVE_INTEGER").assertExists()
@@ -76,6 +78,7 @@ class InputNegativeIntegerTest {
                         inputValue = it
                     }
                 },
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_NEGATIVE_INTEGER").assertExists()
@@ -97,6 +100,7 @@ class InputNegativeIntegerTest {
                         inputValue = it
                     }
                 },
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_NEGATIVE_INTEGER").assertExists()
@@ -112,6 +116,7 @@ class InputNegativeIntegerTest {
                 title = "Label",
                 inputText = "",
                 legendData = LegendData(SurfaceColor.CustomGreen, "Legend"),
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_NEGATIVE_INTEGER").assertExists()
@@ -126,6 +131,7 @@ class InputNegativeIntegerTest {
                 title = "Label",
                 inputText = "",
                 supportingText = listOf(SupportingTextData("Supporting text", SupportingTextState.DEFAULT)),
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_NEGATIVE_INTEGER").assertExists()
@@ -144,6 +150,7 @@ class InputNegativeIntegerTest {
                         inputValue = it
                     }
                 },
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_NEGATIVE_INTEGER").assertExists()
@@ -163,6 +170,7 @@ class InputNegativeIntegerTest {
                         inputValue = it
                     }
                 },
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_NEGATIVE_INTEGER").assertExists()

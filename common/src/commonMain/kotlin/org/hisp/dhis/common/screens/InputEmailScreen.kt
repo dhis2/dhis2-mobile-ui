@@ -35,6 +35,7 @@ fun InputEmailScreen() {
                 }
             },
             onEmailActionCLicked = {},
+            state = InputShellState.UNFOCUSED,
         )
         Spacer(Modifier.size(Spacing.Spacing18))
 
@@ -51,6 +52,7 @@ fun InputEmailScreen() {
                 }
             },
             onEmailActionCLicked = {},
+            state = InputShellState.UNFOCUSED,
         )
         Spacer(Modifier.size(Spacing.Spacing18))
 

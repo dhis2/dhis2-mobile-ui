@@ -34,6 +34,7 @@ import org.hisp.dhis.common.screens.Components
 import org.hisp.dhis.common.screens.FormShellsScreen
 import org.hisp.dhis.common.screens.FormsComponentsScreen
 import org.hisp.dhis.common.screens.IconButtonScreen
+import org.hisp.dhis.common.screens.ImageBlockScreen
 import org.hisp.dhis.common.screens.InputAgeScreen
 import org.hisp.dhis.common.screens.InputCheckBoxScreen
 import org.hisp.dhis.common.screens.InputEmailScreen
@@ -44,6 +45,7 @@ import org.hisp.dhis.common.screens.InputLongTextScreen
 import org.hisp.dhis.common.screens.InputMatrixScreen
 import org.hisp.dhis.common.screens.InputNegativeIntegerScreen
 import org.hisp.dhis.common.screens.InputNumberScreen
+import org.hisp.dhis.common.screens.InputOrgUnitScreen
 import org.hisp.dhis.common.screens.InputPercentageScreen
 import org.hisp.dhis.common.screens.InputPhoneNumberScreen
 import org.hisp.dhis.common.screens.InputPolygonScreen
@@ -171,6 +173,8 @@ fun Main() {
             Components.INPUT_EMAIL -> InputEmailScreen()
             Components.CAROUSEL_BUTTONS -> ButtonCarouselScreen()
             Components.INPUT_POLYGON -> InputPolygonScreen()
+            Components.INPUT_ORG_UNIT -> InputOrgUnitScreen()
+            Components.IMAGE_BLOCK -> ImageBlockScreen()
         }
     }
 }

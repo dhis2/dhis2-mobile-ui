@@ -76,6 +76,7 @@ fun InputRadioButtonScreen() {
             onItemChange = {
                 selectedItemVertical = it
             },
+            state = InputShellState.UNFOCUSED,
         )
         Spacer(Modifier.size(Spacing.Spacing18))
         InputRadioButton(
@@ -106,6 +107,7 @@ fun InputRadioButtonScreen() {
             onItemChange = {
                 selectedItemHorizontal = it
             },
+            state = InputShellState.UNFOCUSED,
         )
     }
 }

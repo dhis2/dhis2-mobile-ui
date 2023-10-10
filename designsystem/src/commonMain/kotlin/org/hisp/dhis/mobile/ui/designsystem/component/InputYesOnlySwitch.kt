@@ -19,7 +19,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 fun InputYesOnlySwitch(
     title: String,
     modifier: Modifier = Modifier,
-    state: InputShellState = InputShellState.UNFOCUSED,
+    state: InputShellState,
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
     isRequired: Boolean = false,

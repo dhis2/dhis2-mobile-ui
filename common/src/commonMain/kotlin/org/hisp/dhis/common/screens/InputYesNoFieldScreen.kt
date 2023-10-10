@@ -37,6 +37,7 @@ fun InputYesNoFieldScreen() {
             onItemChange = {
                 selectedItem = it
             },
+            state = InputShellState.UNFOCUSED,
         )
         Spacer(Modifier.size(Spacing.Spacing18))
         InputYesNoField(
@@ -45,6 +46,7 @@ fun InputYesNoFieldScreen() {
             onItemChange = {
                 selectedItem1 = it
             },
+            state = InputShellState.UNFOCUSED,
         )
         Spacer(Modifier.size(Spacing.Spacing18))
         InputYesNoField(

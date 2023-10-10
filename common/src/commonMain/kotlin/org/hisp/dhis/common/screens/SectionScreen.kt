@@ -13,6 +13,7 @@ import org.hisp.dhis.common.screens.previews.lorem
 import org.hisp.dhis.common.screens.previews.lorem_medium
 import org.hisp.dhis.common.screens.previews.lorem_short
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
+import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.InputText
 import org.hisp.dhis.mobile.ui.designsystem.component.Section
 import org.hisp.dhis.mobile.ui.designsystem.component.SectionState
@@ -162,15 +163,18 @@ private fun TestingFields() {
         title = "Label",
         inputText = inputValue1,
         onValueChanged = { inputValue1 = it ?: "" },
+        state = InputShellState.UNFOCUSED,
     )
     InputText(
         title = "Label",
         inputText = inputValue2,
         onValueChanged = { inputValue2 = it ?: "" },
+        state = InputShellState.UNFOCUSED,
     )
     InputText(
         title = "Label",
         inputText = inputValue3,
         onValueChanged = { inputValue3 = it ?: "" },
+        state = InputShellState.UNFOCUSED,
     )
 }

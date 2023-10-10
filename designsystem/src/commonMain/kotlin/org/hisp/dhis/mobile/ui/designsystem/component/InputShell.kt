@@ -47,7 +47,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 @Composable
 fun InputShell(
     title: String,
-    state: InputShellState = InputShellState.UNFOCUSED,
+    state: InputShellState,
     primaryButton: @Composable (() -> Unit)? = null,
     secondaryButton: @Composable (() -> Unit)? = null,
     inputField: @Composable (() -> Unit)? = null,

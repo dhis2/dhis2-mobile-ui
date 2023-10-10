@@ -31,7 +31,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.internal.RegExValidations
 @Composable
 fun InputLink(
     title: String,
-    state: InputShellState = InputShellState.UNFOCUSED,
+    state: InputShellState,
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
     inputText: String? = null,
@@ -63,7 +63,7 @@ fun InputLink(
         actionButton = {
             SquareIconButton(
                 modifier = Modifier.testTag("LINK_BUTTON"),
-                enabled = isValidUrl,
+                enabled = isValidUrl && state != InputShellState.DISABLED,
                 icon = {
                     Icon(
                         imageVector = Icons.Outlined.Link,

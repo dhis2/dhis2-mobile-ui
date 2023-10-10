@@ -41,7 +41,7 @@ import java.util.Locale
 @Composable
 internal fun BasicTextInput(
     title: String,
-    state: InputShellState = InputShellState.UNFOCUSED,
+    state: InputShellState,
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
     inputText: String? = null,
@@ -60,7 +60,7 @@ internal fun BasicTextInput(
 ) {
     val inputValue by remember(inputText) { mutableStateOf(inputText) }
 
-    var deleteButtonIsVisible by remember { mutableStateOf(!inputText.isNullOrEmpty() && state != InputShellState.DISABLED) }
+    var deleteButtonIsVisible by remember(inputText) { mutableStateOf(!inputText.isNullOrEmpty() && state != InputShellState.DISABLED) }
     val focusManager = LocalFocusManager.current
     val focusRequester = remember { FocusRequester() }
 

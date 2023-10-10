@@ -68,6 +68,7 @@ fun InputCheckBoxScreen() {
                 checkBoxDataItemsVertical[index] = checkBoxData.copy(checked = !checkBoxData.checked)
             },
             onClearSelection = { checkBoxDataItemsVertical.replaceAll { it.copy(checked = false) } },
+            state = InputShellState.UNFOCUSED,
         )
         Spacer(Modifier.size(Spacing.Spacing18))
         InputCheckBox(
@@ -99,6 +100,7 @@ fun InputCheckBoxScreen() {
                 checkBoxDataItemsHorizontal[index] = checkBoxData.copy(checked = !checkBoxData.checked)
             },
             onClearSelection = { checkBoxDataItemsHorizontal.replaceAll { it.copy(checked = false) } },
+            state = InputShellState.UNFOCUSED,
         )
     }
 }

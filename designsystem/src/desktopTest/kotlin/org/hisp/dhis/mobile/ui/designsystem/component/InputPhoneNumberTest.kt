@@ -4,6 +4,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.test.assertIsEnabled
+import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
@@ -33,6 +35,7 @@ class InputPhoneNumberTest {
                 onCallActionClicked = {
                     // no-op
                 },
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_PHONE_NUMBER_FIELD").assertTextEquals("")
@@ -43,7 +46,32 @@ class InputPhoneNumberTest {
     }
 
     @Test
-    fun shouldDisplaySupportTextIfInputStateIsError() {
+    fun shouldEnableCallActionButtonAfterInputTextReachesCharacterLimit() {
+        rule.setContent {
+            var inputValue by remember { mutableStateOf("") }
+
+            InputPhoneNumber(
+                title = "Phone Number",
+                inputText = inputValue,
+                maxLength = 10,
+                onValueChanged = {
+                    if (it != null) {
+                        inputValue = it
+                    }
+                },
+                onCallActionClicked = {
+                    // no-op
+                },
+                state = InputShellState.UNFOCUSED,
+            )
+        }
+        rule.onNodeWithTag("CALL_PHONE_NUMBER_BUTTON").assertIsNotEnabled()
+        rule.onNodeWithTag("INPUT_PHONE_NUMBER_FIELD").performTextInput("1111111111")
+        rule.onNodeWithTag("CALL_PHONE_NUMBER_BUTTON").assertIsEnabled()
+    }
+
+    @Test
+    fun shouldDisplaySupportText() {
         rule.setContent {
             InputPhoneNumber(
                 title = "Phone Number",
@@ -70,6 +98,7 @@ class InputPhoneNumberTest {
                 onCallActionClicked = {
                     // no-op
                 },
+                supportingText = listOf(SupportingTextData("Error", SupportingTextState.ERROR)),
             )
         }
         rule.onNodeWithTag("INPUT_PHONE_NUMBER_SUPPORTING_TEXT").assertExists()
@@ -89,6 +118,7 @@ class InputPhoneNumberTest {
                 onCallActionClicked = {
                     // no-op
                 },
+                state = InputShellState.UNFOCUSED,
             )
         }
         rule.onNodeWithTag("INPUT_PHONE_NUMBER_RESET_BUTTON").assertExists()

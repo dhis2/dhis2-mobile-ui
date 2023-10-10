@@ -34,6 +34,7 @@ fun InputPhoneNumberScreen() {
                 // no-op
             },
             onFocusChanged = {},
+            state = InputShellState.UNFOCUSED,
         )
         Spacer(Modifier.size(Spacing.Spacing18))
 

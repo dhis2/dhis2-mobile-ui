@@ -28,20 +28,22 @@ fun InputYesOnlyCheckBoxScreen() {
         var checkboxData2 by rememberSaveable {
             mutableStateOf(CheckBoxData(uid = "0", checked = false, enabled = true, textInput = "Label"))
         }
-        var checkboxData3 by rememberSaveable {
+        val checkboxData3 by rememberSaveable {
             mutableStateOf(CheckBoxData(uid = "0", checked = false, enabled = true, textInput = "Label"))
         }
-        var checkboxData4 by rememberSaveable {
+        val checkboxData4 by rememberSaveable {
             mutableStateOf(CheckBoxData(uid = "0", checked = true, enabled = true, textInput = "Label"))
         }
         InputYesOnlyCheckBox(
             checkBoxData = checkboxData,
+            state = InputShellState.UNFOCUSED,
         ) {
             checkboxData = checkboxData.copy(checked = !checkboxData.checked)
         }
         Spacer(Modifier.size(Spacing.Spacing18))
         InputYesOnlyCheckBox(
             checkBoxData = checkboxData1,
+            state = InputShellState.UNFOCUSED,
         ) {
             checkboxData1 = checkboxData1.copy(checked = !checkboxData.checked)
         }
