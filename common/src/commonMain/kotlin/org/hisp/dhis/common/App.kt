@@ -48,6 +48,7 @@ import org.hisp.dhis.common.screens.InputNumberScreen
 import org.hisp.dhis.common.screens.InputOrgUnitScreen
 import org.hisp.dhis.common.screens.InputPercentageScreen
 import org.hisp.dhis.common.screens.InputPhoneNumberScreen
+import org.hisp.dhis.common.screens.InputPolygonScreen
 import org.hisp.dhis.common.screens.InputPositiveIntegerOrZeroScreen
 import org.hisp.dhis.common.screens.InputPositiveIntegerScreen
 import org.hisp.dhis.common.screens.InputQRCodeScreen
@@ -171,6 +172,7 @@ fun Main() {
             Components.INPUT_LINK -> InputLinkScreen()
             Components.INPUT_EMAIL -> InputEmailScreen()
             Components.CAROUSEL_BUTTONS -> ButtonCarouselScreen()
+            Components.INPUT_POLYGON -> InputPolygonScreen()
             Components.INPUT_ORG_UNIT -> InputOrgUnitScreen()
             Components.IMAGE_BLOCK -> ImageBlockScreen()
         }
