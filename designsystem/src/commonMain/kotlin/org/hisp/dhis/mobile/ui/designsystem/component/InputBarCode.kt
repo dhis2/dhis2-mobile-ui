@@ -58,7 +58,7 @@ fun InputBarCode(
         actionButton = {
             SquareIconButton(
                 modifier = Modifier.testTag("INPUT_BAR_CODE_BUTTON"),
-                enabled = true,
+                enabled = !inputText.isNullOrEmpty(),
                 icon = {
                     Icon(
                         painter = provideDHIS2Icon(actionButtonIconVector.value),
