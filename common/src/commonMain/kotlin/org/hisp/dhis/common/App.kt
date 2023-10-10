@@ -89,7 +89,7 @@ fun App() {
 
 @Composable
 fun Main() {
-    val currentScreen = remember { mutableStateOf(Components.CAROUSEL_BUTTONS) }
+    val currentScreen = remember { mutableStateOf(Components.INPUT_FILE_RESOURCE) }
     var expanded by remember { mutableStateOf(false) }
 
     Column(
