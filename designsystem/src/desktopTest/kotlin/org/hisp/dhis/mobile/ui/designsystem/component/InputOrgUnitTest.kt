@@ -5,16 +5,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.assertTextEquals
-import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
-import androidx.compose.ui.test.performTextInput
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.junit.Rule
 import org.junit.Test
@@ -37,7 +34,7 @@ class InputOrgUnitTest {
     }
 
     @Test
-    fun shouldAllowUserInputWhenEnabled() {
+    fun shouldDisplayDropdownButtonWhenEmpty() {
         rule.setContent {
             var inputValue by rememberSaveable { mutableStateOf("") }
             InputOrgUnit(
@@ -52,12 +49,34 @@ class InputOrgUnitTest {
             )
         }
         rule.onNodeWithTag("INPUT_ORG_UNIT").assertExists()
-        rule.onNodeWithTag("INPUT_ORG_UNIT_FIELD").performTextInput("PHC fake")
-        rule.onNodeWithTag("INPUT_ORG_UNIT_FIELD").assert(hasText("PHC fake"))
+        rule.onNodeWithTag("ORG_UNIT_BUTTON").assertExists()
+        rule.onNodeWithTag("INPUT_ORG_UNIT_DROPDOWN_BUTTON").assertExists()
+        rule.onNodeWithTag("INPUT_ORG_UNIT_DROPDOWN_BUTTON").assertIsEnabled()
     }
 
     @Test
-    fun shouldNotAllowUserInputWhenDisabled() {
+    fun shouldDisplayResetButtonWhenNotEmpty() {
+        rule.setContent {
+            var inputValue by rememberSaveable { mutableStateOf("Sample data") }
+            InputOrgUnit(
+                title = "Label",
+                inputText = inputValue,
+                onValueChanged = {
+                    if (it != null) {
+                        inputValue = it
+                    }
+                },
+                onOrgUnitActionCLicked = {},
+            )
+        }
+        rule.onNodeWithTag("INPUT_ORG_UNIT").assertExists()
+        rule.onNodeWithTag("ORG_UNIT_BUTTON").assertExists()
+        rule.onNodeWithTag("INPUT_ORG_UNIT_RESET_BUTTON").assertExists()
+        rule.onNodeWithTag("INPUT_ORG_UNIT_RESET_BUTTON").assertIsEnabled()
+    }
+
+    @Test
+    fun shouldBeClickableIfDisabled() {
         rule.setContent {
             InputOrgUnit(
                 title = "Label",
@@ -66,28 +85,10 @@ class InputOrgUnitTest {
             )
         }
         rule.onNodeWithTag("INPUT_ORG_UNIT").assertExists()
-        rule.onNodeWithTag("INPUT_ORG_UNIT_FIELD").assertIsNotEnabled()
-    }
-
-    @Test
-    fun shouldShowResetButtonWhenTextFieldHasContent() {
-        rule.setContent {
-            var inputValue by rememberSaveable { mutableStateOf("") }
-            InputOrgUnit(
-                title = "Label",
-                inputText = inputValue,
-                onValueChanged = {
-                    if (it != null) {
-                        inputValue = it
-                    }
-                },
-                onOrgUnitActionCLicked = {},
-            )
-        }
-        rule.onNodeWithTag("INPUT_ORG_UNIT").assertExists()
-        rule.onNodeWithTag("INPUT_ORG_UNIT_FIELD").assertExists()
-        rule.onNodeWithTag("INPUT_ORG_UNIT_FIELD").performTextInput("PHC fake")
-        rule.onNodeWithTag("INPUT_ORG_UNIT_RESET_BUTTON").assertExists()
+        rule.onNodeWithTag("ORG_UNIT_BUTTON").assertExists()
+        rule.onNodeWithTag("ORG_UNIT_BUTTON").assertIsNotEnabled()
+        rule.onNodeWithTag("INPUT_ORG_UNIT_DROPDOWN_BUTTON").assertExists()
+        rule.onNodeWithTag("INPUT_ORG_UNIT_DROPDOWN_BUTTON").assertIsNotEnabled()
     }
 
     @Test
@@ -109,7 +110,7 @@ class InputOrgUnitTest {
         rule.onNodeWithTag("INPUT_ORG_UNIT").assertExists()
         rule.onNodeWithTag("INPUT_ORG_UNIT_RESET_BUTTON").assertExists()
         rule.onNodeWithTag("INPUT_ORG_UNIT_RESET_BUTTON").performClick()
-        rule.onNodeWithTag("INPUT_ORG_UNIT_FIELD").assertTextEquals("")
+        rule.onNodeWithTag("INPUT_DROPDOWN_TEXT").assertTextEquals("")
         rule.onNodeWithTag("INPUT_ORG_UNIT_RESET_BUTTON").assertDoesNotExist()
     }
 
