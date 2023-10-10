@@ -138,7 +138,7 @@ fun BottomSheetShell(
         Column(
             modifier = Modifier
                 .background(SurfaceColor.SurfaceBright, Shape.ExtraLargeTop)
-                .padding(Spacing.Spacing24)
+                .padding(top = Spacing.Spacing24, start = Spacing.Spacing24, end = Spacing.Spacing24, bottom = Spacing.Spacing56)
                 .heightIn(Spacing.Spacing0, InternalSizeValues.Size800)
                 .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally,

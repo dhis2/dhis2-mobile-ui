@@ -63,7 +63,7 @@ fun InputLink(
         actionButton = {
             SquareIconButton(
                 modifier = Modifier.testTag("LINK_BUTTON"),
-                enabled = isValidUrl,
+                enabled = isValidUrl && state != InputShellState.DISABLED,
                 icon = {
                     Icon(
                         imageVector = Icons.Outlined.Link,

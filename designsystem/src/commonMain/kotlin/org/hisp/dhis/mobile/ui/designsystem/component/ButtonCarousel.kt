@@ -75,9 +75,10 @@ fun CarouselButton(
 @Composable
 fun ButtonCarousel(
     carouselButtonList: List<CarouselButtonData>,
+    modifier: Modifier = Modifier,
 ) {
     Row(
-        Modifier
+        modifier
             .fillMaxSize()
             .horizontalScroll(rememberScrollState())
             .padding(horizontal = Spacing24),
