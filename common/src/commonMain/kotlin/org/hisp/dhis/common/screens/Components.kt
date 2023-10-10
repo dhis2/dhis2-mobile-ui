@@ -46,4 +46,5 @@ enum class Components(val label: String) {
     INPUT_EMAIL("Input Email"),
     CAROUSEL_BUTTONS("Carousel buttons"),
     INPUT_ORG_UNIT("Input Org. Unit"),
+    IMAGE_BLOCK("Image Block"),
 }
