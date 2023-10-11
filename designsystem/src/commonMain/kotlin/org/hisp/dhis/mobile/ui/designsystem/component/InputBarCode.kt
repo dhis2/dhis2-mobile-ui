@@ -1,21 +1,19 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.QrCode2
-import androidx.compose.material.icons.outlined.QrCodeScanner
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.ImeAction
+import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
 
 /**
  * DHIS2 Input QR Code. Wraps DHIS · [BasicTextInput].
  * @param title controls the text to be shown for the title
  * @param state Manages the InputShell state
- * @param onQRButtonClicked gives access to the action button event
+ * @param onActionButtonClicked gives access to the action button event
  * @param supportingText is a list of SupportingTextData that
  * manages all the messages to be shown
  * @param legendData manages the legendComponent
@@ -29,10 +27,10 @@ import androidx.compose.ui.text.input.ImeAction
  * @param modifier allows a modifier to be passed externally
  */
 @Composable
-fun InputQRCode(
+fun InputBarCode(
     title: String,
-    state: InputShellState,
-    onQRButtonClicked: () -> Unit,
+    state: InputShellState = InputShellState.UNFOCUSED,
+    onActionButtonClicked: () -> Unit,
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
     inputText: String? = null,
@@ -43,7 +41,7 @@ fun InputQRCode(
     imeAction: ImeAction = ImeAction.Next,
     modifier: Modifier = Modifier,
 ) {
-    val actionButtonIconVector = mutableStateOf(if (!inputText.isNullOrEmpty()) Icons.Outlined.QrCode2 else Icons.Outlined.QrCodeScanner)
+    val actionButtonIconVector = mutableStateOf(if (inputText.isNullOrEmpty()) "barcode_scanner" else "barcode")
     BasicTextInput(
         title = title,
         state = state,
@@ -55,19 +53,19 @@ fun InputQRCode(
         onValueChanged = onValueChanged,
         keyboardOptions = KeyboardOptions(imeAction = imeAction),
         modifier = modifier,
-        testTag = "QR_CODE",
+        testTag = "BAR_CODE",
         onFocusChanged = onFocusChanged,
         actionButton = {
             SquareIconButton(
-                modifier = Modifier.testTag("INPUT_QR_CODE_BUTTON"),
-                enabled = state != InputShellState.DISABLED,
+                modifier = Modifier.testTag("INPUT_BAR_CODE_BUTTON"),
+                enabled = (state == InputShellState.DISABLED && !inputText.isNullOrEmpty()) || state != InputShellState.DISABLED,
                 icon = {
                     Icon(
-                        imageVector = actionButtonIconVector.value,
+                        painter = provideDHIS2Icon(actionButtonIconVector.value),
                         contentDescription = null,
                     )
                 },
-                onClick = onQRButtonClicked,
+                onClick = onActionButtonClicked,
             )
         },
     )
