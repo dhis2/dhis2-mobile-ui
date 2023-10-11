@@ -44,7 +44,8 @@ fun BottomSheetHeader(
 ) {
     val horizontalAlignment = if (icon != null) Alignment.CenterHorizontally else Alignment.Start
     Column(
-        modifier = modifier.padding(horizontal = Spacing24, vertical = Spacing.Spacing0),
+        modifier = modifier.padding(horizontal = Spacing24, vertical = Spacing.Spacing0)
+            .fillMaxWidth(),
         horizontalAlignment = horizontalAlignment,
     ) {
         icon?. let {
@@ -139,8 +140,8 @@ fun BottomSheetShell(
         Column(
             modifier = Modifier
                 .background(SurfaceColor.SurfaceBright, Shape.ExtraLargeTop)
-                .padding(top = Spacing24, start = Spacing24, end = Spacing.Spacing24, bottom = Spacing.Spacing56)
-                .heightIn(Spacing.Spacing0, InternalSizeValues.Size800)
+                .padding(top = Spacing24, start = Spacing24, end = Spacing24, bottom = Spacing.Spacing56)
+                .heightIn(Spacing.Spacing0, InternalSizeValues.Size800),
         ) {
             BottomSheetHeader(
                 title,
@@ -148,7 +149,8 @@ fun BottomSheetShell(
                 description,
                 icon,
                 modifier = Modifier
-                    .padding(horizontal = Spacing24, vertical = Spacing.Spacing0),
+                    .padding(horizontal = Spacing24, vertical = Spacing.Spacing0)
+                    .align(Alignment.CenterHorizontally),
             )
             searchBar?.invoke()
             Divider(
