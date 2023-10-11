@@ -19,3 +19,10 @@ actual fun provideQuantityStringResource(id: String, quantity: Int): String {
     }
     return provideStringResource("${id}_$appendToId").format(quantity)
 }
+
+@Composable
+actual fun resourceExists(resourceName: String, resourceType: String): Boolean {
+    val context = LocalContext.current
+    val resourceId = context.resources.getIdentifier(resourceName, resourceType, context.packageName)
+    return resourceId != 0
+}

@@ -18,6 +18,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.internal.IconCard
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.IconCardData
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.VerticalGrid
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
+import org.hisp.dhis.mobile.ui.designsystem.resource.resourceExists
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2SCustomTextStyles
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
@@ -107,6 +108,11 @@ private fun MatrixIconCard(
     selected: Boolean = false,
     onClick: () -> Unit,
 ) {
+    var iconResource = data.iconRes
+    if (!resourceExists(data.iconRes)) {
+        iconResource = "dhis2_default_outline"
+    }
+
     IconCard(
         enabled = enabled,
         selected = selected,
@@ -126,7 +132,7 @@ private fun MatrixIconCard(
             MetadataAvatar(
                 icon = {
                     Icon(
-                        painter = provideDHIS2Icon(data.iconRes),
+                        painter = provideDHIS2Icon(iconResource),
                         contentDescription = null,
                     )
                 },

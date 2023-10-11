@@ -22,7 +22,7 @@ fun InputMatrixScreen() {
             IconCardData(
                 uid = "3eea3133-8a2f-4bba-a259-8b4b457d5ad0",
                 label = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas dolor lacus, aliquam.",
-                iconRes = "dhis2_microscope_positive",
+                iconRes = "dhis2_boy_0510y_outline",
                 iconTint = SurfaceColor.Primary,
             ),
             IconCardData(
