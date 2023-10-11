@@ -1,6 +1,8 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Cancel
 import androidx.compose.material3.Icon
@@ -76,20 +78,22 @@ fun InputRadioButton(
         },
         primaryButton = {
             val isClearButtonVisible = itemSelected != null && state != DISABLED
-            if (isClearButtonVisible) {
-                IconButton(
-                    modifier = Modifier.testTag("RADIO_BUTTON_INPUT_CLEAR_BUTTON"),
-                    icon = {
-                        Icon(
-                            imageVector = Icons.Outlined.Cancel,
-                            contentDescription = "Icon Button",
-                        )
-                    },
-                    onClick = {
-                        onItemChange.invoke(null)
-                    },
-                )
-            }
+                if (isClearButtonVisible) {
+                    IconButton(
+                        modifier = Modifier.testTag("RADIO_BUTTON_INPUT_CLEAR_BUTTON"),
+                        icon = {
+                            Icon(
+                                imageVector = Icons.Outlined.Cancel,
+                                contentDescription = "Icon Button",
+                            )
+                        },
+                        onClick = {
+                            onItemChange.invoke(null)
+                        },
+                    )
+                } else {
+                    Spacer(modifier = Modifier.width(Spacing.Spacing24))
+                }
         },
     )
 }
