@@ -87,7 +87,7 @@ fun InputCheckBox(
                         onClearSelection.invoke()
                     },
                 )
-            }else {
+            } else {
                 Spacer(modifier = Modifier.width(Spacing.Spacing24))
             }
         },

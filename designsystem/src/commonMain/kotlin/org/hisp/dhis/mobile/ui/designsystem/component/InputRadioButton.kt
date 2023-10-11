@@ -78,22 +78,22 @@ fun InputRadioButton(
         },
         primaryButton = {
             val isClearButtonVisible = itemSelected != null && state != DISABLED
-                if (isClearButtonVisible) {
-                    IconButton(
-                        modifier = Modifier.testTag("RADIO_BUTTON_INPUT_CLEAR_BUTTON"),
-                        icon = {
-                            Icon(
-                                imageVector = Icons.Outlined.Cancel,
-                                contentDescription = "Icon Button",
-                            )
-                        },
-                        onClick = {
-                            onItemChange.invoke(null)
-                        },
-                    )
-                } else {
-                    Spacer(modifier = Modifier.width(Spacing.Spacing24))
-                }
+            if (isClearButtonVisible) {
+                IconButton(
+                    modifier = Modifier.testTag("RADIO_BUTTON_INPUT_CLEAR_BUTTON"),
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Outlined.Cancel,
+                            contentDescription = "Icon Button",
+                        )
+                    },
+                    onClick = {
+                        onItemChange.invoke(null)
+                    },
+                )
+            } else {
+                Spacer(modifier = Modifier.width(Spacing.Spacing24))
+            }
         },
     )
 }
