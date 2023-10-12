@@ -1,5 +1,8 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowDropDown
 import androidx.compose.material.icons.outlined.Cancel
@@ -9,6 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
@@ -67,17 +71,30 @@ fun InputDropDown(
             }
         },
         inputField = {
-            Text(
-                modifier = Modifier.testTag("INPUT_DROPDOWN_TEXT"),
-                text = selectedItem ?: "",
-                style = MaterialTheme.typography.bodyLarge.copy(
-                    color = if (state != InputShellState.DISABLED) {
-                        TextColor.OnSurface
-                    } else {
-                        TextColor.OnDisabledSurface
-                    },
-                ),
-            )
+            Box {
+                Text(
+                    modifier = Modifier
+                        .testTag("INPUT_DROPDOWN_TEXT")
+                        .fillMaxWidth(),
+                    text = selectedItem ?: "",
+                    style = MaterialTheme.typography.bodyLarge.copy(
+                        color = if (state != InputShellState.DISABLED) {
+                            TextColor.OnSurface
+                        } else {
+                            TextColor.OnDisabledSurface
+                        },
+                    ),
+                )
+                Box(
+                    modifier = Modifier
+                        .matchParentSize()
+                        .alpha(0f)
+                        .clickable(onClick = {
+                            focusRequester.requestFocus()
+                            onArrowDropDownButtonClicked.invoke()
+                        }),
+                )
+            }
         },
         primaryButton = {
             IconButton(
