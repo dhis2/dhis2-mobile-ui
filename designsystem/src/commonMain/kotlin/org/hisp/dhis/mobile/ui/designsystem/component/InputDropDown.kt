@@ -108,10 +108,7 @@ fun InputDropDown(
                             contentDescription = "Reset Button",
                         )
                     },
-                    onClick = {
-                        focusRequester.requestFocus()
-                        onResetButtonClicked.invoke()
-                    },
+                    onClick = onResetButtonClicked
                 )
             }
         } else {
