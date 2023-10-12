@@ -1,5 +1,6 @@
 package org.hisp.dhis.common.screens
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.DropdownMenu
@@ -29,29 +30,31 @@ fun InputDropDownScreen() {
 
         SubTitle("Basic Input Dropdown ", textColor = TextColor.OnSurfaceVariant)
         var selectedItem by rememberSaveable { mutableStateOf<String?>(null) }
-        InputDropDown(
-            title = "Label",
-            state = InputShellState.UNFOCUSED,
-            selectedItem = selectedItem,
-            onResetButtonClicked = {
-                selectedItem = null
-            },
-            onArrowDropDownButtonClicked = {
-                expanded = !expanded
-            },
-        )
-        DropdownMenu(
-            expanded = expanded,
-            onDismissRequest = { expanded = false },
-        ) {
-            options.forEach {
-                DropdownMenuItem(
-                    text = { Text(it) },
-                    onClick = {
-                        selectedItem = it
-                        expanded = false
-                    },
-                )
+        Box {
+            InputDropDown(
+                title = "Label",
+                state = InputShellState.UNFOCUSED,
+                selectedItem = selectedItem,
+                onResetButtonClicked = {
+                    selectedItem = null
+                },
+                onArrowDropDownButtonClicked = {
+                    expanded = !expanded
+                },
+            )
+            DropdownMenu(
+                expanded = expanded,
+                onDismissRequest = { expanded = false },
+            ) {
+                options.forEach {
+                    DropdownMenuItem(
+                        text = { Text(it) },
+                        onClick = {
+                            selectedItem = it
+                            expanded = false
+                        },
+                    )
+                }
             }
         }
         Spacer(Modifier.size(Spacing.Spacing18))
