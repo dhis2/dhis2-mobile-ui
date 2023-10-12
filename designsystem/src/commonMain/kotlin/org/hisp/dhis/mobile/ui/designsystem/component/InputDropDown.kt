@@ -108,7 +108,7 @@ fun InputDropDown(
                             contentDescription = "Reset Button",
                         )
                     },
-                    onClick = onResetButtonClicked
+                    onClick = onResetButtonClicked,
                 )
             }
         } else {
