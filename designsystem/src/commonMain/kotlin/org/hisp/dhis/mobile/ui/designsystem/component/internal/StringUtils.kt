@@ -63,7 +63,11 @@ internal class SuffixTransformer(val suffix: String) : VisualTransformation {
     }
 }
 
-class DateTransformation : VisualTransformation {
+interface DateTimeVisualTransformation : VisualTransformation {
+    val maskLength: Int
+}
+
+class DateTransformation : DateTimeVisualTransformation {
 
     companion object {
         private const val SEPARATOR = "/"
@@ -71,6 +75,9 @@ class DateTransformation : VisualTransformation {
         // Check the usages before modifying
         internal const val DATE_MASK = "DDMMYYYY"
     }
+
+    override val maskLength: Int
+        get() = DATE_MASK.length
 
     override fun filter(text: AnnotatedString): TransformedText {
         return dateFilter(text)
@@ -120,7 +127,7 @@ class DateTransformation : VisualTransformation {
     }
 }
 
-class TimeTransformation : VisualTransformation {
+class TimeTransformation : DateTimeVisualTransformation {
 
     companion object {
         private const val SEPARATOR = ":"
@@ -128,6 +135,9 @@ class TimeTransformation : VisualTransformation {
         // Check the usages before modifying
         internal const val TIME_MASK = "HHMM"
     }
+
+    override val maskLength: Int
+        get() = TIME_MASK.length
 
     override fun filter(text: AnnotatedString): TransformedText {
         return timeFilter(text)
