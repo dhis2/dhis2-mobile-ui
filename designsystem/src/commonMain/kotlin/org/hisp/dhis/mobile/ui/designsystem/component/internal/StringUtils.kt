@@ -63,7 +63,7 @@ internal class SuffixTransformer(val suffix: String) : VisualTransformation {
     }
 }
 
-internal class DateOfBirthTransformation(private val mask: String) : VisualTransformation {
+internal class DateTransformation(private val mask: String) : VisualTransformation {
 
     companion object {
         private const val SEPARATOR = "/"

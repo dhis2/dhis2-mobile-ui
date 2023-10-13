@@ -3,14 +3,14 @@ package org.hisp.dhis.mobile.ui.designsystem.component.internal
 import androidx.compose.ui.text.AnnotatedString
 import org.junit.Test
 
-private const val DATE_OF_BIRTH_MASK = "DDMMYYYY"
+private const val DATE_MASK = "DDMMYYYY"
 
-class DateOfBirthTransformationTest {
+class DateTransformationTest {
 
-    private val transformation = DateOfBirthTransformation(DATE_OF_BIRTH_MASK)
+    private val transformation = DateTransformation(DATE_MASK)
 
     @Test
-    fun dateOfBirthTransformationShouldWorkCorrectly() {
+    fun dateTransformationShouldWorkCorrectly() {
         val transformedText = transformation
             .filter(AnnotatedString("10041985"))
             .text
@@ -20,7 +20,7 @@ class DateOfBirthTransformationTest {
     }
 
     @Test
-    fun partialDateOfBirthTransformationShouldWorkCorrectly() {
+    fun partialDateTransformationShouldWorkCorrectly() {
         val transformedText = transformation
             .filter(AnnotatedString("100"))
             .text
@@ -30,7 +30,7 @@ class DateOfBirthTransformationTest {
     }
 
     @Test
-    fun emptyTextShouldDisplayDateOfBirthMask() {
+    fun emptyTextShouldDisplayDateMask() {
         val transformedText = transformation
             .filter(AnnotatedString(""))
             .text

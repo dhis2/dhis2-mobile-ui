@@ -28,7 +28,7 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.VisualTransformation
-import org.hisp.dhis.mobile.ui.designsystem.component.internal.DateOfBirthTransformation
+import org.hisp.dhis.mobile.ui.designsystem.component.internal.DateTransformation
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.PrefixTransformation
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.SuffixTransformer
 import org.hisp.dhis.mobile.ui.designsystem.theme.Color.Blue300
@@ -101,7 +101,7 @@ fun BasicTextField(
                 helper?.let { textFieldVisualTransformation = PrefixTransformation(it, enabled) }
             }
             InputStyle.WITH_DATE_OF_BIRTH_HELPER -> {
-                helper?.let { textFieldVisualTransformation = DateOfBirthTransformation(it) }
+                helper?.let { textFieldVisualTransformation = DateTransformation(it) }
             }
             else -> {
                 helper?.let {
