@@ -1,11 +1,16 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
+import androidx.compose.foundation.hoverable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Cancel
+import androidx.compose.material.icons.outlined.FileDownload
 import androidx.compose.material.icons.outlined.FileUpload
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
@@ -15,11 +20,16 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.PointerIcon
+import androidx.compose.ui.input.pointer.pointerHoverIcon
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.testTag
 import org.hisp.dhis.mobile.ui.designsystem.component.UploadFileState.ADD
 import org.hisp.dhis.mobile.ui.designsystem.component.UploadFileState.LOADED
 import org.hisp.dhis.mobile.ui.designsystem.component.UploadFileState.UPLOADING
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
+import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
+import org.hisp.dhis.mobile.ui.designsystem.theme.textFieldHoverPointerIcon
 
 const val INPUT_FILE_TEST_TAG = "INPUT_FILE_RESOURCE_"
 const val CLEAR_BUTTON_TEST_TAG = "CLEAR_BUTTON"
@@ -50,6 +60,7 @@ fun InputFileResource(
     val primaryButton: @Composable (() -> Unit)? = if (currentState == LOADED) {
         {
             IconButton(
+                enabled = inputShellState != InputShellState.DISABLED,
                 modifier = Modifier.testTag(INPUT_FILE_TEST_TAG + CLEAR_BUTTON_TEST_TAG),
                 icon = {
                     Icon(
@@ -71,11 +82,12 @@ fun InputFileResource(
         if (currentState == LOADED) {
             {
                 SquareIconButton(
+                    enabled = inputShellState != InputShellState.DISABLED,
                     modifier = Modifier.testTag(INPUT_FILE_TEST_TAG + UPLOAD_BUTTON_TEST_TAG),
                     icon = {
                         Icon(
-                            imageVector = Icons.Outlined.FileUpload,
-                            contentDescription = "Upload Icon Button",
+                            imageVector = Icons.Outlined.FileDownload,
+                            contentDescription = "Download Icon Button",
                         )
                     },
                 ) {
@@ -103,11 +115,12 @@ fun InputFileResource(
             when (currentState) {
                 ADD -> {
                     Button(
+                        enabled = inputShellState != InputShellState.DISABLED,
                         modifier = Modifier
                             .testTag(INPUT_FILE_TEST_TAG + ADD_BUTTON_TEST_TAG)
                             .padding(end = Spacing.Spacing16)
                             .fillMaxWidth(),
-                        style = ButtonStyle.ELEVATED,
+                        style = ButtonStyle.KEYBOARDKEY,
                         text = buttonText,
                         icon = {
                             Icon(
@@ -125,16 +138,23 @@ fun InputFileResource(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.Center,
                     ) {
-                        ProgressIndicator(
-                            modifier = Modifier.testTag(INPUT_FILE_TEST_TAG + PROGRESS_INDICATOR_TEST_TAG),
-                            type = ProgressIndicatorType.CIRCULAR,
-                        )
+                        Box(
+                            Modifier
+                                .padding(top = Spacing.Spacing4, bottom = Spacing.Spacing4)
+                                .size(Spacing.Spacing48),
+                        ) {
+                            ProgressIndicator(
+                                modifier = Modifier.testTag(INPUT_FILE_TEST_TAG + PROGRESS_INDICATOR_TEST_TAG),
+                                type = ProgressIndicatorType.CIRCULAR,
+                            )
+                        }
                     }
                 }
                 LOADED -> {
                     fileName.value?.let {
                         BasicTextField(
-                            modifier = Modifier.testTag(INPUT_FILE_TEST_TAG + UPLOAD_HELPER_TEST_TAG),
+                            enabled = inputShellState != InputShellState.DISABLED,
+                            modifier = Modifier.textFieldHoverPointerIcon(enabled = false).testTag(INPUT_FILE_TEST_TAG + UPLOAD_HELPER_TEST_TAG),
                             helper = fileWeight.value,
                             helperStyle = InputStyle.WITH_HELPER_AFTER,
                             inputText = it,

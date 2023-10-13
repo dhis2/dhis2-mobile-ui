@@ -53,5 +53,30 @@ fun InputFileResourceScreen() {
             onSelectFile = {},
             onUploadFile = {},
         )
+        InputFileResource(
+            title = "Label",
+            buttonText = provideStringResource("add_file"),
+            fileName = currentFileName,
+            fileWeight = currentFileWeight,
+            inputShellState = InputShellState.DISABLED,
+            onSelectFile = {
+                currentFileName.value = "file"
+                currentFileWeight.value = "weight"
+            },
+            onUploadFile = {},
+        )
+        InputFileResource(
+            title = "Label",
+            buttonText = provideStringResource("add_file"),
+            fileName = currentFileName,
+            fileWeight = currentFileWeight,
+            inputShellState = InputShellState.DISABLED,
+            uploadFileState = UploadFileState.LOADED,
+            onSelectFile = {
+                currentFileName.value = "file"
+                currentFileWeight.value = "weight"
+            },
+            onUploadFile = {},
+        )
     }
 }
