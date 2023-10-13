@@ -28,6 +28,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
  * @param actionIconType: Type of action icon to display. [DateTimeActionIconType.DATE_TIME], [DateTimeActionIconType.DATE], [DateTimeActionIconType.TIME]
  * @param onActionClicked: Callback to handle the action when the calendar icon is clicked.
  * @param state: [InputShellState]
+ * @param legendData: [LegendData]
  * @param supportingText: List of [SupportingTextData] that manages all the messages to be shown.
  * @param isRequired: Mark this input as marked
  * @param visualTransformation: Pass a visual transformation to format the date input visually. By default uses [DateTransformation]
@@ -41,6 +42,7 @@ fun InputDateTime(
     onActionClicked: () -> Unit,
     modifier: Modifier = Modifier,
     state: InputShellState = InputShellState.UNFOCUSED,
+    legendData: LegendData? = null,
     supportingText: List<SupportingTextData>? = null,
     isRequired: Boolean = false,
     imeAction: ImeAction = ImeAction.Next,
@@ -119,6 +121,11 @@ fun InputDateTime(
                     label.text,
                     label.state,
                 )
+            }
+        },
+        legend = {
+            legendData?.let {
+                Legend(legendData, Modifier.testTag("INPUT_DATE_TIME_LEGEND"))
             }
         },
     )
