@@ -24,7 +24,7 @@ class DateTimeTransformationTest {
             .text
             .toString()
 
-        assert(transformedText == "10/02/19YY - HH:MM")
+        assert(transformedText == "10/02/19YY - hh:mm")
     }
 
     @Test
@@ -34,6 +34,6 @@ class DateTimeTransformationTest {
             .text
             .toString()
 
-        assert(transformedText == "DD/MM/YYYY - HH:MM")
+        assert(transformedText == "DD/MM/YYYY - hh:mm")
     }
 }

@@ -193,7 +193,7 @@ class DateTimeTransformation : DateTimeVisualTransformation {
         private const val SEPARATOR_DATE_TIME = " - "
 
         // Check the usages before modifying
-        internal const val DATETIME_MASK = "DDMMYYYYHHMM"
+        internal const val DATETIME_MASK = "DDMMYYYYhhmm"
     }
 
     override val maskLength: Int
