@@ -25,7 +25,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
  *
  * @param title: Label of the component.
  * @param value: Input of the component in the format of DDMMYYYY/HHMM/DDMMYYYYHHMM
- * @param actionIconType: Type of action icon to display. [ActionIconType.DATE_TIME], [ActionIconType.DATE], [ActionIconType.TIME]
+ * @param actionIconType: Type of action icon to display. [DateTimeActionIconType.DATE_TIME], [DateTimeActionIconType.DATE], [DateTimeActionIconType.TIME]
  * @param onActionClicked: Callback to handle the action when the calendar icon is clicked.
  * @param state: [InputShellState]
  * @param supportingText: List of [SupportingTextData] that manages all the messages to be shown.
@@ -37,7 +37,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 fun InputDateTime(
     title: String,
     value: String?,
-    actionIconType: ActionIconType = ActionIconType.DATE_TIME,
+    actionIconType: DateTimeActionIconType = DateTimeActionIconType.DATE_TIME,
     onActionClicked: () -> Unit,
     modifier: Modifier = Modifier,
     state: InputShellState = InputShellState.UNFOCUSED,
@@ -96,8 +96,8 @@ fun InputDateTime(
         },
         secondaryButton = {
             val icon = when (actionIconType) {
-                ActionIconType.DATE, ActionIconType.DATE_TIME -> Icons.Filled.Event
-                ActionIconType.TIME -> Icons.Filled.Schedule
+                DateTimeActionIconType.DATE, DateTimeActionIconType.DATE_TIME -> Icons.Filled.Event
+                DateTimeActionIconType.TIME -> Icons.Filled.Schedule
             }
 
             SquareIconButton(
@@ -124,6 +124,6 @@ fun InputDateTime(
     )
 }
 
-enum class ActionIconType {
+enum class DateTimeActionIconType {
     DATE, TIME, DATE_TIME
 }

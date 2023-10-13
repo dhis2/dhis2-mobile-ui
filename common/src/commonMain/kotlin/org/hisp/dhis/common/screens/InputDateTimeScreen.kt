@@ -5,7 +5,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import org.hisp.dhis.mobile.ui.designsystem.component.ActionIconType
+import org.hisp.dhis.mobile.ui.designsystem.component.DateTimeActionIconType
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InputDateTime
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
@@ -24,7 +24,7 @@ fun InputDateTimeScreen() {
             title = "Label",
             value = date,
             visualTransformation = DateTransformation(),
-            actionIconType = ActionIconType.DATE,
+            actionIconType = DateTimeActionIconType.DATE,
             onActionClicked = {
                 // no-op
             },
@@ -35,7 +35,7 @@ fun InputDateTimeScreen() {
             title = "Label",
             value = time,
             visualTransformation = TimeTransformation(),
-            actionIconType = ActionIconType.TIME,
+            actionIconType = DateTimeActionIconType.TIME,
             onActionClicked = {
                 // no-op
             },
@@ -46,7 +46,7 @@ fun InputDateTimeScreen() {
             title = "Label",
             value = dateTime,
             visualTransformation = DateTimeTransformation(),
-            actionIconType = ActionIconType.DATE_TIME,
+            actionIconType = DateTimeActionIconType.DATE_TIME,
             onActionClicked = {
                 // no-op
             },
