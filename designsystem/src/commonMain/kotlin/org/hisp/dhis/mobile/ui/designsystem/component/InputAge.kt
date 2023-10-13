@@ -54,7 +54,7 @@ fun InputAge(
     onValueChanged: (AgeInputType) -> Unit,
 ) {
     val maxAgeCharLimit = 3
-    val allowedCharacters = RegExValidations.DATE_OF_BIRTH.regex
+    val allowedCharacters = RegExValidations.DATE_TIME.regex
 
     val helperText = remember(inputType) {
         when (inputType) {

@@ -132,5 +132,5 @@ enum class RegExValidations(val regex: Regex) {
     PHONE_NUMBER("^[+0-9-()]+$".toRegex()),
     LINK("((https?|ftp|smtp)://)?(www\\.)?[a-zA-Z0-9@:%._+~#=-]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_+.~#?&/=-]*)".toRegex()),
     EMAIL("^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}\$".toRegex()),
-    DATE_OF_BIRTH("^[0-9]+$".toRegex()),
+    DATE_TIME("^[0-9]+$".toRegex()),
 }
