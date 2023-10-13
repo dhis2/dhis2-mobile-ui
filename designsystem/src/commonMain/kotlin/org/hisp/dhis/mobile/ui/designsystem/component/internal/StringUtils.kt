@@ -63,7 +63,7 @@ internal class SuffixTransformer(val suffix: String) : VisualTransformation {
     }
 }
 
-internal class DateTransformation : VisualTransformation {
+class DateTransformation : VisualTransformation {
 
     companion object {
         private const val SEPARATOR = "/"
@@ -120,7 +120,7 @@ internal class DateTransformation : VisualTransformation {
     }
 }
 
-internal class TimeTransformation : VisualTransformation {
+class TimeTransformation : VisualTransformation {
 
     companion object {
         private const val SEPARATOR = ":"
