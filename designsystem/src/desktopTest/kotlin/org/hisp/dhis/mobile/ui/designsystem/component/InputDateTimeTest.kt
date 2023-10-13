@@ -35,13 +35,32 @@ class InputDateTimeTest {
     }
 
     @Test
-    fun clickingOnRestButtonShouldResetMode() {
+    fun resetButtonShouldNotBeShownWhenTextIsEmpty() {
         var input by mutableStateOf("")
 
         rule.setContent {
             InputDateTime(
                 title = "Label",
                 value = null,
+                onActionClicked = {
+                    // no-op
+                },
+            ) {
+                input = it
+            }
+        }
+
+        rule.onNodeWithTag("INPUT_DATE_TIME_RESET_BUTTON").assertDoesNotExist()
+    }
+
+    @Test
+    fun clickingOnResetButtonShouldClearInput() {
+        var input by mutableStateOf("1002")
+
+        rule.setContent {
+            InputDateTime(
+                title = "Label",
+                value = input,
                 onActionClicked = {
                     // no-op
                 },
