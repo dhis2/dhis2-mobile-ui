@@ -92,7 +92,7 @@ fun InputRadioButton(
                     },
                 )
             } else {
-                Spacer(modifier = Modifier.width(Spacing.Spacing24))
+                Spacer(modifier = Modifier.width(Spacing.Spacing48))
             }
         },
     )
