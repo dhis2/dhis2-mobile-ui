@@ -18,13 +18,10 @@ import org.hisp.dhis.mobile.ui.designsystem.component.AgeInputType.Age
 import org.hisp.dhis.mobile.ui.designsystem.component.AgeInputType.DateOfBirth
 import org.hisp.dhis.mobile.ui.designsystem.component.AgeInputType.None
 import org.hisp.dhis.mobile.ui.designsystem.component.TimeUnitValues.YEARS
+import org.hisp.dhis.mobile.ui.designsystem.component.internal.DateTransformation.Companion.DATE_MASK
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.RegExValidations
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-
-// Update [DateOfBirthTransformation] when updating the mask
-// Check the usages before modifying
-private const val DATE_OF_BIRTH_MASK = "DDMMYYYY"
 
 /**
  * Input filed to enter date-of-birth or age
@@ -61,8 +58,7 @@ fun InputAge(
 
     val helperText = remember(inputType) {
         when (inputType) {
-            None -> null
-            is DateOfBirth -> DATE_OF_BIRTH_MASK
+            None, is DateOfBirth -> null
             is Age -> inputType.unit.value
         }
     }
@@ -202,7 +198,7 @@ private fun transformInputText(inputType: AgeInputType): String {
 }
 
 private fun updateDateOfBirth(inputType: DateOfBirth, newText: String): AgeInputType {
-    return if (newText.length <= DATE_OF_BIRTH_MASK.length) {
+    return if (newText.length <= DATE_MASK.length) {
         inputType.copy(value = newText)
     } else {
         inputType

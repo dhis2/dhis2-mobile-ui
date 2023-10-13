@@ -63,10 +63,13 @@ internal class SuffixTransformer(val suffix: String) : VisualTransformation {
     }
 }
 
-internal class DateTransformation(private val mask: String) : VisualTransformation {
+internal class DateTransformation : VisualTransformation {
 
     companion object {
         private const val SEPARATOR = "/"
+
+        // Check the usages before modifying
+        internal const val DATE_MASK = "DDMMYYYY"
     }
 
     override fun filter(text: AnnotatedString): TransformedText {
@@ -74,12 +77,12 @@ internal class DateTransformation(private val mask: String) : VisualTransformati
     }
 
     private fun dateFilter(text: AnnotatedString): TransformedText {
-        val trimmed = if (text.text.length > mask.length) text.text.substring(0..mask.length) else text.text
+        val trimmed = if (text.text.length > DATE_MASK.length) text.text.substring(0..DATE_MASK.length) else text.text
         val output = buildAnnotatedString {
-            for (i in mask.indices) {
+            for (i in DATE_MASK.indices) {
                 val dateChar = trimmed.getOrNull(i)
                 if (dateChar == null) {
-                    append(AnnotatedString(mask[i].toString(), DHIS2SCustomTextStyles.inputFieldHelper))
+                    append(AnnotatedString(DATE_MASK[i].toString(), DHIS2SCustomTextStyles.inputFieldHelper))
                 } else {
                     append(trimmed[i])
                 }

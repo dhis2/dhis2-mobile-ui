@@ -101,7 +101,7 @@ fun BasicTextField(
                 helper?.let { textFieldVisualTransformation = PrefixTransformation(it, enabled) }
             }
             InputStyle.WITH_DATE_OF_BIRTH_HELPER -> {
-                helper?.let { textFieldVisualTransformation = DateTransformation(it) }
+                textFieldVisualTransformation = DateTransformation()
             }
             else -> {
                 helper?.let {

@@ -3,11 +3,9 @@ package org.hisp.dhis.mobile.ui.designsystem.component.internal
 import androidx.compose.ui.text.AnnotatedString
 import org.junit.Test
 
-private const val DATE_MASK = "DDMMYYYY"
-
 class DateTransformationTest {
 
-    private val transformation = DateTransformation(DATE_MASK)
+    private val transformation = DateTransformation()
 
     @Test
     fun dateTransformationShouldWorkCorrectly() {
