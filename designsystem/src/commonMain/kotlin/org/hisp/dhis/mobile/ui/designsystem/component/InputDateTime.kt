@@ -81,7 +81,7 @@ fun InputDateTime(
             )
         },
         primaryButton = {
-            if (state != InputShellState.DISABLED) {
+            if (!value.isNullOrBlank() && state != InputShellState.DISABLED) {
                 IconButton(
                     modifier = Modifier.testTag("INPUT_DATE_TIME_RESET_BUTTON").padding(Spacing.Spacing0),
                     icon = {
