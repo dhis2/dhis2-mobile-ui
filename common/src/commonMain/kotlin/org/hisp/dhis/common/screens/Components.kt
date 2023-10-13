@@ -52,4 +52,5 @@ enum class Components(val label: String) {
     INPUT_DROPDOWN("Input Dropdown"),
     INPUT_DATE_TIME("Input Date Time"),
     INPUT_COORDINATE("Input Coordinate"),
+    INPUT_SIGNATURE("Input Signature"),
 }
