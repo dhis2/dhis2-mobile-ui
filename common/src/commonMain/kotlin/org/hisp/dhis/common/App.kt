@@ -38,6 +38,7 @@ import org.hisp.dhis.common.screens.ImageBlockScreen
 import org.hisp.dhis.common.screens.InputAgeScreen
 import org.hisp.dhis.common.screens.InputBarCodeScreen
 import org.hisp.dhis.common.screens.InputCheckBoxScreen
+import org.hisp.dhis.common.screens.InputDropDownScreen
 import org.hisp.dhis.common.screens.InputEmailScreen
 import org.hisp.dhis.common.screens.InputIntegerScreen
 import org.hisp.dhis.common.screens.InputLetterScreen
@@ -177,6 +178,7 @@ fun Main() {
             Components.INPUT_POLYGON -> InputPolygonScreen()
             Components.INPUT_ORG_UNIT -> InputOrgUnitScreen()
             Components.IMAGE_BLOCK -> ImageBlockScreen()
+            Components.INPUT_DROPDOWN -> InputDropDownScreen()
         }
     }
 }
