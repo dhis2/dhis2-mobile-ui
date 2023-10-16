@@ -21,8 +21,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.unit.IntOffset
+import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.Ripple
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
+import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -37,11 +39,14 @@ fun Chip(
         CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
             FilterChip(
                 onClick = { onSelected?.invoke(!selected) },
-                label = { Text(label) },
+                label = { Text(label, color = TextColor.OnSurfaceLight) },
                 selected = selected,
                 colors = FilterChipDefaults.filterChipColors(
                     containerColor = SurfaceColor.SurfaceBright,
                     selectedContainerColor = SurfaceColor.Container,
+                ),
+                border = FilterChipDefaults.filterChipBorder(
+                    borderColor = Outline.Medium,
                 ),
                 leadingIcon = if (selected) {
                     {
