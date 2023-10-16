@@ -1,10 +1,10 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AddLocationAlt
 import androidx.compose.material.icons.outlined.Cancel
@@ -38,6 +38,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
  * @param onResetButtonClicked callback to when reset button is clicked
  * @param onUpdateButtonClicked callback to when add button or edit icon is clicked
  */
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun InputCoordinate(
     title: String,
@@ -74,13 +75,14 @@ fun InputCoordinate(
         },
         inputField = {
             if (coordinates != null) {
-                Row {
+                FlowRow(
+                    horizontalArrangement = Arrangement.spacedBy(Spacing.Spacing16),
+                ) {
                     CoordinateText(
                         latitudeText,
                         coordinates.latitude.toString(),
                         state == InputShellState.DISABLED,
                     )
-                    Spacer(modifier = Modifier.size(Spacing.Spacing16))
                     CoordinateText(
                         longitudeText,
                         coordinates.longitude.toString(),
