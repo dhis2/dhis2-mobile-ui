@@ -1,6 +1,8 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Cancel
 import androidx.compose.material3.Icon
@@ -89,6 +91,8 @@ fun InputRadioButton(
                         onItemChange.invoke(null)
                     },
                 )
+            } else {
+                Spacer(modifier = Modifier.width(Spacing.Spacing48))
             }
         },
     )
