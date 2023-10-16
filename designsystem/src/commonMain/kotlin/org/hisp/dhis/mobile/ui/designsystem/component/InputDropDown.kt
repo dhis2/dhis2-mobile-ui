@@ -89,10 +89,13 @@ fun InputDropDown(
                     modifier = Modifier
                         .matchParentSize()
                         .alpha(0f)
-                        .clickable(onClick = {
-                            focusRequester.requestFocus()
-                            onArrowDropDownButtonClicked.invoke()
-                        }),
+                        .clickable(
+                            enabled = state != InputShellState.DISABLED,
+                            onClick = {
+                                focusRequester.requestFocus()
+                                onArrowDropDownButtonClicked.invoke()
+                            },
+                        ),
                 )
             }
         },
