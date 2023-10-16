@@ -1,7 +1,5 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
-import androidx.compose.foundation.hoverable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -20,15 +18,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.pointer.PointerIcon
-import androidx.compose.ui.input.pointer.pointerHoverIcon
-import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.testTag
 import org.hisp.dhis.mobile.ui.designsystem.component.UploadFileState.ADD
 import org.hisp.dhis.mobile.ui.designsystem.component.UploadFileState.LOADED
 import org.hisp.dhis.mobile.ui.designsystem.component.UploadFileState.UPLOADING
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
 import org.hisp.dhis.mobile.ui.designsystem.theme.textFieldHoverPointerIcon
 
 const val INPUT_FILE_TEST_TAG = "INPUT_FILE_RESOURCE_"
