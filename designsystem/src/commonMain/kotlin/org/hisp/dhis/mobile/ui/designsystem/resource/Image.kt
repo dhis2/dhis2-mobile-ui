@@ -11,8 +11,14 @@ import org.jetbrains.compose.resources.painterResource
  */
 @OptIn(ExperimentalResourceApi::class)
 @Composable
-fun provideDHIS2Icon(resourceName: String): Painter =
-    painterResource("drawable/$resourceName.xml")
+fun provideDHIS2Icon(resourceName: String): Painter {
+    val iconName = if (!resourceExists(resourceName)) {
+        "dhis2_default_outline"
+    } else {
+        resourceName
+    }
+    return painterResource("drawable/$iconName.xml")
+}
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable

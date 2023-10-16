@@ -2,7 +2,6 @@ package org.hisp.dhis.mobile.ui.designsystem.resource
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.res.useResource
@@ -41,4 +40,9 @@ private fun getResources(): Map<String, String> {
         }
     }
     return stringsResources
+}
+
+@Composable
+actual fun resourceExists(resourceName: String, resourceType: String): Boolean {
+    return false
 }
