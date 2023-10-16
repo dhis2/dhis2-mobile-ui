@@ -50,4 +50,5 @@ enum class Components(val label: String) {
     INPUT_ORG_UNIT("Input Org. Unit"),
     IMAGE_BLOCK("Image Block"),
     INPUT_DROPDOWN("Input Dropdown"),
+    INPUT_DATE_TIME("Input Date Time"),
 }

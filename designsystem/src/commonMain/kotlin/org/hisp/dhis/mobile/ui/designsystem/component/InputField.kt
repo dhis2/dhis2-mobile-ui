@@ -28,7 +28,7 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.VisualTransformation
-import org.hisp.dhis.mobile.ui.designsystem.component.internal.DateOfBirthTransformation
+import org.hisp.dhis.mobile.ui.designsystem.component.internal.DateTransformation
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.PrefixTransformation
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.SuffixTransformer
 import org.hisp.dhis.mobile.ui.designsystem.theme.Color.Blue300
@@ -72,6 +72,9 @@ fun EmptyInput(
  * @param modifier to pass a modifier if necessary
  * @param state manages the color of cursor depending on the state of parent component
  * @param keyboardOptions manages the ImeAction to be shown on the keyboard
+ * @param visualTransformation manages custom visual transformation. When null is passed it
+ * will use the visual transformation created based on helper style, when a visual transformation
+ * is passed it will ignore the helper style.
  * @param onNextClicked gives access to the ImeAction event
  */
 @OptIn(ExperimentalComposeUiApi::class)
@@ -86,26 +89,29 @@ fun BasicTextField(
     modifier: Modifier = Modifier,
     state: InputShellState = InputShellState.FOCUSED,
     keyboardOptions: KeyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+    visualTransformation: VisualTransformation? = null,
     onNextClicked: (() -> Unit)? = null,
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
-    var visualTransformation = VisualTransformation.None
+    var textFieldVisualTransformation = VisualTransformation.None
 
     if (helperStyle != InputStyle.NONE) {
         when (helperStyle) {
             InputStyle.WITH_HELPER_BEFORE -> {
-                helper?.let { visualTransformation = PrefixTransformation(it, enabled) }
+                helper?.let { textFieldVisualTransformation = PrefixTransformation(it, enabled) }
             }
             InputStyle.WITH_DATE_OF_BIRTH_HELPER -> {
-                helper?.let { visualTransformation = DateOfBirthTransformation(it) }
+                textFieldVisualTransformation = DateTransformation()
             }
             else -> {
                 helper?.let {
-                    visualTransformation = SuffixTransformer(it)
+                    textFieldVisualTransformation = SuffixTransformer(it)
                 }
             }
         }
     }
+
+    textFieldVisualTransformation = visualTransformation ?: textFieldVisualTransformation
 
     val cursorColor by remember {
         if (state == InputShellState.UNFOCUSED || state == InputShellState.FOCUSED) {
@@ -151,7 +157,7 @@ fun BasicTextField(
                     keyboardController?.hide()
                 },
             ),
-            visualTransformation = visualTransformation,
+            visualTransformation = textFieldVisualTransformation,
             cursorBrush = SolidColor(cursorColor),
         )
     }
