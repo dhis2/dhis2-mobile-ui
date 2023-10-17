@@ -14,7 +14,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.junit.Rule
 import org.junit.Test
 
-class InputImageTest {
+class BasicInputImageTest {
 
     @get:Rule
     val rule = createComposeRule()
@@ -22,7 +22,7 @@ class InputImageTest {
     @Test
     fun shouldDisplayInputImageCorrectly() {
         rule.setContent {
-            InputImage(
+            BasicInputImage(
                 title = "Label",
                 uploadState = UploadState.ADD,
                 load = { },
@@ -43,7 +43,7 @@ class InputImageTest {
     @Test
     fun shouldAllowAddImageWhenEnabled() {
         rule.setContent {
-            InputImage(
+            BasicInputImage(
                 title = "Label",
                 uploadState = UploadState.ADD,
                 load = { },
@@ -63,7 +63,7 @@ class InputImageTest {
     @Test
     fun shouldNotAllowAddImageWhenDisabled() {
         rule.setContent {
-            InputImage(
+            BasicInputImage(
                 title = "Label",
                 state = InputShellState.DISABLED,
                 uploadState = UploadState.ADD,
@@ -84,7 +84,7 @@ class InputImageTest {
     @Test
     fun shouldShowResetButtonWhenImageAdded() {
         rule.setContent {
-            InputImage(
+            BasicInputImage(
                 title = "Label",
                 uploadState = UploadState.LOADED,
                 load = { },
@@ -105,7 +105,7 @@ class InputImageTest {
     @Test
     fun shouldHideResetAndEditButtonWhenNoImageAdded() {
         rule.setContent {
-            InputImage(
+            BasicInputImage(
                 title = "Label",
                 uploadState = UploadState.ADD,
                 load = { },
@@ -128,7 +128,7 @@ class InputImageTest {
     fun shouldRemoveImageWhenResetButtonIsClickedAndHideResetAndEditButton() {
         rule.setContent {
             var currentState by rememberSaveable { mutableStateOf(UploadState.LOADED) }
-            InputImage(
+            BasicInputImage(
                 title = "Label",
                 uploadState = currentState,
                 load = { },
@@ -154,7 +154,7 @@ class InputImageTest {
     @Test
     fun shouldHideResetAndEditButtonWhenDisabled() {
         rule.setContent {
-            InputImage(
+            BasicInputImage(
                 title = "Label",
                 uploadState = UploadState.ADD,
                 load = { },
@@ -175,7 +175,7 @@ class InputImageTest {
     @Test
     fun shouldShowLegendCorrectly() {
         rule.setContent {
-            InputImage(
+            BasicInputImage(
                 title = "Label",
                 uploadState = UploadState.ADD,
                 legendData = LegendData(SurfaceColor.CustomGreen, "Legend"),
@@ -197,7 +197,7 @@ class InputImageTest {
     @Test
     fun shouldShowSupportingTextCorrectly() {
         rule.setContent {
-            InputImage(
+            BasicInputImage(
                 title = "Label",
                 uploadState = UploadState.ADD,
                 supportingText = listOf(SupportingTextData("Supporting text", SupportingTextState.DEFAULT)),

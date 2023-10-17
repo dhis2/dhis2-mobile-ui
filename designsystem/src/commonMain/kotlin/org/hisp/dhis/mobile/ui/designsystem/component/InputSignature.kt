@@ -6,7 +6,7 @@ import androidx.compose.ui.graphics.painter.Painter
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 
 /**
- * DHIS2 Input signature. Wraps DHIS · [InputImage].
+ * DHIS2 Input signature. Wraps DHIS · [BasicInputImage].
  * @param title controls the text to be shown for the title
  * @param state Manages the InputShell state
  * @param supportingText is a list of SupportingTextData that
@@ -41,7 +41,7 @@ fun <T> InputSignature(
     onResetButtonClicked: () -> Unit,
     onAddButtonClicked: () -> Unit,
 ) {
-    InputImage(
+    BasicInputImage(
         title = title,
         state = state,
         supportingText = supportingText,

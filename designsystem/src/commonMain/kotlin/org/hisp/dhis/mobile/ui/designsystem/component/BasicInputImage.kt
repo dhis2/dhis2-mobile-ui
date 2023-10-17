@@ -15,7 +15,7 @@ import androidx.compose.ui.platform.testTag
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
 /**
- * DHIS2 Input image. Wraps DHIS · [ImageBlock].
+ * DHIS2 BasicInputImage. Wraps DHIS · [ImageBlock].
  * @param title controls the text to be shown for the title
  * @param state Manages the InputShell state
  * @param supportingText is a list of SupportingTextData that
@@ -34,7 +34,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
  * @param onAddButtonClicked callback to when add button is clicked
  */
 @Composable
-internal fun <T> InputImage(
+internal fun <T> BasicInputImage(
     title: String,
     state: InputShellState = InputShellState.UNFOCUSED,
     supportingText: List<SupportingTextData>? = null,
