@@ -33,6 +33,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
  *  [Age]: Age value with appropriate time unit
  * @param onCalendarActionClicked: Callback to handle the action when the calendar icon is clicked.
  * @param state: [InputShellState]
+ * @param legendData: [LegendData]
  * @param supportingText: List of [SupportingTextData] that manages all the messages to be shown.
  * @param isRequired: Mark this input as marked
  * @param onValueChanged: Callback to receive changes in the input
@@ -44,13 +45,13 @@ fun InputAge(
     onCalendarActionClicked: () -> Unit,
     modifier: Modifier = Modifier,
     state: InputShellState = InputShellState.UNFOCUSED,
+    legendData: LegendData? = null,
     supportingText: List<SupportingTextData>? = null,
     isRequired: Boolean = false,
     imeAction: ImeAction = ImeAction.Next,
     dateOfBirthLabel: String = provideStringResource("date_birth"),
     orLabel: String = provideStringResource("or"),
     ageLabel: String = provideStringResource("age"),
-    onFocusChanged: ((Boolean) -> Unit) = {},
     onValueChanged: (AgeInputType) -> Unit,
 ) {
     val maxAgeCharLimit = 3
@@ -93,7 +94,6 @@ fun InputAge(
         title = title,
         state = state,
         isRequiredField = isRequired,
-        onFocusChanged = onFocusChanged,
         inputField = {
             when (inputType) {
                 None -> {
@@ -184,6 +184,10 @@ fun InputAge(
                         onValueChanged.invoke(inputType.copy(unit = timeUnit))
                     },
                 )
+            }
+
+            legendData?.let {
+                Legend(legendData, Modifier.testTag("INPUT_AGE_LEGEND"))
             }
         },
     )

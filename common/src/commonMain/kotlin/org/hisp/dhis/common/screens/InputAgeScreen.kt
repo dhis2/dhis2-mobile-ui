@@ -5,15 +5,18 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import org.hisp.dhis.common.screens.previews.regularLegendList
 import org.hisp.dhis.mobile.ui.designsystem.component.AgeInputType
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InputAge
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
+import org.hisp.dhis.mobile.ui.designsystem.component.LegendData
 import org.hisp.dhis.mobile.ui.designsystem.component.Orientation
 import org.hisp.dhis.mobile.ui.designsystem.component.RadioButtonData
 import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
 import org.hisp.dhis.mobile.ui.designsystem.component.TimeUnitSelector
 import org.hisp.dhis.mobile.ui.designsystem.component.TimeUnitValues
+import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 
 @Composable
 fun InputAgeScreen() {
@@ -105,6 +108,21 @@ fun InputAgeScreen() {
             onValueChanged = {
                 // no-op
             },
+        )
+
+        SubTitle("Input Age Component - Legend")
+        InputAge(
+            title = "Label",
+            inputType = AgeInputType.Age(value = "56", unit = TimeUnitValues.YEARS),
+            state = InputShellState.ERROR,
+            isRequired = true,
+            onCalendarActionClicked = {
+                // no-op
+            },
+            onValueChanged = {
+                // no-op
+            },
+            legendData = LegendData(SurfaceColor.CustomGreen, "Legend", popUpLegendDescriptionData = regularLegendList),
         )
     }
 }

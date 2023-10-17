@@ -276,12 +276,13 @@ fun TextButtonSelector(
         Text(
             text = middleText,
             modifier = Modifier.padding(start = Spacing.Spacing8, end = Spacing.Spacing8),
-            style = MaterialTheme.typography.titleMedium,
+            style = MaterialTheme.typography.bodyLarge,
             color = if (enabled) TextColor.OnSurfaceVariant else TextColor.OnDisabledSurface,
         )
         Text(
             text = secondOptionText,
             color = clickableText2Color.value,
+            style = MaterialTheme.typography.titleMedium,
             modifier = Modifier.clickable(
                 enabled = enabled,
                 interactionSource = interactionSourceOption2,
