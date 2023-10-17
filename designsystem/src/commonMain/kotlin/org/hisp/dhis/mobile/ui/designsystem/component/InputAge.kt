@@ -52,7 +52,6 @@ fun InputAge(
     dateOfBirthLabel: String = provideStringResource("date_birth"),
     orLabel: String = provideStringResource("or"),
     ageLabel: String = provideStringResource("age"),
-    onFocusChanged: ((Boolean) -> Unit) = {},
     onValueChanged: (AgeInputType) -> Unit,
 ) {
     val maxAgeCharLimit = 3
@@ -95,7 +94,6 @@ fun InputAge(
         title = title,
         state = state,
         isRequiredField = isRequired,
-        onFocusChanged = onFocusChanged,
         inputField = {
             when (inputType) {
                 None -> {
