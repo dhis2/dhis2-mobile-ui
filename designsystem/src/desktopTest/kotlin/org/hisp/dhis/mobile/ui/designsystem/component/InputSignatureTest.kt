@@ -24,8 +24,13 @@ class InputSignatureTest {
         rule.setContent {
             InputSignature(
                 title = "Label",
-                onResetButtonClicked = {},
-                onUpdateButtonClicked = {},
+                uploadState = UploadState.ADD,
+                load = { },
+                onDownloadButtonClick = {},
+                onResetButtonClicked = {
+                },
+                onAddButtonClicked = {
+                },
             )
         }
         rule.onNodeWithTag("INPUT_SIGNATURE").assertExists()
@@ -38,8 +43,13 @@ class InputSignatureTest {
         rule.setContent {
             InputSignature(
                 title = "Label",
-                onResetButtonClicked = {},
-                onUpdateButtonClicked = {},
+                uploadState = UploadState.ADD,
+                load = { },
+                onDownloadButtonClick = {},
+                onResetButtonClicked = {
+                },
+                onAddButtonClicked = {
+                },
             )
         }
         rule.onNodeWithTag("INPUT_SIGNATURE").assertExists()
@@ -52,8 +62,13 @@ class InputSignatureTest {
             InputSignature(
                 title = "Label",
                 state = InputShellState.DISABLED,
-                onResetButtonClicked = {},
-                onUpdateButtonClicked = {},
+                uploadState = UploadState.ADD,
+                load = { },
+                onDownloadButtonClick = {},
+                onResetButtonClicked = {
+                },
+                onAddButtonClicked = {
+                },
             )
         }
         rule.onNodeWithTag("INPUT_SIGNATURE").assertExists()
@@ -61,19 +76,22 @@ class InputSignatureTest {
     }
 
     @Test
-    fun shouldShowResetAndEditButtonWhenSignatureAdded() {
+    fun shouldShowResetButtonWhenSignatureAdded() {
         rule.setContent {
             InputSignature(
                 title = "Label",
-                signatureAdded = true,
-                onResetButtonClicked = {},
-                onUpdateButtonClicked = {},
+                uploadState = UploadState.LOADED,
+                load = { },
+                onDownloadButtonClick = {},
+                onResetButtonClicked = {
+                },
+                onAddButtonClicked = {
+                },
             )
         }
         rule.onNodeWithTag("INPUT_SIGNATURE").assertExists()
         rule.onNodeWithTag("INPUT_SIGNATURE_ADD_BUTTON").assertDoesNotExist()
         rule.onNodeWithTag("INPUT_SIGNATURE_RESET_BUTTON").assertExists()
-        rule.onNodeWithTag("INPUT_SIGNATURE_EDIT_BUTTON").assertExists()
     }
 
     @Test
@@ -81,8 +99,13 @@ class InputSignatureTest {
         rule.setContent {
             InputSignature(
                 title = "Label",
-                onResetButtonClicked = {},
-                onUpdateButtonClicked = {},
+                uploadState = UploadState.ADD,
+                load = { },
+                onDownloadButtonClick = {},
+                onResetButtonClicked = {
+                },
+                onAddButtonClicked = {
+                },
             )
         }
         rule.onNodeWithTag("INPUT_SIGNATURE").assertExists()
@@ -94,15 +117,17 @@ class InputSignatureTest {
     @Test
     fun shouldRemoveSignatureWhenResetButtonIsClickedAndHideResetAndEditButton() {
         rule.setContent {
-            var signatureAdded by rememberSaveable { mutableStateOf(true) }
-
+            var currentState by rememberSaveable { mutableStateOf(UploadState.LOADED) }
             InputSignature(
                 title = "Label",
-                signatureAdded = signatureAdded,
+                uploadState = currentState,
+                load = { },
+                onDownloadButtonClick = {},
                 onResetButtonClicked = {
-                    signatureAdded = false
+                    currentState = UploadState.ADD
                 },
-                onUpdateButtonClicked = {},
+                onAddButtonClicked = {
+                },
             )
         }
         rule.onNodeWithTag("INPUT_SIGNATURE").assertExists()
@@ -119,9 +144,13 @@ class InputSignatureTest {
         rule.setContent {
             InputSignature(
                 title = "Label",
-                state = InputShellState.DISABLED,
-                onResetButtonClicked = {},
-                onUpdateButtonClicked = {},
+                uploadState = UploadState.ADD,
+                load = { },
+                onDownloadButtonClick = {},
+                onResetButtonClicked = {
+                },
+                onAddButtonClicked = {
+                },
             )
         }
         rule.onNodeWithTag("INPUT_SIGNATURE").assertExists()
@@ -134,9 +163,14 @@ class InputSignatureTest {
         rule.setContent {
             InputSignature(
                 title = "Label",
+                uploadState = UploadState.ADD,
                 legendData = LegendData(SurfaceColor.CustomGreen, "Legend"),
-                onResetButtonClicked = {},
-                onUpdateButtonClicked = {},
+                load = { },
+                onDownloadButtonClick = {},
+                onResetButtonClicked = {
+                },
+                onAddButtonClicked = {
+                },
             )
         }
         rule.onNodeWithTag("INPUT_SIGNATURE").assertExists()
@@ -149,9 +183,14 @@ class InputSignatureTest {
         rule.setContent {
             InputSignature(
                 title = "Label",
+                uploadState = UploadState.ADD,
                 supportingText = listOf(SupportingTextData("Supporting text", SupportingTextState.DEFAULT)),
-                onResetButtonClicked = {},
-                onUpdateButtonClicked = {},
+                load = { },
+                onDownloadButtonClick = {},
+                onResetButtonClicked = {
+                },
+                onAddButtonClicked = {
+                },
             )
         }
         rule.onNodeWithTag("INPUT_SIGNATURE").assertExists()

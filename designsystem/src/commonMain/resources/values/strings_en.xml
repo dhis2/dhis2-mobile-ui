@@ -26,5 +26,4 @@
     <string name="latitude">Lat</string>
     <string name="longitude">Long</string>
     <string name="add_signature">Add signature</string>
-    <string name="signature_captured">Signature captured</string>
 </resources>

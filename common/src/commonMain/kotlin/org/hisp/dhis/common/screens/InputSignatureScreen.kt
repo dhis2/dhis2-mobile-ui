@@ -5,16 +5,23 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.painter.Painter
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.InputSignature
 import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
 import org.hisp.dhis.mobile.ui.designsystem.component.Title
+import org.hisp.dhis.mobile.ui.designsystem.component.UploadState
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.painterResource
+import java.util.Timer
+import kotlin.concurrent.schedule
 
 @Composable
 fun InputSignatureScreen() {
@@ -22,46 +29,57 @@ fun InputSignatureScreen() {
         Title("Input Signature", textColor = TextColor.OnSurfaceVariant)
 
         SubTitle("Basic Input Signature ", textColor = TextColor.OnSurfaceVariant)
-        var signatureCaptured by rememberSaveable { mutableStateOf(false) }
+        var uploadState by rememberSaveable { mutableStateOf(UploadState.ADD) }
+        val sampleSignature = provideSampleImage()
+
         InputSignature(
             title = "Label",
-            signatureAdded = signatureCaptured,
+            uploadState = uploadState,
+            load = { sampleSignature },
+            painterFor = { remember { it } },
+            onDownloadButtonClick = {},
             onResetButtonClicked = {
-                signatureCaptured = false
+                uploadState = UploadState.ADD
             },
-            onUpdateButtonClicked = {
-                signatureCaptured = true
+            onAddButtonClicked = {
+                uploadState = UploadState.UPLOADING
+                Timer().schedule(1000) {
+                    uploadState = UploadState.LOADED
+                }
             },
         )
         Spacer(Modifier.size(Spacing.Spacing18))
 
         SubTitle("Disabled Input Signature without data ", textColor = TextColor.OnSurfaceVariant)
-        var signatureCaptured1 by rememberSaveable { mutableStateOf(false) }
+        val uploadState1 by rememberSaveable { mutableStateOf(UploadState.ADD) }
         InputSignature(
             title = "Label",
             state = InputShellState.DISABLED,
-            signatureAdded = signatureCaptured1,
-            onResetButtonClicked = {
-                signatureCaptured1 = false
-            },
-            onUpdateButtonClicked = {
-                signatureCaptured1 = true
-            },
+            uploadState = uploadState1,
+            load = { },
+            onDownloadButtonClick = {},
+            onResetButtonClicked = {},
+            onAddButtonClicked = {},
         )
         Spacer(Modifier.size(Spacing.Spacing18))
 
         SubTitle("Disabled Input Signature with data ", textColor = TextColor.OnSurfaceVariant)
-        var signatureCaptured2 by rememberSaveable { mutableStateOf(true) }
+        val uploadState2 by rememberSaveable { mutableStateOf(UploadState.LOADED) }
+        val sampleSignature2 = provideSampleImage()
         InputSignature(
             title = "Label",
             state = InputShellState.DISABLED,
-            signatureAdded = signatureCaptured2,
-            onResetButtonClicked = {
-                signatureCaptured2 = false
-            },
-            onUpdateButtonClicked = {
-                signatureCaptured2 = true
-            },
+            uploadState = uploadState2,
+            load = { sampleSignature2 },
+            painterFor = { it },
+            onDownloadButtonClick = {},
+            onResetButtonClicked = { },
+            onAddButtonClicked = {},
         )
     }
 }
+
+@OptIn(ExperimentalResourceApi::class)
+@Composable
+private fun provideSampleImage(): Painter =
+    painterResource("drawable/sample_signature.jpeg")
