@@ -33,7 +33,8 @@ const val CLEAR_BUTTON_TEST_TAG = "CLEAR_BUTTON"
 const val UPLOAD_BUTTON_TEST_TAG = "UPLOAD_BUTTON"
 const val ADD_BUTTON_TEST_TAG = "ADD_BUTTON"
 const val PROGRESS_INDICATOR_TEST_TAG = "PROGRESS_INDICATOR"
-const val UPLOAD_HELPER_TEST_TAG = "UPLOAD_HELPER"
+const val UPLOAD_TEXT_FILE_NAME_TEST_TAG = "UPLOAD_TEXT_FILE_NAME"
+const val UPLOAD_TEXT_FILE_WEIGHT_TEST_TAG = "UPLOAD_TEXT_FILE_WEIGHT"
 const val SUPPORTING_TEXT_TEST_TAG = "SUPPORTING_TEXT"
 
 @Composable
@@ -158,6 +159,7 @@ fun InputFileResource(
                                 text = it,
                                 style = MaterialTheme.typography.bodyLarge.copy(color = if (inputShellState != InputShellState.DISABLED) TextColor.OnSurface else TextColor.OnDisabledSurface),
                                 maxLines = 1,
+                                modifier = Modifier.testTag(INPUT_FILE_TEST_TAG + UPLOAD_TEXT_FILE_NAME_TEST_TAG),
                             )
                         }
                         fileWeight.value?.let {
@@ -165,6 +167,7 @@ fun InputFileResource(
                                 text = " $it",
                                 style = MaterialTheme.typography.bodyLarge.copy(TextColor.OnDisabledSurface),
                                 maxLines = 1,
+                                modifier = Modifier.testTag(INPUT_FILE_TEST_TAG + UPLOAD_TEXT_FILE_WEIGHT_TEST_TAG),
                             )
                         }
                     }

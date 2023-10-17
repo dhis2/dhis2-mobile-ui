@@ -52,8 +52,10 @@ class InputFileResourceTest {
 
         rule.onNodeWithTag(INPUT_FILE_TEST_TAG + ADD_BUTTON_TEST_TAG).performClick()
         rule.onNodeWithTag(INPUT_FILE_TEST_TAG + UPLOAD_BUTTON_TEST_TAG).assertExists()
-        rule.onNodeWithTag(INPUT_FILE_TEST_TAG + UPLOAD_HELPER_TEST_TAG).assertExists()
-        rule.onNodeWithTag(INPUT_FILE_TEST_TAG + UPLOAD_HELPER_TEST_TAG).assert(hasText(testFileName.value.toString() + " " + testFileWeight.value.toString()))
+        rule.onNodeWithTag(INPUT_FILE_TEST_TAG + UPLOAD_TEXT_FILE_NAME_TEST_TAG).assertExists()
+        rule.onNodeWithTag(INPUT_FILE_TEST_TAG + UPLOAD_TEXT_FILE_WEIGHT_TEST_TAG).assertExists()
+        rule.onNodeWithTag(INPUT_FILE_TEST_TAG + UPLOAD_TEXT_FILE_NAME_TEST_TAG).assert(hasText(testFileName.value.toString()))
+        rule.onNodeWithTag(INPUT_FILE_TEST_TAG + UPLOAD_TEXT_FILE_WEIGHT_TEST_TAG).assert(hasText(" " + testFileWeight.value.toString()))
     }
 
     @Test
@@ -94,12 +96,14 @@ class InputFileResourceTest {
                 onUploadFile = {},
             )
         }
-        rule.onNodeWithTag(INPUT_FILE_TEST_TAG + UPLOAD_HELPER_TEST_TAG).assert(hasText("test.filename.extension 256kb"))
+        rule.onNodeWithTag(INPUT_FILE_TEST_TAG + UPLOAD_TEXT_FILE_NAME_TEST_TAG).assert(hasText("test.filename.extension"))
+        rule.onNodeWithTag(INPUT_FILE_TEST_TAG + UPLOAD_TEXT_FILE_WEIGHT_TEST_TAG).assert(hasText(" 256kb"))
         rule.onNodeWithTag(INPUT_FILE_TEST_TAG + CLEAR_BUTTON_TEST_TAG).performClick()
         newFileName = "test_file"
         newFileWeight = "512gb"
         rule.onNodeWithTag(INPUT_FILE_TEST_TAG + ADD_BUTTON_TEST_TAG).performClick()
-        rule.onNodeWithTag(INPUT_FILE_TEST_TAG + UPLOAD_HELPER_TEST_TAG).assert(hasText("test_file 512gb"))
+        rule.onNodeWithTag(INPUT_FILE_TEST_TAG + UPLOAD_TEXT_FILE_NAME_TEST_TAG).assert(hasText("test_file"))
+        rule.onNodeWithTag(INPUT_FILE_TEST_TAG + UPLOAD_TEXT_FILE_WEIGHT_TEST_TAG).assert(hasText(" 512gb"))
     }
 
     @Test
