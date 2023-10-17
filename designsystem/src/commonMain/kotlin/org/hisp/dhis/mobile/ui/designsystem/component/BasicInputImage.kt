@@ -85,7 +85,7 @@ internal fun <T> BasicInputImage(
                         },
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(end = Spacing.Spacing12)
+                            .padding(end = Spacing.Spacing12, top = Spacing.Spacing8, bottom = Spacing.Spacing8)
                             .testTag("INPUT_" + testTag + "_ADD_BUTTON"),
                     ) {
                         onAddButtonClicked.invoke()
