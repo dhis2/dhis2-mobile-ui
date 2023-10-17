@@ -77,6 +77,7 @@ fun InputCoordinate(
             if (coordinates != null) {
                 FlowRow(
                     horizontalArrangement = Arrangement.spacedBy(Spacing.Spacing16),
+                    modifier = Modifier.padding(end = Spacing.Spacing16),
                 ) {
                     CoordinateText(
                         latitudeText,
@@ -102,7 +103,7 @@ fun InputCoordinate(
                     },
                     Modifier
                         .fillMaxWidth()
-                        .padding(end = Spacing.Spacing12)
+                        .padding(end = Spacing.Spacing12, top = Spacing.Spacing8, bottom = Spacing.Spacing8)
                         .testTag("INPUT_COORDINATE_ADD_BUTTON"),
                 ) {
                     onUpdateButtonClicked.invoke()
