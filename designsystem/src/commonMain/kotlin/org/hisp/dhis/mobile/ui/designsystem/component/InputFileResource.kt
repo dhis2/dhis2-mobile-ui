@@ -11,19 +11,22 @@ import androidx.compose.material.icons.outlined.Cancel
 import androidx.compose.material.icons.outlined.FileDownload
 import androidx.compose.material.icons.outlined.FileUpload
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import org.hisp.dhis.mobile.ui.designsystem.component.UploadFileState.ADD
 import org.hisp.dhis.mobile.ui.designsystem.component.UploadFileState.LOADED
 import org.hisp.dhis.mobile.ui.designsystem.component.UploadFileState.UPLOADING
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-import org.hisp.dhis.mobile.ui.designsystem.theme.textFieldHoverPointerIcon
+import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
 const val INPUT_FILE_TEST_TAG = "INPUT_FILE_RESOURCE_"
 const val CLEAR_BUTTON_TEST_TAG = "CLEAR_BUTTON"
@@ -51,10 +54,9 @@ fun InputFileResource(
         mutableStateOf(uploadFileState)
     }
 
-    val primaryButton: @Composable (() -> Unit)? = if (currentState == LOADED) {
+    val primaryButton: @Composable (() -> Unit)? = if (currentState == LOADED && inputShellState != InputShellState.DISABLED) {
         {
             IconButton(
-                enabled = inputShellState != InputShellState.DISABLED,
                 modifier = Modifier.testTag(INPUT_FILE_TEST_TAG + CLEAR_BUTTON_TEST_TAG),
                 icon = {
                     Icon(
@@ -76,7 +78,6 @@ fun InputFileResource(
         if (currentState == LOADED) {
             {
                 SquareIconButton(
-                    enabled = inputShellState != InputShellState.DISABLED,
                     modifier = Modifier.testTag(INPUT_FILE_TEST_TAG + UPLOAD_BUTTON_TEST_TAG),
                     icon = {
                         Icon(
@@ -108,24 +109,28 @@ fun InputFileResource(
         inputField = {
             when (currentState) {
                 ADD -> {
-                    Button(
-                        enabled = inputShellState != InputShellState.DISABLED,
-                        modifier = Modifier
-                            .testTag(INPUT_FILE_TEST_TAG + ADD_BUTTON_TEST_TAG)
-                            .padding(end = Spacing.Spacing16)
-                            .fillMaxWidth(),
-                        style = ButtonStyle.KEYBOARDKEY,
-                        text = buttonText,
-                        icon = {
-                            Icon(
-                                imageVector = Icons.Outlined.FileUpload,
-                                contentDescription = "Upload Icon Button",
-                            )
+                    ButtonBlock(
+                        primaryButton = {
+                            Button(
+                                enabled = inputShellState != InputShellState.DISABLED,
+                                modifier = Modifier
+                                    .testTag(INPUT_FILE_TEST_TAG + ADD_BUTTON_TEST_TAG)
+                                    .padding(end = Spacing.Spacing16)
+                                    .fillMaxWidth(),
+                                style = ButtonStyle.KEYBOARDKEY,
+                                text = buttonText,
+                                icon = {
+                                    Icon(
+                                        imageVector = Icons.Outlined.FileUpload,
+                                        contentDescription = "Upload Icon Button",
+                                    )
+                                },
+                            ) {
+                                currentState = LOADED
+                                onSelectFile.invoke()
+                            }
                         },
-                    ) {
-                        currentState = LOADED
-                        onSelectFile.invoke()
-                    }
+                    )
                 }
                 UPLOADING -> {
                     Row(
@@ -145,15 +150,23 @@ fun InputFileResource(
                     }
                 }
                 LOADED -> {
-                    fileName.value?.let {
-                        BasicTextField(
-                            enabled = inputShellState != InputShellState.DISABLED,
-                            modifier = Modifier.textFieldHoverPointerIcon(enabled = false).testTag(INPUT_FILE_TEST_TAG + UPLOAD_HELPER_TEST_TAG),
-                            helper = fileWeight.value,
-                            helperStyle = InputStyle.WITH_HELPER_AFTER,
-                            inputText = it,
-                            onInputChanged = { },
-                        )
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        fileName.value?.let {
+                            Text(
+                                text = it,
+                                style = MaterialTheme.typography.bodyLarge.copy(color = if (inputShellState != InputShellState.DISABLED) TextColor.OnSurface else TextColor.OnDisabledSurface),
+                                maxLines = 1,
+                            )
+                        }
+                        fileWeight.value?.let {
+                            Text(
+                                text = " $it",
+                                style = MaterialTheme.typography.bodyLarge.copy(TextColor.OnDisabledSurface),
+                                maxLines = 1,
+                            )
+                        }
                     }
                 }
             }
