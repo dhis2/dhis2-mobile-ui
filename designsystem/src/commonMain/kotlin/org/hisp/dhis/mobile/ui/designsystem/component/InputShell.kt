@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -52,7 +53,7 @@ fun InputShell(
     secondaryButton: @Composable (() -> Unit)? = null,
     inputField: @Composable (() -> Unit)? = null,
     supportingText: @Composable (() -> Unit)? = null,
-    legend: @Composable (() -> Unit)? = null,
+    legend: @Composable (ColumnScope.() -> Unit)? = null,
     onFocusChanged: ((Boolean) -> Unit)? = null,
     isRequiredField: Boolean = false,
     modifier: Modifier = Modifier,
@@ -117,7 +118,7 @@ fun InputShell(
                 thickness = indicatorThickness,
             )
         }
-        legend?.invoke()
+        legend?.invoke(this)
         if (state != InputShellState.DISABLED) supportingText?.invoke()
         if (isRequiredField && state == InputShellState.ERROR && supportingText == null) SupportingText("Required", state = SupportingTextState.ERROR)
     }
