@@ -131,6 +131,7 @@ fun InputFileResource(
                                 onSelectFile.invoke()
                             }
                         },
+                        modifier = Modifier.padding(top = Spacing.Spacing4, bottom = Spacing.Spacing4),
                     )
                 }
                 UPLOADING -> {
@@ -140,7 +141,7 @@ fun InputFileResource(
                     ) {
                         Box(
                             Modifier
-                                .padding(top = Spacing.Spacing8, bottom = Spacing.Spacing8)
+                                .padding(top = Spacing.Spacing4, bottom = Spacing.Spacing4)
                                 .size(Spacing.Spacing48),
                         ) {
                             ProgressIndicator(
@@ -157,7 +158,7 @@ fun InputFileResource(
                         fileName.value?.let {
                             Text(
                                 text = it,
-                                style = MaterialTheme.typography.bodyLarge.copy(color = if (inputShellState != InputShellState.DISABLED) TextColor.OnSurface else TextColor.OnDisabledSurface),
+                                color = if (inputShellState != InputShellState.DISABLED) TextColor.OnSurface else TextColor.OnDisabledSurface,
                                 maxLines = 1,
                                 modifier = Modifier.testTag(INPUT_FILE_TEST_TAG + UPLOAD_TEXT_FILE_NAME_TEST_TAG),
                             )
@@ -165,7 +166,7 @@ fun InputFileResource(
                         fileWeight.value?.let {
                             Text(
                                 text = " $it",
-                                style = MaterialTheme.typography.bodyLarge.copy(TextColor.OnDisabledSurface),
+                                color = TextColor.OnDisabledSurface,
                                 maxLines = 1,
                                 modifier = Modifier.testTag(INPUT_FILE_TEST_TAG + UPLOAD_TEXT_FILE_WEIGHT_TEST_TAG),
                             )
