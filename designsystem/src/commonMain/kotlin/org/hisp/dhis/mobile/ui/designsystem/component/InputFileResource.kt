@@ -140,7 +140,7 @@ fun InputFileResource(
                     ) {
                         Box(
                             Modifier
-                                .padding(top = Spacing.Spacing4, bottom = Spacing.Spacing4)
+                                .padding(top = Spacing.Spacing8, bottom = Spacing.Spacing8)
                                 .size(Spacing.Spacing48),
                         ) {
                             ProgressIndicator(
