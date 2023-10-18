@@ -19,7 +19,8 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 @Composable
 fun InputUnitIntervalScreen() {
     ColumnComponentContainer {
-        Title("Input unit interval component", textColor = TextColor.OnSurfaceVariant)
+        Title("Unit Interval", textColor = TextColor.OnSurfaceVariant)
+        SubTitle("Keyboard: Numbers. Range between 0 and 1", textColor = TextColor.OnSurfaceVariant)
         SubTitle("Basic unit interval ", textColor = TextColor.OnSurfaceVariant)
         var inputValue1 by rememberSaveable { mutableStateOf("0.25") }
 
