@@ -11,7 +11,6 @@ import androidx.compose.material.icons.outlined.Cancel
 import androidx.compose.material.icons.outlined.FileDownload
 import androidx.compose.material.icons.outlined.FileUpload
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -131,7 +130,6 @@ fun InputFileResource(
                                 onSelectFile.invoke()
                             }
                         },
-                        modifier = Modifier.padding(top = Spacing.Spacing4, bottom = Spacing.Spacing4),
                     )
                 }
                 UPLOADING -> {
@@ -141,7 +139,7 @@ fun InputFileResource(
                     ) {
                         Box(
                             Modifier
-                                .padding(top = Spacing.Spacing4, bottom = Spacing.Spacing4)
+                                .padding(top = Spacing.Spacing8, bottom = Spacing.Spacing8)
                                 .size(Spacing.Spacing48),
                         ) {
                             ProgressIndicator(
