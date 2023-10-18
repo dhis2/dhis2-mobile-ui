@@ -17,7 +17,6 @@ fun InputUnitInterval(
     isRequiredField: Boolean = false,
     onNextClicked: (() -> Unit)? = null,
     onValueChanged: ((String?) -> Unit)? = null,
-    onFocusChanged: ((Boolean) -> Unit)? = null,
     imeAction: ImeAction = ImeAction.Next,
     modifier: Modifier = Modifier,
 ) {
@@ -34,6 +33,5 @@ fun InputUnitInterval(
         allowedCharacters = RegExValidations.UNIT_INTERVAL_BETWEEN_0_AND_1.regex,
         modifier = modifier,
         testTag = "UNIT_INTERVAL",
-        onFocusChanged = onFocusChanged,
     )
 }
