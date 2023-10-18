@@ -7,6 +7,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Cancel
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -44,6 +46,7 @@ import java.util.Locale
  * @param modifier allows a modifier to be passed externally
  * @param actionButton controls action button composable, if null will show nothing
  */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun BasicTextInput(
     title: String,
@@ -97,92 +100,98 @@ internal fun BasicTextInput(
             )
         }
     }
-    InputShell(
-        modifier = modifier
-            .testTag("INPUT_$testTag")
-            .focusRequester(focusRequester),
-        isRequiredField = isRequiredField,
-        title = title,
-        primaryButton = deleteButton,
-        secondaryButton = actionButton,
-        state = state,
-        legend = {
-            legendData?.let {
-                Legend(legendData, Modifier.testTag("INPUT_" + testTag + "_LEGEND"))
-            }
-        },
-        supportingText = {
-            supportingText?.forEach { label ->
-                SupportingText(
-                    label.text,
-                    label.state,
-                    modifier = Modifier.testTag("INPUT_" + testTag + "_SUPPORTING_TEXT"),
-                )
-            }
-        },
-        inputField = {
-            BasicTextField(
-                modifier = Modifier.testTag("INPUT_" + testTag + "_FIELD").fillMaxWidth(),
-                inputText = inputValue ?: "",
-                helper = helper,
-                isSingleLine = isSingleLine,
-                helperStyle = helperStyle,
-                onInputChanged = {
-                    if (allowedCharacters != null) {
-                        if (allowedCharacters == RegExValidations.SINGLE_LETTER.regex) {
-                            if (it.uppercase(Locale.getDefault())
-                                    .matches(allowedCharacters) || it.isEmpty()
-                            ) {
-                                onValueChanged?.invoke(it.uppercase(Locale.getDefault()))
-                                deleteButtonIsVisible = it.isNotEmpty()
+
+    ExposedDropdownMenuBox(
+        expanded = expanded ?: false,
+        onExpandedChange = { },
+    ) {
+        InputShell(
+            modifier = modifier
+                .testTag("INPUT_$testTag")
+                .focusRequester(focusRequester)
+                .menuAnchor(),
+            isRequiredField = isRequiredField,
+            title = title,
+            primaryButton = deleteButton,
+            secondaryButton = actionButton,
+            state = state,
+            legend = {
+                legendData?.let {
+                    Legend(legendData, Modifier.testTag("INPUT_" + testTag + "_LEGEND"))
+                }
+            },
+            supportingText = {
+                supportingText?.forEach { label ->
+                    SupportingText(
+                        label.text,
+                        label.state,
+                        modifier = Modifier.testTag("INPUT_" + testTag + "_SUPPORTING_TEXT"),
+                    )
+                }
+            },
+            inputField = {
+                BasicTextField(
+                    modifier = Modifier.testTag("INPUT_" + testTag + "_FIELD").fillMaxWidth(),
+                    inputText = inputValue ?: "",
+                    helper = helper,
+                    isSingleLine = isSingleLine,
+                    helperStyle = helperStyle,
+                    onInputChanged = {
+                        if (allowedCharacters != null) {
+                            if (allowedCharacters == RegExValidations.SINGLE_LETTER.regex) {
+                                if (it.uppercase(Locale.getDefault())
+                                        .matches(allowedCharacters) || it.isEmpty()
+                                ) {
+                                    onValueChanged?.invoke(it.uppercase(Locale.getDefault()))
+                                    deleteButtonIsVisible = it.isNotEmpty()
+                                }
+                            } else {
+                                if (it.matches(allowedCharacters) || it.isEmpty()) {
+                                    onValueChanged?.invoke(it)
+                                    deleteButtonIsVisible = it.isNotEmpty()
+                                }
                             }
                         } else {
-                            if (it.matches(allowedCharacters) || it.isEmpty()) {
-                                onValueChanged?.invoke(it)
-                                deleteButtonIsVisible = it.isNotEmpty()
-                            }
+                            onValueChanged?.invoke(it)
+                            deleteButtonIsVisible = it.isNotEmpty()
                         }
-                    } else {
-                        onValueChanged?.invoke(it)
-                        deleteButtonIsVisible = it.isNotEmpty()
-                    }
-                    expanded = !filteredList.isNullOrEmpty()
-                },
-                enabled = state != InputShellState.DISABLED,
-                state = state,
-                keyboardOptions = keyboardOptions,
-                onNextClicked = {
-                    if (onNextClicked != null) {
-                        onNextClicked.invoke()
-                    } else {
-                        focusManager.moveFocus(FocusDirection.Down)
-                    }
-                },
-            )
-            if (!filteredList.isNullOrEmpty()) {
-                DropdownMenu(
-                    modifier = Modifier,
-                    expanded = expanded ?: false,
-                    onDismissRequest = { expanded = false },
-                    offset = DpOffset(x = -15.dp, y = 12.dp),
-                    properties = PopupProperties(focusable = false, dismissOnBackPress = true, dismissOnClickOutside = true, clippingEnabled = true),
-                ) {
-                    filteredList.forEach {
-                        if (filteredList.indexOf(it) <= 4) {
-                            DropdownMenuItem(
-                                text = { Text(it) },
-                                modifier = Modifier,
-
-                                onClick = {
-                                    onValueChanged?.invoke(it)
-                                    expanded = false
-                                },
-                            )
+                        expanded = !filteredList.isNullOrEmpty()
+                    },
+                    enabled = state != InputShellState.DISABLED,
+                    state = state,
+                    keyboardOptions = keyboardOptions,
+                    onNextClicked = {
+                        if (onNextClicked != null) {
+                            onNextClicked.invoke()
+                        } else {
+                            focusManager.moveFocus(FocusDirection.Down)
+                        }
+                    },
+                )
+                if (!filteredList.isNullOrEmpty()) {
+                    DropdownMenu(
+                        modifier = Modifier.exposedDropdownSize(),
+                        expanded = expanded ?: false,
+                        onDismissRequest = { expanded = false },
+                        offset = DpOffset(x = -16.dp, y = Spacing.Spacing12),
+                        properties = PopupProperties(focusable = false, dismissOnBackPress = true, dismissOnClickOutside = true, clippingEnabled = true),
+                    ) {
+                        filteredList.forEach {
+                            if (filteredList.indexOf(it) <= 4) {
+                                DropdownMenuItem(
+                                    text = { Text(it) },
+                                    modifier = Modifier,
+                                    onClick = {
+                                        onValueChanged?.invoke(it)
+                                        expanded = false
+                                    },
+                                )
+                            }
                         }
                     }
                 }
-            }
-        },
-        onFocusChanged = onFocusChanged,
-    )
+            },
+            onFocusChanged = onFocusChanged,
+        )
+    }
 }
