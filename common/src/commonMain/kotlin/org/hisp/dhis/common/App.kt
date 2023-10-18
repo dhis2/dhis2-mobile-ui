@@ -38,6 +38,7 @@ import org.hisp.dhis.common.screens.ImageBlockScreen
 import org.hisp.dhis.common.screens.InputAgeScreen
 import org.hisp.dhis.common.screens.InputBarCodeScreen
 import org.hisp.dhis.common.screens.InputCheckBoxScreen
+import org.hisp.dhis.common.screens.InputCoordinateScreen
 import org.hisp.dhis.common.screens.InputDateTimeScreen
 import org.hisp.dhis.common.screens.InputDropDownScreen
 import org.hisp.dhis.common.screens.InputEmailScreen
@@ -181,6 +182,7 @@ fun Main() {
             Components.IMAGE_BLOCK -> ImageBlockScreen()
             Components.INPUT_DROPDOWN -> InputDropDownScreen()
             Components.INPUT_DATE_TIME -> InputDateTimeScreen()
+            Components.INPUT_COORDINATE -> InputCoordinateScreen()
         }
     }
 }

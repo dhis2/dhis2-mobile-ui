@@ -22,4 +22,7 @@
     <string name="sync">Sync</string>
     <string name="add_polygon">Add polygon</string>
     <string name="polygon_captured">Polygon captured</string>
+    <string name="add_location">Add location</string>
+    <string name="latitude">Lat</string>
+    <string name="longitude">Long</string>
 </resources>
