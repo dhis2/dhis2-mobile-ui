@@ -5,7 +5,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Cancel
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -17,6 +20,9 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.unit.DpOffset
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.PopupProperties
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.RegExValidations
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import java.util.Locale
@@ -49,6 +55,7 @@ internal fun BasicTextInput(
     onNextClicked: (() -> Unit)? = null,
     onValueChanged: ((String?) -> Unit)? = null,
     onFocusChanged: ((Boolean) -> Unit)? = null,
+    autoCompleteList: List<String>? = null,
     keyboardOptions: KeyboardOptions,
     allowedCharacters: Regex? = null,
     helper: String? = null,
@@ -63,6 +70,8 @@ internal fun BasicTextInput(
     var deleteButtonIsVisible by remember(inputText) { mutableStateOf(!inputText.isNullOrEmpty() && state != InputShellState.DISABLED) }
     val focusManager = LocalFocusManager.current
     val focusRequester = remember { FocusRequester() }
+    val filteredList = autoCompleteList?.filter { it.contains(inputValue ?: "") }
+    var expanded by remember { mutableStateOf(filteredList?.isNotEmpty()) }
 
     var deleteButton:
         @Composable()
@@ -137,6 +146,7 @@ internal fun BasicTextInput(
                         onValueChanged?.invoke(it)
                         deleteButtonIsVisible = it.isNotEmpty()
                     }
+                    expanded = !filteredList.isNullOrEmpty()
                 },
                 enabled = state != InputShellState.DISABLED,
                 state = state,
@@ -149,6 +159,29 @@ internal fun BasicTextInput(
                     }
                 },
             )
+            if (!filteredList.isNullOrEmpty()) {
+                DropdownMenu(
+                    modifier = Modifier,
+                    expanded = expanded ?: false,
+                    onDismissRequest = { expanded = false },
+                    offset = DpOffset(x = -15.dp, y = 12.dp),
+                    properties = PopupProperties(focusable = false, dismissOnBackPress = true, dismissOnClickOutside = true, clippingEnabled = true),
+                ) {
+                    filteredList.forEach {
+                        if (filteredList.indexOf(it) <= 4) {
+                            DropdownMenuItem(
+                                text = { Text(it) },
+                                modifier = Modifier,
+
+                                onClick = {
+                                    onValueChanged?.invoke(it)
+                                    expanded = false
+                                },
+                            )
+                        }
+                    }
+                }
+            }
         },
         onFocusChanged = onFocusChanged,
     )

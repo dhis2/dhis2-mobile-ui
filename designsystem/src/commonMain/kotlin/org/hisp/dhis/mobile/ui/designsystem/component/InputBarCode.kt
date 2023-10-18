@@ -35,6 +35,7 @@ fun InputBarCode(
     legendData: LegendData? = null,
     inputText: String? = null,
     isRequiredField: Boolean = false,
+    autoCompleteList: List<String>? = null,
     onNextClicked: (() -> Unit)? = null,
     onValueChanged: ((String?) -> Unit)? = null,
     onFocusChanged: ((Boolean) -> Unit)? = null,
@@ -68,5 +69,6 @@ fun InputBarCode(
                 onClick = onActionButtonClicked,
             )
         },
+        autoCompleteList = autoCompleteList,
     )
 }

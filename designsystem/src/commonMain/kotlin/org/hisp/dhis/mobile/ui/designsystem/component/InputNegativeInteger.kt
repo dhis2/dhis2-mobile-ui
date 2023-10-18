@@ -21,6 +21,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.internal.RegExValidations
  * @param legendData manages the legendComponent
  * @param inputText manages the value of the text in the input field
  * @param isRequiredField controls whether the field is mandatory or not
+ * @param autoCompleteList List of strings to be used for autocomplete dropdown
  * @param onNextClicked gives access to the imeAction event
  * @param onValueChanged gives access to the onValueChanged event
  * @param onFocusChanged gives access to the onFocusChanged returns true if
@@ -36,6 +37,7 @@ fun InputNegativeInteger(
     legendData: LegendData? = null,
     inputText: String? = null,
     isRequiredField: Boolean = false,
+    autoCompleteList: List<String>? = null,
     onNextClicked: (() -> Unit)? = null,
     onValueChanged: ((String?) -> Unit)? = null,
     onFocusChanged: ((Boolean) -> Unit)? = null,
@@ -63,5 +65,6 @@ fun InputNegativeInteger(
         modifier = modifier,
         testTag = "NEGATIVE_INTEGER",
         onFocusChanged = onFocusChanged,
+        autoCompleteList = autoCompleteList,
     )
 }
