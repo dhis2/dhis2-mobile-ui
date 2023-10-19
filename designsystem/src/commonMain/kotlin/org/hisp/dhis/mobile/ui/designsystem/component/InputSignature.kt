@@ -1,5 +1,7 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Draw
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
@@ -47,6 +49,7 @@ fun <T> InputSignature(
         supportingText = supportingText,
         legendData = legendData,
         addButtonText = addSignatureBtnText,
+        addButtonIcon = Icons.Outlined.Draw,
         uploadState = uploadState,
         downloadButtonVisible = downloadButtonVisible,
         isRequired = isRequired,

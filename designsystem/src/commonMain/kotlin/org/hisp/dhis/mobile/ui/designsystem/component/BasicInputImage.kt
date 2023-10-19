@@ -8,12 +8,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Cancel
-import androidx.compose.material.icons.outlined.Draw
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.testTag
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
@@ -32,6 +32,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
  * we can use loadPainter, loadImageBitmap, loadSvgPainter or loadXmlImageVector
  * @param painterFor is a composable function which controls how to paint the load param,
  * @param addButtonText controls the text to be shown for the add button
+ * @param addButtonIcon controls the icon to be shown for the add button
  * @param modifier allows a modifier to be passed externally
  * @param onDownloadButtonClick callback to when download button is clicked
  * @param onResetButtonClicked callback to when reset button is clicked
@@ -50,6 +51,7 @@ internal fun <T> BasicInputImage(
     painterFor: (@Composable (T) -> Painter)? = null,
     testTag: String = "",
     addButtonText: String,
+    addButtonIcon: ImageVector,
     modifier: Modifier = Modifier,
     onDownloadButtonClick: () -> Unit,
     onResetButtonClicked: () -> Unit,
@@ -83,7 +85,7 @@ internal fun <T> BasicInputImage(
                         text = addButtonText,
                         icon = {
                             Icon(
-                                imageVector = Icons.Outlined.Draw,
+                                imageVector = addButtonIcon,
                                 contentDescription = "Icon Button",
                             )
                         },
