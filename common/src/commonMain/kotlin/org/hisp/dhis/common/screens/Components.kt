@@ -53,4 +53,5 @@ enum class Components(val label: String) {
     INPUT_DATE_TIME("Input Date Time"),
     INPUT_COORDINATE("Input Coordinate"),
     INPUT_SIGNATURE("Input Signature"),
+    INPUT_UNIT_INTERVAL("Input Unit Interval"),
 }
