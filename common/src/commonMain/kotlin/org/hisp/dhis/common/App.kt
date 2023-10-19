@@ -59,6 +59,7 @@ import org.hisp.dhis.common.screens.InputQRCodeScreen
 import org.hisp.dhis.common.screens.InputRadioButtonScreen
 import org.hisp.dhis.common.screens.InputScreen
 import org.hisp.dhis.common.screens.InputSequentialScreen
+import org.hisp.dhis.common.screens.InputSignatureScreen
 import org.hisp.dhis.common.screens.InputTextScreen
 import org.hisp.dhis.common.screens.InputYesNoFieldScreen
 import org.hisp.dhis.common.screens.InputYesOnlyCheckBoxScreen
@@ -183,6 +184,7 @@ fun Main() {
             Components.INPUT_DROPDOWN -> InputDropDownScreen()
             Components.INPUT_DATE_TIME -> InputDateTimeScreen()
             Components.INPUT_COORDINATE -> InputCoordinateScreen()
+            Components.INPUT_SIGNATURE -> InputSignatureScreen()
         }
     }
 }

@@ -89,7 +89,7 @@ fun InputPolygon(
                     },
                     Modifier
                         .fillMaxWidth()
-                        .padding(end = Spacing.Spacing12)
+                        .padding(end = Spacing.Spacing12, top = Spacing.Spacing8, bottom = Spacing.Spacing8)
                         .testTag("INPUT_POLYGON_ADD_BUTTON"),
                 ) {
                     onUpdateButtonClicked.invoke()
