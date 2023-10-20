@@ -110,7 +110,7 @@ class InputOrgUnitTest {
         rule.onNodeWithTag("INPUT_ORG_UNIT").assertExists()
         rule.onNodeWithTag("INPUT_ORG_UNIT_RESET_BUTTON").assertExists()
         rule.onNodeWithTag("INPUT_ORG_UNIT_RESET_BUTTON").performClick()
-        rule.onNodeWithTag("INPUT_DROPDOWN_TEXT").assertTextEquals("")
+        rule.onNodeWithTag("INPUT_ORG_UNIT_TEXT").assertTextEquals("")
         rule.onNodeWithTag("INPUT_ORG_UNIT_RESET_BUTTON").assertDoesNotExist()
     }
 

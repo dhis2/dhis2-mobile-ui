@@ -1,7 +1,9 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -9,20 +11,23 @@ import androidx.compose.material.icons.outlined.ArrowDropDown
 import androidx.compose.material.icons.outlined.Cancel
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
+import org.hisp.dhis.mobile.ui.designsystem.theme.InternalFloatValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
+import org.hisp.dhis.mobile.ui.designsystem.theme.textFieldHoverPointerIcon
 
 /**
  * DHIS2 Input org unit. Wraps DHIS · [BasicTextInput].
@@ -52,8 +57,6 @@ fun InputOrgUnit(
     modifier: Modifier = Modifier,
     onOrgUnitActionCLicked: () -> Unit,
 ) {
-    val inputValue by remember(inputText) { mutableStateOf(inputText) }
-
     var deleteButtonIsVisible by remember(inputText) { mutableStateOf(!inputText.isNullOrEmpty() && state != InputShellState.DISABLED) }
     val focusRequester = remember { FocusRequester() }
 
@@ -73,9 +76,9 @@ fun InputOrgUnit(
                     )
                 },
                 onClick = {
+                    focusRequester.requestFocus()
                     onValueChanged?.invoke("")
                     deleteButtonIsVisible = false
-                    focusRequester.requestFocus()
                 },
                 enabled = state != InputShellState.DISABLED,
             )
@@ -93,8 +96,8 @@ fun InputOrgUnit(
                     )
                 },
                 onClick = {
-                    onOrgUnitActionCLicked.invoke()
                     focusRequester.requestFocus()
+                    onOrgUnitActionCLicked.invoke()
                 },
                 enabled = state != InputShellState.DISABLED,
             )
@@ -118,8 +121,8 @@ fun InputOrgUnit(
                     )
                 },
                 onClick = {
-                    onOrgUnitActionCLicked.invoke()
                     focusRequester.requestFocus()
+                    onOrgUnitActionCLicked.invoke()
                 },
             )
         },
@@ -140,24 +143,40 @@ fun InputOrgUnit(
         },
         inputField = {
             Box {
-                Text(
-                    modifier = Modifier.testTag("INPUT_DROPDOWN_TEXT").fillMaxWidth(),
-                    text = inputValue ?: "",
-                    style = MaterialTheme.typography.bodyLarge.copy(
-                        color = if (state != InputShellState.DISABLED) {
-                            TextColor.OnSurface
-                        } else {
-                            TextColor.OnDisabledSurface
-                        },
-                    ),
+                val enabled = state != InputShellState.DISABLED
+                androidx.compose.foundation.text.BasicTextField(
+
+                    modifier = modifier
+                        .background(
+                            Color.Transparent,
+                        )
+                        .fillMaxWidth()
+                        .textFieldHoverPointerIcon(enabled)
+                        .testTag("INPUT_ORG_UNIT_TEXT"),
+                    value = inputText ?: "",
+                    onValueChange = { onValueChanged?.invoke(it) },
+                    readOnly = true,
+                    enabled = enabled,
+                    textStyle = MaterialTheme.typography.bodyLarge.copy(color = if (enabled) TextColor.OnSurface else TextColor.OnDisabledSurface),
+                    singleLine = true,
+                    decorationBox = { innerTextField ->
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                        ) {
+                            Box(Modifier.weight(InternalFloatValues.One)) {
+                                innerTextField()
+                            }
+                        }
+                    },
+
                 )
                 Box(
                     modifier = Modifier
                         .matchParentSize()
                         .alpha(0f)
                         .clickable(onClick = {
-                            onOrgUnitActionCLicked.invoke()
                             focusRequester.requestFocus()
+                            onOrgUnitActionCLicked.invoke()
                         }),
                 )
             }
