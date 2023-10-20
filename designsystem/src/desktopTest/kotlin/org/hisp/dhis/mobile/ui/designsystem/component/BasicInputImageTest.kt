@@ -1,5 +1,7 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.FileUpload
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -27,6 +29,7 @@ class BasicInputImageTest {
                 uploadState = UploadState.ADD,
                 load = { },
                 addButtonText = "ADD",
+                addButtonIcon = Icons.Outlined.FileUpload,
                 testTag = "IMAGE",
                 onDownloadButtonClick = {},
                 onResetButtonClicked = {
@@ -48,6 +51,7 @@ class BasicInputImageTest {
                 uploadState = UploadState.ADD,
                 load = { },
                 addButtonText = "ADD",
+                addButtonIcon = Icons.Outlined.FileUpload,
                 testTag = "IMAGE",
                 onDownloadButtonClick = {},
                 onResetButtonClicked = {
@@ -69,6 +73,7 @@ class BasicInputImageTest {
                 uploadState = UploadState.ADD,
                 load = { },
                 addButtonText = "ADD",
+                addButtonIcon = Icons.Outlined.FileUpload,
                 testTag = "IMAGE",
                 onDownloadButtonClick = {},
                 onResetButtonClicked = {
@@ -89,6 +94,7 @@ class BasicInputImageTest {
                 uploadState = UploadState.LOADED,
                 load = { },
                 addButtonText = "ADD",
+                addButtonIcon = Icons.Outlined.FileUpload,
                 testTag = "IMAGE",
                 onDownloadButtonClick = {},
                 onResetButtonClicked = {
@@ -110,6 +116,7 @@ class BasicInputImageTest {
                 uploadState = UploadState.ADD,
                 load = { },
                 addButtonText = "ADD",
+                addButtonIcon = Icons.Outlined.FileUpload,
                 testTag = "IMAGE",
                 onDownloadButtonClick = {},
                 onResetButtonClicked = {
@@ -133,6 +140,7 @@ class BasicInputImageTest {
                 uploadState = currentState,
                 load = { },
                 addButtonText = "ADD",
+                addButtonIcon = Icons.Outlined.FileUpload,
                 testTag = "IMAGE",
                 onDownloadButtonClick = {},
                 onResetButtonClicked = {
@@ -159,6 +167,7 @@ class BasicInputImageTest {
                 uploadState = UploadState.ADD,
                 load = { },
                 addButtonText = "ADD",
+                addButtonIcon = Icons.Outlined.FileUpload,
                 testTag = "IMAGE",
                 onDownloadButtonClick = {},
                 onResetButtonClicked = {
@@ -181,6 +190,7 @@ class BasicInputImageTest {
                 legendData = LegendData(SurfaceColor.CustomGreen, "Legend"),
                 load = { },
                 addButtonText = "ADD",
+                addButtonIcon = Icons.Outlined.FileUpload,
                 testTag = "IMAGE",
                 onDownloadButtonClick = {},
                 onResetButtonClicked = {
@@ -203,6 +213,7 @@ class BasicInputImageTest {
                 supportingText = listOf(SupportingTextData("Supporting text", SupportingTextState.DEFAULT)),
                 load = { },
                 addButtonText = "ADD",
+                addButtonIcon = Icons.Outlined.FileUpload,
                 testTag = "IMAGE",
                 onDownloadButtonClick = {},
                 onResetButtonClicked = {

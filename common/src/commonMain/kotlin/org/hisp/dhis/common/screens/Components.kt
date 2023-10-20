@@ -55,4 +55,5 @@ enum class Components(val label: String) {
     INPUT_COORDINATE("Input Coordinate"),
     INPUT_SIGNATURE("Input Signature"),
     INPUT_UNIT_INTERVAL("Input Unit Interval"),
+    INPUT_IMAGE("Input Image"),
 }

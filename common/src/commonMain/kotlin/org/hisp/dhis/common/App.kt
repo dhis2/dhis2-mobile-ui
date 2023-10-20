@@ -43,6 +43,7 @@ import org.hisp.dhis.common.screens.InputDateTimeScreen
 import org.hisp.dhis.common.screens.InputDropDownScreen
 import org.hisp.dhis.common.screens.InputEmailScreen
 import org.hisp.dhis.common.screens.InputFileResourceScreen
+import org.hisp.dhis.common.screens.InputImageScreen
 import org.hisp.dhis.common.screens.InputIntegerScreen
 import org.hisp.dhis.common.screens.InputLetterScreen
 import org.hisp.dhis.common.screens.InputLinkScreen
@@ -189,6 +190,7 @@ fun Main() {
             Components.INPUT_COORDINATE -> InputCoordinateScreen()
             Components.INPUT_SIGNATURE -> InputSignatureScreen()
             Components.INPUT_UNIT_INTERVAL -> InputUnitIntervalScreen()
+            Components.INPUT_IMAGE -> InputImageScreen()
         }
     }
 }
