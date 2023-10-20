@@ -93,6 +93,7 @@ internal fun BasicTextInput(
                     )
                 },
                 onClick = {
+                    focusRequester.requestFocus()
                     onValueChanged?.invoke("")
                     deleteButtonIsVisible = false
                 },
