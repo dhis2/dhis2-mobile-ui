@@ -1,6 +1,5 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
-import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
@@ -9,8 +8,16 @@ import androidx.compose.material.icons.filled.Event
 import androidx.compose.material.icons.outlined.Cancel
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusDirection
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -49,6 +56,7 @@ fun InputAge(
     supportingText: List<SupportingTextData>? = null,
     isRequired: Boolean = false,
     imeAction: ImeAction = ImeAction.Next,
+    onNextClicked: (() -> Unit)? = null,
     dateOfBirthLabel: String = provideStringResource("date_birth"),
     orLabel: String = provideStringResource("or"),
     ageLabel: String = provideStringResource("age"),
@@ -89,8 +97,27 @@ fun InputAge(
         null
     }
 
+    val focusManager = LocalFocusManager.current
+    val focusRequester = remember { FocusRequester() }
+
+    var previousInputType by remember { mutableStateOf(inputType) }
+    LaunchedEffect(inputType) {
+        when {
+            previousInputType == None && (inputType is DateOfBirth || inputType is Age) -> {
+                focusRequester.requestFocus()
+            }
+            else -> {
+                // no-op
+            }
+        }
+
+        if (previousInputType != inputType) {
+            previousInputType = inputType
+        }
+    }
+
     InputShell(
-        modifier = modifier.testTag("INPUT_AGE"),
+        modifier = modifier.testTag("INPUT_AGE").focusRequester(focusRequester),
         title = title,
         state = state,
         isRequiredField = isRequired,
@@ -98,8 +125,7 @@ fun InputAge(
             when (inputType) {
                 None -> {
                     TextButtonSelector(
-                        modifier = Modifier.focusable(true)
-                            .testTag("INPUT_AGE_MODE_SELECTOR"),
+                        modifier = Modifier.testTag("INPUT_AGE_MODE_SELECTOR"),
                         firstOptionText = dateOfBirthLabel,
                         onClickFirstOption = {
                             onValueChanged.invoke(DateOfBirth.EMPTY)
@@ -140,6 +166,13 @@ fun InputAge(
                         enabled = state != InputShellState.DISABLED,
                         state = state,
                         keyboardOptions = KeyboardOptions(imeAction = imeAction, keyboardType = KeyboardType.Number),
+                        onNextClicked = {
+                            if (onNextClicked != null) {
+                                onNextClicked()
+                            } else {
+                                focusManager.moveFocus(FocusDirection.Down)
+                            }
+                        },
                     )
                 }
             }
@@ -155,6 +188,7 @@ fun InputAge(
                         )
                     },
                     onClick = {
+                        focusRequester.requestFocus()
                         onValueChanged.invoke(None)
                     },
                 )
