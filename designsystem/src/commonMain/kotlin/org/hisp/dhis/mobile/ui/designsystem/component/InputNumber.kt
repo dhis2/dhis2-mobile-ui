@@ -18,6 +18,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.internal.RegExValidations
  * @param inputText manages the value of the text in the input field
  * @param modifier allows a modifier to be passed externally
  * @param isRequiredField controls whether the field is mandatory or not
+ * @param autoCompleteList List of strings to be used for autocomplete dropdown
  * @param onNextClicked gives access to the imeAction event
  * @param onValueChanged gives access to the onValueChanged event
  * @param onFocusChanged gives access to the onFocusChanged returns true if
@@ -34,6 +35,8 @@ fun InputNumber(
     legendData: LegendData? = null,
     inputText: String? = null,
     isRequiredField: Boolean = false,
+    autoCompleteList: List<String>? = null,
+    autoCompleteItemSelected: ((String?) -> Unit)? = null,
     onNextClicked: (() -> Unit)? = null,
     onValueChanged: ((String?) -> Unit)? = null,
     onFocusChanged: ((Boolean) -> Unit)? = null,
@@ -55,5 +58,7 @@ fun InputNumber(
         modifier = modifier,
         testTag = "NUMBER",
         onFocusChanged = onFocusChanged,
+        autoCompleteList = autoCompleteList,
+        autoCompleteItemSelected = autoCompleteItemSelected,
     )
 }

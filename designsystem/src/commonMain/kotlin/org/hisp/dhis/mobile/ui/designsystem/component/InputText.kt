@@ -32,12 +32,15 @@ fun InputText(
     onNextClicked: (() -> Unit)? = null,
     onValueChanged: ((String?) -> Unit)? = null,
     onFocusChanged: ((Boolean) -> Unit)? = null,
+    autoCompleteList: List<String>? = null,
+    onAutoCompleteItemSelected: ((String?) -> Unit)? = null,
     imeAction: ImeAction = ImeAction.Next,
     modifier: Modifier = Modifier,
 ) {
     BasicTextInput(
         title = title,
         state = state,
+        autoCompleteList = autoCompleteList,
         supportingText = supportingText,
         legendData = legendData,
         inputText = inputText,
@@ -48,5 +51,6 @@ fun InputText(
         modifier = modifier,
         testTag = "TEXT",
         onFocusChanged = onFocusChanged,
+        autoCompleteItemSelected = onAutoCompleteItemSelected,
     )
 }

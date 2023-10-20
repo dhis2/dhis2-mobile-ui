@@ -22,8 +22,10 @@ fun InputTextScreen() {
         Title("Input text component", textColor = TextColor.OnSurfaceVariant)
         SubTitle(" Basic Input text", textColor = TextColor.OnSurfaceVariant)
         var inputValue1 by rememberSaveable { mutableStateOf("Input") }
+        val autoCompleteList = listOf("red", "yellow", "blue", "orange", "purple", "green")
 
         InputText(
+            autoCompleteList = autoCompleteList,
             title = "Label",
             inputText = inputValue1,
             onValueChanged = {
