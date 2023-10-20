@@ -33,6 +33,7 @@ fun InputText(
     onValueChanged: ((String?) -> Unit)? = null,
     onFocusChanged: ((Boolean) -> Unit)? = null,
     autoCompleteList: List<String>? = null,
+    onAutoCompleteItemSelected: ((String?) -> Unit)? = null,
     imeAction: ImeAction = ImeAction.Next,
     modifier: Modifier = Modifier,
 ) {
@@ -50,5 +51,6 @@ fun InputText(
         modifier = modifier,
         testTag = "TEXT",
         onFocusChanged = onFocusChanged,
+        autoCompleteItemSelected = onAutoCompleteItemSelected,
     )
 }

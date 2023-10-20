@@ -59,6 +59,7 @@ internal fun BasicTextInput(
     onValueChanged: ((String?) -> Unit)? = null,
     onFocusChanged: ((Boolean) -> Unit)? = null,
     autoCompleteList: List<String>? = null,
+    autoCompleteItemSelected: ((String?) -> Unit)? = null,
     keyboardOptions: KeyboardOptions,
     allowedCharacters: Regex? = null,
     helper: String? = null,
@@ -74,7 +75,7 @@ internal fun BasicTextInput(
     val focusManager = LocalFocusManager.current
     val focusRequester = remember { FocusRequester() }
     val filteredList = autoCompleteList?.filter { it.contains(inputValue ?: "") }
-    var expanded by remember { mutableStateOf(filteredList?.isNotEmpty()) }
+    var expanded by remember { mutableStateOf(false) }
 
     var deleteButton:
         @Composable()
@@ -94,7 +95,6 @@ internal fun BasicTextInput(
                 onClick = {
                     onValueChanged?.invoke("")
                     deleteButtonIsVisible = false
-                    focusRequester.requestFocus()
                 },
                 enabled = state != InputShellState.DISABLED,
             )
@@ -102,7 +102,7 @@ internal fun BasicTextInput(
     }
 
     ExposedDropdownMenuBox(
-        expanded = expanded ?: false,
+        expanded = expanded,
         onExpandedChange = { },
     ) {
         InputShell(
@@ -136,26 +136,26 @@ internal fun BasicTextInput(
                     helper = helper,
                     isSingleLine = isSingleLine,
                     helperStyle = helperStyle,
-                    onInputChanged = {
+                    onInputChanged = { newValue ->
                         if (allowedCharacters != null) {
                             if (allowedCharacters == RegExValidations.SINGLE_LETTER.regex) {
-                                if (it.uppercase(Locale.getDefault())
-                                        .matches(allowedCharacters) || it.isEmpty()
+                                if (newValue.uppercase(Locale.getDefault())
+                                        .matches(allowedCharacters) || newValue.isEmpty()
                                 ) {
-                                    onValueChanged?.invoke(it.uppercase(Locale.getDefault()))
-                                    deleteButtonIsVisible = it.isNotEmpty()
+                                    onValueChanged?.invoke(newValue.uppercase(Locale.getDefault()))
+                                    deleteButtonIsVisible = newValue.isNotEmpty()
                                 }
                             } else {
-                                if (it.matches(allowedCharacters) || it.isEmpty()) {
-                                    onValueChanged?.invoke(it)
-                                    deleteButtonIsVisible = it.isNotEmpty()
+                                if (newValue.matches(allowedCharacters) || newValue.isEmpty()) {
+                                    onValueChanged?.invoke(newValue)
+                                    deleteButtonIsVisible = newValue.isNotEmpty()
                                 }
                             }
                         } else {
-                            onValueChanged?.invoke(it)
-                            deleteButtonIsVisible = it.isNotEmpty()
+                            onValueChanged?.invoke(newValue)
+                            deleteButtonIsVisible = newValue.isNotEmpty()
                         }
-                        expanded = !filteredList.isNullOrEmpty()
+                        expanded = (!filteredList.isNullOrEmpty() && filteredList.any { it == newValue })
                     },
                     enabled = state != InputShellState.DISABLED,
                     state = state,
@@ -168,10 +168,10 @@ internal fun BasicTextInput(
                         }
                     },
                 )
-                if (!filteredList.isNullOrEmpty()) {
+                if (expanded && !filteredList.isNullOrEmpty()) {
                     DropdownMenu(
                         modifier = Modifier.exposedDropdownSize(),
-                        expanded = expanded ?: false,
+                        expanded = expanded,
                         onDismissRequest = { expanded = false },
                         offset = DpOffset(x = -16.dp, y = Spacing.Spacing12),
                         properties = PopupProperties(focusable = false, dismissOnBackPress = true, dismissOnClickOutside = true, clippingEnabled = true),
@@ -183,6 +183,7 @@ internal fun BasicTextInput(
                                     modifier = Modifier,
                                     onClick = {
                                         onValueChanged?.invoke(it)
+                                        autoCompleteItemSelected?.invoke(it)
                                         expanded = false
                                     },
                                 )

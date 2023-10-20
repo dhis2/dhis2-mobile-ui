@@ -40,6 +40,7 @@ fun InputPhoneNumber(
     inputText: String? = null,
     isRequiredField: Boolean = false,
     autoCompleteList: List<String>? = null,
+    autoCompleteItemSelected: ((String?) -> Unit)? = null,
     onNextClicked: (() -> Unit)? = null,
     onValueChanged: ((String?) -> Unit)? = null,
     onFocusChanged: ((Boolean) -> Unit) = {},
@@ -84,5 +85,6 @@ fun InputPhoneNumber(
         },
         onFocusChanged = onFocusChanged,
         autoCompleteList = autoCompleteList,
+        autoCompleteItemSelected = autoCompleteItemSelected,
     )
 }

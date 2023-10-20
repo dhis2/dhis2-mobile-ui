@@ -34,6 +34,7 @@ fun InputPositiveIntegerOrZero(
     inputText: String? = null,
     isRequiredField: Boolean = false,
     autoCompleteList: List<String>? = null,
+    autoCompleteItemSelected: ((String?) -> Unit)? = null,
     onNextClicked: (() -> Unit)? = null,
     onValueChanged: ((String?) -> Unit)? = null,
     onFocusChanged: ((Boolean) -> Unit)? = null,
@@ -55,5 +56,6 @@ fun InputPositiveIntegerOrZero(
         testTag = "POSITIVE_INTEGER_OR_ZERO",
         onFocusChanged = onFocusChanged,
         autoCompleteList = autoCompleteList,
+        autoCompleteItemSelected = autoCompleteItemSelected,
     )
 }

@@ -36,6 +36,7 @@ fun InputNumber(
     inputText: String? = null,
     isRequiredField: Boolean = false,
     autoCompleteList: List<String>? = null,
+    autoCompleteItemSelected: ((String?) -> Unit)? = null,
     onNextClicked: (() -> Unit)? = null,
     onValueChanged: ((String?) -> Unit)? = null,
     onFocusChanged: ((Boolean) -> Unit)? = null,
@@ -58,5 +59,6 @@ fun InputNumber(
         testTag = "NUMBER",
         onFocusChanged = onFocusChanged,
         autoCompleteList = autoCompleteList,
+        autoCompleteItemSelected = autoCompleteItemSelected,
     )
 }
