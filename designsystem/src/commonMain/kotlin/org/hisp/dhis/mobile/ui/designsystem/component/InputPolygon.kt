@@ -123,7 +123,7 @@ fun InputPolygon(
                             contentDescription = "edit_polygon",
                         )
                     },
-                    onClick = {},
+                    onClick = onUpdateButtonClicked,
                 )
             }
         } else {
