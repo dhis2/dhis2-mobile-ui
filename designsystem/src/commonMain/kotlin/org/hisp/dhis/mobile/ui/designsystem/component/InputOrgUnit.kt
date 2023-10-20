@@ -151,7 +151,8 @@ fun InputOrgUnit(
                             Color.Transparent,
                         )
                         .fillMaxWidth()
-                        .textFieldHoverPointerIcon(enabled),
+                        .textFieldHoverPointerIcon(enabled)
+                        .testTag("INPUT_ORG_UNIT_TEXT"),
                     value = inputText ?: "",
                     onValueChange = { onValueChanged?.invoke(it) },
                     readOnly = true,
