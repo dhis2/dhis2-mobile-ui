@@ -10,7 +10,12 @@ import androidx.compose.material.icons.filled.Schedule
 import androidx.compose.material.icons.outlined.Cancel
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusDirection
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -44,6 +49,7 @@ fun InputDateTime(
     state: InputShellState = InputShellState.UNFOCUSED,
     legendData: LegendData? = null,
     supportingText: List<SupportingTextData>? = null,
+    onNextClicked: (() -> Unit)? = null,
     isRequired: Boolean = false,
     imeAction: ImeAction = ImeAction.Next,
     visualTransformation: DateTimeVisualTransformation = DateTransformation(),
@@ -51,9 +57,12 @@ fun InputDateTime(
     onValueChanged: (String) -> Unit,
 ) {
     val allowedCharacters = RegExValidations.DATE_TIME.regex
+    val focusManager = LocalFocusManager.current
+    val focusRequester = remember { FocusRequester() }
 
     InputShell(
-        modifier = modifier.testTag("INPUT_DATE_TIME"),
+        modifier = modifier.testTag("INPUT_DATE_TIME")
+            .focusRequester(focusRequester),
         title = title,
         state = state,
         isRequiredField = isRequired,
@@ -78,6 +87,13 @@ fun InputDateTime(
                 state = state,
                 keyboardOptions = KeyboardOptions(imeAction = imeAction, keyboardType = KeyboardType.Number),
                 visualTransformation = visualTransformation,
+                onNextClicked = {
+                    if (onNextClicked != null) {
+                        onNextClicked.invoke()
+                    } else {
+                        focusManager.moveFocus(FocusDirection.Down)
+                    }
+                },
             )
         },
         primaryButton = {
@@ -92,6 +108,7 @@ fun InputDateTime(
                     },
                     onClick = {
                         onValueChanged.invoke("")
+                        focusRequester.requestFocus()
                     },
                 )
             }
