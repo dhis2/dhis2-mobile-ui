@@ -79,6 +79,9 @@ fun InputAge(
         }
     }
 
+    val focusManager = LocalFocusManager.current
+    val focusRequester = remember { FocusRequester() }
+
     val calendarButton: (@Composable () -> Unit)? = if (inputType is DateOfBirth) {
         @Composable {
             SquareIconButton(
@@ -89,16 +92,16 @@ fun InputAge(
                         contentDescription = null,
                     )
                 },
-                onClick = onCalendarActionClicked,
+                onClick = {
+                    focusRequester.requestFocus()
+                    onCalendarActionClicked()
+                },
                 enabled = state != InputShellState.DISABLED,
             )
         }
     } else {
         null
     }
-
-    val focusManager = LocalFocusManager.current
-    val focusRequester = remember { FocusRequester() }
 
     var previousInputType by remember { mutableStateOf(inputType) }
     LaunchedEffect(inputType) {
