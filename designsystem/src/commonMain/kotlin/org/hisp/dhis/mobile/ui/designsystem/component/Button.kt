@@ -180,6 +180,8 @@ fun Button(
                 colors = ButtonDefaults.elevatedButtonColors(
                     disabledContainerColor = Color.Transparent,
                     containerColor = SurfaceColor.Container,
+                    contentColor = SurfaceColor.Primary,
+                    disabledContentColor = TextColor.OnDisabledSurface,
                 ),
 
             ) {
