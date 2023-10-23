@@ -128,7 +128,10 @@ fun InputDateTime(
                         contentDescription = null,
                     )
                 },
-                onClick = onActionClicked,
+                onClick = {
+                    focusRequester.requestFocus()
+                    onActionClicked()
+                },
                 enabled = state != InputShellState.DISABLED,
             )
         },
