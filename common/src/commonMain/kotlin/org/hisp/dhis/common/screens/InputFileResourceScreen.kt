@@ -1,8 +1,6 @@
 package org.hisp.dhis.common.screens
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InputFileResource
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
@@ -14,14 +12,10 @@ fun InputFileResourceScreen() {
     ColumnComponentContainer(
         title = "Input File Component",
     ) {
-        val currentFileName: MutableState<String?> =
-            mutableStateOf("filename.extension")
-        val currentFileWeight: MutableState<String?> =
-            mutableStateOf("524kb")
-        val currentFileName2: MutableState<String?> =
-            mutableStateOf("filename.extension")
-        val currentFileWeight2: MutableState<String?> =
-            mutableStateOf("524kb")
+        var currentFileName = "filename.extension"
+        var currentFileWeight = "524kb"
+        val currentFileName2 = "filename.extension"
+        val currentFileWeight2 = "524kb"
 
         InputFileResource(
             title = "Label",
@@ -29,8 +23,8 @@ fun InputFileResourceScreen() {
             fileName = currentFileName,
             fileWeight = currentFileWeight,
             onSelectFile = {
-                currentFileName.value = "file"
-                currentFileWeight.value = "weight"
+                currentFileName = "file"
+                currentFileWeight = "weight"
             },
             onUploadFile = {},
         )
@@ -60,8 +54,8 @@ fun InputFileResourceScreen() {
             fileWeight = currentFileWeight,
             inputShellState = InputShellState.DISABLED,
             onSelectFile = {
-                currentFileName.value = "file"
-                currentFileWeight.value = "weight"
+                currentFileName = "file"
+                currentFileWeight = "weight"
             },
             onUploadFile = {},
         )
@@ -73,8 +67,8 @@ fun InputFileResourceScreen() {
             inputShellState = InputShellState.DISABLED,
             uploadFileState = UploadFileState.LOADED,
             onSelectFile = {
-                currentFileName.value = "file"
-                currentFileWeight.value = "weight"
+                currentFileName = "file"
+                currentFileWeight = "weight"
             },
             onUploadFile = {},
         )
