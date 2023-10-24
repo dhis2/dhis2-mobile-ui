@@ -61,7 +61,7 @@ fun InfoBar(
                         color = SurfaceColor.Primary,
                         text = infoBarData.actionText,
                         style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.SemiBold),
-                        modifier = Modifier.padding(start = Spacing.Spacing8, end = Spacing.Spacing8, bottom = Spacing.Spacing2),
+                        modifier = Modifier.padding(start = Spacing.Spacing8, end = Spacing.Spacing16, bottom = Spacing.Spacing2),
                     )
                 }
             }

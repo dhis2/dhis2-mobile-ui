@@ -13,7 +13,6 @@ import androidx.compose.material.icons.outlined.FileUpload
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -40,17 +39,19 @@ const val SUPPORTING_TEXT_TEST_TAG = "SUPPORTING_TEXT"
 fun InputFileResource(
     title: String,
     buttonText: String,
-    fileName: MutableState<String?> = mutableStateOf(null),
-    fileWeight: MutableState<String?> = mutableStateOf(null),
+    fileName: String? = null,
+    fileWeight: String? = null,
     onSelectFile: () -> Unit,
     onUploadFile: () -> Unit,
     onClear: () -> Unit = {},
     uploadFileState: UploadFileState = ADD,
     inputShellState: InputShellState = InputShellState.UNFOCUSED,
     supportingText: List<SupportingTextData>? = null,
+    legendData: LegendData? = null,
+    isRequired: Boolean = false,
     modifier: Modifier = Modifier,
 ) {
-    var currentState by remember {
+    var currentState by remember(uploadFileState) {
         mutableStateOf(uploadFileState)
     }
 
@@ -97,7 +98,11 @@ fun InputFileResource(
     InputShell(
         title,
         state = inputShellState,
-        supportingText = {
+        legend = {
+            legendData?.let {
+                Legend(legendData, modifier.testTag("INPUT_FILE_RESOURCE_LEGEND"))
+            }
+        }, supportingText = {
             supportingText?.forEach { label ->
                 SupportingText(
                     label.text,
@@ -153,7 +158,7 @@ fun InputFileResource(
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
-                        fileName.value?.let {
+                        fileName?.let {
                             Text(
                                 text = it,
                                 color = if (inputShellState != InputShellState.DISABLED) TextColor.OnSurface else TextColor.OnDisabledSurface,
@@ -161,7 +166,7 @@ fun InputFileResource(
                                 modifier = Modifier.testTag(INPUT_FILE_TEST_TAG + UPLOAD_TEXT_FILE_NAME_TEST_TAG),
                             )
                         }
-                        fileWeight.value?.let {
+                        fileWeight?.let {
                             Text(
                                 text = " $it",
                                 color = TextColor.OnDisabledSurface,
@@ -175,6 +180,7 @@ fun InputFileResource(
         },
         primaryButton = primaryButton,
         secondaryButton = secondaryButton,
+        isRequiredField = isRequired,
         modifier = modifier,
     )
 }
