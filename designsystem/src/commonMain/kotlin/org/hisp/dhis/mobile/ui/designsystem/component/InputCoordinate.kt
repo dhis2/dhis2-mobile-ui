@@ -13,13 +13,17 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
+import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
 /**
@@ -54,8 +58,11 @@ fun InputCoordinate(
     onResetButtonClicked: () -> Unit,
     onUpdateButtonClicked: () -> Unit,
 ) {
+    val focusRequester = remember { FocusRequester() }
+
     InputShell(
-        modifier = modifier.testTag("INPUT_COORDINATE"),
+        modifier = modifier.testTag("INPUT_COORDINATE")
+            .focusRequester(focusRequester),
         title = title,
         state = state,
         isRequiredField = isRequired,
@@ -99,11 +106,16 @@ fun InputCoordinate(
                         Icon(
                             imageVector = Icons.Outlined.AddLocationAlt,
                             contentDescription = "Add Location Button",
+                            tint = if (state != InputShellState.DISABLED) SurfaceColor.Primary else TextColor.OnDisabledSurface,
                         )
                     },
                     Modifier
                         .fillMaxWidth()
-                        .padding(end = Spacing.Spacing12, top = Spacing.Spacing8, bottom = Spacing.Spacing8)
+                        .padding(
+                            end = Spacing.Spacing12,
+                            top = Spacing.Spacing8,
+                            bottom = Spacing.Spacing8,
+                        )
                         .testTag("INPUT_COORDINATE_ADD_BUTTON"),
                 ) {
                     onUpdateButtonClicked.invoke()
@@ -120,7 +132,10 @@ fun InputCoordinate(
                             contentDescription = "Reset Button",
                         )
                     },
-                    onClick = onResetButtonClicked,
+                    onClick = {
+                        focusRequester.requestFocus()
+                        onResetButtonClicked.invoke()
+                    },
                 )
             }
         } else {
@@ -137,7 +152,10 @@ fun InputCoordinate(
                             contentDescription = "edit_location",
                         )
                     },
-                    onClick = {},
+                    onClick = {
+                        focusRequester.requestFocus()
+                        onUpdateButtonClicked.invoke()
+                    },
                 )
             }
         } else {
