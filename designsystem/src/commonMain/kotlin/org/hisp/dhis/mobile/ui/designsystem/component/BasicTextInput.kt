@@ -156,7 +156,7 @@ internal fun BasicTextInput(
                             onValueChanged?.invoke(newValue)
                             deleteButtonIsVisible = newValue.isNotEmpty()
                         }
-                        expanded = (!filteredList.isNullOrEmpty() && filteredList.any { it == newValue })
+                        expanded = (!filteredList.isNullOrEmpty() && filteredList.any { it == newValue || it.contains(newValue) })
                     },
                     enabled = state != InputShellState.DISABLED,
                     state = state,

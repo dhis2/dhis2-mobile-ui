@@ -174,10 +174,13 @@ fun InputOrgUnit(
                     modifier = Modifier
                         .matchParentSize()
                         .alpha(0f)
-                        .clickable(onClick = {
-                            focusRequester.requestFocus()
-                            onOrgUnitActionCLicked.invoke()
-                        }),
+                        .clickable(
+                            onClick = {
+                                focusRequester.requestFocus()
+                                onOrgUnitActionCLicked.invoke()
+                            },
+                            enabled = enabled,
+                        ),
                 )
             }
         },
