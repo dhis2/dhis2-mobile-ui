@@ -17,6 +17,8 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.testTag
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
+import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
+import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
 /**
  * DHIS2 BasicInputImage. Wraps DHIS · [ImageBlock].
@@ -87,6 +89,7 @@ internal fun <T> BasicInputImage(
                             Icon(
                                 imageVector = addButtonIcon,
                                 contentDescription = "Icon Button",
+                                tint = if (state != InputShellState.DISABLED) SurfaceColor.Primary else TextColor.OnDisabledSurface,
                             )
                         },
                         modifier = Modifier
