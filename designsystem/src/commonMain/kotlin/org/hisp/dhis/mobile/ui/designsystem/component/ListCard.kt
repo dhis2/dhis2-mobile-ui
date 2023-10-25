@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -37,6 +38,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.text.style.TextOverflow
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
@@ -366,15 +368,21 @@ private fun KeyValue(
         modifier = modifier,
     ) {
         if (additionalInfoItem.action != null) {
-            // Consider adding : manually
             val keyColor = AdditionalInfoItemColor.DEFAULT_KEY.color
+
             additionalInfoItem.key?.let {
-                Text(
-                    text = it,
-                    color = keyColor,
-                    style = MaterialTheme.typography.bodyMedium,
-                    modifier = Modifier,
-                )
+                Box(
+                    Modifier.background(color = Color.Transparent).widthIn(Spacing.Spacing0, Spacing.Spacing160),
+                ) {
+                    Text(
+                        text = it,
+                        color = keyColor,
+                        style = MaterialTheme.typography.bodyMedium,
+                        modifier = Modifier,
+                        overflow = TextOverflow.Ellipsis,
+                        maxLines = 2,
+                    )
+                }
             }
             Row(
                 modifier = Modifier
@@ -406,16 +414,22 @@ private fun KeyValue(
             } else {
                 val keyColor = additionalInfoItem.color ?: AdditionalInfoItemColor.DEFAULT_KEY.color
                 additionalInfoItem.key?.let {
-                    Text(
-                        text = it,
-                        color = keyColor,
-                        style = MaterialTheme.typography.bodyMedium,
-                        modifier = Modifier.padding(end = Spacing4),
-                    )
+                    Box(
+                        Modifier.background(color = Color.Transparent).widthIn(Spacing.Spacing0, Spacing.Spacing160),
+                    ) {
+                        Text(
+                            text = it,
+                            color = keyColor,
+                            style = MaterialTheme.typography.bodyMedium,
+                            modifier = Modifier.padding(end = Spacing4),
+                            overflow = TextOverflow.Ellipsis,
+                            maxLines = 2,
+                        )
+                    }
                 }
             }
             val valueColor = additionalInfoItem.color ?: AdditionalInfoItemColor.DEFAULT_VALUE.color
-            ListCardValue(text = additionalInfoItem.value, color = valueColor)
+            ListCardValue(text = additionalInfoItem.value, color = valueColor, Modifier.weight(1f))
         }
     }
 }

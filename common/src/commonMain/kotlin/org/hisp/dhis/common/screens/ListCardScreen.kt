@@ -74,12 +74,7 @@ fun ListCardScreen() {
         )
 
         CardDetail(
-            avatar = {
-                Avatar(
-                    imagePainter = provideDHIS2Icon("dhis2_microscope_outline"),
-                    style = AvatarStyle.IMAGE,
-                )
-            },
+            avatar = null,
             title = "Narayan Khanna, M, 32",
             additionalInfoList = teiDetailList,
             expandLabelText = "Show more",

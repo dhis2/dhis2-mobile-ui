@@ -23,7 +23,7 @@ val enrollmentCompletedList = listOf(
     AdditionalInfoItem(key = "Address:", value = "134 Main Road, Behind the temple, Citytown, Basil District, Granite State"),
     AdditionalInfoItem(key = "Enrolled in:", value = "12/12/1945"),
     AdditionalInfoItem(
-        key = "Programs:",
+        key = lorem,
         value = "Tuberculosis, Nutrition \n" +
             "Assistance Program, Malaria Diagnosis",
     ),
@@ -60,7 +60,7 @@ val teiDetailList = listOf(
     AdditionalInfoItem(key = "Address:", value = "134 Main Road, Behind the temple, Citytown, Basil District, Granite State"),
     AdditionalInfoItem(key = "Enrolled in:", value = "PHC Blueberry"),
     AdditionalInfoItem(
-        key = "Programs:",
+        key = lorem,
         value = "Tuberculosis, Nutrition," +
             "Assistance Program, Malaria Diagnosis",
         action = {},
