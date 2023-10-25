@@ -52,7 +52,7 @@ fun BottomSheetHeader(
 ) {
     val horizontalAlignment = if (icon != null) Alignment.CenterHorizontally else Alignment.Start
     Column(
-        modifier = modifier.padding(horizontal = Spacing24, vertical = Spacing.Spacing0)
+        modifier = modifier.padding(horizontal = Spacing24, vertical = Spacing0)
             .fillMaxWidth(),
         horizontalAlignment = horizontalAlignment,
     ) {
@@ -164,7 +164,7 @@ fun BottomSheetShell(
                 modifier = Modifier
                     .weight(1f, fill = false)
                     .background(SurfaceColor.SurfaceBright, Shape.ExtraLargeTop)
-                    .padding(top = Spacing24, start = Spacing24, end = Spacing24),
+                    .padding(top = Spacing24),
             ) {
                 BottomSheetHeader(
                     title,
@@ -172,18 +172,19 @@ fun BottomSheetShell(
                     description,
                     icon,
                     modifier = Modifier
-                        .padding(horizontal = Spacing24, vertical = Spacing.Spacing0)
+                        .padding(vertical = Spacing0)
                         .align(Alignment.CenterHorizontally),
                 )
                 searchBar?.invoke()
                 Divider(
                     modifier = Modifier.fillMaxWidth()
-                        .padding(top = Spacing24),
+                        .padding(top = Spacing24, start = Spacing24, end = Spacing24),
                     color = TextColor.OnDisabledSurface,
                 )
 
                 Column(
                     modifier = Modifier
+                        .padding(horizontal = Spacing24)
                         .heightIn(Spacing0, InternalSizeValues.Size386)
                         .verticalScroll(contentScrollState),
                     horizontalAlignment = Alignment.CenterHorizontally,
