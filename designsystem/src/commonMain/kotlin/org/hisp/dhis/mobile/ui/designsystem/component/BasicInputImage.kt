@@ -101,7 +101,7 @@ internal fun <T> BasicInputImage(
                             ) {
                                 onAddButtonClicked.invoke()
                             }
-                        }
+                        },
                     )
                 }
 
