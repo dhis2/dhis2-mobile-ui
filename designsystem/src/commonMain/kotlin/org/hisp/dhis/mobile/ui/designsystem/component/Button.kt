@@ -341,7 +341,7 @@ fun ButtonBlock(
     Row(
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically,
-        modifier = modifier.padding(top = Spacing.Spacing8, bottom = Spacing.Spacing8),
+        modifier = modifier,
     ) {
         if (secondaryButton != null) {
             Box(modifier = Modifier.weight(0.5f)) {
