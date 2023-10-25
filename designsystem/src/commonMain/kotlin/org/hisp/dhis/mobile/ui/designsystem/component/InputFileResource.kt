@@ -115,6 +115,7 @@ fun InputFileResource(
             when (currentState) {
                 ADD -> {
                     ButtonBlock(
+                        modifier = Modifier.padding(top = Spacing.Spacing8, bottom = Spacing.Spacing8),
                         primaryButton = {
                             Button(
                                 enabled = inputShellState != InputShellState.DISABLED,

@@ -20,18 +20,27 @@ import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
+import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing0
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing24
-import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing40
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
+import org.hisp.dhis.mobile.ui.designsystem.theme.Color as ThemeColor
 
 @Composable
 fun BottomSheetHeader(
@@ -44,7 +53,7 @@ fun BottomSheetHeader(
 ) {
     val horizontalAlignment = if (icon != null) Alignment.CenterHorizontally else Alignment.Start
     Column(
-        modifier = modifier.padding(horizontal = Spacing24, vertical = Spacing.Spacing0)
+        modifier = modifier.padding(horizontal = Spacing24, vertical = Spacing0)
             .fillMaxWidth(),
         horizontalAlignment = horizontalAlignment,
     ) {
@@ -137,35 +146,48 @@ fun BottomSheetShell(
             }
         },
     ) {
-        Column(
-            modifier = Modifier
-                .background(SurfaceColor.SurfaceBright, Shape.ExtraLargeTop)
-                .padding(top = Spacing24, start = Spacing24, end = Spacing24, bottom = Spacing.Spacing56)
-                .heightIn(Spacing.Spacing0, InternalSizeValues.Size800),
-        ) {
-            BottomSheetHeader(
-                title,
-                subtitle,
-                description,
-                icon,
+        val contentScrollState = rememberScrollState()
+
+        // While the scroll state has `canScrollForward` variable. It's not
+        // working as expected. The max value for the scroll area is fluctuating.
+        // Instead we are getting the initial max value to compare it with
+        // changing value similar to how it's done in `ScrollState`
+        var contentScrollMaxValue by remember { mutableStateOf(0) }
+
+        LaunchedEffect(Unit) {
+            contentScrollMaxValue = contentScrollState.maxValue
+        }
+
+        val canScrollForward by derivedStateOf { contentScrollState.value < (contentScrollMaxValue - Spacing24.value) }
+
+        Column {
+            Column(
                 modifier = Modifier
-                    .padding(horizontal = Spacing24, vertical = Spacing.Spacing0)
-                    .align(Alignment.CenterHorizontally),
-            )
-            searchBar?.invoke()
-            Divider(
-                modifier = Modifier.fillMaxWidth()
+                    .weight(1f, fill = false)
+                    .background(SurfaceColor.SurfaceBright, Shape.ExtraLargeTop)
                     .padding(top = Spacing24),
-                color = TextColor.OnDisabledSurface,
-            )
-            Box(
-                modifier = Modifier.align(Alignment.Start)
-                    .heightIn(Spacing.Spacing0, InternalSizeValues.Size386)
-                    .padding(bottom = Spacing24),
             ) {
+                BottomSheetHeader(
+                    title,
+                    subtitle,
+                    description,
+                    icon,
+                    modifier = Modifier
+                        .padding(vertical = Spacing0)
+                        .align(Alignment.CenterHorizontally),
+                )
+                searchBar?.invoke()
+                Divider(
+                    modifier = Modifier.fillMaxWidth()
+                        .padding(top = Spacing24, start = Spacing24, end = Spacing24),
+                    color = TextColor.OnDisabledSurface,
+                )
+
                 Column(
                     modifier = Modifier
-                        .verticalScroll(rememberScrollState()),
+                        .padding(horizontal = Spacing24)
+                        .heightIn(Spacing0, InternalSizeValues.Size386)
+                        .verticalScroll(contentScrollState),
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
                     content?.let {
@@ -177,8 +199,18 @@ fun BottomSheetShell(
                     }
                 }
             }
+
+            val shadowModifier = if (canScrollForward) {
+                Modifier.shadow(elevation = 32.dp, ambientColor = ThemeColor.Blue900, spotColor = ThemeColor.Blue900)
+            } else {
+                Modifier
+            }
+
             Box(
-                Modifier.heightIn(Spacing40, Spacing.Spacing96),
+                Modifier.fillMaxWidth()
+                    .then(shadowModifier)
+                    .background(SurfaceColor.SurfaceBright)
+                    .padding(Spacing24),
                 contentAlignment = Alignment.BottomCenter,
             ) {
                 buttonBlock?.invoke()
