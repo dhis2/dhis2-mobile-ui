@@ -28,6 +28,7 @@ object Spacing {
     val Spacing416: Dp = 416.dp
     val Spacing112: Dp = 112.dp
     val Spacing120: Dp = 120.dp
+    val Spacing160: Dp = 160.dp
     val Spacing800: Dp = 800.dp
     val Spacing840: Dp = 840.dp
 }
