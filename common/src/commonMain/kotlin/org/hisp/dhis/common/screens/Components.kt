@@ -56,5 +56,6 @@ enum class Components(val label: String) {
     INPUT_SIGNATURE("Input Signature"),
     INPUT_UNIT_INTERVAL("Input Unit Interval"),
     INPUT_IMAGE("Input Image"),
+    SEARCH_BAR("Search bar")
     INPUT_NOT_SUPPORTED("Input Not Supported"),
 }

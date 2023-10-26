@@ -74,6 +74,7 @@ import org.hisp.dhis.common.screens.ListCardScreen
 import org.hisp.dhis.common.screens.MetadataAvatarScreen
 import org.hisp.dhis.common.screens.ProgressScreen
 import org.hisp.dhis.common.screens.RadioButtonScreen
+import org.hisp.dhis.common.screens.SearchBarScreen
 import org.hisp.dhis.common.screens.SectionScreen
 import org.hisp.dhis.common.screens.SupportingTextScreen
 import org.hisp.dhis.common.screens.SwitchScreen
@@ -90,7 +91,7 @@ fun App() {
 
 @Composable
 fun Main() {
-    val currentScreen = remember { mutableStateOf(Components.INPUT_FILE_RESOURCE) }
+    val currentScreen = remember { mutableStateOf(Components.SEARCH_BAR) }
     var expanded by remember { mutableStateOf(false) }
 
     Column(
@@ -192,6 +193,7 @@ fun Main() {
             Components.INPUT_SIGNATURE -> InputSignatureScreen()
             Components.INPUT_UNIT_INTERVAL -> InputUnitIntervalScreen()
             Components.INPUT_IMAGE -> InputImageScreen()
+            Components.SEARCH_BAR -> SearchBarScreen()
             Components.INPUT_NOT_SUPPORTED -> InputNotSupportedScreen()
         }
     }
