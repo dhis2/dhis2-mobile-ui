@@ -81,35 +81,38 @@ internal fun <T> BasicInputImage(
         inputField = {
             when (uploadState) {
                 UploadState.ADD -> {
-                    Button(
-                        enabled = state != InputShellState.DISABLED,
-                        style = ButtonStyle.KEYBOARDKEY,
-                        text = addButtonText,
-                        icon = {
-                            Icon(
-                                imageVector = addButtonIcon,
-                                contentDescription = "Icon Button",
-                                tint = if (state != InputShellState.DISABLED) SurfaceColor.Primary else TextColor.OnDisabledSurface,
-                            )
+                    ButtonBlock(
+                        primaryButton = {
+                            Button(
+                                enabled = state != InputShellState.DISABLED,
+                                style = ButtonStyle.KEYBOARDKEY,
+                                text = addButtonText,
+                                icon = {
+                                    Icon(
+                                        imageVector = addButtonIcon,
+                                        contentDescription = "Icon Button",
+                                        tint = if (state != InputShellState.DISABLED) SurfaceColor.Primary else TextColor.OnDisabledSurface,
+                                    )
+                                },
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(end = Spacing.Spacing16)
+                                    .testTag("INPUT_" + testTag + "_ADD_BUTTON"),
+                            ) {
+                                onAddButtonClicked.invoke()
+                            }
                         },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(end = Spacing.Spacing12, top = Spacing.Spacing8, bottom = Spacing.Spacing8)
-                            .testTag("INPUT_" + testTag + "_ADD_BUTTON"),
-                    ) {
-                        onAddButtonClicked.invoke()
-                    }
+                    )
                 }
 
                 UploadState.UPLOADING -> {
                     Row(
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = Spacing.Spacing4),
+                            .fillMaxWidth(),
                         horizontalArrangement = Arrangement.Center,
                     ) {
                         Box(
-                            modifier = Modifier.size(InternalSizeValues.Size48),
+                            modifier = Modifier.padding(top = Spacing.Spacing8, bottom = Spacing.Spacing8).size(InternalSizeValues.Size48),
                             contentAlignment = Alignment.Center,
                         ) {
                             ProgressIndicator(
