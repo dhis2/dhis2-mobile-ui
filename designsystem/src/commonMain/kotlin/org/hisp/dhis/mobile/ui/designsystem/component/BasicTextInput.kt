@@ -1,6 +1,7 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -26,6 +27,7 @@ import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.PopupProperties
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.RegExValidations
+import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import java.util.Locale
 
@@ -132,7 +134,10 @@ internal fun BasicTextInput(
             },
             inputField = {
                 BasicTextField(
-                    modifier = Modifier.testTag("INPUT_" + testTag + "_FIELD").fillMaxWidth(),
+                    modifier = Modifier
+                        .testTag("INPUT_" + testTag + "_FIELD")
+                        .fillMaxWidth()
+                        .heightIn(Spacing.Spacing0, InternalSizeValues.Size300),
                     inputText = inputValue ?: "",
                     helper = helper,
                     isSingleLine = isSingleLine,
