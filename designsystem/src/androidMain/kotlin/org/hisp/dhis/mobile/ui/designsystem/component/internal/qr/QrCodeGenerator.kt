@@ -9,15 +9,16 @@ import com.google.zxing.EncodeHintType
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.WriterException
 import com.google.zxing.common.BitMatrix
+import com.google.zxing.datamatrix.DataMatrixWriter
 
 internal actual class QrCodeGenerator {
 
-    actual fun generate(data: String): ImageBitmap? {
+    actual fun generate(data: String, isDataMatrix: Boolean): ImageBitmap? {
         return try {
-            val writer = MultiFormatWriter()
+            val writer = if (!isDataMatrix) MultiFormatWriter() else DataMatrixWriter()
             val bitMatrix = writer.encode(
                 data,
-                BarcodeFormat.QR_CODE,
+                if (isDataMatrix) BarcodeFormat.DATA_MATRIX else BarcodeFormat.QR_CODE,
                 QR_CODE_SIZE,
                 QR_CODE_SIZE,
                 mapOf(Pair(EncodeHintType.MARGIN, 1)),
