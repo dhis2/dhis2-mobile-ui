@@ -1,6 +1,7 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -40,6 +41,7 @@ fun <T> ImageBlock(
     painterFor: @Composable (T) -> Painter,
     modifier: Modifier = Modifier,
     downloadButtonVisible: Boolean = true,
+    onImageClick: () -> Unit,
     onClick: () -> Unit,
 ) {
     val image: T? by produceState<T?>(null) {
@@ -65,7 +67,8 @@ fun <T> ImageBlock(
                 modifier = Modifier
                     .fillMaxWidth()
                     .clip(shape = RoundedCornerShape(Radius.S))
-                    .height(160.dp),
+                    .height(160.dp)
+                    .clickable { onImageClick.invoke() },
             )
             if (downloadButtonVisible) {
                 SquareIconButton(

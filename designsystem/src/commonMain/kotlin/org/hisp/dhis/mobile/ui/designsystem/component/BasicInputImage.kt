@@ -56,6 +56,7 @@ internal fun <T> BasicInputImage(
     addButtonIcon: ImageVector,
     modifier: Modifier = Modifier,
     onDownloadButtonClick: () -> Unit,
+    onImageClick: () -> Unit,
     onResetButtonClicked: () -> Unit,
     onAddButtonClicked: () -> Unit,
 ) {
@@ -136,6 +137,7 @@ internal fun <T> BasicInputImage(
                                     Spacing.Spacing0
                                 },
                             ),
+                            onImageClick = onImageClick,
                         )
                     }
                 }

@@ -20,6 +20,7 @@ class ImageBlockTest {
                 load = { provideImage(File("")) },
                 painterFor = { BitmapPainter(it!!) },
                 onClick = {},
+                onImageClick = {},
             )
         }
 
