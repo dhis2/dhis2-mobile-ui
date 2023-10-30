@@ -45,8 +45,9 @@ fun Legend(
     var showBottomSheetShell by rememberSaveable { mutableStateOf(false) }
 
     CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
-        Column(
-            modifier = modifier
+        val hasPopupLegendDescriptionData = legendData.popUpLegendDescriptionData.orEmpty().isNotEmpty()
+        val clickableModifier = if (hasPopupLegendDescriptionData) {
+            Modifier
                 .clickable(
                     onClick = {
                         legendData.popUpLegendDescriptionData?.let {
@@ -54,7 +55,13 @@ fun Legend(
                         }
                     },
                 )
-                .hoverPointerIcon(true),
+                .hoverPointerIcon(true)
+        } else {
+            Modifier
+        }
+
+        Column(
+            modifier = modifier.then(clickableModifier),
         ) {
             Row(
                 modifier = Modifier
