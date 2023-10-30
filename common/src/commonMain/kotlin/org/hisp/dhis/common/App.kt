@@ -50,6 +50,7 @@ import org.hisp.dhis.common.screens.InputLinkScreen
 import org.hisp.dhis.common.screens.InputLongTextScreen
 import org.hisp.dhis.common.screens.InputMatrixScreen
 import org.hisp.dhis.common.screens.InputNegativeIntegerScreen
+import org.hisp.dhis.common.screens.InputNotSupportedScreen
 import org.hisp.dhis.common.screens.InputNumberScreen
 import org.hisp.dhis.common.screens.InputOrgUnitScreen
 import org.hisp.dhis.common.screens.InputPercentageScreen
@@ -191,6 +192,7 @@ fun Main() {
             Components.INPUT_SIGNATURE -> InputSignatureScreen()
             Components.INPUT_UNIT_INTERVAL -> InputUnitIntervalScreen()
             Components.INPUT_IMAGE -> InputImageScreen()
+            Components.INPUT_NOT_SUPPORTED -> InputNotSupportedScreen()
         }
     }
 }
