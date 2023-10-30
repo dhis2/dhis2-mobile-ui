@@ -6,7 +6,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.test.assert
-import androidx.compose.ui.test.assertHasClickAction
+import androidx.compose.ui.test.assertHasNoClickAction
 import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.assertTextEquals
@@ -152,7 +152,7 @@ class InputLinkTest {
         }
         rule.onNodeWithTag("INPUT_LINK").assertExists()
         rule.onNodeWithTag("INPUT_LINK_LEGEND").assertExists()
-        rule.onNodeWithTag("INPUT_LINK_LEGEND").assertHasClickAction()
+        rule.onNodeWithTag("INPUT_LINK_LEGEND").assertHasNoClickAction()
     }
 
     @Test
