@@ -61,7 +61,9 @@ fun Legend(
         }
 
         Column(
-            modifier = modifier.then(clickableModifier),
+            modifier = modifier
+                .then(clickableModifier)
+                .testTag("LEGEND"),
         ) {
             Row(
                 modifier = Modifier
