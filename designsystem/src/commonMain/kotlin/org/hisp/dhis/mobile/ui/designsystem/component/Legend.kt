@@ -76,11 +76,14 @@ fun Legend(
                         .weight(2f, true),
                     style = MaterialTheme.typography.bodyMedium,
                 )
-                Icon(
-                    imageVector = Icons.Outlined.HelpOutline,
-                    contentDescription = "Legend Icon",
-                    modifier = Modifier.size(InternalSizeValues.Size18),
-                )
+
+                if (hasPopupLegendDescriptionData) {
+                    Icon(
+                        imageVector = Icons.Outlined.HelpOutline,
+                        contentDescription = "Legend Icon",
+                        modifier = Modifier.size(InternalSizeValues.Size18),
+                    )
+                }
             }
             Divider(
                 modifier = Modifier
