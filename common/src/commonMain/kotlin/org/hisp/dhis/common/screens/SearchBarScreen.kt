@@ -28,7 +28,7 @@ ColumnComponentContainer {
         Title("Search bar component", textColor = TextColor.OnSurfaceVariant)
         SubTitle("Search bar", textColor = TextColor.OnSurfaceVariant)
 
-        SearchBar()
+        SearchBar(text = "Input")
 
     }
 }
