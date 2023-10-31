@@ -137,7 +137,7 @@ internal fun <T> BasicInputImage(
                             onClick = {
                                 onDownloadButtonClick.invoke()
                                 focusRequester.requestFocus()
-                            } ,
+                            },
                             downloadButtonVisible = downloadButtonVisible,
                             modifier = Modifier.padding(
                                 end = if (state == InputShellState.DISABLED) {
