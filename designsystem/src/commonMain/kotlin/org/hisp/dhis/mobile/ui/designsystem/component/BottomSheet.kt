@@ -38,6 +38,8 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing0
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing24
+import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing56
+import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing8
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.Color as ThemeColor
@@ -193,7 +195,7 @@ fun BottomSheetShell(
                     content?.let {
                         it.invoke()
                         Divider(
-                            modifier = Modifier.fillMaxWidth().padding(top = Spacing.Spacing8),
+                            modifier = Modifier.fillMaxWidth().padding(top = Spacing8),
                             color = TextColor.OnDisabledSurface,
                         )
                     }
@@ -210,10 +212,11 @@ fun BottomSheetShell(
                 Modifier.fillMaxWidth()
                     .then(shadowModifier)
                     .background(SurfaceColor.SurfaceBright)
-                    .padding(Spacing24),
+                    .padding(start = Spacing24, top = Spacing24, end = Spacing24, bottom = Spacing56),
                 contentAlignment = Alignment.BottomCenter,
             ) {
                 buttonBlock?.invoke()
+                Spacer(Modifier.size(Spacing8))
             }
         }
     }
