@@ -7,7 +7,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.test.assert
-import androidx.compose.ui.test.assertHasClickAction
+import androidx.compose.ui.test.assertHasNoClickAction
 import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.hasText
@@ -131,7 +131,7 @@ class InputNumberTest {
         }
         rule.onNodeWithTag("INPUT_NUMBER").assertExists()
         rule.onNodeWithTag("INPUT_NUMBER_LEGEND").assertExists()
-        rule.onNodeWithTag("INPUT_NUMBER_LEGEND").assertHasClickAction()
+        rule.onNodeWithTag("INPUT_NUMBER_LEGEND").assertHasNoClickAction()
     }
 
     @Test

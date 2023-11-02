@@ -5,7 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.test.assertHasClickAction
+import androidx.compose.ui.test.assertHasNoClickAction
 import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.assertTextEquals
@@ -146,7 +146,7 @@ class InputOrgUnitTest {
         }
         rule.onNodeWithTag("INPUT_ORG_UNIT").assertExists()
         rule.onNodeWithTag("INPUT_ORG_UNIT_LEGEND").assertExists()
-        rule.onNodeWithTag("INPUT_ORG_UNIT_LEGEND").assertHasClickAction()
+        rule.onNodeWithTag("INPUT_ORG_UNIT_LEGEND").assertHasNoClickAction()
     }
 
     @Test

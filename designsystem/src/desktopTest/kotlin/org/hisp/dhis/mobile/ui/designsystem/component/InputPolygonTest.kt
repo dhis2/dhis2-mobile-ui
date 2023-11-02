@@ -4,7 +4,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.test.assertHasClickAction
+import androidx.compose.ui.test.assertHasNoClickAction
 import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.junit4.createComposeRule
@@ -141,7 +141,7 @@ class InputPolygonTest {
         }
         rule.onNodeWithTag("INPUT_POLYGON").assertExists()
         rule.onNodeWithTag("INPUT_POLYGON_LEGEND").assertExists()
-        rule.onNodeWithTag("INPUT_POLYGON_LEGEND").assertHasClickAction()
+        rule.onNodeWithTag("INPUT_POLYGON_LEGEND").assertHasNoClickAction()
     }
 
     @Test

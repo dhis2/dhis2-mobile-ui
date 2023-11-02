@@ -6,7 +6,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.test.assertHasClickAction
+import androidx.compose.ui.test.assertHasNoClickAction
 import androidx.compose.ui.test.assertIsNotSelected
 import androidx.compose.ui.test.assertIsSelected
 import androidx.compose.ui.test.junit4.createComposeRule
@@ -227,7 +227,7 @@ class InputRadioButtonTest {
 
         rule.onNodeWithTag("RADIO_BUTTON_INPUT").assertExists()
         rule.onNodeWithTag("RADIO_BUTTON_INPUT_LEGEND").assertExists()
-        rule.onNodeWithTag("RADIO_BUTTON_INPUT_LEGEND").assertHasClickAction()
+        rule.onNodeWithTag("RADIO_BUTTON_INPUT_LEGEND").assertHasNoClickAction()
     }
 
     @Test

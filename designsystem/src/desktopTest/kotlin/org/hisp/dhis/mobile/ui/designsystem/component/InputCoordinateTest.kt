@@ -4,7 +4,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.test.assertHasClickAction
+import androidx.compose.ui.test.assertHasNoClickAction
 import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.junit4.createComposeRule
@@ -143,7 +143,7 @@ class InputCoordinateTest {
         }
         rule.onNodeWithTag("INPUT_COORDINATE").assertExists()
         rule.onNodeWithTag("INPUT_COORDINATE_LEGEND").assertExists()
-        rule.onNodeWithTag("INPUT_COORDINATE_LEGEND").assertHasClickAction()
+        rule.onNodeWithTag("INPUT_COORDINATE_LEGEND").assertHasNoClickAction()
     }
 
     @Test
