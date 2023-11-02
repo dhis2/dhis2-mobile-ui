@@ -51,7 +51,6 @@ import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.Color.Ash600
 import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing0
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing16
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing24
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
@@ -86,7 +85,7 @@ fun Section(
     content: @Composable ColumnScope.() -> Unit,
 ) {
     when (state) {
-        SectionState.NO_HEADER -> SectionContent(spacedBy(Spacing0)) { content() }
+        SectionState.NO_HEADER -> SectionContent(spacedBy(Spacing24)) { content() }
         else -> SectionBlock(
             modifier = modifier,
             isLastSection = isLastSection,
@@ -159,7 +158,7 @@ internal fun SectionBlock(
             enter = expandVertically(expandFrom = Alignment.CenterVertically),
             exit = shrinkVertically(shrinkTowards = Alignment.CenterVertically),
         ) {
-            SectionContent(verticalArrangement = spacedBy(Spacing16)) { content() }
+            SectionContent(verticalArrangement = spacedBy(Spacing24)) { content() }
         }
         if (!isLastSection && sectionState == SectionState.OPEN) {
             NextSectionButton(
