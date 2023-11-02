@@ -39,6 +39,7 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.style.TextOverflow
+import org.hisp.dhis.mobile.ui.designsystem.component.internal.conditional
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
@@ -362,14 +363,18 @@ private fun AdditionalInfoColumn(
 @Composable
 private fun KeyValue(
     additionalInfoItem: AdditionalInfoItem,
+    isDetailCard: Boolean = false,
     modifier: Modifier = Modifier,
 ) {
     Row(
         modifier = modifier,
     ) {
-        if (additionalInfoItem.action != null) {
-            val keyColor = AdditionalInfoItemColor.DEFAULT_KEY.color
+        val keyColor: Color
+        var valueColor: Color
 
+        if (isDetailCard) {
+            keyColor = AdditionalInfoItemColor.DEFAULT_KEY.color
+            valueColor = additionalInfoItem.color ?: AdditionalInfoItemColor.DEFAULT_VALUE.color
             additionalInfoItem.key?.let {
                 Box(
                     Modifier.background(color = Color.Transparent).widthIn(Spacing.Spacing0, Spacing.Spacing160),
@@ -384,10 +389,13 @@ private fun KeyValue(
                     )
                 }
             }
+
             Row(
                 modifier = Modifier
                     .clip(shape = RoundedCornerShape(Radius.XS))
-                    .clickable(onClick = additionalInfoItem.action),
+                    .conditional(additionalInfoItem.action != null, {
+                        clickable(onClick = additionalInfoItem.action ?: {})
+                    }),
             ) {
                 Spacer(Modifier.size(Spacing4))
                 if (additionalInfoItem.icon != null) {
@@ -399,11 +407,13 @@ private fun KeyValue(
                 }
 
                 Spacer(Modifier.size(Spacing4))
-                val valueColor = SurfaceColor.Primary
+                valueColor = if (additionalInfoItem.action != null) SurfaceColor.Primary else valueColor
                 ListCardValue(text = additionalInfoItem.value, color = valueColor)
                 Spacer(Modifier.size(Spacing4))
             }
         } else {
+            keyColor = additionalInfoItem.color ?: AdditionalInfoItemColor.DEFAULT_KEY.color
+            valueColor = additionalInfoItem.color ?: AdditionalInfoItemColor.DEFAULT_VALUE.color
             if (additionalInfoItem.icon != null) {
                 Box(
                     Modifier.background(color = Color.Transparent).size(InternalSizeValues.Size20),
@@ -412,7 +422,6 @@ private fun KeyValue(
                 }
                 Spacer(Modifier.size(Spacing4))
             } else {
-                val keyColor = additionalInfoItem.color ?: AdditionalInfoItemColor.DEFAULT_KEY.color
                 additionalInfoItem.key?.let {
                     Box(
                         Modifier.background(color = Color.Transparent).widthIn(Spacing.Spacing0, Spacing.Spacing160),
@@ -428,7 +437,6 @@ private fun KeyValue(
                     }
                 }
             }
-            val valueColor = additionalInfoItem.color ?: AdditionalInfoItemColor.DEFAULT_VALUE.color
             ListCardValue(text = additionalInfoItem.value, color = valueColor, Modifier.weight(1f))
         }
     }
@@ -445,7 +453,7 @@ private fun KeyValueList(
 ) {
     Column {
         itemList.forEach { item ->
-            KeyValue(item)
+            KeyValue(item, isDetailCard)
             Spacer(Modifier.size(if (isDetailCard) Spacing.Spacing8 else Spacing4))
         }
     }
