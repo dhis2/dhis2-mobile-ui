@@ -40,3 +40,13 @@ internal fun Modifier.iconButton(
         .padding(Spacing.Spacing4)
         .hoverPointerIcon(enabled),
 )
+
+internal inline fun Modifier.conditional(
+    condition: Boolean,
+    ifTrue: Modifier.() -> Modifier,
+    ifFalse: Modifier.() -> Modifier = { this },
+): Modifier = if (condition) {
+    then(ifTrue(Modifier))
+} else {
+    then(ifFalse(Modifier))
+}
