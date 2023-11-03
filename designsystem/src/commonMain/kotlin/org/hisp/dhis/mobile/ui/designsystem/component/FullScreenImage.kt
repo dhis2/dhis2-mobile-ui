@@ -17,6 +17,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -64,6 +65,10 @@ fun FullScreenImage(
         if (isOpened) Color.Black else Color.Transparent
     }
 
+    LaunchedEffect(Unit) {
+        opened = true
+    }
+
     Dialog(
         properties = DialogProperties(
             usePlatformDefaultWidth = false,
@@ -71,7 +76,6 @@ fun FullScreenImage(
         ),
         onDismissRequest = onDismiss,
     ) {
-        opened = true
         Scaffold(
             modifier = modifier,
             containerColor = animatedColor,
