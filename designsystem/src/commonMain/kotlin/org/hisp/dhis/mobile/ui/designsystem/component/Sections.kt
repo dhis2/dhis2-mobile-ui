@@ -320,7 +320,7 @@ internal fun SectionTitle(
     Text(
         modifier = modifier,
         text = title,
-        style = MaterialTheme.typography.titleLarge,
+        style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Medium),
         color = TextColor.OnSurface,
     )
 }
@@ -341,7 +341,7 @@ internal fun CompletionLabel(
         Text(
             modifier = modifier,
             text = "$completedFields/$totalFields",
-            style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Medium),
+            style = MaterialTheme.typography.bodyMedium,
             color = TextColor.OnSurfaceLight,
         )
     }
