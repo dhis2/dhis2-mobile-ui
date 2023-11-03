@@ -43,6 +43,7 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.SemanticsPropertyKey
 import androidx.compose.ui.semantics.SemanticsPropertyReceiver
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.component.SectionSemantics.stateSemantic
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.bottomBorder
@@ -340,7 +341,7 @@ internal fun CompletionLabel(
         Text(
             modifier = modifier,
             text = "$completedFields/$totalFields",
-            style = MaterialTheme.typography.bodyMedium,
+            style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Medium),
             color = TextColor.OnSurfaceLight,
         )
     }
