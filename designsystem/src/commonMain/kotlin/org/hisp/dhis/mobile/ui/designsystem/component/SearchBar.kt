@@ -2,7 +2,6 @@ package org.hisp.dhis.mobile.ui.designsystem.component
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
-import androidx.compose.foundation.layout.Box
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Cancel
 import androidx.compose.material.icons.outlined.Search
@@ -34,65 +33,63 @@ fun SearchBar(
     modifier: Modifier = Modifier,
 ) {
     var text by rememberSaveable { mutableStateOf(text) }
-    var interactionSource = remember { MutableInteractionSource() }
+    val interactionSource = remember { MutableInteractionSource() }
     val isPressed by interactionSource.collectIsPressedAsState()
 
-    Box {
-        SearchBar(
-            modifier = modifier,
-            query = text,
-            onQueryChange = {
-                text = it
-                onQueryChange.invoke(it)
-            },
-            onSearch = {
-                onSearch(it)
-            },
-            active = false,
-            onActiveChange = {
-                onActiveChange.invoke()
-            },
-            colors = if (!isPressed) {
-                SearchBarDefaults.colors(containerColor = SurfaceColor.ContainerLow)
-            } else {
-                SearchBarDefaults.colors(containerColor = SurfaceColor.Container)
-            },
-            placeholder = {
-                Text(
-                    text = placeHolderText,
-                    color = TextColor.OnDisabledSurface,
+    SearchBar(
+        modifier = modifier.testTag("SEARCH_INPUT"),
+        query = text,
+        onQueryChange = {
+            text = it
+            onQueryChange.invoke(it)
+        },
+        onSearch = {
+            onSearch(it)
+        },
+        active = false,
+        onActiveChange = {
+            onActiveChange.invoke()
+        },
+        colors = if (!isPressed) {
+            SearchBarDefaults.colors(containerColor = SurfaceColor.ContainerLow)
+        } else {
+            SearchBarDefaults.colors(containerColor = SurfaceColor.Container)
+        },
+        placeholder = {
+            Text(
+                text = placeHolderText,
+                color = TextColor.OnDisabledSurface,
+            )
+        },
+        trailingIcon = {
+            if (text != "") {
+                IconButton(
+                    modifier = Modifier.testTag("CANCEL_BUTTON"),
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Outlined.Cancel,
+                            contentDescription = "cancel button",
+                        )
+                    },
+                    onClick = {
+                        text = ""
+                        onClear.invoke()
+                    },
                 )
-            },
-            trailingIcon = {
-                if (text != "") {
-                    IconButton(
-                        modifier = Modifier.testTag(INPUT_FILE_TEST_TAG + CLEAR_BUTTON_TEST_TAG),
-                        icon = {
-                            Icon(
-                                imageVector = Icons.Outlined.Cancel,
-                                contentDescription = "cancel button",
-                            )
-                        },
-                        onClick = {
-                            text = ""
-                            onClear.invoke()
-                        },
-                    )
-                } else {
-                    IconButton(
-                        modifier = Modifier.testTag(INPUT_FILE_TEST_TAG + CLEAR_BUTTON_TEST_TAG),
-                        icon = {
-                            Icon(
-                                imageVector = Icons.Outlined.Search,
-                                contentDescription = "search button",
-                            )
-                        },
-                        onClick = {},
-                    )
-                }
-            },
-            interactionSource = interactionSource,
-            content = {},
-        )
-    }
+            } else {
+                IconButton(
+                    modifier = Modifier.testTag("SEARCH_BUTTON"),
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Outlined.Search,
+                            contentDescription = "search button",
+                        )
+                    },
+                    onClick = {},
+                )
+            }
+        },
+        interactionSource = interactionSource,
+        content = {},
+    )
 }
