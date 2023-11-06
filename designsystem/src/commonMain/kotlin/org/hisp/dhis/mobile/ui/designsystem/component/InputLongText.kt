@@ -1,12 +1,9 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
-import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
-import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
 /**
  * DHIS2 Input Long Text. Wraps DHIS · [BasicTextInput].
@@ -52,7 +49,7 @@ fun InputLongText(
         onValueChanged = onValueChanged,
         keyboardOptions = KeyboardOptions(imeAction = imeAction),
         isSingleLine = false,
-        modifier = modifier.heightIn(Spacing.Spacing0, InternalSizeValues.Size300),
+        modifier = modifier,
         testTag = "LONG_TEXT",
         onFocusChanged = onFocusChanged,
         autoCompleteList = autoCompleteList,

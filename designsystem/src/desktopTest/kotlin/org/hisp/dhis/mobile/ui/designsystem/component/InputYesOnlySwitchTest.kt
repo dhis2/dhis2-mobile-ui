@@ -6,7 +6,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.test.assertHasClickAction
+import androidx.compose.ui.test.assertHasNoClickAction
 import androidx.compose.ui.test.assertIsFocused
 import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.junit4.createComposeRule
@@ -102,7 +102,7 @@ class InputYesOnlySwitchTest {
 
         rule.onNodeWithTag("INPUT_YES_ONLY_SWITCH").assertExists()
         rule.onNodeWithTag("INPUT_YES_ONLY_SWITCH_LEGEND").assertExists()
-        rule.onNodeWithTag("INPUT_YES_ONLY_SWITCH_LEGEND").assertHasClickAction()
+        rule.onNodeWithTag("INPUT_YES_ONLY_SWITCH_LEGEND").assertHasNoClickAction()
     }
 
     @Test

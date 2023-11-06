@@ -9,19 +9,19 @@ import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.ImageBitmap
 
 @Composable
-internal fun rememberQrCodeGenerator(value: String): State<ImageBitmap?> {
+internal fun rememberQrCodeGenerator(value: String, isDataMatrix: Boolean): State<ImageBitmap?> {
     val qrCodeGenerator = LocalQrCodeGenerator.current
     val result = remember(value) { mutableStateOf<ImageBitmap?>(null) }
 
     LaunchedEffect(value) {
-        result.value = qrCodeGenerator.generate(value)
+        result.value = qrCodeGenerator.generate(value, isDataMatrix)
     }
 
     return result
 }
 
 internal expect class QrCodeGenerator() {
-    fun generate(data: String): ImageBitmap?
+    fun generate(data: String, isDataMatrix: Boolean): ImageBitmap?
 }
 
 internal const val QR_CODE_SIZE = 512 // px

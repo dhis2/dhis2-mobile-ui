@@ -1,6 +1,8 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -26,7 +28,9 @@ import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.PopupProperties
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.RegExValidations
+import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
+import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import java.util.Locale
 
 /**
@@ -132,7 +136,10 @@ internal fun BasicTextInput(
             },
             inputField = {
                 BasicTextField(
-                    modifier = Modifier.testTag("INPUT_" + testTag + "_FIELD").fillMaxWidth(),
+                    modifier = Modifier
+                        .testTag("INPUT_" + testTag + "_FIELD")
+                        .fillMaxWidth()
+                        .heightIn(Spacing.Spacing0, InternalSizeValues.Size300),
                     inputText = inputValue ?: "",
                     helper = helper,
                     isSingleLine = isSingleLine,
@@ -171,7 +178,7 @@ internal fun BasicTextInput(
                 )
                 if (expanded && !filteredList.isNullOrEmpty()) {
                     DropdownMenu(
-                        modifier = Modifier.exposedDropdownSize(),
+                        modifier = Modifier.exposedDropdownSize().background(SurfaceColor.SurfaceBright),
                         expanded = expanded,
                         onDismissRequest = { expanded = false },
                         offset = DpOffset(x = -16.dp, y = Spacing.Spacing12),

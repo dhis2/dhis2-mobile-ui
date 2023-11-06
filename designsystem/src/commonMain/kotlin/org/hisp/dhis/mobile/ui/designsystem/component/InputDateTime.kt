@@ -140,6 +140,7 @@ fun InputDateTime(
                 SupportingText(
                     label.text,
                     label.state,
+                    modifier = Modifier.testTag("INPUT_DATE_TIME_SUPPORTING_TEXT"),
                 )
             }
         },

@@ -31,6 +31,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 fun QrCodeBlock(
     data: String,
     modifier: Modifier = Modifier,
+    isDataMatrix: Boolean = false,
     qrCodeSize: Dp = 240.dp,
 ) {
     if (data.isNotBlank()) {
@@ -40,7 +41,7 @@ fun QrCodeBlock(
                 .testTag("QR_CODE_BLOCK_CONTAINER"),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            val qrCode by rememberQrCodeGenerator(data)
+            val qrCode by rememberQrCodeGenerator(data, isDataMatrix)
 
             Box(Modifier.size(qrCodeSize)) {
                 qrCode?.let { bitmap ->

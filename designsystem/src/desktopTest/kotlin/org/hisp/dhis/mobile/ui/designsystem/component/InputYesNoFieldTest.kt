@@ -6,7 +6,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.test.assertHasClickAction
+import androidx.compose.ui.test.assertHasNoClickAction
 import androidx.compose.ui.test.assertIsNotSelected
 import androidx.compose.ui.test.assertIsSelected
 import androidx.compose.ui.test.junit4.createComposeRule
@@ -175,7 +175,7 @@ class InputYesNoFieldTest {
 
         rule.onNodeWithTag("INPUT_YES_NO_FIELD").assertExists()
         rule.onNodeWithTag("INPUT_YES_NO_FIELD_LEGEND").assertExists()
-        rule.onNodeWithTag("INPUT_YES_NO_FIELD_LEGEND").assertHasClickAction()
+        rule.onNodeWithTag("INPUT_YES_NO_FIELD_LEGEND").assertHasNoClickAction()
     }
 
     @Test

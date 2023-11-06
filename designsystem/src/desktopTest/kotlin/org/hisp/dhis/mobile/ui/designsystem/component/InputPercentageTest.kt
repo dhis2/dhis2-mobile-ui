@@ -5,7 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.test.assert
-import androidx.compose.ui.test.assertHasClickAction
+import androidx.compose.ui.test.assertHasNoClickAction
 import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.hasText
@@ -122,7 +122,7 @@ class InputPercentageTest {
         }
         rule.onNodeWithTag("INPUT_PERCENTAGE").assertExists()
         rule.onNodeWithTag("INPUT_PERCENTAGE_LEGEND").assertExists()
-        rule.onNodeWithTag("INPUT_PERCENTAGE_LEGEND").assertHasClickAction()
+        rule.onNodeWithTag("INPUT_PERCENTAGE_LEGEND").assertHasNoClickAction()
     }
 
     @Test

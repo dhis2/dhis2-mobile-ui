@@ -7,7 +7,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.test.assert
-import androidx.compose.ui.test.assertHasClickAction
+import androidx.compose.ui.test.assertHasNoClickAction
 import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.assertIsFocused
 import androidx.compose.ui.test.assertIsNotEnabled
@@ -102,7 +102,7 @@ class InputYesOnlyCheckBoxTest {
         }
         rule.onNodeWithTag("INPUT_YES_ONLY_CHECKBOX").assertExists()
         rule.onNodeWithTag("INPUT_YES_ONLY_CHECKBOX_LEGEND").assertExists()
-        rule.onNodeWithTag("INPUT_YES_ONLY_CHECKBOX_LEGEND").assertHasClickAction()
+        rule.onNodeWithTag("INPUT_YES_ONLY_CHECKBOX_LEGEND").assertHasNoClickAction()
     }
 
     @Test

@@ -14,6 +14,7 @@ fun ImageBlockScreen() {
         load = { sampleImage },
         painterFor = { remember { it } },
         onClick = {},
+        onImageClick = {},
     )
 }
 

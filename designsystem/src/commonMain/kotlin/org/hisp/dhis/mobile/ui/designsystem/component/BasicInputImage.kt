@@ -10,8 +10,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Cancel
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.testTag
@@ -56,11 +59,14 @@ internal fun <T> BasicInputImage(
     addButtonIcon: ImageVector,
     modifier: Modifier = Modifier,
     onDownloadButtonClick: () -> Unit,
+    onImageClick: () -> Unit,
     onResetButtonClicked: () -> Unit,
     onAddButtonClicked: () -> Unit,
 ) {
+    val focusRequester = remember { FocusRequester() }
+
     InputShell(
-        modifier = modifier.testTag("INPUT_$testTag"),
+        modifier = modifier.testTag("INPUT_$testTag").focusRequester(focusRequester),
         title = title,
         state = state,
         isRequiredField = isRequired,
@@ -81,35 +87,39 @@ internal fun <T> BasicInputImage(
         inputField = {
             when (uploadState) {
                 UploadState.ADD -> {
-                    Button(
-                        enabled = state != InputShellState.DISABLED,
-                        style = ButtonStyle.KEYBOARDKEY,
-                        text = addButtonText,
-                        icon = {
-                            Icon(
-                                imageVector = addButtonIcon,
-                                contentDescription = "Icon Button",
-                                tint = if (state != InputShellState.DISABLED) SurfaceColor.Primary else TextColor.OnDisabledSurface,
-                            )
+                    ButtonBlock(
+                        primaryButton = {
+                            Button(
+                                enabled = state != InputShellState.DISABLED,
+                                style = ButtonStyle.KEYBOARDKEY,
+                                text = addButtonText,
+                                icon = {
+                                    Icon(
+                                        imageVector = addButtonIcon,
+                                        contentDescription = "Icon Button",
+                                        tint = if (state != InputShellState.DISABLED) SurfaceColor.Primary else TextColor.OnDisabledSurface,
+                                    )
+                                },
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(end = Spacing.Spacing16)
+                                    .testTag("INPUT_" + testTag + "_ADD_BUTTON"),
+                            ) {
+                                onAddButtonClicked.invoke()
+                                focusRequester.requestFocus()
+                            }
                         },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(end = Spacing.Spacing12, top = Spacing.Spacing8, bottom = Spacing.Spacing8)
-                            .testTag("INPUT_" + testTag + "_ADD_BUTTON"),
-                    ) {
-                        onAddButtonClicked.invoke()
-                    }
+                    )
                 }
 
                 UploadState.UPLOADING -> {
                     Row(
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = Spacing.Spacing4),
+                            .fillMaxWidth(),
                         horizontalArrangement = Arrangement.Center,
                     ) {
                         Box(
-                            modifier = Modifier.size(InternalSizeValues.Size48),
+                            modifier = Modifier.padding(top = Spacing.Spacing8, bottom = Spacing.Spacing8).size(InternalSizeValues.Size48),
                             contentAlignment = Alignment.Center,
                         ) {
                             ProgressIndicator(
@@ -124,7 +134,10 @@ internal fun <T> BasicInputImage(
                         ImageBlock(
                             load = load,
                             painterFor = painterFor,
-                            onClick = onDownloadButtonClick,
+                            onClick = {
+                                onDownloadButtonClick.invoke()
+                                focusRequester.requestFocus()
+                            },
                             downloadButtonVisible = downloadButtonVisible,
                             modifier = Modifier.padding(
                                 end = if (state == InputShellState.DISABLED) {
@@ -133,6 +146,10 @@ internal fun <T> BasicInputImage(
                                     Spacing.Spacing0
                                 },
                             ),
+                            onImageClick = {
+                                onImageClick.invoke()
+                                focusRequester.requestFocus()
+                            },
                         )
                     }
                 }

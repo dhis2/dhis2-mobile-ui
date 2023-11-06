@@ -47,6 +47,7 @@ fun InputImageScreen() {
                     uploadState = UploadState.LOADED
                 }
             },
+            onImageClick = {},
         )
         Spacer(Modifier.size(Spacing.Spacing18))
 
@@ -60,6 +61,7 @@ fun InputImageScreen() {
             onDownloadButtonClick = {},
             onResetButtonClicked = {},
             onAddButtonClicked = {},
+            onImageClick = {},
         )
         Spacer(Modifier.size(Spacing.Spacing18))
 
@@ -75,6 +77,7 @@ fun InputImageScreen() {
             onDownloadButtonClick = {},
             onResetButtonClicked = { },
             onAddButtonClicked = {},
+            onImageClick = {},
         )
     }
 }

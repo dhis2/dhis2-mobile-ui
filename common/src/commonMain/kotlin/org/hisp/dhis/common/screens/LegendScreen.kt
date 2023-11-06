@@ -7,6 +7,7 @@ import androidx.compose.ui.Modifier
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.Legend
 import org.hisp.dhis.mobile.ui.designsystem.component.LegendData
+import org.hisp.dhis.mobile.ui.designsystem.component.LegendDescriptionData
 import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
@@ -31,6 +32,26 @@ fun LegendScreen() {
                     " consectetur adipiscing elit. Maecenas dolor lacus," +
                     " aliquam. Lorem ipsum dolor sit amet," +
                     " consectetur adipiscing elit. Maecenas dolor lacus,",
+            ),
+        )
+
+        SubTitle("Legend with popup description")
+        Legend(
+            LegendData(
+                color = SurfaceColor.CustomGreen,
+                title = "Legend with popup",
+                popUpLegendDescriptionData = listOf(
+                    LegendDescriptionData(
+                        color = SurfaceColor.CustomGreen,
+                        text = "Item 1",
+                        range = 0..300,
+                    ),
+                    LegendDescriptionData(
+                        color = SurfaceColor.CustomGreen,
+                        text = "Item 2",
+                        range = 301..600,
+                    ),
+                ),
             ),
         )
     }

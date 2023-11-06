@@ -5,7 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.test.assert
-import androidx.compose.ui.test.assertHasClickAction
+import androidx.compose.ui.test.assertHasNoClickAction
 import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createComposeRule
@@ -121,7 +121,7 @@ class InputNegativeIntegerTest {
         }
         rule.onNodeWithTag("INPUT_NEGATIVE_INTEGER").assertExists()
         rule.onNodeWithTag("INPUT_NEGATIVE_INTEGER_LEGEND").assertExists()
-        rule.onNodeWithTag("INPUT_NEGATIVE_INTEGER_LEGEND").assertHasClickAction()
+        rule.onNodeWithTag("INPUT_NEGATIVE_INTEGER_LEGEND").assertHasNoClickAction()
     }
 
     @Test
