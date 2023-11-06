@@ -144,7 +144,7 @@ fun BasicTextField(
                 .textFieldHoverPointerIcon(enabled),
             value = TextFieldValue(
                 text = inputText,
-                selection = textFieldSelection
+                selection = textFieldSelection,
             ),
             onValueChange = {
                 textFieldSelection = it.selection
