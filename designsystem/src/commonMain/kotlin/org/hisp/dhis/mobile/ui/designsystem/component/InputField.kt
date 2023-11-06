@@ -17,6 +17,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -26,7 +27,9 @@ import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.DateTransformation
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.PrefixTransformation
@@ -125,6 +128,11 @@ fun BasicTextField(
         handleColor = cursorColor,
         backgroundColor = Blue300,
     )
+
+    var textFieldSelection by remember {
+        mutableStateOf(TextRange(if (inputText.isEmpty()) 0 else inputText.length))
+    }
+
     CompositionLocalProvider(LocalTextSelectionColors provides customTextSelectionColors) {
         BasicTextField(
 
@@ -134,8 +142,14 @@ fun BasicTextField(
                 )
                 .fillMaxWidth()
                 .textFieldHoverPointerIcon(enabled),
-            value = inputText,
-            onValueChange = onInputChanged,
+            value = TextFieldValue(
+                text = inputText,
+                selection = textFieldSelection
+            ),
+            onValueChange = {
+                textFieldSelection = it.selection
+                onInputChanged.invoke(it.text)
+            },
             enabled = enabled,
             textStyle = MaterialTheme.typography.bodyLarge.copy(color = if (enabled) TextColor.OnSurface else TextColor.OnDisabledSurface),
             singleLine = isSingleLine,
