@@ -39,7 +39,7 @@ fun Chip(
         CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
             FilterChip(
                 onClick = { onSelected?.invoke(!selected) },
-                label = { Text(label, color = TextColor.OnSurfaceLight) },
+                label = { Text(label, color = TextColor.OnSurfaceVariant) },
                 selected = selected,
                 colors = FilterChipDefaults.filterChipColors(
                     containerColor = SurfaceColor.SurfaceBright,
