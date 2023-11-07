@@ -13,12 +13,11 @@ import androidx.compose.material.icons.outlined.FileUpload
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.testTag
 import org.hisp.dhis.mobile.ui.designsystem.component.UploadFileState.ADD
 import org.hisp.dhis.mobile.ui.designsystem.component.UploadFileState.LOADED
@@ -51,11 +50,9 @@ fun InputFileResource(
     isRequired: Boolean = false,
     modifier: Modifier = Modifier,
 ) {
-    var currentState by remember(uploadFileState) {
-        mutableStateOf(uploadFileState)
-    }
+    val focusRequester = remember { FocusRequester() }
 
-    val primaryButton: @Composable (() -> Unit)? = if (currentState == LOADED && inputShellState != InputShellState.DISABLED) {
+    val primaryButton: @Composable (() -> Unit)? = if (uploadFileState == LOADED && inputShellState != InputShellState.DISABLED) {
         {
             IconButton(
                 modifier = Modifier.testTag(INPUT_FILE_TEST_TAG + CLEAR_BUTTON_TEST_TAG),
@@ -66,7 +63,6 @@ fun InputFileResource(
                     )
                 },
                 onClick = {
-                    currentState = ADD
                     onClear.invoke()
                 },
             )
@@ -76,7 +72,7 @@ fun InputFileResource(
     }
 
     val secondaryButton: @Composable (() -> Unit)? =
-        if (currentState == LOADED) {
+        if (uploadFileState == LOADED) {
             {
                 SquareIconButton(
                     modifier = Modifier.testTag(INPUT_FILE_TEST_TAG + UPLOAD_BUTTON_TEST_TAG),
@@ -87,7 +83,7 @@ fun InputFileResource(
                         )
                     },
                 ) {
-                    currentState = UPLOADING
+                    focusRequester.requestFocus()
                     onUploadFile.invoke()
                 }
             }
@@ -112,7 +108,7 @@ fun InputFileResource(
             }
         },
         inputField = {
-            when (currentState) {
+            when (uploadFileState) {
                 ADD -> {
                     ButtonBlock(
                         modifier = Modifier.padding(top = Spacing.Spacing8, bottom = Spacing.Spacing8),
@@ -132,7 +128,7 @@ fun InputFileResource(
                                     )
                                 },
                             ) {
-                                currentState = LOADED
+                                focusRequester.requestFocus()
                                 onSelectFile.invoke()
                             }
                         },
@@ -164,7 +160,8 @@ fun InputFileResource(
                                 text = it,
                                 color = if (inputShellState != InputShellState.DISABLED) TextColor.OnSurface else TextColor.OnDisabledSurface,
                                 maxLines = 1,
-                                modifier = Modifier.testTag(INPUT_FILE_TEST_TAG + UPLOAD_TEXT_FILE_NAME_TEST_TAG),
+                                modifier = Modifier.testTag(INPUT_FILE_TEST_TAG + UPLOAD_TEXT_FILE_NAME_TEST_TAG)
+                                    .padding(end = Spacing.Spacing4),
                             )
                         }
                         fileWeight?.let {
@@ -182,7 +179,7 @@ fun InputFileResource(
         primaryButton = primaryButton,
         secondaryButton = secondaryButton,
         isRequiredField = isRequired,
-        modifier = modifier,
+        modifier = modifier.focusRequester(focusRequester),
     )
 }
 
