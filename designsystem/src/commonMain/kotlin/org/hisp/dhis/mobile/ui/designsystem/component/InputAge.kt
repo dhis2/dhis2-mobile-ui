@@ -203,6 +203,7 @@ fun InputAge(
                 SupportingText(
                     label.text,
                     label.state,
+                    modifier = Modifier.testTag("INPUT_AGE_SUPPORTING_TEXT"),
                 )
             }
         },
