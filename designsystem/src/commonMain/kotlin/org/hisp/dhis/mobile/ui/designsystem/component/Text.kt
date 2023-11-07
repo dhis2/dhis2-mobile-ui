@@ -63,7 +63,7 @@ internal fun InputShellLabelText(
         text,
         modifier = modifier,
         color = textColor,
-        style = MaterialTheme.typography.titleSmall,
+        style = MaterialTheme.typography.bodyMedium,
         textAlign = TextAlign.Start,
     )
 }
