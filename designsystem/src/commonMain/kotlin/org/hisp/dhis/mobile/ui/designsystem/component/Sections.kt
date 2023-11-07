@@ -320,7 +320,7 @@ internal fun SectionTitle(
     Text(
         modifier = modifier,
         text = title,
-        style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Medium),
+        style = MaterialTheme.typography.titleLarge,
         color = TextColor.OnSurface,
     )
 }
