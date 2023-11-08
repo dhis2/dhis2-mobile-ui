@@ -61,7 +61,7 @@ fun DHIS2Theme(content: @Composable () -> Unit) {
                 fontSize = 22.sp,
                 lineHeight = 28.sp,
                 fontFamily = provideFontResource(),
-                fontWeight = FontWeight.Normal,
+                fontWeight = FontWeight.Medium,
                 color = TextColor.OnSurface,
             ),
             titleMedium = TextStyle(
