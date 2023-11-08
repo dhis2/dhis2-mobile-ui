@@ -6,6 +6,7 @@ import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,12 +22,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.icons.outlined.Sync
-import androidx.compose.material.ripple.LocalRippleTheme
+import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -38,13 +38,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.style.TextOverflow
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.conditional
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
-import org.hisp.dhis.mobile.ui.designsystem.theme.Ripple
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing4
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
@@ -90,52 +90,59 @@ fun ListCard(
             expandableItemList.add(item)
         }
     }
-    CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
-        Row(
-            modifier = modifier
-                .background(color = TextColor.OnPrimary)
-                .clip(shape = RoundedCornerShape(Radius.S))
-                .clickable(onClick = onCardClick)
-                .padding(Spacing.Spacing8)
-                .hoverPointerIcon(true),
-        ) {
-            listAvatar?.let {
-                it.invoke()
-                Spacer(Modifier.size(Spacing.Spacing16))
-            }
-            Column(Modifier.fillMaxWidth().weight(1f)) {
-                Row(horizontalArrangement = Arrangement.SpaceBetween) {
-                    // Row with header and last updated
-                    ListCardTitle(text = title, modifier.weight(1f))
-                    if (lastUpdated != null) {
-                        ListCardLastUpdated(lastUpdated)
-                    }
-                }
-                AdditionalInfoColumn(
-                    expandableItems = expandableItemList,
-                    constantItems = constantItemList,
-                    modifier = Modifier.testTag("LIST_CARD_ADDITIONAL_INFO_COLUMN"),
-                    expandLabelText = expandLabelText,
-                    shrinkLabelText = shrinkLabelText,
-                    syncProgressItem = AdditionalInfoItem(
-                        icon = {
-                            Icon(
-                                imageVector = Icons.Outlined.Sync,
-                                contentDescription = "Icon Button",
-                                tint = SurfaceColor.Primary,
-                            )
-                        },
-                        value = "Syncing...",
-                        color = SurfaceColor.Primary,
-                        isConstantItem = false,
-                    ),
-                    showLoading = showLoading,
+    val interactionSource = remember { MutableInteractionSource() }
 
-                )
-                actionButton?.invoke()
-            }
-            // rest of  items here (KeyValue component)
+    Row(
+        modifier = modifier
+            .background(color = TextColor.OnPrimary)
+            .clip(shape = RoundedCornerShape(Radius.S))
+            .clickable(
+                role = Role.Button,
+                interactionSource = interactionSource,
+                indication = rememberRipple(
+                    color = SurfaceColor.Primary,
+                ),
+                onClick = onCardClick,
+            )
+            .padding(Spacing.Spacing8)
+            .hoverPointerIcon(true),
+    ) {
+        listAvatar?.let {
+            it.invoke()
+            Spacer(Modifier.size(Spacing.Spacing16))
         }
+        Column(Modifier.fillMaxWidth().weight(1f)) {
+            Row(horizontalArrangement = Arrangement.SpaceBetween) {
+                // Row with header and last updated
+                ListCardTitle(text = title, modifier.weight(1f))
+                if (lastUpdated != null) {
+                    ListCardLastUpdated(lastUpdated)
+                }
+            }
+            AdditionalInfoColumn(
+                expandableItems = expandableItemList,
+                constantItems = constantItemList,
+                modifier = Modifier.testTag("LIST_CARD_ADDITIONAL_INFO_COLUMN"),
+                expandLabelText = expandLabelText,
+                shrinkLabelText = shrinkLabelText,
+                syncProgressItem = AdditionalInfoItem(
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Outlined.Sync,
+                            contentDescription = "Icon Button",
+                            tint = SurfaceColor.Primary,
+                        )
+                    },
+                    value = "Syncing...",
+                    color = SurfaceColor.Primary,
+                    isConstantItem = false,
+                ),
+                showLoading = showLoading,
+
+            )
+            actionButton?.invoke()
+        }
+        // rest of  items here (KeyValue component)
     }
 }
 
@@ -321,6 +328,7 @@ private fun AdditionalInfoColumn(
 
         if (expandableItems != null && expandableItems.size > 3) {
             val expandText = mutableStateOf(if (sectionState == SectionState.OPEN) shrinkLabelText else expandLabelText)
+            val interactionSource = remember { MutableInteractionSource() }
 
             val iconVector = if (sectionState == SectionState.CLOSE) {
                 Icons.Filled.KeyboardArrowDown
@@ -329,28 +337,33 @@ private fun AdditionalInfoColumn(
             }
             val verticalPadding = if (isDetailCard) Spacing.Spacing10 else Spacing.Spacing0
             val expandTextColor = if (isDetailCard) TextColor.OnSurfaceLight else SurfaceColor.Primary
-            CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
-                Row(
-                    Modifier
-                        .clip(RoundedCornerShape(Radius.M))
-                        .clickable(onClick = {
+            Row(
+                Modifier
+                    .clip(RoundedCornerShape(Radius.M))
+                    .clickable(
+                        onClick = {
                             sectionState =
                                 if (sectionState == SectionState.CLOSE) SectionState.OPEN else SectionState.CLOSE
-                        })
-                        .padding(top = verticalPadding, end = Spacing.Spacing2, bottom = verticalPadding),
-                ) {
-                    Icon(
-                        imageVector = iconVector,
-                        contentDescription = "Button",
-                        tint = expandTextColor,
+                        },
+                        role = Role.Button,
+                        interactionSource = interactionSource,
+                        indication = rememberRipple(
+                            color = SurfaceColor.Primary,
+                        ),
                     )
-                    Text(
-                        text = expandText.value,
-                        color = expandTextColor,
-                        style = MaterialTheme.typography.bodyMedium,
-                        modifier = Modifier.padding(horizontal = Spacing4),
-                    )
-                }
+                    .padding(top = verticalPadding, end = Spacing.Spacing2, bottom = verticalPadding),
+            ) {
+                Icon(
+                    imageVector = iconVector,
+                    contentDescription = "Button",
+                    tint = expandTextColor,
+                )
+                Text(
+                    text = expandText.value,
+                    color = expandTextColor,
+                    style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier.padding(horizontal = Spacing4),
+                )
             }
         }
     }
@@ -371,6 +384,7 @@ private fun KeyValue(
     ) {
         val keyColor: Color
         var valueColor: Color
+        val interactionSource = remember { MutableInteractionSource() }
 
         if (isDetailCard) {
             keyColor = AdditionalInfoItemColor.DEFAULT_KEY.color
@@ -394,7 +408,14 @@ private fun KeyValue(
                 modifier = Modifier
                     .clip(shape = RoundedCornerShape(Radius.XS))
                     .conditional(additionalInfoItem.action != null, {
-                        clickable(onClick = additionalInfoItem.action ?: {})
+                        clickable(
+                            role = Role.Button,
+                            interactionSource = interactionSource,
+                            indication = rememberRipple(
+                                color = SurfaceColor.Primary,
+                            ),
+                            onClick = additionalInfoItem.action ?: {},
+                        )
                     }),
             ) {
                 Spacer(Modifier.size(Spacing4))
