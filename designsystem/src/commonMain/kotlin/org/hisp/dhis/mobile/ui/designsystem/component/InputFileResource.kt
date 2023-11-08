@@ -161,7 +161,7 @@ fun InputFileResource(
                                 color = if (inputShellState != InputShellState.DISABLED) TextColor.OnSurface else TextColor.OnDisabledSurface,
                                 maxLines = 1,
                                 modifier = Modifier.testTag(INPUT_FILE_TEST_TAG + UPLOAD_TEXT_FILE_NAME_TEST_TAG)
-                                    .padding(end = Spacing.Spacing4),
+                                    .padding(end = Spacing.Spacing2),
                             )
                         }
                         fileWeight?.let {
