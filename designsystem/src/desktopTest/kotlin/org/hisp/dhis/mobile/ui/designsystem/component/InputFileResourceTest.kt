@@ -2,6 +2,7 @@ package org.hisp.dhis.mobile.ui.designsystem.component
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.test.assert
@@ -21,14 +22,16 @@ class InputFileResourceTest {
     @Test
     fun shouldShowLoaderAfterUploadFile() {
         rule.setContent {
+            var state by remember { mutableStateOf(UploadFileState.LOADED) }
+
             InputFileResource(
                 title = "Label",
                 buttonText = provideStringResource("add_file"),
                 fileName = "filename.extension",
                 fileWeight = "524kb",
-                uploadFileState = UploadFileState.LOADED,
+                uploadFileState = state,
                 onSelectFile = {},
-                onUploadFile = {},
+                onUploadFile = { state = UploadFileState.UPLOADING },
             )
         }
 
@@ -47,13 +50,12 @@ class InputFileResourceTest {
                 buttonText = provideStringResource("add_file"),
                 fileName = testFileName,
                 fileWeight = testFileWeight,
+                uploadFileState = UploadFileState.LOADED,
                 onSelectFile = {},
                 onUploadFile = {},
             )
         }
 
-        rule.onNodeWithTag(INPUT_FILE_TEST_TAG + ADD_BUTTON_TEST_TAG).performClick()
-        rule.onNodeWithTag(INPUT_FILE_TEST_TAG + UPLOAD_BUTTON_TEST_TAG).assertExists()
         rule.onNodeWithTag(INPUT_FILE_TEST_TAG + UPLOAD_TEXT_FILE_NAME_TEST_TAG).assertExists()
         rule.onNodeWithTag(INPUT_FILE_TEST_TAG + UPLOAD_TEXT_FILE_WEIGHT_TEST_TAG).assertExists()
         rule.onNodeWithTag(INPUT_FILE_TEST_TAG + UPLOAD_TEXT_FILE_NAME_TEST_TAG).assert(hasText(testFileName))
@@ -82,6 +84,8 @@ class InputFileResourceTest {
         val newFileWeight = "512gb"
 
         rule.setContent {
+            var state by remember { mutableStateOf(UploadFileState.LOADED) }
+
             var testFileName by rememberSaveable { mutableStateOf("filename.extension") }
             var testFileWeight by rememberSaveable { mutableStateOf("524kb") }
 
@@ -90,12 +94,16 @@ class InputFileResourceTest {
                 buttonText = provideStringResource("add_file"),
                 fileName = testFileName,
                 fileWeight = testFileWeight,
-                uploadFileState = UploadFileState.LOADED,
+                uploadFileState = state,
                 onSelectFile = {
                     testFileName = newFileName
                     testFileWeight = newFileWeight
+                    state = UploadFileState.LOADED
                 },
                 onUploadFile = {
+                },
+                onClear = {
+                    state = UploadFileState.ADD
                 },
             )
         }
@@ -110,16 +118,22 @@ class InputFileResourceTest {
     @Test
     fun shouldAppearIconTextButtonWhenUploadIsCancelled() {
         rule.setContent {
+            var state by remember { mutableStateOf(UploadFileState.LOADED) }
+
             InputFileResource(
                 title = "Label",
                 buttonText = "add file",
                 fileName = "filename.extension",
                 fileWeight = "524kb",
-                uploadFileState = UploadFileState.LOADED,
+                uploadFileState = state,
                 onSelectFile = {},
                 onUploadFile = {},
+                onClear = {
+                    state = UploadFileState.ADD
+                },
             )
         }
+        rule.onNodeWithTag(INPUT_FILE_TEST_TAG + CLEAR_BUTTON_TEST_TAG).assertExists()
 
         rule.onNodeWithTag(INPUT_FILE_TEST_TAG + CLEAR_BUTTON_TEST_TAG).performClick()
         rule.onNodeWithTag(INPUT_FILE_TEST_TAG + ADD_BUTTON_TEST_TAG).assertExists()
