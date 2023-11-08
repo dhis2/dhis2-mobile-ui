@@ -2,6 +2,8 @@ package org.hisp.dhis.common.screens
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.SearchBar
@@ -12,14 +14,38 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 @Composable
 fun SearchBarScreen() {
     ColumnComponentContainer {
+        var text by rememberSaveable {
+            mutableStateOf("")
+        }
+
+        var text2 by rememberSaveable {
+            mutableStateOf("Input")
+        }
+
         Title("Search bar component", textColor = TextColor.OnSurfaceVariant)
         SubTitle("Search bar", textColor = TextColor.OnSurfaceVariant)
 
-        SearchBar()
+        SearchBar(
+            text = text,
+            onQueryChange = {
+                text = it
+            },
+            onClear = {
+                text = ""
+            }
+        )
 
         Title("Search bar component", textColor = TextColor.OnSurfaceVariant)
         SubTitle("Search bar", textColor = TextColor.OnSurfaceVariant)
 
-        SearchBar(text = "Input")
+        SearchBar(
+            text = text2,
+            onQueryChange = {
+                text = it
+            },
+            onClear = {
+                text = ""
+            }
+        )
     }
 }

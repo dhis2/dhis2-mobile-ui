@@ -1,5 +1,6 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.material.icons.Icons
@@ -32,7 +33,6 @@ fun SearchBar(
     onClear: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
-    var text by rememberSaveable { mutableStateOf(text) }
     val interactionSource = remember { MutableInteractionSource() }
     val isPressed by interactionSource.collectIsPressedAsState()
 
@@ -40,7 +40,6 @@ fun SearchBar(
         modifier = modifier.testTag("SEARCH_INPUT"),
         query = text,
         onQueryChange = {
-            text = it
             onQueryChange.invoke(it)
         },
         onSearch = {
@@ -63,29 +62,17 @@ fun SearchBar(
         },
         trailingIcon = {
             if (text != "") {
-                IconButton(
-                    modifier = Modifier.testTag("CANCEL_BUTTON"),
-                    icon = {
-                        Icon(
-                            imageVector = Icons.Outlined.Cancel,
-                            contentDescription = "cancel button",
-                        )
-                    },
-                    onClick = {
-                        text = ""
-                        onClear.invoke()
-                    },
+                Icon(
+                    modifier = Modifier.testTag("CANCEL_BUTTON").clickable {
+                        onClear.invoke() },
+                    imageVector = Icons.Outlined.Cancel,
+                    contentDescription = "cancel button",
                 )
             } else {
-                IconButton(
+                Icon(
                     modifier = Modifier.testTag("SEARCH_BUTTON"),
-                    icon = {
-                        Icon(
-                            imageVector = Icons.Outlined.Search,
-                            contentDescription = "search button",
-                        )
-                    },
-                    onClick = {},
+                    imageVector = Icons.Outlined.Search,
+                    contentDescription = "search button",
                 )
             }
         },
