@@ -27,10 +27,9 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 fun SearchBar(
     text: String = "",
     placeHolderText: String = "Search",
-    onActiveChange: () -> Unit = {},
+    onActiveChange: (Boolean) -> Unit = {},
     onSearch: (String) -> Unit = {},
     onQueryChange: (String) -> Unit = {},
-    onClear: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     val interactionSource = remember { MutableInteractionSource() }
@@ -39,16 +38,10 @@ fun SearchBar(
     SearchBar(
         modifier = modifier.testTag("SEARCH_INPUT"),
         query = text,
-        onQueryChange = {
-            onQueryChange.invoke(it)
-        },
-        onSearch = {
-            onSearch(it)
-        },
+        onQueryChange = onQueryChange,
+        onSearch = onSearch,
         active = false,
-        onActiveChange = {
-            onActiveChange.invoke()
-        },
+        onActiveChange = onActiveChange,
         colors = if (!isPressed) {
             SearchBarDefaults.colors(containerColor = SurfaceColor.ContainerLow)
         } else {
@@ -64,7 +57,8 @@ fun SearchBar(
             if (text != "") {
                 Icon(
                     modifier = Modifier.testTag("CANCEL_BUTTON").clickable {
-                        onClear.invoke() },
+                        onQueryChange.invoke("")
+                    },
                     imageVector = Icons.Outlined.Cancel,
                     contentDescription = "cancel button",
                 )

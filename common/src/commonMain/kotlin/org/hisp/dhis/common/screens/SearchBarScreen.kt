@@ -30,9 +30,6 @@ fun SearchBarScreen() {
             onQueryChange = {
                 text = it
             },
-            onClear = {
-                text = ""
-            }
         )
 
         Title("Search bar component", textColor = TextColor.OnSurfaceVariant)
@@ -41,11 +38,8 @@ fun SearchBarScreen() {
         SearchBar(
             text = text2,
             onQueryChange = {
-                text = it
+                text2 = it
             },
-            onClear = {
-                text = ""
-            }
         )
     }
 }
