@@ -1,6 +1,8 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.focusable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
@@ -9,9 +11,12 @@ import androidx.compose.material.icons.filled.Event
 import androidx.compose.material.icons.filled.Schedule
 import androidx.compose.material.icons.outlined.Cancel
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
@@ -23,6 +28,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.internal.DateTimeVisualTra
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.DateTransformation
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.RegExValidations
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
+import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
 /**
  * Input field to enter date, time or date&time. It will format content based on given visual
@@ -44,6 +50,7 @@ fun InputDateTime(
     title: String,
     value: String?,
     actionIconType: DateTimeActionIconType = DateTimeActionIconType.DATE_TIME,
+    allowsManualInput: Boolean = true,
     onActionClicked: () -> Unit,
     modifier: Modifier = Modifier,
     state: InputShellState = InputShellState.UNFOCUSED,
@@ -68,33 +75,63 @@ fun InputDateTime(
         isRequiredField = isRequired,
         onFocusChanged = onFocusChanged,
         inputField = {
-            BasicTextField(
-                modifier = Modifier
-                    .testTag("INPUT_DATE_TIME_TEXT_FIELD")
-                    .fillMaxWidth(),
-                inputText = value.orEmpty(),
-                isSingleLine = true,
-                onInputChanged = { newText ->
-                    if (newText.length > visualTransformation.maskLength) {
-                        return@BasicTextField
-                    }
+            if (allowsManualInput) {
+                BasicTextField(
+                    modifier = Modifier
+                        .testTag("INPUT_DATE_TIME_TEXT_FIELD")
+                        .fillMaxWidth(),
+                    inputText = value.orEmpty(),
+                    isSingleLine = true,
+                    onInputChanged = { newText ->
+                        if (newText.length > visualTransformation.maskLength) {
+                            return@BasicTextField
+                        }
 
-                    if (allowedCharacters.containsMatchIn(newText) || newText.isBlank()) {
-                        onValueChanged.invoke(newText)
-                    }
-                },
-                enabled = state != InputShellState.DISABLED,
-                state = state,
-                keyboardOptions = KeyboardOptions(imeAction = imeAction, keyboardType = KeyboardType.Number),
-                visualTransformation = visualTransformation,
-                onNextClicked = {
-                    if (onNextClicked != null) {
-                        onNextClicked.invoke()
-                    } else {
-                        focusManager.moveFocus(FocusDirection.Down)
-                    }
-                },
-            )
+                        if (allowedCharacters.containsMatchIn(newText) || newText.isBlank()) {
+                            onValueChanged.invoke(newText)
+                        }
+                    },
+                    enabled = state != InputShellState.DISABLED,
+                    state = state,
+                    keyboardOptions = KeyboardOptions(imeAction = imeAction, keyboardType = KeyboardType.Number),
+                    visualTransformation = visualTransformation,
+                    onNextClicked = {
+                        if (onNextClicked != null) {
+                            onNextClicked.invoke()
+                        } else {
+                            focusManager.moveFocus(FocusDirection.Down)
+                        }
+                    },
+                )
+            } else {
+                Box {
+                    Text(
+                        modifier = Modifier
+                            .testTag("INPUT_DATE_TIME_TEXT")
+                            .fillMaxWidth(),
+                        text = value.orEmpty(),
+                        style = MaterialTheme.typography.bodyLarge.copy(
+                            color = if (state != InputShellState.DISABLED && !value.isNullOrEmpty()) {
+                                TextColor.OnSurface
+                            } else {
+                                TextColor.OnDisabledSurface
+                            },
+                        ),
+                    )
+                    Box(
+                        modifier = Modifier
+                            .matchParentSize()
+                            .alpha(0f)
+                            .clickable(
+                                enabled = state != InputShellState.DISABLED,
+                                onClick = {
+                                    focusRequester.requestFocus()
+                                    onActionClicked()
+                                },
+                            ),
+                    )
+                }
+            }
         },
         primaryButton = {
             if (!value.isNullOrBlank() && state != InputShellState.DISABLED) {
