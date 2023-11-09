@@ -49,11 +49,7 @@ fun SupportingText(
     maxLines: Int = 1,
     showMoreText: String = provideStringResource("show_more"),
     showLessText: String = provideStringResource("show_less"),
-    modifier: Modifier = Modifier.padding(
-        start = Spacing.Spacing16,
-        top = Spacing.Spacing4,
-        end = Spacing.Spacing16,
-    ),
+    modifier: Modifier = Modifier,
     paddingValues: PaddingValues = PaddingValues(
         start = Spacing.Spacing16,
         top = Spacing.Spacing4,
@@ -157,7 +153,7 @@ fun SupportingText(
                     }
                 }
             },
-            modifier = modifier.animateContentSize().padding(paddingValues),
+            modifier = modifier.padding(paddingValues).animateContentSize(),
         )
     }
 }
