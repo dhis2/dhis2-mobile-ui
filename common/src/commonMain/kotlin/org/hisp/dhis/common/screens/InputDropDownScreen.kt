@@ -12,6 +12,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import org.hisp.dhis.common.screens.previews.lorem
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InputDropDown
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
@@ -23,7 +24,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 @Composable
 fun InputDropDownScreen() {
     ColumnComponentContainer {
-        val options = listOf("Option 1", "Option 2", "Option 3", "Option 4", "Option 5", "Option 6", "Option 7")
+        val options = listOf(lorem, "Option 2", "Option 3", "Option 4", "Option 5", "Option 6", "Option 7")
         var expanded by rememberSaveable { mutableStateOf(false) }
 
         Title("Input Dropdown", textColor = TextColor.OnSurfaceVariant)
