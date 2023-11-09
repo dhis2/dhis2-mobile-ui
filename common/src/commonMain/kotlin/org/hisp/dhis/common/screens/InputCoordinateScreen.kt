@@ -5,7 +5,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
@@ -23,7 +23,7 @@ fun InputCoordinateScreen() {
         Title("Input Coordinates", textColor = TextColor.OnSurfaceVariant)
 
         SubTitle("Basic Input Coordinates ", textColor = TextColor.OnSurfaceVariant)
-        var coordinates by rememberSaveable { mutableStateOf<Coordinates?>(null) }
+        var coordinates by remember { mutableStateOf<Coordinates?>(null) }
         InputCoordinate(
             title = "Label",
             state = InputShellState.UNFOCUSED,
@@ -38,7 +38,7 @@ fun InputCoordinateScreen() {
         Spacer(Modifier.size(Spacing.Spacing18))
 
         SubTitle("Disabled Input Coordinates without data ", textColor = TextColor.OnSurfaceVariant)
-        var coordinates1 by rememberSaveable {
+        var coordinates1 by remember {
             mutableStateOf<Coordinates?>(null)
         }
         InputCoordinate(
@@ -54,7 +54,7 @@ fun InputCoordinateScreen() {
         )
 
         SubTitle("Disabled Input Coordinates with data ", textColor = TextColor.OnSurfaceVariant)
-        var coordinates2 by rememberSaveable {
+        var coordinates2 by remember {
             mutableStateOf<Coordinates?>(Coordinates(latitude = 39.46263, longitude = -0.33617))
         }
         InputCoordinate(
