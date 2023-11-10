@@ -1,5 +1,9 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
@@ -40,7 +44,15 @@ class SearchBarTest {
     @Test
     fun textDisappearsAfterPressCancelButton() {
         rule.setContent {
-            SearchBar(text = "Input")
+            var text by rememberSaveable {
+                mutableStateOf("Input")
+            }
+            SearchBar(
+                text = text,
+                onQueryChange = {
+                    text = it
+                },
+            )
         }
         rule.onNodeWithText("Input").assertExists()
         rule.onNodeWithTag("CANCEL_BUTTON").performClick()

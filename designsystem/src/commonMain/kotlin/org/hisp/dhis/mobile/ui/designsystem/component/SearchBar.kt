@@ -1,6 +1,5 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.material.icons.Icons
@@ -53,18 +52,28 @@ fun SearchBar(
         },
         trailingIcon = {
             if (text != "") {
-                Icon(
-                    modifier = Modifier.testTag("CANCEL_BUTTON").clickable {
+                IconButton(
+                    modifier = Modifier.testTag("CANCEL_BUTTON"),
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Outlined.Cancel,
+                            contentDescription = "cancel button",
+                        )
+                    },
+                    onClick = {
                         onQueryChange.invoke("")
                     },
-                    imageVector = Icons.Outlined.Cancel,
-                    contentDescription = "cancel button",
                 )
             } else {
-                Icon(
+                IconButton(
                     modifier = Modifier.testTag("SEARCH_BUTTON"),
-                    imageVector = Icons.Outlined.Search,
-                    contentDescription = "search button",
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Outlined.Search,
+                            contentDescription = "search button",
+                        )
+                    },
+                    onClick = {},
                 )
             }
         },
