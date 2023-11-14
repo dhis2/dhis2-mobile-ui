@@ -214,5 +214,5 @@ enum class InputShellState(val color: Color) {
     UNFOCUSED(TextColor.OnSurfaceVariant),
     ERROR(SurfaceColor.Error),
     DISABLED(TextColor.OnDisabledSurface),
-    WARNING(TextColor.OnWarning),
+    WARNING(SurfaceColor.Warning),
 }

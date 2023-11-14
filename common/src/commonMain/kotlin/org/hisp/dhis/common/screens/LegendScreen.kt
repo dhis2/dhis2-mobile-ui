@@ -11,7 +11,6 @@ import org.hisp.dhis.mobile.ui.designsystem.component.LegendDescriptionData
 import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
-import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
 @Composable
 fun LegendScreen() {
@@ -21,7 +20,7 @@ fun LegendScreen() {
         Spacer(Modifier.size(Spacing.Spacing18))
 
         SubTitle("Orange Legend")
-        Legend(LegendData(TextColor.OnWarning, "Legend"))
+        Legend(LegendData(SurfaceColor.Warning, "Legend"))
         Spacer(Modifier.size(Spacing.Spacing18))
 
         SubTitle("Pink Legend")

@@ -2,7 +2,6 @@ package org.hisp.dhis.common.screens.previews
 
 import org.hisp.dhis.mobile.ui.designsystem.component.LegendDescriptionData
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
-import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
 val regularLegendList = listOf(
     LegendDescriptionData(
@@ -16,7 +15,7 @@ val regularLegendList = listOf(
         IntRange(5, 10),
     ),
     LegendDescriptionData(
-        TextColor.OnWarning,
+        SurfaceColor.Warning,
         "High",
         IntRange(10, 20),
     ),
@@ -49,7 +48,7 @@ val longLegendList = listOf(
         IntRange(5, 10),
     ),
     LegendDescriptionData(
-        TextColor.OnWarning,
+        SurfaceColor.Warning,
         "High",
         IntRange(10, 20),
     ),
@@ -79,7 +78,7 @@ val longLegendList = listOf(
         IntRange(5, 10),
     ),
     LegendDescriptionData(
-        TextColor.OnWarning,
+        SurfaceColor.Warning,
         "High",
         IntRange(10, 20),
     ),
@@ -109,7 +108,7 @@ val longLegendList = listOf(
         IntRange(5, 10),
     ),
     LegendDescriptionData(
-        TextColor.OnWarning,
+        SurfaceColor.Warning,
         "High",
         IntRange(10, 20),
     ),
@@ -139,7 +138,7 @@ val longLegendList = listOf(
         IntRange(5, 10),
     ),
     LegendDescriptionData(
-        TextColor.OnWarning,
+        SurfaceColor.Warning,
         "High",
         IntRange(10, 20),
     ),

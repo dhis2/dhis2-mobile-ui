@@ -504,7 +504,7 @@ enum class AdditionalInfoItemColor(val color: Color) {
     DEFAULT_KEY(TextColor.OnSurfaceLight),
     DEFAULT_VALUE(TextColor.OnSurface),
     ERROR(SurfaceColor.Error),
-    WARNING(TextColor.OnWarning),
+    WARNING(SurfaceColor.Warning),
     DISABLED(TextColor.OnDisabledSurface),
     SUCCESS(SurfaceColor.CustomGreen),
 }
