@@ -110,7 +110,7 @@ fun BottomSheetShell(
     subtitle: String? = null,
     description: String? = null,
     icon: @Composable (() -> Unit)? = null,
-    searchBar: @Composable (() -> Unit)? = null,
+    searchBar: @Composable ((Modifier) -> Unit)? = null,
     buttonBlock: @Composable (() -> Unit)? = null,
     content: @Composable (() -> Unit)? = null,
     modifier: Modifier = Modifier,
@@ -178,7 +178,10 @@ fun BottomSheetShell(
                         .padding(vertical = Spacing0)
                         .align(Alignment.CenterHorizontally),
                 )
-                searchBar?.invoke()
+                searchBar?.invoke(
+                    Modifier.fillMaxWidth()
+                        .padding(horizontal = 24.dp),
+                )
                 Divider(
                     modifier = Modifier.fillMaxWidth()
                         .padding(top = Spacing24, start = Spacing24, end = Spacing24),
