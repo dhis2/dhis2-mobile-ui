@@ -48,11 +48,11 @@ class ListCardTest {
                 Icon(
                     imageVector = Icons.Outlined.SyncProblem,
                     contentDescription = "Icon Button",
-                    tint = TextColor.OnWarning,
+                    tint = SurfaceColor.Warning,
                 )
             },
             value = "Sync warning",
-            color = TextColor.OnWarning,
+            color = SurfaceColor.Warning,
             isConstantItem = true,
         ),
         AdditionalInfoItem(
