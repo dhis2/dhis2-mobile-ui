@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
+
 plugins {
     kotlin("multiplatform") apply false
     id("com.android.application") apply false
@@ -12,5 +14,29 @@ allprojects {
         version.set("0.50.0")
         verbose.set(true)
         outputToConsole.set(true)
+    }
+}
+
+subprojects {
+    tasks.withType<KotlinCompilationTask<*>>().configureEach {
+        compilerOptions {
+            // Treat all Kotlin warnings as errors
+            allWarningsAsErrors.set(true)
+
+            if (project.providers.gradleProperty("enableComposeCompilerReports").isPresent) {
+                freeCompilerArgs.addAll(
+                    "-P",
+                    "plugin:androidx.compose.compiler.plugins.kotlin:reportsDestination=" +
+                        layout.buildDirectory.asFile.get().absolutePath +
+                        "/compose_metrics",
+                )
+                freeCompilerArgs.addAll(
+                    "-P",
+                    "plugin:androidx.compose.compiler.plugins.kotlin:metricsDestination=" +
+                        layout.buildDirectory.asFile.get().absolutePath +
+                        "/compose_metrics",
+                )
+            }
+        }
     }
 }
