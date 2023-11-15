@@ -88,6 +88,7 @@ internal fun <T> BasicInputImage(
             when (uploadState) {
                 UploadState.ADD -> {
                     ButtonBlock(
+                        modifier = Modifier.padding(vertical = Spacing.Spacing8),
                         primaryButton = {
                             Button(
                                 enabled = state != InputShellState.DISABLED,
