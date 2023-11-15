@@ -337,7 +337,6 @@ private fun AdditionalInfoColumn(
             } else {
                 Icons.Filled.KeyboardArrowUp
             }
-            val verticalPadding = if (isDetailCard) Spacing.Spacing10 else Spacing.Spacing0
             val expandTextColor = TextColor.OnSurfaceLight
             Row(
                 Modifier
@@ -353,8 +352,9 @@ private fun AdditionalInfoColumn(
                             color = SurfaceColor.Primary,
                         ),
                     )
-                    .padding(top = verticalPadding, end = Spacing.Spacing2, bottom = verticalPadding)
-                    .offset(x = (-2.5).dp),
+                    .padding(end = Spacing.Spacing2)
+                    .offset(x = (-3).dp),
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 Icon(
                     imageVector = iconVector,
@@ -366,6 +366,7 @@ private fun AdditionalInfoColumn(
                     color = expandTextColor,
                     style = MaterialTheme.typography.bodyMedium,
                     modifier = Modifier.padding(horizontal = Spacing4),
+
                 )
             }
         }
