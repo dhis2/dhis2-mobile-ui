@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
@@ -40,6 +41,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.conditional
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
@@ -335,8 +337,7 @@ private fun AdditionalInfoColumn(
             } else {
                 Icons.Filled.KeyboardArrowUp
             }
-            val verticalPadding = if (isDetailCard) Spacing.Spacing10 else Spacing.Spacing0
-            val expandTextColor = if (isDetailCard) TextColor.OnSurfaceLight else SurfaceColor.Primary
+            val expandTextColor = TextColor.OnSurfaceLight
             Row(
                 Modifier
                     .clip(RoundedCornerShape(Radius.M))
@@ -351,7 +352,9 @@ private fun AdditionalInfoColumn(
                             color = SurfaceColor.Primary,
                         ),
                     )
-                    .padding(top = verticalPadding, end = Spacing.Spacing2, bottom = verticalPadding),
+                    .padding(end = Spacing.Spacing2)
+                    .offset(x = (-3).dp),
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 Icon(
                     imageVector = iconVector,
@@ -363,6 +366,7 @@ private fun AdditionalInfoColumn(
                     color = expandTextColor,
                     style = MaterialTheme.typography.bodyMedium,
                     modifier = Modifier.padding(horizontal = Spacing4),
+
                 )
             }
         }
