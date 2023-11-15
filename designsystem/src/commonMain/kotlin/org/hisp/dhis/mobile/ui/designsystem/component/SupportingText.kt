@@ -160,7 +160,7 @@ fun SupportingText(
 
 enum class SupportingTextState(val color: Color) {
     DEFAULT(TextColor.OnSurfaceVariant),
-    WARNING(TextColor.OnWarning),
+    WARNING(SurfaceColor.Warning),
     ERROR(SurfaceColor.Error),
 }
 
