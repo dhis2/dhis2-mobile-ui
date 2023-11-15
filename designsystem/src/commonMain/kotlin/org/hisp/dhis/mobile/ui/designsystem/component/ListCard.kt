@@ -139,8 +139,7 @@ fun ListCard(
                     isConstantItem = false,
                 ),
                 showLoading = showLoading,
-
-                )
+            )
             actionButton?.invoke()
         }
         // rest of  items here (KeyValue component)
@@ -219,8 +218,7 @@ fun CardDetail(
                     isConstantItem = false,
                 ),
                 showLoading = showLoading,
-
-                )
+            )
             actionButton?.invoke()
         }
     }
@@ -366,8 +364,7 @@ private fun AdditionalInfoColumn(
                     color = expandTextColor,
                     style = MaterialTheme.typography.bodyMedium,
                     modifier = Modifier.padding(horizontal = Spacing4),
-
-                    )
+                )
             }
         }
     }
