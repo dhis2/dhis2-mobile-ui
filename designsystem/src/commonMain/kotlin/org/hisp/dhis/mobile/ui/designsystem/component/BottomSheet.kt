@@ -93,13 +93,19 @@ fun BottomSheetHeader(
 /**
  * DHIS2 BottomSheetShell. Wraps compose · [ModalBottomSheet].
  * desktop version to be implemented
+ *
+ * Need to override [searchQuery], [onSearchQueryChanged] & [onSearch] in order
+ * to show the search bar. (TODO: We can add lint check for this)
+ *
  * @param title: title to be shown
  * @param subtitle: subTitle to be shown
  * @param description: PopUp description
+ * @param searchQuery: Search query to be displayed in the search bar
  * @param icon: the icon to be shown
- * @param searchBar: dhis searchBar
  * @param buttonBlock: Space for the lower buttons
  * @param content: to be shown under the header
+ * @param onSearchQueryChanged: Callback when search query is changed
+ * @param onSearch: Callback when search action is triggered
  * @param onDismiss: gives access to the onDismiss event
  * @param modifier allows a modifier to be passed externally
  */
@@ -109,11 +115,13 @@ fun BottomSheetShell(
     title: String,
     subtitle: String? = null,
     description: String? = null,
+    searchQuery: String? = null,
     icon: @Composable (() -> Unit)? = null,
-    searchBar: @Composable ((Modifier) -> Unit)? = null,
     buttonBlock: @Composable (() -> Unit)? = null,
     content: @Composable (() -> Unit)? = null,
     modifier: Modifier = Modifier,
+    onSearchQueryChanged: ((String) -> Unit)? = null,
+    onSearch: ((String) -> Unit)? = null,
     onDismiss: () -> Unit,
 ) {
     val sheetState = rememberModalBottomSheetState(true)
@@ -178,10 +186,15 @@ fun BottomSheetShell(
                         .padding(vertical = Spacing0)
                         .align(Alignment.CenterHorizontally),
                 )
-                searchBar?.invoke(
-                    Modifier.fillMaxWidth()
-                        .padding(horizontal = 24.dp),
-                )
+
+                if (searchQuery != null && onSearchQueryChanged != null && onSearch != null) {
+                    SearchBar(
+                        modifier = Modifier.fillMaxWidth().padding(horizontal = Spacing24),
+                        text = searchQuery.orEmpty(),
+                        onQueryChange = onSearchQueryChanged,
+                        onSearch = onSearch,
+                    )
+                }
                 Divider(
                     modifier = Modifier.fillMaxWidth()
                         .padding(top = Spacing24, start = Spacing24, end = Spacing24),

@@ -23,7 +23,6 @@ import org.hisp.dhis.mobile.ui.designsystem.component.ButtonBlock
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.LegendRange
-import org.hisp.dhis.mobile.ui.designsystem.component.SearchBar
 import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
@@ -238,15 +237,6 @@ fun BottomSheetScreen() {
             title = "Bottom Sheet with Search Bar",
             subtitle = "Subtitle",
             description = lorem,
-            searchBar = { modifier ->
-                SearchBar(
-                    modifier = modifier,
-                    text = searchQuery,
-                    onQueryChange = {
-                        searchQuery = it
-                    },
-                )
-            },
             buttonBlock = {
                 ButtonBlock(
                     primaryButton = {
@@ -298,9 +288,13 @@ fun BottomSheetScreen() {
                     )
                 }
             },
-        ) {
-            showBottomSheetShellTwoButtons = false
-        }
+            searchQuery = searchQuery,
+            onSearchQueryChanged = { searchQuery = it },
+            onSearch = { searchQuery = it },
+            onDismiss = {
+                showBottomSheetWithSearchBar = false
+            },
+        )
     }
 
     ColumnComponentContainer {
