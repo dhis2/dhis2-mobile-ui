@@ -10,7 +10,6 @@ import org.hisp.dhis.mobile.ui.designsystem.component.LegendRange
 import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
-import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
 @Composable
 fun LegendDescriptionScreen() {
@@ -44,7 +43,7 @@ fun LegendDescriptionScreen() {
                     IntRange(0, 5),
                 ),
                 LegendDescriptionData(SurfaceColor.CustomYellow, "Medium", IntRange(5, 10)),
-                LegendDescriptionData(TextColor.OnWarning, "High", IntRange(10, 20)),
+                LegendDescriptionData(SurfaceColor.Warning, "High", IntRange(10, 20)),
                 LegendDescriptionData(SurfaceColor.CustomPink, "Very high", IntRange(20, 40)),
                 LegendDescriptionData(SurfaceColor.CustomBrown, "Extreme", IntRange(40, 120)),
                 LegendDescriptionData(

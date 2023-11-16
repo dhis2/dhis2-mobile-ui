@@ -3,13 +3,14 @@ package org.hisp.dhis.mobile.ui.designsystem.theme
 object SurfaceColor {
     val Primary = Color.Blue500
     val Error = Color.Red600
+    val Warning = Color.Orange800
     val PrimaryContainer = Color.Blue50
     val Surface = Color.NeutralVariant
     val SurfaceBright = Color.NeutralWhite
-    val SurfaceDim = Color.Ash500
+    val SurfaceDim = Color.Ash400
     val DisabledSurface = Color.Ash300
     val DisabledSurfaceBright = Color.Ash200
-    val ErrorContainer = Color.Red200
+    val ErrorContainer = Color.Red100
     val WarningContainer = Color.Orange50
     val ContainerLowest = Color.NeutralWhite
     val ContainerLow = Color.Blue50

@@ -58,10 +58,10 @@ fun DHIS2Theme(content: @Composable () -> Unit) {
                 color = TextColor.OnSurface,
             ),
             titleLarge = TextStyle(
-                fontSize = 22.sp,
+                fontSize = 20.sp,
                 lineHeight = 28.sp,
                 fontFamily = provideFontResource(),
-                fontWeight = FontWeight.Normal,
+                fontWeight = FontWeight.Medium,
                 color = TextColor.OnSurface,
             ),
             titleMedium = TextStyle(
@@ -137,19 +137,21 @@ fun DHIS2Theme(content: @Composable () -> Unit) {
 
 internal object DHIS2SCustomTextStyles {
 
-    val titleBold = TextStyle(
+    val titleMediumBold = TextStyle(
         fontSize = 16.sp,
         lineHeight = 24.sp,
-        fontWeight = FontWeight.Medium,
+        fontWeight = FontWeight.Bold,
         color = TextColor.OnSurface,
         letterSpacing = 0.15.sp,
     )
 
-    val bodyLargeBold
-        @Composable
-        get() = MaterialTheme.typography.bodyLarge.copy(
-            fontWeight = FontWeight.Bold,
-        )
+    val bodyLargeBold = TextStyle(
+        fontSize = 16.sp,
+        lineHeight = 24.sp,
+        fontWeight = FontWeight.Bold,
+        color = TextColor.OnSurface,
+        letterSpacing = 0.5.sp,
+    )
 
     val clickableSupportingText = SpanStyle(
         fontSize = 14.sp,

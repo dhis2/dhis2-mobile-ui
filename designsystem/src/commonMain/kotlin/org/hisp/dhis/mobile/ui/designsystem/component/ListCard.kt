@@ -6,12 +6,15 @@ import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
@@ -21,12 +24,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.icons.outlined.Sync
-import androidx.compose.material.ripple.LocalRippleTheme
+import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -38,13 +40,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.conditional
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
-import org.hisp.dhis.mobile.ui.designsystem.theme.Ripple
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing4
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
@@ -82,60 +84,65 @@ fun ListCard(
     val expandableItemList = mutableListOf<AdditionalInfoItem>()
     val constantItemList = mutableListOf<AdditionalInfoItem>()
 
-    additionalInfoList.forEach {
-            item ->
+    additionalInfoList.forEach { item ->
         if (item.isConstantItem) {
             constantItemList.add(item)
         } else {
             expandableItemList.add(item)
         }
     }
-    CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
-        Row(
-            modifier = modifier
-                .background(color = TextColor.OnPrimary)
-                .clip(shape = RoundedCornerShape(Radius.S))
-                .clickable(onClick = onCardClick)
-                .padding(Spacing.Spacing8)
-                .hoverPointerIcon(true),
-        ) {
-            listAvatar?.let {
-                it.invoke()
-                Spacer(Modifier.size(Spacing.Spacing16))
-            }
-            Column(Modifier.fillMaxWidth().weight(1f)) {
-                Row(horizontalArrangement = Arrangement.SpaceBetween) {
-                    // Row with header and last updated
-                    ListCardTitle(text = title, modifier.weight(1f))
-                    if (lastUpdated != null) {
-                        ListCardLastUpdated(lastUpdated)
-                    }
-                }
-                AdditionalInfoColumn(
-                    expandableItems = expandableItemList,
-                    constantItems = constantItemList,
-                    modifier = Modifier.testTag("LIST_CARD_ADDITIONAL_INFO_COLUMN"),
-                    expandLabelText = expandLabelText,
-                    shrinkLabelText = shrinkLabelText,
-                    syncProgressItem = AdditionalInfoItem(
-                        icon = {
-                            Icon(
-                                imageVector = Icons.Outlined.Sync,
-                                contentDescription = "Icon Button",
-                                tint = SurfaceColor.Primary,
-                            )
-                        },
-                        value = "Syncing...",
-                        color = SurfaceColor.Primary,
-                        isConstantItem = false,
-                    ),
-                    showLoading = showLoading,
+    val interactionSource = remember { MutableInteractionSource() }
 
-                )
-                actionButton?.invoke()
-            }
-            // rest of  items here (KeyValue component)
+    Row(
+        modifier = modifier
+            .background(color = TextColor.OnPrimary)
+            .clip(shape = RoundedCornerShape(Radius.S))
+            .clickable(
+                role = Role.Button,
+                interactionSource = interactionSource,
+                indication = rememberRipple(
+                    color = SurfaceColor.Primary,
+                ),
+                onClick = onCardClick,
+            )
+            .padding(Spacing.Spacing8)
+            .hoverPointerIcon(true),
+    ) {
+        listAvatar?.let {
+            it.invoke()
+            Spacer(Modifier.size(Spacing.Spacing16))
         }
+        Column(Modifier.fillMaxWidth().weight(1f)) {
+            Row(horizontalArrangement = Arrangement.SpaceBetween) {
+                // Row with header and last updated
+                ListCardTitle(text = title, modifier.weight(1f))
+                if (lastUpdated != null) {
+                    ListCardLastUpdated(lastUpdated)
+                }
+            }
+            AdditionalInfoColumn(
+                expandableItems = expandableItemList,
+                constantItems = constantItemList,
+                modifier = Modifier.testTag("LIST_CARD_ADDITIONAL_INFO_COLUMN"),
+                expandLabelText = expandLabelText,
+                shrinkLabelText = shrinkLabelText,
+                syncProgressItem = AdditionalInfoItem(
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Outlined.Sync,
+                            contentDescription = "Icon Button",
+                            tint = SurfaceColor.Primary,
+                        )
+                    },
+                    value = "Syncing...",
+                    color = SurfaceColor.Primary,
+                    isConstantItem = false,
+                ),
+                showLoading = showLoading,
+            )
+            actionButton?.invoke()
+        }
+        // rest of  items here (KeyValue component)
     }
 }
 
@@ -166,8 +173,7 @@ fun CardDetail(
     val expandableItemList = mutableListOf<AdditionalInfoItem>()
     val constantItemList = mutableListOf<AdditionalInfoItem>()
 
-    additionalInfoList.forEach {
-            item ->
+    additionalInfoList.forEach { item ->
         if (item.isConstantItem) {
             constantItemList.add(item)
         } else {
@@ -212,7 +218,6 @@ fun CardDetail(
                     isConstantItem = false,
                 ),
                 showLoading = showLoading,
-
             )
             actionButton?.invoke()
         }
@@ -251,11 +256,13 @@ fun Avatar(
                 }
             }
         }
+
         AvatarStyle.METADATA -> {
             metadataAvatar?.let {
                 metadataAvatar.invoke()
             }
         }
+
         AvatarStyle.IMAGE -> {
             Image(
                 painter = imagePainter,
@@ -321,36 +328,43 @@ private fun AdditionalInfoColumn(
 
         if (expandableItems != null && expandableItems.size > 3) {
             val expandText = mutableStateOf(if (sectionState == SectionState.OPEN) shrinkLabelText else expandLabelText)
+            val interactionSource = remember { MutableInteractionSource() }
 
             val iconVector = if (sectionState == SectionState.CLOSE) {
                 Icons.Filled.KeyboardArrowDown
             } else {
                 Icons.Filled.KeyboardArrowUp
             }
-            val verticalPadding = if (isDetailCard) Spacing.Spacing10 else Spacing.Spacing0
-            val expandTextColor = if (isDetailCard) TextColor.OnSurfaceLight else SurfaceColor.Primary
-            CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
-                Row(
-                    Modifier
-                        .clip(RoundedCornerShape(Radius.M))
-                        .clickable(onClick = {
+            val expandTextColor = TextColor.OnSurfaceLight
+            Row(
+                Modifier
+                    .clip(RoundedCornerShape(Radius.M))
+                    .clickable(
+                        onClick = {
                             sectionState =
                                 if (sectionState == SectionState.CLOSE) SectionState.OPEN else SectionState.CLOSE
-                        })
-                        .padding(top = verticalPadding, end = Spacing.Spacing2, bottom = verticalPadding),
-                ) {
-                    Icon(
-                        imageVector = iconVector,
-                        contentDescription = "Button",
-                        tint = expandTextColor,
+                        },
+                        role = Role.Button,
+                        interactionSource = interactionSource,
+                        indication = rememberRipple(
+                            color = SurfaceColor.Primary,
+                        ),
                     )
-                    Text(
-                        text = expandText.value,
-                        color = expandTextColor,
-                        style = MaterialTheme.typography.bodyMedium,
-                        modifier = Modifier.padding(horizontal = Spacing4),
-                    )
-                }
+                    .padding(end = Spacing.Spacing2)
+                    .offset(x = (-3).dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Icon(
+                    imageVector = iconVector,
+                    contentDescription = "Button",
+                    tint = expandTextColor,
+                )
+                Text(
+                    text = expandText.value,
+                    color = expandTextColor,
+                    style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier.padding(horizontal = Spacing4),
+                )
             }
         }
     }
@@ -366,78 +380,74 @@ private fun KeyValue(
     isDetailCard: Boolean = false,
     modifier: Modifier = Modifier,
 ) {
-    Row(
-        modifier = modifier,
-    ) {
-        val keyColor: Color
-        var valueColor: Color
+    BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
+        val maxKeyWidth = maxWidth / 2 - Spacing.Spacing16
 
-        if (isDetailCard) {
-            keyColor = AdditionalInfoItemColor.DEFAULT_KEY.color
-            valueColor = additionalInfoItem.color ?: AdditionalInfoItemColor.DEFAULT_VALUE.color
-            additionalInfoItem.key?.let {
-                Box(
-                    Modifier.background(color = Color.Transparent).widthIn(Spacing.Spacing0, Spacing.Spacing160),
-                ) {
-                    Text(
-                        text = it,
+        Row(
+            modifier = modifier,
+        ) {
+            val keyColor: Color
+            var valueColor: Color
+            val interactionSource = remember { MutableInteractionSource() }
+
+            if (isDetailCard) {
+                keyColor = AdditionalInfoItemColor.DEFAULT_KEY.color
+                valueColor = additionalInfoItem.color ?: AdditionalInfoItemColor.DEFAULT_VALUE.color
+                additionalInfoItem.key?.let {
+                    ListCardKey(
+                        text = additionalInfoItem.key,
                         color = keyColor,
-                        style = MaterialTheme.typography.bodyMedium,
-                        modifier = Modifier,
-                        overflow = TextOverflow.Ellipsis,
-                        maxLines = 2,
+                        Modifier.padding(end = Spacing4).widthIn(Spacing.Spacing0, maxKeyWidth),
                     )
                 }
-            }
 
-            Row(
-                modifier = Modifier
-                    .clip(shape = RoundedCornerShape(Radius.XS))
-                    .conditional(additionalInfoItem.action != null, {
-                        clickable(onClick = additionalInfoItem.action ?: {})
-                    }),
-            ) {
-                Spacer(Modifier.size(Spacing4))
+                Row(
+                    modifier = Modifier
+                        .clip(shape = RoundedCornerShape(Radius.XS))
+                        .conditional(additionalInfoItem.action != null, {
+                            clickable(
+                                role = Role.Button,
+                                interactionSource = interactionSource,
+                                indication = rememberRipple(
+                                    color = SurfaceColor.Primary,
+                                ),
+                                onClick = additionalInfoItem.action ?: {},
+                            )
+                        }),
+                ) {
+                    if (additionalInfoItem.icon != null) {
+                        Box(
+                            Modifier.background(color = Color.Transparent).size(InternalSizeValues.Size20),
+                        ) {
+                            additionalInfoItem.icon.invoke()
+                        }
+                        Spacer(Modifier.size(Spacing4))
+                    }
+
+                    valueColor = if (additionalInfoItem.action != null) SurfaceColor.Primary else valueColor
+                    ListCardValue(text = additionalInfoItem.value, color = valueColor)
+                }
+            } else {
+                keyColor = additionalInfoItem.color ?: AdditionalInfoItemColor.DEFAULT_KEY.color
+                valueColor = additionalInfoItem.color ?: AdditionalInfoItemColor.DEFAULT_VALUE.color
                 if (additionalInfoItem.icon != null) {
                     Box(
                         Modifier.background(color = Color.Transparent).size(InternalSizeValues.Size20),
                     ) {
                         additionalInfoItem.icon.invoke()
                     }
-                }
-
-                Spacer(Modifier.size(Spacing4))
-                valueColor = if (additionalInfoItem.action != null) SurfaceColor.Primary else valueColor
-                ListCardValue(text = additionalInfoItem.value, color = valueColor)
-                Spacer(Modifier.size(Spacing4))
-            }
-        } else {
-            keyColor = additionalInfoItem.color ?: AdditionalInfoItemColor.DEFAULT_KEY.color
-            valueColor = additionalInfoItem.color ?: AdditionalInfoItemColor.DEFAULT_VALUE.color
-            if (additionalInfoItem.icon != null) {
-                Box(
-                    Modifier.background(color = Color.Transparent).size(InternalSizeValues.Size20),
-                ) {
-                    additionalInfoItem.icon.invoke()
-                }
-                Spacer(Modifier.size(Spacing4))
-            } else {
-                additionalInfoItem.key?.let {
-                    Box(
-                        Modifier.background(color = Color.Transparent).widthIn(Spacing.Spacing0, Spacing.Spacing160),
-                    ) {
-                        Text(
-                            text = it,
+                    Spacer(Modifier.size(Spacing4))
+                } else {
+                    additionalInfoItem.key?.let {
+                        ListCardKey(
+                            text = additionalInfoItem.key,
                             color = keyColor,
-                            style = MaterialTheme.typography.bodyMedium,
-                            modifier = Modifier.padding(end = Spacing4),
-                            overflow = TextOverflow.Ellipsis,
-                            maxLines = 2,
+                            Modifier.padding(end = Spacing4).widthIn(Spacing.Spacing0, maxKeyWidth),
                         )
                     }
                 }
+                ListCardValue(text = additionalInfoItem.value, color = valueColor)
             }
-            ListCardValue(text = additionalInfoItem.value, color = valueColor, Modifier.weight(1f))
         }
     }
 }
@@ -479,7 +489,7 @@ enum class AdditionalInfoItemColor(val color: Color) {
     DEFAULT_KEY(TextColor.OnSurfaceLight),
     DEFAULT_VALUE(TextColor.OnSurface),
     ERROR(SurfaceColor.Error),
-    WARNING(TextColor.OnWarning),
+    WARNING(SurfaceColor.Warning),
     DISABLED(TextColor.OnDisabledSurface),
     SUCCESS(SurfaceColor.CustomGreen),
 }

@@ -7,6 +7,10 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
@@ -63,7 +67,7 @@ internal fun InputShellLabelText(
         text,
         modifier = modifier,
         color = textColor,
-        style = MaterialTheme.typography.titleSmall,
+        style = MaterialTheme.typography.bodyMedium,
         textAlign = TextAlign.Start,
     )
 }
@@ -163,6 +167,32 @@ internal fun ListCardLastUpdated(
         color = TextColor.OnSurfaceLight,
         style = MaterialTheme.typography.bodySmall,
         modifier = modifier,
+    )
+}
+
+@Composable
+internal fun ListCardKey(
+    text: String,
+    color: Color,
+    modifier: Modifier = Modifier,
+) {
+    var modifiedText by remember { mutableStateOf(text) }
+    Text(
+        text = modifiedText,
+        color = color,
+        style = MaterialTheme.typography.bodyMedium,
+        overflow = TextOverflow.Ellipsis,
+        maxLines = 1,
+        modifier = modifier,
+        onTextLayout = { textLayoutResult ->
+            if (textLayoutResult.hasVisualOverflow) {
+                val lineIndex = textLayoutResult.getLineEnd(
+                    lineIndex = 0,
+                    visibleEnd = true,
+                )
+                modifiedText = modifiedText.substring(0, lineIndex).trimEnd() + "...:"
+            }
+        },
     )
 }
 

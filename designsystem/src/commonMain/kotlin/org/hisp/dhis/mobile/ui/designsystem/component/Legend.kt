@@ -2,6 +2,7 @@ package org.hisp.dhis.mobile.ui.designsystem.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,15 +15,15 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.HelpOutline
 import androidx.compose.material.icons.outlined.Info
-import androidx.compose.material.ripple.LocalRippleTheme
+import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -30,9 +31,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.Role
 import org.hisp.dhis.mobile.ui.designsystem.theme.Border
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
-import org.hisp.dhis.mobile.ui.designsystem.theme.Ripple
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
@@ -44,64 +45,68 @@ fun Legend(
 ) {
     var showBottomSheetShell by rememberSaveable { mutableStateOf(false) }
 
-    CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
-        val hasPopupLegendDescriptionData = legendData.popUpLegendDescriptionData.orEmpty().isNotEmpty()
-        val clickableModifier = if (hasPopupLegendDescriptionData) {
-            Modifier
-                .clickable(
-                    onClick = {
-                        legendData.popUpLegendDescriptionData?.let {
-                            showBottomSheetShell = true
-                        }
-                    },
-                )
-                .hoverPointerIcon(true)
-        } else {
-            Modifier
-        }
-
-        Column(
-            modifier = modifier
-                .then(clickableModifier)
-                .testTag("LEGEND"),
-        ) {
-            Row(
-                modifier = Modifier
-                    .padding(Spacing.Spacing16, Spacing.Spacing8, Spacing.Spacing8, Spacing.Spacing6),
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Column(modifier = Modifier.align(Alignment.Top)) {
-                    Spacer(modifier = Modifier.size(Spacing.Spacing4).padding(end = Spacing.Spacing8))
-                    Box(
-                        modifier = Modifier.size(InternalSizeValues.Size12)
-                            .clip(CircleShape)
-                            .background(legendData.color),
-                    )
-                }
-                Text(
-                    legendData.title,
-                    Modifier.padding(start = Spacing.Spacing8)
-                        .weight(2f, true),
-                    style = MaterialTheme.typography.bodyMedium,
-                )
-
-                if (hasPopupLegendDescriptionData) {
-                    Icon(
-                        imageVector = Icons.Outlined.HelpOutline,
-                        contentDescription = "Legend Icon",
-                        modifier = Modifier.size(InternalSizeValues.Size18),
-                    )
-                }
-            }
-            Divider(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(),
-                thickness = Border.Regular,
-                color = legendData.color,
+    val hasPopupLegendDescriptionData = legendData.popUpLegendDescriptionData.orEmpty().isNotEmpty()
+    val interactionSource = remember { MutableInteractionSource() }
+    val clickableModifier = if (hasPopupLegendDescriptionData) {
+        Modifier
+            .clickable(
+                onClick = {
+                    legendData.popUpLegendDescriptionData?.let {
+                        showBottomSheetShell = true
+                    }
+                },
+                role = Role.Button,
+                interactionSource = interactionSource,
+                indication = rememberRipple(
+                    color = SurfaceColor.Primary,
+                ),
             )
+            .hoverPointerIcon(true)
+    } else {
+        Modifier
+    }
+
+    Column(
+        modifier = modifier
+            .then(clickableModifier)
+            .testTag("LEGEND"),
+    ) {
+        Row(
+            modifier = Modifier
+                .padding(Spacing.Spacing16, Spacing.Spacing8, Spacing.Spacing8, Spacing.Spacing6),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Column(modifier = Modifier.align(Alignment.Top)) {
+                Spacer(modifier = Modifier.size(Spacing.Spacing4).padding(end = Spacing.Spacing8))
+                Box(
+                    modifier = Modifier.size(InternalSizeValues.Size12)
+                        .clip(CircleShape)
+                        .background(legendData.color),
+                )
+            }
+            Text(
+                legendData.title,
+                Modifier.padding(start = Spacing.Spacing8)
+                    .weight(2f, true),
+                style = MaterialTheme.typography.bodyMedium,
+            )
+
+            if (hasPopupLegendDescriptionData) {
+                Icon(
+                    imageVector = Icons.Outlined.HelpOutline,
+                    contentDescription = "Legend Icon",
+                    modifier = Modifier.size(InternalSizeValues.Size18),
+                )
+            }
         }
+        Divider(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(),
+            thickness = Border.Regular,
+            color = legendData.color,
+        )
     }
 
     if (showBottomSheetShell) {
