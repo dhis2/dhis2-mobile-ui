@@ -415,19 +415,17 @@ private fun KeyValue(
                             )
                         }),
                 ) {
-                    Spacer(Modifier.size(Spacing4))
                     if (additionalInfoItem.icon != null) {
                         Box(
                             Modifier.background(color = Color.Transparent).size(InternalSizeValues.Size20),
                         ) {
                             additionalInfoItem.icon.invoke()
                         }
+                        Spacer(Modifier.size(Spacing4))
                     }
 
-                    Spacer(Modifier.size(Spacing4))
                     valueColor = if (additionalInfoItem.action != null) SurfaceColor.Primary else valueColor
                     ListCardValue(text = additionalInfoItem.value, color = valueColor)
-                    Spacer(Modifier.size(Spacing4))
                 }
             } else {
                 keyColor = additionalInfoItem.color ?: AdditionalInfoItemColor.DEFAULT_KEY.color

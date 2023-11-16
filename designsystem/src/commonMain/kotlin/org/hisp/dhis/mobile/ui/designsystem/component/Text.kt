@@ -190,7 +190,7 @@ internal fun ListCardKey(
                     lineIndex = 0,
                     visibleEnd = true,
                 )
-                modifiedText = modifiedText.substring(0, lineIndex) + "...:"
+                modifiedText = modifiedText.substring(0, lineIndex).trimEnd() + "...:"
             }
         },
     )
