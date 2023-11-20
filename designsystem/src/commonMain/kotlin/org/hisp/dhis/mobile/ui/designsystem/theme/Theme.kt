@@ -4,6 +4,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Typography
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -145,13 +146,13 @@ internal object DHIS2SCustomTextStyles {
         letterSpacing = 0.15.sp,
     )
 
-    val bodyLargeBold = TextStyle(
-        fontSize = 16.sp,
-        lineHeight = 24.sp,
-        fontWeight = FontWeight.Bold,
-        color = TextColor.OnSurface,
-        letterSpacing = 0.5.sp,
-    )
+    val bodyLargeBold: TextStyle
+        @Composable
+        @ReadOnlyComposable
+        get() = MaterialTheme.typography.bodyLarge.copy(
+            fontWeight = FontWeight.Bold,
+            color = TextColor.OnSurface,
+        )
 
     val clickableSupportingText = SpanStyle(
         fontSize = 14.sp,
