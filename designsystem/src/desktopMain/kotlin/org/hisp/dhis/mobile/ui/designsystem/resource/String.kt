@@ -5,6 +5,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.res.useResource
+import java.io.File
+import java.io.InputStream
 
 @Composable
 actual fun provideStringResource(id: String): String {
@@ -44,5 +46,9 @@ private fun getResources(): Map<String, String> {
 
 @Composable
 actual fun resourceExists(resourceName: String, resourceType: String): Boolean {
-    return false
+    return try {
+        ClassLoader.getSystemResource("$resourceType/$resourceName.xml") != null
+    } catch (e: Exception) {
+        false
+    }
 }
