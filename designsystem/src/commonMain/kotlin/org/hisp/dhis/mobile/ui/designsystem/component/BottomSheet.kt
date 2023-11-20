@@ -158,18 +158,7 @@ fun BottomSheetShell(
         },
     ) {
         val contentScrollState = rememberScrollState()
-
-        // While the scroll state has `canScrollForward` variable. It's not
-        // working as expected. The max value for the scroll area is fluctuating.
-        // Instead we are getting the initial max value to compare it with
-        // changing value similar to how it's done in `ScrollState`
-        var contentScrollMaxValue by remember { mutableStateOf(0) }
-
-        LaunchedEffect(Unit) {
-            contentScrollMaxValue = contentScrollState.maxValue
-        }
-
-        val canScrollForward by derivedStateOf { contentScrollState.value < (contentScrollMaxValue - Spacing24.value) }
+        val canScrollForward by derivedStateOf { contentScrollState.canScrollForward }
 
         Column {
             Column(
