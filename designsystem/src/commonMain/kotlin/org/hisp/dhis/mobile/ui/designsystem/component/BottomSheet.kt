@@ -36,7 +36,6 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing0
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing24
-import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing56
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing8
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
@@ -220,7 +219,7 @@ fun BottomSheetShell(
                 Modifier.fillMaxWidth()
                     .then(shadowModifier)
                     .background(SurfaceColor.SurfaceBright)
-                    .padding(start = Spacing24, top = Spacing24, end = Spacing24, bottom = Spacing56),
+                    .padding(start = Spacing24, top = Spacing24, end = Spacing24, bottom = Spacing24),
                 contentAlignment = Alignment.BottomCenter,
             ) {
                 buttonBlock?.invoke()
