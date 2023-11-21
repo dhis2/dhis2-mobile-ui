@@ -4,7 +4,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.test.assertHasNoClickAction
 import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.assertTextEquals
@@ -140,7 +139,6 @@ class InputDropDownTest {
         }
         rule.onNodeWithTag("INPUT_DROPDOWN").assertExists()
         rule.onNodeWithTag("INPUT_DROPDOWN_LEGEND").assertExists()
-        rule.onNodeWithTag("INPUT_DROPDOWN_LEGEND").assertHasNoClickAction()
     }
 
     @Test
