@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowDropDown
 import androidx.compose.material.icons.outlined.Cancel
@@ -218,6 +219,7 @@ private fun BottomSheetItem(
                 } else {
                     Color.Unspecified
                 },
+                shape = RoundedCornerShape(Spacing8),
             )
             .padding(Spacing8),
     ) {
