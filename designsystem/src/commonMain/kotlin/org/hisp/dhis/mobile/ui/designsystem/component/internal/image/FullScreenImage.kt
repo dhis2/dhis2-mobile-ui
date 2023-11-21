@@ -71,7 +71,7 @@ internal fun FullScreenImage(
 
     Dialog(
         properties = DialogProperties(usePlatformDefaultWidth = false),
-        onDismissRequest = { /* implement */ }
+        onDismissRequest = onDismiss
     ) {
         Box(
             modifier
