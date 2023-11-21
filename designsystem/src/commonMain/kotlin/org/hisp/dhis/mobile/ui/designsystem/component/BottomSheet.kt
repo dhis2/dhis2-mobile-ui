@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -20,11 +21,8 @@ import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -69,18 +67,21 @@ fun BottomSheetHeader(
             title,
             style = MaterialTheme.typography.headlineSmall,
             color = TextColor.OnSurface,
-            modifier = Modifier.padding(bottom = Spacing.Spacing4),
         )
+
         subTitle?.let {
+            Spacer(Modifier.requiredHeight(4.dp))
+
             Text(
                 subTitle,
                 style = MaterialTheme.typography.bodySmall,
                 color = TextColor.OnDisabledSurface,
-                modifier = Modifier.padding(bottom = Spacing.Spacing16),
             )
         }
 
         description?.let {
+            Spacer(Modifier.requiredHeight(16.dp))
+
             Text(
                 description,
                 style = MaterialTheme.typography.bodyMedium,
@@ -93,13 +94,19 @@ fun BottomSheetHeader(
 /**
  * DHIS2 BottomSheetShell. Wraps compose · [ModalBottomSheet].
  * desktop version to be implemented
+ *
+ * Need to override [searchQuery], [onSearchQueryChanged] & [onSearch] in order
+ * to show the search bar. (TODO: We can add lint check for this)
+ *
  * @param title: title to be shown
  * @param subtitle: subTitle to be shown
  * @param description: PopUp description
+ * @param searchQuery: Search query to be displayed in the search bar
  * @param icon: the icon to be shown
- * @param searchBar: dhis searchBar
  * @param buttonBlock: Space for the lower buttons
  * @param content: to be shown under the header
+ * @param onSearchQueryChanged: Callback when search query is changed
+ * @param onSearch: Callback when search action is triggered
  * @param onDismiss: gives access to the onDismiss event
  * @param modifier allows a modifier to be passed externally
  */
@@ -109,11 +116,13 @@ fun BottomSheetShell(
     title: String,
     subtitle: String? = null,
     description: String? = null,
+    searchQuery: String? = null,
     icon: @Composable (() -> Unit)? = null,
-    searchBar: @Composable (() -> Unit)? = null,
     buttonBlock: @Composable (() -> Unit)? = null,
     content: @Composable (() -> Unit)? = null,
     modifier: Modifier = Modifier,
+    onSearchQueryChanged: ((String) -> Unit)? = null,
+    onSearch: ((String) -> Unit)? = null,
     onDismiss: () -> Unit,
 ) {
     val sheetState = rememberModalBottomSheetState(true)
@@ -149,18 +158,7 @@ fun BottomSheetShell(
         },
     ) {
         val contentScrollState = rememberScrollState()
-
-        // While the scroll state has `canScrollForward` variable. It's not
-        // working as expected. The max value for the scroll area is fluctuating.
-        // Instead we are getting the initial max value to compare it with
-        // changing value similar to how it's done in `ScrollState`
-        var contentScrollMaxValue by remember { mutableStateOf(0) }
-
-        LaunchedEffect(Unit) {
-            contentScrollMaxValue = contentScrollState.maxValue
-        }
-
-        val canScrollForward by derivedStateOf { contentScrollState.value < (contentScrollMaxValue - Spacing24.value) }
+        val canScrollForward by derivedStateOf { contentScrollState.canScrollForward }
 
         Column {
             Column(
@@ -178,7 +176,17 @@ fun BottomSheetShell(
                         .padding(vertical = Spacing0)
                         .align(Alignment.CenterHorizontally),
                 )
-                searchBar?.invoke()
+
+                if (searchQuery != null && onSearchQueryChanged != null && onSearch != null) {
+                    Spacer(Modifier.requiredHeight(16.dp))
+
+                    SearchBar(
+                        modifier = Modifier.fillMaxWidth().padding(horizontal = Spacing24),
+                        text = searchQuery,
+                        onQueryChange = onSearchQueryChanged,
+                        onSearch = onSearch,
+                    )
+                }
                 Divider(
                     modifier = Modifier.fillMaxWidth()
                         .padding(top = Spacing24, start = Spacing24, end = Spacing24),

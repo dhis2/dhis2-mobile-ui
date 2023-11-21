@@ -35,6 +35,7 @@ fun BottomSheetScreen() {
     var showBottomSheetShellMaxExpansion by rememberSaveable { mutableStateOf(false) }
     var showBottomSheetShellSingleButton by rememberSaveable { mutableStateOf(false) }
     var showBottomSheetShellTwoButtons by rememberSaveable { mutableStateOf(false) }
+    var showBottomSheetWithSearchBar by rememberSaveable { mutableStateOf(false) }
 
     if (showLegendBottomSheetShell) {
         BottomSheetShell(
@@ -229,6 +230,73 @@ fun BottomSheetScreen() {
         }
     }
 
+    if (showBottomSheetWithSearchBar) {
+        var searchQuery by rememberSaveable { mutableStateOf("") }
+
+        BottomSheetShell(
+            title = "Bottom Sheet with Search Bar",
+            subtitle = "Subtitle",
+            description = lorem,
+            buttonBlock = {
+                ButtonBlock(
+                    primaryButton = {
+                        Button(
+                            style = ButtonStyle.OUTLINED,
+                            icon = {
+                                Icon(
+                                    imageVector = Icons.Filled.Add,
+                                    contentDescription = "Button",
+                                )
+                            },
+                            enabled = true,
+                            text = "Label",
+                            onClick = {
+                                showBottomSheetShellTwoButtons = false
+                            },
+                            modifier = Modifier.fillMaxWidth(),
+                        )
+                    },
+                    secondaryButton = {
+                        Button(
+                            style = ButtonStyle.FILLED,
+                            icon = {
+                                Icon(
+                                    imageVector = Icons.Filled.Add,
+                                    contentDescription = "Button",
+                                )
+                            },
+                            enabled = true,
+                            text = "Label",
+                            onClick = {
+                            },
+                            modifier = Modifier.fillMaxWidth(),
+                        )
+                    },
+                )
+            },
+            icon = {
+                Icon(
+                    imageVector = Icons.Outlined.Info,
+                    contentDescription = "Button",
+                    tint = SurfaceColor.Primary,
+                )
+            },
+            content = {
+                Column() {
+                    LegendRange(
+                        regularLegendList,
+                    )
+                }
+            },
+            searchQuery = searchQuery,
+            onSearchQueryChanged = { searchQuery = it },
+            onSearch = { searchQuery = it },
+            onDismiss = {
+                showBottomSheetWithSearchBar = false
+            },
+        )
+    }
+
     ColumnComponentContainer {
         SubTitle("Legend type bottom sheet shell")
         Button(
@@ -276,6 +344,16 @@ fun BottomSheetScreen() {
             text = "Show Modal",
         ) {
             showBottomSheetShellTwoButtons = !showBottomSheetShellTwoButtons
+        }
+        Spacer(modifier = Modifier.size(Spacing.Spacing10))
+
+        SubTitle("Bottom sheet shell with search bar")
+        Button(
+            enabled = true,
+            ButtonStyle.FILLED,
+            text = "Show Modal",
+        ) {
+            showBottomSheetWithSearchBar = !showBottomSheetWithSearchBar
         }
         Spacer(modifier = Modifier.size(Spacing.Spacing10))
     }
