@@ -31,6 +31,8 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2SCustomTextStyles
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing16
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing8
@@ -67,6 +69,7 @@ fun InputDropDown(
     onFocusChanged: ((Boolean) -> Unit)? = null,
     onResetButtonClicked: () -> Unit,
     onItemSelected: (DropdownItem) -> Unit,
+    noResultsFoundString: String = "No results found",
 ) {
     val focusRequester = remember { FocusRequester() }
     var showDropdown by remember { mutableStateOf(false) }
@@ -109,16 +112,26 @@ fun InputDropDown(
                                 .testTag("INPUT_DROPDOWN_BOTTOM_SHEET_ITEMS")
                                 .padding(top = Spacing8),
                         ) {
-                            filteredOptions.forEachIndexed { index, item ->
-                                DropdownItem(
-                                    modifier = Modifier.testTag("INPUT_DROPDOWN_BOTTOM_SHEET_ITEM_$index"),
-                                    item = item,
-                                    selected = selectedItem == item,
-                                    contentPadding = PaddingValues(Spacing8),
-                                    onItemClick = {
-                                        onItemSelected(item)
-                                        showDropdown = false
-                                    },
+                            if (filteredOptions.isNotEmpty()) {
+                                filteredOptions.forEachIndexed { index, item ->
+                                    DropdownItem(
+                                        modifier = Modifier.testTag("INPUT_DROPDOWN_BOTTOM_SHEET_ITEM_$index"),
+                                        item = item,
+                                        selected = selectedItem == item,
+                                        contentPadding = PaddingValues(Spacing8),
+                                        onItemClick = {
+                                            onItemSelected(item)
+                                            showDropdown = false
+                                        },
+                                    )
+                                }
+                            } else {
+                                Text(
+                                    text = noResultsFoundString,
+                                    textAlign = TextAlign.Center,
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(24.dp),
                                 )
                             }
                         }
