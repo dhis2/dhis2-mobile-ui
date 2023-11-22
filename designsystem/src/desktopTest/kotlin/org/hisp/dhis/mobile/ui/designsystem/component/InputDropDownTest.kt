@@ -4,12 +4,16 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onChildren
+import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performTextInput
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.junit.Rule
 import org.junit.Test
@@ -208,6 +212,46 @@ class InputDropDownTest {
         rule.onNodeWithTag("INPUT_DROPDOWN").assertExists()
         rule.onNodeWithTag("INPUT_DROPDOWN_ARROW_BUTTON").performClick()
         rule.onNodeWithTag("INPUT_DROPDOWN_BOTTOM_SHEET").assertExists()
+    }
+
+    @Test
+    fun shouldOnlyShowMatchedSearchResultsInBottomSheet() {
+        val dropdownItems = listOf(
+            DropdownItem("Option 1"),
+            DropdownItem("Option 2"),
+            DropdownItem("Option 3"),
+            DropdownItem("Option 4"),
+            DropdownItem("Option 5"),
+            DropdownItem("Option 6"),
+            DropdownItem("Option 7"),
+            DropdownItem("Option 8"),
+            DropdownItem("Option 9"),
+            DropdownItem("Option 10"),
+        )
+
+        val searchSemantics = "Search"
+
+        rule.setContent {
+            InputDropDown(
+                title = "Label",
+                dropdownItems = dropdownItems,
+                supportingTextData = listOf(SupportingTextData("Supporting text", SupportingTextState.DEFAULT)),
+                state = InputShellState.UNFOCUSED,
+                onResetButtonClicked = {},
+                onItemSelected = {},
+            )
+        }
+        rule.onNodeWithTag("INPUT_DROPDOWN").assertExists()
+        rule.onNodeWithTag("INPUT_DROPDOWN_ARROW_BUTTON").performClick()
+        rule.onNodeWithTag("INPUT_DROPDOWN_BOTTOM_SHEET").assertExists()
+        rule.onNodeWithTag("INPUT_DROPDOWN_BOTTOM_SHEET_ITEMS").onChildren().assertCountEquals(10)
+        rule.onNodeWithContentDescription(searchSemantics).assertExists()
+
+        // Search
+        rule.onNodeWithContentDescription(searchSemantics).performTextInput("Option 1")
+        rule.onNodeWithTag("INPUT_DROPDOWN_BOTTOM_SHEET_ITEMS").onChildren().assertCountEquals(2)
+        rule.onNodeWithTag("INPUT_DROPDOWN_BOTTOM_SHEET_ITEMS").onChildren()[0].assertTextEquals("Option 1")
+        rule.onNodeWithTag("INPUT_DROPDOWN_BOTTOM_SHEET_ITEMS").onChildren()[1].assertTextEquals("Option 10")
     }
 
     @Test

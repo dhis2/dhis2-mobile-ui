@@ -95,14 +95,21 @@ fun InputDropDown(
             inputField(modifier)
 
             if (showDropdown) {
+                var searchQuery by remember { mutableStateOf("") }
+
+                val filteredOptions =
+                    dropdownItems.filter { it.label.contains(searchQuery, ignoreCase = true) }
+
                 BottomSheetShell(
                     modifier = Modifier.testTag("INPUT_DROPDOWN_BOTTOM_SHEET"),
                     title = title,
                     content = {
                         Column(
-                            modifier = Modifier.padding(top = Spacing8),
+                            modifier = Modifier
+                                .testTag("INPUT_DROPDOWN_BOTTOM_SHEET_ITEMS")
+                                .padding(top = Spacing8),
                         ) {
-                            dropdownItems.forEachIndexed { index, item ->
+                            filteredOptions.forEachIndexed { index, item ->
                                 DropdownItem(
                                     modifier = Modifier.testTag("INPUT_DROPDOWN_BOTTOM_SHEET_ITEM_$index"),
                                     item = item,
@@ -119,6 +126,9 @@ fun InputDropDown(
                     onDismiss = {
                         showDropdown = false
                     },
+                    searchQuery = searchQuery,
+                    onSearch = { searchQuery = it },
+                    onSearchQueryChanged = { searchQuery = it },
                 )
             }
         }
