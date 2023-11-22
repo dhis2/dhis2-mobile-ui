@@ -54,6 +54,7 @@ private const val MAX_DROPDOWN_ITEMS = 6
  * item is focused
  * @param modifier allows a modifier to be passed externally
  * @param onResetButtonClicked callback to when reset button is clicked
+ * @param showSearchBar config whether to show search bar in the bottom sheet
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -69,6 +70,7 @@ fun InputDropDown(
     onFocusChanged: ((Boolean) -> Unit)? = null,
     onResetButtonClicked: () -> Unit,
     onItemSelected: (DropdownItem) -> Unit,
+    showSearchBar: Boolean = true,
     noResultsFoundString: String = "No results found",
 ) {
     val focusRequester = remember { FocusRequester() }
@@ -139,7 +141,11 @@ fun InputDropDown(
                     onDismiss = {
                         showDropdown = false
                     },
-                    searchQuery = searchQuery,
+                    searchQuery = if (showSearchBar) {
+                        searchQuery
+                    } else {
+                        null
+                    },
                     onSearch = { searchQuery = it },
                     onSearchQueryChanged = { searchQuery = it },
                 )

@@ -295,6 +295,41 @@ class InputDropDownTest {
     }
 
     @Test
+    fun shouldNotShowSearchBarWhenSearchBarConfigIsFalse() {
+        val dropdownItems = listOf(
+            DropdownItem("Option 1"),
+            DropdownItem("Option 2"),
+            DropdownItem("Option 3"),
+            DropdownItem("Option 4"),
+            DropdownItem("Option 5"),
+            DropdownItem("Option 6"),
+            DropdownItem("Option 7"),
+            DropdownItem("Option 8"),
+            DropdownItem("Option 9"),
+            DropdownItem("Option 10"),
+        )
+
+        val searchSemantics = "Search"
+
+        rule.setContent {
+            InputDropDown(
+                title = "Label",
+                dropdownItems = dropdownItems,
+                supportingTextData = listOf(SupportingTextData("Supporting text", SupportingTextState.DEFAULT)),
+                state = InputShellState.UNFOCUSED,
+                onResetButtonClicked = {},
+                onItemSelected = {},
+                showSearchBar = false,
+            )
+        }
+        rule.onNodeWithTag("INPUT_DROPDOWN").assertExists()
+        rule.onNodeWithTag("INPUT_DROPDOWN_ARROW_BUTTON").performClick()
+        rule.onNodeWithTag("INPUT_DROPDOWN_BOTTOM_SHEET").assertExists()
+        rule.onNodeWithTag("INPUT_DROPDOWN_BOTTOM_SHEET_ITEMS").onChildren().assertCountEquals(10)
+        rule.onNodeWithContentDescription(searchSemantics).assertDoesNotExist()
+    }
+
+    @Test
     fun clickingOnDropdownMenuItemShouldTriggerCallbackAndDismissMenu() {
         val dropdownItems = listOf(
             DropdownItem("Option 1"),
