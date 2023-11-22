@@ -69,7 +69,6 @@ fun <T> ImageBlock(
             FullScreenImage(
                 title = title,
                 painter = painterFor(image!!),
-                modifier = modifier,
                 onDismiss = {
                     isFullScreen = !isFullScreen
                 },

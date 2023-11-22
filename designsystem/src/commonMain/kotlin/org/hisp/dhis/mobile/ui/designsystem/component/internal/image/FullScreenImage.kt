@@ -34,17 +34,16 @@ import org.hisp.dhis.mobile.ui.designsystem.component.IconButton
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 
-
 @Composable
 internal fun FullScreenImage(
     painter: Painter,
     title: String,
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     onDismiss: () -> Unit,
     onDownloadButtonCLick: () -> Unit,
     onShareButtonClick: () -> Unit,
 ) {
-    var animatedScale = remember { Animatable(0f) }
+    val animatedScale = remember { Animatable(0f) }
     val animatedColor = remember { Animatable(Color.Transparent) }
 
     LaunchedEffect(animatedScale, animatedColor) {
@@ -68,8 +67,11 @@ internal fun FullScreenImage(
     }
 
     Dialog(
-        properties = DialogProperties(usePlatformDefaultWidth = false),
-        onDismissRequest = onDismiss
+        properties = DialogProperties(
+            usePlatformDefaultWidth = false,
+            dismissOnClickOutside = false,
+        ),
+        onDismissRequest = onDismiss,
     ) {
         Box(
             modifier
@@ -79,13 +81,14 @@ internal fun FullScreenImage(
             ZoomableImage(
                 painter = painter,
                 modifier = Modifier
+                    .testTag("FULL_SCREEN_IMAGE")
                     .fillMaxSize()
                     .graphicsLayer {
                         scaleX = animatedScale.value
                         scaleY = animatedScale.value
                     }
             )
-            TopAppBar(
+            AppBar(
                 title = title,
                 modifier = Modifier
                     .align(Alignment.TopStart),
@@ -98,7 +101,7 @@ internal fun FullScreenImage(
 }
 
 @Composable
-private fun TopAppBar(
+private fun AppBar(
     title: String,
     modifier: Modifier,
     onBack: () -> Unit,
@@ -118,7 +121,7 @@ private fun TopAppBar(
             icon = {
                 Icon(
                     imageVector = Icons.Outlined.ArrowBack,
-                    contentDescription = "Reset Button",
+                    contentDescription = "Back Button",
                     tint = SurfaceColor.SurfaceBright
                 )
             },
@@ -135,7 +138,7 @@ private fun TopAppBar(
             icon = {
                 Icon(
                     imageVector = Icons.Outlined.Share,
-                    contentDescription = "Reset Button",
+                    contentDescription = "Share Button",
                     tint = SurfaceColor.SurfaceBright
                 )
             },
@@ -146,7 +149,7 @@ private fun TopAppBar(
             icon = {
                 Icon(
                     imageVector = Icons.Outlined.FileDownload,
-                    contentDescription = "Reset Button",
+                    contentDescription = "Download Button",
                     tint = SurfaceColor.SurfaceBright
                 )
             },
