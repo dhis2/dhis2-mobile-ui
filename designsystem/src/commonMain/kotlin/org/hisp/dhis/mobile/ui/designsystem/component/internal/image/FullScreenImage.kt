@@ -3,7 +3,6 @@ package org.hisp.dhis.mobile.ui.designsystem.component.internal.image
 import androidx.compose.animation.Animatable
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -25,7 +24,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
@@ -46,14 +44,14 @@ internal fun FullScreenImage(
     onDownloadButtonCLick: () -> Unit,
     onShareButtonClick: () -> Unit,
 ) {
-    val animatedProgress = remember { Animatable(0f) }
+    var animatedScale = remember { Animatable(0f) }
     val animatedColor = remember { Animatable(Color.Transparent) }
 
-    LaunchedEffect(animatedProgress, animatedColor) {
+    LaunchedEffect(animatedScale, animatedColor) {
         launch {
             awaitAll(
                 async {
-                    animatedProgress.animateTo(
+                    animatedScale.animateTo(
                         1f,
                         animationSpec = tween(500)
                     )
@@ -75,22 +73,18 @@ internal fun FullScreenImage(
     ) {
         Box(
             modifier
-                .fillMaxSize()
                 .background(color = animatedColor.value),
             contentAlignment = Alignment.Center,
         ) {
-            Image(
+            ZoomableImage(
                 painter = painter,
-                contentDescription = null,
-                contentScale = ContentScale.Fit,
                 modifier = Modifier
                     .fillMaxSize()
                     .graphicsLayer {
-                        scaleX = animatedProgress.value
-                        scaleY = animatedProgress.value
+                        scaleX = animatedScale.value
+                        scaleY = animatedScale.value
                     }
             )
-
             TopAppBar(
                 title = title,
                 modifier = Modifier

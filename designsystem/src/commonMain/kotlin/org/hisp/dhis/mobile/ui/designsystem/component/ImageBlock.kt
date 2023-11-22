@@ -93,7 +93,6 @@ fun <T> ImageBlock(
                         .clickable {
                             isFullScreen = !isFullScreen
                         }
-                        .animateContentSize(),
                 )
                 if (downloadButtonVisible) {
                     SquareIconButton(
