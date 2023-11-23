@@ -1,4 +1,4 @@
-package org.hisp.dhis.mobile.ui.designsystem.component.internal.image
+package org.hisp.dhis.mobile.ui.designsystem.component
 
 import androidx.compose.animation.Animatable
 import androidx.compose.animation.core.Animatable
@@ -30,17 +30,26 @@ import androidx.compose.ui.window.DialogProperties
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
-import org.hisp.dhis.mobile.ui.designsystem.component.IconButton
+import org.hisp.dhis.mobile.ui.designsystem.component.internal.image.ZoomableImage
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 
+/**
+ * DHIS2 Full Screen Image. Wraps DHIS2 Internal [ZoomableImage].
+ * @param painter controls the image painter to be drawn
+ * @param title controls the text to be shown for the title
+ * @param modifier allows a modifier to be passed externally
+ * @param onDismiss is a callback to dismiss the full screen image component
+ * @param onDownloadButtonClick is a callback to notify when the download button is clicked.
+ * @param onShareButtonClick is a callback to notify when the share button is clicked.
+ */
 @Composable
 fun FullScreenImage(
     painter: Painter,
     title: String,
     modifier: Modifier = Modifier,
     onDismiss: () -> Unit,
-    onDownloadButtonCLick: () -> Unit,
+    onDownloadButtonClick: () -> Unit,
     onShareButtonClick: () -> Unit,
 ) {
     val animatedScale = remember { Animatable(0f) }
@@ -52,15 +61,15 @@ fun FullScreenImage(
                 async {
                     animatedScale.animateTo(
                         1f,
-                        animationSpec = tween(500)
+                        animationSpec = tween(500),
                     )
                 },
                 async {
                     animatedColor.animateTo(
                         Color.Black,
-                        animationSpec = tween(500)
+                        animationSpec = tween(500),
                     )
-                }
+                },
 
             )
         }
@@ -86,7 +95,7 @@ fun FullScreenImage(
                     .graphicsLayer {
                         scaleX = animatedScale.value
                         scaleY = animatedScale.value
-                    }
+                    },
             )
             AppBar(
                 title = title,
@@ -94,7 +103,7 @@ fun FullScreenImage(
                     .align(Alignment.TopStart),
                 onBack = onDismiss,
                 onShare = onShareButtonClick,
-                onDownload = onDownloadButtonCLick
+                onDownload = onDownloadButtonClick,
             )
         }
     }
@@ -106,14 +115,14 @@ private fun AppBar(
     modifier: Modifier,
     onBack: () -> Unit,
     onShare: () -> Unit,
-    onDownload: () -> Unit
+    onDownload: () -> Unit,
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
             .fillMaxWidth()
             .background(color = Color(0xFF000000).copy(0.4f))
-            .padding(vertical = Spacing.Spacing8)
+            .padding(vertical = Spacing.Spacing8),
     ) {
         IconButton(
             onClick = onBack,
@@ -122,7 +131,7 @@ private fun AppBar(
                 Icon(
                     imageVector = Icons.Outlined.ArrowBack,
                     contentDescription = "Back Button",
-                    tint = SurfaceColor.SurfaceBright
+                    tint = SurfaceColor.SurfaceBright,
                 )
             },
         )
@@ -130,7 +139,7 @@ private fun AppBar(
             text = title,
             style = MaterialTheme.typography.titleSmall,
             color = SurfaceColor.SurfaceBright,
-            modifier = Modifier.weight(1.0f)
+            modifier = Modifier.weight(1.0f),
         )
         IconButton(
             onClick = onShare,
@@ -139,7 +148,7 @@ private fun AppBar(
                 Icon(
                     imageVector = Icons.Outlined.Share,
                     contentDescription = "Share Button",
-                    tint = SurfaceColor.SurfaceBright
+                    tint = SurfaceColor.SurfaceBright,
                 )
             },
         )
@@ -150,7 +159,7 @@ private fun AppBar(
                 Icon(
                     imageVector = Icons.Outlined.FileDownload,
                     contentDescription = "Download Button",
-                    tint = SurfaceColor.SurfaceBright
+                    tint = SurfaceColor.SurfaceBright,
                 )
             },
         )

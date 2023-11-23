@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.IntSize
 internal fun ZoomableImage(
     painter: Painter,
     modifier: Modifier,
-    contentScale: ContentScale = ContentScale.Fit
+    contentScale: ContentScale = ContentScale.Fit,
 ) {
     var scale by remember { mutableStateOf(1f) }
     var offset by remember { mutableStateOf(Offset(0f, 0f)) }
@@ -37,7 +37,7 @@ internal fun ZoomableImage(
                 detectTransformGestures { centroid, pan, zoom, _ ->
                     scale = maxOf(1f, scale * zoom)
                     offset = offset.calculateNewOffset(
-                        centroid, pan, scale, zoom, size
+                        centroid, pan, scale, zoom, size,
                     )
                 }
             }
@@ -46,7 +46,7 @@ internal fun ZoomableImage(
                     onDoubleTap = { tapOffset ->
                         scale = if (scale > 1f) 1f else 2f
                         offset = calculateDoubleTapOffset(scale, size, tapOffset)
-                    }
+                    },
                 )
             }
             .graphicsLayer {
@@ -55,7 +55,7 @@ internal fun ZoomableImage(
                 scaleX = scale
                 scaleY = scale
                 transformOrigin = TransformOrigin(0f, 0f)
-            }
+            },
     )
 }
 
@@ -64,26 +64,24 @@ fun Offset.calculateNewOffset(
     pan: Offset,
     scale: Float,
     gestureZoom: Float,
-    size: IntSize
+    size: IntSize,
 ): Offset {
     val newScale = maxOf(1f, scale * gestureZoom)
-    val newOffset = (this + centroid / scale) -
-            (centroid / newScale + pan / scale)
+    val newOffset = (this + centroid / scale) - (centroid / newScale + pan / scale)
     return Offset(
         newOffset.x.coerceIn(0f, (size.width / scale) * (scale - 1f)),
-        newOffset.y.coerceIn(0f, (size.height / scale) * (scale - 1f))
+        newOffset.y.coerceIn(0f, (size.height / scale) * (scale - 1f)),
     )
 }
-
 
 fun calculateDoubleTapOffset(
     scale: Float,
     size: IntSize,
-    tapOffset: Offset
+    tapOffset: Offset,
 ): Offset {
     val newOffset = Offset(tapOffset.x, tapOffset.y)
     return Offset(
         newOffset.x.coerceIn(0f, (size.width / scale) * (scale - 1f) / 2f),
-        newOffset.y.coerceIn(0f, (size.height / scale) * (scale - 1f) / 2f)
+        newOffset.y.coerceIn(0f, (size.height / scale) * (scale - 1f) / 2f),
     )
 }

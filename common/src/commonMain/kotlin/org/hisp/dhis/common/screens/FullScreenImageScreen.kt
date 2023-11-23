@@ -9,8 +9,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
+import org.hisp.dhis.mobile.ui.designsystem.component.FullScreenImage
 import org.hisp.dhis.mobile.ui.designsystem.component.ImageBlock
-import org.hisp.dhis.mobile.ui.designsystem.component.internal.image.FullScreenImage
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
@@ -44,7 +44,7 @@ fun FullScreenImageScreen() {
             contentDescription = null,
             modifier = Modifier.clickable {
                 showFullscreenDhis2Icon = !showFullscreenDhis2Icon
-            }
+            },
         )
         if (showFullscreenDhis2Icon) {
             FullScreenImage(
@@ -54,7 +54,7 @@ fun FullScreenImageScreen() {
                     showFullscreenDhis2Icon = !showFullscreenDhis2Icon
                 },
                 onShareButtonClick = {},
-                onDownloadButtonCLick = {}
+                onDownloadButtonClick = {},
             )
         }
     }

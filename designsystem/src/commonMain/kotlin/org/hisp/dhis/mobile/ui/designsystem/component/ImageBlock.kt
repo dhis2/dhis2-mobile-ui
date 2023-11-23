@@ -25,7 +25,6 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import org.hisp.dhis.mobile.ui.designsystem.component.internal.image.FullScreenImage
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import java.io.IOException
@@ -71,8 +70,8 @@ fun <T> ImageBlock(
                 onDismiss = {
                     isFullScreen = !isFullScreen
                 },
-                onDownloadButtonCLick = onDownloadButtonClick,
-                onShareButtonClick = onShareButtonClick
+                onDownloadButtonClick = onDownloadButtonClick,
+                onShareButtonClick = onShareButtonClick,
             )
         } else {
             Box(
@@ -90,7 +89,7 @@ fun <T> ImageBlock(
                         .height(160.dp)
                         .clickable {
                             isFullScreen = !isFullScreen
-                        }
+                        },
                 )
                 if (downloadButtonVisible) {
                     SquareIconButton(
