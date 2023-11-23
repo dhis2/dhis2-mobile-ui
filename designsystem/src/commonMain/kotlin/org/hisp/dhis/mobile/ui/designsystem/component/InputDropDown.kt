@@ -77,7 +77,7 @@ fun InputDropDown(
     var showDropdown by remember { mutableStateOf(false) }
 
     val inputField: @Composable (modifier: Modifier) -> Unit = { inputModifier ->
-        InputField(
+        DropdownInputField(
             modifier = inputModifier,
             focusRequester = focusRequester,
             title = title,
@@ -199,7 +199,7 @@ fun InputDropDown(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun InputField(
+private fun DropdownInputField(
     title: String,
     state: InputShellState,
     isRequiredField: Boolean,
