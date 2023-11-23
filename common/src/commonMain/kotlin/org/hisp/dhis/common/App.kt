@@ -33,6 +33,7 @@ import org.hisp.dhis.common.screens.ChipsScreen
 import org.hisp.dhis.common.screens.Components
 import org.hisp.dhis.common.screens.FormShellsScreen
 import org.hisp.dhis.common.screens.FormsComponentsScreen
+import org.hisp.dhis.common.screens.FullScreenImageScreen
 import org.hisp.dhis.common.screens.IconButtonScreen
 import org.hisp.dhis.common.screens.ImageBlockScreen
 import org.hisp.dhis.common.screens.InputAgeScreen
@@ -91,7 +92,7 @@ fun App() {
 
 @Composable
 fun Main() {
-    val currentScreen = remember { mutableStateOf(Components.SEARCH_BAR) }
+    val currentScreen = remember { mutableStateOf(Components.FULL_SCREEN_IMAGE) }
     var expanded by remember { mutableStateOf(false) }
 
     Column(
@@ -195,6 +196,7 @@ fun Main() {
             Components.INPUT_IMAGE -> InputImageScreen()
             Components.SEARCH_BAR -> SearchBarScreen()
             Components.INPUT_NOT_SUPPORTED -> InputNotSupportedScreen()
+            Components.FULL_SCREEN_IMAGE -> FullScreenImageScreen()
         }
     }
 }

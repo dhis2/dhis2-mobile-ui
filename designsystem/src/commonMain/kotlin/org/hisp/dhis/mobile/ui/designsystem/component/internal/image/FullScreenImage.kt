@@ -35,7 +35,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 
 @Composable
-internal fun FullScreenImage(
+fun FullScreenImage(
     painter: Painter,
     title: String,
     modifier: Modifier = Modifier,

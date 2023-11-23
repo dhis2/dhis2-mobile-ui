@@ -19,7 +19,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.IntSize
 
 @Composable
-fun ZoomableImage(
+internal fun ZoomableImage(
     painter: Painter,
     modifier: Modifier,
     contentScale: ContentScale = ContentScale.Fit

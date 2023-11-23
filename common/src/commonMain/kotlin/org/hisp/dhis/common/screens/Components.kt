@@ -58,4 +58,5 @@ enum class Components(val label: String) {
     INPUT_IMAGE("Input Image"),
     SEARCH_BAR("Search bar"),
     INPUT_NOT_SUPPORTED("Input Not Supported"),
+    FULL_SCREEN_IMAGE("Full Screen Image"),
 }
