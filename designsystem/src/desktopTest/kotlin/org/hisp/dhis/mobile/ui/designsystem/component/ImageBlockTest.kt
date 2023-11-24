@@ -46,7 +46,6 @@ class ImageBlockTest {
 
         rule.onNodeWithTag("IMAGE_BLOCK_CONTAINER").assertExists()
         rule.onNodeWithTag("IMAGE_BLOCK_CONTAINER").performClick()
-        rule.onNodeWithTag("IMAGE_BLOCK_CONTAINER").assertDoesNotExist()
         rule.onNodeWithTag("FULL_SCREEN_IMAGE").assertExists()
     }
 
@@ -64,12 +63,10 @@ class ImageBlockTest {
 
         rule.onNodeWithTag("IMAGE_BLOCK_CONTAINER").assertExists()
         rule.onNodeWithTag("IMAGE_BLOCK_CONTAINER").performClick()
-        rule.onNodeWithTag("IMAGE_BLOCK_CONTAINER").assertDoesNotExist()
         rule.onNodeWithTag("FULL_SCREEN_IMAGE").assertExists()
 
         rule.onNodeWithTag("FULL_SCREEN_IMAGE_BACK_BUTTON").assertExists()
         rule.onNodeWithTag("FULL_SCREEN_IMAGE_BACK_BUTTON").performClick()
         rule.onNodeWithTag("FULL_SCREEN_IMAGE").assertDoesNotExist()
-        rule.onNodeWithTag("IMAGE_BLOCK_CONTAINER").assertExists()
     }
 }

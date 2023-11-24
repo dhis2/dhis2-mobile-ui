@@ -1,7 +1,7 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
-import androidx.compose.animation.Animatable
-import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.animateColor
+import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,8 +17,10 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
@@ -26,9 +28,6 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.launch
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.image.ZoomableImage
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 
@@ -51,27 +50,18 @@ fun FullScreenImage(
     onDownloadButtonClick: () -> Unit,
     onShareButtonClick: () -> Unit,
 ) {
-    val animatedScale = remember { Animatable(0f) }
-    val animatedColor = remember { Animatable(Color.Transparent) }
+    var opened by remember { mutableStateOf(false) }
+    val transition = updateTransition(opened)
 
-    LaunchedEffect(animatedScale, animatedColor) {
-        launch {
-            awaitAll(
-                async {
-                    animatedScale.animateTo(
-                        1f,
-                        animationSpec = tween(500),
-                    )
-                },
-                async {
-                    animatedColor.animateTo(
-                        Color.Black,
-                        animationSpec = tween(500),
-                    )
-                },
-
-                )
-        }
+    val animatedScale by transition.animateFloat(
+        transitionSpec = { tween(300) },
+    ) { isOpened ->
+        if (isOpened) 1f else 0f
+    }
+    val animatedColor by transition.animateColor(
+        transitionSpec = { tween(600) },
+    ) { isOpened ->
+        if (isOpened) Color.Black else Color.Transparent
     }
 
     Dialog(
@@ -81,9 +71,10 @@ fun FullScreenImage(
         ),
         onDismissRequest = onDismiss,
     ) {
+        opened = true
         Scaffold(
             modifier = modifier,
-            containerColor = animatedColor.value,
+            containerColor = animatedColor,
             topBar = {
                 TopAppBar(
                     colors = TopAppBarDefaults.topAppBarColors(
@@ -132,19 +123,18 @@ fun FullScreenImage(
                                 )
                             },
                         )
-                    }
+                    },
                 )
             },
-
-            ) {
+        ) {
             ZoomableImage(
                 painter = painter,
                 modifier = Modifier
                     .testTag("FULL_SCREEN_IMAGE")
                     .fillMaxSize()
                     .graphicsLayer {
-                        scaleX = animatedScale.value
-                        scaleY = animatedScale.value
+                        scaleX = animatedScale
+                        scaleY = animatedScale
                     },
             )
         }
