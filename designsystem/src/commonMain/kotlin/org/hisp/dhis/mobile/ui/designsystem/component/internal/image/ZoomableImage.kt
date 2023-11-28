@@ -1,5 +1,11 @@
 package org.hisp.dhis.mobile.ui.designsystem.component.internal.image
 
+import androidx.compose.animation.core.AnimationSpec
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.animateOffsetAsState
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.gestures.detectTransformGestures
@@ -24,8 +30,19 @@ internal fun ZoomableImage(
     modifier: Modifier,
     contentScale: ContentScale = ContentScale.Fit,
 ) {
+    var isDoubleTapped by remember { mutableStateOf(false) }
+
     var scale by remember { mutableStateOf(1f) }
     var offset by remember { mutableStateOf(Offset(0f, 0f)) }
+
+    val animatedScale by animateFloatAsState(
+        targetValue = scale,
+        animationSpec = getAnimationSpec(isDoubleTapped)
+    )
+    val animatedOffset by animateOffsetAsState(
+        targetValue = offset,
+        animationSpec = getAnimationSpec(isDoubleTapped)
+    )
 
     Image(
         painter = painter,
@@ -35,6 +52,7 @@ internal fun ZoomableImage(
             .clipToBounds()
             .pointerInput(Unit) {
                 detectTransformGestures { centroid, pan, zoom, _ ->
+                    isDoubleTapped = false
                     scale = maxOf(1f, scale * zoom)
                     offset = offset.calculateNewOffset(
                         centroid, pan, scale, zoom, size,
@@ -44,16 +62,17 @@ internal fun ZoomableImage(
             .pointerInput(Unit) {
                 detectTapGestures(
                     onDoubleTap = { tapOffset ->
+                        isDoubleTapped = true
                         scale = if (scale > 1f) 1f else 2f
                         offset = calculateDoubleTapOffset(scale, size, tapOffset)
                     },
                 )
             }
             .graphicsLayer {
-                translationX = -offset.x * scale
-                translationY = -offset.y * scale
-                scaleX = scale
-                scaleY = scale
+                translationX = -animatedOffset.x * animatedScale
+                translationY = -animatedOffset.y * animatedScale
+                scaleX = animatedScale
+                scaleY = animatedScale
                 transformOrigin = TransformOrigin(0f, 0f)
             },
     )
@@ -84,4 +103,13 @@ fun calculateDoubleTapOffset(
         newOffset.x.coerceIn(0f, (size.width / scale) * (scale - 1f) / 2f),
         newOffset.y.coerceIn(0f, (size.height / scale) * (scale - 1f) / 2f),
     )
+}
+
+@Composable
+private fun <T> getAnimationSpec(showAnimation: Boolean): AnimationSpec<T> {
+    return if (showAnimation) {
+        spring(stiffness = Spring.StiffnessLow)
+    } else {
+        tween(0)
+    }
 }
