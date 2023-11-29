@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("multiplatform") apply false
@@ -14,6 +15,10 @@ allprojects {
         version.set("0.50.0")
         verbose.set(true)
         outputToConsole.set(true)
+    }
+
+    tasks.withType<KotlinCompile>().all {
+        kotlinOptions { freeCompilerArgs += "-Xexpect-actual-classes" }
     }
 }
 

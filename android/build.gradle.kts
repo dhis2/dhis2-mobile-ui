@@ -7,11 +7,9 @@ plugins {
 kotlin {
     androidTarget()
     sourceSets {
-        val androidMain by getting {
-            dependencies {
-                implementation(project(":common"))
-                implementation("androidx.activity:activity-compose:1.7.2")
-            }
+        androidMain.dependencies {
+            implementation(project(":common"))
+            implementation("androidx.activity:activity-compose:1.8.1")
         }
     }
 }
