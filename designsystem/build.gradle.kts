@@ -16,26 +16,22 @@ kotlin {
     jvm("desktop")
 
     sourceSets {
-        val commonMain by getting {
-            dependencies {
-                implementation(compose.runtime)
-                implementation(compose.foundation)
-                implementation(compose.ui)
-                implementation(compose.material3)
-                api(compose.materialIconsExtended)
-                @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
-                implementation(compose.components.resources)
-            }
+        commonMain.dependencies {
+            implementation(compose.runtime)
+            implementation(compose.foundation)
+            implementation(compose.ui)
+            implementation(compose.material3)
+            api(compose.materialIconsExtended)
+            @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
+            implementation(compose.components.resources)
         }
 
-        val androidMain by getting {
-            dependencies {
-                api("androidx.activity:activity-compose:1.7.2")
-                api("androidx.appcompat:appcompat:1.6.1")
-                api("androidx.core:core-ktx:1.12.0")
-                implementation("androidx.compose.material3:material3:1.1.2")
-                implementation("com.google.zxing:core:3.5.2")
-            }
+        androidMain.dependencies {
+            api("androidx.activity:activity-compose:1.8.1")
+            api("androidx.appcompat:appcompat:1.6.1")
+            api("androidx.core:core-ktx:1.12.0")
+            implementation("androidx.compose.material3:material3:1.1.2")
+            implementation("com.google.zxing:core:3.5.2")
         }
 
         val desktopMain by getting {
@@ -64,7 +60,6 @@ android {
 
     defaultConfig {
         minSdk = (findProperty("android.minSdk") as String).toInt()
-        targetSdk = (findProperty("android.targetSdk") as String).toInt()
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
