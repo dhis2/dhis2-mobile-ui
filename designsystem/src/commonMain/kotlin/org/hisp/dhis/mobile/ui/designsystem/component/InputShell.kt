@@ -155,7 +155,12 @@ private fun InputShellRow(
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = modifier.fillMaxWidth()
             .background(backgroundColor)
-            .padding(Spacing.Spacing16, Spacing.Spacing8, Spacing.Spacing0, Spacing.Spacing6),
+            .padding(
+                start = Spacing.Spacing16,
+                top = Spacing.Spacing8,
+                end = Spacing.Spacing0,
+                bottom = Spacing.Spacing8,
+            ),
     ) {
         content()
     }
