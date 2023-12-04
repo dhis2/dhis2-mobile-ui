@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -98,7 +99,6 @@ fun InputShell(
                 Modifier
                     .weight(1f)
                     .padding(end = Spacing.Spacing4),
-                verticalArrangement = Arrangement.Center,
             ) {
                 if (title.isNotEmpty()) {
                     val titleText = if (isRequiredField) "$title *" else title
@@ -108,7 +108,8 @@ fun InputShell(
             }
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.height(Spacing.Spacing48),
+                modifier = Modifier.height(Spacing.Spacing48)
+                    .align(Alignment.CenterVertically),
             ) {
                 primaryButton?.invoke()
                 if (primaryButton != null && secondaryButton != null) {
@@ -148,11 +149,10 @@ fun InputShell(
 private fun InputShellRow(
     modifier: Modifier = Modifier,
     backgroundColor: Color,
-    content: @Composable (() -> Unit),
+    content: @Composable (RowScope.() -> Unit),
 ) {
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically,
         modifier = modifier.fillMaxWidth()
             .background(backgroundColor)
             .padding(Spacing.Spacing16, Spacing.Spacing8, Spacing.Spacing0, Spacing.Spacing6),
