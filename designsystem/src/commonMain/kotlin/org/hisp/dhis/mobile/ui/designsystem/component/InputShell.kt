@@ -106,22 +106,24 @@ fun InputShell(
                 }
                 inputField?.invoke()
             }
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.height(Spacing.Spacing48)
-                    .align(Alignment.CenterVertically),
-            ) {
-                primaryButton?.invoke()
-                if (primaryButton != null && secondaryButton != null) {
-                    InputShellButtonSeparator()
-                    Spacer(modifier = Modifier.width(Spacing.Spacing4))
-                }
-                secondaryButton?.let {
-                    Box(
-                        Modifier
-                            .padding(end = Spacing.Spacing4).size(Spacing.Spacing48),
-                    ) {
-                        it.invoke()
+            if (primaryButton != null || secondaryButton != null) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.height(Spacing.Spacing48)
+                        .align(Alignment.CenterVertically),
+                ) {
+                    primaryButton?.invoke()
+                    if (primaryButton != null && secondaryButton != null) {
+                        InputShellButtonSeparator()
+                        Spacer(modifier = Modifier.width(Spacing.Spacing4))
+                    }
+                    secondaryButton?.let {
+                        Box(
+                            Modifier
+                                .padding(end = Spacing.Spacing4).size(Spacing.Spacing48),
+                        ) {
+                            it.invoke()
+                        }
                     }
                 }
             }
