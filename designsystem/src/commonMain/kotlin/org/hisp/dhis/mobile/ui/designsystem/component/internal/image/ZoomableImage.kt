@@ -37,11 +37,11 @@ internal fun ZoomableImage(
 
     val animatedScale by animateFloatAsState(
         targetValue = scale,
-        animationSpec = getAnimationSpec(isDoubleTapped)
+        animationSpec = getAnimationSpec(isDoubleTapped),
     )
     val animatedOffset by animateOffsetAsState(
         targetValue = offset,
-        animationSpec = getAnimationSpec(isDoubleTapped)
+        animationSpec = getAnimationSpec(isDoubleTapped),
     )
 
     Image(
