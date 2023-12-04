@@ -96,9 +96,8 @@ fun InputShell(
         ) {
             Column(
                 Modifier
-                    .weight(4f, false)
-                    .padding(end = Spacing.Spacing4)
-                    .fillMaxWidth(1f),
+                    .weight(1f)
+                    .padding(end = Spacing.Spacing4),
                 verticalArrangement = Arrangement.Center,
             ) {
                 if (title.isNotEmpty()) {
