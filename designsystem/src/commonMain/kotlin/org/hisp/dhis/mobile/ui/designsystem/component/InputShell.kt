@@ -69,71 +69,74 @@ fun InputShell(
         val backgroundColor = if (state != InputShellState.DISABLED) SurfaceColor.Surface else SurfaceColor.DisabledSurface
         val focusRequester = remember { FocusRequester() }
 
-        InputShellRow(
-            modifier = Modifier
-                .focusRequester(focusRequester)
-                .pointerInput(Unit) {
-                    if (state != InputShellState.DISABLED) {
-                        detectTapGestures(
-                            onTap = { focusRequester.requestFocus() },
-                        )
-                    }
-                }
-                .onFocusChanged {
-                    indicatorColor =
-                        when {
-                            state == InputShellState.DISABLED -> InputShellState.DISABLED.color
-                            it.isFocused && state != InputShellState.ERROR && state != InputShellState.WARNING -> InputShellState.FOCUSED.color
-                            else -> state.color
+        Box(Modifier.fillMaxWidth()) {
+            InputShellRow(
+                modifier = Modifier
+                    .focusRequester(focusRequester)
+                    .pointerInput(Unit) {
+                        if (state != InputShellState.DISABLED) {
+                            detectTapGestures(
+                                onTap = { focusRequester.requestFocus() },
+                            )
                         }
-                    indicatorThickness = when {
-                        state == InputShellState.DISABLED -> Border.Thin
-                        it.isFocused -> Border.Regular
-                        else -> Border.Thin
                     }
-                    onFocusChanged?.invoke(it.isFocused)
-                },
-            backgroundColor = backgroundColor,
-        ) {
-            Column(
-                Modifier
-                    .weight(1f)
-                    .padding(end = Spacing.Spacing4),
+                    .onFocusChanged {
+                        indicatorColor =
+                            when {
+                                state == InputShellState.DISABLED -> InputShellState.DISABLED.color
+                                it.isFocused && state != InputShellState.ERROR && state != InputShellState.WARNING -> InputShellState.FOCUSED.color
+                                else -> state.color
+                            }
+                        indicatorThickness = when {
+                            state == InputShellState.DISABLED -> Border.Thin
+                            it.isFocused -> Border.Regular
+                            else -> Border.Thin
+                        }
+                        onFocusChanged?.invoke(it.isFocused)
+                    },
+                backgroundColor = backgroundColor,
             ) {
-                if (title.isNotEmpty()) {
-                    val titleText = if (isRequiredField) "$title *" else title
-                    InputShellLabelText(titleText, textColor = indicatorColor)
-                }
-                inputField?.invoke()
-            }
-            if (primaryButton != null || secondaryButton != null) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.height(Spacing.Spacing48)
-                        .align(Alignment.CenterVertically),
+                Column(
+                    Modifier
+                        .weight(1f)
+                        .padding(end = Spacing.Spacing4),
                 ) {
-                    primaryButton?.invoke()
-                    if (primaryButton != null && secondaryButton != null) {
-                        InputShellButtonSeparator()
-                        Spacer(modifier = Modifier.width(Spacing.Spacing4))
+                    if (title.isNotEmpty()) {
+                        val titleText = if (isRequiredField) "$title *" else title
+                        InputShellLabelText(titleText, textColor = indicatorColor)
                     }
-                    secondaryButton?.let {
-                        Box(
-                            Modifier
-                                .padding(end = Spacing.Spacing4).size(Spacing.Spacing48),
-                        ) {
-                            it.invoke()
+                    inputField?.invoke()
+                }
+                if (primaryButton != null || secondaryButton != null) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.height(Spacing.Spacing48)
+                            .align(Alignment.CenterVertically),
+                    ) {
+                        primaryButton?.invoke()
+                        if (primaryButton != null && secondaryButton != null) {
+                            InputShellButtonSeparator()
+                            Spacer(modifier = Modifier.width(Spacing.Spacing4))
+                        }
+                        secondaryButton?.let {
+                            Box(
+                                Modifier
+                                    .padding(end = Spacing.Spacing4).size(Spacing.Spacing48),
+                            ) {
+                                it.invoke()
+                            }
                         }
                     }
                 }
             }
-        }
-        Box(Modifier.height(Spacing.Spacing2)) {
+
             InputShellIndicator(
+                modifier = Modifier.align(Alignment.BottomStart),
                 color = indicatorColor,
                 thickness = indicatorThickness,
             )
         }
+
         legend?.invoke(this)
         if (state != InputShellState.DISABLED) supportingText?.invoke()
         if (isRequiredField && state == InputShellState.ERROR && supportingText == null) SupportingText("Required", state = SupportingTextState.ERROR)
@@ -196,16 +199,7 @@ private fun InputShellIndicator(
     thickness: Dp = Border.Thin,
 ) {
     Divider(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(
-                top = Spacing.Spacing0,
-            ).offset {
-                IntOffset(
-                    0,
-                    if (thickness == Border.Thin) 0 else -2,
-                )
-            },
+        modifier = modifier.fillMaxWidth(),
         thickness = thickness,
         color = color,
     )
