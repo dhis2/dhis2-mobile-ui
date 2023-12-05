@@ -17,12 +17,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.IntSize
+import androidx.compose.ui.unit.toSize
 
 @Composable
 internal fun ZoomableImage(
@@ -63,7 +65,16 @@ internal fun ZoomableImage(
                 detectTapGestures(
                     onDoubleTap = { tapOffset ->
                         isDoubleTapped = true
-                        scale = if (scale > 1f) 1f else 2f
+                        scale = if (scale > 1f) {
+                            1f
+                        } else {
+                            val srcSize = Size(painter.intrinsicSize.width, painter.intrinsicSize.height)
+                            val scaleFactor = ContentScale.FillBounds.computeScaleFactor(srcSize, size.toSize())
+                            maxOf(
+                                maxOf(scaleFactor.scaleX, scaleFactor.scaleY) / minOf(scaleFactor.scaleX, scaleFactor.scaleY),
+                                2f,
+                            )
+                        }
                         offset = calculateDoubleTapOffset(scale, size, tapOffset)
                     },
                 )
