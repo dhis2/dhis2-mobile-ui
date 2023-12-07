@@ -33,8 +33,12 @@ import androidx.compose.ui.input.key.onKeyEvent
 import androidx.compose.ui.input.key.type
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.onClick
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.VisualTransformation
+import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
@@ -43,7 +47,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 @Composable
 fun SearchBar(
     text: String = "",
-    placeHolderText: String = "Search",
+    placeHolderText: String = provideStringResource("search"),
     onActiveChange: (Boolean) -> Unit = {},
     onSearch: (String) -> Unit = {},
     onQueryChange: (String) -> Unit = {},
@@ -85,6 +89,9 @@ fun SearchBar(
                 } else {
                     false
                 }
+            }
+            .semantics {
+                contentDescription = "Search"
             },
         enabled = true,
         singleLine = true,
@@ -112,7 +119,7 @@ fun SearchBar(
                             icon = {
                                 Icon(
                                     imageVector = Icons.Outlined.Cancel,
-                                    contentDescription = "cancel button",
+                                    contentDescription = "Cancel Icon",
                                 )
                             },
                             onClick = {
@@ -125,7 +132,7 @@ fun SearchBar(
                             icon = {
                                 Icon(
                                     imageVector = Icons.Outlined.Search,
-                                    contentDescription = "search button",
+                                    contentDescription = "Search Icon",
                                 )
                             },
                             onClick = {},
