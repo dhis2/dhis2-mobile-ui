@@ -135,7 +135,9 @@ fun SearchBar(
                                     contentDescription = "Search Icon",
                                 )
                             },
-                            onClick = {},
+                            onClick = {
+                                focusRequester.requestFocus()
+                            },
                         )
                     }
                 },
