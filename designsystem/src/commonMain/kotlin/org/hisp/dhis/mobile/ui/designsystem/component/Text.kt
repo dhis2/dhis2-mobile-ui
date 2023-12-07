@@ -65,7 +65,7 @@ internal fun InputShellLabelText(
 ) {
     Text(
         text,
-        modifier = modifier,
+        modifier = modifier.padding(vertical = Spacing.Spacing2),
         color = textColor,
         style = MaterialTheme.typography.bodyMedium,
         textAlign = TextAlign.Start,

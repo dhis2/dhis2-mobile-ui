@@ -5,7 +5,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import org.hisp.dhis.mobile.ui.designsystem.component.CheckBoxData
@@ -19,19 +19,19 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 @Composable
 fun InputYesOnlyCheckBoxScreen() {
     ColumnComponentContainer {
-        var checkboxData by rememberSaveable {
+        var checkboxData by remember {
             mutableStateOf(CheckBoxData(uid = "0", checked = false, enabled = true, textInput = "Label"))
         }
-        var checkboxData1 by rememberSaveable {
+        var checkboxData1 by remember {
             mutableStateOf(CheckBoxData(uid = "0", checked = true, enabled = true, textInput = "Label"))
         }
-        var checkboxData2 by rememberSaveable {
+        var checkboxData2 by remember {
             mutableStateOf(CheckBoxData(uid = "0", checked = false, enabled = true, textInput = "Label"))
         }
-        val checkboxData3 by rememberSaveable {
+        val checkboxData3 by remember {
             mutableStateOf(CheckBoxData(uid = "0", checked = false, enabled = true, textInput = "Label"))
         }
-        val checkboxData4 by rememberSaveable {
+        val checkboxData4 by remember {
             mutableStateOf(CheckBoxData(uid = "0", checked = true, enabled = true, textInput = "Label"))
         }
         InputYesOnlyCheckBox(

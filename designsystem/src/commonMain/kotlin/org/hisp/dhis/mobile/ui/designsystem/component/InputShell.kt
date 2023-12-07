@@ -7,10 +7,10 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -30,7 +30,6 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.IntOffset
 import org.hisp.dhis.mobile.ui.designsystem.theme.Border
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
@@ -68,70 +67,74 @@ fun InputShell(
         val backgroundColor = if (state != InputShellState.DISABLED) SurfaceColor.Surface else SurfaceColor.DisabledSurface
         val focusRequester = remember { FocusRequester() }
 
-        InputShellRow(
-            modifier = Modifier
-                .focusRequester(focusRequester)
-                .pointerInput(Unit) {
-                    if (state != InputShellState.DISABLED) {
-                        detectTapGestures(
-                            onTap = { focusRequester.requestFocus() },
-                        )
-                    }
-                }
-                .onFocusChanged {
-                    indicatorColor =
-                        when {
-                            state == InputShellState.DISABLED -> InputShellState.DISABLED.color
-                            it.isFocused && state != InputShellState.ERROR && state != InputShellState.WARNING -> InputShellState.FOCUSED.color
-                            else -> state.color
+        Box(Modifier.fillMaxWidth()) {
+            InputShellRow(
+                modifier = Modifier
+                    .focusRequester(focusRequester)
+                    .pointerInput(Unit) {
+                        if (state != InputShellState.DISABLED) {
+                            detectTapGestures(
+                                onTap = { focusRequester.requestFocus() },
+                            )
                         }
-                    indicatorThickness = when {
-                        state == InputShellState.DISABLED -> Border.Thin
-                        it.isFocused -> Border.Regular
-                        else -> Border.Thin
                     }
-                    onFocusChanged?.invoke(it.isFocused)
-                },
-            backgroundColor = backgroundColor,
-        ) {
-            Column(
-                Modifier
-                    .weight(4f, false)
-                    .padding(end = Spacing.Spacing4)
-                    .fillMaxWidth(1f),
-                verticalArrangement = Arrangement.Center,
+                    .onFocusChanged {
+                        indicatorColor =
+                            when {
+                                state == InputShellState.DISABLED -> InputShellState.DISABLED.color
+                                it.isFocused && state != InputShellState.ERROR && state != InputShellState.WARNING -> InputShellState.FOCUSED.color
+                                else -> state.color
+                            }
+                        indicatorThickness = when {
+                            state == InputShellState.DISABLED -> Border.Thin
+                            it.isFocused -> Border.Regular
+                            else -> Border.Thin
+                        }
+                        onFocusChanged?.invoke(it.isFocused)
+                    },
+                backgroundColor = backgroundColor,
             ) {
-                if (title.isNotEmpty()) {
-                    val titleText = if (isRequiredField) "$title *" else title
-                    InputShellLabelText(titleText, textColor = indicatorColor)
+                Column(
+                    Modifier
+                        .weight(1f)
+                        .padding(end = Spacing.Spacing4),
+                ) {
+                    if (title.isNotEmpty()) {
+                        val titleText = if (isRequiredField) "$title *" else title
+                        InputShellLabelText(titleText, textColor = indicatorColor)
+                    }
+                    inputField?.invoke()
                 }
-                inputField?.invoke()
-            }
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.height(Spacing.Spacing48),
-            ) {
-                primaryButton?.invoke()
-                if (primaryButton != null && secondaryButton != null) {
-                    InputShellButtonSeparator()
-                    Spacer(modifier = Modifier.width(Spacing.Spacing4))
-                }
-                secondaryButton?.let {
-                    Box(
-                        Modifier
-                            .padding(end = Spacing.Spacing4).size(Spacing.Spacing48),
+                if (primaryButton != null || secondaryButton != null) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.height(Spacing.Spacing48)
+                            .align(Alignment.CenterVertically),
                     ) {
-                        it.invoke()
+                        primaryButton?.invoke()
+                        if (primaryButton != null && secondaryButton != null) {
+                            InputShellButtonSeparator()
+                            Spacer(modifier = Modifier.width(Spacing.Spacing4))
+                        }
+                        secondaryButton?.let {
+                            Box(
+                                Modifier
+                                    .padding(end = Spacing.Spacing4).size(Spacing.Spacing48),
+                            ) {
+                                it.invoke()
+                            }
+                        }
                     }
                 }
             }
-        }
-        Box(Modifier.height(Spacing.Spacing2)) {
+
             InputShellIndicator(
+                modifier = Modifier.align(Alignment.BottomStart),
                 color = indicatorColor,
                 thickness = indicatorThickness,
             )
         }
+
         legend?.invoke(this)
         if (state != InputShellState.DISABLED) supportingText?.invoke()
         if (isRequiredField && state == InputShellState.ERROR && supportingText == null) SupportingText("Required", state = SupportingTextState.ERROR)
@@ -149,14 +152,18 @@ fun InputShell(
 private fun InputShellRow(
     modifier: Modifier = Modifier,
     backgroundColor: Color,
-    content: @Composable (() -> Unit),
+    content: @Composable (RowScope.() -> Unit),
 ) {
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically,
         modifier = modifier.fillMaxWidth()
             .background(backgroundColor)
-            .padding(Spacing.Spacing16, Spacing.Spacing8, Spacing.Spacing0, Spacing.Spacing6),
+            .padding(
+                start = Spacing.Spacing16,
+                top = Spacing.Spacing8,
+                end = Spacing.Spacing0,
+                bottom = Spacing.Spacing8,
+            ),
     ) {
         content()
     }
@@ -190,16 +197,7 @@ private fun InputShellIndicator(
     thickness: Dp = Border.Thin,
 ) {
     Divider(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(
-                top = Spacing.Spacing0,
-            ).offset {
-                IntOffset(
-                    0,
-                    if (thickness == Border.Thin) 0 else -2,
-                )
-            },
+        modifier = modifier.fillMaxWidth(),
         thickness = thickness,
         color = color,
     )
