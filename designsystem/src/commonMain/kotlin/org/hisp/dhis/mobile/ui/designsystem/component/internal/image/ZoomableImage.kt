@@ -133,5 +133,3 @@ fun calculateDoubleTapScale(
         )
     }
 }
-
-
