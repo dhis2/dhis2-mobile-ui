@@ -65,16 +65,8 @@ internal fun ZoomableImage(
                 detectTapGestures(
                     onDoubleTap = { tapOffset ->
                         isDoubleTapped = true
-                        scale = if (scale > 1f) {
-                            1f
-                        } else {
-                            val srcSize = Size(painter.intrinsicSize.width, painter.intrinsicSize.height)
-                            val scaleFactor = ContentScale.FillBounds.computeScaleFactor(srcSize, size.toSize())
-                            maxOf(
-                                maxOf(scaleFactor.scaleX, scaleFactor.scaleY) / minOf(scaleFactor.scaleX, scaleFactor.scaleY),
-                                2f,
-                            )
-                        }
+                        val srcSize = Size(painter.intrinsicSize.width, painter.intrinsicSize.height)
+                        scale = calculateDoubleTapScale(scale, srcSize, size)
                         offset = calculateDoubleTapOffset(scale, size, tapOffset)
                     },
                 )
@@ -87,6 +79,15 @@ internal fun ZoomableImage(
                 transformOrigin = TransformOrigin(0f, 0f)
             },
     )
+}
+
+@Composable
+private fun <T> getAnimationSpec(showAnimation: Boolean): AnimationSpec<T> {
+    return if (showAnimation) {
+        spring(stiffness = Spring.StiffnessLow)
+    } else {
+        tween(0)
+    }
 }
 
 fun Offset.calculateNewOffset(
@@ -116,11 +117,21 @@ fun calculateDoubleTapOffset(
     )
 }
 
-@Composable
-private fun <T> getAnimationSpec(showAnimation: Boolean): AnimationSpec<T> {
-    return if (showAnimation) {
-        spring(stiffness = Spring.StiffnessLow)
+fun calculateDoubleTapScale(
+    currentScale: Float,
+    srcSize: Size,
+    size: IntSize,
+): Float {
+    val scaleToNormal = currentScale > 1f
+    return if (scaleToNormal) {
+        1f
     } else {
-        tween(0)
+        val scaleFactor = ContentScale.FillBounds.computeScaleFactor(srcSize, size.toSize())
+        maxOf(
+            maxOf(scaleFactor.scaleX, scaleFactor.scaleY) / minOf(scaleFactor.scaleX, scaleFactor.scaleY),
+            2f,
+        )
     }
 }
+
+
