@@ -1,11 +1,12 @@
 package org.hisp.dhis.mobile.ui.designsystem.component.internal.image
 
-import androidx.compose.animation.core.AnimationSpec
+import androidx.compose.animation.core.FiniteAnimationSpec
 import androidx.compose.animation.core.Spring
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.animateOffsetAsState
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.animateOffset
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.gestures.detectTransformGestures
@@ -32,19 +33,19 @@ internal fun ZoomableImage(
     modifier: Modifier,
     contentScale: ContentScale = ContentScale.Fit,
 ) {
-    var isDoubleTapped by remember { mutableStateOf(false) }
-
     var scale by remember { mutableStateOf(1f) }
     var offset by remember { mutableStateOf(Offset(0f, 0f)) }
 
-    val animatedScale by animateFloatAsState(
-        targetValue = scale,
-        animationSpec = getAnimationSpec(isDoubleTapped),
-    )
-    val animatedOffset by animateOffsetAsState(
-        targetValue = offset,
-        animationSpec = getAnimationSpec(isDoubleTapped),
-    )
+    var isDoubleTapped by remember { mutableStateOf(false) }
+    val transition = updateTransition(isDoubleTapped)
+
+    val animatedScale by transition.animateFloat(
+        transitionSpec = { getAnimationSpec(isDoubleTapped) },
+    ) { scale }
+
+    val animatedOffset by transition.animateOffset(
+        transitionSpec = { getAnimationSpec(isDoubleTapped) },
+    ) { offset }
 
     Image(
         painter = painter,
@@ -82,7 +83,7 @@ internal fun ZoomableImage(
 }
 
 @Composable
-private fun <T> getAnimationSpec(showAnimation: Boolean): AnimationSpec<T> {
+private fun <T> getAnimationSpec(showAnimation: Boolean): FiniteAnimationSpec<T> {
     return if (showAnimation) {
         spring(stiffness = Spring.StiffnessLow)
     } else {
