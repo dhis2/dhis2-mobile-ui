@@ -23,6 +23,7 @@ import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
  * @param painterFor is a composable function which controls how to paint the load param,
  * @param modifier allows a modifier to be passed externally
  * @param onDownloadButtonClick callback to when download button is clicked
+ * @param onShareButtonClick callback to when share button is clicked
  * @param onResetButtonClicked callback to when reset button is clicked
  * @param onAddButtonClicked callback to when add button is clicked
  */
@@ -40,9 +41,9 @@ fun <T> InputImage(
     painterFor: (@Composable (T) -> Painter)? = null,
     modifier: Modifier = Modifier,
     onDownloadButtonClick: () -> Unit,
+    onShareButtonClick: () -> Unit,
     onResetButtonClicked: () -> Unit,
     onAddButtonClicked: () -> Unit,
-    onImageClick: () -> Unit,
 ) {
     BasicInputImage(
         title = title,
@@ -59,8 +60,8 @@ fun <T> InputImage(
         testTag = "IMAGE",
         modifier = modifier,
         onDownloadButtonClick = onDownloadButtonClick,
+        onShareButtonClick = onShareButtonClick,
         onResetButtonClicked = onResetButtonClicked,
         onAddButtonClicked = onAddButtonClicked,
-        onImageClick = onImageClick,
     )
 }

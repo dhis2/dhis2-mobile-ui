@@ -38,6 +38,7 @@ fun InputSignatureScreen() {
             load = { sampleSignature },
             painterFor = { remember { it } },
             onDownloadButtonClick = {},
+            onShareButtonClick = {},
             onResetButtonClicked = {
                 uploadState = UploadState.ADD
             },
@@ -47,7 +48,6 @@ fun InputSignatureScreen() {
                     uploadState = UploadState.LOADED
                 }
             },
-            onImageClick = {},
         )
         Spacer(Modifier.size(Spacing.Spacing18))
 
@@ -59,9 +59,9 @@ fun InputSignatureScreen() {
             uploadState = uploadState1,
             load = { },
             onDownloadButtonClick = {},
+            onShareButtonClick = {},
             onResetButtonClicked = {},
             onAddButtonClicked = {},
-            onImageClick = {},
         )
         Spacer(Modifier.size(Spacing.Spacing18))
 
@@ -75,9 +75,9 @@ fun InputSignatureScreen() {
             load = { sampleSignature2 },
             painterFor = { it },
             onDownloadButtonClick = {},
+            onShareButtonClick = {},
             onResetButtonClicked = { },
             onAddButtonClicked = {},
-            onImageClick = {},
         )
     }
 }
