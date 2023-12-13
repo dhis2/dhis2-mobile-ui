@@ -8,12 +8,16 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import org.hisp.dhis.common.screens.previews.lorem
+import org.hisp.dhis.mobile.ui.designsystem.component.Button
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InputRadioButton
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.Orientation
 import org.hisp.dhis.mobile.ui.designsystem.component.RadioButtonData
 import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
+import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextData
+import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextState
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
 @Composable
@@ -67,7 +71,12 @@ fun InputRadioButtonScreen() {
     var selectedItemHorizontal by remember {
         mutableStateOf<RadioButtonData?>(radioButtonDataItemsHorizontal[0])
     }
+    var showSupportingText by remember { mutableStateOf(false) }
     ColumnComponentContainer("Radio Buttons") {
+        Button(text = "Click to show/Hide supporting text") {
+            showSupportingText = !showSupportingText
+        }
+
         SubTitle("Vertical")
         InputRadioButton(
             title = "Label",
@@ -77,6 +86,10 @@ fun InputRadioButtonScreen() {
                 selectedItemVertical = it
             },
             state = InputShellState.UNFOCUSED,
+            supportingText = if (showSupportingText) listOf(
+                SupportingTextData("Required", state = SupportingTextState.ERROR),
+                SupportingTextData(lorem + lorem + lorem, state = SupportingTextState.WARNING),
+            ) else emptyList()
         )
         Spacer(Modifier.size(Spacing.Spacing18))
         InputRadioButton(
