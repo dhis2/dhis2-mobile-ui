@@ -67,7 +67,7 @@ fun InputShell(
         modifier = modifier
             .fillMaxWidth()
             .clip(shape = RoundedCornerShape(Radius.XS, Radius.XS))
-            .animateContentSize()
+            .animateContentSize(),
     ) {
         var indicatorColor by remember(state) { mutableStateOf(state.color) }
         var indicatorThickness by remember { mutableStateOf(Border.Thin) }

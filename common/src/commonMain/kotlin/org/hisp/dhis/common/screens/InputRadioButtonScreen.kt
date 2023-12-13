@@ -86,10 +86,14 @@ fun InputRadioButtonScreen() {
                 selectedItemVertical = it
             },
             state = InputShellState.UNFOCUSED,
-            supportingText = if (showSupportingText) listOf(
-                SupportingTextData("Required", state = SupportingTextState.ERROR),
-                SupportingTextData(lorem + lorem + lorem, state = SupportingTextState.WARNING),
-            ) else emptyList()
+            supportingText = if (showSupportingText) {
+                listOf(
+                    SupportingTextData("Required", state = SupportingTextState.ERROR),
+                    SupportingTextData(lorem + lorem + lorem, state = SupportingTextState.WARNING),
+                )
+            } else {
+                emptyList()
+            },
         )
         Spacer(Modifier.size(Spacing.Spacing18))
         InputRadioButton(
