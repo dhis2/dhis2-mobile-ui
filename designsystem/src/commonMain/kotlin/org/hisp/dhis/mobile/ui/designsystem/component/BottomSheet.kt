@@ -49,7 +49,7 @@ fun BottomSheetHeader(
     subTitle: String? = null,
     description: String? = null,
     icon:
-    @Composable()
+    @Composable
     (() -> Unit)? = null,
     hasSearch: Boolean = false,
     modifier: Modifier = Modifier,
@@ -124,6 +124,7 @@ fun BottomSheetShell(
     description: String? = null,
     searchQuery: String? = null,
     contentScrollState: ScrollableState = rememberScrollState(),
+    showSectionDivider: Boolean = true,
     icon: @Composable (() -> Unit)? = null,
     buttonBlock: @Composable (() -> Unit)? = null,
     content: @Composable (() -> Unit)? = null,
@@ -195,11 +196,16 @@ fun BottomSheetShell(
                         onSearch = onSearch!!,
                     )
                 }
-                Divider(
-                    modifier = Modifier.fillMaxWidth()
-                        .padding(top = Spacing24, start = Spacing24, end = Spacing24),
-                    color = TextColor.OnDisabledSurface,
-                )
+
+                Spacer(Modifier.requiredHeight(Spacing24))
+
+                if (showSectionDivider) {
+                    Divider(
+                        modifier = Modifier.fillMaxWidth()
+                            .padding(start = Spacing24, end = Spacing24),
+                        color = TextColor.OnDisabledSurface,
+                    )
+                }
 
                 val scrollModifier = if ((contentScrollState as? ScrollState) != null) {
                     Modifier.verticalScroll(contentScrollState)
@@ -216,10 +222,12 @@ fun BottomSheetShell(
                 ) {
                     content?.let {
                         it.invoke()
-                        Divider(
-                            modifier = Modifier.fillMaxWidth().padding(top = Spacing8),
-                            color = TextColor.OnDisabledSurface,
-                        )
+                        if (showSectionDivider) {
+                            Divider(
+                                modifier = Modifier.fillMaxWidth().padding(top = Spacing8),
+                                color = TextColor.OnDisabledSurface,
+                            )
+                        }
                     }
                 }
             }
