@@ -6,6 +6,7 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -15,6 +16,7 @@ import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SearchBarDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
@@ -40,6 +42,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.VisualTransformation
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
+import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
@@ -98,6 +101,7 @@ fun SearchBar(
         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
         keyboardActions = KeyboardActions(onSearch = { onSearch(text) }),
         interactionSource = interactionSource,
+        textStyle = MaterialTheme.typography.bodyLarge,
         decorationBox = @Composable { innerTextField ->
             TextFieldDefaults.DecorationBox(
                 value = text,
@@ -115,7 +119,9 @@ fun SearchBar(
                 trailingIcon = {
                     if (text != "") {
                         IconButton(
-                            modifier = Modifier.testTag("CANCEL_BUTTON"),
+                            modifier = Modifier
+                                .testTag("CANCEL_BUTTON")
+                                .padding(end = Spacing.Spacing4),
                             icon = {
                                 Icon(
                                     imageVector = Icons.Outlined.Cancel,
@@ -128,7 +134,9 @@ fun SearchBar(
                         )
                     } else {
                         IconButton(
-                            modifier = Modifier.testTag("SEARCH_BUTTON"),
+                            modifier = Modifier
+                                .testTag("SEARCH_BUTTON")
+                                .padding(end = Spacing.Spacing4),
                             icon = {
                                 Icon(
                                     imageVector = Icons.Outlined.Search,
