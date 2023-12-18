@@ -33,6 +33,7 @@ fun BottomSheetHeaderScreen() {
                         tint = SurfaceColor.Primary,
                     )
                 },
+                hasSearch = false,
             )
         }
         Spacer(Modifier.size(Spacing.Spacing18))
@@ -44,6 +45,7 @@ fun BottomSheetHeaderScreen() {
                 title = "Title",
                 subTitle = "Subtitle",
                 description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce convallis, urna vitae lacinia feugiat",
+                hasSearch = false,
             )
         }
         Spacer(Modifier.size(Spacing.Spacing18))
@@ -54,6 +56,7 @@ fun BottomSheetHeaderScreen() {
             BottomSheetHeader(
                 title = "Title",
                 description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce convallis, urna vitae lacinia feugiat",
+                hasSearch = false,
             )
         }
         Spacer(Modifier.size(Spacing.Spacing18))
@@ -63,6 +66,7 @@ fun BottomSheetHeaderScreen() {
         Box(modifier = Modifier.border(Spacing.Spacing1, color = TextColor.OnDisabledSurface)) {
             BottomSheetHeader(
                 title = "Title",
+                hasSearch = false,
             )
         }
         Spacer(Modifier.size(Spacing.Spacing18))
@@ -79,6 +83,7 @@ fun BottomSheetHeaderScreen() {
                         tint = SurfaceColor.Primary,
                     )
                 },
+                hasSearch = false,
             )
         }
         SubTitle("Bottom sheet shell with header, content and buttons", TextColor.OnSurface)

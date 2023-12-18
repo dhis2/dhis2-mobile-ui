@@ -32,11 +32,11 @@ class BasicInputImageTest {
                 addButtonIcon = Icons.Outlined.FileUpload,
                 testTag = "IMAGE",
                 onDownloadButtonClick = {},
+                onShareButtonClick = {},
                 onResetButtonClicked = {
                 },
                 onAddButtonClicked = {
                 },
-                onImageClick = {},
             )
         }
         rule.onNodeWithTag("INPUT_IMAGE").assertExists()
@@ -55,11 +55,11 @@ class BasicInputImageTest {
                 addButtonIcon = Icons.Outlined.FileUpload,
                 testTag = "IMAGE",
                 onDownloadButtonClick = {},
+                onShareButtonClick = {},
                 onResetButtonClicked = {
                 },
                 onAddButtonClicked = {
                 },
-                onImageClick = {},
             )
         }
         rule.onNodeWithTag("INPUT_IMAGE").assertExists()
@@ -78,11 +78,11 @@ class BasicInputImageTest {
                 addButtonIcon = Icons.Outlined.FileUpload,
                 testTag = "IMAGE",
                 onDownloadButtonClick = {},
+                onShareButtonClick = {},
                 onResetButtonClicked = {
                 },
                 onAddButtonClicked = {
                 },
-                onImageClick = {},
             )
         }
         rule.onNodeWithTag("INPUT_IMAGE").assertExists()
@@ -100,11 +100,11 @@ class BasicInputImageTest {
                 addButtonIcon = Icons.Outlined.FileUpload,
                 testTag = "IMAGE",
                 onDownloadButtonClick = {},
+                onShareButtonClick = {},
                 onResetButtonClicked = {
                 },
                 onAddButtonClicked = {
                 },
-                onImageClick = {},
             )
         }
         rule.onNodeWithTag("INPUT_IMAGE").assertExists()
@@ -123,11 +123,11 @@ class BasicInputImageTest {
                 addButtonIcon = Icons.Outlined.FileUpload,
                 testTag = "IMAGE",
                 onDownloadButtonClick = {},
+                onShareButtonClick = {},
                 onResetButtonClicked = {
                 },
                 onAddButtonClicked = {
                 },
-                onImageClick = {},
 
             )
         }
@@ -149,12 +149,12 @@ class BasicInputImageTest {
                 addButtonIcon = Icons.Outlined.FileUpload,
                 testTag = "IMAGE",
                 onDownloadButtonClick = {},
+                onShareButtonClick = {},
                 onResetButtonClicked = {
                     currentState = UploadState.ADD
                 },
                 onAddButtonClicked = {
                 },
-                onImageClick = {},
 
             )
         }
@@ -178,11 +178,11 @@ class BasicInputImageTest {
                 addButtonIcon = Icons.Outlined.FileUpload,
                 testTag = "IMAGE",
                 onDownloadButtonClick = {},
+                onShareButtonClick = {},
                 onResetButtonClicked = {
                 },
                 onAddButtonClicked = {
                 },
-                onImageClick = {},
 
             )
         }
@@ -203,11 +203,11 @@ class BasicInputImageTest {
                 addButtonIcon = Icons.Outlined.FileUpload,
                 testTag = "IMAGE",
                 onDownloadButtonClick = {},
+                onShareButtonClick = {},
                 onResetButtonClicked = {
                 },
                 onAddButtonClicked = {
                 },
-                onImageClick = {},
             )
         }
         rule.onNodeWithTag("INPUT_IMAGE").assertExists()
@@ -227,11 +227,11 @@ class BasicInputImageTest {
                 addButtonIcon = Icons.Outlined.FileUpload,
                 testTag = "IMAGE",
                 onDownloadButtonClick = {},
+                onShareButtonClick = {},
                 onResetButtonClicked = {
                 },
                 onAddButtonClicked = {
                 },
-                onImageClick = {},
             )
         }
         rule.onNodeWithTag("INPUT_IMAGE").assertExists()

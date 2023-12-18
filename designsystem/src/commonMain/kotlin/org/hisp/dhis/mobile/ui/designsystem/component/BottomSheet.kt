@@ -24,7 +24,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -36,7 +35,6 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing0
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing24
-import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing56
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing8
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
@@ -47,11 +45,13 @@ fun BottomSheetHeader(
     title: String,
     subTitle: String? = null,
     description: String? = null,
-    icon: @Composable
+    icon:
+    @Composable()
     (() -> Unit)? = null,
+    hasSearch: Boolean = false,
     modifier: Modifier = Modifier,
 ) {
-    val horizontalAlignment = if (icon != null) Alignment.CenterHorizontally else Alignment.Start
+    val horizontalAlignment = if (icon != null || hasSearch) Alignment.CenterHorizontally else Alignment.Start
     Column(
         modifier = modifier.padding(horizontal = Spacing24, vertical = Spacing0)
             .fillMaxWidth(),
@@ -167,24 +167,26 @@ fun BottomSheetShell(
                     .background(SurfaceColor.SurfaceBright, Shape.ExtraLargeTop)
                     .padding(top = Spacing24),
             ) {
+                val hasSearch = searchQuery != null && onSearchQueryChanged != null && onSearch != null
                 BottomSheetHeader(
                     title,
                     subtitle,
                     description,
                     icon,
+                    hasSearch,
                     modifier = Modifier
                         .padding(vertical = Spacing0)
                         .align(Alignment.CenterHorizontally),
                 )
 
-                if (searchQuery != null && onSearchQueryChanged != null && onSearch != null) {
+                if (hasSearch) {
                     Spacer(Modifier.requiredHeight(16.dp))
 
                     SearchBar(
                         modifier = Modifier.fillMaxWidth().padding(horizontal = Spacing24),
-                        text = searchQuery,
-                        onQueryChange = onSearchQueryChanged,
-                        onSearch = onSearch,
+                        text = searchQuery!!,
+                        onQueryChange = onSearchQueryChanged!!,
+                        onSearch = onSearch!!,
                     )
                 }
                 Divider(
@@ -220,7 +222,7 @@ fun BottomSheetShell(
                 Modifier.fillMaxWidth()
                     .then(shadowModifier)
                     .background(SurfaceColor.SurfaceBright)
-                    .padding(start = Spacing24, top = Spacing24, end = Spacing24, bottom = Spacing56),
+                    .padding(start = Spacing24, top = Spacing24, end = Spacing24, bottom = Spacing24),
                 contentAlignment = Alignment.BottomCenter,
             ) {
                 buttonBlock?.invoke()
