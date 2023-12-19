@@ -1,6 +1,8 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.ScrollableState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -105,6 +107,9 @@ fun BottomSheetHeader(
  * @param icon: the icon to be shown
  * @param buttonBlock: Space for the lower buttons
  * @param content: to be shown under the header
+ * @param contentScrollState: Pass custom scroll state when content is
+ * scrollable. For example, pass configure it when using `LazyColumn` to `Modifier.verticalScroll`
+ * for content.
  * @param onSearchQueryChanged: Callback when search query is changed
  * @param onSearch: Callback when search action is triggered
  * @param onDismiss: gives access to the onDismiss event
@@ -117,6 +122,7 @@ fun BottomSheetShell(
     subtitle: String? = null,
     description: String? = null,
     searchQuery: String? = null,
+    contentScrollState: ScrollableState = rememberScrollState(),
     icon: @Composable (() -> Unit)? = null,
     buttonBlock: @Composable (() -> Unit)? = null,
     content: @Composable (() -> Unit)? = null,
@@ -157,7 +163,6 @@ fun BottomSheetShell(
             }
         },
     ) {
-        val contentScrollState = rememberScrollState()
         val canScrollForward by derivedStateOf { contentScrollState.canScrollForward }
 
         Column {
@@ -195,11 +200,17 @@ fun BottomSheetShell(
                     color = TextColor.OnDisabledSurface,
                 )
 
+                val scrollModifier = if ((contentScrollState as? ScrollState) != null) {
+                    Modifier.verticalScroll(contentScrollState)
+                } else {
+                    Modifier
+                }
+
                 Column(
                     modifier = Modifier
                         .padding(horizontal = Spacing24)
                         .heightIn(Spacing0, InternalSizeValues.Size386)
-                        .verticalScroll(contentScrollState),
+                        .then(scrollModifier),
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
                     content?.let {
