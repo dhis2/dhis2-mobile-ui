@@ -33,9 +33,9 @@ fun InputSignatureScreen() {
         InputSignature(
             title = "Label",
             load = { sampleSignature0 },
-            painterFor = sampleSignature0?.let {
-                { image ->
-                    BitmapPainter(image!!)
+            painterFor = sampleSignature0?.let { imageBitmap ->
+                {
+                    BitmapPainter(imageBitmap)
                 }
             },
             onDownloadButtonClick = {},
@@ -45,7 +45,7 @@ fun InputSignatureScreen() {
             },
             onSaveSignature = {
                 sampleSignature0 = it
-            }
+            },
         )
         Spacer(Modifier.size(Spacing.Spacing18))
 
@@ -60,9 +60,7 @@ fun InputSignatureScreen() {
             onShareButtonClick = {},
             onResetButtonClicked = {
             },
-            onSaveSignature = {
-
-            }
+            onSaveSignature = {},
         )
         Spacer(Modifier.size(Spacing.Spacing18))
 

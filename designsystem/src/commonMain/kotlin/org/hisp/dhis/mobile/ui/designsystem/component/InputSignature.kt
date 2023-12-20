@@ -82,7 +82,7 @@ fun <T> InputSignature(
             onSave = {
                 onSaveSignature.invoke(it)
                 showBottomSheet = false
-            }
+            },
         )
     }
 }

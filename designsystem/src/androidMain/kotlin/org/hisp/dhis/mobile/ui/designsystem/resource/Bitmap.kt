@@ -36,4 +36,3 @@ actual fun captureBitmap(
 
     return ::captureBitmap
 }
-
