@@ -13,24 +13,19 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.ImageBitmap
-import androidx.compose.ui.layout.boundsInRoot
-import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.component.BottomSheetShell
 import org.hisp.dhis.mobile.ui.designsystem.component.Button
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonBlock
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonStyle
-import org.hisp.dhis.mobile.ui.designsystem.resource.createBitmap
+import org.hisp.dhis.mobile.ui.designsystem.resource.captureBitmap
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.Border
 import org.hisp.dhis.mobile.ui.designsystem.theme.Color
@@ -50,27 +45,28 @@ internal fun SignatureBottomSheet(
     onSave: (ImageBitmap) -> Unit,
 ) {
     val drawing = rememberSaveable { mutableStateOf<Offset?>(null) }
-    var capturingViewBounds by rememberSaveable { mutableStateOf<Rect?>(null) }
-    var capturing by rememberSaveable { mutableStateOf(false) }
+    var signatureBitmap: (() -> ImageBitmap?)? = null
+
     BottomSheetShell(
         modifier = Modifier.testTag("INPUT_SIGNATURE_BOTTOM_SHEET"),
         title = title,
         showSectionDivider = false,
         content = {
-            Box {
-                SignatureCanvas(
-                    modifier = Modifier
-                        .dashedBorder(
-                            Border.Thin,
-                            Color.Ash600,
-                            Radius.S,
-                        )
-                        .height(200.dp)
-                        .onGloballyPositioned {
-                            capturingViewBounds = it.boundsInRoot()
-                        },
-                    drawing = drawing,
-                )
+            Box(
+                modifier = Modifier
+                    .dashedBorder(
+                        Border.Thin,
+                        Color.Ash600,
+                        Radius.S,
+                    )
+                    .height(200.dp),
+            ) {
+                signatureBitmap = captureBitmap {
+                    SignatureCanvas(
+                        drawing = drawing,
+                    )
+                }
+
                 Text(
                     modifier = Modifier
                         .padding(Spacing.Spacing8)
@@ -123,7 +119,8 @@ internal fun SignatureBottomSheet(
                         enabled = true,
                         text = doneButtonText,
                         onClick = {
-                            capturing = true
+                            val bitmap = signatureBitmap?.invoke()
+                            bitmap?.let { onSave.invoke(it) }
                         },
                         modifier = Modifier.fillMaxWidth(),
                     )
@@ -131,11 +128,7 @@ internal fun SignatureBottomSheet(
             )
         },
     )
-
-    if (capturing) {
-        capturingViewBounds
-            ?.createBitmap()
-            ?.let { onSave(it) }
-    }
 }
+
+
 
