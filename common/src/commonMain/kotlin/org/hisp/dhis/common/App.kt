@@ -92,7 +92,7 @@ fun App() {
 
 @Composable
 fun Main() {
-    val currentScreen = remember { mutableStateOf(Components.INPUT_RADIO_BUTTON) }
+    val currentScreen = remember { mutableStateOf(Components.INPUT_SIGNATURE) }
     var expanded by remember { mutableStateOf(false) }
 
     Column(
@@ -126,7 +126,7 @@ fun Main() {
                 expanded = expanded,
                 onDismissRequest = { expanded = false },
             ) {
-                Components.values().forEach {
+                Components.entries.forEach {
                     DropdownMenuItem(
                         text = { Text(it.label) },
                         onClick = {
