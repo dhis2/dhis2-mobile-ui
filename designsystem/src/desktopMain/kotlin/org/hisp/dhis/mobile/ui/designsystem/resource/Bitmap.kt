@@ -7,7 +7,6 @@ import androidx.compose.ui.graphics.ImageBitmap
 actual fun captureBitmap(
     content: @Composable () -> Unit,
 ): () -> ImageBitmap {
-
     fun captureBitmap(): ImageBitmap {
         return ImageBitmap(200, 200)
     }

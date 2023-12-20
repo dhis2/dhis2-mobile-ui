@@ -129,6 +129,3 @@ internal fun SignatureBottomSheet(
         },
     )
 }
-
-
-
