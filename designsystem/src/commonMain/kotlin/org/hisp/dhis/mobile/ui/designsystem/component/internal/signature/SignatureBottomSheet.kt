@@ -13,11 +13,12 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
@@ -25,7 +26,8 @@ import org.hisp.dhis.mobile.ui.designsystem.component.BottomSheetShell
 import org.hisp.dhis.mobile.ui.designsystem.component.Button
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonBlock
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonStyle
-import org.hisp.dhis.mobile.ui.designsystem.resource.captureBitmap
+import org.hisp.dhis.mobile.ui.designsystem.resource.Signature
+import org.hisp.dhis.mobile.ui.designsystem.resource.SignatureCanvas
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.Border
 import org.hisp.dhis.mobile.ui.designsystem.theme.Color
@@ -44,8 +46,8 @@ internal fun SignatureBottomSheet(
     onDismiss: () -> Unit,
     onSave: (ImageBitmap) -> Unit,
 ) {
-    val drawing = rememberSaveable { mutableStateOf<Offset?>(null) }
-    var signatureBitmap: (() -> ImageBitmap?)? = null
+    var signature: Signature? = null
+    var isSigning by rememberSaveable { mutableStateOf(false) }
 
     BottomSheetShell(
         modifier = Modifier.testTag("INPUT_SIGNATURE_BOTTOM_SHEET"),
@@ -61,11 +63,14 @@ internal fun SignatureBottomSheet(
                     )
                     .height(200.dp),
             ) {
-                signatureBitmap = captureBitmap {
-                    SignatureCanvas(
-                        drawing = drawing,
-                    )
-                }
+                SignatureCanvas(
+                    onReady = {
+                        signature = it
+                    },
+                    onStartedSigning = {
+                        isSigning = true
+                    }
+                )
 
                 Text(
                     modifier = Modifier
@@ -99,10 +104,11 @@ internal fun SignatureBottomSheet(
                                 contentDescription = "Reset Button",
                             )
                         },
-                        enabled = drawing.value != null,
+                        enabled = isSigning,
                         text = resetButtonText,
                         onClick = {
-                            drawing.value = null
+                            signature?.clear()
+                            isSigning = false
                         },
                         modifier = Modifier.fillMaxWidth(),
                     )
@@ -119,8 +125,7 @@ internal fun SignatureBottomSheet(
                         enabled = true,
                         text = doneButtonText,
                         onClick = {
-                            val bitmap = signatureBitmap?.invoke()
-                            bitmap?.let { onSave.invoke(it) }
+                            signature?.getBitmap()?.let { onSave.invoke(it) }
                         },
                         modifier = Modifier.fillMaxWidth(),
                     )

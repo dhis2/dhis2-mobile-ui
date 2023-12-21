@@ -31,6 +31,7 @@ kotlin {
             api("androidx.appcompat:appcompat:1.6.1")
             api("androidx.core:core-ktx:1.12.0")
             implementation("com.google.zxing:core:3.5.2")
+            implementation("se.warting.signature:signature-pad:0.1.2")
         }
 
         val desktopMain by getting {
