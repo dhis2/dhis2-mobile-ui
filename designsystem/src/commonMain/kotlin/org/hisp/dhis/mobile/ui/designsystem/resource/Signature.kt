@@ -1,7 +1,6 @@
 package org.hisp.dhis.mobile.ui.designsystem.resource
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.ui.graphics.ImageBitmap
 
 interface Signature {
