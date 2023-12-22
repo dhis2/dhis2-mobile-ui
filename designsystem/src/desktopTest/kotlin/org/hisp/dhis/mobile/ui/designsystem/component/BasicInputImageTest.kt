@@ -37,7 +37,6 @@ class BasicInputImageTest {
                 },
                 onAddButtonClicked = {
                 },
-                onImageClick = {},
             )
         }
         rule.onNodeWithTag("INPUT_IMAGE").assertExists()
@@ -61,7 +60,6 @@ class BasicInputImageTest {
                 },
                 onAddButtonClicked = {
                 },
-                onImageClick = {},
             )
         }
         rule.onNodeWithTag("INPUT_IMAGE").assertExists()
@@ -85,7 +83,6 @@ class BasicInputImageTest {
                 },
                 onAddButtonClicked = {
                 },
-                onImageClick = {},
             )
         }
         rule.onNodeWithTag("INPUT_IMAGE").assertExists()
@@ -108,7 +105,6 @@ class BasicInputImageTest {
                 },
                 onAddButtonClicked = {
                 },
-                onImageClick = {},
             )
         }
         rule.onNodeWithTag("INPUT_IMAGE").assertExists()
@@ -212,7 +208,6 @@ class BasicInputImageTest {
                 },
                 onAddButtonClicked = {
                 },
-                onImageClick = {},
             )
         }
         rule.onNodeWithTag("INPUT_IMAGE").assertExists()
@@ -237,7 +232,6 @@ class BasicInputImageTest {
                 },
                 onAddButtonClicked = {
                 },
-                onImageClick = {},
             )
         }
         rule.onNodeWithTag("INPUT_IMAGE").assertExists()
