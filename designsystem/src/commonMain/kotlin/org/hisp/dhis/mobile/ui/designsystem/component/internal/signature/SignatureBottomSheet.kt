@@ -69,7 +69,7 @@ internal fun SignatureBottomSheet(
                     },
                     onStartedSigning = {
                         isSigning = true
-                    }
+                    },
                 )
 
                 Text(
@@ -122,7 +122,7 @@ internal fun SignatureBottomSheet(
                                 contentDescription = "Done Button",
                             )
                         },
-                        enabled = true,
+                        enabled = isSigning,
                         text = doneButtonText,
                         onClick = {
                             signature?.getBitmap()?.let { onSave.invoke(it) }
