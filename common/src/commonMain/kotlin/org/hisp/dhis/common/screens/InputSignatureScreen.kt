@@ -48,7 +48,6 @@ fun InputSignatureScreen() {
                     uploadState = UploadState.LOADED
                 }
             },
-            onImageClick = {},
         )
         Spacer(Modifier.size(Spacing.Spacing18))
 
@@ -63,7 +62,6 @@ fun InputSignatureScreen() {
             onShareButtonClick = {},
             onResetButtonClicked = {},
             onAddButtonClicked = {},
-            onImageClick = {},
         )
         Spacer(Modifier.size(Spacing.Spacing18))
 
@@ -80,7 +78,6 @@ fun InputSignatureScreen() {
             onShareButtonClick = {},
             onResetButtonClicked = { },
             onAddButtonClicked = {},
-            onImageClick = {},
         )
     }
 }

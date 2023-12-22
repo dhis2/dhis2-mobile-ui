@@ -150,10 +150,6 @@ internal fun <T> BasicInputImage(
                                     Spacing.Spacing0
                                 },
                             ),
-                            onImageClick = {
-                                onImageClick.invoke()
-                                focusRequester.requestFocus()
-                            },
                         )
                     }
                 }

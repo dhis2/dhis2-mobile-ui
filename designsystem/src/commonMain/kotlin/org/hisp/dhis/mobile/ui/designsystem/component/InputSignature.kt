@@ -44,7 +44,6 @@ fun <T> InputSignature(
     onShareButtonClick: () -> Unit,
     onResetButtonClicked: () -> Unit,
     onAddButtonClicked: () -> Unit,
-    onImageClick: () -> Unit,
 ) {
     BasicInputImage(
         title = title,
@@ -64,6 +63,5 @@ fun <T> InputSignature(
         onShareButtonClick = onShareButtonClick,
         onResetButtonClicked = onResetButtonClicked,
         onAddButtonClicked = onAddButtonClicked,
-        onImageClick = onImageClick,
     )
 }
