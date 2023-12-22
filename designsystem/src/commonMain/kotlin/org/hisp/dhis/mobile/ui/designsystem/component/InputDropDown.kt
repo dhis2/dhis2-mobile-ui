@@ -37,6 +37,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2SCustomTextStyles
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing16
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing8
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
+import androidx.compose.ui.text.style.TextOverflow
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
 private const val MAX_DROPDOWN_ITEMS = 6
@@ -249,6 +250,8 @@ private fun DropdownInputField(
                             TextColor.OnDisabledSurface
                         },
                     ),
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
                 )
                 Box(
                     modifier = Modifier

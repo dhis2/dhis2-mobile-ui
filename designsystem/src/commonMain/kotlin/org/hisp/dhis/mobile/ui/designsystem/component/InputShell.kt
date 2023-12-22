@@ -8,10 +8,10 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -31,7 +31,6 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.IntOffset
 import org.hisp.dhis.mobile.ui.designsystem.theme.Border
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
@@ -134,10 +133,12 @@ fun InputShell(
         }
         Box(Modifier.height(Spacing.Spacing2)) {
             InputShellIndicator(
+                modifier = Modifier.align(Alignment.BottomStart),
                 color = indicatorColor,
                 thickness = indicatorThickness,
             )
         }
+
         legend?.invoke(this)
         if (state != InputShellState.DISABLED) supportingText?.invoke()
         if (isRequiredField && state == InputShellState.ERROR && supportingText == null) SupportingText("Required", state = SupportingTextState.ERROR)
@@ -155,14 +156,18 @@ fun InputShell(
 private fun InputShellRow(
     modifier: Modifier = Modifier,
     backgroundColor: Color,
-    content: @Composable (() -> Unit),
+    content: @Composable (RowScope.() -> Unit),
 ) {
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically,
         modifier = modifier.fillMaxWidth()
             .background(backgroundColor)
-            .padding(Spacing.Spacing16, Spacing.Spacing8, Spacing.Spacing0, Spacing.Spacing6),
+            .padding(
+                start = Spacing.Spacing16,
+                top = Spacing.Spacing8,
+                end = Spacing.Spacing0,
+                bottom = Spacing.Spacing8,
+            ),
     ) {
         content()
     }
@@ -196,16 +201,7 @@ private fun InputShellIndicator(
     thickness: Dp = Border.Thin,
 ) {
     Divider(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(
-                top = Spacing.Spacing0,
-            ).offset {
-                IntOffset(
-                    0,
-                    if (thickness == Border.Thin) 0 else -2,
-                )
-            },
+        modifier = modifier.fillMaxWidth(),
         thickness = thickness,
         color = color,
     )

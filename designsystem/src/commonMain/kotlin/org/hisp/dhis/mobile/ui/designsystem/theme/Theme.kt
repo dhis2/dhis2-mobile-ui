@@ -146,13 +146,13 @@ internal object DHIS2SCustomTextStyles {
         letterSpacing = 0.15.sp,
     )
 
-    val bodyLargeBold: TextStyle
-        @Composable
-        @ReadOnlyComposable
-        get() = MaterialTheme.typography.bodyLarge.copy(
-            fontWeight = FontWeight.Bold,
-            color = TextColor.OnSurface,
-        )
+    val bodyLargeBold = TextStyle(
+        fontSize = 16.sp,
+        lineHeight = 24.sp,
+        fontWeight = FontWeight.Bold,
+        color = TextColor.OnSurface,
+        letterSpacing = 0.5.sp,
+    )
 
     val clickableSupportingText = SpanStyle(
         fontSize = 14.sp,

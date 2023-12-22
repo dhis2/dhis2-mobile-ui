@@ -44,6 +44,7 @@ fun <T> InputImage(
     onShareButtonClick: () -> Unit,
     onResetButtonClicked: () -> Unit,
     onAddButtonClicked: () -> Unit,
+    onImageClick: () -> Unit,
 ) {
     BasicInputImage(
         title = title,
@@ -63,5 +64,6 @@ fun <T> InputImage(
         onShareButtonClick = onShareButtonClick,
         onResetButtonClicked = onResetButtonClicked,
         onAddButtonClicked = onAddButtonClicked,
+        onImageClick = onImageClick,
     )
 }
