@@ -64,7 +64,6 @@ fun SearchBar(
     } else {
         SurfaceColor.Container
     }
-
     BasicTextField(
         value = text,
         onValueChange = onQueryChange,
@@ -121,7 +120,7 @@ fun SearchBar(
                         IconButton(
                             modifier = Modifier
                                 .testTag("CANCEL_BUTTON")
-                                .padding(end = Spacing.Spacing4),
+                                .padding(Spacing.Spacing4),
                             icon = {
                                 Icon(
                                     imageVector = Icons.Outlined.Cancel,
@@ -136,7 +135,7 @@ fun SearchBar(
                         IconButton(
                             modifier = Modifier
                                 .testTag("SEARCH_BUTTON")
-                                .padding(end = Spacing.Spacing4),
+                                .padding(Spacing.Spacing4),
                             icon = {
                                 Icon(
                                     imageVector = Icons.Outlined.Search,
