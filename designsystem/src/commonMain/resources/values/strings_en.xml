@@ -34,4 +34,5 @@
     <string name="reset">Reset</string>
     <string name="done">Done</string>
     <string name="clear_all">Clear all</string>
+    <string name="org_tree_no_results_found">No results found</string>
 </resources>
