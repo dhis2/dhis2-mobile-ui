@@ -19,8 +19,10 @@ import androidx.compose.material.icons.filled.ClearAll
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -30,6 +32,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
@@ -46,6 +49,7 @@ fun OrgBottomSheet(
     description: String? = null,
     clearAllButtonText: String = provideStringResource("clear_all"),
     doneButtonText: String = provideStringResource("done"),
+    noResultsFoundText: String = provideStringResource("org_tree_no_results_found"),
     icon: @Composable (() -> Unit)? = null,
     onSearch: ((String) -> Unit)? = null,
     onDismiss: () -> Unit,
@@ -56,6 +60,7 @@ fun OrgBottomSheet(
 ) {
     val listState = rememberLazyListState()
     var searchQuery by remember { mutableStateOf("") }
+    val hasSearchQuery by derivedStateOf { searchQuery.isNotBlank() }
 
     BottomSheetShell(
         modifier = modifier,
@@ -74,6 +79,8 @@ fun OrgBottomSheet(
             OrgTreeList(
                 state = listState,
                 orgTreeItems = orgTreeItems,
+                hasSearchQuery = hasSearchQuery,
+                noResultsFoundText = noResultsFoundText,
                 onItemClick = onItemClick,
                 onItemSelected = onItemSelected,
             )
@@ -118,21 +125,38 @@ fun OrgBottomSheet(
 private fun OrgTreeList(
     state: LazyListState,
     orgTreeItems: List<OrgTreeItem>,
+    hasSearchQuery: Boolean,
+    noResultsFoundText: String,
     modifier: Modifier = Modifier,
     onItemClick: (orgUnitUid: String) -> Unit,
     onItemSelected: (orgUnitUid: String, checked: Boolean) -> Unit,
 ) {
-    LazyColumn(
-        modifier = modifier,
-        state = state,
-        horizontalAlignment = Alignment.Start,
-    ) {
-        items(orgTreeItems) { item ->
-            OrgUnitSelectorItem(
-                orgTreeItem = item,
-                onItemClick = onItemClick,
-                onItemSelected = onItemSelected,
-            )
+    if (orgTreeItems.isEmpty() && hasSearchQuery) {
+        Text(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = Spacing.Spacing24, bottom = Spacing.Spacing96)
+                .padding(horizontal = Spacing.Spacing16)
+                .testTag("ORG_TREE_NO_RESULTS_FOUND"),
+            textAlign = TextAlign.Center,
+            text = noResultsFoundText,
+            color = TextColor.OnSurfaceVariant,
+            style = MaterialTheme.typography.bodyMedium,
+        )
+    } else {
+        LazyColumn(
+            modifier = modifier
+                .testTag("ORG_TREE_LIST"),
+            state = state,
+            horizontalAlignment = Alignment.Start,
+        ) {
+            items(orgTreeItems) { item ->
+                OrgUnitSelectorItem(
+                    orgTreeItem = item,
+                    onItemClick = onItemClick,
+                    onItemSelected = onItemSelected,
+                )
+            }
         }
     }
 }
