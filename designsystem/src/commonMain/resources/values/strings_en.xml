@@ -29,4 +29,7 @@
     <string name="add_signature">Add signature</string>
     <string name="add_image">Add image</string>
     <string name="not_supported">Not supported</string>
+    <string name="draw_here">Draw here</string>
+    <string name="reset">Reset</string>
+    <string name="done">Done</string>
 </resources>
