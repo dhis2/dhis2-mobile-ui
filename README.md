@@ -12,7 +12,7 @@ In the module **build.gradle.kts**:
 
 ```kotlin
 dependencies {
-  implementation("org.hisp.dhis.mobile:designsystem:1.0-SNAPSHOT")
+  implementation("org.hisp.dhis.mobile:designsystem:0.2-SNAPSHOT")
 }
 ```
 

@@ -1,5 +1,5 @@
 group = "org.hisp.dhis.mobile"
-version = "1.0-SNAPSHOT"
+version = "0.2-SNAPSHOT"
 
 plugins {
     kotlin("multiplatform")
