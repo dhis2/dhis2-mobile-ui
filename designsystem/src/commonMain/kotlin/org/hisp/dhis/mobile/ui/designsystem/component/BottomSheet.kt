@@ -119,6 +119,7 @@ fun BottomSheetHeader(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BottomSheetShell(
+    content: @Composable (() -> Unit),
     title: String? = null,
     subtitle: String? = null,
     description: String? = null,
@@ -126,7 +127,6 @@ fun BottomSheetShell(
     contentScrollState: ScrollableState = rememberScrollState(),
     icon: @Composable (() -> Unit)? = null,
     buttonBlock: @Composable (() -> Unit)? = null,
-    content: @Composable (() -> Unit)? = null,
     modifier: Modifier = Modifier,
     onSearchQueryChanged: ((String) -> Unit)? = null,
     onSearch: ((String) -> Unit)? = null,
@@ -222,13 +222,11 @@ fun BottomSheetShell(
                         .then(scrollModifier),
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
-                    content?.let {
-                        it.invoke()
-                        Divider(
-                            modifier = Modifier.fillMaxWidth().padding(top = Spacing8),
-                            color = TextColor.OnDisabledSurface,
-                        )
-                    }
+                    content.invoke()
+                    Divider(
+                        modifier = Modifier.fillMaxWidth().padding(top = Spacing8),
+                        color = TextColor.OnDisabledSurface,
+                    )
                 }
             }
 
