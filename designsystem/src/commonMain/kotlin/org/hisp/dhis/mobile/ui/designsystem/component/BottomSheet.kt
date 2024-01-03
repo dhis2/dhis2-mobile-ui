@@ -119,7 +119,7 @@ fun BottomSheetHeader(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BottomSheetShell(
-    title: String,
+    title: String? = null,
     subtitle: String? = null,
     description: String? = null,
     searchQuery: String? = null,
@@ -174,20 +174,25 @@ fun BottomSheetShell(
                     .padding(top = Spacing24),
             ) {
                 val hasSearch = searchQuery != null && onSearchQueryChanged != null && onSearch != null
-                BottomSheetHeader(
-                    title,
-                    subtitle,
-                    description,
-                    icon,
-                    hasSearch,
-                    modifier = Modifier
-                        .padding(vertical = Spacing0)
-                        .align(Alignment.CenterHorizontally),
-                )
+                val hasTitle by derivedStateOf { !title.isNullOrBlank() }
+                if (hasTitle) {
+                    BottomSheetHeader(
+                        title!!,
+                        subtitle,
+                        description,
+                        icon,
+                        hasSearch,
+                        modifier = Modifier
+                            .padding(vertical = Spacing0)
+                            .align(Alignment.CenterHorizontally),
+                    )
+                }
+
+                if (hasTitle && hasSearch) {
+                    Spacer(Modifier.requiredHeight(16.dp))
+                }
 
                 if (hasSearch) {
-                    Spacer(Modifier.requiredHeight(16.dp))
-
                     SearchBar(
                         modifier = Modifier.fillMaxWidth().padding(horizontal = Spacing24),
                         text = searchQuery!!,
@@ -195,11 +200,14 @@ fun BottomSheetShell(
                         onSearch = onSearch!!,
                     )
                 }
-                Divider(
-                    modifier = Modifier.fillMaxWidth()
-                        .padding(top = Spacing24, start = Spacing24, end = Spacing24),
-                    color = TextColor.OnDisabledSurface,
-                )
+
+                if (hasTitle || hasSearch) {
+                    Divider(
+                        modifier = Modifier.fillMaxWidth()
+                            .padding(top = Spacing24, start = Spacing24, end = Spacing24),
+                        color = TextColor.OnDisabledSurface,
+                    )
+                }
 
                 val scrollModifier = if ((contentScrollState as? ScrollState) != null) {
                     Modifier.verticalScroll(contentScrollState)
