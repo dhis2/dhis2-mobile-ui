@@ -28,7 +28,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Chip(
+fun FilterChip(
     modifier: Modifier = Modifier,
     label: String,
     selected: Boolean = false,
