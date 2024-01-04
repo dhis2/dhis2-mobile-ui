@@ -8,9 +8,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import org.hisp.dhis.mobile.ui.designsystem.component.InputChip
-import org.hisp.dhis.mobile.ui.designsystem.component.FilterChip
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
+import org.hisp.dhis.mobile.ui.designsystem.component.FilterChip
+import org.hisp.dhis.mobile.ui.designsystem.component.InputChip
 import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
@@ -29,18 +29,18 @@ fun ChipsScreen() {
             selected = !isSelected2,
             withTrailingIcon = true,
             onSelected = { isSelected2 = !it },
-            onIconSelected = {}
+            onIconSelected = {},
         )
         InputChip(
             label = "Label",
             selected = !isSelected3,
             withTrailingIcon = true,
             onSelected = { isSelected3 = !it },
-            onIconSelected = {}
+            onIconSelected = {},
         )
         InputChip(
             label = "Label",
-            enabled = false
+            enabled = false,
         )
         Spacer(Modifier.size(Spacing.Spacing18))
 
