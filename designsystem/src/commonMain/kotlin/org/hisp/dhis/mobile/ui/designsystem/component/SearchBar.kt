@@ -22,12 +22,14 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.input.key.KeyEventType
 import androidx.compose.ui.input.key.key
@@ -36,7 +38,6 @@ import androidx.compose.ui.input.key.type
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.onClick
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.VisualTransformation
@@ -54,6 +55,7 @@ fun SearchBar(
     onActiveChange: (Boolean) -> Unit = {},
     onSearch: (String) -> Unit = {},
     onQueryChange: (String) -> Unit = {},
+    state: InputShellState = InputShellState.FOCUSED,
     modifier: Modifier = Modifier,
 ) {
     val interactionSource = remember { MutableInteractionSource() }
@@ -63,6 +65,13 @@ fun SearchBar(
         SurfaceColor.ContainerLow
     } else {
         SurfaceColor.Container
+    }
+    val cursorColor by remember {
+        if (state == InputShellState.UNFOCUSED || state == InputShellState.FOCUSED) {
+            mutableStateOf(InputShellState.FOCUSED.color)
+        } else {
+            mutableStateOf(state.color)
+        }
     }
     BasicTextField(
         value = text,
@@ -92,6 +101,7 @@ fun SearchBar(
                     false
                 }
             }
+            .padding(end = Spacing.Spacing4)
             .semantics {
                 contentDescription = "Search"
             },
@@ -119,8 +129,7 @@ fun SearchBar(
                     if (text != "") {
                         IconButton(
                             modifier = Modifier
-                                .testTag("CANCEL_BUTTON")
-                                .padding(Spacing.Spacing4),
+                                .testTag("CANCEL_BUTTON"),
                             icon = {
                                 Icon(
                                     imageVector = Icons.Outlined.Cancel,
@@ -134,8 +143,7 @@ fun SearchBar(
                     } else {
                         IconButton(
                             modifier = Modifier
-                                .testTag("SEARCH_BUTTON")
-                                .padding(Spacing.Spacing4),
+                                .testTag("SEARCH_BUTTON"),
                             icon = {
                                 Icon(
                                     imageVector = Icons.Outlined.Search,
@@ -153,5 +161,6 @@ fun SearchBar(
                 container = {},
             )
         },
+        cursorBrush = SolidColor(cursorColor),
     )
 }
