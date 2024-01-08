@@ -1,6 +1,10 @@
 package org.hisp.dhis.common.screens
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InputFileResource
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
@@ -17,6 +21,22 @@ fun InputFileResourceScreen() {
         val currentFileName2 = "filename.extension"
         val currentFileWeight2 = "524kb"
 
+        var inputFileResourceState by remember { mutableStateOf(UploadFileState.ADD) }
+
+        InputFileResource(
+            title = "Label",
+            buttonText = provideStringResource("add_file"),
+            fileName = currentFileName,
+            fileWeight = currentFileWeight,
+            uploadFileState = inputFileResourceState,
+            onSelectFile = {
+                inputFileResourceState = UploadFileState.LOADED
+            },
+            onUploadFile = {},
+            onClear = {
+                inputFileResourceState = UploadFileState.ADD
+            },
+        )
         InputFileResource(
             title = "Label",
             buttonText = provideStringResource("add_file"),

@@ -1,5 +1,5 @@
 group = "org.hisp.dhis.mobile"
-version = "1.0-SNAPSHOT"
+version = "0.2-SNAPSHOT"
 
 plugins {
     kotlin("multiplatform")
@@ -27,10 +27,9 @@ kotlin {
         }
 
         androidMain.dependencies {
-            api("androidx.activity:activity-compose:1.8.1")
+            api("androidx.activity:activity-compose:1.8.2")
             api("androidx.appcompat:appcompat:1.6.1")
             api("androidx.core:core-ktx:1.12.0")
-            implementation("androidx.compose.material3:material3:1.1.2")
             implementation("com.google.zxing:core:3.5.2")
         }
 

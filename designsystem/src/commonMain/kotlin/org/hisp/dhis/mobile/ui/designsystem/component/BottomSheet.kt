@@ -1,6 +1,8 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.ScrollableState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -24,6 +26,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -105,6 +108,9 @@ fun BottomSheetHeader(
  * @param icon: the icon to be shown
  * @param buttonBlock: Space for the lower buttons
  * @param content: to be shown under the header
+ * @param contentScrollState: Pass custom scroll state when content is
+ * scrollable. For example, pass configure it when using `LazyColumn` to `Modifier.verticalScroll`
+ * for content.
  * @param onSearchQueryChanged: Callback when search query is changed
  * @param onSearch: Callback when search action is triggered
  * @param onDismiss: gives access to the onDismiss event
@@ -113,13 +119,14 @@ fun BottomSheetHeader(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BottomSheetShell(
-    title: String,
+    content: @Composable (() -> Unit),
+    title: String? = null,
     subtitle: String? = null,
     description: String? = null,
     searchQuery: String? = null,
+    contentScrollState: ScrollableState = rememberScrollState(),
     icon: @Composable (() -> Unit)? = null,
     buttonBlock: @Composable (() -> Unit)? = null,
-    content: @Composable (() -> Unit)? = null,
     modifier: Modifier = Modifier,
     onSearchQueryChanged: ((String) -> Unit)? = null,
     onSearch: ((String) -> Unit)? = null,
@@ -157,7 +164,6 @@ fun BottomSheetShell(
             }
         },
     ) {
-        val contentScrollState = rememberScrollState()
         val canScrollForward by derivedStateOf { contentScrollState.canScrollForward }
 
         Column {
@@ -168,20 +174,25 @@ fun BottomSheetShell(
                     .padding(top = Spacing24),
             ) {
                 val hasSearch = searchQuery != null && onSearchQueryChanged != null && onSearch != null
-                BottomSheetHeader(
-                    title,
-                    subtitle,
-                    description,
-                    icon,
-                    hasSearch,
-                    modifier = Modifier
-                        .padding(vertical = Spacing0)
-                        .align(Alignment.CenterHorizontally),
-                )
+                val hasTitle by derivedStateOf { !title.isNullOrBlank() }
+                if (hasTitle) {
+                    BottomSheetHeader(
+                        title!!,
+                        subtitle,
+                        description,
+                        icon,
+                        hasSearch,
+                        modifier = Modifier
+                            .padding(vertical = Spacing0)
+                            .align(Alignment.CenterHorizontally),
+                    )
+                }
+
+                if (hasTitle && hasSearch) {
+                    Spacer(Modifier.requiredHeight(16.dp))
+                }
 
                 if (hasSearch) {
-                    Spacer(Modifier.requiredHeight(16.dp))
-
                     SearchBar(
                         modifier = Modifier.fillMaxWidth().padding(horizontal = Spacing24),
                         text = searchQuery!!,
@@ -189,26 +200,33 @@ fun BottomSheetShell(
                         onSearch = onSearch!!,
                     )
                 }
-                Divider(
-                    modifier = Modifier.fillMaxWidth()
-                        .padding(top = Spacing24, start = Spacing24, end = Spacing24),
-                    color = TextColor.OnDisabledSurface,
-                )
+
+                if (hasTitle || hasSearch) {
+                    Divider(
+                        modifier = Modifier.fillMaxWidth()
+                            .padding(top = Spacing24, start = Spacing24, end = Spacing24),
+                        color = TextColor.OnDisabledSurface,
+                    )
+                }
+
+                val scrollModifier = if ((contentScrollState as? ScrollState) != null) {
+                    Modifier.verticalScroll(contentScrollState)
+                } else {
+                    Modifier
+                }
 
                 Column(
                     modifier = Modifier
                         .padding(horizontal = Spacing24)
                         .heightIn(Spacing0, InternalSizeValues.Size386)
-                        .verticalScroll(contentScrollState),
+                        .then(scrollModifier),
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
-                    content?.let {
-                        it.invoke()
-                        Divider(
-                            modifier = Modifier.fillMaxWidth().padding(top = Spacing8),
-                            color = TextColor.OnDisabledSurface,
-                        )
-                    }
+                    content.invoke()
+                    Divider(
+                        modifier = Modifier.fillMaxWidth().padding(top = Spacing8),
+                        color = TextColor.OnDisabledSurface,
+                    )
                 }
             }
 

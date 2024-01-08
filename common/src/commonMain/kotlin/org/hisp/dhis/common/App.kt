@@ -92,7 +92,7 @@ fun App() {
 
 @Composable
 fun Main() {
-    val currentScreen = remember { mutableStateOf(Components.FULL_SCREEN_IMAGE) }
+    val currentScreen = remember { mutableStateOf(Components.INPUT_RADIO_BUTTON) }
     var expanded by remember { mutableStateOf(false) }
 
     Column(

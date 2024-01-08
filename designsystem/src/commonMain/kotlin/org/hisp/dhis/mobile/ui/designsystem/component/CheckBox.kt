@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.ripple.LocalRippleTheme
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -49,7 +50,7 @@ fun CheckBox(
 
     Row(
         horizontalArrangement = Arrangement.spacedBy(Spacing.Spacing0, Alignment.Start),
-        verticalAlignment = Alignment.Top,
+        verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
             .clickable(
                 interactionSource = interactionSource,
@@ -91,6 +92,7 @@ fun CheckBox(
                     .hoverPointerIcon(checkBoxData.enabled),
                 text = it,
                 color = textColor,
+                style = MaterialTheme.typography.bodyLarge,
             )
         }
     }
