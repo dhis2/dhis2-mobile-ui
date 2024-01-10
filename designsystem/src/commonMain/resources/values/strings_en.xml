@@ -29,4 +29,6 @@
     <string name="add_signature">Add signature</string>
     <string name="add_image">Add image</string>
     <string name="not_supported">Not supported</string>
+    <string name="search">Search</string>
+
 </resources>
