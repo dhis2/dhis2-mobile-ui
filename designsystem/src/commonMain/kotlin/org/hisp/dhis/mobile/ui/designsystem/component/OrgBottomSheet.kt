@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredHeightIn
 import androidx.compose.foundation.layout.requiredWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
@@ -30,6 +31,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -61,6 +64,8 @@ fun OrgBottomSheet(
     val listState = rememberLazyListState()
     var searchQuery by remember { mutableStateOf("") }
     val hasSearchQuery by derivedStateOf { searchQuery.isNotBlank() }
+    var orgTreeHeight by remember { mutableStateOf(0) }
+    val orgTreeHeightInDp = with(LocalDensity.current) { orgTreeHeight.toDp() }
 
     BottomSheetShell(
         modifier = modifier,
@@ -83,6 +88,14 @@ fun OrgBottomSheet(
                 noResultsFoundText = noResultsFoundText,
                 onItemClick = onItemClick,
                 onItemSelected = onItemSelected,
+                modifier = Modifier
+                    .onGloballyPositioned { coordinates ->
+                        val treeHeight = coordinates.size.height
+                        if (treeHeight > orgTreeHeight) {
+                            orgTreeHeight = treeHeight
+                        }
+                    }
+                    .requiredHeightIn(min = orgTreeHeightInDp),
             )
         },
         buttonBlock = {
@@ -134,7 +147,7 @@ private fun OrgTreeList(
 ) {
     if (orgTreeItems.isEmpty() && hasSearchQuery) {
         Text(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxWidth()
                 .padding(top = Spacing.Spacing24, bottom = Spacing.Spacing96)
                 .padding(horizontal = Spacing.Spacing16)
