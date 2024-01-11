@@ -99,6 +99,7 @@ fun OrgBottomSheet(
                         )
                     },
                     text = clearAllButtonText,
+                    enabled = orgTreeItems.any { it.selected },
                 )
 
                 Spacer(Modifier.requiredWidth(Spacing.Spacing16))
