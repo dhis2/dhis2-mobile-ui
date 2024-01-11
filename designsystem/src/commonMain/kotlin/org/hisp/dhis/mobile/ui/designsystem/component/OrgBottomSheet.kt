@@ -42,9 +42,9 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
 @Composable
 fun OrgBottomSheet(
-    title: String,
     orgTreeItems: List<OrgTreeItem>,
     modifier: Modifier = Modifier,
+    title: String? = null,
     subtitle: String? = null,
     description: String? = null,
     clearAllButtonText: String = provideStringResource("clear_all"),

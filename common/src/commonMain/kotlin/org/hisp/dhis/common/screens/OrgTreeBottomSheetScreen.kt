@@ -20,7 +20,6 @@ fun OrgTreeBottomSheetScreen() {
 
     if (showOrgTreeBottomSheet) {
         OrgBottomSheet(
-            title = "Org Tree",
             orgTreeItems = orgTreeItems,
             onDismiss = {
                 showOrgTreeBottomSheet = false
