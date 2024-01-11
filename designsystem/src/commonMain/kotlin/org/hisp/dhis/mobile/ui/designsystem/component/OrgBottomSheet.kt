@@ -34,13 +34,18 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2SCustomTextStyles
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
+import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
 @Composable
@@ -63,7 +68,6 @@ fun OrgBottomSheet(
 ) {
     val listState = rememberLazyListState()
     var searchQuery by remember { mutableStateOf("") }
-    val hasSearchQuery by derivedStateOf { searchQuery.isNotBlank() }
     var orgTreeHeight by remember { mutableStateOf(0) }
     val orgTreeHeightInDp = with(LocalDensity.current) { orgTreeHeight.toDp() }
 
@@ -84,7 +88,7 @@ fun OrgBottomSheet(
             OrgTreeList(
                 state = listState,
                 orgTreeItems = orgTreeItems,
-                hasSearchQuery = hasSearchQuery,
+                searchQuery = searchQuery,
                 noResultsFoundText = noResultsFoundText,
                 onItemClick = onItemClick,
                 onItemSelected = onItemSelected,
@@ -139,12 +143,13 @@ fun OrgBottomSheet(
 private fun OrgTreeList(
     state: LazyListState,
     orgTreeItems: List<OrgTreeItem>,
-    hasSearchQuery: Boolean,
+    searchQuery: String,
     noResultsFoundText: String,
     modifier: Modifier = Modifier,
     onItemClick: (orgUnitUid: String) -> Unit,
     onItemSelected: (orgUnitUid: String, checked: Boolean) -> Unit,
 ) {
+    val hasSearchQuery by derivedStateOf { searchQuery.isNotBlank() }
     if (orgTreeItems.isEmpty() && hasSearchQuery) {
         Text(
             modifier = modifier
@@ -167,6 +172,7 @@ private fun OrgTreeList(
             items(orgTreeItems) { item ->
                 OrgUnitSelectorItem(
                     orgTreeItem = item,
+                    searchQuery = searchQuery,
                     onItemClick = onItemClick,
                     onItemSelected = onItemSelected,
                 )
@@ -177,8 +183,9 @@ private fun OrgTreeList(
 
 @Composable
 fun OrgUnitSelectorItem(
-    modifier: Modifier = Modifier,
     orgTreeItem: OrgTreeItem,
+    searchQuery: String,
+    modifier: Modifier = Modifier,
     onItemClick: (uid: String) -> Unit,
     onItemSelected: (uid: String, checked: Boolean) -> Unit,
 ) {
@@ -217,7 +224,10 @@ fun OrgUnitSelectorItem(
 
         Text(
             modifier = Modifier.weight(1f),
-            text = orgTreeItem.formattedLabel(),
+            text = orgTreeItemLabel(
+                orgTreeItem = orgTreeItem,
+                searchQuery = searchQuery,
+            ),
             style = DHIS2SCustomTextStyles.bodyLargeBold.copy(
                 fontWeight = if (orgTreeItem.selectedChildrenCount > 0 || orgTreeItem.selected) {
                     FontWeight.Bold
@@ -250,6 +260,58 @@ private fun orgTreeItemIconRes(orgTreeItem: OrgTreeItem): String {
     }
 }
 
+private fun orgTreeItemLabel(
+    orgTreeItem: OrgTreeItem,
+    searchQuery: String,
+): AnnotatedString {
+    val label = buildAnnotatedString {
+        val highlightIndexStart = orgTreeItem.label.indexOf(searchQuery, ignoreCase = true)
+        val highlightIndexEnd = highlightIndexStart + searchQuery.length
+
+        if (highlightIndexStart >= 0) {
+            appendHighlightedString(
+                orgTreeItem = orgTreeItem,
+                highlightIndexStart = highlightIndexStart,
+                highlightIndexEnd = highlightIndexEnd,
+            )
+        } else {
+            append(orgTreeItem.label)
+        }
+
+        if (orgTreeItem.selectedChildrenCount > 0 && orgTreeItem.hasChildren) {
+            append(" (${orgTreeItem.selectedChildrenCount})")
+        }
+    }
+
+    return label
+}
+
+private fun AnnotatedString.Builder.appendHighlightedString(
+    orgTreeItem: OrgTreeItem,
+    highlightIndexStart: Int,
+    highlightIndexEnd: Int,
+) {
+    append(orgTreeItem.label.substring(0, highlightIndexStart))
+
+    withStyle(
+        SpanStyle(background = SurfaceColor.Primary.copy(alpha = 0.1f)),
+    ) {
+        append(
+            orgTreeItem.label.substring(
+                startIndex = highlightIndexStart,
+                endIndex = highlightIndexEnd,
+            ),
+        )
+    }
+
+    append(
+        orgTreeItem.label.substring(
+            startIndex = highlightIndexEnd,
+            endIndex = orgTreeItem.label.length,
+        ),
+    )
+}
+
 data class OrgTreeItem(
     val uid: String,
     val label: String,
@@ -259,13 +321,7 @@ data class OrgTreeItem(
     val level: Int = 0,
     val selectedChildrenCount: Int = 0,
     val canBeSelected: Boolean = true,
-) {
-    fun formattedLabel() = if (selectedChildrenCount == 0 || !hasChildren) {
-        label
-    } else {
-        "$label ($selectedChildrenCount)"
-    }
-}
+)
 
 const val ITEM_TEST_TAG = "ORG_TREE_ITEM_"
 const val ITEM_CHECK_TEST_TAG = "ORG_TREE_ITEM_CHECKBOX_"
