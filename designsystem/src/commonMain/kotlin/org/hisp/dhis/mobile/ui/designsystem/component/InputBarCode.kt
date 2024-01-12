@@ -43,7 +43,7 @@ fun InputBarCode(
     imeAction: ImeAction = ImeAction.Next,
     modifier: Modifier = Modifier,
 ) {
-    val actionButtonIconVector = mutableStateOf(if (inputText.isNullOrEmpty()) "barcode_scanner" else "barcode")
+    val actionButtonIconVector = mutableStateOf(if (inputText.isNullOrEmpty()) "material_barcode_scanner" else "material_barcode")
     BasicTextInput(
         title = title,
         state = state,
