@@ -21,4 +21,20 @@ object Ripple {
         @Composable
         override fun rippleAlpha(): RippleAlpha = alpha
     }
+
+    internal object CustomDHISWarningRippleTheme : RippleTheme {
+
+        private val alpha = RippleAlpha(
+            focusedAlpha = 0.16f,
+            draggedAlpha = 0.16f,
+            hoveredAlpha = 0.04f,
+            pressedAlpha = 0.16f,
+        )
+
+        @Composable
+        override fun defaultColor(): Color = SurfaceColor.Error
+
+        @Composable
+        override fun rippleAlpha(): RippleAlpha = alpha
+    }
 }

@@ -80,6 +80,7 @@ import org.hisp.dhis.common.screens.SectionScreen
 import org.hisp.dhis.common.screens.SupportingTextScreen
 import org.hisp.dhis.common.screens.SwitchScreen
 import org.hisp.dhis.common.screens.TagsScreen
+import org.hisp.dhis.common.screens.WarningButtonScreen
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
@@ -92,7 +93,7 @@ fun App() {
 
 @Composable
 fun Main() {
-    val currentScreen = remember { mutableStateOf(Components.CHIPS) }
+    val currentScreen = remember { mutableStateOf(Components.WARNING_BUTTON) }
     var expanded by remember { mutableStateOf(false) }
 
     Column(
@@ -140,6 +141,7 @@ fun Main() {
 
         when (currentScreen.value) {
             Components.BUTTON -> ButtonScreen()
+            Components.WARNING_BUTTON -> WarningButtonScreen()
             Components.ICON_BUTTON -> IconButtonScreen()
             Components.FORMS_COMPONENTS -> FormsComponentsScreen()
             Components.RADIO -> RadioButtonScreen()

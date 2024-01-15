@@ -84,6 +84,7 @@ fun Button(
                 paddingValues = paddingValues,
             )
         }
+
         ButtonStyle.TEXT, ButtonStyle.TEXT_LIGHT -> {
             val textColor = when {
                 !enabled -> TextColor.OnDisabledSurface
@@ -107,6 +108,7 @@ fun Button(
                 }
             }
         }
+
         ButtonStyle.ELEVATED -> {
             val textColor = if (enabled) SurfaceColor.Primary else TextColor.OnDisabledSurface
 
@@ -128,6 +130,7 @@ fun Button(
                 ButtonText(text, textColor, icon, enabled)
             }
         }
+
         ButtonStyle.TONAL -> {
             val textColor = if (enabled) TextColor.OnPrimaryContainer else TextColor.OnDisabledSurface
             CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
@@ -148,6 +151,7 @@ fun Button(
                 )
             }
         }
+
         ButtonStyle.KEYBOARDKEY -> {
             val textColor = if (enabled) SurfaceColor.Primary else TextColor.OnDisabledSurface
 
@@ -185,10 +189,11 @@ fun Button(
                     disabledContentColor = TextColor.OnDisabledSurface,
                 ),
 
-            ) {
+                ) {
                 ButtonText(text, textColor, icon, enabled)
             }
         }
+
         ButtonStyle.OUTLINED -> {
             val textColor = if (enabled) SurfaceColor.Primary else TextColor.OnDisabledSurface
             OutlinedButton(
@@ -212,7 +217,7 @@ fun Button(
 }
 
 @Composable
-private fun SimpleButton(
+internal fun SimpleButton(
     enabled: Boolean = true,
     buttonColors: ButtonColors,
     text: String,
@@ -298,7 +303,7 @@ fun TextButtonSelector(
     }
 }
 
-private fun getPaddingValues(hasIcon: Boolean): PaddingValues {
+internal fun getPaddingValues(hasIcon: Boolean): PaddingValues {
     val buttonWithIconPaddingValues = PaddingValues(
         Spacing.Spacing16,
         Spacing.Spacing10,
