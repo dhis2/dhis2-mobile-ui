@@ -188,8 +188,7 @@ fun Button(
                     contentColor = SurfaceColor.Primary,
                     disabledContentColor = TextColor.OnDisabledSurface,
                 ),
-
-                ) {
+            ) {
                 ButtonText(text, textColor, icon, enabled)
             }
         }
