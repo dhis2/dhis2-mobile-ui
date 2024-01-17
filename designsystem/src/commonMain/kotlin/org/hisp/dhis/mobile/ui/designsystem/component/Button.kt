@@ -57,6 +57,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
 fun Button(
     enabled: Boolean = true,
     style: ButtonStyle = ButtonStyle.OUTLINED,
+    colorStyle: ColorStyle = ColorStyle.DEFAULT,
     text: String,
     icon: @Composable
     (() -> Unit)? = null,
@@ -66,15 +67,30 @@ fun Button(
 ) {
     when (style) {
         ButtonStyle.FILLED -> {
-            val textColor = if (enabled) TextColor.OnPrimary else TextColor.OnDisabledSurface
+            val textColor = if (enabled) {
+                when (colorStyle) {
+                    ColorStyle.DEFAULT -> TextColor.OnPrimary
+                    ColorStyle.ERROR -> TextColor.OnError
+                }
+            } else {
+                TextColor.OnDisabledSurface
+            }
+            val containerColor = when (colorStyle) {
+                ColorStyle.DEFAULT -> SurfaceColor.Primary
+                ColorStyle.ERROR -> SurfaceColor.Error
+            }
+            val contentColor = when (colorStyle) {
+                ColorStyle.DEFAULT -> TextColor.OnPrimary
+                ColorStyle.ERROR -> TextColor.OnError
+            }
 
             SimpleButton(
                 modifier = modifier,
                 onClick = { onClick() },
                 enabled = enabled,
                 buttonColors = ButtonDefaults.filledTonalButtonColors(
-                    SurfaceColor.Primary,
-                    TextColor.OnPrimary,
+                    containerColor,
+                    contentColor,
                     SurfaceColor.DisabledSurface,
                     TextColor.OnDisabledSurface,
                 ),
@@ -88,17 +104,32 @@ fun Button(
         ButtonStyle.TEXT, ButtonStyle.TEXT_LIGHT -> {
             val textColor = when {
                 !enabled -> TextColor.OnDisabledSurface
-                style == ButtonStyle.TEXT_LIGHT -> TextColor.OnPrimary
-                else -> SurfaceColor.Primary
+                style == ButtonStyle.TEXT_LIGHT -> when (colorStyle) {
+                    ColorStyle.DEFAULT -> TextColor.OnPrimary
+                    ColorStyle.ERROR -> TextColor.OnError
+                }
+
+                else -> when (colorStyle) {
+                    ColorStyle.DEFAULT -> SurfaceColor.Primary
+                    ColorStyle.ERROR -> SurfaceColor.Error
+                }
             }
-            CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
+            val contentColor = when (colorStyle) {
+                ColorStyle.DEFAULT -> SurfaceColor.Primary
+                ColorStyle.ERROR -> SurfaceColor.Error
+            }
+            val theme = when (colorStyle) {
+                ColorStyle.DEFAULT -> Ripple.CustomDHISRippleTheme
+                ColorStyle.ERROR -> Ripple.CustomDHISErrorRippleTheme
+            }
+            CompositionLocalProvider(LocalRippleTheme provides theme) {
                 OutlinedButton(
                     modifier = modifier,
                     onClick = { onClick() },
                     enabled = enabled,
                     colors = ButtonDefaults.filledTonalButtonColors(
                         Color.Transparent,
-                        SurfaceColor.Primary,
+                        contentColor,
                         SurfaceColor.DisabledSurface,
                         TextColor.OnDisabledSurface,
                     ),
@@ -110,8 +141,22 @@ fun Button(
         }
 
         ButtonStyle.ELEVATED -> {
-            val textColor = if (enabled) SurfaceColor.Primary else TextColor.OnDisabledSurface
-
+            val textColor = if (enabled) {
+                when (colorStyle) {
+                    ColorStyle.DEFAULT -> SurfaceColor.Primary
+                    ColorStyle.ERROR -> SurfaceColor.Error
+                }
+            } else {
+                TextColor.OnDisabledSurface
+            }
+            val containerColor = when (colorStyle) {
+                ColorStyle.DEFAULT -> SurfaceColor.ContainerLow
+                ColorStyle.ERROR -> SurfaceColor.ErrorContainerLow
+            }
+            val contentColor = when (colorStyle) {
+                ColorStyle.DEFAULT -> SurfaceColor.Primary
+                ColorStyle.ERROR -> SurfaceColor.Error
+            }
             ElevatedButton(
                 modifier = modifier
                     .hoverPointerIcon(enabled),
@@ -119,8 +164,8 @@ fun Button(
                 elevation = ButtonDefaults.elevatedButtonElevation(),
                 enabled = enabled,
                 colors = ButtonDefaults.filledTonalButtonColors(
-                    SurfaceColor.ContainerLow,
-                    SurfaceColor.Primary,
+                    containerColor,
+                    contentColor,
                     SurfaceColor.DisabledSurface,
                     TextColor.OnDisabledSurface,
                 ),
@@ -132,15 +177,34 @@ fun Button(
         }
 
         ButtonStyle.TONAL -> {
-            val textColor = if (enabled) TextColor.OnPrimaryContainer else TextColor.OnDisabledSurface
-            CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
+            val textColor = if (enabled) {
+                when (colorStyle) {
+                    ColorStyle.DEFAULT -> TextColor.OnPrimaryContainer
+                    ColorStyle.ERROR -> TextColor.OnErrorContainer
+                }
+            } else {
+                TextColor.OnDisabledSurface
+            }
+            val containerColor = when (colorStyle) {
+                ColorStyle.DEFAULT -> SurfaceColor.PrimaryContainer
+                ColorStyle.ERROR -> SurfaceColor.ErrorContainer
+            }
+            val contentColor = when (colorStyle) {
+                ColorStyle.DEFAULT -> TextColor.OnPrimaryContainer
+                ColorStyle.ERROR -> TextColor.OnErrorContainer
+            }
+            val theme = when (colorStyle) {
+                ColorStyle.DEFAULT -> Ripple.CustomDHISRippleTheme
+                ColorStyle.ERROR -> Ripple.CustomDHISErrorRippleTheme
+            }
+            CompositionLocalProvider(LocalRippleTheme provides theme) {
                 SimpleButton(
                     modifier = modifier,
                     onClick = { onClick() },
                     enabled = enabled,
                     buttonColors = ButtonDefaults.filledTonalButtonColors(
-                        SurfaceColor.PrimaryContainer,
-                        TextColor.OnPrimaryContainer,
+                        containerColor,
+                        contentColor,
                         SurfaceColor.DisabledSurface,
                         TextColor.OnDisabledSurface,
                     ),
@@ -153,8 +217,22 @@ fun Button(
         }
 
         ButtonStyle.KEYBOARDKEY -> {
-            val textColor = if (enabled) SurfaceColor.Primary else TextColor.OnDisabledSurface
-
+            val textColor = if (enabled) {
+                when (colorStyle) {
+                    ColorStyle.DEFAULT -> SurfaceColor.Primary
+                    ColorStyle.ERROR -> SurfaceColor.Error
+                }
+            } else {
+                TextColor.OnDisabledSurface
+            }
+            val containerColor = when (colorStyle) {
+                ColorStyle.DEFAULT -> SurfaceColor.Container
+                ColorStyle.ERROR -> SurfaceColor.ErrorContainer
+            }
+            val contentColor = when (colorStyle) {
+                ColorStyle.DEFAULT -> SurfaceColor.Primary
+                ColorStyle.ERROR -> SurfaceColor.Error
+            }
             val interactionSource = remember { MutableInteractionSource() }
             val isPressed by interactionSource.collectIsPressedAsState()
             var topPadding = mutableStateOf(0)
@@ -164,7 +242,10 @@ fun Button(
                     shadowColor = mutableStateOf(Color.Transparent)
                     topPadding = mutableStateOf(2)
                 } else {
-                    shadowColor = mutableStateOf(SurfaceColor.ContainerHighest)
+                    shadowColor = when (colorStyle) {
+                        ColorStyle.DEFAULT -> mutableStateOf(SurfaceColor.ContainerHighest)
+                        ColorStyle.ERROR -> mutableStateOf(SurfaceColor.ErrorContainerHighest)
+                    }
                     topPadding = mutableStateOf(0)
                 }
             } else {
@@ -184,8 +265,8 @@ fun Button(
                 enabled = enabled,
                 colors = ButtonDefaults.elevatedButtonColors(
                     disabledContainerColor = Color.Transparent,
-                    containerColor = SurfaceColor.Container,
-                    contentColor = SurfaceColor.Primary,
+                    containerColor = containerColor,
+                    contentColor = contentColor,
                     disabledContentColor = TextColor.OnDisabledSurface,
                 ),
             ) {
@@ -194,7 +275,19 @@ fun Button(
         }
 
         ButtonStyle.OUTLINED -> {
-            val textColor = if (enabled) SurfaceColor.Primary else TextColor.OnDisabledSurface
+            val textColor = if (enabled) {
+                when (colorStyle) {
+                    ColorStyle.DEFAULT -> SurfaceColor.Primary
+                    ColorStyle.ERROR -> SurfaceColor.Error
+                }
+            } else {
+                TextColor.OnDisabledSurface
+            }
+            val contentColor = when (colorStyle) {
+                ColorStyle.DEFAULT -> SurfaceColor.Primary
+                ColorStyle.ERROR -> SurfaceColor.Error
+            }
+
             OutlinedButton(
                 modifier = modifier.hoverPointerIcon(enabled).height(Spacing.Spacing40),
                 onClick = { onClick() },
@@ -202,7 +295,7 @@ fun Button(
                 shape = ButtonDefaults.outlinedShape,
                 colors = ButtonDefaults.outlinedButtonColors(
                     Color.Transparent,
-                    SurfaceColor.Primary,
+                    contentColor,
                     Color.Transparent,
                     TextColor.OnDisabledSurface,
                 ),
@@ -327,6 +420,11 @@ enum class ButtonStyle {
     ELEVATED,
     TONAL,
     KEYBOARDKEY,
+}
+
+enum class ColorStyle {
+    DEFAULT,
+    ERROR,
 }
 
 /**

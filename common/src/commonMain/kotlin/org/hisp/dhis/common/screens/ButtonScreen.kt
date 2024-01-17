@@ -7,6 +7,7 @@ import androidx.compose.ui.Modifier
 import org.hisp.dhis.common.screens.previews.ButtonPreview
 import org.hisp.dhis.common.screens.previews.ButtonPreviewWithIcon
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonStyle
+import org.hisp.dhis.mobile.ui.designsystem.component.ColorStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.RowComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
@@ -80,6 +81,72 @@ fun ButtonScreen() {
         RowComponentContainer() {
             ButtonPreviewWithIcon("Label", ButtonStyle.KEYBOARDKEY)
             ButtonPreviewWithIcon("Label", ButtonStyle.KEYBOARDKEY, false)
+        }
+
+        Title("Error Buttons")
+        SubTitle("Filled")
+        RowComponentContainer() {
+            ButtonPreview("Label", ButtonStyle.FILLED, true, ColorStyle.ERROR)
+            ButtonPreview("Label", ButtonStyle.FILLED, false, ColorStyle.ERROR)
+        }
+        RowComponentContainer {
+            ButtonPreviewWithIcon("Label", ButtonStyle.FILLED, true, ColorStyle.ERROR)
+            ButtonPreviewWithIcon("Label", ButtonStyle.FILLED, false, ColorStyle.ERROR)
+        }
+
+        Spacer(Modifier.size(Spacing.Spacing18))
+        SubTitle("Outlined")
+        RowComponentContainer() {
+            ButtonPreview("Label", ButtonStyle.OUTLINED, true, ColorStyle.ERROR)
+            ButtonPreview("Label", ButtonStyle.OUTLINED, false, ColorStyle.ERROR)
+        }
+        RowComponentContainer() {
+            ButtonPreviewWithIcon("Label", ButtonStyle.OUTLINED, true, ColorStyle.ERROR)
+            ButtonPreviewWithIcon("Label", ButtonStyle.OUTLINED, false, ColorStyle.ERROR)
+        }
+        Spacer(Modifier.size(Spacing.Spacing18))
+
+        SubTitle("Text")
+        RowComponentContainer() {
+            ButtonPreview("Label", ButtonStyle.TEXT, true, ColorStyle.ERROR)
+            ButtonPreview("Label", ButtonStyle.TEXT, false, ColorStyle.ERROR)
+        }
+        RowComponentContainer() {
+            ButtonPreviewWithIcon("Label", ButtonStyle.TEXT, true, ColorStyle.ERROR)
+            ButtonPreviewWithIcon("Label", ButtonStyle.TEXT, false, ColorStyle.ERROR)
+        }
+        Spacer(Modifier.size(Spacing.Spacing18))
+
+        SubTitle("Elevated")
+        RowComponentContainer() {
+            ButtonPreview("Label", ButtonStyle.ELEVATED, true, ColorStyle.ERROR)
+            ButtonPreview("Label", ButtonStyle.ELEVATED, false, ColorStyle.ERROR)
+        }
+        RowComponentContainer() {
+            ButtonPreviewWithIcon("Label", ButtonStyle.ELEVATED, true, ColorStyle.ERROR)
+            ButtonPreviewWithIcon("Label", ButtonStyle.ELEVATED, false, ColorStyle.ERROR)
+        }
+        Spacer(Modifier.size(Spacing.Spacing18))
+
+        SubTitle("Tonal")
+        RowComponentContainer() {
+            ButtonPreview("Label", ButtonStyle.TONAL, true, ColorStyle.ERROR)
+            ButtonPreview("Label", ButtonStyle.TONAL, false, ColorStyle.ERROR)
+        }
+        RowComponentContainer() {
+            ButtonPreviewWithIcon("Label", ButtonStyle.TONAL, true, ColorStyle.ERROR)
+            ButtonPreviewWithIcon("Label", ButtonStyle.TONAL, false, ColorStyle.ERROR)
+        }
+        Spacer(Modifier.size(Spacing.Spacing18))
+
+        SubTitle("Keyboard")
+        RowComponentContainer() {
+            ButtonPreview("Label", ButtonStyle.KEYBOARDKEY, true, ColorStyle.ERROR)
+            ButtonPreview("Label", ButtonStyle.KEYBOARDKEY, false, ColorStyle.ERROR)
+        }
+        RowComponentContainer() {
+            ButtonPreviewWithIcon("Label", ButtonStyle.KEYBOARDKEY, true, ColorStyle.ERROR)
+            ButtonPreviewWithIcon("Label", ButtonStyle.KEYBOARDKEY, false, ColorStyle.ERROR)
         }
     }
 }

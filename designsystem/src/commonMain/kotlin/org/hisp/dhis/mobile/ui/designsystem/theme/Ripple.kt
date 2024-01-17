@@ -22,7 +22,7 @@ object Ripple {
         override fun rippleAlpha(): RippleAlpha = alpha
     }
 
-    internal object CustomDHISWarningRippleTheme : RippleTheme {
+    internal object CustomDHISErrorRippleTheme : RippleTheme {
 
         private val alpha = RippleAlpha(
             focusedAlpha = 0.16f,

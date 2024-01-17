@@ -101,6 +101,7 @@ fun InputCoordinate(
                 Button(
                     enabled = state != InputShellState.DISABLED,
                     ButtonStyle.KEYBOARDKEY,
+                    ColorStyle.DEFAULT,
                     addLocationBtnText,
                     icon = {
                         Icon(

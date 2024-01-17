@@ -3,7 +3,6 @@ package org.hisp.dhis.common.screens
 enum class Components(val label: String) {
     ICON_BUTTON("Icon Button"),
     BUTTON("Button"),
-    WARNING_BUTTON("Warning Button"),
     FORM_SHELLS("Form Shells"),
     INPUT_TEXT("Input Text"),
     INPUT_LONG_TEXT("Input Long Text"),
