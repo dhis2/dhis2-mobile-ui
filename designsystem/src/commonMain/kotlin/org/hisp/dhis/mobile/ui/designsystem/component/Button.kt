@@ -309,7 +309,7 @@ fun Button(
 }
 
 @Composable
-internal fun SimpleButton(
+private fun SimpleButton(
     enabled: Boolean = true,
     buttonColors: ButtonColors,
     text: String,
@@ -395,7 +395,7 @@ fun TextButtonSelector(
     }
 }
 
-internal fun getPaddingValues(hasIcon: Boolean): PaddingValues {
+private fun getPaddingValues(hasIcon: Boolean): PaddingValues {
     val buttonWithIconPaddingValues = PaddingValues(
         Spacing.Spacing16,
         Spacing.Spacing10,
