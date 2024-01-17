@@ -251,7 +251,7 @@ fun OrgUnitSelectorItem(
 
 @Composable
 private fun orgTreeItemIconRes(orgTreeItem: OrgTreeItem): String {
-    if (!orgTreeItem.hasChildren) return "dhis2_org_tree_item_circle"
+    if (!orgTreeItem.hasChildren) return "material_circle_outline"
 
     return if (orgTreeItem.isOpen) {
         "dhis2_org_tree_item_arrow_down"
