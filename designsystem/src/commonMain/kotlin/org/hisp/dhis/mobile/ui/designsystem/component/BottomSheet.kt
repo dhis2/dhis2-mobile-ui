@@ -212,7 +212,6 @@ fun BottomSheetShell(
                     } else {
                         Spacer(Modifier.requiredHeight(Spacing24))
                     }
-
                 }
 
                 val scrollModifier = if ((contentScrollState as? ScrollState) != null) {
