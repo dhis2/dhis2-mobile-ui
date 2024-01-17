@@ -3,7 +3,6 @@ package org.hisp.dhis.mobile.ui.designsystem.component
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,6 +16,8 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.ClearAll
+import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Icon
@@ -31,6 +32,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
@@ -205,9 +208,8 @@ fun OrgUnitSelectorItem(
             }
             .padding(start = ((orgTreeItem.level * 2) * 16).dp),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Absolute.spacedBy(8.dp),
     ) {
-        val iconRes = orgTreeItemIconRes(orgTreeItem)
+        val icon = orgTreeItemIcon(orgTreeItem)
         val iconTint = if (orgTreeItem.isOpen && orgTreeItem.hasChildren) {
             TextColor.OnDisabledSurface
         } else if (!orgTreeItem.isOpen && !orgTreeItem.hasChildren) {
@@ -217,7 +219,8 @@ fun OrgUnitSelectorItem(
         }
 
         Icon(
-            painter = provideDHIS2Icon(iconRes),
+            modifier = Modifier.padding(Spacing.Spacing8),
+            painter = icon,
             tint = iconTint,
             contentDescription = "",
         )
@@ -250,13 +253,13 @@ fun OrgUnitSelectorItem(
 }
 
 @Composable
-private fun orgTreeItemIconRes(orgTreeItem: OrgTreeItem): String {
-    if (!orgTreeItem.hasChildren) return "material_circle_outline"
+private fun orgTreeItemIcon(orgTreeItem: OrgTreeItem): Painter {
+    if (!orgTreeItem.hasChildren) return provideDHIS2Icon("material_circle_outline")
 
     return if (orgTreeItem.isOpen) {
-        "dhis2_org_tree_item_arrow_down"
+        rememberVectorPainter(Icons.Filled.KeyboardArrowDown)
     } else {
-        "dhis2_org_tree_item_arrow_right"
+        rememberVectorPainter(Icons.Filled.KeyboardArrowRight)
     }
 }
 
