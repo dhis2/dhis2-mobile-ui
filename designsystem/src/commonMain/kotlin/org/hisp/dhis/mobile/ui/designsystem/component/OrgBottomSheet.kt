@@ -110,7 +110,8 @@ fun OrgBottomSheet(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Button(
-                    modifier = Modifier.weight(1f),
+                    modifier = Modifier.weight(1f)
+                        .testTag("CLEAR_ALL_BUTTON"),
                     onClick = onClearAll,
                     icon = {
                         Icon(
