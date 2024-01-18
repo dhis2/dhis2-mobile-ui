@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -39,12 +38,13 @@ fun InfoBar(
         modifier = modifier
             .clip(shape = RoundedCornerShape(Radius.Full))
             .background(color = infoBarData.backgroundColor)
-            .padding(start = Spacing.Spacing8)
-            .fillMaxWidth()
-            .height(Spacing.Spacing40),
+            .padding(Spacing.Spacing8)
+            .fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        infoBarData.icon?.invoke()
+        Column(Modifier.align(Alignment.Top)) {
+            infoBarData.icon?.invoke()
+        }
         Spacer(Modifier.size(Spacing.Spacing8))
         Text(color = infoBarData.color, text = infoBarData.text, style = MaterialTheme.typography.bodyMedium)
         Spacer(Modifier.weight(1f))
