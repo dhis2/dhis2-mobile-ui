@@ -1,11 +1,19 @@
 package org.hisp.dhis.common.screens
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import org.hisp.dhis.mobile.ui.designsystem.component.Button
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
@@ -16,31 +24,22 @@ import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
 @Composable
 fun OrgTreeBottomSheetScreen() {
     var showOrgTreeBottomSheet by rememberSaveable { mutableStateOf(false) }
-    var orgTreeItems by remember { mutableStateOf(originalOrgTreeItems) }
 
     if (showOrgTreeBottomSheet) {
+        val orgTreeItemsRepo = remember { OrgTreeItemsFakeRepo() }
+        val orgTreeItems by orgTreeItemsRepo.state.collectAsState(emptyList())
+
         OrgBottomSheet(
             orgTreeItems = orgTreeItems,
             onDismiss = {
                 showOrgTreeBottomSheet = false
             },
-            onSearch = { query ->
-                orgTreeItems = originalOrgTreeItems
-                    .filter { it.label.contains(query, ignoreCase = true) }
-            },
-            onItemClick = { uid ->
-                orgTreeItems = openChildren(uid = uid)
-            },
+            onSearch = orgTreeItemsRepo::search,
+            onItemClick = orgTreeItemsRepo::toggleItemExpansion,
             onItemSelected = { uid, checked ->
-                orgTreeItems = toggleOrgItemSelection(
-                    uid = uid,
-                    isSelected = checked,
-                    currentList = orgTreeItems,
-                )
+                orgTreeItemsRepo.toggleItemSelection(uid, checked)
             },
-            onClearAll = {
-                orgTreeItems = originalOrgTreeItems
-            },
+            onClearAll = { orgTreeItemsRepo.clearItemSelections() },
             onDone = {
                 // no-op
             },
@@ -59,90 +58,144 @@ fun OrgTreeBottomSheetScreen() {
     }
 }
 
-private val originalOrgTreeItems = listOf(
-    OrgTreeItem(
-        uid = "uid-1",
-        label = "Krishna",
-        isOpen = true,
-        hasChildren = true,
-    ),
-    OrgTreeItem(
-        uid = "uid-1-1",
-        label = "Vijayawada",
-        isOpen = false,
-        level = 1,
-        hasChildren = false,
-    ),
-    OrgTreeItem(
-        uid = "uid-1-2",
-        label = "Gudivada",
-        isOpen = false,
-        level = 1,
-        hasChildren = false,
-    ),
-    OrgTreeItem(
-        uid = "uid-2",
-        label = "Guntur",
-        isOpen = false,
-        hasChildren = false,
-    ),
-)
+private class OrgTreeItemsFakeRepo {
 
-private fun openChildren(uid: String): List<OrgTreeItem> {
-    return when (uid) {
-        "uid-1" -> {
-            val mutableList = originalOrgTreeItems.toMutableList()
+    private val originalOrgTreeItems = listOf(
+        OrgTreeItem(
+            uid = "12",
+            label = "Krishna",
+            isOpen = true,
+            hasChildren = true,
+        ),
+        OrgTreeItem(
+            uid = "21",
+            label = "Guntur",
+            isOpen = false,
+            hasChildren = false,
+        ),
+    )
 
-            val parentIndex = originalOrgTreeItems.indexOfFirst { it.uid == "uid-1" }
-            mutableList[parentIndex].isOpen = !mutableList[parentIndex].isOpen
+    private val childrenOrgItems = listOf(
+        OrgTreeItem(
+            uid = "12-1",
+            label = "Vijayawada",
+            isOpen = false,
+            level = 1,
+            hasChildren = false,
+        ),
+        OrgTreeItem(
+            uid = "12-2",
+            label = "Gudivada",
+            isOpen = false,
+            level = 1,
+            hasChildren = false,
+        ),
+    )
 
-            if (mutableList[parentIndex].isOpen) {
-                mutableList
-            } else {
-                mutableList.filterNot { it.uid == "uid-1-1" || it.uid == "uid-1-2" }
-            }
-        }
-        "uid-2" -> originalOrgTreeItems
-        else -> originalOrgTreeItems
-    }
-}
+    private val coroutineScope = CoroutineScope(Dispatchers.Default)
 
-fun toggleOrgItemSelection(
-    uid: String,
-    isSelected: Boolean,
-    currentList: List<OrgTreeItem>,
-): List<OrgTreeItem> {
-    val mutableList = currentList.toMutableList()
-    val index = currentList.indexOfFirst { it.uid == uid }
-    val parentIndex = if (uid.contains("uid-1")) {
-        currentList.indexOfFirst { it.uid == "uid-1" }
-    } else {
-        currentList.indexOfFirst { it.uid == "uid-2" }
-    }
-
-    mutableList[index] = mutableList[index].copy(selected = isSelected)
-
-    if (uid == "uid-1") {
-        val index1 = mutableList.indexOfFirst { it.uid == "uid-1-1" }
-        val index2 = mutableList.indexOfFirst { it.uid == "uid-1-2" }
-
-        mutableList[index1] = mutableList[index1].copy(selected = isSelected)
-        mutableList[index2] = mutableList[index2].copy(selected = isSelected)
-    }
-
-    if (uid.contains("uid-1")) {
-        val selectedChildrenCount = mutableList.count {
-            if (it.uid == "uid-1-1" || it.uid == "uid-1-2") {
-                it.selected
-            } else {
-                false
-            }
-        }
-
-        mutableList[parentIndex] = mutableList[parentIndex].copy(
-            selectedChildrenCount = selectedChildrenCount,
+    private val _state = MutableStateFlow(createList(originalOrgTreeItems, childrenOrgItems))
+    val state: StateFlow<List<OrgTreeItem>> =
+        _state.stateIn(
+            scope = coroutineScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = createList(originalOrgTreeItems, childrenOrgItems),
         )
+
+    fun search(query: String) {
+        coroutineScope.launch {
+            if (query.isNotBlank()) {
+                val filteredList = originalOrgTreeItems.filter { it.label.contains(query, ignoreCase = true) }
+                _state.emit(filteredList)
+            } else {
+                _state.emit(originalOrgTreeItems)
+            }
+        }
     }
 
-    return mutableList
+    fun toggleItemExpansion(uid: String) {
+        coroutineScope.launch {
+            val updatedList = _state.value
+                .map {
+                    if (it.hasChildren && it.uid == uid) {
+                        it.copy(isOpen = !it.isOpen)
+                    } else {
+                        it
+                    }
+                }
+            val parentItem = updatedList.first { it.uid == uid }
+
+            val newList = if (parentItem.isOpen) {
+                createList(updatedList, childrenOrgItems)
+            } else {
+                updatedList.filterNot { it.uid.contains(uid) && it.level > 0 }
+            }
+
+            _state.emit(newList)
+        }
+    }
+
+    fun toggleItemSelection(uid: String, selected: Boolean) {
+        coroutineScope.launch {
+            val selectionToggledList = _state.value.map {
+                if (it.uid.contains(uid, ignoreCase = true)) {
+                    val selectedChildrenCount =
+                        _state.value.count { it.uid.contains("12") && it.level > 0 && it.selected }
+
+                    it.copy(selected = selected, selectedChildrenCount = selectedChildrenCount)
+                } else {
+                    it
+                }
+            }
+
+            val newList = selectionToggledList.map {
+                if (!uid.contains("12")) {
+                    return@map it
+                }
+
+                when (it.uid) {
+                    "12" -> {
+                        val selectedChildrenCount = getSelectedChildrenCount(selectionToggledList, it)
+                        it.copy(selectedChildrenCount = selectedChildrenCount)
+                    }
+                    else -> {
+                        it.copy(selectedChildrenCount = 0)
+                    }
+                }
+            }
+
+            _state.emit(newList)
+        }
+    }
+
+    private fun getSelectedChildrenCount(
+        selectionToggledList: List<OrgTreeItem>,
+        it: OrgTreeItem,
+    ): Int {
+        val hasChildrenItems = selectionToggledList.any { it.uid == "12-1" || it.uid == "12-2" }
+
+        return if (hasChildrenItems) {
+            selectionToggledList.count { it.uid.contains("12") && it.level > 0 && it.selected }
+        } else {
+            if (it.selected) 2 else 0
+        }
+    }
+
+    fun clearItemSelections() {
+        coroutineScope.launch {
+            _state.emit(_state.value.map { it.copy(selected = false) })
+        }
+    }
+
+    private fun createList(parentItems: List<OrgTreeItem>, childrenItems: List<OrgTreeItem>): List<OrgTreeItem> {
+        val updatedChildrenItems = childrenItems.map {
+            if (parentItems.first { it.uid == "12" }.selected) {
+                it.copy(selected = true)
+            } else {
+                it
+            }
+        }
+
+        return (parentItems + updatedChildrenItems).sortedBy { it.uid }
+    }
 }
