@@ -24,7 +24,7 @@ fun Switch(
     enabled: Boolean = true,
     onCheckedChange: (Boolean) -> Unit,
 ) {
-    CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
+    CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme()) {
         Switch(
             modifier = modifier.testTag("SWITCH"),
             checked = isChecked,

@@ -49,7 +49,7 @@ fun InfoBar(
         Text(color = infoBarData.color, text = infoBarData.text, style = MaterialTheme.typography.bodyMedium)
         Spacer(Modifier.weight(1f))
         if (infoBarData.onClick != null && infoBarData.actionText?.isNotEmpty() == true) {
-            CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
+            CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme()) {
                 Column(
                     Modifier
                         .clip(shape = RoundedCornerShape(Radius.L))

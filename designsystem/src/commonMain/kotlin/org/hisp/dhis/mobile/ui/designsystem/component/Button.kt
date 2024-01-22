@@ -67,21 +67,9 @@ fun Button(
 ) {
     when (style) {
         ButtonStyle.FILLED -> {
-            val textColor = if (enabled) {
-                when (colorStyle) {
-                    ColorStyle.DEFAULT -> TextColor.OnPrimary
-                    ColorStyle.ERROR -> TextColor.OnError
-                }
-            } else {
-                TextColor.OnDisabledSurface
-            }
-            val containerColor = when (colorStyle) {
-                ColorStyle.DEFAULT -> SurfaceColor.Primary
-                ColorStyle.ERROR -> SurfaceColor.Error
-            }
-            val contentColor = when (colorStyle) {
-                ColorStyle.DEFAULT -> TextColor.OnPrimary
-                ColorStyle.ERROR -> TextColor.OnError
+            val buttonColors = when (colorStyle) {
+                ColorStyle.DEFAULT -> getFilledButtonColors(enabled)
+                ColorStyle.ERROR -> getErrorFilledButtonColors(enabled)
             }
 
             SimpleButton(
@@ -89,38 +77,26 @@ fun Button(
                 onClick = { onClick() },
                 enabled = enabled,
                 buttonColors = ButtonDefaults.filledTonalButtonColors(
-                    containerColor,
-                    contentColor,
+                    buttonColors.containerColor,
+                    buttonColors.contentColor,
                     SurfaceColor.DisabledSurface,
                     TextColor.OnDisabledSurface,
                 ),
                 text = text,
-                textColor = textColor,
+                textColor = buttonColors.textColor,
                 icon = icon,
                 paddingValues = paddingValues,
             )
         }
 
         ButtonStyle.TEXT, ButtonStyle.TEXT_LIGHT -> {
-            val textColor = when {
-                !enabled -> TextColor.OnDisabledSurface
-                style == ButtonStyle.TEXT_LIGHT -> when (colorStyle) {
-                    ColorStyle.DEFAULT -> TextColor.OnPrimary
-                    ColorStyle.ERROR -> TextColor.OnError
-                }
-
-                else -> when (colorStyle) {
-                    ColorStyle.DEFAULT -> SurfaceColor.Primary
-                    ColorStyle.ERROR -> SurfaceColor.Error
-                }
-            }
-            val contentColor = when (colorStyle) {
-                ColorStyle.DEFAULT -> SurfaceColor.Primary
-                ColorStyle.ERROR -> SurfaceColor.Error
+            val buttonColors = when (colorStyle) {
+                ColorStyle.DEFAULT -> getTextButtonColors(style, enabled)
+                ColorStyle.ERROR -> getErrorTextButtonColors(style, enabled)
             }
             val theme = when (colorStyle) {
-                ColorStyle.DEFAULT -> Ripple.CustomDHISRippleTheme
-                ColorStyle.ERROR -> Ripple.CustomDHISErrorRippleTheme
+                ColorStyle.DEFAULT -> Ripple.CustomDHISRippleTheme()
+                ColorStyle.ERROR -> Ripple.CustomDHISRippleTheme(SurfaceColor.Error)
             }
             CompositionLocalProvider(LocalRippleTheme provides theme) {
                 OutlinedButton(
@@ -128,34 +104,23 @@ fun Button(
                     onClick = { onClick() },
                     enabled = enabled,
                     colors = ButtonDefaults.filledTonalButtonColors(
-                        Color.Transparent,
-                        contentColor,
+                        buttonColors.containerColor,
+                        buttonColors.contentColor,
                         SurfaceColor.DisabledSurface,
                         TextColor.OnDisabledSurface,
                     ),
                     border = BorderStroke(Border.Thin, Color.Transparent),
                 ) {
-                    ButtonText(text, textColor, icon, enabled)
+                    ButtonText(text, buttonColors.textColor, icon, enabled)
                 }
             }
         }
 
         ButtonStyle.ELEVATED -> {
             val textColor = if (enabled) {
-                when (colorStyle) {
-                    ColorStyle.DEFAULT -> SurfaceColor.Primary
-                    ColorStyle.ERROR -> SurfaceColor.Error
-                }
+                SurfaceColor.Primary
             } else {
                 TextColor.OnDisabledSurface
-            }
-            val containerColor = when (colorStyle) {
-                ColorStyle.DEFAULT -> SurfaceColor.ContainerLow
-                ColorStyle.ERROR -> SurfaceColor.ErrorContainerLow
-            }
-            val contentColor = when (colorStyle) {
-                ColorStyle.DEFAULT -> SurfaceColor.Primary
-                ColorStyle.ERROR -> SurfaceColor.Error
             }
             ElevatedButton(
                 modifier = modifier
@@ -164,8 +129,8 @@ fun Button(
                 elevation = ButtonDefaults.elevatedButtonElevation(),
                 enabled = enabled,
                 colors = ButtonDefaults.filledTonalButtonColors(
-                    containerColor,
-                    contentColor,
+                    SurfaceColor.ContainerLow,
+                    SurfaceColor.Primary,
                     SurfaceColor.DisabledSurface,
                     TextColor.OnDisabledSurface,
                 ),
@@ -178,33 +143,18 @@ fun Button(
 
         ButtonStyle.TONAL -> {
             val textColor = if (enabled) {
-                when (colorStyle) {
-                    ColorStyle.DEFAULT -> TextColor.OnPrimaryContainer
-                    ColorStyle.ERROR -> TextColor.OnErrorContainer
-                }
+                TextColor.OnPrimaryContainer
             } else {
                 TextColor.OnDisabledSurface
             }
-            val containerColor = when (colorStyle) {
-                ColorStyle.DEFAULT -> SurfaceColor.PrimaryContainer
-                ColorStyle.ERROR -> SurfaceColor.ErrorContainer
-            }
-            val contentColor = when (colorStyle) {
-                ColorStyle.DEFAULT -> TextColor.OnPrimaryContainer
-                ColorStyle.ERROR -> TextColor.OnErrorContainer
-            }
-            val theme = when (colorStyle) {
-                ColorStyle.DEFAULT -> Ripple.CustomDHISRippleTheme
-                ColorStyle.ERROR -> Ripple.CustomDHISErrorRippleTheme
-            }
-            CompositionLocalProvider(LocalRippleTheme provides theme) {
+            CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme()) {
                 SimpleButton(
                     modifier = modifier,
                     onClick = { onClick() },
                     enabled = enabled,
                     buttonColors = ButtonDefaults.filledTonalButtonColors(
-                        containerColor,
-                        contentColor,
+                        SurfaceColor.PrimaryContainer,
+                        TextColor.OnPrimaryContainer,
                         SurfaceColor.DisabledSurface,
                         TextColor.OnDisabledSurface,
                     ),
@@ -218,20 +168,9 @@ fun Button(
 
         ButtonStyle.KEYBOARDKEY -> {
             val textColor = if (enabled) {
-                when (colorStyle) {
-                    ColorStyle.DEFAULT -> SurfaceColor.Primary
-                    ColorStyle.ERROR -> SurfaceColor.Error
-                }
+                SurfaceColor.Primary
             } else {
                 TextColor.OnDisabledSurface
-            }
-            val containerColor = when (colorStyle) {
-                ColorStyle.DEFAULT -> SurfaceColor.Container
-                ColorStyle.ERROR -> SurfaceColor.ErrorContainer
-            }
-            val contentColor = when (colorStyle) {
-                ColorStyle.DEFAULT -> SurfaceColor.Primary
-                ColorStyle.ERROR -> SurfaceColor.Error
             }
             val interactionSource = remember { MutableInteractionSource() }
             val isPressed by interactionSource.collectIsPressedAsState()
@@ -265,8 +204,8 @@ fun Button(
                 enabled = enabled,
                 colors = ButtonDefaults.elevatedButtonColors(
                     disabledContainerColor = Color.Transparent,
-                    containerColor = containerColor,
-                    contentColor = contentColor,
+                    containerColor = SurfaceColor.Container,
+                    contentColor = SurfaceColor.Primary,
                     disabledContentColor = TextColor.OnDisabledSurface,
                 ),
             ) {
@@ -275,17 +214,9 @@ fun Button(
         }
 
         ButtonStyle.OUTLINED -> {
-            val textColor = if (enabled) {
-                when (colorStyle) {
-                    ColorStyle.DEFAULT -> SurfaceColor.Primary
-                    ColorStyle.ERROR -> SurfaceColor.Error
-                }
-            } else {
-                TextColor.OnDisabledSurface
-            }
-            val contentColor = when (colorStyle) {
-                ColorStyle.DEFAULT -> SurfaceColor.Primary
-                ColorStyle.ERROR -> SurfaceColor.Error
+            val buttonColors = when (colorStyle) {
+                ColorStyle.DEFAULT -> getOutlinedButtonColors(enabled)
+                ColorStyle.ERROR -> getErrorOutlinedButtonColors(enabled)
             }
 
             OutlinedButton(
@@ -294,15 +225,15 @@ fun Button(
                 enabled = enabled,
                 shape = ButtonDefaults.outlinedShape,
                 colors = ButtonDefaults.outlinedButtonColors(
-                    Color.Transparent,
-                    contentColor,
+                    buttonColors.containerColor,
+                    buttonColors.contentColor,
                     Color.Transparent,
                     TextColor.OnDisabledSurface,
                 ),
                 border = BorderStroke(Border.Thin, if (enabled) Outline.Dark else SurfaceColor.DisabledSurface),
                 contentPadding = paddingValues,
             ) {
-                ButtonText(text, textColor, icon, enabled)
+                ButtonText(text, buttonColors.textColor, icon, enabled)
             }
         }
     }
@@ -457,4 +388,68 @@ fun ButtonBlock(
             primaryButton.invoke()
         }
     }
+}
+
+data class CustomButtonColors(
+    val textColor: Color,
+    val containerColor: Color,
+    val contentColor: Color,
+)
+
+private fun getFilledButtonColors(isEnabled: Boolean): CustomButtonColors {
+    return CustomButtonColors(
+        textColor = if (isEnabled) TextColor.OnPrimary else TextColor.OnDisabledSurface,
+        containerColor = SurfaceColor.Primary,
+        contentColor = TextColor.OnPrimary,
+    )
+}
+
+private fun getErrorFilledButtonColors(isEnabled: Boolean): CustomButtonColors {
+    return CustomButtonColors(
+        textColor = if (isEnabled) TextColor.OnError else TextColor.OnDisabledSurface,
+        containerColor = SurfaceColor.Error,
+        contentColor = TextColor.OnError,
+    )
+}
+
+private fun getTextButtonColors(style: ButtonStyle, isEnabled: Boolean): CustomButtonColors {
+    val textColor = when {
+        !isEnabled -> TextColor.OnDisabledSurface
+        style == ButtonStyle.TEXT_LIGHT -> TextColor.OnPrimary
+        else -> SurfaceColor.Primary
+    }
+    return CustomButtonColors(
+        textColor = textColor,
+        containerColor = Color.Transparent,
+        contentColor = SurfaceColor.Primary,
+    )
+}
+
+private fun getErrorTextButtonColors(style: ButtonStyle, isEnabled: Boolean): CustomButtonColors {
+    val textColor = when {
+        !isEnabled -> TextColor.OnDisabledSurface
+        style == ButtonStyle.TEXT_LIGHT -> TextColor.OnError
+        else -> SurfaceColor.Error
+    }
+    return CustomButtonColors(
+        textColor = textColor,
+        containerColor = Color.Transparent,
+        contentColor = SurfaceColor.Error,
+    )
+}
+
+private fun getOutlinedButtonColors(isEnabled: Boolean): CustomButtonColors {
+    return CustomButtonColors(
+        textColor = if (isEnabled) SurfaceColor.Primary else TextColor.OnDisabledSurface,
+        containerColor = Color.Transparent,
+        contentColor = SurfaceColor.Primary,
+    )
+}
+
+private fun getErrorOutlinedButtonColors(isEnabled: Boolean): CustomButtonColors {
+    return CustomButtonColors(
+        textColor = if (isEnabled) SurfaceColor.Error else TextColor.OnDisabledSurface,
+        containerColor = Color.Transparent,
+        contentColor = SurfaceColor.Error,
+    )
 }

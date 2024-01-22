@@ -115,38 +115,5 @@ fun ButtonScreen() {
             ButtonPreviewWithIcon("Label", ButtonStyle.TEXT, true, ColorStyle.ERROR)
             ButtonPreviewWithIcon("Label", ButtonStyle.TEXT, false, ColorStyle.ERROR)
         }
-        Spacer(Modifier.size(Spacing.Spacing18))
-
-        SubTitle("Elevated")
-        RowComponentContainer() {
-            ButtonPreview("Label", ButtonStyle.ELEVATED, true, ColorStyle.ERROR)
-            ButtonPreview("Label", ButtonStyle.ELEVATED, false, ColorStyle.ERROR)
-        }
-        RowComponentContainer() {
-            ButtonPreviewWithIcon("Label", ButtonStyle.ELEVATED, true, ColorStyle.ERROR)
-            ButtonPreviewWithIcon("Label", ButtonStyle.ELEVATED, false, ColorStyle.ERROR)
-        }
-        Spacer(Modifier.size(Spacing.Spacing18))
-
-        SubTitle("Tonal")
-        RowComponentContainer() {
-            ButtonPreview("Label", ButtonStyle.TONAL, true, ColorStyle.ERROR)
-            ButtonPreview("Label", ButtonStyle.TONAL, false, ColorStyle.ERROR)
-        }
-        RowComponentContainer() {
-            ButtonPreviewWithIcon("Label", ButtonStyle.TONAL, true, ColorStyle.ERROR)
-            ButtonPreviewWithIcon("Label", ButtonStyle.TONAL, false, ColorStyle.ERROR)
-        }
-        Spacer(Modifier.size(Spacing.Spacing18))
-
-        SubTitle("Keyboard")
-        RowComponentContainer() {
-            ButtonPreview("Label", ButtonStyle.KEYBOARDKEY, true, ColorStyle.ERROR)
-            ButtonPreview("Label", ButtonStyle.KEYBOARDKEY, false, ColorStyle.ERROR)
-        }
-        RowComponentContainer() {
-            ButtonPreviewWithIcon("Label", ButtonStyle.KEYBOARDKEY, true, ColorStyle.ERROR)
-            ButtonPreviewWithIcon("Label", ButtonStyle.KEYBOARDKEY, false, ColorStyle.ERROR)
-        }
     }
 }

@@ -36,7 +36,7 @@ fun FilterChip(
     badge: String? = null,
 ) {
     Box(modifier = modifier) {
-        CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
+        CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme()) {
             FilterChip(
                 onClick = { onSelected?.invoke(!selected) },
                 label = { Text(label, color = TextColor.OnSurfaceVariant) },
