@@ -81,6 +81,7 @@ fun InputPolygon(
                 Button(
                     enabled = state != InputShellState.DISABLED,
                     ButtonStyle.KEYBOARDKEY,
+                    ColorStyle.DEFAULT,
                     addPolygonBtnText,
                     icon = {
                         Icon(

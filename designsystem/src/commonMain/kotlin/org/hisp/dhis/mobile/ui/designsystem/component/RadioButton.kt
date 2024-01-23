@@ -56,7 +56,7 @@ fun RadioButton(
                 enabled = radioButtonData.enabled,
             ),
     ) {
-        CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
+        CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme()) {
             RadioButton(
                 selected = radioButtonData.selected,
                 onClick = {

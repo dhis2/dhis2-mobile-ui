@@ -132,7 +132,7 @@ fun SupportingText(
         }
     }
 
-    CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
+    CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme()) {
         ClickableText(
             text = annotatedText,
             maxLines = if (isExpanded) Int.MAX_VALUE else maxLines,

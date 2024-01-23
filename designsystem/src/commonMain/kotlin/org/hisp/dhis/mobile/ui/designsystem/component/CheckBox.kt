@@ -64,7 +64,7 @@ fun CheckBox(
             )
             .hoverPointerIcon(checkBoxData.enabled),
     ) {
-        CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
+        CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme()) {
             Checkbox(
                 checked = checkBoxData.checked,
                 onCheckedChange = {

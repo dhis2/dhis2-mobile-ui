@@ -39,7 +39,7 @@ fun InputChip(
     badge: String? = null,
 ) {
     Box(modifier = modifier) {
-        CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
+        CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme()) {
             androidx.compose.material3.InputChip(
                 enabled = enabled,
                 onClick = {
