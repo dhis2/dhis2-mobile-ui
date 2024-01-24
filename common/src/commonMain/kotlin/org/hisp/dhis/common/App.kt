@@ -73,6 +73,7 @@ import org.hisp.dhis.common.screens.LegendDescriptionScreen
 import org.hisp.dhis.common.screens.LegendScreen
 import org.hisp.dhis.common.screens.ListCardScreen
 import org.hisp.dhis.common.screens.MetadataAvatarScreen
+import org.hisp.dhis.common.screens.OrgTreeBottomSheetScreen
 import org.hisp.dhis.common.screens.ProgressScreen
 import org.hisp.dhis.common.screens.RadioButtonScreen
 import org.hisp.dhis.common.screens.SearchBarScreen
@@ -92,7 +93,7 @@ fun App() {
 
 @Composable
 fun Main() {
-    val currentScreen = remember { mutableStateOf(Components.BUTTON) }
+    val currentScreen = remember { mutableStateOf(Components.ORG_TREE_BOTTOM_SHEET) }
     var expanded by remember { mutableStateOf(false) }
 
     Column(
@@ -197,6 +198,7 @@ fun Main() {
             Components.SEARCH_BAR -> SearchBarScreen()
             Components.INPUT_NOT_SUPPORTED -> InputNotSupportedScreen()
             Components.FULL_SCREEN_IMAGE -> FullScreenImageScreen()
+            Components.ORG_TREE_BOTTOM_SHEET -> OrgTreeBottomSheetScreen()
         }
     }
 }
