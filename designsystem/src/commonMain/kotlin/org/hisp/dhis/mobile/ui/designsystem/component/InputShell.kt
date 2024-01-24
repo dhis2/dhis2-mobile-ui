@@ -92,6 +92,7 @@ fun InputShell(
                 .onFocusChanged {
                     indicatorColor =
                         when {
+                            hasTransparentBackground -> Outline.Light
                             state == InputShellState.DISABLED -> InputShellState.DISABLED.color
                             it.isFocused && state != InputShellState.ERROR && state != InputShellState.WARNING -> InputShellState.FOCUSED.color
                             else -> state.color
