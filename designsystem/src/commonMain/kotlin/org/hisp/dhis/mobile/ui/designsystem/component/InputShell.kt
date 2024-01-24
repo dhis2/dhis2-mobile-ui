@@ -62,6 +62,7 @@ fun InputShell(
     isRequiredField: Boolean = false,
     modifier: Modifier = Modifier,
     hasTransparentBackground: Boolean = false,
+    startIndent: Dp = if (hasTransparentBackground) Spacing.Spacing40 else Spacing.Spacing0,
 ) {
     Column(
         modifier = modifier
@@ -101,7 +102,7 @@ fun InputShell(
                         else -> Border.Thin
                     }
                     onFocusChanged?.invoke(it.isFocused)
-                },
+                }.padding(start = startIndent),
             backgroundColor = backgroundColor,
         ) {
             Column(
