@@ -133,7 +133,7 @@ fun BasicTextField(
         mutableStateOf(TextRange(if (inputText.isEmpty()) 0 else inputText.length))
     }
     var textFieldComposition by remember {
-        mutableStateOf(TextRange( 0, if (inputText.isEmpty()) 0 else inputText.length))
+        mutableStateOf(TextRange(0, if (inputText.isEmpty()) 0 else inputText.length))
     }
 
     CompositionLocalProvider(LocalTextSelectionColors provides customTextSelectionColors) {
