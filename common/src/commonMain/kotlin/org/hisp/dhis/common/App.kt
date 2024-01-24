@@ -126,7 +126,7 @@ fun Main() {
                 expanded = expanded,
                 onDismissRequest = { expanded = false },
             ) {
-                Components.values().forEach {
+                Components.entries.forEach {
                     DropdownMenuItem(
                         text = { Text(it.label) },
                         onClick = {

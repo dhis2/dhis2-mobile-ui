@@ -49,7 +49,7 @@ fun BottomSheetHeader(
     subTitle: String? = null,
     description: String? = null,
     icon:
-    @Composable()
+    @Composable
     (() -> Unit)? = null,
     hasSearch: Boolean = false,
     modifier: Modifier = Modifier,
@@ -124,6 +124,7 @@ fun BottomSheetShell(
     subtitle: String? = null,
     description: String? = null,
     searchQuery: String? = null,
+    showSectionDivider: Boolean = true,
     contentScrollState: ScrollableState = rememberScrollState(),
     icon: @Composable (() -> Unit)? = null,
     buttonBlock: @Composable (() -> Unit)? = null,
@@ -202,11 +203,15 @@ fun BottomSheetShell(
                 }
 
                 if (hasTitle || hasSearch) {
-                    Divider(
-                        modifier = Modifier.fillMaxWidth()
-                            .padding(top = Spacing24, start = Spacing24, end = Spacing24),
-                        color = TextColor.OnDisabledSurface,
-                    )
+                    if (showSectionDivider) {
+                        Divider(
+                            modifier = Modifier.fillMaxWidth()
+                                .padding(top = Spacing24, start = Spacing24, end = Spacing24),
+                            color = TextColor.OnDisabledSurface,
+                        )
+                    } else {
+                        Spacer(Modifier.requiredHeight(Spacing24))
+                    }
                 }
 
                 val scrollModifier = if ((contentScrollState as? ScrollState) != null) {
@@ -223,10 +228,12 @@ fun BottomSheetShell(
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
                     content.invoke()
-                    Divider(
-                        modifier = Modifier.fillMaxWidth().padding(top = Spacing8),
-                        color = TextColor.OnDisabledSurface,
-                    )
+                    if (showSectionDivider) {
+                        Divider(
+                            modifier = Modifier.fillMaxWidth().padding(top = Spacing8),
+                            color = TextColor.OnDisabledSurface,
+                        )
+                    }
                 }
             }
 
