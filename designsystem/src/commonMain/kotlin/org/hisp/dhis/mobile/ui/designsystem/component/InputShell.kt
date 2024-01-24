@@ -61,6 +61,7 @@ fun InputShell(
     onFocusChanged: ((Boolean) -> Unit)? = null,
     isRequiredField: Boolean = false,
     modifier: Modifier = Modifier,
+    hasTransparentBackground: Boolean = false,
 ) {
     Column(
         modifier = modifier
@@ -70,7 +71,11 @@ fun InputShell(
     ) {
         var indicatorColor by remember(state) { mutableStateOf(state.color) }
         var indicatorThickness by remember { mutableStateOf(Border.Thin) }
-        val backgroundColor = if (state != InputShellState.DISABLED) SurfaceColor.Surface else SurfaceColor.DisabledSurface
+        val backgroundColor = when {
+            hasTransparentBackground -> Color.Transparent
+            state != InputShellState.DISABLED -> SurfaceColor.Surface
+            else -> SurfaceColor.DisabledSurface
+        }
         val focusRequester = remember { FocusRequester() }
 
         InputShellRow(

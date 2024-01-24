@@ -23,6 +23,7 @@ internal fun InputShellPreview(
     title: String,
     state: InputShellState = InputShellState.UNFOCUSED,
     inputField: @Composable (() -> Unit)? = null,
+    hasTransparentBackground: Boolean = false,
 ) {
     InputShell(
         title,
@@ -65,5 +66,6 @@ internal fun InputShellPreview(
             )
         },
         state = state,
+        hasTransparentBackground = hasTransparentBackground,
     )
 }

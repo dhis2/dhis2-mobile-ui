@@ -29,5 +29,7 @@ fun FormsComponentsScreen() {
         Spacer(Modifier.size(Spacing.Spacing18))
         SubTitle("Disabled  ")
         InputShellPreview("Label", state = InputShellState.DISABLED)
+        SubTitle("Transparent Input Sheet")
+        InputShellPreview("Label", state = InputShellState.UNFOCUSED, hasTransparentBackground = true)
     }
 }
