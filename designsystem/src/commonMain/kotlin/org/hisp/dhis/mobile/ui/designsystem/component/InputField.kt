@@ -132,6 +132,9 @@ fun BasicTextField(
     var textFieldSelection by remember {
         mutableStateOf(TextRange(if (inputText.isEmpty()) 0 else inputText.length))
     }
+    var textFieldComposition by remember {
+        mutableStateOf(TextRange( 0, if (inputText.isEmpty()) 0 else inputText.length))
+    }
 
     CompositionLocalProvider(LocalTextSelectionColors provides customTextSelectionColors) {
         BasicTextField(
@@ -145,9 +148,11 @@ fun BasicTextField(
             value = TextFieldValue(
                 text = inputText,
                 selection = textFieldSelection,
+                composition = textFieldComposition,
             ),
             onValueChange = {
                 textFieldSelection = it.selection
+                textFieldComposition = it.composition ?: textFieldComposition
                 onInputChanged.invoke(it.text)
             },
             enabled = enabled,
