@@ -23,6 +23,8 @@ internal fun InputShellPreview(
     title: String,
     state: InputShellState = InputShellState.UNFOCUSED,
     inputField: @Composable (() -> Unit)? = null,
+    hasTransparentBackground: Boolean = false,
+    onInputClear: () -> Unit = { },
 ) {
     InputShell(
         title,
@@ -34,7 +36,7 @@ internal fun InputShellPreview(
                         contentDescription = "Icon Button",
                     )
                 },
-                onClick = { },
+                onClick = { onInputClear() },
                 enabled = state != InputShellState.DISABLED,
             )
         },
@@ -65,5 +67,6 @@ internal fun InputShellPreview(
             )
         },
         state = state,
+        hasTransparentBackground = hasTransparentBackground,
     )
 }

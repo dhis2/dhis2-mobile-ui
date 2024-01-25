@@ -61,6 +61,8 @@ fun InputShell(
     onFocusChanged: ((Boolean) -> Unit)? = null,
     isRequiredField: Boolean = false,
     modifier: Modifier = Modifier,
+    hasTransparentBackground: Boolean = false,
+    startIndent: Dp = if (hasTransparentBackground) Spacing.Spacing40 else Spacing.Spacing0,
 ) {
     Column(
         modifier = modifier
@@ -68,9 +70,14 @@ fun InputShell(
             .clip(shape = RoundedCornerShape(Radius.XS, Radius.XS))
             .animateContentSize(),
     ) {
+        var labelColor by remember(state) { mutableStateOf(state.color) }
         var indicatorColor by remember(state) { mutableStateOf(state.color) }
         var indicatorThickness by remember { mutableStateOf(Border.Thin) }
-        val backgroundColor = if (state != InputShellState.DISABLED) SurfaceColor.Surface else SurfaceColor.DisabledSurface
+        val backgroundColor = when {
+            hasTransparentBackground -> Color.Transparent
+            state != InputShellState.DISABLED -> SurfaceColor.Surface
+            else -> SurfaceColor.DisabledSurface
+        }
         val focusRequester = remember { FocusRequester() }
 
         InputShellRow(
@@ -84,10 +91,16 @@ fun InputShell(
                     }
                 }
                 .onFocusChanged {
+                    labelColor = when {
+                        state == InputShellState.DISABLED -> InputShellState.DISABLED.color
+                        it.isFocused && state != InputShellState.ERROR && state != InputShellState.WARNING -> InputShellState.FOCUSED.color
+                        else -> state.color
+                    }
                     indicatorColor =
                         when {
                             state == InputShellState.DISABLED -> InputShellState.DISABLED.color
                             it.isFocused && state != InputShellState.ERROR && state != InputShellState.WARNING -> InputShellState.FOCUSED.color
+                            hasTransparentBackground && state == InputShellState.UNFOCUSED -> Outline.Light
                             else -> state.color
                         }
                     indicatorThickness = when {
@@ -96,7 +109,7 @@ fun InputShell(
                         else -> Border.Thin
                     }
                     onFocusChanged?.invoke(it.isFocused)
-                },
+                }.padding(start = startIndent),
             backgroundColor = backgroundColor,
         ) {
             Column(
@@ -108,7 +121,7 @@ fun InputShell(
             ) {
                 if (title.isNotEmpty()) {
                     val titleText = if (isRequiredField) "$title *" else title
-                    InputShellLabelText(titleText, textColor = indicatorColor)
+                    InputShellLabelText(titleText, textColor = labelColor)
                 }
                 inputField?.invoke()
             }
