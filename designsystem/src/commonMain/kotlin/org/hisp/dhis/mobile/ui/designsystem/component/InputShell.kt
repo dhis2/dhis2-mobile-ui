@@ -127,7 +127,7 @@ fun InputShell(
             }
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.height(Spacing.Spacing48),
+                modifier = Modifier.height(Spacing.Spacing48).align(Alignment.CenterVertically),
             ) {
                 primaryButton?.invoke()
                 if (primaryButton != null && secondaryButton != null) {
