@@ -3,6 +3,10 @@ package org.hisp.dhis.common.screens
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import org.hisp.dhis.common.screens.previews.InputShellPreview
 import org.hisp.dhis.mobile.ui.designsystem.component.BasicTextField
@@ -29,7 +33,27 @@ fun FormsComponentsScreen() {
         Spacer(Modifier.size(Spacing.Spacing18))
         SubTitle("Disabled  ")
         InputShellPreview("Label", state = InputShellState.DISABLED)
+
         SubTitle("Transparent Input Sheet")
-        InputShellPreview("Label", state = InputShellState.UNFOCUSED, hasTransparentBackground = true)
+        var inputField by remember { mutableStateOf("") }
+        InputShellPreview(
+            title = "Label",
+            state = InputShellState.UNFOCUSED,
+            hasTransparentBackground = true,
+            onInputClear = {
+                inputField = ""
+            },
+            inputField = {
+                BasicTextField(
+                    helper = "Helper",
+                    inputText = inputField,
+                    enabled = true,
+                    helperStyle = InputStyle.WITH_HELPER_BEFORE,
+                    onInputChanged = {
+                        inputField = it
+                    },
+                )
+            },
+        )
     }
 }

@@ -70,6 +70,7 @@ fun InputShell(
             .clip(shape = RoundedCornerShape(Radius.XS, Radius.XS))
             .animateContentSize(),
     ) {
+        var labelColor by remember(state) { mutableStateOf(state.color) }
         var indicatorColor by remember(state) { mutableStateOf(state.color) }
         var indicatorThickness by remember { mutableStateOf(Border.Thin) }
         val backgroundColor = when {
@@ -90,11 +91,16 @@ fun InputShell(
                     }
                 }
                 .onFocusChanged {
+                    labelColor = when {
+                        state == InputShellState.DISABLED -> InputShellState.DISABLED.color
+                        it.isFocused && state != InputShellState.ERROR && state != InputShellState.WARNING -> InputShellState.FOCUSED.color
+                        else -> state.color
+                    }
                     indicatorColor =
                         when {
-                            hasTransparentBackground -> Outline.Light
                             state == InputShellState.DISABLED -> InputShellState.DISABLED.color
                             it.isFocused && state != InputShellState.ERROR && state != InputShellState.WARNING -> InputShellState.FOCUSED.color
+                            hasTransparentBackground && state == InputShellState.UNFOCUSED -> Outline.Light
                             else -> state.color
                         }
                     indicatorThickness = when {
@@ -115,7 +121,7 @@ fun InputShell(
             ) {
                 if (title.isNotEmpty()) {
                     val titleText = if (isRequiredField) "$title *" else title
-                    InputShellLabelText(titleText, textColor = indicatorColor)
+                    InputShellLabelText(titleText, textColor = labelColor)
                 }
                 inputField?.invoke()
             }
