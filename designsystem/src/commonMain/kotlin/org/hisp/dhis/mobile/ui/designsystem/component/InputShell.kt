@@ -105,12 +105,12 @@ fun InputShell(
                     }
                     inputField?.invoke()
                 }
-                if (primaryButton != null || secondaryButton != null) {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier.height(Spacing.Spacing48)
-                            .align(Alignment.CenterVertically),
-                    ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.height(Spacing.Spacing48)
+                        .align(Alignment.CenterVertically),
+                ) {
+                    if (primaryButton != null || secondaryButton != null) {
                         primaryButton?.invoke()
                         if (primaryButton != null && secondaryButton != null) {
                             InputShellButtonSeparator()
