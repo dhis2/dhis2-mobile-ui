@@ -36,6 +36,7 @@ import org.hisp.dhis.common.screens.FormsComponentsScreen
 import org.hisp.dhis.common.screens.FullScreenImageScreen
 import org.hisp.dhis.common.screens.IconButtonScreen
 import org.hisp.dhis.common.screens.ImageBlockScreen
+import org.hisp.dhis.common.screens.IndicatorInputScreen
 import org.hisp.dhis.common.screens.InputAgeScreen
 import org.hisp.dhis.common.screens.InputBarCodeScreen
 import org.hisp.dhis.common.screens.InputCheckBoxScreen
@@ -93,7 +94,7 @@ fun App() {
 
 @Composable
 fun Main() {
-    val currentScreen = remember { mutableStateOf(Components.ORG_TREE_BOTTOM_SHEET) }
+    val currentScreen = remember { mutableStateOf(Components.INDICATOR_INPUT) }
     var expanded by remember { mutableStateOf(false) }
 
     Column(
@@ -199,6 +200,7 @@ fun Main() {
             Components.INPUT_NOT_SUPPORTED -> InputNotSupportedScreen()
             Components.FULL_SCREEN_IMAGE -> FullScreenImageScreen()
             Components.ORG_TREE_BOTTOM_SHEET -> OrgTreeBottomSheetScreen()
+            Components.INDICATOR_INPUT -> IndicatorInputScreen()
         }
     }
 }
