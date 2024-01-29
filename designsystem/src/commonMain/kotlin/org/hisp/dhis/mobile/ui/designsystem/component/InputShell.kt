@@ -29,6 +29,7 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.Dp
 import org.hisp.dhis.mobile.ui.designsystem.theme.Border
@@ -127,7 +128,7 @@ fun InputShell(
             }
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.height(Spacing.Spacing48),
+                modifier = Modifier.height(Spacing.Spacing48).align(Alignment.CenterVertically),
             ) {
                 primaryButton?.invoke()
                 if (primaryButton != null && secondaryButton != null) {
@@ -146,7 +147,8 @@ fun InputShell(
         }
         Box(Modifier.height(Spacing.Spacing2)) {
             InputShellIndicator(
-                modifier = Modifier.align(Alignment.BottomStart),
+                modifier = Modifier.align(Alignment.BottomStart)
+                    .graphicsLayer { translationY = -Spacing.Spacing2.toPx() },
                 color = indicatorColor,
                 thickness = indicatorThickness,
             )
