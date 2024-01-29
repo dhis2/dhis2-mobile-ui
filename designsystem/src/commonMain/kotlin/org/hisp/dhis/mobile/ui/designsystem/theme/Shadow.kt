@@ -93,3 +93,5 @@ internal fun Modifier.iconCardShadow(
         )
     }
 }.padding(bottom = shadowRadius)
+
+internal expect fun Modifier.listCardShadow(modifier: Modifier): Modifier

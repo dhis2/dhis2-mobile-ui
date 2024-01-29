@@ -84,6 +84,7 @@ fun ListCardScreen() {
             mutableStateOf(false)
         }
         SubTitle("Tei list:")
+        SubTitle("With shadow")
         ListCard(
             listAvatar = {
                 Avatar(
@@ -91,6 +92,7 @@ fun ListCardScreen() {
                     style = AvatarStyle.TEXT,
                 )
             },
+            showShadow = true,
             title = "Palak Khanna, F, 61",
             lastUpdated = "5 hours",
             additionalInfoList = basicAdditionalItemList.toMutableList(),
@@ -116,6 +118,7 @@ fun ListCardScreen() {
             mutableStateOf(false)
         }
         ListCard(
+            showShadow = true,
             listAvatar = {
                 Avatar(
                     imagePainter = provideDHIS2Icon("dhis2_microscope_outline"),
@@ -143,6 +146,7 @@ fun ListCardScreen() {
             onCardClick = {},
             showLoading = showLoading2,
         )
+        SubTitle("Without shadow")
 
         var showLoading3 by remember {
             mutableStateOf(false)
@@ -252,9 +256,34 @@ fun ListCardScreen() {
         )
         Spacer(Modifier.size(Spacing.Spacing16))
         SubTitle("Single events list:")
+        SubTitle("With shadow:")
 
         ListCard(
+            showShadow = true,
+            title = "12/18/2021",
+            lastUpdated = "now",
+            additionalInfoList = basicAdditionalItemList,
+            actionButton = {
+                Button(
+                    style = ButtonStyle.TONAL,
+                    text = "Retry sync",
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Outlined.Sync,
+                            contentDescription = "Icon Button",
+                            tint = TextColor.OnPrimaryContainer,
+                        )
+                    },
+                    onClick = { },
+                    modifier = Modifier.fillMaxWidth(),
+                )
+            },
+            onCardClick = {},
+        )
+        Spacer(Modifier.size(Spacing.Spacing16))
+        SubTitle("Without shadow:")
 
+        ListCard(
             title = "12/18/2021",
             lastUpdated = "now",
             additionalInfoList = basicAdditionalItemList,
@@ -277,7 +306,51 @@ fun ListCardScreen() {
         )
         Spacer(Modifier.size(Spacing.Spacing16))
         SubTitle("Events in timeline in TEI dashboard:")
+        SubTitle("With shadow:")
 
+        ListCard(
+            showShadow = true,
+            listAvatar = {
+                Avatar(
+                    metadataAvatar = {
+                        MetadataAvatar(
+                            icon = {
+                                Icon(
+                                    painter = provideDHIS2Icon("dhis2_baby_male_0203m_positive"),
+                                    contentDescription = "Button",
+
+                                )
+                            },
+                            iconTint = Color(0xFF11D9D9),
+                            size = AvatarSize.Large,
+                        )
+                    },
+                    style = AvatarStyle.METADATA,
+                )
+            },
+            title = "12/18/2021 at 16:30",
+            lastUpdated = "now",
+            additionalInfoList = eventsTimelineTeiDashboardList,
+            actionButton = {
+                Button(
+                    style = ButtonStyle.TONAL,
+                    text = "Retry sync",
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Outlined.Sync,
+                            contentDescription = "Icon Button",
+                            tint = TextColor.OnPrimaryContainer,
+                        )
+                    },
+                    onClick = {},
+                    modifier = Modifier.fillMaxWidth(),
+                )
+            },
+            onCardClick = {},
+        )
+        Spacer(Modifier.size(Spacing.Spacing16))
+
+        SubTitle("Without shadow:")
         ListCard(
             listAvatar = {
                 Avatar(

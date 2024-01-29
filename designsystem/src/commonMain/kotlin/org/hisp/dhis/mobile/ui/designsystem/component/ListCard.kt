@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -52,6 +53,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing4
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
+import org.hisp.dhis.mobile.ui.designsystem.theme.listCardShadow
 
 /**
  * DHIS2 ListCard.
@@ -79,6 +81,7 @@ fun ListCard(
     shrinkLabelText: String = provideStringResource("show_less"),
     showLoading: Boolean = false,
     onCardClick: () -> Unit,
+    showShadow: Boolean = false,
     modifier: Modifier = Modifier,
 ) {
     val expandableItemList = mutableListOf<AdditionalInfoItem>()
@@ -95,6 +98,9 @@ fun ListCard(
 
     Row(
         modifier = modifier
+            .conditional(showShadow, {
+                listCardShadow(modifier)
+            })
             .background(color = TextColor.OnPrimary)
             .clip(shape = RoundedCornerShape(Radius.S))
             .clickable(
@@ -105,8 +111,8 @@ fun ListCard(
                 ),
                 onClick = onCardClick,
             )
-            .padding(Spacing.Spacing8)
-            .hoverPointerIcon(true),
+            .hoverPointerIcon(true)
+            .padding(getPaddingValues(showShadow, listAvatar != null)),
     ) {
         listAvatar?.let {
             it.invoke()
@@ -465,6 +471,22 @@ private fun KeyValueList(
         itemList.forEach { item ->
             KeyValue(item, isDetailCard)
             Spacer(Modifier.size(if (isDetailCard) Spacing.Spacing8 else Spacing4))
+        }
+    }
+}
+
+@Composable
+private fun getPaddingValues(
+    hasShadow: Boolean,
+    hasAvatar: Boolean,
+): PaddingValues {
+    return if (!hasShadow) {
+        PaddingValues(Spacing.Spacing8)
+    } else {
+        if (hasAvatar) {
+            PaddingValues(Spacing.Spacing8, Spacing.Spacing16, Spacing.Spacing16, Spacing.Spacing16)
+        } else {
+            PaddingValues(Spacing.Spacing16)
         }
     }
 }
