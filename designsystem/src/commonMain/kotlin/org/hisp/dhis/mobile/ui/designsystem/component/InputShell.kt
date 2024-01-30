@@ -64,8 +64,6 @@ fun InputShell(
     modifier: Modifier = Modifier,
     inputStyle: InputStyle = InputStyle.DataInputStyle(),
 ) {
-    val hasTransparentBackground = inputStyle is InputStyle.ParameterInputStyle
-
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -101,7 +99,7 @@ fun InputShell(
                         when {
                             state == InputShellState.DISABLED -> InputShellState.DISABLED.color
                             it.isFocused && state != InputShellState.ERROR && state != InputShellState.WARNING -> InputShellState.FOCUSED.color
-                            hasTransparentBackground && state == InputShellState.UNFOCUSED -> Outline.Light
+                            state == InputShellState.UNFOCUSED -> inputStyle.unfocusedIndicatorColor ?: state.color
                             else -> state.color
                         }
                     indicatorThickness = when {
