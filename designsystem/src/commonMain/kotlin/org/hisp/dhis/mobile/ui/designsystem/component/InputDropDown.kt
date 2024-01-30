@@ -261,6 +261,7 @@ private fun DropdownInputField(
                             enabled = state != InputShellState.DISABLED,
                             onClick = {
                                 focusRequester.requestFocus()
+                                onDropdownIconClick()
                             },
                         ),
                 )
