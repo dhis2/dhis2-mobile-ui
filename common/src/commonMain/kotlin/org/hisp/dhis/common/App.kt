@@ -82,6 +82,7 @@ import org.hisp.dhis.common.screens.SectionScreen
 import org.hisp.dhis.common.screens.SupportingTextScreen
 import org.hisp.dhis.common.screens.SwitchScreen
 import org.hisp.dhis.common.screens.TagsScreen
+import org.hisp.dhis.common.screens.parameter.ParameterSelectorScreen
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
@@ -94,8 +95,7 @@ fun App() {
 
 @Composable
 fun Main() {
-    val currentScreen = remember { mutableStateOf(Components.LIST_CARD) }
-
+    val currentScreen = remember { mutableStateOf(Components.PARAMETER_SELECTOR) }
     var expanded by remember { mutableStateOf(false) }
 
     Column(
@@ -202,6 +202,7 @@ fun Main() {
             Components.FULL_SCREEN_IMAGE -> FullScreenImageScreen()
             Components.ORG_TREE_BOTTOM_SHEET -> OrgTreeBottomSheetScreen()
             Components.INDICATOR_INPUT -> IndicatorInputScreen()
+            Components.PARAMETER_SELECTOR -> ParameterSelectorScreen()
         }
     }
 }
