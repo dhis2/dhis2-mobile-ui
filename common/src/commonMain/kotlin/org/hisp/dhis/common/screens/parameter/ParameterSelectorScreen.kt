@@ -17,7 +17,12 @@ fun ParameterSelectorScreen() {
 
     val items = listOf(
         PristineModel(
-            label = "Pristine search field",
+            label = "Label",
+            helper = "Optional",
+            onClick = {},
+        ),
+        PristineModel(
+            label = "Label",
             helper = "Optional",
             onClick = {},
         ),
