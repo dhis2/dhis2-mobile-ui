@@ -51,7 +51,7 @@ fun InputPercentage(
         isRequiredField = isRequiredField,
         onNextClicked = onNextClicked,
         onValueChanged = onValueChanged,
-        helperStyle = InputStyle.WITH_HELPER_AFTER,
+        helperStyle = HelperStyle.WITH_HELPER_AFTER,
         helper = "%",
         keyboardOptions = KeyboardOptions(imeAction = imeAction, keyboardType = KeyboardType.Number),
         allowedCharacters = RegExValidations.PERCENTAGE.regex,

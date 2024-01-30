@@ -61,7 +61,7 @@ fun InputNegativeInteger(
             onValueChanged?.invoke(TextFieldValue(if (it.text.startsWith("-") || it.text.isEmpty()) it.text else "-${it.text}"))
             inputValue = TextFieldValue(if (it.text.startsWith("-")) inputValue.text.replaceFirst("-", "") else it.text)
         },
-        helperStyle = InputStyle.WITH_HELPER_BEFORE,
+        helperStyle = HelperStyle.WITH_HELPER_BEFORE,
         helper = "-",
         keyboardOptions = KeyboardOptions(imeAction = imeAction, keyboardType = KeyboardType.Number),
         allowedCharacters = RegExValidations.NEGATIVE_INTEGERS.regex,

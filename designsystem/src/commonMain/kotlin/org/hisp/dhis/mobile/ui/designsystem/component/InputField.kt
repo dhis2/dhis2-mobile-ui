@@ -85,7 +85,7 @@ fun BasicTextField(
     helper: String? = null,
     enabled: Boolean = true,
     isSingleLine: Boolean = true,
-    helperStyle: InputStyle = InputStyle.NONE,
+    helperStyle: HelperStyle = InputStyle.NONE,
     inputTextValue: TextFieldValue? = null,
     onInputChanged: (TextFieldValue) -> Unit,
     modifier: Modifier = Modifier,
@@ -97,12 +97,12 @@ fun BasicTextField(
     val keyboardController = LocalSoftwareKeyboardController.current
     var textFieldVisualTransformation = VisualTransformation.None
 
-    if (helperStyle != InputStyle.NONE) {
+    if (helperStyle != HelperStyle.NONE) {
         when (helperStyle) {
-            InputStyle.WITH_HELPER_BEFORE -> {
+            HelperStyle.WITH_HELPER_BEFORE -> {
                 helper?.let { textFieldVisualTransformation = PrefixTransformation(it, enabled) }
             }
-            InputStyle.WITH_DATE_OF_BIRTH_HELPER -> {
+            HelperStyle.WITH_DATE_OF_BIRTH_HELPER -> {
                 textFieldVisualTransformation = DateTransformation()
             }
             else -> {
@@ -168,7 +168,7 @@ fun BasicTextField(
     }
 }
 
-enum class InputStyle {
+enum class HelperStyle {
     WITH_HELPER_AFTER,
     WITH_HELPER_BEFORE,
     WITH_DATE_OF_BIRTH_HELPER,
