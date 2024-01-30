@@ -10,7 +10,6 @@ sealed class InputStyle(
     val startIndent: Dp,
     val backGroundColor: Color,
     val unfocusedIndicatorColor: Color?,
-
 ) {
     class DataInputStyle : InputStyle(
         startIndent = Spacing.Spacing0,
