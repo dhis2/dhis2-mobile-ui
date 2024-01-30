@@ -14,6 +14,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.BasicTextField
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.HelperStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
+import org.hisp.dhis.mobile.ui.designsystem.component.InputStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
@@ -40,7 +41,7 @@ fun FormsComponentsScreen() {
         InputShellPreview(
             title = "Label",
             state = InputShellState.UNFOCUSED,
-            hasTransparentBackground = true,
+            inputStyle = InputStyle.ParameterInputStyle(),
             onInputClear = {
                 inputField = ""
             },

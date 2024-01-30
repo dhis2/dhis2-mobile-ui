@@ -37,6 +37,7 @@ fun InputText(
     onAutoCompleteItemSelected: ((String?) -> Unit)? = null,
     imeAction: ImeAction = ImeAction.Next,
     modifier: Modifier = Modifier,
+    inputStyle: InputStyle = InputStyle.DataInputStyle(),
 ) {
     BasicTextInput(
         title = title,
@@ -53,5 +54,6 @@ fun InputText(
         testTag = "TEXT",
         onFocusChanged = onFocusChanged,
         autoCompleteItemSelected = onAutoCompleteItemSelected,
+        inputStyle = inputStyle,
     )
 }

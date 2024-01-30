@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import org.hisp.dhis.mobile.ui.designsystem.component.InputEmail
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
+import org.hisp.dhis.mobile.ui.designsystem.component.InputStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.InputText
 import org.hisp.dhis.mobile.ui.designsystem.component.parameter.ParameterSelectorItem
 import org.hisp.dhis.mobile.ui.designsystem.component.parameter.model.ParameterSelectorItemModel.FilledModel
@@ -26,9 +27,9 @@ fun ParameterSelectorScreen() {
                     title = "Input Text search field",
                     state = InputShellState.UNFOCUSED,
                     inputText = "unfocused",
-                    hasTransparentBackground = true,
+                    inputStyle = InputStyle.ParameterInputStyle(),
                 )
-            }
+            },
         ),
         FilledModel(
             inputField = {
@@ -36,9 +37,9 @@ fun ParameterSelectorScreen() {
                     title = "Input Text search field",
                     state = InputShellState.FOCUSED,
                     inputText = "focused",
-                    hasTransparentBackground = true,
+                    inputStyle = InputStyle.ParameterInputStyle(),
                 )
-            }
+            },
         ),
         FilledModel(
             inputField = {
@@ -46,10 +47,10 @@ fun ParameterSelectorScreen() {
                     title = "Unfocused Email field",
                     state = InputShellState.UNFOCUSED,
                     inputText = "android@dhis2.org",
-                    hasTransparentBackground = true,
-                    onEmailActionCLicked = {}
+                    inputStyle = InputStyle.ParameterInputStyle(),
+                    onEmailActionCLicked = {},
                 )
-            }
+            },
         ),
         FilledModel(
             inputField = {
@@ -57,17 +58,17 @@ fun ParameterSelectorScreen() {
                     title = "Focused Email search field",
                     state = InputShellState.FOCUSED,
                     inputText = "android@dhis2.org",
-                    hasTransparentBackground = true,
-                    onEmailActionCLicked = {}
+                    inputStyle = InputStyle.ParameterInputStyle(),
+                    onEmailActionCLicked = {},
                 )
-            }
-        )
+            },
+        ),
     )
 
     Column {
         items.forEach {
             ParameterSelectorItem(
-                model = it
+                model = it,
             )
         }
     }

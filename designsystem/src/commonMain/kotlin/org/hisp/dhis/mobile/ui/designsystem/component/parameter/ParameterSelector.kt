@@ -58,7 +58,7 @@ private fun PristineParameterField(
                 Icon(
                     imageVector = Icons.Outlined.AddCircleOutline,
                     contentDescription = "Icon Button",
-                    tint = SurfaceColor.Primary
+                    tint = SurfaceColor.Primary,
                 )
             },
             onClick = model.onClick,

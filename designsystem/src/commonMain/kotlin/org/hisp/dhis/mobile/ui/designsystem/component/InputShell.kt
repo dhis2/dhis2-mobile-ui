@@ -62,9 +62,10 @@ fun InputShell(
     onFocusChanged: ((Boolean) -> Unit)? = null,
     isRequiredField: Boolean = false,
     modifier: Modifier = Modifier,
-    hasTransparentBackground: Boolean = false,
-    startIndent: Dp = if (hasTransparentBackground) Spacing.Spacing40 else Spacing.Spacing0,
+    inputStyle: InputStyle = InputStyle.DataInputStyle(),
 ) {
+    val hasTransparentBackground = inputStyle is InputStyle.ParameterInputStyle
+
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -75,8 +76,7 @@ fun InputShell(
         var indicatorColor by remember(state) { mutableStateOf(state.color) }
         var indicatorThickness by remember { mutableStateOf(Border.Thin) }
         val backgroundColor = when {
-            hasTransparentBackground -> Color.Transparent
-            state != InputShellState.DISABLED -> SurfaceColor.Surface
+            state != InputShellState.DISABLED -> inputStyle.backGroundColor
             else -> SurfaceColor.DisabledSurface
         }
         val focusRequester = remember { FocusRequester() }
@@ -110,7 +110,7 @@ fun InputShell(
                         else -> Border.Thin
                     }
                     onFocusChanged?.invoke(it.isFocused)
-                }.padding(start = startIndent),
+                }.padding(start = inputStyle.startIndent),
             backgroundColor = backgroundColor,
         ) {
             Column(
@@ -156,7 +156,12 @@ fun InputShell(
 
         legend?.invoke(this)
         if (state != InputShellState.DISABLED) supportingText?.invoke()
-        if (isRequiredField && state == InputShellState.ERROR && supportingText == null) SupportingText("Required", state = SupportingTextState.ERROR)
+        if (isRequiredField && state == InputShellState.ERROR && supportingText == null) {
+            SupportingText(
+                "Required",
+                state = SupportingTextState.ERROR,
+            )
+        }
     }
 }
 
