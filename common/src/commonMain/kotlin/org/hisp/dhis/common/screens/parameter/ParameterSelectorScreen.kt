@@ -16,6 +16,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.InputAge
 import org.hisp.dhis.mobile.ui.designsystem.component.InputBarCode
 import org.hisp.dhis.mobile.ui.designsystem.component.InputCheckBox
 import org.hisp.dhis.mobile.ui.designsystem.component.InputCoordinate
+import org.hisp.dhis.mobile.ui.designsystem.component.InputDateTime
 import org.hisp.dhis.mobile.ui.designsystem.component.InputEmail
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.InputStyle
@@ -133,6 +134,17 @@ fun ParameterSelectorScreen() {
                     onUpdateButtonClicked = {
                         coordinates = Coordinates(latitude = 39.46263, longitude = -0.33617)
                     },
+                )
+            },
+        ),
+        InputParameter(
+            inputField = {
+                InputDateTime(
+                    title = "DateTime parameter",
+                    inputStyle = InputStyle.ParameterInputStyle(),
+                    value = "",
+                    onActionClicked = {},
+                    onValueChanged = {},
                 )
             },
         ),
