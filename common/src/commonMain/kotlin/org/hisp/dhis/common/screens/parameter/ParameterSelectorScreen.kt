@@ -37,28 +37,16 @@ import org.hisp.dhis.mobile.ui.designsystem.component.InputYesOnlySwitch
 import org.hisp.dhis.mobile.ui.designsystem.component.RadioButtonData
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.IconCardData
 import org.hisp.dhis.mobile.ui.designsystem.component.parameter.ParameterSelectorItem
-import org.hisp.dhis.mobile.ui.designsystem.component.parameter.model.ParameterSelectorItemModel.EmptyParameter
-import org.hisp.dhis.mobile.ui.designsystem.component.parameter.model.ParameterSelectorItemModel.InputParameter
+import org.hisp.dhis.mobile.ui.designsystem.component.parameter.model.ParameterSelectorItemModel
 
 @Composable
 fun ParameterSelectorScreen() {
-//    val focusRequester = remember { FocusRequester() }
-//    val modifier = Modifier.focusRequester(focusRequester)
-
     var ageInputType by remember { mutableStateOf<AgeInputType>(AgeInputType.None) }
 
     val items = listOf(
-        EmptyParameter(
-            label = "Label",
+        ParameterSelectorItemModel(
+            label = "Text parameter",
             helper = "Optional",
-            onClick = {},
-        ),
-        EmptyParameter(
-            label = "Label",
-            helper = "Optional",
-            onClick = {},
-        ),
-        InputParameter(
             inputField = {
                 InputText(
                     title = "Text parameter",
@@ -68,7 +56,9 @@ fun ParameterSelectorScreen() {
                 )
             },
         ),
-        InputParameter(
+        ParameterSelectorItemModel(
+            label = "Text parameter focused",
+            helper = "Optional",
             inputField = {
                 InputText(
                     title = "Text parameter",
@@ -78,7 +68,9 @@ fun ParameterSelectorScreen() {
                 )
             },
         ),
-        InputParameter(
+        ParameterSelectorItemModel(
+            label = "Age parameter",
+            helper = "Optional",
             inputField = {
                 InputAge(
                     title = "Age parameter",
@@ -91,7 +83,9 @@ fun ParameterSelectorScreen() {
                 )
             },
         ),
-        InputParameter(
+        ParameterSelectorItemModel(
+            label = "Barcode parameter",
+            helper = "Optional",
             inputField = {
                 InputBarCode(
                     title = "Barcode parameter",
@@ -101,7 +95,9 @@ fun ParameterSelectorScreen() {
                 )
             },
         ),
-        InputParameter(
+        ParameterSelectorItemModel(
+            label = "CheckBox parameter",
+            helper = "Optional",
             inputField = {
                 InputCheckBox(
                     title = "CheckBox parameter",
@@ -127,7 +123,9 @@ fun ParameterSelectorScreen() {
                 )
             },
         ),
-        InputParameter(
+        ParameterSelectorItemModel(
+            label = "DateTime parameter",
+            helper = "Optional",
             inputField = {
                 InputDateTime(
                     title = "DateTime parameter",
@@ -138,7 +136,9 @@ fun ParameterSelectorScreen() {
                 )
             },
         ),
-        InputParameter(
+        ParameterSelectorItemModel(
+            label = "DropDown parameter",
+            helper = "Optional",
             inputField = {
                 InputDropDown(
                     title = "DropDown parameter",
@@ -153,7 +153,9 @@ fun ParameterSelectorScreen() {
                 )
             },
         ),
-        InputParameter(
+        ParameterSelectorItemModel(
+            label = "Email parameter",
+            helper = "Optional",
             inputField = {
                 InputEmail(
                     title = "Email parameter",
@@ -164,7 +166,9 @@ fun ParameterSelectorScreen() {
                 )
             },
         ),
-        InputParameter(
+        ParameterSelectorItemModel(
+            label = "Integer parameter",
+            helper = "Optional",
             inputField = {
                 InputInteger(
                     title = "Integer parameter",
@@ -174,7 +178,9 @@ fun ParameterSelectorScreen() {
                 )
             },
         ),
-        InputParameter(
+        ParameterSelectorItemModel(
+            label = "Long text parameter",
+            helper = "Optional",
             inputField = {
                 InputLongText(
                     title = "Long text parameter",
@@ -184,7 +190,9 @@ fun ParameterSelectorScreen() {
                 )
             },
         ),
-        InputParameter(
+        ParameterSelectorItemModel(
+            label = "Matrix parameter",
+            helper = "Optional",
             inputField = {
                 InputMatrix(
                     title = "Matrix parameter",
@@ -208,7 +216,9 @@ fun ParameterSelectorScreen() {
                 )
             },
         ),
-        InputParameter(
+        ParameterSelectorItemModel(
+            label = "Not supported parameter",
+            helper = "Optional",
             inputField = {
                 InputNotSupported(
                     title = "Not supported parameter",
@@ -217,7 +227,9 @@ fun ParameterSelectorScreen() {
                 )
             },
         ),
-        InputParameter(
+        ParameterSelectorItemModel(
+            label = "Org unit parameter",
+            helper = "Optional",
             inputField = {
                 InputOrgUnit(
                     title = "Org unit parameter",
@@ -226,7 +238,9 @@ fun ParameterSelectorScreen() {
                 )
             },
         ),
-        InputParameter(
+        ParameterSelectorItemModel(
+            label = "Phone number parameter",
+            helper = "Optional",
             inputField = {
                 InputPhoneNumber(
                     title = "Phone number parameter",
@@ -237,7 +251,9 @@ fun ParameterSelectorScreen() {
                 )
             },
         ),
-        InputParameter(
+        ParameterSelectorItemModel(
+            label = "QRCode parameter",
+            helper = "Optional",
             inputField = {
                 InputQRCode(
                     title = "QRCode parameter",
@@ -248,7 +264,9 @@ fun ParameterSelectorScreen() {
                 )
             },
         ),
-        InputParameter(
+        ParameterSelectorItemModel(
+            label = "Radio button parameter",
+            helper = "Optional",
             inputField = {
                 InputRadioButton(
                     title = "Radio button parameter",
@@ -272,7 +290,9 @@ fun ParameterSelectorScreen() {
                 )
             },
         ),
-        InputParameter(
+        ParameterSelectorItemModel(
+            label = "Sequential parameter",
+            helper = "Optional",
             inputField = {
                 InputSequential(
                     title = "Sequential parameter",
@@ -296,7 +316,9 @@ fun ParameterSelectorScreen() {
                 )
             },
         ),
-        InputParameter(
+        ParameterSelectorItemModel(
+            label = "Yes No parameter",
+            helper = "Optional",
             inputField = {
                 InputYesNoField(
                     title = "Yes No parameter",
@@ -306,7 +328,9 @@ fun ParameterSelectorScreen() {
                 )
             },
         ),
-        InputParameter(
+        ParameterSelectorItemModel(
+            label = "Yes only check box parameter",
+            helper = "Optional",
             inputField = {
                 InputYesOnlyCheckBox(
                     state = InputShellState.UNFOCUSED,
@@ -321,7 +345,9 @@ fun ParameterSelectorScreen() {
                 )
             },
         ),
-        InputParameter(
+        ParameterSelectorItemModel(
+            label = "Yes only switch parameter",
+            helper = "Optional",
             inputField = {
                 InputYesOnlySwitch(
                     title = "Yes only switch parameter",

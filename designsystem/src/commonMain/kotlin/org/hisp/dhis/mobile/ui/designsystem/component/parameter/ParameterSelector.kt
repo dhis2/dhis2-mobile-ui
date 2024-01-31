@@ -1,5 +1,6 @@
 package org.hisp.dhis.mobile.ui.designsystem.component.parameter
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -17,15 +18,18 @@ import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.Role
 import org.hisp.dhis.mobile.ui.designsystem.component.IconButton
 import org.hisp.dhis.mobile.ui.designsystem.component.parameter.model.ParameterSelectorItemModel
-import org.hisp.dhis.mobile.ui.designsystem.component.parameter.model.ParameterSelectorItemModel.EmptyParameter
-import org.hisp.dhis.mobile.ui.designsystem.component.parameter.model.ParameterSelectorItemModel.InputParameter
+import org.hisp.dhis.mobile.ui.designsystem.component.parameter.model.ParameterSelectorItemModel.Status.CLOSED
+import org.hisp.dhis.mobile.ui.designsystem.component.parameter.model.ParameterSelectorItemModel.Status.OPENED
 import org.hisp.dhis.mobile.ui.designsystem.theme.Border
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
@@ -36,22 +40,29 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
 fun ParameterSelectorItem(
     model: ParameterSelectorItemModel,
 ) {
-    when (model) {
-        is EmptyParameter -> {
-            EmptyParameterField(
-                model = model,
-            )
-        }
+    var status by remember { mutableStateOf(model.status) }
 
-        is InputParameter -> {
-            model.inputField.invoke()
+    AnimatedVisibility(
+        visible = status == CLOSED,
+    ) {
+        EmptyParameterField(
+            model = model,
+        ) {
+            status = OPENED
         }
+    }
+
+    AnimatedVisibility(
+        visible = status == OPENED,
+    ) {
+        model.inputField.invoke()
     }
 }
 
 @Composable
 private fun EmptyParameterField(
-    model: EmptyParameter,
+    model: ParameterSelectorItemModel,
+    onClick: () -> Unit,
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     Column(
@@ -64,7 +75,7 @@ private fun EmptyParameterField(
                 indication = rememberRipple(
                     color = SurfaceColor.Primary,
                 ),
-                onClick = { model.onClick },
+                onClick = onClick,
             )
             .hoverPointerIcon(true),
 
@@ -91,7 +102,7 @@ private fun EmptyParameterField(
                         tint = SurfaceColor.Primary,
                     )
                 },
-                onClick = model.onClick,
+                onClick = onClick,
             )
             Text(
                 modifier = Modifier
