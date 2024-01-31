@@ -50,6 +50,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 fun InputAge(
     title: String,
     inputType: AgeInputType = None,
+    inputStyle: InputStyle = InputStyle.DataInputStyle(),
     onCalendarActionClicked: () -> Unit,
     modifier: Modifier = Modifier,
     state: InputShellState = InputShellState.UNFOCUSED,
@@ -229,6 +230,7 @@ fun InputAge(
                 Legend(legendData, Modifier.testTag("INPUT_AGE_LEGEND"))
             }
         },
+        inputStyle = inputStyle,
     )
 }
 

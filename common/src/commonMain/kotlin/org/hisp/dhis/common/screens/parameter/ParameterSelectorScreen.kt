@@ -2,6 +2,12 @@ package org.hisp.dhis.common.screens.parameter
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import org.hisp.dhis.mobile.ui.designsystem.component.AgeInputType
+import org.hisp.dhis.mobile.ui.designsystem.component.InputAge
 import org.hisp.dhis.mobile.ui.designsystem.component.InputBarCode
 import org.hisp.dhis.mobile.ui.designsystem.component.InputEmail
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
@@ -15,6 +21,8 @@ import org.hisp.dhis.mobile.ui.designsystem.component.parameter.model.ParameterS
 fun ParameterSelectorScreen() {
 //    val focusRequester = remember { FocusRequester() }
 //    val modifier = Modifier.focusRequester(focusRequester)
+
+    var ageInputType by remember { mutableStateOf<AgeInputType>(AgeInputType.None) }
 
     val items = listOf(
         EmptyParameter(
@@ -60,8 +68,21 @@ fun ParameterSelectorScreen() {
         ),
         InputParameter(
             inputField = {
+                InputAge(
+                    title = "Age parameter",
+                    inputType = ageInputType,
+                    inputStyle = InputStyle.ParameterInputStyle(),
+                    onCalendarActionClicked = {},
+                    onValueChanged = {
+                        ageInputType = it
+                    },
+                )
+            },
+        ),
+        InputParameter(
+            inputField = {
                 InputBarCode(
-                    title = "Barcode search field",
+                    title = "Barcode parameter",
                     inputText = "dF87sjiuH87s",
                     inputStyle = InputStyle.ParameterInputStyle(),
                     onActionButtonClicked = {},
