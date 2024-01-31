@@ -32,8 +32,8 @@ fun IndicatorInput(
     Row(
         modifier = modifier.fillMaxWidth()
             .height(IntrinsicSize.Max)
-            .background(backgroundColor)
-            .clip(RoundedCornerShape(Spacing.Spacing8)),
+            .clip(RoundedCornerShape(Spacing.Spacing8))
+            .background(backgroundColor),
     ) {
         Box(
             Modifier.padding(
