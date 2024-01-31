@@ -1,16 +1,21 @@
 package org.hisp.dhis.common.screens.parameter
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import org.hisp.dhis.mobile.ui.designsystem.component.AgeInputType
 import org.hisp.dhis.mobile.ui.designsystem.component.CheckBoxData
+import org.hisp.dhis.mobile.ui.designsystem.component.Coordinates
 import org.hisp.dhis.mobile.ui.designsystem.component.InputAge
 import org.hisp.dhis.mobile.ui.designsystem.component.InputBarCode
 import org.hisp.dhis.mobile.ui.designsystem.component.InputCheckBox
+import org.hisp.dhis.mobile.ui.designsystem.component.InputCoordinate
 import org.hisp.dhis.mobile.ui.designsystem.component.InputEmail
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.InputStyle
@@ -25,6 +30,7 @@ fun ParameterSelectorScreen() {
 //    val modifier = Modifier.focusRequester(focusRequester)
 
     var ageInputType by remember { mutableStateOf<AgeInputType>(AgeInputType.None) }
+    var coordinates by remember { mutableStateOf<Coordinates?>(null) }
 
     val items = listOf(
         EmptyParameter(
@@ -117,9 +123,25 @@ fun ParameterSelectorScreen() {
                 )
             },
         ),
+        InputParameter(
+            inputField = {
+                InputCoordinate(
+                    title = "Coordinate parameter",
+                    coordinates = coordinates,
+                    inputStyle = InputStyle.ParameterInputStyle(),
+                    onResetButtonClicked = {},
+                    onUpdateButtonClicked = {
+                        coordinates = Coordinates(latitude = 39.46263, longitude = -0.33617)
+                    },
+                )
+            },
+        ),
     )
 
-    Column {
+    Column(
+        modifier = Modifier
+            .verticalScroll(rememberScrollState()),
+    ) {
         items.forEach {
             ParameterSelectorItem(
                 model = it,
