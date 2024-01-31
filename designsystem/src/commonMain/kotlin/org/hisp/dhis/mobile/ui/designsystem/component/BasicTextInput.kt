@@ -74,7 +74,7 @@ internal fun BasicTextInput(
     isSingleLine: Boolean = true,
     actionButton: @Composable (() -> Unit)? = null,
     modifier: Modifier = Modifier,
-    inputStyle: InputStyle = InputStyle.DataInputStyle(),
+    inputStyle: InputStyle,
 ) {
     var inputValue by remember(inputTextFieldValue) { mutableStateOf(inputTextFieldValue) }
 

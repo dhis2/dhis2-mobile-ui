@@ -30,7 +30,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.textFieldHoverPointerIcon
 
 /**
- * DHIS2 Input org unit. Wraps DHIS · [BasicTextInput].
+ * DHIS2 Input org unit.
  * @param title controls the text to be shown for the title
  * @param state Manages the InputShell state
  * @param supportingText is a list of SupportingTextData that

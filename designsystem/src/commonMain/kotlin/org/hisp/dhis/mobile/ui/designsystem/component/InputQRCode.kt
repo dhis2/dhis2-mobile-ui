@@ -34,6 +34,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 fun InputQRCode(
     title: String,
     state: InputShellState,
+    inputStyle: InputStyle = InputStyle.DataInputStyle(),
     onQRButtonClicked: () -> Unit,
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
@@ -51,6 +52,7 @@ fun InputQRCode(
     BasicTextInput(
         title = title,
         state = state,
+        inputStyle = inputStyle,
         supportingText = supportingText,
         legendData = legendData,
         inputTextFieldValue = inputTextFieldValue,

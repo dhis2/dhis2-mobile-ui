@@ -11,7 +11,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import org.hisp.dhis.mobile.ui.designsystem.component.AgeInputType
 import org.hisp.dhis.mobile.ui.designsystem.component.CheckBoxData
-import org.hisp.dhis.mobile.ui.designsystem.component.Coordinates
 import org.hisp.dhis.mobile.ui.designsystem.component.DropdownItem
 import org.hisp.dhis.mobile.ui.designsystem.component.InputAge
 import org.hisp.dhis.mobile.ui.designsystem.component.InputBarCode
@@ -19,6 +18,10 @@ import org.hisp.dhis.mobile.ui.designsystem.component.InputCheckBox
 import org.hisp.dhis.mobile.ui.designsystem.component.InputDateTime
 import org.hisp.dhis.mobile.ui.designsystem.component.InputDropDown
 import org.hisp.dhis.mobile.ui.designsystem.component.InputEmail
+import org.hisp.dhis.mobile.ui.designsystem.component.InputInteger
+import org.hisp.dhis.mobile.ui.designsystem.component.InputLongText
+import org.hisp.dhis.mobile.ui.designsystem.component.InputPhoneNumber
+import org.hisp.dhis.mobile.ui.designsystem.component.InputQRCode
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.InputStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.InputText
@@ -32,7 +35,6 @@ fun ParameterSelectorScreen() {
 //    val modifier = Modifier.focusRequester(focusRequester)
 
     var ageInputType by remember { mutableStateOf<AgeInputType>(AgeInputType.None) }
-    var coordinates by remember { mutableStateOf<Coordinates?>(null) }
 
     val items = listOf(
         EmptyParameter(
@@ -148,6 +150,48 @@ fun ParameterSelectorScreen() {
                     inputText = "android@dhis2.org",
                     inputStyle = InputStyle.ParameterInputStyle(),
                     onEmailActionCLicked = {},
+                )
+            },
+        ),
+        InputParameter(
+            inputField = {
+                InputInteger(
+                    title = "Integer parameter",
+                    state = InputShellState.UNFOCUSED,
+                    inputText = "123456",
+                    inputStyle = InputStyle.ParameterInputStyle(),
+                )
+            },
+        ),
+        InputParameter(
+            inputField = {
+                InputLongText(
+                    title = "Integer parameter",
+                    state = InputShellState.UNFOCUSED,
+                    inputText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+                    inputStyle = InputStyle.ParameterInputStyle(),
+                )
+            },
+        ), // TODO InputMatrix, InputNotSupported, InputOrgUnit
+        InputParameter(
+            inputField = {
+                InputPhoneNumber(
+                    title = "Integer parameter",
+                    state = InputShellState.UNFOCUSED,
+                    inputText = "999 666 888",
+                    inputStyle = InputStyle.ParameterInputStyle(),
+                    onCallActionClicked = {},
+                )
+            },
+        ),
+        InputParameter(
+            inputField = {
+                InputQRCode(
+                    title = "Integer parameter",
+                    state = InputShellState.UNFOCUSED,
+                    inputText = "wqlfqwlfjweghqge",
+                    inputStyle = InputStyle.ParameterInputStyle(),
+                    onQRButtonClicked = {},
                 )
             },
         ),

@@ -27,6 +27,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 fun InputLongText(
     title: String,
     state: InputShellState,
+    inputStyle: InputStyle = InputStyle.DataInputStyle(),
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
     inputTextFieldValue: TextFieldValue? = null,
@@ -42,6 +43,7 @@ fun InputLongText(
     BasicTextInput(
         title = title,
         state = state,
+        inputStyle = inputStyle,
         supportingText = supportingText,
         legendData = legendData,
         inputTextFieldValue = inputTextFieldValue,
