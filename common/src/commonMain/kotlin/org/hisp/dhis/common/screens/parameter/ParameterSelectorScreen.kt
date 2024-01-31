@@ -7,8 +7,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import org.hisp.dhis.mobile.ui.designsystem.component.AgeInputType
+import org.hisp.dhis.mobile.ui.designsystem.component.CheckBoxData
 import org.hisp.dhis.mobile.ui.designsystem.component.InputAge
 import org.hisp.dhis.mobile.ui.designsystem.component.InputBarCode
+import org.hisp.dhis.mobile.ui.designsystem.component.InputCheckBox
 import org.hisp.dhis.mobile.ui.designsystem.component.InputEmail
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.InputStyle
@@ -38,7 +40,7 @@ fun ParameterSelectorScreen() {
         InputParameter(
             inputField = {
                 InputText(
-                    title = "Input Text search field",
+                    title = "Text parameter",
                     state = InputShellState.UNFOCUSED,
                     inputText = "unfocused",
                     inputStyle = InputStyle.ParameterInputStyle(),
@@ -48,7 +50,7 @@ fun ParameterSelectorScreen() {
         InputParameter(
             inputField = {
                 InputText(
-                    title = "Input Text search field",
+                    title = "Text parameter",
                     state = InputShellState.FOCUSED,
                     inputText = "focused",
                     inputStyle = InputStyle.ParameterInputStyle(),
@@ -58,7 +60,7 @@ fun ParameterSelectorScreen() {
         InputParameter(
             inputField = {
                 InputEmail(
-                    title = "Unfocused Email field",
+                    title = "Email parameter",
                     state = InputShellState.UNFOCUSED,
                     inputText = "android@dhis2.org",
                     inputStyle = InputStyle.ParameterInputStyle(),
@@ -86,6 +88,32 @@ fun ParameterSelectorScreen() {
                     inputText = "dF87sjiuH87s",
                     inputStyle = InputStyle.ParameterInputStyle(),
                     onActionButtonClicked = {},
+                )
+            },
+        ),
+        InputParameter(
+            inputField = {
+                InputCheckBox(
+                    title = "CheckBox parameter",
+                    state = InputShellState.UNFOCUSED,
+                    inputStyle = InputStyle.ParameterInputStyle(),
+                    checkBoxData = listOf(
+                        CheckBoxData(
+                            uid = "uid1",
+                            checked = true,
+                            enabled = true,
+                            textInput = "option 1",
+                        ),
+                        CheckBoxData(
+                            uid = "uid1",
+                            checked = false,
+                            enabled = true,
+                            textInput = "option 2",
+                        ),
+
+                    ),
+                    onClearSelection = {},
+                    onItemChange = {},
                 )
             },
         ),
