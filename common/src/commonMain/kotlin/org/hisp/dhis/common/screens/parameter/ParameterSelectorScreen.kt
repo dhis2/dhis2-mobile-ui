@@ -31,6 +31,9 @@ import org.hisp.dhis.mobile.ui.designsystem.component.InputSequential
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.InputStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.InputText
+import org.hisp.dhis.mobile.ui.designsystem.component.InputYesNoField
+import org.hisp.dhis.mobile.ui.designsystem.component.InputYesOnlyCheckBox
+import org.hisp.dhis.mobile.ui.designsystem.component.InputYesOnlySwitch
 import org.hisp.dhis.mobile.ui.designsystem.component.RadioButtonData
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.IconCardData
 import org.hisp.dhis.mobile.ui.designsystem.component.parameter.ParameterSelectorItem
@@ -290,6 +293,42 @@ fun ParameterSelectorScreen() {
                         ),
                     ),
                     onSelectionChanged = {},
+                )
+            },
+        ),
+        InputParameter(
+            inputField = {
+                InputYesNoField(
+                    title = "Yes No parameter",
+                    state = InputShellState.UNFOCUSED,
+                    inputStyle = InputStyle.ParameterInputStyle(),
+                    onItemChange = {},
+                )
+            },
+        ),
+        InputParameter(
+            inputField = {
+                InputYesOnlyCheckBox(
+                    state = InputShellState.UNFOCUSED,
+                    inputStyle = InputStyle.ParameterInputStyle(),
+                    checkBoxData = CheckBoxData(
+                        uid = "uid1",
+                        checked = true,
+                        enabled = true,
+                        textInput = "option 1",
+                    ),
+                    onClick = {},
+                )
+            },
+        ),
+        InputParameter(
+            inputField = {
+                InputYesOnlySwitch(
+                    title = "Yes only switch parameter",
+                    state = InputShellState.UNFOCUSED,
+                    inputStyle = InputStyle.ParameterInputStyle(),
+                    isChecked = true,
+                    onClick = {},
                 )
             },
         ),
