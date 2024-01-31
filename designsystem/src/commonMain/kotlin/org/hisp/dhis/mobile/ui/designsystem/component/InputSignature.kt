@@ -36,6 +36,7 @@ import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 fun <T> InputSignature(
     title: String,
     state: InputShellState = InputShellState.UNFOCUSED,
+    inputStyle: InputStyle = InputStyle.DataInputStyle(),
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
     addSignatureBtnText: String = provideStringResource("add_signature"),
@@ -54,6 +55,7 @@ fun <T> InputSignature(
     BasicInputImage(
         title = title,
         state = state,
+        inputStyle = inputStyle,
         supportingText = supportingText,
         legendData = legendData,
         addButtonText = addSignatureBtnText,
