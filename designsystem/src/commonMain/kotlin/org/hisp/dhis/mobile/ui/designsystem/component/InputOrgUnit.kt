@@ -48,6 +48,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.textFieldHoverPointerIcon
 fun InputOrgUnit(
     title: String,
     state: InputShellState = InputShellState.UNFOCUSED,
+    inputStyle: InputStyle = InputStyle.DataInputStyle(),
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
     inputText: String? = null,
@@ -185,5 +186,6 @@ fun InputOrgUnit(
             }
         },
         onFocusChanged = onFocusChanged,
+        inputStyle = inputStyle,
     )
 }

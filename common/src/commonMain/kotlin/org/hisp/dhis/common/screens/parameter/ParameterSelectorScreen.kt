@@ -9,6 +9,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import org.hisp.dhis.mobile.ui.designsystem.component.AgeInputType
 import org.hisp.dhis.mobile.ui.designsystem.component.CheckBoxData
 import org.hisp.dhis.mobile.ui.designsystem.component.DropdownItem
@@ -20,11 +21,17 @@ import org.hisp.dhis.mobile.ui.designsystem.component.InputDropDown
 import org.hisp.dhis.mobile.ui.designsystem.component.InputEmail
 import org.hisp.dhis.mobile.ui.designsystem.component.InputInteger
 import org.hisp.dhis.mobile.ui.designsystem.component.InputLongText
+import org.hisp.dhis.mobile.ui.designsystem.component.InputMatrix
+import org.hisp.dhis.mobile.ui.designsystem.component.InputNotSupported
+import org.hisp.dhis.mobile.ui.designsystem.component.InputOrgUnit
 import org.hisp.dhis.mobile.ui.designsystem.component.InputPhoneNumber
 import org.hisp.dhis.mobile.ui.designsystem.component.InputQRCode
+import org.hisp.dhis.mobile.ui.designsystem.component.InputRadioButton
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.InputStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.InputText
+import org.hisp.dhis.mobile.ui.designsystem.component.RadioButtonData
+import org.hisp.dhis.mobile.ui.designsystem.component.internal.IconCardData
 import org.hisp.dhis.mobile.ui.designsystem.component.parameter.ParameterSelectorItem
 import org.hisp.dhis.mobile.ui.designsystem.component.parameter.model.ParameterSelectorItemModel.EmptyParameter
 import org.hisp.dhis.mobile.ui.designsystem.component.parameter.model.ParameterSelectorItemModel.InputParameter
@@ -166,17 +173,59 @@ fun ParameterSelectorScreen() {
         InputParameter(
             inputField = {
                 InputLongText(
-                    title = "Integer parameter",
+                    title = "Long text parameter",
                     state = InputShellState.UNFOCUSED,
                     inputText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
                     inputStyle = InputStyle.ParameterInputStyle(),
                 )
             },
-        ), // TODO InputMatrix, InputNotSupported, InputOrgUnit
+        ),
+        InputParameter(
+            inputField = {
+                InputMatrix(
+                    title = "Matrix parameter",
+                    state = InputShellState.UNFOCUSED,
+                    inputStyle = InputStyle.ParameterInputStyle(),
+                    data = listOf(
+                        IconCardData(
+                            uid = "7e0cb105-c276-4f12-9f56-a26af8314121",
+                            label = "Stethoscope",
+                            iconRes = "dhis2_stethoscope_positive",
+                            iconTint = Color(0xFFFF8400),
+                        ),
+                        IconCardData(
+                            uid = "72269f6b-6b99-4d2e-a667-09f20c2097e0",
+                            label = "Medicines",
+                            iconRes = "dhis2_medicines_positive",
+                            iconTint = Color(0xFFEB0085),
+                        ),
+                    ),
+                    onSelectionChanged = {},
+                )
+            },
+        ),
+        InputParameter(
+            inputField = {
+                InputNotSupported(
+                    title = "Not supported parameter",
+                    notSupportedString = "Not supported",
+                    inputStyle = InputStyle.ParameterInputStyle(),
+                )
+            },
+        ),
+        InputParameter(
+            inputField = {
+                InputOrgUnit(
+                    title = "Org unit parameter",
+                    inputStyle = InputStyle.ParameterInputStyle(),
+                    onOrgUnitActionCLicked = {},
+                )
+            },
+        ),
         InputParameter(
             inputField = {
                 InputPhoneNumber(
-                    title = "Integer parameter",
+                    title = "Phone number parameter",
                     state = InputShellState.UNFOCUSED,
                     inputText = "999 666 888",
                     inputStyle = InputStyle.ParameterInputStyle(),
@@ -187,11 +236,35 @@ fun ParameterSelectorScreen() {
         InputParameter(
             inputField = {
                 InputQRCode(
-                    title = "Integer parameter",
+                    title = "QRCode parameter",
                     state = InputShellState.UNFOCUSED,
                     inputText = "wqlfqwlfjweghqge",
                     inputStyle = InputStyle.ParameterInputStyle(),
                     onQRButtonClicked = {},
+                )
+            },
+        ),
+        InputParameter(
+            inputField = {
+                InputRadioButton(
+                    title = "Radio button parameter",
+                    state = InputShellState.UNFOCUSED,
+                    inputStyle = InputStyle.ParameterInputStyle(),
+                    radioButtonData = listOf(
+                        RadioButtonData(
+                            uid = "uid1",
+                            selected = false,
+                            enabled = true,
+                            textInput = "option1",
+                        ),
+                        RadioButtonData(
+                            uid = "uid2",
+                            selected = true,
+                            enabled = true,
+                            textInput = "option2",
+                        ),
+                    ),
+                    onItemChange = {},
                 )
             },
         ),
