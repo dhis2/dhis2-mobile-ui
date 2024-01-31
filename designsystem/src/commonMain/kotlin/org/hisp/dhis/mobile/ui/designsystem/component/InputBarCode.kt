@@ -43,8 +43,10 @@ fun InputBarCode(
     onFocusChanged: ((Boolean) -> Unit)? = null,
     imeAction: ImeAction = ImeAction.Next,
     modifier: Modifier = Modifier,
+    inputStyle: InputStyle = InputStyle.DataInputStyle(),
 ) {
-    val actionButtonIconVector = mutableStateOf(if (inputTextFieldValue?.text.isNullOrEmpty()) "material_barcode_scanner" else "material_barcode")
+    val actionButtonIconVector =
+        mutableStateOf(if (inputTextFieldValue?.text.isNullOrEmpty()) "material_barcode_scanner" else "material_barcode")
     BasicTextInput(
         title = title,
         state = state,
@@ -73,5 +75,6 @@ fun InputBarCode(
         },
         autoCompleteList = autoCompleteList,
         autoCompleteItemSelected = autoCompleteItemSelected,
+        inputStyle = inputStyle,
     )
 }

@@ -2,6 +2,7 @@ package org.hisp.dhis.common.screens.parameter
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
+import org.hisp.dhis.mobile.ui.designsystem.component.InputBarCode
 import org.hisp.dhis.mobile.ui.designsystem.component.InputEmail
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.InputStyle
@@ -59,12 +60,11 @@ fun ParameterSelectorScreen() {
         ),
         InputParameter(
             inputField = {
-                InputEmail(
-                    title = "Focused Email search field",
-                    state = InputShellState.FOCUSED,
-                    inputText = "android@dhis2.org",
+                InputBarCode(
+                    title = "Barcode search field",
+                    inputText = "dF87sjiuH87s",
                     inputStyle = InputStyle.ParameterInputStyle(),
-                    onEmailActionCLicked = {},
+                    onActionButtonClicked = {},
                 )
             },
         ),
