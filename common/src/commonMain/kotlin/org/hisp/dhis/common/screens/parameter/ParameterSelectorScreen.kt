@@ -12,11 +12,13 @@ import androidx.compose.ui.Modifier
 import org.hisp.dhis.mobile.ui.designsystem.component.AgeInputType
 import org.hisp.dhis.mobile.ui.designsystem.component.CheckBoxData
 import org.hisp.dhis.mobile.ui.designsystem.component.Coordinates
+import org.hisp.dhis.mobile.ui.designsystem.component.DropdownItem
 import org.hisp.dhis.mobile.ui.designsystem.component.InputAge
 import org.hisp.dhis.mobile.ui.designsystem.component.InputBarCode
 import org.hisp.dhis.mobile.ui.designsystem.component.InputCheckBox
 import org.hisp.dhis.mobile.ui.designsystem.component.InputCoordinate
 import org.hisp.dhis.mobile.ui.designsystem.component.InputDateTime
+import org.hisp.dhis.mobile.ui.designsystem.component.InputDropDown
 import org.hisp.dhis.mobile.ui.designsystem.component.InputEmail
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.InputStyle
@@ -145,6 +147,21 @@ fun ParameterSelectorScreen() {
                     value = "",
                     onActionClicked = {},
                     onValueChanged = {},
+                )
+            },
+        ),
+        InputParameter(
+            inputField = {
+                InputDropDown(
+                    title = "DropDown parameter",
+                    state = InputShellState.UNFOCUSED,
+                    inputStyle = InputStyle.ParameterInputStyle(),
+                    dropdownItems = listOf(
+                        DropdownItem("Item 1"),
+                        DropdownItem("Item 2"),
+                    ),
+                    onItemSelected = {},
+                    onResetButtonClicked = {},
                 )
             },
         ),

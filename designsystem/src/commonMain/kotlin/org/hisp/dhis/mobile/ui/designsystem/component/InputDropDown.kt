@@ -62,6 +62,7 @@ private const val MAX_DROPDOWN_ITEMS = 6
 fun InputDropDown(
     title: String,
     state: InputShellState,
+    inputStyle: InputStyle = InputStyle.DataInputStyle(),
     dropdownItems: List<DropdownItem>,
     selectedItem: DropdownItem? = null,
     supportingTextData: List<SupportingTextData>? = null,
@@ -83,6 +84,7 @@ fun InputDropDown(
             focusRequester = focusRequester,
             title = title,
             state = state,
+            inputStyle = inputStyle,
             isRequiredField = isRequiredField,
             expanded = showDropdown,
             onFocusChanged = onFocusChanged,
@@ -203,6 +205,7 @@ fun InputDropDown(
 private fun DropdownInputField(
     title: String,
     state: InputShellState,
+    inputStyle: InputStyle = InputStyle.DataInputStyle(),
     isRequiredField: Boolean,
     expanded: Boolean,
     focusRequester: FocusRequester,
@@ -299,6 +302,7 @@ private fun DropdownInputField(
         } else {
             null
         },
+        inputStyle = inputStyle,
     )
 }
 
