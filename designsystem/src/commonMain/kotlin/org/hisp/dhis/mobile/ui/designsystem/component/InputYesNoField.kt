@@ -56,7 +56,7 @@ fun InputYesNoField(
             }
         },
         inputField = {
-            val options = InputYesNoFieldValues.values().map {
+            val options = InputYesNoFieldValues.entries.map {
                 RadioButtonData(
                     it.value,
                     itemSelected == it,
@@ -71,7 +71,7 @@ fun InputYesNoField(
                 Modifier.offset(x = -Spacing.Spacing8),
             ) { radioButtonData ->
                 onItemChange.invoke(
-                    InputYesNoFieldValues.values().firstOrNull { it.name.equals(radioButtonData.uid, true) },
+                    InputYesNoFieldValues.entries.firstOrNull { it.name.equals(radioButtonData.uid, true) },
                 )
             }
         },
