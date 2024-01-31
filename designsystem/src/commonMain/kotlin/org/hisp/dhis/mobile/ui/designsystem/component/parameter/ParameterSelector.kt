@@ -16,8 +16,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import org.hisp.dhis.mobile.ui.designsystem.component.IconButton
 import org.hisp.dhis.mobile.ui.designsystem.component.parameter.model.ParameterSelectorItemModel
-import org.hisp.dhis.mobile.ui.designsystem.component.parameter.model.ParameterSelectorItemModel.FilledModel
-import org.hisp.dhis.mobile.ui.designsystem.component.parameter.model.ParameterSelectorItemModel.PristineModel
+import org.hisp.dhis.mobile.ui.designsystem.component.parameter.model.ParameterSelectorItemModel.EmptyParameter
+import org.hisp.dhis.mobile.ui.designsystem.component.parameter.model.ParameterSelectorItemModel.InputParameter
 import org.hisp.dhis.mobile.ui.designsystem.theme.Border
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
@@ -28,21 +28,21 @@ fun ParameterSelectorItem(
     model: ParameterSelectorItemModel,
 ) {
     when (model) {
-        is PristineModel -> {
-            PristineParameterField(
+        is EmptyParameter -> {
+            EmptyParameterField(
                 model = model,
             )
         }
 
-        is FilledModel -> {
+        is InputParameter -> {
             model.inputField.invoke()
         }
     }
 }
 
 @Composable
-private fun PristineParameterField(
-    model: PristineModel,
+private fun EmptyParameterField(
+    model: EmptyParameter,
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,

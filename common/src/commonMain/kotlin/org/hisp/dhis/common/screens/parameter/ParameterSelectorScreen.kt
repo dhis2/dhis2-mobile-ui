@@ -7,8 +7,8 @@ import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.InputStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.InputText
 import org.hisp.dhis.mobile.ui.designsystem.component.parameter.ParameterSelectorItem
-import org.hisp.dhis.mobile.ui.designsystem.component.parameter.model.ParameterSelectorItemModel.FilledModel
-import org.hisp.dhis.mobile.ui.designsystem.component.parameter.model.ParameterSelectorItemModel.PristineModel
+import org.hisp.dhis.mobile.ui.designsystem.component.parameter.model.ParameterSelectorItemModel.EmptyParameter
+import org.hisp.dhis.mobile.ui.designsystem.component.parameter.model.ParameterSelectorItemModel.InputParameter
 
 @Composable
 fun ParameterSelectorScreen() {
@@ -16,17 +16,17 @@ fun ParameterSelectorScreen() {
 //    val modifier = Modifier.focusRequester(focusRequester)
 
     val items = listOf(
-        PristineModel(
+        EmptyParameter(
             label = "Label",
             helper = "Optional",
             onClick = {},
         ),
-        PristineModel(
+        EmptyParameter(
             label = "Label",
             helper = "Optional",
             onClick = {},
         ),
-        FilledModel(
+        InputParameter(
             inputField = {
                 InputText(
                     title = "Input Text search field",
@@ -36,7 +36,7 @@ fun ParameterSelectorScreen() {
                 )
             },
         ),
-        FilledModel(
+        InputParameter(
             inputField = {
                 InputText(
                     title = "Input Text search field",
@@ -46,7 +46,7 @@ fun ParameterSelectorScreen() {
                 )
             },
         ),
-        FilledModel(
+        InputParameter(
             inputField = {
                 InputEmail(
                     title = "Unfocused Email field",
@@ -57,7 +57,7 @@ fun ParameterSelectorScreen() {
                 )
             },
         ),
-        FilledModel(
+        InputParameter(
             inputField = {
                 InputEmail(
                     title = "Focused Email search field",
