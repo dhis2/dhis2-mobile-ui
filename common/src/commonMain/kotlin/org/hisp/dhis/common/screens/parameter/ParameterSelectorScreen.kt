@@ -16,7 +16,6 @@ import org.hisp.dhis.mobile.ui.designsystem.component.DropdownItem
 import org.hisp.dhis.mobile.ui.designsystem.component.InputAge
 import org.hisp.dhis.mobile.ui.designsystem.component.InputBarCode
 import org.hisp.dhis.mobile.ui.designsystem.component.InputCheckBox
-import org.hisp.dhis.mobile.ui.designsystem.component.InputCoordinate
 import org.hisp.dhis.mobile.ui.designsystem.component.InputDateTime
 import org.hisp.dhis.mobile.ui.designsystem.component.InputDropDown
 import org.hisp.dhis.mobile.ui.designsystem.component.InputEmail
@@ -63,17 +62,6 @@ fun ParameterSelectorScreen() {
                     state = InputShellState.FOCUSED,
                     inputText = "focused",
                     inputStyle = InputStyle.ParameterInputStyle(),
-                )
-            },
-        ),
-        InputParameter(
-            inputField = {
-                InputEmail(
-                    title = "Email parameter",
-                    state = InputShellState.UNFOCUSED,
-                    inputText = "android@dhis2.org",
-                    inputStyle = InputStyle.ParameterInputStyle(),
-                    onEmailActionCLicked = {},
                 )
             },
         ),
@@ -128,19 +116,6 @@ fun ParameterSelectorScreen() {
         ),
         InputParameter(
             inputField = {
-                InputCoordinate(
-                    title = "Coordinate parameter",
-                    coordinates = coordinates,
-                    inputStyle = InputStyle.ParameterInputStyle(),
-                    onResetButtonClicked = {},
-                    onUpdateButtonClicked = {
-                        coordinates = Coordinates(latitude = 39.46263, longitude = -0.33617)
-                    },
-                )
-            },
-        ),
-        InputParameter(
-            inputField = {
                 InputDateTime(
                     title = "DateTime parameter",
                     inputStyle = InputStyle.ParameterInputStyle(),
@@ -162,6 +137,17 @@ fun ParameterSelectorScreen() {
                     ),
                     onItemSelected = {},
                     onResetButtonClicked = {},
+                )
+            },
+        ),
+        InputParameter(
+            inputField = {
+                InputEmail(
+                    title = "Email parameter",
+                    state = InputShellState.UNFOCUSED,
+                    inputText = "android@dhis2.org",
+                    inputStyle = InputStyle.ParameterInputStyle(),
+                    onEmailActionCLicked = {},
                 )
             },
         ),
