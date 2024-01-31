@@ -27,6 +27,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.InputOrgUnit
 import org.hisp.dhis.mobile.ui.designsystem.component.InputPhoneNumber
 import org.hisp.dhis.mobile.ui.designsystem.component.InputQRCode
 import org.hisp.dhis.mobile.ui.designsystem.component.InputRadioButton
+import org.hisp.dhis.mobile.ui.designsystem.component.InputSequential
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.InputStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.InputText
@@ -265,6 +266,30 @@ fun ParameterSelectorScreen() {
                         ),
                     ),
                     onItemChange = {},
+                )
+            },
+        ),
+        InputParameter(
+            inputField = {
+                InputSequential(
+                    title = "Sequential parameter",
+                    state = InputShellState.UNFOCUSED,
+                    inputStyle = InputStyle.ParameterInputStyle(),
+                    data = listOf(
+                        IconCardData(
+                            uid = "7e0cb105-c276-4f12-9f56-a26af8314121",
+                            label = "Stethoscope",
+                            iconRes = "dhis2_stethoscope_positive",
+                            iconTint = Color(0xFFFF8400),
+                        ),
+                        IconCardData(
+                            uid = "72269f6b-6b99-4d2e-a667-09f20c2097e0",
+                            label = "Medicines",
+                            iconRes = "dhis2_medicines_positive",
+                            iconTint = Color(0xFFEB0085),
+                        ),
+                    ),
+                    onSelectionChanged = {},
                 )
             },
         ),
