@@ -9,17 +9,20 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 sealed class InputStyle(
     val startIndent: Dp,
     val backGroundColor: Color,
+    val disabledBackGroundColor: Color,
     val unfocusedIndicatorColor: Color?,
 ) {
     class DataInputStyle : InputStyle(
         startIndent = Spacing.Spacing0,
         backGroundColor = SurfaceColor.Surface,
+        disabledBackGroundColor = SurfaceColor.DisabledSurface,
         unfocusedIndicatorColor = null,
     )
 
     class ParameterInputStyle : InputStyle(
         startIndent = Spacing.Spacing40,
         backGroundColor = Color.Transparent,
+        disabledBackGroundColor = Color.Transparent,
         unfocusedIndicatorColor = Outline.Light,
     )
 }

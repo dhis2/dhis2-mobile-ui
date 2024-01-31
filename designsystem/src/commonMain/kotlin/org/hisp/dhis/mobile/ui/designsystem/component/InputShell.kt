@@ -75,7 +75,7 @@ fun InputShell(
         var indicatorThickness by remember { mutableStateOf(Border.Thin) }
         val backgroundColor = when {
             state != InputShellState.DISABLED -> inputStyle.backGroundColor
-            else -> SurfaceColor.DisabledSurface
+            else -> inputStyle.disabledBackGroundColor
         }
         val focusRequester = remember { FocusRequester() }
 
