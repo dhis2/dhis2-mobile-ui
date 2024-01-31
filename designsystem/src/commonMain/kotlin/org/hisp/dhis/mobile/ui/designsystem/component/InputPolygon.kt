@@ -36,6 +36,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 fun InputPolygon(
     title: String,
     state: InputShellState = InputShellState.UNFOCUSED,
+    inputStyle: InputStyle = InputStyle.DataInputStyle(),
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
     polygonText: String? = provideStringResource("polygon_captured"),
@@ -132,5 +133,6 @@ fun InputPolygon(
         } else {
             null
         },
+        inputStyle = inputStyle,
     )
 }

@@ -62,7 +62,7 @@ fun InputShell(
     onFocusChanged: ((Boolean) -> Unit)? = null,
     isRequiredField: Boolean = false,
     modifier: Modifier = Modifier,
-    inputStyle: InputStyle = InputStyle.DataInputStyle(),
+    inputStyle: InputStyle,
 ) {
     Column(
         modifier = modifier
