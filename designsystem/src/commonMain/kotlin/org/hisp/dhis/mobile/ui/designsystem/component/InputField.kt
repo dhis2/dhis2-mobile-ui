@@ -129,11 +129,8 @@ fun BasicTextField(
         backgroundColor = Blue300,
     )
 
-    var textFieldSelection by remember {
-        mutableStateOf(TextRange(if (inputText.isEmpty()) 0 else inputText.length))
-    }
-    var textFieldComposition by remember {
-        mutableStateOf(if (inputText.isEmpty()) null else TextRange(0, if (inputText.isEmpty()) 0 else inputText.length))
+    var textFieldValue by remember(inputText) {
+        mutableStateOf(TextFieldValue(inputText, TextRange(if (inputText.isEmpty()) 0 else inputText.length), TextRange(0)))
     }
 
     CompositionLocalProvider(LocalTextSelectionColors provides customTextSelectionColors) {
@@ -145,14 +142,9 @@ fun BasicTextField(
                 )
                 .fillMaxWidth()
                 .textFieldHoverPointerIcon(enabled),
-            value = TextFieldValue(
-                text = inputText,
-                selection = textFieldSelection,
-                composition = textFieldComposition,
-            ),
+            value = textFieldValue,
             onValueChange = {
-                textFieldSelection = it.selection
-                textFieldComposition = it.composition
+                textFieldValue = it
                 onInputChanged.invoke(it.text)
             },
             enabled = enabled,
