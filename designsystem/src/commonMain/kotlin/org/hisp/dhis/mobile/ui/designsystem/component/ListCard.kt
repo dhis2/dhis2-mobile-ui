@@ -79,9 +79,9 @@ fun ListCard(
     actionButton: @Composable (() -> Unit)? = null,
     expandLabelText: String = provideStringResource("show_more"),
     shrinkLabelText: String = provideStringResource("show_less"),
-    showLoading: Boolean = false,
+    loading: Boolean = false,
     onCardClick: () -> Unit,
-    showShadow: Boolean = false,
+    shadow: Boolean = true,
     modifier: Modifier = Modifier,
 ) {
     val expandableItemList = mutableListOf<AdditionalInfoItem>()
@@ -98,7 +98,7 @@ fun ListCard(
 
     Row(
         modifier = modifier
-            .conditional(showShadow, {
+            .conditional(shadow, {
                 listCardShadow(modifier)
             })
             .background(color = TextColor.OnPrimary)
@@ -112,7 +112,7 @@ fun ListCard(
                 onClick = onCardClick,
             )
             .hoverPointerIcon(true)
-            .padding(getPaddingValues(showShadow, listAvatar != null)),
+            .padding(getPaddingValues(shadow, listAvatar != null)),
     ) {
         listAvatar?.let {
             it.invoke()
@@ -144,7 +144,7 @@ fun ListCard(
                     color = SurfaceColor.Primary,
                     isConstantItem = false,
                 ),
-                showLoading = showLoading,
+                loading = loading,
             )
             actionButton?.invoke()
         }
@@ -223,7 +223,7 @@ fun CardDetail(
                     color = SurfaceColor.Primary,
                     isConstantItem = false,
                 ),
-                showLoading = showLoading,
+                loading = showLoading,
             )
             actionButton?.invoke()
         }
@@ -293,12 +293,12 @@ private fun AdditionalInfoColumn(
     expandableItems: List<AdditionalInfoItem>? = null,
     constantItems: List<AdditionalInfoItem>,
     syncProgressItem: AdditionalInfoItem,
-    showLoading: Boolean,
+    loading: Boolean,
     isDetailCard: Boolean = false,
     expandLabelText: String,
     shrinkLabelText: String,
 ) {
-    val loadingSectionState by remember(showLoading) { mutableStateOf(showLoading) }
+    val loadingSectionState by remember(loading) { mutableStateOf(loading) }
     var sectionState by remember(SectionState.CLOSE) { mutableStateOf(SectionState.CLOSE) }
 
     var expandableItemList: List<AdditionalInfoItem>

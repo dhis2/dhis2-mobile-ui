@@ -92,7 +92,6 @@ fun ListCardScreen() {
                     style = AvatarStyle.TEXT,
                 )
             },
-            showShadow = true,
             title = "Palak Khanna, F, 61",
             lastUpdated = "5 hours",
             additionalInfoList = basicAdditionalItemList.toMutableList(),
@@ -112,13 +111,12 @@ fun ListCardScreen() {
                 )
             },
             onCardClick = {},
-            showLoading = showLoading1,
+            loading = showLoading1,
         )
         var showLoading2 by remember {
             mutableStateOf(false)
         }
         ListCard(
-            showShadow = true,
             listAvatar = {
                 Avatar(
                     imagePainter = provideDHIS2Icon("dhis2_microscope_outline"),
@@ -144,7 +142,7 @@ fun ListCardScreen() {
                 )
             },
             onCardClick = {},
-            showLoading = showLoading2,
+            loading = showLoading2,
         )
         SubTitle("Without shadow")
 
@@ -152,6 +150,7 @@ fun ListCardScreen() {
             mutableStateOf(false)
         }
         ListCard(
+            shadow = false,
             listAvatar = {
                 Avatar(
                     metadataAvatar = {
@@ -187,7 +186,7 @@ fun ListCardScreen() {
                 )
             },
             onCardClick = {},
-            showLoading = showLoading3,
+            loading = showLoading3,
         )
 
         var showLoading4 by remember {
@@ -252,14 +251,13 @@ fun ListCardScreen() {
                 )
             },
             onCardClick = {},
-            showLoading = showLoading4,
+            loading = showLoading4,
         )
         Spacer(Modifier.size(Spacing.Spacing16))
         SubTitle("Single events list:")
         SubTitle("With shadow:")
 
         ListCard(
-            showShadow = true,
             title = "12/18/2021",
             lastUpdated = "now",
             additionalInfoList = basicAdditionalItemList,
@@ -284,6 +282,7 @@ fun ListCardScreen() {
         SubTitle("Without shadow:")
 
         ListCard(
+            shadow = false,
             title = "12/18/2021",
             lastUpdated = "now",
             additionalInfoList = basicAdditionalItemList,
@@ -309,7 +308,6 @@ fun ListCardScreen() {
         SubTitle("With shadow:")
 
         ListCard(
-            showShadow = true,
             listAvatar = {
                 Avatar(
                     metadataAvatar = {
@@ -352,6 +350,7 @@ fun ListCardScreen() {
 
         SubTitle("Without shadow:")
         ListCard(
+            shadow = false,
             listAvatar = {
                 Avatar(
                     metadataAvatar = {
