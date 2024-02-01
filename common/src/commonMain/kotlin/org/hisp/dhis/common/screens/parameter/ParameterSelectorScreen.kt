@@ -38,10 +38,15 @@ import org.hisp.dhis.mobile.ui.designsystem.component.RadioButtonData
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.IconCardData
 import org.hisp.dhis.mobile.ui.designsystem.component.parameter.ParameterSelectorItem
 import org.hisp.dhis.mobile.ui.designsystem.component.parameter.model.ParameterSelectorItemModel
+import org.hisp.dhis.mobile.ui.designsystem.component.parameter.model.ParameterSelectorItemModel.Status.CLOSED
+import org.hisp.dhis.mobile.ui.designsystem.component.parameter.model.ParameterSelectorItemModel.Status.OPENED
 
 @Composable
 fun ParameterSelectorScreen() {
+    var inputTextValue: String? by remember { mutableStateOf(null) }
     var ageInputType by remember { mutableStateOf<AgeInputType>(AgeInputType.None) }
+    var inputBarcodeValue: String? by remember { mutableStateOf(null) }
+    var checkBoxSelected: Boolean by remember { mutableStateOf(false) }
 
     val items = listOf(
         ParameterSelectorItemModel(
@@ -51,21 +56,19 @@ fun ParameterSelectorScreen() {
                 InputText(
                     title = "Text parameter",
                     state = InputShellState.UNFOCUSED,
-                    inputText = "unfocused",
+                    inputText = inputTextValue,
                     inputStyle = InputStyle.ParameterInputStyle(),
+                    onValueChanged = {
+                        if (it != null) {
+                            inputTextValue = it
+                        }
+                    },
                 )
             },
-        ),
-        ParameterSelectorItemModel(
-            label = "Text parameter focused",
-            helper = "Optional",
-            inputField = {
-                InputText(
-                    title = "Text parameter",
-                    state = InputShellState.FOCUSED,
-                    inputText = "focused",
-                    inputStyle = InputStyle.ParameterInputStyle(),
-                )
+            status = if (inputTextValue.isNullOrEmpty()) {
+                CLOSED
+            } else {
+                OPENED
             },
         ),
         ParameterSelectorItemModel(
@@ -82,6 +85,10 @@ fun ParameterSelectorScreen() {
                     },
                 )
             },
+            status = when (ageInputType) {
+                AgeInputType.None -> CLOSED
+                else -> OPENED
+            },
         ),
         ParameterSelectorItemModel(
             label = "Barcode parameter",
@@ -89,10 +96,18 @@ fun ParameterSelectorScreen() {
             inputField = {
                 InputBarCode(
                     title = "Barcode parameter",
-                    inputText = "dF87sjiuH87s",
+                    inputText = inputBarcodeValue,
                     inputStyle = InputStyle.ParameterInputStyle(),
                     onActionButtonClicked = {},
+                    onValueChanged = {
+                        inputBarcodeValue = it
+                    },
                 )
+            },
+            status = if (inputBarcodeValue.isNullOrEmpty()) {
+                CLOSED
+            } else {
+                OPENED
             },
         ),
         ParameterSelectorItemModel(
@@ -116,11 +131,19 @@ fun ParameterSelectorScreen() {
                             enabled = true,
                             textInput = "option 2",
                         ),
-
                     ),
-                    onClearSelection = {},
-                    onItemChange = {},
+                    onClearSelection = {
+                        checkBoxSelected = false
+                    },
+                    onItemChange = {
+                        checkBoxSelected = true
+                    },
                 )
+            },
+            status = if (checkBoxSelected) {
+                OPENED
+            } else {
+                CLOSED
             },
         ),
         ParameterSelectorItemModel(

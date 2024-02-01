@@ -1,6 +1,10 @@
 package org.hisp.dhis.mobile.ui.designsystem.component.parameter
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -40,10 +44,12 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
 fun ParameterSelectorItem(
     model: ParameterSelectorItemModel,
 ) {
-    var status by remember { mutableStateOf(model.status) }
+    var status by remember(model.status) { mutableStateOf(model.status) }
 
     AnimatedVisibility(
         visible = status == CLOSED,
+        enter = fadeIn() + expandVertically(),
+        exit = shrinkVertically() + fadeOut(),
     ) {
         EmptyParameterField(
             model = model,
@@ -54,6 +60,8 @@ fun ParameterSelectorItem(
 
     AnimatedVisibility(
         visible = status == OPENED,
+        enter = fadeIn() + expandVertically(),
+        exit = shrinkVertically() + fadeOut(),
     ) {
         model.inputField.invoke()
     }
@@ -78,7 +86,6 @@ private fun EmptyParameterField(
                 onClick = onClick,
             )
             .hoverPointerIcon(true),
-
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
