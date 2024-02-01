@@ -20,6 +20,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.InputDateTime
 import org.hisp.dhis.mobile.ui.designsystem.component.InputDropDown
 import org.hisp.dhis.mobile.ui.designsystem.component.InputEmail
 import org.hisp.dhis.mobile.ui.designsystem.component.InputInteger
+import org.hisp.dhis.mobile.ui.designsystem.component.InputLink
 import org.hisp.dhis.mobile.ui.designsystem.component.InputLongText
 import org.hisp.dhis.mobile.ui.designsystem.component.InputMatrix
 import org.hisp.dhis.mobile.ui.designsystem.component.InputNotSupported
@@ -186,6 +187,19 @@ fun ParameterSelectorScreen() {
                     inputText = "android@dhis2.org",
                     inputStyle = InputStyle.ParameterInputStyle(),
                     onEmailActionCLicked = {},
+                )
+            },
+        ),
+        ParameterSelectorItemModel(
+            label = "Link parameter",
+            helper = "Optional",
+            inputField = {
+                InputLink(
+                    title = "Link parameter",
+                    state = InputShellState.UNFOCUSED,
+                    inputText = "http://dhis2.org",
+                    inputStyle = InputStyle.ParameterInputStyle(),
+                    onLinkActionCLicked = {},
                 )
             },
         ),

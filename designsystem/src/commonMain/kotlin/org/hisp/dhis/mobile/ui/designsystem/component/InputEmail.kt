@@ -68,11 +68,7 @@ fun InputEmail(
         actionButton = {
             SquareIconButton(
                 modifier = Modifier.testTag("EMAIL_BUTTON"),
-                enabled = if (inputStyle is InputStyle.ParameterInputStyle) {
-                    false
-                } else {
-                    isValidEmailAddress
-                },
+                enabled = isButtonEnabled(inputStyle, isValidEmailAddress),
                 icon = {
                     Icon(
                         imageVector = Icons.Outlined.Email,
@@ -87,3 +83,9 @@ fun InputEmail(
         inputStyle = inputStyle,
     )
 }
+
+private fun isButtonEnabled(inputStyle: InputStyle, isValidEmailAddress: Boolean) =
+    when (inputStyle) {
+        is InputStyle.DataInputStyle -> isValidEmailAddress
+        is InputStyle.ParameterInputStyle -> false
+    }
