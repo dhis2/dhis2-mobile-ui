@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.TextFieldValue
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.RegExValidations
 
 /**
@@ -37,28 +38,28 @@ fun InputPhoneNumber(
     maxLength: Int = 12,
     state: InputShellState,
     legendData: LegendData? = null,
-    inputText: String? = null,
+    inputTextFieldValue: TextFieldValue? = null,
     isRequiredField: Boolean = false,
     autoCompleteList: List<String>? = null,
     autoCompleteItemSelected: ((String?) -> Unit)? = null,
     onNextClicked: (() -> Unit)? = null,
-    onValueChanged: ((String?) -> Unit)? = null,
+    onValueChanged: ((TextFieldValue?) -> Unit)? = null,
     onFocusChanged: ((Boolean) -> Unit) = {},
     imeAction: ImeAction = ImeAction.Next,
     supportingText: List<SupportingTextData>? = emptyList(),
     allowedCharacters: RegExValidations = RegExValidations.PHONE_NUMBER,
 ) {
-    val hasMinimumPhoneNumberInput = inputText.orEmpty().length > 2
+    val hasMinimumPhoneNumberInput = inputTextFieldValue?.text.orEmpty().length > 2
     BasicTextInput(
         title = title,
         state = state,
         supportingText = supportingText,
         legendData = legendData,
-        inputText = inputText,
+        inputTextFieldValue = inputTextFieldValue,
         isRequiredField = isRequiredField,
         onNextClicked = onNextClicked,
         onValueChanged = {
-            if ((it?.length ?: 0) <= maxLength) {
+            if ((it.text.length) <= maxLength) {
                 onValueChanged?.invoke(it)
             } else {
                 // no-op

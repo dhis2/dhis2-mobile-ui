@@ -9,6 +9,7 @@ import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.text.input.TextFieldValue
 import org.junit.Rule
 import org.junit.Test
 
@@ -20,11 +21,11 @@ class InputQRCodeTest {
     @Test
     fun shouldDisplayComponentCorrectly() {
         rule.setContent {
-            var inputValue by remember { mutableStateOf("") }
+            var inputValue by remember { mutableStateOf(TextFieldValue()) }
 
             InputQRCode(
                 title = "Phone Number",
-                inputText = inputValue,
+                inputTextFieldValue = inputValue,
                 onValueChanged = {
                     if (it != null) {
                         inputValue = it
@@ -42,11 +43,11 @@ class InputQRCodeTest {
     @Test
     fun shouldDeleteContentWhenResetIsClicked() {
         rule.setContent {
-            var inputValue by remember { mutableStateOf("12345") }
+            var inputValue by remember { mutableStateOf(TextFieldValue("12345")) }
 
             InputQRCode(
                 title = "Phone Number",
-                inputText = inputValue,
+                inputTextFieldValue = inputValue,
                 onValueChanged = {
                     if (it != null) {
                         inputValue = it
@@ -68,11 +69,11 @@ class InputQRCodeTest {
     @Test
     fun shouldShowActionButtonCorrectlyAndBeClickable() {
         rule.setContent {
-            var inputValue by remember { mutableStateOf("12345") }
+            var inputValue by remember { mutableStateOf(TextFieldValue("12345")) }
 
             InputQRCode(
                 title = "Phone Number",
-                inputText = inputValue,
+                inputTextFieldValue = inputValue,
                 onValueChanged = {
                     if (it != null) {
                         inputValue = it

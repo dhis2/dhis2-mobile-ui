@@ -16,6 +16,7 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextClearance
 import androidx.compose.ui.test.performTextInput
+import androidx.compose.ui.text.input.TextFieldValue
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.junit.Rule
 import org.junit.Test
@@ -42,10 +43,10 @@ class InputLinkTest {
     @Test
     fun shouldAllowUserInputWhenEnabled() {
         rule.setContent {
-            var inputValue by rememberSaveable { mutableStateOf("") }
+            var inputValue by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue()) }
             InputLink(
                 title = "Label",
-                inputText = inputValue,
+                inputTextFieldValue = inputValue,
                 onValueChanged = {
                     if (it != null) {
                         inputValue = it
@@ -76,10 +77,10 @@ class InputLinkTest {
     @Test
     fun shouldShowResetButtonWhenTextFieldHasContent() {
         rule.setContent {
-            var inputValue by rememberSaveable { mutableStateOf("") }
+            var inputValue by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue()) }
             InputLink(
                 title = "Label",
-                inputText = inputValue,
+                inputTextFieldValue = inputValue,
                 onValueChanged = {
                     if (it != null) {
                         inputValue = it
@@ -98,11 +99,11 @@ class InputLinkTest {
     @Test
     fun shouldDeleteContentWhenResetButtonIsClickedAndHideResetButton() {
         rule.setContent {
-            var inputValue by rememberSaveable { mutableStateOf("example.com") }
+            var inputValue by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("example.com")) }
 
             InputLink(
                 title = "Label",
-                inputText = inputValue,
+                inputTextFieldValue = inputValue,
                 onValueChanged = {
                     if (it != null) {
                         inputValue = it
@@ -122,11 +123,11 @@ class InputLinkTest {
     @Test
     fun shouldHideResetButtonWhenDisabled() {
         rule.setContent {
-            var inputValue by rememberSaveable { mutableStateOf("example.com") }
+            var inputValue by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("example.com")) }
             InputLink(
                 title = "Label",
                 state = InputShellState.DISABLED,
-                inputText = inputValue,
+                inputTextFieldValue = inputValue,
                 onValueChanged = {
                     if (it != null) {
                         inputValue = it
@@ -144,7 +145,7 @@ class InputLinkTest {
         rule.setContent {
             InputLink(
                 title = "Label",
-                inputText = "Input",
+                inputTextFieldValue = TextFieldValue("Input"),
                 legendData = LegendData(SurfaceColor.CustomGreen, "Legend"),
                 onLinkActionCLicked = {},
                 state = InputShellState.UNFOCUSED,
@@ -160,7 +161,7 @@ class InputLinkTest {
         rule.setContent {
             InputLink(
                 title = "Label",
-                inputText = "Input",
+                inputTextFieldValue = TextFieldValue("Input"),
                 supportingText = listOf(SupportingTextData("Supporting text", SupportingTextState.DEFAULT)),
                 onLinkActionCLicked = {},
                 state = InputShellState.UNFOCUSED,
@@ -173,11 +174,11 @@ class InputLinkTest {
     @Test
     fun shouldEnableLinkActionButtonOnEnteringValidLinkAddress() {
         rule.setContent {
-            var inputValue by remember { mutableStateOf("") }
+            var inputValue by remember { mutableStateOf(TextFieldValue()) }
 
             InputLink(
                 title = "Label",
-                inputText = inputValue,
+                inputTextFieldValue = inputValue,
                 onValueChanged = {
                     if (it != null) {
                         inputValue = it
@@ -208,11 +209,11 @@ class InputLinkTest {
     @Test
     fun shouldDisableLinkActionButtonOnEnteringInValidLinkAddress() {
         rule.setContent {
-            var inputValue by remember { mutableStateOf("example.com") }
+            var inputValue by remember { mutableStateOf(TextFieldValue("example.com")) }
 
             InputLink(
                 title = "Label",
-                inputText = inputValue,
+                inputTextFieldValue = inputValue,
                 onValueChanged = {
                     if (it != null) {
                         inputValue = it

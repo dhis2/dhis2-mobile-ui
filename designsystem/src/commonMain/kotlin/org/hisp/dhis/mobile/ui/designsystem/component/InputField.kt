@@ -27,7 +27,6 @@ import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
@@ -87,8 +86,8 @@ fun BasicTextField(
     enabled: Boolean = true,
     isSingleLine: Boolean = true,
     helperStyle: InputStyle = InputStyle.NONE,
-    inputText: String = "",
-    onInputChanged: (String) -> Unit,
+    inputTextValue: TextFieldValue? = null,
+    onInputChanged: (TextFieldValue) -> Unit,
     modifier: Modifier = Modifier,
     state: InputShellState = InputShellState.FOCUSED,
     keyboardOptions: KeyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
@@ -129,10 +128,6 @@ fun BasicTextField(
         backgroundColor = Blue300,
     )
 
-    var textFieldValue by remember(inputText) {
-        mutableStateOf(TextFieldValue(inputText, TextRange(if (inputText.isEmpty()) 0 else inputText.length), TextRange(0)))
-    }
-
     CompositionLocalProvider(LocalTextSelectionColors provides customTextSelectionColors) {
         BasicTextField(
 
@@ -142,10 +137,9 @@ fun BasicTextField(
                 )
                 .fillMaxWidth()
                 .textFieldHoverPointerIcon(enabled),
-            value = textFieldValue,
+            value = inputTextValue ?: TextFieldValue(),
             onValueChange = {
-                textFieldValue = it
-                onInputChanged.invoke(it.text)
+                onInputChanged.invoke(it)
             },
             enabled = enabled,
             textStyle = MaterialTheme.typography.bodyLarge.copy(color = if (enabled) TextColor.OnSurface else TextColor.OnDisabledSurface),

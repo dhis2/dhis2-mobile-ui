@@ -8,6 +8,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.TextFieldValue
 import org.hisp.dhis.common.screens.previews.InputShellPreview
 import org.hisp.dhis.mobile.ui.designsystem.component.BasicTextField
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
@@ -46,11 +47,11 @@ fun FormsComponentsScreen() {
             inputField = {
                 BasicTextField(
                     helper = "Helper",
-                    inputText = inputField,
+                    inputTextValue = TextFieldValue(inputField),
                     enabled = true,
                     helperStyle = InputStyle.WITH_HELPER_BEFORE,
                     onInputChanged = {
-                        inputField = it
+                        inputField = it.text
                     },
                 )
             },

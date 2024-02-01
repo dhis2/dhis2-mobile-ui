@@ -8,6 +8,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.TextFieldValue
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.Description
 import org.hisp.dhis.mobile.ui.designsystem.component.InputNumber
@@ -23,11 +24,11 @@ fun InputNumberScreen() {
     ColumnComponentContainer {
         Title("Input Number component", textColor = TextColor.OnSurfaceVariant)
         SubTitle("Basic Input Number", textColor = TextColor.OnSurfaceVariant)
-        var inputValue1 by rememberSaveable { mutableStateOf("") }
+        var inputValue1 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue()) }
         Description("British decimal notation", textColor = TextColor.OnSurfaceVariant)
         InputNumber(
             title = "Label",
-            inputText = inputValue1,
+            inputTextFieldValue = inputValue1,
             onValueChanged = {
                 if (it != null) {
                     inputValue1 = it
@@ -39,11 +40,11 @@ fun InputNumberScreen() {
         Spacer(Modifier.size(Spacing.Spacing18))
 
         Description("European decimal notation", textColor = TextColor.OnSurfaceVariant)
-        var inputValueEuropean by rememberSaveable { mutableStateOf("") }
+        var inputValueEuropean by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue()) }
 
         InputNumber(
             title = "Label",
-            inputText = inputValueEuropean,
+            inputTextFieldValue = inputValueEuropean,
             onValueChanged = {
                 if (it != null) {
                     inputValueEuropean = it
@@ -54,12 +55,12 @@ fun InputNumberScreen() {
         )
         Spacer(Modifier.size(Spacing.Spacing18))
 
-        var inputValue6 by rememberSaveable { mutableStateOf("") }
+        var inputValue6 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue()) }
 
         SubTitle("Disabled Input Number ", textColor = TextColor.OnSurfaceVariant)
         InputNumber(
             title = "Label",
-            inputText = inputValue6,
+            inputTextFieldValue = inputValue6,
             state = InputShellState.DISABLED,
             onValueChanged = {
                 if (it != null) {
@@ -69,12 +70,12 @@ fun InputNumberScreen() {
         )
         Spacer(Modifier.size(Spacing.Spacing18))
 
-        var inputValue7 by rememberSaveable { mutableStateOf("86") }
+        var inputValue7 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("86")) }
 
         SubTitle("Disabled Input Number with content ", textColor = TextColor.OnSurfaceVariant)
         InputNumber(
             title = "Label",
-            inputText = inputValue7,
+            inputTextFieldValue = inputValue7,
             state = InputShellState.DISABLED,
             onValueChanged = {
                 if (it != null) {

@@ -8,6 +8,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.TextFieldValue
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InputEmail
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
@@ -23,16 +24,14 @@ fun InputEmailScreen() {
     ColumnComponentContainer {
         Title("Input Email component", textColor = TextColor.OnSurfaceVariant)
         SubTitle("Basic Email ", textColor = TextColor.OnSurfaceVariant)
-        var inputText1 by rememberSaveable { mutableStateOf("") }
+        var inputText1 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("")) }
 
         InputEmail(
             title = "Label",
             supportingText = listOf(SupportingTextData("Example: name@example.com")),
-            inputText = inputText1,
+            inputTextFieldValue = inputText1,
             onValueChanged = {
-                if (it != null) {
-                    inputText1 = it
-                }
+                inputText1 = it
             },
             onEmailActionCLicked = {},
             state = InputShellState.UNFOCUSED,
@@ -40,16 +39,18 @@ fun InputEmailScreen() {
         Spacer(Modifier.size(Spacing.Spacing18))
 
         SubTitle("Basic Email with content ", textColor = TextColor.OnSurfaceVariant)
-        var inputText2 by rememberSaveable { mutableStateOf("fatiman92@gmail.com") }
+        var inputText2 by rememberSaveable(stateSaver = TextFieldValue.Saver) {
+            mutableStateOf(
+                TextFieldValue("fatiman92@gmail.com"),
+            )
+        }
 
         InputEmail(
             title = "Label",
             supportingText = listOf(SupportingTextData("Example: name@example.com")),
-            inputText = inputText2,
+            inputTextFieldValue = inputText2,
             onValueChanged = {
-                if (it != null) {
-                    inputText2 = it
-                }
+                inputText2 = it
             },
             onEmailActionCLicked = {},
             state = InputShellState.UNFOCUSED,
@@ -57,49 +58,55 @@ fun InputEmailScreen() {
         Spacer(Modifier.size(Spacing.Spacing18))
 
         SubTitle("Error Email with content ", textColor = TextColor.OnSurfaceVariant)
-        var inputText3 by rememberSaveable { mutableStateOf("fatiman92@gmail.com") }
+        var inputText3 by rememberSaveable(stateSaver = TextFieldValue.Saver) {
+            mutableStateOf(
+                TextFieldValue("fatiman92@gmail.com"),
+            )
+        }
 
         InputEmail(
             title = "Label",
             state = InputShellState.ERROR,
             supportingText = listOf(SupportingTextData("Enter a valid email address", SupportingTextState.ERROR)),
-            inputText = inputText3,
+            inputTextFieldValue = inputText3,
             onValueChanged = {
-                if (it != null) {
-                    inputText3 = it
-                }
+                inputText3 = it
             },
             onEmailActionCLicked = {},
         )
         Spacer(Modifier.size(Spacing.Spacing18))
 
         SubTitle("Error Email required field ", textColor = TextColor.OnSurfaceVariant)
-        var inputText4 by rememberSaveable { mutableStateOf("") }
+        var inputText4 by rememberSaveable(stateSaver = TextFieldValue.Saver) {
+            mutableStateOf(
+                TextFieldValue(),
+            )
+        }
         InputEmail(
             title = "Label",
             state = InputShellState.ERROR,
             supportingText = listOf(SupportingTextData("Enter email address", SupportingTextState.ERROR)),
-            inputText = inputText4,
+            inputTextFieldValue = inputText4,
             isRequiredField = true,
             onValueChanged = {
-                if (it != null) {
-                    inputText4 = it
-                }
+                inputText4 = it
             },
             onEmailActionCLicked = {},
         )
         Spacer(Modifier.size(Spacing.Spacing18))
 
         SubTitle("Disabled Email with content ", textColor = TextColor.OnSurfaceVariant)
-        var inputText5 by rememberSaveable { mutableStateOf("fatiman92@gmail.com") }
+        var inputText5 by rememberSaveable(stateSaver = TextFieldValue.Saver) {
+            mutableStateOf(
+                TextFieldValue("fatiman92@gmail.com"),
+            )
+        }
         InputEmail(
             title = "Label",
             state = InputShellState.DISABLED,
-            inputText = inputText5,
+            inputTextFieldValue = inputText5,
             onValueChanged = {
-                if (it != null) {
-                    inputText5 = it
-                }
+                inputText5 = it
             },
             onEmailActionCLicked = {},
         )

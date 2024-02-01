@@ -9,6 +9,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.TextFieldValue
 import org.hisp.dhis.common.screens.previews.lorem
 import org.hisp.dhis.common.screens.previews.lorem_medium
 import org.hisp.dhis.common.screens.previews.lorem_short
@@ -156,25 +157,25 @@ fun SectionScreen() {
 
 @Composable
 private fun TestingFields() {
-    var inputValue1: String by rememberSaveable { mutableStateOf("Input") }
-    var inputValue2: String by rememberSaveable { mutableStateOf("") }
-    var inputValue3: String by rememberSaveable { mutableStateOf("") }
+    var inputValue1 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("Input")) }
+    var inputValue2 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue()) }
+    var inputValue3 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue()) }
     InputText(
         title = "Label",
-        inputText = inputValue1,
-        onValueChanged = { inputValue1 = it ?: "" },
+        inputTextFieldValue = inputValue1,
+        onValueChanged = { inputValue1 = it ?: TextFieldValue() },
         state = InputShellState.UNFOCUSED,
     )
     InputText(
         title = "Label",
-        inputText = inputValue2,
-        onValueChanged = { inputValue2 = it ?: "" },
+        inputTextFieldValue = inputValue2,
+        onValueChanged = { inputValue2 = it ?: TextFieldValue() },
         state = InputShellState.UNFOCUSED,
     )
     InputText(
         title = "Label",
-        inputText = inputValue3,
-        onValueChanged = { inputValue3 = it ?: "" },
+        inputTextFieldValue = inputValue3,
+        onValueChanged = { inputValue3 = it ?: TextFieldValue() },
         state = InputShellState.UNFOCUSED,
     )
 }
