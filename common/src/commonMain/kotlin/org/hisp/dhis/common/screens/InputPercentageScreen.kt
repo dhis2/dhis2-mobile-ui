@@ -8,6 +8,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.TextFieldValue
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InputPercentage
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
@@ -21,11 +22,11 @@ fun InputPercentageScreen() {
     ColumnComponentContainer {
         Title("Input Percentage component", textColor = TextColor.OnSurfaceVariant)
         SubTitle("Basic Percentage ", textColor = TextColor.OnSurfaceVariant)
-        var inputValue1 by rememberSaveable { mutableStateOf("12") }
+        var inputValue1 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("12")) }
 
         InputPercentage(
             title = "Label",
-            inputText = inputValue1,
+            inputTextFieldValue = inputValue1,
             onValueChanged = {
                 if (it != null) {
                     inputValue1 = it
@@ -36,11 +37,11 @@ fun InputPercentageScreen() {
         Spacer(Modifier.size(Spacing.Spacing18))
 
         SubTitle("Basic Percentage required field", textColor = TextColor.OnSurfaceVariant)
-        var inputValueRequired by rememberSaveable { mutableStateOf("") }
+        var inputValueRequired by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue()) }
 
         InputPercentage(
             title = "Label",
-            inputText = inputValueRequired,
+            inputTextFieldValue = inputValueRequired,
             onValueChanged = {
                 if (it != null) {
                     inputValueRequired = it
@@ -51,12 +52,12 @@ fun InputPercentageScreen() {
         )
         Spacer(Modifier.size(Spacing.Spacing18))
 
-        var inputValue6 by rememberSaveable { mutableStateOf("") }
+        var inputValue6 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue()) }
 
         SubTitle("Disabled Percentage  ", textColor = TextColor.OnSurfaceVariant)
         InputPercentage(
             title = "Label",
-            inputText = inputValue6,
+            inputTextFieldValue = inputValue6,
             state = InputShellState.DISABLED,
             onValueChanged = {
                 if (it != null) {
@@ -66,12 +67,12 @@ fun InputPercentageScreen() {
         )
         Spacer(Modifier.size(Spacing.Spacing18))
 
-        var inputValue7 by rememberSaveable { mutableStateOf("1234") }
+        var inputValue7 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("1234")) }
 
         SubTitle("Disabled Percentage with content ", textColor = TextColor.OnSurfaceVariant)
         InputPercentage(
             title = "Label",
-            inputText = inputValue7,
+            inputTextFieldValue = inputValue7,
             state = InputShellState.DISABLED,
             onValueChanged = {
                 if (it != null) {

@@ -21,6 +21,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.TextFieldValue
 import org.hisp.dhis.mobile.ui.designsystem.component.AgeInputType.Age
 import org.hisp.dhis.mobile.ui.designsystem.component.AgeInputType.DateOfBirth
 import org.hisp.dhis.mobile.ui.designsystem.component.AgeInputType.None
@@ -146,23 +147,23 @@ fun InputAge(
                         modifier = Modifier
                             .testTag("INPUT_AGE_TEXT_FIELD")
                             .fillMaxWidth(),
-                        inputText = transformInputText(inputType),
+                        inputTextValue = TextFieldValue(transformInputText(inputType)),
                         helper = helperText,
                         isSingleLine = true,
                         helperStyle = helperStyle,
                         onInputChanged = { newText ->
-                            if (newText.length > maxAgeCharLimit && inputType is Age) {
+                            if (newText.text.length > maxAgeCharLimit && inputType is Age) {
                                 return@BasicTextField
                             }
 
                             @Suppress("KotlinConstantConditions")
                             val newInputType: AgeInputType = when (inputType) {
-                                is Age -> inputType.copy(value = newText)
-                                is DateOfBirth -> updateDateOfBirth(inputType, newText)
+                                is Age -> inputType.copy(value = newText.text)
+                                is DateOfBirth -> updateDateOfBirth(inputType, newText.text)
                                 None -> None
                             }
 
-                            if (allowedCharacters.containsMatchIn(newText) || newText.isBlank()) {
+                            if (allowedCharacters.containsMatchIn(newText.text) || newText.text.isBlank()) {
                                 onValueChanged.invoke(newInputType)
                             }
                         },

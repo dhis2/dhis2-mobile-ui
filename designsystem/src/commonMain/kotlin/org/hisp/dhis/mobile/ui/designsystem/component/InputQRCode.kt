@@ -10,6 +10,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.TextFieldValue
 
 /**
  * DHIS2 Input QR Code. Wraps DHIS · [BasicTextInput].
@@ -36,23 +37,23 @@ fun InputQRCode(
     onQRButtonClicked: () -> Unit,
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
-    inputText: String? = null,
+    inputTextFieldValue: TextFieldValue? = null,
     isRequiredField: Boolean = false,
     autoCompleteList: List<String>? = null,
     autoCompleteItemSelected: ((String?) -> Unit)? = null,
     onNextClicked: (() -> Unit)? = null,
-    onValueChanged: ((String?) -> Unit)? = null,
+    onValueChanged: ((TextFieldValue?) -> Unit)? = null,
     onFocusChanged: ((Boolean) -> Unit)? = null,
     imeAction: ImeAction = ImeAction.Next,
     modifier: Modifier = Modifier,
 ) {
-    val actionButtonIconVector = mutableStateOf(if (!inputText.isNullOrEmpty()) Icons.Outlined.QrCode2 else Icons.Outlined.QrCodeScanner)
+    val actionButtonIconVector = mutableStateOf(if (!inputTextFieldValue?.text.isNullOrEmpty()) Icons.Outlined.QrCode2 else Icons.Outlined.QrCodeScanner)
     BasicTextInput(
         title = title,
         state = state,
         supportingText = supportingText,
         legendData = legendData,
-        inputText = inputText,
+        inputTextFieldValue = inputTextFieldValue,
         isRequiredField = isRequiredField,
         onNextClicked = onNextClicked,
         onValueChanged = onValueChanged,

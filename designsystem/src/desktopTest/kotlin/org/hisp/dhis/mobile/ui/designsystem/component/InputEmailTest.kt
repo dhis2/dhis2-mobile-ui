@@ -16,6 +16,7 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextClearance
 import androidx.compose.ui.test.performTextInput
+import androidx.compose.ui.text.input.TextFieldValue
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.junit.Rule
 import org.junit.Test
@@ -41,14 +42,12 @@ class InputEmailTest {
     @Test
     fun shouldAllowUserInputWhenEnabled() {
         rule.setContent {
-            var inputValue by rememberSaveable { mutableStateOf("") }
+            var inputValue by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue()) }
             InputEmail(
                 title = "Label",
-                inputText = inputValue,
+                inputTextFieldValue = inputValue,
                 onValueChanged = {
-                    if (it != null) {
-                        inputValue = it
-                    }
+                    inputValue = it
                 },
                 onEmailActionCLicked = {},
                 state = InputShellState.UNFOCUSED,
@@ -75,14 +74,12 @@ class InputEmailTest {
     @Test
     fun shouldShowResetButtonWhenTextFieldHasContent() {
         rule.setContent {
-            var inputValue by rememberSaveable { mutableStateOf("") }
+            var inputValue by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue()) }
             InputEmail(
                 title = "Label",
-                inputText = inputValue,
+                inputTextFieldValue = inputValue,
                 onValueChanged = {
-                    if (it != null) {
-                        inputValue = it
-                    }
+                    inputValue = it
                 },
                 onEmailActionCLicked = {},
                 state = InputShellState.UNFOCUSED,
@@ -97,15 +94,13 @@ class InputEmailTest {
     @Test
     fun shouldDeleteContentWhenResetButtonIsClickedAndHideResetButton() {
         rule.setContent {
-            var inputValue by rememberSaveable { mutableStateOf("fatiman@gmail.com") }
+            var inputValue by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("fatiman@gmail.com")) }
 
             InputEmail(
                 title = "Label",
-                inputText = inputValue,
+                inputTextFieldValue = inputValue,
                 onValueChanged = {
-                    if (it != null) {
-                        inputValue = it
-                    }
+                    inputValue = it
                 },
                 onEmailActionCLicked = {},
                 state = InputShellState.UNFOCUSED,
@@ -121,15 +116,13 @@ class InputEmailTest {
     @Test
     fun shouldHideResetButtonWhenDisabled() {
         rule.setContent {
-            var inputValue by rememberSaveable { mutableStateOf("fatiman@gmail.com") }
+            var inputValue by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("fatiman@gmail.com")) }
             InputEmail(
                 title = "Label",
                 state = InputShellState.DISABLED,
-                inputText = inputValue,
+                inputTextFieldValue = inputValue,
                 onValueChanged = {
-                    if (it != null) {
-                        inputValue = it
-                    }
+                    inputValue = it
                 },
                 onEmailActionCLicked = {},
             )
@@ -143,7 +136,7 @@ class InputEmailTest {
         rule.setContent {
             InputEmail(
                 title = "Label",
-                inputText = "Input",
+                inputTextFieldValue = TextFieldValue("Input"),
                 legendData = LegendData(SurfaceColor.CustomGreen, "Legend"),
                 onEmailActionCLicked = {},
                 state = InputShellState.UNFOCUSED,
@@ -159,7 +152,7 @@ class InputEmailTest {
         rule.setContent {
             InputEmail(
                 title = "Label",
-                inputText = "Input",
+                inputTextFieldValue = TextFieldValue("Input"),
                 supportingText = listOf(SupportingTextData("Supporting text", SupportingTextState.DEFAULT)),
                 onEmailActionCLicked = {},
                 state = InputShellState.UNFOCUSED,
@@ -172,15 +165,13 @@ class InputEmailTest {
     @Test
     fun shouldEnableEmailActionButtonOnEnteringValidEmailAddress() {
         rule.setContent {
-            var inputValue by remember { mutableStateOf("") }
+            var inputValue by remember { mutableStateOf(TextFieldValue()) }
 
             InputEmail(
                 title = "Label",
-                inputText = inputValue,
+                inputTextFieldValue = inputValue,
                 onValueChanged = {
-                    if (it != null) {
-                        inputValue = it
-                    }
+                    inputValue = it
                 },
                 onEmailActionCLicked = {},
                 state = InputShellState.UNFOCUSED,
@@ -207,15 +198,13 @@ class InputEmailTest {
     @Test
     fun shouldDisableEmailActionButtonOnEnteringInValidEmailAddress() {
         rule.setContent {
-            var inputValue by remember { mutableStateOf("fatiman@gmail.com") }
+            var inputValue by remember { mutableStateOf(TextFieldValue("fatiman@gmail.com")) }
 
             InputEmail(
                 title = "Label",
-                inputText = inputValue,
+                inputTextFieldValue = inputValue,
                 onValueChanged = {
-                    if (it != null) {
-                        inputValue = it
-                    }
+                    inputValue = it
                 },
                 onEmailActionCLicked = {},
                 state = InputShellState.UNFOCUSED,

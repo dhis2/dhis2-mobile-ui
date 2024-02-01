@@ -15,6 +15,7 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
+import androidx.compose.ui.text.input.TextFieldValue
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.junit.Rule
 import org.junit.Test
@@ -41,11 +42,11 @@ class InputLongTextTest {
     @Test
     fun shouldAllowUserInputWhenEnabled() {
         rule.setContent {
-            var inputValue by rememberSaveable { mutableStateOf("") }
+            var inputValue by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue()) }
             InputLongText(
                 title = "Label",
                 modifier = Modifier.testTag("INPUT_LONG_TEXT"),
-                inputText = inputValue,
+                inputTextFieldValue = inputValue,
                 onValueChanged = {
                     if (it != null) {
                         inputValue = it
@@ -75,11 +76,11 @@ class InputLongTextTest {
     @Test
     fun shouldShowResetButtonWhenTextFieldHasContent() {
         rule.setContent {
-            var inputValue by rememberSaveable { mutableStateOf("") }
+            var inputValue by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue()) }
             InputLongText(
                 title = "Label",
                 modifier = Modifier.testTag("INPUT_LONG_TEXT"),
-                inputText = inputValue,
+                inputTextFieldValue = inputValue,
                 onValueChanged = {
                     if (it != null) {
                         inputValue = it
@@ -97,12 +98,12 @@ class InputLongTextTest {
     @Test
     fun shouldDeleteContentWhenResetButtonIsClickedAndHideResetButton() {
         rule.setContent {
-            var inputValue by rememberSaveable { mutableStateOf("Input") }
+            var inputValue by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("Input")) }
 
             InputLongText(
                 title = "Label",
                 modifier = Modifier.testTag("INPUT_LONG_TEXT"),
-                inputText = inputValue,
+                inputTextFieldValue = inputValue,
                 onValueChanged = {
                     if (it != null) {
                         inputValue = it
@@ -124,7 +125,7 @@ class InputLongTextTest {
             InputLongText(
                 title = "Label",
                 modifier = Modifier.testTag("INPUT_LONG_TEXT"),
-                inputText = "Input",
+                inputTextFieldValue = TextFieldValue("Input"),
                 legendData = LegendData(SurfaceColor.CustomGreen, "Legend"),
                 state = InputShellState.UNFOCUSED,
             )
@@ -140,7 +141,7 @@ class InputLongTextTest {
             InputLongText(
                 title = "Label",
                 modifier = Modifier.testTag("INPUT_LONG_TEXT"),
-                inputText = "Input",
+                inputTextFieldValue = TextFieldValue("Input"),
                 supportingText = listOf(SupportingTextData("Supporting text", SupportingTextState.DEFAULT)),
                 state = InputShellState.UNFOCUSED,
             )
