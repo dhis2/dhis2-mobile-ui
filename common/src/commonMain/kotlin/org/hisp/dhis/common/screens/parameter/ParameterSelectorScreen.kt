@@ -3,6 +3,8 @@ package org.hisp.dhis.common.screens.parameter
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.QrCode2
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -50,6 +52,20 @@ fun ParameterSelectorScreen() {
     var checkBoxSelected: Boolean by remember { mutableStateOf(false) }
 
     val items = listOf(
+        ParameterSelectorItemModel(
+            icon = Icons.Outlined.QrCode2,
+            label = "QRCode parameter",
+            helper = "Optional",
+            inputField = {
+                InputQRCode(
+                    title = "QRCode parameter",
+                    state = InputShellState.UNFOCUSED,
+                    inputText = "wqlfqwlfjweghqge",
+                    inputStyle = InputStyle.ParameterInputStyle(),
+                    onQRButtonClicked = {},
+                )
+            },
+        ),
         ParameterSelectorItemModel(
             label = "Text parameter",
             helper = "Optional",
@@ -285,19 +301,6 @@ fun ParameterSelectorScreen() {
                     inputText = "999 666 888",
                     inputStyle = InputStyle.ParameterInputStyle(),
                     onCallActionClicked = {},
-                )
-            },
-        ),
-        ParameterSelectorItemModel(
-            label = "QRCode parameter",
-            helper = "Optional",
-            inputField = {
-                InputQRCode(
-                    title = "QRCode parameter",
-                    state = InputShellState.UNFOCUSED,
-                    inputText = "wqlfqwlfjweghqge",
-                    inputStyle = InputStyle.ParameterInputStyle(),
-                    onQRButtonClicked = {},
                 )
             },
         ),
