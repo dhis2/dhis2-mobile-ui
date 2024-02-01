@@ -30,6 +30,12 @@ object Shape {
     )
     val Medium = RoundedCornerShape(Radius.M)
     val Large = RoundedCornerShape(Radius.L)
+    val LargeTop = RoundedCornerShape(
+        topStart = CornerSize(Radius.L),
+        topEnd = CornerSize(Radius.L),
+        bottomEnd = CornerSize(Radius.NoRounding),
+        bottomStart = CornerSize(Radius.NoRounding),
+    )
 
     val ExtraLargeTop = RoundedCornerShape(
         topStart = CornerSize(Radius.XL),
