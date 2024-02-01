@@ -34,36 +34,12 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 /**
  * Input field to enter date, time or date&time. It will format content based on given visual
  * transformation
- *
- * @param title: Label of the component.
- * @param value: Input of the component in the format of DDMMYYYY/HHMM/DDMMYYYYHHMM
- * @param actionIconType: Type of action icon to display. [DateTimeActionIconType.DATE_TIME], [DateTimeActionIconType.DATE], [DateTimeActionIconType.TIME]
- * @param onActionClicked: Callback to handle the action when the calendar icon is clicked.
- * @param state: [InputShellState]
- * @param legendData: [LegendData]
- * @param supportingText: List of [SupportingTextData] that manages all the messages to be shown.
- * @param isRequired: Mark this input as marked
- * @param visualTransformation: Pass a visual transformation to format the date input visually. By default uses [DateTransformation]
- * @param onValueChanged: Callback to receive changes in the input in the format of DDMMYYYY/HHMM/DDMMYYYYHHMM
+ * @param uiModel an [InputDateTimeModel] with all the parameters for the input
  */
 @Composable
 fun InputDateTime(
-    title: String,
-    inputTextFieldValue: TextFieldValue? = null,
-    actionIconType: DateTimeActionIconType = DateTimeActionIconType.DATE_TIME,
-    allowsManualInput: Boolean = true,
-    onActionClicked: () -> Unit,
-    modifier: Modifier = Modifier,
-    state: InputShellState = InputShellState.UNFOCUSED,
-    inputStyle: InputStyle = InputStyle.DataInputStyle(),
-    legendData: LegendData? = null,
-    supportingText: List<SupportingTextData>? = null,
-    onNextClicked: (() -> Unit)? = null,
-    isRequired: Boolean = false,
-    imeAction: ImeAction = ImeAction.Next,
-    visualTransformation: DateTimeVisualTransformation = DateTransformation(),
-    onFocusChanged: ((Boolean) -> Unit) = {},
-    onValueChanged: (TextFieldValue) -> Unit,
+    uiModel: InputDateTimeModel,
+    modifier: Modifier,
 ) {
     val allowedCharacters = RegExValidations.DATE_TIME.regex
     val focusManager = LocalFocusManager.current
@@ -72,34 +48,34 @@ fun InputDateTime(
     InputShell(
         modifier = modifier.testTag("INPUT_DATE_TIME")
             .focusRequester(focusRequester),
-        title = title,
-        state = state,
-        isRequiredField = isRequired,
-        onFocusChanged = onFocusChanged,
+        title = uiModel.title,
+        state = uiModel.state,
+        isRequiredField = uiModel.isRequired,
+        onFocusChanged = uiModel.onFocusChanged,
         inputField = {
-            if (allowsManualInput) {
+            if (uiModel.allowsManualInput) {
                 BasicTextField(
                     modifier = Modifier
                         .testTag("INPUT_DATE_TIME_TEXT_FIELD")
                         .fillMaxWidth(),
-                    inputTextValue = inputTextFieldValue ?: TextFieldValue(),
+                    inputTextValue = uiModel.inputTextFieldValue ?: TextFieldValue(),
                     isSingleLine = true,
                     onInputChanged = { newText ->
-                        if (newText.text.length > visualTransformation.maskLength) {
+                        if (newText.text.length > uiModel.visualTransformation.maskLength) {
                             return@BasicTextField
                         }
 
-                        if (allowedCharacters.containsMatchIn(newText.text) || newText.text.isBlank()) {
-                            onValueChanged.invoke(newText)
+                        if (allowedCharacters.containsMatchIn(newText) || newText.isBlank()) {
+                            uiModel.onValueChanged.invoke(newText)
                         }
                     },
-                    enabled = state != InputShellState.DISABLED,
-                    state = state,
-                    keyboardOptions = KeyboardOptions(imeAction = imeAction, keyboardType = KeyboardType.Number),
-                    visualTransformation = visualTransformation,
+                    enabled = uiModel.state != InputShellState.DISABLED,
+                    state = uiModel.state,
+                    keyboardOptions = KeyboardOptions(imeAction = uiModel.imeAction, keyboardType = KeyboardType.Number),
+                    visualTransformation = uiModel.visualTransformation,
                     onNextClicked = {
-                        if (onNextClicked != null) {
-                            onNextClicked.invoke()
+                        if (uiModel.onNextClicked != null) {
+                            uiModel.onNextClicked.invoke()
                         } else {
                             focusManager.moveFocus(FocusDirection.Down)
                         }
@@ -111,9 +87,9 @@ fun InputDateTime(
                         modifier = Modifier
                             .testTag("INPUT_DATE_TIME_TEXT")
                             .fillMaxWidth(),
-                        text = inputTextFieldValue?.text.orEmpty(),
+                        text = uiModel.inputTextFieldValue?.text.orEmpty(),
                         style = MaterialTheme.typography.bodyLarge.copy(
-                            color = if (state != InputShellState.DISABLED && !inputTextFieldValue?.text.isNullOrEmpty()) {
+                            color = if (uiModel.state != InputShellState.DISABLED && !uiModel.inputTextFieldValue?.text.isNullOrEmpty()) {
                                 TextColor.OnSurface
                             } else {
                                 TextColor.OnDisabledSurface
@@ -125,10 +101,10 @@ fun InputDateTime(
                             .matchParentSize()
                             .alpha(0f)
                             .clickable(
-                                enabled = state != InputShellState.DISABLED,
+                                enabled = uiModel.state != InputShellState.DISABLED,
                                 onClick = {
                                     focusRequester.requestFocus()
-                                    onActionClicked()
+                                    uiModel.onActionClicked()
                                 },
                             ),
                     )
@@ -136,7 +112,7 @@ fun InputDateTime(
             }
         },
         primaryButton = {
-            if (!inputTextFieldValue?.text.isNullOrBlank() && state != InputShellState.DISABLED) {
+            if (!uiModel.inputTextFieldValue?.text.isNullOrBlank() && state != InputShellState.DISABLED) {
                 IconButton(
                     modifier = Modifier.testTag("INPUT_DATE_TIME_RESET_BUTTON").padding(Spacing.Spacing0),
                     icon = {
@@ -146,16 +122,16 @@ fun InputDateTime(
                         )
                     },
                     onClick = {
-                        onValueChanged.invoke(TextFieldValue())
+                        uiModel.onValueChanged.invoke(TextFieldValue())
                         focusRequester.requestFocus()
                     },
                 )
             }
         },
         secondaryButton = {
-            val icon = when (actionIconType) {
-                DateTimeActionIconType.DATE, DateTimeActionIconType.DATE_TIME -> Icons.Filled.Event
-                DateTimeActionIconType.TIME -> Icons.Filled.Schedule
+            val icon = when (uiModel.actionIconType) {
+                DateTimeActionType.DATE, DateTimeActionType.DATE_TIME -> Icons.Filled.Event
+                DateTimeActionType.TIME -> Icons.Filled.Schedule
             }
 
             SquareIconButton(
@@ -169,13 +145,13 @@ fun InputDateTime(
                 },
                 onClick = {
                     focusRequester.requestFocus()
-                    onActionClicked()
+                    uiModel.onActionClicked()
                 },
-                enabled = state != InputShellState.DISABLED,
+                enabled = uiModel.state != InputShellState.DISABLED,
             )
         },
         supportingText = {
-            supportingText?.forEach { label ->
+            uiModel.supportingText?.forEach { label ->
                 SupportingText(
                     label.text,
                     label.state,
@@ -184,14 +160,44 @@ fun InputDateTime(
             }
         },
         legend = {
-            legendData?.let {
-                Legend(legendData, Modifier.testTag("INPUT_DATE_TIME_LEGEND"))
+            uiModel.legendData?.let {
+                Legend(uiModel.legendData, Modifier.testTag("INPUT_DATE_TIME_LEGEND"))
             }
         },
         inputStyle = inputStyle,
     )
 }
 
-enum class DateTimeActionIconType {
+enum class DateTimeActionType {
     DATE, TIME, DATE_TIME
 }
+
+/**
+ * UiModel used for [InputDateTime]
+ * @param title : Label of the component.
+ * @param value: Input of the component in the format of DDMMYYYY/HHMM/DDMMYYYYHHMM
+ * @param actionIconType: Type of action icon to display. [DateTimeActionType.DATE_TIME], [DateTimeActionType.DATE], [DateTimeActionType.TIME]
+ * @param onActionClicked: Callback to handle the action when the calendar icon is clicked.
+ * @param state: [InputShellState]
+ * @param legendData: [LegendData]
+ * @param supportingText: List of [SupportingTextData] that manages all the messages to be shown.
+ * @param isRequired: Mark this input as marked
+ * @param visualTransformation: Pass a visual transformation to format the date input visually. By default uses [DateTransformation]
+ * @param onValueChanged: Callback to receive changes in the input in the format of DDMMYYYY/HHMM/DDMMYYYYHHMM
+ */
+data class InputDateTimeModel(
+    val title: String,
+    val value: String?,
+    val actionIconType: DateTimeActionType = DateTimeActionType.DATE_TIME,
+    val allowsManualInput: Boolean = true,
+    val onActionClicked: () -> Unit,
+    val state: InputShellState = InputShellState.UNFOCUSED,
+    val legendData: LegendData? = null,
+    val supportingText: List<SupportingTextData>? = null,
+    val onNextClicked: (() -> Unit)? = null,
+    val isRequired: Boolean = false,
+    val imeAction: ImeAction = ImeAction.Next,
+    val visualTransformation: DateTimeVisualTransformation = DateTransformation(),
+    val onFocusChanged: ((Boolean) -> Unit) = {},
+    val onValueChanged: (String) -> Unit,
+)
