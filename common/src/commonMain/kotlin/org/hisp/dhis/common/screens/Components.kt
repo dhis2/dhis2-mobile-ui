@@ -62,4 +62,5 @@ enum class Components(val label: String) {
     ORG_TREE_BOTTOM_SHEET("Org Tree Bottom Sheet"),
     INDICATOR_INPUT("Indicator Input"),
     PARAMETER_SELECTOR("Parameter selector"),
+    MULTI_SELECT("Multi Select Input"),
 }

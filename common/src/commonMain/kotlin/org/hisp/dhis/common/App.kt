@@ -74,6 +74,7 @@ import org.hisp.dhis.common.screens.LegendDescriptionScreen
 import org.hisp.dhis.common.screens.LegendScreen
 import org.hisp.dhis.common.screens.ListCardScreen
 import org.hisp.dhis.common.screens.MetadataAvatarScreen
+import org.hisp.dhis.common.screens.MultiSelectInputScreen
 import org.hisp.dhis.common.screens.OrgTreeBottomSheetScreen
 import org.hisp.dhis.common.screens.ProgressScreen
 import org.hisp.dhis.common.screens.RadioButtonScreen
@@ -95,7 +96,7 @@ fun App() {
 
 @Composable
 fun Main() {
-    val currentScreen = remember { mutableStateOf(Components.PARAMETER_SELECTOR) }
+    val currentScreen = remember { mutableStateOf(Components.MULTI_SELECT) }
     var expanded by remember { mutableStateOf(false) }
 
     Column(
@@ -203,6 +204,7 @@ fun Main() {
             Components.ORG_TREE_BOTTOM_SHEET -> OrgTreeBottomSheetScreen()
             Components.INDICATOR_INPUT -> IndicatorInputScreen()
             Components.PARAMETER_SELECTOR -> ParameterSelectorScreen()
+            Components.MULTI_SELECT -> MultiSelectInputScreen()
         }
     }
 }
