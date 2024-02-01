@@ -48,7 +48,8 @@ fun InputQRCode(
     imeAction: ImeAction = ImeAction.Next,
     modifier: Modifier = Modifier,
 ) {
-    val actionButtonIconVector = mutableStateOf(if (!inputTextFieldValue?.text.isNullOrEmpty()) Icons.Outlined.QrCode2 else Icons.Outlined.QrCodeScanner)
+    val actionButtonIconVector =
+        mutableStateOf(if (!inputTextFieldValue?.text.isNullOrEmpty()) Icons.Outlined.QrCode2 else Icons.Outlined.QrCodeScanner)
     BasicTextInput(
         title = title,
         state = state,
@@ -66,7 +67,7 @@ fun InputQRCode(
         actionButton = {
             SquareIconButton(
                 modifier = Modifier.testTag("INPUT_QR_CODE_BUTTON"),
-                enabled = state != InputShellState.DISABLED,
+                enabled = isButtonEnabled(inputStyle, state, inputTextFieldValue?.text),
                 icon = {
                     Icon(
                         imageVector = actionButtonIconVector.value,
@@ -80,3 +81,9 @@ fun InputQRCode(
         autoCompleteItemSelected = autoCompleteItemSelected,
     )
 }
+
+private fun isButtonEnabled(inputStyle: InputStyle, state: InputShellState, inputText: String?) =
+    when (inputStyle) {
+        is InputStyle.DataInputStyle -> state != InputShellState.DISABLED
+        is InputStyle.ParameterInputStyle -> inputText.isNullOrEmpty()
+    }

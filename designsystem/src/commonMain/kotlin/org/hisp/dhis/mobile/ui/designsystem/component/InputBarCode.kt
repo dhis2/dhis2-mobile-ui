@@ -63,7 +63,7 @@ fun InputBarCode(
         actionButton = {
             SquareIconButton(
                 modifier = Modifier.testTag("INPUT_BAR_CODE_BUTTON"),
-                enabled = (state == InputShellState.DISABLED && !inputTextFieldValue?.text.isNullOrEmpty()) || state != InputShellState.DISABLED,
+                enabled = isButtonEnabled(inputStyle, state, inputTextFieldValue?.text),
                 icon = {
                     Icon(
                         painter = provideDHIS2Icon(actionButtonIconVector.value),
@@ -78,3 +78,13 @@ fun InputBarCode(
         inputStyle = inputStyle,
     )
 }
+
+private fun isButtonEnabled(inputStyle: InputStyle, state: InputShellState, inputText: String?) =
+    when (inputStyle) {
+        is InputStyle.DataInputStyle -> {
+            (state == InputShellState.DISABLED && !inputText.isNullOrEmpty()) ||
+                state != InputShellState.DISABLED
+        }
+
+        is InputStyle.ParameterInputStyle -> inputText.isNullOrEmpty()
+    }
