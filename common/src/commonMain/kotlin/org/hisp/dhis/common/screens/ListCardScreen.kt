@@ -84,6 +84,7 @@ fun ListCardScreen() {
             mutableStateOf(false)
         }
         SubTitle("Tei list:")
+        SubTitle("With shadow")
         ListCard(
             listAvatar = {
                 Avatar(
@@ -110,7 +111,7 @@ fun ListCardScreen() {
                 )
             },
             onCardClick = {},
-            showLoading = showLoading1,
+            loading = showLoading1,
         )
         var showLoading2 by remember {
             mutableStateOf(false)
@@ -141,13 +142,15 @@ fun ListCardScreen() {
                 )
             },
             onCardClick = {},
-            showLoading = showLoading2,
+            loading = showLoading2,
         )
+        SubTitle("Without shadow")
 
         var showLoading3 by remember {
             mutableStateOf(false)
         }
         ListCard(
+            shadow = false,
             listAvatar = {
                 Avatar(
                     metadataAvatar = {
@@ -183,7 +186,7 @@ fun ListCardScreen() {
                 )
             },
             onCardClick = {},
-            showLoading = showLoading3,
+            loading = showLoading3,
         )
 
         var showLoading4 by remember {
@@ -248,13 +251,38 @@ fun ListCardScreen() {
                 )
             },
             onCardClick = {},
-            showLoading = showLoading4,
+            loading = showLoading4,
         )
         Spacer(Modifier.size(Spacing.Spacing16))
         SubTitle("Single events list:")
+        SubTitle("With shadow:")
 
         ListCard(
+            title = "12/18/2021",
+            lastUpdated = "now",
+            additionalInfoList = basicAdditionalItemList,
+            actionButton = {
+                Button(
+                    style = ButtonStyle.TONAL,
+                    text = "Retry sync",
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Outlined.Sync,
+                            contentDescription = "Icon Button",
+                            tint = TextColor.OnPrimaryContainer,
+                        )
+                    },
+                    onClick = { },
+                    modifier = Modifier.fillMaxWidth(),
+                )
+            },
+            onCardClick = {},
+        )
+        Spacer(Modifier.size(Spacing.Spacing16))
+        SubTitle("Without shadow:")
 
+        ListCard(
+            shadow = false,
             title = "12/18/2021",
             lastUpdated = "now",
             additionalInfoList = basicAdditionalItemList,
@@ -277,8 +305,52 @@ fun ListCardScreen() {
         )
         Spacer(Modifier.size(Spacing.Spacing16))
         SubTitle("Events in timeline in TEI dashboard:")
+        SubTitle("With shadow:")
 
         ListCard(
+            listAvatar = {
+                Avatar(
+                    metadataAvatar = {
+                        MetadataAvatar(
+                            icon = {
+                                Icon(
+                                    painter = provideDHIS2Icon("dhis2_baby_male_0203m_positive"),
+                                    contentDescription = "Button",
+
+                                )
+                            },
+                            iconTint = Color(0xFF11D9D9),
+                            size = AvatarSize.Large,
+                        )
+                    },
+                    style = AvatarStyle.METADATA,
+                )
+            },
+            title = "12/18/2021 at 16:30",
+            lastUpdated = "now",
+            additionalInfoList = eventsTimelineTeiDashboardList,
+            actionButton = {
+                Button(
+                    style = ButtonStyle.TONAL,
+                    text = "Retry sync",
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Outlined.Sync,
+                            contentDescription = "Icon Button",
+                            tint = TextColor.OnPrimaryContainer,
+                        )
+                    },
+                    onClick = {},
+                    modifier = Modifier.fillMaxWidth(),
+                )
+            },
+            onCardClick = {},
+        )
+        Spacer(Modifier.size(Spacing.Spacing16))
+
+        SubTitle("Without shadow:")
+        ListCard(
+            shadow = false,
             listAvatar = {
                 Avatar(
                     metadataAvatar = {

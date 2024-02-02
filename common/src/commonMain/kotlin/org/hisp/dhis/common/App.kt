@@ -94,7 +94,8 @@ fun App() {
 
 @Composable
 fun Main() {
-    val currentScreen = remember { mutableStateOf(Components.INDICATOR_INPUT) }
+    val currentScreen = remember { mutableStateOf(Components.LIST_CARD) }
+
     var expanded by remember { mutableStateOf(false) }
 
     Column(
