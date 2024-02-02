@@ -30,7 +30,7 @@ fun MultiSelectInput(
     title: String,
     state: InputShellState,
     modifier: Modifier = Modifier,
-    onItemSelected: (CheckBoxData) -> Unit,
+    onItemsSelected: (List<CheckBoxData>) -> Unit,
     onClearItemSelection: () -> Unit,
 ) {
     val focusRequester = remember { FocusRequester() }
@@ -87,7 +87,7 @@ fun MultiSelectInput(
                             ),
                             onCheckedChange = { checked ->
                                 focusRequester.requestFocus()
-                                onItemSelected(item.copy(checked = checked))
+                                onItemsSelected(listOf(item.copy(checked = checked)))
                             },
                         )
                     }
@@ -102,7 +102,7 @@ fun MultiSelectInput(
                             index = index,
                             enabled = state != InputShellState.DISABLED,
                         ) { newItem ->
-                            onItemSelected(newItem)
+                            onItemsSelected(listOf(newItem))
                         }
                     }
                 }

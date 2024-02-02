@@ -17,7 +17,7 @@ class MultiSelectInputTest {
                 items = emptyList(),
                 title = "Multi Select 1",
                 state = InputShellState.UNFOCUSED,
-                onItemSelected = { _ ->
+                onItemsSelected = { _ ->
                     // no-op
                 },
                 onClearItemSelection = {
@@ -51,7 +51,7 @@ class MultiSelectInputTest {
                 items = multiSelect1Items,
                 title = "Multi Select 1",
                 state = InputShellState.UNFOCUSED,
-                onItemSelected = { _ ->
+                onItemsSelected = { _ ->
                     // no-op
                 },
                 onClearItemSelection = {
@@ -86,7 +86,7 @@ class MultiSelectInputTest {
                 items = multiSelect1Items,
                 title = "Multi Select 1",
                 state = InputShellState.UNFOCUSED,
-                onItemSelected = { _ ->
+                onItemsSelected = { _ ->
                     // no-op
                 },
                 onClearItemSelection = {
@@ -120,7 +120,7 @@ class MultiSelectInputTest {
                 items = multiSelect1Items,
                 title = "Multi Select 1",
                 state = InputShellState.UNFOCUSED,
-                onItemSelected = { _ ->
+                onItemsSelected = { _ ->
                     // no-op
                 },
                 onClearItemSelection = {
@@ -184,7 +184,7 @@ class MultiSelectInputTest {
                 items = multiSelect1Items,
                 title = "Multi Select 1",
                 state = InputShellState.UNFOCUSED,
-                onItemSelected = { _ ->
+                onItemsSelected = { _ ->
                     // no-op
                 },
                 onClearItemSelection = {
@@ -248,7 +248,7 @@ class MultiSelectInputTest {
                 items = multiSelect1Items,
                 title = "Multi Select 1",
                 state = InputShellState.UNFOCUSED,
-                onItemSelected = { _ ->
+                onItemsSelected = { _ ->
                     // no-op
                 },
                 onClearItemSelection = {

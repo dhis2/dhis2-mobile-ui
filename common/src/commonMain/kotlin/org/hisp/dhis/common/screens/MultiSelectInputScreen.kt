@@ -86,7 +86,7 @@ fun MultiSelectInputScreen() {
             items = emptyList(),
             title = "Multi Select Empty",
             state = InputShellState.UNFOCUSED,
-            onItemSelected = { _ ->
+            onItemsSelected = { _ ->
                 // no-op
             },
             onClearItemSelection = {
@@ -98,9 +98,11 @@ fun MultiSelectInputScreen() {
             items = multiSelect1Items,
             title = "Multi Select 1",
             state = InputShellState.UNFOCUSED,
-            onItemSelected = { checkBoxData ->
-                val index = multiSelect1Items.indexOfFirst { it.uid == checkBoxData.uid }
-                multiSelect1Items[index] = checkBoxData
+            onItemsSelected = { selectedItems ->
+                selectedItems.forEach { selectedItem ->
+                    val index = multiSelect1Items.indexOfFirst { it.uid == selectedItem.uid }
+                    multiSelect1Items[index] = selectedItem
+                }
             },
             onClearItemSelection = {
                 multiSelect1Items.replaceAll { it.copy(checked = false) }
@@ -111,9 +113,11 @@ fun MultiSelectInputScreen() {
             items = multiSelect1Items,
             title = "Multi Select 1 Error",
             state = InputShellState.ERROR,
-            onItemSelected = { checkBoxData ->
-                val index = multiSelect1Items.indexOfFirst { it.uid == checkBoxData.uid }
-                multiSelect1Items[index] = checkBoxData
+            onItemsSelected = { selectedItems ->
+                selectedItems.forEach { selectedItem ->
+                    val index = multiSelect1Items.indexOfFirst { it.uid == selectedItem.uid }
+                    multiSelect1Items[index] = selectedItem
+                }
             },
             onClearItemSelection = {
                 multiSelect1Items.replaceAll { it.copy(checked = false) }
@@ -124,9 +128,11 @@ fun MultiSelectInputScreen() {
             items = multiSelect1Items,
             title = "Multi Select 1 Disabled",
             state = InputShellState.DISABLED,
-            onItemSelected = { checkBoxData ->
-                val index = multiSelect1Items.indexOfFirst { it.uid == checkBoxData.uid }
-                multiSelect1Items[index] = checkBoxData
+            onItemsSelected = { selectedItems ->
+                selectedItems.forEach { selectedItem ->
+                    val index = multiSelect1Items.indexOfFirst { it.uid == selectedItem.uid }
+                    multiSelect1Items[index] = selectedItem
+                }
             },
             onClearItemSelection = {
                 multiSelect1Items.replaceAll { it.copy(checked = false) }
@@ -137,9 +143,11 @@ fun MultiSelectInputScreen() {
             items = multiSelect2Items,
             title = "Multi Select 2",
             state = InputShellState.UNFOCUSED,
-            onItemSelected = { checkBoxData ->
-                val index = multiSelect2Items.indexOfFirst { it.uid == checkBoxData.uid }
-                multiSelect2Items[index] = checkBoxData
+            onItemsSelected = { selectedItems ->
+                selectedItems.forEach { selectedItem ->
+                    val index = multiSelect2Items.indexOfFirst { it.uid == selectedItem.uid }
+                    multiSelect2Items[index] = selectedItem
+                }
             },
             onClearItemSelection = {
                 multiSelect2Items.replaceAll { it.copy(checked = false) }
@@ -150,9 +158,11 @@ fun MultiSelectInputScreen() {
             items = multiSelect2Items,
             title = "Multi Select 2 Disabled",
             state = InputShellState.DISABLED,
-            onItemSelected = { checkBoxData ->
-                val index = multiSelect2Items.indexOfFirst { it.uid == checkBoxData.uid }
-                multiSelect2Items[index] = checkBoxData
+            onItemsSelected = { selectedItems ->
+                selectedItems.forEach { selectedItem ->
+                    val index = multiSelect2Items.indexOfFirst { it.uid == selectedItem.uid }
+                    multiSelect2Items[index] = selectedItem
+                }
             },
             onClearItemSelection = {
                 multiSelect2Items.replaceAll { it.copy(checked = false) }
