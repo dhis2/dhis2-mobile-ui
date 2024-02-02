@@ -2,6 +2,7 @@ package org.hisp.dhis.mobile.ui.designsystem.component
 
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.performClick
 import org.junit.Rule
 import org.junit.Test
 
@@ -264,5 +265,71 @@ class MultiSelectInputTest {
         composeRule.onNodeWithTag("INPUT_MULTI_SELECT_CHECKBOX_CHIP_ITEM_4").assertDoesNotExist()
         composeRule.onNodeWithTag("INPUT_MULTI_SELECT_CHECKBOX_CHIP_ITEM_5").assertDoesNotExist()
         composeRule.onNodeWithTag("INPUT_MULTI_SELECT_CHECKBOX_CHIP_ITEM_6").assertDoesNotExist()
+    }
+
+    @Test
+    fun when_dropdown_button_is_clicked_then_show_bottom_sheet() {
+        val multiSelect1Items = listOf(
+            CheckBoxData(
+                uid = "uid-1",
+                checked = false,
+                enabled = true,
+                textInput = "Item 1",
+            ),
+            CheckBoxData(
+                uid = "uid-2",
+                checked = false,
+                enabled = true,
+                textInput = "Item 2",
+            ),
+            CheckBoxData(
+                uid = "uid-3",
+                checked = false,
+                enabled = true,
+                textInput = "Item 3",
+            ),
+            CheckBoxData(
+                uid = "uid-4",
+                checked = false,
+                enabled = true,
+                textInput = "Item 4",
+            ),
+            CheckBoxData(
+                uid = "uid-5",
+                checked = false,
+                enabled = true,
+                textInput = "Item 5",
+            ),
+            CheckBoxData(
+                uid = "uid-6",
+                checked = false,
+                enabled = true,
+                textInput = "Item 6",
+            ),
+            CheckBoxData(
+                uid = "uid-7",
+                checked = false,
+                enabled = true,
+                textInput = "Item 7",
+            ),
+        )
+
+        composeRule.setContent {
+            MultiSelectInput(
+                items = multiSelect1Items,
+                title = "Multi Select 1",
+                state = InputShellState.UNFOCUSED,
+                onItemsSelected = { _ ->
+                    // no-op
+                },
+                onClearItemSelection = {
+                    // no-op
+                },
+            )
+        }
+
+        composeRule.onNodeWithTag("INPUT_MULTI_SELECT_BOTTOM_SHEET").assertDoesNotExist()
+        composeRule.onNodeWithTag("INPUT_MULTI_SELECT_DROP_DOWN_ICON_BUTTON").performClick()
+        composeRule.onNodeWithTag("INPUT_MULTI_SELECT_BOTTOM_SHEET").assertExists()
     }
 }
