@@ -37,6 +37,51 @@ fun MultiSelectInputScreen() {
             ),
         )
 
+        val multiSelect2Items = mutableStateListOf(
+            CheckBoxData(
+                uid = "uid-1",
+                checked = true,
+                enabled = true,
+                textInput = "Option 1",
+            ),
+            CheckBoxData(
+                uid = "uid-2",
+                checked = true,
+                enabled = true,
+                textInput = "Option 2",
+            ),
+            CheckBoxData(
+                uid = "uid-3",
+                checked = true,
+                enabled = true,
+                textInput = "Opt. 3",
+            ),
+            CheckBoxData(
+                uid = "uid-4",
+                checked = false,
+                enabled = true,
+                textInput = "Option 4",
+            ),
+            CheckBoxData(
+                uid = "uid-5",
+                checked = false,
+                enabled = true,
+                textInput = "Option 5",
+            ),
+            CheckBoxData(
+                uid = "uid-6",
+                checked = false,
+                enabled = true,
+                textInput = "Opt. 6",
+            ),
+            CheckBoxData(
+                uid = "uid-7",
+                checked = false,
+                enabled = true,
+                textInput = "Opt. 7",
+            ),
+        )
+
         MultiSelectInput(
             items = emptyList(),
             title = "Multi Select Empty",
@@ -85,6 +130,32 @@ fun MultiSelectInputScreen() {
             },
             onClearItemSelection = {
                 multiSelect1Items.replaceAll { it.copy(checked = false) }
+            },
+        )
+
+        MultiSelectInput(
+            items = multiSelect2Items,
+            title = "Multi Select 2",
+            state = InputShellState.UNFOCUSED,
+            onItemSelected = { checkBoxData ->
+                val index = multiSelect2Items.indexOfFirst { it.uid == checkBoxData.uid }
+                multiSelect2Items[index] = checkBoxData
+            },
+            onClearItemSelection = {
+                multiSelect2Items.replaceAll { it.copy(checked = false) }
+            },
+        )
+
+        MultiSelectInput(
+            items = multiSelect2Items,
+            title = "Multi Select 2 Disabled",
+            state = InputShellState.DISABLED,
+            onItemSelected = { checkBoxData ->
+                val index = multiSelect2Items.indexOfFirst { it.uid == checkBoxData.uid }
+                multiSelect2Items[index] = checkBoxData
+            },
+            onClearItemSelection = {
+                multiSelect2Items.replaceAll { it.copy(checked = false) }
             },
         )
     }

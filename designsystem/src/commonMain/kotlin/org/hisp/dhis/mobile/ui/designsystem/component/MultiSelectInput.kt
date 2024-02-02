@@ -1,11 +1,15 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.outlined.Cancel
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
@@ -19,6 +23,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
 private const val INLINE_CHECKBOXES_MIN_REQ_ITEMS = 6
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun MultiSelectInput(
     items: List<CheckBoxData>,
@@ -50,6 +55,23 @@ fun MultiSelectInput(
         null
     }
 
+    val bottomSheetDropdownButton: (@Composable () -> Unit) = {
+        IconButton(
+            modifier = Modifier.testTag("INPUT_MULTI_SELECT_DROP_DOWN_ICON_BUTTON").padding(Spacing.Spacing0),
+            enabled = state != InputShellState.DISABLED,
+            icon = {
+                Icon(
+                    imageVector = Icons.Filled.ArrowDropDown,
+                    contentDescription = "Show MultiSelect BottomSheet",
+                )
+            },
+            onClick = {
+                focusRequester.requestFocus()
+                // TODO: Show bottom sheet
+            },
+        )
+    }
+
     InputShell(
         title = title,
         state = state,
@@ -71,7 +93,19 @@ fun MultiSelectInput(
                     }
                 }
             } else {
-                // TODO: Show inline selected chips flow row
+                FlowRow(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
+                    items.forEachIndexed { index, item ->
+                        SelectedItemChip(
+                            item = item,
+                            index = index,
+                            enabled = state != InputShellState.DISABLED,
+                        ) { newItem ->
+                            onItemSelected(newItem)
+                        }
+                    }
+                }
             }
         },
         primaryButton = {
@@ -79,11 +113,34 @@ fun MultiSelectInput(
                 if (items.size < INLINE_CHECKBOXES_MIN_REQ_ITEMS) {
                     clearSelectionButton?.invoke()
                 } else {
-                    // TODO: Show dropdown icon button and open bottom sheet on click
+                    bottomSheetDropdownButton.invoke()
                 }
             }
         },
     )
+}
+
+@Composable
+private fun SelectedItemChip(
+    item: CheckBoxData,
+    index: Int,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    onClearItemSelection: (CheckBoxData) -> Unit,
+) {
+    if (item.checked) {
+        InputChip(
+            modifier = modifier.testTag("INPUT_MULTI_SELECT_CHECKBOX_CHIP_ITEM_$index"),
+            label = item.textInput!!,
+            selected = false,
+            enabled = enabled,
+            withTrailingIcon = true,
+            hasTransparentBackground = true,
+            onIconSelected = {
+                onClearItemSelection(item.copy(checked = false))
+            },
+        )
+    }
 }
 
 @Composable

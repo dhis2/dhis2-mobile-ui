@@ -131,4 +131,138 @@ class MultiSelectInputTest {
 
         composeRule.onNodeWithTag("INPUT_MULTI_SELECT_CLEAR_ICON_BUTTON").assertExists()
     }
+
+    @Test
+    fun when_items_are_more_than_required_then_show_dropdown_button() {
+        val multiSelect1Items = listOf(
+            CheckBoxData(
+                uid = "uid-1",
+                checked = false,
+                enabled = true,
+                textInput = "Item 1",
+            ),
+            CheckBoxData(
+                uid = "uid-2",
+                checked = false,
+                enabled = true,
+                textInput = "Item 2",
+            ),
+            CheckBoxData(
+                uid = "uid-3",
+                checked = false,
+                enabled = true,
+                textInput = "Item 3",
+            ),
+            CheckBoxData(
+                uid = "uid-4",
+                checked = false,
+                enabled = true,
+                textInput = "Item 4",
+            ),
+            CheckBoxData(
+                uid = "uid-5",
+                checked = false,
+                enabled = true,
+                textInput = "Item 5",
+            ),
+            CheckBoxData(
+                uid = "uid-6",
+                checked = false,
+                enabled = true,
+                textInput = "Item 6",
+            ),
+            CheckBoxData(
+                uid = "uid-7",
+                checked = false,
+                enabled = true,
+                textInput = "Item 7",
+            ),
+        )
+
+        composeRule.setContent {
+            MultiSelectInput(
+                items = multiSelect1Items,
+                title = "Multi Select 1",
+                state = InputShellState.UNFOCUSED,
+                onItemSelected = { _ ->
+                    // no-op
+                },
+                onClearItemSelection = {
+                    // no-op
+                },
+            )
+        }
+
+        composeRule.onNodeWithTag("INPUT_MULTI_SELECT_DROP_DOWN_ICON_BUTTON").assertExists()
+    }
+
+    @Test
+    fun when_items_are_more_than_required_then_show_inline_chip_items_if_item_are_selected() {
+        val multiSelect1Items = listOf(
+            CheckBoxData(
+                uid = "uid-1",
+                checked = true,
+                enabled = true,
+                textInput = "Item 1",
+            ),
+            CheckBoxData(
+                uid = "uid-2",
+                checked = true,
+                enabled = true,
+                textInput = "Item 2",
+            ),
+            CheckBoxData(
+                uid = "uid-3",
+                checked = false,
+                enabled = true,
+                textInput = "Item 3",
+            ),
+            CheckBoxData(
+                uid = "uid-4",
+                checked = false,
+                enabled = true,
+                textInput = "Item 4",
+            ),
+            CheckBoxData(
+                uid = "uid-5",
+                checked = false,
+                enabled = true,
+                textInput = "Item 5",
+            ),
+            CheckBoxData(
+                uid = "uid-6",
+                checked = false,
+                enabled = true,
+                textInput = "Item 6",
+            ),
+            CheckBoxData(
+                uid = "uid-7",
+                checked = false,
+                enabled = true,
+                textInput = "Item 7",
+            ),
+        )
+
+        composeRule.setContent {
+            MultiSelectInput(
+                items = multiSelect1Items,
+                title = "Multi Select 1",
+                state = InputShellState.UNFOCUSED,
+                onItemSelected = { _ ->
+                    // no-op
+                },
+                onClearItemSelection = {
+                    // no-op
+                },
+            )
+        }
+
+        composeRule.onNodeWithTag("INPUT_MULTI_SELECT_CHECKBOX_CHIP_ITEM_0").assertExists()
+        composeRule.onNodeWithTag("INPUT_MULTI_SELECT_CHECKBOX_CHIP_ITEM_1").assertExists()
+        composeRule.onNodeWithTag("INPUT_MULTI_SELECT_CHECKBOX_CHIP_ITEM_2").assertDoesNotExist()
+        composeRule.onNodeWithTag("INPUT_MULTI_SELECT_CHECKBOX_CHIP_ITEM_3").assertDoesNotExist()
+        composeRule.onNodeWithTag("INPUT_MULTI_SELECT_CHECKBOX_CHIP_ITEM_4").assertDoesNotExist()
+        composeRule.onNodeWithTag("INPUT_MULTI_SELECT_CHECKBOX_CHIP_ITEM_5").assertDoesNotExist()
+        composeRule.onNodeWithTag("INPUT_MULTI_SELECT_CHECKBOX_CHIP_ITEM_6").assertDoesNotExist()
+    }
 }
