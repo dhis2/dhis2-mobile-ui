@@ -47,7 +47,7 @@ class InputEmailTest {
                 title = "Label",
                 inputTextFieldValue = inputValue,
                 onValueChanged = {
-                    inputValue = it
+                    inputValue = it ?: TextFieldValue()
                 },
                 onEmailActionCLicked = {},
                 state = InputShellState.UNFOCUSED,
@@ -79,7 +79,7 @@ class InputEmailTest {
                 title = "Label",
                 inputTextFieldValue = inputValue,
                 onValueChanged = {
-                    inputValue = it
+                    inputValue = it ?: TextFieldValue()
                 },
                 onEmailActionCLicked = {},
                 state = InputShellState.UNFOCUSED,
@@ -100,7 +100,7 @@ class InputEmailTest {
                 title = "Label",
                 inputTextFieldValue = inputValue,
                 onValueChanged = {
-                    inputValue = it
+                    inputValue = it ?: TextFieldValue()
                 },
                 onEmailActionCLicked = {},
                 state = InputShellState.UNFOCUSED,
@@ -122,7 +122,7 @@ class InputEmailTest {
                 state = InputShellState.DISABLED,
                 inputTextFieldValue = inputValue,
                 onValueChanged = {
-                    inputValue = it
+                    inputValue = it ?: TextFieldValue()
                 },
                 onEmailActionCLicked = {},
             )
@@ -171,7 +171,7 @@ class InputEmailTest {
                 title = "Label",
                 inputTextFieldValue = inputValue,
                 onValueChanged = {
-                    inputValue = it
+                    inputValue = it ?: TextFieldValue()
                 },
                 onEmailActionCLicked = {},
                 state = InputShellState.UNFOCUSED,
@@ -204,7 +204,7 @@ class InputEmailTest {
                 title = "Label",
                 inputTextFieldValue = inputValue,
                 onValueChanged = {
-                    inputValue = it
+                    inputValue = it ?: TextFieldValue()
                 },
                 onEmailActionCLicked = {},
                 state = InputShellState.UNFOCUSED,

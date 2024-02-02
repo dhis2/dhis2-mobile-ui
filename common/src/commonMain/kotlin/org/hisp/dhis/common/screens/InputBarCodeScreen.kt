@@ -45,7 +45,7 @@ fun InputBarCodeScreen() {
             },
             inputTextFieldValue = inputValue1,
             onValueChanged = {
-                inputValue1 = it
+                inputValue1 = it ?: TextFieldValue()
             },
         )
 
@@ -85,7 +85,7 @@ fun InputBarCodeScreen() {
             },
             inputTextFieldValue = inputValue2,
             onValueChanged = {
-                inputValue2 = it
+                inputValue2 = it ?: TextFieldValue()
             },
             isRequiredField = true,
             supportingText = listOf(SupportingTextData("Required", SupportingTextState.ERROR)),
@@ -101,7 +101,7 @@ fun InputBarCodeScreen() {
             },
             inputTextFieldValue = inputValue,
             onValueChanged = {
-                inputValue = it
+                inputValue = it ?: TextFieldValue()
             },
         )
 
@@ -115,7 +115,7 @@ fun InputBarCodeScreen() {
             },
             inputTextFieldValue = inputValue3,
             onValueChanged = {
-                inputValue3 = it
+                inputValue3 = it ?: TextFieldValue()
             },
         )
     }

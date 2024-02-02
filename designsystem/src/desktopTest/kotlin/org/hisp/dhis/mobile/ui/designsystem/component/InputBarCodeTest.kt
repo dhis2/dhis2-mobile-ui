@@ -27,7 +27,7 @@ class InputBarCodeTest {
                 title = "Bar code",
                 inputTextFieldValue = inputValue,
                 onValueChanged = {
-                    inputValue = it
+                    inputValue = it ?: TextFieldValue()
                 },
                 onActionButtonClicked = {
                     // no-op
@@ -46,7 +46,7 @@ class InputBarCodeTest {
                 title = "Phone Number",
                 inputTextFieldValue = inputValue,
                 onValueChanged = {
-                    inputValue = it
+                    inputValue = it ?: TextFieldValue()
                 },
                 onActionButtonClicked = {
                     // no-op
@@ -69,7 +69,7 @@ class InputBarCodeTest {
                 title = "Phone Number",
                 inputTextFieldValue = inputValue,
                 onValueChanged = {
-                    inputValue = it
+                    inputValue = it ?: TextFieldValue()
                 },
                 onActionButtonClicked = {
                     // no-op

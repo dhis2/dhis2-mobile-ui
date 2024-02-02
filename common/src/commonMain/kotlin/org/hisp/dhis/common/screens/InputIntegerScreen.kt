@@ -30,7 +30,7 @@ fun InputIntegerScreen() {
             title = "Label",
             inputTextFieldValue = inputValue1,
             onValueChanged = {
-                inputValue1 = it
+                inputValue1 = it ?: TextFieldValue()
             },
             state = InputShellState.UNFOCUSED,
         )
@@ -43,7 +43,7 @@ fun InputIntegerScreen() {
             title = "Label",
             inputTextFieldValue = inputValueError,
             onValueChanged = {
-                inputValueError = it
+                inputValueError = it ?: TextFieldValue()
             },
             state = InputShellState.ERROR,
             supportingText = listOf(SupportingTextData("Numbers only", SupportingTextState.ERROR)),
@@ -58,7 +58,7 @@ fun InputIntegerScreen() {
             inputTextFieldValue = inputValue6,
             state = InputShellState.DISABLED,
             onValueChanged = {
-                inputValue6 = it
+                inputValue6 = it ?: TextFieldValue()
             },
         )
         Spacer(Modifier.size(Spacing.Spacing18))
@@ -71,7 +71,7 @@ fun InputIntegerScreen() {
             inputTextFieldValue = inputValue7,
             state = InputShellState.DISABLED,
             onValueChanged = {
-                inputValue7 = it
+                inputValue7 = it ?: TextFieldValue()
             },
         )
     }

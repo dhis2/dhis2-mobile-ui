@@ -44,7 +44,7 @@ class InputIntegerTest {
                 title = "Label",
                 inputTextFieldValue = inputValue,
                 onValueChanged = {
-                    inputValue = it
+                    inputValue = it ?: TextFieldValue()
                 },
                 state = InputShellState.UNFOCUSED,
             )
@@ -74,7 +74,7 @@ class InputIntegerTest {
                 title = "Label",
                 inputTextFieldValue = inputValue,
                 onValueChanged = {
-                    inputValue = it
+                    inputValue = it ?: TextFieldValue()
                 },
                 state = InputShellState.UNFOCUSED,
             )
@@ -94,7 +94,7 @@ class InputIntegerTest {
                 title = "Label",
                 inputTextFieldValue = inputValue,
                 onValueChanged = {
-                    inputValue = it
+                    inputValue = it ?: TextFieldValue()
                 },
                 state = InputShellState.UNFOCUSED,
             )
@@ -143,7 +143,7 @@ class InputIntegerTest {
                 title = "Label",
                 inputTextFieldValue = inputValue,
                 onValueChanged = {
-                    inputValue = it
+                    inputValue = it ?: TextFieldValue()
                 },
                 state = InputShellState.UNFOCUSED,
             )
@@ -162,7 +162,7 @@ class InputIntegerTest {
                 title = "Label",
                 inputTextFieldValue = inputValue,
                 onValueChanged = {
-                    inputValue = it
+                    inputValue = it ?: TextFieldValue()
                 },
                 state = InputShellState.UNFOCUSED,
             )
@@ -181,7 +181,7 @@ class InputIntegerTest {
                 title = "Label",
                 inputTextFieldValue = inputValue,
                 onValueChanged = {
-                    inputValue = it
+                    inputValue = it ?: TextFieldValue()
                 },
                 state = InputShellState.UNFOCUSED,
             )

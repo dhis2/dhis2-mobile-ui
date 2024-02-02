@@ -48,7 +48,7 @@ class InputLetterTest {
                 modifier = Modifier.testTag("INPUT_LETTER"),
                 inputTextFieldValue = inputValue,
                 onValueChanged = {
-                    inputValue = it
+                    inputValue = it ?: TextFieldValue()
                 },
                 state = InputShellState.UNFOCUSED,
             )
@@ -80,7 +80,7 @@ class InputLetterTest {
                 modifier = Modifier.testTag("INPUT_LETTER"),
                 inputTextFieldValue = inputValue,
                 onValueChanged = {
-                    inputValue = it
+                    inputValue = it ?: TextFieldValue()
                 },
                 state = InputShellState.UNFOCUSED,
             )
@@ -101,7 +101,7 @@ class InputLetterTest {
                 modifier = Modifier.testTag("INPUT_LETTER"),
                 inputTextFieldValue = inputValue,
                 onValueChanged = {
-                    inputValue = it
+                    inputValue = it ?: TextFieldValue()
                 },
                 state = InputShellState.UNFOCUSED,
             )
@@ -153,7 +153,7 @@ class InputLetterTest {
                 modifier = Modifier.testTag("INPUT_LETTER"),
                 inputTextFieldValue = inputValue,
                 onValueChanged = {
-                    inputValue = it
+                    inputValue = it ?: TextFieldValue()
                 },
                 state = InputShellState.UNFOCUSED,
             )

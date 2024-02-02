@@ -31,7 +31,7 @@ fun InputEmailScreen() {
             supportingText = listOf(SupportingTextData("Example: name@example.com")),
             inputTextFieldValue = inputText1,
             onValueChanged = {
-                inputText1 = it
+                inputText1 = it ?: TextFieldValue()
             },
             onEmailActionCLicked = {},
             state = InputShellState.UNFOCUSED,
@@ -50,7 +50,7 @@ fun InputEmailScreen() {
             supportingText = listOf(SupportingTextData("Example: name@example.com")),
             inputTextFieldValue = inputText2,
             onValueChanged = {
-                inputText2 = it
+                inputText2 = it ?: TextFieldValue()
             },
             onEmailActionCLicked = {},
             state = InputShellState.UNFOCUSED,
@@ -70,7 +70,7 @@ fun InputEmailScreen() {
             supportingText = listOf(SupportingTextData("Enter a valid email address", SupportingTextState.ERROR)),
             inputTextFieldValue = inputText3,
             onValueChanged = {
-                inputText3 = it
+                inputText3 = it ?: TextFieldValue()
             },
             onEmailActionCLicked = {},
         )
@@ -89,7 +89,7 @@ fun InputEmailScreen() {
             inputTextFieldValue = inputText4,
             isRequiredField = true,
             onValueChanged = {
-                inputText4 = it
+                inputText4 = it ?: TextFieldValue()
             },
             onEmailActionCLicked = {},
         )
@@ -106,7 +106,7 @@ fun InputEmailScreen() {
             state = InputShellState.DISABLED,
             inputTextFieldValue = inputText5,
             onValueChanged = {
-                inputText5 = it
+                inputText5 = it ?: TextFieldValue()
             },
             onEmailActionCLicked = {},
         )
