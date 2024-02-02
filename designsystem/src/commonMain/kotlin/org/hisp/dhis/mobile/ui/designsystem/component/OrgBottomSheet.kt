@@ -60,7 +60,7 @@ fun OrgBottomSheet(
     description: String? = null,
     clearAllButtonText: String = provideStringResource("clear_all"),
     doneButtonText: String = provideStringResource("done"),
-    noResultsFoundText: String = provideStringResource("org_tree_no_results_found"),
+    noResultsFoundText: String = provideStringResource("no_results_found"),
     icon: @Composable (() -> Unit)? = null,
     onSearch: ((String) -> Unit)? = null,
     onDismiss: () -> Unit,
