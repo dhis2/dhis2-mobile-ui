@@ -135,6 +135,63 @@ fun DHIS2Theme(content: @Composable () -> Unit) {
     )
 }
 
+enum class DHIS2TextStyle {
+    HEADLINE_LARGE,
+    HEADLINE_MEDIUM,
+    HEADLINE_SMALL,
+    TITLE_LARGE,
+    TITLE_MEDIUM,
+    TITLE_SMALL,
+    LABEL_LARGE,
+    LABEL_MEDIUM,
+    LABEL_SMALL,
+    BODY_LARGE,
+    BODY_MEDIUM,
+    BODY_SMALL,
+}
+
+@Composable
+fun getTextStyle(style: DHIS2TextStyle): TextStyle {
+    return when (style) {
+        DHIS2TextStyle.HEADLINE_LARGE -> {
+            MaterialTheme.typography.headlineLarge
+        }
+        DHIS2TextStyle.HEADLINE_MEDIUM -> {
+            MaterialTheme.typography.headlineMedium
+        }
+        DHIS2TextStyle.HEADLINE_SMALL -> {
+            MaterialTheme.typography.headlineSmall
+        }
+        DHIS2TextStyle.TITLE_LARGE -> {
+            MaterialTheme.typography.titleLarge
+        }
+        DHIS2TextStyle.TITLE_MEDIUM -> {
+            MaterialTheme.typography.titleMedium
+        }
+        DHIS2TextStyle.TITLE_SMALL -> {
+            MaterialTheme.typography.titleSmall
+        }
+        DHIS2TextStyle.LABEL_LARGE -> {
+            MaterialTheme.typography.labelLarge
+        }
+        DHIS2TextStyle.LABEL_MEDIUM -> {
+            MaterialTheme.typography.labelMedium
+        }
+        DHIS2TextStyle.LABEL_SMALL -> {
+            MaterialTheme.typography.labelSmall
+        }
+        DHIS2TextStyle.BODY_LARGE -> {
+            MaterialTheme.typography.bodyLarge
+        }
+        DHIS2TextStyle.BODY_MEDIUM -> {
+            MaterialTheme.typography.bodyMedium
+        }
+        DHIS2TextStyle.BODY_SMALL -> {
+            MaterialTheme.typography.bodySmall
+        }
+    }
+}
+
 internal object DHIS2SCustomTextStyles {
 
     val titleMediumBold = TextStyle(
