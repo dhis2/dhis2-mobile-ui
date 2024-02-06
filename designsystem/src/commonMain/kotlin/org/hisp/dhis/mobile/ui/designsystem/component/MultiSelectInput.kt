@@ -90,7 +90,7 @@ fun MultiSelectInput(
             state = state,
             modifier = modifier.testTag("INPUT_MULTI_SELECT").focusRequester(focusRequester),
             inputField = {
-                if (items.size < INLINE_CHECKBOXES_MIN_REQ_ITEMS) {
+                if (items.size <= INLINE_CHECKBOXES_MIN_REQ_ITEMS) {
                     Column(modifier = Modifier.testTag("INPUT_MULTI_SELECT_CHECKBOX_LIST")) {
                         items.forEachIndexed { index, item ->
                             CheckBox(
