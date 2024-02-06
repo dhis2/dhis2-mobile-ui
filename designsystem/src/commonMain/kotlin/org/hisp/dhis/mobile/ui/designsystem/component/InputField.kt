@@ -69,7 +69,7 @@ fun EmptyInput(
  * clickable and will appear disabled to accessibility services.
  * @param isSingleLine manages the number of lines to be allowed in the input field
  * @param helperStyle manages the helper text style, NONE by default
- * @param inputText manages the value of the input field text
+ * @param inputTextValue manages the value of the input field text
  * @param onInputChanged gives access to the onTextChangedEvent
  * @param modifier to pass a modifier if necessary
  * @param state manages the color of cursor depending on the state of parent component
@@ -85,7 +85,7 @@ fun BasicTextField(
     helper: String? = null,
     enabled: Boolean = true,
     isSingleLine: Boolean = true,
-    helperStyle: HelperStyle = InputStyle.NONE,
+    helperStyle: HelperStyle = HelperStyle.NONE,
     inputTextValue: TextFieldValue? = null,
     onInputChanged: (TextFieldValue) -> Unit,
     modifier: Modifier = Modifier,

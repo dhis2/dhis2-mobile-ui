@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -121,6 +122,7 @@ private fun EmptyParameterField(
                     .wrapContentWidth(),
                 text = model.helper,
                 color = TextColor.OnDisabledSurface,
+                style = MaterialTheme.typography.bodySmall,
             )
         }
         Box(Modifier.height(Spacing.Spacing2)) {

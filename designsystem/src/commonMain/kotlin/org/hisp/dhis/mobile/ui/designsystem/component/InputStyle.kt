@@ -11,12 +11,14 @@ sealed class InputStyle(
     val backGroundColor: Color,
     val disabledBackGroundColor: Color,
     val unfocusedIndicatorColor: Color?,
+    val disabledIndicatorColor: Color?,
 ) {
     class DataInputStyle : InputStyle(
         startIndent = Spacing.Spacing0,
         backGroundColor = SurfaceColor.Surface,
         disabledBackGroundColor = SurfaceColor.DisabledSurface,
         unfocusedIndicatorColor = null,
+        disabledIndicatorColor = null,
     )
 
     class ParameterInputStyle : InputStyle(
@@ -24,5 +26,6 @@ sealed class InputStyle(
         backGroundColor = Color.Transparent,
         disabledBackGroundColor = Color.Transparent,
         unfocusedIndicatorColor = Outline.Light,
+        disabledIndicatorColor = Outline.Light,
     )
 }

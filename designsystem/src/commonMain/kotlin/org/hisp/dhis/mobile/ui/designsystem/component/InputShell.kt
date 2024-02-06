@@ -97,9 +97,15 @@ fun InputShell(
                     }
                     indicatorColor =
                         when {
-                            state == InputShellState.DISABLED -> InputShellState.DISABLED.color
+                            state == InputShellState.DISABLED ->
+                                inputStyle.disabledIndicatorColor
+                                    ?: InputShellState.DISABLED.color
+
                             it.isFocused && state != InputShellState.ERROR && state != InputShellState.WARNING -> InputShellState.FOCUSED.color
-                            state == InputShellState.UNFOCUSED -> inputStyle.unfocusedIndicatorColor ?: state.color
+                            state == InputShellState.UNFOCUSED ->
+                                inputStyle.unfocusedIndicatorColor
+                                    ?: state.color
+
                             else -> state.color
                         }
                     indicatorThickness = when {
