@@ -379,7 +379,7 @@ fun ListCardScreen() {
             onCardClick = {},
         )
 
-        SubTitle("ListCards for events in displayed in TEI dashboard:")
+        SubTitle("ListCards for events  displayed in TEI dashboard:")
 
         val eventsInTeiDashboardTitleStyle = MaterialTheme.typography.titleSmall
 
