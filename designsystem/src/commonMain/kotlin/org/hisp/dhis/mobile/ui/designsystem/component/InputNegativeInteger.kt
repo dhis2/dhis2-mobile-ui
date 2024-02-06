@@ -7,8 +7,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.TextFieldValue
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.RegExValidations
 
 /**
@@ -35,29 +37,29 @@ fun InputNegativeInteger(
     state: InputShellState,
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
-    inputText: String? = null,
+    inputTextFieldValue: TextFieldValue? = null,
     isRequiredField: Boolean = false,
     autoCompleteList: List<String>? = null,
     autoCompleteItemSelected: ((String?) -> Unit)? = null,
     onNextClicked: (() -> Unit)? = null,
-    onValueChanged: ((String?) -> Unit)? = null,
+    onValueChanged: ((TextFieldValue?) -> Unit)? = null,
     onFocusChanged: ((Boolean) -> Unit)? = null,
     imeAction: ImeAction = ImeAction.Next,
     modifier: Modifier = Modifier,
 ) {
-    var inputValue by rememberSaveable { mutableStateOf(inputText ?: "") }
-    inputValue = inputValue.replaceFirst("-", "")
+    var inputValue by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(inputTextFieldValue ?: TextFieldValue()) }
+    inputValue = TextFieldValue(inputValue.text.replaceFirst("-", ""), TextRange(inputValue.text.length), inputValue.composition)
     BasicTextInput(
         title = title,
         state = state,
         supportingText = supportingText,
         legendData = legendData,
-        inputText = inputValue,
+        inputTextFieldValue = inputValue,
         isRequiredField = isRequiredField,
         onNextClicked = onNextClicked,
         onValueChanged = {
-            onValueChanged?.invoke(if (it?.startsWith("-") == true || it?.isEmpty() == true) it else "-$it")
-            inputValue = if (it?.startsWith("-") == true) inputValue.replaceFirst("-", "") else it.toString()
+            onValueChanged?.invoke(TextFieldValue(if (it.text.startsWith("-") || it.text.isEmpty()) it.text else "-${it.text}"))
+            inputValue = TextFieldValue(if (it.text.startsWith("-")) inputValue.text.replaceFirst("-", "") else it.text)
         },
         helperStyle = InputStyle.WITH_HELPER_BEFORE,
         helper = "-",

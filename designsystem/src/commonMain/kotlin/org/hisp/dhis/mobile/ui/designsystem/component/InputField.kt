@@ -27,7 +27,6 @@ import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
@@ -87,8 +86,8 @@ fun BasicTextField(
     enabled: Boolean = true,
     isSingleLine: Boolean = true,
     helperStyle: InputStyle = InputStyle.NONE,
-    inputText: String = "",
-    onInputChanged: (String) -> Unit,
+    inputTextValue: TextFieldValue? = null,
+    onInputChanged: (TextFieldValue) -> Unit,
     modifier: Modifier = Modifier,
     state: InputShellState = InputShellState.FOCUSED,
     keyboardOptions: KeyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
@@ -129,13 +128,6 @@ fun BasicTextField(
         backgroundColor = Blue300,
     )
 
-    var textFieldSelection by remember {
-        mutableStateOf(TextRange(if (inputText.isEmpty()) 0 else inputText.length))
-    }
-    var textFieldComposition by remember {
-        mutableStateOf(if (inputText.isEmpty()) null else TextRange(0, if (inputText.isEmpty()) 0 else inputText.length))
-    }
-
     CompositionLocalProvider(LocalTextSelectionColors provides customTextSelectionColors) {
         BasicTextField(
 
@@ -145,15 +137,9 @@ fun BasicTextField(
                 )
                 .fillMaxWidth()
                 .textFieldHoverPointerIcon(enabled),
-            value = TextFieldValue(
-                text = inputText,
-                selection = textFieldSelection,
-                composition = textFieldComposition,
-            ),
+            value = inputTextValue ?: TextFieldValue(),
             onValueChange = {
-                textFieldSelection = it.selection
-                textFieldComposition = it.composition
-                onInputChanged.invoke(it.text)
+                onInputChanged.invoke(it)
             },
             enabled = enabled,
             textStyle = MaterialTheme.typography.bodyLarge.copy(color = if (enabled) TextColor.OnSurface else TextColor.OnDisabledSurface),

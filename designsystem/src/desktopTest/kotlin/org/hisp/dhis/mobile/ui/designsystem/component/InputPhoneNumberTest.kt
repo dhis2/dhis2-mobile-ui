@@ -11,6 +11,7 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
+import androidx.compose.ui.text.input.TextFieldValue
 import org.junit.Rule
 import org.junit.Test
 
@@ -22,11 +23,11 @@ class InputPhoneNumberTest {
     @Test
     fun shouldAllowDigitsInputOnly() {
         rule.setContent {
-            var inputValue by remember { mutableStateOf("") }
+            var inputValue by remember { mutableStateOf(TextFieldValue()) }
 
             InputPhoneNumber(
                 title = "Phone Number",
-                inputText = inputValue,
+                inputTextFieldValue = inputValue,
                 onValueChanged = {
                     if (it != null) {
                         inputValue = it
@@ -48,11 +49,11 @@ class InputPhoneNumberTest {
     @Test
     fun shouldEnableCallActionButtonAfterInputTextReachesCharacterLimit() {
         rule.setContent {
-            var inputValue by remember { mutableStateOf("") }
+            var inputValue by remember { mutableStateOf(TextFieldValue()) }
 
             InputPhoneNumber(
                 title = "Phone Number",
-                inputText = inputValue,
+                inputTextFieldValue = inputValue,
                 maxLength = 10,
                 onValueChanged = {
                     if (it != null) {
@@ -75,7 +76,7 @@ class InputPhoneNumberTest {
         rule.setContent {
             InputPhoneNumber(
                 title = "Phone Number",
-                inputText = "",
+                inputTextFieldValue = TextFieldValue(),
                 state = InputShellState.UNFOCUSED,
                 onValueChanged = {
                     // no-op
@@ -90,7 +91,7 @@ class InputPhoneNumberTest {
         rule.setContent {
             InputPhoneNumber(
                 title = "Phone Number",
-                inputText = "",
+                inputTextFieldValue = TextFieldValue(),
                 state = InputShellState.ERROR,
                 onValueChanged = {
                     // no-op
@@ -107,11 +108,11 @@ class InputPhoneNumberTest {
     @Test
     fun shouldClearPhoneNumberWhenClearButtonIsClicked() {
         rule.setContent {
-            var inputValue by remember { mutableStateOf("1234") }
+            var inputValue by remember { mutableStateOf(TextFieldValue("1234")) }
 
             InputPhoneNumber(
                 title = "Phone Number",
-                inputText = inputValue,
+                inputTextFieldValue = inputValue,
                 onValueChanged = {
                     if (it != null) inputValue = it
                 },

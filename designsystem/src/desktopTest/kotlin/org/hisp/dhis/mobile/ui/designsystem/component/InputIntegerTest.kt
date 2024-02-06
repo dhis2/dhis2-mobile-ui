@@ -13,6 +13,7 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
+import androidx.compose.ui.text.input.TextFieldValue
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.junit.Rule
 import org.junit.Test
@@ -38,14 +39,12 @@ class InputIntegerTest {
     @Test
     fun shouldAllowUserInputWhenEnabled() {
         rule.setContent {
-            var inputValue by rememberSaveable { mutableStateOf("") }
+            var inputValue by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue()) }
             InputInteger(
                 title = "Label",
-                inputText = inputValue,
+                inputTextFieldValue = inputValue,
                 onValueChanged = {
-                    if (it != null) {
-                        inputValue = it
-                    }
+                    inputValue = it ?: TextFieldValue()
                 },
                 state = InputShellState.UNFOCUSED,
             )
@@ -70,14 +69,12 @@ class InputIntegerTest {
     @Test
     fun shouldShowResetButtonWhenTextFieldHasContent() {
         rule.setContent {
-            var inputValue by rememberSaveable { mutableStateOf("") }
+            var inputValue by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue()) }
             InputInteger(
                 title = "Label",
-                inputText = inputValue,
+                inputTextFieldValue = inputValue,
                 onValueChanged = {
-                    if (it != null) {
-                        inputValue = it
-                    }
+                    inputValue = it ?: TextFieldValue()
                 },
                 state = InputShellState.UNFOCUSED,
             )
@@ -91,15 +88,13 @@ class InputIntegerTest {
     @Test
     fun shouldDeleteContentWhenResetButtonIsClickedAndHideResetButton() {
         rule.setContent {
-            var inputValue by rememberSaveable { mutableStateOf("Input") }
+            var inputValue by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("Input")) }
 
             InputInteger(
                 title = "Label",
-                inputText = inputValue,
+                inputTextFieldValue = inputValue,
                 onValueChanged = {
-                    if (it != null) {
-                        inputValue = it
-                    }
+                    inputValue = it ?: TextFieldValue()
                 },
                 state = InputShellState.UNFOCUSED,
             )
@@ -116,7 +111,7 @@ class InputIntegerTest {
         rule.setContent {
             InputInteger(
                 title = "Label",
-                inputText = "Input",
+                inputTextFieldValue = TextFieldValue("Input"),
                 legendData = LegendData(SurfaceColor.CustomGreen, "Legend"),
                 state = InputShellState.UNFOCUSED,
             )
@@ -131,7 +126,7 @@ class InputIntegerTest {
         rule.setContent {
             InputInteger(
                 title = "Label",
-                inputText = "Input",
+                inputTextFieldValue = TextFieldValue("Input"),
                 supportingText = listOf(SupportingTextData("Supporting text", SupportingTextState.DEFAULT)),
                 state = InputShellState.UNFOCUSED,
             )
@@ -143,14 +138,12 @@ class InputIntegerTest {
     @Test
     fun shouldNotAllowAnInitialValueOfZero() {
         rule.setContent {
-            var inputValue by rememberSaveable { mutableStateOf("") }
+            var inputValue by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue()) }
             InputInteger(
                 title = "Label",
-                inputText = inputValue,
+                inputTextFieldValue = inputValue,
                 onValueChanged = {
-                    if (it != null) {
-                        inputValue = it
-                    }
+                    inputValue = it ?: TextFieldValue()
                 },
                 state = InputShellState.UNFOCUSED,
             )
@@ -164,14 +157,12 @@ class InputIntegerTest {
     @Test
     fun shouldNotAllowDecimalValues() {
         rule.setContent {
-            var inputValue by rememberSaveable { mutableStateOf("") }
+            var inputValue by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue()) }
             InputInteger(
                 title = "Label",
-                inputText = inputValue,
+                inputTextFieldValue = inputValue,
                 onValueChanged = {
-                    if (it != null) {
-                        inputValue = it
-                    }
+                    inputValue = it ?: TextFieldValue()
                 },
                 state = InputShellState.UNFOCUSED,
             )
@@ -185,14 +176,12 @@ class InputIntegerTest {
     @Test
     fun shouldAllowNegativeValues() {
         rule.setContent {
-            var inputValue by rememberSaveable { mutableStateOf("") }
+            var inputValue by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue()) }
             InputInteger(
                 title = "Label",
-                inputText = inputValue,
+                inputTextFieldValue = inputValue,
                 onValueChanged = {
-                    if (it != null) {
-                        inputValue = it
-                    }
+                    inputValue = it ?: TextFieldValue()
                 },
                 state = InputShellState.UNFOCUSED,
             )

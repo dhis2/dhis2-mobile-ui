@@ -24,6 +24,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.TextFieldValue
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.DateTimeVisualTransformation
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.DateTransformation
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.RegExValidations
@@ -48,7 +49,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 @Composable
 fun InputDateTime(
     title: String,
-    value: String?,
+    inputTextFieldValue: TextFieldValue? = null,
     actionIconType: DateTimeActionIconType = DateTimeActionIconType.DATE_TIME,
     allowsManualInput: Boolean = true,
     onActionClicked: () -> Unit,
@@ -61,7 +62,7 @@ fun InputDateTime(
     imeAction: ImeAction = ImeAction.Next,
     visualTransformation: DateTimeVisualTransformation = DateTransformation(),
     onFocusChanged: ((Boolean) -> Unit) = {},
-    onValueChanged: (String) -> Unit,
+    onValueChanged: (TextFieldValue) -> Unit,
 ) {
     val allowedCharacters = RegExValidations.DATE_TIME.regex
     val focusManager = LocalFocusManager.current
@@ -80,14 +81,14 @@ fun InputDateTime(
                     modifier = Modifier
                         .testTag("INPUT_DATE_TIME_TEXT_FIELD")
                         .fillMaxWidth(),
-                    inputText = value.orEmpty(),
+                    inputTextValue = inputTextFieldValue ?: TextFieldValue(),
                     isSingleLine = true,
                     onInputChanged = { newText ->
-                        if (newText.length > visualTransformation.maskLength) {
+                        if (newText.text.length > visualTransformation.maskLength) {
                             return@BasicTextField
                         }
 
-                        if (allowedCharacters.containsMatchIn(newText) || newText.isBlank()) {
+                        if (allowedCharacters.containsMatchIn(newText.text) || newText.text.isBlank()) {
                             onValueChanged.invoke(newText)
                         }
                     },
@@ -109,9 +110,9 @@ fun InputDateTime(
                         modifier = Modifier
                             .testTag("INPUT_DATE_TIME_TEXT")
                             .fillMaxWidth(),
-                        text = value.orEmpty(),
+                        text = inputTextFieldValue?.text.orEmpty(),
                         style = MaterialTheme.typography.bodyLarge.copy(
-                            color = if (state != InputShellState.DISABLED && !value.isNullOrEmpty()) {
+                            color = if (state != InputShellState.DISABLED && !inputTextFieldValue?.text.isNullOrEmpty()) {
                                 TextColor.OnSurface
                             } else {
                                 TextColor.OnDisabledSurface
@@ -134,7 +135,7 @@ fun InputDateTime(
             }
         },
         primaryButton = {
-            if (!value.isNullOrBlank() && state != InputShellState.DISABLED) {
+            if (!inputTextFieldValue?.text.isNullOrBlank() && state != InputShellState.DISABLED) {
                 IconButton(
                     modifier = Modifier.testTag("INPUT_DATE_TIME_RESET_BUTTON").padding(Spacing.Spacing0),
                     icon = {
@@ -144,7 +145,7 @@ fun InputDateTime(
                         )
                     },
                     onClick = {
-                        onValueChanged.invoke("")
+                        onValueChanged.invoke(TextFieldValue())
                         focusRequester.requestFocus()
                     },
                 )

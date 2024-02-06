@@ -12,6 +12,7 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
+import androidx.compose.ui.text.input.TextFieldValue
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.junit.Rule
 import org.junit.Test
@@ -37,10 +38,10 @@ class InputNegativeIntegerTest {
     @Test
     fun shouldAllowUserInputWhenEnabled() {
         rule.setContent {
-            var inputValue by rememberSaveable { mutableStateOf("") }
+            var inputValue by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue()) }
             InputNegativeInteger(
                 title = "Label",
-                inputText = inputValue,
+                inputTextFieldValue = inputValue,
                 onValueChanged = {
                     if (it != null) {
                         inputValue = it
@@ -69,10 +70,10 @@ class InputNegativeIntegerTest {
     @Test
     fun shouldShowResetButtonWhenTextFieldHasContent() {
         rule.setContent {
-            var inputValue by rememberSaveable { mutableStateOf("") }
+            var inputValue by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue()) }
             InputNegativeInteger(
                 title = "Label",
-                inputText = inputValue,
+                inputTextFieldValue = inputValue,
                 onValueChanged = {
                     if (it != null) {
                         inputValue = it
@@ -90,11 +91,11 @@ class InputNegativeIntegerTest {
     @Test
     fun shouldDeleteContentWhenResetButtonIsClickedAndHideResetButton() {
         rule.setContent {
-            var inputValue by rememberSaveable { mutableStateOf("1234") }
+            var inputValue by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("1234")) }
 
             InputNegativeInteger(
                 title = "Label",
-                inputText = inputValue,
+                inputTextFieldValue = inputValue,
                 onValueChanged = {
                     if (it != null) {
                         inputValue = it
@@ -114,7 +115,7 @@ class InputNegativeIntegerTest {
         rule.setContent {
             InputNegativeInteger(
                 title = "Label",
-                inputText = "",
+                inputTextFieldValue = TextFieldValue(),
                 legendData = LegendData(SurfaceColor.CustomGreen, "Legend"),
                 state = InputShellState.UNFOCUSED,
             )
@@ -129,7 +130,7 @@ class InputNegativeIntegerTest {
         rule.setContent {
             InputNegativeInteger(
                 title = "Label",
-                inputText = "",
+                inputTextFieldValue = TextFieldValue(),
                 supportingText = listOf(SupportingTextData("Supporting text", SupportingTextState.DEFAULT)),
                 state = InputShellState.UNFOCUSED,
             )
@@ -141,10 +142,10 @@ class InputNegativeIntegerTest {
     @Test
     fun shouldNotAllowDecimalValues() {
         rule.setContent {
-            var inputValue by rememberSaveable { mutableStateOf("") }
+            var inputValue by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue()) }
             InputNegativeInteger(
                 title = "Label",
-                inputText = inputValue,
+                inputTextFieldValue = inputValue,
                 onValueChanged = {
                     if (it != null) {
                         inputValue = it
@@ -161,10 +162,10 @@ class InputNegativeIntegerTest {
     @Test
     fun shouldNotAllowValuesWithALeadingZero() {
         rule.setContent {
-            var inputValue by rememberSaveable { mutableStateOf("") }
+            var inputValue by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue()) }
             InputNegativeInteger(
                 title = "Label",
-                inputText = inputValue,
+                inputTextFieldValue = inputValue,
                 onValueChanged = {
                     if (it != null) {
                         inputValue = it

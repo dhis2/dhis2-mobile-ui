@@ -7,6 +7,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.TextFieldValue
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
 
 /**
@@ -33,23 +34,23 @@ fun InputBarCode(
     onActionButtonClicked: () -> Unit,
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
-    inputText: String? = null,
+    inputTextFieldValue: TextFieldValue? = null,
     isRequiredField: Boolean = false,
     autoCompleteList: List<String>? = null,
     autoCompleteItemSelected: ((String?) -> Unit)? = null,
     onNextClicked: (() -> Unit)? = null,
-    onValueChanged: ((String?) -> Unit)? = null,
+    onValueChanged: ((TextFieldValue?) -> Unit)? = null,
     onFocusChanged: ((Boolean) -> Unit)? = null,
     imeAction: ImeAction = ImeAction.Next,
     modifier: Modifier = Modifier,
 ) {
-    val actionButtonIconVector = mutableStateOf(if (inputText.isNullOrEmpty()) "material_barcode_scanner" else "material_barcode")
+    val actionButtonIconVector = mutableStateOf(if (inputTextFieldValue?.text.isNullOrEmpty()) "material_barcode_scanner" else "material_barcode")
     BasicTextInput(
         title = title,
         state = state,
         supportingText = supportingText,
         legendData = legendData,
-        inputText = inputText,
+        inputTextFieldValue = inputTextFieldValue,
         isRequiredField = isRequiredField,
         onNextClicked = onNextClicked,
         onValueChanged = onValueChanged,
@@ -60,7 +61,7 @@ fun InputBarCode(
         actionButton = {
             SquareIconButton(
                 modifier = Modifier.testTag("INPUT_BAR_CODE_BUTTON"),
-                enabled = (state == InputShellState.DISABLED && !inputText.isNullOrEmpty()) || state != InputShellState.DISABLED,
+                enabled = (state == InputShellState.DISABLED && !inputTextFieldValue?.text.isNullOrEmpty()) || state != InputShellState.DISABLED,
                 icon = {
                     Icon(
                         painter = provideDHIS2Icon(actionButtonIconVector.value),

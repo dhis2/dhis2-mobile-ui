@@ -6,6 +6,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.TextFieldValue
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.RegExValidations
 
 /**
@@ -33,12 +34,12 @@ fun InputLetter(
     state: InputShellState,
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
-    inputText: String? = null,
+    inputTextFieldValue: TextFieldValue? = null,
     isRequiredField: Boolean = false,
     autoCompleteList: List<String>? = null,
     autoCompleteItemSelected: ((String?) -> Unit)? = null,
     onNextClicked: (() -> Unit)? = null,
-    onValueChanged: ((String?) -> Unit)? = null,
+    onValueChanged: ((TextFieldValue?) -> Unit)? = null,
     onFocusChanged: ((Boolean) -> Unit)? = null,
     imeAction: ImeAction = ImeAction.Next,
     modifier: Modifier = Modifier,
@@ -48,7 +49,7 @@ fun InputLetter(
         state = state,
         supportingText = supportingText,
         legendData = legendData,
-        inputText = inputText,
+        inputTextFieldValue = inputTextFieldValue,
         isRequiredField = isRequiredField,
         onNextClicked = onNextClicked,
         onValueChanged = onValueChanged,

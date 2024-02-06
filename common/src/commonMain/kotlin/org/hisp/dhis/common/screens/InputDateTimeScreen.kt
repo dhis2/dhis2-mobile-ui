@@ -5,6 +5,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.text.input.TextFieldValue
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.DateTimeActionIconType
 import org.hisp.dhis.mobile.ui.designsystem.component.InputDateTime
@@ -16,13 +17,13 @@ import org.hisp.dhis.mobile.ui.designsystem.component.internal.TimeTransformatio
 @Composable
 fun InputDateTimeScreen() {
     ColumnComponentContainer {
-        var date by remember { mutableStateOf("") }
-        var time by remember { mutableStateOf("") }
-        var dateTime by remember { mutableStateOf("") }
+        var date by remember { mutableStateOf(TextFieldValue()) }
+        var time by remember { mutableStateOf(TextFieldValue()) }
+        var dateTime by remember { mutableStateOf(TextFieldValue()) }
 
         InputDateTime(
             title = "Label",
-            value = date,
+            inputTextFieldValue = date,
             visualTransformation = DateTransformation(),
             actionIconType = DateTimeActionIconType.DATE,
             onActionClicked = {
@@ -33,7 +34,7 @@ fun InputDateTimeScreen() {
 
         InputDateTime(
             title = "Label",
-            value = time,
+            inputTextFieldValue = time,
             visualTransformation = TimeTransformation(),
             actionIconType = DateTimeActionIconType.TIME,
             onActionClicked = {
@@ -44,7 +45,7 @@ fun InputDateTimeScreen() {
 
         InputDateTime(
             title = "Label",
-            value = dateTime,
+            inputTextFieldValue = dateTime,
             visualTransformation = DateTimeTransformation(),
             actionIconType = DateTimeActionIconType.DATE_TIME,
             onActionClicked = {
@@ -55,7 +56,7 @@ fun InputDateTimeScreen() {
 
         InputDateTime(
             title = "Label",
-            value = "",
+            inputTextFieldValue = TextFieldValue(),
             state = InputShellState.DISABLED,
             onActionClicked = {
                 // no-op
@@ -67,7 +68,7 @@ fun InputDateTimeScreen() {
 
         InputDateTime(
             title = "Label",
-            value = "",
+            inputTextFieldValue = TextFieldValue(),
             isRequired = true,
             state = InputShellState.ERROR,
             onActionClicked = {
