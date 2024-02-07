@@ -28,10 +28,15 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
+import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 
 private const val INLINE_CHECKBOXES_MIN_REQ_ITEMS = 6
 
@@ -183,7 +188,7 @@ private fun SelectedItemChip(
     if (item.checked) {
         InputChip(
             modifier = modifier.testTag("INPUT_MULTI_SELECT_CHECKBOX_CHIP_ITEM_$index"),
-            label = item.textInput!!,
+            label = item.textInput!!.toString(),
             selected = false,
             enabled = enabled,
             withTrailingIcon = true,
@@ -223,7 +228,12 @@ private fun MultiSelectBottomSheet(
                 if (filteredOptions.isNotEmpty()) {
                     filteredOptions.forEachIndexed { index, item ->
                         CheckBox(
-                            checkBoxData = item,
+                            checkBoxData = item.copy(
+                                textInput = bottomSheetItemLabel(
+                                    text = item.textInput!!,
+                                    searchQuery = searchQuery,
+                                ),
+                            ),
                             onCheckedChange = {
                                 filteredOptions[index] = item.copy(checked = it)
                                 itemsModified.add(item.copy(checked = it))
@@ -263,4 +273,40 @@ private fun MultiSelectBottomSheet(
             )
         },
     )
+}
+
+private fun bottomSheetItemLabel(
+    text: AnnotatedString,
+    searchQuery: String,
+): AnnotatedString {
+    val label = buildAnnotatedString {
+        val highlightIndexStart = text.indexOf(searchQuery, ignoreCase = true)
+        val highlightIndexEnd = highlightIndexStart + searchQuery.length
+
+        if (highlightIndexStart >= 0) {
+            append(text.substring(0, highlightIndexStart))
+
+            withStyle(
+                SpanStyle(background = SurfaceColor.Primary.copy(alpha = 0.1f)),
+            ) {
+                append(
+                    text.substring(
+                        startIndex = highlightIndexStart,
+                        endIndex = highlightIndexEnd,
+                    ),
+                )
+            }
+
+            append(
+                text.substring(
+                    startIndex = highlightIndexEnd,
+                    endIndex = text.length,
+                ),
+            )
+        } else {
+            append(text)
+        }
+    }
+
+    return label
 }
