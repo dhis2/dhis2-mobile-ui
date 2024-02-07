@@ -61,7 +61,8 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import java.text.SimpleDateFormat
 import java.util.Calendar
-import java.util.Locale
+import java.util.Date
+import java.util.TimeZone
 
 /**
  * Input field to enter date, time or date&time. It will format content based on given visual
@@ -405,9 +406,11 @@ fun getTime(timePickerState: TimePickerState, format: String? = "HHmm"): String 
 
 fun parseStringDateToMillis(dateString: String, pattern: String = "ddMMyyyy"): Long {
     return if (dateString.isNotEmpty()) {
-        val dateFormat = SimpleDateFormat(pattern, Locale.getDefault())
-        val date = dateFormat.parse(dateString)
-        date?.time ?: 0L
+        val cal = Calendar.getInstance()
+        val sdf = SimpleDateFormat(pattern)
+        sdf.setTimeZone(TimeZone.getTimeZone("UTC"))
+        cal.time = sdf.parse(dateString) ?: Date()
+        cal.timeInMillis
     } else {
         0L
     }
