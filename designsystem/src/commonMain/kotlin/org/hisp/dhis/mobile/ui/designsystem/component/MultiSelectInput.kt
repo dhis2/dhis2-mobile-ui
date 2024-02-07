@@ -1,5 +1,6 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -7,6 +8,7 @@ import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredHeightIn
 import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
@@ -22,6 +24,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.testTag
@@ -94,7 +97,8 @@ fun MultiSelectInput(
                     Column(modifier = Modifier.testTag("INPUT_MULTI_SELECT_CHECKBOX_LIST")) {
                         items.forEachIndexed { index, item ->
                             CheckBox(
-                                modifier = Modifier.testTag("INPUT_MULTI_SELECT_CHECKBOX_LIST_ITEM_$index").fillMaxWidth(),
+                                modifier = Modifier.testTag("INPUT_MULTI_SELECT_CHECKBOX_LIST_ITEM_$index")
+                                    .fillMaxWidth(),
                                 checkBoxData = item.copy(
                                     enabled = state != InputShellState.DISABLED,
                                 ),
@@ -106,16 +110,34 @@ fun MultiSelectInput(
                         }
                     }
                 } else {
-                    FlowRow(
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    ) {
-                        items.forEachIndexed { index, item ->
-                            SelectedItemChip(
-                                item = item,
-                                index = index,
-                                enabled = state != InputShellState.DISABLED,
-                            ) { newItem ->
-                                onItemsSelected(listOf(newItem))
+                    Box(Modifier.fillMaxWidth()) {
+                        Box(
+                            modifier = Modifier
+                                .testTag("INPUT_MULTI_SELECT_CLICKABLE")
+                                .matchParentSize()
+                                .requiredHeightIn(min = Spacing.Spacing48)
+                                .alpha(0f)
+                                .clickable(
+                                    enabled = state != InputShellState.DISABLED &&
+                                        items.size > INLINE_CHECKBOXES_MIN_REQ_ITEMS,
+                                    onClick = {
+                                        focusRequester.requestFocus()
+                                        showMultiSelectBottomSheet = true
+                                    },
+                                ),
+                        )
+
+                        FlowRow(
+                            horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        ) {
+                            items.forEachIndexed { index, item ->
+                                SelectedItemChip(
+                                    item = item,
+                                    index = index,
+                                    enabled = state != InputShellState.DISABLED,
+                                ) { newItem ->
+                                    onItemsSelected(listOf(newItem))
+                                }
                             }
                         }
                     }
