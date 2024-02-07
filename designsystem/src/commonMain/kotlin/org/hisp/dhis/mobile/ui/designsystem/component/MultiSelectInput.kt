@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeightIn
 import androidx.compose.foundation.layout.requiredSize
@@ -99,7 +100,10 @@ fun MultiSelectInput(
             modifier = modifier.testTag("INPUT_MULTI_SELECT").focusRequester(focusRequester),
             inputField = {
                 if (items.size <= INLINE_CHECKBOXES_MIN_REQ_ITEMS) {
-                    Column(modifier = Modifier.testTag("INPUT_MULTI_SELECT_CHECKBOX_LIST")) {
+                    Column(
+                        modifier = Modifier.testTag("INPUT_MULTI_SELECT_CHECKBOX_LIST")
+                            .offset(x = -Spacing.Spacing8),
+                    ) {
                         items.forEachIndexed { index, item ->
                             CheckBox(
                                 modifier = Modifier.testTag("INPUT_MULTI_SELECT_CHECKBOX_LIST_ITEM_$index")
@@ -133,7 +137,7 @@ fun MultiSelectInput(
                         )
 
                         FlowRow(
-                            horizontalArrangement = Arrangement.spacedBy(8.dp),
+                            horizontalArrangement = Arrangement.spacedBy(Spacing.Spacing8),
                         ) {
                             items.forEachIndexed { index, item ->
                                 SelectedItemChip(
