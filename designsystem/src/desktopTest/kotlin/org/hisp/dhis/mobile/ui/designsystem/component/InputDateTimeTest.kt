@@ -84,7 +84,7 @@ class InputDateTimeTest {
                         input = it ?: TextFieldValue()
                     },
                     format = "HHMM",
-                    actionType = DateTimeActionType.TIME
+                    actionType = DateTimeActionType.TIME,
                 ),
 
             )

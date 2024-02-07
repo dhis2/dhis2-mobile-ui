@@ -47,9 +47,9 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import androidx.compose.ui.text.input.TextFieldValue
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.DateTimeVisualTransformation
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.DateTransformation
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.RegExValidations
@@ -99,7 +99,7 @@ fun InputDateTime(
                             return@BasicTextField
                         }
 
-                        if (allowedCharacters.containsMatchIn(newText) || newText.isBlank()) {
+                        if (allowedCharacters.containsMatchIn(newText.text) || newText.text.isBlank()) {
                             uiModel.onValueChanged.invoke(newText)
                         }
                     },
@@ -149,7 +149,7 @@ fun InputDateTime(
             }
         },
         primaryButton = {
-            if (!uiModel.inputTextFieldValue?.text.isNullOrBlank() && state != InputShellState.DISABLED) {
+            if (!uiModel.inputTextFieldValue?.text.isNullOrBlank() && uiModel.state != InputShellState.DISABLED) {
                 IconButton(
                     modifier = Modifier.testTag("INPUT_DATE_TIME_RESET_BUTTON").padding(Spacing.Spacing0),
                     icon = {
@@ -204,14 +204,14 @@ fun InputDateTime(
                 Legend(uiModel.legendData, Modifier.testTag("INPUT_DATE_TIME_LEGEND"))
             }
         },
-        inputStyle = inputStyle,
+        inputStyle = uiModel.inputStyle,
     )
     var datePickerState = rememberDatePickerState()
-    if (!uiModel.value.isNullOrEmpty() && uiModel.actionType != DateTimeActionType.TIME) {
-        datePickerState = if (uiModel.actionType == DateTimeActionType.DATE_TIME && uiModel.value.length == 12) {
-            rememberDatePickerState(initialSelectedDateMillis = parseStringDateToMillis(uiModel.value.substring(0, uiModel.value.length - 4)))
+    if (!uiModel.inputTextFieldValue?.text.isNullOrEmpty() && uiModel.actionType != DateTimeActionType.TIME) {
+        datePickerState = if (uiModel.actionType == DateTimeActionType.DATE_TIME && uiModel.inputTextFieldValue?.text?.length == 12) {
+            rememberDatePickerState(initialSelectedDateMillis = parseStringDateToMillis(uiModel.inputTextFieldValue.text.substring(0, uiModel.inputTextFieldValue.text.length - 4)))
         } else {
-            rememberDatePickerState(initialSelectedDateMillis = parseStringDateToMillis(uiModel.value))
+            rememberDatePickerState(initialSelectedDateMillis = parseStringDateToMillis(uiModel.inputTextFieldValue!!.text))
         }
     }
 
@@ -272,11 +272,19 @@ fun InputDateTime(
 
     if (showTimePicker) {
         var timePickerState = rememberTimePickerState(0, 0, is24Hour = uiModel.is24hourFormat)
-        if (!uiModel.value.isNullOrEmpty() && uiModel.actionType == DateTimeActionType.TIME) {
-            timePickerState = rememberTimePickerState(initialHour = uiModel.value.substring(0, 2).toInt(), uiModel.value.substring(2, 4).toInt(), is24Hour = uiModel.is24hourFormat)
+        if (!uiModel.inputTextFieldValue?.text.isNullOrEmpty() && uiModel.actionType == DateTimeActionType.TIME) {
+            timePickerState = rememberTimePickerState(
+                initialHour = uiModel.inputTextFieldValue?.text?.substring(0, 2)!!
+                    .toInt(),
+                uiModel.inputTextFieldValue.text.substring(2, 4).toInt(), is24Hour = uiModel.is24hourFormat,
+            )
         } else {
-            if (uiModel.value?.length == 12) {
-                timePickerState = rememberTimePickerState(initialHour = uiModel.value.substring(uiModel.value.length - 4, uiModel.value.length - 2).toInt(), uiModel.value.substring(uiModel.value.length - 2, uiModel.value.length).toInt(), is24Hour = uiModel.is24hourFormat)
+            if (uiModel.inputTextFieldValue?.text?.length == 12) {
+                timePickerState = rememberTimePickerState(
+                    initialHour = uiModel.inputTextFieldValue.text.substring(uiModel.inputTextFieldValue.text.length - 4, uiModel.inputTextFieldValue.text.length - 2)
+                        .toInt(),
+                    uiModel.inputTextFieldValue.text.substring(uiModel.inputTextFieldValue.text.length - 2, uiModel.inputTextFieldValue.text.length).toInt(), is24Hour = uiModel.is24hourFormat,
+                )
             }
         }
         Dialog(
@@ -338,7 +346,7 @@ enum class DateTimeActionType {
 /**
  * UiModel used for [InputDateTime]
  * @param title : Label of the component.
- * @param value: Input of the component in the format of DDMMYYYY/HHMM/DDMMYYYYHHMM
+ * @param inputTextFieldValue: Input of the component in the format of DDMMYYYY/HHMM/DDMMYYYYHHMM
  * @param actionType: Type of action icon to display. [DateTimeActionType.DATE_TIME], [DateTimeActionType.DATE], [DateTimeActionType.TIME]
  * @param onActionClicked: Callback to handle the action when the calendar icon is clicked.
  * @param state: [InputShellState]
@@ -365,6 +373,7 @@ data class InputDateTimeModel(
     val onFocusChanged: ((Boolean) -> Unit) = {},
     val onValueChanged: (TextFieldValue?) -> Unit,
     val is24hourFormat: Boolean = false,
+    val inputStyle: InputStyle = InputStyle.DataInputStyle(),
 )
 
 fun getDate(milliSeconds: Long?, format: String? = "ddMMYYYY"): String {

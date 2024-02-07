@@ -24,8 +24,8 @@ fun InputDateTimeScreen() {
         var dateTime by remember { mutableStateOf(TextFieldValue("121119910230")) }
         var dateTime24hour by remember { mutableStateOf(TextFieldValue("121119911930")) }
 
-        var dateTimenoInput by remember {mutableStateOf (TextFieldValue("11112014")) }
-        var hour24time by remember {mutableStateOf(TextFieldValue("1630"))  }
+        var dateTimenoInput by remember { mutableStateOf(TextFieldValue("11112014")) }
+        var hour24time by remember { mutableStateOf(TextFieldValue("1630")) }
 
         SubTitle("Date Input")
         InputDateTime(
@@ -47,13 +47,13 @@ fun InputDateTimeScreen() {
         InputDateTime(
             InputDateTimeModel(
                 title = "Label",
-                value = dateTimenoInput,
+                inputTextFieldValue = dateTimenoInput,
                 visualTransformation = DateTransformation(),
                 actionType = DateTimeActionType.DATE,
                 onActionClicked = {
                     // no-op
                 },
-                onValueChanged = { dateTimenoInput = it },
+                onValueChanged = { dateTimenoInput = it ?: TextFieldValue() },
                 format = "ddMMYYYYY",
                 allowsManualInput = false,
             ),
@@ -88,7 +88,7 @@ fun InputDateTimeScreen() {
                 onActionClicked = {
                     // no-op
                 },
-                onValueChanged = { time = it?: TextFieldValue() },
+                onValueChanged = { time = it ?: TextFieldValue() },
                 format = "HHMM",
 
             ),

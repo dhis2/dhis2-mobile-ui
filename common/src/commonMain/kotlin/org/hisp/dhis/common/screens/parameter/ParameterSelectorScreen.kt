@@ -22,6 +22,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.InputAge
 import org.hisp.dhis.mobile.ui.designsystem.component.InputBarCode
 import org.hisp.dhis.mobile.ui.designsystem.component.InputCheckBox
 import org.hisp.dhis.mobile.ui.designsystem.component.InputDateTime
+import org.hisp.dhis.mobile.ui.designsystem.component.InputDateTimeModel
 import org.hisp.dhis.mobile.ui.designsystem.component.InputDropDown
 import org.hisp.dhis.mobile.ui.designsystem.component.InputEmail
 import org.hisp.dhis.mobile.ui.designsystem.component.InputInteger
@@ -201,11 +202,15 @@ fun ParameterSelectorScreen() {
             helper = "Optional",
             inputField = {
                 InputDateTime(
-                    title = "DateTime parameter",
-                    inputStyle = InputStyle.ParameterInputStyle(),
-                    inputTextFieldValue = TextFieldValue(),
-                    onActionClicked = {},
-                    onValueChanged = {},
+                    InputDateTimeModel(
+                        title = "DateTime parameter",
+                        inputStyle = InputStyle.ParameterInputStyle(),
+                        inputTextFieldValue = TextFieldValue(),
+                        onActionClicked = {},
+                        onValueChanged = {},
+                        format = "ddMMYYYY",
+                    ),
+
                 )
             },
             onExpand = {},
