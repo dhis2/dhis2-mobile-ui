@@ -53,6 +53,7 @@ import androidx.compose.ui.window.DialogProperties
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.DateTimeVisualTransformation
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.DateTransformation
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.RegExValidations
+import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2LightColorScheme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
@@ -226,7 +227,7 @@ fun InputDateTime(
                         enabled = true,
                         ButtonStyle.TEXT,
                         ColorStyle.DEFAULT,
-                        "OK",
+                        uiModel.acceptText ?: provideStringResource("ok"),
                     ) {
                         showDatePicker = false
                         if (uiModel.actionType != DateTimeActionType.DATE_TIME) {
@@ -244,7 +245,7 @@ fun InputDateTime(
                         enabled = true,
                         ButtonStyle.TEXT,
                         ColorStyle.DEFAULT,
-                        "Cancel",
+                        uiModel.cancelText ?: provideStringResource("cancel"),
 
                     ) {
                         showDatePicker = false
@@ -315,7 +316,7 @@ fun InputDateTime(
                         enabled = true,
                         ButtonStyle.TEXT,
                         ColorStyle.DEFAULT,
-                        "Cancel",
+                        uiModel.cancelText ?: provideStringResource("cancel"),
 
                     ) {
                         showTimePicker = false
@@ -324,7 +325,7 @@ fun InputDateTime(
                         enabled = true,
                         ButtonStyle.TEXT,
                         ColorStyle.DEFAULT,
-                        "OK",
+                        uiModel.acceptText ?: provideStringResource("ok"),
                     ) {
                         showTimePicker = false
                         if (uiModel.actionType != DateTimeActionType.DATE_TIME) {
@@ -374,6 +375,9 @@ data class InputDateTimeModel(
     val onValueChanged: (TextFieldValue?) -> Unit,
     val is24hourFormat: Boolean = false,
     val inputStyle: InputStyle = InputStyle.DataInputStyle(),
+    val acceptText: String? = null,
+    val cancelText: String? = null,
+
 )
 
 fun getDate(milliSeconds: Long?, format: String? = "ddMMYYYY"): String {

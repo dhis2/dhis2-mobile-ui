@@ -162,7 +162,7 @@ fun InputDropDown(
                 .background(
                     color = SurfaceColor.SurfaceBright,
                     shape = RoundedCornerShape(Spacing8),
-                ),
+                ).focusRequester(focusRequester),
         ) {
             inputField(Modifier)
 
