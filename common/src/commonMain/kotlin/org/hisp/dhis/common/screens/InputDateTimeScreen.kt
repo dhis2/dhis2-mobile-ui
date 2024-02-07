@@ -33,7 +33,7 @@ fun InputDateTimeScreen() {
                 title = "Label",
                 inputTextFieldValue = date,
                 visualTransformation = DateTransformation(),
-                actionIconType = DateTimeActionType.DATE,
+                actionType = DateTimeActionType.DATE,
                 onActionClicked = {
                     // no-op
                 },
@@ -49,7 +49,7 @@ fun InputDateTimeScreen() {
                 title = "Label",
                 value = dateTimenoInput,
                 visualTransformation = DateTransformation(),
-                actionIconType = DateTimeActionType.DATE,
+                actionType = DateTimeActionType.DATE,
                 onActionClicked = {
                     // no-op
                 },
@@ -66,7 +66,7 @@ fun InputDateTimeScreen() {
                 title = "Label",
                 inputTextFieldValue = hour24time,
                 visualTransformation = TimeTransformation(),
-                actionIconType = DateTimeActionType.TIME,
+                actionType = DateTimeActionType.TIME,
                 onActionClicked = {
                     // no-op
                 },
@@ -84,7 +84,7 @@ fun InputDateTimeScreen() {
                 title = "Label",
                 inputTextFieldValue = time,
                 visualTransformation = TimeTransformation(),
-                actionIconType = DateTimeActionType.TIME,
+                actionType = DateTimeActionType.TIME,
                 onActionClicked = {
                     // no-op
                 },
@@ -103,7 +103,7 @@ fun InputDateTimeScreen() {
                 title = "Label",
                 inputTextFieldValue = dateTime,
                 visualTransformation = DateTimeTransformation(),
-                actionIconType = DateTimeActionType.DATE_TIME,
+                actionType = DateTimeActionType.DATE_TIME,
                 onActionClicked = {
                     // no-op
                 },
@@ -120,7 +120,7 @@ fun InputDateTimeScreen() {
                 title = "Label",
                 inputTextFieldValue = dateTime24hour,
                 visualTransformation = DateTimeTransformation(),
-                actionIconType = DateTimeActionType.DATE_TIME,
+                actionType = DateTimeActionType.DATE_TIME,
                 onActionClicked = {
                     // no-op
                 },

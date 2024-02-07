@@ -6,6 +6,7 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.text.input.TextFieldValue
+import org.hisp.dhis.mobile.ui.designsystem.component.DateTimeActionType
 import org.hisp.dhis.mobile.ui.designsystem.component.InputDateTime
 import org.hisp.dhis.mobile.ui.designsystem.component.InputDateTimeModel
 import org.junit.Rule
@@ -23,7 +24,7 @@ class InputDateTimeTest {
             InputDateTime(
                 InputDateTimeModel(
                     title = "Label",
-                    inputTextFieldValue = input.,
+                    inputTextFieldValue = input,
                     onActionClicked = {
                         // no-op
                     },
@@ -82,8 +83,8 @@ class InputDateTimeTest {
                     onValueChanged = {
                         input = it ?: TextFieldValue()
                     },
-                    format = "ddMMYYYY",
-
+                    format = "HHMM",
+                    actionType = DateTimeActionType.TIME
                 ),
 
             )
