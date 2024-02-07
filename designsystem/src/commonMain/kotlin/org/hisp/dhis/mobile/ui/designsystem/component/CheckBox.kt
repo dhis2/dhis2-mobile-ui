@@ -17,6 +17,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.text.AnnotatedString
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.Ripple
@@ -85,12 +86,13 @@ fun CheckBox(
                 ),
             )
         }
-        checkBoxData.textInput?.let {
+
+        if (!checkBoxData.textInput.isNullOrBlank()) {
             Text(
                 modifier = Modifier
                     .padding(top = Spacing.Spacing8, bottom = Spacing.Spacing8)
                     .hoverPointerIcon(checkBoxData.enabled),
-                text = it,
+                text = checkBoxData.textInput,
                 color = textColor,
                 style = MaterialTheme.typography.bodyLarge,
             )
@@ -148,5 +150,13 @@ data class CheckBoxData(
     val uid: String,
     val checked: Boolean,
     val enabled: Boolean,
-    val textInput: String?,
-)
+    val textInput: AnnotatedString?,
+) {
+
+    constructor(uid: String, checked: Boolean, enabled: Boolean, textInput: String) : this(
+        uid = uid,
+        checked = checked,
+        enabled = enabled,
+        textInput = AnnotatedString(textInput),
+    )
+}

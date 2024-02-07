@@ -19,6 +19,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.unit.IntOffset
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
@@ -37,8 +38,21 @@ fun InputChip(
     onSelected: ((Boolean) -> Unit)? = null,
     onIconSelected: (() -> Unit)? = null,
     badge: String? = null,
+    hasTransparentBackground: Boolean = false,
 ) {
     Box(modifier = modifier) {
+        val filterChipColors = if (hasTransparentBackground) {
+            FilterChipDefaults.filterChipColors(
+                containerColor = Color.Transparent,
+                selectedContainerColor = Color.Transparent,
+            )
+        } else {
+            FilterChipDefaults.filterChipColors(
+                containerColor = SurfaceColor.SurfaceBright,
+                selectedContainerColor = SurfaceColor.Container,
+            )
+        }
+
         CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme()) {
             androidx.compose.material3.InputChip(
                 enabled = enabled,
@@ -56,10 +70,7 @@ fun InputChip(
                     )
                 },
                 selected = selected,
-                colors = FilterChipDefaults.filterChipColors(
-                    containerColor = SurfaceColor.SurfaceBright,
-                    selectedContainerColor = SurfaceColor.Container,
-                ),
+                colors = filterChipColors,
                 border = FilterChipDefaults.filterChipBorder(
                     borderColor = Outline.Dark,
                     disabledBorderColor = Outline.Medium,
