@@ -16,6 +16,7 @@ fun InputYesOnlyCheckBox(
     checkBoxData: CheckBoxData,
     modifier: Modifier = Modifier,
     state: InputShellState,
+    inputStyle: InputStyle = InputStyle.DataInputStyle(),
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
     isRequired: Boolean = false,
@@ -60,5 +61,6 @@ fun InputYesOnlyCheckBox(
                 onClick.invoke(it)
             }
         },
+        inputStyle = inputStyle,
     )
 }

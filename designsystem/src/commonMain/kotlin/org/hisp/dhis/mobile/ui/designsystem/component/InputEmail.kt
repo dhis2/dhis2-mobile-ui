@@ -46,6 +46,7 @@ fun InputEmail(
     imeAction: ImeAction = ImeAction.Next,
     modifier: Modifier = Modifier,
     onEmailActionCLicked: () -> Unit,
+    inputStyle: InputStyle = InputStyle.DataInputStyle(),
 ) {
     val isValidEmailAddress = RegExValidations.EMAIL.regex.matches(inputTextFieldValue?.text.orEmpty())
     BasicTextInput(
@@ -67,7 +68,7 @@ fun InputEmail(
         actionButton = {
             SquareIconButton(
                 modifier = Modifier.testTag("EMAIL_BUTTON"),
-                enabled = isValidEmailAddress,
+                enabled = isButtonEnabled(inputStyle, isValidEmailAddress),
                 icon = {
                     Icon(
                         imageVector = Icons.Outlined.Email,
@@ -79,5 +80,12 @@ fun InputEmail(
         },
         autoCompleteList = autoCompleteList,
         autoCompleteItemSelected = autoCompleteItemSelected,
+        inputStyle = inputStyle,
     )
 }
+
+private fun isButtonEnabled(inputStyle: InputStyle, isValidEmailAddress: Boolean) =
+    when (inputStyle) {
+        is InputStyle.DataInputStyle -> isValidEmailAddress
+        is InputStyle.ParameterInputStyle -> false
+    }

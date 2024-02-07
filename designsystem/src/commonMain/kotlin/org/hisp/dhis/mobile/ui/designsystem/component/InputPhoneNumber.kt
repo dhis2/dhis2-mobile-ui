@@ -13,7 +13,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.RegExValidations
 
 /**
- * DHIS2 Input Phone Number
+ * DHIS2 Input Phone Number. Wraps DHIS · [BasicTextInput].
  * Input that allows only numeric values for entering phone number.
  *
  * @param title controls the text to be shown for the title
@@ -37,6 +37,7 @@ fun InputPhoneNumber(
     modifier: Modifier = Modifier,
     maxLength: Int = 12,
     state: InputShellState,
+    inputStyle: InputStyle = InputStyle.DataInputStyle(),
     legendData: LegendData? = null,
     inputTextFieldValue: TextFieldValue? = null,
     isRequiredField: Boolean = false,
@@ -53,6 +54,7 @@ fun InputPhoneNumber(
     BasicTextInput(
         title = title,
         state = state,
+        inputStyle = inputStyle,
         supportingText = supportingText,
         legendData = legendData,
         inputTextFieldValue = inputTextFieldValue,
@@ -65,14 +67,17 @@ fun InputPhoneNumber(
                 // no-op
             }
         },
-        keyboardOptions = KeyboardOptions(imeAction = imeAction, keyboardType = KeyboardType.Number),
+        keyboardOptions = KeyboardOptions(
+            imeAction = imeAction,
+            keyboardType = KeyboardType.Number,
+        ),
         allowedCharacters = allowedCharacters.regex,
         modifier = modifier,
         testTag = "PHONE_NUMBER",
         actionButton = {
             SquareIconButton(
                 modifier = Modifier.testTag("CALL_PHONE_NUMBER_BUTTON"),
-                enabled = hasMinimumPhoneNumberInput,
+                enabled = isButtonEnabled(inputStyle, hasMinimumPhoneNumberInput),
                 icon = {
                     Icon(
                         imageVector = Icons.Filled.Phone,
@@ -89,3 +94,9 @@ fun InputPhoneNumber(
         autoCompleteItemSelected = autoCompleteItemSelected,
     )
 }
+
+private fun isButtonEnabled(inputStyle: InputStyle, hasMinimumPhoneNumberInput: Boolean) =
+    when (inputStyle) {
+        is InputStyle.DataInputStyle -> hasMinimumPhoneNumberInput
+        is InputStyle.ParameterInputStyle -> false
+    }

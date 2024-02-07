@@ -12,6 +12,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import org.hisp.dhis.common.screens.previews.InputShellPreview
 import org.hisp.dhis.mobile.ui.designsystem.component.BasicTextField
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
+import org.hisp.dhis.mobile.ui.designsystem.component.HelperStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.InputStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
@@ -21,7 +22,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 fun FormsComponentsScreen() {
     ColumnComponentContainer("Input Shell") {
         SubTitle("Sample functional Input Shell ")
-        InputShellPreview("Label", inputField = { BasicTextField("Helper", true, helperStyle = InputStyle.WITH_HELPER_BEFORE, onInputChanged = {}) })
+        InputShellPreview("Label", inputField = { BasicTextField("Helper", true, helperStyle = HelperStyle.WITH_HELPER_BEFORE, onInputChanged = {}) })
         Spacer(Modifier.size(Spacing.Spacing18))
         SubTitle("Unfocused Input shell ")
         InputShellPreview("Label")
@@ -40,7 +41,7 @@ fun FormsComponentsScreen() {
         InputShellPreview(
             title = "Label",
             state = InputShellState.UNFOCUSED,
-            hasTransparentBackground = true,
+            inputStyle = InputStyle.ParameterInputStyle(),
             onInputClear = {
                 inputField = ""
             },
@@ -49,7 +50,7 @@ fun FormsComponentsScreen() {
                     helper = "Helper",
                     inputTextValue = TextFieldValue(inputField),
                     enabled = true,
-                    helperStyle = InputStyle.WITH_HELPER_BEFORE,
+                    helperStyle = HelperStyle.WITH_HELPER_BEFORE,
                     onInputChanged = {
                         inputField = it.text
                     },

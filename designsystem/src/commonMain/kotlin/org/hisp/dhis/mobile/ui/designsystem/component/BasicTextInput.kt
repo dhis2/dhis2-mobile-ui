@@ -69,11 +69,12 @@ internal fun BasicTextInput(
     keyboardOptions: KeyboardOptions,
     allowedCharacters: Regex? = null,
     helper: String? = null,
-    helperStyle: InputStyle = InputStyle.NONE,
+    helperStyle: HelperStyle = HelperStyle.NONE,
     testTag: String = "",
     isSingleLine: Boolean = true,
     actionButton: @Composable (() -> Unit)? = null,
     modifier: Modifier = Modifier,
+    inputStyle: InputStyle,
 ) {
     var inputValue by remember(inputTextFieldValue) { mutableStateOf(inputTextFieldValue) }
 
@@ -214,6 +215,7 @@ internal fun BasicTextInput(
                 }
             },
             onFocusChanged = onFocusChanged,
+            inputStyle = inputStyle,
         )
     }
 }

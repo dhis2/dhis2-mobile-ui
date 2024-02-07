@@ -61,4 +61,5 @@ enum class Components(val label: String) {
     FULL_SCREEN_IMAGE("Full Screen Image"),
     ORG_TREE_BOTTOM_SHEET("Org Tree Bottom Sheet"),
     INDICATOR_INPUT("Indicator Input"),
+    PARAMETER_SELECTOR("Parameter selector"),
 }

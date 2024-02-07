@@ -32,6 +32,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.internal.RegExValidations
 fun InputNumber(
     title: String,
     state: InputShellState,
+    inputStyle: InputStyle = InputStyle.DataInputStyle(),
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
     inputTextFieldValue: TextFieldValue? = null,
@@ -48,6 +49,7 @@ fun InputNumber(
     BasicTextInput(
         title = title,
         state = state,
+        inputStyle = inputStyle,
         supportingText = supportingText,
         legendData = legendData,
         inputTextFieldValue = inputTextFieldValue,

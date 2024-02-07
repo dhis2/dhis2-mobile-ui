@@ -38,6 +38,7 @@ fun InputCheckBox(
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
     isRequired: Boolean = false,
+    inputStyle: InputStyle = InputStyle.DataInputStyle(),
     onItemChange: (CheckBoxData) -> Unit,
     onClearSelection: () -> Unit,
 ) {
@@ -91,5 +92,6 @@ fun InputCheckBox(
                 Spacer(modifier = Modifier.width(Spacing.Spacing48))
             }
         },
+        inputStyle = inputStyle,
     )
 }

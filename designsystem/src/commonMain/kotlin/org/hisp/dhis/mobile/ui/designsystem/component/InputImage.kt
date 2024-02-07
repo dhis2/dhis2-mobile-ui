@@ -31,6 +31,7 @@ import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 fun <T> InputImage(
     title: String,
     state: InputShellState = InputShellState.UNFOCUSED,
+    inputStyle: InputStyle = InputStyle.DataInputStyle(),
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
     uploadState: UploadState = UploadState.ADD,
@@ -48,6 +49,7 @@ fun <T> InputImage(
     BasicInputImage(
         title = title,
         state = state,
+        inputStyle = inputStyle,
         supportingText = supportingText,
         legendData = legendData,
         addButtonText = addImageBtnText,

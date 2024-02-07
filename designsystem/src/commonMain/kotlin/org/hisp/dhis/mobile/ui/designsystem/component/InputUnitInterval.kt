@@ -12,6 +12,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.internal.RegExValidations
 fun InputUnitInterval(
     title: String,
     state: InputShellState,
+    inputStyle: InputStyle = InputStyle.DataInputStyle(),
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
     inputTextFieldValue: TextFieldValue? = null,
@@ -24,6 +25,7 @@ fun InputUnitInterval(
     BasicTextInput(
         title = title,
         state = state,
+        inputStyle = inputStyle,
         supportingText = supportingText,
         legendData = legendData,
         inputTextFieldValue = inputTextFieldValue,

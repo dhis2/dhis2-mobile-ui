@@ -30,6 +30,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.internal.RegExValidations
 fun InputPercentage(
     title: String,
     state: InputShellState,
+    inputStyle: InputStyle = InputStyle.DataInputStyle(),
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
     inputTextFieldValue: TextFieldValue? = null,
@@ -45,13 +46,14 @@ fun InputPercentage(
     BasicTextInput(
         title = title,
         state = state,
+        inputStyle = inputStyle,
         supportingText = supportingText,
         legendData = legendData,
         inputTextFieldValue = inputTextFieldValue,
         isRequiredField = isRequiredField,
         onNextClicked = onNextClicked,
         onValueChanged = onValueChanged,
-        helperStyle = InputStyle.WITH_HELPER_AFTER,
+        helperStyle = HelperStyle.WITH_HELPER_AFTER,
         helper = "%",
         keyboardOptions = KeyboardOptions(imeAction = imeAction, keyboardType = KeyboardType.Number),
         allowedCharacters = RegExValidations.PERCENTAGE.regex,

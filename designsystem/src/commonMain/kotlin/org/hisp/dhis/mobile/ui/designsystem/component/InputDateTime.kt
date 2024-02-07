@@ -55,6 +55,7 @@ fun InputDateTime(
     onActionClicked: () -> Unit,
     modifier: Modifier = Modifier,
     state: InputShellState = InputShellState.UNFOCUSED,
+    inputStyle: InputStyle = InputStyle.DataInputStyle(),
     legendData: LegendData? = null,
     supportingText: List<SupportingTextData>? = null,
     onNextClicked: (() -> Unit)? = null,
@@ -187,6 +188,7 @@ fun InputDateTime(
                 Legend(legendData, Modifier.testTag("INPUT_DATE_TIME_LEGEND"))
             }
         },
+        inputStyle = inputStyle,
     )
 }
 

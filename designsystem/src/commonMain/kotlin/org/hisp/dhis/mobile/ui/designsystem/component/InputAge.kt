@@ -50,6 +50,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 fun InputAge(
     title: String,
     inputType: AgeInputType = None,
+    inputStyle: InputStyle = InputStyle.DataInputStyle(),
     onCalendarActionClicked: () -> Unit,
     modifier: Modifier = Modifier,
     state: InputShellState = InputShellState.UNFOCUSED,
@@ -74,9 +75,9 @@ fun InputAge(
     }
     val helperStyle = remember(inputType) {
         when (inputType) {
-            None -> InputStyle.NONE
-            is DateOfBirth -> InputStyle.WITH_DATE_OF_BIRTH_HELPER
-            is Age -> InputStyle.WITH_HELPER_AFTER
+            None -> HelperStyle.NONE
+            is DateOfBirth -> HelperStyle.WITH_DATE_OF_BIRTH_HELPER
+            is Age -> HelperStyle.WITH_HELPER_AFTER
         }
     }
 
@@ -229,6 +230,7 @@ fun InputAge(
                 Legend(legendData, Modifier.testTag("INPUT_AGE_LEGEND"))
             }
         },
+        inputStyle = inputStyle,
     )
 }
 

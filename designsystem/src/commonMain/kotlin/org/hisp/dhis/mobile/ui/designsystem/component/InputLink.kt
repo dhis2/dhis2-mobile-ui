@@ -34,6 +34,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.internal.RegExValidations
 fun InputLink(
     title: String,
     state: InputShellState,
+    inputStyle: InputStyle = InputStyle.DataInputStyle(),
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
     inputTextFieldValue: TextFieldValue? = null,
@@ -51,6 +52,7 @@ fun InputLink(
     BasicTextInput(
         title = title,
         state = state,
+        inputStyle = inputStyle,
         supportingText = supportingText,
         legendData = legendData,
         inputTextFieldValue = inputTextFieldValue,
@@ -67,7 +69,7 @@ fun InputLink(
         actionButton = {
             SquareIconButton(
                 modifier = Modifier.testTag("LINK_BUTTON"),
-                enabled = isValidUrl && state != InputShellState.DISABLED,
+                enabled = isButtonEnabled(inputStyle, isValidUrl, state),
                 icon = {
                     Icon(
                         imageVector = Icons.Outlined.Link,
@@ -81,3 +83,9 @@ fun InputLink(
         autoCompleteItemSelected = autoCompleteItemSelected,
     )
 }
+
+private fun isButtonEnabled(inputStyle: InputStyle, isValidUrl: Boolean, state: InputShellState) =
+    when (inputStyle) {
+        is InputStyle.DataInputStyle -> isValidUrl && state != InputShellState.DISABLED
+        is InputStyle.ParameterInputStyle -> false
+    }

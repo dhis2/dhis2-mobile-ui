@@ -62,8 +62,7 @@ fun InputShell(
     onFocusChanged: ((Boolean) -> Unit)? = null,
     isRequiredField: Boolean = false,
     modifier: Modifier = Modifier,
-    hasTransparentBackground: Boolean = false,
-    startIndent: Dp = if (hasTransparentBackground) Spacing.Spacing40 else Spacing.Spacing0,
+    inputStyle: InputStyle,
 ) {
     Column(
         modifier = modifier
@@ -75,9 +74,8 @@ fun InputShell(
         var indicatorColor by remember(state) { mutableStateOf(state.color) }
         var indicatorThickness by remember { mutableStateOf(Border.Thin) }
         val backgroundColor = when {
-            hasTransparentBackground -> Color.Transparent
-            state != InputShellState.DISABLED -> SurfaceColor.Surface
-            else -> SurfaceColor.DisabledSurface
+            state != InputShellState.DISABLED -> inputStyle.backGroundColor
+            else -> inputStyle.disabledBackGroundColor
         }
         val focusRequester = remember { FocusRequester() }
 
@@ -99,9 +97,15 @@ fun InputShell(
                     }
                     indicatorColor =
                         when {
-                            state == InputShellState.DISABLED -> InputShellState.DISABLED.color
+                            state == InputShellState.DISABLED ->
+                                inputStyle.disabledIndicatorColor
+                                    ?: InputShellState.DISABLED.color
+
                             it.isFocused && state != InputShellState.ERROR && state != InputShellState.WARNING -> InputShellState.FOCUSED.color
-                            hasTransparentBackground && state == InputShellState.UNFOCUSED -> Outline.Light
+                            state == InputShellState.UNFOCUSED ->
+                                inputStyle.unfocusedIndicatorColor
+                                    ?: state.color
+
                             else -> state.color
                         }
                     indicatorThickness = when {
@@ -110,7 +114,7 @@ fun InputShell(
                         else -> Border.Thin
                     }
                     onFocusChanged?.invoke(it.isFocused)
-                }.padding(start = startIndent),
+                }.padding(start = inputStyle.startIndent),
             backgroundColor = backgroundColor,
         ) {
             Column(
@@ -156,7 +160,12 @@ fun InputShell(
 
         legend?.invoke(this)
         if (state != InputShellState.DISABLED) supportingText?.invoke()
-        if (isRequiredField && state == InputShellState.ERROR && supportingText == null) SupportingText("Required", state = SupportingTextState.ERROR)
+        if (isRequiredField && state == InputShellState.ERROR && supportingText == null) {
+            SupportingText(
+                "Required",
+                state = SupportingTextState.ERROR,
+            )
+        }
     }
 }
 

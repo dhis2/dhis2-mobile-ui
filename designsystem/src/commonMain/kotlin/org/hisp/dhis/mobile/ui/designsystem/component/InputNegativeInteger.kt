@@ -35,6 +35,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.internal.RegExValidations
 fun InputNegativeInteger(
     title: String,
     state: InputShellState,
+    inputStyle: InputStyle = InputStyle.DataInputStyle(),
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
     inputTextFieldValue: TextFieldValue? = null,
@@ -52,6 +53,7 @@ fun InputNegativeInteger(
     BasicTextInput(
         title = title,
         state = state,
+        inputStyle = inputStyle,
         supportingText = supportingText,
         legendData = legendData,
         inputTextFieldValue = inputValue,
@@ -61,7 +63,7 @@ fun InputNegativeInteger(
             onValueChanged?.invoke(TextFieldValue(if (it.text.startsWith("-") || it.text.isEmpty()) it.text else "-${it.text}"))
             inputValue = TextFieldValue(if (it.text.startsWith("-")) inputValue.text.replaceFirst("-", "") else it.text)
         },
-        helperStyle = InputStyle.WITH_HELPER_BEFORE,
+        helperStyle = HelperStyle.WITH_HELPER_BEFORE,
         helper = "-",
         keyboardOptions = KeyboardOptions(imeAction = imeAction, keyboardType = KeyboardType.Number),
         allowedCharacters = RegExValidations.NEGATIVE_INTEGERS.regex,

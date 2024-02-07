@@ -38,6 +38,7 @@ fun InputRadioButton(
     modifier: Modifier = Modifier,
     orientation: Orientation = VERTICAL,
     state: InputShellState,
+    inputStyle: InputStyle = InputStyle.DataInputStyle(),
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
     isRequired: Boolean = false,
@@ -95,5 +96,6 @@ fun InputRadioButton(
                 Spacer(modifier = Modifier.width(Spacing.Spacing48))
             }
         },
+        inputStyle = inputStyle,
     )
 }

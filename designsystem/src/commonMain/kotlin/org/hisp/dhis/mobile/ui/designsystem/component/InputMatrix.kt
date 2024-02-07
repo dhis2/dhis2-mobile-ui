@@ -42,6 +42,7 @@ fun InputMatrix(
     selectedData: IconCardData? = null,
     modifier: Modifier = Modifier,
     state: InputShellState,
+    inputStyle: InputStyle = InputStyle.DataInputStyle(),
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
     isRequired: Boolean = false,
@@ -96,6 +97,7 @@ fun InputMatrix(
                 Legend(legendData, Modifier.testTag("ICON_CARDS_INPUT_" + testTag + "_LEGEND"))
             }
         },
+        inputStyle = inputStyle,
     )
 }
 
