@@ -51,6 +51,7 @@ fun MultiSelectInput(
     modifier: Modifier = Modifier,
     noResultsFoundString: String = provideStringResource("no_results_found"),
     doneButtonText: String = provideStringResource("done"),
+    inputStyle: InputStyle = InputStyle.DataInputStyle(),
     onClearItemSelection: () -> Unit,
 ) {
     var showMultiSelectBottomSheet by remember { mutableStateOf(false) }
@@ -98,6 +99,7 @@ fun MultiSelectInput(
             title = title,
             state = state,
             modifier = modifier.testTag("INPUT_MULTI_SELECT").focusRequester(focusRequester),
+            inputStyle = inputStyle,
             inputField = {
                 if (items.size <= INLINE_CHECKBOXES_MIN_REQ_ITEMS) {
                     Column(
