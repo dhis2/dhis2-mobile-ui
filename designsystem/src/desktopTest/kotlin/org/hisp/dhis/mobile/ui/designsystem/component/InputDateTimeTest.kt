@@ -7,6 +7,7 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.text.input.TextFieldValue
 import org.hisp.dhis.mobile.ui.designsystem.component.InputDateTime
+import org.hisp.dhis.mobile.ui.designsystem.component.InputDateTimeModel
 import org.junit.Rule
 import org.junit.Test
 
@@ -20,14 +21,19 @@ class InputDateTimeTest {
         var input by mutableStateOf(TextFieldValue())
         rule.setContent {
             InputDateTime(
-                title = "Label",
-                inputTextFieldValue = input,
-                onActionClicked = {
-                    // no-op
-                },
-            ) {
-                input = it
-            }
+                InputDateTimeModel(
+                    title = "Label",
+                    inputTextFieldValue = input.,
+                    onActionClicked = {
+                        // no-op
+                    },
+                    onValueChanged = {
+                        input = it ?: TextFieldValue()
+                    },
+                    format = "ddMMYYYY",
+                ),
+
+            )
         }
 
         rule.onNodeWithTag("INPUT_DATE_TIME_TEXT_FIELD").performTextInput("1002")
@@ -41,14 +47,21 @@ class InputDateTimeTest {
 
         rule.setContent {
             InputDateTime(
-                title = "Label",
-                inputTextFieldValue = input,
-                onActionClicked = {
-                    // no-op
-                },
-            ) {
-                input = it
-            }
+                InputDateTimeModel(
+                    title = "Label",
+                    inputTextFieldValue = input,
+                    onActionClicked = {
+                        // no-op
+                    },
+                    onValueChanged =
+                    {
+                        input = it ?: TextFieldValue()
+                    },
+                    format = "ddMMYYYY",
+
+                ),
+
+            )
         }
 
         rule.onNodeWithTag("INPUT_DATE_TIME_RESET_BUTTON").assertDoesNotExist()
@@ -60,14 +73,20 @@ class InputDateTimeTest {
 
         rule.setContent {
             InputDateTime(
-                title = "Label",
-                inputTextFieldValue = input,
-                onActionClicked = {
-                    // no-op
-                },
-            ) {
-                input = it
-            }
+                InputDateTimeModel(
+                    title = "Label",
+                    inputTextFieldValue = input,
+                    onActionClicked = {
+                        // no-op
+                    },
+                    onValueChanged = {
+                        input = it ?: TextFieldValue()
+                    },
+                    format = "ddMMYYYY",
+
+                ),
+
+            )
         }
 
         rule.onNodeWithTag("INPUT_DATE_TIME_RESET_BUTTON").performClick()

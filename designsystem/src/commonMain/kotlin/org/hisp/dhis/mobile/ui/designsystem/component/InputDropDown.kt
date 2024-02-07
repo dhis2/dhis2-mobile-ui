@@ -164,7 +164,7 @@ fun InputDropDown(
                     shape = RoundedCornerShape(Spacing8),
                 ),
         ) {
-            inputField(modifier.menuAnchor())
+            inputField(Modifier)
 
             MaterialTheme(
                 shapes = Shapes(extraSmall = RoundedCornerShape(Spacing8)),

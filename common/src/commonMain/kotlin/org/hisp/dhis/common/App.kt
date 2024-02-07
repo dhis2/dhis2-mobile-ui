@@ -96,7 +96,7 @@ fun App() {
 
 @Composable
 fun Main() {
-    val currentScreen = remember { mutableStateOf(Components.MULTI_SELECT) }
+    val currentScreen = remember { mutableStateOf(Components.INPUT_DATE_TIME) }
     var expanded by remember { mutableStateOf(false) }
 
     Column(
