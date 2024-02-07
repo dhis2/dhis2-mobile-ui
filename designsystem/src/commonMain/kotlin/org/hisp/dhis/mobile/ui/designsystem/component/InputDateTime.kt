@@ -438,7 +438,7 @@ fun timePickerColors(): TimePickerColors {
 @Composable
 fun datePickerColors(): DatePickerColors {
     return DatePickerDefaults.colors(
-        selectedDayContainerColor = Color.Red,
+        selectedDayContainerColor = SurfaceColor.Primary,
         selectedDayContentColor = TextColor.OnPrimary,
         containerColor = SurfaceColor.Container,
         todayDateBorderColor = SurfaceColor.Primary,
