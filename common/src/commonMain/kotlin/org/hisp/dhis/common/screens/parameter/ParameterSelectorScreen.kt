@@ -32,41 +32,71 @@ import org.hisp.dhis.mobile.ui.designsystem.component.InputOrgUnit
 import org.hisp.dhis.mobile.ui.designsystem.component.InputPhoneNumber
 import org.hisp.dhis.mobile.ui.designsystem.component.InputQRCode
 import org.hisp.dhis.mobile.ui.designsystem.component.InputRadioButton
-import org.hisp.dhis.mobile.ui.designsystem.component.InputSequential
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.InputStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.InputText
-import org.hisp.dhis.mobile.ui.designsystem.component.InputYesNoField
-import org.hisp.dhis.mobile.ui.designsystem.component.InputYesOnlyCheckBox
-import org.hisp.dhis.mobile.ui.designsystem.component.InputYesOnlySwitch
 import org.hisp.dhis.mobile.ui.designsystem.component.RadioButtonData
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.IconCardData
 import org.hisp.dhis.mobile.ui.designsystem.component.parameter.ParameterSelectorItem
 import org.hisp.dhis.mobile.ui.designsystem.component.parameter.model.ParameterSelectorItemModel
 import org.hisp.dhis.mobile.ui.designsystem.component.parameter.model.ParameterSelectorItemModel.Status.CLOSED
-import org.hisp.dhis.mobile.ui.designsystem.component.parameter.model.ParameterSelectorItemModel.Status.OPENED
+import org.hisp.dhis.mobile.ui.designsystem.component.parameter.model.ParameterSelectorItemModel.Status.FOCUSED
+import org.hisp.dhis.mobile.ui.designsystem.component.parameter.model.ParameterSelectorItemModel.Status.UNFOCUSED
 
 @Composable
 fun ParameterSelectorScreen() {
     var inputTextValue by rememberSaveable(stateSaver = TextFieldValue.Saver) {
         mutableStateOf(TextFieldValue(""))
     }
-    var ageInputType by remember {
-        mutableStateOf<AgeInputType>(AgeInputType.None)
-    }
-    var inputBarcodeValue by rememberSaveable(stateSaver = TextFieldValue.Saver) {
+    var inputTextStatus by remember(inputTextValue.text) {
         mutableStateOf(
-            TextFieldValue("889026a1-d01e-4d34-8209-81e8ed5c614b"),
+            if (inputTextValue.text.isEmpty()) {
+                CLOSED
+            } else {
+                UNFOCUSED
+            },
         )
     }
+
     var inputQRCodeValue by rememberSaveable(stateSaver = TextFieldValue.Saver) {
         mutableStateOf(
             TextFieldValue("889026a1-d01e-4d34-8209-81e8ed5c614b"),
         )
     }
-    var checkBoxSelected: Boolean by remember { mutableStateOf(false) }
+    var inputQRStatus by remember(inputQRCodeValue.text) {
+        mutableStateOf(
+            if (inputQRCodeValue.text.isEmpty()) {
+                CLOSED
+            } else {
+                UNFOCUSED
+            },
+        )
+    }
+
+    var ageInputType by remember {
+        mutableStateOf<AgeInputType>(AgeInputType.None)
+    }
 
     val items = listOf(
+        ParameterSelectorItemModel(
+            label = "Text parameter",
+            helper = "Optional",
+            inputField = {
+                InputText(
+                    title = "Text parameter",
+                    state = InputShellState.UNFOCUSED,
+                    inputTextFieldValue = inputTextValue,
+                    inputStyle = InputStyle.ParameterInputStyle(),
+                    onValueChanged = {
+                        inputTextValue = it ?: TextFieldValue()
+                    },
+                )
+            },
+            status = inputTextStatus,
+            onExpand = {
+                inputTextStatus = FOCUSED
+            },
+        ),
         ParameterSelectorItemModel(
             icon = Icons.Outlined.QrCode2,
             label = "QRCode parameter",
@@ -83,30 +113,9 @@ fun ParameterSelectorScreen() {
                     },
                 )
             },
-            status = if (inputQRCodeValue.text.isEmpty()) {
-                CLOSED
-            } else {
-                OPENED
-            },
-        ),
-        ParameterSelectorItemModel(
-            label = "Text parameter",
-            helper = "Optional",
-            inputField = {
-                InputText(
-                    title = "Text parameter",
-                    state = InputShellState.UNFOCUSED,
-                    inputTextFieldValue = inputTextValue,
-                    inputStyle = InputStyle.ParameterInputStyle(),
-                    onValueChanged = {
-                        inputTextValue = it ?: TextFieldValue()
-                    },
-                )
-            },
-            status = if (inputTextValue.text.isEmpty()) {
-                CLOSED
-            } else {
-                OPENED
+            status = inputQRStatus,
+            onExpand = {
+                inputQRStatus = FOCUSED
             },
         ),
         ParameterSelectorItemModel(
@@ -125,8 +134,9 @@ fun ParameterSelectorScreen() {
             },
             status = when (ageInputType) {
                 AgeInputType.None -> CLOSED
-                else -> OPENED
+                else -> UNFOCUSED
             },
+            onExpand = {},
         ),
         ParameterSelectorItemModel(
             label = "Barcode parameter",
@@ -134,19 +144,13 @@ fun ParameterSelectorScreen() {
             inputField = {
                 InputBarCode(
                     title = "Barcode parameter",
-                    inputTextFieldValue = inputBarcodeValue,
+                    inputTextFieldValue = TextFieldValue("12345678900"),
                     inputStyle = InputStyle.ParameterInputStyle(),
                     onActionButtonClicked = {},
-                    onValueChanged = {
-                        inputBarcodeValue = it ?: TextFieldValue()
-                    },
+                    onValueChanged = {},
                 )
             },
-            status = if (inputBarcodeValue.text.isEmpty()) {
-                CLOSED
-            } else {
-                OPENED
-            },
+            onExpand = {},
         ),
         ParameterSelectorItemModel(
             label = "CheckBox parameter",
@@ -170,19 +174,11 @@ fun ParameterSelectorScreen() {
                             textInput = "option 2",
                         ),
                     ),
-                    onClearSelection = {
-                        checkBoxSelected = false
-                    },
-                    onItemChange = {
-                        checkBoxSelected = true
-                    },
+                    onClearSelection = {},
+                    onItemChange = {},
                 )
             },
-            status = if (checkBoxSelected) {
-                OPENED
-            } else {
-                CLOSED
-            },
+            onExpand = {},
         ),
         ParameterSelectorItemModel(
             label = "DateTime parameter",
@@ -196,6 +192,7 @@ fun ParameterSelectorScreen() {
                     onValueChanged = {},
                 )
             },
+            onExpand = {},
         ),
         ParameterSelectorItemModel(
             label = "DropDown parameter",
@@ -213,6 +210,7 @@ fun ParameterSelectorScreen() {
                     onResetButtonClicked = {},
                 )
             },
+            onExpand = {},
         ),
         ParameterSelectorItemModel(
             label = "Email parameter",
@@ -226,6 +224,7 @@ fun ParameterSelectorScreen() {
                     onEmailActionCLicked = {},
                 )
             },
+            onExpand = {},
         ),
         ParameterSelectorItemModel(
             label = "Link parameter",
@@ -239,6 +238,7 @@ fun ParameterSelectorScreen() {
                     onLinkActionCLicked = {},
                 )
             },
+            onExpand = {},
         ),
         ParameterSelectorItemModel(
             label = "Integer parameter",
@@ -251,6 +251,7 @@ fun ParameterSelectorScreen() {
                     inputStyle = InputStyle.ParameterInputStyle(),
                 )
             },
+            onExpand = {},
         ),
         ParameterSelectorItemModel(
             label = "Long text parameter",
@@ -263,6 +264,7 @@ fun ParameterSelectorScreen() {
                     inputStyle = InputStyle.ParameterInputStyle(),
                 )
             },
+            onExpand = {},
         ),
         ParameterSelectorItemModel(
             label = "Matrix parameter",
@@ -289,6 +291,7 @@ fun ParameterSelectorScreen() {
                     onSelectionChanged = {},
                 )
             },
+            onExpand = {},
         ),
         ParameterSelectorItemModel(
             label = "Not supported parameter",
@@ -300,6 +303,7 @@ fun ParameterSelectorScreen() {
                     inputStyle = InputStyle.ParameterInputStyle(),
                 )
             },
+            onExpand = {},
         ),
         ParameterSelectorItemModel(
             label = "Org unit parameter",
@@ -311,6 +315,7 @@ fun ParameterSelectorScreen() {
                     onOrgUnitActionCLicked = {},
                 )
             },
+            onExpand = {},
         ),
         ParameterSelectorItemModel(
             label = "Phone number parameter",
@@ -324,6 +329,7 @@ fun ParameterSelectorScreen() {
                     onCallActionClicked = {},
                 )
             },
+            onExpand = {},
         ),
         ParameterSelectorItemModel(
             label = "Radio button parameter",
@@ -350,74 +356,7 @@ fun ParameterSelectorScreen() {
                     onItemChange = {},
                 )
             },
-        ),
-        ParameterSelectorItemModel(
-            label = "Sequential parameter",
-            helper = "Optional",
-            inputField = {
-                InputSequential(
-                    title = "Sequential parameter",
-                    state = InputShellState.UNFOCUSED,
-                    inputStyle = InputStyle.ParameterInputStyle(),
-                    data = listOf(
-                        IconCardData(
-                            uid = "7e0cb105-c276-4f12-9f56-a26af8314121",
-                            label = "Stethoscope",
-                            iconRes = "dhis2_stethoscope_positive",
-                            iconTint = Color(0xFFFF8400),
-                        ),
-                        IconCardData(
-                            uid = "72269f6b-6b99-4d2e-a667-09f20c2097e0",
-                            label = "Medicines",
-                            iconRes = "dhis2_medicines_positive",
-                            iconTint = Color(0xFFEB0085),
-                        ),
-                    ),
-                    onSelectionChanged = {},
-                )
-            },
-        ),
-        ParameterSelectorItemModel(
-            label = "Yes No parameter",
-            helper = "Optional",
-            inputField = {
-                InputYesNoField(
-                    title = "Yes No parameter",
-                    state = InputShellState.UNFOCUSED,
-                    inputStyle = InputStyle.ParameterInputStyle(),
-                    onItemChange = {},
-                )
-            },
-        ),
-        ParameterSelectorItemModel(
-            label = "Yes only check box parameter",
-            helper = "Optional",
-            inputField = {
-                InputYesOnlyCheckBox(
-                    state = InputShellState.UNFOCUSED,
-                    inputStyle = InputStyle.ParameterInputStyle(),
-                    checkBoxData = CheckBoxData(
-                        uid = "uid1",
-                        checked = true,
-                        enabled = true,
-                        textInput = "option 1",
-                    ),
-                    onClick = {},
-                )
-            },
-        ),
-        ParameterSelectorItemModel(
-            label = "Yes only switch parameter",
-            helper = "Optional",
-            inputField = {
-                InputYesOnlySwitch(
-                    title = "Yes only switch parameter",
-                    state = InputShellState.UNFOCUSED,
-                    inputStyle = InputStyle.ParameterInputStyle(),
-                    isChecked = true,
-                    onClick = {},
-                )
-            },
+            onExpand = {},
         ),
     )
 
