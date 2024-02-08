@@ -11,9 +11,11 @@ data class ParameterSelectorItemModel(
     val helper: String,
     val inputField: @Composable () -> Unit,
     val status: Status = Status.CLOSED,
+    val onExpand: () -> Unit,
 ) {
     enum class Status {
-        OPENED,
+        FOCUSED,
+        UNFOCUSED,
         CLOSED,
     }
 }

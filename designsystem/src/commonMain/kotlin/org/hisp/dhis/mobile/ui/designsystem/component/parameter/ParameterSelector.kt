@@ -32,7 +32,7 @@ import androidx.compose.ui.semantics.Role
 import org.hisp.dhis.mobile.ui.designsystem.component.IconButton
 import org.hisp.dhis.mobile.ui.designsystem.component.parameter.model.ParameterSelectorItemModel
 import org.hisp.dhis.mobile.ui.designsystem.component.parameter.model.ParameterSelectorItemModel.Status.CLOSED
-import org.hisp.dhis.mobile.ui.designsystem.component.parameter.model.ParameterSelectorItemModel.Status.OPENED
+import org.hisp.dhis.mobile.ui.designsystem.component.parameter.model.ParameterSelectorItemModel.Status.FOCUSED
 import org.hisp.dhis.mobile.ui.designsystem.theme.Border
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
@@ -53,12 +53,13 @@ fun ParameterSelectorItem(
         EmptyParameterField(
             model = model,
         ) {
-            status = OPENED
+            status = FOCUSED
+            model.onExpand()
         }
     }
 
     AnimatedVisibility(
-        visible = status == OPENED,
+        visible = status != CLOSED,
         enter = fadeIn() + expandVertically(),
         exit = shrinkVertically() + fadeOut(),
     ) {
