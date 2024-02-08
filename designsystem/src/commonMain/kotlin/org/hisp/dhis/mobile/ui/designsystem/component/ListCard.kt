@@ -42,6 +42,7 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.conditional
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
@@ -73,7 +74,8 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.listCardShadow
 @Composable
 fun ListCard(
     listAvatar: (@Composable () -> Unit)? = null,
-    title: String,
+    title: ListCardTitleModel,
+    description: ListCardDescriptionModel? = null,
     lastUpdated: String? = null,
     additionalInfoList: List<AdditionalInfoItem>,
     actionButton: @Composable (() -> Unit)? = null,
@@ -101,7 +103,7 @@ fun ListCard(
             .conditional(shadow, {
                 listCardShadow(modifier)
             })
-            .background(color = TextColor.OnPrimary)
+            .background(color = TextColor.OnPrimary, shape = RoundedCornerShape(Radius.S))
             .clip(shape = RoundedCornerShape(Radius.S))
             .clickable(
                 role = Role.Button,
@@ -121,11 +123,15 @@ fun ListCard(
         Column(Modifier.fillMaxWidth().weight(1f)) {
             Row(horizontalArrangement = Arrangement.SpaceBetween) {
                 // Row with header and last updated
-                ListCardTitle(text = title, modifier.weight(1f))
+                ListCardTitle(title = title, modifier.weight(1f).padding(bottom = if (description?.text != null) Spacing.Spacing0 else Spacing4))
                 if (lastUpdated != null) {
                     ListCardLastUpdated(lastUpdated)
                 }
             }
+            description?.let {
+                ListCardDescription(it, Modifier)
+            }
+
             AdditionalInfoColumn(
                 expandableItems = expandableItemList,
                 constantItems = constantItemList,
@@ -505,6 +511,20 @@ data class AdditionalInfoItem(
     val isConstantItem: Boolean = false,
     val color: Color? = null,
     val action: (() -> Unit)? = null,
+)
+
+data class ListCardTitleModel(
+    val style: TextStyle? = null,
+    val color: Color? = TextColor.OnPrimaryContainer,
+    val text: String,
+    val modifier: Modifier = Modifier,
+)
+
+data class ListCardDescriptionModel(
+    val style: TextStyle? = null,
+    val color: Color? = TextColor.OnSurface,
+    val text: String? = null,
+    val modifier: Modifier = Modifier,
 )
 
 enum class AdditionalInfoItemColor(val color: Color) {

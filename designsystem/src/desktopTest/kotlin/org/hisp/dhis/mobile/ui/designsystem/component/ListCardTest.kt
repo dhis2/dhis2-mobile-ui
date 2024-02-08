@@ -80,7 +80,7 @@ class ListCardTest {
                         style = AvatarStyle.TEXT,
                     )
                 },
-                title = "Anita Mathews, F, 72",
+                title = ListCardTitleModel(text = "Anita Mathews, F, 72"),
                 lastUpdated = "5 hours",
                 additionalInfoList = additionalItemList,
                 actionButton = {
