@@ -21,10 +21,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -32,7 +29,6 @@ import androidx.compose.ui.semantics.Role
 import org.hisp.dhis.mobile.ui.designsystem.component.IconButton
 import org.hisp.dhis.mobile.ui.designsystem.component.parameter.model.ParameterSelectorItemModel
 import org.hisp.dhis.mobile.ui.designsystem.component.parameter.model.ParameterSelectorItemModel.Status.CLOSED
-import org.hisp.dhis.mobile.ui.designsystem.component.parameter.model.ParameterSelectorItemModel.Status.FOCUSED
 import org.hisp.dhis.mobile.ui.designsystem.theme.Border
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
@@ -43,23 +39,20 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
 fun ParameterSelectorItem(
     model: ParameterSelectorItemModel,
 ) {
-    var status by remember(model.status) { mutableStateOf(model.status) }
-
     AnimatedVisibility(
-        visible = status == CLOSED,
+        visible = model.status == CLOSED,
         enter = fadeIn() + expandVertically(),
         exit = shrinkVertically() + fadeOut(),
     ) {
         EmptyParameterField(
             model = model,
         ) {
-            status = FOCUSED
             model.onExpand()
         }
     }
 
     AnimatedVisibility(
-        visible = status != CLOSED,
+        visible = model.status != CLOSED,
         enter = fadeIn() + expandVertically(),
         exit = shrinkVertically() + fadeOut(),
     ) {
