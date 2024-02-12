@@ -33,6 +33,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2SCustomTextStyles
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing16
@@ -180,7 +181,8 @@ fun InputDropDown(
                     Column(modifier = Modifier.padding(horizontal = Spacing8)) {
                         dropdownItems.forEachIndexed { index, item ->
                             DropdownItem(
-                                modifier = Modifier.testTag("INPUT_DROPDOWN_MENU_ITEM_$index"),
+                                modifier = Modifier.testTag("INPUT_DROPDOWN_MENU_ITEM_$index")
+                                    .padding(start = dropdownStartPadding(inputStyle)),
                                 item = item,
                                 selected = selectedItem == item,
                                 contentPadding = PaddingValues(
@@ -197,6 +199,14 @@ fun InputDropDown(
                 }
             }
         }
+    }
+}
+
+fun dropdownStartPadding(inputStyle: InputStyle): Dp {
+    return if (inputStyle is InputStyle.ParameterInputStyle) {
+        inputStyle.startIndent
+    } else {
+        Dp.Unspecified
     }
 }
 
