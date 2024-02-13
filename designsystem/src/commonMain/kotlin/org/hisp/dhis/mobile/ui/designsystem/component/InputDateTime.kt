@@ -98,9 +98,9 @@ fun InputDateTime(
         text = dateOutOfRangeText,
         SupportingTextState.ERROR,
     )
-    val supportingTextList = remember(uiModel.inputTextFieldValue) {
+    val supportingTextList =
         getSupportingTextList(uiModel, dateOutOfRangeItem)
-    }
+
     InputShell(
         modifier = modifier.testTag("INPUT_DATE_TIME")
             .focusRequester(focusRequester),
