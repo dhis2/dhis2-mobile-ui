@@ -302,14 +302,14 @@ internal fun SectionHeader(
                     icon = sectionStateButtonIcon,
                 )
             }
-            if (errorCount > 0) {
+            if (errorCount > 0 || errorMessage != null) {
                 Tag(
                     modifier = Modifier.testTag(SectionTestTag.ERROR_LABEL),
                     label = errorMessage ?: provideQuantityStringResource("error", errorCount),
                     type = TagType.ERROR,
                 )
             }
-            if (warningCount > 0) {
+            if (warningCount > 0 || warningMessage != null) {
                 Tag(
                     modifier = Modifier.testTag(SectionTestTag.WARNING_LABEL),
                     label = warningMessage ?: provideQuantityStringResource("warning", warningCount),
