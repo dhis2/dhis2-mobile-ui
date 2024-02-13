@@ -37,5 +37,7 @@
     <string name="no_results_found">No results found</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
+    <string name="select_date">Select date</string>
+    <string name="date_out_of_range">Date out of expected range:</string>
 
 </resources>

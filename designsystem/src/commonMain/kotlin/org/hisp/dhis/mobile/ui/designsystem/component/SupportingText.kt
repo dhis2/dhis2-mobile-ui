@@ -78,11 +78,9 @@ fun SupportingText(
 
         when {
             !isExpanded && textLayoutResult.hasVisualOverflow -> {
-                val lastCharIndex = textLayoutResult.getLineEnd(maxLines - 1)
+                val lastCharIndex = textLayoutResult.getLineEnd(maxLines - 1, false)
                 val adjustedText = text
                     .substring(startIndex = 0, endIndex = lastCharIndex)
-                    .dropLast(showLessText.length + 5)
-                    .dropLastWhile { it == ' ' || it == '.' }
 
                 val unexpandedText = "$adjustedText...   "
 

@@ -206,7 +206,6 @@ fun ParameterSelectorScreen() {
                         title = "DateTime parameter",
                         inputStyle = InputStyle.ParameterInputStyle(),
                         inputTextFieldValue = TextFieldValue(),
-                        onActionClicked = {},
                         onValueChanged = {},
                         format = "ddMMYYYY",
                     ),

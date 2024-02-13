@@ -9,6 +9,8 @@ import androidx.compose.ui.text.input.TextFieldValue
 import org.hisp.dhis.mobile.ui.designsystem.component.DateTimeActionType
 import org.hisp.dhis.mobile.ui.designsystem.component.InputDateTime
 import org.hisp.dhis.mobile.ui.designsystem.component.InputDateTimeModel
+import org.hisp.dhis.mobile.ui.designsystem.component.SelectableDates
+import org.hisp.dhis.mobile.ui.designsystem.component.internal.DateTransformation
 import org.junit.Rule
 import org.junit.Test
 
@@ -25,9 +27,6 @@ class InputDateTimeTest {
                 InputDateTimeModel(
                     title = "Label",
                     inputTextFieldValue = input,
-                    onActionClicked = {
-                        // no-op
-                    },
                     onValueChanged = {
                         input = it ?: TextFieldValue()
                     },
@@ -51,9 +50,6 @@ class InputDateTimeTest {
                 InputDateTimeModel(
                     title = "Label",
                     inputTextFieldValue = input,
-                    onActionClicked = {
-                        // no-op
-                    },
                     onValueChanged =
                     {
                         input = it ?: TextFieldValue()
@@ -77,9 +73,6 @@ class InputDateTimeTest {
                 InputDateTimeModel(
                     title = "Label",
                     inputTextFieldValue = input,
-                    onActionClicked = {
-                        // no-op
-                    },
                     onValueChanged = {
                         input = it ?: TextFieldValue()
                     },
@@ -93,5 +86,49 @@ class InputDateTimeTest {
         rule.onNodeWithTag("INPUT_DATE_TIME_RESET_BUTTON").performClick()
 
         assert(input.text.isBlank())
+    }
+
+    @Test
+    fun clickingOnActionButtonForDateInputShouldShowDatePicker() {
+        var input by mutableStateOf(TextFieldValue("10021991"))
+
+        rule.setContent {
+            InputDateTime(
+                InputDateTimeModel(
+                    title = "Label",
+                    inputTextFieldValue = input,
+                    visualTransformation = DateTransformation(),
+                    actionType = DateTimeActionType.DATE,
+                    onValueChanged = { input = it ?: TextFieldValue() },
+                    format = "ddMMyyyy",
+                    selectableDates = SelectableDates("01092024", "12122024"),
+                ),
+            )
+        }
+
+        rule.onNodeWithTag("INPUT_DATE_TIME_ACTION_BUTTON").performClick()
+        rule.onNodeWithTag("DATE_PICKER").assertExists()
+    }
+
+    @Test
+    fun clickingOnActionButtonForTimeInputShouldShowTimePicker() {
+        var input by mutableStateOf(TextFieldValue("100219911900"))
+
+        rule.setContent {
+            InputDateTime(
+                InputDateTimeModel(
+                    title = "Label",
+                    inputTextFieldValue = input,
+                    visualTransformation = DateTransformation(),
+                    actionType = DateTimeActionType.TIME,
+                    onValueChanged = { input = it ?: TextFieldValue() },
+                    format = "ddMMyyyy",
+                    selectableDates = SelectableDates("01092024", "12122024"),
+                ),
+            )
+        }
+
+        rule.onNodeWithTag("INPUT_DATE_TIME_ACTION_BUTTON").performClick()
+        rule.onNodeWithTag("TIME_PICKER").assertExists()
     }
 }
