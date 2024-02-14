@@ -41,10 +41,10 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
@@ -71,7 +71,7 @@ import java.util.TimeZone
  * transformation.
  * component uses Material 3 [DatePicker] and [TimePicker]
  * input formats supported are mentioned in the date time input ui model documentation.
- * [Datepicker] Input mode  will always follow locale format.
+ * [DatePicker] Input mode  will always follow locale format.
  * @param uiModel an [InputDateTimeModel] with all the parameters for the input
  */
 @OptIn(ExperimentalMaterial3Api::class)
@@ -87,11 +87,10 @@ fun InputDateTime(
     var showTimePicker by rememberSaveable { mutableStateOf(false) }
     val dateOutOfRangeText =
         uiModel.outOfRangeText ?: (
-            provideStringResource("date_out_of_range") +
-                " " + formatStringToDate(
-                    uiModel.selectableDates.initialDate,
-                ) + "-" +
-                formatStringToDate(uiModel.selectableDates.endDate)
+            provideStringResource("date_out_of_range") + " (" + formatStringToDate(
+                uiModel.selectableDates.initialDate,
+            ) + "-" +
+                formatStringToDate(uiModel.selectableDates.endDate) + ")."
             )
 
     val dateOutOfRangeItem = SupportingTextData(
@@ -203,10 +202,14 @@ fun InputDateTime(
                     )
                 },
                 onClick = {
-                    if (uiModel.actionType == DateTimeActionType.TIME) {
-                        showTimePicker = !showTimePicker
+                    if (uiModel.onActionClicked != null) {
+                        uiModel.onActionClicked.invoke()
                     } else {
-                        showDatePicker = !showDatePicker
+                        if (uiModel.actionType == DateTimeActionType.TIME) {
+                            showTimePicker = !showTimePicker
+                        } else {
+                            showDatePicker = !showDatePicker
+                        }
                     }
                 },
                 enabled = uiModel.state != InputShellState.DISABLED,
@@ -240,10 +243,14 @@ fun InputDateTime(
                 yearRange = uiModel.yearRange,
             )
         } else {
-            rememberDatePickerState(
-                initialSelectedDateMillis = parseStringDateToMillis(uiModel.inputTextFieldValue!!.text, uiModel.format),
-                yearRange = uiModel.yearRange,
-            )
+            if (uiModel.inputTextFieldValue?.text?.length == 8 && yearIsInRange(uiModel.inputTextFieldValue.text, uiModel.yearRange)) {
+                rememberDatePickerState(
+                    initialSelectedDateMillis = parseStringDateToMillis(uiModel.inputTextFieldValue.text, uiModel.format),
+                    yearRange = uiModel.yearRange,
+                )
+            } else {
+                datePickerState
+            }
         }
     }
 
@@ -255,7 +262,7 @@ fun InputDateTime(
             ),
         ) {
             DatePickerDialog(
-                modifier = Modifier.background(Color.Red).testTag("DATE_PICKER"),
+                modifier = Modifier.testTag("DATE_PICKER"),
                 onDismissRequest = { showDatePicker = false },
                 confirmButton = {
                     Button(
@@ -267,7 +274,7 @@ fun InputDateTime(
                         showDatePicker = false
                         if (uiModel.actionType != DateTimeActionType.DATE_TIME) {
                             datePickerState.selectedDateMillis?.let {
-                                uiModel.onValueChanged(TextFieldValue(getDate(it, uiModel.format)))
+                                uiModel.onValueChanged(TextFieldValue(getDate(it, uiModel.format), selection = TextRange(uiModel.inputTextFieldValue?.text?.length ?: 0)))
                             }
                         } else {
                             showTimePicker = true
@@ -366,9 +373,9 @@ fun InputDateTime(
                     ) {
                         showTimePicker = false
                         if (uiModel.actionType != DateTimeActionType.DATE_TIME) {
-                            uiModel.onValueChanged(TextFieldValue(getTime(timePickerState)))
+                            uiModel.onValueChanged(TextFieldValue(getTime(timePickerState), selection = TextRange(uiModel.inputTextFieldValue?.text?.length ?: 0)))
                         } else {
-                            uiModel.onValueChanged(TextFieldValue(getDate(datePickerState.selectedDateMillis) + getTime(timePickerState)))
+                            uiModel.onValueChanged(TextFieldValue(getDate(datePickerState.selectedDateMillis) + getTime(timePickerState), selection = TextRange(uiModel.inputTextFieldValue?.text?.length ?: 0)))
                         }
                     }
                 }
@@ -385,6 +392,7 @@ fun getSupportingTextList(uiModel: InputDateTimeModel, dateOutOfRangeItem: Suppo
     }
     if (!uiModel.inputTextFieldValue?.text.isNullOrEmpty()) {
         val dateIsInRange: Boolean
+        val dateIsInYearRange: Boolean
         when (uiModel.actionType) {
             DateTimeActionType.TIME -> uiModel.supportingText
             DateTimeActionType.DATE_TIME -> {
@@ -395,14 +403,16 @@ fun getSupportingTextList(uiModel: InputDateTimeModel, dateOutOfRangeItem: Suppo
                         ),
                         uiModel.selectableDates, uiModel.format,
                     )
+                    dateIsInYearRange = yearIsInRange(uiModel.inputTextFieldValue.text.substring(0, uiModel.inputTextFieldValue.text.length - 4), uiModel.yearRange)
 
-                    if (!dateIsInRange) supportingTextList.add(dateOutOfRangeItem)
+                    if (!dateIsInRange || !dateIsInYearRange) supportingTextList.add(dateOutOfRangeItem)
                 }
             }
             DateTimeActionType.DATE -> {
                 if (uiModel.inputTextFieldValue?.text!!.length == 8) {
                     dateIsInRange = dateIsInRange(parseStringDateToMillis(uiModel.inputTextFieldValue.text), uiModel.selectableDates, uiModel.format)
-                    if (!dateIsInRange) supportingTextList.add(dateOutOfRangeItem)
+                    dateIsInYearRange = yearIsInRange(uiModel.inputTextFieldValue.text, uiModel.yearRange)
+                    if (!dateIsInRange || !dateIsInYearRange) supportingTextList.add(dateOutOfRangeItem)
                 }
             }
         }
@@ -420,7 +430,8 @@ enum class DateTimeActionType {
  * @param inputTextFieldValue: Input of the component in the format of ddMMyyyy/HHMM/ddMMyyyyHHMM
  * @param allowsManualInput: if true the user can utilize the keyboard to enter the date
  * @param actionType: Type of action icon to display. [DateTimeActionType.DATE_TIME], [DateTimeActionType.DATE], [DateTimeActionType.TIME]
- * @param onActionClicked: Callback to handle the action when the calendar icon is clicked.
+ * @param onActionClicked: Callback to override the action when the calendar icon is clicked, if null
+ * material3 DatePicker or Timepicker will be used calling onValueChanged after selecting a date or time.
  * @param state: [InputShellState]
  * @param legendData: [LegendData]
  * @param supportingText: List of [SupportingTextData] that manages all the messages to be shown.
@@ -447,6 +458,7 @@ data class InputDateTimeModel(
     val state: InputShellState = InputShellState.UNFOCUSED,
     val legendData: LegendData? = null,
     val supportingText: List<SupportingTextData>? = null,
+    val onActionClicked: (() -> Unit)? = null,
     val onNextClicked: (() -> Unit)? = null,
     val isRequired: Boolean = false,
     val imeAction: ImeAction = ImeAction.Next,
@@ -533,6 +545,12 @@ fun dateIsInRange(date: Long, allowedDates: SelectableDates, format: String): Bo
     return (
         date >= parseStringDateToMillis(allowedDates.initialDate, format) &&
             date <= parseStringDateToMillis(allowedDates.endDate, format)
+        )
+}
+
+fun yearIsInRange(date: String, yearRange: IntRange): Boolean {
+    return (
+        yearRange.contains(date.substring(date.length - 4, date.length).toInt())
         )
 }
 

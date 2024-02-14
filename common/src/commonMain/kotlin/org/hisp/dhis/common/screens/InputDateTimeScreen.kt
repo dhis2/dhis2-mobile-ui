@@ -5,6 +5,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.TextFieldValue
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.DateTimeActionType
@@ -20,7 +21,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.internal.TimeTransformatio
 @Composable
 fun InputDateTimeScreen() {
     ColumnComponentContainer {
-        var date by remember { mutableStateOf(TextFieldValue("18122024")) }
+        var date by remember { mutableStateOf(TextFieldValue("18122024", selection = TextRange(8))) }
         var time by remember { mutableStateOf(TextFieldValue("0930")) }
         var dateTime by remember { mutableStateOf(TextFieldValue("121119910230")) }
         var dateTime24hour by remember { mutableStateOf(TextFieldValue("121119911930")) }
