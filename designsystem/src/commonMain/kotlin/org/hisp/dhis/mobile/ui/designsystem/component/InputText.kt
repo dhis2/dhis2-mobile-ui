@@ -13,7 +13,7 @@ import androidx.compose.ui.text.input.TextFieldValue
  * @param supportingText is a list of SupportingTextData that
  * manages all the messages to be shown
  * @param legendData manages the legendComponent
- * @param inputText manages the value of the text in the input field
+ * @param inputTextFieldValue manages the value of the text in the input field
  * @param isRequiredField controls whether the field is mandatory or not
  * @param onNextClicked gives access to the imeAction event
  * @param onValueChanged gives access to the onValueChanged event

@@ -37,6 +37,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
 
 @Composable
 fun ParameterSelectorItem(
+    modifier: Modifier = Modifier,
     model: ParameterSelectorItemModel,
 ) {
     AnimatedVisibility(
@@ -45,6 +46,7 @@ fun ParameterSelectorItem(
         exit = shrinkVertically() + fadeOut(),
     ) {
         EmptyParameterField(
+            modifier = modifier,
             model = model,
         ) {
             model.onExpand()
@@ -62,12 +64,13 @@ fun ParameterSelectorItem(
 
 @Composable
 private fun EmptyParameterField(
+    modifier: Modifier = Modifier,
     model: ParameterSelectorItemModel,
     onClick: () -> Unit,
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     Column(
-        modifier = Modifier
+        modifier = modifier
             .background(color = Color.Transparent)
             .fillMaxWidth()
             .clickable(
