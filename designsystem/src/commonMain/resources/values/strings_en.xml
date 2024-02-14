@@ -39,5 +39,5 @@
     <string name="cancel">Cancel</string>
     <string name="select_date">Select date</string>
     <string name="date_out_of_range">Date out of range </string>
-
+    <string name="wrong_hour_format">Incorrect time format </string>
 </resources>

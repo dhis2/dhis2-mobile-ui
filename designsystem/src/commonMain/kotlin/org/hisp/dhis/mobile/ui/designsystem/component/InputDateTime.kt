@@ -85,20 +85,22 @@ fun InputDateTime(
     val focusRequester = remember { FocusRequester() }
     var showDatePicker by rememberSaveable { mutableStateOf(false) }
     var showTimePicker by rememberSaveable { mutableStateOf(false) }
-    val dateOutOfRangeText =
-        uiModel.outOfRangeText ?: (
-            provideStringResource("date_out_of_range") + " (" + formatStringToDate(
-                uiModel.selectableDates.initialDate,
-            ) + "-" +
-                formatStringToDate(uiModel.selectableDates.endDate) + ")."
-            )
-
+    var dateOutOfRangeText = uiModel.outOfRangeText ?: provideStringResource("date_out_of_range")
+    dateOutOfRangeText = "$dateOutOfRangeText (" + formatStringToDate(
+        uiModel.selectableDates.initialDate,
+    ) + " - " +
+        formatStringToDate(uiModel.selectableDates.endDate) + ")"
+    val incorrectHourFormatText = uiModel.incorrectHourFormatText ?: provideStringResource("wrong_hour_format")
+    val incorrectHourFormatItem = SupportingTextData(
+        text = incorrectHourFormatText,
+        SupportingTextState.ERROR,
+    )
     val dateOutOfRangeItem = SupportingTextData(
         text = dateOutOfRangeText,
         SupportingTextState.ERROR,
     )
     val supportingTextList =
-        getSupportingTextList(uiModel, dateOutOfRangeItem)
+        getSupportingTextList(uiModel, dateOutOfRangeItem, incorrectHourFormatItem)
 
     InputShell(
         modifier = modifier.testTag("INPUT_DATE_TIME")
@@ -113,7 +115,7 @@ fun InputDateTime(
                     modifier = Modifier
                         .testTag("INPUT_DATE_TIME_TEXT_FIELD")
                         .fillMaxWidth(),
-                    inputTextValue = uiModel.inputTextFieldValue ?: TextFieldValue(),
+                    inputTextValue = TextFieldValue(uiModel.inputTextFieldValue?.text ?: "", TextRange(uiModel.inputTextFieldValue?.text?.length ?: 0)),
                     isSingleLine = true,
                     onInputChanged = { newText ->
                         if (newText.text.length > uiModel.visualTransformation.maskLength) {
@@ -234,7 +236,7 @@ fun InputDateTime(
     )
     var datePickerState = rememberDatePickerState()
     if (!uiModel.inputTextFieldValue?.text.isNullOrEmpty() && uiModel.actionType != DateTimeActionType.TIME) {
-        datePickerState = if (uiModel.actionType == DateTimeActionType.DATE_TIME && uiModel.inputTextFieldValue?.text?.length == 12) {
+        datePickerState = if (uiModel.actionType == DateTimeActionType.DATE_TIME && uiModel.inputTextFieldValue?.text?.length == 12 && yearIsInRange(uiModel.inputTextFieldValue.text.substring(0, 8), uiModel.yearRange)) {
             rememberDatePickerState(
                 initialSelectedDateMillis = parseStringDateToMillis(
                     uiModel.inputTextFieldValue.text.substring(0, uiModel.inputTextFieldValue.text.length - 4),
@@ -317,14 +319,14 @@ fun InputDateTime(
 
     if (showTimePicker) {
         var timePickerState = rememberTimePickerState(0, 0, is24Hour = uiModel.is24hourFormat)
-        if (!uiModel.inputTextFieldValue?.text.isNullOrEmpty() && uiModel.actionType == DateTimeActionType.TIME) {
+        if (!uiModel.inputTextFieldValue?.text.isNullOrEmpty() && uiModel.actionType == DateTimeActionType.TIME && isValidHourFormat(uiModel.inputTextFieldValue?.text ?: "")) {
             timePickerState = rememberTimePickerState(
                 initialHour = uiModel.inputTextFieldValue?.text?.substring(0, 2)!!
                     .toInt(),
                 uiModel.inputTextFieldValue.text.substring(2, 4).toInt(), is24Hour = uiModel.is24hourFormat,
             )
         } else {
-            if (uiModel.inputTextFieldValue?.text?.length == 12) {
+            if (uiModel.inputTextFieldValue?.text?.length == 12 && isValidHourFormat(uiModel.inputTextFieldValue.text.substring(8, 12))) {
                 timePickerState = rememberTimePickerState(
                     initialHour = uiModel.inputTextFieldValue.text.substring(uiModel.inputTextFieldValue.text.length - 4, uiModel.inputTextFieldValue.text.length - 2)
                         .toInt(),
@@ -384,7 +386,7 @@ fun InputDateTime(
     }
 }
 
-fun getSupportingTextList(uiModel: InputDateTimeModel, dateOutOfRangeItem: SupportingTextData): List<SupportingTextData> {
+fun getSupportingTextList(uiModel: InputDateTimeModel, dateOutOfRangeItem: SupportingTextData, incorrectHourFormatItem: SupportingTextData): List<SupportingTextData> {
     val supportingTextList = mutableListOf<SupportingTextData>()
 
     uiModel.supportingText?.forEach { item ->
@@ -393,8 +395,15 @@ fun getSupportingTextList(uiModel: InputDateTimeModel, dateOutOfRangeItem: Suppo
     if (!uiModel.inputTextFieldValue?.text.isNullOrEmpty()) {
         val dateIsInRange: Boolean
         val dateIsInYearRange: Boolean
+        val isValidHourFormat: Boolean
         when (uiModel.actionType) {
-            DateTimeActionType.TIME -> uiModel.supportingText
+            DateTimeActionType.TIME -> {
+                if (uiModel.inputTextFieldValue?.text!!.length == 4) {
+                    isValidHourFormat = isValidHourFormat(uiModel.inputTextFieldValue.text)
+                    if (!isValidHourFormat) supportingTextList.add(incorrectHourFormatItem)
+                    uiModel.supportingText
+                }
+            }
             DateTimeActionType.DATE_TIME -> {
                 if (uiModel.inputTextFieldValue?.text!!.length == 12) {
                     dateIsInRange = dateIsInRange(
@@ -404,8 +413,9 @@ fun getSupportingTextList(uiModel: InputDateTimeModel, dateOutOfRangeItem: Suppo
                         uiModel.selectableDates, uiModel.format,
                     )
                     dateIsInYearRange = yearIsInRange(uiModel.inputTextFieldValue.text.substring(0, uiModel.inputTextFieldValue.text.length - 4), uiModel.yearRange)
-
+                    isValidHourFormat = isValidHourFormat(uiModel.inputTextFieldValue.text.substring(8, 12))
                     if (!dateIsInRange || !dateIsInYearRange) supportingTextList.add(dateOutOfRangeItem)
+                    if (!isValidHourFormat) supportingTextList.add(incorrectHourFormatItem)
                 }
             }
             DateTimeActionType.DATE -> {
@@ -473,6 +483,7 @@ data class InputDateTimeModel(
     val selectableDates: SelectableDates = SelectableDates("01011940", "12312300"),
     val yearRange: IntRange = IntRange(1970, 2070),
     val outOfRangeText: String? = null,
+    val incorrectHourFormatText: String? = null,
 )
 
 fun getDate(milliSeconds: Long?, format: String? = "ddMMyyyy"): String {
@@ -521,6 +532,14 @@ fun formatStringToDate(dateString: String): String {
     } else {
         dateString
     }
+}
+
+fun isValidHourFormat(timeString: String): Boolean {
+    val hourRange = IntRange(0, 24)
+    val minuteRange = IntRange(0, 60)
+
+    return timeString.length == 4 && hourRange.contains(timeString.substring(0, 2).toInt()) &&
+        minuteRange.contains(timeString.substring(2, 4).toInt())
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
