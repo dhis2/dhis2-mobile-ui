@@ -1,8 +1,6 @@
 package org.hisp.dhis.mobile.ui.designsystem
 
 import androidx.compose.ui.graphics.Color
-import app.cash.paparazzi.DeviceConfig
-import app.cash.paparazzi.Paparazzi
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.IndicatorInput
 import org.junit.Rule
