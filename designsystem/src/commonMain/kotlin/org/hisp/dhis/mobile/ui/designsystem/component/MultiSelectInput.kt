@@ -4,6 +4,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -43,10 +44,13 @@ private const val INLINE_CHECKBOXES_MIN_REQ_ITEMS = 6
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun MultiSelectInput(
+fun InputMultiSelection(
     items: List<CheckBoxData>,
     title: String,
     state: InputShellState,
+    supportingText: @Composable (() -> Unit)?,
+    legend: @Composable (ColumnScope.() -> Unit)?,
+    isRequired: Boolean,
     onItemsSelected: (List<CheckBoxData>) -> Unit,
     modifier: Modifier = Modifier,
     noResultsFoundString: String = provideStringResource("no_results_found"),
@@ -100,6 +104,9 @@ fun MultiSelectInput(
             state = state,
             modifier = modifier.testTag("INPUT_MULTI_SELECT").focusRequester(focusRequester),
             inputStyle = inputStyle,
+            supportingText = supportingText,
+            legend = legend,
+            isRequiredField = isRequired,
             inputField = {
                 if (items.size <= INLINE_CHECKBOXES_MIN_REQ_ITEMS) {
                     Column(
@@ -115,7 +122,15 @@ fun MultiSelectInput(
                                 ),
                                 onCheckedChange = { checked ->
                                     focusRequester.requestFocus()
-                                    onItemsSelected(listOf(item.copy(checked = checked)))
+                                    onItemsSelected(
+                                        items.toMutableList().map {
+                                            if (it.uid == item.uid) {
+                                                it.copy(checked = checked)
+                                            } else {
+                                                it
+                                            }
+                                        },
+                                    )
                                 },
                             )
                         }
@@ -207,7 +222,7 @@ private fun SelectedItemChip(
 }
 
 @Composable
-private fun MultiSelectBottomSheet(
+fun MultiSelectBottomSheet(
     items: List<CheckBoxData>,
     title: String,
     noResultsFoundString: String,

@@ -4,8 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
 import org.hisp.dhis.mobile.ui.designsystem.component.CheckBoxData
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
+import org.hisp.dhis.mobile.ui.designsystem.component.InputMultiSelection
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
-import org.hisp.dhis.mobile.ui.designsystem.component.MultiSelectInput
 
 @Composable
 fun MultiSelectInputScreen() {
@@ -82,7 +82,7 @@ fun MultiSelectInputScreen() {
             ),
         )
 
-        MultiSelectInput(
+        InputMultiSelection(
             items = emptyList(),
             title = "Multi Select Empty",
             state = InputShellState.UNFOCUSED,
@@ -92,9 +92,12 @@ fun MultiSelectInputScreen() {
             onClearItemSelection = {
                 // no-op
             },
+            isRequired = false,
+            legend = null,
+            supportingText = null,
         )
 
-        MultiSelectInput(
+        InputMultiSelection(
             items = multiSelect1Items,
             title = "Multi Select 1",
             state = InputShellState.UNFOCUSED,
@@ -107,9 +110,12 @@ fun MultiSelectInputScreen() {
             onClearItemSelection = {
                 multiSelect1Items.replaceAll { it.copy(checked = false) }
             },
+            isRequired = false,
+            legend = null,
+            supportingText = null,
         )
 
-        MultiSelectInput(
+        InputMultiSelection(
             items = multiSelect1Items,
             title = "Multi Select 1 Error",
             state = InputShellState.ERROR,
@@ -122,9 +128,12 @@ fun MultiSelectInputScreen() {
             onClearItemSelection = {
                 multiSelect1Items.replaceAll { it.copy(checked = false) }
             },
+            isRequired = false,
+            legend = null,
+            supportingText = null,
         )
 
-        MultiSelectInput(
+        InputMultiSelection(
             items = multiSelect1Items,
             title = "Multi Select 1 Disabled",
             state = InputShellState.DISABLED,
@@ -137,9 +146,12 @@ fun MultiSelectInputScreen() {
             onClearItemSelection = {
                 multiSelect1Items.replaceAll { it.copy(checked = false) }
             },
+            isRequired = false,
+            legend = null,
+            supportingText = null,
         )
 
-        MultiSelectInput(
+        InputMultiSelection(
             items = multiSelect2Items,
             title = "Multi Select 2",
             state = InputShellState.UNFOCUSED,
@@ -152,9 +164,12 @@ fun MultiSelectInputScreen() {
             onClearItemSelection = {
                 multiSelect2Items.replaceAll { it.copy(checked = false) }
             },
+            isRequired = false,
+            legend = null,
+            supportingText = null,
         )
 
-        MultiSelectInput(
+        InputMultiSelection(
             items = multiSelect2Items,
             title = "Multi Select 2 Disabled",
             state = InputShellState.DISABLED,
@@ -167,6 +182,9 @@ fun MultiSelectInputScreen() {
             onClearItemSelection = {
                 multiSelect2Items.replaceAll { it.copy(checked = false) }
             },
+            isRequired = false,
+            legend = null,
+            supportingText = null,
         )
     }
 }

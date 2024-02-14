@@ -14,7 +14,7 @@ class MultiSelectInputTest {
     @Test
     fun when_no_items_are_present_then_hide_multiselect_list_in_input() {
         composeRule.setContent {
-            MultiSelectInput(
+            InputMultiSelection(
                 items = emptyList(),
                 title = "Multi Select 1",
                 state = InputShellState.UNFOCUSED,
@@ -24,6 +24,9 @@ class MultiSelectInputTest {
                 onClearItemSelection = {
                     // no-op
                 },
+                isRequired = false,
+                legend = null,
+                supportingText = null,
             )
         }
 
@@ -48,7 +51,7 @@ class MultiSelectInputTest {
         )
 
         composeRule.setContent {
-            MultiSelectInput(
+            InputMultiSelection(
                 items = multiSelect1Items,
                 title = "Multi Select 1",
                 state = InputShellState.UNFOCUSED,
@@ -58,6 +61,9 @@ class MultiSelectInputTest {
                 onClearItemSelection = {
                     // no-op
                 },
+                isRequired = false,
+                legend = null,
+                supportingText = null,
             )
         }
 
@@ -83,7 +89,7 @@ class MultiSelectInputTest {
         )
 
         composeRule.setContent {
-            MultiSelectInput(
+            InputMultiSelection(
                 items = multiSelect1Items,
                 title = "Multi Select 1",
                 state = InputShellState.UNFOCUSED,
@@ -93,6 +99,9 @@ class MultiSelectInputTest {
                 onClearItemSelection = {
                     // no-op
                 },
+                isRequired = false,
+                legend = null,
+                supportingText = null,
             )
         }
 
@@ -117,7 +126,7 @@ class MultiSelectInputTest {
         )
 
         composeRule.setContent {
-            MultiSelectInput(
+            InputMultiSelection(
                 items = multiSelect1Items,
                 title = "Multi Select 1",
                 state = InputShellState.UNFOCUSED,
@@ -127,6 +136,9 @@ class MultiSelectInputTest {
                 onClearItemSelection = {
                     // no-op
                 },
+                isRequired = false,
+                legend = null,
+                supportingText = null,
             )
         }
 
@@ -181,7 +193,7 @@ class MultiSelectInputTest {
         )
 
         composeRule.setContent {
-            MultiSelectInput(
+            InputMultiSelection(
                 items = multiSelect1Items,
                 title = "Multi Select 1",
                 state = InputShellState.UNFOCUSED,
@@ -191,6 +203,9 @@ class MultiSelectInputTest {
                 onClearItemSelection = {
                     // no-op
                 },
+                isRequired = false,
+                legend = null,
+                supportingText = null,
             )
         }
 
@@ -245,7 +260,7 @@ class MultiSelectInputTest {
         )
 
         composeRule.setContent {
-            MultiSelectInput(
+            InputMultiSelection(
                 items = multiSelect1Items,
                 title = "Multi Select 1",
                 state = InputShellState.UNFOCUSED,
@@ -255,6 +270,9 @@ class MultiSelectInputTest {
                 onClearItemSelection = {
                     // no-op
                 },
+                isRequired = false,
+                legend = null,
+                supportingText = null,
             )
         }
 
@@ -315,7 +333,7 @@ class MultiSelectInputTest {
         )
 
         composeRule.setContent {
-            MultiSelectInput(
+            InputMultiSelection(
                 items = multiSelect1Items,
                 title = "Multi Select 1",
                 state = InputShellState.UNFOCUSED,
@@ -325,6 +343,9 @@ class MultiSelectInputTest {
                 onClearItemSelection = {
                     // no-op
                 },
+                isRequired = false,
+                legend = null,
+                supportingText = null,
             )
         }
 
@@ -381,7 +402,7 @@ class MultiSelectInputTest {
         )
 
         composeRule.setContent {
-            MultiSelectInput(
+            InputMultiSelection(
                 items = multiSelect1Items,
                 title = "Multi Select 1",
                 state = InputShellState.UNFOCUSED,
@@ -391,6 +412,9 @@ class MultiSelectInputTest {
                 onClearItemSelection = {
                     // no-op
                 },
+                isRequired = false,
+                legend = null,
+                supportingText = null,
             )
         }
 
