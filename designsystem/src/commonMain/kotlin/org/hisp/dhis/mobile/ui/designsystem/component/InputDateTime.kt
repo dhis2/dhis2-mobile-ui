@@ -259,7 +259,6 @@ fun InputDateTime(
     if (showDatePicker) {
         MaterialTheme(
             colorScheme = DHIS2LightColorScheme.copy(
-                primary = SurfaceColor.ContainerHighest,
                 outlineVariant = Outline.Medium,
             ),
         ) {
