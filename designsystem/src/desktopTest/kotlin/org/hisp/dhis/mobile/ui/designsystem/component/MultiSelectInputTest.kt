@@ -25,8 +25,8 @@ class MultiSelectInputTest {
                     // no-op
                 },
                 isRequired = false,
-                legend = null,
-                supportingText = null,
+                legendData = null,
+                supportingTextData = null,
             )
         }
 
@@ -62,8 +62,8 @@ class MultiSelectInputTest {
                     // no-op
                 },
                 isRequired = false,
-                legend = null,
-                supportingText = null,
+                legendData = null,
+                supportingTextData = null,
             )
         }
 
@@ -100,8 +100,8 @@ class MultiSelectInputTest {
                     // no-op
                 },
                 isRequired = false,
-                legend = null,
-                supportingText = null,
+                legendData = null,
+                supportingTextData = null,
             )
         }
 
@@ -137,8 +137,8 @@ class MultiSelectInputTest {
                     // no-op
                 },
                 isRequired = false,
-                legend = null,
-                supportingText = null,
+                legendData = null,
+                supportingTextData = null,
             )
         }
 
@@ -204,8 +204,8 @@ class MultiSelectInputTest {
                     // no-op
                 },
                 isRequired = false,
-                legend = null,
-                supportingText = null,
+                legendData = null,
+                supportingTextData = null,
             )
         }
 
@@ -271,8 +271,8 @@ class MultiSelectInputTest {
                     // no-op
                 },
                 isRequired = false,
-                legend = null,
-                supportingText = null,
+                legendData = null,
+                supportingTextData = null,
             )
         }
 
@@ -344,8 +344,8 @@ class MultiSelectInputTest {
                     // no-op
                 },
                 isRequired = false,
-                legend = null,
-                supportingText = null,
+                legendData = null,
+                supportingTextData = null,
             )
         }
 
@@ -413,8 +413,8 @@ class MultiSelectInputTest {
                     // no-op
                 },
                 isRequired = false,
-                legend = null,
-                supportingText = null,
+                legendData = null,
+                supportingTextData = null,
             )
         }
 

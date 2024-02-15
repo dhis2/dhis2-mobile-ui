@@ -93,8 +93,8 @@ fun MultiSelectInputScreen() {
                 // no-op
             },
             isRequired = false,
-            legend = null,
-            supportingText = null,
+            legendData = null,
+            supportingTextData = null,
         )
 
         InputMultiSelection(
@@ -111,8 +111,8 @@ fun MultiSelectInputScreen() {
                 multiSelect1Items.replaceAll { it.copy(checked = false) }
             },
             isRequired = false,
-            legend = null,
-            supportingText = null,
+            legendData = null,
+            supportingTextData = null,
         )
 
         InputMultiSelection(
@@ -129,8 +129,8 @@ fun MultiSelectInputScreen() {
                 multiSelect1Items.replaceAll { it.copy(checked = false) }
             },
             isRequired = false,
-            legend = null,
-            supportingText = null,
+            legendData = null,
+            supportingTextData = null,
         )
 
         InputMultiSelection(
@@ -147,8 +147,8 @@ fun MultiSelectInputScreen() {
                 multiSelect1Items.replaceAll { it.copy(checked = false) }
             },
             isRequired = false,
-            legend = null,
-            supportingText = null,
+            legendData = null,
+            supportingTextData = null,
         )
 
         InputMultiSelection(
@@ -165,8 +165,8 @@ fun MultiSelectInputScreen() {
                 multiSelect2Items.replaceAll { it.copy(checked = false) }
             },
             isRequired = false,
-            legend = null,
-            supportingText = null,
+            legendData = null,
+            supportingTextData = null,
         )
 
         InputMultiSelection(
@@ -183,8 +183,8 @@ fun MultiSelectInputScreen() {
                 multiSelect2Items.replaceAll { it.copy(checked = false) }
             },
             isRequired = false,
-            legend = null,
-            supportingText = null,
+            legendData = null,
+            supportingTextData = null,
         )
     }
 }

@@ -4,7 +4,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -48,8 +47,8 @@ fun InputMultiSelection(
     items: List<CheckBoxData>,
     title: String,
     state: InputShellState,
-    supportingText: @Composable (() -> Unit)?,
-    legend: @Composable (ColumnScope.() -> Unit)?,
+    supportingTextData: List<SupportingTextData>?,
+    legendData: LegendData?,
     isRequired: Boolean,
     onItemsSelected: (List<CheckBoxData>) -> Unit,
     modifier: Modifier = Modifier,
@@ -61,29 +60,32 @@ fun InputMultiSelection(
     var showMultiSelectBottomSheet by remember { mutableStateOf(false) }
     val focusRequester = remember { FocusRequester() }
 
-    val clearSelectionButton: (@Composable () -> Unit)? = if (items.any { it.checked } && state != InputShellState.DISABLED) {
-        {
-            IconButton(
-                modifier = Modifier.testTag("INPUT_MULTI_SELECT_CLEAR_ICON_BUTTON").padding(Spacing.Spacing0),
-                icon = {
-                    Icon(
-                        imageVector = Icons.Outlined.Cancel,
-                        contentDescription = "Clear Selection",
-                    )
-                },
-                onClick = {
-                    focusRequester.requestFocus()
-                    onClearItemSelection()
-                },
-            )
+    val clearSelectionButton: (@Composable () -> Unit)? =
+        if (items.any { it.checked } && state != InputShellState.DISABLED) {
+            {
+                IconButton(
+                    modifier = Modifier.testTag("INPUT_MULTI_SELECT_CLEAR_ICON_BUTTON")
+                        .padding(Spacing.Spacing0),
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Outlined.Cancel,
+                            contentDescription = "Clear Selection",
+                        )
+                    },
+                    onClick = {
+                        focusRequester.requestFocus()
+                        onClearItemSelection()
+                    },
+                )
+            }
+        } else {
+            null
         }
-    } else {
-        null
-    }
 
     val bottomSheetDropdownButton: (@Composable () -> Unit) = {
         IconButton(
-            modifier = Modifier.testTag("INPUT_MULTI_SELECT_DROP_DOWN_ICON_BUTTON").padding(Spacing.Spacing0),
+            modifier = Modifier.testTag("INPUT_MULTI_SELECT_DROP_DOWN_ICON_BUTTON")
+                .padding(Spacing.Spacing0),
             enabled = state != InputShellState.DISABLED,
             icon = {
                 Icon(
@@ -104,8 +106,21 @@ fun InputMultiSelection(
             state = state,
             modifier = modifier.testTag("INPUT_MULTI_SELECT").focusRequester(focusRequester),
             inputStyle = inputStyle,
-            supportingText = supportingText,
-            legend = legend,
+            supportingText = supportingTextData?.let {
+                {
+                    it.forEach { supportTextData ->
+                        SupportingTextData(
+                            text = supportTextData.text,
+                            state = supportTextData.state,
+                        )
+                    }
+                }
+            },
+            legend = legendData?.let { legendData ->
+                {
+                    Legend(legendData = legendData)
+                }
+            },
             isRequiredField = isRequired,
             inputField = {
                 if (items.size <= INLINE_CHECKBOXES_MIN_REQ_ITEMS) {
