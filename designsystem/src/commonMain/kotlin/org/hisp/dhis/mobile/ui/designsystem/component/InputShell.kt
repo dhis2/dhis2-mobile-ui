@@ -57,10 +57,10 @@ fun InputShell(
     primaryButton: @Composable (() -> Unit)? = null,
     secondaryButton: @Composable (() -> Unit)? = null,
     inputField: @Composable (() -> Unit)? = null,
-    supportingText: @Composable (() -> Unit)? = null,
-    legend: @Composable (ColumnScope.() -> Unit)? = null,
+    supportingText: @Composable (() -> Unit)?,
+    legend: @Composable (ColumnScope.() -> Unit)?,
     onFocusChanged: ((Boolean) -> Unit)? = null,
-    isRequiredField: Boolean = false,
+    isRequiredField: Boolean,
     modifier: Modifier = Modifier,
     inputStyle: InputStyle,
 ) {

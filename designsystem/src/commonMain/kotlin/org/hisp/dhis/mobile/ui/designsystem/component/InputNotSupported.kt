@@ -31,5 +31,8 @@ fun InputNotSupported(
             )
         },
         inputStyle = inputStyle,
+        supportingText = null,
+        legend = null,
+        isRequiredField = false,
     )
 }

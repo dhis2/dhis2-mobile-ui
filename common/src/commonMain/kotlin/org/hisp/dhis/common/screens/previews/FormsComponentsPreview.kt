@@ -69,5 +69,7 @@ internal fun InputShellPreview(
         },
         state = state,
         inputStyle = inputStyle,
+        legend = null,
+        isRequiredField = false,
     )
 }
