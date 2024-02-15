@@ -204,6 +204,7 @@ fun InputDateTime(
                     )
                 },
                 onClick = {
+                    focusRequester.requestFocus()
                     if (uiModel.onActionClicked != null) {
                         uiModel.onActionClicked.invoke()
                     } else {
@@ -272,6 +273,7 @@ fun InputDateTime(
                         ColorStyle.DEFAULT,
                         uiModel.acceptText ?: provideStringResource("ok"),
                     ) {
+                        focusRequester.requestFocus()
                         showDatePicker = false
                         if (uiModel.actionType != DateTimeActionType.DATE_TIME) {
                             datePickerState.selectedDateMillis?.let {
