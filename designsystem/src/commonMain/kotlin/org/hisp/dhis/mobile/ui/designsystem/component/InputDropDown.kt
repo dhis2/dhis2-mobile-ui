@@ -36,6 +36,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2SCustomTextStyles
+import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing0
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing16
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing8
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
@@ -206,7 +207,7 @@ fun dropdownStartPadding(inputStyle: InputStyle): Dp {
     return if (inputStyle is InputStyle.ParameterInputStyle) {
         inputStyle.startIndent
     } else {
-        Dp.Unspecified
+        Spacing0
     }
 }
 
