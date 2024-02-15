@@ -5,6 +5,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.QrCode2
+import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -42,6 +43,8 @@ import org.hisp.dhis.mobile.ui.designsystem.component.parameter.model.ParameterS
 import org.hisp.dhis.mobile.ui.designsystem.component.parameter.model.ParameterSelectorItemModel.Status.CLOSED
 import org.hisp.dhis.mobile.ui.designsystem.component.parameter.model.ParameterSelectorItemModel.Status.FOCUSED
 import org.hisp.dhis.mobile.ui.designsystem.component.parameter.model.ParameterSelectorItemModel.Status.UNFOCUSED
+import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
+import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 
 @Composable
 fun ParameterSelectorScreen() {
@@ -98,7 +101,13 @@ fun ParameterSelectorScreen() {
             },
         ),
         ParameterSelectorItemModel(
-            icon = Icons.Outlined.QrCode2,
+            icon = {
+                Icon(
+                    imageVector = Icons.Outlined.QrCode2,
+                    contentDescription = "Icon Button",
+                    tint = SurfaceColor.Primary,
+                )
+            },
             label = "QRCode parameter",
             helper = "Optional",
             inputField = {
@@ -139,6 +148,13 @@ fun ParameterSelectorScreen() {
             onExpand = {},
         ),
         ParameterSelectorItemModel(
+            icon = {
+                Icon(
+                    painter = provideDHIS2Icon("material_barcode_scanner"),
+                    contentDescription = "Icon Button",
+                    tint = SurfaceColor.Primary,
+                )
+            },
             label = "Barcode parameter",
             helper = "Optional",
             inputField = {

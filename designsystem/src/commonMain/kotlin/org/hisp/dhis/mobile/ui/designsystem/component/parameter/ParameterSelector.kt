@@ -17,7 +17,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.Divider
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -98,13 +97,7 @@ private fun EmptyParameterField(
                 modifier = Modifier
                     .padding(Spacing.Spacing8)
                     .wrapContentWidth(),
-                icon = {
-                    Icon(
-                        imageVector = model.icon,
-                        contentDescription = "Icon Button",
-                        tint = SurfaceColor.Primary,
-                    )
-                },
+                icon = model.icon,
                 onClick = onClick,
             )
             Text(
