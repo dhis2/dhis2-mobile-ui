@@ -315,7 +315,7 @@ fun InputDateTime(
                     modifier = Modifier.padding(Spacing.Spacing0),
                     dateValidator = { date ->
                         dateIsInRange(date, uiModel.selectableDates, uiModel.format)
-                    }
+                    },
                 )
             }
         }
@@ -491,7 +491,7 @@ data class InputDateTimeModel(
     val outOfRangeText: String? = null,
     val incorrectHourFormatText: String? = null,
     val onDateSelected: ((String?) -> Unit)? = null,
-    )
+)
 
 fun getDate(milliSeconds: Long?, format: String? = "ddMMyyyy"): String {
     val cal = Calendar.getInstance()
