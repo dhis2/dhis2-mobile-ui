@@ -476,7 +476,7 @@ data class InputDateTimeModel(
     val isRequired: Boolean = false,
     val imeAction: ImeAction = ImeAction.Next,
     val visualTransformation: DateTimeVisualTransformation = DateTransformation(),
-    val format: String,
+    val format: String = "ddMMyyyy",
     val onFocusChanged: ((Boolean) -> Unit) = {},
     val onValueChanged: (TextFieldValue?) -> Unit,
     val is24hourFormat: Boolean = false,

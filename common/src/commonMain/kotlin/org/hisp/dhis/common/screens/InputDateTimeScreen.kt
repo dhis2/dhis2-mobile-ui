@@ -37,7 +37,6 @@ fun InputDateTimeScreen() {
                 visualTransformation = DateTransformation(),
                 actionType = DateTimeActionType.DATE,
                 onValueChanged = { date = it ?: TextFieldValue() },
-                format = "ddMMyyyy",
                 selectableDates = SelectableDates("01092024", "12122024"),
             ),
         )
@@ -51,7 +50,6 @@ fun InputDateTimeScreen() {
                 visualTransformation = DateTransformation(),
                 actionType = DateTimeActionType.DATE,
                 onValueChanged = { dateTimenoInput = it ?: TextFieldValue() },
-                format = "ddMMyyyy",
                 allowsManualInput = false,
             ),
         )
@@ -65,7 +63,6 @@ fun InputDateTimeScreen() {
                 visualTransformation = TimeTransformation(),
                 actionType = DateTimeActionType.TIME,
                 onValueChanged = { hour24time = it ?: TextFieldValue() },
-                format = "HHMM",
                 is24hourFormat = true,
             ),
 
@@ -80,7 +77,6 @@ fun InputDateTimeScreen() {
                 visualTransformation = TimeTransformation(),
                 actionType = DateTimeActionType.TIME,
                 onValueChanged = { time = it ?: TextFieldValue() },
-                format = "HHMM",
 
             ),
 
@@ -96,7 +92,6 @@ fun InputDateTimeScreen() {
                 visualTransformation = DateTimeTransformation(),
                 actionType = DateTimeActionType.DATE_TIME,
                 onValueChanged = { dateTime = it ?: TextFieldValue() },
-                format = "ddMMyyyy",
             ),
         )
 
@@ -110,7 +105,6 @@ fun InputDateTimeScreen() {
                 visualTransformation = DateTimeTransformation(),
                 actionType = DateTimeActionType.DATE_TIME,
                 onValueChanged = { dateTime24hour = it ?: TextFieldValue() },
-                format = "ddMMyyyy",
                 is24hourFormat = true,
             ),
         )
@@ -126,7 +120,6 @@ fun InputDateTimeScreen() {
                 onValueChanged = {
                     // no-op
                 },
-                format = "ddMMYYYY",
 
             ),
         )
@@ -141,7 +134,6 @@ fun InputDateTimeScreen() {
                 onValueChanged = {
                     // no-op
                 },
-                format = "ddMMYYYYHHMM",
             ),
         )
     }
