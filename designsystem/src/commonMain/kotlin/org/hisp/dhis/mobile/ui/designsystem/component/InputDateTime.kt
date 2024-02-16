@@ -277,7 +277,6 @@ fun InputDateTime(
                         if (uiModel.actionType != DateTimeActionType.DATE_TIME) {
                             datePickerState.selectedDateMillis?.let {
                                 uiModel.onValueChanged(TextFieldValue(getDate(it, uiModel.format), selection = TextRange(uiModel.inputTextFieldValue?.text?.length ?: 0)))
-                                uiModel.onDateSelected?.invoke(getDate(it, uiModel.format))
                             }
                         } else {
                             showTimePicker = true
@@ -380,10 +379,8 @@ fun InputDateTime(
                         showTimePicker = false
                         if (uiModel.actionType != DateTimeActionType.DATE_TIME) {
                             uiModel.onValueChanged(TextFieldValue(getTime(timePickerState), selection = TextRange(uiModel.inputTextFieldValue?.text?.length ?: 0)))
-                            uiModel.onDateSelected?.invoke(getTime(timePickerState))
                         } else {
                             uiModel.onValueChanged(TextFieldValue(getDate(datePickerState.selectedDateMillis) + getTime(timePickerState), selection = TextRange(uiModel.inputTextFieldValue?.text?.length ?: 0)))
-                            uiModel.onDateSelected?.invoke(getDate(datePickerState.selectedDateMillis) + getTime(timePickerState))
                         }
                     }
                 }
@@ -490,7 +487,6 @@ data class InputDateTimeModel(
     val yearRange: IntRange = IntRange(1970, 2070),
     val outOfRangeText: String? = null,
     val incorrectHourFormatText: String? = null,
-    val onDateSelected: ((String?) -> Unit)? = null,
 )
 
 fun getDate(milliSeconds: Long?, format: String? = "ddMMyyyy"): String {
