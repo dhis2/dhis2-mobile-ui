@@ -41,6 +41,10 @@ jobs:
       - name: Run gradle tests
         run: ./gradlew desktopTest
 
+      # Run Screenshot Tests
+      - name: Run screenshot tests
+        run: ./gradlew designsystem:verifyPaparazziDebug
+
       # Run Build Project
       - name: Build gradle project
         run: ./gradlew build

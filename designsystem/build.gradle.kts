@@ -6,6 +6,7 @@ plugins {
     id("org.jetbrains.compose")
     id("com.android.library")
     id("convention.publication")
+    id("app.cash.paparazzi").version("1.3.2")
 }
 
 kotlin {
@@ -16,22 +17,32 @@ kotlin {
     jvm("desktop")
 
     sourceSets {
-        commonMain.dependencies {
-            implementation(compose.runtime)
-            implementation(compose.foundation)
-            implementation(compose.ui)
-            implementation(compose.material3)
-            api(compose.materialIconsExtended)
-            @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
-            implementation(compose.components.resources)
+        val commonMain by getting {
+            dependencies {
+                implementation(compose.runtime)
+                implementation(compose.foundation)
+                implementation(compose.ui)
+                implementation(compose.material3)
+                api(compose.materialIconsExtended)
+                @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
+                implementation(compose.components.resources)
+            }
         }
 
-        androidMain.dependencies {
-            api("androidx.activity:activity-compose:1.8.2")
-            api("androidx.appcompat:appcompat:1.6.1")
-            api("androidx.core:core-ktx:1.12.0")
-            implementation("com.google.zxing:core:3.5.2")
-            implementation("se.warting.signature:signature-pad:0.1.2")
+        val androidMain by getting {
+            dependencies {
+                api("androidx.activity:activity-compose:1.8.2")
+                api("androidx.appcompat:appcompat:1.6.1")
+                api("androidx.core:core-ktx:1.12.0")
+                implementation("com.google.zxing:core:3.5.2")
+                implementation("se.warting.signature:signature-pad:0.1.2")
+            }
+        }
+
+        val androidUnitTest by getting {
+            dependencies {
+                implementation("junit:junit:4.13.2")
+            }
         }
 
         val desktopMain by getting {
