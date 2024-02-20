@@ -12,6 +12,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.DropdownItem
 import org.hisp.dhis.mobile.ui.designsystem.component.InputDropDown
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
+import org.hisp.dhis.mobile.ui.designsystem.component.InputStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
 import org.hisp.dhis.mobile.ui.designsystem.component.Title
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
@@ -38,6 +39,20 @@ fun InputDropDownScreen() {
         var selectedItem by remember { mutableStateOf<DropdownItem?>(null) }
         InputDropDown(
             title = "Label",
+            state = InputShellState.UNFOCUSED,
+            dropdownItems = options.take(6),
+            onResetButtonClicked = {
+                selectedItem = null
+            },
+            onItemSelected = {
+                selectedItem = it
+            },
+            selectedItem = selectedItem,
+        )
+
+        InputDropDown(
+            title = "Label - Parameter Style",
+            inputStyle = InputStyle.ParameterInputStyle(),
             state = InputShellState.UNFOCUSED,
             dropdownItems = options.take(6),
             onResetButtonClicked = {
