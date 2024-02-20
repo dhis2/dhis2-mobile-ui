@@ -239,7 +239,7 @@ fun BottomSheetShell(
                 }
             }
 
-            val shadowModifier = if (canScrollForward) {
+            val shadowModifier = if (canScrollForward && content != null) {
                 Modifier.shadow(elevation = 32.dp, ambientColor = ThemeColor.Blue900, spotColor = ThemeColor.Blue900)
             } else {
                 Modifier
