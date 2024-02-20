@@ -213,7 +213,7 @@ fun dropdownStartPadding(inputStyle: InputStyle): Dp {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun DropdownInputField(
+fun DropdownInputField(
     title: String,
     state: InputShellState,
     inputStyle: InputStyle = InputStyle.DataInputStyle(),
