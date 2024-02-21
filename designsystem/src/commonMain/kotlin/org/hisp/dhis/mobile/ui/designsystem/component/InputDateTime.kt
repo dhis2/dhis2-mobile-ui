@@ -561,7 +561,7 @@ fun timePickerColors(): TimePickerColors {
         periodSelectorSelectedContentColor = SurfaceColor.Warning,
         periodSelectorUnselectedContainerColor = SurfaceColor.Container,
         selectorColor = SurfaceColor.Primary,
-        timeSelectorSelectedContainerColor = SurfaceColor.ContainerLow
+        timeSelectorSelectedContainerColor = SurfaceColor.ContainerLow,
     )
 }
 
