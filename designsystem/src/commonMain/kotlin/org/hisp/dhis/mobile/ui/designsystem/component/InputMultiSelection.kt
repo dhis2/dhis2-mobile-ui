@@ -19,7 +19,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -251,7 +250,7 @@ fun MultiSelectBottomSheet(
         .filter { it.textInput!!.contains(searchQuery, ignoreCase = true) }
         .toMutableStateList()
 
-    val itemsModified = remember { mutableStateListOf<CheckBoxData>() }
+    val itemsModified = remember { items.toMutableList() }
 
     BottomSheetShell(
         modifier = Modifier.testTag("INPUT_MULTI_SELECT_BOTTOM_SHEET"),
@@ -272,7 +271,7 @@ fun MultiSelectBottomSheet(
                             ),
                             onCheckedChange = {
                                 filteredOptions[index] = item.copy(checked = it)
-                                itemsModified.add(item.copy(checked = it))
+                                itemsModified[index] = item.copy(checked = it)
                             },
                             modifier = Modifier.fillMaxWidth(),
                         )
