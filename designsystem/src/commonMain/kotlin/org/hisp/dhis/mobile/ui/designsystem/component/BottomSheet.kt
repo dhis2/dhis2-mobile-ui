@@ -31,6 +31,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
@@ -52,6 +53,7 @@ fun BottomSheetHeader(
     @Composable
     (() -> Unit)? = null,
     hasSearch: Boolean = false,
+    headerTextAlignment: TextAlign = TextAlign.Center,
     modifier: Modifier = Modifier,
 ) {
     val horizontalAlignment = if (icon != null || hasSearch) Alignment.CenterHorizontally else Alignment.Start
@@ -67,18 +69,22 @@ fun BottomSheetHeader(
         }
 
         Text(
-            title,
+            modifier = Modifier.fillMaxWidth(),
+            text = title,
             style = MaterialTheme.typography.headlineSmall,
             color = TextColor.OnSurface,
+            textAlign = headerTextAlignment,
         )
 
         subTitle?.let {
             Spacer(Modifier.requiredHeight(4.dp))
 
             Text(
-                subTitle,
+                modifier = Modifier.fillMaxWidth(),
+                text = subTitle,
                 style = MaterialTheme.typography.bodySmall,
                 color = TextColor.OnDisabledSurface,
+                textAlign = headerTextAlignment,
             )
         }
 
@@ -86,9 +92,11 @@ fun BottomSheetHeader(
             Spacer(Modifier.requiredHeight(16.dp))
 
             Text(
-                description,
+                modifier = Modifier.fillMaxWidth(),
+                text = description,
                 style = MaterialTheme.typography.bodyMedium,
                 color = TextColor.OnSurfaceLight,
+                textAlign = headerTextAlignment,
             )
         }
     }
@@ -129,6 +137,7 @@ fun BottomSheetShell(
     icon: @Composable (() -> Unit)? = null,
     buttonBlock: @Composable (() -> Unit)? = null,
     modifier: Modifier = Modifier,
+    headerTextAlignment: TextAlign = TextAlign.Center,
     onSearchQueryChanged: ((String) -> Unit)? = null,
     onSearch: ((String) -> Unit)? = null,
     onDismiss: () -> Unit,
@@ -178,11 +187,12 @@ fun BottomSheetShell(
                 val hasTitle by derivedStateOf { !title.isNullOrBlank() }
                 if (hasTitle) {
                     BottomSheetHeader(
-                        title!!,
-                        subtitle,
-                        description,
-                        icon,
-                        hasSearch,
+                        title = title!!,
+                        subTitle = subtitle,
+                        description = description,
+                        icon = icon,
+                        hasSearch = hasSearch,
+                        headerTextAlignment = headerTextAlignment,
                         modifier = Modifier
                             .padding(vertical = Spacing0)
                             .align(Alignment.CenterHorizontally),
