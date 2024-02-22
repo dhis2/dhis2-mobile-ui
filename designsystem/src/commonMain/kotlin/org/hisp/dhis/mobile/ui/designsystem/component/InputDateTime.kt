@@ -560,6 +560,8 @@ fun timePickerColors(): TimePickerColors {
         periodSelectorUnselectedContentColor = TextColor.OnSurfaceVariant,
         periodSelectorSelectedContentColor = SurfaceColor.Warning,
         periodSelectorUnselectedContainerColor = SurfaceColor.Container,
+        selectorColor = SurfaceColor.Primary,
+        timeSelectorSelectedContainerColor = SurfaceColor.ContainerLow,
     )
 }
 
