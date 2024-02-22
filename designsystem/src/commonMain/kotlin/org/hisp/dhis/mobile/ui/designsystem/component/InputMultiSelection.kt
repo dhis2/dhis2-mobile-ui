@@ -159,7 +159,7 @@ fun InputMultiSelection(
                                 .alpha(0f)
                                 .clickable(
                                     enabled = state != InputShellState.DISABLED &&
-                                        items.size > INLINE_CHECKBOXES_MIN_REQ_ITEMS,
+                                            items.size > INLINE_CHECKBOXES_MIN_REQ_ITEMS,
                                     onClick = {
                                         focusRequester.requestFocus()
                                         showMultiSelectBottomSheet = true
@@ -295,7 +295,11 @@ fun MultiSelectBottomSheet(
             Button(
                 modifier = Modifier.fillMaxWidth(),
                 onClick = {
-                    onItemsSelected(itemsModified)
+                    onItemsSelected(
+                        items.map { item ->
+                            itemsModified.find { it.uid == item.uid } ?: item
+                        }
+                    )
                 },
                 icon = {
                     Icon(
