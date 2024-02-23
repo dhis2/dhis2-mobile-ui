@@ -295,7 +295,11 @@ fun MultiSelectBottomSheet(
             Button(
                 modifier = Modifier.fillMaxWidth(),
                 onClick = {
-                    onItemsSelected(itemsModified)
+                    onItemsSelected(
+                        items.map { item ->
+                            itemsModified.find { it.uid == item.uid } ?: item
+                        },
+                    )
                 },
                 icon = {
                     Icon(
