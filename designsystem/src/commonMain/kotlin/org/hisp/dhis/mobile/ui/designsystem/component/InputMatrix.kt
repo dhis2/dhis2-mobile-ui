@@ -1,5 +1,6 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -13,9 +14,11 @@ import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.IconCard
-import org.hisp.dhis.mobile.ui.designsystem.component.internal.IconCardData
+import org.hisp.dhis.mobile.ui.designsystem.component.internal.ImageCardData
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.VerticalGrid
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2SCustomTextStyles
@@ -37,9 +40,9 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 @Composable
 fun InputMatrix(
     title: String,
-    data: List<IconCardData>,
+    data: List<ImageCardData>,
     itemCount: Int = 2,
-    selectedData: IconCardData? = null,
+    selectedData: ImageCardData? = null,
     modifier: Modifier = Modifier,
     state: InputShellState,
     inputStyle: InputStyle = InputStyle.DataInputStyle(),
@@ -47,7 +50,8 @@ fun InputMatrix(
     legendData: LegendData? = null,
     isRequired: Boolean = false,
     testTag: String = "",
-    onSelectionChanged: (IconCardData) -> Unit,
+    onSelectionChanged: (ImageCardData) -> Unit,
+    painterFor: Map<String, Painter>? = null,
 ) {
     InputShell(
         modifier = modifier.testTag("ICON_CARDS_INPUT_$testTag"),
@@ -80,6 +84,7 @@ fun InputMatrix(
                     selected = iconCardData == selectedData,
                     enabled = state != InputShellState.DISABLED,
                     modifier = Modifier.testTag("MATRIX_ICON_CARD_$testTag"),
+                    painterFor = painterFor,
                 )
             }
         },
@@ -103,11 +108,12 @@ fun InputMatrix(
 
 @Composable
 private fun MatrixIconCard(
-    data: IconCardData,
+    data: ImageCardData,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     selected: Boolean = false,
     onClick: () -> Unit,
+    painterFor: Map<String, Painter>?,
 ) {
     IconCard(
         enabled = enabled,
@@ -127,10 +133,23 @@ private fun MatrixIconCard(
 
             MetadataAvatar(
                 icon = {
-                    Icon(
-                        painter = provideDHIS2Icon(data.iconRes),
-                        contentDescription = null,
-                    )
+                    when (data) {
+                        is ImageCardData.IconCardData ->
+                            Icon(
+                                painter = provideDHIS2Icon(data.iconRes),
+                                contentDescription = null,
+                            )
+
+                        is ImageCardData.CustomIconData -> {
+                            if (painterFor?.get(data.uid) != null) {
+                                Image(
+                                    painter = painterFor[data.uid]!!,
+                                    contentDescription = "",
+                                    contentScale = ContentScale.Crop,
+                                )
+                            }
+                        }
+                    }
                 },
                 size = AvatarSize.Large,
                 iconTint = iconTint,
@@ -159,11 +178,11 @@ private fun iconBackgroundColor(
 @ReadOnlyComposable
 private fun iconTint(
     enabled: Boolean,
-    data: IconCardData,
-) = if (enabled) {
-    data.iconTint
-} else {
-    TextColor.OnDisabledSurface
+    data: ImageCardData,
+) = when {
+    !enabled -> TextColor.OnDisabledSurface
+    data is ImageCardData.IconCardData && enabled -> data.iconTint
+    else -> Color.Unspecified
 }
 
 @ReadOnlyComposable

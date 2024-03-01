@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ImageBitmap
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHISShapes
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
@@ -57,9 +58,16 @@ internal fun IconCard(
     }
 }
 
-data class IconCardData(
-    val uid: String,
-    val label: String,
-    val iconRes: String,
-    val iconTint: Color,
-)
+sealed class ImageCardData(open val uid: String, open val label: String) {
+    data class IconCardData(
+        override val uid: String,
+        override val label: String,
+        val iconRes: String,
+        val iconTint: Color,
+    ) : ImageCardData(uid, label)
+    data class CustomIconData(
+        override val uid: String,
+        override val label: String,
+        val image: ImageBitmap,
+    ) : ImageCardData(uid, label)
+}

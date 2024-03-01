@@ -7,7 +7,7 @@ import androidx.compose.ui.test.isNotEnabled
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onNodeWithTag
-import org.hisp.dhis.mobile.ui.designsystem.component.internal.IconCardData
+import org.hisp.dhis.mobile.ui.designsystem.component.internal.ImageCardData
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.junit.Rule
 import org.junit.Test
@@ -18,19 +18,19 @@ class InputSequentialTest {
     val rule = createComposeRule()
 
     private val data = listOf(
-        IconCardData(
+        ImageCardData.IconCardData(
             uid = "7e0cb105-c276-4f12-9f56-a26af8314121",
             label = "Stethoscope",
             iconRes = "dhis2_stethoscope_positive",
             iconTint = Color(0xFFFF8400),
         ),
-        IconCardData(
+        ImageCardData.IconCardData(
             uid = "72269f6b-6b99-4d2e-a667-09f20c2097e0",
             label = "Medicines",
             iconRes = "dhis2_medicines_positive",
             iconTint = Color(0xFFEB0085),
         ),
-        IconCardData(
+        ImageCardData.IconCardData(
             uid = "37b81748-e9b4-4f74-a50a-59b945e54aa4",
             label = "Sayana press",
             iconRes = "dhis2_sayana_press_positive",
