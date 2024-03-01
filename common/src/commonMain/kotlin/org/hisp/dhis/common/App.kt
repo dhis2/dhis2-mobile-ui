@@ -21,6 +21,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ImageBitmap
 import org.hisp.dhis.common.screens.BadgesScreen
 import org.hisp.dhis.common.screens.BarcodeBlockScreen
 import org.hisp.dhis.common.screens.BottomSheetHeaderScreen
@@ -88,14 +89,16 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
 @Composable
-fun App() {
+fun App(imageBitmapLoader: (() -> ImageBitmap)? = null) {
     DHIS2Theme {
-        Main()
+        Main(imageBitmapLoader)
     }
 }
 
 @Composable
-fun Main() {
+fun Main(
+    imageBitmapLoader: (() -> ImageBitmap)?,
+) {
     val currentScreen = remember { mutableStateOf(Components.INPUT_DATE_TIME) }
     var expanded by remember { mutableStateOf(false) }
 
@@ -174,8 +177,8 @@ fun Main() {
             Components.BADGES -> BadgesScreen()
             Components.SWITCH -> SwitchScreen()
             Components.INPUT_RADIO_BUTTON -> InputRadioButtonScreen()
-            Components.INPUT_MATRIX -> InputMatrixScreen()
-            Components.INPUT_SEQUENTIAL -> InputSequentialScreen()
+            Components.INPUT_MATRIX -> InputMatrixScreen(imageBitmapLoader)
+            Components.INPUT_SEQUENTIAL -> InputSequentialScreen(imageBitmapLoader)
             Components.INPUT_QR_CODE -> InputQRCodeScreen()
             Components.INPUT_CHECK_BOX -> InputCheckBoxScreen()
             Components.BARCODE_BLOCK -> BarcodeBlockScreen()

@@ -7,6 +7,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.graphics.painter.Painter
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
@@ -14,10 +15,9 @@ import org.hisp.dhis.mobile.ui.designsystem.component.InputMatrix
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.ImageCardData
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
-import org.jetbrains.compose.resources.ExperimentalResourceApi
 
 @Composable
-fun InputMatrixScreen() {
+fun InputMatrixScreen(imageBitmapLoader: (() -> ImageBitmap)?) {
     var matrixSelectedItem by remember { mutableStateOf<ImageCardData?>(null) }
 
     val inputCardData = remember {
@@ -58,11 +58,13 @@ fun InputMatrixScreen() {
                 iconRes = "dhis2_sad_positive",
                 iconTint = SurfaceColor.CustomYellow,
             ),
-            ImageCardData.CustomIconData(
-                uid = "4ee5944e-b75f-4597-95bc-266b38b25604",
-                label = "Sad",
-                image = "drawable/sample.png",
-            ),
+            imageBitmapLoader?.invoke()?.let {
+                ImageCardData.CustomIconData(
+                    uid = "4ee5944e-b75f-4597-95bc-266b38b25604",
+                    label = "Sad",
+                    image = it,
+                )
+            },
         )
     }
     val sampleImage = provideSampleImages(
@@ -71,7 +73,7 @@ fun InputMatrixScreen() {
     ColumnComponentContainer(title = "Input Matrix") {
         InputMatrix(
             title = "Label",
-            data = inputCardData,
+            data = inputCardData.filterNotNull(),
             selectedData = matrixSelectedItem,
             onSelectionChanged = { newSelectedItem ->
                 matrixSelectedItem = if (matrixSelectedItem == newSelectedItem) {
@@ -86,7 +88,7 @@ fun InputMatrixScreen() {
 
         InputMatrix(
             title = "Label",
-            data = inputCardData,
+            data = inputCardData.filterNotNull(),
             selectedData = matrixSelectedItem,
             state = InputShellState.DISABLED,
             itemCount = 3,
@@ -98,7 +100,6 @@ fun InputMatrixScreen() {
     }
 }
 
-@OptIn(ExperimentalResourceApi::class)
 @Composable
 private fun provideSampleImages(image: List<ImageCardData.CustomIconData>): Map<String, Painter> =
     image.associate { it.uid to BitmapPainter(it.image) }

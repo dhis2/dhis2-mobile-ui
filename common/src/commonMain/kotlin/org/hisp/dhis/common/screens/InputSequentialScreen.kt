@@ -7,17 +7,17 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.graphics.painter.Painter
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InputSequential
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.ImageCardData
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
-import org.jetbrains.compose.resources.ExperimentalResourceApi
-import org.jetbrains.compose.resources.painterResource
 
 @Composable
-fun InputSequentialScreen() {
+fun InputSequentialScreen(imageBitmapLoader: (() -> ImageBitmap)?) {
     var sequentialSelectedItem by remember { mutableStateOf<ImageCardData?>(null) }
 
     val inputCardData = remember {
@@ -58,11 +58,13 @@ fun InputSequentialScreen() {
                 iconRes = "dhis2_sad_positive",
                 iconTint = SurfaceColor.CustomYellow,
             ),
-            ImageCardData.CustomIconData(
-                uid = "4ee5944e-b75f-4597-95bc-266b38b25604",
-                label = "Sad",
-                image = "drawable/sample.png",
-            ),
+            imageBitmapLoader?.invoke()?.let {
+                ImageCardData.CustomIconData(
+                    uid = "4ee5944e-b75f-4597-95bc-266b38b25604",
+                    label = "Sad",
+                    image = it,
+                )
+            },
         )
     }
 
@@ -73,7 +75,7 @@ fun InputSequentialScreen() {
     ColumnComponentContainer(title = "Input Sequential") {
         InputSequential(
             title = "Label",
-            data = inputCardData,
+            data = inputCardData.filterNotNull(),
             selectedData = sequentialSelectedItem,
             onSelectionChanged = { newSelectedItem ->
                 sequentialSelectedItem = if (sequentialSelectedItem == newSelectedItem) {
@@ -88,7 +90,7 @@ fun InputSequentialScreen() {
 
         InputSequential(
             title = "Label",
-            data = inputCardData,
+            data = inputCardData.filterNotNull(),
             selectedData = sequentialSelectedItem,
             state = InputShellState.DISABLED,
             onSelectionChanged = {
@@ -99,7 +101,6 @@ fun InputSequentialScreen() {
     }
 }
 
-@OptIn(ExperimentalResourceApi::class)
 @Composable
 private fun provideSampleImages(image: List<ImageCardData.CustomIconData>): Map<String, Painter> =
-    image.associate { it.uid to painterResource(it.image) }
+    image.associate { it.uid to BitmapPainter(it.image) }
