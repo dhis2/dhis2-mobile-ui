@@ -32,6 +32,7 @@ import org.hisp.dhis.common.screens.ButtonScreen
 import org.hisp.dhis.common.screens.CheckboxScreen
 import org.hisp.dhis.common.screens.ChipsScreen
 import org.hisp.dhis.common.screens.Components
+import org.hisp.dhis.common.screens.FABScreen
 import org.hisp.dhis.common.screens.FormShellsScreen
 import org.hisp.dhis.common.screens.FormsComponentsScreen
 import org.hisp.dhis.common.screens.FullScreenImageScreen
@@ -99,7 +100,7 @@ fun App(imageBitmapLoader: (() -> ImageBitmap)? = null) {
 fun Main(
     imageBitmapLoader: (() -> ImageBitmap)?,
 ) {
-    val currentScreen = remember { mutableStateOf(Components.INPUT_DATE_TIME) }
+    val currentScreen = remember { mutableStateOf(Components.FAB) }
     var expanded by remember { mutableStateOf(false) }
 
     Column(
@@ -208,6 +209,7 @@ fun Main(
             Components.INDICATOR_INPUT -> IndicatorInputScreen()
             Components.PARAMETER_SELECTOR -> ParameterSelectorScreen()
             Components.MULTI_SELECT -> MultiSelectInputScreen()
+            Components.FAB -> FABScreen()
         }
     }
 }
