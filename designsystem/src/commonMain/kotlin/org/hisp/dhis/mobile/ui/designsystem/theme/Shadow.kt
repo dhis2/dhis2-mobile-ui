@@ -94,4 +94,9 @@ internal fun Modifier.iconCardShadow(
     }
 }.padding(bottom = shadowRadius)
 
-internal expect fun Modifier.listCardShadow(modifier: Modifier): Modifier
+internal expect fun Modifier.shadow(
+    elevation: Dp = Spacing.Spacing4,
+    blur: Dp = Spacing.Spacing10,
+    radius: Dp = Radius.L,
+    spotColor: Color = SurfaceColor.Container,
+): Modifier
