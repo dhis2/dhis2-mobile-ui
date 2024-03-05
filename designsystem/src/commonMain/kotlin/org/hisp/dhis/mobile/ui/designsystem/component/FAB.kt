@@ -27,6 +27,7 @@ fun FAB(
     FloatingActionButton(
         modifier = modifier
             .shadow(
+                spotColor = Color(0x40007DEB),
                 blur = Spacing.Spacing4,
             )
             .testTag("FAB"),
@@ -50,6 +51,7 @@ fun ExtendedFAB(
     ExtendedFloatingActionButton(
         modifier = modifier
             .shadow(
+                spotColor = Color(0x40007DEB),
                 blur = Spacing.Spacing8,
             )
             .testTag("EXTENDED_FAB_$text"),

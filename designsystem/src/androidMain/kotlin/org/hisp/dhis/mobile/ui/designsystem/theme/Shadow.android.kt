@@ -26,8 +26,8 @@ internal actual fun Modifier.shadow(
 
             val leftPixel = Spacing.Spacing0.toPx()
             val topPixel = elevation.toPx()
-            val rightPixel = size.width + topPixel
-            val bottomPixel = size.height + leftPixel
+            val rightPixel = size.width + leftPixel
+            val bottomPixel = size.height + topPixel
 
             canvas.drawRoundRect(
                 left = leftPixel,
