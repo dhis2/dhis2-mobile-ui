@@ -50,7 +50,7 @@ fun ExtendedFAB(
     ExtendedFloatingActionButton(
         modifier = modifier
             .shadow(
-                blur = Spacing.Spacing4,
+                blur = Spacing.Spacing8,
             )
             .testTag("EXTENDED_FAB_$text"),
         icon = icon,
