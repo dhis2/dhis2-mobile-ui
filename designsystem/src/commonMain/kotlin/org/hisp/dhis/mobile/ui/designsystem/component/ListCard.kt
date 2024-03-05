@@ -54,7 +54,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing4
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
-import org.hisp.dhis.mobile.ui.designsystem.theme.listCardShadow
+import org.hisp.dhis.mobile.ui.designsystem.theme.shadow
 
 /**
  * DHIS2 ListCard.
@@ -101,7 +101,7 @@ fun ListCard(
     Row(
         modifier = modifier
             .conditional(shadow, {
-                listCardShadow(modifier)
+                shadow()
             })
             .background(color = TextColor.OnPrimary, shape = RoundedCornerShape(Radius.S))
             .clip(shape = RoundedCornerShape(Radius.S))

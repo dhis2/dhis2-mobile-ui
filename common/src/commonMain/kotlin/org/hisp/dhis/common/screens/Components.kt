@@ -63,4 +63,5 @@ enum class Components(val label: String) {
     INDICATOR_INPUT("Indicator Input"),
     PARAMETER_SELECTOR("Parameter selector"),
     MULTI_SELECT("Multi Select Input"),
+    FAB("FAB"),
 }
