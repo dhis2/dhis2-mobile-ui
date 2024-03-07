@@ -19,7 +19,7 @@ class InputAgeSnapshotTest {
     val paparazzi = paparazzi()
 
     @Test
-    fun launchFAB() {
+    fun launchInputAgeSnapshot() {
         paparazzi.snapshot {
             ColumnComponentContainer {
                 SubTitle("Input Age Component - Idle")
