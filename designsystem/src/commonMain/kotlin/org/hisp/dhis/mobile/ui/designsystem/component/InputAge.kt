@@ -145,12 +145,11 @@ fun InputAge(
                     )
                 }
                 is DateOfBirth, is Age -> {
-                    val inputTextValue = getTextFieldValue(inputType)
                     BasicTextField(
                         modifier = Modifier
                             .testTag("INPUT_AGE_TEXT_FIELD")
                             .fillMaxWidth(),
-                        inputTextValue = inputTextValue,
+                        inputTextValue = getTextFieldValue(inputType),
                         helper = helperText,
                         isSingleLine = true,
                         helperStyle = helperStyle,
