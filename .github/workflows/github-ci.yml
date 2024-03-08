@@ -47,9 +47,6 @@ jobs:
       # Run Screenshot Tests
       - name: Run screenshot tests
         run: ./gradlew designsystem:verifyPaparazziDebug
-
-      # Upload Screenshot test report
-      - name: Upload screenshot test report
         uses: actions/upload-artifact@v3
         with:
           name: ${{ env.repository_name }} - Screenshot test report
