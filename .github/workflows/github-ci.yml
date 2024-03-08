@@ -47,11 +47,11 @@ jobs:
         run: ./gradlew designsystem:verifyPaparazziDebug
 
       - name: Upload Paparazzi report
-        if: always()
+        if: failure()
         uses: actions/upload-artifact@v2
         with:
           name: paparazzi-report
-          path: ${{ env.design_system_module }}/build/reports/tests/testDebugUnitTest/index.html
+          path: ${{ env.design_system_module }}/build/reports/
 
       # Run Build Project
       - name: Build gradle project
