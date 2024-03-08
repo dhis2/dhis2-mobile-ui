@@ -40,9 +40,6 @@ jobs:
       # Run Tests Build
       - name: Run gradle tests
         run: ./gradlew desktopTest
-      # Run Tests Build
-      - name: Run gradle tests
-        run: ./gradlew desktopTest
 
       # Run Screenshot Tests
       - name: Run screenshot tests
