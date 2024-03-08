@@ -1,8 +1,6 @@
 package org.hisp.dhis.mobile.ui.designsystem
 
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import org.hisp.dhis.mobile.ui.designsystem.component.AgeInputType
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
@@ -25,7 +23,7 @@ class InputAgeSnapshotTest {
                 SubTitle("Input Age Component - Idle")
                 InputAge(
                     title = "Label",
-                    inputType =  AgeInputType.None,
+                    inputType = AgeInputType.None,
                     onCalendarActionClicked = {
                         // no-op
                     },
