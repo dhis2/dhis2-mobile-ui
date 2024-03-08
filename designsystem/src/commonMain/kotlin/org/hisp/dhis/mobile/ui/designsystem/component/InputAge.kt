@@ -19,6 +19,7 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
@@ -148,7 +149,7 @@ fun InputAge(
                         modifier = Modifier
                             .testTag("INPUT_AGE_TEXT_FIELD")
                             .fillMaxWidth(),
-                        inputTextValue = TextFieldValue(transformInputText(inputType)),
+                        inputTextValue = getTextFieldValue(inputType),
                         helper = helperText,
                         isSingleLine = true,
                         helperStyle = helperStyle,
@@ -239,6 +240,14 @@ private fun transformInputText(inputType: AgeInputType): String {
         is Age -> inputType.value
         is DateOfBirth -> inputType.value
         None -> ""
+    }
+}
+
+private fun getTextFieldValue(inputType: AgeInputType): TextFieldValue {
+    return when (inputType) {
+        is Age -> TextFieldValue(transformInputText(inputType), TextRange(inputType.value.length))
+        is DateOfBirth -> TextFieldValue(transformInputText(inputType), TextRange(inputType.value.length))
+        None -> TextFieldValue()
     }
 }
 
