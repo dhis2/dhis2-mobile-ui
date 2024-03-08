@@ -44,6 +44,13 @@ jobs:
       # Run Screenshot Tests
       - name: Run screenshot tests
         run: ./gradlew designsystem:verifyPaparazziDebug
+          
+          # Upload Artifact Build
+               - name: Upload screenshot test report
+               uses: actions/upload-artifact@v3
+               with:
+                 name: ${{ env.repository_name }} - Screenshot test report
+                 path: ${{ env.main_project_module }}build/reports/tests/testDebugUnitTest/index.html
 
       # Run Build Project
       - name: Build gradle project
