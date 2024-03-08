@@ -1,7 +1,5 @@
 package org.hisp.dhis.mobile.ui.designsystem
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import org.hisp.dhis.mobile.ui.designsystem.component.AgeInputType
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InputAge

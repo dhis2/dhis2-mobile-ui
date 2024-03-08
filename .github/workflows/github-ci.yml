@@ -3,6 +3,7 @@ name: Continuous Integration
 env:
   # The name of the main module repository
   main_project_module: android
+  design_system_module: designsystem
 
 on:
   push:
@@ -44,10 +45,13 @@ jobs:
       # Run Screenshot Tests
       - name: Run screenshot tests
         run: ./gradlew designsystem:verifyPaparazziDebug
-        uses: actions/upload-artifact@v3
+
+      - name: Upload Paparazzi report
+        if: always()
+        uses: actions/upload-artifact@v2
         with:
-          name: ${{ env.repository_name }} - Screenshot test report
-          path: ${{ env.main_project_module }}/build/reports/tests/testDebugUnitTest/index.html
+          name: paparazzi-report
+          path: ${{ env.design_system_module }}/build/reports/tests/testDebugUnitTest/index.html
 
       # Run Build Project
       - name: Build gradle project
