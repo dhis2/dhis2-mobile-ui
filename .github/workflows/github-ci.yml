@@ -46,13 +46,6 @@ jobs:
       - name: Run screenshot tests
         run: ./gradlew designsystem:verifyPaparazziDebug
 
-      - name: Upload Paparazzi report
-        if: failure()
-        uses: actions/upload-artifact@v2
-        with:
-          name: paparazzi-report
-          path: ${{ env.design_system_module }}/build/reports/
-
       # Run Build Project
       - name: Build gradle project
         run: ./gradlew build
