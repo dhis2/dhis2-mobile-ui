@@ -23,11 +23,9 @@ class InputAgeSnapshotTest {
         paparazzi.snapshot {
             ColumnComponentContainer {
                 SubTitle("Input Age Component - Idle")
-                var inputType by remember { mutableStateOf<AgeInputType>(AgeInputType.None) }
-
                 InputAge(
                     title = "Label",
-                    inputType = inputType,
+                    inputType =  AgeInputType.None,
                     onCalendarActionClicked = {
                         // no-op
                     },
