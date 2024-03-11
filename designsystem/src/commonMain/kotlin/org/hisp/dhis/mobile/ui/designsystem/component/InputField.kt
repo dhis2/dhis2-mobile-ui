@@ -17,7 +17,6 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -93,6 +92,7 @@ fun BasicTextField(
     keyboardOptions: KeyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
     visualTransformation: VisualTransformation? = null,
     onNextClicked: (() -> Unit)? = null,
+    onSearchClicked: (() -> Unit)? = null,
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     var textFieldVisualTransformation = VisualTransformation.None
@@ -157,6 +157,9 @@ fun BasicTextField(
             keyboardActions = KeyboardActions(
                 onNext = {
                     onNextClicked?.invoke()
+                },
+                onSearch = {
+                    onSearchClicked?.invoke()
                 },
                 onDone = {
                     keyboardController?.hide()
