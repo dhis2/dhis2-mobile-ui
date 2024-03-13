@@ -63,6 +63,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
+import java.util.GregorianCalendar
 import java.util.Locale
 import java.util.TimeZone
 
@@ -491,6 +492,18 @@ data class InputDateTimeModel(
 
 fun getDate(milliSeconds: Long?, format: String? = "ddMMyyyy"): String {
     val cal = Calendar.getInstance()
+    val currentTimeZone: TimeZone = cal.getTimeZone()
+    val currentDt: Calendar = GregorianCalendar(currentTimeZone, Locale.getDefault())
+    var gmtOffset: Int = currentTimeZone.getOffset(
+        currentDt[Calendar.ERA],
+        currentDt[Calendar.YEAR],
+        currentDt[Calendar.MONTH],
+        currentDt[Calendar.DAY_OF_MONTH],
+        currentDt[Calendar.DAY_OF_WEEK],
+        currentDt[Calendar.MILLISECOND],
+    )
+    gmtOffset /= (60 * 60 * 1000)
+    cal.add(Calendar.HOUR_OF_DAY, +gmtOffset)
     return if (milliSeconds != null) {
         cal.timeInMillis = milliSeconds
         val formater = SimpleDateFormat(format)
