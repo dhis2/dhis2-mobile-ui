@@ -1,13 +1,11 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -16,11 +14,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.IconCard
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.ImageCardData
-import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2SCustomTextStyles
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
@@ -130,22 +126,10 @@ private fun SequentialIconCard(
 
             MetadataAvatar(
                 icon = {
-                    when (data) {
-                        is ImageCardData.IconCardData ->
-                            Icon(
-                                painter = provideDHIS2Icon(data.iconRes),
-                                contentDescription = null,
-                            )
-
-                        is ImageCardData.CustomIconData ->
-                            if (painterFor?.get(data.uid) != null) {
-                                Image(
-                                    painter = painterFor[data.uid]!!,
-                                    contentDescription = "",
-                                    contentScale = ContentScale.Crop,
-                                )
-                            }
-                    }
+                    MetadataIcon(
+                        imageCardData = data,
+                        painter = painterFor?.get(data.uid),
+                    )
                 },
                 size = AvatarSize.Large,
                 iconTint = iconTint,
