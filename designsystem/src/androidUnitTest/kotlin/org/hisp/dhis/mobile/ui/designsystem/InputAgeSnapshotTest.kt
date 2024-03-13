@@ -62,7 +62,7 @@ class InputAgeSnapshotTest {
                         onValueChanged = {
                             // no-op
                         },
-                    )
+                    ),
                 )
 
                 SubTitle("Input Age Component - Age Disabled")
@@ -73,7 +73,7 @@ class InputAgeSnapshotTest {
                         state = InputShellState.DISABLED,
                         onValueChanged = {
                         },
-                    )
+                    ),
                 )
 
                 SubTitle("Input Age Component - Age Required Error")
