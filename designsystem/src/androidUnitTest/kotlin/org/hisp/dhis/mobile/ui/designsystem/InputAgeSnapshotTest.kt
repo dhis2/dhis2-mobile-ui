@@ -3,6 +3,7 @@ package org.hisp.dhis.mobile.ui.designsystem
 import org.hisp.dhis.mobile.ui.designsystem.component.AgeInputType
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InputAge
+import org.hisp.dhis.mobile.ui.designsystem.component.InputAgeModel
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
 import org.hisp.dhis.mobile.ui.designsystem.component.TimeUnitValues
@@ -20,77 +21,72 @@ class InputAgeSnapshotTest {
             ColumnComponentContainer {
                 SubTitle("Input Age Component - Idle")
                 InputAge(
-                    title = "Label",
-                    inputType = AgeInputType.None,
-                    onCalendarActionClicked = {
-                        // no-op
-                    },
-                    onValueChanged = {
-                    },
+                    InputAgeModel(
+                        title = "Label",
+                        inputType = AgeInputType.None,
+
+                        onValueChanged = {
+                        },
+                    ),
                 )
 
                 SubTitle("Input Age Component - Idle Disabled")
                 InputAge(
-                    title = "Label",
-                    inputType = AgeInputType.None,
-                    state = InputShellState.DISABLED,
-                    onCalendarActionClicked = {
-                        // no-op
-                    },
-                    onValueChanged = {
-                    },
+                    InputAgeModel(
+                        title = "Label",
+                        inputType = AgeInputType.None,
+                        state = InputShellState.DISABLED,
+                        onValueChanged = {
+                        },
+                    ),
                 )
 
                 SubTitle("Input Age Component - Date Of Birth")
                 InputAge(
-                    title = "Label",
-                    inputType = AgeInputType.DateOfBirth("01011985"),
-                    state = InputShellState.DISABLED,
-                    onCalendarActionClicked = {
-                        // no-op
-                    },
-                    onValueChanged = {
-                    },
+                    InputAgeModel(
+                        title = "Label",
+                        inputType = AgeInputType.DateOfBirth("01011985"),
+                        state = InputShellState.DISABLED,
+                        onValueChanged = {
+                        },
+                    ),
                 )
 
                 SubTitle("Input Age Component - Date Of Birth Required Error")
                 InputAge(
-                    title = "Label",
-                    inputType = AgeInputType.DateOfBirth("010"),
-                    state = InputShellState.ERROR,
-                    isRequired = true,
-                    onCalendarActionClicked = {
-                        // no-op
-                    },
-                    onValueChanged = {
-                        // no-op
-                    },
+                    InputAgeModel(
+                        title = "Label",
+                        inputType = AgeInputType.DateOfBirth("010"),
+                        state = InputShellState.ERROR,
+                        isRequired = true,
+                        onValueChanged = {
+                            // no-op
+                        },
+                    ),
                 )
 
                 SubTitle("Input Age Component - Age Disabled")
                 InputAge(
-                    title = "Label",
-                    inputType = AgeInputType.Age(value = "56", unit = TimeUnitValues.YEARS),
-                    state = InputShellState.DISABLED,
-                    onCalendarActionClicked = {
-                        // no-op
-                    },
-                    onValueChanged = {
-                    },
+                    InputAgeModel(
+                        title = "Label",
+                        inputType = AgeInputType.Age(value = "56", unit = TimeUnitValues.YEARS),
+                        state = InputShellState.DISABLED,
+                        onValueChanged = {
+                        },
+                    ),
                 )
 
                 SubTitle("Input Age Component - Age Required Error")
                 InputAge(
-                    title = "Label",
-                    inputType = AgeInputType.Age(value = "56", unit = TimeUnitValues.YEARS),
-                    state = InputShellState.ERROR,
-                    isRequired = true,
-                    onCalendarActionClicked = {
-                        // no-op
-                    },
-                    onValueChanged = {
-                        // no-op
-                    },
+                    InputAgeModel(
+                        title = "Label",
+                        inputType = AgeInputType.Age(value = "56", unit = TimeUnitValues.YEARS),
+                        state = InputShellState.ERROR,
+                        isRequired = true,
+                        onValueChanged = {
+                            // no-op
+                        },
+                    ),
                 )
             }
         }

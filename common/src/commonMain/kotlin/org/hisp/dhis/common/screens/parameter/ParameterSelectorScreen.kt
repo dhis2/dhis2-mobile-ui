@@ -19,6 +19,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.AgeInputType
 import org.hisp.dhis.mobile.ui.designsystem.component.CheckBoxData
 import org.hisp.dhis.mobile.ui.designsystem.component.DropdownItem
 import org.hisp.dhis.mobile.ui.designsystem.component.InputAge
+import org.hisp.dhis.mobile.ui.designsystem.component.InputAgeModel
 import org.hisp.dhis.mobile.ui.designsystem.component.InputBarCode
 import org.hisp.dhis.mobile.ui.designsystem.component.InputCheckBox
 import org.hisp.dhis.mobile.ui.designsystem.component.InputDateTime
@@ -133,13 +134,15 @@ fun ParameterSelectorScreen() {
             helper = "Optional",
             inputField = {
                 InputAge(
-                    title = "Age parameter",
-                    inputType = ageInputType,
-                    inputStyle = InputStyle.ParameterInputStyle(),
-                    onCalendarActionClicked = {},
-                    onValueChanged = {
-                        ageInputType = it
-                    },
+                    InputAgeModel(
+                        title = "Age parameter",
+                        inputType = ageInputType,
+                        inputStyle = InputStyle.ParameterInputStyle(),
+                        onValueChanged = {
+                            ageInputType = it
+                        },
+                    ),
+
                 )
             },
             status = when (ageInputType) {

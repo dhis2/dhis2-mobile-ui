@@ -565,7 +565,7 @@ fun timePickerColors(): TimePickerColors {
     )
 }
 
-fun dateIsInRange(date: Long, allowedDates: SelectableDates, format: String): Boolean {
+fun dateIsInRange(date: Long, allowedDates: SelectableDates, format: String = "ddMMyyyy"): Boolean {
     return (
         date >= parseStringDateToMillis(allowedDates.initialDate, format) &&
             date <= parseStringDateToMillis(allowedDates.endDate, format)
