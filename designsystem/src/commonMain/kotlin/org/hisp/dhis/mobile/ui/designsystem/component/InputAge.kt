@@ -157,8 +157,8 @@ fun InputAge(
 
                             @Suppress("KotlinConstantConditions")
                             val newInputType: AgeInputType = when (uiModel.inputType) {
-                                is Age -> uiModel.inputType.copy(value = newText.text)
-                                is DateOfBirth -> updateDateOfBirth(uiModel.inputType, newText.text)
+                                is Age -> uiModel.inputType.copy(value = newText)
+                                is DateOfBirth -> updateDateOfBirth(uiModel.inputType, newText)
                                 None -> None
                             }
 
@@ -245,7 +245,7 @@ fun InputAge(
                         showDatePicker = false
                         if (uiModel.inputType is DateOfBirth) {
                             datePickerState.selectedDateMillis?.let {
-                                val newInputType: AgeInputType = updateDateOfBirth(uiModel.inputType, getDate(it))
+                                val newInputType: AgeInputType = updateDateOfBirth(uiModel.inputType, TextFieldValue(getDate(it), TextRange(getDate(it).length)))
                                 uiModel.onValueChanged.invoke(newInputType)
                             }
                         }
@@ -291,22 +291,22 @@ fun InputAge(
 
 private fun transformInputText(inputType: AgeInputType): String {
     return when (inputType) {
-        is Age -> inputType.value
-        is DateOfBirth -> inputType.value
+        is Age -> inputType.value.text
+        is DateOfBirth -> inputType.value.text
         None -> ""
     }
 }
 
 private fun getTextFieldValue(inputType: AgeInputType): TextFieldValue {
     return when (inputType) {
-        is Age -> TextFieldValue(transformInputText(inputType), TextRange(inputType.value.length))
-        is DateOfBirth -> TextFieldValue(transformInputText(inputType), TextRange(inputType.value.length))
+        is Age -> TextFieldValue(transformInputText(inputType), inputType.value.selection)
+        is DateOfBirth -> TextFieldValue(transformInputText(inputType), inputType.value.selection)
         None -> TextFieldValue()
     }
 }
 
-private fun updateDateOfBirth(inputType: DateOfBirth, newText: String): AgeInputType {
-    return if (newText.length <= DATE_MASK.length) {
+private fun updateDateOfBirth(inputType: DateOfBirth, newText: TextFieldValue): AgeInputType {
+    return if (newText.text.length <= DATE_MASK.length) {
         inputType.copy(value = newText)
     } else {
         inputType
@@ -316,15 +316,15 @@ private fun updateDateOfBirth(inputType: DateOfBirth, newText: String): AgeInput
 sealed interface AgeInputType {
     data object None : AgeInputType
 
-    data class DateOfBirth(val value: String) : AgeInputType {
+    data class DateOfBirth(val value: TextFieldValue) : AgeInputType {
         companion object {
-            val EMPTY = DateOfBirth("")
+            val EMPTY = DateOfBirth(TextFieldValue())
         }
     }
 
-    data class Age(val value: String, val unit: TimeUnitValues) : AgeInputType {
+    data class Age(val value: TextFieldValue, val unit: TimeUnitValues) : AgeInputType {
         companion object {
-            val EMPTY = Age("", YEARS)
+            val EMPTY = Age(TextFieldValue(), YEARS)
         }
     }
 }
