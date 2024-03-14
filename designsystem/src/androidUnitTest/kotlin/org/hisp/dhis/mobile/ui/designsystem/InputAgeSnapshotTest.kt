@@ -1,5 +1,6 @@
 package org.hisp.dhis.mobile.ui.designsystem
 
+import androidx.compose.ui.text.input.TextFieldValue
 import org.hisp.dhis.mobile.ui.designsystem.component.AgeInputType
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InputAge
@@ -45,7 +46,9 @@ class InputAgeSnapshotTest {
                 InputAge(
                     InputAgeModel(
                         title = "Label",
-                        inputType = AgeInputType.DateOfBirth("01011985"),
+                        inputType = AgeInputType.DateOfBirth(
+                            TextFieldValue("01011985"),
+                        ),
                         state = InputShellState.DISABLED,
                         onValueChanged = {
                         },
@@ -56,7 +59,7 @@ class InputAgeSnapshotTest {
                 InputAge(
                     InputAgeModel(
                         title = "Label",
-                        inputType = AgeInputType.DateOfBirth("010"),
+                        inputType = AgeInputType.DateOfBirth(TextFieldValue("010")),
                         state = InputShellState.ERROR,
                         isRequired = true,
                         onValueChanged = {
@@ -69,7 +72,7 @@ class InputAgeSnapshotTest {
                 InputAge(
                     InputAgeModel(
                         title = "Label",
-                        inputType = AgeInputType.Age(value = "56", unit = TimeUnitValues.YEARS),
+                        inputType = AgeInputType.Age(value = TextFieldValue("56"), unit = TimeUnitValues.YEARS),
                         state = InputShellState.DISABLED,
                         onValueChanged = {
                         },
@@ -80,7 +83,7 @@ class InputAgeSnapshotTest {
                 InputAge(
                     InputAgeModel(
                         title = "Label",
-                        inputType = AgeInputType.Age(value = "56", unit = TimeUnitValues.YEARS),
+                        inputType = AgeInputType.Age(value = TextFieldValue("56"), unit = TimeUnitValues.YEARS),
                         state = InputShellState.ERROR,
                         isRequired = true,
                         onValueChanged = {

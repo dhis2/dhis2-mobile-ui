@@ -76,7 +76,8 @@ class InputAgeTest {
 
         rule.onNodeWithTag("INPUT_AGE_TEXT_FIELD").performTextInput("1002")
 
-        assert(inputType == AgeInputType.DateOfBirth("1002"))
+        val newInputType = inputType as AgeInputType.DateOfBirth
+        assert(newInputType.value.text == "1002")
     }
 
     @Test
@@ -118,8 +119,8 @@ class InputAgeTest {
         }
 
         rule.onNodeWithTag("INPUT_AGE_TEXT_FIELD").performTextInput("56")
-
-        assert(inputType == AgeInputType.Age(value = "56", unit = TimeUnitValues.YEARS))
+        val newInputType = inputType as AgeInputType.Age
+        assert(newInputType.value.text == "56")
     }
 
     @Test
