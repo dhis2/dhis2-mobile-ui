@@ -7,6 +7,7 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
+import androidx.compose.ui.text.input.TextFieldValue
 import org.junit.Rule
 import org.junit.Test
 
@@ -76,7 +77,7 @@ class InputAgeTest {
 
         rule.onNodeWithTag("INPUT_AGE_TEXT_FIELD").performTextInput("1002")
 
-        assert(inputType == AgeInputType.DateOfBirth("1002"))
+        assert(inputType == AgeInputType.DateOfBirth(TextFieldValue("1002")))
     }
 
     @Test
@@ -119,7 +120,7 @@ class InputAgeTest {
 
         rule.onNodeWithTag("INPUT_AGE_TEXT_FIELD").performTextInput("56")
 
-        assert(inputType == AgeInputType.Age(value = "56", unit = TimeUnitValues.YEARS))
+        assert(inputType == AgeInputType.Age(value = TextFieldValue("56"), unit = TimeUnitValues.YEARS))
     }
 
     @Test
