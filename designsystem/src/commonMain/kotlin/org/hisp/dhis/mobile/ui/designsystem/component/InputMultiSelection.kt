@@ -176,7 +176,14 @@ fun InputMultiSelection(
                                     index = index,
                                     enabled = state != InputShellState.DISABLED,
                                 ) { newItem ->
-                                    onItemsSelected(listOf(newItem))
+                                    onItemsSelected(
+                                        items.map {
+                                            when (it.uid) {
+                                                newItem.uid -> newItem
+                                                else -> it
+                                            }
+                                        },
+                                    )
                                 }
                             }
                         }
