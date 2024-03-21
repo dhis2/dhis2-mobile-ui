@@ -43,6 +43,11 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing8
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.Color as ThemeColor
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.consumeWindowInsets
+import androidx.compose.foundation.layout.navigationBars
+import androidx.compose.foundation.layout.safeContent
+import androidx.compose.foundation.layout.safeContentPadding
 
 @Composable
 fun BottomSheetHeader(
@@ -176,7 +181,9 @@ fun BottomSheetShell(
     ) {
         val canScrollForward by derivedStateOf { contentScrollState.canScrollForward }
 
-        Column {
+        Column(
+            modifier = Modifier.safeContentPadding()
+        ) {
             Column(
                 modifier = Modifier
                     .weight(1f, fill = false)
