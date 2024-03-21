@@ -1,6 +1,5 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
-import org.hisp.dhis.mobile.ui.designsystem.theme.Color as ThemeColor
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.ScrollableState
@@ -43,6 +42,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing24
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing8
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
+import org.hisp.dhis.mobile.ui.designsystem.theme.Color as ThemeColor
 
 @Composable
 fun BottomSheetHeader(
@@ -178,7 +178,7 @@ fun BottomSheetShell(
         val canScrollForward by derivedStateOf { contentScrollState.canScrollForward }
 
         Column(
-            modifier = Modifier.systemBarsPadding()
+            modifier = Modifier.systemBarsPadding(),
         ) {
             Column(
                 modifier = Modifier
@@ -257,7 +257,7 @@ fun BottomSheetShell(
                 Modifier.shadow(
                     elevation = 32.dp,
                     ambientColor = ThemeColor.Blue900,
-                    spotColor = ThemeColor.Blue900
+                    spotColor = ThemeColor.Blue900,
                 )
             } else {
                 Modifier
@@ -271,7 +271,7 @@ fun BottomSheetShell(
                         start = Spacing24,
                         top = Spacing24,
                         end = Spacing24,
-                        bottom = Spacing24
+                        bottom = Spacing24,
                     ),
                 contentAlignment = Alignment.BottomCenter,
             ) {
