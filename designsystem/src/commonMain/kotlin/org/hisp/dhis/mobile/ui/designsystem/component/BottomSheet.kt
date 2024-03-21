@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -26,7 +27,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -56,13 +56,14 @@ fun BottomSheetHeader(
     headerTextAlignment: TextAlign = TextAlign.Center,
     modifier: Modifier = Modifier,
 ) {
-    val horizontalAlignment = if (icon != null || hasSearch) Alignment.CenterHorizontally else Alignment.Start
+    val horizontalAlignment =
+        if (icon != null || hasSearch) Alignment.CenterHorizontally else Alignment.Start
     Column(
         modifier = modifier.padding(horizontal = Spacing24, vertical = Spacing0)
             .fillMaxWidth(),
         horizontalAlignment = horizontalAlignment,
     ) {
-        icon?. let {
+        icon?.let {
             it.invoke()
 
             Spacer(Modifier.size(Spacing.Spacing16))
@@ -176,14 +177,17 @@ fun BottomSheetShell(
     ) {
         val canScrollForward by derivedStateOf { contentScrollState.canScrollForward }
 
-        Column {
+        Column(
+            modifier = Modifier.systemBarsPadding(),
+        ) {
             Column(
                 modifier = Modifier
                     .weight(1f, fill = false)
                     .background(SurfaceColor.SurfaceBright, Shape.ExtraLargeTop)
                     .padding(top = Spacing24),
             ) {
-                val hasSearch = searchQuery != null && onSearchQueryChanged != null && onSearch != null
+                val hasSearch =
+                    searchQuery != null && onSearchQueryChanged != null && onSearch != null
                 val hasTitle by derivedStateOf { !title.isNullOrBlank() }
                 if (hasTitle) {
                     BottomSheetHeader(
@@ -250,7 +254,11 @@ fun BottomSheetShell(
             }
 
             val shadowModifier = if (canScrollForward && content != null) {
-                Modifier.shadow(elevation = 32.dp, ambientColor = ThemeColor.Blue900, spotColor = ThemeColor.Blue900)
+                Modifier.shadow(
+                    elevation = 32.dp,
+                    ambientColor = ThemeColor.Blue900,
+                    spotColor = ThemeColor.Blue900,
+                )
             } else {
                 Modifier
             }
@@ -259,7 +267,12 @@ fun BottomSheetShell(
                 Modifier.fillMaxWidth()
                     .then(shadowModifier)
                     .background(SurfaceColor.SurfaceBright)
-                    .padding(start = Spacing24, top = Spacing24, end = Spacing24, bottom = Spacing24),
+                    .padding(
+                        start = Spacing24,
+                        top = Spacing24,
+                        end = Spacing24,
+                        bottom = Spacing24,
+                    ),
                 contentAlignment = Alignment.BottomCenter,
             ) {
                 buttonBlock?.invoke()
