@@ -48,6 +48,7 @@ import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.safeContent
 import androidx.compose.foundation.layout.safeContentPadding
+import androidx.compose.foundation.layout.systemBarsPadding
 
 @Composable
 fun BottomSheetHeader(
@@ -182,7 +183,7 @@ fun BottomSheetShell(
         val canScrollForward by derivedStateOf { contentScrollState.canScrollForward }
 
         Column(
-            modifier = Modifier.safeContentPadding()
+            modifier = Modifier.systemBarsPadding()
         ) {
             Column(
                 modifier = Modifier
