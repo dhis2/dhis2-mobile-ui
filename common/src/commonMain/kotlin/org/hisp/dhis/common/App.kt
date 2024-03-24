@@ -75,6 +75,7 @@ import org.hisp.dhis.common.screens.InputYesOnlySwitchScreen
 import org.hisp.dhis.common.screens.LegendDescriptionScreen
 import org.hisp.dhis.common.screens.LegendScreen
 import org.hisp.dhis.common.screens.ListCardScreen
+import org.hisp.dhis.common.screens.LoginScreen
 import org.hisp.dhis.common.screens.MetadataAvatarScreen
 import org.hisp.dhis.common.screens.MultiSelectInputScreen
 import org.hisp.dhis.common.screens.OrgTreeBottomSheetScreen
@@ -100,7 +101,7 @@ fun App(imageBitmapLoader: (() -> ImageBitmap)? = null) {
 fun Main(
     imageBitmapLoader: (() -> ImageBitmap)?,
 ) {
-    val currentScreen = remember { mutableStateOf(Components.FAB) }
+    val currentScreen = remember { mutableStateOf(Components.LOGIN) }
     var expanded by remember { mutableStateOf(false) }
 
     Column(
@@ -119,7 +120,7 @@ fun Main(
                 label = { Text("Components") },
                 leadingIcon = {
                     val icon = if (expanded) {
-                        Icons.Filled.ArrowDropUp // it requires androidx.compose.material:material-icons-extended
+                        Icons.Filled.ArrowDropUp
                     } else {
                         Icons.Filled.ArrowDropDown
                     }
@@ -210,6 +211,7 @@ fun Main(
             Components.PARAMETER_SELECTOR -> ParameterSelectorScreen()
             Components.MULTI_SELECT -> MultiSelectInputScreen()
             Components.FAB -> FABScreen()
+            Components.LOGIN -> LoginScreen()
         }
     }
 }
