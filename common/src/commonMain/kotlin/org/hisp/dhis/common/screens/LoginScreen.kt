@@ -24,22 +24,24 @@ import org.hisp.dhis.mobile.ui.designsystem.component.InputUserModel
 @Composable
 fun LoginScreen() {
     ColumnComponentContainer(title = "Login") {
-        var server  by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("https://play.dhis2.org/40")) }
+        var server by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("https://play.dhis2.org/40")) }
         var userName by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("android")) }
-        var password  by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("password")) }
+        var password by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("password")) }
 
-        InputQRCode("Server URL",
+        InputQRCode(
+            "Server URL",
             inputTextFieldValue = server,
             onQRButtonClicked = {},
             state = InputShellState.UNFOCUSED,
-            onValueChanged = {server = it ?: TextFieldValue()}
+            onValueChanged = { server = it ?: TextFieldValue() },
         )
         InputUser(
             InputUserModel(
                 "Username",
                 inputTextFieldValue = userName,
-                onActionCLicked = {}, state = InputShellState.UNFOCUSED,
-                onValueChanged = {userName = it ?: TextFieldValue()}
+                onActionCLicked = {},
+                state = InputShellState.UNFOCUSED,
+                onValueChanged = { userName = it ?: TextFieldValue() },
             ),
         )
         InputPassword(
@@ -58,12 +60,12 @@ fun LoginScreen() {
             icon = {
                 Icon(
                     imageVector = Icons.Outlined.Login,
-                    contentDescription = "Login button"
+                    contentDescription = "Login button",
 
                 )
             },
             modifier = Modifier.fillMaxWidth(),
-            enabled = (password.text.isNotEmpty() && userName.text.isNotEmpty() && server.text.isNotEmpty())
+            enabled = (password.text.isNotEmpty() && userName.text.isNotEmpty() && server.text.isNotEmpty()),
 
         )
     }
