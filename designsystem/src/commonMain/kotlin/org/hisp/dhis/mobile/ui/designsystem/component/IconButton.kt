@@ -62,19 +62,16 @@ fun SquareIconButton(
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     val isPressed by interactionSource.collectIsPressedAsState()
-    var topPadding = mutableStateOf(0)
+    val topPadding : MutableState<Int>
     val shadowColor: MutableState<Color>
-    if (enabled) {
-        if (isPressed) {
-            shadowColor = mutableStateOf(Color.Transparent)
-            topPadding = mutableStateOf(1)
-        } else {
-            shadowColor = mutableStateOf(SurfaceColor.ContainerHighest)
-            topPadding = mutableStateOf(0)
-        }
-    } else {
+    if (isPressed) {
         shadowColor = mutableStateOf(Color.Transparent)
+        topPadding = mutableStateOf(1)
+    } else {
+        shadowColor = mutableStateOf(SurfaceColor.ContainerHighest)
+        topPadding = mutableStateOf(0)
     }
+
     ElevatedButton(
         interactionSource = interactionSource,
         onClick = onClick,
@@ -93,7 +90,7 @@ fun SquareIconButton(
         enabled = enabled,
         shape = Shape.Small,
         colors = ButtonDefaults.elevatedButtonColors(
-            disabledContainerColor = Color.Transparent,
+            disabledContainerColor = SurfaceColor.Container,
             containerColor = SurfaceColor.Container,
             contentColor = SurfaceColor.Primary,
             disabledContentColor = TextColor.OnDisabledSurface,
