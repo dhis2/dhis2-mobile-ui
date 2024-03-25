@@ -15,11 +15,11 @@ import org.hisp.dhis.mobile.ui.designsystem.component.Button
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InputPassword
-import org.hisp.dhis.mobile.ui.designsystem.component.InputPasswordModel
 import org.hisp.dhis.mobile.ui.designsystem.component.InputQRCode
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.InputUser
-import org.hisp.dhis.mobile.ui.designsystem.component.InputUserModel
+import org.hisp.dhis.mobile.ui.designsystem.component.model.InputPasswordModel
+import org.hisp.dhis.mobile.ui.designsystem.component.model.InputUserModel
 
 @Composable
 fun LoginScreen() {
@@ -39,7 +39,6 @@ fun LoginScreen() {
             InputUserModel(
                 "Username",
                 inputTextFieldValue = userName,
-                onActionCLicked = {},
                 state = InputShellState.UNFOCUSED,
                 onValueChanged = { userName = it ?: TextFieldValue() },
             ),

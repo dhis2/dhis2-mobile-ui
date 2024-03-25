@@ -7,9 +7,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.TextFieldValue
+import org.hisp.dhis.mobile.ui.designsystem.component.model.InputUserModel
 
 @Composable
 fun InputUser(
@@ -31,7 +30,7 @@ fun InputUser(
             keyboardType = KeyboardType.Text,
         ),
         modifier = modifier,
-        testTag = "USER",
+        testTag = InputUserModel.INPUT_TYPE,
         onFocusChanged = uiModel.onFocusChanged,
         actionButton = {
             SquareIconButton(
@@ -43,27 +42,12 @@ fun InputUser(
                         contentDescription = "user_icon",
                     )
                 },
-                onClick = uiModel.onActionCLicked,
+                onClick = {
+                    // no-op
+                },
             )
         },
         autoCompleteList = uiModel.autoCompleteList,
         autoCompleteItemSelected = uiModel.autoCompleteItemSelected,
     )
 }
-
-data class InputUserModel(
-    val title: String,
-    val state: InputShellState,
-    val inputStyle: InputStyle = InputStyle.DataInputStyle(),
-    val supportingText: List<SupportingTextData>? = null,
-    val legendData: LegendData? = null,
-    val inputTextFieldValue: TextFieldValue? = null,
-    val isRequiredField: Boolean = false,
-    val autoCompleteList: List<String>? = null,
-    val autoCompleteItemSelected: ((String?) -> Unit)? = null,
-    val onNextClicked: (() -> Unit)? = null,
-    val onValueChanged: ((TextFieldValue?) -> Unit)? = null,
-    val onFocusChanged: ((Boolean) -> Unit)? = null,
-    val imeAction: ImeAction = ImeAction.Next,
-    val onActionCLicked: () -> Unit,
-)

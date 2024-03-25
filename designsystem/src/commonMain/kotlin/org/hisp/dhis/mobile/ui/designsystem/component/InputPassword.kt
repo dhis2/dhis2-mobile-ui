@@ -19,11 +19,11 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.TextRange
-import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
+import org.hisp.dhis.mobile.ui.designsystem.component.model.InputPasswordModel
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
 @Composable
@@ -41,7 +41,7 @@ fun InputPassword(
     val focusManager = LocalFocusManager.current
 
     InputShell(
-        modifier = modifier.testTag("INPUT_PASSWORD")
+        modifier = modifier.testTag(InputPasswordModel.MAIN)
             .focusRequester(focusRequester),
         title = uiModel.title,
         state = uiModel.state,
@@ -50,7 +50,7 @@ fun InputPassword(
         inputField = {
             BasicTextField(
                 modifier = Modifier
-                    .testTag("INPUT_PASSWORD_TEXT_FIELD")
+                    .testTag(InputPasswordModel.TEXT_FIELD)
                     .fillMaxWidth(),
                 inputTextValue = TextFieldValue(uiModel.inputTextFieldValue?.text ?: "", TextRange(uiModel.inputTextFieldValue?.text?.length ?: 0)),
                 isSingleLine = true,
@@ -74,7 +74,7 @@ fun InputPassword(
         primaryButton = {
             if (!uiModel.inputTextFieldValue?.text.isNullOrBlank() && uiModel.state != InputShellState.DISABLED) {
                 IconButton(
-                    modifier = Modifier.testTag("INPUT_PASSWORD_RESET_BUTTON").padding(Spacing.Spacing0),
+                    modifier = Modifier.testTag(InputPasswordModel.RESET_BUTTON).padding(Spacing.Spacing0),
                     icon = {
                         Icon(
                             imageVector = Icons.Outlined.Cancel,
@@ -90,7 +90,7 @@ fun InputPassword(
         },
         secondaryButton = {
             SquareIconButton(
-                modifier = Modifier.testTag("INPUT_PASSWORD_ACTION_BUTTON")
+                modifier = Modifier.testTag(InputPasswordModel.ACTION_BUTTON)
                     .focusable(),
                 icon = {
                     Icon(
@@ -110,31 +110,15 @@ fun InputPassword(
                 SupportingText(
                     item.text,
                     item.state,
-                    modifier = Modifier.testTag("INPUT_PASSWORD_SUPPORTING_TEXT"),
+                    modifier = Modifier.testTag(InputPasswordModel.SUPPORTING_TEXT),
                 )
             }
         },
         legend = {
             uiModel.legendData?.let {
-                Legend(uiModel.legendData, Modifier.testTag("INPUT_PASSWORD_LEGEND"))
+                Legend(uiModel.legendData, Modifier.testTag(InputPasswordModel.LEGEND))
             }
         },
         inputStyle = uiModel.inputStyle,
     )
 }
-
-data class InputPasswordModel(
-    val title: String,
-    val state: InputShellState,
-    val inputStyle: InputStyle = InputStyle.DataInputStyle(),
-    val supportingText: List<SupportingTextData>? = null,
-    val legendData: LegendData? = null,
-    val inputTextFieldValue: TextFieldValue? = null,
-    val isRequiredField: Boolean = false,
-    val autoCompleteList: List<String>? = null,
-    val autoCompleteItemSelected: ((String?) -> Unit)? = null,
-    val onNextClicked: (() -> Unit)? = null,
-    val onValueChanged: ((TextFieldValue?) -> Unit)? = null,
-    val onFocusChanged: ((Boolean) -> Unit)? = null,
-    val imeAction: ImeAction = ImeAction.Next,
-)
