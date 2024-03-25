@@ -5,15 +5,12 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Login
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
 import org.hisp.dhis.mobile.ui.designsystem.component.Button
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
-import org.hisp.dhis.mobile.ui.designsystem.component.InputChip
 import org.hisp.dhis.mobile.ui.designsystem.component.InputPassword
 import org.hisp.dhis.mobile.ui.designsystem.component.InputQRCode
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
@@ -32,20 +29,19 @@ class LoginSnapshotTest {
     fun launchLoginScreen() {
         paparazzi.snapshot {
             ColumnComponentContainer(title = "Login") {
-
                 InputQRCode(
                     "Server URL",
                     inputTextFieldValue = TextFieldValue("https://play.dhis2.org/40"),
                     onQRButtonClicked = {},
                     state = InputShellState.UNFOCUSED,
-                    onValueChanged = {  },
+                    onValueChanged = { },
                 )
                 InputUser(
                     InputUserModel(
                         "Username",
                         inputTextFieldValue = TextFieldValue("android"),
                         state = InputShellState.UNFOCUSED,
-                        onValueChanged = {  },
+                        onValueChanged = { },
                     ),
                 )
                 InputPassword(
@@ -53,7 +49,7 @@ class LoginSnapshotTest {
                         "Password",
                         inputTextFieldValue = TextFieldValue("password"),
                         state = InputShellState.UNFOCUSED,
-                        onValueChanged = {  },
+                        onValueChanged = { },
                     ),
                 )
 
@@ -66,12 +62,12 @@ class LoginSnapshotTest {
                             imageVector = Icons.Outlined.Login,
                             contentDescription = "Login button",
 
-                            )
+                        )
                     },
                     modifier = Modifier.fillMaxWidth(),
                     enabled = true,
 
-                    )
+                )
             }
         }
     }
