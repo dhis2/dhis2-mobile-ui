@@ -96,7 +96,7 @@ internal fun Modifier.iconCardShadow(
 
 internal expect fun Modifier.shadow(
     elevation: Dp = 3.dp,
-    blur: Dp = 12.dp,
+    blur: Dp = 11.dp,
     radius: Dp = Radius.L,
     spotColor: Color = SurfaceColor.Container,
 ): Modifier
