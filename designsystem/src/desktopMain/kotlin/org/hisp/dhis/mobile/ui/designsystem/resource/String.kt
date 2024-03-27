@@ -44,5 +44,9 @@ private fun getResources(): Map<String, String> {
 
 @Composable
 actual fun resourceExists(resourceName: String, resourceType: String): Boolean {
-    return false
+    return try {
+        ClassLoader.getSystemResource("$resourceType/$resourceName.xml") != null
+    } catch (e: Exception) {
+        false
+    }
 }

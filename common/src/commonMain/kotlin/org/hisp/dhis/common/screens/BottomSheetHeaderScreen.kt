@@ -10,6 +10,7 @@ import androidx.compose.material.icons.outlined.HelpOutline
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import org.hisp.dhis.mobile.ui.designsystem.component.BottomSheetHeader
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
@@ -82,5 +83,22 @@ fun BottomSheetHeaderScreen() {
             )
         }
         SubTitle("Bottom sheet shell with header, content and buttons", TextColor.OnSurface)
+
+        Box(modifier = Modifier.border(Spacing.Spacing1, color = TextColor.OnDisabledSurface)) {
+            BottomSheetHeader(
+                title = "Title",
+                subTitle = "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+                description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce convallis, urna vitae lacinia feugiat",
+                headerTextAlignment = TextAlign.Start,
+                icon = {
+                    Icon(
+                        imageVector = Icons.Outlined.HelpOutline,
+                        contentDescription = "Button",
+                        tint = SurfaceColor.Primary,
+                    )
+                },
+            )
+        }
+        SubTitle("Bottom sheet shell with header text aligned to start", TextColor.OnSurface)
     }
 }

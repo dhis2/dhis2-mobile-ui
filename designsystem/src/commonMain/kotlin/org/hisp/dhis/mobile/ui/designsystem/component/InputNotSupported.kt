@@ -17,6 +17,7 @@ fun InputNotSupported(
     title: String,
     modifier: Modifier = Modifier,
     notSupportedString: String = provideStringResource("not_supported"),
+    inputStyle: InputStyle = InputStyle.DataInputStyle(),
 ) {
     InputShell(
         modifier = modifier,
@@ -29,5 +30,9 @@ fun InputNotSupported(
                 style = MaterialTheme.typography.bodyLarge,
             )
         },
+        inputStyle = inputStyle,
+        supportingText = null,
+        legend = null,
+        isRequiredField = false,
     )
 }

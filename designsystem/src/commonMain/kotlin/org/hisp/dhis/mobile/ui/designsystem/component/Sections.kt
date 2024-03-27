@@ -79,7 +79,9 @@ fun Section(
     totalFields: Int,
     state: SectionState,
     errorCount: Int,
+    errorMessage: String? = null,
     warningCount: Int,
+    warningMessage: String? = null,
     onNextSection: () -> Unit,
     onSectionClick: () -> Unit,
     content: @Composable ColumnScope.() -> Unit,
@@ -95,7 +97,9 @@ fun Section(
             totalFields = totalFields,
             state = state,
             errorCount = errorCount,
+            errorMessage = errorMessage,
             warningCount = warningCount,
+            warningMessage = warningMessage,
             onNextSection = onNextSection,
             onSectionClick = onSectionClick,
         ) {
@@ -114,7 +118,9 @@ internal fun SectionBlock(
     totalFields: Int,
     state: SectionState,
     errorCount: Int,
+    errorMessage: String?,
     warningCount: Int,
+    warningMessage: String?,
     onNextSection: () -> Unit,
     onSectionClick: () -> Unit,
     content: @Composable ColumnScope.() -> Unit,
@@ -147,7 +153,9 @@ internal fun SectionBlock(
             totalFields = totalFields,
             sectionState = sectionState,
             errorCount = errorCount,
+            errorMessage = errorMessage,
             warningCount = warningCount,
+            warningMessage = warningMessage,
             onSectionClick = {
                 sectionState = sectionState.getNextState()
                 onSectionClick()
@@ -194,7 +202,9 @@ internal fun SectionHeader(
     totalFields: Int,
     sectionState: SectionState,
     errorCount: Int,
+    errorMessage: String? = null,
     warningCount: Int,
+    warningMessage: String? = null,
     showFieldsLabel: String = provideStringResource("show_fields"),
     hideFieldsLabel: String = provideStringResource("hide_fields"),
     onSectionClick: () -> Unit,
@@ -292,17 +302,17 @@ internal fun SectionHeader(
                     icon = sectionStateButtonIcon,
                 )
             }
-            if (errorCount > 0) {
+            if (errorCount > 0 || errorMessage != null) {
                 Tag(
                     modifier = Modifier.testTag(SectionTestTag.ERROR_LABEL),
-                    label = provideQuantityStringResource("error", errorCount),
+                    label = errorMessage ?: provideQuantityStringResource("error", errorCount),
                     type = TagType.ERROR,
                 )
             }
-            if (warningCount > 0) {
+            if (warningCount > 0 || warningMessage != null) {
                 Tag(
                     modifier = Modifier.testTag(SectionTestTag.WARNING_LABEL),
-                    label = provideQuantityStringResource("warning", warningCount),
+                    label = warningMessage ?: provideQuantityStringResource("warning", warningCount),
                     type = TagType.WARNING,
                 )
             }

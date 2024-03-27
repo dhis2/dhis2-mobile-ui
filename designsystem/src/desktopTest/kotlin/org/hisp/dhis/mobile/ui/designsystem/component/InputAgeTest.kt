@@ -19,13 +19,14 @@ class InputAgeTest {
     fun modeSelectionShouldBeShownWhenComponentIsInitialised() {
         rule.setContent {
             InputAge(
-                title = "Label",
-                onCalendarActionClicked = {
-                    // no-op
-                },
-            ) {
-                // no-op
-            }
+                InputAgeModel(
+                    title = "Label",
+                    onValueChanged = {
+                        // no-op
+                    },
+                ),
+
+            )
         }
 
         rule.onNodeWithTag("INPUT_AGE_MODE_SELECTOR").assertExists()
@@ -39,14 +40,15 @@ class InputAgeTest {
     fun dateOfBirthFieldShouldBeShownCorrectly() {
         rule.setContent {
             InputAge(
-                title = "Label",
-                inputType = AgeInputType.DateOfBirth.EMPTY,
-                onCalendarActionClicked = {
-                    // no-op
-                },
-            ) {
-                // no-op
-            }
+                InputAgeModel(
+                    title = "Label",
+                    inputType = AgeInputType.DateOfBirth.EMPTY,
+                    onValueChanged = {
+                        // no-op
+                    },
+                ),
+
+            )
         }
 
         rule.onNodeWithTag("INPUT_AGE_MODE_SELECTOR").assertDoesNotExist()
@@ -61,33 +63,36 @@ class InputAgeTest {
         var inputType by mutableStateOf<AgeInputType>(AgeInputType.None)
         rule.setContent {
             InputAge(
-                title = "Label",
-                inputType = AgeInputType.DateOfBirth.EMPTY,
-                onCalendarActionClicked = {
-                    // no-op
-                },
-            ) {
-                inputType = it
-            }
+                InputAgeModel(
+                    title = "Label",
+                    inputType = AgeInputType.DateOfBirth.EMPTY,
+                    onValueChanged = {
+                        inputType = it
+                    },
+                ),
+
+            )
         }
 
         rule.onNodeWithTag("INPUT_AGE_TEXT_FIELD").performTextInput("1002")
 
-        assert(inputType == AgeInputType.DateOfBirth("1002"))
+        val newInputType = inputType as AgeInputType.DateOfBirth
+        assert(newInputType.value.text == "1002")
     }
 
     @Test
     fun ageFieldShouldBeShownCorrectly() {
         rule.setContent {
             InputAge(
-                title = "Label",
-                inputType = AgeInputType.Age.EMPTY,
-                onCalendarActionClicked = {
-                    // no-op
-                },
-            ) {
-                // no-op
-            }
+                InputAgeModel(
+                    title = "Label",
+                    inputType = AgeInputType.Age.EMPTY,
+                    onValueChanged = {
+                        // no-op
+                    },
+                ),
+
+            )
         }
 
         rule.onNodeWithTag("INPUT_AGE_MODE_SELECTOR").assertDoesNotExist()
@@ -102,19 +107,20 @@ class InputAgeTest {
         var inputType by mutableStateOf<AgeInputType>(AgeInputType.None)
         rule.setContent {
             InputAge(
-                title = "Label",
-                inputType = AgeInputType.Age.EMPTY,
-                onCalendarActionClicked = {
-                    // no-op
-                },
-            ) {
-                inputType = it
-            }
+                InputAgeModel(
+                    title = "Label",
+                    inputType = AgeInputType.Age.EMPTY,
+                    onValueChanged = {
+                        inputType = it
+                    },
+                ),
+
+            )
         }
 
         rule.onNodeWithTag("INPUT_AGE_TEXT_FIELD").performTextInput("56")
-
-        assert(inputType == AgeInputType.Age(value = "56", unit = TimeUnitValues.YEARS))
+        val newInputType = inputType as AgeInputType.Age
+        assert(newInputType.value.text == "56")
     }
 
     @Test
@@ -123,14 +129,15 @@ class InputAgeTest {
 
         rule.setContent {
             InputAge(
-                title = "Label",
-                inputType = inputType,
-                onCalendarActionClicked = {
-                    // no-op
-                },
-            ) {
-                inputType = it
-            }
+                InputAgeModel(
+                    title = "Label",
+                    inputType = inputType,
+                    onValueChanged = {
+                        inputType = it
+                    },
+                ),
+
+            )
         }
 
         rule.onNodeWithTag("INPUT_AGE_RESET_BUTTON").performClick()

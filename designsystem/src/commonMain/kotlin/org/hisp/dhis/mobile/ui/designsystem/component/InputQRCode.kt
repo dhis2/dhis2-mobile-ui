@@ -10,6 +10,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.TextFieldValue
 
 /**
  * DHIS2 Input QR Code. Wraps DHIS · [BasicTextInput].
@@ -33,26 +34,29 @@ import androidx.compose.ui.text.input.ImeAction
 fun InputQRCode(
     title: String,
     state: InputShellState,
+    inputStyle: InputStyle = InputStyle.DataInputStyle(),
     onQRButtonClicked: () -> Unit,
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
-    inputText: String? = null,
+    inputTextFieldValue: TextFieldValue? = null,
     isRequiredField: Boolean = false,
     autoCompleteList: List<String>? = null,
     autoCompleteItemSelected: ((String?) -> Unit)? = null,
     onNextClicked: (() -> Unit)? = null,
-    onValueChanged: ((String?) -> Unit)? = null,
+    onValueChanged: ((TextFieldValue?) -> Unit)? = null,
     onFocusChanged: ((Boolean) -> Unit)? = null,
     imeAction: ImeAction = ImeAction.Next,
     modifier: Modifier = Modifier,
 ) {
-    val actionButtonIconVector = mutableStateOf(if (!inputText.isNullOrEmpty()) Icons.Outlined.QrCode2 else Icons.Outlined.QrCodeScanner)
+    val actionButtonIconVector =
+        mutableStateOf(if (!inputTextFieldValue?.text.isNullOrEmpty()) Icons.Outlined.QrCode2 else Icons.Outlined.QrCodeScanner)
     BasicTextInput(
         title = title,
         state = state,
+        inputStyle = inputStyle,
         supportingText = supportingText,
         legendData = legendData,
-        inputText = inputText,
+        inputTextFieldValue = inputTextFieldValue,
         isRequiredField = isRequiredField,
         onNextClicked = onNextClicked,
         onValueChanged = onValueChanged,
@@ -63,7 +67,7 @@ fun InputQRCode(
         actionButton = {
             SquareIconButton(
                 modifier = Modifier.testTag("INPUT_QR_CODE_BUTTON"),
-                enabled = state != InputShellState.DISABLED,
+                enabled = isButtonEnabled(inputStyle, state, inputTextFieldValue?.text),
                 icon = {
                     Icon(
                         imageVector = actionButtonIconVector.value,
@@ -77,3 +81,9 @@ fun InputQRCode(
         autoCompleteItemSelected = autoCompleteItemSelected,
     )
 }
+
+private fun isButtonEnabled(inputStyle: InputStyle, state: InputShellState, inputText: String?) =
+    when (inputStyle) {
+        is InputStyle.DataInputStyle -> state != InputShellState.DISABLED
+        is InputStyle.ParameterInputStyle -> inputText.isNullOrEmpty()
+    }

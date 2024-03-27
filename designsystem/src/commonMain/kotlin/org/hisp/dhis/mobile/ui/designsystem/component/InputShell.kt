@@ -1,5 +1,6 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
@@ -28,6 +29,7 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.Dp
 import org.hisp.dhis.mobile.ui.designsystem.theme.Border
@@ -55,81 +57,102 @@ fun InputShell(
     primaryButton: @Composable (() -> Unit)? = null,
     secondaryButton: @Composable (() -> Unit)? = null,
     inputField: @Composable (() -> Unit)? = null,
-    supportingText: @Composable (() -> Unit)? = null,
-    legend: @Composable (ColumnScope.() -> Unit)? = null,
+    supportingText: @Composable (() -> Unit)?,
+    legend: @Composable (ColumnScope.() -> Unit)?,
     onFocusChanged: ((Boolean) -> Unit)? = null,
-    isRequiredField: Boolean = false,
+    isRequiredField: Boolean,
     modifier: Modifier = Modifier,
+    inputStyle: InputStyle,
 ) {
-    Column(modifier = modifier.fillMaxWidth().clip(shape = RoundedCornerShape(Radius.XS, Radius.XS))) {
+    Column(
+        modifier = modifier
+            .fillMaxWidth()
+            .clip(shape = RoundedCornerShape(Radius.XS, Radius.XS))
+            .animateContentSize(),
+    ) {
+        var labelColor by remember(state) { mutableStateOf(state.color) }
         var indicatorColor by remember(state) { mutableStateOf(state.color) }
         var indicatorThickness by remember { mutableStateOf(Border.Thin) }
-        val backgroundColor = if (state != InputShellState.DISABLED) SurfaceColor.Surface else SurfaceColor.DisabledSurface
+        val backgroundColor = when {
+            state != InputShellState.DISABLED -> inputStyle.backGroundColor
+            else -> inputStyle.disabledBackGroundColor
+        }
         val focusRequester = remember { FocusRequester() }
 
-        Box(Modifier.fillMaxWidth()) {
-            InputShellRow(
-                modifier = Modifier
-                    .focusRequester(focusRequester)
-                    .pointerInput(Unit) {
-                        if (state != InputShellState.DISABLED) {
-                            detectTapGestures(
-                                onTap = { focusRequester.requestFocus() },
-                            )
-                        }
+        InputShellRow(
+            modifier = Modifier
+                .focusRequester(focusRequester)
+                .pointerInput(Unit) {
+                    if (state != InputShellState.DISABLED) {
+                        detectTapGestures(
+                            onTap = { focusRequester.requestFocus() },
+                        )
                     }
-                    .onFocusChanged {
-                        indicatorColor =
-                            when {
-                                state == InputShellState.DISABLED -> InputShellState.DISABLED.color
-                                it.isFocused && state != InputShellState.ERROR && state != InputShellState.WARNING -> InputShellState.FOCUSED.color
-                                else -> state.color
-                            }
-                        indicatorThickness = when {
-                            state == InputShellState.DISABLED -> Border.Thin
-                            it.isFocused -> Border.Regular
-                            else -> Border.Thin
-                        }
-                        onFocusChanged?.invoke(it.isFocused)
-                    },
-                backgroundColor = backgroundColor,
-            ) {
-                Column(
-                    Modifier
-                        .weight(1f)
-                        .padding(end = Spacing.Spacing4),
-                ) {
-                    if (title.isNotEmpty()) {
-                        val titleText = if (isRequiredField) "$title *" else title
-                        InputShellLabelText(titleText, textColor = indicatorColor)
-                    }
-                    inputField?.invoke()
                 }
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.height(Spacing.Spacing48)
-                        .align(Alignment.CenterVertically),
-                ) {
-                    if (primaryButton != null || secondaryButton != null) {
-                        primaryButton?.invoke()
-                        if (primaryButton != null && secondaryButton != null) {
-                            InputShellButtonSeparator()
-                            Spacer(modifier = Modifier.width(Spacing.Spacing4))
+                .onFocusChanged {
+                    labelColor = when {
+                        state == InputShellState.DISABLED -> InputShellState.DISABLED.color
+                        it.isFocused && state != InputShellState.ERROR && state != InputShellState.WARNING -> InputShellState.FOCUSED.color
+                        else -> state.color
+                    }
+                    indicatorColor =
+                        when {
+                            state == InputShellState.DISABLED ->
+                                inputStyle.disabledIndicatorColor
+                                    ?: InputShellState.DISABLED.color
+
+                            it.isFocused && state != InputShellState.ERROR && state != InputShellState.WARNING -> InputShellState.FOCUSED.color
+                            state == InputShellState.UNFOCUSED ->
+                                inputStyle.unfocusedIndicatorColor
+                                    ?: state.color
+
+                            else -> state.color
                         }
-                        secondaryButton?.let {
-                            Box(
-                                Modifier
-                                    .padding(end = Spacing.Spacing4).size(Spacing.Spacing48),
-                            ) {
-                                it.invoke()
-                            }
-                        }
+                    indicatorThickness = when {
+                        state == InputShellState.DISABLED -> Border.Thin
+                        it.isFocused -> Border.Regular
+                        else -> Border.Thin
+                    }
+                    onFocusChanged?.invoke(it.isFocused)
+                }.padding(start = inputStyle.startIndent),
+            backgroundColor = backgroundColor,
+        ) {
+            Column(
+                Modifier
+                    .weight(4f, false)
+                    .padding(end = Spacing.Spacing4)
+                    .fillMaxWidth(1f),
+                verticalArrangement = Arrangement.Center,
+            ) {
+                if (title.isNotEmpty()) {
+                    val titleText = if (isRequiredField) "$title *" else title
+                    InputShellLabelText(titleText, textColor = labelColor)
+                }
+                inputField?.invoke()
+            }
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.height(Spacing.Spacing48).align(Alignment.CenterVertically),
+            ) {
+                primaryButton?.invoke()
+                if (primaryButton != null && secondaryButton != null) {
+                    InputShellButtonSeparator()
+                    Spacer(modifier = Modifier.width(Spacing.Spacing4))
+                }
+                secondaryButton?.let {
+                    Box(
+                        Modifier
+                            .padding(end = Spacing.Spacing4).size(Spacing.Spacing48),
+                    ) {
+                        it.invoke()
                     }
                 }
             }
-
+        }
+        Box(Modifier.height(Spacing.Spacing2)) {
             InputShellIndicator(
-                modifier = Modifier.align(Alignment.BottomStart),
+                modifier = Modifier.align(Alignment.BottomStart)
+                    .graphicsLayer { translationY = -Spacing.Spacing2.toPx() },
                 color = indicatorColor,
                 thickness = indicatorThickness,
             )
@@ -137,7 +160,12 @@ fun InputShell(
 
         legend?.invoke(this)
         if (state != InputShellState.DISABLED) supportingText?.invoke()
-        if (isRequiredField && state == InputShellState.ERROR && supportingText == null) SupportingText("Required", state = SupportingTextState.ERROR)
+        if (isRequiredField && state == InputShellState.ERROR && supportingText == null) {
+            SupportingText(
+                "Required",
+                state = SupportingTextState.ERROR,
+            )
+        }
     }
 }
 

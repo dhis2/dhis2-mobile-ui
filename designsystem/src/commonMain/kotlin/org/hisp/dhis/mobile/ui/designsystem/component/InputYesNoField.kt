@@ -29,6 +29,7 @@ fun InputYesNoField(
     title: String,
     modifier: Modifier = Modifier,
     state: InputShellState,
+    inputStyle: InputStyle = InputStyle.DataInputStyle(),
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
     isRequired: Boolean = false,
@@ -55,7 +56,7 @@ fun InputYesNoField(
             }
         },
         inputField = {
-            val options = InputYesNoFieldValues.values().map {
+            val options = InputYesNoFieldValues.entries.map {
                 RadioButtonData(
                     it.value,
                     itemSelected == it,
@@ -70,7 +71,7 @@ fun InputYesNoField(
                 Modifier.offset(x = -Spacing.Spacing8),
             ) { radioButtonData ->
                 onItemChange.invoke(
-                    InputYesNoFieldValues.values().firstOrNull { it.name.equals(radioButtonData.uid, true) },
+                    InputYesNoFieldValues.entries.firstOrNull { it.name.equals(radioButtonData.uid, true) },
                 )
             }
         },
@@ -91,6 +92,7 @@ fun InputYesNoField(
                 )
             }
         },
+        inputStyle = inputStyle,
     )
 }
 

@@ -21,6 +21,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ImageBitmap
 import org.hisp.dhis.common.screens.BadgesScreen
 import org.hisp.dhis.common.screens.BarcodeBlockScreen
 import org.hisp.dhis.common.screens.BottomSheetHeaderScreen
@@ -31,10 +32,13 @@ import org.hisp.dhis.common.screens.ButtonScreen
 import org.hisp.dhis.common.screens.CheckboxScreen
 import org.hisp.dhis.common.screens.ChipsScreen
 import org.hisp.dhis.common.screens.Components
+import org.hisp.dhis.common.screens.FABScreen
 import org.hisp.dhis.common.screens.FormShellsScreen
 import org.hisp.dhis.common.screens.FormsComponentsScreen
+import org.hisp.dhis.common.screens.FullScreenImageScreen
 import org.hisp.dhis.common.screens.IconButtonScreen
 import org.hisp.dhis.common.screens.ImageBlockScreen
+import org.hisp.dhis.common.screens.IndicatorInputScreen
 import org.hisp.dhis.common.screens.InputAgeScreen
 import org.hisp.dhis.common.screens.InputBarCodeScreen
 import org.hisp.dhis.common.screens.InputCheckBoxScreen
@@ -71,26 +75,33 @@ import org.hisp.dhis.common.screens.InputYesOnlySwitchScreen
 import org.hisp.dhis.common.screens.LegendDescriptionScreen
 import org.hisp.dhis.common.screens.LegendScreen
 import org.hisp.dhis.common.screens.ListCardScreen
+import org.hisp.dhis.common.screens.LoginScreen
 import org.hisp.dhis.common.screens.MetadataAvatarScreen
+import org.hisp.dhis.common.screens.MultiSelectInputScreen
+import org.hisp.dhis.common.screens.OrgTreeBottomSheetScreen
 import org.hisp.dhis.common.screens.ProgressScreen
 import org.hisp.dhis.common.screens.RadioButtonScreen
+import org.hisp.dhis.common.screens.SearchBarScreen
 import org.hisp.dhis.common.screens.SectionScreen
 import org.hisp.dhis.common.screens.SupportingTextScreen
 import org.hisp.dhis.common.screens.SwitchScreen
 import org.hisp.dhis.common.screens.TagsScreen
+import org.hisp.dhis.common.screens.parameter.ParameterSelectorScreen
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
 @Composable
-fun App() {
+fun App(imageBitmapLoader: (() -> ImageBitmap)? = null) {
     DHIS2Theme {
-        Main()
+        Main(imageBitmapLoader)
     }
 }
 
 @Composable
-fun Main() {
-    val currentScreen = remember { mutableStateOf(Components.INPUT_FILE_RESOURCE) }
+fun Main(
+    imageBitmapLoader: (() -> ImageBitmap)?,
+) {
+    val currentScreen = remember { mutableStateOf(Components.LOGIN) }
     var expanded by remember { mutableStateOf(false) }
 
     Column(
@@ -109,7 +120,7 @@ fun Main() {
                 label = { Text("Components") },
                 leadingIcon = {
                     val icon = if (expanded) {
-                        Icons.Filled.ArrowDropUp // it requires androidx.compose.material:material-icons-extended
+                        Icons.Filled.ArrowDropUp
                     } else {
                         Icons.Filled.ArrowDropDown
                     }
@@ -124,7 +135,7 @@ fun Main() {
                 expanded = expanded,
                 onDismissRequest = { expanded = false },
             ) {
-                Components.values().forEach {
+                Components.entries.forEach {
                     DropdownMenuItem(
                         text = { Text(it.label) },
                         onClick = {
@@ -168,8 +179,8 @@ fun Main() {
             Components.BADGES -> BadgesScreen()
             Components.SWITCH -> SwitchScreen()
             Components.INPUT_RADIO_BUTTON -> InputRadioButtonScreen()
-            Components.INPUT_MATRIX -> InputMatrixScreen()
-            Components.INPUT_SEQUENTIAL -> InputSequentialScreen()
+            Components.INPUT_MATRIX -> InputMatrixScreen(imageBitmapLoader)
+            Components.INPUT_SEQUENTIAL -> InputSequentialScreen(imageBitmapLoader)
             Components.INPUT_QR_CODE -> InputQRCodeScreen()
             Components.INPUT_CHECK_BOX -> InputCheckBoxScreen()
             Components.BARCODE_BLOCK -> BarcodeBlockScreen()
@@ -192,7 +203,15 @@ fun Main() {
             Components.INPUT_SIGNATURE -> InputSignatureScreen()
             Components.INPUT_UNIT_INTERVAL -> InputUnitIntervalScreen()
             Components.INPUT_IMAGE -> InputImageScreen()
+            Components.SEARCH_BAR -> SearchBarScreen()
             Components.INPUT_NOT_SUPPORTED -> InputNotSupportedScreen()
+            Components.FULL_SCREEN_IMAGE -> FullScreenImageScreen()
+            Components.ORG_TREE_BOTTOM_SHEET -> OrgTreeBottomSheetScreen()
+            Components.INDICATOR_INPUT -> IndicatorInputScreen()
+            Components.PARAMETER_SELECTOR -> ParameterSelectorScreen()
+            Components.MULTI_SELECT -> MultiSelectInputScreen()
+            Components.FAB -> FABScreen()
+            Components.LOGIN -> LoginScreen()
         }
     }
 }

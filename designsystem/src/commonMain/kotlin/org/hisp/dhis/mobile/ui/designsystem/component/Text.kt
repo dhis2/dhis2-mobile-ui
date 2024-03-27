@@ -133,15 +133,30 @@ fun Description(
 
 @Composable
 internal fun ListCardTitle(
-    text: String,
+    title: ListCardTitleModel,
     modifier: Modifier = Modifier,
 ) {
     Text(
-        text,
-        color = TextColor.OnPrimaryContainer,
-        style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
-        modifier = modifier.padding(bottom = Spacing.Spacing4),
+        title.text,
+        color = title.color ?: TextColor.OnPrimaryContainer,
+        style = title.style ?: MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
+        modifier = modifier,
     )
+}
+
+@Composable
+internal fun ListCardDescription(
+    description: ListCardDescriptionModel,
+    modifier: Modifier = Modifier,
+) {
+    description.text?.let {
+        Text(
+            description.text,
+            color = description.color ?: TextColor.OnSurface,
+            style = description.style ?: MaterialTheme.typography.bodyMedium,
+            modifier = modifier.padding(bottom = Spacing.Spacing8),
+        )
+    }
 }
 
 @Composable

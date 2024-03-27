@@ -1,11 +1,12 @@
 group = "org.hisp.dhis.mobile"
-version = "1.0-SNAPSHOT"
+version = "0.2-SNAPSHOT"
 
 plugins {
     kotlin("multiplatform")
     id("org.jetbrains.compose")
     id("com.android.library")
     id("convention.publication")
+    id("app.cash.paparazzi").version("1.3.2")
 }
 
 kotlin {
@@ -34,6 +35,13 @@ kotlin {
                 api("androidx.appcompat:appcompat:1.6.1")
                 api("androidx.core:core-ktx:1.12.0")
                 implementation("com.google.zxing:core:3.5.2")
+                implementation("se.warting.signature:signature-pad:0.1.2")
+            }
+        }
+
+        val androidUnitTest by getting {
+            dependencies {
+                implementation("junit:junit:4.13.2")
             }
         }
 

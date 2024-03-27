@@ -40,6 +40,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
  * @param addButtonIcon controls the icon to be shown for the add button
  * @param modifier allows a modifier to be passed externally
  * @param onDownloadButtonClick callback to when download button is clicked
+ * @param onShareButtonClick callback to when share button is clicked
  * @param onResetButtonClicked callback to when reset button is clicked
  * @param onAddButtonClicked callback to when add button is clicked
  */
@@ -47,6 +48,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 internal fun <T> BasicInputImage(
     title: String,
     state: InputShellState = InputShellState.UNFOCUSED,
+    inputStyle: InputStyle = InputStyle.DataInputStyle(),
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
     uploadState: UploadState = UploadState.ADD,
@@ -59,7 +61,7 @@ internal fun <T> BasicInputImage(
     addButtonIcon: ImageVector,
     modifier: Modifier = Modifier,
     onDownloadButtonClick: () -> Unit,
-    onImageClick: () -> Unit,
+    onShareButtonClick: () -> Unit,
     onResetButtonClicked: () -> Unit,
     onAddButtonClicked: () -> Unit,
 ) {
@@ -133,12 +135,14 @@ internal fun <T> BasicInputImage(
                 UploadState.LOADED -> {
                     if (painterFor != null) {
                         ImageBlock(
+                            title = title,
                             load = load,
                             painterFor = painterFor,
-                            onClick = {
+                            onDownloadButtonClick = {
                                 onDownloadButtonClick.invoke()
                                 focusRequester.requestFocus()
                             },
+                            onShareButtonClick = onShareButtonClick,
                             downloadButtonVisible = downloadButtonVisible,
                             modifier = Modifier.padding(
                                 end = if (state == InputShellState.DISABLED) {
@@ -147,10 +151,6 @@ internal fun <T> BasicInputImage(
                                     Spacing.Spacing0
                                 },
                             ),
-                            onImageClick = {
-                                onImageClick.invoke()
-                                focusRequester.requestFocus()
-                            },
                         )
                     }
                 }
@@ -175,6 +175,7 @@ internal fun <T> BasicInputImage(
         } else {
             null
         },
+        inputStyle = inputStyle,
     )
 }
 

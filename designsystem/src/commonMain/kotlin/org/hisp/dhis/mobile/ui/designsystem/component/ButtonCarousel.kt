@@ -36,7 +36,7 @@ fun CarouselButton(
     buttonData: CarouselButtonData,
     modifier: Modifier = Modifier,
 ) {
-    CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
+    CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme()) {
         Box(
             modifier = modifier
                 .size(Spacing.Spacing80)

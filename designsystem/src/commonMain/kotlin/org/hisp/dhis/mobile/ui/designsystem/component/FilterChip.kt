@@ -28,7 +28,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Chip(
+fun FilterChip(
     modifier: Modifier = Modifier,
     label: String,
     selected: Boolean = false,
@@ -36,7 +36,7 @@ fun Chip(
     badge: String? = null,
 ) {
     Box(modifier = modifier) {
-        CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
+        CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme()) {
             FilterChip(
                 onClick = { onSelected?.invoke(!selected) },
                 label = { Text(label, color = TextColor.OnSurfaceVariant) },
@@ -46,7 +46,7 @@ fun Chip(
                     selectedContainerColor = SurfaceColor.Container,
                 ),
                 border = FilterChipDefaults.filterChipBorder(
-                    borderColor = Outline.Medium,
+                    borderColor = Outline.Dark,
                 ),
                 leadingIcon = if (selected) {
                     {

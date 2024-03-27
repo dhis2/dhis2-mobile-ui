@@ -14,6 +14,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.EmptyInput
 import org.hisp.dhis.mobile.ui.designsystem.component.IconButton
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShell
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
+import org.hisp.dhis.mobile.ui.designsystem.component.InputStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.SquareIconButton
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
@@ -23,6 +24,8 @@ internal fun InputShellPreview(
     title: String,
     state: InputShellState = InputShellState.UNFOCUSED,
     inputField: @Composable (() -> Unit)? = null,
+    inputStyle: InputStyle = InputStyle.DataInputStyle(),
+    onInputClear: () -> Unit = { },
 ) {
     InputShell(
         title,
@@ -34,7 +37,7 @@ internal fun InputShellPreview(
                         contentDescription = "Icon Button",
                     )
                 },
-                onClick = { },
+                onClick = { onInputClear() },
                 enabled = state != InputShellState.DISABLED,
             )
         },
@@ -65,5 +68,8 @@ internal fun InputShellPreview(
             )
         },
         state = state,
+        inputStyle = inputStyle,
+        legend = null,
+        isRequiredField = false,
     )
 }

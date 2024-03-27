@@ -29,4 +29,15 @@
     <string name="add_signature">Add signature</string>
     <string name="add_image">Add image</string>
     <string name="not_supported">Not supported</string>
+    <string name="search">Search</string>
+    <string name="draw_here">Draw here</string>
+    <string name="reset">Reset</string>
+    <string name="done">Done</string>
+    <string name="clear_all">Clear all</string>
+    <string name="no_results_found">No results found</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="select_date">Select date</string>
+    <string name="date_out_of_range">Date out of range </string>
+    <string name="wrong_hour_format">Incorrect time format </string>
 </resources>

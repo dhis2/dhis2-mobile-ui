@@ -7,11 +7,9 @@ plugins {
 kotlin {
     androidTarget()
     sourceSets {
-        val androidMain by getting {
-            dependencies {
-                implementation(project(":common"))
-                implementation("androidx.activity:activity-compose:1.8.2")
-            }
+        androidMain.dependencies {
+            implementation(project(":common"))
+            implementation("androidx.activity:activity-compose:1.8.2")
         }
     }
 }
@@ -26,8 +24,6 @@ android {
         applicationId = "org.hisp.dhis.android"
         minSdk = (findProperty("android.minSdk") as String).toInt()
         targetSdk = (findProperty("android.targetSdk") as String).toInt()
-        versionCode = 1
-        versionName = "1.0-SNAPSHOT"
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17

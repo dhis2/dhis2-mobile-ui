@@ -75,6 +75,7 @@ fun SquareIconButton(
     } else {
         shadowColor = mutableStateOf(Color.Transparent)
     }
+
     ElevatedButton(
         interactionSource = interactionSource,
         onClick = onClick,
@@ -164,7 +165,7 @@ private fun StandardIconButton(
     scope: CoroutineScope = rememberCoroutineScope(),
     onClick: () -> Unit,
 ) {
-    CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
+    CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme()) {
         Box(
             Modifier.size(InternalSizeValues.Size48).clickable(
                 enabled = enabled,
@@ -239,7 +240,7 @@ private fun FilledTonalIconButton(
     scope: CoroutineScope = rememberCoroutineScope(),
     onClick: () -> Unit,
 ) {
-    CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
+    CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme()) {
         Box(
             Modifier.size(InternalSizeValues.Size48).clickable(
                 enabled = enabled,
@@ -281,7 +282,7 @@ private fun OutlinedIconButton(
     scope: CoroutineScope = rememberCoroutineScope(),
     onClick: () -> Unit,
 ) {
-    CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
+    CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme()) {
         Box(
             Modifier.size(InternalSizeValues.Size48).clickable(
                 enabled = enabled,

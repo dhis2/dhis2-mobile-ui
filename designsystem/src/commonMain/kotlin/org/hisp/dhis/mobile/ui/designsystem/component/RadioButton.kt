@@ -17,6 +17,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.text.AnnotatedString
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.Ripple
@@ -56,7 +57,7 @@ fun RadioButton(
                 enabled = radioButtonData.enabled,
             ),
     ) {
-        CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme) {
+        CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme()) {
             RadioButton(
                 selected = radioButtonData.selected,
                 onClick = {
@@ -78,12 +79,13 @@ fun RadioButton(
                 ),
             )
         }
-        radioButtonData.textInput?.let {
+
+        if (!radioButtonData.textInput.isNullOrBlank()) {
             Text(
                 modifier = Modifier
                     .padding(top = Spacing.Spacing8, bottom = Spacing.Spacing8)
                     .hoverPointerIcon(radioButtonData.enabled),
-                text = it,
+                text = radioButtonData.textInput,
                 color = if (radioButtonData.enabled) {
                     TextColor.OnSurface
                 } else {
@@ -160,5 +162,13 @@ data class RadioButtonData(
     val uid: String,
     val selected: Boolean,
     val enabled: Boolean,
-    val textInput: String?,
-)
+    val textInput: AnnotatedString?,
+) {
+
+    constructor(uid: String, selected: Boolean, enabled: Boolean, textInput: String) : this(
+        uid = uid,
+        selected = selected,
+        enabled = enabled,
+        textInput = AnnotatedString(textInput),
+    )
+}

@@ -9,19 +9,18 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.graphics.painter.Painter
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.InputSignature
 import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
 import org.hisp.dhis.mobile.ui.designsystem.component.Title
-import org.hisp.dhis.mobile.ui.designsystem.component.UploadState
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
-import java.util.Timer
-import kotlin.concurrent.schedule
 
 @Composable
 fun InputSignatureScreen() {
@@ -29,55 +28,65 @@ fun InputSignatureScreen() {
         Title("Input Signature", textColor = TextColor.OnSurfaceVariant)
 
         SubTitle("Basic Input Signature ", textColor = TextColor.OnSurfaceVariant)
-        var uploadState by rememberSaveable { mutableStateOf(UploadState.ADD) }
+        var sampleSignature0 by rememberSaveable { mutableStateOf<ImageBitmap?>(null) }
+
+        InputSignature(
+            title = "Label",
+            load = { sampleSignature0 },
+            painterFor = sampleSignature0?.let { imageBitmap ->
+                {
+                    BitmapPainter(imageBitmap)
+                }
+            },
+            onDownloadButtonClick = {},
+            onShareButtonClick = {},
+            onResetButtonClicked = {
+                sampleSignature0 = null
+            },
+            onSaveSignature = {
+                sampleSignature0 = it
+            },
+        )
+        Spacer(Modifier.size(Spacing.Spacing18))
+
+        SubTitle("Basic Input Signature ", textColor = TextColor.OnSurfaceVariant)
         val sampleSignature = provideSampleImage()
 
         InputSignature(
             title = "Label",
-            uploadState = uploadState,
             load = { sampleSignature },
             painterFor = { remember { it } },
             onDownloadButtonClick = {},
+            onShareButtonClick = {},
             onResetButtonClicked = {
-                uploadState = UploadState.ADD
             },
-            onAddButtonClicked = {
-                uploadState = UploadState.UPLOADING
-                Timer().schedule(1000) {
-                    uploadState = UploadState.LOADED
-                }
-            },
-            onImageClick = {},
+            onSaveSignature = {},
         )
         Spacer(Modifier.size(Spacing.Spacing18))
 
         SubTitle("Disabled Input Signature without data ", textColor = TextColor.OnSurfaceVariant)
-        val uploadState1 by rememberSaveable { mutableStateOf(UploadState.ADD) }
         InputSignature(
             title = "Label",
             state = InputShellState.DISABLED,
-            uploadState = uploadState1,
             load = { },
             onDownloadButtonClick = {},
+            onShareButtonClick = {},
             onResetButtonClicked = {},
-            onAddButtonClicked = {},
-            onImageClick = {},
+            onSaveSignature = {},
         )
         Spacer(Modifier.size(Spacing.Spacing18))
 
         SubTitle("Disabled Input Signature with data ", textColor = TextColor.OnSurfaceVariant)
-        val uploadState2 by rememberSaveable { mutableStateOf(UploadState.LOADED) }
         val sampleSignature2 = provideSampleImage()
         InputSignature(
             title = "Label",
             state = InputShellState.DISABLED,
-            uploadState = uploadState2,
             load = { sampleSignature2 },
             painterFor = { it },
             onDownloadButtonClick = {},
+            onShareButtonClick = {},
             onResetButtonClicked = { },
-            onAddButtonClicked = {},
-            onImageClick = {},
+            onSaveSignature = {},
         )
     }
 }

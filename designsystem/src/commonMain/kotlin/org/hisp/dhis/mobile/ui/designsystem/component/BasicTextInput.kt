@@ -24,6 +24,8 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.text.TextRange
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.PopupProperties
@@ -57,28 +59,29 @@ internal fun BasicTextInput(
     state: InputShellState,
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
-    inputText: String? = null,
+    inputTextFieldValue: TextFieldValue? = null,
     isRequiredField: Boolean = false,
     onNextClicked: (() -> Unit)? = null,
-    onValueChanged: ((String?) -> Unit)? = null,
+    onValueChanged: ((TextFieldValue) -> Unit)? = null,
     onFocusChanged: ((Boolean) -> Unit)? = null,
     autoCompleteList: List<String>? = null,
     autoCompleteItemSelected: ((String?) -> Unit)? = null,
     keyboardOptions: KeyboardOptions,
     allowedCharacters: Regex? = null,
     helper: String? = null,
-    helperStyle: InputStyle = InputStyle.NONE,
+    helperStyle: HelperStyle = HelperStyle.NONE,
     testTag: String = "",
     isSingleLine: Boolean = true,
     actionButton: @Composable (() -> Unit)? = null,
     modifier: Modifier = Modifier,
+    inputStyle: InputStyle,
 ) {
-    val inputValue by remember(inputText) { mutableStateOf(inputText) }
+    var inputValue by remember(inputTextFieldValue) { mutableStateOf(inputTextFieldValue) }
 
-    var deleteButtonIsVisible by remember(inputText) { mutableStateOf(!inputText.isNullOrEmpty() && state != InputShellState.DISABLED) }
+    var deleteButtonIsVisible by remember(inputTextFieldValue) { mutableStateOf(!inputTextFieldValue?.text.isNullOrEmpty() && state != InputShellState.DISABLED) }
     val focusManager = LocalFocusManager.current
     val focusRequester = remember { FocusRequester() }
-    val filteredList = autoCompleteList?.filter { it.contains(inputValue ?: "") }
+    val filteredList = autoCompleteList?.filter { it.contains(inputValue?.text ?: "") }
     var expanded by remember { mutableStateOf(false) }
 
     var deleteButton:
@@ -98,7 +101,8 @@ internal fun BasicTextInput(
                 },
                 onClick = {
                     focusRequester.requestFocus()
-                    onValueChanged?.invoke("")
+                    onValueChanged?.invoke(TextFieldValue(""))
+                    inputValue = TextFieldValue("")
                     deleteButtonIsVisible = false
                 },
                 enabled = state != InputShellState.DISABLED,
@@ -140,30 +144,34 @@ internal fun BasicTextInput(
                         .testTag("INPUT_" + testTag + "_FIELD")
                         .fillMaxWidth()
                         .heightIn(Spacing.Spacing0, InternalSizeValues.Size300),
-                    inputText = inputValue ?: "",
+                    inputTextValue = inputValue ?: TextFieldValue(),
                     helper = helper,
                     isSingleLine = isSingleLine,
                     helperStyle = helperStyle,
                     onInputChanged = { newValue ->
                         if (allowedCharacters != null) {
                             if (allowedCharacters == RegExValidations.SINGLE_LETTER.regex) {
-                                if (newValue.uppercase(Locale.getDefault())
-                                        .matches(allowedCharacters) || newValue.isEmpty()
+                                if (newValue.text.uppercase(Locale.getDefault())
+                                        .matches(allowedCharacters) || newValue.text.isEmpty()
                                 ) {
-                                    onValueChanged?.invoke(newValue.uppercase(Locale.getDefault()))
-                                    deleteButtonIsVisible = newValue.isNotEmpty()
+                                    onValueChanged?.invoke(TextFieldValue(newValue.text.uppercase(Locale.getDefault()), newValue.selection, newValue.composition))
+                                    inputValue = TextFieldValue(newValue.text.uppercase(Locale.getDefault()), newValue.selection, newValue.composition)
+
+                                    deleteButtonIsVisible = newValue.text.isNotEmpty()
                                 }
                             } else {
-                                if (newValue.matches(allowedCharacters) || newValue.isEmpty()) {
+                                if (newValue.text.matches(allowedCharacters) || newValue.text.isEmpty()) {
                                     onValueChanged?.invoke(newValue)
-                                    deleteButtonIsVisible = newValue.isNotEmpty()
+                                    inputValue = newValue
+                                    deleteButtonIsVisible = newValue.text.isNotEmpty()
                                 }
                             }
                         } else {
                             onValueChanged?.invoke(newValue)
-                            deleteButtonIsVisible = newValue.isNotEmpty()
+                            inputValue = newValue
+                            deleteButtonIsVisible = newValue.text.isNotEmpty()
                         }
-                        expanded = (!filteredList.isNullOrEmpty() && filteredList.any { it == newValue || it.contains(newValue) })
+                        expanded = (!filteredList.isNullOrEmpty() && filteredList.any { it == newValue.text || it.contains(newValue.text) })
                     },
                     enabled = state != InputShellState.DISABLED,
                     state = state,
@@ -190,7 +198,13 @@ internal fun BasicTextInput(
                                     text = { Text(it) },
                                     modifier = Modifier,
                                     onClick = {
-                                        onValueChanged?.invoke(it)
+                                        onValueChanged?.invoke(
+                                            TextFieldValue(
+                                                it,
+                                                TextRange(it.length),
+                                                TextRange(0),
+                                            ),
+                                        )
                                         autoCompleteItemSelected?.invoke(it)
                                         expanded = false
                                     },
@@ -201,6 +215,7 @@ internal fun BasicTextInput(
                 }
             },
             onFocusChanged = onFocusChanged,
+            inputStyle = inputStyle,
         )
     }
 }

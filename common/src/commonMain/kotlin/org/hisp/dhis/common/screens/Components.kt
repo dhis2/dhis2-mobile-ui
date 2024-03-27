@@ -56,5 +56,13 @@ enum class Components(val label: String) {
     INPUT_SIGNATURE("Input Signature"),
     INPUT_UNIT_INTERVAL("Input Unit Interval"),
     INPUT_IMAGE("Input Image"),
+    SEARCH_BAR("Search bar"),
     INPUT_NOT_SUPPORTED("Input Not Supported"),
+    FULL_SCREEN_IMAGE("Full Screen Image"),
+    ORG_TREE_BOTTOM_SHEET("Org Tree Bottom Sheet"),
+    INDICATOR_INPUT("Indicator Input"),
+    PARAMETER_SELECTOR("Parameter selector"),
+    MULTI_SELECT("Multi Select Input"),
+    FAB("FAB"),
+    LOGIN("Login"),
 }

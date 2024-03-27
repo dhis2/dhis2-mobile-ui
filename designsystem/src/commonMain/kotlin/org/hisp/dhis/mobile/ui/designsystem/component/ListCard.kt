@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -41,6 +42,7 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.conditional
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
@@ -52,6 +54,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing4
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
+import org.hisp.dhis.mobile.ui.designsystem.theme.shadow
 
 /**
  * DHIS2 ListCard.
@@ -71,14 +74,16 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
 @Composable
 fun ListCard(
     listAvatar: (@Composable () -> Unit)? = null,
-    title: String,
+    title: ListCardTitleModel,
+    description: ListCardDescriptionModel? = null,
     lastUpdated: String? = null,
     additionalInfoList: List<AdditionalInfoItem>,
     actionButton: @Composable (() -> Unit)? = null,
     expandLabelText: String = provideStringResource("show_more"),
     shrinkLabelText: String = provideStringResource("show_less"),
-    showLoading: Boolean = false,
+    loading: Boolean = false,
     onCardClick: () -> Unit,
+    shadow: Boolean = true,
     modifier: Modifier = Modifier,
 ) {
     val expandableItemList = mutableListOf<AdditionalInfoItem>()
@@ -95,7 +100,10 @@ fun ListCard(
 
     Row(
         modifier = modifier
-            .background(color = TextColor.OnPrimary)
+            .conditional(shadow, {
+                shadow()
+            })
+            .background(color = TextColor.OnPrimary, shape = RoundedCornerShape(Radius.S))
             .clip(shape = RoundedCornerShape(Radius.S))
             .clickable(
                 role = Role.Button,
@@ -105,8 +113,8 @@ fun ListCard(
                 ),
                 onClick = onCardClick,
             )
-            .padding(Spacing.Spacing8)
-            .hoverPointerIcon(true),
+            .hoverPointerIcon(true)
+            .padding(getPaddingValues(shadow, listAvatar != null)),
     ) {
         listAvatar?.let {
             it.invoke()
@@ -115,11 +123,15 @@ fun ListCard(
         Column(Modifier.fillMaxWidth().weight(1f)) {
             Row(horizontalArrangement = Arrangement.SpaceBetween) {
                 // Row with header and last updated
-                ListCardTitle(text = title, modifier.weight(1f))
+                ListCardTitle(title = title, modifier.weight(1f).padding(bottom = if (description?.text != null) Spacing.Spacing0 else Spacing4))
                 if (lastUpdated != null) {
                     ListCardLastUpdated(lastUpdated)
                 }
             }
+            description?.let {
+                ListCardDescription(it, Modifier)
+            }
+
             AdditionalInfoColumn(
                 expandableItems = expandableItemList,
                 constantItems = constantItemList,
@@ -138,7 +150,7 @@ fun ListCard(
                     color = SurfaceColor.Primary,
                     isConstantItem = false,
                 ),
-                showLoading = showLoading,
+                loading = loading,
             )
             actionButton?.invoke()
         }
@@ -217,7 +229,7 @@ fun CardDetail(
                     color = SurfaceColor.Primary,
                     isConstantItem = false,
                 ),
-                showLoading = showLoading,
+                loading = showLoading,
             )
             actionButton?.invoke()
         }
@@ -287,12 +299,12 @@ private fun AdditionalInfoColumn(
     expandableItems: List<AdditionalInfoItem>? = null,
     constantItems: List<AdditionalInfoItem>,
     syncProgressItem: AdditionalInfoItem,
-    showLoading: Boolean,
+    loading: Boolean,
     isDetailCard: Boolean = false,
     expandLabelText: String,
     shrinkLabelText: String,
 ) {
-    val loadingSectionState by remember(showLoading) { mutableStateOf(showLoading) }
+    val loadingSectionState by remember(loading) { mutableStateOf(loading) }
     var sectionState by remember(SectionState.CLOSE) { mutableStateOf(SectionState.CLOSE) }
 
     var expandableItemList: List<AdditionalInfoItem>
@@ -469,6 +481,22 @@ private fun KeyValueList(
     }
 }
 
+@Composable
+private fun getPaddingValues(
+    hasShadow: Boolean,
+    hasAvatar: Boolean,
+): PaddingValues {
+    return if (!hasShadow) {
+        PaddingValues(Spacing.Spacing8)
+    } else {
+        if (hasAvatar) {
+            PaddingValues(Spacing.Spacing8, Spacing.Spacing16, Spacing.Spacing16, Spacing.Spacing16)
+        } else {
+            PaddingValues(Spacing.Spacing16)
+        }
+    }
+}
+
 enum class
 AvatarStyle {
     TEXT,
@@ -483,6 +511,20 @@ data class AdditionalInfoItem(
     val isConstantItem: Boolean = false,
     val color: Color? = null,
     val action: (() -> Unit)? = null,
+)
+
+data class ListCardTitleModel(
+    val style: TextStyle? = null,
+    val color: Color? = TextColor.OnPrimaryContainer,
+    val text: String,
+    val modifier: Modifier = Modifier,
+)
+
+data class ListCardDescriptionModel(
+    val style: TextStyle? = null,
+    val color: Color? = TextColor.OnSurface,
+    val text: String? = null,
+    val modifier: Modifier = Modifier,
 )
 
 enum class AdditionalInfoItemColor(val color: Color) {

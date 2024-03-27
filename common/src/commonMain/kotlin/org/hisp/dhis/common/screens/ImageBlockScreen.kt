@@ -11,10 +11,11 @@ import org.jetbrains.compose.resources.painterResource
 fun ImageBlockScreen() {
     val sampleImage = provideSampleImage()
     ImageBlock(
+        title = "Label",
         load = { sampleImage },
         painterFor = { remember { it } },
-        onClick = {},
-        onImageClick = {},
+        onDownloadButtonClick = {},
+        onShareButtonClick = {},
     )
 }
 

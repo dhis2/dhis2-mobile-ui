@@ -47,6 +47,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 fun InputCoordinate(
     title: String,
     state: InputShellState = InputShellState.UNFOCUSED,
+    inputStyle: InputStyle = InputStyle.DataInputStyle(),
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
     coordinates: Coordinates? = null,
@@ -101,6 +102,7 @@ fun InputCoordinate(
                 Button(
                     enabled = state != InputShellState.DISABLED,
                     ButtonStyle.KEYBOARDKEY,
+                    ColorStyle.DEFAULT,
                     addLocationBtnText,
                     icon = {
                         Icon(
@@ -161,6 +163,7 @@ fun InputCoordinate(
         } else {
             null
         },
+        inputStyle = inputStyle,
     )
 }
 

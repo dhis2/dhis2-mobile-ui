@@ -12,7 +12,10 @@ import androidx.compose.material.icons.outlined.FileDownload
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.produceState
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -28,22 +31,27 @@ import java.io.IOException
 
 /**
  * DHIS2 Image Block. Wraps compose [Image].
+ * @param title controls the text to be shown for the title
  * @param load to load an image stored in the resource, device memory or from network
  * we can use loadPainter, loadImageBitmap, loadSvgPainter or loadXmlImageVector
  * @param painterFor is a composable function which controls how to paint the load param,
  * @param modifier allows a modifier to be passed externally
  * @param downloadButtonVisible controls whether the download button is visible or not
- * @param onClick is a callback to notify when the download button is clicked.
+ * @param onDownloadButtonClick is a callback to notify when the download button is clicked.
+ * @param onShareButtonClick is a callback to notify when the share button is clicked.
  */
 @Composable
 fun <T> ImageBlock(
+    title: String,
     load: suspend () -> T,
     painterFor: @Composable (T) -> Painter,
     modifier: Modifier = Modifier,
     downloadButtonVisible: Boolean = true,
-    onImageClick: () -> Unit,
-    onClick: () -> Unit,
+    onDownloadButtonClick: () -> Unit,
+    onShareButtonClick: () -> Unit,
 ) {
+    var isFullScreen by remember { mutableStateOf(false) }
+
     val image: T? by produceState<T?>(null) {
         value = withContext(Dispatchers.IO) {
             try {
@@ -55,6 +63,17 @@ fun <T> ImageBlock(
     }
 
     if (image != null) {
+        if (isFullScreen) {
+            FullScreenImage(
+                title = title,
+                painter = painterFor(image!!),
+                onDismiss = {
+                    isFullScreen = !isFullScreen
+                },
+                onDownloadButtonClick = onDownloadButtonClick,
+                onShareButtonClick = onShareButtonClick,
+            )
+        }
         Box(
             modifier = modifier
                 .padding(vertical = Spacing.Spacing8)
@@ -68,7 +87,9 @@ fun <T> ImageBlock(
                     .fillMaxWidth()
                     .clip(shape = RoundedCornerShape(Radius.S))
                     .height(160.dp)
-                    .clickable { onImageClick.invoke() },
+                    .clickable {
+                        isFullScreen = !isFullScreen
+                    },
             )
             if (downloadButtonVisible) {
                 SquareIconButton(
@@ -83,7 +104,7 @@ fun <T> ImageBlock(
                         )
                     },
                 ) {
-                    onClick.invoke()
+                    onDownloadButtonClick.invoke()
                 }
             }
         }

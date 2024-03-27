@@ -6,21 +6,29 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Event
 import androidx.compose.material.icons.outlined.Cancel
+import androidx.compose.material3.DatePicker
+import androidx.compose.material3.DatePickerDialog
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.window.DialogProperties
 import org.hisp.dhis.mobile.ui.designsystem.component.AgeInputType.Age
 import org.hisp.dhis.mobile.ui.designsystem.component.AgeInputType.DateOfBirth
 import org.hisp.dhis.mobile.ui.designsystem.component.AgeInputType.None
@@ -28,6 +36,8 @@ import org.hisp.dhis.mobile.ui.designsystem.component.TimeUnitValues.YEARS
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.DateTransformation.Companion.DATE_MASK
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.RegExValidations
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2LightColorScheme
+import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
 /**
@@ -45,44 +55,34 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
  * @param isRequired: Mark this input as marked
  * @param onValueChanged: Callback to receive changes in the input
  */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun InputAge(
-    title: String,
-    inputType: AgeInputType = None,
-    onCalendarActionClicked: () -> Unit,
+    uiModel: InputAgeModel,
     modifier: Modifier = Modifier,
-    state: InputShellState = InputShellState.UNFOCUSED,
-    legendData: LegendData? = null,
-    supportingText: List<SupportingTextData>? = null,
-    isRequired: Boolean = false,
-    imeAction: ImeAction = ImeAction.Next,
-    onNextClicked: (() -> Unit)? = null,
-    dateOfBirthLabel: String = provideStringResource("date_birth"),
-    orLabel: String = provideStringResource("or"),
-    ageLabel: String = provideStringResource("age"),
-    onValueChanged: (AgeInputType) -> Unit,
 ) {
     val maxAgeCharLimit = 3
     val allowedCharacters = RegExValidations.DATE_TIME.regex
+    var showDatePicker by rememberSaveable { mutableStateOf(false) }
 
-    val helperText = remember(inputType) {
-        when (inputType) {
+    val helperText = remember(uiModel.inputType) {
+        when (uiModel.inputType) {
             None, is DateOfBirth -> null
-            is Age -> inputType.unit.value
+            is Age -> uiModel.inputType.unit.value
         }
     }
-    val helperStyle = remember(inputType) {
-        when (inputType) {
-            None -> InputStyle.NONE
-            is DateOfBirth -> InputStyle.WITH_DATE_OF_BIRTH_HELPER
-            is Age -> InputStyle.WITH_HELPER_AFTER
+    val helperStyle = remember(uiModel.inputType) {
+        when (uiModel.inputType) {
+            None -> HelperStyle.NONE
+            is DateOfBirth -> HelperStyle.WITH_DATE_OF_BIRTH_HELPER
+            is Age -> HelperStyle.WITH_HELPER_AFTER
         }
     }
 
-    val focusManager = LocalFocusManager.current
     val focusRequester = remember { FocusRequester() }
+    val datePickerState = rememberDatePickerState()
 
-    val calendarButton: (@Composable () -> Unit)? = if (inputType is DateOfBirth) {
+    val calendarButton: (@Composable () -> Unit)? = if (uiModel.inputType is DateOfBirth) {
         @Composable {
             SquareIconButton(
                 modifier = Modifier.testTag("INPUT_AGE_OPEN_CALENDAR_BUTTON"),
@@ -94,19 +94,19 @@ fun InputAge(
                 },
                 onClick = {
                     focusRequester.requestFocus()
-                    onCalendarActionClicked()
+                    showDatePicker = !showDatePicker
                 },
-                enabled = state != InputShellState.DISABLED,
+                enabled = uiModel.state != InputShellState.DISABLED,
             )
         }
     } else {
         null
     }
 
-    var previousInputType by remember { mutableStateOf(inputType) }
-    LaunchedEffect(inputType) {
+    var previousInputType by remember { mutableStateOf(uiModel.inputType) }
+    LaunchedEffect(uiModel.inputType) {
         when {
-            previousInputType == None && (inputType is DateOfBirth || inputType is Age) -> {
+            previousInputType == None && (uiModel.inputType is DateOfBirth || uiModel.inputType is Age) -> {
                 focusRequester.requestFocus()
             }
             else -> {
@@ -114,31 +114,31 @@ fun InputAge(
             }
         }
 
-        if (previousInputType != inputType) {
-            previousInputType = inputType
+        if (previousInputType != uiModel.inputType) {
+            previousInputType = uiModel.inputType
         }
     }
 
     InputShell(
         modifier = modifier.testTag("INPUT_AGE").focusRequester(focusRequester),
-        title = title,
-        state = state,
-        isRequiredField = isRequired,
+        title = uiModel.title,
+        state = uiModel.state,
+        isRequiredField = uiModel.isRequired,
         inputField = {
-            when (inputType) {
+            when (uiModel.inputType) {
                 None -> {
                     TextButtonSelector(
                         modifier = Modifier.testTag("INPUT_AGE_MODE_SELECTOR"),
-                        firstOptionText = dateOfBirthLabel,
+                        firstOptionText = uiModel.dateOfBirthLabel ?: provideStringResource("date_birth"),
                         onClickFirstOption = {
-                            onValueChanged.invoke(DateOfBirth.EMPTY)
+                            uiModel.onValueChanged.invoke(DateOfBirth.EMPTY)
                         },
-                        middleText = orLabel,
-                        secondOptionText = ageLabel,
+                        middleText = uiModel.orLabel ?: provideStringResource("or"),
+                        secondOptionText = uiModel.ageLabel ?: provideStringResource("age"),
                         onClickSecondOption = {
-                            onValueChanged.invoke(Age.EMPTY)
+                            uiModel.onValueChanged.invoke(Age.EMPTY)
                         },
-                        enabled = state != InputShellState.DISABLED,
+                        enabled = uiModel.state != InputShellState.DISABLED,
                     )
                 }
                 is DateOfBirth, is Age -> {
@@ -146,42 +146,37 @@ fun InputAge(
                         modifier = Modifier
                             .testTag("INPUT_AGE_TEXT_FIELD")
                             .fillMaxWidth(),
-                        inputText = transformInputText(inputType),
+                        inputTextValue = getTextFieldValue(uiModel.inputType),
                         helper = helperText,
                         isSingleLine = true,
                         helperStyle = helperStyle,
                         onInputChanged = { newText ->
-                            if (newText.length > maxAgeCharLimit && inputType is Age) {
+                            if (newText.text.length > maxAgeCharLimit && uiModel.inputType is Age) {
                                 return@BasicTextField
                             }
 
                             @Suppress("KotlinConstantConditions")
-                            val newInputType: AgeInputType = when (inputType) {
-                                is Age -> inputType.copy(value = newText)
-                                is DateOfBirth -> updateDateOfBirth(inputType, newText)
+                            val newInputType: AgeInputType = when (uiModel.inputType) {
+                                is Age -> uiModel.inputType.copy(value = newText)
+                                is DateOfBirth -> updateDateOfBirth(uiModel.inputType, newText)
                                 None -> None
                             }
 
-                            if (allowedCharacters.containsMatchIn(newText) || newText.isBlank()) {
-                                onValueChanged.invoke(newInputType)
+                            if (allowedCharacters.containsMatchIn(newText.text) || newText.text.isBlank()) {
+                                uiModel.onValueChanged.invoke(newInputType)
                             }
                         },
-                        enabled = state != InputShellState.DISABLED,
-                        state = state,
-                        keyboardOptions = KeyboardOptions(imeAction = imeAction, keyboardType = KeyboardType.Number),
+                        enabled = uiModel.state != InputShellState.DISABLED,
+                        state = uiModel.state,
+                        keyboardOptions = KeyboardOptions(imeAction = uiModel.imeAction, keyboardType = KeyboardType.Number),
                         onNextClicked = {
-                            if (onNextClicked != null) {
-                                onNextClicked()
-                            } else {
-                                focusManager.moveFocus(FocusDirection.Down)
-                            }
                         },
                     )
                 }
             }
         },
         primaryButton = {
-            if (inputType != None && state != InputShellState.DISABLED) {
+            if (uiModel.inputType != None && uiModel.state != InputShellState.DISABLED) {
                 IconButton(
                     modifier = Modifier.testTag("INPUT_AGE_RESET_BUTTON").padding(Spacing.Spacing0),
                     icon = {
@@ -192,14 +187,14 @@ fun InputAge(
                     },
                     onClick = {
                         focusRequester.requestFocus()
-                        onValueChanged.invoke(None)
+                        uiModel.onValueChanged.invoke(None)
                     },
                 )
             }
         },
         secondaryButton = calendarButton,
         supportingText = {
-            supportingText?.forEach { label ->
+            uiModel.supportingText?.forEach { label ->
                 SupportingText(
                     label.text,
                     label.state,
@@ -208,39 +203,110 @@ fun InputAge(
             }
         },
         legend = {
-            if (inputType is Age) {
+            if (uiModel.inputType is Age) {
                 TimeUnitSelector(
                     modifier = Modifier.fillMaxWidth()
                         .testTag("INPUT_AGE_TIME_UNIT_SELECTOR"),
                     orientation = Orientation.HORIZONTAL,
                     optionSelected = YEARS.value,
-                    enabled = state != InputShellState.DISABLED,
+                    enabled = uiModel.state != InputShellState.DISABLED,
                     onClick = { itemData ->
                         val timeUnit = TimeUnitValues.entries
                             .first { it.value.contains(itemData.textInput!!, ignoreCase = true) }
 
-                        onValueChanged.invoke(inputType.copy(unit = timeUnit))
+                        uiModel.onValueChanged.invoke(uiModel.inputType.copy(unit = timeUnit))
                     },
                 )
             }
 
-            legendData?.let {
-                Legend(legendData, Modifier.testTag("INPUT_AGE_LEGEND"))
+            uiModel.legendData?.let {
+                Legend(uiModel.legendData, Modifier.testTag("INPUT_AGE_LEGEND"))
             }
         },
+        inputStyle = uiModel.inputStyle,
     )
+
+    if (showDatePicker) {
+        MaterialTheme(
+            colorScheme = DHIS2LightColorScheme.copy(
+                outlineVariant = Outline.Medium,
+            ),
+        ) {
+            DatePickerDialog(
+                modifier = Modifier.testTag("DATE_PICKER"),
+                onDismissRequest = { showDatePicker = false },
+                confirmButton = {
+                    Button(
+                        enabled = true,
+                        ButtonStyle.TEXT,
+                        ColorStyle.DEFAULT,
+                        uiModel.acceptText ?: provideStringResource("ok"),
+                    ) {
+                        showDatePicker = false
+                        if (uiModel.inputType is DateOfBirth) {
+                            datePickerState.selectedDateMillis?.let {
+                                val newInputType: AgeInputType = updateDateOfBirth(uiModel.inputType, TextFieldValue(getDate(it), TextRange(getDate(it).length)))
+                                uiModel.onValueChanged.invoke(newInputType)
+                            }
+                        }
+                    }
+                },
+                colors = datePickerColors(),
+                dismissButton = {
+                    Button(
+                        enabled = true,
+                        ButtonStyle.TEXT,
+                        ColorStyle.DEFAULT,
+                        uiModel.cancelText ?: provideStringResource("cancel"),
+
+                    ) {
+                        showDatePicker = false
+                    }
+                },
+                properties = DialogProperties(
+                    dismissOnBackPress = true,
+                    dismissOnClickOutside = true,
+                    usePlatformDefaultWidth = true,
+                ),
+            ) {
+                DatePicker(
+                    title = {
+                        Text(
+                            text = uiModel.title,
+                            style = MaterialTheme.typography.bodyLarge,
+                            modifier = Modifier.padding(start = Spacing.Spacing24, top = Spacing.Spacing24),
+                        )
+                    },
+                    state = datePickerState,
+                    showModeToggle = true,
+                    modifier = Modifier.padding(Spacing.Spacing0),
+                    dateValidator = { date ->
+                        dateIsInRange(date, uiModel.selectableDates)
+                    },
+                )
+            }
+        }
+    }
 }
 
 private fun transformInputText(inputType: AgeInputType): String {
     return when (inputType) {
-        is Age -> inputType.value
-        is DateOfBirth -> inputType.value
+        is Age -> inputType.value.text
+        is DateOfBirth -> inputType.value.text
         None -> ""
     }
 }
 
-private fun updateDateOfBirth(inputType: DateOfBirth, newText: String): AgeInputType {
-    return if (newText.length <= DATE_MASK.length) {
+private fun getTextFieldValue(inputType: AgeInputType): TextFieldValue {
+    return when (inputType) {
+        is Age -> TextFieldValue(transformInputText(inputType), inputType.value.selection)
+        is DateOfBirth -> TextFieldValue(transformInputText(inputType), inputType.value.selection)
+        None -> TextFieldValue()
+    }
+}
+
+private fun updateDateOfBirth(inputType: DateOfBirth, newText: TextFieldValue): AgeInputType {
+    return if (newText.text.length <= DATE_MASK.length) {
         inputType.copy(value = newText)
     } else {
         inputType
@@ -250,15 +316,34 @@ private fun updateDateOfBirth(inputType: DateOfBirth, newText: String): AgeInput
 sealed interface AgeInputType {
     data object None : AgeInputType
 
-    data class DateOfBirth(val value: String) : AgeInputType {
+    data class DateOfBirth(val value: TextFieldValue) : AgeInputType {
         companion object {
-            val EMPTY = DateOfBirth("")
+            val EMPTY = DateOfBirth(TextFieldValue())
         }
     }
 
-    data class Age(val value: String, val unit: TimeUnitValues) : AgeInputType {
+    data class Age(val value: TextFieldValue, val unit: TimeUnitValues) : AgeInputType {
         companion object {
-            val EMPTY = Age("", YEARS)
+            val EMPTY = Age(TextFieldValue(), YEARS)
         }
     }
 }
+
+data class InputAgeModel(
+    val title: String,
+    val inputType: AgeInputType = None,
+    val inputStyle: InputStyle = InputStyle.DataInputStyle(),
+    val state: InputShellState = InputShellState.UNFOCUSED,
+    val legendData: LegendData? = null,
+    val supportingText: List<SupportingTextData>? = null,
+    val isRequired: Boolean = false,
+    val imeAction: ImeAction = ImeAction.Next,
+    val onNextClicked: (() -> Unit)? = null,
+    val dateOfBirthLabel: String? = null,
+    val orLabel: String? = null,
+    val ageLabel: String? = null,
+    val acceptText: String? = null,
+    val cancelText: String? = null,
+    val onValueChanged: (AgeInputType) -> Unit,
+    val selectableDates: SelectableDates = SelectableDates("10111901", "12112124"),
+)

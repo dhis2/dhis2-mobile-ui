@@ -7,6 +7,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.TextFieldValue
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
 
 /**
@@ -33,23 +34,25 @@ fun InputBarCode(
     onActionButtonClicked: () -> Unit,
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
-    inputText: String? = null,
+    inputTextFieldValue: TextFieldValue? = null,
     isRequiredField: Boolean = false,
     autoCompleteList: List<String>? = null,
     autoCompleteItemSelected: ((String?) -> Unit)? = null,
     onNextClicked: (() -> Unit)? = null,
-    onValueChanged: ((String?) -> Unit)? = null,
+    onValueChanged: ((TextFieldValue?) -> Unit)? = null,
     onFocusChanged: ((Boolean) -> Unit)? = null,
     imeAction: ImeAction = ImeAction.Next,
     modifier: Modifier = Modifier,
+    inputStyle: InputStyle = InputStyle.DataInputStyle(),
 ) {
-    val actionButtonIconVector = mutableStateOf(if (inputText.isNullOrEmpty()) "barcode_scanner" else "barcode")
+    val actionButtonIconVector =
+        mutableStateOf(if (inputTextFieldValue?.text.isNullOrEmpty()) "material_barcode_scanner" else "material_barcode")
     BasicTextInput(
         title = title,
         state = state,
         supportingText = supportingText,
         legendData = legendData,
-        inputText = inputText,
+        inputTextFieldValue = inputTextFieldValue,
         isRequiredField = isRequiredField,
         onNextClicked = onNextClicked,
         onValueChanged = onValueChanged,
@@ -60,7 +63,7 @@ fun InputBarCode(
         actionButton = {
             SquareIconButton(
                 modifier = Modifier.testTag("INPUT_BAR_CODE_BUTTON"),
-                enabled = (state == InputShellState.DISABLED && !inputText.isNullOrEmpty()) || state != InputShellState.DISABLED,
+                enabled = isButtonEnabled(inputStyle, state, inputTextFieldValue?.text),
                 icon = {
                     Icon(
                         painter = provideDHIS2Icon(actionButtonIconVector.value),
@@ -72,5 +75,16 @@ fun InputBarCode(
         },
         autoCompleteList = autoCompleteList,
         autoCompleteItemSelected = autoCompleteItemSelected,
+        inputStyle = inputStyle,
     )
 }
+
+private fun isButtonEnabled(inputStyle: InputStyle, state: InputShellState, inputText: String?) =
+    when (inputStyle) {
+        is InputStyle.DataInputStyle -> {
+            (state == InputShellState.DISABLED && !inputText.isNullOrEmpty()) ||
+                state != InputShellState.DISABLED
+        }
+
+        is InputStyle.ParameterInputStyle -> inputText.isNullOrEmpty()
+    }

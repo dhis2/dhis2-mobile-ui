@@ -15,6 +15,7 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
+import androidx.compose.ui.text.input.TextFieldValue
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.junit.Rule
 import org.junit.Test
@@ -41,11 +42,11 @@ class InputNumberTest {
     @Test
     fun shouldAllowUserInputWhenEnabled() {
         rule.setContent {
-            var inputValue by rememberSaveable { mutableStateOf("") }
+            var inputValue by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue()) }
             InputNumber(
                 title = "Label",
                 modifier = Modifier.testTag("INPUT_NUMBER"),
-                inputText = inputValue,
+                inputTextFieldValue = inputValue,
                 onValueChanged = {
                     if (it != null) {
                         inputValue = it
@@ -75,11 +76,11 @@ class InputNumberTest {
     @Test
     fun shouldShowResetButtonWhenTextFieldHasContent() {
         rule.setContent {
-            var inputValue by rememberSaveable { mutableStateOf("") }
+            var inputValue by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue()) }
             InputNumber(
                 title = "Label",
                 modifier = Modifier.testTag("INPUT_NUMBER"),
-                inputText = inputValue,
+                inputTextFieldValue = inputValue,
                 onValueChanged = {
                     if (it != null) {
                         inputValue = it
@@ -97,12 +98,12 @@ class InputNumberTest {
     @Test
     fun shouldDeleteContentWhenResetButtonIsClickedAndHideResetButton() {
         rule.setContent {
-            var inputValue by rememberSaveable { mutableStateOf("1234") }
+            var inputValue by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("1234")) }
 
             InputNumber(
                 title = "Label",
                 modifier = Modifier.testTag("INPUT_NUMBER"),
-                inputText = inputValue,
+                inputTextFieldValue = inputValue,
                 onValueChanged = {
                     if (it != null) {
                         inputValue = it
@@ -124,7 +125,7 @@ class InputNumberTest {
             InputNumber(
                 title = "Label",
                 modifier = Modifier.testTag("INPUT_NUMBER"),
-                inputText = "",
+                inputTextFieldValue = TextFieldValue(),
                 legendData = LegendData(SurfaceColor.CustomGreen, "Legend"),
                 state = InputShellState.UNFOCUSED,
             )
@@ -140,7 +141,7 @@ class InputNumberTest {
             InputNumber(
                 title = "Label",
                 modifier = Modifier.testTag("INPUT_NUMBER"),
-                inputText = "",
+                inputTextFieldValue = TextFieldValue(),
                 supportingText = listOf(SupportingTextData("Supporting text", SupportingTextState.DEFAULT)),
                 state = InputShellState.UNFOCUSED,
             )
@@ -152,11 +153,11 @@ class InputNumberTest {
     @Test
     fun shouldAllowOnlyNumbersAsInput() {
         rule.setContent {
-            var inputValue by rememberSaveable { mutableStateOf("") }
+            var inputValue by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue()) }
             InputNumber(
                 title = "Label",
                 modifier = Modifier.testTag("INPUT_NUMBER"),
-                inputText = inputValue,
+                inputTextFieldValue = inputValue,
                 onValueChanged = {
                     if (it != null) {
                         inputValue = it
