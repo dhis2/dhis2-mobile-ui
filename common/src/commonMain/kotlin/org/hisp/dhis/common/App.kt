@@ -101,7 +101,7 @@ fun App(imageBitmapLoader: (() -> ImageBitmap)? = null) {
 fun Main(
     imageBitmapLoader: (() -> ImageBitmap)?,
 ) {
-    val currentScreen = remember { mutableStateOf(Components.LOGIN) }
+    val currentScreen = remember { mutableStateOf(Components.INPUT_DROPDOWN) }
     var expanded by remember { mutableStateOf(false) }
 
     Column(
