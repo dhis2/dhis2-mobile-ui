@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Cancel
+import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
@@ -171,13 +172,16 @@ fun InputDropDown(
             MaterialTheme(
                 shapes = Shapes(extraSmall = RoundedCornerShape(Spacing8)),
             ) {
-                ExposedDropdownMenu(
+                // TODO: Replace with ExposedDropdownMenu once the fix for the following issue
+                //  is available in Compose Multiplatform
+                //  https://issuetracker.google.com/issues/205589613
+                DropdownMenu(
                     expanded = showDropdown,
                     onDismissRequest = { showDropdown = false },
                     modifier = Modifier.background(
                         color = SurfaceColor.SurfaceBright,
                         shape = RoundedCornerShape(Spacing8),
-                    ).testTag("INPUT_DROPDOWN_MENU"),
+                    ).exposedDropdownSize().testTag("INPUT_DROPDOWN_MENU"),
                 ) {
                     Column(modifier = Modifier.padding(horizontal = Spacing8)) {
                         dropdownItems.forEachIndexed { index, item ->
