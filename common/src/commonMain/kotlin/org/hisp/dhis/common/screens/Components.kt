@@ -64,4 +64,5 @@ enum class Components(val label: String) {
     PARAMETER_SELECTOR("Parameter selector"),
     MULTI_SELECT("Multi Select Input"),
     FAB("FAB"),
+    LOGIN("Login"),
 }

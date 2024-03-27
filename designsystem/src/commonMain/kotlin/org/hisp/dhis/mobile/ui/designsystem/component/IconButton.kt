@@ -75,6 +75,7 @@ fun SquareIconButton(
     } else {
         shadowColor = mutableStateOf(Color.Transparent)
     }
+
     ElevatedButton(
         interactionSource = interactionSource,
         onClick = onClick,
