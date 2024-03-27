@@ -17,6 +17,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -26,6 +27,7 @@ import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
@@ -68,7 +70,7 @@ fun EmptyInput(
  * clickable and will appear disabled to accessibility services.
  * @param isSingleLine manages the number of lines to be allowed in the input field
  * @param helperStyle manages the helper text style, NONE by default
- * @param inputTextValue manages the value of the input field text
+ * @param inputText manages the value of the input field text
  * @param onInputChanged gives access to the onTextChangedEvent
  * @param modifier to pass a modifier if necessary
  * @param state manages the color of cursor depending on the state of parent component
@@ -84,25 +86,24 @@ fun BasicTextField(
     helper: String? = null,
     enabled: Boolean = true,
     isSingleLine: Boolean = true,
-    helperStyle: HelperStyle = HelperStyle.NONE,
-    inputTextValue: TextFieldValue? = null,
-    onInputChanged: (TextFieldValue) -> Unit,
+    helperStyle: InputStyle = InputStyle.NONE,
+    inputText: String = "",
+    onInputChanged: (String) -> Unit,
     modifier: Modifier = Modifier,
     state: InputShellState = InputShellState.FOCUSED,
     keyboardOptions: KeyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
     visualTransformation: VisualTransformation? = null,
     onNextClicked: (() -> Unit)? = null,
-    onSearchClicked: (() -> Unit)? = null,
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     var textFieldVisualTransformation = VisualTransformation.None
 
-    if (helperStyle != HelperStyle.NONE) {
+    if (helperStyle != InputStyle.NONE) {
         when (helperStyle) {
-            HelperStyle.WITH_HELPER_BEFORE -> {
+            InputStyle.WITH_HELPER_BEFORE -> {
                 helper?.let { textFieldVisualTransformation = PrefixTransformation(it, enabled) }
             }
-            HelperStyle.WITH_DATE_OF_BIRTH_HELPER -> {
+            InputStyle.WITH_DATE_OF_BIRTH_HELPER -> {
                 textFieldVisualTransformation = DateTransformation()
             }
             else -> {
@@ -128,6 +129,13 @@ fun BasicTextField(
         backgroundColor = Blue300,
     )
 
+    var textFieldSelection by remember {
+        mutableStateOf(TextRange(if (inputText.isEmpty()) 0 else inputText.length))
+    }
+    var textFieldComposition by remember {
+        mutableStateOf(if (inputText.isEmpty()) null else TextRange(0, if (inputText.isEmpty()) 0 else inputText.length))
+    }
+
     CompositionLocalProvider(LocalTextSelectionColors provides customTextSelectionColors) {
         BasicTextField(
 
@@ -137,9 +145,15 @@ fun BasicTextField(
                 )
                 .fillMaxWidth()
                 .textFieldHoverPointerIcon(enabled),
-            value = inputTextValue ?: TextFieldValue(),
+            value = TextFieldValue(
+                text = inputText,
+                selection = textFieldSelection,
+                composition = textFieldComposition,
+            ),
             onValueChange = {
-                onInputChanged.invoke(it)
+                textFieldSelection = it.selection
+                textFieldComposition = it.composition
+                onInputChanged.invoke(it.text)
             },
             enabled = enabled,
             textStyle = MaterialTheme.typography.bodyLarge.copy(color = if (enabled) TextColor.OnSurface else TextColor.OnDisabledSurface),
@@ -158,9 +172,6 @@ fun BasicTextField(
                 onNext = {
                     onNextClicked?.invoke()
                 },
-                onSearch = {
-                    onSearchClicked?.invoke()
-                },
                 onDone = {
                     keyboardController?.hide()
                 },
@@ -171,7 +182,7 @@ fun BasicTextField(
     }
 }
 
-enum class HelperStyle {
+enum class InputStyle {
     WITH_HELPER_AFTER,
     WITH_HELPER_BEFORE,
     WITH_DATE_OF_BIRTH_HELPER,
