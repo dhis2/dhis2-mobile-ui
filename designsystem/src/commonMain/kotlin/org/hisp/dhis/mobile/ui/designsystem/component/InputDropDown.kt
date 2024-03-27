@@ -242,13 +242,13 @@ fun DropdownInputField(
                 SupportingText(
                     label.text,
                     label.state,
-                    modifier = modifier.testTag("INPUT_DROPDOWN_SUPPORTING_TEXT"),
+                    modifier = Modifier.testTag("INPUT_DROPDOWN_SUPPORTING_TEXT"),
                 )
             }
         },
         legend = {
             legendData?.let {
-                Legend(legendData, modifier.testTag("INPUT_DROPDOWN_LEGEND"))
+                Legend(legendData, Modifier.testTag("INPUT_DROPDOWN_LEGEND"))
             }
         },
         inputField = {
