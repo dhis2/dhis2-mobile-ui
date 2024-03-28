@@ -14,6 +14,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.InputDropDown
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.InputStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
+import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextData
 import org.hisp.dhis.mobile.ui.designsystem.component.Title
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
@@ -48,6 +49,22 @@ fun InputDropDownScreen() {
                 selectedItem = it
             },
             selectedItem = selectedItem,
+        )
+
+        InputDropDown(
+            title = "Label - With supporting text",
+            state = InputShellState.UNFOCUSED,
+            dropdownItems = options.take(6),
+            onResetButtonClicked = {
+                selectedItem = null
+            },
+            onItemSelected = {
+                selectedItem = it
+            },
+            selectedItem = selectedItem,
+            supportingTextData = listOf(
+                SupportingTextData(text = "Options"),
+            ),
         )
 
         InputDropDown(
