@@ -390,7 +390,7 @@ fun InputDateTime(
     }
 }
 
-fun getSupportingTextList(uiModel: InputDateTimeModel, dateOutOfRangeItem: SupportingTextData, incorrectHourFormatItem: SupportingTextData): List<SupportingTextData> {
+private fun getSupportingTextList(uiModel: InputDateTimeModel, dateOutOfRangeItem: SupportingTextData, incorrectHourFormatItem: SupportingTextData): List<SupportingTextData> {
     val supportingTextList = mutableListOf<SupportingTextData>()
 
     uiModel.supportingText?.forEach { item ->
@@ -490,7 +490,7 @@ data class InputDateTimeModel(
     val incorrectHourFormatText: String? = null,
 )
 
-fun getDate(milliSeconds: Long?, format: String? = "ddMMyyyy"): String {
+internal fun getDate(milliSeconds: Long?, format: String? = "ddMMyyyy"): String {
     val cal = Calendar.getInstance()
     val currentTimeZone: TimeZone = cal.getTimeZone()
     val currentDt: Calendar = GregorianCalendar(currentTimeZone, Locale.getDefault())
@@ -514,7 +514,7 @@ fun getDate(milliSeconds: Long?, format: String? = "ddMMyyyy"): String {
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
-fun getTime(timePickerState: TimePickerState, format: String? = "HHmm"): String {
+private fun getTime(timePickerState: TimePickerState, format: String? = "HHmm"): String {
     val cal = Calendar.getInstance()
     cal.set(Calendar.HOUR_OF_DAY, timePickerState.hour)
     cal.set(Calendar.MINUTE, timePickerState.minute)
@@ -525,7 +525,7 @@ fun getTime(timePickerState: TimePickerState, format: String? = "HHmm"): String 
     return formater.format(cal.time)
 }
 
-fun parseStringDateToMillis(dateString: String, pattern: String = "ddMMyyyy", locale: Locale = Locale.getDefault()): Long {
+private fun parseStringDateToMillis(dateString: String, pattern: String = "ddMMyyyy", locale: Locale = Locale.getDefault()): Long {
     return if (dateString.isNotEmpty()) {
         val cal = Calendar.getInstance()
         val sdf = SimpleDateFormat(pattern, locale)
@@ -542,7 +542,7 @@ data class SelectableDates(
     val endDate: String,
 )
 
-fun formatStringToDate(dateString: String): String {
+private fun formatStringToDate(dateString: String): String {
     return if (dateString.length == 8) {
         dateString.substring(0, 2) + "/" + dateString.substring(2, 4) + "/" + dateString.substring(4, 8)
     } else {
@@ -550,7 +550,7 @@ fun formatStringToDate(dateString: String): String {
     }
 }
 
-fun isValidHourFormat(timeString: String): Boolean {
+private fun isValidHourFormat(timeString: String): Boolean {
     val hourRange = IntRange(0, 24)
     val minuteRange = IntRange(0, 60)
 
@@ -560,7 +560,7 @@ fun isValidHourFormat(timeString: String): Boolean {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun timePickerColors(): TimePickerColors {
+private fun timePickerColors(): TimePickerColors {
     return TimePickerDefaults.colors(
         containerColor = SurfaceColor.Container,
         clockDialColor = SurfaceColor.ContainerHigh,
@@ -578,7 +578,7 @@ fun timePickerColors(): TimePickerColors {
     )
 }
 
-fun dateIsInRange(date: Long, allowedDates: SelectableDates, format: String = "ddMMyyyy"): Boolean {
+internal fun dateIsInRange(date: Long, allowedDates: SelectableDates, format: String = "ddMMyyyy"): Boolean {
     return (
         date >= parseStringDateToMillis(allowedDates.initialDate, format) &&
             date <= parseStringDateToMillis(allowedDates.endDate, format)

@@ -20,9 +20,8 @@ import androidx.compose.ui.graphics.Color
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 
-@Deprecated("Replaced by Indicator class")
 @Composable
-fun IndicatorInput(
+fun Indicator(
     title: String,
     content: String,
     modifier: Modifier = Modifier,

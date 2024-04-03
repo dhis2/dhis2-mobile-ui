@@ -29,16 +29,16 @@ import org.hisp.dhis.common.screens.BottomSheetScreen
 import org.hisp.dhis.common.screens.ButtonBlockScreen
 import org.hisp.dhis.common.screens.ButtonCarouselScreen
 import org.hisp.dhis.common.screens.ButtonScreen
+import org.hisp.dhis.common.screens.CardDetailScreen
 import org.hisp.dhis.common.screens.CheckboxScreen
 import org.hisp.dhis.common.screens.ChipsScreen
 import org.hisp.dhis.common.screens.Components
 import org.hisp.dhis.common.screens.FABScreen
 import org.hisp.dhis.common.screens.FormShellsScreen
-import org.hisp.dhis.common.screens.FormsComponentsScreen
 import org.hisp.dhis.common.screens.FullScreenImageScreen
 import org.hisp.dhis.common.screens.IconButtonScreen
 import org.hisp.dhis.common.screens.ImageBlockScreen
-import org.hisp.dhis.common.screens.IndicatorInputScreen
+import org.hisp.dhis.common.screens.IndicatorScreen
 import org.hisp.dhis.common.screens.InputAgeScreen
 import org.hisp.dhis.common.screens.InputBarCodeScreen
 import org.hisp.dhis.common.screens.InputCheckBoxScreen
@@ -64,7 +64,6 @@ import org.hisp.dhis.common.screens.InputPositiveIntegerOrZeroScreen
 import org.hisp.dhis.common.screens.InputPositiveIntegerScreen
 import org.hisp.dhis.common.screens.InputQRCodeScreen
 import org.hisp.dhis.common.screens.InputRadioButtonScreen
-import org.hisp.dhis.common.screens.InputScreen
 import org.hisp.dhis.common.screens.InputSequentialScreen
 import org.hisp.dhis.common.screens.InputSignatureScreen
 import org.hisp.dhis.common.screens.InputTextScreen
@@ -148,25 +147,26 @@ fun Main(
         }
 
         when (currentScreen.value) {
+            // BUTTONS
             Components.BUTTON -> ButtonScreen()
             Components.ICON_BUTTON -> IconButtonScreen()
-            Components.FORMS_COMPONENTS -> FormsComponentsScreen()
+            Components.BUTTON_BLOCK -> ButtonBlockScreen()
+            Components.CAROUSEL_BUTTONS -> ButtonCarouselScreen()
+            Components.FAB -> FABScreen()
+            Components.SWITCH -> SwitchScreen()
             Components.RADIO -> RadioButtonScreen()
             Components.CHECK_BOX -> CheckboxScreen()
-            Components.PROGRESS -> ProgressScreen()
+
+            // INPUT SHELL COMPONENTS
             Components.LEGEND -> LegendScreen()
-            Components.INPUT -> InputScreen()
-            Components.SUPPORTING_TEXT -> SupportingTextScreen()
-            Components.INPUT_TEXT -> InputTextScreen()
-            Components.INPUT_LONG_TEXT -> InputLongTextScreen()
             Components.LEGEND_DESCRIPTION -> LegendDescriptionScreen()
             Components.FORM_SHELLS -> FormShellsScreen()
-            Components.BUTTON_BLOCK -> ButtonBlockScreen()
-            Components.METADATA_AVATAR -> MetadataAvatarScreen()
-            Components.BOTTOM_SHEET_HEADER -> BottomSheetHeaderScreen()
-            Components.BOTTOM_SHEET -> BottomSheetScreen()
-            Components.TAGS -> TagsScreen()
-            Components.SECTIONS -> SectionScreen()
+            Components.PARAMETER_SELECTOR -> ParameterSelectorScreen()
+            Components.SUPPORTING_TEXT -> SupportingTextScreen()
+
+            // INPUTS
+            Components.INPUT_TEXT -> InputTextScreen()
+            Components.INPUT_LONG_TEXT -> InputLongTextScreen()
             Components.INPUT_POSITIVE_INTEGER_OR_ZERO -> InputPositiveIntegerOrZeroScreen()
             Components.INPUT_POSITIVE_INTEGER -> InputPositiveIntegerScreen()
             Components.INPUT_PERCENTAGE -> InputPercentageScreen()
@@ -174,44 +174,49 @@ fun Main(
             Components.INPUT_INTEGER -> InputIntegerScreen()
             Components.INPUT_NUMBER -> InputNumberScreen()
             Components.INPUT_LETTER -> InputLetterScreen()
-            Components.AGE_FIELD -> InputAgeScreen()
-            Components.CHIPS -> ChipsScreen()
-            Components.BADGES -> BadgesScreen()
-            Components.SWITCH -> SwitchScreen()
+            Components.INPUT_UNIT_INTERVAL -> InputUnitIntervalScreen()
             Components.INPUT_RADIO_BUTTON -> InputRadioButtonScreen()
+            Components.INPUT_CHECK_BOX -> InputCheckBoxScreen()
             Components.INPUT_MATRIX -> InputMatrixScreen(imageBitmapLoader)
             Components.INPUT_SEQUENTIAL -> InputSequentialScreen(imageBitmapLoader)
-            Components.INPUT_QR_CODE -> InputQRCodeScreen()
-            Components.INPUT_CHECK_BOX -> InputCheckBoxScreen()
-            Components.BARCODE_BLOCK -> BarcodeBlockScreen()
             Components.INPUT_YES_ONLY_SWITCH -> InputYesOnlySwitchScreen()
             Components.INPUT_YES_ONLY_CHECKBOX -> InputYesOnlyCheckBoxScreen()
             Components.INPUT_YES_NO_FIELD -> InputYesNoFieldScreen()
-            Components.LIST_CARD -> ListCardScreen()
+            Components.INPUT_DROPDOWN -> InputDropDownScreen()
             Components.INPUT_PHONE_NUMBER -> InputPhoneNumberScreen()
+            Components.INPUT_AGE -> InputAgeScreen()
             Components.INPUT_LINK -> InputLinkScreen()
             Components.INPUT_EMAIL -> InputEmailScreen()
             Components.INPUT_BARCODE -> InputBarCodeScreen()
-            Components.CAROUSEL_BUTTONS -> ButtonCarouselScreen()
             Components.INPUT_POLYGON -> InputPolygonScreen()
             Components.INPUT_ORG_UNIT -> InputOrgUnitScreen()
-            Components.IMAGE_BLOCK -> ImageBlockScreen()
             Components.INPUT_FILE_RESOURCE -> InputFileResourceScreen()
-            Components.INPUT_DROPDOWN -> InputDropDownScreen()
             Components.INPUT_DATE_TIME -> InputDateTimeScreen()
             Components.INPUT_COORDINATE -> InputCoordinateScreen()
             Components.INPUT_SIGNATURE -> InputSignatureScreen()
-            Components.INPUT_UNIT_INTERVAL -> InputUnitIntervalScreen()
             Components.INPUT_IMAGE -> InputImageScreen()
-            Components.SEARCH_BAR -> SearchBarScreen()
-            Components.INPUT_NOT_SUPPORTED -> InputNotSupportedScreen()
-            Components.FULL_SCREEN_IMAGE -> FullScreenImageScreen()
-            Components.ORG_TREE_BOTTOM_SHEET -> OrgTreeBottomSheetScreen()
-            Components.INDICATOR_INPUT -> IndicatorInputScreen()
-            Components.PARAMETER_SELECTOR -> ParameterSelectorScreen()
-            Components.MULTI_SELECT -> MultiSelectInputScreen()
-            Components.FAB -> FABScreen()
             Components.LOGIN -> LoginScreen()
+            Components.FULL_SCREEN_IMAGE -> FullScreenImageScreen()
+            Components.INPUT_QR_CODE -> InputQRCodeScreen()
+            Components.MULTI_SELECT -> MultiSelectInputScreen()
+            Components.INPUT_NOT_SUPPORTED -> InputNotSupportedScreen()
+
+            // OTHERS
+            Components.LIST_CARD -> ListCardScreen()
+            Components.CARD_DETAIL -> CardDetailScreen()
+            Components.SECTIONS -> SectionScreen()
+            Components.METADATA_AVATAR -> MetadataAvatarScreen()
+            Components.BOTTOM_SHEET -> BottomSheetScreen()
+            Components.BOTTOM_SHEET_HEADER -> BottomSheetHeaderScreen()
+            Components.BARCODE_BLOCK -> BarcodeBlockScreen()
+            Components.IMAGE_BLOCK -> ImageBlockScreen()
+            Components.ORG_TREE_BOTTOM_SHEET -> OrgTreeBottomSheetScreen()
+            Components.TAGS -> TagsScreen()
+            Components.CHIPS -> ChipsScreen()
+            Components.BADGES -> BadgesScreen()
+            Components.SEARCH_BAR -> SearchBarScreen()
+            Components.INDICATOR -> IndicatorScreen()
+            Components.PROGRESS -> ProgressScreen()
         }
     }
 }

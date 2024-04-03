@@ -26,6 +26,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.BottomSheetShell
 import org.hisp.dhis.mobile.ui.designsystem.component.Button
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonBlock
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonStyle
+import org.hisp.dhis.mobile.ui.designsystem.component.internal.dashedBorder
 import org.hisp.dhis.mobile.ui.designsystem.resource.Signature
 import org.hisp.dhis.mobile.ui.designsystem.resource.SignatureCanvas
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
@@ -35,7 +36,6 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
-import org.hisp.dhis.mobile.ui.designsystem.utils.dashedBorder
 
 @Composable
 internal fun SignatureBottomSheet(
