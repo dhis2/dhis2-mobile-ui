@@ -13,10 +13,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.InputAge
 import org.hisp.dhis.mobile.ui.designsystem.component.InputAgeModel
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.LegendData
-import org.hisp.dhis.mobile.ui.designsystem.component.Orientation
-import org.hisp.dhis.mobile.ui.designsystem.component.RadioButtonData
 import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
-import org.hisp.dhis.mobile.ui.designsystem.component.TimeUnitSelector
 import org.hisp.dhis.mobile.ui.designsystem.component.TimeUnitValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 
@@ -24,13 +21,6 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 fun InputAgeScreen() {
     ColumnComponentContainer {
         SubTitle("Horizontal Age Field Helper")
-        var selectedFieldHorizontal by remember {
-            mutableStateOf(RadioButtonData("0", selected = true, enabled = true, textInput = TimeUnitValues.YEARS.value))
-        }
-        TimeUnitSelector(Orientation.HORIZONTAL, TimeUnitValues.YEARS.value) {
-            selectedFieldHorizontal = it
-        }
-
         SubTitle("Input Age Component - Idle")
         var inputType by remember { mutableStateOf<AgeInputType>(AgeInputType.None) }
 

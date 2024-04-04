@@ -27,7 +27,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 
 /**
-
+TODO document component
  */
 @Composable
 fun InfoBar(

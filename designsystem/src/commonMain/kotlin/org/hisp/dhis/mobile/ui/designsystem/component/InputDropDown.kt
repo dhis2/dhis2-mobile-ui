@@ -203,7 +203,7 @@ fun InputDropDown(
     }
 }
 
-fun dropdownStartPadding(inputStyle: InputStyle): Dp {
+private fun dropdownStartPadding(inputStyle: InputStyle): Dp {
     return if (inputStyle is InputStyle.ParameterInputStyle) {
         inputStyle.startIndent
     } else {
@@ -211,6 +211,7 @@ fun dropdownStartPadding(inputStyle: InputStyle): Dp {
     }
 }
 
+// TODO make private when a period selector input is designed
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DropdownInputField(

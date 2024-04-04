@@ -1,11 +1,9 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -20,11 +18,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.SolidColor
-import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
@@ -34,32 +29,8 @@ import org.hisp.dhis.mobile.ui.designsystem.component.internal.PrefixTransformat
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.SuffixTransformer
 import org.hisp.dhis.mobile.ui.designsystem.theme.Color.Blue300
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalFloatValues
-import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
-import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
-import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.textFieldHoverPointerIcon
-
-/**
- * DHIS2 EmptyInput
- * empty input container with dashed border
- * used for internal test purposes
- */
-@Composable
-fun EmptyInput(
-    modifier: Modifier = Modifier,
-) {
-    Row(modifier = modifier.fillMaxWidth().height(Spacing.Spacing24).background(SurfaceColor.SurfaceBright)) {
-        val stroke = Stroke(
-            width = InternalFloatValues.Two,
-            pathEffect = PathEffect.dashPathEffect(floatArrayOf(InternalFloatValues.Ten, InternalFloatValues.Ten), InternalFloatValues.Zero),
-        )
-        Canvas(Modifier.fillMaxWidth().height(Spacing.Spacing24)) {
-            drawRoundRect(color = Outline.Light, style = stroke, cornerRadius = CornerRadius(x = Radius.XS.toPx(), y = Radius.XS.toPx()))
-        }
-    }
-}
 
 /**
  * DHIS2 Basic Input. Wraps Material· [BasicTextField].

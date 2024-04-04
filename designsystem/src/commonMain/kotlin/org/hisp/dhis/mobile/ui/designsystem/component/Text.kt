@@ -102,7 +102,8 @@ fun Title(
     )
 }
 
-@Composable fun SubTitle(
+@Composable
+fun SubTitle(
     text: String,
     textColor: Color = TextColor.OnSurface,
     modifier: Modifier = Modifier,

@@ -51,7 +51,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
  * @param isRequiredField controls whether the field is mandatory
  */
 @Composable
-fun InputShell(
+internal fun InputShell(
     title: String,
     state: InputShellState,
     primaryButton: @Composable (() -> Unit)? = null,

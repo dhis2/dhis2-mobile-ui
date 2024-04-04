@@ -22,7 +22,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
  * @param onClick is a callback to notify which item has changed into the block.
  */
 @Composable
-fun TimeUnitSelector(
+internal fun TimeUnitSelector(
     orientation: Orientation,
     optionSelected: String,
     modifier: Modifier = Modifier,

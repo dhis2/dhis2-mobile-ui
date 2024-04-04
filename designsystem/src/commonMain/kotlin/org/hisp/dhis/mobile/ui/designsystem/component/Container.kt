@@ -41,6 +41,26 @@ fun ColumnComponentContainer(
 }
 
 /**
+ * DHIS2 ListCardColumn wraps Material 3 [Column]
+ * has a default spacing between items of 4 dp
+ * vertical scroll enabled
+ * @param content controls the content to be shown
+ */
+@Composable
+fun ListCardColumn(
+    modifier: Modifier = Modifier,
+    spacing: Dp = Spacing.Spacing4,
+    content: @Composable (() -> Unit),
+) {
+    Column(
+        verticalArrangement = Arrangement.spacedBy(spacing),
+        modifier = modifier.padding(horizontal = Spacing.Spacing4),
+    ) {
+        content()
+    }
+}
+
+/**
  * DHIS2 RowComponentContainer wraps Material 3 [Row]
  * @param title is the value of the text to be shown for the row.
  * @param content controls the content to be shown
