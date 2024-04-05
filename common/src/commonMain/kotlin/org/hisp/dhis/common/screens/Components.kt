@@ -1,67 +1,21 @@
 package org.hisp.dhis.common.screens
 
 enum class Components(val label: String) {
-    ICON_BUTTON("Icon Button"),
-    BUTTON("Button"),
-    FORM_SHELLS("Form Shells"),
-    INPUT_TEXT("Input Text"),
-    INPUT_LONG_TEXT("Input Long Text"),
-    INPUT_POSITIVE_INTEGER_OR_ZERO("Input Positive Integer Or Zero"),
-    INPUT_NEGATIVE_INTEGER("Input Negative Integer"),
-    INPUT_PERCENTAGE("Input Percentage"),
-    INPUT_POSITIVE_INTEGER("Input Positive Integer"),
-    INPUT_INTEGER("Input Integer"),
-    INPUT_NUMBER("Input Number"),
-    INPUT_LETTER("Input Letter"),
-    BOTTOM_SHEET_HEADER("Bottom Sheet Header"),
-    BOTTOM_SHEET("Bottom Sheet "),
-    TAGS("Tags"),
-    SECTIONS("Sections"),
-    RADIO("Radio"),
-    CHECK_BOX("Check Box"),
-    PROGRESS("Progress"),
-    SUPPORTING_TEXT("Supporting Text"),
-    LEGEND("Legend"),
-    LEGEND_DESCRIPTION("Legend description"),
-    BUTTON_BLOCK("Button block"),
-    CHIPS("Chips"),
-    BADGES("Badges"),
-    METADATA_AVATAR("Metadata Avatar"),
-    INPUT_RADIO_BUTTON("Input Radio Button"),
-    SWITCH("Switch"),
-    INPUT_MATRIX("Input Matrix"),
-    INPUT_SEQUENTIAL("Input Sequential"),
-    INPUT_QR_CODE("Input QR code"),
-    INPUT_CHECK_BOX("Input Check Box"),
-    BARCODE_BLOCK("Barcode Block"),
-    INPUT_AGE("Age Field"),
-    INPUT_YES_ONLY_SWITCH("Input yes only switch"),
-    INPUT_YES_ONLY_CHECKBOX("Input yes only checkbox"),
-    INPUT_YES_NO_FIELD("Input Yes/No field"),
-    LIST_CARD("List Card"),
-    CARD_DETAIL("Card Detail"),
-    INPUT_PHONE_NUMBER("Input Phone Number"),
-    INPUT_LINK("Input Link"),
-    INPUT_EMAIL("Input Email"),
-    INPUT_BARCODE("Input Barcode"),
-    CAROUSEL_BUTTONS("Carousel buttons"),
-    INPUT_POLYGON("Input Polygon"),
-    INPUT_ORG_UNIT("Input Org. Unit"),
-    IMAGE_BLOCK("Image Block"),
-    INPUT_FILE_RESOURCE("Input File Resource"),
-    INPUT_DROPDOWN("Input Dropdown"),
-    INPUT_DATE_TIME("Input Date Time"),
-    INPUT_COORDINATE("Input Coordinate"),
-    INPUT_SIGNATURE("Input Signature"),
-    INPUT_UNIT_INTERVAL("Input Unit Interval"),
-    INPUT_IMAGE("Input Image"),
-    SEARCH_BAR("Search bar"),
-    INPUT_NOT_SUPPORTED("Input Not Supported"),
-    FULL_SCREEN_IMAGE("Full Screen Image"),
-    ORG_TREE_BOTTOM_SHEET("Org Tree Bottom Sheet"),
-    INDICATOR("Indicator Input"),
+    ACTION_INPUTS("Action inputs"), // 14
+    BASIC_TEXT_INPUTS("Basic text Inputs"), // 11
+    BOTTOM_SHEETS("Bottom sheet components"), // 3
+    BUTTONS("Buttons"), // 8
+    CARDS("List Cards and Card details"), // 2
+    CHIPS("Chips"), // 1
+    LEGEND("Legend"), // 1
+    PROGRESS_INDICATOR("Progress Indicator"), // 1
+    SECTIONS("Sections"), // 1
+    SEARCH_BAR("Search Bar"), // 1
+    TOGGLEABLE_INPUTS("Options"), // 9
+    TAGS("Tags"), // 1
+    BADGES("Badges"), // 1
+    METADATA_AVATAR("Metadata Avatar"), // 1
+    INDICATOR("Indicators"), // 1
     PARAMETER_SELECTOR("Parameter selector"),
-    MULTI_SELECT("Multi Select Input"),
-    FAB("FAB"),
-    LOGIN("Login"),
+    NO_COMPONENT_SELECTED("No component selected"),
 }
