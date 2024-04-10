@@ -9,6 +9,12 @@ import androidx.compose.ui.layout.ContentScale
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.ImageCardData
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
 
+/**
+ * DHIS2 Metadata Icon.
+ *
+ * @param imageCardData: data class [ImageCardData] with parameters for component.
+ * @param painter: the painter to be used.
+ */
 @Composable
 fun MetadataIcon(
     imageCardData: ImageCardData,

@@ -38,6 +38,12 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
 
+/**
+ * DHIS2 Legend.
+ * Used to display information on input value based on a range of values.
+ * @param legendData: data class with all parameters for component.
+ * @param modifier: optional modifier.
+ */
 @Composable
 fun Legend(
     legendData: LegendData,
@@ -129,6 +135,14 @@ fun Legend(
     }
 }
 
+/**
+ * DHIS2 Legend Description.
+ * Used to display information on input value based on a range of values.
+ * @param color: the legend item color
+ * @param text: the item text.
+ * @param range: the item range.
+ * @param modifier: optional modifier.
+ */
 @Composable
 internal fun LegendDescription(color: Color, text: String, range: IntRange, modifier: Modifier = Modifier) {
     Row(
@@ -156,6 +170,13 @@ internal fun LegendDescription(color: Color, text: String, range: IntRange, modi
     }
 }
 
+/**
+ * DHIS2 Legend Range.
+ * Used to a list of [LegendDescription] items.
+ * @param legendDescriptionRangeDataList: list og [LegendDescriptionData]
+ * to use for each Legend item.
+ * @param modifier: optional modifier.
+ */
 @Composable
 fun LegendRange(
     legendDescriptionRangeDataList: List<LegendDescriptionData>,
@@ -168,12 +189,25 @@ fun LegendRange(
     }
 }
 
+/**
+ * Data class used for DHIS2  [LegendRange] component.
+ * @param color: of legend item.
+ * @param text: of legend item.
+ * @param range: range for item.
+ */
 data class LegendDescriptionData(
     val color: Color,
     val text: String,
     val range: IntRange,
 )
 
+/**
+ * Data class used for DHIS2  [Legend] component.
+ * @param color of legend.
+ * @param title text to be displayed.
+ * @param popUpLegendDescriptionData list of [LegendDescriptionData] with information for the
+ * legend range description pop up.
+ */
 data class LegendData(
     val color: Color,
     val title: String,

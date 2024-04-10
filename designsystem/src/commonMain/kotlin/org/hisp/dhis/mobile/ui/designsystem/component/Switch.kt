@@ -17,6 +17,14 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Ripple
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
+/**
+ * DHIS2 Switch wraps Material 3 [Switch].
+ * @param modifier: optional modifier.
+ * @param isChecked: whether switch is selected or not
+ * @param enabled: controls the enabled state of the button. When `false`, this button will not be
+ * clickable and will appear disabled to accessibility services.
+ * @param onCheckedChange: access to the on checked changed event.
+ */
 @Composable
 fun Switch(
     modifier: Modifier = Modifier,

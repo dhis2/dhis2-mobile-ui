@@ -11,6 +11,18 @@ enum class ProgressIndicatorType {
     LINEAR,
 }
 
+/**
+ * DHIS2 Progress indicator
+ * Progress indicators inform users about the status of ongoing processes,
+ * such as loading an app, submitting a form, or saving updates.
+ * They communicate an app’s state and indicate available actions,
+ * such as whether users can navigate away from the current screen.
+ * @param modifier: optional modifier.
+ * @param type: [ProgressIndicatorType] can be either
+ * [ProgressIndicatorType.CIRCULAR] or [ProgressIndicatorType.LINEAR].
+ * @param progress: indicates the loading progress
+ * @param hasError: manages whether to show error or not.
+ */
 @Composable
 fun ProgressIndicator(
     modifier: Modifier = Modifier,

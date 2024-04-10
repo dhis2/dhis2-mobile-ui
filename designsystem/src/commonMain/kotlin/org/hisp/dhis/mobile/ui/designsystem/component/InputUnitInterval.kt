@@ -8,6 +8,21 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.RegExValidations
 
+/**
+ * DHIS2 Input Unit Interval. Wraps DHIS · [BasicTextInput].
+ * @param title: controls the text to be shown for the title.
+ * @param state: Manages the InputShell state.
+ * @param supportingText: is a list of SupportingTextData that.
+ * manages all the messages to be shown.
+ * @param legendData: manages the legendComponent.
+ * @param inputTextFieldValue: manages the value of the text in the input field.
+ * @param isRequiredField: controls whether the field is mandatory or not.
+ * @param onNextClicked: gives access to the imeAction event.
+ * @param onValueChanged: gives access to the onValueChanged event.
+ * @param imeAction: controls the imeAction button to be shown.
+ * @param modifier: allows a modifier to be passed externally.
+ * @param inputStyle: manages the InputShell style.
+ */
 @Composable
 fun InputUnitInterval(
     title: String,

@@ -45,13 +45,18 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
 
 /**
  * DHIS2 button with generic icon slot.
- * @param enabled Controls the enabled state of the button. When `false`, this button will not be
+ * wraps DHIS2 [SimpleButton] which in turn wraps material 3 [Button].
+ * @param enabled: Controls the enabled state of the button. When `false`, this button will not be
  * clickable and will appear disabled to accessibility services.
- * @param style Controls style of the button. Will be OUTLINED by default, but can be
- * FILLED, TEXT, TONAL, ELEVATED or KEYBOARDKEY
- * @param text The text to display within.
- * @param icon The button icon content.
- * @param onClick Will be called when the user clicks the button.
+ * @param style: Controls style of the button. Will be OUTLINED by default, but can be
+ * FILLED, TEXT, TONAL, ELEVATED or KEYBOARDKEY.
+ * @param colorStyle: the button color style to be used,
+ * can be [ColorStyle.DEFAULT] or [ColorStyle.ERROR].
+ * @param text: The text to display within.
+ * @param icon: The button icon content.
+ * @param paddingValues: optional [PaddingValues] to be overridden.
+ * @param modifier: optional [Modifier].
+ * @param onClick :Will be called when the user clicks the button.
  */
 @Composable
 fun Button(
@@ -239,6 +244,19 @@ fun Button(
     }
 }
 
+/**
+ * DHIS2 private [SimpleButton] with generic icon slot.
+ * wraps material 3 [Button].
+ * @param enabled Controls the enabled state of the button. When `false`, this button will not be
+ * clickable and will appear disabled to accessibility services.
+ * @param buttonColors [ButtonColors] to be used
+ * @param text The text to display within.
+ * @param textColor The color for the text to be used
+ * @param icon The button icon content.
+ * @param paddingValues optional [PaddingValues] to be overridden.
+ * @param modifier optional [Modifier].
+ * @param onClick Will be called when the user clicks the button.
+ */
 @Composable
 private fun SimpleButton(
     enabled: Boolean = true,
@@ -263,6 +281,17 @@ private fun SimpleButton(
     }
 }
 
+/**
+ * DHIS2 [TextButtonSelector]
+ * @param enabled Controls the enabled state of the component. When `false`, this button will not be
+ * clickable and will appear disabled to accessibility services.
+ * @param firstOptionText text to be displayed for first option to be used
+ * @param middleText The text to be displayed between options.
+ * @param secondOptionText The text to be displayed for second option
+ * @param onClickFirstOption Callback when first option is clicked.
+ * @param onClickSecondOption Callback when second option is clicked.
+ * @param modifier optional [Modifier].
+ */
 @Composable
 fun TextButtonSelector(
     enabled: Boolean = true,

@@ -27,7 +27,11 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 
 /**
-TODO document component
+ * DHIS2 InfoBar. Wraps compose [Row].
+ * InfoBars provide brief messages about app status.
+ * @param infoBarData: a data class [InfoBarData] with all
+ * parameters for component.
+ * @param modifier: optional modifier.
  */
 @Composable
 fun InfoBar(
@@ -69,6 +73,15 @@ fun InfoBar(
     }
 }
 
+/**
+ * Data model used for DHIS2  [InfoBar] component.
+ * @param text: main text to be displayed within the item.
+ * @param icon: the icon to be displayed.
+ * @param color: text color.
+ * @param backgroundColor: background color.
+ * @param actionText: the text to be used for action button.
+ * @param onClick: callback for the action button.
+ */
 data class InfoBarData(
     val text: String,
     val icon: @Composable (() -> Unit)? = null,

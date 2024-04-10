@@ -40,15 +40,20 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
 /**
- * DHIS2 Input Shell
- * @param title is the value of the text to be shown.
- * @param state controls the  state of the component. Will be Unfocused by default
- * @param primaryButton controls the primary button composable if null will show nothing
- * @param secondaryButton controls  action button composable, if null will show nothing
- * @param legend controls the optional legend composable
- * @param inputField controls the input field composable .
- * @param supportingText controls the supporting text composable
- * @param isRequiredField controls whether the field is mandatory
+ * DHIS2 Input Shell.
+ * Used internally for most inputs.
+ * @param title: is the value of the text to be shown.
+ * @param state: controls the  state of the component. Will be Unfocused by default.
+ * @param primaryButton: controls the primary button composable if null will show nothing.
+ * @param secondaryButton: controls  action button composable, if null will show nothing.
+ * @param inputField: controls the input field composable.
+ * @param supportingText: controls the supporting text composable.
+ * @param legend: controls the optional legend composable.
+ * @param onFocusChanged: gives access to the onFocusChanged returns true if
+ * item is focused.
+ * @param isRequiredField: controls whether the field is mandatory.
+ * @param modifier: optional modifier.
+ * @param inputStyle: manages the InputShell style.
  */
 @Composable
 internal fun InputShell(

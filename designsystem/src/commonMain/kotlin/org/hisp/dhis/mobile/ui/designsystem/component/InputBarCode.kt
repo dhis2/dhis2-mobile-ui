@@ -12,20 +12,23 @@ import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
 
 /**
  * DHIS2 Input QR Code. Wraps DHIS · [BasicTextInput].
- * @param title controls the text to be shown for the title
- * @param state Manages the InputShell state
- * @param onActionButtonClicked gives access to the action button event
- * @param supportingText is a list of SupportingTextData that
- * manages all the messages to be shown
- * @param legendData manages the legendComponent
- * @param inputText manages the value of the text in the input field
- * @param isRequiredField controls whether the field is mandatory or not
- * @param onNextClicked gives access to the imeAction event
- * @param onValueChanged gives access to the onValueChanged event
- * @param onFocusChanged gives access to the onFocusChanged returns true if
- * item is focused
- * @param imeAction controls the imeAction button to be shown
- * @param modifier allows a modifier to be passed externally
+ * @param title: controls the text to be shown for the title.
+ * @param state: Manages the InputShell state.
+ * @param onActionButtonClicked: gives access to the action button event.
+ * @param supportingText: is a list of SupportingTextData that
+ * manages all the messages to be shown.
+ * @param legendData: manages the legendComponent.
+ * @param inputTextFieldValue: manages the value of the text in the input field.
+ * @param isRequiredField: controls whether the field is mandatory or not.
+ * @param autoCompleteList: a list of strings to be used for autocomplete functionality.
+ * @param autoCompleteItemSelected: gives access to the autocomplete item selection.
+ * @param onNextClicked: gives access to the imeAction event.
+ * @param onValueChanged: gives access to the onValueChanged event.
+ * @param onFocusChanged: gives access to the onFocusChanged returns true if
+ * item is focused.
+ * @param imeAction: controls the imeAction button to be shown.
+ * @param modifier: allows a modifier to be passed externally.
+ * @param inputStyle: manages the InputShell style.
  */
 @Composable
 fun InputBarCode(

@@ -47,19 +47,23 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 private const val MAX_DROPDOWN_ITEMS = 6
 
 /**
- * DHIS2 Input dropdown. Wraps DHIS · [InputShell].
- * @param title controls the text to be shown for the title
- * @param state Manages the InputShell state
- * @param selectedItem manages the value of the selected item
- * @param supportingTextData is a list of SupportingTextData that
- * manages all the messages to be shown
- * @param legendData manages the legendComponent
- * @param isRequiredField controls whether the field is mandatory or not
- * @param onFocusChanged gives access to the onFocusChanged returns true if
- * item is focused
- * @param modifier allows a modifier to be passed externally
- * @param onResetButtonClicked callback to when reset button is clicked
- * @param showSearchBar config whether to show search bar in the bottom sheet
+ * DHIS2 Input dropdown. Wraps DHIS · [DropdownInputField].
+ * @param title: controls the text to be shown for the title.
+ * @param state: Manages the InputShell state.
+ * @param inputStyle: Manages the InputShell style.
+ * @param dropdownItems: list of [DropdownItem] to be used.
+ * @param selectedItem: manages the value of the selected item.
+ * @param supportingTextData: is a list of SupportingTextData that
+ * manages all the messages to be shown.
+ * @param legendData: manages the legendComponent.
+ * @param isRequiredField: controls whether the field is mandatory or not.
+ * @param onFocusChanged: gives access to the onFocusChanged returns true if
+ * item is focused.
+ * @param modifier: allows a modifier to be passed externally.
+ * @param onResetButtonClicked: callback to when reset button is clicked.
+ * @param onItemSelected: callback to when a dropdown item is selected.
+ * @param showSearchBar: config whether to show search bar in the bottom sheet.
+ * @param noResultsFoundString: text to be shown in pop up when no results are found.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -216,6 +220,24 @@ private fun dropdownStartPadding(inputStyle: InputStyle): Dp {
     }
 }
 
+/**
+ * DHIS2 DropDownInputField. Wraps DHIS · [InputShell].
+ * @param title: controls the text to be shown for the title.
+ * @param state: Manages the InputShell state.
+ * @param inputStyle: Manages the InputShell style.
+ * @param selectedItem: manages the value of the selected item.
+ * @param supportingTextData: is a list of SupportingTextData that
+ * manages all the messages to be shown.
+ * @param legendData: manages the legendComponent.
+ * @param isRequiredField: controls whether the field is mandatory or not.
+ * @param onFocusChanged: gives access to the onFocusChanged returns true if
+ * item is focused.
+ * @param modifier: allows a modifier to be passed externally.
+ * @param onResetButtonClicked: callback to when reset button is clicked.
+ * @param onDropdownIconClick: callback to when action button is clicked.
+ * @param expanded: will control the action button.
+ * @param focusRequester: [FocusRequester] to be used.
+ */
 // TODO make private when a period selector input is designed
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -327,6 +349,15 @@ fun DropdownInputField(
     )
 }
 
+/**
+ * DHIS2 composable  DropdownItem.
+ * used internally for DHIS2 component [InputDropDown] with
+ * @param item: [DropdownItem] with label to be used.
+ * @param contentPadding: the padding to be used.
+ * @param selected: whether item is selected or not.
+ * @param onItemClick: call back for item selected.
+ * @param modifier: optional modifier.
+ */
 @Composable
 private fun DropdownItem(
     item: DropdownItem,

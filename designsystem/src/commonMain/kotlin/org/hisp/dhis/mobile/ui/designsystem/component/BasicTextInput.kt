@@ -38,19 +38,28 @@ import java.util.Locale
 /**
  * DHIS2 BasicTextInput. Wraps DHIS · [InputShell].
  * Generic text input component that allows for all the different
- * implementations needed
- * @param title controls the text to be shown for the title
- * @param state Manages the InputShell state
- * @param supportingText is a list of SupportingTextData that
- * manages all the messages to be shown
- * @param legendData manages the legendComponent
- * @param inputText manages the value of the text in the input field
- * @param isRequiredField controls whether the field is mandatory or not
- * @param onNextClicked gives access to the imeAction event
- * @param onValueChanged gives access to the onValueChanged event
- * @param helper manages the helper text to show
- * @param modifier allows a modifier to be passed externally
- * @param actionButton controls action button composable, if null will show nothing
+ * implementations needed.
+ * @param title: controls the text to be shown for the title.
+ * @param state: Manages the InputShell state.
+ * @param supportingText: is a list of SupportingTextData that
+ * manages all the messages to be shown.
+ * @param legendData: manages the legendComponent.
+ * @param inputTextFieldValue: manages the value of the text in the input field.
+ * @param isRequiredField: controls whether the field is mandatory or not.
+ * @param onNextClicked: gives access to the imeAction event.
+ * @param onValueChanged: gives access to the onValueChanged event.
+ * @param onFocusChanged: gives access to the onFocusChanged event.
+ * @param autoCompleteList: a list of strings to be used for autocomplete functionality.
+ * @param autoCompleteItemSelected: gives access to the autocomplete item selection.
+ * @param keyboardOptions: the input field keyboard options.
+ * @param helper: manages the helper text to show.
+ * @param helperStyle: manages the helper style to be used.
+ * @param testTag: optional test tag for ui testing purposes.
+ * @param allowedCharacters: optional regex to define the allowed characters.
+ * @param isSingleLine: whether multiple lines are allowed or not.
+ * @param inputStyle:  for the [InputShell] used.
+ * @param modifier: allows a modifier to be passed externally.
+ * @param actionButton: controls action button composable, if null will show nothing.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

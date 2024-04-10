@@ -69,6 +69,22 @@ enum class SectionState {
     }
 }
 
+/**
+ * DHIS2 Section
+ * @param modifier: optional modifier.
+ * @param isLastSection: whether section is last or not.
+ * @param title: the title to be shown.
+ * @param description: optional description to be shown.
+ * @param completedFields: number of completed fields.
+ * @param state: [SectionState] can be OPEN, CLOSE, FIXED or NO_HEADER.
+ * @param errorCount: number of errors in section.
+ * @param errorMessage: error message to be used.
+ * @param warningCount: number of warnings in section.
+ * @param warningMessage: warning message to be used.
+ * @param onNextSection: access to next section clicked event.
+ * @param onSectionClick: access to section clicked event.
+ * @param content: composable content to be displayed within the section.
+ */
 @Composable
 fun Section(
     modifier: Modifier = Modifier,

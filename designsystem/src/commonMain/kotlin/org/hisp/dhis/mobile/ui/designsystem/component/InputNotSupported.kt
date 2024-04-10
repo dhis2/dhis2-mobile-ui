@@ -8,9 +8,12 @@ import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
 /**
- * Input filed for not supported components
+ * Input for unsupported components
  *
- * @param title: Label of the component
+ * @param title: label of the component.
+ * @param modifier: optional modifier.
+ * @param notSupportedString: text to be used for not supported text.
+ * @param inputStyle: manages the InputShell style.
  */
 @Composable
 fun InputNotSupported(

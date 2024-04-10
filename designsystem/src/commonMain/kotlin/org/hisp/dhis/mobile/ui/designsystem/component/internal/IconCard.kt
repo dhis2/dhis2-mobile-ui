@@ -58,6 +58,11 @@ internal fun IconCard(
     }
 }
 
+/**
+ * Data model used for DHIS2  Metadata Icon component.
+ * @param uid for item.
+ * @param label option text.
+ */
 sealed class ImageCardData(open val uid: String, open val label: String) {
     data class IconCardData(
         override val uid: String,

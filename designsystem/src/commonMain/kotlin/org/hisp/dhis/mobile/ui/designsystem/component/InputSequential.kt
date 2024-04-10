@@ -23,15 +23,19 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
 /**
- * DHIS2 icon card sequential input component
- * @param title: Label of the component
- * @param data: List of [IconCardData] to show
- * @param selectedData: Selected [IconCardData], renders selected UI around that item
- * @param state: [InputShellState]
- * @param supportingText: List of [SupportingTextData] that manages all the messages to be shown
- * @param legendData: [LegendData] to be render below the input shell
- * @param isRequired: Mark this input as marked
- * @param onSelectionChanged: Callback to receive new selected item
+ * DHIS2 icon card sequential input component.
+ * @param title: Label of the component.
+ * @param data: List of [ImageCardData] to show.
+ * @param selectedData: Selected [ImageCardData], renders selected UI around that item.
+ * @param modifier: optional modifier.
+ * @param state: [InputShellState].
+ * @param inputStyle: manages the InputShell style.
+ * @param supportingText: List of [SupportingTextData] that manages all the messages to be shown.
+ * @param legendData: [LegendData] to be render below the input shell.
+ * @param isRequired: Mark this input as mandatory.
+ * @param testTag: optional tag for ui testing purposes.
+ * @param onSelectionChanged: Callback to receive new selected item.
+ * @param painterFor: mapped array for option icons.
  */
 @Composable
 fun InputSequential(

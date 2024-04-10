@@ -22,10 +22,11 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
 /**
- * Container to render QR code image and text for given
- * data
- *
- * @param data: Data to render QR code and text for
+ * Container to render QR code image and text for given data
+ * @param data: Data to render QR code and text.
+ * @param modifier: optional modifier.
+ * @param isDataMatrix: whether the value is a data matrix or not.
+ * @param qrCodeSize: the Qr code image size.
  */
 @Composable
 fun QrCodeBlock(

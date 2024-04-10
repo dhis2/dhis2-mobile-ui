@@ -15,6 +15,15 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
+/**
+ * DHIS2 [Badge]) wraps Material 3's [Box].
+ * Badges are used to convey dynamic information,
+ * such as a count or status.
+ * A badge can include text, labels, or numbers.
+ * @param text: the text to be displayed within the component.
+ * @param textColor: color for the text.
+ * @param color: background color.
+ */
 @Composable
 fun Badge(
     modifier: Modifier = Modifier,

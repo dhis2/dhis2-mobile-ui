@@ -25,6 +25,23 @@ sealed class BasicTextInputModel : InputModel {
     abstract val imeAction: ImeAction
 }
 
+/**
+ * UiModel used for Input User
+ * @param title : Label of the component.
+ * @param state: [InputShellState]
+ * @param inputStyle: manages the InputShell style.
+ * @param supportingText: List of [SupportingTextData] that manages all the messages to be shown.
+ * @param legendData: [LegendData]
+ * @param inputTextFieldValue: Input of the component in the format of ddMMyyyy/HHMM/ddMMyyyyHHMM.
+ * @param isRequiredField: Mark this input as required.
+ * @param autoCompleteList: List of strings to be used for autocomplete dropdown.
+ * @param autoCompleteItemSelected: gives access to the autocomplete item selection.
+ * @param onNextClicked: gives access to the on next callback.
+ * @param onValueChanged: gives access to the onValueChanged event.
+ * @param imeAction: controls the imeAction button to be shown.
+ * @param onFocusChanged: gives access to the on Focus changed callback.
+ *
+ */
 data class InputUserModel(
     override val title: String,
     override val state: InputShellState,
@@ -51,6 +68,23 @@ data class InputUserModel(
     }
 }
 
+/**
+ * UiModel used for Input Password
+ * @param title: Label of the component.
+ * @param state: [InputShellState]
+ * @param inputStyle: manages the InputShell style.
+ * @param supportingText: List of [SupportingTextData] that manages all the messages to be shown.
+ * @param legendData: [LegendData]
+ * @param inputTextFieldValue: Input of the component in the format of ddMMyyyy/HHMM/ddMMyyyyHHMM.
+ * @param isRequiredField: Mark this input as required.
+ * @param autoCompleteList: List of strings to be used for autocomplete dropdown.
+ * @param autoCompleteItemSelected: gives access to the autocomplete item selection.
+ * @param onNextClicked: gives access to the on next callback.
+ * @param onValueChanged: gives access to the onValueChanged event.
+ * @param imeAction: controls the imeAction button to be shown.
+ * @param onFocusChanged: gives access to the on Focus changed callback.
+ *
+ */
 data class InputPasswordModel(
     override val title: String,
     override val state: InputShellState,

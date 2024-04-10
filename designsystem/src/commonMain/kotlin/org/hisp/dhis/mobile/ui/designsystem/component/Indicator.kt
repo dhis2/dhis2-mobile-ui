@@ -20,6 +20,16 @@ import androidx.compose.ui.graphics.Color
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 
+/**
+ * DHIS2 Indicator. Wraps compose [Row].
+ * A component designed to display indicators, each featuring a key and a value,
+ * is complemented by a color badge for visual distinction.
+ * This configuration allows for clear and efficient presentation of important data points.
+ * @param title: the header to be displayed.
+ * @param content: description to be displayed.
+ * @param modifier: optional modifier.
+ * @param indicatorColor: indicator main color.
+ */
 @Composable
 fun Indicator(
     title: String,

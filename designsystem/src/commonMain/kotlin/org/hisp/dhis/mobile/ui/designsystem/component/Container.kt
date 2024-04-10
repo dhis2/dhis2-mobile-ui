@@ -20,8 +20,8 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
  * DHIS2 ColumnComponentContainer wraps Material 3 [Column]
  * has a default spacing between items of 10 dp
  * vertical scroll enabled
- * @param title is the value of the text to be shown for the row.
- * @param content controls the content to be shown
+ * @param title: is the value of the text to be shown for the row.
+ * @param content: controls the content to be shown.
  */
 @Composable
 fun ColumnComponentContainer(
@@ -44,7 +44,9 @@ fun ColumnComponentContainer(
  * DHIS2 ListCardColumn wraps Material 3 [Column]
  * has a default spacing between items of 4 dp
  * vertical scroll enabled
- * @param content controls the content to be shown
+ * @param content: controls the content to be shown.
+ * @param spacing: the spacing between items.
+ * @param modifier: optional modifier.
  */
 @Composable
 fun ListCardColumn(
@@ -62,8 +64,8 @@ fun ListCardColumn(
 
 /**
  * DHIS2 RowComponentContainer wraps Material 3 [Row]
- * @param title is the value of the text to be shown for the row.
- * @param content controls the content to be shown
+ * @param title: is the value of the text to be shown for the row.
+ * @param content: controls the content to be shown.
  */
 
 @Composable
@@ -84,11 +86,11 @@ fun RowComponentContainer(
 }
 
 /**
- * DHIS2 FlowRowComponentsContainer wraps Material 3 [FlowRow]
- * @param title is the value of the text to be shown for the row.
- * @param spacing is the distance in dp between the row items
- * @param modifier customs the row component.
- * @param content controls the content to be shown
+ * DHIS2 FlowRowComponentsContainer wraps Material 3 [FlowRow].
+ * @param title: is the value of the text to be shown for the row.
+ * @param spacing: is the distance in dp between the row items.
+ * @param modifier: optional modifier.
+ * @param content: controls the content to be shown.
  */
 
 @OptIn(ExperimentalLayoutApi::class)
@@ -111,11 +113,11 @@ fun FlowRowComponentsContainer(
 }
 
 /**
- * DHIS2 FlowColumnComponentsContainer wraps Material 3 [FlowColumn]
- * @param title is the value of the text to be shown for the column.
- * @param spacing is the distance in dp between the column items
- * @param modifier customs the column component.
- * @param content controls the content to be shown
+ * DHIS2 FlowColumnComponentsContainer wraps Material 3 [FlowColumn].
+ * @param title: is the value of the text to be shown for the column.
+ * @param spacing: is the distance in dp between the column items.
+ * @param modifier: optional modifier.
+ * @param content: controls the content to be shown.
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable

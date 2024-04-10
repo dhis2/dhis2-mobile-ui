@@ -51,6 +51,24 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
+/**
+ * DHIS2 [OrgBottomSheet] component designed to be used
+ * with Input Org Unit, wraps DHIS2 [BottomSheetShell].
+ * @param orgTreeItems list of [OrgTreeItem] with Org tree information
+ * @param title: Header.
+ * @param subTitle: optional subtitle.
+ * @param description: optional description.
+ * @param clearAllButtonText: text for clear all button.
+ * @param doneButtonText: text for accept button.
+ * @param noResultsFoundText: text for no results found.
+ * @param icon: optional icon to be shown above the header .
+ * @param onSearch: access to the on search event.
+ * @param onDismiss: access to the on dismiss event.
+ * @param onItemSelected: access to the on item selected event.
+ * @param onClearAll: access to the on clear all event.
+ * @param onDone: access to the on done event.
+ * @param modifier width and size of the barcode.
+ */
 @Composable
 fun OrgBottomSheet(
     orgTreeItems: List<OrgTreeItem>,
@@ -316,6 +334,18 @@ private fun AnnotatedString.Builder.appendHighlightedString(
     )
 }
 
+/**
+ * Data class used for [OrgBottomSheet]
+ * used to hold information on Organisation Units.
+ * @param uid: the item uid.
+ * @param label: item label.
+ * @param isOpen: whether the org unit is open or not.
+ * @param hasChildren: whether the org unit has children or not.
+ * @param selected: whether the org unit is selected or not.
+ * @param level: the hierarchy level of the item.
+ * @param selectedChildrenCount: number of selected children.
+ * @param canBeSelected: whether the item is selectable or not.
+ */
 data class OrgTreeItem(
     val uid: String,
     val label: String,

@@ -48,10 +48,11 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.iconButtonshadow
 /**
  * DHIS2 square icon button with generic icon slot. Wraps Material 3 [ElevatedButton].
  *
- * @param enabled Controls the enabled state of the button. When `false`, this button will not be
+ * @param enabled: Controls the enabled state of the button. When `false`, this button will not be
  * clickable and will appear disabled to accessibility services.
- * @param icon The button icon content.
- * @param onClick Will be called when the user clicks the button.
+ * @param icon: The button icon content.
+ * @param onClick: Will be called when the user clicks the button.
+ * @param modifier: optional modifier.
  */
 @Composable
 fun SquareIconButton(
@@ -109,12 +110,13 @@ fun SquareIconButton(
 
 /**
  * DHIS2 icon button with generic icon slot.
- * @param enabled Controls the enabled state of the button. When `false`, this button will not be
+ * @param enabled: Controls the enabled state of the button. When `false`, this button will not be
  * clickable and will appear disabled to accessibility services.
- * @param icon The button icon content.
- * @param onClick Will be called when the user clicks the button.
- * @param style controls the button style, will be Standard by default,
+ * @param icon: The button icon content.
+ * @param onClick: Will be called when the user clicks the button.
+ * @param style: controls the button style, will be Standard by default,
  * but can be Tonal, Filled, or Outlined too.
+ * @param modifier: optional modifier.
  */
 @Composable
 fun IconButton(
@@ -134,6 +136,15 @@ fun IconButton(
     }
 }
 
+/**
+ * DHIS2 icon button with generic icon slot.
+ * used internally for DHIS2 component  [BottomSheetShell].
+ * @param enabled: Controls the enabled state of the button. When `false`, this button will not be
+ * clickable and will appear disabled to accessibility services.
+ * @param icon: The button icon content.
+ * @param onClick: Will be called when the user clicks the button.
+ * @param modifier: optional modifier.
+ */
 @Composable
 internal fun BottomSheetIconButton(
     enabled: Boolean = true,
@@ -156,6 +167,17 @@ internal fun BottomSheetIconButton(
     }
 }
 
+/**
+ * DHIS2 generic icon button with  icon slot.
+ * used internally for DHIS2 component [IconButton].
+ * @param enabled: controls the enabled state of the button. When `false`, this button will not be
+ * clickable and will appear disabled to accessibility services.
+ * @param icon: the button icon content.
+ * @param onClick: will be called when the user clicks the button.
+ * @param interactionSource: manages the button's Interaction source.
+ * @param scope: coroutine scope to be used.
+ * @param modifier: optional modifier.
+ */
 @Composable
 private fun StandardIconButton(
     enabled: Boolean = true,
@@ -192,6 +214,18 @@ private fun StandardIconButton(
     }
 }
 
+/**
+ * DHIS2  icon button with  icon slot.
+ * used internally for DHIS2 component [IconButton] with
+ * style [IconButtonStyle.FILLED].
+ * @param enabled: controls the enabled state of the button. When `false`, this button will not be
+ * clickable and will appear disabled to accessibility services.
+ * @param icon: the button icon content.
+ * @param onClick: will be called when the user clicks the button.
+ * @param interactionSource: manages the button's Interaction source.
+ * @param scope: coroutine scope to be used.
+ * @param modifier: optional modifier.
+ */
 @Composable
 private fun FilledIconButton(
     enabled: Boolean = true,
@@ -231,6 +265,18 @@ private fun FilledIconButton(
     }
 }
 
+/**
+ * DHIS2  icon button with  icon slot.
+ * used internally for DHIS2 component [IconButton] with
+ * style [IconButtonStyle.TONAL].
+ * @param enabled: Controls the enabled state of the button. When `false`, this button will not be
+ * clickable and will appear disabled to accessibility services.
+ * @param icon: The button icon content.
+ * @param onClick: Will be called when the user clicks the button.
+ * @param interactionSource: manages the button's Interaction source.
+ * @param scope: Coroutine scope to be used.
+ * @param modifier: optional modifier.
+ */
 @Composable
 private fun FilledTonalIconButton(
     enabled: Boolean = true,
@@ -273,6 +319,18 @@ private fun FilledTonalIconButton(
     }
 }
 
+/**
+ * DHIS2  icon button with  icon slot.
+ * used internally for DHIS2 component [IconButton] with
+ * style [IconButtonStyle.OUTLINED].
+ * @param enabled: controls the enabled state of the button. When `false`, this button will not be
+ * clickable and will appear disabled to accessibility services.
+ * @param icon: the button icon content.
+ * @param onClick: will be called when the user clicks the button.
+ * @param interactionSource: manages the button's Interaction source.
+ * @param scope: coroutine scope to be used.
+ * @param modifier: optional modifier.
+ */
 @Composable
 private fun OutlinedIconButton(
     enabled: Boolean = true,

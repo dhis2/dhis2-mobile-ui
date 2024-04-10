@@ -29,11 +29,11 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
 
 /**
  * DHIS2 check box with or without text. Wraps Material 3 [Checkbox].
- *
- * @param checkBoxData Contains all data for controlling the inner state of the component. It's parameters are uid for
+ * @param checkBoxData: Contains all data for controlling the inner state of the component. It's parameters are uid for
  * identifying the component, checked for controlling if the option is checked, enabled controls if the component is
  * clickable and textInput displaying the option text.
- * @param onCheckedChange notify the selection change in the item
+ * @param onCheckedChange: notify the selection change in the item.
+ * @param modifier: optional modifier.
  */
 
 @Composable
@@ -105,11 +105,12 @@ fun CheckBox(
 /**
  * DHIS2 check box block.
  *
- * @param orientation Controls how the check boxes will be displayed, HORIZONTAL for rows or
+ * @param orientation: Controls how the check boxes will be displayed, HORIZONTAL for rows or
  * VERTICAL for columns.
- * @param content Contains all the data that will be displayed, the list type is CheckBoxData,
+ * @param content: Contains all the data that will be displayed, the list type is CheckBoxData,
  * this data class contains all data for [CheckBox] composable.
- * @param onItemChange is a callback to notify which item has changed into the block
+ * @param onItemChange: is a callback to notify which item has changed into the block.
+ * @param modifier: optional modifier.
  */
 
 @Composable
@@ -148,6 +149,14 @@ fun CheckBoxBlock(
     }
 }
 
+/**
+ * Data model used for DHIS2  [CheckBox] component.
+ * @param uid: for item.
+ * @param enabled: Controls the enabled state of the component. When `false`, this button will not be
+ * clickable and will appear disabled to accessibility services.
+ * @param checked: whether the item is checked or not.
+ * @param textInput: the text to be displayed.
+ */
 data class CheckBoxData(
     val uid: String,
     val checked: Boolean,

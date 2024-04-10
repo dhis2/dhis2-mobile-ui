@@ -19,6 +19,16 @@ enum class TagType {
     DEFAULT,
 }
 
+/**
+ * DHIS2 Tag
+ * Short labels or identifiers used to categorize
+ * and organize elements, making them easier
+ * to locate and understand.
+ * @param modifier: optional modifier.
+ * @param label: text for label.
+ * @param type: [TagType] can be [TagType.DEFAULT],
+ * [TagType.ERROR] or [TagType.WARNING],
+ */
 @Composable
 fun Tag(
     modifier: Modifier = Modifier,
