@@ -28,6 +28,18 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Ripple
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
+/**
+ * DHIS2 Input Chip. Wraps material 3 · [InputChip].
+ * @param label: controls the text to be shown for the title.
+ * @param selected: whether the chip is selected or not.
+ * @param withTrailingIcon: whether a trailing icon is displayed or not.
+ * @param enabled: Controls the enabled state of the button. When `false`, this button will not be
+ *  * clickable and will appear disabled to accessibility services.
+ * @param onSelected: callback to chip selected event.
+ * @param onIconSelected: callback for delete icon tap.
+ * @param badge: the text to be shown within the badge
+ * @param hasTransparentBackground: whether the background is transparent or not.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun InputChip(

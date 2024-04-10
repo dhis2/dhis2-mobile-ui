@@ -41,6 +41,22 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 
 private const val INLINE_CHECKBOXES_MIN_REQ_ITEMS = 6
 
+/**
+ * DHIS2 input multi selection component.
+ * wraps DHIS2 [InputShell].
+ * @param items: list of [CheckBoxData] for selectable items.
+ * @param title: label of the component.
+ * @param state: [InputShellState].
+ * @param inputStyle: manages the InputShell style.
+ * @param supportingTextData: list of [SupportingTextData] that manages all the messages to be shown.
+ * @param legendData: [LegendData] to be render below the input shell.
+ * @param isRequired: mark this input as required.
+ * @param onItemsSelected: callback to items are selected.
+ * @param modifier: optional modifier.
+ * @param noResultsFoundString: text to be shown in pop up when no results are found.
+ * @param doneButtonText: text to be shown for accept button in pop up.
+ * @param onClearItemSelection: callback for clear item selection.
+ */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun InputMultiSelection(

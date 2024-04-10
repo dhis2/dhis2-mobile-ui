@@ -18,6 +18,19 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.testTag
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
+/**
+ * DHIS2 Input Yes Only Switch. Wraps DHIS · [InputShell].
+ * @param title: the label to be displayed.
+ * @param modifier: allows a modifier to be passed externally.
+ * @param state: Manages the InputShell state.
+ * @param inputStyle: manages the InputShell style.
+ * @param supportingText: is a list of SupportingTextData that
+ * manages all the messages to be shown.
+ * @param legendData: manages the legendComponent.
+ * @param isRequired: controls whether the field is mandatory or not.
+ * @param isChecked: whether the switch is selected or not.
+ * @param onClick: will be called when the user taps the radio button.
+ */
 @Composable
 fun InputYesOnlySwitch(
     title: String,

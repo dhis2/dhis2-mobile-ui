@@ -44,6 +44,18 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.Color as ThemeColor
 
+/**
+ * DHIS2 [BottomSheetHeader] component designed to be used
+ * within [BottomSheetShell]
+ *
+ * @param title: header.
+ * @param subTitle: optional subtitle.
+ * @param description: optional description.
+ * @param icon: optional icon to be shown above the header .
+ * @param hasSearch: whether to adapt for [SearchBar] or not.
+ * @param headerTextAlignment: optional header alignment [Alignment].
+ * @param modifier width and size of the barcode.
+ */
 @Composable
 fun BottomSheetHeader(
     title: String,
@@ -110,20 +122,22 @@ fun BottomSheetHeader(
  * Need to override [searchQuery], [onSearchQueryChanged] & [onSearch] in order
  * to show the search bar. (TODO: We can add lint check for this)
  *
- * @param title: title to be shown
- * @param subtitle: subTitle to be shown
- * @param description: PopUp description
- * @param searchQuery: Search query to be displayed in the search bar
- * @param icon: the icon to be shown
- * @param buttonBlock: Space for the lower buttons
- * @param content: to be shown under the header
+ * @param title: title to be shown.
+ * @param subtitle: subTitle to be shown.
+ * @param description: PopUp description.
+ * @param searchQuery: Search query to be displayed in the search bar.
+ * @param showSectionDivider: whether to show the divider or not.
+ * @param icon: the icon to be shown.
+ * @param buttonBlock: Space for the lower buttons.
+ * @param content: to be shown under the header.
  * @param contentScrollState: Pass custom scroll state when content is
  * scrollable. For example, pass configure it when using `LazyColumn` to `Modifier.verticalScroll`
  * for content.
- * @param onSearchQueryChanged: Callback when search query is changed
- * @param onSearch: Callback when search action is triggered
- * @param onDismiss: gives access to the onDismiss event
- * @param modifier allows a modifier to be passed externally
+ * @param onSearchQueryChanged: Callback when search query is changed.
+ * @param onSearch: Callback when search action is triggered.
+ * @param onDismiss: gives access to the onDismiss event.
+ * @param modifier allows a modifier to be passed externally.
+ * @param headerTextAlignment [Alignment] for header text.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

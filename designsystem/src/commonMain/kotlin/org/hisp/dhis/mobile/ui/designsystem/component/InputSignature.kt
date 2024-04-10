@@ -15,22 +15,23 @@ import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 
 /**
  * DHIS2 Input signature. Wraps DHIS · [BasicInputImage].
- * @param title controls the text to be shown for the title
- * @param state Manages the InputShell state
- * @param supportingText is a list of SupportingTextData that
- * manages all the messages to be shown
- * @param legendData manages the legendComponent
- * @param addSignatureBtnText controls the text to be shown for the add signature button
- * @param downloadButtonVisible controls whether the download button is visible or not
- * @param isRequired controls whether the field is mandatory or not
- * @param load to load an image stored in the resource, device memory or from network
- * we can use loadPainter, loadImageBitmap, loadSvgPainter or loadXmlImageVector
- * @param painterFor is a composable function which controls how to paint the load param,
- * @param modifier allows a modifier to be passed externally
- * @param onDownloadButtonClick callback to when download button is clicked
- * @param onShareButtonClick callback to when share button is clicked
- * @param onResetButtonClicked callback to when reset button is clicked
- * @param onSaveSignature callback to when save button is clicked
+ * @param title: controls the text to be shown for the title.
+ * @param state: manages the InputShell state.
+ * @param inputStyle: manages the InputShell style.
+ * @param supportingText: is a list of SupportingTextData that.
+ * manages all the messages to be shown.
+ * @param legendData: manages the legendComponent.
+ * @param addSignatureBtnText: controls the text to be shown for the add signature button.
+ * @param downloadButtonVisible: controls whether the download button is visible or not.
+ * @param isRequired: controls whether the field is mandatory or not.
+ * @param load: to load an image stored in the resource, device memory or from network.
+ * we can use loadPainter, loadImageBitmap, loadSvgPainter or loadXmlImageVector.
+ * @param painterFor: is a composable function which controls how to paint the load param.
+ * @param modifier: allows a modifier to be passed externally.
+ * @param onDownloadButtonClick: callback to when download button is clicked.
+ * @param onShareButtonClick: callback to when share button is clicked.
+ * @param onResetButtonClicked: callback to when reset button is clicked.
+ * @param onSaveSignature: callback to when save button is clicked.
  */
 @Composable
 fun <T> InputSignature(

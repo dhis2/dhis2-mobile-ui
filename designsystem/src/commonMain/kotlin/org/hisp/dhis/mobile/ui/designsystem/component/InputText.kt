@@ -8,19 +8,22 @@ import androidx.compose.ui.text.input.TextFieldValue
 
 /**
  * DHIS2 Input Text. Wraps DHIS · [BasicTextInput].
- * @param title controls the text to be shown for the title
- * @param state Manages the InputShell state
- * @param supportingText is a list of SupportingTextData that
- * manages all the messages to be shown
- * @param legendData manages the legendComponent
- * @param inputTextFieldValue manages the value of the text in the input field
- * @param isRequiredField controls whether the field is mandatory or not
- * @param onNextClicked gives access to the imeAction event
- * @param onValueChanged gives access to the onValueChanged event
- * @param onFocusChanged gives access to the onFocusChanged returns true if
- * item is focused
- * @param imeAction controls the imeAction button to be shown
- * @param modifier allows a modifier to be passed externally
+ * @param title: controls the text to be shown for the title.
+ * @param state: Manages the InputShell state.
+ * @param supportingText: is a list of SupportingTextData that.
+ * manages all the messages to be shown.
+ * @param legendData: manages the legendComponent.
+ * @param inputTextFieldValue: manages the value of the text in the input field.
+ * @param isRequiredField: controls whether the field is mandatory or not.
+ * @param onNextClicked: gives access to the imeAction event.
+ * @param onValueChanged: gives access to the onValueChanged event.
+ * @param onFocusChanged: gives access to the onFocusChanged returns true if
+ * item is focused.
+ * @param autoCompleteList: List of strings to be used for autocomplete dropdown.
+ * @param onAutoCompleteItemSelected: gives access to the autocomplete item selection.
+ * @param imeAction: controls the imeAction button to be shown.
+ * @param modifier: allows a modifier to be passed externally.
+ * @param inputStyle: manages the InputShell style.
  */
 @Composable
 fun InputText(

@@ -31,6 +31,11 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing64
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
 
+/**
+ * DHIS2 [CarouselButton].
+ * @param buttonData: [CarouselButtonData] data model with all parameters  for component.
+ * @param modifier: optional [Modifier].
+ */
 @Composable
 fun CarouselButton(
     buttonData: CarouselButtonData,
@@ -72,6 +77,12 @@ fun CarouselButton(
     }
 }
 
+/**
+ * Component used to display a horizontal list of [CarouselButton].
+ * @param carouselButtonList: accepts a list of [CarouselButtonData].
+ * to display all carousel buttons.
+ * @param modifier: optional modifier.
+ */
 @Composable
 fun ButtonCarousel(
     carouselButtonList: List<CarouselButtonData>,
@@ -92,6 +103,14 @@ fun ButtonCarousel(
     }
 }
 
+/**
+ * Data model used for DHIS2  [CarouselButton] component.
+ * @param onClick: Will be called when the user clicks the button.
+ * @param enabled: Controls the enabled state of the component. When `false`, this button will not be
+ * clickable and will appear disabled to accessibility services.
+ * @param text: the text to be displayed.
+ * @param icon: the icon to be used.
+ */
 data class CarouselButtonData(
     val onClick: () -> Unit,
     val enabled: Boolean,

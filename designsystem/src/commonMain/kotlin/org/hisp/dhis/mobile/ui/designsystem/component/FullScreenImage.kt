@@ -34,12 +34,12 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 
 /**
  * DHIS2 Full Screen Image. Wraps DHIS2 Internal [ZoomableImage].
- * @param painter controls the image painter to be drawn
- * @param title controls the text to be shown for the title
- * @param modifier allows a modifier to be passed externally
- * @param onDismiss is a callback to dismiss the full screen image component
- * @param onDownloadButtonClick is a callback to notify when the download button is clicked.
- * @param onShareButtonClick is a callback to notify when the share button is clicked.
+ * @param painter: controls the image painter to be drawn.
+ * @param title: controls the text to be shown for the title.
+ * @param modifier: allows a modifier to be passed externally.
+ * @param onDismiss: is a callback to dismiss the full screen image component.
+ * @param onDownloadButtonClick: is a callback to notify when the download button is clicked.
+ * @param onShareButtonClick: is a callback to notify when the share button is clicked.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

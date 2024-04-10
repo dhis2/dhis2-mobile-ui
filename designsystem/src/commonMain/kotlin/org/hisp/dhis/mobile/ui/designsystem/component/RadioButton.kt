@@ -160,6 +160,14 @@ fun RadioButtonBlock(
     }
 }
 
+/**
+ * Data model used for DHIS2  [RadioButton] component.
+ * @param uid for item.
+ * @param enabled Controls the enabled state of the component. When `false`, this button will not be
+ * clickable and will appear disabled to accessibility services.
+ * @param selected whether the item is checked or not.
+ * @param textInput the text to be displayed.
+ */
 data class RadioButtonData(
     val uid: String,
     val selected: Boolean,

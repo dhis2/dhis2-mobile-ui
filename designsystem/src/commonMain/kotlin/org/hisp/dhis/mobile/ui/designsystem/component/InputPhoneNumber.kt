@@ -16,19 +16,25 @@ import org.hisp.dhis.mobile.ui.designsystem.component.internal.RegExValidations
  * DHIS2 Input Phone Number. Wraps DHIS · [BasicTextInput].
  * Input that allows only numeric values for entering phone number.
  *
- * @param title controls the text to be shown for the title
- * @param state Manages the InputShell state
- * @param legendData manages the legendComponent
- * @param inputText manages the value of the text in the input field
- * @param modifier allows a modifier to be passed externally
- * @param isRequiredField controls whether the field is mandatory or not
- * @param autoCompleteList List of strings to be used for autocomplete dropdown
- * @param onNextClicked gives access to the imeAction event
- * @param onValueChanged gives access to the onValueChanged event
- * @param imeAction controls the imeAction button to be shown
- * @param allowedCharacters the characters to allow
- * @param onCallActionClicked callback to when call phone number button is clicked
- * @param maxLength number of characters/digits that can be entered
+ * @param title: controls the text to be shown for the title.
+ * @param onCallActionClicked: callback to when call phone number button is clicked.
+ * @param modifier: allows a modifier to be passed externally.
+ * @param maxLength: number of characters/digits that can be entered.
+ * @param state: Manages the InputShell state.
+ * @param inputStyle: manages the InputShell style.
+ * @param legendData: manages the legendComponent.
+ * @param inputTextFieldValue: manages the value of the text in the input field.
+ * @param isRequiredField: controls whether the field is mandatory or not.
+ * @param autoCompleteList: List of strings to be used for autocomplete dropdown.
+ * @param autoCompleteItemSelected: gives access to the autocomplete item selection.
+ * @param onNextClicked: gives access to the imeAction event.
+ * @param onValueChanged: gives access to the onValueChanged event.
+ * @param onFocusChanged: gives access to the onFocusChanged returns true if
+ * item is focused.
+ * @param imeAction: controls the imeAction button to be shown.
+ * @param allowedCharacters: the characters to allow.
+ * @param supportingText: is a list of SupportingTextData that
+ * manages all the messages to be shown.
  */
 @Composable
 fun InputPhoneNumber(

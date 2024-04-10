@@ -10,6 +10,11 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.KeyboardType
 import org.hisp.dhis.mobile.ui.designsystem.component.model.InputUserModel
 
+/**
+ * DHIS2 Input User. Wraps DHIS · [BasicTextInput].
+ * @param uiModel: [InputUserModel] with all parameters for component
+ * @param modifier: optional modifier.
+ */
 @Composable
 fun InputUser(
     uiModel: InputUserModel,

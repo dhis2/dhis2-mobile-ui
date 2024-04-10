@@ -18,12 +18,13 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
 /**
- * DHIS2 metadata avatar
+ * DHIS2 Metadata Avatar.
  *
- * @param icon: Icon content
- * @param iconTint: Color of the icon
- * @param backgroundColor: Background color of the avatar. By default it's icon tine with 10% alpha
- * @param size: size of the component [AvatarSize]
+ * @param icon: Icon content.
+ * @param iconTint: Color of the icon.
+ * @param backgroundColor: Background color of the avatar. By default it's icon tine with 10% alpha.
+ * @param size: size of the component [AvatarSize].
+ * @param modifier: optional modifier.
  */
 @Composable
 fun MetadataAvatar(

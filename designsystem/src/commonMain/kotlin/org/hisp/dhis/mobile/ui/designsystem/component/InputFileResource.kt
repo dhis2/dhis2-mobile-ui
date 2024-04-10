@@ -34,6 +34,28 @@ const val UPLOAD_TEXT_FILE_NAME_TEST_TAG = "UPLOAD_TEXT_FILE_NAME"
 const val UPLOAD_TEXT_FILE_WEIGHT_TEST_TAG = "UPLOAD_TEXT_FILE_WEIGHT"
 const val SUPPORTING_TEXT_TEST_TAG = "SUPPORTING_TEXT"
 
+/**
+ * DHIS2 Input File Resource. Wraps DHIS · [InputShell].
+ * @param title: controls the text to be shown for the title.
+ * @param buttonText: text to be used for action button.
+ * @param fileName: text to be used for file name.
+ * @param fileWeight: text to be used for file weight.
+ * @param onSelectFile: callback for when user wants to download file.
+ * @param onUploadFile: callback for user to upload file.
+ * @param onClear: callback for user to delete file.
+ * @param inputShellState: Manages the InputShell state.
+ * @param supportingText: is a list of SupportingTextData that
+ * manages all the messages to be shown.
+ * @param legendData: manages the legendComponent.
+ * @param supportingText: is a list of SupportingTextData that
+ * manages all the messages to be shown.
+ * @param uploadFileState: the state of the component, can be
+ * [UPLOADING], [LOADED] or [ADD].
+ * @param inputStyle: manages the InputShell style.
+ * @param modifier: allows a modifier to be passed externally.
+ * @param inputStyle: manages the InputShell style.
+ * @param isRequired: whether the field is required or not.
+ */
 @Composable
 fun InputFileResource(
     title: String,

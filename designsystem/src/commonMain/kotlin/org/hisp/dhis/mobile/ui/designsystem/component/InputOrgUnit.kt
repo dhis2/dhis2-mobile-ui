@@ -31,18 +31,19 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.textFieldHoverPointerIcon
 
 /**
  * DHIS2 Input org unit.
- * @param title controls the text to be shown for the title
- * @param state Manages the InputShell state
- * @param supportingText is a list of SupportingTextData that
- * manages all the messages to be shown
- * @param legendData manages the legendComponent
- * @param inputText manages the value of the text in the input field
- * @param isRequiredField controls whether the field is mandatory or not
- * @param onValueChanged gives access to the onValueChanged event
- * @param onFocusChanged gives access to the onFocusChanged returns true if
- * item is focused
- * @param modifier allows a modifier to be passed externally
- * @param onOrgUnitActionCLicked callback to when org unit button is clicked
+ * @param title: controls the text to be shown for the title.
+ * @param state: Manages the InputShell state.
+ * @param inputStyle: manages the InputShell style.
+ * @param supportingText: is a list of SupportingTextData that
+ * manages all the messages to be shown.
+ * @param legendData: manages the legendComponent.
+ * @param inputText: manages the value of the text in the input field.
+ * @param isRequiredField: controls whether the field is mandatory or not.
+ * @param onValueChanged: gives access to the onValueChanged event.
+ * @param onFocusChanged: gives access to the onFocusChanged returns true if
+ * item is focused.
+ * @param modifier: allows a modifier to be passed externally.
+ * @param onOrgUnitActionCLicked: callback to when org unit button is clicked.
  */
 @Composable
 fun InputOrgUnit(

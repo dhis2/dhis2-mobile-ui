@@ -13,6 +13,18 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.testTag
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
+/**
+ * DHIS2 Input Yes Only Check box. Wraps DHIS · [InputShell].
+ * @param checkBoxData data class [CheckBoxData] used for checkbox to be displayed.
+ * @param modifier: allows a modifier to be passed externally.
+ * @param state: Manages the InputShell state.
+ * @param inputStyle: manages the InputShell style.
+ * @param supportingText: is a list of SupportingTextData that
+ * manages all the messages to be shown.
+ * @param legendData: manages the legendComponent.
+ * @param isRequired: controls whether the field is mandatory or not.
+ * @param onClick will be called when the user taps the check box.
+ */
 @Composable
 fun InputYesOnlyCheckBox(
     checkBoxData: CheckBoxData,

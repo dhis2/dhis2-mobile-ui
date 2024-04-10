@@ -6,6 +6,15 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 
+/**
+ * DHIS2 Input Shell style.
+ * Used internally by [InputShell].
+ * @param startIndent: value of the indent to be used at start.
+ * @param backGroundColor: component background color.
+ * @param disabledBackGroundColor: disabled component background color.
+ * @param unfocusedIndicatorColor: unfocused indicator color.
+ * @param disabledIndicatorColor: disabled indicator color.
+ */
 sealed class InputStyle(
     val startIndent: Dp,
     val backGroundColor: Color,

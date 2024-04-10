@@ -47,6 +47,16 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
+/**
+ * DHIS2 Search bar.
+ * @param text: the label to display.
+ * @param placeHolderText: the placeholder to display.
+ * @param onActiveChange: callback to when value is modified.
+ * @param onSearch: on search callback.
+ * @param onQueryChange: on query change callback.
+ * @param state: input shell state.
+ * @param modifier: optional modifier.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchBar(
