@@ -82,7 +82,6 @@ class InputRadioButtonSnapshotTest {
             var showSupportingText by remember { mutableStateOf(false) }
             val focusRequester = remember { FocusRequester() }
             ColumnComponentContainer("Radio Buttons") {
-
                 LaunchedEffect(Unit) {
                     focusRequester.requestFocus()
                 }

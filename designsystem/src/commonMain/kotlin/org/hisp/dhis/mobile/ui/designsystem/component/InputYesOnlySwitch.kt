@@ -30,7 +30,7 @@ fun InputYesOnlySwitch(
     isChecked: Boolean,
     onClick: (Boolean) -> Unit,
 ) {
-    val focusRequester  = remember { FocusRequester() }
+    val focusRequester = remember { FocusRequester() }
     var indicatorColor by remember { mutableStateOf(InputShellState.UNFOCUSED.color) }
     InputShell(
         modifier = modifier

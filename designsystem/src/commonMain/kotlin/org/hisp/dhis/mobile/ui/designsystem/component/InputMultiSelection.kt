@@ -186,7 +186,6 @@ fun InputMultiSelection(
                                             }
                                         },
                                     )
-
                                 }
                             }
                         }
@@ -243,7 +242,7 @@ private fun SelectedItemChip(
             onIconSelected = {
                 onClearItemSelection(item.copy(checked = false))
             },
-            focusRequester = focusRequester
+            focusRequester = focusRequester,
         )
     }
 }
