@@ -22,7 +22,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import org.junit.Rule
 import org.junit.Test
 
-class InputDropDownSnapShotTest {
+class InputDropDownSnapshotTest {
 
     @get:Rule
     val paparazzi = paparazzi()
