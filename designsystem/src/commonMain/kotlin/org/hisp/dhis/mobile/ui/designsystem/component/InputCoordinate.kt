@@ -1,5 +1,6 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
+import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
@@ -62,8 +63,9 @@ fun InputCoordinate(
     val focusRequester = remember { FocusRequester() }
 
     InputShell(
-        modifier = modifier.testTag("INPUT_COORDINATE")
-            .focusRequester(focusRequester),
+        modifier = modifier
+            .focusRequester(focusRequester)
+            .testTag("INPUT_COORDINATE"),
         title = title,
         state = state,
         isRequiredField = isRequired,
@@ -85,7 +87,7 @@ fun InputCoordinate(
             if (coordinates != null) {
                 FlowRow(
                     horizontalArrangement = Arrangement.spacedBy(Spacing.Spacing16),
-                    modifier = Modifier.padding(end = Spacing.Spacing16),
+                    modifier = Modifier.padding(end = Spacing.Spacing16).focusable(),
                 ) {
                     CoordinateText(
                         latitudeText,
@@ -118,8 +120,10 @@ fun InputCoordinate(
                             top = Spacing.Spacing8,
                             bottom = Spacing.Spacing8,
                         )
+                        .focusable()
                         .testTag("INPUT_COORDINATE_ADD_BUTTON"),
                 ) {
+                    focusRequester.requestFocus()
                     onUpdateButtonClicked.invoke()
                 }
             }
