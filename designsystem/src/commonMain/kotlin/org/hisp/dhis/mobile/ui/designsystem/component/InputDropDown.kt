@@ -314,7 +314,10 @@ fun DropdownInputField(
                             contentDescription = "Reset Button",
                         )
                     },
-                    onClick = onResetButtonClicked,
+                    onClick = {
+                        focusRequester.requestFocus()
+                        onResetButtonClicked.invoke()
+                    },
                 )
             }
         } else {

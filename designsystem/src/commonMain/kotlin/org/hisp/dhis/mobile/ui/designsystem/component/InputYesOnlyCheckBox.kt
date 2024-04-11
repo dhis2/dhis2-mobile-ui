@@ -7,6 +7,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.testTag
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
@@ -22,9 +24,12 @@ fun InputYesOnlyCheckBox(
     isRequired: Boolean = false,
     onClick: (Boolean) -> Unit,
 ) {
+    val focusRequester = remember { FocusRequester() }
+
     var indicatorColor by remember { mutableStateOf(InputShellState.UNFOCUSED.color) }
     InputShell(
         modifier = modifier
+            .focusRequester(focusRequester)
             .onFocusChanged {
                 indicatorColor =
                     if (it.isFocused && state != InputShellState.ERROR && state != InputShellState.WARNING) InputShellState.FOCUSED.color else state.color
@@ -58,6 +63,7 @@ fun InputYesOnlyCheckBox(
                     textInput = checkBoxData.textInput,
                 ),
             ) {
+                focusRequester.requestFocus()
                 onClick.invoke(it)
             }
         },

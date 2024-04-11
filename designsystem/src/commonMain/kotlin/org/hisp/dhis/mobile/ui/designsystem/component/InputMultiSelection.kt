@@ -1,6 +1,7 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -150,7 +151,7 @@ fun InputMultiSelection(
                         }
                     }
                 } else {
-                    Box(Modifier.fillMaxWidth()) {
+                    Box(Modifier.fillMaxWidth().focusable()) {
                         Box(
                             modifier = Modifier
                                 .testTag("INPUT_MULTI_SELECT_CLICKABLE")
@@ -174,6 +175,7 @@ fun InputMultiSelection(
                                 SelectedItemChip(
                                     item = item,
                                     index = index,
+                                    focusRequester = focusRequester,
                                     enabled = state != InputShellState.DISABLED,
                                 ) { newItem ->
                                     onItemsSelected(
@@ -184,6 +186,7 @@ fun InputMultiSelection(
                                             }
                                         },
                                     )
+
                                 }
                             }
                         }
@@ -223,13 +226,15 @@ fun InputMultiSelection(
 private fun SelectedItemChip(
     item: CheckBoxData,
     index: Int,
+    focusRequester: FocusRequester,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     onClearItemSelection: (CheckBoxData) -> Unit,
 ) {
     if (item.checked) {
         InputChip(
-            modifier = modifier.testTag("INPUT_MULTI_SELECT_CHECKBOX_CHIP_ITEM_$index"),
+            modifier = modifier
+                .testTag("INPUT_MULTI_SELECT_CHECKBOX_CHIP_ITEM_$index"),
             label = item.textInput!!.toString(),
             selected = false,
             enabled = enabled,
@@ -238,6 +243,7 @@ private fun SelectedItemChip(
             onIconSelected = {
                 onClearItemSelection(item.copy(checked = false))
             },
+            focusRequester = focusRequester
         )
     }
 }
