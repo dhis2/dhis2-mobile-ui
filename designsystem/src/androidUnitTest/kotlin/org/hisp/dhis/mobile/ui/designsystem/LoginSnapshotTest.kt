@@ -1,6 +1,7 @@
 package org.hisp.dhis.mobile.ui.designsystem
 
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Login
 import androidx.compose.material3.Icon
@@ -17,6 +18,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.InputUser
 import org.hisp.dhis.mobile.ui.designsystem.component.model.InputPasswordModel
 import org.hisp.dhis.mobile.ui.designsystem.component.model.InputUserModel
+import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.junit.Rule
 import org.junit.Test
 
@@ -28,7 +30,7 @@ class LoginSnapshotTest {
     @Test
     fun launchLoginScreen() {
         paparazzi.snapshot {
-            ColumnComponentContainer(title = "Login") {
+            ColumnComponentContainer(title = "Login", modifier = Modifier.padding(Spacing.Spacing10)) {
                 InputQRCode(
                     "Server URL",
                     inputTextFieldValue = TextFieldValue("https://play.dhis2.org/40"),

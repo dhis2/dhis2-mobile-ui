@@ -31,7 +31,7 @@ fun ColumnComponentContainer(
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(Spacing.Spacing16),
-        modifier = modifier.padding(Spacing.Spacing10).verticalScroll(rememberScrollState()),
+        modifier = modifier.verticalScroll(rememberScrollState()),
     ) {
         title?.let {
             Title(title)
