@@ -1,5 +1,5 @@
 group = "org.hisp.dhis.mobile"
-version = "0.2-SNAPSHOTLOCAL"
+version = "0.2-SNAPSHOT"
 
 plugins {
     kotlin("multiplatform")
@@ -7,7 +7,6 @@ plugins {
     id("com.android.library")
     id("convention.publication")
     id("app.cash.paparazzi").version("1.3.3")
-    id("maven-publish")
 }
 
 kotlin {
