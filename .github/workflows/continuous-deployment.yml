@@ -34,8 +34,6 @@ jobs:
       - name: Change wrapper permissions
         run: chmod +x ./gradlew
 
-      - name: Generate docs
-        run: ./gradlew dokkaHtmlMultiModule
 
       # Create publish to maven
       - name: Publish to maven
