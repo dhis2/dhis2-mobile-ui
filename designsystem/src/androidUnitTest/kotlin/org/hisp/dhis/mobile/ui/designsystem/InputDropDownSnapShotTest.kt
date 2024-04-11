@@ -2,11 +2,14 @@ package org.hisp.dhis.mobile.ui.designsystem
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.DropdownItem
 import org.hisp.dhis.mobile.ui.designsystem.component.InputDropDown
@@ -25,7 +28,7 @@ class InputDropDownSnapShotTest {
     val paparazzi = paparazzi()
 
     @Test
-    fun launchFAB() {
+    fun launchInputDropDown() {
         paparazzi.snapshot {
             ColumnComponentContainer {
                 val options = listOf(
@@ -44,7 +47,14 @@ class InputDropDownSnapShotTest {
 
                 SubTitle("Basic Input Dropdown with < 7 inputs", textColor = TextColor.OnSurfaceVariant)
                 var selectedItem by remember { mutableStateOf<DropdownItem?>(null) }
+                val focusRequester = remember { FocusRequester() }
+
+                LaunchedEffect(Unit) {
+                    focusRequester.requestFocus()
+                }
+
                 InputDropDown(
+                    modifier = Modifier.focusRequester(focusRequester),
                     title = "Label",
                     state = InputShellState.FOCUSED,
                     dropdownItems = options.take(6),
