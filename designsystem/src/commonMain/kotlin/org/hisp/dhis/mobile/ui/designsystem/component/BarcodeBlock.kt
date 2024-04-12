@@ -26,6 +26,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
  * data.
  * @param data: Data to render barcode and text.
  * @param barcodeSize: width and size of the barcode.
+ * @param modifier: optional modifier.
  */
 @Composable
 fun BarcodeBlock(

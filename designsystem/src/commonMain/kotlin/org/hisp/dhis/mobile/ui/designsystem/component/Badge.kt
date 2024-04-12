@@ -23,6 +23,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
  * @param text: the text to be displayed within the component.
  * @param textColor: color for the text.
  * @param color: background color.
+ * @param modifier: optional modifier.
  */
 @Composable
 fun Badge(

@@ -20,8 +20,6 @@ import org.hisp.dhis.mobile.ui.designsystem.component.internal.RegExValidations
  * manages all the messages to be shown.
  * @param legendData: manages the legendComponent.
  * @param inputTextFieldValue: manages the value of the text in the input field.
- * @param supportingText: is a list of SupportingTextData that
- * manages all the messages to be shown.
  * @param isRequiredField: controls whether the field is mandatory or not.
  * @param autoCompleteList: List of strings to be used for autocomplete dropdown.
  * @param autoCompleteItemSelected: gives access to the autocomplete item selection.

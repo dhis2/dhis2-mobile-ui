@@ -329,6 +329,7 @@ sealed interface AgeInputType {
  *  [None] : default,
  *  [DateOfBirth] : In ddmmyyyy format,
  *  [Age]: Age value with appropriate time unit
+ * @param inputStyle: Input shell style.
  * @param state: [InputShellState]
  * @param legendData: [LegendData]
  * @param supportingText: List of [SupportingTextData] that manages all the messages to be shown.

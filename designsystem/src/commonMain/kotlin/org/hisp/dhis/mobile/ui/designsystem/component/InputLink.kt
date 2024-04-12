@@ -23,6 +23,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.internal.RegExValidations
  * @param inputTextFieldValue manages the value of the text in the input field.
  * @param isRequiredField controls whether the field is mandatory or not.
  * @param autoCompleteList List of strings to be used for autocomplete dropdown.
+ * @param autoCompleteItemSelected: gives access to the autocomplete item selection.
  * @param onNextClicked gives access to the imeAction event.
  * @param onValueChanged gives access to the onValueChanged event.
  * @param onFocusChanged gives access to the onFocusChanged returns true if

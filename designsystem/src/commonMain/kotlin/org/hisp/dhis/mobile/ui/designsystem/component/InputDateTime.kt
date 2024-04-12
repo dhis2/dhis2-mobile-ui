@@ -75,6 +75,7 @@ import java.util.TimeZone
  * input formats supported are mentioned in the date time input ui model documentation.
  * [DatePicker] Input mode  will always follow locale format.
  * @param uiModel: an [InputDateTimeModel] with all the parameters for the input
+ * @param modifier: optional modifier.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

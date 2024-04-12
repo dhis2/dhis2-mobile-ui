@@ -47,13 +47,10 @@ const val SUPPORTING_TEXT_TEST_TAG = "SUPPORTING_TEXT"
  * @param supportingText: is a list of SupportingTextData that
  * manages all the messages to be shown.
  * @param legendData: manages the legendComponent.
- * @param supportingText: is a list of SupportingTextData that
- * manages all the messages to be shown.
  * @param uploadFileState: the state of the component, can be
  * [UPLOADING], [LOADED] or [ADD].
  * @param inputStyle: manages the InputShell style.
  * @param modifier: allows a modifier to be passed externally.
- * @param inputStyle: manages the InputShell style.
  * @param isRequired: whether the field is required or not.
  */
 @Composable

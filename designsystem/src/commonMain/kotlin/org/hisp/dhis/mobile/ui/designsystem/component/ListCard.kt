@@ -71,6 +71,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.shadow
  * @param shrinkLabelText: the text to be shown for shrink button.
  * @param actionButton: composable parameter for the sync button.
  * @param onCardClick: gives access to click event on the main container.
+ * @param loading: controls visibility of the loading item.
  * @param shadow: whether to show a shadow or not.
  * @param modifier: allows a modifier to be passed externally.
  */

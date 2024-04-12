@@ -22,6 +22,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
  * vertical scroll enabled
  * @param title: is the value of the text to be shown for the row.
  * @param content: controls the content to be shown.
+ * @param modifier: optional modifier.
  */
 @Composable
 fun ColumnComponentContainer(
@@ -66,8 +67,8 @@ fun ListCardColumn(
  * DHIS2 RowComponentContainer wraps Material 3 [Row]
  * @param title: is the value of the text to be shown for the row.
  * @param content: controls the content to be shown.
+ * @param modifier: optional modifier.
  */
-
 @Composable
 fun RowComponentContainer(
     title: String? = null,

@@ -44,6 +44,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
  * @param onShareButtonClick: callback to when share button is clicked.
  * @param onResetButtonClicked: callback to when reset button is clicked.
  * @param onAddButtonClicked: callback to when add button is clicked.
+ * @param modifier: optional modifier.
  */
 @Composable
 internal fun <T> BasicInputImage(

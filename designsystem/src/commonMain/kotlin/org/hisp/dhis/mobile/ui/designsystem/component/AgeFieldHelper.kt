@@ -21,6 +21,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
  * @param optionSelected: controls which item is selected.
  * @param enabled: manages the enabled state
  * @param onClick: is a callback to notify which item has changed into the block.
+ * @param modifier: optional modifier.
  */
 @Composable
 internal fun TimeUnitSelector(

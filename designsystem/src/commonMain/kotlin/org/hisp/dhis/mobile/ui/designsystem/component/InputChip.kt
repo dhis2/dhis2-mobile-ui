@@ -39,6 +39,8 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
  * @param onIconSelected: callback for delete icon tap.
  * @param badge: the text to be shown within the badge
  * @param hasTransparentBackground: whether the background is transparent or not.
+ * @param focusRequester: component focus requester.
+ * @param modifier: optional modifier.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
