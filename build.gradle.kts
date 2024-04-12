@@ -7,6 +7,7 @@ plugins {
     id("com.android.library") apply false
     id("org.jetbrains.compose") apply false
     id("org.jlleitschuh.gradle.ktlint") version "11.5.1"
+    id("org.jetbrains.dokka") version "1.9.20"
 }
 
 allprojects {
@@ -23,6 +24,7 @@ allprojects {
 }
 
 subprojects {
+    apply(plugin = "org.jetbrains.dokka")
     tasks.withType<KotlinCompilationTask<*>>().configureEach {
         compilerOptions {
             // Treat all Kotlin warnings as errors
