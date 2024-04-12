@@ -76,6 +76,7 @@ enum class SectionState {
  * @param title: the title to be shown.
  * @param description: optional description to be shown.
  * @param completedFields: number of completed fields.
+ * @param totalFields: total number of fields.
  * @param state: [SectionState] can be OPEN, CLOSE, FIXED or NO_HEADER.
  * @param errorCount: number of errors in section.
  * @param errorMessage: error message to be used.

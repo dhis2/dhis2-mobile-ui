@@ -56,7 +56,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
  * with Input Org Unit, wraps DHIS2 [BottomSheetShell].
  * @param orgTreeItems list of [OrgTreeItem] with Org tree information
  * @param title: Header.
- * @param subTitle: optional subtitle.
+ * @param subtitle: optional subtitle.
  * @param description: optional description.
  * @param clearAllButtonText: text for clear all button.
  * @param doneButtonText: text for accept button.
@@ -65,6 +65,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
  * @param onSearch: access to the on search event.
  * @param onDismiss: access to the on dismiss event.
  * @param onItemSelected: access to the on item selected event.
+ * @param onItemClick: access to onItemClick event.
  * @param onClearAll: access to the on clear all event.
  * @param onDone: access to the on done event.
  * @param modifier width and size of the barcode.
