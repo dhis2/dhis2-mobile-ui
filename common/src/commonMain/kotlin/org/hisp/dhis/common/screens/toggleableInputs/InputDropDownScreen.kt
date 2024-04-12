@@ -2,11 +2,7 @@ package org.hisp.dhis.common.screens.toggleableInputs
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.DropdownItem
@@ -145,6 +141,26 @@ fun InputDropDownScreen() {
                 selectedItem3 = it
             },
             selectedItem = selectedItem3,
+        )
+        Spacer(Modifier.size(Spacing.Spacing18))
+
+        SubTitle("Input Dropdown with 5000 items ", textColor = TextColor.OnSurfaceVariant)
+        val dropdownItems = mutableListOf<DropdownItem>()
+        for (i in 1..5000) {
+            dropdownItems.add(DropdownItem("$i"))
+        }
+
+        InputDropDown(
+            title = "Label",
+            state = InputShellState.UNFOCUSED,
+            dropdownItems = dropdownItems,
+            onResetButtonClicked = {
+                selectedItem = null
+            },
+            onItemSelected = {
+                selectedItem = it
+            },
+            selectedItem = selectedItem,
         )
         Spacer(Modifier.size(Spacing.Spacing18))
     }

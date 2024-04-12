@@ -40,6 +40,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 
 private const val INLINE_CHECKBOXES_MIN_REQ_ITEMS = 6
+private const val MAX_CHECKBOXES_ITEMS_TO_SHOW = 50
 
 /**
  * DHIS2 input multi selection component.
@@ -69,6 +70,7 @@ fun InputMultiSelection(
     onItemsSelected: (List<CheckBoxData>) -> Unit,
     modifier: Modifier = Modifier,
     noResultsFoundString: String = provideStringResource("no_results_found"),
+    searchToFindMoreString: String = provideStringResource("search_to_find_more_option"),
     doneButtonText: String = provideStringResource("done"),
     inputStyle: InputStyle = InputStyle.DataInputStyle(),
     onClearItemSelection: () -> Unit,
@@ -224,6 +226,7 @@ fun InputMultiSelection(
                 items = items,
                 title = title,
                 noResultsFoundString = noResultsFoundString,
+                searchToFindMoreString = searchToFindMoreString,
                 doneButtonText = doneButtonText,
                 onItemsSelected = {
                     onItemsSelected(it)
@@ -268,6 +271,7 @@ fun MultiSelectBottomSheet(
     items: List<CheckBoxData>,
     title: String,
     noResultsFoundString: String,
+    searchToFindMoreString: String,
     doneButtonText: String,
     onItemsSelected: (List<CheckBoxData>) -> Unit,
     onDismiss: () -> Unit,
@@ -289,19 +293,30 @@ fun MultiSelectBottomSheet(
                     .padding(top = Spacing.Spacing8),
             ) {
                 if (filteredOptions.isNotEmpty()) {
-                    filteredOptions.forEachIndexed { index, item ->
-                        CheckBox(
-                            checkBoxData = item.copy(
-                                textInput = bottomSheetItemLabel(
-                                    text = item.textInput!!,
-                                    searchQuery = searchQuery,
+                    filteredOptions
+                        .take(MAX_CHECKBOXES_ITEMS_TO_SHOW)
+                        .forEachIndexed { index, item ->
+                            CheckBox(
+                                checkBoxData = item.copy(
+                                    textInput = bottomSheetItemLabel(
+                                        text = item.textInput!!,
+                                        searchQuery = searchQuery,
+                                    ),
                                 ),
-                            ),
-                            onCheckedChange = {
-                                filteredOptions[index] = item.copy(checked = it)
-                                itemsModified[index] = item.copy(checked = it)
-                            },
-                            modifier = Modifier.fillMaxWidth(),
+                                onCheckedChange = {
+                                    filteredOptions[index] = item.copy(checked = it)
+                                    itemsModified[index] = item.copy(checked = it)
+                                },
+                                modifier = Modifier.fillMaxWidth(),
+                            )
+                        }
+                    if (filteredOptions.size > MAX_CHECKBOXES_ITEMS_TO_SHOW) {
+                        Text(
+                            text = searchToFindMoreString,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(24.dp),
                         )
                     }
                 } else {

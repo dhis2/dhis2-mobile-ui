@@ -37,6 +37,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2SCustomTextStyles
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing0
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing16
@@ -45,6 +46,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
 private const val MAX_DROPDOWN_ITEMS = 6
+private const val MAX_DROPDOWN_ITEMS_TO_SHOW = 50
 
 /**
  * DHIS2 Input dropdown. Wraps DHIS · [DropdownInputField].
@@ -81,7 +83,8 @@ fun InputDropDown(
     onResetButtonClicked: () -> Unit,
     onItemSelected: (DropdownItem) -> Unit,
     showSearchBar: Boolean = true,
-    noResultsFoundString: String = "No results found",
+    noResultsFoundString: String = provideStringResource("no_results_found"),
+    searchToFindMoreString: String = provideStringResource("search_to_find_more_option")
 ) {
     val focusRequester = remember { FocusRequester() }
     var showDropdown by remember { mutableStateOf(false) }
@@ -113,8 +116,12 @@ fun InputDropDown(
             if (showDropdown) {
                 var searchQuery by remember { mutableStateOf("") }
 
-                val filteredOptions =
-                    dropdownItems.filter { it.label.contains(searchQuery, ignoreCase = true) }
+                var filteredOptions = dropdownItems
+
+                if (searchQuery.isNotEmpty()) {
+                    filteredOptions =
+                        dropdownItems.filter { it.label.contains(searchQuery, ignoreCase = true) }
+                }
 
                 BottomSheetShell(
                     modifier = Modifier.testTag("INPUT_DROPDOWN_BOTTOM_SHEET"),
@@ -126,16 +133,27 @@ fun InputDropDown(
                                 .padding(top = Spacing8),
                         ) {
                             if (filteredOptions.isNotEmpty()) {
-                                filteredOptions.forEachIndexed { index, item ->
-                                    DropdownItem(
-                                        modifier = Modifier.testTag("INPUT_DROPDOWN_BOTTOM_SHEET_ITEM_$index"),
-                                        item = item,
-                                        selected = selectedItem == item,
-                                        contentPadding = PaddingValues(Spacing8),
-                                        onItemClick = {
-                                            onItemSelected(item)
-                                            showDropdown = false
-                                        },
+                                filteredOptions
+                                    .take(MAX_DROPDOWN_ITEMS_TO_SHOW)
+                                    .forEachIndexed { index, item ->
+                                        DropdownItem(
+                                            modifier = Modifier.testTag("INPUT_DROPDOWN_BOTTOM_SHEET_ITEM_$index"),
+                                            item = item,
+                                            selected = selectedItem == item,
+                                            contentPadding = PaddingValues(Spacing8),
+                                            onItemClick = {
+                                                onItemSelected(item)
+                                                showDropdown = false
+                                            },
+                                        )
+                                    }
+                                if (filteredOptions.size > MAX_DROPDOWN_ITEMS) {
+                                    Text(
+                                        text = searchToFindMoreString,
+                                        textAlign = TextAlign.Center,
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .padding(24.dp),
                                     )
                                 }
                             } else {
