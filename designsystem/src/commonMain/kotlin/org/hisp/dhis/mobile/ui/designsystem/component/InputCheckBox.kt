@@ -7,7 +7,10 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Cancel
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.testTag
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
@@ -42,8 +45,12 @@ fun InputCheckBox(
     onItemChange: (CheckBoxData) -> Unit,
     onClearSelection: () -> Unit,
 ) {
+    val focusRequester = remember { FocusRequester() }
+
     InputShell(
-        modifier = modifier.testTag("INPUT_CHECK_BOX"),
+        modifier = modifier
+            .focusRequester(focusRequester)
+            .testTag("INPUT_CHECK_BOX"),
         isRequiredField = isRequired,
         title = title,
         state = state,
@@ -70,7 +77,10 @@ fun InputCheckBox(
                 orientation = orientation,
                 content = updatedCheckBoxData,
                 modifier = Modifier.offset(x = -Spacing.Spacing8),
-                onItemChange = onItemChange,
+                onItemChange = {
+                    focusRequester.requestFocus()
+                    onItemChange.invoke(it)
+                },
             )
         },
         primaryButton = {
@@ -85,6 +95,7 @@ fun InputCheckBox(
                         )
                     },
                     onClick = {
+                        focusRequester.requestFocus()
                         onClearSelection.invoke()
                     },
                 )

@@ -8,7 +8,10 @@ import androidx.compose.material.icons.outlined.Cancel
 import androidx.compose.material3.Icon
 import androidx.compose.material3.RadioButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.testTag
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState.DISABLED
 import org.hisp.dhis.mobile.ui.designsystem.component.Orientation.VERTICAL
@@ -45,8 +48,11 @@ fun InputRadioButton(
     itemSelected: RadioButtonData? = null,
     onItemChange: (RadioButtonData?) -> Unit,
 ) {
+    val focusRequester = remember { FocusRequester() }
     InputShell(
-        modifier = modifier.testTag("RADIO_BUTTON_INPUT"),
+        modifier = modifier
+            .focusRequester(focusRequester)
+            .testTag("RADIO_BUTTON_INPUT"),
         isRequiredField = isRequired,
         title = title,
         state = state,
@@ -74,7 +80,10 @@ fun InputRadioButton(
                 content = updatedRadioButtonData,
                 itemSelected = itemSelected,
                 modifier = Modifier.offset(x = -Spacing.Spacing8),
-                onItemChange = onItemChange,
+                onItemChange = {
+                    focusRequester.requestFocus()
+                    onItemChange.invoke(it)
+                },
             )
         },
         primaryButton = {
@@ -89,6 +98,7 @@ fun InputRadioButton(
                         )
                     },
                     onClick = {
+                        focusRequester.requestFocus()
                         onItemChange.invoke(null)
                     },
                 )

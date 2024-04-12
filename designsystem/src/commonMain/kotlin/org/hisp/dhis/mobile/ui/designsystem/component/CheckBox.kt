@@ -1,6 +1,7 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.focusable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -53,6 +54,7 @@ fun CheckBox(
         horizontalArrangement = Arrangement.spacedBy(Spacing.Spacing0, Alignment.Start),
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
+            .focusable()
             .clickable(
                 interactionSource = interactionSource,
                 indication = null,

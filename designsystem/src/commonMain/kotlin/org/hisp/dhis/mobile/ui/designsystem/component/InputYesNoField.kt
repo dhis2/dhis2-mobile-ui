@@ -6,7 +6,10 @@ import androidx.compose.material.icons.outlined.Cancel
 import androidx.compose.material3.Icon
 import androidx.compose.material3.RadioButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.testTag
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
@@ -36,8 +39,12 @@ fun InputYesNoField(
     itemSelected: InputYesNoFieldValues? = null,
     onItemChange: (InputYesNoFieldValues?) -> Unit,
 ) {
+    val focusRequester = remember { FocusRequester() }
+
     InputShell(
-        modifier = modifier.testTag("INPUT_YES_NO_FIELD"),
+        modifier = modifier
+            .focusRequester(focusRequester)
+            .testTag("INPUT_YES_NO_FIELD"),
         isRequiredField = isRequired,
         title = title,
         state = state,
@@ -70,6 +77,7 @@ fun InputYesNoField(
                 options.find { it.selected },
                 Modifier.offset(x = -Spacing.Spacing8),
             ) { radioButtonData ->
+                focusRequester.requestFocus()
                 onItemChange.invoke(
                     InputYesNoFieldValues.entries.firstOrNull { it.name.equals(radioButtonData.uid, true) },
                 )
@@ -87,6 +95,7 @@ fun InputYesNoField(
                         )
                     },
                     onClick = {
+                        focusRequester.requestFocus()
                         onItemChange.invoke(null)
                     },
                 )

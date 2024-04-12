@@ -19,6 +19,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.unit.IntOffset
@@ -39,6 +40,7 @@ fun InputChip(
     onIconSelected: (() -> Unit)? = null,
     badge: String? = null,
     hasTransparentBackground: Boolean = false,
+    focusRequester: FocusRequester? = null,
 ) {
     Box(modifier = modifier) {
         val filterChipColors = if (hasTransparentBackground) {
@@ -57,6 +59,7 @@ fun InputChip(
             androidx.compose.material3.InputChip(
                 enabled = enabled,
                 onClick = {
+                    focusRequester?.requestFocus()
                     onSelected?.invoke(!selected)
                 },
                 label = {
@@ -84,6 +87,7 @@ fun InputChip(
                             modifier = Modifier
                                 .size(FilterChipDefaults.IconSize)
                                 .clickable {
+                                    focusRequester?.requestFocus()
                                     onIconSelected?.invoke()
                                 },
                         )

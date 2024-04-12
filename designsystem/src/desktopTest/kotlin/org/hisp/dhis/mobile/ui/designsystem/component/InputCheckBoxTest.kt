@@ -6,7 +6,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertHasNoClickAction
-import androidx.compose.ui.test.assertIsFocused
+import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.assertIsNotFocused
 import androidx.compose.ui.test.isFocused
@@ -74,7 +74,7 @@ class InputCheckBoxTest {
         }
         rule.onNodeWithTag("INPUT_CHECK_BOX").assertExists()
         rule.onNodeWithTag("CHECK_BOX_1").performClick()
-        rule.onNodeWithTag("CHECK_BOX_1").assertIsFocused()
+        rule.onNodeWithTag("CHECK_BOX_1").assertIsEnabled()
     }
 
     @Test

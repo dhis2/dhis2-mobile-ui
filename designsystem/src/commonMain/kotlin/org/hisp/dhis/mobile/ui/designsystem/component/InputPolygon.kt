@@ -1,5 +1,6 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
+import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -10,7 +11,10 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.testTag
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
@@ -47,8 +51,11 @@ fun InputPolygon(
     onResetButtonClicked: () -> Unit,
     onUpdateButtonClicked: () -> Unit,
 ) {
+    val focusRequester = remember { FocusRequester() }
     InputShell(
-        modifier = modifier.testTag("INPUT_POLYGON"),
+        modifier = modifier
+            .focusRequester(focusRequester)
+            .testTag("INPUT_POLYGON"),
         title = title,
         state = state,
         isRequiredField = isRequired,
@@ -69,6 +76,7 @@ fun InputPolygon(
         inputField = {
             if (polygonAdded) {
                 Text(
+                    modifier = Modifier.focusable(),
                     text = polygonText!!,
                     style = MaterialTheme.typography.bodyLarge.copy(
                         color = if (state != InputShellState.DISABLED) {
@@ -94,8 +102,10 @@ fun InputPolygon(
                     Modifier
                         .fillMaxWidth()
                         .padding(end = Spacing.Spacing12, top = Spacing.Spacing8, bottom = Spacing.Spacing8)
+                        .focusable()
                         .testTag("INPUT_POLYGON_ADD_BUTTON"),
                 ) {
+                    focusRequester.requestFocus()
                     onUpdateButtonClicked.invoke()
                 }
             }
@@ -110,7 +120,10 @@ fun InputPolygon(
                             contentDescription = "Reset Button",
                         )
                     },
-                    onClick = onResetButtonClicked,
+                    onClick = {
+                        focusRequester.requestFocus()
+                        onResetButtonClicked.invoke()
+                    },
                 )
             }
         } else {
@@ -127,7 +140,10 @@ fun InputPolygon(
                             contentDescription = "edit_polygon",
                         )
                     },
-                    onClick = onUpdateButtonClicked,
+                    onClick = {
+                        focusRequester.requestFocus()
+                        onUpdateButtonClicked.invoke()
+                    },
                 )
             }
         } else {
