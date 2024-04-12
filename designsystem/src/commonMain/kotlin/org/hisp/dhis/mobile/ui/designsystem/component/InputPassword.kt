@@ -28,7 +28,6 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
 /**
  * DHIS2 Input Password.
- * Input intended for login screens.
  * @param uiModel: an [InputPasswordModel] with all the parameters for the input.
  * @param modifier: optional modifier.
  */
