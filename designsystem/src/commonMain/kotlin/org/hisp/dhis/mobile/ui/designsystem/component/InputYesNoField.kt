@@ -17,15 +17,16 @@ import java.util.Locale
 
 /**
  * DHIS2 Input Yes/No Field. Wraps DHIS · [RadioButton].
- * @param title controls the text to be shown for the title
- * @param modifier allows a modifier to be passed externally
- * @param state Manages the InputShell state
- * @param supportingText is a list of SupportingTextData that
- * manages all the messages to be shown
- * @param legendData manages the legendComponent
- * @param isRequired controls whether the field is mandatory or not
- * @param itemSelected controls which item is selected.
- * @param onItemChange is a callback to notify which item has changed into the block.
+ * @param title: controls the text to be shown for the title.
+ * @param modifier: allows a modifier to be passed externally.
+ * @param state: Manages the InputShell state.
+ * @param inputStyle: manages the InputShell style.
+ * @param supportingText: is a list of SupportingTextData that
+ * manages all the messages to be shown.
+ * @param legendData: manages the legendComponent.
+ * @param isRequired: controls whether the field is mandatory or not.
+ * @param itemSelected: controls which item is selected.
+ * @param onItemChange: is a callback to notify which item has changed into the block.
  */
 @Composable
 fun InputYesNoField(

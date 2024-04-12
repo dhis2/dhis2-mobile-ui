@@ -29,19 +29,20 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
 /**
  * DHIS2 Input coordinate. Wraps DHIS · [InputShell].
- * @param title controls the text to be shown for the title
- * @param state Manages the InputShell state
- * @param supportingText is a list of SupportingTextData that
- * manages all the messages to be shown
- * @param legendData manages the legendComponent
- * @param coordinates controls the latitude and longitude of the location
- * @param latitudeText controls the text to be shown for the latitude label
- * @param longitudeText controls the text to be shown for the longitude label
- * @param addLocationBtnText controls the text to be shown for the add polygon button
- * @param isRequired controls whether the field is mandatory or not
- * @param modifier allows a modifier to be passed externally
- * @param onResetButtonClicked callback to when reset button is clicked
- * @param onUpdateButtonClicked callback to when add button or edit icon is clicked
+ * @param title: controls the text to be shown for the title.
+ * @param state: Manages the InputShell state.
+ * @param inputStyle: manages the InputShell style.
+ * @param supportingText: is a list of SupportingTextData that
+ * manages all the messages to be shown.
+ * @param legendData: manages the legendComponent.
+ * @param coordinates: controls the latitude and longitude of the location.
+ * @param latitudeText: controls the text to be shown for the latitude label.
+ * @param longitudeText: controls the text to be shown for the longitude label.
+ * @param addLocationBtnText: controls the text to be shown for the add polygon button.
+ * @param isRequired: controls whether the field is mandatory or not.
+ * @param modifier: allows a modifier to be passed externally.
+ * @param onResetButtonClicked: callback to when reset button is clicked.
+ * @param onUpdateButtonClicked: callback to when add button or edit icon is clicked.
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable

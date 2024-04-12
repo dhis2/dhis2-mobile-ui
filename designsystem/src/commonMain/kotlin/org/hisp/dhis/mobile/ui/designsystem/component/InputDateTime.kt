@@ -68,12 +68,14 @@ import java.util.Locale
 import java.util.TimeZone
 
 /**
+ * DHIS2 Input Date Time
  * Input field to enter date, time or date&time. It will format content based on given visual
  * transformation.
  * component uses Material 3 [DatePicker] and [TimePicker]
  * input formats supported are mentioned in the date time input ui model documentation.
  * [DatePicker] Input mode  will always follow locale format.
- * @param uiModel an [InputDateTimeModel] with all the parameters for the input
+ * @param uiModel: an [InputDateTimeModel] with all the parameters for the input
+ * @param modifier: optional modifier.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -441,28 +443,32 @@ enum class DateTimeActionType {
 /**
  * UiModel used for [InputDateTime]
  * @param title : Label of the component.
- * @param inputTextFieldValue: Input of the component in the format of ddMMyyyy/HHMM/ddMMyyyyHHMM
- * @param allowsManualInput: if true the user can utilize the keyboard to enter the date
+ * @param inputTextFieldValue: Input of the component in the format of ddMMyyyy/HHMM/ddMMyyyyHHMM.
+ * @param allowsManualInput: if true the user can utilize the keyboard to enter the date.
  * @param actionType: Type of action icon to display. [DateTimeActionType.DATE_TIME], [DateTimeActionType.DATE], [DateTimeActionType.TIME]
- * @param onActionClicked: Callback to override the action when the calendar icon is clicked, if null
+ * @param onActionClicked: Callback to override the action when the calendar icon is clicked.
  * material3 DatePicker or Timepicker will be used calling onValueChanged after selecting a date or time.
  * @param state: [InputShellState]
  * @param legendData: [LegendData]
  * @param supportingText: List of [SupportingTextData] that manages all the messages to be shown.
- * @param onNextClicked: gives access to the on next callback
- * @param onFocusChanged: gives access to the on Focus changed callback
- * @param isRequired: Mark this input as marked
- * @param visualTransformation: Pass a visual transformation to format the date input visually. By default uses [DateTransformation]
+ * @param onNextClicked: gives access to the on next callback.
+ * @param onFocusChanged: gives access to the on Focus changed callback.
+ * @param isRequired: Mark this input as marked.
+ * @param visualTransformation: Pass a visual transformation to format the date input visually. By default uses [DateTransformation].
  * @param format: the date value format, current supported formats are -> ddMMyyyy and MMddyyyy.
  * @param is24hourFormat: only applies if input is of type DateTime or Time, manages whether the
  * TimePicker is on 24 hour format or not.
- * @param inputStyle: gives access to [InputShell] style parameters
+ * @param inputStyle: gives access to [InputShell] style parameters.
  * @param selectableDates: a [SelectableDates] object that takes in two dates as strings in ddMMyyyy format and
- * will not allow selection for the date picker, default value will be -> SelectableDates("01011940","12312300")
- * @param acceptText: manages the [DatePicker] confirm button text
- * @param cancelText: manages the [DatePicker] cancel button text
- * @param yearRange: manages the year range to be shown
- * @param onValueChanged: Callback to receive changes in the input in the format of ddMMyyyy/HHMM/ddMMyyyyHHMM/MMddyyyy/MMddyyyyHHMM
+ * will not allow selection for the date picker, default value will be -> SelectableDates("01011940","12312300").
+ * @param acceptText: manages the [DatePicker] confirm button text.
+ * @param cancelText: manages the [DatePicker] cancel button text.
+ * @param yearRange: manages the year range to be shown.
+ * @param onValueChanged: Callback to receive changes in the input in the following formats:
+ * <ddMMyyyy>, <HHMM>,  <ddMMyyyyHHMM>.
+ * @param imeAction: the keyboard [ImeAction]
+ * @param incorrectHourFormatText: error text to be used if hour format is incorrect.
+ * @param outOfRangeText: error text to be used if date is out of range.
  */
 data class InputDateTimeModel(
     val title: String,

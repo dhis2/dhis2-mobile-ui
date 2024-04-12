@@ -26,6 +26,11 @@ import androidx.compose.ui.text.input.VisualTransformation
 import org.hisp.dhis.mobile.ui.designsystem.component.model.InputPasswordModel
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
+/**
+ * DHIS2 Input Password.
+ * @param uiModel: an [InputPasswordModel] with all the parameters for the input.
+ * @param modifier: optional modifier.
+ */
 @Composable
 fun InputPassword(
     uiModel: InputPasswordModel,

@@ -26,6 +26,17 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Ripple
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
+/**
+ * DHIS2 [FilterChip] button with generic icon slot.
+ * wraps Material 3 [FilterChip].
+ * Chips help people enter information, make selections,
+ * filter content, or trigger actions.
+ * @param label: the text to be shown.
+ * @param selected: whether the chip is selected or not.
+ * @param modifier: optional [Modifier].
+ * @param onSelected: Will be called when the user taps the chip.
+ * @param badge: the text to be displayed within the badge.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FilterChip(

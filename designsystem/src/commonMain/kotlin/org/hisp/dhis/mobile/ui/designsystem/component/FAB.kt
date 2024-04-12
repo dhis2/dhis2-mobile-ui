@@ -17,6 +17,17 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.shadow
 
+/**
+ * DHIS2 [FAB] button with generic icon slot.
+ * wraps Material 3 [FloatingActionButton].
+ * FABs help people take primary actions.
+ * They’re used to represent the most important action on a screen.
+ * @param style: Controls style of the button. Can be
+ * [FABStyle.PRIMARY] or [FABStyle.SECONDARY] or [FABStyle.SURFACE]
+ * @param icon: The button icon content.
+ * @param modifier: optional [Modifier].
+ * @param onClick: Will be called when the user clicks the button.
+ */
 @Composable
 fun FAB(
     modifier: Modifier = Modifier,
@@ -40,6 +51,18 @@ fun FAB(
     )
 }
 
+/**
+ * DHIS2 [ExtendedFAB] button with generic icon slot.
+ * wraps Material 3 [ExtendedFloatingActionButton].
+ * FABs help people take primary actions.
+ * They’re used to represent the most important action on a screen.
+ * @param style: Controls style of the button. Can be
+ * [FABStyle.PRIMARY] or [FABStyle.SECONDARY] or [FABStyle.SURFACE]
+ * @param icon: The button icon content.
+ * @param modifier: optional [Modifier].
+ * @param onClick: Will be called when the user clicks the button.
+ * @param text: the text to be displayed.
+ */
 @Composable
 fun ExtendedFAB(
     modifier: Modifier = Modifier,

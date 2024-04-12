@@ -33,21 +33,22 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.textFieldHoverPointerIcon
 
 /**
- * DHIS2 Basic Input. Wraps Material· [BasicTextField].
- * @param helper Manages the helper text to be shown
- * @param enabled Controls the enabled state of the component. When `false`, this component will not be
+ * DHIS2 Basic Input. Wraps Material 3· [BasicTextField].
+ * @param helper: Manages the helper text to be shown.
+ * @param enabled: Controls the enabled state of the component. When `false`, this component will not be
  * clickable and will appear disabled to accessibility services.
- * @param isSingleLine manages the number of lines to be allowed in the input field
- * @param helperStyle manages the helper text style, NONE by default
- * @param inputTextValue manages the value of the input field text
- * @param onInputChanged gives access to the onTextChangedEvent
- * @param modifier to pass a modifier if necessary
- * @param state manages the color of cursor depending on the state of parent component
- * @param keyboardOptions manages the ImeAction to be shown on the keyboard
- * @param visualTransformation manages custom visual transformation. When null is passed it
+ * @param isSingleLine: manages the number of lines to be allowed in the input field.
+ * @param helperStyle: manages the helper text style, NONE by default.
+ * @param inputTextValue: manages the value of the input field text.
+ * @param onInputChanged: gives access to the onTextChangedEvent.
+ * @param modifier: to pass a modifier if necessary.
+ * @param state: manages the color of cursor depending on the state of parent component.
+ * @param keyboardOptions: manages the ImeAction to be shown on the keyboard.
+ * @param visualTransformation: manages custom visual transformation. When null it
  * will use the visual transformation created based on helper style, when a visual transformation
  * is passed it will ignore the helper style.
- * @param onNextClicked gives access to the ImeAction event
+ * @param onNextClicked: gives access to the ImeAction event.
+ * @param onSearchClicked: gives access to the ImeAction Search event.
  */
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable

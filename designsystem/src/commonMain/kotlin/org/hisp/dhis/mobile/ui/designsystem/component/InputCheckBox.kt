@@ -15,21 +15,20 @@ import androidx.compose.ui.platform.testTag
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
 /**
- * DHIS2 Input Check Box. Wraps DHIS · [CheckBox].
- * @param title controls the text to be shown for the title
- * @param checkBoxData Contains all the data that will be displayed, the list type is CheckBoxData,
- * It's parameters are uid for identifying the component, checked for controlling which option is checked,
- * enabled controls if the component is clickable and textInput displaying the option text.
- * @param modifier allows a modifier to be passed externally
- * @param orientation Controls how the check boxes will be displayed, HORIZONTAL for rows or
+ * DHIS2 Input Check Box. Wraps DHIS · [InputShell].
+ * @param title: controls the text to be shown for the title.
+ * @param checkBoxData: data class [CheckBoxData] used for checkboxes to be displayed.
+ * @param modifier: allows a modifier to be passed externally.
+ * @param orientation: Controls how the check boxes will be displayed, HORIZONTAL for rows or
  * VERTICAL for columns.
- * @param state Manages the InputShell state
- * @param supportingText is a list of SupportingTextData that
- * manages all the messages to be shown
- * @param legendData manages the legendComponent
- * @param isRequired controls whether the field is mandatory or not
- * @param onItemChange is a callback to notify which item has changed into the block.
- * @param onClearSelection is a callback to notify all items has cleared into the block.
+ * @param state: Manages the InputShell state.
+ * @param supportingText: is a list of SupportingTextData that
+ * manages all the messages to be shown.
+ * @param legendData: manages the legendComponent.
+ * @param isRequired: controls whether the field is mandatory or not.
+ * @param inputStyle: manages the InputShell style.
+ * @param onItemChange: is a callback to notify which item has changed into the block.
+ * @param onClearSelection: is a callback to notify all items has cleared into the block.
  */
 @Composable
 fun InputCheckBox(

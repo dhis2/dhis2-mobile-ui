@@ -41,19 +41,12 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
 /**
- * Input filed to enter date-of-birth or age
- *
- * @param title: Label of the component.
- * @param inputType: The type of input :
- *  [None] : default,
- *  [DateOfBirth] : In ddmmyyyy format,
- *  [Age]: Age value with appropriate time unit
- * @param onCalendarActionClicked: Callback to handle the action when the calendar icon is clicked.
- * @param state: [InputShellState]
- * @param legendData: [LegendData]
- * @param supportingText: List of [SupportingTextData] that manages all the messages to be shown.
- * @param isRequired: Mark this input as marked
- * @param onValueChanged: Callback to receive changes in the input
+ * DHIS2 Input Age component wraps DHIS2 [InputShell].
+ * Users can enter their age either through Material 3's [DatePicker]
+ * or through a Unit Interval selector that can be  [TimeUnitValues.YEARS],
+ * [TimeUnitValues.MONTHS] or [TimeUnitValues.DAYS].
+ * @param uiModel: data class [InputAgeModel] with all parameters for component.
+ * @param modifier: optional modifier.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -328,6 +321,29 @@ sealed interface AgeInputType {
         }
     }
 }
+
+/**
+ * Data model used for DHIS2  [InputAge] component.
+ * @param title: Label of the component.
+ * @param inputType: The type of input :
+ *  [None] : default,
+ *  [DateOfBirth] : In ddmmyyyy format,
+ *  [Age]: Age value with appropriate time unit
+ * @param inputStyle: Input shell style.
+ * @param state: [InputShellState]
+ * @param legendData: [LegendData]
+ * @param supportingText: List of [SupportingTextData] that manages all the messages to be shown.
+ * @param isRequired: Mark this input as marked.
+ * @param imeAction: keyboard [ImeAction].
+ * @param onNextClicked: call back to on next event.
+ * @param dateOfBirthLabel: text for the the date of birth selector.
+ * @param orLabel: text for middle label.
+ * @param ageLabel: text for age selector.
+ * @param acceptText: text for date picker accept button.
+ * @param cancelText: text for date picker cancel button.
+ * @param onValueChanged: Callback to receive changes in the input.
+ * @param selectableDates: allowed dates for date picker.
+ */
 
 data class InputAgeModel(
     val title: String,

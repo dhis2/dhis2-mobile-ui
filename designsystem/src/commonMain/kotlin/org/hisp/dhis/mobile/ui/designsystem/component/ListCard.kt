@@ -58,18 +58,22 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.shadow
 
 /**
  * DHIS2 ListCard.
- * Component intended for TEI card display
- * @param title is the card title
- * @param lastUpdated shows the last time item was synchronized
- * @param additionalInfoList is a list of AdditionalInfoItem that
+ * Component intended for TEI/Event/DataSet card display.
+ * @param listAvatar: composable element to be used as avatar.
+ * @param title: is the card title.
+ * @param description: the text to be used in description.
+ * @param lastUpdated: shows the last time item was synchronized.
+ * @param additionalInfoList: is a list of AdditionalInfoItem that
  * manages all the key value types that will be shown
  * if there are more than three items that are not constant
- * a show more/less button will appear and the rest of items will be hidden
- * @param expandLabelText the text to be shown for expand button
- * @param shrinkLabelText the text to be shown for shrink button
- * @param actionButton composable parameter for the sync button
- * @param onCardClick gives access to click event on the main container
- * @param modifier allows a modifier to be passed externally
+ * a show more/less button will appear and the rest of items will be hidden.
+ * @param expandLabelText: the text to be shown for expand button.
+ * @param shrinkLabelText: the text to be shown for shrink button.
+ * @param actionButton: composable parameter for the sync button.
+ * @param onCardClick: gives access to click event on the main container.
+ * @param loading: controls visibility of the loading item.
+ * @param shadow: whether to show a shadow or not.
+ * @param modifier: allows a modifier to be passed externally.
  */
 @Composable
 fun ListCard(

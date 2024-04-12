@@ -23,18 +23,19 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
 /**
  * DHIS2 Input polygon. Wraps DHIS · [InputShell].
- * @param title controls the text to be shown for the title
- * @param state Manages the InputShell state
- * @param supportingText is a list of SupportingTextData that
- * manages all the messages to be shown
- * @param legendData manages the legendComponent
- * @param polygonText controls the text to be shown for the polygon label
- * @param addPolygonBtnText controls the text to be shown for the add polygon button
- * @param polygonAdded controls whether the polygon is added or not.
- * @param isRequired controls whether the field is mandatory or not
- * @param modifier allows a modifier to be passed externally
- * @param onResetButtonClicked callback to when reset button is clicked
- * @param onUpdateButtonClicked callback to when add button or edit icon is clicked
+ * @param title: controls the text to be shown for the title.
+ * @param state: Manages the InputShell state.
+ * @param inputStyle: manages the InputShell style.
+ * @param supportingText: is a list of SupportingTextData that.
+ * manages all the messages to be shown.
+ * @param legendData: manages the legendComponent.
+ * @param polygonText: controls the text to be shown for the polygon label.
+ * @param addPolygonBtnText: controls the text to be shown for the add polygon button.
+ * @param polygonAdded: controls whether the polygon is added or not.
+ * @param isRequired: controls whether the field is mandatory or not.
+ * @param modifier: allows a modifier to be passed externally.
+ * @param onResetButtonClicked: callback to when reset button is clicked.
+ * @param onUpdateButtonClicked: callback to when add button or edit icon is clicked.
  */
 @Composable
 fun InputPolygon(

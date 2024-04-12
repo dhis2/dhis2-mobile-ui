@@ -14,12 +14,14 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 
 /**
- * DHIS2 age field helper.
+ * DHIS2 age field helper ([TimeUnitSelector]).
  *
- * @param orientation Controls how the radio buttons will be displayed, HORIZONTAL for rows or
+ * @param orientation: Controls how the radio buttons will be displayed, HORIZONTAL for rows or
  * VERTICAL for columns.
- * @param optionSelected controls which item is selected.
- * @param onClick is a callback to notify which item has changed into the block.
+ * @param optionSelected: controls which item is selected.
+ * @param enabled: manages the enabled state
+ * @param onClick: is a callback to notify which item has changed into the block.
+ * @param modifier: optional modifier.
  */
 @Composable
 internal fun TimeUnitSelector(
