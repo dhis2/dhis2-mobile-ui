@@ -188,23 +188,22 @@ fun InputDropDown(
                         shape = RoundedCornerShape(Spacing8),
                     ).exposedDropdownSize().testTag("INPUT_DROPDOWN_MENU"),
                 ) {
-                    Column(modifier = Modifier.padding(horizontal = Spacing8)) {
-                        dropdownItems.forEachIndexed { index, item ->
-                            DropdownItem(
-                                modifier = Modifier.testTag("INPUT_DROPDOWN_MENU_ITEM_$index")
-                                    .padding(start = dropdownStartPadding(inputStyle)),
-                                item = item,
-                                selected = selectedItem == item,
-                                contentPadding = PaddingValues(
-                                    horizontal = Spacing8,
-                                    vertical = Spacing16,
-                                ),
-                                onItemClick = {
-                                    onItemSelected(item)
-                                    showDropdown = false
-                                },
-                            )
-                        }
+                    dropdownItems.forEachIndexed { index, item ->
+                        DropdownItem(
+                            modifier = Modifier.testTag("INPUT_DROPDOWN_MENU_ITEM_$index")
+                                .fillMaxWidth()
+                                .padding(start = dropdownStartPadding(inputStyle) + 8.dp),
+                            item = item,
+                            selected = selectedItem == item,
+                            contentPadding = PaddingValues(
+                                horizontal = Spacing8,
+                                vertical = Spacing16,
+                            ),
+                            onItemClick = {
+                                onItemSelected(item)
+                                showDropdown = false
+                            },
+                        )
                     }
                 }
             }
