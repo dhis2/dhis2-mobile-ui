@@ -84,7 +84,7 @@ fun InputDropDown(
     onItemSelected: (DropdownItem) -> Unit,
     showSearchBar: Boolean = true,
     noResultsFoundString: String = provideStringResource("no_results_found"),
-    searchToFindMoreString: String = provideStringResource("search_to_find_more_option")
+    searchToFindMoreString: String = provideStringResource("search_to_find_more_option"),
 ) {
     val focusRequester = remember { FocusRequester() }
     var showDropdown by remember { mutableStateOf(false) }
