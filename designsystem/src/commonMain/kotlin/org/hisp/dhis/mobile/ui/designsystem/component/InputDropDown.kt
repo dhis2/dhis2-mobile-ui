@@ -147,7 +147,7 @@ fun InputDropDown(
                                             },
                                         )
                                     }
-                                if (filteredOptions.size > MAX_DROPDOWN_ITEMS) {
+                                if (filteredOptions.size > MAX_DROPDOWN_ITEMS_TO_SHOW) {
                                     Text(
                                         text = searchToFindMoreString,
                                         textAlign = TextAlign.Center,
