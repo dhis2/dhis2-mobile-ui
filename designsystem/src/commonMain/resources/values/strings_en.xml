@@ -40,5 +40,5 @@
     <string name="select_date">Select date</string>
     <string name="date_out_of_range">Date out of range </string>
     <string name="wrong_hour_format">Incorrect time format </string>
-    <string name="search_to_find_more_option">Not all options are displayed.\n Search to see more.</string>
+    <string name="search_to_see_more">Not all options are displayed.\n Search to see more.</string>
 </resources>
