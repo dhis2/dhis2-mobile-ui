@@ -401,9 +401,9 @@ class InputDropDownTest {
     @Test
     fun shouldShowSearchForMoreOptionTextWhenMoreThan50Option() {
         val dropdownItems = mutableListOf<DropdownItem>()
-        for (i in 1 .. 100) {
+        for (i in 1..100) {
             dropdownItems.add(
-                DropdownItem("Option $i")
+                DropdownItem("Option $i"),
             )
         }
 

@@ -195,7 +195,7 @@ fun MultiSelectInputScreen() {
                     checked = i == 2,
                     enabled = true,
                     textInput = "Opt. $i",
-                )
+                ),
             )
         }
 
