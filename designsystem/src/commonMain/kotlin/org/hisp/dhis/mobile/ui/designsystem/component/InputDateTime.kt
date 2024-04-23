@@ -516,7 +516,7 @@ internal fun getDate(milliSeconds: Long?, format: String? = "ddMMyyyy"): String 
         if (gmtOffset < 0) {
             var day = formater.format(cal.time).substring(0, 2).toInt()
             day += 1
-            formater.format(cal.time).replaceRange(0,2, String.format("%02d", day))
+            formater.format(cal.time).replaceRange(0, 2, String.format("%02d", day))
         } else {
             formater.format(cal.time)
         }
