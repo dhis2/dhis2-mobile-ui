@@ -70,7 +70,7 @@ fun InputMultiSelection(
     onItemsSelected: (List<CheckBoxData>) -> Unit,
     modifier: Modifier = Modifier,
     noResultsFoundString: String = provideStringResource("no_results_found"),
-    searchToFindMoreString: String = provideStringResource("search_to_find_more_option"),
+    searchToFindMoreString: String = provideStringResource("search_to_see_more"),
     doneButtonText: String = provideStringResource("done"),
     inputStyle: InputStyle = InputStyle.DataInputStyle(),
     onClearItemSelection: () -> Unit,
