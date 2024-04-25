@@ -513,7 +513,13 @@ internal fun getDate(milliSeconds: Long?, format: String? = "ddMMyyyy"): String 
     return if (milliSeconds != null) {
         cal.timeInMillis = milliSeconds
         val formater = SimpleDateFormat(format)
-        formater.format(cal.time)
+        if (gmtOffset < 0) {
+            var day = formater.format(cal.time).substring(0, 2).toInt()
+            day += 1
+            formater.format(cal.time).replaceRange(0, 2, String.format("%02d", day))
+        } else {
+            formater.format(cal.time)
+        }
     } else {
         ""
     }
