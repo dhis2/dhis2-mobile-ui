@@ -192,7 +192,7 @@ internal fun ListCardKey(
     color: Color,
     modifier: Modifier = Modifier,
 ) {
-    var modifiedText by remember { mutableStateOf(text) }
+    var modifiedText by remember(text) { mutableStateOf(text) }
     Text(
         text = modifiedText,
         color = color,
