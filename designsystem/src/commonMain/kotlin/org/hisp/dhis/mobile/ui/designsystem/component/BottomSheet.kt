@@ -161,9 +161,8 @@ fun BottomSheetShell(
 ) {
     val sheetState = rememberModalBottomSheetState(true)
     val scope = rememberCoroutineScope()
-    
-    //TODO - hack to get navigation bar padding does not take into account IME padding (reflection)
-    //TODO - Should be remove when google publish https://issuetracker.google.com/issues/274872542
+    // TODO - hack to get navigation bar padding does not take into account IME padding (reflection)
+    // TODO - Should be remove when google publish https://issuetracker.google.com/issues/274872542
     val topInsets = WindowInsets(top = rememberDimensionByName("status_bar_height"))
     val bottomInsets = WindowInsets(bottom = rememberDimensionByName("navigation_bar_height"))
 
@@ -195,13 +194,13 @@ fun BottomSheetShell(
                 }
             }
         },
-        windowInsets = topInsets
+        windowInsets = topInsets,
     ) {
         val canScrollForward by derivedStateOf { contentScrollState.canScrollForward }
 
         Column(
             modifier = Modifier
-                .padding(bottomInsets.asPaddingValues())
+                .padding(bottomInsets.asPaddingValues()),
         ) {
             Column(
                 modifier = Modifier
