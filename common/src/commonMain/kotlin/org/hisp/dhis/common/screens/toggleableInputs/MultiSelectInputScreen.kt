@@ -186,5 +186,35 @@ fun MultiSelectInputScreen() {
             legendData = null,
             supportingTextData = null,
         )
+
+        val multiSelectItems = mutableListOf<CheckBoxData>()
+        for (i in 1..5000) {
+            multiSelectItems.add(
+                CheckBoxData(
+                    uid = "uid-$i",
+                    checked = i == 2,
+                    enabled = true,
+                    textInput = "Opt. $i",
+                ),
+            )
+        }
+
+        InputMultiSelection(
+            items = multiSelectItems,
+            title = "Multi Select more than 5000 items",
+            state = InputShellState.UNFOCUSED,
+            onItemsSelected = { selectedItems ->
+                selectedItems.forEach { selectedItem ->
+                    val index = multiSelectItems.indexOfFirst { it.uid == selectedItem.uid }
+                    multiSelectItems[index] = selectedItem
+                }
+            },
+            onClearItemSelection = {
+                multiSelectItems.replaceAll { it.copy(checked = false) }
+            },
+            isRequired = false,
+            legendData = null,
+            supportingTextData = null,
+        )
     }
 }

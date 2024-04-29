@@ -147,5 +147,25 @@ fun InputDropDownScreen() {
             selectedItem = selectedItem3,
         )
         Spacer(Modifier.size(Spacing.Spacing18))
+
+        SubTitle("Input Dropdown with 5000 items ", textColor = TextColor.OnSurfaceVariant)
+        val dropdownItems = mutableListOf<DropdownItem>()
+        for (i in 1..5000) {
+            dropdownItems.add(DropdownItem("$i"))
+        }
+
+        InputDropDown(
+            title = "Label",
+            state = InputShellState.UNFOCUSED,
+            dropdownItems = dropdownItems,
+            onResetButtonClicked = {
+                selectedItem = null
+            },
+            onItemSelected = {
+                selectedItem = it
+            },
+            selectedItem = selectedItem,
+        )
+        Spacer(Modifier.size(Spacing.Spacing18))
     }
 }

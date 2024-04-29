@@ -397,4 +397,48 @@ class InputDropDownTest {
         rule.onNodeWithTag("INPUT_DROPDOWN_BOTTOM_SHEET").assertDoesNotExist()
         assert(selectedItem == dropdownItems[2])
     }
+
+    @Test
+    fun shouldShowSearchForMoreOptionTextWhenMoreThan50Option() {
+        val dropdownItems = mutableListOf<DropdownItem>()
+        for (i in 1..100) {
+            dropdownItems.add(
+                DropdownItem("Option $i"),
+            )
+        }
+
+        val searchSemantics = "Search"
+
+        rule.setContent {
+            InputDropDown(
+                title = "Label",
+                dropdownItems = dropdownItems,
+                supportingTextData = listOf(SupportingTextData("Supporting text", SupportingTextState.DEFAULT)),
+                state = InputShellState.UNFOCUSED,
+                onResetButtonClicked = {},
+                onItemSelected = {},
+            )
+        }
+        rule.onNodeWithTag("INPUT_DROPDOWN").assertExists()
+        rule.onNodeWithTag("INPUT_DROPDOWN_ARROW_BUTTON").performClick()
+        rule.onNodeWithTag("INPUT_DROPDOWN_BOTTOM_SHEET").assertExists()
+        rule.onNodeWithTag("INPUT_DROPDOWN_BOTTOM_SHEET_ITEMS").onChildren().assertCountEquals(51)
+        rule.onNodeWithContentDescription(searchSemantics).assertExists()
+
+        rule.onNodeWithTag("INPUT_DROPDOWN_BOTTOM_SHEET_ITEMS").onChildren().assertCountEquals(51)
+        rule.onNodeWithText("Not all options are displayed.\\n Search to see more.").assertExists()
+
+        // Search
+        rule.onNodeWithContentDescription(searchSemantics).performTextInput("5")
+        rule.onNodeWithTag("INPUT_DROPDOWN_BOTTOM_SHEET_ITEMS").onChildren().assertCountEquals(19)
+        rule.onNodeWithText("Not all options are displayed.\\n Search to see more.").assertDoesNotExist()
+
+        rule.onNodeWithContentDescription(searchSemantics).performTextInput("55")
+        rule.onNodeWithTag("INPUT_DROPDOWN_BOTTOM_SHEET_ITEMS").onChildren().assertCountEquals(1)
+        rule.onNodeWithText("Not all options are displayed.\\n Search to see more.").assertDoesNotExist()
+
+        rule.onNodeWithContentDescription(searchSemantics).performTextInput("555")
+        rule.onNodeWithTag("INPUT_DROPDOWN_BOTTOM_SHEET_ITEMS").onChildren().assertCountEquals(1)
+        rule.onNodeWithText("No results found").assertExists()
+    }
 }
