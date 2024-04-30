@@ -6,12 +6,13 @@ import androidx.compose.foundation.gestures.ScrollableState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -34,6 +35,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
+import org.hisp.dhis.mobile.ui.designsystem.component.internal.bottomSheet.rememberDimensionByName
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
@@ -159,6 +161,10 @@ fun BottomSheetShell(
 ) {
     val sheetState = rememberModalBottomSheetState(true)
     val scope = rememberCoroutineScope()
+    // TODO - hack to get navigation bar padding does not take into account IME padding (reflection)
+    // TODO - Should be remove when google publish https://issuetracker.google.com/issues/274872542
+    val topInsets = WindowInsets(top = rememberDimensionByName("status_bar_height"))
+    val bottomInsets = WindowInsets(bottom = rememberDimensionByName("navigation_bar_height"))
 
     ModalBottomSheet(
         modifier = modifier,
@@ -188,11 +194,13 @@ fun BottomSheetShell(
                 }
             }
         },
+        windowInsets = topInsets,
     ) {
         val canScrollForward by derivedStateOf { contentScrollState.canScrollForward }
 
         Column(
-            modifier = Modifier.systemBarsPadding(),
+            modifier = Modifier
+                .padding(bottomInsets.asPaddingValues()),
         ) {
             Column(
                 modifier = Modifier
