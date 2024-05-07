@@ -8,6 +8,7 @@ plugins {
     id("org.jetbrains.compose") apply false
     id("org.jlleitschuh.gradle.ktlint") version "11.5.1"
     id("org.jetbrains.dokka") version "1.9.20"
+    id("io.github.gradle-nexus.publish-plugin") version "1.3.0"
 }
 
 allprojects {
@@ -64,6 +65,18 @@ subprojects {
                     )
                 }
             }
+        }
+    }
+}
+
+val ossrhUsername: String? = System.getenv("OSSRH_USERNAME")
+val ossrhPassword: String? = System.getenv("OSSRH_PASSWORD")
+
+nexusPublishing {
+    this.repositories {
+        sonatype {
+            username.set(ossrhUsername)
+            password.set(ossrhPassword)
         }
     }
 }

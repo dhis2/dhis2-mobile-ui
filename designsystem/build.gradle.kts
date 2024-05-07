@@ -9,6 +9,14 @@ plugins {
     id("app.cash.paparazzi").version("1.3.3")
 }
 
+/**
+ * Property from the Gradle command line. To remove the snapshot suffix from the version.
+ */
+if (project.hasProperty("removeSnapshotSuffix")) {
+    val mainVersion = (version as String).split("-SNAPSHOT")[0]
+    version = mainVersion
+}
+
 kotlin {
     androidTarget {
         publishLibraryVariants("release")
