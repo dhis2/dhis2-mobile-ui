@@ -63,3 +63,10 @@ signing {
     useInMemoryPgpKeys(signingPrivateKey, signingPassword)
     sign(publishing.publications)
 }
+
+// Fix Gradle warning about signing tasks using publishing task outputs without explicit dependencies
+// https://github.com/gradle/gradle/issues/26091
+tasks.withType<AbstractPublishToMaven>().configureEach {
+    val signingTasks = tasks.withType<Sign>()
+    mustRunAfter(signingTasks)
+}
