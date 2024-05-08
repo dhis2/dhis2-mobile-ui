@@ -3,7 +3,7 @@ set -x
 branch=$(git rev-parse --abbrev-ref HEAD)
 
 if [ "$branch" = "main-test" ]; then
-  ./gradlew publishToSonatype -PremoveSnapshotSuffix
+  ./gradlew :designsystem:publishToSonatype -PremoveSnapshotSuffix
 else
-  ./gradlew publishToSonatype
+  ./gradlew :designsystem:publishToSonatype
 fi
