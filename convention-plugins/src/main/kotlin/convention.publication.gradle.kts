@@ -59,8 +59,6 @@ publishing {
 
 // Signing artifacts. Signing.* extra properties values will be used
 signing {
-    println("Version: $version")
-    println("SigningPrivateKey: $signingPrivateKey")
     setRequired({ !version.toString().endsWith("-SNAPSHOT") })
     useInMemoryPgpKeys(signingPrivateKey, signingPassword)
     sign(publishing.publications)
