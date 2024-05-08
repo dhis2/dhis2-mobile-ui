@@ -1,4 +1,3 @@
-group = "org.hisp.dhis.mobile"
 version = "0.2-SNAPSHOT"
 
 plugins {

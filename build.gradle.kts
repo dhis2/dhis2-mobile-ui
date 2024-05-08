@@ -1,6 +1,8 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
+group = "org.hisp.dhis.mobile"
+
 plugins {
     kotlin("multiplatform") apply false
     id("com.android.application") apply false
