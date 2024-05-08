@@ -3,7 +3,7 @@ set -x
 branch=$(git rev-parse --abbrev-ref HEAD)
 
 if [ "$branch" = "main" ]; then
-  ./gradlew :designSystem:publishToSonatype closeAndReleaseSonatypeStagingRepository -PremoveSnapshotSuffix
+  ./gradlew publishToSonatype closeAndReleaseSonatypeStagingRepository -PremoveSnapshotSuffix --project-dir designSystem
 else
-  ./gradlew :designSystem:publishToSonatype
+  ./gradlew publishToSonatype --project-dir designSystem
 fi
