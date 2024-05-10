@@ -8,7 +8,6 @@ import androidx.compose.material.ripple.LocalRippleTheme
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -47,7 +46,6 @@ fun AssistChip(
     onClick: (() -> Unit),
     badge: String? = null,
 ) {
-
     val interactionSource = remember { MutableInteractionSource() }
     val isPressed by interactionSource.collectIsPressedAsState()
 
@@ -60,20 +58,20 @@ fun AssistChip(
                 colors = if (isPressed) {
                     AssistChipDefaults.assistChipColors(
                         containerColor = SurfaceColor.Container,
-                        leadingIconContentColor = TextColor.OnSurfaceVariant
+                        leadingIconContentColor = TextColor.OnSurfaceVariant,
                     )
                 } else {
                     AssistChipDefaults.assistChipColors(
                         containerColor = SurfaceColor.SurfaceBright,
-                        leadingIconContentColor = TextColor.OnSurfaceVariant
+                        leadingIconContentColor = TextColor.OnSurfaceVariant,
                     )
-                       },
+                },
                 border = AssistChipDefaults.assistChipBorder(
-                            borderColor = Outline.Dark,
-                    ),
+                    borderColor = Outline.Dark,
+                ),
                 leadingIcon = {
                     icon?.invoke()
-                }
+                },
 
             )
         }

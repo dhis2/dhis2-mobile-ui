@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.AssistChipDefaults
-import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -66,12 +65,11 @@ fun ChipsScreen() {
         FilterChip(label = "Label", selected = false, badge = "3")
         Spacer(Modifier.size(Spacing.Spacing18))
 
-
         SubTitle("Assist Chips")
-        //var isSelected5 by remember { mutableStateOf(false) }
+        // var isSelected5 by remember { mutableStateOf(false) }
         AssistChip(
             label = "Label",
-            onClick = {  }
+            onClick = { },
         )
         AssistChip(
             label = "Label",
@@ -80,13 +78,12 @@ fun ChipsScreen() {
                     imageVector = Icons.Filled.Search,
                     contentDescription = "search icon",
                     modifier = Modifier
-                        .size(AssistChipDefaults.IconSize)
+                        .size(AssistChipDefaults.IconSize),
                 )
             },
-            onClick = {  }
+            onClick = { },
         )
         Spacer(Modifier.size(Spacing.Spacing18))
-
 
         SubTitle("Assist Chips With badges")
         AssistChip(
@@ -96,16 +93,16 @@ fun ChipsScreen() {
                     imageVector = Icons.Filled.Search,
                     contentDescription = "search icon",
                     modifier = Modifier
-                        .size(AssistChipDefaults.IconSize)
+                        .size(AssistChipDefaults.IconSize),
                 )
             },
             onClick = {},
-            badge = "2"
+            badge = "2",
         )
         AssistChip(
             label = "Label",
             onClick = {},
-            badge = "4"
+            badge = "4",
         )
     }
 }
