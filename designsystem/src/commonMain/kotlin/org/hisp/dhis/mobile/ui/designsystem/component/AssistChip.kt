@@ -1,5 +1,7 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.offset
 import androidx.compose.material.ripple.LocalRippleTheme
@@ -28,25 +30,34 @@ fun AssistChip(
     modifier: Modifier = Modifier,
     label: String,
     icon: @Composable (() -> Unit)? = null,
-    //state: AssistChipState,
     enabled: Boolean = true,
     onClick: (() -> Unit),
     badge: String? = null,
 ) {
+
+    val interactionSource = remember { MutableInteractionSource() }
+    val isPressed by interactionSource.collectIsPressedAsState()
+
     Box(modifier = modifier) {
         CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme()) {
             AssistChip(
                 onClick = { onClick.invoke() },
                 label = { Text(label, color = TextColor.OnSurfaceVariant) },
                 enabled = enabled,
-                colors = AssistChipDefaults.assistChipColors(
-                    containerColor = SurfaceColor.SurfaceBright,
-                    labelColor = SurfaceColor.Container,
-                    leadingIconContentColor = TextColor.OnSurfaceVariant
-                ),
+                colors = if (isPressed) {
+                    AssistChipDefaults.assistChipColors(
+                        containerColor = SurfaceColor.Container,
+                        leadingIconContentColor = TextColor.OnSurfaceVariant
+                    )
+                } else {
+                    AssistChipDefaults.assistChipColors(
+                        containerColor = SurfaceColor.SurfaceBright,
+                        leadingIconContentColor = TextColor.OnSurfaceVariant
+                    )
+                       },
                 border = AssistChipDefaults.assistChipBorder(
-                    borderColor = Outline.Dark,
-                ),
+                            borderColor = Outline.Dark,
+                    ),
                 leadingIcon = {
                     icon?.invoke()
                 }
@@ -64,8 +75,4 @@ fun AssistChip(
             )
         }
     }
-}
-
-enum class AssistChipState {
-    PRESSED
 }
