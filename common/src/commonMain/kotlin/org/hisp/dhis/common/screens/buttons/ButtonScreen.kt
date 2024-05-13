@@ -115,5 +115,39 @@ fun ButtonScreen() {
             ButtonPreviewWithIcon("Label", ButtonStyle.TEXT, true, ColorStyle.ERROR)
             ButtonPreviewWithIcon("Label", ButtonStyle.TEXT, false, ColorStyle.ERROR)
         }
+        Spacer(Modifier.size(Spacing.Spacing18))
+
+        Title("Warning Buttons")
+        SubTitle("Filled")
+        RowComponentContainer() {
+            ButtonPreview("Label", ButtonStyle.FILLED, true, ColorStyle.WARNING)
+            ButtonPreview("Label", ButtonStyle.FILLED, false, ColorStyle.WARNING)
+        }
+        RowComponentContainer {
+            ButtonPreviewWithIcon("Label", ButtonStyle.FILLED, true, ColorStyle.WARNING)
+            ButtonPreviewWithIcon("Label", ButtonStyle.FILLED, false, ColorStyle.WARNING)
+        }
+
+        Spacer(Modifier.size(Spacing.Spacing18))
+        SubTitle("Outlined")
+        RowComponentContainer() {
+            ButtonPreview("Label", ButtonStyle.OUTLINED, true, ColorStyle.WARNING)
+            ButtonPreview("Label", ButtonStyle.OUTLINED, false, ColorStyle.WARNING)
+        }
+        RowComponentContainer() {
+            ButtonPreviewWithIcon("Label", ButtonStyle.OUTLINED, true, ColorStyle.WARNING)
+            ButtonPreviewWithIcon("Label", ButtonStyle.OUTLINED, false, ColorStyle.WARNING)
+        }
+        Spacer(Modifier.size(Spacing.Spacing18))
+
+        SubTitle("Text")
+        RowComponentContainer() {
+            ButtonPreview("Label", ButtonStyle.TEXT, true, ColorStyle.WARNING)
+            ButtonPreview("Label", ButtonStyle.TEXT, false, ColorStyle.WARNING)
+        }
+        RowComponentContainer() {
+            ButtonPreviewWithIcon("Label", ButtonStyle.TEXT, true, ColorStyle.WARNING)
+            ButtonPreviewWithIcon("Label", ButtonStyle.TEXT, false, ColorStyle.WARNING)
+        }
     }
 }
