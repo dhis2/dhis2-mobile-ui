@@ -18,6 +18,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.onSizeChanged
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.IntOffset
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.Ripple
@@ -49,11 +50,17 @@ fun AssistChip(
     val interactionSource = remember { MutableInteractionSource() }
     val isPressed by interactionSource.collectIsPressedAsState()
 
-    Box(modifier = modifier) {
+    Box(modifier = Modifier) {
         CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme()) {
             AssistChip(
                 onClick = { onClick.invoke() },
-                label = { Text(label, color = TextColor.OnSurfaceVariant) },
+                label = {
+                    Text(
+                        label,
+                        color = TextColor.OnSurfaceVariant,
+                    )
+                },
+                modifier = modifier,
                 enabled = enabled,
                 colors = if (isPressed) {
                     AssistChipDefaults.assistChipColors(
@@ -81,7 +88,8 @@ fun AssistChip(
                 modifier = Modifier
                     .align(Alignment.TopEnd)
                     .onSizeChanged { offset = IntOffset(it.width / 3, it.height / 3) }
-                    .offset { offset },
+                    .offset { offset }
+                    .testTag("ASSIST_CHIP_BADGE"),
                 text = badge,
             )
         }

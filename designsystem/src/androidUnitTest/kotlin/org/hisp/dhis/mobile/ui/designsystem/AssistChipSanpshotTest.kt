@@ -13,7 +13,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.junit.Rule
 import org.junit.Test
 
-class AssistChipTest {
+class AssistChipSanpshotTest {
     @get:Rule
     val paparazzi = paparazzi()
 
@@ -32,12 +32,12 @@ class AssistChipTest {
                         )
                     },
                     onClick = {},
-                    badge = "3"
+                    badge = "3",
                 )
                 AssistChip(
                     label = "Label",
                     onClick = {},
-                    badge = "3"
+                    badge = "3",
                 )
             }
         }
