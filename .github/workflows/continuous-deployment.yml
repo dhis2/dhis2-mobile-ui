@@ -6,7 +6,6 @@ name: Continuous deployment
 on:
   push:
     branches:
-      - main
       - develop
 
   # Allows you to run this workflow manually from the Actions tab
@@ -36,7 +35,9 @@ jobs:
 
       # Create publish to maven
       - name: Publish to maven
-        run: ./gradlew publishAllPublicationsToSonatypeRepository
+        run: ./.github/workflows/scripts/publish-maven.sh
         env:
           OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
+          SIGNING_PRIVATE_KEY: ${{ secrets.PGP_PRIVATE_KEY }}
+          SIGNING_PASSWORD: ${{ secrets.PGP_PASSPHRASE }}
