@@ -13,7 +13,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.junit.Rule
 import org.junit.Test
 
-class AssistChipSanpshotTest {
+class AssistChipSnapshotTest {
     @get:Rule
     val paparazzi = paparazzi()
 
