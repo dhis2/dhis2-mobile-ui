@@ -1,4 +1,4 @@
-package org.hisp.dhis.mobile.ui.designsystem
+package org.hisp.dhis.mobile.ui.designsystem.component
 
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
