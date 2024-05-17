@@ -80,7 +80,7 @@ fun AssistChip(
                     icon?.invoke()
                 },
 
-                )
+            )
         }
         badge?.let {
             var offset by remember { mutableStateOf(IntOffset(0, 0)) }
