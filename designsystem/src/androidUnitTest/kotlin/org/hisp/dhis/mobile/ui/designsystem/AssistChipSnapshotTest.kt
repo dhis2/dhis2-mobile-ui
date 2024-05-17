@@ -39,6 +39,60 @@ class AssistChipSnapshotTest {
                     onClick = {},
                     badge = "3",
                 )
+                AssistChip(
+                    label = "Label",
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Filled.Search,
+                            contentDescription = "search icon",
+                            modifier = Modifier
+                                .size(AssistChipDefaults.IconSize),
+                        )
+                    },
+                    onClick = {},
+                )
+                AssistChip(
+                    label = "Label",
+                    onClick = {},
+                )
+                AssistChip(
+                    label = "Label",
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Filled.Search,
+                            contentDescription = "search icon",
+                            modifier = Modifier
+                                .size(AssistChipDefaults.IconSize),
+                        )
+                    },
+                    enabled = false,
+                    onClick = {},
+                )
+                AssistChip(
+                    label = "Label",
+                    onClick = {},
+                    enabled = false,
+                )
+                AssistChip(
+                    label = "Label",
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Filled.Search,
+                            contentDescription = "search icon",
+                            modifier = Modifier
+                                .size(AssistChipDefaults.IconSize),
+                        )
+                    },
+                    enabled = false,
+                    onClick = {},
+                    badge = "3",
+                )
+                AssistChip(
+                    label = "Label",
+                    onClick = {},
+                    enabled = false,
+                    badge = "3",
+                )
             }
         }
     }
