@@ -66,7 +66,6 @@ fun ChipsScreen() {
         Spacer(Modifier.size(Spacing.Spacing18))
 
         SubTitle("Assist Chips")
-        // var isSelected5 by remember { mutableStateOf(false) }
         AssistChip(
             label = "Label",
             onClick = { },
