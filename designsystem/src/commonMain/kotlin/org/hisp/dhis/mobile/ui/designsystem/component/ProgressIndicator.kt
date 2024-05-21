@@ -42,7 +42,7 @@ internal fun LinearIndicator(modifier: Modifier, progress: Float?, hasError: Boo
     val trackColor = if (hasError) SurfaceColor.ErrorContainer else SurfaceColor.ContainerHigh
     if (progress != null) {
         LinearProgressIndicator(
-            progress = progress,
+            progress = { progress },
             modifier = modifier,
             color = color,
             trackColor = trackColor,
@@ -61,7 +61,7 @@ internal fun CircularIndicator(modifier: Modifier, progress: Float?, hasError: B
     val color = if (hasError) SurfaceColor.Error else SurfaceColor.Primary
     if (progress != null) {
         CircularProgressIndicator(
-            progress = progress,
+            progress = { progress },
             modifier = modifier,
             color = color,
         )
