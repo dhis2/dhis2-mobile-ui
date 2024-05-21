@@ -16,7 +16,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -203,24 +204,23 @@ private fun InputShellRow(
 }
 
 /**
- * DHIS2 InputShellButtonSeparator, wraps Material 3 [Divider]
+ * DHIS2 InputShellButtonSeparator, wraps Material 3 [VerticalDivider]
  * used in the [InputShell] component
  */
 @Composable
 private fun InputShellButtonSeparator(
     modifier: Modifier = Modifier,
 ) {
-    Divider(
+    VerticalDivider(
         color = Outline.Medium,
         thickness = Border.Thin,
         modifier = modifier
             .height(Spacing.Spacing40)
-            .width(Border.Thin),
     )
 }
 
 /**
- * DHIS2 InputShellIndicator, wraps Material 3 [Divider]
+ * DHIS2 InputShellIndicator, wraps Material 3 [HorizontalDivider]
  *  used in the [InputShell] component
  */
 @Composable
@@ -229,7 +229,7 @@ private fun InputShellIndicator(
     modifier: Modifier = Modifier,
     thickness: Dp = Border.Thin,
 ) {
-    Divider(
+    HorizontalDivider(
         modifier = modifier.fillMaxWidth(),
         thickness = thickness,
         color = color,

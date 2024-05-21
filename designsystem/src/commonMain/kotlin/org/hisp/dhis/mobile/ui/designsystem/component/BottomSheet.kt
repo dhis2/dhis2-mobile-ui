@@ -16,8 +16,8 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Close
-import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
@@ -40,6 +40,7 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.Keyboard
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.keyboardAsState
+import org.hisp.dhis.mobile.ui.designsystem.theme.Border
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
@@ -245,10 +246,11 @@ fun BottomSheetShell(
 
                 if (showHeader || hasSearch) {
                     if (showSectionDivider) {
-                        Divider(
+                        HorizontalDivider(
                             modifier = Modifier.fillMaxWidth()
                                 .padding(top = Spacing24, start = Spacing24, end = Spacing24),
                             color = TextColor.OnDisabledSurface,
+                            thickness = Border.Thin
                         )
                     } else {
                         Spacer(Modifier.requiredHeight(Spacing24))
@@ -271,9 +273,10 @@ fun BottomSheetShell(
                     ) {
                         content.invoke()
                         if (showSectionDivider) {
-                            Divider(
+                            HorizontalDivider(
                                 modifier = Modifier.fillMaxWidth().padding(top = Spacing8),
                                 color = TextColor.OnDisabledSurface,
+                                thickness = Border.Thin
                             )
                         }
                     }
