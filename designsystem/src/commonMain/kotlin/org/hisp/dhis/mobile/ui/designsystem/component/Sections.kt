@@ -20,7 +20,7 @@ import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowForward
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.ripple.rememberRipple
@@ -197,7 +197,7 @@ internal fun SectionBlock(
 internal fun SectionContent(
     verticalArrangement: Arrangement.HorizontalOrVertical,
     content:
-    @Composable()
+    @Composable
     (ColumnScope.() -> Unit),
 ) {
     Column(
@@ -403,7 +403,7 @@ internal fun NextSectionButton(
         text = provideStringResource("action_next"),
         icon = {
             Icon(
-                imageVector = Icons.Filled.ArrowForward,
+                imageVector = Icons.AutoMirrored.Filled.ArrowForward,
                 contentDescription = "Icon Button",
             )
         },

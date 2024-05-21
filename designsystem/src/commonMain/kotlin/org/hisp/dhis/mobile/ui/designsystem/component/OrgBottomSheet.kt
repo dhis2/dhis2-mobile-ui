@@ -17,10 +17,10 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.ClearAll
 import androidx.compose.material.icons.filled.KeyboardArrowDown
-import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Icon
@@ -320,7 +320,7 @@ private fun orgTreeItemIcon(orgTreeItem: OrgTreeItem): Painter {
     return if (orgTreeItem.isOpen) {
         rememberVectorPainter(Icons.Filled.KeyboardArrowDown)
     } else {
-        rememberVectorPainter(Icons.Filled.KeyboardArrowRight)
+        rememberVectorPainter(Icons.AutoMirrored.Filled.KeyboardArrowRight)
     }
 }
 

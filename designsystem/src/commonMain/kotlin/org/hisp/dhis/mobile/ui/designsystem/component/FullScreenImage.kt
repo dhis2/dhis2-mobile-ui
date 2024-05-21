@@ -6,7 +6,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.ArrowBack
+import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.FileDownload
 import androidx.compose.material.icons.outlined.Share
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -90,7 +90,7 @@ fun FullScreenImage(
                             modifier = Modifier.testTag("FULL_SCREEN_IMAGE_BACK_BUTTON"),
                             icon = {
                                 Icon(
-                                    imageVector = Icons.Outlined.ArrowBack,
+                                    imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
                                     contentDescription = "Back Button",
                                     tint = SurfaceColor.SurfaceBright,
                                 )
