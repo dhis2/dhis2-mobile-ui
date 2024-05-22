@@ -73,7 +73,13 @@ fun InputAge(
     }
 
     val focusRequester = remember { FocusRequester() }
-    val datePickerState = rememberDatePickerState()
+    val datePickerState = rememberDatePickerState(
+        selectableDates = object : androidx.compose.material3.SelectableDates {
+            override fun isSelectableDate(utcTimeMillis: Long): Boolean {
+                return dateIsInRange(utcTimeMillis, uiModel.selectableDates)
+            }
+        }
+    )
 
     val calendarButton: (@Composable () -> Unit)? = if (uiModel.inputType is DateOfBirth) {
         @Composable {
@@ -273,9 +279,6 @@ fun InputAge(
                     state = datePickerState,
                     showModeToggle = true,
                     modifier = Modifier.padding(Spacing.Spacing0),
-                    dateValidator = { date ->
-                        dateIsInRange(date, uiModel.selectableDates)
-                    },
                 )
             }
         }
