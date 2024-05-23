@@ -19,16 +19,15 @@ fun provideDHIS2Icon(resourceName: String): Painter {
         resourceName
     }
     return painterResource(
-        drawableResource(iconName, "xml")
+        drawableResource(iconName, "xml"),
     )
 }
 
 @Composable
 fun provideImage(resourceName: String): Painter =
     painterResource(
-        drawableResource(resourceName, "jpg")
+        drawableResource(resourceName, "jpg"),
     )
-
 
 @OptIn(InternalResourceApi::class)
 fun drawableResource(resourceName: String, fileExtension: String): DrawableResource =
@@ -38,8 +37,10 @@ fun drawableResource(resourceName: String, fileExtension: String): DrawableResou
             setOf(
                 ResourceItem(
                     setOf(),
-                    "drawable/$resourceName.$fileExtension", -1, -1
+                    "drawable/$resourceName.$fileExtension",
+                    -1,
+                    -1,
                 ),
-            )
+            ),
         )
     }.value

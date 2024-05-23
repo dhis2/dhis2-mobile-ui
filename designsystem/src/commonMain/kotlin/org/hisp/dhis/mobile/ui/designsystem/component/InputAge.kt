@@ -78,7 +78,7 @@ fun InputAge(
             override fun isSelectableDate(utcTimeMillis: Long): Boolean {
                 return dateIsInRange(utcTimeMillis, uiModel.selectableDates)
             }
-        }
+        },
     )
 
     val calendarButton: (@Composable () -> Unit)? = if (uiModel.inputType is DateOfBirth) {

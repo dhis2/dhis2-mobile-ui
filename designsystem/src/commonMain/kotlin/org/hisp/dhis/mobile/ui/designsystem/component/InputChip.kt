@@ -90,7 +90,7 @@ fun InputChip(
                     borderColor = Outline.Dark,
                     disabledBorderColor = Outline.Medium,
                     enabled = enabled,
-                    selected = selected
+                    selected = selected,
                 ),
                 trailingIcon = if (withTrailingIcon && enabled) {
                     {

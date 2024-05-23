@@ -250,7 +250,7 @@ fun BottomSheetShell(
                             modifier = Modifier.fillMaxWidth()
                                 .padding(top = Spacing24, start = Spacing24, end = Spacing24),
                             color = TextColor.OnDisabledSurface,
-                            thickness = Border.Thin
+                            thickness = Border.Thin,
                         )
                     } else {
                         Spacer(Modifier.requiredHeight(Spacing24))
@@ -276,7 +276,7 @@ fun BottomSheetShell(
                             HorizontalDivider(
                                 modifier = Modifier.fillMaxWidth().padding(top = Spacing8),
                                 color = TextColor.OnDisabledSurface,
-                                thickness = Border.Thin
+                                thickness = Border.Thin,
                             )
                         }
                     }

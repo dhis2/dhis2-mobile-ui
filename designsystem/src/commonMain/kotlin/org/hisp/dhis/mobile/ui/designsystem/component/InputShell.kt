@@ -215,7 +215,7 @@ private fun InputShellButtonSeparator(
         color = Outline.Medium,
         thickness = Border.Thin,
         modifier = modifier
-            .height(Spacing.Spacing40)
+            .height(Spacing.Spacing40),
     )
 }
 

@@ -239,7 +239,7 @@ fun InputDateTime(
         inputStyle = uiModel.inputStyle,
     )
     var datePickerState = rememberDatePickerState(
-        selectableDates = getSelectableDates(uiModel)
+        selectableDates = getSelectableDates(uiModel),
     )
     if (!uiModel.inputTextFieldValue?.text.isNullOrEmpty() && uiModel.actionType != DateTimeActionType.TIME) {
         datePickerState = if (uiModel.actionType == DateTimeActionType.DATE_TIME && uiModel.inputTextFieldValue?.text?.length == 12 && yearIsInRange(uiModel.inputTextFieldValue.text.substring(0, 8), uiModel.yearRange)) {

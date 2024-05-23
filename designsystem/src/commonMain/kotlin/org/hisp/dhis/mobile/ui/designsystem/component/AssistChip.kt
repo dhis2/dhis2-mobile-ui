@@ -73,7 +73,7 @@ fun AssistChip(
                 },
                 border = AssistChipDefaults.assistChipBorder(
                     borderColor = Outline.Dark,
-                    enabled = enabled
+                    enabled = enabled,
                 ),
                 leadingIcon = {
                     icon?.invoke()

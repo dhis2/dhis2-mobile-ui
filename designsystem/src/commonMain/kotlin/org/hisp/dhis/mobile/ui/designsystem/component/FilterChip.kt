@@ -57,7 +57,7 @@ fun FilterChip(
                 border = FilterChipDefaults.filterChipBorder(
                     borderColor = Outline.Dark,
                     enabled = true,
-                    selected = selected
+                    selected = selected,
                 ),
                 leadingIcon = if (selected) {
                     {

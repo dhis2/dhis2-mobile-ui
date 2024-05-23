@@ -3,10 +3,8 @@ package org.hisp.dhis.mobile.ui.designsystem
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Login
+import androidx.compose.material.icons.automirrored.outlined.Login
 import androidx.compose.material3.Icon
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
 import org.hisp.dhis.mobile.ui.designsystem.component.Button
@@ -61,7 +59,7 @@ class LoginSnapshotTest {
                     text = "Log In",
                     icon = {
                         Icon(
-                            imageVector = Icons.Outlined.Login,
+                            imageVector = Icons.AutoMirrored.Outlined.Login,
                             contentDescription = "Login button",
 
                         )
