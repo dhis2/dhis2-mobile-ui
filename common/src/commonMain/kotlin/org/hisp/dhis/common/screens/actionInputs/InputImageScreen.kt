@@ -10,6 +10,8 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
+import mobile_ui.common.generated.resources.Res
+import mobile_ui.common.generated.resources.sample
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ImageBlock
 import org.hisp.dhis.mobile.ui.designsystem.component.InputImage
@@ -19,7 +21,6 @@ import org.hisp.dhis.mobile.ui.designsystem.component.Title
 import org.hisp.dhis.mobile.ui.designsystem.component.UploadState
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
-import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 import java.util.Timer
 import kotlin.concurrent.schedule
@@ -94,7 +95,6 @@ fun InputImageScreen() {
     }
 }
 
-@OptIn(ExperimentalResourceApi::class)
 @Composable
 private fun provideSampleImage(): Painter =
-    painterResource("drawable/sample.png")
+    painterResource(Res.drawable.sample)

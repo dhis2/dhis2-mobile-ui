@@ -28,6 +28,9 @@ allprojects {
         version.set("0.50.0")
         verbose.set(true)
         outputToConsole.set(true)
+        filter {
+            exclude("**/generated/**")
+        }
     }
 
     tasks.withType<KotlinCompile>().all {
