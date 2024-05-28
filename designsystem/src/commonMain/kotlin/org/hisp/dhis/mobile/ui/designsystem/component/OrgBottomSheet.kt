@@ -195,6 +195,7 @@ private fun OrgTreeList(
             items(orgTreeItems) { item ->
                 OrgUnitSelectorItem(
                     orgTreeItem = item,
+                    higherLevel = orgTreeItems.minBy { it.level }.level,
                     searchQuery = searchQuery,
                     onItemClick = onItemClick,
                     onItemSelected = onItemSelected,
@@ -207,6 +208,7 @@ private fun OrgTreeList(
 @Composable
 fun OrgUnitSelectorItem(
     orgTreeItem: OrgTreeItem,
+    higherLevel: Int,
     searchQuery: String,
     modifier: Modifier = Modifier,
     onItemClick: (uid: String) -> Unit,
@@ -226,7 +228,7 @@ fun OrgUnitSelectorItem(
             ) {
                 onItemClick(orgTreeItem.uid)
             }
-            .padding(start = ((orgTreeItem.level * 2) * 16).dp),
+            .padding(start = ((orgTreeItem.level - higherLevel) * 16).dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         val icon = orgTreeItemIcon(orgTreeItem)
