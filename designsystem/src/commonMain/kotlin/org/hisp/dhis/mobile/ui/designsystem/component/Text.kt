@@ -14,6 +14,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -209,22 +210,6 @@ internal fun ListCardKey(
                 modifiedText = modifiedText.substring(0, lineIndex).trimEnd() + "...:"
             }
         },
-    )
-}
-
-@Composable
-internal fun ListCardValue(
-    text: String,
-    color: Color,
-    modifier: Modifier = Modifier,
-) {
-    Text(
-        text = text,
-        color = color,
-        style = MaterialTheme.typography.bodyMedium,
-        overflow = TextOverflow.Ellipsis,
-        maxLines = 2,
-        modifier = modifier,
     )
 }
 
