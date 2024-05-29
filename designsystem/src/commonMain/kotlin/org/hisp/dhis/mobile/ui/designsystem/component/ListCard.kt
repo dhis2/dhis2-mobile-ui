@@ -30,6 +30,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -42,11 +43,21 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.ParagraphStyle
+import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.rememberTextMeasurer
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.conditional
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2SCustomTextStyles
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
@@ -398,6 +409,9 @@ private fun KeyValue(
 ) {
     BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
         val maxKeyWidth = maxWidth / 2 - Spacing.Spacing16
+        val keyText = additionalInfoItem.key
+        val valueText = additionalInfoItem.value
+        val textMeasurer = rememberTextMeasurer()
 
         Row(
             modifier = modifier,
@@ -441,7 +455,23 @@ private fun KeyValue(
                     }
 
                     valueColor = if (additionalInfoItem.action != null) SurfaceColor.Primary else valueColor
-                    ListCardValue(text = additionalInfoItem.value, color = valueColor)
+                    val additionalInfoKey = buildAnnotatedString {
+                        withStyle(style = ParagraphStyle(),
+                        ) {
+                            append(valueText)
+                        }
+
+                    }
+                    Text(
+                        text = additionalInfoKey,
+                        textAlign = TextAlign.Start,
+                        color = valueColor,
+                        style = MaterialTheme.typography.bodyMedium,
+                        overflow = TextOverflow.Ellipsis,
+                        maxLines = 2,
+                        modifier = modifier,
+
+                    )
                 }
             } else {
                 keyColor = additionalInfoItem.color ?: AdditionalInfoItemColor.DEFAULT_KEY.color
@@ -455,14 +485,59 @@ private fun KeyValue(
                     Spacer(Modifier.size(Spacing4))
                 } else {
                     additionalInfoItem.key?.let {
-                        ListCardKey(
+                        /*ListCardKey(
                             text = additionalInfoItem.key,
                             color = keyColor,
                             Modifier.padding(end = Spacing4).widthIn(Spacing.Spacing0, maxKeyWidth),
-                        )
+                        )*/
                     }
                 }
-                ListCardValue(text = additionalInfoItem.value, color = valueColor)
+                var modifiedText by remember { mutableStateOf(buildAnnotatedString { append(keyText + valueText) }) }
+                Text(
+                    text = modifiedText,
+                    textAlign = TextAlign.Start,
+                    color = valueColor,
+                    style = MaterialTheme.typography.bodyMedium,
+                    overflow = TextOverflow.Ellipsis,
+                    maxLines = 2,
+                    modifier = modifier,
+                    onTextLayout = { textLayoutResult ->
+                        if (textLayoutResult.hasVisualOverflow) {
+                            val keyLineIndex = textLayoutResult.getLineEnd(
+                                lineIndex = 0,
+                                visibleEnd = true,
+                            )
+                            val textMeasure = keyText?.let {
+                                textMeasurer.measure(
+                                    text = it,
+                                    maxLines = 1
+                                ).size.width
+                            }
+                            var keyTrimmedText = ""
+                            if (textMeasure != null) {
+                                if (textMeasure > maxKeyWidth.value.toInt()) {
+                                    keyTrimmedText = keyText.substring(0, keyLineIndex / 2).trimEnd() + "...: "
+                                }
+                            }
+                            val keyValueText: AnnotatedString = buildAnnotatedString {
+                                withStyle(style = ParagraphStyle(lineHeight = 20.sp),
+                                ) {
+                                    withStyle(
+                                        style = DHIS2SCustomTextStyles.regularSupportingText
+                                    ) {
+                                        append(keyTrimmedText)
+                                    }
+                                    withStyle(
+                                        style = DHIS2SCustomTextStyles.inputFieldHelper
+                                    ) {
+                                        append(valueText)
+                                    }
+                                }
+                            }
+                            modifiedText = keyValueText
+                        }
+                    },
+                )
             }
         }
     }
