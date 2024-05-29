@@ -416,13 +416,20 @@ private fun KeyValue(
         Row(
             modifier = modifier,
         ) {
-            //val keyColor: Color
+            val keyColor: Color
             var valueColor: Color
             val interactionSource = remember { MutableInteractionSource() }
 
             if (isDetailCard) {
-                //keyColor = AdditionalInfoItemColor.DEFAULT_KEY.color
+                keyColor = AdditionalInfoItemColor.DEFAULT_KEY.color
                 valueColor = additionalInfoItem.color ?: AdditionalInfoItemColor.DEFAULT_VALUE.color
+                additionalInfoItem.key?.let {
+                    ListCardKey(
+                        text = additionalInfoItem.key,
+                        color = keyColor,
+                        Modifier.padding(end = Spacing4).widthIn(Spacing.Spacing0, maxKeyWidth),
+                    )
+                }
 
                 Row(
                     modifier = Modifier
@@ -438,8 +445,6 @@ private fun KeyValue(
                             )
                         }),
                 ) {
-                    //val keyStyle = DHIS2SCustomTextStyles.inputFieldHelper
-                    //val valueStyle = DHIS2SCustomTextStyles.regularSupportingText
                     if (additionalInfoItem.icon != null) {
                         Box(
                             Modifier.background(color = Color.Transparent).size(InternalSizeValues.Size20),
@@ -466,12 +471,10 @@ private fun KeyValue(
                         maxLines = 2,
                         modifier = modifier,
 
-                        )
+                    )
                 }
             } else {
-                val keyStyle = DHIS2SCustomTextStyles.inputFieldHelper
-                val valueStyle = DHIS2SCustomTextStyles.regularSupportingText
-                //keyColor = additionalInfoItem.color ?: AdditionalInfoItemColor.DEFAULT_KEY.color
+                keyColor = additionalInfoItem.color ?: AdditionalInfoItemColor.DEFAULT_KEY.color
                 valueColor = additionalInfoItem.color ?: AdditionalInfoItemColor.DEFAULT_VALUE.color
                 if (additionalInfoItem.icon != null) {
                     Box(
@@ -480,11 +483,16 @@ private fun KeyValue(
                         additionalInfoItem.icon.invoke()
                     }
                     Spacer(Modifier.size(Spacing4))
+                } else {
+                    additionalInfoItem.key?.let {
+                        /*ListCardKey(
+                            text = additionalInfoItem.key,
+                            color = keyColor,
+                            Modifier.padding(end = Spacing4).widthIn(Spacing.Spacing0, maxKeyWidth),
+                        )*/
+                    }
                 }
-                var modifiedText by remember { mutableStateOf(buildAnnotatedString { append(
-                    keyText ?: ("" + valueText)
-                ) }) }
-                var textFormatted by remember { mutableStateOf(true) }
+                var modifiedText by remember { mutableStateOf(buildAnnotatedString { append(keyText + valueText) }) }
                 Text(
                     text = modifiedText,
                     textAlign = TextAlign.Start,
@@ -494,66 +502,39 @@ private fun KeyValue(
                     maxLines = 2,
                     modifier = modifier,
                     onTextLayout = { textLayoutResult ->
-                        if (textFormatted) {
-                                val keyLineIndex = textLayoutResult.getLineEnd(
-                                    lineIndex = 0,
-                                    visibleEnd = true,
-                                )
-                                val textMeasure = keyText?.let {
-                                    textMeasurer.measure(
-                                        text = it,
-                                        maxLines = 1
-                                    ).size.width
+                        if (textLayoutResult.hasVisualOverflow) {
+                            val keyLineIndex = textLayoutResult.getLineEnd(
+                                lineIndex = 0,
+                                visibleEnd = true,
+                            )
+                            val textMeasure = keyText?.let {
+                                textMeasurer.measure(
+                                    text = it,
+                                    maxLines = 1
+                                ).size.width
+                            }
+                            var keyTrimmedText = ""
+                            if (textMeasure != null) {
+                                if (textMeasure > maxKeyWidth.value.toInt()) {
+                                    keyTrimmedText = keyText.substring(0, keyLineIndex / 2).trimEnd() + "...: "
                                 }
-                                var keyTrimmedText: String
-                                if (textMeasure != null) {
-                                    if (textMeasure > maxKeyWidth.value.toInt()) {
-                                        keyTrimmedText =
-                                            if (textMeasure > (maxKeyWidth.value.toInt())) {
-                                                keyText.substring(0, (keyLineIndex / 2) - 2)
-                                                    .trimEnd() + "...: "
-                                            } else {
-                                                keyText
-                                            }
-                                        val keyValueText: AnnotatedString = buildAnnotatedString {
-                                            withStyle(
-                                                style = ParagraphStyle(lineHeight = 20.sp),
-                                            ) {
-                                                withStyle(
-                                                    style = keyStyle
-                                                ) {
-                                                    append(keyTrimmedText)
-                                                }
-                                                withStyle(
-                                                    style = valueStyle
-                                                ) {
-                                                    append(valueText)
-                                                }
-                                            }
-                                        }
-                                        modifiedText = keyValueText
-                                    } else {
-
-                                        val keyValueText: AnnotatedString = buildAnnotatedString {
-                                            withStyle(
-                                                style = ParagraphStyle(lineHeight = 20.sp),
-                                            ) {
-                                                withStyle(
-                                                    style = keyStyle
-                                                ) {
-                                                    append("$keyText ")
-                                                }
-                                                withStyle(
-                                                    style = valueStyle
-                                                ) {
-                                                    append(valueText)
-                                                }
-                                            }
-                                        }
-                                        modifiedText = keyValueText
+                            }
+                            val keyValueText: AnnotatedString = buildAnnotatedString {
+                                withStyle(style = ParagraphStyle(lineHeight = 20.sp),
+                                ) {
+                                    withStyle(
+                                        style = DHIS2SCustomTextStyles.regularSupportingText
+                                    ) {
+                                        append(keyTrimmedText)
                                     }
-                                    textFormatted = false
+                                    withStyle(
+                                        style = DHIS2SCustomTextStyles.inputFieldHelper
+                                    ) {
+                                        append(valueText)
+                                    }
                                 }
+                            }
+                            modifiedText = keyValueText
                         }
                     },
                 )
