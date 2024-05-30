@@ -2,6 +2,7 @@ package org.hisp.dhis.mobile.ui.designsystem.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -9,10 +10,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeightIn
 import androidx.compose.foundation.layout.requiredWidth
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.ClearAll
@@ -172,6 +175,7 @@ private fun OrgTreeList(
     onItemClick: (orgUnitUid: String) -> Unit,
     onItemSelected: (orgUnitUid: String, checked: Boolean) -> Unit,
 ) {
+    val scrollState = rememberScrollState()
     val hasSearchQuery by derivedStateOf { searchQuery.isNotBlank() }
     if (orgTreeItems.isEmpty() && hasSearchQuery) {
         Text(
@@ -188,7 +192,8 @@ private fun OrgTreeList(
     } else {
         LazyColumn(
             modifier = modifier
-                .testTag("ORG_TREE_LIST"),
+                .testTag("ORG_TREE_LIST")
+                .horizontalScroll(scrollState),
             state = state,
             horizontalAlignment = Alignment.Start,
         ) {
@@ -247,21 +252,6 @@ fun OrgUnitSelectorItem(
             contentDescription = "",
         )
 
-        Text(
-            modifier = Modifier.weight(1f),
-            text = orgTreeItemLabel(
-                orgTreeItem = orgTreeItem,
-                searchQuery = searchQuery,
-            ),
-            style = DHIS2SCustomTextStyles.bodyLargeBold.copy(
-                fontWeight = if (orgTreeItem.selectedChildrenCount > 0 || orgTreeItem.selected) {
-                    FontWeight.Bold
-                } else {
-                    FontWeight.Normal
-                },
-            ),
-        )
-
         if (orgTreeItem.canBeSelected) {
             Checkbox(
                 modifier = Modifier.testTag("$ITEM_CHECK_TEST_TAG${orgTreeItem.label}"),
@@ -270,7 +260,24 @@ fun OrgUnitSelectorItem(
                     onItemSelected(orgTreeItem.uid, isChecked)
                 },
             )
+        } else {
+            Spacer(modifier = Modifier.size(Spacing.Spacing16))
         }
+
+        Text(
+            text = orgTreeItemLabel(
+                orgTreeItem = orgTreeItem,
+                searchQuery = searchQuery,
+            ),
+            maxLines = 1,
+            style = DHIS2SCustomTextStyles.bodyLargeBold.copy(
+                fontWeight = if (orgTreeItem.selectedChildrenCount > 0 || orgTreeItem.selected) {
+                    FontWeight.Bold
+                } else {
+                    FontWeight.Normal
+                },
+            ),
+        )
     }
 }
 
