@@ -9,10 +9,16 @@ import org.hisp.dhis.mobile.ui.designsystem.component.ErrorBadge
 fun BadgesScreen() {
     ColumnComponentContainer(title = "Badges") {
         Badge()
+        Badge(text = "3")
         Badge(text = "32")
+        Badge(text = "321")
+        Badge(text = "4321")
     }
     ColumnComponentContainer(title = "Error badges") {
         ErrorBadge()
+        ErrorBadge(text = "3")
         ErrorBadge(text = "32")
+        ErrorBadge(text = "321")
+        ErrorBadge(text = "4321")
     }
 }
