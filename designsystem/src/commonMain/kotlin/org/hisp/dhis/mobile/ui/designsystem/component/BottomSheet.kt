@@ -6,13 +6,12 @@ import androidx.compose.foundation.gestures.ScrollableState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -40,7 +39,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.Keyboard
-import org.hisp.dhis.mobile.ui.designsystem.component.internal.bottomSheet.rememberDimensionByName
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.keyboardAsState
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
@@ -167,10 +165,6 @@ fun BottomSheetShell(
 ) {
     val sheetState = rememberModalBottomSheetState(true)
     val scope = rememberCoroutineScope()
-    // TODO - hack to get navigation bar padding does not take into account IME padding (reflection)
-    // TODO - Should be remove when google publish https://issuetracker.google.com/issues/274872542
-    val topInsets = WindowInsets(top = rememberDimensionByName("status_bar_height"))
-    val bottomInsets = WindowInsets(bottom = rememberDimensionByName("navigation_bar_height"))
     val keyboardState by keyboardAsState()
 
     var isKeyboardOpen by remember { mutableStateOf(false) }
@@ -208,13 +202,11 @@ fun BottomSheetShell(
                 }
             }
         },
-        windowInsets = topInsets,
     ) {
         val canScrollForward by derivedStateOf { contentScrollState.canScrollForward }
 
         Column(
-            modifier = Modifier
-                .padding(bottomInsets.asPaddingValues()),
+            modifier = Modifier.systemBarsPadding(),
         ) {
             Column(
                 modifier = Modifier
