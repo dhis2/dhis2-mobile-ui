@@ -25,9 +25,13 @@ import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -35,7 +39,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
+import org.hisp.dhis.mobile.ui.designsystem.component.internal.Keyboard
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.bottomSheet.rememberDimensionByName
+import org.hisp.dhis.mobile.ui.designsystem.component.internal.keyboardAsState
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
@@ -165,6 +171,14 @@ fun BottomSheetShell(
     // TODO - Should be remove when google publish https://issuetracker.google.com/issues/274872542
     val topInsets = WindowInsets(top = rememberDimensionByName("status_bar_height"))
     val bottomInsets = WindowInsets(bottom = rememberDimensionByName("navigation_bar_height"))
+    val keyboardState by keyboardAsState()
+
+    var isKeyboardOpen by remember { mutableStateOf(false) }
+    val showHeader by remember { derivedStateOf { !title.isNullOrBlank() && !isKeyboardOpen } }
+
+    LaunchedEffect(keyboardState) {
+        isKeyboardOpen = keyboardState == Keyboard.Opened
+    }
 
     ModalBottomSheet(
         modifier = modifier,
@@ -210,8 +224,7 @@ fun BottomSheetShell(
             ) {
                 val hasSearch =
                     searchQuery != null && onSearchQueryChanged != null && onSearch != null
-                val hasTitle by derivedStateOf { !title.isNullOrBlank() }
-                if (hasTitle) {
+                if (showHeader) {
                     BottomSheetHeader(
                         title = title!!,
                         subTitle = subtitle,
@@ -225,7 +238,7 @@ fun BottomSheetShell(
                     )
                 }
 
-                if (hasTitle && hasSearch) {
+                if (showHeader && hasSearch) {
                     Spacer(Modifier.requiredHeight(16.dp))
                 }
 
@@ -238,7 +251,7 @@ fun BottomSheetShell(
                     )
                 }
 
-                if (hasTitle || hasSearch) {
+                if (showHeader || hasSearch) {
                     if (showSectionDivider) {
                         Divider(
                             modifier = Modifier.fillMaxWidth()

@@ -27,6 +27,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -47,6 +48,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
+import org.hisp.dhis.mobile.ui.designsystem.component.internal.Keyboard
+import org.hisp.dhis.mobile.ui.designsystem.component.internal.keyboardAsState
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2SCustomTextStyles
@@ -95,6 +98,16 @@ fun OrgBottomSheet(
     var searchQuery by remember { mutableStateOf("") }
     var orgTreeHeight by remember { mutableStateOf(0) }
     val orgTreeHeightInDp = with(LocalDensity.current) { orgTreeHeight.toDp() }
+    val keyboardState by keyboardAsState()
+
+    var isKeyboardOpen by remember { mutableStateOf(false) }
+
+    LaunchedEffect(keyboardState) {
+        isKeyboardOpen = keyboardState == Keyboard.Opened
+        if (isKeyboardOpen) {
+            listState.scrollToItem(0)
+        }
+    }
 
     BottomSheetShell(
         modifier = modifier,
@@ -124,7 +137,7 @@ fun OrgBottomSheet(
                             orgTreeHeight = treeHeight
                         }
                     }
-                    .requiredHeightIn(min = orgTreeHeightInDp),
+                    .requiredHeightIn(min = if (isKeyboardOpen) Spacing.Spacing0 else orgTreeHeightInDp),
             )
         },
         buttonBlock = {
