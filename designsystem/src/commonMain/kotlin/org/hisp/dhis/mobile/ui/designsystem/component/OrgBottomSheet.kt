@@ -205,6 +205,7 @@ private fun OrgTreeList(
     } else {
         LazyColumn(
             modifier = modifier
+                .fillMaxWidth()
                 .testTag("ORG_TREE_LIST")
                 .horizontalScroll(scrollState),
             state = state,
@@ -265,32 +266,50 @@ fun OrgUnitSelectorItem(
             contentDescription = "",
         )
 
-        if (orgTreeItem.canBeSelected) {
-            Checkbox(
-                modifier = Modifier.testTag("$ITEM_CHECK_TEST_TAG${orgTreeItem.label}"),
-                checked = orgTreeItem.selected,
-                onCheckedChange = { isChecked ->
-                    onItemSelected(orgTreeItem.uid, isChecked)
-                },
-            )
+        val clickableModifier = if (orgTreeItem.canBeSelected) {
+            Modifier
+                .clickable(
+                    interactionSource = remember { MutableInteractionSource() },
+                    indication = null,
+                    onClick = {
+                        onItemSelected(orgTreeItem.uid, !orgTreeItem.selected)
+                    },
+                )
         } else {
-            Spacer(modifier = Modifier.size(Spacing.Spacing16))
+            Modifier
         }
 
-        Text(
-            text = orgTreeItemLabel(
-                orgTreeItem = orgTreeItem,
-                searchQuery = searchQuery,
-            ),
-            maxLines = 1,
-            style = DHIS2SCustomTextStyles.bodyLargeBold.copy(
-                fontWeight = if (orgTreeItem.selectedChildrenCount > 0 || orgTreeItem.selected) {
-                    FontWeight.Bold
-                } else {
-                    FontWeight.Normal
-                },
-            ),
-        )
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = clickableModifier,
+        ) {
+            if (orgTreeItem.canBeSelected) {
+                Checkbox(
+                    modifier = Modifier.testTag("$ITEM_CHECK_TEST_TAG${orgTreeItem.label}"),
+                    checked = orgTreeItem.selected,
+                    onCheckedChange = { isChecked ->
+                        onItemSelected(orgTreeItem.uid, isChecked)
+                    },
+                )
+            } else {
+                Spacer(modifier = Modifier.size(Spacing.Spacing16))
+            }
+
+            Text(
+                text = orgTreeItemLabel(
+                    orgTreeItem = orgTreeItem,
+                    searchQuery = searchQuery,
+                ),
+                maxLines = 1,
+                style = DHIS2SCustomTextStyles.bodyLargeBold.copy(
+                    fontWeight = if (orgTreeItem.selectedChildrenCount > 0 || orgTreeItem.selected) {
+                        FontWeight.Bold
+                    } else {
+                        FontWeight.Normal
+                    },
+                ),
+            )
+        }
     }
 }
 
