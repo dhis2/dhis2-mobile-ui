@@ -14,6 +14,8 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import org.hisp.dhis.common.screens.previews.lorem
+import org.hisp.dhis.common.screens.previews.lorem_medium
 import org.hisp.dhis.mobile.ui.designsystem.component.Button
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
@@ -73,12 +75,25 @@ private class OrgTreeItemsFakeRepo {
             isOpen = false,
             hasChildren = false,
         ),
+        OrgTreeItem(
+            uid = "31",
+            label = lorem_medium,
+            isOpen = false,
+            hasChildren = false,
+        ),
+        OrgTreeItem(
+            uid = "41",
+            label = lorem,
+            isOpen = false,
+            hasChildren = false,
+        ),
+
     )
 
     private val childrenOrgItems = listOf(
         OrgTreeItem(
             uid = "12-1",
-            label = "Vijayawada",
+            label = "Vijayawada-$lorem",
             isOpen = false,
             level = 1,
             hasChildren = false,
