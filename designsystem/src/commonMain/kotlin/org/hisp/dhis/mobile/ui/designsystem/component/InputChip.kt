@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material.ripple.LocalRippleTheme
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -42,7 +41,6 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
  * @param focusRequester: component focus requester.
  * @param modifier: optional modifier.
  */
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun InputChip(
     modifier: Modifier = Modifier,
@@ -91,6 +89,8 @@ fun InputChip(
                 border = FilterChipDefaults.filterChipBorder(
                     borderColor = Outline.Dark,
                     disabledBorderColor = Outline.Medium,
+                    enabled = enabled,
+                    selected = selected,
                 ),
                 trailingIcon = if (withTrailingIcon && enabled) {
                     {

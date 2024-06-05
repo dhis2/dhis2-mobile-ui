@@ -12,6 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.graphics.painter.Painter
+import mobile_ui.common.generated.resources.Res
+import mobile_ui.common.generated.resources.sample_signature
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.InputSignature
@@ -19,7 +21,6 @@ import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
 import org.hisp.dhis.mobile.ui.designsystem.component.Title
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
-import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
@@ -91,7 +92,6 @@ fun InputSignatureScreen() {
     }
 }
 
-@OptIn(ExperimentalResourceApi::class)
 @Composable
 private fun provideSampleImage(): Painter =
-    painterResource("drawable/sample_signature.jpeg")
+    painterResource(Res.drawable.sample_signature)

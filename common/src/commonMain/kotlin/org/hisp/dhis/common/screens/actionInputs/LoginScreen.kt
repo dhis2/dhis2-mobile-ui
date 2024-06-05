@@ -2,7 +2,7 @@ package org.hisp.dhis.common.screens.actionInputs
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Login
+import androidx.compose.material.icons.automirrored.outlined.Login
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -58,7 +58,7 @@ fun LoginScreen() {
             text = "Log In",
             icon = {
                 Icon(
-                    imageVector = Icons.Outlined.Login,
+                    imageVector = Icons.AutoMirrored.Outlined.Login,
                     contentDescription = "Login button",
 
                 )

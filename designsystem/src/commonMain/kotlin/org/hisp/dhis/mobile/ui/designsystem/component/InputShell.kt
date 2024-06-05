@@ -16,7 +16,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -29,7 +30,6 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.Dp
 import org.hisp.dhis.mobile.ui.designsystem.theme.Border
@@ -84,80 +84,79 @@ internal fun InputShell(
         }
         val focusRequester = remember { FocusRequester() }
 
-        InputShellRow(
-            modifier = Modifier
-                .focusRequester(focusRequester)
-                .pointerInput(Unit) {
-                    if (state != InputShellState.DISABLED) {
-                        detectTapGestures(
-                            onTap = { focusRequester.requestFocus() },
-                        )
+        Box {
+            InputShellRow(
+                modifier = Modifier
+                    .focusRequester(focusRequester)
+                    .pointerInput(Unit) {
+                        if (state != InputShellState.DISABLED) {
+                            detectTapGestures(
+                                onTap = { focusRequester.requestFocus() },
+                            )
+                        }
                     }
-                }
-                .onFocusChanged {
-                    labelColor = when {
-                        state == InputShellState.DISABLED -> InputShellState.DISABLED.color
-                        it.isFocused && state != InputShellState.ERROR && state != InputShellState.WARNING -> InputShellState.FOCUSED.color
-                        else -> state.color
-                    }
-                    indicatorColor =
-                        when {
-                            state == InputShellState.DISABLED ->
-                                inputStyle.disabledIndicatorColor
-                                    ?: InputShellState.DISABLED.color
-
+                    .onFocusChanged {
+                        labelColor = when {
+                            state == InputShellState.DISABLED -> InputShellState.DISABLED.color
                             it.isFocused && state != InputShellState.ERROR && state != InputShellState.WARNING -> InputShellState.FOCUSED.color
-                            state == InputShellState.UNFOCUSED ->
-                                inputStyle.unfocusedIndicatorColor
-                                    ?: state.color
-
                             else -> state.color
                         }
-                    indicatorThickness = when {
-                        state == InputShellState.DISABLED -> Border.Thin
-                        it.isFocused -> Border.Regular
-                        else -> Border.Thin
-                    }
-                    onFocusChanged?.invoke(it.isFocused)
-                }.padding(start = inputStyle.startIndent),
-            backgroundColor = backgroundColor,
-        ) {
-            Column(
-                Modifier
-                    .weight(4f, false)
-                    .padding(end = Spacing.Spacing4)
-                    .fillMaxWidth(1f),
-                verticalArrangement = Arrangement.Center,
+                        indicatorColor =
+                            when {
+                                state == InputShellState.DISABLED ->
+                                    inputStyle.disabledIndicatorColor
+                                        ?: InputShellState.DISABLED.color
+
+                                it.isFocused && state != InputShellState.ERROR && state != InputShellState.WARNING -> InputShellState.FOCUSED.color
+                                state == InputShellState.UNFOCUSED ->
+                                    inputStyle.unfocusedIndicatorColor
+                                        ?: state.color
+
+                                else -> state.color
+                            }
+                        indicatorThickness = when {
+                            state == InputShellState.DISABLED -> Border.Thin
+                            it.isFocused -> Border.Regular
+                            else -> Border.Thin
+                        }
+                        onFocusChanged?.invoke(it.isFocused)
+                    }.padding(start = inputStyle.startIndent),
+                backgroundColor = backgroundColor,
             ) {
-                if (title.isNotEmpty()) {
-                    val titleText = if (isRequiredField) "$title *" else title
-                    InputShellLabelText(titleText, textColor = labelColor)
+                Column(
+                    Modifier
+                        .weight(4f, false)
+                        .padding(end = Spacing.Spacing4)
+                        .fillMaxWidth(1f),
+                    verticalArrangement = Arrangement.Center,
+                ) {
+                    if (title.isNotEmpty()) {
+                        val titleText = if (isRequiredField) "$title *" else title
+                        InputShellLabelText(titleText, textColor = labelColor)
+                    }
+                    inputField?.invoke()
                 }
-                inputField?.invoke()
-            }
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.height(Spacing.Spacing48).align(Alignment.CenterVertically),
-            ) {
-                primaryButton?.invoke()
-                if (primaryButton != null && secondaryButton != null) {
-                    InputShellButtonSeparator()
-                    Spacer(modifier = Modifier.width(Spacing.Spacing4))
-                }
-                secondaryButton?.let {
-                    Box(
-                        Modifier
-                            .padding(end = Spacing.Spacing4).size(Spacing.Spacing48),
-                    ) {
-                        it.invoke()
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.height(Spacing.Spacing48).align(Alignment.CenterVertically),
+                ) {
+                    primaryButton?.invoke()
+                    if (primaryButton != null && secondaryButton != null) {
+                        InputShellButtonSeparator()
+                        Spacer(modifier = Modifier.width(Spacing.Spacing4))
+                    }
+                    secondaryButton?.let {
+                        Box(
+                            Modifier
+                                .padding(end = Spacing.Spacing4).size(Spacing.Spacing48),
+                        ) {
+                            it.invoke()
+                        }
                     }
                 }
             }
-        }
-        Box(Modifier.height(Spacing.Spacing2)) {
             InputShellIndicator(
-                modifier = Modifier.align(Alignment.BottomStart)
-                    .graphicsLayer { translationY = -Spacing.Spacing2.toPx() },
+                modifier = Modifier.align(Alignment.BottomStart),
                 color = indicatorColor,
                 thickness = indicatorThickness,
             )
@@ -203,24 +202,23 @@ private fun InputShellRow(
 }
 
 /**
- * DHIS2 InputShellButtonSeparator, wraps Material 3 [Divider]
+ * DHIS2 InputShellButtonSeparator, wraps Material 3 [VerticalDivider]
  * used in the [InputShell] component
  */
 @Composable
 private fun InputShellButtonSeparator(
     modifier: Modifier = Modifier,
 ) {
-    Divider(
+    VerticalDivider(
         color = Outline.Medium,
         thickness = Border.Thin,
         modifier = modifier
-            .height(Spacing.Spacing40)
-            .width(Border.Thin),
+            .height(Spacing.Spacing40),
     )
 }
 
 /**
- * DHIS2 InputShellIndicator, wraps Material 3 [Divider]
+ * DHIS2 InputShellIndicator, wraps Material 3 [HorizontalDivider]
  *  used in the [InputShell] component
  */
 @Composable
@@ -229,7 +227,7 @@ private fun InputShellIndicator(
     modifier: Modifier = Modifier,
     thickness: Dp = Border.Thin,
 ) {
-    Divider(
+    HorizontalDivider(
         modifier = modifier.fillMaxWidth(),
         thickness = thickness,
         color = color,

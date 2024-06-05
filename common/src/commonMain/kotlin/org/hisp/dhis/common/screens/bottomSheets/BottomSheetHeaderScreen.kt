@@ -5,8 +5,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.HelpOutline
 import androidx.compose.material.icons.outlined.BookmarkBorder
-import androidx.compose.material.icons.outlined.HelpOutline
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -75,7 +75,7 @@ fun BottomSheetHeaderScreen() {
                 title = "Title",
                 icon = {
                     Icon(
-                        imageVector = Icons.Outlined.HelpOutline,
+                        imageVector = Icons.AutoMirrored.Outlined.HelpOutline,
                         contentDescription = "Button",
                         tint = SurfaceColor.Primary,
                     )
@@ -92,7 +92,7 @@ fun BottomSheetHeaderScreen() {
                 headerTextAlignment = TextAlign.Start,
                 icon = {
                     Icon(
-                        imageVector = Icons.Outlined.HelpOutline,
+                        imageVector = Icons.AutoMirrored.Outlined.HelpOutline,
                         contentDescription = "Button",
                         tint = SurfaceColor.Primary,
                     )

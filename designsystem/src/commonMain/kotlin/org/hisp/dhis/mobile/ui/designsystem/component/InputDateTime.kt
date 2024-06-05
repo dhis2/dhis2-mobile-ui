@@ -238,7 +238,9 @@ fun InputDateTime(
         },
         inputStyle = uiModel.inputStyle,
     )
-    var datePickerState = rememberDatePickerState()
+    var datePickerState = rememberDatePickerState(
+        selectableDates = getSelectableDates(uiModel),
+    )
     if (!uiModel.inputTextFieldValue?.text.isNullOrEmpty() && uiModel.actionType != DateTimeActionType.TIME) {
         datePickerState = if (uiModel.actionType == DateTimeActionType.DATE_TIME && uiModel.inputTextFieldValue?.text?.length == 12 && yearIsInRange(uiModel.inputTextFieldValue.text.substring(0, 8), uiModel.yearRange)) {
             rememberDatePickerState(
@@ -247,12 +249,14 @@ fun InputDateTime(
                     pattern = uiModel.format,
                 ),
                 yearRange = uiModel.yearRange,
+                selectableDates = getSelectableDates(uiModel),
             )
         } else {
             if (uiModel.inputTextFieldValue?.text?.length == 8 && yearIsInRange(uiModel.inputTextFieldValue.text, uiModel.yearRange)) {
                 rememberDatePickerState(
                     initialSelectedDateMillis = parseStringDateToMillis(uiModel.inputTextFieldValue.text, uiModel.format),
                     yearRange = uiModel.yearRange,
+                    selectableDates = getSelectableDates(uiModel),
                 )
             } else {
                 datePickerState
@@ -315,9 +319,6 @@ fun InputDateTime(
                     state = datePickerState,
                     showModeToggle = true,
                     modifier = Modifier.padding(Spacing.Spacing0),
-                    dateValidator = { date ->
-                        dateIsInRange(date, uiModel.selectableDates, uiModel.format)
-                    },
                 )
             }
         }
@@ -388,6 +389,15 @@ fun InputDateTime(
                     }
                 }
             }
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+fun getSelectableDates(uiModel: InputDateTimeModel): androidx.compose.material3.SelectableDates {
+    return object : androidx.compose.material3.SelectableDates {
+        override fun isSelectableDate(utcTimeMillis: Long): Boolean {
+            return dateIsInRange(utcTimeMillis, uiModel.selectableDates, uiModel.format)
         }
     }
 }

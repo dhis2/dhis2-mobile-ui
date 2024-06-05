@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.material.ripple.LocalRippleTheme
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.AssistChipDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -37,7 +36,6 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
  * @param onClick: Will be called when the user taps the chip.
  * @param badge: the text to be displayed within the badge.
  */
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AssistChip(
     modifier: Modifier = Modifier,
@@ -75,6 +73,7 @@ fun AssistChip(
                 },
                 border = AssistChipDefaults.assistChipBorder(
                     borderColor = Outline.Dark,
+                    enabled = enabled,
                 ),
                 leadingIcon = {
                     icon?.invoke()

@@ -6,7 +6,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Info
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -123,11 +123,11 @@ fun InputBarCodeScreen() {
         Description("Barcode Block", textColor = TextColor.OnSurfaceVariant)
 
         BarcodeBlock(data = "Barcode value")
-        Divider()
+        HorizontalDivider()
         BarcodeBlock(data = "889026a1-d01e-4d34-8209-81e8ed5c614b")
-        Divider()
+        HorizontalDivider()
         BarcodeBlock(data = "l;kw1jheoi1u23iop1")
-        Divider()
+        HorizontalDivider()
         RowComponentContainer {
             BarcodeBlock(data = "563ce8df-8e0b-420c-a63c-fe000b1d1f11")
             BarcodeBlock(data = "378c472d-bb05-4174-9fe5-f6dbf8f5de36")

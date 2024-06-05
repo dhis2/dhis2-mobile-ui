@@ -7,6 +7,7 @@ plugins {
     id("com.android.library")
     id("convention.publication")
     id("app.cash.paparazzi").version("1.3.3")
+    alias(libs.plugins.compose.compiler)
 }
 
 kotlin {

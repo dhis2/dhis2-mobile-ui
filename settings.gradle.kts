@@ -35,4 +35,12 @@ dependencyResolutionManagement {
         mavenCentral()
         maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
     }
+
+    versionCatalogs {
+        val kotlinVersion = extra["kotlin.version"] as String
+        create("libs") {
+            version("kotlin", kotlinVersion)
+            plugin("compose-compiler", "org.jetbrains.kotlin.plugin.compose").versionRef("kotlin")
+        }
+    }
 }

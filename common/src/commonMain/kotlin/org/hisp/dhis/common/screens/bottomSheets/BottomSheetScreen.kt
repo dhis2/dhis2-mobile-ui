@@ -13,7 +13,7 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.outlined.Info
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -88,7 +88,7 @@ fun BottomSheetScreen() {
                     items(longLegendList) { item ->
                         Column {
                             Text(text = item.text, modifier = Modifier.padding(horizontal = 24.dp, vertical = 12.dp))
-                            Divider()
+                            HorizontalDivider()
                         }
                     }
                 }
