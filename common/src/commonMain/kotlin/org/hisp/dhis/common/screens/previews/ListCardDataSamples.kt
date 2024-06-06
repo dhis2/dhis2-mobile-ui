@@ -13,7 +13,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
 val basicAdditionalItemList = listOf(
-    AdditionalInfoItem(key = lorem, value = lorem),
+    AdditionalInfoItem(key = "Phone:", value = "+234 123 111 6785"),
     AdditionalInfoItem(key = "Date of birth:", value = "12/12/1933"),
 )
 val basicAdditionalItemListWithLongKeyText = listOf(
@@ -31,7 +31,7 @@ val basicAdditionalItemListWithLongValue = listOf(
 val enrollmentCompletedList = listOf(
     AdditionalInfoItem(key = "Phone:", value = "+234 123 111 6785"),
     AdditionalInfoItem(key = "Date of birth:", value = "12/12/1945"),
-    AdditionalInfoItem(key = lorem, value = lorem),
+    AdditionalInfoItem(key = "Address:", value = "134 Main Road, Behind the temple, Citytown, Basil District, Granite State"),
     AdditionalInfoItem(key = "Enrolled in:", value = "12/12/1945"),
     AdditionalInfoItem(
         key = lorem,
