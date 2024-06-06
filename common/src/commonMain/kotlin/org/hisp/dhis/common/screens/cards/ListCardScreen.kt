@@ -18,6 +18,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import org.hisp.dhis.common.screens.previews.basicAdditionalItemList
+import org.hisp.dhis.common.screens.previews.basicAdditionalItemListWithLongKeyText
+import org.hisp.dhis.common.screens.previews.basicAdditionalItemListWithLongValue
+import org.hisp.dhis.common.screens.previews.basicAdditionalItemListWithMediumKeyText
 import org.hisp.dhis.common.screens.previews.enrollmentCompletedList
 import org.hisp.dhis.common.screens.previews.fullItemList
 import org.hisp.dhis.mobile.ui.designsystem.component.AdditionalInfoItem
@@ -80,13 +83,13 @@ fun ListCardScreen() {
         ListCard(
             listAvatar = {
                 Avatar(
-                    imagePainter = provideDHIS2Icon("dhis2_microscope_outline"),
-                    style = AvatarStyle.IMAGE,
+                    textAvatar = "P",
+                    style = AvatarStyle.TEXT,
                 )
             },
-            title = ListCardTitleModel(text = "Kunal Choudary, M, 55"),
-            lastUpdated = "24 min",
-            additionalInfoList = enrollmentCompletedList.toMutableList(),
+            title = ListCardTitleModel(text = "Palak Khanna, F, 61"),
+            lastUpdated = "5 hours",
+            additionalInfoList = basicAdditionalItemListWithLongKeyText.toMutableList(),
             actionButton = {
                 Button(
                     style = ButtonStyle.TONAL,
@@ -105,9 +108,102 @@ fun ListCardScreen() {
             onCardClick = {},
             loading = showLoading2,
         )
+        var showLoading3 by remember {
+            mutableStateOf(false)
+        }
+        ListCard(
+            listAvatar = {
+                Avatar(
+                    textAvatar = "P",
+                    style = AvatarStyle.TEXT,
+                )
+            },
+            title = ListCardTitleModel(text = "Palak Khanna, F, 61"),
+            lastUpdated = "5 hours",
+            additionalInfoList = basicAdditionalItemListWithMediumKeyText.toMutableList(),
+            actionButton = {
+                Button(
+                    style = ButtonStyle.TONAL,
+                    text = "Retry sync",
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Outlined.Sync,
+                            contentDescription = "Icon Button",
+                            tint = TextColor.OnPrimaryContainer,
+                        )
+                    },
+                    onClick = { showLoading3 = !showLoading3 },
+                    modifier = Modifier.fillMaxWidth(),
+                )
+            },
+            onCardClick = {},
+            loading = showLoading3,
+        )
+        var showLoading4 by remember {
+            mutableStateOf(false)
+        }
+        ListCard(
+            listAvatar = {
+                Avatar(
+                    textAvatar = "P",
+                    style = AvatarStyle.TEXT,
+                )
+            },
+            title = ListCardTitleModel(text = "Palak Khanna, F, 61"),
+            lastUpdated = "5 hours",
+            additionalInfoList = basicAdditionalItemListWithLongValue.toMutableList(),
+            actionButton = {
+                Button(
+                    style = ButtonStyle.TONAL,
+                    text = "Retry sync",
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Outlined.Sync,
+                            contentDescription = "Icon Button",
+                            tint = TextColor.OnPrimaryContainer,
+                        )
+                    },
+                    onClick = { showLoading4 = !showLoading4 },
+                    modifier = Modifier.fillMaxWidth(),
+                )
+            },
+            onCardClick = {},
+            loading = showLoading4,
+        )
+        var showLoading5 by remember {
+            mutableStateOf(false)
+        }
+        ListCard(
+            listAvatar = {
+                Avatar(
+                    imagePainter = provideDHIS2Icon("dhis2_microscope_outline"),
+                    style = AvatarStyle.IMAGE,
+                )
+            },
+            title = ListCardTitleModel(text = "Kunal Choudary, M, 55"),
+            lastUpdated = "24 min",
+            additionalInfoList = enrollmentCompletedList.toMutableList(),
+            actionButton = {
+                Button(
+                    style = ButtonStyle.TONAL,
+                    text = "Retry sync",
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Outlined.Sync,
+                            contentDescription = "Icon Button",
+                            tint = TextColor.OnPrimaryContainer,
+                        )
+                    },
+                    onClick = { showLoading5 = !showLoading5 },
+                    modifier = Modifier.fillMaxWidth(),
+                )
+            },
+            onCardClick = {},
+            loading = showLoading5,
+        )
         SubTitle("Without shadow")
 
-        var showLoading3 by remember {
+        var showLoading6 by remember {
             mutableStateOf(false)
         }
         ListCard(
@@ -142,15 +238,15 @@ fun ListCardScreen() {
                             tint = TextColor.OnPrimaryContainer,
                         )
                     },
-                    onClick = { showLoading3 = !showLoading3 },
+                    onClick = { showLoading6 = !showLoading6 },
                     modifier = Modifier.fillMaxWidth(),
                 )
             },
             onCardClick = {},
-            loading = showLoading3,
+            loading = showLoading6,
         )
 
-        var showLoading4 by remember {
+        var showLoading7 by remember {
             mutableStateOf(false)
         }
         val errorList = remember {
@@ -201,18 +297,18 @@ fun ListCardScreen() {
                         )
                     },
                     onClick = {
-                        if (!showLoading4) {
+                        if (!showLoading7) {
                             errorList.remove(errorItem)
                         } else {
                             errorList.add(errorItem)
                         }
-                        showLoading4 = !showLoading4
+                        showLoading7 = !showLoading7
                     },
                     modifier = Modifier.fillMaxWidth(),
                 )
             },
             onCardClick = {},
-            loading = showLoading4,
+            loading = showLoading7,
         )
         Spacer(Modifier.size(Spacing.Spacing16))
         SubTitle("Single events list:")
