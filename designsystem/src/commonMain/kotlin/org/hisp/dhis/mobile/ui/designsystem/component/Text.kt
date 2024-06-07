@@ -188,32 +188,6 @@ internal fun ListCardLastUpdated(
 }
 
 @Composable
-internal fun ListCardKey(
-    text: String,
-    color: Color,
-    modifier: Modifier = Modifier,
-) {
-    var modifiedText by remember(text) { mutableStateOf(text) }
-    Text(
-        text = modifiedText,
-        color = color,
-        style = MaterialTheme.typography.bodyMedium,
-        overflow = TextOverflow.Ellipsis,
-        maxLines = 1,
-        modifier = modifier,
-        onTextLayout = { textLayoutResult ->
-            if (textLayoutResult.hasVisualOverflow) {
-                val lineIndex = textLayoutResult.getLineEnd(
-                    lineIndex = 0,
-                    visibleEnd = true,
-                )
-                modifiedText = modifiedText.substring(0, lineIndex).trimEnd() + "...:"
-            }
-        },
-    )
-}
-
-@Composable
 internal fun CarouselButtonText(
     text: String,
     modifier: Modifier = Modifier,
