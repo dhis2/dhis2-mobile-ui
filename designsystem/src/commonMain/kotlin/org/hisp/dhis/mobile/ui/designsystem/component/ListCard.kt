@@ -40,6 +40,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.Role
@@ -52,6 +53,7 @@ import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.conditional
@@ -357,19 +359,14 @@ private fun AdditionalInfoColumn(
             val expandText = mutableStateOf(if (sectionState == SectionState.OPEN) shrinkLabelText else expandLabelText)
             val interactionSource = remember { MutableInteractionSource() }
 
-            val iconVector = if (sectionState == SectionState.CLOSE) {
-                Icons.Filled.KeyboardArrowDown
-            } else {
-                Icons.Filled.KeyboardArrowUp
-            }
+            val iconVector = getIconVector(sectionState)
             val expandTextColor = TextColor.OnSurfaceLight
             Row(
                 Modifier
                     .clip(RoundedCornerShape(Radius.M))
                     .clickable(
                         onClick = {
-                            sectionState =
-                                if (sectionState == SectionState.CLOSE) SectionState.OPEN else SectionState.CLOSE
+                            sectionState = getSectionState(sectionState)
                         },
                         role = Role.Button,
                         interactionSource = interactionSource,
@@ -397,6 +394,18 @@ private fun AdditionalInfoColumn(
     }
 }
 
+fun getSectionState(sectionState: SectionState): SectionState {
+    return if (sectionState == SectionState.CLOSE) SectionState.OPEN else SectionState.CLOSE
+}
+
+fun getIconVector(sectionState: SectionState): ImageVector {
+    return if (sectionState == SectionState.CLOSE) {
+        Icons.Filled.KeyboardArrowDown
+    } else {
+        Icons.Filled.KeyboardArrowUp
+    }
+}
+
 /**
  * DHIS2 KeyValue,
  *  used to paint each individual KeyValueItem
@@ -411,7 +420,6 @@ private fun KeyValue(
         val maxKeyWidth = maxWidth / 2 - Spacing.Spacing16
         val keyText = additionalInfoItem.key
         val valueText = additionalInfoItem.value
-        val textMeasurer = rememberTextMeasurer()
 
         Row(
             modifier = modifier,
@@ -451,6 +459,11 @@ private fun KeyValue(
 
                     valueColor = if (additionalInfoItem.action != null) SurfaceColor.Primary else valueColor
                     val additionalInfoKey = buildAnnotatedString {
+                        withStyle(
+                            style = ParagraphStyle(lineHeight = 20.sp),
+                        ) {
+                            append(keyText)
+                        }
                         withStyle(style = ParagraphStyle(),
                         ) {
                             append(valueText)
@@ -469,98 +482,112 @@ private fun KeyValue(
                         )
                 }
             } else {
-                val keyStyle = DHIS2SCustomTextStyles.inputFieldHelper
-                val valueStyle = DHIS2SCustomTextStyles.regularSupportingText
-                //keyColor = additionalInfoItem.color ?: AdditionalInfoItemColor.DEFAULT_KEY.color
-                valueColor = additionalInfoItem.color ?: AdditionalInfoItemColor.DEFAULT_VALUE.color
-                if (additionalInfoItem.icon != null) {
-                    Box(
-                        Modifier.background(color = Color.Transparent).size(InternalSizeValues.Size20),
-                    ) {
-                        additionalInfoItem.icon.invoke()
-                    }
-                    Spacer(Modifier.size(Spacing4))
-                }
-                var modifiedText by remember { mutableStateOf(buildAnnotatedString { append(
-                    keyText ?: ("" + valueText)
-                ) }) }
-                var textFormatted by remember { mutableStateOf(true) }
-                Text(
-                    text = modifiedText,
-                    textAlign = TextAlign.Start,
-                    color = valueColor,
-                    style = MaterialTheme.typography.bodyMedium,
-                    overflow = TextOverflow.Ellipsis,
-                    maxLines = 2,
-                    modifier = modifier,
-                    onTextLayout = { textLayoutResult ->
-                        if (textFormatted) {
-                                val keyLineIndex = textLayoutResult.getLineEnd(
-                                    lineIndex = 0,
-                                    visibleEnd = true,
-                                )
-                                val textMeasure = keyText?.let {
-                                    textMeasurer.measure(
-                                        text = it,
-                                        maxLines = 1
-                                    ).size.width
-                                }
-                                var keyTrimmedText: String
-                                if (textMeasure != null) {
-                                    if (textMeasure > maxKeyWidth.value.toInt()) {
-                                        keyTrimmedText =
-                                            if (textMeasure > (maxKeyWidth.value.toInt())) {
-                                                keyText.substring(0, (keyLineIndex / 2) - 2)
-                                                    .trimEnd() + "...: "
-                                            } else {
-                                                keyText
-                                            }
-                                        val keyValueText: AnnotatedString = buildAnnotatedString {
-                                            withStyle(
-                                                style = ParagraphStyle(lineHeight = 20.sp),
-                                            ) {
-                                                withStyle(
-                                                    style = keyStyle
-                                                ) {
-                                                    append(keyTrimmedText)
-                                                }
-                                                withStyle(
-                                                    style = valueStyle
-                                                ) {
-                                                    append(valueText)
-                                                }
-                                            }
-                                        }
-                                        modifiedText = keyValueText
-                                    } else {
+                ProvideListCardItem(additionalInfoItem, maxKeyWidth)
 
-                                        val keyValueText: AnnotatedString = buildAnnotatedString {
-                                            withStyle(
-                                                style = ParagraphStyle(lineHeight = 20.sp),
-                                            ) {
-                                                withStyle(
-                                                    style = keyStyle
-                                                ) {
-                                                    append("$keyText ")
-                                                }
-                                                withStyle(
-                                                    style = valueStyle
-                                                ) {
-                                                    append(valueText)
-                                                }
-                                            }
-                                        }
-                                        modifiedText = keyValueText
-                                    }
-                                    textFormatted = false
-                                }
-                        }
-                    },
-                )
             }
         }
     }
 }
+
+@Composable
+fun ProvideListCardItem(additionalInfoItem: AdditionalInfoItem, maxKeyWidth: Dp) {
+    val keyText = additionalInfoItem.key
+    val valueText = additionalInfoItem.value
+    val textMeasurer = rememberTextMeasurer()
+    val keyStyle = DHIS2SCustomTextStyles.inputFieldHelper
+    val valueStyle = DHIS2SCustomTextStyles.regularSupportingText
+    //keyColor = additionalInfoItem.color ?: AdditionalInfoItemColor.DEFAULT_KEY.color
+    val valueColor = additionalInfoItem.color ?: AdditionalInfoItemColor.DEFAULT_VALUE.color
+    if (additionalInfoItem.icon != null) {
+        Box(
+            Modifier.background(color = Color.Transparent).size(InternalSizeValues.Size20),
+        ) {
+            additionalInfoItem.icon.invoke()
+        }
+        Spacer(Modifier.size(Spacing4))
+    }
+    var modifiedText by remember { mutableStateOf(buildAnnotatedString {
+        append(
+            keyText ?: ("" + valueText)
+        ) }) }
+    var textFormatted by remember { mutableStateOf(true) }
+    Text(
+        text = modifiedText,
+        textAlign = TextAlign.Start,
+        color = valueColor,
+        style = MaterialTheme.typography.bodyMedium,
+        overflow = TextOverflow.Ellipsis,
+        maxLines = 2,
+        modifier = Modifier,
+        onTextLayout = { textLayoutResult ->
+            // end of line index
+            val endOfLineIndex = textLayoutResult.getLineEnd(
+                lineIndex = 0,
+                visibleEnd = true,
+            )
+            val keyTextMeasure = keyText?.let {
+                textMeasurer.measure(
+                    text = it,
+                    maxLines = 1
+                ).size.width
+            }
+            val totalTextMeasure = "$keyText: $valueText".let {
+                textMeasurer.measure(
+                    text = it,
+                    maxLines = 1
+                ).size.width.dp
+            }
+            var keyTrimmedText: String
+            if (keyTextMeasure != null) {
+                if (keyTextMeasure > maxKeyWidth.value.toInt()) {
+
+                    keyTrimmedText =
+                        if (textLayoutResult.lineCount > 1 && keyText.length -1 > (endOfLineIndex / 2)) {
+                            val trim = keyText.substring(0, (endOfLineIndex / 2) - 2)
+                            trim.trimEnd() + "...: "
+                        } else {
+                            keyText
+                        }
+                    val keyValueText: AnnotatedString = buildAnnotatedString {
+                        withStyle(
+                            style = ParagraphStyle(lineHeight = 20.sp),
+                        ) {
+                            withStyle(
+                                style = keyStyle
+                            ) {
+                                append(keyTrimmedText)
+                            }
+                            withStyle(
+                                style = valueStyle
+                            ) {
+                                append(valueText)
+                            }
+                        }
+                    }
+                    modifiedText = keyValueText
+                } else {
+
+                    val keyValueText: AnnotatedString = buildAnnotatedString {
+                        withStyle(
+                            style = ParagraphStyle(lineHeight = 20.sp),
+                        ) {
+                            withStyle(
+                                style = keyStyle
+                            ) {
+                                append("$keyText ")
+                            }
+                            withStyle(
+                                style = valueStyle
+                            ) {
+                                append(valueText)
+                            }
+                        }
+                    }
+                    modifiedText = keyValueText
+                }
+            }
+        },
+    )}
 
 /**
  * DHIS2 KeyValueList,
