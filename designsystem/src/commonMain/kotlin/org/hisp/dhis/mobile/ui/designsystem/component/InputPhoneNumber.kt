@@ -19,6 +19,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.internal.RegExValidations
  * @param title: controls the text to be shown for the title.
  * @param onCallActionClicked: callback to when call phone number button is clicked.
  * @param modifier: allows a modifier to be passed externally.
+ * @param maxLength: number of characters/digits that can be entered.
  * @param minLength: number of characters/digits that needs be entered to enable phone button.
  * @param state: Manages the InputShell state.
  * @param inputStyle: manages the InputShell style.
@@ -41,6 +42,7 @@ fun InputPhoneNumber(
     title: String,
     onCallActionClicked: () -> Unit,
     modifier: Modifier = Modifier,
+    maxLength: Int = 12,
     minLength: Int = 4,
     state: InputShellState,
     inputStyle: InputStyle = InputStyle.DataInputStyle(),
@@ -67,7 +69,11 @@ fun InputPhoneNumber(
         isRequiredField = isRequiredField,
         onNextClicked = onNextClicked,
         onValueChanged = {
-            onValueChanged?.invoke(it)
+            if ((it.text.length) <= maxLength) {
+                onValueChanged?.invoke(it)
+            } else {
+                // no-op
+            }
         },
         keyboardOptions = KeyboardOptions(
             imeAction = imeAction,
