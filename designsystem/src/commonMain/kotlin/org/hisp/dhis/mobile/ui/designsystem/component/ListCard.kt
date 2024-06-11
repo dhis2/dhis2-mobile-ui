@@ -495,6 +495,7 @@ fun ProvideListCardItem(additionalInfoItem: AdditionalInfoItem, maxKeyWidth: Dp)
     val valueText = additionalInfoItem.value
     val textMeasurer = rememberTextMeasurer()
     val keyStyle = DHIS2SCustomTextStyles.inputFieldHelper
+    val maxKeyLength = 14
     val valueStyle = DHIS2SCustomTextStyles.regularSupportingText
     //keyColor = additionalInfoItem.color ?: AdditionalInfoItemColor.DEFAULT_KEY.color
     val valueColor = additionalInfoItem.color ?: AdditionalInfoItemColor.DEFAULT_VALUE.color
@@ -510,7 +511,6 @@ fun ProvideListCardItem(additionalInfoItem: AdditionalInfoItem, maxKeyWidth: Dp)
         append(
             keyText ?: ("" + valueText)
         ) }) }
-    var textFormatted by remember { mutableStateOf(true) }
     Text(
         text = modifiedText,
         textAlign = TextAlign.Start,
@@ -531,19 +531,12 @@ fun ProvideListCardItem(additionalInfoItem: AdditionalInfoItem, maxKeyWidth: Dp)
                     maxLines = 1
                 ).size.width
             }
-            val totalTextMeasure = "$keyText: $valueText".let {
-                textMeasurer.measure(
-                    text = it,
-                    maxLines = 1
-                ).size.width.dp
-            }
-            var keyTrimmedText: String
+            val keyTrimmedText: String
             if (keyTextMeasure != null) {
                 if (keyTextMeasure > maxKeyWidth.value.toInt()) {
-
                     keyTrimmedText =
-                        if (textLayoutResult.lineCount > 1 && keyText.length -1 > (endOfLineIndex / 2)) {
-                            val trim = keyText.substring(0, (endOfLineIndex / 2) - 2)
+                        if (textLayoutResult.lineCount > 1 && keyText.length > maxKeyLength) {
+                            val trim = keyText.substring(0, maxKeyLength - 2)
                             trim.trimEnd() + "...: "
                         } else {
                             keyText
@@ -566,7 +559,6 @@ fun ProvideListCardItem(additionalInfoItem: AdditionalInfoItem, maxKeyWidth: Dp)
                     }
                     modifiedText = keyValueText
                 } else {
-
                     val keyValueText: AnnotatedString = buildAnnotatedString {
                         withStyle(
                             style = ParagraphStyle(lineHeight = 20.sp),
