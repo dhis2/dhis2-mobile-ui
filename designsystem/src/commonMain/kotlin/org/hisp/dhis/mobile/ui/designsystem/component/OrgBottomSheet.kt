@@ -4,10 +4,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredWidth
 import androidx.compose.foundation.layout.size
@@ -47,7 +47,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.max
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2SCustomTextStyles
@@ -93,7 +92,6 @@ fun OrgBottomSheet(
     onClearAll: () -> Unit,
     onDone: () -> Unit,
 ) {
-    val listState = rememberLazyListState()
     var searchQuery by remember { mutableStateOf("") }
     var orgTreeHeight by remember { mutableStateOf(0) }
     val orgTreeHeightInDp = with(LocalDensity.current) { orgTreeHeight.toDp() }
@@ -110,10 +108,10 @@ fun OrgBottomSheet(
             onSearch?.invoke(searchQuery)
         },
         onSearch = onSearch,
-        contentScrollState = listState,
+        scrollableContainerMinHeight = InternalSizeValues.Size386,
+        scrollableContainerMaxHeight = maxOf(orgTreeHeightInDp, InternalSizeValues.Size386),
         content = {
             OrgTreeList(
-                state = listState,
                 orgTreeItems = orgTreeItems,
                 searchQuery = searchQuery,
                 noResultsFoundText = noResultsFoundText,
@@ -126,9 +124,6 @@ fun OrgBottomSheet(
                             orgTreeHeight = treeHeight
                         }
                     }
-                    .heightIn(
-                        max(orgTreeHeightInDp, InternalSizeValues.Size386)
-                    ),
             )
         },
         buttonBlock = {
@@ -171,7 +166,6 @@ fun OrgBottomSheet(
 
 @Composable
 private fun OrgTreeList(
-    state: LazyListState,
     orgTreeItems: List<OrgTreeItem>,
     searchQuery: String,
     noResultsFoundText: String,
@@ -194,15 +188,14 @@ private fun OrgTreeList(
             style = MaterialTheme.typography.bodyMedium,
         )
     } else {
-        LazyColumn(
+        Column(
             modifier = modifier
                 .fillMaxWidth()
                 .testTag("ORG_TREE_LIST")
                 .horizontalScroll(scrollState),
-            state = state,
             horizontalAlignment = Alignment.Start,
         ) {
-            items(orgTreeItems) { item ->
+            orgTreeItems.forEach { item ->
                 OrgUnitSelectorItem(
                     orgTreeItem = item,
                     higherLevel = orgTreeItems.minBy { it.level }.level,
