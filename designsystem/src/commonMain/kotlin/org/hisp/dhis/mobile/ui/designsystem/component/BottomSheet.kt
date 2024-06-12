@@ -277,6 +277,7 @@ fun BottomSheetShell(
                         horizontalAlignment = Alignment.CenterHorizontally,
                     ) {
                         content.invoke()
+                        Spacer(modifier = Modifier.weight(1f))
                         if (showSectionDivider) {
                             HorizontalDivider(
                                 modifier = Modifier.fillMaxWidth().padding(top = Spacing8),
