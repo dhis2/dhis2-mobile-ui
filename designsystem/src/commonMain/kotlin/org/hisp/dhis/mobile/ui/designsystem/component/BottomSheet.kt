@@ -36,6 +36,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.Keyboard
@@ -145,6 +146,8 @@ fun BottomSheetHeader(
  * @param onDismiss: gives access to the onDismiss event.
  * @param modifier allows a modifier to be passed externally.
  * @param headerTextAlignment [Alignment] for header text.
+ * @param scrollableContainerMinHeight: Min size for scrollable content.
+ * @param scrollableContainerMaxHeight: Max size for scrollable content.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -160,6 +163,8 @@ fun BottomSheetShell(
     buttonBlock: @Composable (() -> Unit)? = null,
     modifier: Modifier = Modifier,
     headerTextAlignment: TextAlign = TextAlign.Center,
+    scrollableContainerMinHeight: Dp = Spacing0,
+    scrollableContainerMaxHeight: Dp = InternalSizeValues.Size386,
     onSearchQueryChanged: ((String) -> Unit)? = null,
     onSearch: ((String) -> Unit)? = null,
     onDismiss: () -> Unit,
@@ -267,7 +272,7 @@ fun BottomSheetShell(
                     Column(
                         modifier = Modifier
                             .padding(horizontal = Spacing24)
-                            .heightIn(Spacing0, InternalSizeValues.Size386)
+                            .heightIn(scrollableContainerMinHeight, scrollableContainerMaxHeight)
                             .then(scrollModifier),
                         horizontalAlignment = Alignment.CenterHorizontally,
                     ) {
