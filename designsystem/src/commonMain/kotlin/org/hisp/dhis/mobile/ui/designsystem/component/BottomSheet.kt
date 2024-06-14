@@ -253,7 +253,7 @@ fun BottomSheetShell(
                     if (showSectionDivider) {
                         HorizontalDivider(
                             modifier = Modifier.fillMaxWidth()
-                                .padding(top = Spacing24, start = Spacing24, end = Spacing24),
+                                .padding(top = Spacing24, start = Spacing24, end = Spacing24, bottom = Spacing8),
                             color = TextColor.OnDisabledSurface,
                             thickness = Border.Thin,
                         )
