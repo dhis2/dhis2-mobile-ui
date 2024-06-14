@@ -4,17 +4,13 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.requiredHeightIn
 import androidx.compose.foundation.layout.requiredWidth
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
@@ -27,7 +23,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -48,11 +43,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
-import org.hisp.dhis.mobile.ui.designsystem.component.internal.Keyboard
-import org.hisp.dhis.mobile.ui.designsystem.component.internal.keyboardAsState
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2SCustomTextStyles
+import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
@@ -94,20 +88,9 @@ fun OrgBottomSheet(
     onClearAll: () -> Unit,
     onDone: () -> Unit,
 ) {
-    val listState = rememberLazyListState()
     var searchQuery by remember { mutableStateOf("") }
     var orgTreeHeight by remember { mutableStateOf(0) }
     val orgTreeHeightInDp = with(LocalDensity.current) { orgTreeHeight.toDp() }
-    val keyboardState by keyboardAsState()
-
-    var isKeyboardOpen by remember { mutableStateOf(false) }
-
-    LaunchedEffect(keyboardState) {
-        isKeyboardOpen = keyboardState == Keyboard.Opened
-        if (isKeyboardOpen) {
-            listState.scrollToItem(0)
-        }
-    }
 
     BottomSheetShell(
         modifier = modifier,
@@ -121,10 +104,10 @@ fun OrgBottomSheet(
             onSearch?.invoke(searchQuery)
         },
         onSearch = onSearch,
-        contentScrollState = listState,
+        scrollableContainerMinHeight = InternalSizeValues.Size386,
+        scrollableContainerMaxHeight = maxOf(orgTreeHeightInDp, InternalSizeValues.Size386),
         content = {
             OrgTreeList(
-                state = listState,
                 orgTreeItems = orgTreeItems,
                 searchQuery = searchQuery,
                 noResultsFoundText = noResultsFoundText,
@@ -136,8 +119,7 @@ fun OrgBottomSheet(
                         if (treeHeight > orgTreeHeight) {
                             orgTreeHeight = treeHeight
                         }
-                    }
-                    .requiredHeightIn(min = if (isKeyboardOpen) Spacing.Spacing0 else orgTreeHeightInDp),
+                    },
             )
         },
         buttonBlock = {
@@ -180,7 +162,6 @@ fun OrgBottomSheet(
 
 @Composable
 private fun OrgTreeList(
-    state: LazyListState,
     orgTreeItems: List<OrgTreeItem>,
     searchQuery: String,
     noResultsFoundText: String,
@@ -194,8 +175,8 @@ private fun OrgTreeList(
         Text(
             modifier = modifier
                 .fillMaxWidth()
-                .padding(top = Spacing.Spacing24, bottom = Spacing.Spacing96)
-                .padding(horizontal = Spacing.Spacing16)
+                .padding(horizontal = Spacing.Spacing24)
+                .padding(vertical = Spacing.Spacing24)
                 .testTag("ORG_TREE_NO_RESULTS_FOUND"),
             textAlign = TextAlign.Center,
             text = noResultsFoundText,
@@ -203,15 +184,14 @@ private fun OrgTreeList(
             style = MaterialTheme.typography.bodyMedium,
         )
     } else {
-        LazyColumn(
+        Column(
             modifier = modifier
                 .fillMaxWidth()
                 .testTag("ORG_TREE_LIST")
                 .horizontalScroll(scrollState),
-            state = state,
             horizontalAlignment = Alignment.Start,
         ) {
-            items(orgTreeItems) { item ->
+            orgTreeItems.forEach { item ->
                 OrgUnitSelectorItem(
                     orgTreeItem = item,
                     higherLevel = orgTreeItems.minBy { it.level }.level,
