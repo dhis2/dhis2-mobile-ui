@@ -65,7 +65,6 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2SCustomTextStyles
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing16
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing4
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
@@ -560,7 +559,7 @@ fun measureTextWidth(text: String, textMeasurer: TextMeasurer): Dp {
 
 @Composable
 fun getKeyTrimmedText(text: String, maxKeyWidth: Dp, textMeasurer: TextMeasurer): String {
-    var lastCharIndex = 18
+    var lastCharIndex = 14
     var trimmedText = remember { text.substring(IntRange(0, lastCharIndex)) }
     var newKeyWidth = measureTextWidth(trimmedText, textMeasurer)
 
