@@ -18,7 +18,6 @@ import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.ClearAll
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.ripple.rememberRipple
-import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -264,9 +263,10 @@ fun OrgUnitSelectorItem(
             modifier = clickableModifier,
         ) {
             if (orgTreeItem.canBeSelected) {
-                Checkbox(
+                val checkBoxData = CheckBoxData(uid = orgTreeItem.uid, enabled = true, checked = orgTreeItem.selected, textInput = null)
+                CheckBox(
                     modifier = Modifier.testTag("$ITEM_CHECK_TEST_TAG${orgTreeItem.label}"),
-                    checked = orgTreeItem.selected,
+                    checkBoxData = checkBoxData,
                     onCheckedChange = { isChecked ->
                         onItemSelected(orgTreeItem.uid, isChecked)
                     },
