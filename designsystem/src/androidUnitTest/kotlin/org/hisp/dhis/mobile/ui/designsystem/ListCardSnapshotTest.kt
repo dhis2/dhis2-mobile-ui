@@ -76,7 +76,7 @@ class ListCardSnapshotTest {
                 AdditionalInfoItem(
                     key = lorem,
                     value = "Tuberculosis, Nutrition \n" +
-                            "Assistance Program, Malaria Diagnosis",
+                        "Assistance Program, Malaria Diagnosis",
                 ),
                 AdditionalInfoItem(
                     icon = {
@@ -91,7 +91,7 @@ class ListCardSnapshotTest {
                     isConstantItem = true,
                 ),
 
-                )
+            )
 
             val teiDetailList = listOf(
                 AdditionalInfoItem(key = "National ID:", value = "001-224-789"),
@@ -113,7 +113,7 @@ class ListCardSnapshotTest {
                 AdditionalInfoItem(
                     key = lorem,
                     value = "Tuberculosis, Nutrition," +
-                            "Assistance Program, Malaria Diagnosis",
+                        "Assistance Program, Malaria Diagnosis",
                     action = {},
                     color = SurfaceColor.Primary,
                 ),
@@ -125,7 +125,7 @@ class ListCardSnapshotTest {
                 AdditionalInfoItem(
                     key = "Programs:",
                     value = "Tuberculosis, Nutrition \n" +
-                            "Assistance Program, Malaria Diagnosis",
+                        "Assistance Program, Malaria Diagnosis",
                 ),
                 AdditionalInfoItem(
                     icon = {
@@ -492,7 +492,7 @@ class ListCardSnapshotTest {
                                         painter = provideDHIS2Icon("dhis2_baby_male_0203m_positive"),
                                         contentDescription = "Button",
 
-                                        )
+                                    )
                                 },
                                 iconTint = Color(0xFF11D9D9),
                                 size = AvatarSize.Large,
@@ -535,7 +535,7 @@ class ListCardSnapshotTest {
                                         painter = provideDHIS2Icon("dhis2_baby_male_0203m_positive"),
                                         contentDescription = "Button",
 
-                                        )
+                                    )
                                 },
                                 iconTint = Color(0xFF11D9D9),
                                 size = AvatarSize.Large,
@@ -571,7 +571,7 @@ class ListCardSnapshotTest {
                         isConstantItem = true,
                     ),
 
-                    ),
+                ),
                 onCardClick = {},
             )
 

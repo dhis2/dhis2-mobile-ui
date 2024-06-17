@@ -56,7 +56,7 @@ val enrollmentCompletedList = listOf(
 val teiDetailList = listOf(
     AdditionalInfoItem(key = "National ID:", value = "001-224-789"),
     AdditionalInfoItem(
-        key = "Phone:",
+        key = lorem,
         value = "+234 123 111 6785",
         icon = {
             Icon(
@@ -68,11 +68,11 @@ val teiDetailList = listOf(
         color = SurfaceColor.Primary,
         action = {},
     ),
-    AdditionalInfoItem(key = "Address:", value = "134 Main Road, Behind the temple, Citytown, Basil District, Granite State"),
+    AdditionalInfoItem(key = lorem, value = lorem),
     AdditionalInfoItem(key = "Enrolled in:", value = "PHC Blueberry"),
     AdditionalInfoItem(
         key = lorem,
-        value = "Tuberculosis, Nutrition," +
+        value = "Tuberculosis, Nutrition, " +
             "Assistance Program, Malaria Diagnosis",
         action = {},
         color = SurfaceColor.Primary,
