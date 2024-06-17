@@ -257,7 +257,6 @@ fun ListCardScreen() {
         }
         val eventsTimelineTeiDashboardList = remember {
             mutableStateListOf(
-                AdditionalInfoItem(value = "Birth"),
                 AdditionalInfoItem(key = "Date of birth:", value = "12/12/1945"),
             )
         }
@@ -427,6 +426,7 @@ fun ListCardScreen() {
                 )
             },
             title = ListCardTitleModel(text = "12/18/2021 at 16:30"),
+            description = ListCardDescriptionModel(text = "Birth"),
             lastUpdated = "now",
             additionalInfoList = eventsTimelineTeiDashboardList,
             onCardClick = {},
