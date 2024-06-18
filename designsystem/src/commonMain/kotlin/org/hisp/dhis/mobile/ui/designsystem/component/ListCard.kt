@@ -418,7 +418,7 @@ private fun KeyValue(
     isDetailCard: Boolean = false,
     modifier: Modifier = Modifier,
 ) {
-    BoxWithConstraints(modifier = modifier.fillMaxWidth()) {
+    BoxWithConstraints(modifier = modifier) {
         val maxKeyWidth = maxWidth / 2 - Spacing.Spacing16
         ProvideKeyValueItem(additionalInfoItem, maxKeyWidth, isDetailCard)
     }
@@ -442,7 +442,7 @@ fun ProvideKeyValueItem(additionalInfoItem: AdditionalInfoItem, maxKeyWidth: Dp,
     val keyTrimmedText = if (keyWidth > maxKeyWidth) {
         getKeyTrimmedText(keyText ?: "", maxKeyWidth, textMeasurer)
     } else {
-        additionalInfoItem.key ?: " "
+        additionalInfoItem.key ?: ""
     }
 
     val additionalInfoKey = buildAnnotatedString {
@@ -463,7 +463,7 @@ fun ProvideKeyValueItem(additionalInfoItem: AdditionalInfoItem, maxKeyWidth: Dp,
             withStyle(
                 style = valueStyle,
             ) {
-                append(" $valueText")
+                append(if (keyText?.isNotEmpty() == true) " $valueText" else valueText)
             }
         }
     }
@@ -491,7 +491,7 @@ fun ProvideKeyValueItem(additionalInfoItem: AdditionalInfoItem, maxKeyWidth: Dp,
     )
 
     Row(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
             .clip(shape = RoundedCornerShape(Radius.XS))
             .conditional(additionalInfoItem.action != null && isDetailCard, {
                 clickable(
@@ -563,12 +563,12 @@ fun getKeyTrimmedText(text: String, maxKeyWidth: Dp, textMeasurer: TextMeasurer)
     var trimmedText = remember { text.substring(IntRange(0, lastCharIndex)) }
     var newKeyWidth = measureTextWidth(trimmedText, textMeasurer)
 
-    while (newKeyWidth < maxKeyWidth) {
+    while (newKeyWidth < maxKeyWidth && lastCharIndex < text.length) {
         lastCharIndex++
         trimmedText = text.substring(IntRange(0, lastCharIndex))
         newKeyWidth = measureTextWidth(trimmedText, textMeasurer)
     }
-    return trimmedText.dropLast(1) + "...: "
+    return trimmedText.dropLast(1).trimEnd() + "...: "
 }
 
 enum class

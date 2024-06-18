@@ -31,7 +31,7 @@ val basicAdditionalItemListWithLongValue = listOf(
 val enrollmentCompletedList = listOf(
     AdditionalInfoItem(key = "Phone:", value = "+234 123 111 6785"),
     AdditionalInfoItem(key = "Date of birth:", value = "12/12/1945"),
-    AdditionalInfoItem(key = "Address:", value = "134 Main Road, Behind the temple, Citytown, Basil District, Granite State"),
+    AdditionalInfoItem(key = "Address:", value = "134 Main Road, Behind the temple, Citytown, Basil District"),
     AdditionalInfoItem(key = "Enrolled in:", value = "12/12/1945"),
     AdditionalInfoItem(
         key = lorem,
@@ -57,7 +57,7 @@ val teiDetailList = listOf(
     AdditionalInfoItem(key = "National ID:", value = "001-224-789"),
     AdditionalInfoItem(
         key = lorem,
-        value = "+234 123 111 6785",
+        value = "+234 554",
         icon = {
             Icon(
                 imageVector = Icons.Filled.PhoneEnabled,
@@ -70,6 +70,7 @@ val teiDetailList = listOf(
     ),
     AdditionalInfoItem(key = lorem, value = lorem),
     AdditionalInfoItem(key = "Enrolled in:", value = "PHC Blueberry"),
+    AdditionalInfoItem(value = "PHC Blueberry"),
     AdditionalInfoItem(
         key = lorem,
         value = "Tuberculosis, Nutrition, " +
