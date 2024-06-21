@@ -1,3 +1,9 @@
+---
+id: getting-started
+title: Getting started
+sidebar_position: 1
+---
+
 # DHIS2 Mobile UI
 
 > **@dhis2/dhis2-mobile-ui** is
