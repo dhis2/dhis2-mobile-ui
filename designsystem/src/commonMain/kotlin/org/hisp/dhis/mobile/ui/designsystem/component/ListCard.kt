@@ -45,6 +45,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.ParagraphStyle
 import androidx.compose.ui.text.Placeholder
 import androidx.compose.ui.text.PlaceholderVerticalAlign
@@ -141,7 +142,6 @@ fun ListCard(
         }
         Column(Modifier.fillMaxWidth().weight(1f)) {
             Row(horizontalArrangement = Arrangement.SpaceBetween) {
-                // Row with header and last updated
                 ListCardTitle(title = title, modifier.weight(1f).padding(bottom = if (description?.text != null) Spacing.Spacing0 else Spacing4))
                 if (lastUpdated != null) {
                     ListCardLastUpdated(lastUpdated)
@@ -173,7 +173,6 @@ fun ListCard(
             )
             actionButton?.invoke()
         }
-        // rest of  items here (KeyValue component)
     }
 }
 
@@ -427,51 +426,17 @@ private fun KeyValue(
 @Composable
 fun ProvideKeyValueItem(additionalInfoItem: AdditionalInfoItem, maxKeyWidth: Dp, isDetailCard: Boolean) {
     val keyText = additionalInfoItem.key
-    val valueText = additionalInfoItem.value
     val interactionSource = remember { MutableInteractionSource() }
 
     val textMeasurer = rememberTextMeasurer()
-    val keyStyle = DHIS2SCustomTextStyles.listCardKey.copy(color = AdditionalInfoItemColor.DEFAULT_KEY.color)
-    var valueColor = additionalInfoItem.color ?: AdditionalInfoItemColor.DEFAULT_VALUE.color
-    valueColor = if (additionalInfoItem.action != null) SurfaceColor.Primary else valueColor
 
-    val valueStyle = DHIS2SCustomTextStyles.listCardValue.copy(color = valueColor)
+    val keyTrimmedText = getKeyTrimmedText(keyText ?: "", maxKeyWidth, textMeasurer)
 
-    val keyWidth = measureTextWidth(additionalInfoItem.key ?: "", textMeasurer)
-    val iconId = "IconId"
-    val keyTrimmedText = if (keyWidth > maxKeyWidth) {
-        getKeyTrimmedText(keyText ?: "", maxKeyWidth, textMeasurer)
-    } else {
-        additionalInfoItem.key ?: ""
-    }
-
-    val additionalInfoKey = buildAnnotatedString {
-        withStyle(
-            style = ParagraphStyle(lineHeight = 20.sp),
-        ) {
-            if (additionalInfoItem.icon != null && !isDetailCard) {
-                appendInlineContent(iconId, "[icon]")
-            }
-            withStyle(
-                style = keyStyle,
-            ) {
-                append(keyTrimmedText)
-            }
-            if (additionalInfoItem.icon != null && isDetailCard) {
-                appendInlineContent(iconId, "[icon]")
-            }
-            withStyle(
-                style = valueStyle,
-            ) {
-                append(if (keyText?.isNotEmpty() == true) " $valueText" else valueText)
-            }
-        }
-    }
+    val finalAnnotatedString: AnnotatedString = getKeyValueAnnotatedString(keyTrimmedText, additionalInfoItem, isDetailCard)
 
     val inlineContent = mapOf(
         Pair(
-
-            iconId,
+            "ItemIcon",
             InlineTextContent(
 
                 Placeholder(
@@ -485,7 +450,6 @@ fun ProvideKeyValueItem(additionalInfoItem: AdditionalInfoItem, maxKeyWidth: Dp,
                 ) {
                     additionalInfoItem.icon?.invoke()
                 }
-                Spacer(Modifier.size(Spacing4))
             },
         ),
     )
@@ -506,9 +470,8 @@ fun ProvideKeyValueItem(additionalInfoItem: AdditionalInfoItem, maxKeyWidth: Dp,
     ) {
         Text(
             inlineContent = inlineContent,
-            text = additionalInfoKey,
+            text = finalAnnotatedString,
             textAlign = TextAlign.Start,
-            color = valueColor,
             style = MaterialTheme.typography.bodyMedium,
             overflow = TextOverflow.Ellipsis,
             maxLines = 2,
@@ -516,6 +479,50 @@ fun ProvideKeyValueItem(additionalInfoItem: AdditionalInfoItem, maxKeyWidth: Dp,
 
         )
     }
+}
+
+fun getKeyValueAnnotatedString(
+    key: String,
+    additionalInfoItem: AdditionalInfoItem?,
+    isDetailCard: Boolean,
+): AnnotatedString {
+    val valueText = additionalInfoItem?.value
+    val keyStyle = DHIS2SCustomTextStyles.listCardKey.copy(color = AdditionalInfoItemColor.DEFAULT_KEY.color)
+
+    val valueColor = getValueColor(additionalInfoItem)
+    val valueStyle = DHIS2SCustomTextStyles.listCardValue.copy(color = valueColor)
+    return buildAnnotatedString {
+        withStyle(
+            style = ParagraphStyle(lineHeight = 20.sp),
+        ) {
+            if (additionalInfoItem?.icon != null && !isDetailCard) {
+                appendInlineContent("ItemIcon", "[icon]")
+            }
+            withStyle(
+                style = keyStyle,
+            ) {
+                append(formatText(key, additionalInfoItem?.icon != null && !isDetailCard))
+            }
+            if (additionalInfoItem?.icon != null && isDetailCard) {
+                appendInlineContent("ItemIcon", "[icon]")
+            }
+            withStyle(
+                style = valueStyle,
+            ) {
+                append(formatText(valueText,key.isNotEmpty()))
+            }
+        }
+    }
+}
+fun formatText(text: String?, withSpace: Boolean): String {
+ return if (withSpace) " $text" else text ?: ""
+}
+
+
+fun getValueColor(additionalInfoItem: AdditionalInfoItem?): Color {
+    var valueColor = additionalInfoItem?.color ?: AdditionalInfoItemColor.DEFAULT_VALUE.color
+    valueColor = if (additionalInfoItem?.action != null) SurfaceColor.Primary else valueColor
+    return valueColor
 }
 
 /**
@@ -559,16 +566,20 @@ fun measureTextWidth(text: String, textMeasurer: TextMeasurer): Dp {
 
 @Composable
 fun getKeyTrimmedText(text: String, maxKeyWidth: Dp, textMeasurer: TextMeasurer): String {
-    var lastCharIndex = 14
-    var trimmedText = remember { text.substring(IntRange(0, lastCharIndex)) }
-    var newKeyWidth = measureTextWidth(trimmedText, textMeasurer)
+    return if (measureTextWidth(text, textMeasurer) > maxKeyWidth) {
+        var lastCharIndex = 14
+        var trimmedText = remember { text.substring(IntRange(0, lastCharIndex)) }
+        var newKeyWidth = measureTextWidth(trimmedText, textMeasurer)
 
-    while (newKeyWidth < maxKeyWidth && lastCharIndex < text.length) {
-        lastCharIndex++
-        trimmedText = text.substring(IntRange(0, lastCharIndex))
-        newKeyWidth = measureTextWidth(trimmedText, textMeasurer)
+        while (newKeyWidth < maxKeyWidth && lastCharIndex < text.length) {
+            lastCharIndex++
+            trimmedText = text.substring(IntRange(0, lastCharIndex))
+            newKeyWidth = measureTextWidth(trimmedText, textMeasurer)
+        }
+        trimmedText.dropLast(1).trimEnd() + "...: "
+    } else {
+        text
     }
-    return trimmedText.dropLast(1).trimEnd() + "...: "
 }
 
 enum class
