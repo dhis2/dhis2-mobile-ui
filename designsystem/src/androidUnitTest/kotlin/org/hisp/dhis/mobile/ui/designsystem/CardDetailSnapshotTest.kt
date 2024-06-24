@@ -44,7 +44,9 @@ class CardDetailSnapshotTest {
         ),
         AdditionalInfoItem(key = lorem, value = lorem),
         AdditionalInfoItem(key = "Enrolled in:", value = "PHC Blueberry", isConstantItem = true),
-        AdditionalInfoItem(value = "PHC Blueberry", isConstantItem = true,
+        AdditionalInfoItem(
+            value = "PHC Blueberry",
+            isConstantItem = true,
         ),
         AdditionalInfoItem(
             key = lorem,
@@ -57,7 +59,7 @@ class CardDetailSnapshotTest {
         AdditionalInfoItem(
             key = lorem,
             value = "Tuberculosis, Nutrition, " +
-                    "Assistance Program, Malaria Diagnosis",
+                "Assistance Program, Malaria Diagnosis",
             action = {},
             color = SurfaceColor.Primary,
         ),

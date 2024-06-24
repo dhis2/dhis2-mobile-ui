@@ -509,15 +509,14 @@ fun getKeyValueAnnotatedString(
             withStyle(
                 style = valueStyle,
             ) {
-                append(formatText(valueText,key.isNotEmpty()))
+                append(formatText(valueText, key.isNotEmpty()))
             }
         }
     }
 }
 fun formatText(text: String?, withSpace: Boolean): String {
- return if (withSpace) " $text" else text ?: ""
+    return if (withSpace) " $text" else text ?: ""
 }
-
 
 fun getValueColor(additionalInfoItem: AdditionalInfoItem?): Color {
     var valueColor = additionalInfoItem?.color ?: AdditionalInfoItemColor.DEFAULT_VALUE.color
