@@ -26,7 +26,6 @@ class InputAgeTest {
                         // no-op
                     },
                 ),
-
             )
         }
 
@@ -48,7 +47,6 @@ class InputAgeTest {
                         // no-op
                     },
                 ),
-
             )
         }
 
@@ -71,7 +69,6 @@ class InputAgeTest {
                         inputType = it
                     },
                 ),
-
             )
         }
 
@@ -92,7 +89,6 @@ class InputAgeTest {
                         // no-op
                     },
                 ),
-
             )
         }
 
@@ -115,7 +111,6 @@ class InputAgeTest {
                         inputType = it
                     },
                 ),
-
             )
         }
 
@@ -137,7 +132,6 @@ class InputAgeTest {
                         inputType = it
                     },
                 ),
-
             )
         }
 
@@ -163,8 +157,7 @@ class InputAgeTest {
                         inputType = it
                     },
                 ),
-
-                )
+            )
         }
 
         rule.onNodeWithTag("INPUT_AGE_TIME_UNIT_SELECTOR").assertExists()
