@@ -6,6 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performTextClearance
 import androidx.compose.ui.test.performTextInput
 import org.junit.Rule
 import org.junit.Test
@@ -175,5 +176,40 @@ class InputAgeTest {
         rule.onNodeWithTag("INPUT_AGE_TEXT_FIELD").performTextInput(futureDate)
 
         rule.onNodeWithTag("INPUT_AGE_SUPPORTING_TEXT").assertExists()
+    }
+    @Test
+    fun changingAgeTimeUnitShouldWorkProperly() {
+        var inputType by mutableStateOf<AgeInputType>(AgeInputType.Age.EMPTY)
+
+        rule.setContent {
+            InputAge(
+                InputAgeModel(
+                    title = "Label",
+                    inputType = inputType,
+                    onValueChanged = {
+                        inputType = it
+                    },
+                ),
+
+                )
+        }
+
+        rule.onNodeWithTag("INPUT_AGE_TIME_UNIT_SELECTOR").assertExists()
+        rule.onNodeWithTag("RADIO_BUTTON_YEARS").assertExists()
+        rule.onNodeWithTag("RADIO_BUTTON_MONTHS").assertExists()
+        rule.onNodeWithTag("RADIO_BUTTON_DAYS").assertExists()
+
+        rule.onNodeWithTag("RADIO_BUTTON_MONTHS").performClick()
+        rule.onNodeWithTag("INPUT_AGE_TEXT_FIELD").performTextInput("11")
+        val newInputMonthType = inputType as AgeInputType.Age
+        assert(newInputMonthType.value.text == "11")
+        assert(newInputMonthType.unit == TimeUnitValues.MONTHS)
+
+        rule.onNodeWithTag("RADIO_BUTTON_DAYS").performClick()
+        rule.onNodeWithTag("INPUT_AGE_TEXT_FIELD").performTextClearance()
+        rule.onNodeWithTag("INPUT_AGE_TEXT_FIELD").performTextInput("28")
+        val newInputDaysType = inputType as AgeInputType.Age
+        assert(newInputDaysType.value.text == "28")
+        assert(newInputDaysType.unit == TimeUnitValues.DAYS)
     }
 }
