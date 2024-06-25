@@ -18,23 +18,31 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
  *
  * @param orientation: Controls how the radio buttons will be displayed, HORIZONTAL for rows or
  * VERTICAL for columns.
- * @param optionSelected: controls which item is selected.
+ * @param optionSelected: controls which [TimeUnitValues] is selected.
  * @param enabled: manages the enabled state
- * @param onClick: is a callback to notify which item has changed into the block.
+ * @param onClick: is a callback to notify when [TimeUnitValues] is changed.
  * @param modifier: optional modifier.
  */
 @Composable
 internal fun TimeUnitSelector(
     orientation: Orientation,
-    optionSelected: String,
+    optionSelected: TimeUnitValues,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    onClick: (RadioButtonData) -> Unit,
+    onClick: (TimeUnitValues) -> Unit,
 ) {
     val backgroundColor = if (enabled) {
         SurfaceColor.Surface
     } else {
         SurfaceColor.DisabledSurface
+    }
+
+    val options = TimeUnitValues.entries.map {
+        RadioButtonData(it.name, optionSelected == it, enabled, provideStringResource(it.value))
+    }
+
+    var selectedOption by remember {
+        mutableStateOf(options.find { it.selected } ?: options[0])
     }
 
     RowComponentContainer(
@@ -45,18 +53,10 @@ internal fun TimeUnitSelector(
                 end = Spacing.Spacing8,
             ),
     ) {
-        val options = TimeUnitValues.values().map {
-            RadioButtonData(it.value, optionSelected == it.value, enabled, provideStringResource(it.value))
-        }
-        val selectedItem = options.find {
-            it.selected
-        }
-        var currentItem by remember {
-            mutableStateOf(selectedItem ?: options[0])
-        }
-        RadioButtonBlock(orientation, options, currentItem) {
-            currentItem = it
-            onClick.invoke(it)
+        RadioButtonBlock(orientation, options, selectedOption) {
+            selectedOption = it
+            val selectedTimeUnit = TimeUnitValues.entries.first { it.name == selectedOption.uid }
+            onClick.invoke(selectedTimeUnit)
         }
     }
 }
