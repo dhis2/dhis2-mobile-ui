@@ -319,6 +319,7 @@ private fun updateDateOfBirth(inputType: DateOfBirth, newText: TextFieldValue): 
         inputType
     }
 }
+
 @Composable
 private fun provideSupportingText(
     uiModel: InputAgeModel,
@@ -330,8 +331,8 @@ private fun provideSupportingText(
             !dateIsInRange(parseStringDateToMillis(it), selectableDates)
         ) {
             val dateOutOfRangeText = "${provideStringResource("date_out_of_range")} (" +
-                    formatStringToDate(selectableDates.initialDate) + " - " +
-                    formatStringToDate(selectableDates.endDate) + ")"
+                formatStringToDate(selectableDates.initialDate) + " - " +
+                formatStringToDate(selectableDates.endDate) + ")"
 
             listOf(
                 SupportingTextData(

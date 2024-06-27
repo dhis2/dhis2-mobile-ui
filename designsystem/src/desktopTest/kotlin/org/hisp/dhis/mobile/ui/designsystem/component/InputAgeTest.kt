@@ -169,7 +169,7 @@ class InputAgeTest {
                     },
                 ),
 
-                )
+            )
         }
 
         rule.onNodeWithTag("INPUT_AGE_TEXT_FIELD").performTextInput(futureDate)
