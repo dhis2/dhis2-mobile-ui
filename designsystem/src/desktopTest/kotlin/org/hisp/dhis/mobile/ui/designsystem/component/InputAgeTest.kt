@@ -9,6 +9,8 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
 import org.junit.Rule
 import org.junit.Test
+import java.text.SimpleDateFormat
+import java.util.Calendar
 
 class InputAgeTest {
 
@@ -147,5 +149,31 @@ class InputAgeTest {
         rule.onNodeWithTag("INPUT_AGE_RESET_BUTTON").assertDoesNotExist()
         rule.onNodeWithTag("INPUT_AGE_OPEN_CALENDAR_BUTTON").assertDoesNotExist()
         rule.onNodeWithTag("INPUT_AGE_TIME_UNIT_SELECTOR").assertDoesNotExist()
+    }
+
+    @Test
+    fun shouldShowErrorMessageWhenAgeIsOnFuture() {
+        val calendar = Calendar.getInstance().apply {
+            add(Calendar.DAY_OF_MONTH, 1)
+        }
+        val futureDate = SimpleDateFormat(DATE_FORMAT).format(calendar.time)
+        var inputType by mutableStateOf<AgeInputType>(AgeInputType.DateOfBirth.EMPTY)
+
+        rule.setContent {
+            InputAge(
+                InputAgeModel(
+                    title = "Label",
+                    inputType = inputType,
+                    onValueChanged = {
+                        inputType = it
+                    },
+                ),
+
+                )
+        }
+
+        rule.onNodeWithTag("INPUT_AGE_TEXT_FIELD").performTextInput(futureDate)
+
+        rule.onNodeWithTag("INPUT_AGE_SUPPORTING_TEXT").assertExists()
     }
 }
