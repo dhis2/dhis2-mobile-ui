@@ -157,7 +157,7 @@ fun InputAge(
                             .testTag("INPUT_AGE_TEXT_FIELD")
                             .fillMaxWidth(),
                         inputTextValue = getTextFieldValue(uiModel.inputType),
-                        helper = helperText,
+                        helper = if (helperText != null) provideStringResource(helperText).lowercase() else null,
                         isSingleLine = true,
                         helperStyle = helperStyle,
                         onInputChanged = { newText ->
