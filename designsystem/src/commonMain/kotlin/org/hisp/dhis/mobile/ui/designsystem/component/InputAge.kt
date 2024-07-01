@@ -39,6 +39,8 @@ import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2LightColorScheme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
+import java.text.SimpleDateFormat
+import java.util.Calendar
 
 /**
  * DHIS2 Input Age component wraps DHIS2 [InputShell].
@@ -71,12 +73,16 @@ fun InputAge(
             is Age -> HelperStyle.WITH_HELPER_AFTER
         }
     }
+    val selectableDates = uiModel.selectableDates ?: SelectableDates(
+        MIN_DATE,
+        SimpleDateFormat(DATE_FORMAT).format(Calendar.getInstance().time),
+    )
 
     val focusRequester = remember { FocusRequester() }
     val datePickerState = rememberDatePickerState(
         selectableDates = object : androidx.compose.material3.SelectableDates {
             override fun isSelectableDate(utcTimeMillis: Long): Boolean {
-                return dateIsInRange(utcTimeMillis, uiModel.selectableDates)
+                return dateIsInRange(utcTimeMillis, selectableDates)
             }
         },
     )
@@ -118,10 +124,15 @@ fun InputAge(
         }
     }
 
+    val supportingText = provideSupportingText(uiModel, selectableDates)
+
     InputShell(
         modifier = modifier.testTag("INPUT_AGE").focusRequester(focusRequester),
         title = uiModel.title,
-        state = uiModel.state,
+        state = when (supportingText) {
+            uiModel.supportingText -> uiModel.state
+            else -> InputShellState.ERROR
+        },
         isRequiredField = uiModel.isRequired,
         inputField = {
             when (uiModel.inputType) {
@@ -193,7 +204,7 @@ fun InputAge(
         },
         secondaryButton = calendarButton,
         supportingText = {
-            uiModel.supportingText?.forEach { label ->
+            supportingText?.forEach { label ->
                 SupportingText(
                     label.text,
                     label.state,
@@ -309,6 +320,34 @@ private fun updateDateOfBirth(inputType: DateOfBirth, newText: TextFieldValue): 
     }
 }
 
+@Composable
+private fun provideSupportingText(
+    uiModel: InputAgeModel,
+    selectableDates: SelectableDates,
+): List<SupportingTextData>? =
+    (uiModel.inputType as? DateOfBirth)?.value?.text?.let {
+        if (
+            it.length == DATE_FORMAT.length &&
+            !dateIsInRange(parseStringDateToMillis(it), selectableDates)
+        ) {
+            val dateOutOfRangeText = "${provideStringResource("date_out_of_range")} (" +
+                formatStringToDate(selectableDates.initialDate) + " - " +
+                formatStringToDate(selectableDates.endDate) + ")"
+
+            listOf(
+                SupportingTextData(
+                    text = dateOutOfRangeText,
+                    SupportingTextState.ERROR,
+                ),
+            ).plus(uiModel.supportingText ?: listOf())
+        } else {
+            uiModel.supportingText
+        }
+    } ?: uiModel.supportingText
+
+internal const val MIN_DATE = "10111901"
+internal const val DATE_FORMAT = "ddMMYYYY"
+
 sealed interface AgeInputType {
     data object None : AgeInputType
 
@@ -364,5 +403,5 @@ data class InputAgeModel(
     val acceptText: String? = null,
     val cancelText: String? = null,
     val onValueChanged: (AgeInputType) -> Unit,
-    val selectableDates: SelectableDates = SelectableDates("10111901", "12112124"),
+    val selectableDates: SelectableDates? = null,
 )
