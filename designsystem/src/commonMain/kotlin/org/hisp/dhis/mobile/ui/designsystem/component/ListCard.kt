@@ -566,7 +566,7 @@ fun measureTextWidth(text: String, textMeasurer: TextMeasurer): Dp {
 @Composable
 fun getKeyTrimmedText(text: String, maxKeyWidth: Dp, textMeasurer: TextMeasurer): String {
     return if (measureTextWidth(text, textMeasurer) > maxKeyWidth) {
-        var lastCharIndex = 14
+        var lastCharIndex = 2
         var trimmedText = remember { text.substring(IntRange(0, lastCharIndex)) }
         var newKeyWidth = measureTextWidth(trimmedText, textMeasurer)
 
@@ -577,7 +577,7 @@ fun getKeyTrimmedText(text: String, maxKeyWidth: Dp, textMeasurer: TextMeasurer)
         }
         trimmedText.dropLast(1).trimEnd() + "...: "
     } else {
-        text
+        text + if (text.isNotEmpty()) ": " else ""
     }
 }
 
