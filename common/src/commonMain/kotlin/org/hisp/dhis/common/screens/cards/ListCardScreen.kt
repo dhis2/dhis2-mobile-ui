@@ -251,13 +251,13 @@ fun ListCardScreen() {
         }
         val errorList = remember {
             mutableStateListOf(
-                AdditionalInfoItem(key = "Phone:", value = "+234 123 111 6785"),
-                AdditionalInfoItem(key = "Date of birth:", value = "12/12/1945"),
+                AdditionalInfoItem(key = "Phone", value = "+234 123 111 6785"),
+                AdditionalInfoItem(key = "Date of birth", value = "12/12/1945"),
             )
         }
         val eventsTimelineTeiDashboardList = remember {
             mutableStateListOf(
-                AdditionalInfoItem(key = "Date of birth:", value = "12/12/1945"),
+                AdditionalInfoItem(key = "Date of birth", value = "12/12/1945"),
             )
         }
 
@@ -474,8 +474,8 @@ fun ListCardScreen() {
                     color = AdditionalInfoItemColor.SUCCESS.color,
                     isConstantItem = true,
                 ),
-                AdditionalInfoItem(key = "Drug resistance:", value = "Monoresistance"),
-                AdditionalInfoItem(key = "treatment:", value = "Initial regiment- first-line drugs"),
+                AdditionalInfoItem(key = "Drug resistance", value = "Monoresistance"),
+                AdditionalInfoItem(key = "treatment", value = "Initial regiment- first-line drugs"),
             ),
 
             onCardClick = {},
@@ -511,8 +511,8 @@ fun ListCardScreen() {
                     color = AdditionalInfoItemColor.SUCCESS.color,
                     isConstantItem = true,
                 ),
-                AdditionalInfoItem(key = "Drug resistance:", value = "Monoresistance"),
-                AdditionalInfoItem(key = "treatment:", value = "Initial regiment- first-line drugs"),
+                AdditionalInfoItem(key = "Drug resistance", value = "Monoresistance"),
+                AdditionalInfoItem(key = "treatment", value = "Initial regiment- first-line drugs"),
             ),
             onCardClick = {},
         )
