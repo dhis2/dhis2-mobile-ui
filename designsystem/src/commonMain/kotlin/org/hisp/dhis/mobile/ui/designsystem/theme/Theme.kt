@@ -255,6 +255,17 @@ internal object DHIS2SCustomTextStyles {
         fontWeight = FontWeight.Normal,
         color = TextColor.OnDisabledSurface,
     )
+
+    val listCardKey = SpanStyle(
+        fontSize = 14.sp,
+        fontWeight = FontWeight.Normal,
+        color = TextColor.OnSurfaceLight,
+    )
+    val listCardValue = SpanStyle(
+        fontSize = 14.sp,
+        fontWeight = FontWeight.Normal,
+        color = TextColor.OnSurface,
+    )
     val inputField = SpanStyle(
         fontSize = 16.sp,
         fontWeight = FontWeight.Normal,
