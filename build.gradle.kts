@@ -21,7 +21,6 @@ if (project.hasProperty("removeSnapshotSuffix")) {
     version = mainVersion
 }
 
-
 allprojects {
     apply(plugin = "org.jlleitschuh.gradle.ktlint")
     ktlint {
@@ -80,8 +79,8 @@ subprojects {
     }
 }
 
-val ossrhUsername: String? = System.getenv("SONATYPE_OSSRH_USERNAME")
-val ossrhPassword: String? = System.getenv("SONATYPE_OSSRH_PASSWORD")
+val ossrhUsername: String? = System.getenv("OSSRH_USERNAME")
+val ossrhPassword: String? = System.getenv("OSSRH_PASSWORD")
 
 nexusPublishing {
     this.repositories {

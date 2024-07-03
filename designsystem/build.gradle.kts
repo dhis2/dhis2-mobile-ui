@@ -9,7 +9,6 @@ plugins {
     id("app.cash.paparazzi").version("1.3.3")
 }
 
-
 kotlin {
     androidTarget {
         publishLibraryVariants("release")

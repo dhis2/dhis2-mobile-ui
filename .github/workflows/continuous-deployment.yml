@@ -37,7 +37,7 @@ jobs:
       - name: Publish to maven
         run: ./.github/workflows/scripts/publish-maven.sh
         env:
-          OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
-          OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
+          OSSRH_USERNAME: ${{ secrets.SONATYPE_OSSRH_USERNAME }}
+          OSSRH_PASSWORD: ${{ secrets.SONATYPE_OSSRH_PASSWORD }}
           SIGNING_PRIVATE_KEY: ${{ secrets.PGP_PRIVATE_KEY }}
           SIGNING_PASSWORD: ${{ secrets.PGP_PASSPHRASE }}
