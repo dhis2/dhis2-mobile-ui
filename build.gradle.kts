@@ -1,6 +1,6 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
+version = "0.2-SNAPSHOT"
 group = "org.hisp.dhis.mobile"
 
 plugins {
@@ -12,6 +12,15 @@ plugins {
     id("org.jetbrains.dokka") version "1.9.20"
     id("io.github.gradle-nexus.publish-plugin") version "1.3.0"
 }
+
+/**
+ * Property from the Gradle command line. To remove the snapshot suffix from the version.
+ */
+if (project.hasProperty("removeSnapshotSuffix")) {
+    val mainVersion = (version as String).split("-SNAPSHOT")[0]
+    version = mainVersion
+}
+
 
 allprojects {
     apply(plugin = "org.jlleitschuh.gradle.ktlint")
