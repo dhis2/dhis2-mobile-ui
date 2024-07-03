@@ -1,5 +1,5 @@
-version = "0.2-SNAPSHOT"
-group = "org.hisp.dhis.mobile"
+version = rootProject.version
+group = rootProject.group
 
 plugins {
     kotlin("multiplatform")
@@ -7,14 +7,6 @@ plugins {
     id("com.android.library")
     id("convention.publication")
     id("app.cash.paparazzi").version("1.3.3")
-}
-
-/**
- * Property from the Gradle command line. To remove the snapshot suffix from the version.
- */
-if (project.hasProperty("removeSnapshotSuffix")) {
-    val mainVersion = (version as String).split("-SNAPSHOT")[0]
-    version = mainVersion
 }
 
 kotlin {

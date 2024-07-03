@@ -1,6 +1,6 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
+version = "0.2-SNAPSHOT"
 group = "org.hisp.dhis.mobile"
 
 plugins {
@@ -11,6 +11,14 @@ plugins {
     id("org.jlleitschuh.gradle.ktlint") version "11.5.1"
     id("org.jetbrains.dokka") version "1.9.20"
     id("io.github.gradle-nexus.publish-plugin") version "1.3.0"
+}
+
+/**
+ * Property from the Gradle command line. To remove the snapshot suffix from the version.
+ */
+if (project.hasProperty("removeSnapshotSuffix")) {
+    val mainVersion = (version as String).split("-SNAPSHOT")[0]
+    version = mainVersion
 }
 
 allprojects {
@@ -71,8 +79,8 @@ subprojects {
     }
 }
 
-val ossrhUsername: String? = System.getenv("SONATYPE_OSSRH_USERNAME")
-val ossrhPassword: String? = System.getenv("SONATYPE_OSSRH_PASSWORD")
+val ossrhUsername: String? = System.getenv("OSSRH_USERNAME")
+val ossrhPassword: String? = System.getenv("OSSRH_PASSWORD")
 
 nexusPublishing {
     this.repositories {
