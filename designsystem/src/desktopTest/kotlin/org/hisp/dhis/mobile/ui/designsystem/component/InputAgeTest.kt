@@ -171,6 +171,7 @@ class InputAgeTest {
 
         rule.onNodeWithTag("INPUT_AGE_SUPPORTING_TEXT").assertExists()
     }
+
     @Test
     fun changingAgeTimeUnitShouldWorkProperly() {
         var inputType by mutableStateOf<AgeInputType>(AgeInputType.Age.EMPTY)
