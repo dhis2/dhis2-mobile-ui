@@ -392,7 +392,7 @@ fun InputDateTime(
     }
 }
 
-private fun getSupportingTextList(uiModel: InputDateTimeModel, dateOutOfRangeItem: SupportingTextData, incorrectHourFormatItem: SupportingTextData): List<SupportingTextData> {
+fun getSupportingTextList(uiModel: InputDateTimeModel, dateOutOfRangeItem: SupportingTextData, incorrectHourFormatItem: SupportingTextData): List<SupportingTextData> {
     val supportingTextList = mutableListOf<SupportingTextData>()
 
     uiModel.supportingText?.forEach { item ->
@@ -537,7 +537,7 @@ private fun getTime(timePickerState: TimePickerState, format: String? = "HHmm"):
     return formater.format(cal.time)
 }
 
-private fun parseStringDateToMillis(dateString: String, pattern: String = "ddMMyyyy", locale: Locale = Locale.getDefault()): Long {
+fun parseStringDateToMillis(dateString: String, pattern: String = "ddMMyyyy", locale: Locale = Locale.getDefault()): Long {
     return if (dateString.isNotEmpty()) {
         val cal = Calendar.getInstance()
         val sdf = SimpleDateFormat(pattern, locale)
@@ -554,7 +554,7 @@ data class SelectableDates(
     val endDate: String,
 )
 
-private fun formatStringToDate(dateString: String): String {
+fun formatStringToDate(dateString: String): String {
     return if (dateString.length == 8) {
         dateString.substring(0, 2) + "/" + dateString.substring(2, 4) + "/" + dateString.substring(4, 8)
     } else {
