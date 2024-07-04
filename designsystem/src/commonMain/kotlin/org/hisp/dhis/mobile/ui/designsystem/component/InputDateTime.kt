@@ -18,6 +18,7 @@ import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerColors
 import androidx.compose.material3.DatePickerDefaults
 import androidx.compose.material3.DatePickerDialog
+import androidx.compose.material3.DatePickerState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -238,31 +239,7 @@ fun InputDateTime(
         },
         inputStyle = uiModel.inputStyle,
     )
-    var datePickerState = rememberDatePickerState(
-        selectableDates = getSelectableDates(uiModel),
-    )
-    if (!uiModel.inputTextFieldValue?.text.isNullOrEmpty() && uiModel.actionType != DateTimeActionType.TIME) {
-        datePickerState = if (uiModel.actionType == DateTimeActionType.DATE_TIME && uiModel.inputTextFieldValue?.text?.length == 12 && yearIsInRange(uiModel.inputTextFieldValue.text.substring(0, 8), uiModel.yearRange)) {
-            rememberDatePickerState(
-                initialSelectedDateMillis = parseStringDateToMillis(
-                    uiModel.inputTextFieldValue.text.substring(0, uiModel.inputTextFieldValue.text.length - 4),
-                    pattern = uiModel.format,
-                ),
-                yearRange = uiModel.yearRange,
-                selectableDates = getSelectableDates(uiModel),
-            )
-        } else {
-            if (uiModel.inputTextFieldValue?.text?.length == 8 && yearIsInRange(uiModel.inputTextFieldValue.text, uiModel.yearRange)) {
-                rememberDatePickerState(
-                    initialSelectedDateMillis = parseStringDateToMillis(uiModel.inputTextFieldValue.text, uiModel.format),
-                    yearRange = uiModel.yearRange,
-                    selectableDates = getSelectableDates(uiModel),
-                )
-            } else {
-                datePickerState
-            }
-        }
-    }
+    val datePickerState = provideDatePickerState(uiModel)
 
     if (showDatePicker) {
         MaterialTheme(
@@ -428,7 +405,7 @@ fun getSupportingTextList(uiModel: InputDateTimeModel, dateOutOfRangeItem: Suppo
                         ),
                         uiModel.selectableDates, uiModel.format,
                     )
-                    dateIsInYearRange = yearIsInRange(uiModel.inputTextFieldValue.text.substring(0, uiModel.inputTextFieldValue.text.length - 4), uiModel.yearRange)
+                    dateIsInYearRange = yearIsInRange(uiModel.inputTextFieldValue.text, getDefaultFormat(uiModel.actionType), uiModel.yearRange)
                     isValidHourFormat = isValidHourFormat(uiModel.inputTextFieldValue.text.substring(8, 12))
                     if (!dateIsInRange || !dateIsInYearRange) supportingTextList.add(dateOutOfRangeItem)
                     if (!isValidHourFormat) supportingTextList.add(incorrectHourFormatItem)
@@ -437,13 +414,38 @@ fun getSupportingTextList(uiModel: InputDateTimeModel, dateOutOfRangeItem: Suppo
             DateTimeActionType.DATE -> {
                 if (uiModel.inputTextFieldValue?.text!!.length == 8) {
                     dateIsInRange = dateIsInRange(parseStringDateToMillis(uiModel.inputTextFieldValue.text), uiModel.selectableDates, uiModel.format)
-                    dateIsInYearRange = yearIsInRange(uiModel.inputTextFieldValue.text, uiModel.yearRange)
+                    dateIsInYearRange = yearIsInRange(uiModel.inputTextFieldValue.text, getDefaultFormat(uiModel.actionType), uiModel.yearRange)
                     if (!dateIsInRange || !dateIsInYearRange) supportingTextList.add(dateOutOfRangeItem)
                 }
             }
         }
     }
     return supportingTextList.toList()
+}
+
+@Composable
+@OptIn(ExperimentalMaterial3Api::class)
+private fun provideDatePickerState(uiModel: InputDateTimeModel): DatePickerState {
+    return uiModel.inputTextFieldValue?.text?.takeIf {
+        it.isNotEmpty() &&
+            yearIsInRange(it, getDefaultFormat(uiModel.actionType), uiModel.yearRange)
+    }?.let {
+        rememberDatePickerState(
+            initialSelectedDateMillis = parseStringDateToMillis(
+                dateString = it,
+                pattern = getDefaultFormat(uiModel.actionType),
+            ),
+            yearRange = uiModel.yearRange,
+        )
+    } ?: rememberDatePickerState()
+}
+
+private fun getDefaultFormat(actionType: DateTimeActionType): String {
+    return when (actionType) {
+        DateTimeActionType.DATE -> "ddMMyyyy"
+        DateTimeActionType.TIME -> "HHmm"
+        DateTimeActionType.DATE_TIME -> "ddMMyyyyHHmm"
+    }
 }
 
 enum class DateTimeActionType {
@@ -547,16 +549,12 @@ private fun getTime(timePickerState: TimePickerState, format: String? = "HHmm"):
     return formater.format(cal.time)
 }
 
-fun parseStringDateToMillis(dateString: String, pattern: String = "ddMMyyyy", locale: Locale = Locale.getDefault()): Long {
-    return if (dateString.isNotEmpty()) {
-        val cal = Calendar.getInstance()
-        val sdf = SimpleDateFormat(pattern, locale)
-        sdf.timeZone = TimeZone.getTimeZone("UTC")
-        cal.time = sdf.parse(dateString) ?: Date()
+fun parseStringDateToMillis(dateString: String, pattern: String = "ddMMyyyy"): Long {
+    val cal = Calendar.getInstance()
+    return dateString.parseDate(pattern)?.let {
+        cal.time = it
         cal.timeInMillis
-    } else {
-        0L
-    }
+    } ?: 0L
 }
 
 data class SelectableDates(
@@ -607,10 +605,22 @@ internal fun dateIsInRange(date: Long, allowedDates: SelectableDates, format: St
         )
 }
 
-fun yearIsInRange(date: String, yearRange: IntRange): Boolean {
-    return (
-        yearRange.contains(date.substring(date.length - 4, date.length).toInt())
-        )
+fun yearIsInRange(date: String, pattern: String, yearRange: IntRange): Boolean {
+    val cal = Calendar.getInstance()
+    return date.parseDate(pattern)?.let {
+        cal.time = it
+        yearRange.contains(cal.get(Calendar.YEAR))
+    } ?: false
+}
+
+fun String.parseDate(pattern: String): Date? {
+    return if (isNotEmpty() && length == pattern.length) {
+        val sdf = SimpleDateFormat(pattern, Locale.getDefault())
+        sdf.timeZone = TimeZone.getTimeZone("UTC")
+        sdf.parse(this)
+    } else {
+        null
+    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
