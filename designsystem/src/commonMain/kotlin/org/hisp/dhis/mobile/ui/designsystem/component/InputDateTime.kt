@@ -54,6 +54,10 @@ import androidx.compose.ui.window.DialogProperties
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.DateTimeVisualTransformation
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.DateTransformation
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.RegExValidations
+import org.hisp.dhis.mobile.ui.designsystem.component.internal.dateIsInRange
+import org.hisp.dhis.mobile.ui.designsystem.component.internal.isValidDate
+import org.hisp.dhis.mobile.ui.designsystem.component.internal.isValidHourFormat
+import org.hisp.dhis.mobile.ui.designsystem.component.internal.yearIsInRange
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2LightColorScheme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
@@ -90,6 +94,7 @@ fun InputDateTime(
     var showDatePicker by rememberSaveable { mutableStateOf(false) }
     var showTimePicker by rememberSaveable { mutableStateOf(false) }
     var dateOutOfRangeText = uiModel.outOfRangeText ?: provideStringResource("date_out_of_range")
+
     dateOutOfRangeText = "$dateOutOfRangeText (" + formatStringToDate(
         uiModel.selectableDates.initialDate,
     ) + " - " +
@@ -99,18 +104,22 @@ fun InputDateTime(
         text = incorrectHourFormatText,
         SupportingTextState.ERROR,
     )
+    val incorrectDateFormatItem = SupportingTextData(
+        text = provideStringResource("incorrect_date_format"),
+        SupportingTextState.ERROR,
+    )
     val dateOutOfRangeItem = SupportingTextData(
         text = dateOutOfRangeText,
         SupportingTextState.ERROR,
     )
     val supportingTextList =
-        getSupportingTextList(uiModel, dateOutOfRangeItem, incorrectHourFormatItem)
+        getSupportingTextList(uiModel, dateOutOfRangeItem, incorrectHourFormatItem, incorrectDateFormatItem)
 
     InputShell(
         modifier = modifier.testTag("INPUT_DATE_TIME")
             .focusRequester(focusRequester),
         title = uiModel.title,
-        state = if (supportingTextList.contains(dateOutOfRangeItem)) InputShellState.ERROR else uiModel.state,
+        state = if (supportingTextList.contains(dateOutOfRangeItem) || supportingTextList.contains(incorrectDateFormatItem) ) InputShellState.ERROR else uiModel.state,
         isRequiredField = uiModel.isRequired,
         onFocusChanged = uiModel.onFocusChanged,
         inputField = {
@@ -228,7 +237,7 @@ fun InputDateTime(
                 SupportingText(
                     item.text,
                     item.state,
-                    modifier = Modifier.testTag("INPUT_DATE_TIME_SUPPORTING_TEXT"),
+                    modifier = Modifier.testTag("INPUT_DATE_TIME_SUPPORTING_TEXT" + item.text),
                 )
             }
         },
@@ -373,7 +382,7 @@ fun InputDateTime(
     }
 }
 
-fun getSupportingTextList(uiModel: InputDateTimeModel, dateOutOfRangeItem: SupportingTextData, incorrectHourFormatItem: SupportingTextData): List<SupportingTextData> {
+fun getSupportingTextList(uiModel: InputDateTimeModel, dateOutOfRangeItem: SupportingTextData, incorrectHourFormatItem: SupportingTextData, incorrectDateFormatItem: SupportingTextData): List<SupportingTextData> {
     val supportingTextList = mutableListOf<SupportingTextData>()
 
     uiModel.supportingText?.forEach { item ->
@@ -383,6 +392,8 @@ fun getSupportingTextList(uiModel: InputDateTimeModel, dateOutOfRangeItem: Suppo
         val dateIsInRange: Boolean
         val dateIsInYearRange: Boolean
         val isValidHourFormat: Boolean
+        val isValidDateFormat: Boolean
+
         when (uiModel.actionType) {
             DateTimeActionType.TIME -> {
                 if (uiModel.inputTextFieldValue?.text!!.length == 4) {
@@ -401,15 +412,19 @@ fun getSupportingTextList(uiModel: InputDateTimeModel, dateOutOfRangeItem: Suppo
                     )
                     dateIsInYearRange = yearIsInRange(uiModel.inputTextFieldValue.text, getDefaultFormat(uiModel.actionType), uiModel.yearRange)
                     isValidHourFormat = isValidHourFormat(uiModel.inputTextFieldValue.text.substring(8, 12))
+                    isValidDateFormat = isValidDate(uiModel.inputTextFieldValue.text.substring(0, 8))
                     if (!dateIsInRange || !dateIsInYearRange) supportingTextList.add(dateOutOfRangeItem)
+                    if (!isValidDateFormat) supportingTextList.add(incorrectDateFormatItem)
                     if (!isValidHourFormat) supportingTextList.add(incorrectHourFormatItem)
                 }
             }
             DateTimeActionType.DATE -> {
                 if (uiModel.inputTextFieldValue?.text!!.length == 8) {
                     dateIsInRange = dateIsInRange(parseStringDateToMillis(uiModel.inputTextFieldValue.text), uiModel.selectableDates, uiModel.format)
+                    isValidDateFormat = isValidDate(uiModel.inputTextFieldValue.text)
                     dateIsInYearRange = yearIsInRange(uiModel.inputTextFieldValue.text, getDefaultFormat(uiModel.actionType), uiModel.yearRange)
                     if (!dateIsInRange || !dateIsInYearRange) supportingTextList.add(dateOutOfRangeItem)
+                    if (!isValidDateFormat) supportingTextList.add(incorrectDateFormatItem)
                 }
             }
         }
@@ -564,14 +579,6 @@ fun formatStringToDate(dateString: String): String {
     }
 }
 
-private fun isValidHourFormat(timeString: String): Boolean {
-    val hourRange = IntRange(0, 24)
-    val minuteRange = IntRange(0, 60)
-
-    return timeString.length == 4 && hourRange.contains(timeString.substring(0, 2).toInt()) &&
-        minuteRange.contains(timeString.substring(2, 4).toInt())
-}
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun timePickerColors(): TimePickerColors {
@@ -590,21 +597,6 @@ private fun timePickerColors(): TimePickerColors {
         selectorColor = SurfaceColor.Primary,
         timeSelectorSelectedContainerColor = SurfaceColor.ContainerLow,
     )
-}
-
-internal fun dateIsInRange(date: Long, allowedDates: SelectableDates, format: String = "ddMMyyyy"): Boolean {
-    return (
-        date >= parseStringDateToMillis(allowedDates.initialDate, format) &&
-            date <= parseStringDateToMillis(allowedDates.endDate, format)
-        )
-}
-
-fun yearIsInRange(date: String, pattern: String, yearRange: IntRange): Boolean {
-    val cal = Calendar.getInstance()
-    return date.parseDate(pattern)?.let {
-        cal.time = it
-        yearRange.contains(cal.get(Calendar.YEAR))
-    } ?: false
 }
 
 fun String.parseDate(pattern: String): Date? {
