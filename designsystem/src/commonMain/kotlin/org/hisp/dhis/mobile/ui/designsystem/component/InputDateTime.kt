@@ -119,7 +119,7 @@ fun InputDateTime(
         modifier = modifier.testTag("INPUT_DATE_TIME")
             .focusRequester(focusRequester),
         title = uiModel.title,
-        state = if (supportingTextList.contains(dateOutOfRangeItem) || supportingTextList.contains(incorrectDateFormatItem) ) InputShellState.ERROR else uiModel.state,
+        state = if (supportingTextList.contains(dateOutOfRangeItem) || supportingTextList.contains(incorrectDateFormatItem)) InputShellState.ERROR else uiModel.state,
         isRequiredField = uiModel.isRequired,
         onFocusChanged = uiModel.onFocusChanged,
         inputField = {
