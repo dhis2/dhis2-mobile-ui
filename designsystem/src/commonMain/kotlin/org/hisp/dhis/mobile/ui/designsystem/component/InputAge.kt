@@ -37,6 +37,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.internal.DateTransformatio
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.RegExValidations
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.dateIsInRange
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.isValidDate
+import org.hisp.dhis.mobile.ui.designsystem.component.internal.parseStringDateToMillis
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2LightColorScheme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
