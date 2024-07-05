@@ -10,6 +10,7 @@ import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performTextClearance
 import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.text.input.TextFieldValue
 import org.junit.Rule
@@ -47,14 +48,38 @@ class InputPhoneNumberTest {
     }
 
     @Test
-    fun shouldEnableCallActionButtonAfterInputTextReachesCharacterLimit() {
+    fun shouldAllowAddAndParenthesisInput() {
         rule.setContent {
             var inputValue by remember { mutableStateOf(TextFieldValue()) }
 
             InputPhoneNumber(
                 title = "Phone Number",
                 inputTextFieldValue = inputValue,
-                maxLength = 10,
+                onValueChanged = {
+                    if (it != null) {
+                        inputValue = it
+                    }
+                },
+                onCallActionClicked = {
+                    // no-op
+                },
+                state = InputShellState.UNFOCUSED,
+            )
+        }
+        rule.onNodeWithTag("INPUT_PHONE_NUMBER_FIELD").assertTextEquals("")
+        rule.onNodeWithTag("INPUT_PHONE_NUMBER_FIELD").performTextInput("(+91)-9876543210")
+        rule.onNodeWithTag("INPUT_PHONE_NUMBER_FIELD").assertTextEquals("(+91)-9876543210")
+    }
+
+    @Test
+    fun shouldEnableCallActionButtonWhenTextLengthIsEqualOrGreaterThanMinCharacter() {
+        rule.setContent {
+            var inputValue by remember { mutableStateOf(TextFieldValue()) }
+
+            InputPhoneNumber(
+                title = "Phone Number",
+                inputTextFieldValue = inputValue,
+                minLength = 10,
                 onValueChanged = {
                     if (it != null) {
                         inputValue = it
@@ -67,8 +92,11 @@ class InputPhoneNumberTest {
             )
         }
         rule.onNodeWithTag("CALL_PHONE_NUMBER_BUTTON").assertIsNotEnabled()
-        rule.onNodeWithTag("INPUT_PHONE_NUMBER_FIELD").performTextInput("1111111111")
+        rule.onNodeWithTag("INPUT_PHONE_NUMBER_FIELD").performTextInput("9876543210")
         rule.onNodeWithTag("CALL_PHONE_NUMBER_BUTTON").assertIsEnabled()
+        rule.onNodeWithTag("INPUT_PHONE_NUMBER_FIELD").performTextClearance()
+        rule.onNodeWithTag("INPUT_PHONE_NUMBER_FIELD").performTextInput("987654321")
+        rule.onNodeWithTag("CALL_PHONE_NUMBER_BUTTON").assertIsNotEnabled()
     }
 
     @Test
