@@ -35,6 +35,8 @@ import org.hisp.dhis.mobile.ui.designsystem.component.AgeInputType.None
 import org.hisp.dhis.mobile.ui.designsystem.component.TimeUnitValues.YEARS
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.DateTransformation.Companion.DATE_MASK
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.RegExValidations
+import org.hisp.dhis.mobile.ui.designsystem.component.internal.dateIsInRange
+import org.hisp.dhis.mobile.ui.designsystem.component.internal.isValidDate
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2LightColorScheme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
@@ -321,19 +323,29 @@ private fun provideSupportingText(
 ): List<SupportingTextData>? =
     (uiModel.inputType as? DateOfBirth)?.value?.text?.let {
         if (
-            it.length == DATE_FORMAT.length &&
-            !dateIsInRange(parseStringDateToMillis(it), selectableDates)
+            it.length == DATE_FORMAT.length && (!isValidDate(it) || !dateIsInRange(parseStringDateToMillis(it), selectableDates))
         ) {
-            val dateOutOfRangeText = "${provideStringResource("date_out_of_range")} (" +
-                formatStringToDate(selectableDates.initialDate) + " - " +
-                formatStringToDate(selectableDates.endDate) + ")"
-
-            listOf(
-                SupportingTextData(
-                    text = dateOutOfRangeText,
-                    SupportingTextState.ERROR,
-                ),
-            ).plus(uiModel.supportingText ?: listOf())
+            val supportingTextErrorList: MutableList<SupportingTextData> = mutableListOf()
+            if (!isValidDate(it)) {
+                val incorrectFormatText = provideStringResource("incorrect_date_format")
+                supportingTextErrorList.add(
+                    SupportingTextData(
+                        text = incorrectFormatText,
+                        SupportingTextState.ERROR,
+                    ),
+                )
+            } else if (!dateIsInRange(parseStringDateToMillis(it), selectableDates)) {
+                val dateOutOfRangeText = "${provideStringResource("date_out_of_range")} (" +
+                    formatStringToDate(selectableDates.initialDate) + " - " +
+                    formatStringToDate(selectableDates.endDate) + ")"
+                supportingTextErrorList.add(
+                    SupportingTextData(
+                        text = dateOutOfRangeText,
+                        SupportingTextState.ERROR,
+                    ),
+                )
+            }
+            supportingTextErrorList.plus(uiModel.supportingText ?: listOf()).toList()
         } else {
             uiModel.supportingText
         }
