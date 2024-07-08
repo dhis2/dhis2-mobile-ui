@@ -5,6 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowDropDown
@@ -26,6 +27,8 @@ import androidx.compose.ui.platform.testTag
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalFloatValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
+import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing112
+import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing64
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.textFieldHoverPointerIcon
 
@@ -105,46 +108,46 @@ fun InputOrgUnit(
             )
         }
     }
-    InputShell(
-        modifier = modifier
-            .testTag("INPUT_ORG_UNIT")
-            .focusRequester(focusRequester),
-        isRequiredField = isRequiredField,
-        title = title,
-        primaryButton = primaryButton,
-        secondaryButton = {
-            SquareIconButton(
-                modifier = Modifier.testTag("ORG_UNIT_BUTTON"),
-                enabled = state != InputShellState.DISABLED,
-                icon = {
-                    Icon(
-                        painter = provideDHIS2Icon("org_unit"),
-                        contentDescription = "org_unit_icon",
-                    )
-                },
-                onClick = {
-                    focusRequester.requestFocus()
-                    onOrgUnitActionCLicked.invoke()
-                },
-            )
-        },
-        state = state,
-        legend = {
-            legendData?.let {
-                Legend(legendData, Modifier.testTag("INPUT_ORG_UNIT_LEGEND"))
-            }
-        },
-        supportingText = {
-            supportingText?.forEach { label ->
-                SupportingText(
-                    label.text,
-                    label.state,
-                    modifier = Modifier.testTag("INPUT_ORG_UNIT_SUPPORTING_TEXT"),
+    Box {
+        InputShell(
+            modifier = modifier
+                .testTag("INPUT_ORG_UNIT")
+                .focusRequester(focusRequester),
+            isRequiredField = isRequiredField,
+            title = title,
+            primaryButton = primaryButton,
+            secondaryButton = {
+                SquareIconButton(
+                    modifier = Modifier.testTag("ORG_UNIT_BUTTON"),
+                    enabled = state != InputShellState.DISABLED,
+                    icon = {
+                        Icon(
+                            painter = provideDHIS2Icon("org_unit"),
+                            contentDescription = "org_unit_icon",
+                        )
+                    },
+                    onClick = {
+                        focusRequester.requestFocus()
+                        onOrgUnitActionCLicked.invoke()
+                    },
                 )
-            }
-        },
-        inputField = {
-            Box {
+            },
+            state = state,
+            legend = {
+                legendData?.let {
+                    Legend(legendData, Modifier.testTag("INPUT_ORG_UNIT_LEGEND"))
+                }
+            },
+            supportingText = {
+                supportingText?.forEach { label ->
+                    SupportingText(
+                        label.text,
+                        label.state,
+                        modifier = Modifier.testTag("INPUT_ORG_UNIT_SUPPORTING_TEXT"),
+                    )
+                }
+            },
+            inputField = {
                 val enabled = state != InputShellState.DISABLED
                 androidx.compose.foundation.text.BasicTextField(
 
@@ -170,23 +173,24 @@ fun InputOrgUnit(
                             }
                         }
                     },
-
                 )
-                Box(
-                    modifier = Modifier
-                        .matchParentSize()
-                        .alpha(0f)
-                        .clickable(
-                            onClick = {
-                                focusRequester.requestFocus()
-                                onOrgUnitActionCLicked.invoke()
-                            },
-                            enabled = enabled,
-                        ),
-                )
-            }
-        },
-        onFocusChanged = onFocusChanged,
-        inputStyle = inputStyle,
-    )
+            },
+            onFocusChanged = onFocusChanged,
+            inputStyle = inputStyle,
+        )
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(Spacing64)
+                .padding(end = Spacing112)
+                .alpha(0f)
+                .clickable(
+                    enabled = state != InputShellState.DISABLED,
+                    onClick = {
+                        focusRequester.requestFocus()
+                        onOrgUnitActionCLicked.invoke()
+                    },
+                ),
+        )
+    }
 }
