@@ -18,9 +18,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.InlineTextContent
+import androidx.compose.foundation.text.appendInlineContent
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
@@ -39,14 +40,29 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.ParagraphStyle
+import androidx.compose.ui.text.Placeholder
+import androidx.compose.ui.text.PlaceholderVerticalAlign
+import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.rememberTextMeasurer
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.conditional
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2SCustomTextStyles
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
@@ -126,7 +142,6 @@ fun ListCard(
         }
         Column(Modifier.fillMaxWidth().weight(1f)) {
             Row(horizontalArrangement = Arrangement.SpaceBetween) {
-                // Row with header and last updated
                 ListCardTitle(title = title, modifier.weight(1f).padding(bottom = if (description?.text != null) Spacing.Spacing0 else Spacing4))
                 if (lastUpdated != null) {
                     ListCardLastUpdated(lastUpdated)
@@ -158,7 +173,6 @@ fun ListCard(
             )
             actionButton?.invoke()
         }
-        // rest of  items here (KeyValue component)
     }
 }
 
@@ -346,19 +360,14 @@ private fun AdditionalInfoColumn(
             val expandText = mutableStateOf(if (sectionState == SectionState.OPEN) shrinkLabelText else expandLabelText)
             val interactionSource = remember { MutableInteractionSource() }
 
-            val iconVector = if (sectionState == SectionState.CLOSE) {
-                Icons.Filled.KeyboardArrowDown
-            } else {
-                Icons.Filled.KeyboardArrowUp
-            }
+            val iconVector = getIconVector(sectionState)
             val expandTextColor = TextColor.OnSurfaceLight
             Row(
                 Modifier
                     .clip(RoundedCornerShape(Radius.M))
                     .clickable(
                         onClick = {
-                            sectionState =
-                                if (sectionState == SectionState.CLOSE) SectionState.OPEN else SectionState.CLOSE
+                            sectionState = getSectionState(sectionState)
                         },
                         role = Role.Button,
                         interactionSource = interactionSource,
@@ -386,6 +395,18 @@ private fun AdditionalInfoColumn(
     }
 }
 
+fun getSectionState(sectionState: SectionState): SectionState {
+    return if (sectionState == SectionState.CLOSE) SectionState.OPEN else SectionState.CLOSE
+}
+
+fun getIconVector(sectionState: SectionState): ImageVector {
+    return if (sectionState == SectionState.CLOSE) {
+        Icons.Filled.KeyboardArrowDown
+    } else {
+        Icons.Filled.KeyboardArrowUp
+    }
+}
+
 /**
  * DHIS2 KeyValue,
  *  used to paint each individual KeyValueItem
@@ -396,76 +417,111 @@ private fun KeyValue(
     isDetailCard: Boolean = false,
     modifier: Modifier = Modifier,
 ) {
-    BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
+    BoxWithConstraints(modifier = modifier) {
         val maxKeyWidth = maxWidth / 2 - Spacing.Spacing16
+        ProvideKeyValueItem(additionalInfoItem, maxKeyWidth, isDetailCard)
+    }
+}
 
-        Row(
-            modifier = modifier,
-        ) {
-            val keyColor: Color
-            var valueColor: Color
-            val interactionSource = remember { MutableInteractionSource() }
+@Composable
+fun ProvideKeyValueItem(additionalInfoItem: AdditionalInfoItem, maxKeyWidth: Dp, isDetailCard: Boolean) {
+    val keyText = additionalInfoItem.key
+    val interactionSource = remember { MutableInteractionSource() }
 
-            if (isDetailCard) {
-                keyColor = AdditionalInfoItemColor.DEFAULT_KEY.color
-                valueColor = additionalInfoItem.color ?: AdditionalInfoItemColor.DEFAULT_VALUE.color
-                additionalInfoItem.key?.let {
-                    ListCardKey(
-                        text = additionalInfoItem.key,
-                        color = keyColor,
-                        Modifier.padding(end = Spacing4).widthIn(Spacing.Spacing0, maxKeyWidth),
-                    )
-                }
+    val textMeasurer = rememberTextMeasurer()
 
-                Row(
-                    modifier = Modifier
-                        .clip(shape = RoundedCornerShape(Radius.XS))
-                        .conditional(additionalInfoItem.action != null, {
-                            clickable(
-                                role = Role.Button,
-                                interactionSource = interactionSource,
-                                indication = rememberRipple(
-                                    color = SurfaceColor.Primary,
-                                ),
-                                onClick = additionalInfoItem.action ?: {},
-                            )
-                        }),
+    val keyTrimmedText = getKeyTrimmedText(keyText ?: "", maxKeyWidth, textMeasurer)
+
+    val finalAnnotatedString: AnnotatedString = getKeyValueAnnotatedString(keyTrimmedText, additionalInfoItem, isDetailCard)
+
+    val inlineContent = mapOf(
+        Pair(
+            "ItemIcon",
+            InlineTextContent(
+
+                Placeholder(
+                    width = 20.sp,
+                    height = 20.sp,
+                    placeholderVerticalAlign = PlaceholderVerticalAlign.Center,
+                ),
+            ) {
+                Box(
+                    Modifier.background(color = Color.Transparent).size(InternalSizeValues.Size20),
                 ) {
-                    if (additionalInfoItem.icon != null) {
-                        Box(
-                            Modifier.background(color = Color.Transparent).size(InternalSizeValues.Size20),
-                        ) {
-                            additionalInfoItem.icon.invoke()
-                        }
-                        Spacer(Modifier.size(Spacing4))
-                    }
+                    additionalInfoItem.icon?.invoke()
+                }
+            },
+        ),
+    )
 
-                    valueColor = if (additionalInfoItem.action != null) SurfaceColor.Primary else valueColor
-                    ListCardValue(text = additionalInfoItem.value, color = valueColor)
-                }
-            } else {
-                keyColor = additionalInfoItem.color ?: AdditionalInfoItemColor.DEFAULT_KEY.color
-                valueColor = additionalInfoItem.color ?: AdditionalInfoItemColor.DEFAULT_VALUE.color
-                if (additionalInfoItem.icon != null) {
-                    Box(
-                        Modifier.background(color = Color.Transparent).size(InternalSizeValues.Size20),
-                    ) {
-                        additionalInfoItem.icon.invoke()
-                    }
-                    Spacer(Modifier.size(Spacing4))
-                } else {
-                    additionalInfoItem.key?.let {
-                        ListCardKey(
-                            text = additionalInfoItem.key,
-                            color = keyColor,
-                            Modifier.padding(end = Spacing4).widthIn(Spacing.Spacing0, maxKeyWidth),
-                        )
-                    }
-                }
-                ListCardValue(text = additionalInfoItem.value, color = valueColor)
+    Row(
+        modifier = Modifier
+            .clip(shape = RoundedCornerShape(Radius.XS))
+            .conditional(additionalInfoItem.action != null && isDetailCard, {
+                clickable(
+                    role = Role.Button,
+                    interactionSource = interactionSource,
+                    indication = rememberRipple(
+                        color = SurfaceColor.Primary,
+                    ),
+                    onClick = additionalInfoItem.action ?: {},
+                )
+            }),
+    ) {
+        Text(
+            inlineContent = inlineContent,
+            text = finalAnnotatedString,
+            textAlign = TextAlign.Start,
+            style = MaterialTheme.typography.bodyMedium,
+            overflow = TextOverflow.Ellipsis,
+            maxLines = 2,
+            modifier = Modifier,
+
+        )
+    }
+}
+
+fun getKeyValueAnnotatedString(
+    key: String,
+    additionalInfoItem: AdditionalInfoItem?,
+    isDetailCard: Boolean,
+): AnnotatedString {
+    val valueText = additionalInfoItem?.value
+    val keyStyle = DHIS2SCustomTextStyles.listCardKey.copy(color = AdditionalInfoItemColor.DEFAULT_KEY.color)
+
+    val valueColor = getValueColor(additionalInfoItem)
+    val valueStyle = DHIS2SCustomTextStyles.listCardValue.copy(color = valueColor)
+    return buildAnnotatedString {
+        withStyle(
+            style = ParagraphStyle(lineHeight = 20.sp),
+        ) {
+            if (additionalInfoItem?.icon != null && !isDetailCard) {
+                appendInlineContent("ItemIcon", "[icon]")
+            }
+            withStyle(
+                style = keyStyle,
+            ) {
+                append(formatText(key, additionalInfoItem?.icon != null && !isDetailCard))
+            }
+            if (additionalInfoItem?.icon != null && isDetailCard) {
+                appendInlineContent("ItemIcon", "[icon]")
+            }
+            withStyle(
+                style = valueStyle,
+            ) {
+                append(formatText(valueText, key.isNotEmpty()))
             }
         }
     }
+}
+fun formatText(text: String?, withSpace: Boolean): String {
+    return if (withSpace) " $text" else text ?: ""
+}
+
+fun getValueColor(additionalInfoItem: AdditionalInfoItem?): Color {
+    var valueColor = additionalInfoItem?.color ?: AdditionalInfoItemColor.DEFAULT_VALUE.color
+    valueColor = if (additionalInfoItem?.action != null) SurfaceColor.Primary else valueColor
+    return valueColor
 }
 
 /**
@@ -498,6 +554,30 @@ private fun getPaddingValues(
         } else {
             PaddingValues(Spacing.Spacing16)
         }
+    }
+}
+
+@Composable
+fun measureTextWidth(text: String, textMeasurer: TextMeasurer): Dp {
+    val widthInPixels = textMeasurer.measure(text, MaterialTheme.typography.bodyMedium).size.width
+    return with(LocalDensity.current) { widthInPixels.toDp() }
+}
+
+@Composable
+fun getKeyTrimmedText(text: String, maxKeyWidth: Dp, textMeasurer: TextMeasurer): String {
+    return if (measureTextWidth(text, textMeasurer) > maxKeyWidth) {
+        var lastCharIndex = 2
+        var trimmedText = remember { text.substring(IntRange(0, lastCharIndex)) }
+        var newKeyWidth = measureTextWidth(trimmedText, textMeasurer)
+
+        while (newKeyWidth < maxKeyWidth && lastCharIndex < text.length) {
+            lastCharIndex++
+            trimmedText = text.substring(IntRange(0, lastCharIndex))
+            newKeyWidth = measureTextWidth(trimmedText, textMeasurer)
+        }
+        trimmedText.dropLast(1).trimEnd() + "...: "
+    } else {
+        text + if (text.isNotEmpty()) ": " else ""
     }
 }
 

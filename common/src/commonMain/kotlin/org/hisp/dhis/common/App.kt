@@ -45,7 +45,7 @@ fun App(imageBitmapLoader: (() -> ImageBitmap)? = null) {
 fun Main(
     imageBitmapLoader: (() -> ImageBitmap)?,
 ) {
-    val currentScreen = remember { mutableStateOf(Components.ACTION_INPUTS) }
+    val currentScreen = remember { mutableStateOf(Components.CARDS) }
 
     Column(
         verticalArrangement = Arrangement.spacedBy(Spacing.Spacing16),
