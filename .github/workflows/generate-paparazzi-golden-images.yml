@@ -1,0 +1,28 @@
+name: Generate Paparazzi Golden Images
+
+env:
+  # The name of the main module repository
+  main_project_module: designsystem
+
+on:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  ci_job:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set Up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu' # See 'Supported distributions' for available options
+          java-version: '17'
+          cache: 'gradle'
+
+      - name: Change wrapper permissions
+        run: chmod +x ./gradlew
+
+      - name: Generate Golden Images
+        run: ./gradlew designsystem:recordPaparazziDebug
