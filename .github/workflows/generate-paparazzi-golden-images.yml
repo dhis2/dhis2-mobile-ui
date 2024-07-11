@@ -13,6 +13,10 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          ref: ${{github.event.pull_request.head.ref}}
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set Up JDK
         uses: actions/setup-java@v3
@@ -32,3 +36,6 @@ jobs:
           name: GoldenImages
           path: /designsystem/src/test/snapshots/
           if-no-files-found: 'error'
+
+      - name: Commit And Push Changes
+        run: .github/scripts/commit-and-push.sh
