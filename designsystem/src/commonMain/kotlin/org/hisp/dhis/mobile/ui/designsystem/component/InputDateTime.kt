@@ -436,8 +436,9 @@ private fun provideDatePickerState(uiModel: InputDateTimeModel): DatePickerState
                 pattern = getDefaultFormat(uiModel.actionType),
             ),
             yearRange = uiModel.yearRange,
+            selectableDates = getSelectableDates(uiModel),
         )
-    } ?: rememberDatePickerState()
+    } ?: rememberDatePickerState(selectableDates = getSelectableDates(uiModel))
 }
 
 private fun getDefaultFormat(actionType: DateTimeActionType): String {
