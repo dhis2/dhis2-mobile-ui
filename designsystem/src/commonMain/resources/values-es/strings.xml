@@ -39,6 +39,7 @@
     <string name="cancel">Cancelar</string>
     <string name="select_date">Seleccionar fecha</string>
     <string name="date_out_of_range">Fecha fuera de rango</string>
+    <string name="incorrect_date_format">Formato de fecha incorrecto</string>
     <string name="wrong_hour_format">Formato de hora incorrecto</string>
     <string name="search_to_see_more">No se muestran todas las opciones.\n Busca para ver más.</string>
 </resources>
