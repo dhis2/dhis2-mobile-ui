@@ -13,7 +13,6 @@ git diff --quiet; GIT_DIFF_STATUS=$?
 if [[ ${GIT_DIFF_STATUS} -eq ${GIT_HAS_CHANGES} ]]; then
   git add -A
   git commit -m "Paparazzi Golden Images"
-  git push
 
 exit 0
 fi

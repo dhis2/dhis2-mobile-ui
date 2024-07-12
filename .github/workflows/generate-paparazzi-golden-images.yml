@@ -14,9 +14,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          ref: ${{github.event.pull_request.head.ref}}
           fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }}
+          persist-credentials: false
 
       - name: Set Up JDK
         uses: actions/setup-java@v3
@@ -37,5 +36,11 @@ jobs:
           path: ./designsystem/src/test/snapshots/
           if-no-files-found: 'error'
 
-      - name: Commit And Push Changes
-        run: .github/workflows/scripts/commit-and-push.sh
+      - name: Commit Changes
+        run: .github/workflows/scripts/commit-changes.sh
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
