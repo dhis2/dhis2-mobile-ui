@@ -24,6 +24,7 @@ import org.hisp.dhis.common.screens.others.ChipsScreen
 import org.hisp.dhis.common.screens.others.IndicatorScreen
 import org.hisp.dhis.common.screens.others.LegendScreen
 import org.hisp.dhis.common.screens.others.MetadataAvatarScreen
+import org.hisp.dhis.common.screens.others.NavigationBarScreen
 import org.hisp.dhis.common.screens.others.ProgressScreen
 import org.hisp.dhis.common.screens.others.SearchBarScreen
 import org.hisp.dhis.common.screens.others.SectionScreen
@@ -97,6 +98,7 @@ fun Main(
                 Groups.TOGGLEABLE_INPUTS -> ToggleableInputsScreen(imageBitmapLoader)
                 Groups.TAGS -> TagsScreen()
                 Groups.SEARCH_BAR -> SearchBarScreen()
+                Groups.NAVIGATION_BAR -> NavigationBarScreen()
                 Groups.NO_GROUP_SELECTED -> NoComponentSelectedScreen()
             }
         } else {
