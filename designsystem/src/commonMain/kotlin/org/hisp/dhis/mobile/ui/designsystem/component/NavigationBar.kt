@@ -12,9 +12,24 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
+import org.hisp.dhis.mobile.ui.designsystem.component.NavigationBarTestTags.NAVIGATION_BAR
+import org.hisp.dhis.mobile.ui.designsystem.component.NavigationBarTestTags.NAVIGATION_BAR_BORDER
+import org.hisp.dhis.mobile.ui.designsystem.component.NavigationBarTestTags.NAVIGATION_BAR_CONTAINER
+import org.hisp.dhis.mobile.ui.designsystem.component.NavigationBarTestTags.NAVIGATION_BAR_ITEM_BADGE_PREFIX
+import org.hisp.dhis.mobile.ui.designsystem.component.NavigationBarTestTags.NAVIGATION_BAR_ITEM_LABEL_PREFIX
+import org.hisp.dhis.mobile.ui.designsystem.component.NavigationBarTestTags.NAVIGATION_BAR_ITEM_PREFIX
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
+
+object NavigationBarTestTags {
+    const val NAVIGATION_BAR_CONTAINER = "NAVIGATION_BAR_CONTAINER"
+    const val NAVIGATION_BAR_BORDER = "NAVIGATION_BAR_BORDER"
+    const val NAVIGATION_BAR = "NAVIGATION_BAR"
+    const val NAVIGATION_BAR_ITEM_PREFIX = "NAVIGATION_BAR_ITEM_"
+    const val NAVIGATION_BAR_ITEM_LABEL_PREFIX = "NAVIGATION_BAR_ITEM_LABEL_"
+    const val NAVIGATION_BAR_ITEM_BADGE_PREFIX = "NAVIGATION_BAR_ITEM_BADGE_"
+}
 
 @Composable
 fun NavigationBar(
@@ -24,28 +39,28 @@ fun NavigationBar(
     onItemClick: (Int) -> Unit,
 ) {
     Column(
-        modifier = modifier.testTag("NAVIGATION_BAR_CONTAINER"),
+        modifier = modifier.testTag(NAVIGATION_BAR_CONTAINER),
     ) {
         HorizontalDivider(
-            modifier = Modifier.testTag("NAVIGATION_BAR_BORDER"),
+            modifier = Modifier.testTag(NAVIGATION_BAR_BORDER),
             thickness = 0.6.dp,
             color = Outline.Light,
         )
         androidx.compose.material3.NavigationBar(
-            modifier = Modifier.testTag("NAVIGATION_BAR"),
+            modifier = Modifier.testTag(NAVIGATION_BAR),
             containerColor = SurfaceColor.ContainerLowest,
         ) {
             items.forEachIndexed { index, item ->
                 val selected = selectedItemIndex == index
                 NavigationBarItem(
-                    modifier = Modifier.testTag("NAVIGATION_BAR_ITEM_${item.label}"),
+                    modifier = Modifier.testTag("$NAVIGATION_BAR_ITEM_PREFIX${item.label}"),
                     colors = navigationBarItemColors(),
                     icon = {
                         NavigationBarItemIcon(item = item, selected = selected)
                     },
                     label = {
                         Text(
-                            modifier = Modifier.testTag("NAVIGATION_BAR_ITEM_LABEL_${item.label}"),
+                            modifier = Modifier.testTag("$NAVIGATION_BAR_ITEM_LABEL_PREFIX${item.label}"),
                             text = item.label,
                         )
                     },
@@ -77,7 +92,7 @@ fun NavigationBarItemIcon(item: NavigationBarItem, selected: Boolean) {
             val badgeYOffset = if (!item.badgeText.isNullOrEmpty()) (-4).dp else 0.dp
 
             ErrorBadge(
-                modifier = Modifier.testTag("NAVIGATION_BAR_ITEM_BADGE_${item.label}")
+                modifier = Modifier.testTag("$NAVIGATION_BAR_ITEM_BADGE_PREFIX${item.label}")
                     .align(Alignment.TopEnd)
                     .offset(
                         x = badgeXOffset,
