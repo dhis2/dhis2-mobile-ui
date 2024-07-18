@@ -15,6 +15,14 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
+import org.hisp.dhis.mobile.ui.designsystem.component.navigationBar.NavigationBar
+import org.hisp.dhis.mobile.ui.designsystem.component.navigationBar.NavigationBarItem
+import org.hisp.dhis.mobile.ui.designsystem.component.navigationBar.NavigationBarTestTags.NAVIGATION_BAR
+import org.hisp.dhis.mobile.ui.designsystem.component.navigationBar.NavigationBarTestTags.NAVIGATION_BAR_BORDER
+import org.hisp.dhis.mobile.ui.designsystem.component.navigationBar.NavigationBarTestTags.NAVIGATION_BAR_CONTAINER
+import org.hisp.dhis.mobile.ui.designsystem.component.navigationBar.NavigationBarTestTags.NAVIGATION_BAR_ITEM_BADGE_PREFIX
+import org.hisp.dhis.mobile.ui.designsystem.component.navigationBar.NavigationBarTestTags.NAVIGATION_BAR_ITEM_LABEL_PREFIX
+import org.hisp.dhis.mobile.ui.designsystem.component.navigationBar.NavigationBarTestTags.NAVIGATION_BAR_ITEM_PREFIX
 import org.junit.Rule
 import org.junit.Test
 
@@ -70,19 +78,19 @@ class NavigationBarTest {
             }
         }
 
-        rule.onNodeWithTag("NAVIGATION_BAR_CONTAINER").assertExists()
-        rule.onNodeWithTag("NAVIGATION_BAR_BORDER").assertExists()
-        rule.onNodeWithTag("NAVIGATION_BAR").assertExists()
-        rule.onNodeWithTag("NAVIGATION_BAR_ITEM_Description", true).assertExists()
-        rule.onNodeWithTag("NAVIGATION_BAR_ITEM_LABEL_Description", true).assertExists()
+        rule.onNodeWithTag(NAVIGATION_BAR_CONTAINER).assertExists()
+        rule.onNodeWithTag(NAVIGATION_BAR_BORDER).assertExists()
+        rule.onNodeWithTag(NAVIGATION_BAR).assertExists()
+        rule.onNodeWithTag("${NAVIGATION_BAR_ITEM_PREFIX}Description", true).assertExists()
+        rule.onNodeWithTag("${NAVIGATION_BAR_ITEM_LABEL_PREFIX}Description", true).assertExists()
         rule.onNodeWithTag("NAVIGATION_BAR_ITEM_DEFAULT_ICON_Description", true).assertExists()
         rule.onNodeWithTag("NAVIGATION_BAR_ITEM_SELECTED_ICON_Description", true).assertDoesNotExist()
-        rule.onNodeWithTag("NAVIGATION_BAR_ITEM_BADGE_Description", true).assertDoesNotExist()
-        rule.onNodeWithTag("NAVIGATION_BAR_ITEM_Charts", true).assertExists()
-        rule.onNodeWithTag("NAVIGATION_BAR_ITEM_LABEL_Charts", true).assertExists()
+        rule.onNodeWithTag("${NAVIGATION_BAR_ITEM_BADGE_PREFIX}Description", true).assertDoesNotExist()
+        rule.onNodeWithTag("${NAVIGATION_BAR_ITEM_PREFIX}Charts", true).assertExists()
+        rule.onNodeWithTag("${NAVIGATION_BAR_ITEM_LABEL_PREFIX}Charts", true).assertExists()
         rule.onNodeWithTag("NAVIGATION_BAR_ITEM_DEFAULT_ICON_Charts", true).assertExists()
         rule.onNodeWithTag("NAVIGATION_BAR_ITEM_SELECTED_ICON_Charts", true).assertDoesNotExist()
-        rule.onNodeWithTag("NAVIGATION_BAR_ITEM_BADGE_Charts", true).assertExists()
+        rule.onNodeWithTag("${NAVIGATION_BAR_ITEM_BADGE_PREFIX}Charts", true).assertExists()
     }
 
     @Test
@@ -136,7 +144,7 @@ class NavigationBarTest {
 
         rule.onNodeWithTag("NAVIGATION_BAR_ITEM_DEFAULT_ICON_Description", true).assertExists()
         rule.onNodeWithTag("NAVIGATION_BAR_ITEM_SELECTED_ICON_Description", true).assertDoesNotExist()
-        rule.onNodeWithTag("NAVIGATION_BAR_ITEM_Description", true).performClick()
+        rule.onNodeWithTag("${NAVIGATION_BAR_ITEM_PREFIX}Description", true).performClick()
         rule.onNodeWithTag("NAVIGATION_BAR_ITEM_DEFAULT_ICON_Description", true).assertDoesNotExist()
         rule.onNodeWithTag("NAVIGATION_BAR_ITEM_SELECTED_ICON_Description", true).assertExists()
     }
@@ -194,7 +202,7 @@ class NavigationBarTest {
         rule.onNodeWithTag("NAVIGATION_BAR_ITEM_SELECTED_ICON_Description", true).assertExists()
         rule.onNodeWithTag("NAVIGATION_BAR_ITEM_DEFAULT_ICON_Charts", true).assertExists()
         rule.onNodeWithTag("NAVIGATION_BAR_ITEM_SELECTED_ICON_Charts", true).assertDoesNotExist()
-        rule.onNodeWithTag("NAVIGATION_BAR_ITEM_Charts", true).performClick()
+        rule.onNodeWithTag("${NAVIGATION_BAR_ITEM_PREFIX}Charts", true).performClick()
         rule.onNodeWithTag("NAVIGATION_BAR_ITEM_DEFAULT_ICON_Description", true).assertExists()
         rule.onNodeWithTag("NAVIGATION_BAR_ITEM_SELECTED_ICON_Description", true).assertDoesNotExist()
         rule.onNodeWithTag("NAVIGATION_BAR_ITEM_DEFAULT_ICON_Charts", true).assertDoesNotExist()

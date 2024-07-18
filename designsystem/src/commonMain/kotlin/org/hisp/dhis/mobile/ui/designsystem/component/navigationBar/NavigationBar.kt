@@ -1,4 +1,4 @@
-package org.hisp.dhis.mobile.ui.designsystem.component
+package org.hisp.dhis.mobile.ui.designsystem.component.navigationBar
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,24 +12,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
-import org.hisp.dhis.mobile.ui.designsystem.component.NavigationBarTestTags.NAVIGATION_BAR
-import org.hisp.dhis.mobile.ui.designsystem.component.NavigationBarTestTags.NAVIGATION_BAR_BORDER
-import org.hisp.dhis.mobile.ui.designsystem.component.NavigationBarTestTags.NAVIGATION_BAR_CONTAINER
-import org.hisp.dhis.mobile.ui.designsystem.component.NavigationBarTestTags.NAVIGATION_BAR_ITEM_BADGE_PREFIX
-import org.hisp.dhis.mobile.ui.designsystem.component.NavigationBarTestTags.NAVIGATION_BAR_ITEM_LABEL_PREFIX
-import org.hisp.dhis.mobile.ui.designsystem.component.NavigationBarTestTags.NAVIGATION_BAR_ITEM_PREFIX
+import org.hisp.dhis.mobile.ui.designsystem.component.ErrorBadge
+import org.hisp.dhis.mobile.ui.designsystem.component.navigationBar.NavigationBarTestTags.NAVIGATION_BAR
+import org.hisp.dhis.mobile.ui.designsystem.component.navigationBar.NavigationBarTestTags.NAVIGATION_BAR_BORDER
+import org.hisp.dhis.mobile.ui.designsystem.component.navigationBar.NavigationBarTestTags.NAVIGATION_BAR_CONTAINER
+import org.hisp.dhis.mobile.ui.designsystem.component.navigationBar.NavigationBarTestTags.NAVIGATION_BAR_ITEM_BADGE_PREFIX
+import org.hisp.dhis.mobile.ui.designsystem.component.navigationBar.NavigationBarTestTags.NAVIGATION_BAR_ITEM_LABEL_PREFIX
+import org.hisp.dhis.mobile.ui.designsystem.component.navigationBar.NavigationBarTestTags.NAVIGATION_BAR_ITEM_PREFIX
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
-
-object NavigationBarTestTags {
-    const val NAVIGATION_BAR_CONTAINER = "NAVIGATION_BAR_CONTAINER"
-    const val NAVIGATION_BAR_BORDER = "NAVIGATION_BAR_BORDER"
-    const val NAVIGATION_BAR = "NAVIGATION_BAR"
-    const val NAVIGATION_BAR_ITEM_PREFIX = "NAVIGATION_BAR_ITEM_"
-    const val NAVIGATION_BAR_ITEM_LABEL_PREFIX = "NAVIGATION_BAR_ITEM_LABEL_"
-    const val NAVIGATION_BAR_ITEM_BADGE_PREFIX = "NAVIGATION_BAR_ITEM_BADGE_"
-}
 
 @Composable
 fun NavigationBar(
@@ -113,13 +105,4 @@ fun navigationBarItemColors() = NavigationBarItemColors(
     unselectedTextColor = TextColor.OnSurfaceVariant,
     disabledIconColor = TextColor.OnDisabledSurface,
     disabledTextColor = TextColor.OnDisabledSurface,
-)
-
-data class NavigationBarItem(
-    val defaultIcon: @Composable () -> Unit,
-    val selectedIcon: @Composable () -> Unit,
-    val label: String,
-    val enabled: Boolean = true,
-    val showBadge: Boolean = false,
-    val badgeText: String? = null,
 )
