@@ -5,13 +5,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.ImageBitmap
 import org.hisp.dhis.common.screens.NoComponentSelectedScreen
+import org.hisp.dhis.common.screens.components.GroupComponentDropDown
 import org.hisp.dhis.mobile.ui.designsystem.component.DropdownItem
-import org.hisp.dhis.mobile.ui.designsystem.component.InputDropDown
-import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 
 @Composable
 fun ToggleableInputsScreen(imageBitmapLoader: (() -> ImageBitmap)?) {
-    val currentScreen = remember { mutableStateOf(ToggleableInputs.INPUT_RADIO_BUTTON) }
+    val currentScreen = remember { mutableStateOf(ToggleableInputs.NO_COMPONENT_SELECTED) }
 
     val screenDropdownItemList = mutableListOf<DropdownItem>()
     ToggleableInputs.entries.forEach {
@@ -19,13 +18,11 @@ fun ToggleableInputsScreen(imageBitmapLoader: (() -> ImageBitmap)?) {
             screenDropdownItemList.add(DropdownItem(it.label))
         }
     }
-    InputDropDown(
-        "Display",
+    GroupComponentDropDown(
         dropdownItems = screenDropdownItemList.toList(),
         onItemSelected = { currentScreen.value = getCurrentScreen(it.label) },
         onResetButtonClicked = { currentScreen.value = ToggleableInputs.NO_COMPONENT_SELECTED },
         selectedItem = DropdownItem(currentScreen.value.label),
-        state = InputShellState.UNFOCUSED,
     )
     when (currentScreen.value) {
         ToggleableInputs.INPUT_RADIO_BUTTON -> InputRadioButtonScreen()

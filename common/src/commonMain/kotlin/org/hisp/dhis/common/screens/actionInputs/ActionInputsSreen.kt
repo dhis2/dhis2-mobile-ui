@@ -6,8 +6,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import org.hisp.dhis.common.screens.NoComponentSelectedScreen
+import org.hisp.dhis.common.screens.components.GroupComponentDropDown
 import org.hisp.dhis.mobile.ui.designsystem.component.DropdownItem
-import org.hisp.dhis.mobile.ui.designsystem.component.InputDropDown
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
@@ -21,14 +21,11 @@ fun ActionInputsScreen() {
             screenDropdownItemList.add(DropdownItem(it.label))
         }
     }
-    InputDropDown(
-        modifier = Modifier.padding(horizontal = Spacing.Spacing16),
-        title = "Component",
+    GroupComponentDropDown(
         dropdownItems = screenDropdownItemList.toList(),
         onItemSelected = { currentScreen.value = getCurrentScreen(it.label) },
         onResetButtonClicked = { currentScreen.value = ActionInputs.NO_COMPONENT_SELECTED },
         selectedItem = DropdownItem(currentScreen.value.label),
-        state = InputShellState.UNFOCUSED,
     )
     when (currentScreen.value) {
         ActionInputs.INPUT_QR_CODE -> InputQRCodeScreen()

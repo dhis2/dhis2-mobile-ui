@@ -4,13 +4,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import org.hisp.dhis.common.screens.NoComponentSelectedScreen
+import org.hisp.dhis.common.screens.components.GroupComponentDropDown
 import org.hisp.dhis.mobile.ui.designsystem.component.DropdownItem
-import org.hisp.dhis.mobile.ui.designsystem.component.InputDropDown
-import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 
 @Composable
 fun BasicTextInputsScreen() {
-    val currentScreen = remember { mutableStateOf(BasicTextInputs.INPUT_TEXT) }
+    val currentScreen = remember { mutableStateOf(BasicTextInputs.NO_COMPONENT_SELECTED) }
 
     val screenDropdownItemList = mutableListOf<DropdownItem>()
     BasicTextInputs.entries.forEach {
@@ -18,13 +17,11 @@ fun BasicTextInputsScreen() {
             screenDropdownItemList.add(DropdownItem(it.label))
         }
     }
-    InputDropDown(
-        "Display",
+    GroupComponentDropDown(
         dropdownItems = screenDropdownItemList.toList(),
         onItemSelected = { currentScreen.value = getCurrentScreen(it.label) },
         onResetButtonClicked = { currentScreen.value = BasicTextInputs.NO_COMPONENT_SELECTED },
         selectedItem = DropdownItem(currentScreen.value.label),
-        state = InputShellState.UNFOCUSED,
     )
     when (currentScreen.value) {
         BasicTextInputs.FORM_SHELLS -> FormShellsScreen()
