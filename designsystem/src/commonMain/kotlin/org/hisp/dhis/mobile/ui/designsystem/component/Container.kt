@@ -47,7 +47,7 @@ fun ColumnComponentContainer(
         modifier = modifier
             .fillMaxSize().background(Color.White, Shape.LargeTop)
             .padding(horizontal = Spacing.Spacing16)
-            .verticalScroll(rememberScrollState())
+            .verticalScroll(rememberScrollState()),
     ) {
         title?.let {
             Title(title, modifier = Modifier.padding(top = Spacing.Spacing16))
@@ -73,7 +73,7 @@ fun ColumnComponentItemContainer(
     Column(
         verticalArrangement = Arrangement.spacedBy(Spacing.Spacing16),
         horizontalAlignment = Alignment.Start,
-        modifier = modifier.padding(bottom = Spacing.Spacing32)
+        modifier = modifier.padding(bottom = Spacing.Spacing32),
     ) {
         subTitle?.let {
             SubTitle(subTitle)

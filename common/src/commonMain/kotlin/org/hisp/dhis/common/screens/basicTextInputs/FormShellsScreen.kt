@@ -26,7 +26,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
 @Composable
 fun FormShellsScreen() {
-    ColumnComponentContainer(title = "Form Shells") {
+    ColumnComponentContainer(title = BasicTextInputs.FORM_SHELLS.label) {
         SubTitle("Outer frames for form elements", TextColor.OnSurface)
         Description("Focused/Unfocused", TextColor.OnSurface)
         var inputValue1 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("Input")) }
@@ -183,7 +183,6 @@ fun FormShellsScreen() {
                 }
             },
             state = InputShellState.UNFOCUSED,
-
         )
         Spacer(Modifier.size(Spacing.Spacing18))
 
@@ -306,5 +305,6 @@ fun FormShellsScreen() {
             },
             state = InputShellState.UNFOCUSED,
         )
+        Spacer(Modifier.size(Spacing.Spacing18))
     }
 }

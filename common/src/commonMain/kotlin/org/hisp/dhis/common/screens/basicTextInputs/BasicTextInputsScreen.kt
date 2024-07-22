@@ -42,19 +42,19 @@ fun BasicTextInputsScreen() {
 }
 
 enum class BasicTextInputs(val label: String) {
-    FORM_SHELLS("Form Shells"),
-    INPUT_INTEGER("Input Integer"),
-    INPUT_LETTER("Input Letter"),
-    INPUT_LONG_TEXT("Input Long Text"),
-    INPUT_NEGATIVE_INTEGER("Input Negative Integer"),
-    INPUT_NOT_SUPPORTED("Input Not Supported"),
-    INPUT_NUMBER("Input Number"),
-    INPUT_PERCENTAGE("Input Percentage"),
-    INPUT_POSITIVE_INTEGER("Input Positive Integer"),
-    INPUT_POSITIVE_INTEGER_OR_ZERO("Input Positive Integer Or Zero"),
-    INPUT_TEXT("Input Text"),
-    INPUT_UNIT_INTERVAL("Input Unit Interval"),
-    SUPPORTING_TEXT("Supporting text"),
+    FORM_SHELLS("Form Shells component"),
+    INPUT_INTEGER("Input Integer component"),
+    INPUT_LETTER("Input Letter component"),
+    INPUT_LONG_TEXT("Input Long Text component"),
+    INPUT_NEGATIVE_INTEGER("Input Negative Integer component"),
+    INPUT_NOT_SUPPORTED("Input Not Supported component"),
+    INPUT_NUMBER("Input Number component"),
+    INPUT_PERCENTAGE("Input Percentage component"),
+    INPUT_POSITIVE_INTEGER("Input Positive Integer component"),
+    INPUT_POSITIVE_INTEGER_OR_ZERO("Input Positive or Zero Integer component"),
+    INPUT_TEXT("Input Text component"),
+    INPUT_UNIT_INTERVAL("Input Unit Interval component"),
+    SUPPORTING_TEXT("Supporting Text component"),
     NO_COMPONENT_SELECTED("No component selected"),
 }
 
