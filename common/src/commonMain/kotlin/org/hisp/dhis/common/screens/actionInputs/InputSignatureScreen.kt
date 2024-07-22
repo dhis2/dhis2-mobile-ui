@@ -1,94 +1,88 @@
 package org.hisp.dhis.common.screens.actionInputs
 
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.graphics.painter.Painter
 import mobile_ui.common.generated.resources.Res
 import mobile_ui.common.generated.resources.sample_signature
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentItemContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.InputSignature
-import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
-import org.hisp.dhis.mobile.ui.designsystem.component.Title
-import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun InputSignatureScreen() {
-    ColumnComponentContainer {
-        Title("Input Signature", textColor = TextColor.OnSurfaceVariant)
+    ColumnComponentContainer(title = ActionInputs.INPUT_SIGNATURE.label) {
 
-        SubTitle("Basic Input Signature ", textColor = TextColor.OnSurfaceVariant)
-        var sampleSignature0 by rememberSaveable { mutableStateOf<ImageBitmap?>(null) }
+        ColumnComponentItemContainer("Basic Input Signature ") {
+            var sampleSignature0 by rememberSaveable { mutableStateOf<ImageBitmap?>(null) }
 
-        InputSignature(
-            title = "Label",
-            load = { sampleSignature0 },
-            painterFor = sampleSignature0?.let { imageBitmap ->
-                {
-                    BitmapPainter(imageBitmap)
-                }
-            },
-            onDownloadButtonClick = {},
-            onShareButtonClick = {},
-            onResetButtonClicked = {
-                sampleSignature0 = null
-            },
-            onSaveSignature = {
-                sampleSignature0 = it
-            },
-        )
-        Spacer(Modifier.size(Spacing.Spacing18))
+            InputSignature(
+                title = "Label",
+                load = { sampleSignature0 },
+                painterFor = sampleSignature0?.let { imageBitmap ->
+                    {
+                        BitmapPainter(imageBitmap)
+                    }
+                },
+                onDownloadButtonClick = {},
+                onShareButtonClick = {},
+                onResetButtonClicked = {
+                    sampleSignature0 = null
+                },
+                onSaveSignature = {
+                    sampleSignature0 = it
+                },
+            )
+        }
 
-        SubTitle("Basic Input Signature ", textColor = TextColor.OnSurfaceVariant)
-        val sampleSignature = provideSampleImage()
+        ColumnComponentItemContainer("Basic Input Signature ") {
+            val sampleSignature = provideSampleImage()
 
-        InputSignature(
-            title = "Label",
-            load = { sampleSignature },
-            painterFor = { remember { it } },
-            onDownloadButtonClick = {},
-            onShareButtonClick = {},
-            onResetButtonClicked = {
-            },
-            onSaveSignature = {},
-        )
-        Spacer(Modifier.size(Spacing.Spacing18))
+            InputSignature(
+                title = "Label",
+                load = { sampleSignature },
+                painterFor = { remember { it } },
+                onDownloadButtonClick = {},
+                onShareButtonClick = {},
+                onResetButtonClicked = {
+                },
+                onSaveSignature = {},
+            )
+        }
 
-        SubTitle("Disabled Input Signature without data ", textColor = TextColor.OnSurfaceVariant)
-        InputSignature(
-            title = "Label",
-            state = InputShellState.DISABLED,
-            load = { },
-            onDownloadButtonClick = {},
-            onShareButtonClick = {},
-            onResetButtonClicked = {},
-            onSaveSignature = {},
-        )
-        Spacer(Modifier.size(Spacing.Spacing18))
+        ColumnComponentItemContainer("Disabled Input Signature without data ") {
+            InputSignature(
+                title = "Label",
+                state = InputShellState.DISABLED,
+                load = { },
+                onDownloadButtonClick = {},
+                onShareButtonClick = {},
+                onResetButtonClicked = {},
+                onSaveSignature = {},
+            )
+        }
 
-        SubTitle("Disabled Input Signature with data ", textColor = TextColor.OnSurfaceVariant)
-        val sampleSignature2 = provideSampleImage()
-        InputSignature(
-            title = "Label",
-            state = InputShellState.DISABLED,
-            load = { sampleSignature2 },
-            painterFor = { it },
-            onDownloadButtonClick = {},
-            onShareButtonClick = {},
-            onResetButtonClicked = { },
-            onSaveSignature = {},
-        )
+        ColumnComponentItemContainer("Disabled Input Signature with data ") {
+            val sampleSignature2 = provideSampleImage()
+            InputSignature(
+                title = "Label",
+                state = InputShellState.DISABLED,
+                load = { sampleSignature2 },
+                painterFor = { it },
+                onDownloadButtonClick = {},
+                onShareButtonClick = {},
+                onResetButtonClicked = { },
+                onSaveSignature = {},
+            )
+        }
     }
 }
 

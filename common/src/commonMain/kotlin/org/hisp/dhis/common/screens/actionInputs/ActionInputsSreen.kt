@@ -1,16 +1,19 @@
 package org.hisp.dhis.common.screens.actionInputs
 
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
 import org.hisp.dhis.common.screens.NoComponentSelectedScreen
 import org.hisp.dhis.mobile.ui.designsystem.component.DropdownItem
 import org.hisp.dhis.mobile.ui.designsystem.component.InputDropDown
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
+import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
 @Composable
 fun ActionInputsScreen() {
-    val currentScreen = remember { mutableStateOf(ActionInputs.INPUT_AGE) }
+    val currentScreen = remember { mutableStateOf(ActionInputs.NO_COMPONENT_SELECTED) }
 
     val screenDropdownItemList = mutableListOf<DropdownItem>()
     ActionInputs.entries.forEach {
@@ -19,7 +22,8 @@ fun ActionInputsScreen() {
         }
     }
     InputDropDown(
-        "Display",
+        modifier = Modifier.padding(horizontal = Spacing.Spacing16),
+        title = "Component",
         dropdownItems = screenDropdownItemList.toList(),
         onItemSelected = { currentScreen.value = getCurrentScreen(it.label) },
         onResetButtonClicked = { currentScreen.value = ActionInputs.NO_COMPONENT_SELECTED },

@@ -23,7 +23,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.model.InputUserModel
 
 @Composable
 fun LoginScreen() {
-    ColumnComponentContainer(title = "Login") {
+    ColumnComponentContainer(title = ActionInputs.LOGIN.label) {
         var server by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("https://play.dhis2.org/40")) }
         var userName by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("android")) }
         var password by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("password")) }
@@ -61,11 +61,11 @@ fun LoginScreen() {
                     imageVector = Icons.AutoMirrored.Outlined.Login,
                     contentDescription = "Login button",
 
-                )
+                    )
             },
             modifier = Modifier.fillMaxWidth(),
             enabled = (password.text.isNotEmpty() && userName.text.isNotEmpty() && server.text.isNotEmpty()),
 
-        )
+            )
     }
 }
