@@ -1,9 +1,7 @@
 package org.hisp.dhis.common.screens
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Category
@@ -11,21 +9,25 @@ import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import org.hisp.dhis.mobile.ui.designsystem.component.Button
+import org.hisp.dhis.mobile.ui.designsystem.component.ButtonStyle
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.Title
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
 @Composable
-fun NoComponentSelectedScreen() {
-    Column(
-        modifier = Modifier.fillMaxSize(),
+fun NoComponentSelectedScreen(
+    onClick: (() -> Unit)? = null,
+) {
+    ColumnComponentContainer(
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Spacer(Modifier.size(Spacing.Spacing160))
+        Spacer(Modifier.size(Spacing.Spacing120))
         Icon(
-            modifier = Modifier.size(Spacing.Spacing80),
+            modifier = Modifier.size(Spacing.Spacing48),
             imageVector = Icons.Outlined.Category,
             tint = SurfaceColor.ContainerHighest,
             contentDescription = "Please choose an option",
@@ -33,5 +35,22 @@ fun NoComponentSelectedScreen() {
         Spacer(Modifier.size(Spacing.Spacing16))
 
         Title("Please select a component", textColor = TextColor.OnSurfaceLight)
+
+        if (onClick != null) {
+            Spacer(Modifier.size(Spacing.Spacing24))
+
+            Button(
+                enabled = true,
+                style = ButtonStyle.KEYBOARDKEY,
+                text = "Select component",
+                icon = {
+                    Icon(
+                        imageVector = Icons.Outlined.Category,
+                        contentDescription = "Please choose an option",
+                    )
+                },
+                onClick = onClick
+            )
+        }
     }
 }
