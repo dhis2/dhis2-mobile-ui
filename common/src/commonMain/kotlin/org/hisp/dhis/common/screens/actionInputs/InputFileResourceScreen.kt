@@ -14,9 +14,7 @@ import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 
 @Composable
 fun InputFileResourceScreen() {
-    ColumnComponentContainer(
-        title = ActionInputs.INPUT_FILE_RESOURCE.label
-    ) {
+    ColumnComponentContainer(title = ActionInputs.INPUT_FILE_RESOURCE.label) {
         var currentFileName = "filename.extension"
         var currentFileWeight = "524kb"
         val currentFileName2 = "filename.extension"

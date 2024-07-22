@@ -31,8 +31,7 @@ fun InputAgeScreen() {
                         inputType = newInputType
                     },
                 ),
-
-                )
+            )
         }
 
         ColumnComponentItemContainer("Input Age Component - Idle Disabled") {
@@ -59,8 +58,7 @@ fun InputAgeScreen() {
                         inputType = newInputType
                     },
                 ),
-
-                )
+            )
         }
 
         ColumnComponentItemContainer("Input Age Component - Date Of Birth Required Error") {
@@ -89,8 +87,7 @@ fun InputAgeScreen() {
                         inputType = newInputType
                     },
                 ),
-
-                )
+            )
         }
 
         ColumnComponentItemContainer("Input Age Component - Age Required Error") {
@@ -120,8 +117,7 @@ fun InputAgeScreen() {
                         // no-op
                     },
                     legendData = LegendData(SurfaceColor.CustomGreen, "Legend", popUpLegendDescriptionData = regularLegendList),
-
-                    ),
+                ),
             )
         }
     }

@@ -60,12 +60,10 @@ fun LoginScreen() {
                 Icon(
                     imageVector = Icons.AutoMirrored.Outlined.Login,
                     contentDescription = "Login button",
-
-                    )
+                )
             },
             modifier = Modifier.fillMaxWidth(),
             enabled = (password.text.isNotEmpty() && userName.text.isNotEmpty() && server.text.isNotEmpty()),
-
-            )
+        )
     }
 }

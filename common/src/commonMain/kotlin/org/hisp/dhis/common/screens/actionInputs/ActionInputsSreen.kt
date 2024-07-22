@@ -1,15 +1,11 @@
 package org.hisp.dhis.common.screens.actionInputs
 
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Modifier
 import org.hisp.dhis.common.screens.NoComponentSelectedScreen
 import org.hisp.dhis.common.screens.components.GroupComponentDropDown
 import org.hisp.dhis.mobile.ui.designsystem.component.DropdownItem
-import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
-import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
 @Composable
 fun ActionInputsScreen() {

@@ -20,7 +20,6 @@ import org.jetbrains.compose.resources.painterResource
 @Composable
 fun InputSignatureScreen() {
     ColumnComponentContainer(title = ActionInputs.INPUT_SIGNATURE.label) {
-
         ColumnComponentItemContainer("Basic Input Signature ") {
             var sampleSignature0 by rememberSaveable { mutableStateOf<ImageBitmap?>(null) }
 

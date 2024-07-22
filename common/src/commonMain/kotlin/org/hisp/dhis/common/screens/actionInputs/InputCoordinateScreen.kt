@@ -14,7 +14,6 @@ import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 @Composable
 fun InputCoordinateScreen() {
     ColumnComponentContainer(title = ActionInputs.INPUT_COORDINATE.label) {
-
         ColumnComponentItemContainer("Basic Input Coordinates ") {
             var coordinates by remember { mutableStateOf<Coordinates?>(null) }
             InputCoordinate(

@@ -32,11 +32,36 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 @Composable
 fun InputBarCodeScreen() {
     ColumnComponentContainer(title = ActionInputs.INPUT_BARCODE.label) {
-        var inputValue1 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("889026a1-d01e-4d34-8209-81e8ed5c614b")) }
-        var showEnabledBarCodeBottomSheet by rememberSaveable { mutableStateOf(false) }
+        ColumnComponentItemContainer("Default Input Barcode") {
+            var inputValue1 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("889026a1-d01e-4d34-8209-81e8ed5c614b")) }
+            var showEnabledBarCodeBottomSheet by rememberSaveable { mutableStateOf(false) }
 
-        ColumnComponentItemContainer("Default Input Barcode")
-        {
+            if (showEnabledBarCodeBottomSheet) {
+                BottomSheetShell(
+                    modifier = Modifier.testTag("LEGEND_BOTTOM_SHEET"),
+                    title = provideStringResource("qr_code"),
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Outlined.Info,
+                            contentDescription = "Button",
+                            tint = SurfaceColor.Primary,
+                        )
+                    },
+                    content = {
+                        Row(horizontalArrangement = Arrangement.Center) {
+                            BarcodeBlock(data = inputValue1.text)
+                        }
+                    },
+                    buttonBlock = {
+                        ButtonCarousel(
+                            carouselButtonList = threeButtonCarousel,
+                        )
+                    },
+                ) {
+                    showEnabledBarCodeBottomSheet = false
+                }
+            }
+
             InputBarCode(
                 "label",
                 state = InputShellState.UNFOCUSED,
@@ -50,35 +75,8 @@ fun InputBarCodeScreen() {
             )
         }
 
-        if (showEnabledBarCodeBottomSheet) {
-            BottomSheetShell(
-                modifier = Modifier.testTag("LEGEND_BOTTOM_SHEET"),
-                title = provideStringResource("qr_code"),
-                icon = {
-                    Icon(
-                        imageVector = Icons.Outlined.Info,
-                        contentDescription = "Button",
-                        tint = SurfaceColor.Primary,
-                    )
-                },
-                content = {
-                    Row(horizontalArrangement = Arrangement.Center) {
-                        BarcodeBlock(data = inputValue1.text)
-                    }
-                },
-                buttonBlock = {
-                    ButtonCarousel(
-                        carouselButtonList = threeButtonCarousel,
-                    )
-                },
-            ) {
-                showEnabledBarCodeBottomSheet = false
-            }
-        }
-
-        var inputValue2 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("")) }
-        ColumnComponentItemContainer("Required field Input Barcode")
-        {
+        ColumnComponentItemContainer("Required field Input Barcode") {
+            var inputValue2 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("")) }
             InputBarCode(
                 "label",
                 state = InputShellState.ERROR,
@@ -93,8 +91,8 @@ fun InputBarCodeScreen() {
             )
         }
 
-        var inputValue by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("")) }
         ColumnComponentItemContainer("Disabled Input Barcode") {
+            var inputValue by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("")) }
             InputBarCode(
                 "label",
                 state = InputShellState.DISABLED,
@@ -107,8 +105,8 @@ fun InputBarCodeScreen() {
             )
         }
 
-        var inputValue3 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("889026a1-d01e-4d34-8209-81e8ed5c614b")) }
         ColumnComponentItemContainer("Disabled Input Barcode with content") {
+            var inputValue3 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("889026a1-d01e-4d34-8209-81e8ed5c614b")) }
             InputBarCode(
                 "label",
                 state = InputShellState.DISABLED,

@@ -53,7 +53,7 @@ fun Main(
     Column(
         verticalArrangement = Arrangement.spacedBy(Spacing.Spacing16),
         modifier = Modifier
-            .background(SurfaceColor.Container)
+            .background(SurfaceColor.Container),
     ) {
         val screenDropdownItemList = mutableListOf<DropdownItem>()
         Groups.entries.forEach {
@@ -65,7 +65,7 @@ fun Main(
                 modifier = Modifier.padding(
                     start = Spacing.Spacing16,
                     end = Spacing.Spacing16,
-                    top = Spacing.Spacing16
+                    top = Spacing.Spacing16,
                 ),
                 title = "Group",
                 dropdownItems = screenDropdownItemList.toList(),

@@ -71,8 +71,7 @@ fun InputQRCodeScreen() {
                         inputValue1 = it
                     }
                 },
-
-                )
+            )
         }
 
         var inputValue2 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue()) }

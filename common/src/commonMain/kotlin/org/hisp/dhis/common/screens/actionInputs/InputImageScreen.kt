@@ -22,9 +22,7 @@ import kotlin.concurrent.schedule
 @Composable
 fun InputImageScreen() {
     ColumnComponentContainer(title = ActionInputs.INPUT_IMAGE.label) {
-
         ColumnComponentItemContainer("Basic Input Image ") {
-
             var uploadState by rememberSaveable { mutableStateOf(UploadState.ADD) }
             val sampleImage = provideSampleImage()
 
@@ -62,7 +60,6 @@ fun InputImageScreen() {
         }
 
         ColumnComponentItemContainer("Disabled Input Image with data ") {
-
             val uploadState2 by rememberSaveable { mutableStateOf(UploadState.LOADED) }
             val sampleImage2 = provideSampleImage()
             InputImage(

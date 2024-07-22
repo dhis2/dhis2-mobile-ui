@@ -29,8 +29,7 @@ fun InputDateTimeScreen() {
         var dateTimenoInput by remember { mutableStateOf(TextFieldValue("11112014")) }
         var hour24time by remember { mutableStateOf(TextFieldValue("1630")) }
 
-        ColumnComponentItemContainer("Date Input (allowed dates from 01/09/2024 to 12/12/2024)")
-        {
+        ColumnComponentItemContainer("Date Input (allowed dates from 01/09/2024 to 12/12/2024)") {
             InputDateTime(
                 InputDateTimeModel(
                     title = "Label",
@@ -43,8 +42,7 @@ fun InputDateTimeScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Time Input")
-        {
+        ColumnComponentItemContainer("Time Input") {
             InputDateTime(
                 InputDateTimeModel(
                     title = "Label",
@@ -57,8 +55,7 @@ fun InputDateTimeScreen() {
             )
         }
 
-        ColumnComponentItemContainer("24 hour format Time Input")
-        {
+        ColumnComponentItemContainer("24 hour format Time Input") {
             InputDateTime(
                 InputDateTimeModel(
 
@@ -72,27 +69,21 @@ fun InputDateTimeScreen() {
             )
         }
 
-        ColumnComponentItemContainer("12 hour format Time Input")
-        {
+        ColumnComponentItemContainer("12 hour format Time Input") {
             InputDateTime(
                 InputDateTimeModel(
-
                     title = "Label",
                     inputTextFieldValue = time,
                     visualTransformation = TimeTransformation(),
                     actionType = DateTimeActionType.TIME,
                     onValueChanged = { time = it ?: TextFieldValue() },
-
-                    ),
-
-                )
+                ),
+            )
         }
 
-        ColumnComponentItemContainer("Date-Time Input")
-        {
+        ColumnComponentItemContainer("Date-Time Input") {
             InputDateTime(
                 InputDateTimeModel(
-
                     title = "Label",
                     inputTextFieldValue = dateTime,
                     visualTransformation = DateTimeTransformation(),
@@ -102,11 +93,9 @@ fun InputDateTimeScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Date-Time Input 24 hour ")
-        {
+        ColumnComponentItemContainer("Date-Time Input 24 hour ") {
             InputDateTime(
                 InputDateTimeModel(
-
                     title = "Label",
                     inputTextFieldValue = dateTime24hour,
                     visualTransformation = DateTimeTransformation(),
@@ -117,24 +106,20 @@ fun InputDateTimeScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Disabled")
-        {
+        ColumnComponentItemContainer("Disabled") {
             InputDateTime(
                 InputDateTimeModel(
-
                     title = "Label",
                     inputTextFieldValue = TextFieldValue(),
                     state = InputShellState.DISABLED,
                     onValueChanged = {
                         // no-op
                     },
-
-                    ),
+                ),
             )
         }
 
-        ColumnComponentItemContainer("Error")
-        {
+        ColumnComponentItemContainer("Error") {
             InputDateTime(
                 InputDateTimeModel(
                     title = "Label",

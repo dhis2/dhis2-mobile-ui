@@ -13,7 +13,6 @@ import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 @Composable
 fun InputPolygonScreen() {
     ColumnComponentContainer(title = ActionInputs.INPUT_POLYGON.label) {
-
         ColumnComponentItemContainer("Basic Input Polygon ") {
             var polygonCaptured by rememberSaveable { mutableStateOf(false) }
             InputPolygon(
