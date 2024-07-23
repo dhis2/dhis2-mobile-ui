@@ -187,13 +187,13 @@ fun InputDropDown(
         ExposedDropdownMenuBox(
             expanded = showDropdown,
             onExpandedChange = { },
-            modifier = Modifier
+            modifier = modifier
                 .background(
                     color = SurfaceColor.SurfaceBright,
                     shape = RoundedCornerShape(Spacing8),
                 ),
         ) {
-            inputField(modifier.menuAnchor())
+            inputField(Modifier.menuAnchor())
 
             MaterialTheme(
                 shapes = Shapes(extraSmall = RoundedCornerShape(Spacing8)),
