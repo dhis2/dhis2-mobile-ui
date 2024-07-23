@@ -11,6 +11,7 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.graphics.painter.Painter
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentItemContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InputMatrix
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.ImageCardData
@@ -70,33 +71,36 @@ fun InputMatrixScreen(imageBitmapLoader: (() -> ImageBitmap)?) {
     val sampleImage = provideSampleImages(
         inputCardData.filterIsInstance<ImageCardData.CustomIconData>().map { it },
     )
-    ColumnComponentContainer(title = "Input Matrix") {
-        InputMatrix(
-            title = "Label",
-            data = inputCardData.filterNotNull(),
-            selectedData = matrixSelectedItem,
-            onSelectionChanged = { newSelectedItem ->
-                matrixSelectedItem = if (matrixSelectedItem == newSelectedItem) {
-                    null
-                } else {
-                    newSelectedItem
-                }
-            },
-            state = InputShellState.UNFOCUSED,
-            painterFor = sampleImage,
-        )
-
-        InputMatrix(
-            title = "Label",
-            data = inputCardData.filterNotNull(),
-            selectedData = matrixSelectedItem,
-            state = InputShellState.DISABLED,
-            itemCount = 3,
-            onSelectionChanged = {
-                // no-op
-            },
-            painterFor = sampleImage,
-        )
+    ColumnComponentContainer(title = ToggleableInputs.INPUT_MATRIX.label) {
+        ColumnComponentItemContainer("Basic state") {
+            InputMatrix(
+                title = "Label",
+                data = inputCardData.filterNotNull(),
+                selectedData = matrixSelectedItem,
+                onSelectionChanged = { newSelectedItem ->
+                    matrixSelectedItem = if (matrixSelectedItem == newSelectedItem) {
+                        null
+                    } else {
+                        newSelectedItem
+                    }
+                },
+                state = InputShellState.UNFOCUSED,
+                painterFor = sampleImage,
+            )
+        }
+        ColumnComponentItemContainer("Disabled state") {
+            InputMatrix(
+                title = "Label",
+                data = inputCardData.filterNotNull(),
+                selectedData = matrixSelectedItem,
+                state = InputShellState.DISABLED,
+                itemCount = 3,
+                onSelectionChanged = {
+                    // no-op
+                },
+                painterFor = sampleImage,
+            )
+        }
     }
 }
 

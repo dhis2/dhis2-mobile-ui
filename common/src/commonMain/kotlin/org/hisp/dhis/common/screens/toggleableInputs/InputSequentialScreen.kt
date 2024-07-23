@@ -11,6 +11,7 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.graphics.painter.Painter
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentItemContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InputSequential
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.ImageCardData
@@ -72,32 +73,36 @@ fun InputSequentialScreen(imageBitmapLoader: (() -> ImageBitmap)?) {
         inputCardData.filterIsInstance<ImageCardData.CustomIconData>().map { it },
     )
 
-    ColumnComponentContainer(title = "Input Sequential") {
-        InputSequential(
-            title = "Label",
-            data = inputCardData.filterNotNull(),
-            selectedData = sequentialSelectedItem,
-            onSelectionChanged = { newSelectedItem ->
-                sequentialSelectedItem = if (sequentialSelectedItem == newSelectedItem) {
-                    null
-                } else {
-                    newSelectedItem
-                }
-            },
-            state = InputShellState.UNFOCUSED,
-            painterFor = painterFor,
-        )
+    ColumnComponentContainer(title = ToggleableInputs.INPUT_SEQUENTIAL.label) {
+        ColumnComponentItemContainer("Basic state") {
+            InputSequential(
+                title = "Label",
+                data = inputCardData.filterNotNull(),
+                selectedData = sequentialSelectedItem,
+                onSelectionChanged = { newSelectedItem ->
+                    sequentialSelectedItem = if (sequentialSelectedItem == newSelectedItem) {
+                        null
+                    } else {
+                        newSelectedItem
+                    }
+                },
+                state = InputShellState.UNFOCUSED,
+                painterFor = painterFor,
+            )
+        }
 
-        InputSequential(
-            title = "Label",
-            data = inputCardData.filterNotNull(),
-            selectedData = sequentialSelectedItem,
-            state = InputShellState.DISABLED,
-            onSelectionChanged = {
-                // no-op
-            },
-            painterFor = painterFor,
-        )
+        ColumnComponentItemContainer("Disabled state") {
+            InputSequential(
+                title = "Label",
+                data = inputCardData.filterNotNull(),
+                selectedData = sequentialSelectedItem,
+                state = InputShellState.DISABLED,
+                onSelectionChanged = {
+                    // no-op
+                },
+                painterFor = painterFor,
+            )
+        }
     }
 }
 

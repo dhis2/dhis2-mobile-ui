@@ -1,24 +1,20 @@
 package org.hisp.dhis.common.screens.toggleableInputs
 
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Modifier
 import org.hisp.dhis.common.screens.previews.lorem
 import org.hisp.dhis.mobile.ui.designsystem.component.Button
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentItemContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InputRadioButton
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.Orientation
 import org.hisp.dhis.mobile.ui.designsystem.component.RadioButtonData
-import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
 import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextData
 import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextState
-import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
 @Composable
 fun InputRadioButtonScreen() {
@@ -72,59 +68,62 @@ fun InputRadioButtonScreen() {
         mutableStateOf<RadioButtonData?>(radioButtonDataItemsHorizontal[0])
     }
     var showSupportingText by remember { mutableStateOf(false) }
-    ColumnComponentContainer("Radio Buttons") {
+    ColumnComponentContainer(ToggleableInputs.INPUT_RADIO_BUTTON.label) {
         Button(text = "Click to show/Hide supporting text") {
             showSupportingText = !showSupportingText
         }
 
-        SubTitle("Vertical")
-        InputRadioButton(
-            title = "Label",
-            radioButtonData = radioButtonDataItemsVertical,
-            itemSelected = selectedItemVertical,
-            onItemChange = {
-                selectedItemVertical = it
-            },
-            state = InputShellState.UNFOCUSED,
-            supportingText = if (showSupportingText) {
-                listOf(
-                    SupportingTextData("Required", state = SupportingTextState.ERROR),
-                    SupportingTextData(lorem + lorem + lorem, state = SupportingTextState.WARNING),
-                )
-            } else {
-                emptyList()
-            },
-        )
-        Spacer(Modifier.size(Spacing.Spacing18))
-        InputRadioButton(
-            title = "Label",
-            radioButtonData = radioButtonDataItemsError,
-            state = InputShellState.ERROR,
-            itemSelected = selectedItemError,
-            onItemChange = {
-                selectedItemError = it
-            },
-        )
-        Spacer(Modifier.size(Spacing.Spacing18))
-        InputRadioButton(
-            title = "Label",
-            radioButtonData = radioButtonDataItemsDisabled,
-            state = InputShellState.DISABLED,
-            onItemChange = {
-                selectedItemDisabled = it
-            },
-        )
-        Spacer(Modifier.size(Spacing.Spacing18))
-        SubTitle("Horizontal")
-        InputRadioButton(
-            title = "Label",
-            radioButtonData = radioButtonDataItemsHorizontal,
-            orientation = Orientation.HORIZONTAL,
-            itemSelected = selectedItemHorizontal,
-            onItemChange = {
-                selectedItemHorizontal = it
-            },
-            state = InputShellState.UNFOCUSED,
-        )
+        ColumnComponentItemContainer("Basic state with vertical orientation") {
+            InputRadioButton(
+                title = "Label",
+                radioButtonData = radioButtonDataItemsVertical,
+                itemSelected = selectedItemVertical,
+                onItemChange = {
+                    selectedItemVertical = it
+                },
+                state = InputShellState.UNFOCUSED,
+                supportingText = if (showSupportingText) {
+                    listOf(
+                        SupportingTextData("Required", state = SupportingTextState.ERROR),
+                        SupportingTextData(lorem + lorem + lorem, state = SupportingTextState.WARNING),
+                    )
+                } else {
+                    emptyList()
+                },
+            )
+        }
+        ColumnComponentItemContainer("Error state with vertical orientation") {
+            InputRadioButton(
+                title = "Label",
+                radioButtonData = radioButtonDataItemsError,
+                state = InputShellState.ERROR,
+                itemSelected = selectedItemError,
+                onItemChange = {
+                    selectedItemError = it
+                },
+            )
+        }
+        ColumnComponentItemContainer("Disabled state with vertical orientation") {
+            InputRadioButton(
+                title = "Label",
+                radioButtonData = radioButtonDataItemsDisabled,
+                state = InputShellState.DISABLED,
+                onItemChange = {
+                    selectedItemDisabled = it
+                },
+            )
+        }
+        ColumnComponentItemContainer("Basic state with horizontal orientation") {
+            InputRadioButton(
+                title = "Label",
+                radioButtonData = radioButtonDataItemsHorizontal,
+                orientation = Orientation.HORIZONTAL,
+                itemSelected = selectedItemHorizontal,
+                onItemChange = {
+                    selectedItemHorizontal = it
+                },
+                state = InputShellState.UNFOCUSED,
+            )
+        }
     }
 }

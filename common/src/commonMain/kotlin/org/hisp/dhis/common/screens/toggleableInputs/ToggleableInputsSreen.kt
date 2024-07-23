@@ -33,21 +33,22 @@ fun ToggleableInputsScreen(imageBitmapLoader: (() -> ImageBitmap)?) {
         ToggleableInputs.INPUT_YES_ONLY_CHECKBOX -> InputYesOnlyCheckBoxScreen()
         ToggleableInputs.INPUT_YES_NO_FIELD -> InputYesNoFieldScreen()
         ToggleableInputs.INPUT_DROPDOWN -> InputDropDownScreen()
+
         ToggleableInputs.MULTI_SELECT -> MultiSelectInputScreen()
         ToggleableInputs.NO_COMPONENT_SELECTED -> NoComponentSelectedScreen()
     }
 }
 
 enum class ToggleableInputs(val label: String) {
-    INPUT_RADIO_BUTTON("Input Radio Button"),
-    INPUT_MATRIX("Input Matrix"),
-    INPUT_SEQUENTIAL("Input Sequential"),
-    INPUT_CHECK_BOX("Input Check Box"),
-    INPUT_YES_ONLY_SWITCH("Input yes only switch"),
-    INPUT_YES_ONLY_CHECKBOX("Input yes only checkbox"),
-    INPUT_YES_NO_FIELD("Input Yes/No field"),
-    INPUT_DROPDOWN("Input Dropdown"),
-    MULTI_SELECT("Multi Select Input"),
+    INPUT_RADIO_BUTTON("Input Radio Button component"),
+    INPUT_MATRIX("Input Matrix component"),
+    INPUT_SEQUENTIAL("Input Sequential component"),
+    INPUT_CHECK_BOX("Input Check Box component"),
+    INPUT_YES_ONLY_SWITCH("Input yes only switch component"),
+    INPUT_YES_ONLY_CHECKBOX("Input yes only checkbox component"),
+    INPUT_YES_NO_FIELD("Input Yes/No field component"),
+    INPUT_DROPDOWN("Input Dropdown component"),
+    MULTI_SELECT("Multi Select Input component"),
     NO_COMPONENT_SELECTED("No component selected"),
 }
 
