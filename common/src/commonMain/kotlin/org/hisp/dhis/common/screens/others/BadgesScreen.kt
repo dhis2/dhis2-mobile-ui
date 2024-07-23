@@ -8,7 +8,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.ErrorBadge
 
 @Composable
 fun BadgesScreen() {
-    ColumnComponentContainer(title = "Badges") {
+    ColumnComponentContainer(title = "Badge component") {
         ColumnComponentItemContainer("Basic badges") {
             Badge()
             Badge(text = "3")

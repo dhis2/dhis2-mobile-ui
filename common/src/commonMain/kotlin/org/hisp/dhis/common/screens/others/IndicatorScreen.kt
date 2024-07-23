@@ -7,7 +7,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.Indicator
 
 @Composable
 fun IndicatorScreen() {
-    ColumnComponentContainer {
+    ColumnComponentContainer(title = "Indicator component") {
         Indicator(
             title = "Systolic and diastolic pressure",
             content = "120 mmHg / 80 mmHg",

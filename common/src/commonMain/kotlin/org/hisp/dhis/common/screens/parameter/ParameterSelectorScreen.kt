@@ -1,8 +1,5 @@
 package org.hisp.dhis.common.screens.parameter
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.QrCode2
 import androidx.compose.material3.Icon
@@ -12,11 +9,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.TextFieldValue
 import org.hisp.dhis.mobile.ui.designsystem.component.AgeInputType
 import org.hisp.dhis.mobile.ui.designsystem.component.CheckBoxData
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.DropdownItem
 import org.hisp.dhis.mobile.ui.designsystem.component.InputAge
 import org.hisp.dhis.mobile.ui.designsystem.component.InputAgeModel
@@ -142,7 +139,6 @@ fun ParameterSelectorScreen() {
                             ageInputType = it
                         },
                     ),
-
                 )
             },
             status = when (ageInputType) {
@@ -212,7 +208,6 @@ fun ParameterSelectorScreen() {
                         onValueChanged = {},
                         format = "ddMMYYYY",
                     ),
-
                 )
             },
             onExpand = {},
@@ -383,10 +378,7 @@ fun ParameterSelectorScreen() {
         ),
     )
 
-    Column(
-        modifier = Modifier
-            .verticalScroll(rememberScrollState()),
-    ) {
+    ColumnComponentContainer(title = "Parameter Selector component") {
         items.forEach {
             ParameterSelectorItem(
                 model = it,

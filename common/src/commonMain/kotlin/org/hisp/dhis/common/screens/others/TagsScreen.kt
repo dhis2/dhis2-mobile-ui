@@ -6,7 +6,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 
 @Composable
 fun TagsScreen() {
-    ColumnComponentContainer(title = "Tags") {
+    ColumnComponentContainer(title = "Tag component") {
         TagsPreview()
     }
 }

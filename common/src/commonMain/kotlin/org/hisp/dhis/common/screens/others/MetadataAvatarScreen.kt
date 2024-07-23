@@ -12,7 +12,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 
 @Composable
 fun MetadataAvatarScreen() {
-    ColumnComponentContainer(title = "Metadata Avatar") {
+    ColumnComponentContainer(title = "Metadata Avatar component") {
         RowComponentContainer {
             MetadataAvatar(
                 icon = {
