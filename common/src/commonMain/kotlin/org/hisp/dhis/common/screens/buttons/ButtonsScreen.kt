@@ -37,14 +37,14 @@ fun ButtonsScreen() {
 }
 
 enum class ButtonScreens(val label: String) {
-    BUTTON("Button"),
-    BUTTON_BLOCK("Button block"),
-    CAROUSEL_BUTTONS("Carousel buttons"),
-    CHECK_BOX("Check Box"),
-    FAB("FAB"),
-    ICON_BUTTON("Icon Button"),
-    RADIO("Radio"),
-    SWITCH("Switch"),
+    BUTTON("Button component"),
+    BUTTON_BLOCK("Button block component"),
+    CAROUSEL_BUTTONS("Carousel button component"),
+    CHECK_BOX("Check Box component"),
+    FAB("FAB component"),
+    ICON_BUTTON("Icon Button component"),
+    RADIO("Radio component"),
+    SWITCH("Switch component"),
     NO_COMPONENT_SELECTED("No component selected"),
 }
 

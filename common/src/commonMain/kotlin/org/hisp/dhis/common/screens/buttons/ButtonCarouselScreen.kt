@@ -1,29 +1,21 @@
 package org.hisp.dhis.common.screens.buttons
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.FileDownload
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import org.hisp.dhis.common.screens.previews.fiveButtonCarousel
 import org.hisp.dhis.common.screens.previews.overflowButtonCarousel
 import org.hisp.dhis.common.screens.previews.threeButtonCarousel
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonCarousel
 import org.hisp.dhis.mobile.ui.designsystem.component.CarouselButtonData
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
-import org.hisp.dhis.mobile.ui.designsystem.component.RowComponentContainer
-import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
-import org.hisp.dhis.mobile.ui.designsystem.component.Title
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentItemContainer
 
 @Composable
 fun ButtonCarouselScreen() {
-    ColumnComponentContainer {
-        Title("Carousel Buttons")
-        RowComponentContainer(
-            title = "Simple Carousel Button",
-        ) {
+    ColumnComponentContainer(title = ButtonScreens.CAROUSEL_BUTTONS.label) {
+        ColumnComponentItemContainer("Simple Carousel Button") {
             ButtonCarousel(
                 carouselButtonList = listOf(
                     CarouselButtonData(
@@ -40,25 +32,21 @@ fun ButtonCarouselScreen() {
                 ),
             )
         }
-        RowComponentContainer(
-            title = "Buttons Carousel",
-        ) {
-            Column(
-                Modifier.fillMaxWidth(),
-            ) {
-                ButtonCarousel(
-                    carouselButtonList = threeButtonCarousel,
-                )
 
-                ButtonCarousel(
-                    carouselButtonList = fiveButtonCarousel,
-                )
+        ColumnComponentItemContainer("Buttons Carousel") {
+            ButtonCarousel(
+                carouselButtonList = threeButtonCarousel,
+            )
 
-                SubTitle("Overflow case")
-                ButtonCarousel(
-                    carouselButtonList = overflowButtonCarousel,
-                )
-            }
+            ButtonCarousel(
+                carouselButtonList = fiveButtonCarousel,
+            )
+        }
+
+        ColumnComponentItemContainer("Overflow case") {
+            ButtonCarousel(
+                carouselButtonList = overflowButtonCarousel,
+            )
         }
     }
 }
