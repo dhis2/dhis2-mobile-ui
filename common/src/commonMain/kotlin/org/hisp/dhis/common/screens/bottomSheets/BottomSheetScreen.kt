@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredWidth
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -33,9 +32,8 @@ import org.hisp.dhis.mobile.ui.designsystem.component.ButtonBlock
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.ColorStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentItemContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.LegendRange
-import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
-import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 
 @Composable
@@ -61,7 +59,7 @@ fun BottomSheetScreen() {
                 )
             },
             content = {
-                Column() {
+                Column {
                     LegendRange(
                         regularLegendList,
                     )
@@ -131,7 +129,7 @@ fun BottomSheetScreen() {
                 )
             },
             content = {
-                Column() {
+                Column {
                     LegendRange(
                         longLegendList,
                     )
@@ -176,7 +174,7 @@ fun BottomSheetScreen() {
                 )
             },
             content = {
-                Column() {
+                Column {
                     LegendRange(
                         regularLegendList,
                     )
@@ -237,7 +235,7 @@ fun BottomSheetScreen() {
                 )
             },
             content = {
-                Column() {
+                Column {
                     LegendRange(
                         regularLegendList,
                     )
@@ -300,7 +298,7 @@ fun BottomSheetScreen() {
                 )
             },
             content = {
-                Column() {
+                Column {
                     LegendRange(
                         regularLegendList,
                     )
@@ -330,7 +328,7 @@ fun BottomSheetScreen() {
             onSearchQueryChanged = { searchQuery = it },
             onSearch = { searchQuery = it },
             content = {
-                Column() {
+                Column {
                     LegendRange(
                         regularLegendList,
                     )
@@ -383,84 +381,84 @@ fun BottomSheetScreen() {
         }
     }
 
-    ColumnComponentContainer {
-        SubTitle("Legend type bottom sheet shell")
-        Button(
-            enabled = true,
-            ButtonStyle.FILLED,
-            text = "Show Modal",
-        ) {
-            showLegendBottomSheetShell = !showLegendBottomSheetShell
+    ColumnComponentContainer(title = BottomSheets.BOTTOM_SHEET.label) {
+        ColumnComponentItemContainer("Legend type bottom sheet shell") {
+            Button(
+                enabled = true,
+                ButtonStyle.FILLED,
+                text = "Show Modal",
+            ) {
+                showLegendBottomSheetShell = !showLegendBottomSheetShell
+            }
         }
-        Spacer(modifier = Modifier.size(Spacing.Spacing10))
 
-        SubTitle("Bottom sheet shell with scrollable content")
-        Button(
-            enabled = true,
-            ButtonStyle.FILLED,
-            text = "Show Modal",
-        ) {
-            showBottomSheetShellScrollableContent = !showBottomSheetShellScrollableContent
+        ColumnComponentItemContainer("Bottom sheet shell with scrollable content") {
+            Button(
+                enabled = true,
+                ButtonStyle.FILLED,
+                text = "Show Modal",
+            ) {
+                showBottomSheetShellScrollableContent = !showBottomSheetShellScrollableContent
+            }
         }
-        Spacer(modifier = Modifier.size(Spacing.Spacing10))
 
-        SubTitle("Bottom sheet shell with with maximum expansion ")
-        Button(
-            enabled = true,
-            ButtonStyle.FILLED,
-            text = "Show Modal",
-        ) {
-            showBottomSheetShellMaxExpansion = !showBottomSheetShellScrollableContent
+        ColumnComponentItemContainer("Bottom sheet shell with with maximum expansion ") {
+            Button(
+                enabled = true,
+                ButtonStyle.FILLED,
+                text = "Show Modal",
+            ) {
+                showBottomSheetShellMaxExpansion = !showBottomSheetShellScrollableContent
+            }
         }
-        Spacer(modifier = Modifier.size(Spacing.Spacing10))
-        SubTitle("Bottom sheet shell with single button")
-        Button(
-            enabled = true,
-            ButtonStyle.FILLED,
-            text = "Show Modal",
-        ) {
-            showBottomSheetShellSingleButton = !showBottomSheetShellSingleButton
+        ColumnComponentItemContainer("Bottom sheet shell with single button") {
+            Button(
+                enabled = true,
+                ButtonStyle.FILLED,
+                text = "Show Modal",
+            ) {
+                showBottomSheetShellSingleButton = !showBottomSheetShellSingleButton
+            }
         }
-        Spacer(modifier = Modifier.size(Spacing.Spacing10))
 
-        SubTitle("Bottom sheet shell with two buttons")
-        Button(
-            enabled = true,
-            ButtonStyle.FILLED,
-            text = "Show Modal",
-        ) {
-            showBottomSheetShellTwoButtons = !showBottomSheetShellTwoButtons
+        ColumnComponentItemContainer("Bottom sheet shell with two buttons") {
+            Button(
+                enabled = true,
+                ButtonStyle.FILLED,
+                text = "Show Modal",
+            ) {
+                showBottomSheetShellTwoButtons = !showBottomSheetShellTwoButtons
+            }
         }
-        Spacer(modifier = Modifier.size(Spacing.Spacing10))
 
-        SubTitle("Bottom sheet shell with search bar")
-        Button(
-            enabled = true,
-            ButtonStyle.FILLED,
-            text = "Show Modal",
-        ) {
-            showBottomSheetWithSearchBar = !showBottomSheetWithSearchBar
+        ColumnComponentItemContainer("Bottom sheet shell with search bar") {
+            Button(
+                enabled = true,
+                ButtonStyle.FILLED,
+                text = "Show Modal",
+            ) {
+                showBottomSheetWithSearchBar = !showBottomSheetWithSearchBar
+            }
         }
-        Spacer(modifier = Modifier.size(Spacing.Spacing10))
 
-        SubTitle("Bottom sheet shell without title")
-        Button(
-            enabled = true,
-            ButtonStyle.FILLED,
-            text = "Show Modal",
-        ) {
-            showBottomSheetWithoutTitle = !showBottomSheetWithoutTitle
+        ColumnComponentItemContainer("Bottom sheet shell without title") {
+            Button(
+                enabled = true,
+                ButtonStyle.FILLED,
+                text = "Show Modal",
+            ) {
+                showBottomSheetWithoutTitle = !showBottomSheetWithoutTitle
+            }
         }
-        Spacer(modifier = Modifier.size(Spacing.Spacing10))
 
-        SubTitle("Bottom sheet shell without content")
-        Button(
-            enabled = true,
-            ButtonStyle.FILLED,
-            text = "Show Modal",
-        ) {
-            showBottomSheetWithoutContent = !showBottomSheetWithoutContent
+        ColumnComponentItemContainer("Bottom sheet shell without content") {
+            Button(
+                enabled = true,
+                ButtonStyle.FILLED,
+                text = "Show Modal",
+            ) {
+                showBottomSheetWithoutContent = !showBottomSheetWithoutContent
+            }
         }
-        Spacer(modifier = Modifier.size(Spacing.Spacing10))
     }
 }

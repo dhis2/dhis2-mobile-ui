@@ -13,7 +13,7 @@ fun BottomSheetsScreen() {
 
     val screenDropdownItemList = mutableListOf<DropdownItem>()
     BottomSheets.entries.forEach {
-        if (it != BottomSheets.BOTTOM_SHEET) {
+        if (it != BottomSheets.NO_COMPONENT_SELECTED) {
             screenDropdownItemList.add(DropdownItem(it.label))
         }
     }
@@ -32,9 +32,9 @@ fun BottomSheetsScreen() {
 }
 
 enum class BottomSheets(val label: String) {
-    BOTTOM_SHEET("Bottom Sheet "),
-    BOTTOM_SHEET_HEADER("Bottom Sheet Header"),
-    ORG_TREE_BOTTOM_SHEET("Org Tree Bottom Sheet"),
+    BOTTOM_SHEET("Bottom Sheet component"),
+    BOTTOM_SHEET_HEADER("Bottom Sheet Header component"),
+    ORG_TREE_BOTTOM_SHEET("Org Tree Bottom Sheet component"),
     NO_COMPONENT_SELECTED("No component selected"),
 }
 
