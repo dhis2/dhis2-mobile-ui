@@ -10,8 +10,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.graphics.painter.Painter
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
-import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentItemContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InputMatrix
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.ImageCardData
@@ -71,8 +71,8 @@ fun InputMatrixScreen(imageBitmapLoader: (() -> ImageBitmap)?) {
     val sampleImage = provideSampleImages(
         inputCardData.filterIsInstance<ImageCardData.CustomIconData>().map { it },
     )
-    ColumnComponentContainer(title = ToggleableInputs.INPUT_MATRIX.label) {
-        ColumnComponentItemContainer("Basic state") {
+    ColumnScreenContainer(title = ToggleableInputs.INPUT_MATRIX.label) {
+        ColumnComponentContainer("Basic state") {
             InputMatrix(
                 title = "Label",
                 data = inputCardData.filterNotNull(),
@@ -88,7 +88,7 @@ fun InputMatrixScreen(imageBitmapLoader: (() -> ImageBitmap)?) {
                 painterFor = sampleImage,
             )
         }
-        ColumnComponentItemContainer("Disabled state") {
+        ColumnComponentContainer("Disabled state") {
             InputMatrix(
                 title = "Label",
                 data = inputCardData.filterNotNull(),

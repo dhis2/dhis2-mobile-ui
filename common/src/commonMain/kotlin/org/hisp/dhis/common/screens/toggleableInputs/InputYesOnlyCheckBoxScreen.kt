@@ -6,8 +6,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import org.hisp.dhis.mobile.ui.designsystem.component.CheckBoxData
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
-import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentItemContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.InputYesOnlyCheckBox
 import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextData
@@ -15,7 +15,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextState
 
 @Composable
 fun InputYesOnlyCheckBoxScreen() {
-    ColumnComponentContainer(title = ToggleableInputs.INPUT_YES_ONLY_CHECKBOX.label) {
+    ColumnScreenContainer(title = ToggleableInputs.INPUT_YES_ONLY_CHECKBOX.label) {
         var checkboxData by remember {
             mutableStateOf(CheckBoxData(uid = "0", checked = false, enabled = true, textInput = "Label"))
         }
@@ -31,7 +31,7 @@ fun InputYesOnlyCheckBoxScreen() {
         val checkboxData4 by remember {
             mutableStateOf(CheckBoxData(uid = "0", checked = true, enabled = true, textInput = "Label"))
         }
-        ColumnComponentItemContainer("Basic state") {
+        ColumnComponentContainer("Basic state") {
             InputYesOnlyCheckBox(
                 checkBoxData = checkboxData,
                 state = InputShellState.UNFOCUSED,
@@ -40,7 +40,7 @@ fun InputYesOnlyCheckBoxScreen() {
             }
         }
 
-        ColumnComponentItemContainer("Selected state") {
+        ColumnComponentContainer("Selected state") {
             InputYesOnlyCheckBox(
                 checkBoxData = checkboxData1,
                 state = InputShellState.UNFOCUSED,
@@ -49,7 +49,7 @@ fun InputYesOnlyCheckBoxScreen() {
             }
         }
 
-        ColumnComponentItemContainer("Error state") {
+        ColumnComponentContainer("Error state") {
             InputYesOnlyCheckBox(
                 checkBoxData = checkboxData2,
                 state = InputShellState.ERROR,
@@ -59,7 +59,7 @@ fun InputYesOnlyCheckBoxScreen() {
             }
         }
 
-        ColumnComponentItemContainer("Disabled selected state") {
+        ColumnComponentContainer("Disabled selected state") {
             InputYesOnlyCheckBox(
                 checkBoxData = checkboxData3,
                 state = InputShellState.DISABLED,
@@ -67,7 +67,7 @@ fun InputYesOnlyCheckBoxScreen() {
             }
         }
 
-        ColumnComponentItemContainer("Disabled state") {
+        ColumnComponentContainer("Disabled state") {
             InputYesOnlyCheckBox(
                 checkBoxData = checkboxData4,
                 state = InputShellState.DISABLED,

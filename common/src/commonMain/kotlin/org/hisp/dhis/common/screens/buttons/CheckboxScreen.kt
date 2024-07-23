@@ -11,8 +11,8 @@ import org.hisp.dhis.common.screens.previews.CheckboxPreview
 import org.hisp.dhis.common.screens.previews.TextCheckboxPreview
 import org.hisp.dhis.mobile.ui.designsystem.component.CheckBoxBlock
 import org.hisp.dhis.mobile.ui.designsystem.component.CheckBoxData
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
-import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentItemContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.Orientation
 
 @Composable
@@ -50,10 +50,10 @@ fun CheckboxScreen() {
         )
     }
 
-    ColumnComponentContainer(
+    ColumnScreenContainer(
         title = ButtonScreens.CHECK_BOX.label,
         content = {
-            ColumnComponentItemContainer("Text Check Box") {
+            ColumnComponentContainer("Text Check Box") {
                 TextCheckboxPreview(state1, true, option1) {
                     state1 = it
                 }
@@ -62,7 +62,7 @@ fun CheckboxScreen() {
                 TextCheckboxPreview(state4, enabled = false, text = option4) { state4 = it }
             }
 
-            ColumnComponentItemContainer("Simple Check Box") {
+            ColumnComponentContainer("Simple Check Box") {
                 Row {
                     CheckboxPreview(state5, enabled = true) { state5 = it }
                     CheckboxPreview(state6, enabled = false) { state6 = it }
@@ -73,7 +73,7 @@ fun CheckboxScreen() {
                 }
             }
 
-            ColumnComponentItemContainer("Horizontal Check Box Block") {
+            ColumnComponentContainer("Horizontal Check Box Block") {
                 CheckBoxBlock(
                     Orientation.HORIZONTAL,
                     checkBoxesStatesHorizontal,
@@ -84,7 +84,7 @@ fun CheckboxScreen() {
                 )
             }
 
-            ColumnComponentItemContainer("Vertical Check Box Block") {
+            ColumnComponentContainer("Vertical Check Box Block") {
                 CheckBoxBlock(
                     Orientation.VERTICAL,
                     checkBoxesStatesVertical,

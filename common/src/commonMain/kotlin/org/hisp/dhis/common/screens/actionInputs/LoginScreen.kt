@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
 import org.hisp.dhis.mobile.ui.designsystem.component.Button
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonStyle
-import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InputPassword
 import org.hisp.dhis.mobile.ui.designsystem.component.InputQRCode
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
@@ -23,7 +23,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.model.InputUserModel
 
 @Composable
 fun LoginScreen() {
-    ColumnComponentContainer(title = ActionInputs.LOGIN.label) {
+    ColumnScreenContainer(title = ActionInputs.LOGIN.label) {
         var server by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("https://play.dhis2.org/40")) }
         var userName by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("android")) }
         var password by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("password")) }

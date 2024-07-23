@@ -4,8 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import org.hisp.dhis.mobile.ui.designsystem.component.CheckBoxData
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
-import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentItemContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InputCheckBox
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.Orientation
@@ -54,8 +54,8 @@ fun InputCheckBoxScreen() {
         )
     }
 
-    ColumnComponentContainer(ToggleableInputs.INPUT_CHECK_BOX.label) {
-        ColumnComponentItemContainer("Basic state with vertical orientation") {
+    ColumnScreenContainer(ToggleableInputs.INPUT_CHECK_BOX.label) {
+        ColumnComponentContainer("Basic state with vertical orientation") {
             InputCheckBox(
                 title = "Label",
                 checkBoxData = checkBoxDataItemsVertical,
@@ -67,7 +67,7 @@ fun InputCheckBoxScreen() {
                 state = InputShellState.UNFOCUSED,
             )
         }
-        ColumnComponentItemContainer("Error state with vertical orientation") {
+        ColumnComponentContainer("Error state with vertical orientation") {
             InputCheckBox(
                 title = "Label",
                 checkBoxData = checkBoxDataItemsError,
@@ -79,7 +79,7 @@ fun InputCheckBoxScreen() {
                 onClearSelection = { checkBoxDataItemsError.replaceAll { it.copy(checked = false) } },
             )
         }
-        ColumnComponentItemContainer("Disabled state with vertical orientation") {
+        ColumnComponentContainer("Disabled state with vertical orientation") {
             InputCheckBox(
                 title = "Label",
                 checkBoxData = checkBoxDataItemsDisabled,
@@ -88,7 +88,7 @@ fun InputCheckBoxScreen() {
                 onClearSelection = { },
             )
         }
-        ColumnComponentItemContainer("Basic state with horizontal orientation") {
+        ColumnComponentContainer("Basic state with horizontal orientation") {
             InputCheckBox(
                 title = "Label",
                 checkBoxData = checkBoxDataItemsHorizontal,

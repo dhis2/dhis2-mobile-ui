@@ -31,8 +31,8 @@ import org.hisp.dhis.mobile.ui.designsystem.component.Button
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonBlock
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.ColorStyle
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
-import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentItemContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.LegendRange
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 
@@ -381,8 +381,8 @@ fun BottomSheetScreen() {
         }
     }
 
-    ColumnComponentContainer(title = BottomSheets.BOTTOM_SHEET.label) {
-        ColumnComponentItemContainer("Legend type bottom sheet shell") {
+    ColumnScreenContainer(title = BottomSheets.BOTTOM_SHEET.label) {
+        ColumnComponentContainer("Legend type bottom sheet shell") {
             Button(
                 enabled = true,
                 ButtonStyle.FILLED,
@@ -392,7 +392,7 @@ fun BottomSheetScreen() {
             }
         }
 
-        ColumnComponentItemContainer("Bottom sheet shell with scrollable content") {
+        ColumnComponentContainer("Bottom sheet shell with scrollable content") {
             Button(
                 enabled = true,
                 ButtonStyle.FILLED,
@@ -402,7 +402,7 @@ fun BottomSheetScreen() {
             }
         }
 
-        ColumnComponentItemContainer("Bottom sheet shell with with maximum expansion ") {
+        ColumnComponentContainer("Bottom sheet shell with with maximum expansion ") {
             Button(
                 enabled = true,
                 ButtonStyle.FILLED,
@@ -411,7 +411,7 @@ fun BottomSheetScreen() {
                 showBottomSheetShellMaxExpansion = !showBottomSheetShellScrollableContent
             }
         }
-        ColumnComponentItemContainer("Bottom sheet shell with single button") {
+        ColumnComponentContainer("Bottom sheet shell with single button") {
             Button(
                 enabled = true,
                 ButtonStyle.FILLED,
@@ -421,7 +421,7 @@ fun BottomSheetScreen() {
             }
         }
 
-        ColumnComponentItemContainer("Bottom sheet shell with two buttons") {
+        ColumnComponentContainer("Bottom sheet shell with two buttons") {
             Button(
                 enabled = true,
                 ButtonStyle.FILLED,
@@ -431,7 +431,7 @@ fun BottomSheetScreen() {
             }
         }
 
-        ColumnComponentItemContainer("Bottom sheet shell with search bar") {
+        ColumnComponentContainer("Bottom sheet shell with search bar") {
             Button(
                 enabled = true,
                 ButtonStyle.FILLED,
@@ -441,7 +441,7 @@ fun BottomSheetScreen() {
             }
         }
 
-        ColumnComponentItemContainer("Bottom sheet shell without title") {
+        ColumnComponentContainer("Bottom sheet shell without title") {
             Button(
                 enabled = true,
                 ButtonStyle.FILLED,
@@ -451,7 +451,7 @@ fun BottomSheetScreen() {
             }
         }
 
-        ColumnComponentItemContainer("Bottom sheet shell without content") {
+        ColumnComponentContainer("Bottom sheet shell without content") {
             Button(
                 enabled = true,
                 ButtonStyle.FILLED,

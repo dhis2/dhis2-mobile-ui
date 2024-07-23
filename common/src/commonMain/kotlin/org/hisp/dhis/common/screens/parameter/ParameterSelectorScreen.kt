@@ -13,7 +13,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.TextFieldValue
 import org.hisp.dhis.mobile.ui.designsystem.component.AgeInputType
 import org.hisp.dhis.mobile.ui.designsystem.component.CheckBoxData
-import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.DropdownItem
 import org.hisp.dhis.mobile.ui.designsystem.component.InputAge
 import org.hisp.dhis.mobile.ui.designsystem.component.InputAgeModel
@@ -378,7 +378,7 @@ fun ParameterSelectorScreen() {
         ),
     )
 
-    ColumnComponentContainer(title = "Parameter Selector component") {
+    ColumnScreenContainer(title = "Parameter Selector component") {
         items.forEach {
             ParameterSelectorItem(
                 model = it,

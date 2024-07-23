@@ -6,16 +6,16 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.text.input.TextFieldValue
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
-import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentItemContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InputNumber
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.RegExValidations
 
 @Composable
 fun InputNumberScreen() {
-    ColumnComponentContainer(title = BasicTextInputs.INPUT_NUMBER.label) {
-        ColumnComponentItemContainer("Basic Input Number") {
+    ColumnScreenContainer(title = BasicTextInputs.INPUT_NUMBER.label) {
+        ColumnComponentContainer("Basic Input Number") {
             var inputValue1 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue()) }
             InputNumber(
                 title = "Label",
@@ -30,7 +30,7 @@ fun InputNumberScreen() {
             )
         }
 
-        ColumnComponentItemContainer("European decimal notation") {
+        ColumnComponentContainer("European decimal notation") {
             var inputValueEuropean by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue()) }
             InputNumber(
                 title = "Label",
@@ -45,7 +45,7 @@ fun InputNumberScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Disabled Input Number ") {
+        ColumnComponentContainer("Disabled Input Number ") {
             var inputValue6 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue()) }
             InputNumber(
                 title = "Label",
@@ -59,7 +59,7 @@ fun InputNumberScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Disabled Input Number with content ") {
+        ColumnComponentContainer("Disabled Input Number with content ") {
             var inputValue7 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("86")) }
             InputNumber(
                 title = "Label",

@@ -9,13 +9,13 @@ import org.hisp.dhis.common.screens.previews.overflowButtonCarousel
 import org.hisp.dhis.common.screens.previews.threeButtonCarousel
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonCarousel
 import org.hisp.dhis.mobile.ui.designsystem.component.CarouselButtonData
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
-import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentItemContainer
 
 @Composable
 fun ButtonCarouselScreen() {
-    ColumnComponentContainer(title = ButtonScreens.CAROUSEL_BUTTONS.label) {
-        ColumnComponentItemContainer("Simple Carousel Button") {
+    ColumnScreenContainer(title = ButtonScreens.CAROUSEL_BUTTONS.label) {
+        ColumnComponentContainer("Simple Carousel Button") {
             ButtonCarousel(
                 carouselButtonList = listOf(
                     CarouselButtonData(
@@ -33,7 +33,7 @@ fun ButtonCarouselScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Buttons Carousel") {
+        ColumnComponentContainer("Buttons Carousel") {
             ButtonCarousel(
                 carouselButtonList = threeButtonCarousel,
             )
@@ -43,7 +43,7 @@ fun ButtonCarouselScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Overflow case") {
+        ColumnComponentContainer("Overflow case") {
             ButtonCarousel(
                 carouselButtonList = overflowButtonCarousel,
             )

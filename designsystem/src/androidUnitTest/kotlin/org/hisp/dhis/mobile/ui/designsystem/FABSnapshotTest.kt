@@ -5,7 +5,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.FileDownload
 import androidx.compose.material3.Icon
 import androidx.compose.ui.Modifier
-import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ExtendedFAB
 import org.hisp.dhis.mobile.ui.designsystem.component.FAB
 import org.hisp.dhis.mobile.ui.designsystem.component.FABStyle
@@ -21,7 +21,7 @@ class FABSnapshotTest {
     @Test
     fun launchFAB() {
         paparazzi.snapshot {
-            ColumnComponentContainer(modifier = Modifier.padding(Spacing.Spacing10)) {
+            ColumnScreenContainer(modifier = Modifier.padding(Spacing.Spacing10)) {
                 FAB(
                     style = FABStyle.SURFACE,
                     onClick = {},

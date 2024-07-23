@@ -9,16 +9,16 @@ import androidx.compose.ui.Modifier
 import org.hisp.dhis.mobile.ui.designsystem.component.Button
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonBlock
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonStyle
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
-import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentItemContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.TextButtonSelector
 import org.hisp.dhis.mobile.ui.designsystem.component.Title
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 
 @Composable
 fun ButtonBlockScreen() {
-    ColumnComponentContainer(title = ButtonScreens.BUTTON_BLOCK.label) {
-        ColumnComponentItemContainer("One button style") {
+    ColumnScreenContainer(title = ButtonScreens.BUTTON_BLOCK.label) {
+        ColumnComponentContainer("One button style") {
             ButtonBlock(
                 primaryButton = {
                     Button(
@@ -39,7 +39,7 @@ fun ButtonBlockScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Two button style") {
+        ColumnComponentContainer("Two button style") {
             ButtonBlock(
                 primaryButton = {
                     Button(
@@ -78,7 +78,7 @@ fun ButtonBlockScreen() {
 
         Title("Text Button Selectors")
 
-        ColumnComponentItemContainer("Enabled") {
+        ColumnComponentContainer("Enabled") {
             TextButtonSelector(
                 firstOptionText = provideStringResource("date_birth"),
                 onClickFirstOption = {},
@@ -88,7 +88,7 @@ fun ButtonBlockScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Disabled") {
+        ColumnComponentContainer("Disabled") {
             TextButtonSelector(
                 enabled = false,
                 firstOptionText = provideStringResource("date_birth"),

@@ -18,8 +18,8 @@ import org.hisp.dhis.common.screens.previews.threeButtonCarousel
 import org.hisp.dhis.mobile.ui.designsystem.component.BarcodeBlock
 import org.hisp.dhis.mobile.ui.designsystem.component.BottomSheetShell
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonCarousel
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
-import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentItemContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InputBarCode
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.RowComponentContainer
@@ -31,8 +31,8 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 
 @Composable
 fun InputBarCodeScreen() {
-    ColumnComponentContainer(title = ActionInputs.INPUT_BARCODE.label) {
-        ColumnComponentItemContainer("Default Input Barcode") {
+    ColumnScreenContainer(title = ActionInputs.INPUT_BARCODE.label) {
+        ColumnComponentContainer("Default Input Barcode") {
             var inputValue1 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("889026a1-d01e-4d34-8209-81e8ed5c614b")) }
             var showEnabledBarCodeBottomSheet by rememberSaveable { mutableStateOf(false) }
 
@@ -75,7 +75,7 @@ fun InputBarCodeScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Required field Input Barcode") {
+        ColumnComponentContainer("Required field Input Barcode") {
             var inputValue2 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("")) }
             InputBarCode(
                 "label",
@@ -91,7 +91,7 @@ fun InputBarCodeScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Disabled Input Barcode") {
+        ColumnComponentContainer("Disabled Input Barcode") {
             var inputValue by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("")) }
             InputBarCode(
                 "label",
@@ -105,7 +105,7 @@ fun InputBarCodeScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Disabled Input Barcode with content") {
+        ColumnComponentContainer("Disabled Input Barcode with content") {
             var inputValue3 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("889026a1-d01e-4d34-8209-81e8ed5c614b")) }
             InputBarCode(
                 "label",

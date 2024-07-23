@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import org.hisp.dhis.mobile.ui.designsystem.component.Button
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.ColorStyle
-import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.RowComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
 import org.hisp.dhis.mobile.ui.designsystem.component.Title
@@ -25,7 +25,7 @@ class ButtonSnapshotTest {
     @Test
     fun launchButtonSnapshot() {
         paparazzi.snapshot {
-            ColumnComponentContainer() {
+            ColumnScreenContainer() {
                 Title("Buttons")
                 SubTitle("Filled")
                 RowComponentContainer() {

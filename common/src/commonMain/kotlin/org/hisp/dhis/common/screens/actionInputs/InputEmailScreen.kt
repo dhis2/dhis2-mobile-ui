@@ -6,8 +6,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.text.input.TextFieldValue
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
-import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentItemContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InputEmail
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextData
@@ -15,8 +15,8 @@ import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextState
 
 @Composable
 fun InputEmailScreen() {
-    ColumnComponentContainer(ActionInputs.INPUT_EMAIL.label) {
-        ColumnComponentItemContainer("Basic Email ") {
+    ColumnScreenContainer(ActionInputs.INPUT_EMAIL.label) {
+        ColumnComponentContainer("Basic Email ") {
             var inputText1 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("")) }
 
             InputEmail(
@@ -31,7 +31,7 @@ fun InputEmailScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Basic Email with content ") {
+        ColumnComponentContainer("Basic Email with content ") {
             var inputText2 by rememberSaveable(stateSaver = TextFieldValue.Saver) {
                 mutableStateOf(
                     TextFieldValue("fatiman92@gmail.com"),
@@ -50,7 +50,7 @@ fun InputEmailScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Error Email with content ") {
+        ColumnComponentContainer("Error Email with content ") {
             var inputText3 by rememberSaveable(stateSaver = TextFieldValue.Saver) {
                 mutableStateOf(
                     TextFieldValue("fatiman92@gmail.com"),
@@ -69,7 +69,7 @@ fun InputEmailScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Error Email required field ") {
+        ColumnComponentContainer("Error Email required field ") {
             var inputText4 by rememberSaveable(stateSaver = TextFieldValue.Saver) {
                 mutableStateOf(
                     TextFieldValue(),
@@ -89,7 +89,7 @@ fun InputEmailScreen() {
         }
     }
 
-    ColumnComponentItemContainer("Disabled Email with content ") {
+    ColumnComponentContainer("Disabled Email with content ") {
         var inputText5 by rememberSaveable(stateSaver = TextFieldValue.Saver) {
             mutableStateOf(
                 TextFieldValue("fatiman92@gmail.com"),

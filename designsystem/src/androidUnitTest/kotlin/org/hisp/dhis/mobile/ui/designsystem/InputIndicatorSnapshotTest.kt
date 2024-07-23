@@ -3,7 +3,7 @@ package org.hisp.dhis.mobile.ui.designsystem
 import androidx.compose.foundation.layout.padding
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.Indicator
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.junit.Rule
@@ -17,7 +17,7 @@ class InputIndicatorSnapshotTest {
     @Test
     fun launchIndicatorInput() {
         paparazzi.snapshot {
-            ColumnComponentContainer(modifier = Modifier.padding(Spacing.Spacing10)) {
+            ColumnScreenContainer(modifier = Modifier.padding(Spacing.Spacing10)) {
                 Indicator(
                     title = "Heart Rate",
                     content = "160 bpm",

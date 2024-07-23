@@ -5,15 +5,15 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
-import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentItemContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InputPolygon
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 
 @Composable
 fun InputPolygonScreen() {
-    ColumnComponentContainer(title = ActionInputs.INPUT_POLYGON.label) {
-        ColumnComponentItemContainer("Basic Input Polygon ") {
+    ColumnScreenContainer(title = ActionInputs.INPUT_POLYGON.label) {
+        ColumnComponentContainer("Basic Input Polygon ") {
             var polygonCaptured by rememberSaveable { mutableStateOf(false) }
             InputPolygon(
                 title = "Label",
@@ -27,7 +27,7 @@ fun InputPolygonScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Disabled Input Polygon without data ") {
+        ColumnComponentContainer("Disabled Input Polygon without data ") {
             var polygonCaptured1 by rememberSaveable { mutableStateOf(false) }
             InputPolygon(
                 title = "Label",
@@ -42,7 +42,7 @@ fun InputPolygonScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Disabled Input Polygon with data ") {
+        ColumnComponentContainer("Disabled Input Polygon with data ") {
             var polygonCaptured2 by rememberSaveable { mutableStateOf(true) }
             InputPolygon(
                 title = "Label",

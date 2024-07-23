@@ -6,8 +6,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.text.input.TextFieldValue
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
-import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentItemContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InputLink
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextData
@@ -15,8 +15,8 @@ import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextState
 
 @Composable
 fun InputLinkScreen() {
-    ColumnComponentContainer(title = ActionInputs.INPUT_LINK.label) {
-        ColumnComponentItemContainer("Basic Link ") {
+    ColumnScreenContainer(title = ActionInputs.INPUT_LINK.label) {
+        ColumnComponentContainer("Basic Link ") {
             var inputText1 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue()) }
 
             InputLink(
@@ -33,7 +33,7 @@ fun InputLinkScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Basic Link with invalid link ") {
+        ColumnComponentContainer("Basic Link with invalid link ") {
             var inputText2 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("example.")) }
 
             InputLink(
@@ -50,7 +50,7 @@ fun InputLinkScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Basic Link with valid link ") {
+        ColumnComponentContainer("Basic Link with valid link ") {
             var inputText3 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue(("example.com"))) }
 
             InputLink(
@@ -67,7 +67,7 @@ fun InputLinkScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Error Link required field ") {
+        ColumnComponentContainer("Error Link required field ") {
             var inputText4 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue()) }
             InputLink(
                 title = "Label",
@@ -84,7 +84,7 @@ fun InputLinkScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Disabled Link with content ") {
+        ColumnComponentContainer("Disabled Link with content ") {
             var inputText5 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("example.com")) }
             InputLink(
                 title = "Label",

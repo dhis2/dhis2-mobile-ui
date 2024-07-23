@@ -10,16 +10,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import org.hisp.dhis.mobile.ui.designsystem.component.BottomSheetHeader
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
-import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentItemContainer
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
 @Composable
 fun BottomSheetHeaderScreen() {
-    ColumnComponentContainer(title = BottomSheets.BOTTOM_SHEET_HEADER.label) {
-        ColumnComponentItemContainer("With Icon") {
+    ColumnScreenContainer(title = BottomSheets.BOTTOM_SHEET_HEADER.label) {
+        ColumnComponentContainer("With Icon") {
             Box(modifier = Modifier.border(Spacing.Spacing1, color = TextColor.OnDisabledSurface)) {
                 BottomSheetHeader(
                     title = "Title",
@@ -36,7 +36,7 @@ fun BottomSheetHeaderScreen() {
             }
         }
 
-        ColumnComponentItemContainer("Without Icon") {
+        ColumnComponentContainer("Without Icon") {
             Box(modifier = Modifier.border(Spacing.Spacing1, color = TextColor.OnDisabledSurface)) {
                 BottomSheetHeader(
                     title = "Title",
@@ -46,7 +46,7 @@ fun BottomSheetHeaderScreen() {
             }
         }
 
-        ColumnComponentItemContainer("Without Icon, without subtitle") {
+        ColumnComponentContainer("Without Icon, without subtitle") {
             Box(modifier = Modifier.border(Spacing.Spacing1, color = TextColor.OnDisabledSurface)) {
                 BottomSheetHeader(
                     title = "Title",
@@ -55,7 +55,7 @@ fun BottomSheetHeaderScreen() {
             }
         }
 
-        ColumnComponentItemContainer("Without Icon, subtitle or description") {
+        ColumnComponentContainer("Without Icon, subtitle or description") {
             Box(modifier = Modifier.border(Spacing.Spacing1, color = TextColor.OnDisabledSurface)) {
                 BottomSheetHeader(
                     title = "Title",
@@ -63,7 +63,7 @@ fun BottomSheetHeaderScreen() {
             }
         }
 
-        ColumnComponentItemContainer("With Icon, without subtitle or description") {
+        ColumnComponentContainer("With Icon, without subtitle or description") {
             Box(modifier = Modifier.border(Spacing.Spacing1, color = TextColor.OnDisabledSurface)) {
                 BottomSheetHeader(
                     title = "Title",
@@ -78,7 +78,7 @@ fun BottomSheetHeaderScreen() {
             }
         }
 
-        ColumnComponentItemContainer("Bottom sheet shell with header text aligned to start") {
+        ColumnComponentContainer("Bottom sheet shell with header text aligned to start") {
             Box(modifier = Modifier.border(Spacing.Spacing1, color = TextColor.OnDisabledSurface)) {
                 BottomSheetHeader(
                     title = "Title",

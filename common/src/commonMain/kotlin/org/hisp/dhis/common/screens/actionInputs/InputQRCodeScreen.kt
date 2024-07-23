@@ -16,8 +16,8 @@ import androidx.compose.ui.text.input.TextFieldValue
 import org.hisp.dhis.common.screens.previews.threeButtonCarousel
 import org.hisp.dhis.mobile.ui.designsystem.component.BottomSheetShell
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonCarousel
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
-import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentItemContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InputQRCode
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.QrCodeBlock
@@ -28,7 +28,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 
 @Composable
 fun InputQRCodeScreen() {
-    ColumnComponentContainer(title = ActionInputs.INPUT_QR_CODE.label) {
+    ColumnScreenContainer(title = ActionInputs.INPUT_QR_CODE.label) {
         var inputValue1 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("889026a1-d01e-4d34-8209-81e8ed5c614b")) }
         var showEnabledQRBottomSheet by rememberSaveable { mutableStateOf(false) }
 
@@ -58,7 +58,7 @@ fun InputQRCodeScreen() {
             }
         }
 
-        ColumnComponentItemContainer("Default Input QR code") {
+        ColumnComponentContainer("Default Input QR code") {
             InputQRCode(
                 "label",
                 state = InputShellState.UNFOCUSED,
@@ -75,7 +75,7 @@ fun InputQRCodeScreen() {
         }
 
         var inputValue2 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue()) }
-        ColumnComponentItemContainer("Required field Input QR code") {
+        ColumnComponentContainer("Required field Input QR code") {
             InputQRCode(
                 "label",
                 state = InputShellState.ERROR,
@@ -93,7 +93,7 @@ fun InputQRCodeScreen() {
         }
 
         var inputValue by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue()) }
-        ColumnComponentItemContainer("Disabled Input QR code") {
+        ColumnComponentContainer("Disabled Input QR code") {
             InputQRCode(
                 "label",
                 state = InputShellState.DISABLED,

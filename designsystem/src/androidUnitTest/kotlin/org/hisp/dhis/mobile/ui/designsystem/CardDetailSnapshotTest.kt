@@ -11,7 +11,7 @@ import androidx.compose.ui.graphics.Color
 import org.hisp.dhis.mobile.ui.designsystem.component.AdditionalInfoItem
 import org.hisp.dhis.mobile.ui.designsystem.component.AdditionalInfoItemColor
 import org.hisp.dhis.mobile.ui.designsystem.component.CardDetail
-import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InfoBar
 import org.hisp.dhis.mobile.ui.designsystem.component.InfoBarData
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
@@ -68,7 +68,7 @@ class CardDetailSnapshotTest {
     @Test
     fun launchCardDetail() {
         paparazzi.snapshot {
-            ColumnComponentContainer(title = "Card Detail and Info Bar", modifier = Modifier.padding(horizontal = Spacing.Spacing16)) {
+            ColumnScreenContainer(title = "Card Detail and Info Bar", modifier = Modifier.padding(horizontal = Spacing.Spacing16)) {
                 InfoBar(
                     InfoBarData(
                         text = "Not Synced",

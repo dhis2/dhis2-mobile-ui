@@ -6,8 +6,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.text.input.TextFieldValue
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
-import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentItemContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InputNegativeInteger
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextData
@@ -15,8 +15,8 @@ import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextState
 
 @Composable
 fun InputNegativeIntegerScreen() {
-    ColumnComponentContainer(title = BasicTextInputs.INPUT_NEGATIVE_INTEGER.label) {
-        ColumnComponentItemContainer("Basic Input Negative Integer") {
+    ColumnScreenContainer(title = BasicTextInputs.INPUT_NEGATIVE_INTEGER.label) {
+        ColumnComponentContainer("Basic Input Negative Integer") {
             var inputValue1 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("-12")) }
             InputNegativeInteger(
                 title = "Label",
@@ -30,7 +30,7 @@ fun InputNegativeIntegerScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Basic Input Integer with error") {
+        ColumnComponentContainer("Basic Input Integer with error") {
             var inputValueError by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue()) }
             InputNegativeInteger(
                 title = "Label",
@@ -45,7 +45,7 @@ fun InputNegativeIntegerScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Disabled Input Negative Integer ") {
+        ColumnComponentContainer("Disabled Input Negative Integer ") {
             var inputValue6 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue()) }
             InputNegativeInteger(
                 title = "Label",
@@ -59,7 +59,7 @@ fun InputNegativeIntegerScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Disabled Input Negative Integer with content ") {
+        ColumnComponentContainer("Disabled Input Negative Integer with content ") {
             var inputValue7 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("1234")) }
             InputNegativeInteger(
                 title = "Label",

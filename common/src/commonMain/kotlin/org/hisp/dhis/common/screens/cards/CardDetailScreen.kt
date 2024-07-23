@@ -9,16 +9,16 @@ import androidx.compose.ui.graphics.Color
 import org.hisp.dhis.common.screens.previews.teiDetailList
 import org.hisp.dhis.mobile.ui.designsystem.component.AdditionalInfoItemColor
 import org.hisp.dhis.mobile.ui.designsystem.component.CardDetail
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
-import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentItemContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InfoBar
 import org.hisp.dhis.mobile.ui.designsystem.component.InfoBarData
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
 @Composable
 fun CardDetailScreen() {
-    ColumnComponentContainer(title = Cards.CARD_DETAIL.label) {
-        ColumnComponentItemContainer("Info Bar") {
+    ColumnScreenContainer(title = Cards.CARD_DETAIL.label) {
+        ColumnComponentContainer("Info Bar") {
             InfoBar(
                 InfoBarData(
                     text = "Not Synced",
@@ -51,7 +51,7 @@ fun CardDetailScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Card Detail") {
+        ColumnComponentContainer("Card Detail") {
             CardDetail(
                 avatar = null,
                 title = "Narayan Khanna, M, 32",

@@ -28,8 +28,8 @@ import org.hisp.dhis.mobile.ui.designsystem.component.AvatarSize
 import org.hisp.dhis.mobile.ui.designsystem.component.AvatarStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.Button
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonStyle
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
-import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentItemContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ListCard
 import org.hisp.dhis.mobile.ui.designsystem.component.ListCardDescriptionModel
 import org.hisp.dhis.mobile.ui.designsystem.component.ListCardTitleModel
@@ -40,7 +40,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
 @Composable
 fun ListCardScreen() {
-    ColumnComponentContainer(title = Cards.LIST_CARD.label) {
+    ColumnScreenContainer(title = Cards.LIST_CARD.label) {
         var showLoading1 by remember {
             mutableStateOf(false)
         }
@@ -49,7 +49,7 @@ fun ListCardScreen() {
                 AdditionalInfoItem(key = "Date of birth", value = "12/12/1945"),
             )
         }
-        ColumnComponentItemContainer("Tei list with shadow") {
+        ColumnComponentContainer("Tei list with shadow") {
             ListCard(
                 listAvatar = {
                     Avatar(
@@ -204,7 +204,7 @@ fun ListCardScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Without shadow") {
+        ColumnComponentContainer("Without shadow") {
             var showLoading6 by remember {
                 mutableStateOf(false)
             }
@@ -308,7 +308,7 @@ fun ListCardScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Single events list with shadow") {
+        ColumnComponentContainer("Single events list with shadow") {
             ListCard(
                 title = ListCardTitleModel(text = "12/18/2021"),
                 lastUpdated = "now",
@@ -332,7 +332,7 @@ fun ListCardScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Single events list without shadow:") {
+        ColumnComponentContainer("Single events list without shadow:") {
             ListCard(
                 shadow = false,
                 title = ListCardTitleModel(text = "12/18/2021"),
@@ -357,7 +357,7 @@ fun ListCardScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Events in timeline in TEI dashboard with shadow") {
+        ColumnComponentContainer("Events in timeline in TEI dashboard with shadow") {
             ListCard(
                 listAvatar = {
                     Avatar(
@@ -399,7 +399,7 @@ fun ListCardScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Events in timeline in TEI dashboard without shadow:") {
+        ColumnComponentContainer("Events in timeline in TEI dashboard without shadow:") {
             ListCard(
                 shadow = false,
                 listAvatar = {
@@ -428,7 +428,7 @@ fun ListCardScreen() {
             )
         }
 
-        ColumnComponentItemContainer("ListCards for events  displayed in TEI dashboard:") {
+        ColumnComponentContainer("ListCards for events  displayed in TEI dashboard:") {
             val eventsInTeiDashboardTitleStyle = MaterialTheme.typography.titleSmall
 
             ListCard(

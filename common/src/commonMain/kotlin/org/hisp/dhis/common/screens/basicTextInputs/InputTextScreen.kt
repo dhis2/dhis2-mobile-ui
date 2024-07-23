@@ -6,15 +6,15 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.text.input.TextFieldValue
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
-import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentItemContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.InputText
 
 @Composable
 fun InputTextScreen() {
-    ColumnComponentContainer(title = BasicTextInputs.INPUT_TEXT.label) {
-        ColumnComponentItemContainer(" Basic Input text") {
+    ColumnScreenContainer(title = BasicTextInputs.INPUT_TEXT.label) {
+        ColumnComponentContainer(" Basic Input text") {
             var inputValue1 by rememberSaveable(stateSaver = TextFieldValue.Saver) {
                 mutableStateOf(
                     TextFieldValue("Input"),
@@ -34,7 +34,7 @@ fun InputTextScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Input text with error ") {
+        ColumnComponentContainer("Input text with error ") {
             var inputValueError by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("Input")) }
             InputText(
                 title = "Label",
@@ -48,7 +48,7 @@ fun InputTextScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Disabled Input text ") {
+        ColumnComponentContainer("Disabled Input text ") {
             var inputValue6 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue()) }
             InputText(
                 title = "Label",
@@ -62,7 +62,7 @@ fun InputTextScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Disabled Input text with content ") {
+        ColumnComponentContainer("Disabled Input text with content ") {
             var inputValue7 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("Content")) }
             InputText(
                 title = "Label",

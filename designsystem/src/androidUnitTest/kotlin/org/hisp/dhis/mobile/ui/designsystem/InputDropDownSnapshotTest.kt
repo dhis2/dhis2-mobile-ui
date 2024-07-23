@@ -10,7 +10,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
-import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.DropdownItem
 import org.hisp.dhis.mobile.ui.designsystem.component.InputDropDown
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
@@ -30,7 +30,7 @@ class InputDropDownSnapshotTest {
     @Test
     fun launchInputDropDown() {
         paparazzi.snapshot {
-            ColumnComponentContainer {
+            ColumnScreenContainer {
                 val options = listOf(
                     DropdownItem("Option 1"),
                     DropdownItem("Option 2"),

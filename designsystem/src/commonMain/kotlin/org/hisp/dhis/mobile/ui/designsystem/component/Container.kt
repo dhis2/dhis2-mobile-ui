@@ -23,7 +23,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
 /**
- * DHIS2 ColumnComponentContainer wraps Material 3 [Column]
+ * DHIS2 ColumnScreenContainer wraps Material 3 [Column]
  * has a default spacing between items of 16 dp
  * with large top corner radius, white background and
  * vertical scroll enabled
@@ -34,7 +34,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
  * @param horizontalAlignment: optional horizontal alignment.
  */
 @Composable
-fun ColumnComponentContainer(
+fun ColumnScreenContainer(
     title: String? = null,
     modifier: Modifier = Modifier,
     verticalArrangement: Arrangement.Vertical = Arrangement.spacedBy(Spacing.Spacing16),
@@ -58,14 +58,14 @@ fun ColumnComponentContainer(
 }
 
 /**
- * DHIS2 ColumnComponentItemContainer wraps Material 3 [Column]
+ * DHIS2 ColumnComponentContainer wraps Material 3 [Column]
  * has a default spacing between items of 16 dp
  * @param subTitle: is the value of the text to be shown for the component.
  * @param content: controls the content to be shown.
  * @param modifier: optional modifier.
  */
 @Composable
-fun ColumnComponentItemContainer(
+fun ColumnComponentContainer(
     subTitle: String? = null,
     modifier: Modifier = Modifier,
     content: @Composable (() -> Unit),

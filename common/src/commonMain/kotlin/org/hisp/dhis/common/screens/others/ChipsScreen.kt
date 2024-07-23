@@ -12,15 +12,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import org.hisp.dhis.mobile.ui.designsystem.component.AssistChip
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
-import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentItemContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.FilterChip
 import org.hisp.dhis.mobile.ui.designsystem.component.InputChip
 
 @Composable
 fun ChipsScreen() {
-    ColumnComponentContainer("Chip component") {
-        ColumnComponentItemContainer("Input Chips") {
+    ColumnScreenContainer("Chip component") {
+        ColumnComponentContainer("Input Chips") {
             var isSelected by remember { mutableStateOf(false) }
             var isSelected1 by remember { mutableStateOf(true) }
             var isSelected2 by remember { mutableStateOf(false) }
@@ -47,23 +47,23 @@ fun ChipsScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Input Chips With badges") {
+        ColumnComponentContainer("Input Chips With badges") {
             InputChip(label = "Label", selected = false, badge = "3")
             InputChip(label = "Label", selected = true, badge = "3")
         }
 
-        ColumnComponentItemContainer("Filter Chips") {
+        ColumnComponentContainer("Filter Chips") {
             var isSelected4 by remember { mutableStateOf(false) }
             FilterChip(label = "Label", selected = isSelected4, onSelected = { isSelected4 = it })
             FilterChip(label = "Label", selected = !isSelected4, onSelected = { isSelected4 = !it })
         }
 
-        ColumnComponentItemContainer("Filter Chips With badges") {
+        ColumnComponentContainer("Filter Chips With badges") {
             FilterChip(label = "Label", selected = true, badge = "3")
             FilterChip(label = "Label", selected = false, badge = "3")
         }
 
-        ColumnComponentItemContainer("Assist Chips") {
+        ColumnComponentContainer("Assist Chips") {
             AssistChip(
                 label = "Label",
                 onClick = { },
@@ -82,7 +82,7 @@ fun ChipsScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Assist Chips With badges") {
+        ColumnComponentContainer("Assist Chips With badges") {
             AssistChip(
                 label = "Label",
                 icon = {

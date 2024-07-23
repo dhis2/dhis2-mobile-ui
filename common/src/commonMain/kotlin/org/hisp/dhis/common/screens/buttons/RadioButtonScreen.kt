@@ -8,8 +8,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import org.hisp.dhis.common.screens.previews.RadioButtonPreview
 import org.hisp.dhis.common.screens.previews.TextRadioButtonPreview
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
-import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentItemContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.Orientation
 import org.hisp.dhis.mobile.ui.designsystem.component.RadioButtonBlock
 import org.hisp.dhis.mobile.ui.designsystem.component.RadioButtonData
@@ -48,8 +48,8 @@ fun RadioButtonScreen() {
         mutableStateOf(radioButtonDataItemsHorizontal[0])
     }
 
-    ColumnComponentContainer(title = ButtonScreens.RADIO.label) {
-        ColumnComponentItemContainer("Text Radio Button") {
+    ColumnScreenContainer(title = ButtonScreens.RADIO.label) {
+        ColumnComponentContainer("Text Radio Button") {
             TextRadioButtonPreview(selected == option1, true, option1) {
                 selected = option1
             }
@@ -64,7 +64,7 @@ fun RadioButtonScreen() {
             }
         }
 
-        ColumnComponentItemContainer("Radio Button") {
+        ColumnComponentContainer("Radio Button") {
             Column {
                 RowComponentContainer {
                     RadioButtonPreview(selected = true, enabled = true)
@@ -77,12 +77,12 @@ fun RadioButtonScreen() {
             }
         }
 
-        ColumnComponentItemContainer("Horizontal Radio Button Block") {
+        ColumnComponentContainer("Horizontal Radio Button Block") {
             RadioButtonBlock(Orientation.HORIZONTAL, radioButtonDataItemsHorizontal, selectedItemHorizontal) {
                 selectedItemHorizontal = it
             }
         }
-        ColumnComponentItemContainer("Vertical Radio Button Block") {
+        ColumnComponentContainer("Vertical Radio Button Block") {
             RadioButtonBlock(Orientation.VERTICAL, radioButtonDataItemsVertical, selectedItemVertical) {
                 selectedItemVertical = it
             }

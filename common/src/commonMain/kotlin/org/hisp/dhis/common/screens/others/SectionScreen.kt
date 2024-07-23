@@ -9,8 +9,8 @@ import androidx.compose.ui.text.input.TextFieldValue
 import org.hisp.dhis.common.screens.previews.lorem
 import org.hisp.dhis.common.screens.previews.lorem_medium
 import org.hisp.dhis.common.screens.previews.lorem_short
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
-import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentItemContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.InputText
 import org.hisp.dhis.mobile.ui.designsystem.component.Section
@@ -18,8 +18,8 @@ import org.hisp.dhis.mobile.ui.designsystem.component.SectionState
 
 @Composable
 fun SectionScreen() {
-    ColumnComponentContainer(title = "Section Header component") {
-        ColumnComponentItemContainer("Collapsible header") {
+    ColumnScreenContainer(title = "Section Header component") {
+        ColumnComponentContainer("Collapsible header") {
             Section(
                 title = "Section title",
                 description = null,
@@ -82,7 +82,7 @@ fun SectionScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Flat header") {
+        ColumnComponentContainer("Flat header") {
             Section(
                 title = "Section title",
                 description = null,

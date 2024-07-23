@@ -8,7 +8,7 @@ import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.ui.Modifier
 import org.hisp.dhis.mobile.ui.designsystem.component.AssistChip
-import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.junit.Rule
 import org.junit.Test
@@ -20,7 +20,7 @@ class AssistChipSnapshotTest {
     @Test
     fun launchAssistChip() {
         paparazzi.snapshot {
-            ColumnComponentContainer(modifier = Modifier.padding(Spacing.Spacing10)) {
+            ColumnScreenContainer(modifier = Modifier.padding(Spacing.Spacing10)) {
                 AssistChip(
                     label = "Label",
                     icon = {

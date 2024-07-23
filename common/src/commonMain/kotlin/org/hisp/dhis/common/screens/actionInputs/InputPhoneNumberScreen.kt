@@ -6,18 +6,18 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.text.input.TextFieldValue
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
-import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentItemContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InputPhoneNumber
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 
 @Composable
 fun InputPhoneNumberScreen() {
-    ColumnComponentContainer(
+    ColumnScreenContainer(
         title = ActionInputs.INPUT_PHONE_NUMBER.label,
     ) {
         var inputValue1 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue()) }
-        ColumnComponentItemContainer("Default Input Phone Number") {
+        ColumnComponentContainer("Default Input Phone Number") {
             InputPhoneNumber(
                 title = "Label",
                 inputTextFieldValue = inputValue1,
@@ -35,7 +35,7 @@ fun InputPhoneNumberScreen() {
         }
 
         var inputValue2 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue()) }
-        ColumnComponentItemContainer("Disabled Input Phone Number Without Phone Number") {
+        ColumnComponentContainer("Disabled Input Phone Number Without Phone Number") {
             InputPhoneNumber(
                 title = "Label",
                 inputTextFieldValue = inputValue2,
@@ -53,7 +53,7 @@ fun InputPhoneNumberScreen() {
         }
 
         var inputValue3 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("1111111")) }
-        ColumnComponentItemContainer("Disabled Input Phone Number With Phone Number") {
+        ColumnComponentContainer("Disabled Input Phone Number With Phone Number") {
             InputPhoneNumber(
                 title = "Label",
                 inputTextFieldValue = inputValue3,
@@ -71,7 +71,7 @@ fun InputPhoneNumberScreen() {
         }
 
         var inputValue4 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue()) }
-        ColumnComponentItemContainer("Error Input Phone Number") {
+        ColumnComponentContainer("Error Input Phone Number") {
             InputPhoneNumber(
                 title = "Label",
                 inputTextFieldValue = inputValue4,

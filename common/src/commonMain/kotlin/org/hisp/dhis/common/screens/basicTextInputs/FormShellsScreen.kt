@@ -12,7 +12,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import org.hisp.dhis.common.screens.previews.lorem
 import org.hisp.dhis.common.screens.previews.regularLegendList
-import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.Description
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.InputText
@@ -26,7 +26,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
 @Composable
 fun FormShellsScreen() {
-    ColumnComponentContainer(title = BasicTextInputs.FORM_SHELLS.label) {
+    ColumnScreenContainer(title = BasicTextInputs.FORM_SHELLS.label) {
         SubTitle("Outer frames for form elements", TextColor.OnSurface)
         Description("Focused/Unfocused", TextColor.OnSurface)
         var inputValue1 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("Input")) }

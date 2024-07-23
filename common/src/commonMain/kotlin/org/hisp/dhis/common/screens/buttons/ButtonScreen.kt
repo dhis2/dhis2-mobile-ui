@@ -5,15 +5,15 @@ import org.hisp.dhis.common.screens.previews.ButtonPreview
 import org.hisp.dhis.common.screens.previews.ButtonPreviewWithIcon
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.ColorStyle
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
-import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentItemContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.RowComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.Title
 
 @Composable
 fun ButtonScreen() {
-    ColumnComponentContainer(title = ButtonScreens.BUTTON.label) {
-        ColumnComponentItemContainer("Filled") {
+    ColumnScreenContainer(title = ButtonScreens.BUTTON.label) {
+        ColumnComponentContainer("Filled") {
             RowComponentContainer {
                 ButtonPreview("Label", ButtonStyle.FILLED)
                 ButtonPreview("Label", ButtonStyle.FILLED, false)
@@ -24,7 +24,7 @@ fun ButtonScreen() {
             }
         }
 
-        ColumnComponentItemContainer("Outlined") {
+        ColumnComponentContainer("Outlined") {
             RowComponentContainer {
                 ButtonPreview("Label")
                 ButtonPreview("Label", ButtonStyle.OUTLINED, false)
@@ -35,7 +35,7 @@ fun ButtonScreen() {
             }
         }
 
-        ColumnComponentItemContainer("Text") {
+        ColumnComponentContainer("Text") {
             RowComponentContainer {
                 ButtonPreview("Label", ButtonStyle.TEXT)
                 ButtonPreview("Label", ButtonStyle.TEXT, false)
@@ -46,7 +46,7 @@ fun ButtonScreen() {
             }
         }
 
-        ColumnComponentItemContainer("Elevated") {
+        ColumnComponentContainer("Elevated") {
             RowComponentContainer {
                 ButtonPreview("Label", ButtonStyle.ELEVATED)
                 ButtonPreview("Label", ButtonStyle.ELEVATED, false)
@@ -57,7 +57,7 @@ fun ButtonScreen() {
             }
         }
 
-        ColumnComponentItemContainer("Tonal") {
+        ColumnComponentContainer("Tonal") {
             RowComponentContainer {
                 ButtonPreview("Label", ButtonStyle.TONAL)
                 ButtonPreview("Label", ButtonStyle.TONAL, false)
@@ -68,7 +68,7 @@ fun ButtonScreen() {
             }
         }
 
-        ColumnComponentItemContainer("Keyboard") {
+        ColumnComponentContainer("Keyboard") {
             RowComponentContainer {
                 ButtonPreview("Label", ButtonStyle.KEYBOARDKEY)
                 ButtonPreview("Label", ButtonStyle.KEYBOARDKEY, false)
@@ -80,7 +80,7 @@ fun ButtonScreen() {
         }
 
         Title("Error Buttons")
-        ColumnComponentItemContainer("Filled") {
+        ColumnComponentContainer("Filled") {
             RowComponentContainer {
                 ButtonPreview("Label", ButtonStyle.FILLED, true, ColorStyle.ERROR)
                 ButtonPreview("Label", ButtonStyle.FILLED, false, ColorStyle.ERROR)
@@ -91,7 +91,7 @@ fun ButtonScreen() {
             }
         }
 
-        ColumnComponentItemContainer("Outlined") {
+        ColumnComponentContainer("Outlined") {
             RowComponentContainer {
                 ButtonPreview("Label", ButtonStyle.OUTLINED, true, ColorStyle.ERROR)
                 ButtonPreview("Label", ButtonStyle.OUTLINED, false, ColorStyle.ERROR)
@@ -102,7 +102,7 @@ fun ButtonScreen() {
             }
         }
 
-        ColumnComponentItemContainer("Text") {
+        ColumnComponentContainer("Text") {
             RowComponentContainer {
                 ButtonPreview("Label", ButtonStyle.TEXT, true, ColorStyle.ERROR)
                 ButtonPreview("Label", ButtonStyle.TEXT, false, ColorStyle.ERROR)
@@ -114,7 +114,7 @@ fun ButtonScreen() {
         }
 
         Title("Warning Buttons")
-        ColumnComponentItemContainer("Filled") {
+        ColumnComponentContainer("Filled") {
             RowComponentContainer {
                 ButtonPreview("Label", ButtonStyle.FILLED, true, ColorStyle.WARNING)
                 ButtonPreview("Label", ButtonStyle.FILLED, false, ColorStyle.WARNING)
@@ -125,7 +125,7 @@ fun ButtonScreen() {
             }
         }
 
-        ColumnComponentItemContainer("Outlined") {
+        ColumnComponentContainer("Outlined") {
             RowComponentContainer {
                 ButtonPreview("Label", ButtonStyle.OUTLINED, true, ColorStyle.WARNING)
                 ButtonPreview("Label", ButtonStyle.OUTLINED, false, ColorStyle.WARNING)
@@ -136,7 +136,7 @@ fun ButtonScreen() {
             }
         }
 
-        ColumnComponentItemContainer("Text") {
+        ColumnComponentContainer("Text") {
             RowComponentContainer {
                 ButtonPreview("Label", ButtonStyle.TEXT, true, ColorStyle.WARNING)
                 ButtonPreview("Label", ButtonStyle.TEXT, false, ColorStyle.WARNING)

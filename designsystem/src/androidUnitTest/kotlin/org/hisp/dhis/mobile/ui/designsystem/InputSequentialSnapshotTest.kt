@@ -10,7 +10,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.platform.LocalContext
-import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InputSequential
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.ImageCardData
@@ -82,7 +82,7 @@ class InputSequentialSnapshotTest {
                 )
             }
 
-            ColumnComponentContainer(modifier = Modifier.padding(Spacing.Spacing10)) {
+            ColumnScreenContainer(modifier = Modifier.padding(Spacing.Spacing10)) {
                 InputSequential(
                     title = "Label",
                     data = inputCardData,

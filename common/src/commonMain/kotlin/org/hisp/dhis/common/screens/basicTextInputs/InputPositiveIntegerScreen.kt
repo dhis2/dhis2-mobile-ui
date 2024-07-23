@@ -6,8 +6,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.text.input.TextFieldValue
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
-import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentItemContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InputPositiveInteger
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextData
@@ -15,8 +15,8 @@ import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextState
 
 @Composable
 fun InputPositiveIntegerScreen() {
-    ColumnComponentContainer(title = BasicTextInputs.INPUT_POSITIVE_INTEGER.label) {
-        ColumnComponentItemContainer("Basic Input Integer") {
+    ColumnScreenContainer(title = BasicTextInputs.INPUT_POSITIVE_INTEGER.label) {
+        ColumnComponentContainer("Basic Input Integer") {
             var inputValue1 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("12")) }
 
             InputPositiveInteger(
@@ -31,7 +31,7 @@ fun InputPositiveIntegerScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Basic Input Integer with error") {
+        ColumnComponentContainer("Basic Input Integer with error") {
             var inputValueError by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue()) }
             InputPositiveInteger(
                 title = "Label",
@@ -46,7 +46,7 @@ fun InputPositiveIntegerScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Disabled Input Integer ") {
+        ColumnComponentContainer("Disabled Input Integer ") {
             var inputValue6 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue()) }
 
             InputPositiveInteger(
@@ -61,7 +61,7 @@ fun InputPositiveIntegerScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Disabled Input Integer with content ") {
+        ColumnComponentContainer("Disabled Input Integer with content ") {
             var inputValue7 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("1234")) }
             InputPositiveInteger(
                 title = "Label",

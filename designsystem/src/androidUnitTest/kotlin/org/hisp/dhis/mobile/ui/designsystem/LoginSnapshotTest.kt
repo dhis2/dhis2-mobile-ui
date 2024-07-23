@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
 import org.hisp.dhis.mobile.ui.designsystem.component.Button
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonStyle
-import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InputPassword
 import org.hisp.dhis.mobile.ui.designsystem.component.InputQRCode
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
@@ -28,7 +28,7 @@ class LoginSnapshotTest {
     @Test
     fun launchLoginScreen() {
         paparazzi.snapshot {
-            ColumnComponentContainer(title = "Login", modifier = Modifier.padding(Spacing.Spacing10)) {
+            ColumnScreenContainer(title = "Login", modifier = Modifier.padding(Spacing.Spacing10)) {
                 InputQRCode(
                     "Server URL",
                     inputTextFieldValue = TextFieldValue("https://play.dhis2.org/40"),

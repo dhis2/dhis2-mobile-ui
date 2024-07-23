@@ -6,8 +6,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.text.input.TextFieldValue
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
-import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentItemContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InputInteger
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextData
@@ -15,8 +15,8 @@ import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextState
 
 @Composable
 fun InputIntegerScreen() {
-    ColumnComponentContainer(title = BasicTextInputs.INPUT_INTEGER.label) {
-        ColumnComponentItemContainer("Basic Input Integer") {
+    ColumnScreenContainer(title = BasicTextInputs.INPUT_INTEGER.label) {
+        ColumnComponentContainer("Basic Input Integer") {
             var inputValue1 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("12")) }
             InputInteger(
                 title = "Label",
@@ -28,7 +28,7 @@ fun InputIntegerScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Basic Input Integer with error") {
+        ColumnComponentContainer("Basic Input Integer with error") {
             var inputValueError by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("")) }
             InputInteger(
                 title = "Label",
@@ -41,7 +41,7 @@ fun InputIntegerScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Disabled Input Integer ") {
+        ColumnComponentContainer("Disabled Input Integer ") {
             var inputValue6 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue()) }
             InputInteger(
                 title = "Label",
@@ -53,7 +53,7 @@ fun InputIntegerScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Disabled Input Integer with content ") {
+        ColumnComponentContainer("Disabled Input Integer with content ") {
             var inputValue7 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("1234")) }
             InputInteger(
                 title = "Label",

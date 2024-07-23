@@ -5,8 +5,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
-import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentItemContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.InputYesOnlySwitch
 import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextData
@@ -14,13 +14,13 @@ import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextState
 
 @Composable
 fun InputYesOnlySwitchScreen() {
-    ColumnComponentContainer(title = ToggleableInputs.INPUT_YES_ONLY_SWITCH.label) {
+    ColumnScreenContainer(title = ToggleableInputs.INPUT_YES_ONLY_SWITCH.label) {
         var isSelected by rememberSaveable { mutableStateOf(false) }
         var isSelected1 by rememberSaveable { mutableStateOf(true) }
         var isSelected2 by rememberSaveable { mutableStateOf(false) }
         var isSelected3 by rememberSaveable { mutableStateOf(true) }
         var isSelected4 by rememberSaveable { mutableStateOf(false) }
-        ColumnComponentItemContainer("Basic state") {
+        ColumnComponentContainer("Basic state") {
             InputYesOnlySwitch(
                 title = "Label",
                 isChecked = isSelected,
@@ -30,7 +30,7 @@ fun InputYesOnlySwitchScreen() {
             }
         }
 
-        ColumnComponentItemContainer("Selected state") {
+        ColumnComponentContainer("Selected state") {
             InputYesOnlySwitch(
                 title = "Label",
                 isChecked = isSelected1,
@@ -40,7 +40,7 @@ fun InputYesOnlySwitchScreen() {
             }
         }
 
-        ColumnComponentItemContainer("Error state") {
+        ColumnComponentContainer("Error state") {
             InputYesOnlySwitch(
                 title = "Label",
                 isChecked = isSelected2,
@@ -51,7 +51,7 @@ fun InputYesOnlySwitchScreen() {
             }
         }
 
-        ColumnComponentItemContainer("Disabled selected state") {
+        ColumnComponentContainer("Disabled selected state") {
             InputYesOnlySwitch(
                 title = "Label",
                 isChecked = isSelected3,
@@ -61,7 +61,7 @@ fun InputYesOnlySwitchScreen() {
             }
         }
 
-        ColumnComponentItemContainer("Disabled state") {
+        ColumnComponentContainer("Disabled state") {
             InputYesOnlySwitch(
                 title = "Label",
                 isChecked = isSelected4,

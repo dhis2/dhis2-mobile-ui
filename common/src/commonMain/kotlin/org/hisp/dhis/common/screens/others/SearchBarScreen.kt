@@ -5,14 +5,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
-import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentItemContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.SearchBar
 
 @Composable
 fun SearchBarScreen() {
-    ColumnComponentContainer(title = "Search bar component") {
-        ColumnComponentItemContainer("Search bar") {
+    ColumnScreenContainer(title = "Search bar component") {
+        ColumnComponentContainer("Search bar") {
             var text by rememberSaveable {
                 mutableStateOf("")
             }
@@ -24,7 +24,7 @@ fun SearchBarScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Search bar") {
+        ColumnComponentContainer("Search bar") {
             var text2 by rememberSaveable {
                 mutableStateOf("Input")
             }

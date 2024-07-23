@@ -8,8 +8,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.text.input.TextFieldValue
 import org.hisp.dhis.common.screens.previews.regularLegendList
 import org.hisp.dhis.mobile.ui.designsystem.component.AgeInputType
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
-import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentItemContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InputAge
 import org.hisp.dhis.mobile.ui.designsystem.component.InputAgeModel
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
@@ -19,10 +19,10 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 
 @Composable
 fun InputAgeScreen() {
-    ColumnComponentContainer(title = ActionInputs.INPUT_AGE.label) {
+    ColumnScreenContainer(title = ActionInputs.INPUT_AGE.label) {
         var inputType by remember { mutableStateOf<AgeInputType>(AgeInputType.None) }
 
-        ColumnComponentItemContainer("Input Age Component - Idle") {
+        ColumnComponentContainer("Input Age Component - Idle") {
             InputAge(
                 InputAgeModel(
                     title = "Label",
@@ -34,7 +34,7 @@ fun InputAgeScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Input Age Component - Idle Disabled") {
+        ColumnComponentContainer("Input Age Component - Idle Disabled") {
             InputAge(
                 InputAgeModel(
                     title = "Label",
@@ -47,7 +47,7 @@ fun InputAgeScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Input Age Component - Date Of Birth") {
+        ColumnComponentContainer("Input Age Component - Date Of Birth") {
             InputAge(
                 InputAgeModel(
                     title = "Label",
@@ -61,7 +61,7 @@ fun InputAgeScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Input Age Component - Date Of Birth Required Error") {
+        ColumnComponentContainer("Input Age Component - Date Of Birth Required Error") {
             InputAge(
                 InputAgeModel(
                     title = "Label",
@@ -76,7 +76,7 @@ fun InputAgeScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Input Age Component - Age Disabled") {
+        ColumnComponentContainer("Input Age Component - Age Disabled") {
             InputAge(
                 InputAgeModel(
                     title = "Label",
@@ -90,7 +90,7 @@ fun InputAgeScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Input Age Component - Age Required Error") {
+        ColumnComponentContainer("Input Age Component - Age Required Error") {
             InputAge(
                 InputAgeModel(
                     title = "Label",
@@ -105,7 +105,7 @@ fun InputAgeScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Input Age Component - Legend") {
+        ColumnComponentContainer("Input Age Component - Legend") {
             InputAge(
                 InputAgeModel(
                     title = "Label",

@@ -5,8 +5,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
-import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentItemContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.DropdownItem
 import org.hisp.dhis.mobile.ui.designsystem.component.InputDropDown
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
@@ -15,7 +15,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextData
 
 @Composable
 fun InputDropDownScreen() {
-    ColumnComponentContainer(title = ToggleableInputs.INPUT_DROPDOWN.label) {
+    ColumnScreenContainer(title = ToggleableInputs.INPUT_DROPDOWN.label) {
         val options = listOf(
             DropdownItem("Option 1"),
             DropdownItem("Option 2"),
@@ -30,7 +30,7 @@ fun InputDropDownScreen() {
         )
         var selectedItem by remember { mutableStateOf<DropdownItem?>(null) }
 
-        ColumnComponentItemContainer("Basic Input Dropdown with < 7 inputs") {
+        ColumnComponentContainer("Basic Input Dropdown with < 7 inputs") {
             InputDropDown(
                 title = "Label",
                 state = InputShellState.UNFOCUSED,
@@ -75,7 +75,7 @@ fun InputDropDownScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Basic Input Dropdown with >= 7 inputs") {
+        ColumnComponentContainer("Basic Input Dropdown with >= 7 inputs") {
             var selectedItem4 by remember { mutableStateOf<DropdownItem?>(null) }
             InputDropDown(
                 title = "Label",
@@ -91,7 +91,7 @@ fun InputDropDownScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Basic Input Dropdown with content ") {
+        ColumnComponentContainer("Basic Input Dropdown with content ") {
             var selectedItem1 by remember { mutableStateOf<DropdownItem?>(options[0]) }
             InputDropDown(
                 title = "Label",
@@ -107,7 +107,7 @@ fun InputDropDownScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Error Input Dropdown ") {
+        ColumnComponentContainer("Error Input Dropdown ") {
             var selectedItem2 by remember { mutableStateOf<DropdownItem?>(null) }
             InputDropDown(
                 title = "Label",
@@ -123,7 +123,7 @@ fun InputDropDownScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Disabled Input Dropdown with content ") {
+        ColumnComponentContainer("Disabled Input Dropdown with content ") {
             var selectedItem3 by remember { mutableStateOf<DropdownItem?>(options[1]) }
             InputDropDown(
                 title = "Label",
@@ -139,7 +139,7 @@ fun InputDropDownScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Input Dropdown with 5000 items ") {
+        ColumnComponentContainer("Input Dropdown with 5000 items ") {
             val dropdownItems = mutableListOf<DropdownItem>()
             for (i in 1..5000) {
                 dropdownItems.add(DropdownItem("$i"))

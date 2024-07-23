@@ -7,8 +7,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import org.hisp.dhis.common.screens.previews.lorem
 import org.hisp.dhis.mobile.ui.designsystem.component.Button
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
-import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentItemContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InputRadioButton
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.Orientation
@@ -68,12 +68,12 @@ fun InputRadioButtonScreen() {
         mutableStateOf<RadioButtonData?>(radioButtonDataItemsHorizontal[0])
     }
     var showSupportingText by remember { mutableStateOf(false) }
-    ColumnComponentContainer(ToggleableInputs.INPUT_RADIO_BUTTON.label) {
+    ColumnScreenContainer(ToggleableInputs.INPUT_RADIO_BUTTON.label) {
         Button(text = "Click to show/Hide supporting text") {
             showSupportingText = !showSupportingText
         }
 
-        ColumnComponentItemContainer("Basic state with vertical orientation") {
+        ColumnComponentContainer("Basic state with vertical orientation") {
             InputRadioButton(
                 title = "Label",
                 radioButtonData = radioButtonDataItemsVertical,
@@ -92,7 +92,7 @@ fun InputRadioButtonScreen() {
                 },
             )
         }
-        ColumnComponentItemContainer("Error state with vertical orientation") {
+        ColumnComponentContainer("Error state with vertical orientation") {
             InputRadioButton(
                 title = "Label",
                 radioButtonData = radioButtonDataItemsError,
@@ -103,7 +103,7 @@ fun InputRadioButtonScreen() {
                 },
             )
         }
-        ColumnComponentItemContainer("Disabled state with vertical orientation") {
+        ColumnComponentContainer("Disabled state with vertical orientation") {
             InputRadioButton(
                 title = "Label",
                 radioButtonData = radioButtonDataItemsDisabled,
@@ -113,7 +113,7 @@ fun InputRadioButtonScreen() {
                 },
             )
         }
-        ColumnComponentItemContainer("Basic state with horizontal orientation") {
+        ColumnComponentContainer("Basic state with horizontal orientation") {
             InputRadioButton(
                 title = "Label",
                 radioButtonData = radioButtonDataItemsHorizontal,

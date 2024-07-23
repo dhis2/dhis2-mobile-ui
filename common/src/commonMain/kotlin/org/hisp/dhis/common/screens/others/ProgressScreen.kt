@@ -1,16 +1,16 @@
 package org.hisp.dhis.common.screens.others
 
 import androidx.compose.runtime.Composable
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
-import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentItemContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ProgressIndicator
 import org.hisp.dhis.mobile.ui.designsystem.component.ProgressIndicatorType
 import org.hisp.dhis.mobile.ui.designsystem.component.RowComponentContainer
 
 @Composable
 internal fun ProgressScreen() {
-    ColumnComponentContainer(title = "Progress Indicator component") {
-        ColumnComponentItemContainer("Linear indicator") {
+    ColumnScreenContainer(title = "Progress Indicator component") {
+        ColumnComponentContainer("Linear indicator") {
             ProgressIndicator(
                 progress = 0.25f,
                 type = ProgressIndicatorType.LINEAR,
@@ -37,7 +37,7 @@ internal fun ProgressScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Linear indicator - Error") {
+        ColumnComponentContainer("Linear indicator - Error") {
             ProgressIndicator(
                 progress = 0.70f,
                 type = ProgressIndicatorType.LINEAR,
@@ -49,7 +49,7 @@ internal fun ProgressScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Circular indicator") {
+        ColumnComponentContainer("Circular indicator") {
             RowComponentContainer {
                 ProgressIndicator(
                     progress = 0.25f,
@@ -83,7 +83,7 @@ internal fun ProgressScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Circular indicator - Error") {
+        ColumnComponentContainer("Circular indicator - Error") {
             RowComponentContainer {
                 ProgressIndicator(
                     progress = 0.70f,

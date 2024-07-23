@@ -4,18 +4,18 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.FileDownload
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
-import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentItemContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ExtendedFAB
 import org.hisp.dhis.mobile.ui.designsystem.component.FAB
 import org.hisp.dhis.mobile.ui.designsystem.component.FABStyle
 
 @Composable
 fun FABScreen() {
-    ColumnComponentContainer(
+    ColumnScreenContainer(
         title = ButtonScreens.FAB.label,
     ) {
-        ColumnComponentItemContainer("Default FABs") {
+        ColumnComponentContainer("Default FABs") {
             FAB(
                 style = FABStyle.SURFACE,
                 onClick = {},
@@ -49,7 +49,7 @@ fun FABScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Extended FABs buttons") {
+        ColumnComponentContainer("Extended FABs buttons") {
             ExtendedFAB(
                 style = FABStyle.SURFACE,
                 text = "Label",

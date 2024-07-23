@@ -9,8 +9,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.painter.Painter
 import mobile_ui.common.generated.resources.Res
 import mobile_ui.common.generated.resources.sample
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
-import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentItemContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ImageBlock
 import org.hisp.dhis.mobile.ui.designsystem.component.InputImage
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
@@ -21,8 +21,8 @@ import kotlin.concurrent.schedule
 
 @Composable
 fun InputImageScreen() {
-    ColumnComponentContainer(title = ActionInputs.INPUT_IMAGE.label) {
-        ColumnComponentItemContainer("Basic Input Image ") {
+    ColumnScreenContainer(title = ActionInputs.INPUT_IMAGE.label) {
+        ColumnComponentContainer("Basic Input Image ") {
             var uploadState by rememberSaveable { mutableStateOf(UploadState.ADD) }
             val sampleImage = provideSampleImage()
 
@@ -45,7 +45,7 @@ fun InputImageScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Disabled Input Image without data ") {
+        ColumnComponentContainer("Disabled Input Image without data ") {
             val uploadState1 by rememberSaveable { mutableStateOf(UploadState.ADD) }
             InputImage(
                 title = "Label",
@@ -59,7 +59,7 @@ fun InputImageScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Disabled Input Image with data ") {
+        ColumnComponentContainer("Disabled Input Image with data ") {
             val uploadState2 by rememberSaveable { mutableStateOf(UploadState.LOADED) }
             val sampleImage2 = provideSampleImage()
             InputImage(
@@ -75,7 +75,7 @@ fun InputImageScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Image Block") {
+        ColumnComponentContainer("Image Block") {
             val sampleImage3 = provideSampleImage()
             ImageBlock(
                 title = "Label",

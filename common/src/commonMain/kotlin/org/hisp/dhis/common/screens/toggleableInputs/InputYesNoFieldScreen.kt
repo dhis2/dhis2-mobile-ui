@@ -5,8 +5,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
-import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentItemContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.InputYesNoField
 import org.hisp.dhis.mobile.ui.designsystem.component.InputYesNoFieldValues
@@ -27,8 +27,8 @@ fun InputYesNoFieldScreen() {
         mutableStateOf<InputYesNoFieldValues?>(null)
     }
 
-    ColumnComponentContainer(ToggleableInputs.INPUT_YES_NO_FIELD.label) {
-        ColumnComponentItemContainer("Basic state") {
+    ColumnScreenContainer(ToggleableInputs.INPUT_YES_NO_FIELD.label) {
+        ColumnComponentContainer("Basic state") {
             InputYesNoField(
                 title = "Label",
                 itemSelected = selectedItem,
@@ -38,7 +38,7 @@ fun InputYesNoFieldScreen() {
                 state = InputShellState.UNFOCUSED,
             )
         }
-        ColumnComponentItemContainer("Selected state") {
+        ColumnComponentContainer("Selected state") {
             InputYesNoField(
                 title = "Label",
                 itemSelected = selectedItem1,
@@ -49,7 +49,7 @@ fun InputYesNoFieldScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Error state") {
+        ColumnComponentContainer("Error state") {
             InputYesNoField(
                 title = "Label",
                 state = InputShellState.ERROR,
@@ -61,7 +61,7 @@ fun InputYesNoFieldScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Disabled state") {
+        ColumnComponentContainer("Disabled state") {
             InputYesNoField(
                 title = "Label",
                 state = InputShellState.DISABLED,

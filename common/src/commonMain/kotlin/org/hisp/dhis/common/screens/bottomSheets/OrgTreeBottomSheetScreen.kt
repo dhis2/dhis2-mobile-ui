@@ -19,8 +19,8 @@ import org.hisp.dhis.common.screens.previews.lorem_medium
 import org.hisp.dhis.common.screens.previews.lorem_short
 import org.hisp.dhis.mobile.ui.designsystem.component.Button
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonStyle
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
-import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentItemContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.OrgBottomSheet
 import org.hisp.dhis.mobile.ui.designsystem.component.OrgTreeItem
 
@@ -115,8 +115,8 @@ fun OrgTreeBottomSheetScreen() {
         )
     }
 
-    ColumnComponentContainer(title = BottomSheets.ORG_TREE_BOTTOM_SHEET.label) {
-        ColumnComponentItemContainer("Org Tree Bottom Sheet with single item") {
+    ColumnScreenContainer(title = BottomSheets.ORG_TREE_BOTTOM_SHEET.label) {
+        ColumnComponentContainer("Org Tree Bottom Sheet with single item") {
             Button(
                 enabled = true,
                 ButtonStyle.FILLED,
@@ -126,7 +126,7 @@ fun OrgTreeBottomSheetScreen() {
             }
         }
 
-        ColumnComponentItemContainer("Org Tree Bottom Sheet with multiple items") {
+        ColumnComponentContainer("Org Tree Bottom Sheet with multiple items") {
             Button(
                 enabled = true,
                 ButtonStyle.FILLED,
@@ -136,7 +136,7 @@ fun OrgTreeBottomSheetScreen() {
             }
         }
 
-        ColumnComponentItemContainer("Org Tree Bottom Sheet with medium items") {
+        ColumnComponentContainer("Org Tree Bottom Sheet with medium items") {
             Button(
                 enabled = true,
                 ButtonStyle.FILLED,
@@ -146,7 +146,7 @@ fun OrgTreeBottomSheetScreen() {
             }
         }
 
-        ColumnComponentItemContainer("Org Tree Bottom Sheet with large items") {
+        ColumnComponentContainer("Org Tree Bottom Sheet with large items") {
             Button(
                 enabled = true,
                 ButtonStyle.FILLED,

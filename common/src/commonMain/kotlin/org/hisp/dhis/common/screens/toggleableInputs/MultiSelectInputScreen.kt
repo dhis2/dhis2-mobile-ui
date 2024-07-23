@@ -3,14 +3,14 @@ package org.hisp.dhis.common.screens.toggleableInputs
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
 import org.hisp.dhis.mobile.ui.designsystem.component.CheckBoxData
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
-import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentItemContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InputMultiSelection
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 
 @Composable
 fun MultiSelectInputScreen() {
-    ColumnComponentContainer(title = ToggleableInputs.MULTI_SELECT.label) {
+    ColumnScreenContainer(title = ToggleableInputs.MULTI_SELECT.label) {
         val multiSelect1Items = mutableStateListOf(
             CheckBoxData(
                 uid = "uid-1",
@@ -83,7 +83,7 @@ fun MultiSelectInputScreen() {
             ),
         )
 
-        ColumnComponentItemContainer("Basic state with no inputs") {
+        ColumnComponentContainer("Basic state with no inputs") {
             InputMultiSelection(
                 items = emptyList(),
                 title = "Multi Select Empty",
@@ -100,7 +100,7 @@ fun MultiSelectInputScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Basic state with <=7 inputs") {
+        ColumnComponentContainer("Basic state with <=7 inputs") {
             InputMultiSelection(
                 items = multiSelect1Items,
                 title = "Multi Select 1",
@@ -120,7 +120,7 @@ fun MultiSelectInputScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Error state") {
+        ColumnComponentContainer("Error state") {
             InputMultiSelection(
                 items = multiSelect1Items,
                 title = "Multi Select 1 Error",
@@ -140,7 +140,7 @@ fun MultiSelectInputScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Disabled state") {
+        ColumnComponentContainer("Disabled state") {
             InputMultiSelection(
                 items = multiSelect1Items,
                 title = "Multi Select 1 Disabled",
@@ -160,7 +160,7 @@ fun MultiSelectInputScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Basic state with >=7 inputs") {
+        ColumnComponentContainer("Basic state with >=7 inputs") {
             InputMultiSelection(
                 items = multiSelect2Items,
                 title = "Multi Select 2",
@@ -180,7 +180,7 @@ fun MultiSelectInputScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Disabled state with >=7 inputs") {
+        ColumnComponentContainer("Disabled state with >=7 inputs") {
             InputMultiSelection(
                 items = multiSelect2Items,
                 title = "Multi Select 2 Disabled",
@@ -200,7 +200,7 @@ fun MultiSelectInputScreen() {
             )
         }
 
-        ColumnComponentItemContainer("With 5000 items") {
+        ColumnComponentContainer("With 5000 items") {
             val multiSelectItems = mutableListOf<CheckBoxData>()
             for (i in 1..5000) {
                 multiSelectItems.add(

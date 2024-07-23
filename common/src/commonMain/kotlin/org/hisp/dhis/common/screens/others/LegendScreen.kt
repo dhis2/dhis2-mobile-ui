@@ -1,8 +1,8 @@
 package org.hisp.dhis.common.screens.others
 
 import androidx.compose.runtime.Composable
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
-import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentItemContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.Legend
 import org.hisp.dhis.mobile.ui.designsystem.component.LegendData
 import org.hisp.dhis.mobile.ui.designsystem.component.LegendDescriptionData
@@ -11,16 +11,16 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 
 @Composable
 fun LegendScreen() {
-    ColumnComponentContainer(title = "Legend component") {
-        ColumnComponentItemContainer("Green Legend") {
+    ColumnScreenContainer(title = "Legend component") {
+        ColumnComponentContainer("Green Legend") {
             Legend(LegendData(SurfaceColor.CustomGreen, "Legend"))
         }
 
-        ColumnComponentItemContainer("Orange Legend") {
+        ColumnComponentContainer("Orange Legend") {
             Legend(LegendData(SurfaceColor.Warning, "Legend"))
         }
 
-        ColumnComponentItemContainer("Pink Legend") {
+        ColumnComponentContainer("Pink Legend") {
             Legend(
                 LegendData(
                     SurfaceColor.CustomPink,
@@ -32,7 +32,7 @@ fun LegendScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Legend with popup description") {
+        ColumnComponentContainer("Legend with popup description") {
             Legend(
                 LegendData(
                     color = SurfaceColor.CustomGreen,
@@ -72,7 +72,7 @@ fun LegendScreen() {
             )
         }
 
-        ColumnComponentItemContainer("Legend Range ") {
+        ColumnComponentContainer("Legend Range ") {
             LegendRange(
                 listOf(
                     LegendDescriptionData(
