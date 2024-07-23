@@ -19,9 +19,11 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
 @Composable
 fun NoComponentSelectedScreen(
+    modifier: Modifier = Modifier,
     onClick: (() -> Unit)? = null,
 ) {
     ColumnScreenContainer(
+        modifier = modifier,
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {

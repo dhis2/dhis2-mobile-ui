@@ -10,6 +10,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import org.hisp.dhis.common.screens.Groups
 import org.hisp.dhis.common.screens.NoComponentSelectedScreen
@@ -33,6 +34,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.DropdownItem
 import org.hisp.dhis.mobile.ui.designsystem.component.InputDropDown
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
+import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 
@@ -95,7 +97,10 @@ fun Main(
                 Groups.NO_GROUP_SELECTED -> NoComponentSelectedScreen()
             }
         } else {
-            NoComponentSelectedScreen {
+            NoComponentSelectedScreen(
+                modifier = Modifier
+                    .background(Color.White, Shape.NoRounding)
+            ) {
                 isComponentSelected = !isComponentSelected
             }
         }
