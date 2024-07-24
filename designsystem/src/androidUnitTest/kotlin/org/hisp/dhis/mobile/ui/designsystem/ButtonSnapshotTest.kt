@@ -25,7 +25,7 @@ class ButtonSnapshotTest {
     @Test
     fun launchButtonSnapshot() {
         paparazzi.snapshot {
-            ColumnScreenContainer() {
+            ColumnScreenContainer {
                 Title("Buttons")
                 SubTitle("Filled")
                 RowComponentContainer() {

@@ -82,7 +82,7 @@ class InputSequentialSnapshotTest {
                 )
             }
 
-            ColumnScreenContainer(modifier = Modifier.padding(Spacing.Spacing10)) {
+            ColumnScreenContainer {
                 InputSequential(
                     title = "Label",
                     data = inputCardData,

@@ -1,12 +1,10 @@
 package org.hisp.dhis.mobile.ui.designsystem
 
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.PhoneEnabled
 import androidx.compose.material.icons.outlined.Sync
 import androidx.compose.material3.Icon
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import org.hisp.dhis.mobile.ui.designsystem.component.AdditionalInfoItem
 import org.hisp.dhis.mobile.ui.designsystem.component.AdditionalInfoItemColor
@@ -14,7 +12,6 @@ import org.hisp.dhis.mobile.ui.designsystem.component.CardDetail
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InfoBar
 import org.hisp.dhis.mobile.ui.designsystem.component.InfoBarData
-import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import org.junit.Rule
@@ -68,7 +65,7 @@ class CardDetailSnapshotTest {
     @Test
     fun launchCardDetail() {
         paparazzi.snapshot {
-            ColumnScreenContainer(title = "Card Detail and Info Bar", modifier = Modifier.padding(horizontal = Spacing.Spacing16)) {
+            ColumnScreenContainer(title = "Card Detail and Info Bar") {
                 InfoBar(
                     InfoBarData(
                         text = "Not Synced",

@@ -1,6 +1,5 @@
 package org.hisp.dhis.mobile.ui.designsystem
 
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
@@ -9,7 +8,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.ui.Modifier
 import org.hisp.dhis.mobile.ui.designsystem.component.AssistChip
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
-import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.junit.Rule
 import org.junit.Test
 
@@ -20,7 +18,7 @@ class AssistChipSnapshotTest {
     @Test
     fun launchAssistChip() {
         paparazzi.snapshot {
-            ColumnScreenContainer(modifier = Modifier.padding(Spacing.Spacing10)) {
+            ColumnScreenContainer {
                 AssistChip(
                     label = "Label",
                     icon = {
