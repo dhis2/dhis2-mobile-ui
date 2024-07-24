@@ -3,8 +3,8 @@ package org.hisp.dhis.common.screens.toggleableInputs
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
 import org.hisp.dhis.mobile.ui.designsystem.component.CheckBoxData
-import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InputMultiSelection
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 

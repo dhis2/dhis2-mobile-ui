@@ -99,7 +99,7 @@ fun Main(
         } else {
             NoComponentSelectedScreen(
                 modifier = Modifier
-                    .background(Color.White, Shape.NoRounding)
+                    .background(Color.White, Shape.NoRounding),
             ) {
                 isComponentSelected = !isComponentSelected
             }

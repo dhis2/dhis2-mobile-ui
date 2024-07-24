@@ -51,7 +51,7 @@ fun NoComponentSelectedScreen(
                         contentDescription = "Please choose an option",
                     )
                 },
-                onClick = onClick
+                onClick = onClick,
             )
         }
     }

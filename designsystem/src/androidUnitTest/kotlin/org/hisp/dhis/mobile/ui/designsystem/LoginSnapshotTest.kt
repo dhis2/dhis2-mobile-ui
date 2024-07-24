@@ -59,13 +59,11 @@ class LoginSnapshotTest {
                         Icon(
                             imageVector = Icons.AutoMirrored.Outlined.Login,
                             contentDescription = "Login button",
-
-                            )
+                        )
                     },
                     modifier = Modifier.fillMaxWidth(),
                     enabled = true,
-
-                    )
+                )
             }
         }
     }

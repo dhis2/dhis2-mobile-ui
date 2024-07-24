@@ -28,8 +28,8 @@ import org.hisp.dhis.mobile.ui.designsystem.component.AvatarSize
 import org.hisp.dhis.mobile.ui.designsystem.component.AvatarStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.Button
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonStyle
-import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ListCard
 import org.hisp.dhis.mobile.ui.designsystem.component.ListCardDescriptionModel
 import org.hisp.dhis.mobile.ui.designsystem.component.ListCardTitleModel
@@ -367,8 +367,7 @@ fun ListCardScreen() {
                                     Icon(
                                         painter = provideDHIS2Icon("dhis2_baby_male_0203m_positive"),
                                         contentDescription = "Button",
-
-                                        )
+                                    )
                                 },
                                 iconTint = Color(0xFF11D9D9),
                                 size = AvatarSize.Large,
@@ -410,8 +409,7 @@ fun ListCardScreen() {
                                     Icon(
                                         painter = provideDHIS2Icon("dhis2_baby_male_0203m_positive"),
                                         contentDescription = "Button",
-
-                                        )
+                                    )
                                 },
                                 iconTint = Color(0xFF11D9D9),
                                 size = AvatarSize.Large,
@@ -447,8 +445,7 @@ fun ListCardScreen() {
                         color = AdditionalInfoItemColor.SUCCESS.color,
                         isConstantItem = true,
                     ),
-
-                    ),
+                ),
                 onCardClick = {},
             )
 
