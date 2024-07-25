@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.component.ErrorBadge
 import org.hisp.dhis.mobile.ui.designsystem.component.navigationBar.NavigationBarTestTags.NAVIGATION_BAR
@@ -54,6 +55,8 @@ fun NavigationBar(
                         Text(
                             modifier = Modifier.testTag("$NAVIGATION_BAR_ITEM_LABEL_PREFIX${item.label}"),
                             text = item.label,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
                         )
                     },
                     enabled = item.enabled,
