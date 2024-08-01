@@ -4,13 +4,15 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.offset
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.NavigationBarItemColors
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.component.ErrorBadge
@@ -53,6 +55,18 @@ fun NavigationBar(
                     },
                     label = {
                         Text(
+                            style = MaterialTheme.typography.labelMedium.copy(
+                                fontWeight = if (selected) {
+                                    FontWeight.SemiBold
+                                } else {
+                                    FontWeight.Medium
+                                },
+                            ),
+                            color = if (selected) {
+                                TextColor.OnSurface
+                            } else {
+                                TextColor.OnSurfaceVariant
+                            },
                             modifier = Modifier.testTag("$NAVIGATION_BAR_ITEM_LABEL_PREFIX${item.label}"),
                             text = item.label,
                             maxLines = 1,
@@ -100,12 +114,10 @@ fun NavigationBarItemIcon(item: NavigationBarItem, selected: Boolean) {
 }
 
 @Composable
-fun navigationBarItemColors() = NavigationBarItemColors(
+fun navigationBarItemColors() = NavigationBarItemDefaults.colors(
     selectedIconColor = SurfaceColor.Primary,
-    selectedTextColor = TextColor.OnSurfaceVariant,
-    selectedIndicatorColor = SurfaceColor.Container,
+    indicatorColor = SurfaceColor.Container,
     unselectedIconColor = TextColor.OnSurfaceVariant,
-    unselectedTextColor = TextColor.OnSurfaceVariant,
     disabledIconColor = TextColor.OnDisabledSurface,
     disabledTextColor = TextColor.OnDisabledSurface,
 )
