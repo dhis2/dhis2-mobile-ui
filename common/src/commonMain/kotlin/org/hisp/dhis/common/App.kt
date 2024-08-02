@@ -33,6 +33,7 @@ import org.hisp.dhis.common.screens.toggleableInputs.ToggleableInputsScreen
 import org.hisp.dhis.mobile.ui.designsystem.component.DropdownItem
 import org.hisp.dhis.mobile.ui.designsystem.component.InputDropDown
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
+import org.hisp.dhis.mobile.ui.designsystem.component.InputStyle
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
@@ -75,6 +76,7 @@ fun Main(
                 onResetButtonClicked = { currentScreen.value = Groups.NO_GROUP_SELECTED },
                 state = InputShellState.UNFOCUSED,
                 selectedItem = DropdownItem(currentScreen.value.label),
+                inputStyle = InputStyle.DataInputStyle().apply { backGroundColor = SurfaceColor.SurfaceBright },
             )
 
             when (currentScreen.value) {

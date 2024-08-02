@@ -6,7 +6,9 @@ import androidx.compose.ui.Modifier
 import org.hisp.dhis.mobile.ui.designsystem.component.DropdownItem
 import org.hisp.dhis.mobile.ui.designsystem.component.InputDropDown
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
+import org.hisp.dhis.mobile.ui.designsystem.component.InputStyle
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
+import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 
 @Composable
 fun GroupComponentDropDown(
@@ -24,5 +26,6 @@ fun GroupComponentDropDown(
         onResetButtonClicked = onResetButtonClicked,
         selectedItem = selectedItem,
         state = InputShellState.UNFOCUSED,
+        inputStyle = InputStyle.DataInputStyle().apply { backGroundColor = SurfaceColor.SurfaceBright },
     )
 }
