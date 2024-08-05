@@ -17,6 +17,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 enum class TagType {
     ERROR,
     WARNING,
+    SUCCESS,
     DEFAULT,
 }
 
@@ -45,6 +46,7 @@ fun Tag(
                 color = when (type) {
                     TagType.ERROR -> SurfaceColor.ErrorContainer
                     TagType.WARNING -> SurfaceColor.WarningContainer
+                    TagType.SUCCESS -> SurfaceColor.CustomGreen.copy(0.1f)
                     TagType.DEFAULT -> defaultBackgroundColor
                 },
                 shape = Shape.ExtraSmall,
@@ -57,6 +59,7 @@ fun Tag(
             color = when (type) {
                 TagType.ERROR -> TextColor.OnErrorContainer
                 TagType.WARNING -> TextColor.OnWarningContainer
+                TagType.SUCCESS -> SurfaceColor.CustomGreen
                 TagType.DEFAULT -> defaultTextColor
             },
         )
