@@ -150,6 +150,7 @@ fun OrgBottomSheet(
                             contentDescription = null,
                         )
                     },
+                    enabled = orgTreeItems.any { it.selected },
                     text = doneButtonText,
                     style = ButtonStyle.FILLED,
                 )
