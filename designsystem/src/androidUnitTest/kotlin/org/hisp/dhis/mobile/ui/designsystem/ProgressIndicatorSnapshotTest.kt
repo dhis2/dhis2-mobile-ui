@@ -21,32 +21,32 @@ class ProgressIndicatorSnapshotTest {
                 ProgressIndicator(
                     type = ProgressIndicatorType.LINEAR,
                     progress = 0.25f,
-                    hasError = false
+                    hasError = false,
                 )
                 ProgressIndicator(
                     type = ProgressIndicatorType.LINEAR,
                     progress = 0.25f,
-                    hasError = true
+                    hasError = true,
                 )
                 ProgressIndicator(
                     type = ProgressIndicatorType.CIRCULAR,
                     progress = 0.25f,
-                    hasError = false
+                    hasError = false,
                 )
                 ProgressIndicator(
                     type = ProgressIndicatorType.CIRCULAR,
                     progress = 0.25f,
-                    hasError = true
+                    hasError = true,
                 )
                 ProgressIndicator(
                     type = ProgressIndicatorType.CIRCULAR_SMALL,
                     progress = 0.25f,
-                    hasError = false
+                    hasError = false,
                 )
                 ProgressIndicator(
                     type = ProgressIndicatorType.CIRCULAR_SMALL,
                     progress = 0.25f,
-                    hasError = true
+                    hasError = true,
                 )
             }
         }

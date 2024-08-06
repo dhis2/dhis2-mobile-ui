@@ -39,13 +39,13 @@ fun ProgressIndicator(
         ProgressIndicatorType.CIRCULAR -> CircularIndicator(
             modifier = modifier,
             progress = progress,
-            hasError = hasError
+            hasError = hasError,
         )
         ProgressIndicatorType.CIRCULAR_SMALL -> CircularIndicator(
             modifier = modifier,
             strokeWidth = Border.Regular,
             progress = progress,
-            hasError = hasError
+            hasError = hasError,
         )
     }
 }
@@ -75,7 +75,7 @@ internal fun CircularIndicator(
     modifier: Modifier,
     strokeWidth: Dp = ProgressIndicatorDefaults.CircularStrokeWidth,
     progress: Float?,
-    hasError: Boolean
+    hasError: Boolean,
 ) {
     val color = if (hasError) SurfaceColor.Error else SurfaceColor.Primary
     if (progress != null) {
