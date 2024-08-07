@@ -31,6 +31,7 @@ import org.hisp.dhis.common.screens.toggleableInputs.ToggleableInputsScreen
 import org.hisp.dhis.mobile.ui.designsystem.component.DropdownItem
 import org.hisp.dhis.mobile.ui.designsystem.component.InputDropDown
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
+import org.hisp.dhis.mobile.ui.designsystem.component.MetadataAvatarSize
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
@@ -92,3 +93,11 @@ fun Main(
 fun getCurrentScreen(label: String): Components {
     return Components.entries.firstOrNull { it.label == label } ?: Components.ACTION_INPUTS
 }
+
+fun getAvailableMetadataAvatarSizes() = listOf(
+    MetadataAvatarSize.XS(),
+    MetadataAvatarSize.S(),
+    MetadataAvatarSize.M(),
+    MetadataAvatarSize.L(),
+    MetadataAvatarSize.XL(),
+)

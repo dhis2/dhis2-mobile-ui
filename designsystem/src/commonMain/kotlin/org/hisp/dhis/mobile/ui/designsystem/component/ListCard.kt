@@ -1,9 +1,5 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.expandVertically
-import androidx.compose.animation.shrinkVertically
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -15,16 +11,12 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.InlineTextContent
 import androidx.compose.foundation.text.appendInlineContent
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.KeyboardArrowDown
-import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.icons.outlined.Sync
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.Icon
@@ -39,9 +31,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.Role
@@ -57,10 +46,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.conditional
-import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2SCustomTextStyles
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
@@ -69,8 +56,6 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing4
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
-import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
-import org.hisp.dhis.mobile.ui.designsystem.theme.shadow
 
 /**
  * DHIS2 ListCard.
@@ -116,25 +101,11 @@ fun ListCard(
             expandableItemList.add(item)
         }
     }
-    val interactionSource = remember { MutableInteractionSource() }
 
-    Row(
-        modifier = modifier
-            .conditional(shadow, {
-                shadow()
-            })
-            .background(color = TextColor.OnPrimary, shape = RoundedCornerShape(Radius.S))
-            .clip(shape = RoundedCornerShape(Radius.S))
-            .clickable(
-                role = Role.Button,
-                interactionSource = interactionSource,
-                indication = rememberRipple(
-                    color = SurfaceColor.Primary,
-                ),
-                onClick = onCardClick,
-            )
-            .hoverPointerIcon(true)
-            .padding(getPaddingValues(shadow, listAvatar != null)),
+    BaseCard(
+        modifier = modifier.padding(getPaddingValues(shadow, listAvatar != null)),
+        showShadow = shadow,
+        onCardClick = onCardClick,
     ) {
         listAvatar?.let {
             it.invoke()
@@ -142,7 +113,11 @@ fun ListCard(
         }
         Column(Modifier.fillMaxWidth().weight(1f)) {
             Row(horizontalArrangement = Arrangement.SpaceBetween) {
-                ListCardTitle(title = title, modifier.weight(1f).padding(bottom = if (description?.text != null) Spacing.Spacing0 else Spacing4))
+                ListCardTitle(
+                    title = title,
+                    modifier.weight(1f)
+                        .padding(bottom = if (description?.text != null) Spacing.Spacing0 else Spacing4),
+                )
                 if (lastUpdated != null) {
                     ListCardLastUpdated(lastUpdated)
                 }
@@ -255,59 +230,6 @@ fun CardDetail(
 }
 
 /**
- * DHIS2 Avatar,
- *  used to display the avatar composable in card,
- *  must be one of the three styles given as parameters
- * @param style not nullable parameter that manages the avatar style
- * @param textAvatar style must be TEXT, will show a single character as avatar
- * @param imagePainter style must be IMAGE, will display an image as avatar
- * @param metadataAvatar style must be METADATA, composable should be DHIS2 [MetadataAvatar]
- * @param modifier allows a modifier to be passed externally
- */
-@Composable
-fun Avatar(
-    textAvatar: String? = null,
-    imagePainter: Painter = provideDHIS2Icon("dhis2_microscope_outline"),
-    metadataAvatar: (@Composable () -> Unit)? = null,
-    style: AvatarStyle = AvatarStyle.TEXT,
-    onImageClick: (() -> Unit)? = null,
-    modifier: Modifier = Modifier,
-) {
-    when (style) {
-        AvatarStyle.TEXT -> {
-            textAvatar?.let {
-                Box(
-                    modifier = modifier
-                        .size(Spacing.Spacing40)
-                        .background(color = SurfaceColor.PrimaryContainer, shape = RoundedCornerShape(Radius.Full)),
-                    contentAlignment = Alignment.Center,
-                ) {
-                    Text(text = textAvatar, color = SurfaceColor.Primary, style = MaterialTheme.typography.titleSmall)
-                }
-            }
-        }
-
-        AvatarStyle.METADATA -> {
-            metadataAvatar?.let {
-                metadataAvatar.invoke()
-            }
-        }
-
-        AvatarStyle.IMAGE -> {
-            Image(
-                painter = imagePainter,
-                contentDescription = "avatarImage",
-                contentScale = ContentScale.Crop,
-                modifier = modifier
-                    .size(Spacing.Spacing40)
-                    .clip(CircleShape)
-                    .clickable(onClick = { onImageClick?.invoke() }),
-            )
-        }
-    }
-}
-
-/**
  * DHIS2 AdditionalInfoColumn,
  *  used to display both key value lists, the constant one and the expandable one
  */
@@ -335,10 +257,8 @@ private fun AdditionalInfoColumn(
             KeyValueList(expandableItemList, isDetailCard = isDetailCard)
             hiddenItemList = expandableItems.drop(3).toMutableList()
 
-            AnimatedVisibility(
-                visible = sectionState != SectionState.CLOSE,
-                enter = expandVertically(expandFrom = Alignment.CenterVertically),
-                exit = shrinkVertically(shrinkTowards = Alignment.CenterVertically),
+            ExpandShrinkAnimatedVisibility(
+                expanded = sectionState != SectionState.CLOSE,
             ) {
                 KeyValueList(hiddenItemList, isDetailCard = isDetailCard)
             }
@@ -347,63 +267,22 @@ private fun AdditionalInfoColumn(
                 KeyValueList(expandableItems, isDetailCard = isDetailCard)
             }
         }
-        AnimatedVisibility(
-            visible = loadingSectionState,
-            enter = expandVertically(expandFrom = Alignment.CenterVertically),
-            exit = shrinkVertically(shrinkTowards = Alignment.CenterVertically),
+        ExpandShrinkAnimatedVisibility(
+            expanded = loadingSectionState,
         ) {
             KeyValue(syncProgressItem)
         }
         KeyValueList(constantItems, isDetailCard = isDetailCard)
 
         if (expandableItems != null && expandableItems.size > 3) {
-            val expandText = mutableStateOf(if (sectionState == SectionState.OPEN) shrinkLabelText else expandLabelText)
-            val interactionSource = remember { MutableInteractionSource() }
-
-            val iconVector = getIconVector(sectionState)
-            val expandTextColor = TextColor.OnSurfaceLight
-            Row(
-                Modifier
-                    .clip(RoundedCornerShape(Radius.M))
-                    .clickable(
-                        onClick = {
-                            sectionState = getSectionState(sectionState)
-                        },
-                        role = Role.Button,
-                        interactionSource = interactionSource,
-                        indication = rememberRipple(
-                            color = SurfaceColor.Primary,
-                        ),
-                    )
-                    .padding(end = Spacing.Spacing2)
-                    .offset(x = (-3).dp),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Icon(
-                    imageVector = iconVector,
-                    contentDescription = "Button",
-                    tint = expandTextColor,
-                )
-                Text(
-                    text = expandText.value,
-                    color = expandTextColor,
-                    style = MaterialTheme.typography.bodyMedium,
-                    modifier = Modifier.padding(horizontal = Spacing4),
-                )
+            ToggleInfoTextButton(
+                sectionState = sectionState,
+                shrinkLabelText = shrinkLabelText,
+                expandLabelText = expandLabelText,
+            ) { newSectionState ->
+                sectionState = newSectionState
             }
         }
-    }
-}
-
-fun getSectionState(sectionState: SectionState): SectionState {
-    return if (sectionState == SectionState.CLOSE) SectionState.OPEN else SectionState.CLOSE
-}
-
-fun getIconVector(sectionState: SectionState): ImageVector {
-    return if (sectionState == SectionState.CLOSE) {
-        Icons.Filled.KeyboardArrowDown
-    } else {
-        Icons.Filled.KeyboardArrowUp
     }
 }
 
@@ -424,7 +303,11 @@ private fun KeyValue(
 }
 
 @Composable
-fun ProvideKeyValueItem(additionalInfoItem: AdditionalInfoItem, maxKeyWidth: Dp, isDetailCard: Boolean) {
+fun ProvideKeyValueItem(
+    additionalInfoItem: AdditionalInfoItem,
+    maxKeyWidth: Dp,
+    isDetailCard: Boolean,
+) {
     val keyText = additionalInfoItem.key
     val interactionSource = remember { MutableInteractionSource() }
 
@@ -432,7 +315,8 @@ fun ProvideKeyValueItem(additionalInfoItem: AdditionalInfoItem, maxKeyWidth: Dp,
 
     val keyTrimmedText = getKeyTrimmedText(keyText ?: "", maxKeyWidth, textMeasurer)
 
-    val finalAnnotatedString: AnnotatedString = getKeyValueAnnotatedString(keyTrimmedText, additionalInfoItem, isDetailCard)
+    val finalAnnotatedString: AnnotatedString =
+        getKeyValueAnnotatedString(keyTrimmedText, additionalInfoItem, isDetailCard)
 
     val inlineContent = mapOf(
         Pair(
@@ -487,7 +371,8 @@ fun getKeyValueAnnotatedString(
     isDetailCard: Boolean,
 ): AnnotatedString {
     val valueText = additionalInfoItem?.value
-    val keyStyle = DHIS2SCustomTextStyles.listCardKey.copy(color = AdditionalInfoItemColor.DEFAULT_KEY.color)
+    val keyStyle =
+        DHIS2SCustomTextStyles.listCardKey.copy(color = AdditionalInfoItemColor.DEFAULT_KEY.color)
 
     val valueColor = getValueColor(additionalInfoItem)
     val valueStyle = DHIS2SCustomTextStyles.listCardValue.copy(color = valueColor)
@@ -514,6 +399,7 @@ fun getKeyValueAnnotatedString(
         }
     }
 }
+
 fun formatText(text: String?, withSpace: Boolean): String {
     return if (withSpace) " $text" else text ?: ""
 }
@@ -579,13 +465,6 @@ fun getKeyTrimmedText(text: String, maxKeyWidth: Dp, textMeasurer: TextMeasurer)
     } else {
         text + if (text.isNotEmpty()) ": " else ""
     }
-}
-
-enum class
-AvatarStyle {
-    TEXT,
-    IMAGE,
-    METADATA,
 }
 
 data class AdditionalInfoItem(

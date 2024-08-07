@@ -23,19 +23,19 @@ import org.hisp.dhis.common.screens.previews.basicAdditionalItemListWithLongValu
 import org.hisp.dhis.common.screens.previews.basicAdditionalItemListWithMediumKeyText
 import org.hisp.dhis.common.screens.previews.enrollmentCompletedList
 import org.hisp.dhis.common.screens.previews.fullItemList
+import org.hisp.dhis.mobile.ui.designsystem.Avatar
+import org.hisp.dhis.mobile.ui.designsystem.AvatarStyleData
 import org.hisp.dhis.mobile.ui.designsystem.component.AdditionalInfoItem
 import org.hisp.dhis.mobile.ui.designsystem.component.AdditionalInfoItemColor
-import org.hisp.dhis.mobile.ui.designsystem.component.Avatar
-import org.hisp.dhis.mobile.ui.designsystem.component.AvatarSize
-import org.hisp.dhis.mobile.ui.designsystem.component.AvatarStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.Button
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ListCard
 import org.hisp.dhis.mobile.ui.designsystem.component.ListCardDescriptionModel
 import org.hisp.dhis.mobile.ui.designsystem.component.ListCardTitleModel
-import org.hisp.dhis.mobile.ui.designsystem.component.MetadataAvatar
+import org.hisp.dhis.mobile.ui.designsystem.component.MetadataAvatarSize
 import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
+import org.hisp.dhis.mobile.ui.designsystem.component.internal.ImageCardData
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
@@ -52,8 +52,7 @@ fun ListCardScreen() {
         ListCard(
             listAvatar = {
                 Avatar(
-                    textAvatar = "P",
-                    style = AvatarStyle.TEXT,
+                    style = AvatarStyleData.Text("P"),
                 )
             },
             title = ListCardTitleModel(text = "Palak Khanna, F, 61"),
@@ -83,8 +82,7 @@ fun ListCardScreen() {
         ListCard(
             listAvatar = {
                 Avatar(
-                    textAvatar = "P",
-                    style = AvatarStyle.TEXT,
+                    style = AvatarStyleData.Text("P"),
                 )
             },
             title = ListCardTitleModel(text = "Palak Khanna, F, 61"),
@@ -114,8 +112,7 @@ fun ListCardScreen() {
         ListCard(
             listAvatar = {
                 Avatar(
-                    textAvatar = "P",
-                    style = AvatarStyle.TEXT,
+                    style = AvatarStyleData.Text("P"),
                 )
             },
             title = ListCardTitleModel(text = "Palak Khanna, F, 61"),
@@ -145,8 +142,7 @@ fun ListCardScreen() {
         ListCard(
             listAvatar = {
                 Avatar(
-                    textAvatar = "P",
-                    style = AvatarStyle.TEXT,
+                    style = AvatarStyleData.Text("P"),
                 )
             },
             title = ListCardTitleModel(text = "Palak Khanna, F, 61"),
@@ -173,11 +169,11 @@ fun ListCardScreen() {
         var showLoading5 by remember {
             mutableStateOf(false)
         }
+
         ListCard(
             listAvatar = {
                 Avatar(
-                    imagePainter = provideDHIS2Icon("dhis2_microscope_outline"),
-                    style = AvatarStyle.IMAGE,
+                    style = AvatarStyleData.Image(provideDHIS2Icon("dhis2_microscope_outline")),
                 )
             },
             title = ListCardTitleModel(text = "Kunal Choudary, M, 55"),
@@ -210,18 +206,16 @@ fun ListCardScreen() {
             shadow = false,
             listAvatar = {
                 Avatar(
-                    metadataAvatar = {
-                        MetadataAvatar(
-                            icon = {
-                                Icon(
-                                    painter = provideDHIS2Icon("dhis2_microscope_outline"),
-                                    contentDescription = "Button",
-                                    tint = SurfaceColor.Primary,
-                                )
-                            },
-                        )
-                    },
-                    style = AvatarStyle.METADATA,
+                    style = AvatarStyleData.Metadata(
+                        imageCardData = ImageCardData.IconCardData(
+                            uid = "",
+                            label = "",
+                            iconRes = "dhis2_microscope_outline",
+                            iconTint = SurfaceColor.Primary,
+                        ),
+                        avatarSize = MetadataAvatarSize.S(),
+                        tintColor = SurfaceColor.Primary,
+                    ),
                 )
             },
             title = ListCardTitleModel(text = "Anita Mathews, F, 72"),
@@ -276,10 +270,7 @@ fun ListCardScreen() {
 
         ListCard(
             listAvatar = {
-                Avatar(
-                    textAvatar = "A",
-                    style = AvatarStyle.TEXT,
-                )
+                Avatar(style = AvatarStyleData.Text("A"))
             },
             title = ListCardTitleModel(text = "Aditi Singh, F, 61"),
             lastUpdated = "5 hours",
@@ -366,20 +357,16 @@ fun ListCardScreen() {
         ListCard(
             listAvatar = {
                 Avatar(
-                    metadataAvatar = {
-                        MetadataAvatar(
-                            icon = {
-                                Icon(
-                                    painter = provideDHIS2Icon("dhis2_baby_male_0203m_positive"),
-                                    contentDescription = "Button",
-
-                                )
-                            },
+                    style = AvatarStyleData.Metadata(
+                        imageCardData = ImageCardData.IconCardData(
+                            uid = "",
+                            label = "",
+                            iconRes = "dhis2_baby_male_0203m_positive",
                             iconTint = Color(0xFF11D9D9),
-                            size = AvatarSize.Large,
-                        )
-                    },
-                    style = AvatarStyle.METADATA,
+                        ),
+                        avatarSize = MetadataAvatarSize.M(),
+                        tintColor = Color(0xFF11D9D9),
+                    ),
                 )
             },
             title = ListCardTitleModel(text = "12/18/2021 at 16:30"),
@@ -409,20 +396,16 @@ fun ListCardScreen() {
             shadow = false,
             listAvatar = {
                 Avatar(
-                    metadataAvatar = {
-                        MetadataAvatar(
-                            icon = {
-                                Icon(
-                                    painter = provideDHIS2Icon("dhis2_baby_male_0203m_positive"),
-                                    contentDescription = "Button",
-
-                                )
-                            },
+                    style = AvatarStyleData.Metadata(
+                        imageCardData = ImageCardData.IconCardData(
+                            uid = "",
+                            label = "",
+                            iconRes = "dhis2_baby_male_0203m_positive",
                             iconTint = Color(0xFF11D9D9),
-                            size = AvatarSize.Large,
-                        )
-                    },
-                    style = AvatarStyle.METADATA,
+                        ),
+                        avatarSize = MetadataAvatarSize.M(),
+                        tintColor = Color(0xFF11D9D9),
+                    ),
                 )
             },
             title = ListCardTitleModel(text = "12/18/2021 at 16:30"),
@@ -438,7 +421,11 @@ fun ListCardScreen() {
 
         ListCard(
 
-            title = ListCardTitleModel(text = "Scheduled for 09/18/2021", style = eventsInTeiDashboardTitleStyle, color = TextColor.OnSurface),
+            title = ListCardTitleModel(
+                text = "Scheduled for 09/18/2021",
+                style = eventsInTeiDashboardTitleStyle,
+                color = TextColor.OnSurface,
+            ),
             additionalInfoList = listOf(
                 AdditionalInfoItem(
                     icon = {
@@ -459,7 +446,11 @@ fun ListCardScreen() {
 
         ListCard(
 
-            title = ListCardTitleModel(text = "09/18/2021", style = eventsInTeiDashboardTitleStyle, color = TextColor.OnSurface),
+            title = ListCardTitleModel(
+                text = "09/18/2021",
+                style = eventsInTeiDashboardTitleStyle,
+                color = TextColor.OnSurface,
+            ),
             description = ListCardDescriptionModel(text = "Treatment visits"),
             additionalInfoList = listOf(
                 AdditionalInfoItem(
@@ -483,21 +474,23 @@ fun ListCardScreen() {
         ListCard(
             listAvatar = {
                 Avatar(
-                    metadataAvatar = {
-                        MetadataAvatar(
-                            icon = {
-                                Icon(
-                                    painter = provideDHIS2Icon("dhis2_microscope_outline"),
-                                    contentDescription = "Button",
-                                    tint = SurfaceColor.Primary,
-                                )
-                            },
-                        )
-                    },
-                    style = AvatarStyle.METADATA,
+                    style = AvatarStyleData.Metadata(
+                        imageCardData = ImageCardData.IconCardData(
+                            uid = "",
+                            label = "",
+                            iconRes = "dhis2_microscope_outline",
+                            iconTint = SurfaceColor.Primary,
+                        ),
+                        avatarSize = MetadataAvatarSize.M(),
+                        tintColor = SurfaceColor.Primary,
+                    ),
                 )
             },
-            title = ListCardTitleModel(text = "Scheduled for 09/18/2021", style = eventsInTeiDashboardTitleStyle, color = TextColor.OnSurface),
+            title = ListCardTitleModel(
+                text = "Scheduled for 09/18/2021",
+                style = eventsInTeiDashboardTitleStyle,
+                color = TextColor.OnSurface,
+            ),
             additionalInfoList = listOf(
                 AdditionalInfoItem(
                     icon = {

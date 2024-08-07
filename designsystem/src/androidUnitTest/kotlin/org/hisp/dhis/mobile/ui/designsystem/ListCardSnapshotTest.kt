@@ -9,13 +9,9 @@ import androidx.compose.material.icons.outlined.Check
 import androidx.compose.material.icons.outlined.Sync
 import androidx.compose.material.icons.outlined.SyncProblem
 import androidx.compose.material3.Icon
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import org.hisp.dhis.mobile.ui.designsystem.component.AdditionalInfoItem
 import org.hisp.dhis.mobile.ui.designsystem.component.AdditionalInfoItemColor
-import org.hisp.dhis.mobile.ui.designsystem.component.Avatar
-import org.hisp.dhis.mobile.ui.designsystem.component.AvatarStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.Button
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.ListCard
@@ -51,7 +47,10 @@ class ListCardSnapshotTest {
         AdditionalInfoItem(key = loremShort, value = lorem),
 
         AdditionalInfoItem(key = "Date of birth:", value = "12/12/1945", isConstantItem = true),
-        AdditionalInfoItem(key = "Address:", value = "134 Main Road, Behind the temple, Citytown, Basil District, Granite State"),
+        AdditionalInfoItem(
+            key = "Address:",
+            value = "134 Main Road, Behind the temple, Citytown, Basil District, Granite State",
+        ),
         AdditionalInfoItem(key = "Enrolled in:", value = "12/12/1945"),
         AdditionalInfoItem(
             key = lorem,
@@ -95,8 +94,7 @@ class ListCardSnapshotTest {
                 ListCard(
                     listAvatar = {
                         Avatar(
-                            imagePainter = provideDHIS2Icon("dhis2_microscope_outline"),
-                            style = AvatarStyle.IMAGE,
+                            style = AvatarStyleData.Image(provideDHIS2Icon("dhis2_microscope_outline")),
                         )
                     },
                     title = ListCardTitleModel(text = "Kunal Choudary, M, 55"),
@@ -109,8 +107,7 @@ class ListCardSnapshotTest {
                 ListCard(
                     listAvatar = {
                         Avatar(
-                            textAvatar = "P",
-                            style = AvatarStyle.TEXT,
+                            style = AvatarStyleData.Text("P"),
                         )
                     },
                     title = ListCardTitleModel(text = "Palak Khanna, F, 61"),
@@ -136,8 +133,7 @@ class ListCardSnapshotTest {
                 ListCard(
                     listAvatar = {
                         Avatar(
-                            textAvatar = "P",
-                            style = AvatarStyle.TEXT,
+                            style = AvatarStyleData.Text("P"),
                         )
                     },
                     title = ListCardTitleModel(text = "Palak Khanna, F, 61"),
