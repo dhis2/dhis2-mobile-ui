@@ -86,11 +86,12 @@ fun InputDropDown(
     onResetButtonClicked: () -> Unit,
     onItemSelected: (DropdownItem) -> Unit,
     showSearchBar: Boolean = true,
+    expanded: Boolean = false,
     noResultsFoundString: String = provideStringResource("no_results_found"),
     searchToFindMoreString: String = provideStringResource("search_to_see_more"),
 ) {
     val focusRequester = remember { FocusRequester() }
-    var showDropdown by remember { mutableStateOf(false) }
+    var showDropdown by remember { mutableStateOf(expanded) }
 
     val inputField: @Composable (modifier: Modifier) -> Unit = { inputModifier ->
         DropdownInputField(

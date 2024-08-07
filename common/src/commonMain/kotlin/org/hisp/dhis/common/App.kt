@@ -75,6 +75,7 @@ fun Main(
                 onItemSelected = { currentScreen.value = getCurrentScreen(it.label) },
                 onResetButtonClicked = { currentScreen.value = Groups.NO_GROUP_SELECTED },
                 state = InputShellState.UNFOCUSED,
+                expanded = true,
                 selectedItem = DropdownItem(currentScreen.value.label),
                 inputStyle = InputStyle.DataInputStyle().apply { backGroundColor = SurfaceColor.SurfaceBright },
             )
