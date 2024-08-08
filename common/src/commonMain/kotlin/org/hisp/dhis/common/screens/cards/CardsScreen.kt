@@ -30,12 +30,14 @@ fun CardsScreen() {
         Cards.CARD_DETAIL -> CardDetailScreen()
         Cards.LIST_CARD -> ListCardScreen()
         Cards.NO_COMPONENT_SELECTED -> NoComponentSelectedScreen()
+        Cards.EXPANDABLE_LIST_CARD -> ExpandableListCardScreen()
     }
 }
 
 enum class Cards(val label: String) {
     CARD_DETAIL("Card Detail"),
     LIST_CARD("List Card"),
+    EXPANDABLE_LIST_CARD("Expandable list card"),
     NO_COMPONENT_SELECTED("No component selected"),
 }
 

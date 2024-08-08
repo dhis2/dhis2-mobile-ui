@@ -8,8 +8,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.geometry.CornerRadius
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.NativePaint
 import androidx.compose.ui.graphics.Paint
+import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.graphics.drawOutline
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.unit.Dp
@@ -94,9 +98,42 @@ internal fun Modifier.iconCardShadow(
     }
 }.padding(bottom = shadowRadius)
 
-internal expect fun Modifier.shadow(
-    elevation: Dp = 3.dp,
-    blur: Dp = 11.dp,
-    radius: Dp = Radius.L,
-    spotColor: Color = SurfaceColor.Container,
-): Modifier
+internal fun Modifier.dropShadow(
+    shape: Shape,
+    color: Color = SurfaceColor.Container,
+    blur: Dp = 10.dp,
+    offsetY: Dp = 4.dp,
+    offsetX: Dp = 0.dp,
+    spread: Dp = 0.dp,
+): Modifier = this.then(
+    drawBehind {
+        val shadowSize = Size(size.width + spread.toPx(), size.height + spread.toPx())
+        val shadowOutline = shape.createOutline(shadowSize, layoutDirection, this)
+
+        // Create a Paint object
+        val paint = Paint()
+// Apply specified color
+        paint.color = color
+
+// Check for valid blur radius
+        if (blur.toPx() > 0) {
+            paint.asFrameworkPaint().apply {
+                // Apply blur to the Paint
+                paintBlur(blur.toPx())
+            }
+        }
+
+        drawIntoCanvas { canvas ->
+            // Save the canvas state
+            canvas.save()
+            // Translate to specified offsets
+            canvas.translate(offsetX.toPx(), offsetY.toPx())
+            // Draw the shadow
+            canvas.drawOutline(shadowOutline, paint)
+            // Restore the canvas state
+            canvas.restore()
+        }
+    },
+)
+
+internal expect fun NativePaint.paintBlur(blur: Float): NativePaint

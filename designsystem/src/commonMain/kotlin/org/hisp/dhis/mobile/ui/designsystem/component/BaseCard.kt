@@ -7,12 +7,19 @@ import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Arrangement.Absolute.spacedBy
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
@@ -21,13 +28,21 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.onSizeChanged
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.conditional
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
@@ -35,21 +50,27 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing4
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
+import org.hisp.dhis.mobile.ui.designsystem.theme.dropShadow
 import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
-import org.hisp.dhis.mobile.ui.designsystem.theme.shadow
 
 @Composable
 fun BaseCard(
     modifier: Modifier = Modifier,
     showShadow: Boolean,
     onCardClick: () -> Unit,
-    content: @Composable RowScope.() -> Unit,
+    paddingValues: PaddingValues,
+    expandable: Boolean,
+    itemVerticalPadding: Dp?,
+    onSizeChanged: ((IntSize) -> Unit)?,
+    content: @Composable () -> Unit,
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     Row(
         modifier = modifier
             .conditional(showShadow, {
-                shadow()
+                dropShadow(
+                    RoundedCornerShape(Radius.S),
+                )
             })
             .background(color = TextColor.OnPrimary, shape = RoundedCornerShape(Radius.S))
             .clip(shape = RoundedCornerShape(Radius.S))
@@ -61,10 +82,96 @@ fun BaseCard(
                 ),
                 onClick = onCardClick,
             )
-            .hoverPointerIcon(true),
+            .hoverPointerIcon(true)
+            .padding(paddingValues),
     ) {
-        content()
+        if (expandable) {
+            requireNotNull(itemVerticalPadding) { "If expandable is true itemVerticalPadding must not be null" }
+            requireNotNull(onSizeChanged) { "If expandable is true onSizeChanged must not be null" }
+            ExpandableBox(
+                itemVerticalPadding = itemVerticalPadding,
+                onSizeChanged = onSizeChanged,
+            ) {
+                content()
+            }
+        } else {
+            content()
+        }
     }
+}
+
+@Composable
+fun <T> ExpandableItemColumn(
+    modifier: Modifier = Modifier,
+    itemList: List<T>,
+    itemSpacing: Dp = 16.dp,
+    itemLayout: @Composable (T, itemVerticalPadding: Dp, onSizeChanged: (IntSize) -> Unit) -> Unit,
+) {
+    val density = LocalDensity.current
+
+    val itemCount by remember {
+        derivedStateOf { itemList.size }
+    }
+
+    var parentSize by remember {
+        mutableIntStateOf(-1)
+    }
+
+    var childrenSize by remember(itemList) {
+        mutableStateOf(mapOf<Int, Int>())
+    }
+
+    val itemVerticalPadding by remember(childrenSize, itemCount) {
+        derivedStateOf {
+            val value = if (childrenSize.size == itemCount) {
+                var availableHeight =
+                    parentSize - childrenSize.values.sum() - with(density) { itemSpacing.toPx() * (itemCount - 1) }
+                if (itemCount == 1) availableHeight /= 4
+                with(density) { (availableHeight / (2 * itemCount)).toDp() }.takeIf { it >= 16.dp }
+                    ?: 16.dp
+            } else {
+                16.dp
+            }
+            value
+        }
+    }
+
+    Column(
+        modifier = modifier
+            .verticalScroll(rememberScrollState())
+            .onSizeChanged {
+                if (parentSize == -1) {
+                    parentSize = it.height
+                }
+            },
+        verticalArrangement = spacedBy(itemSpacing),
+    ) {
+        itemList.forEachIndexed { index, item ->
+            itemLayout(item, itemVerticalPadding) {
+                val childMap = childrenSize.toMutableMap()
+                childMap[index] = it.height
+                childrenSize = childMap
+            }
+        }
+    }
+}
+
+@Composable
+internal fun ExpandableBox(
+    itemVerticalPadding: Dp,
+    onSizeChanged: (IntSize) -> Unit,
+    content: @Composable BoxScope.() -> Unit,
+) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(
+                vertical = itemVerticalPadding,
+            )
+            .onSizeChanged(onSizeChanged),
+        contentAlignment = Alignment.Center,
+        content = content,
+    )
 }
 
 @Composable

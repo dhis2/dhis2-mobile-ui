@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Event
 import androidx.compose.material.icons.outlined.Sync
+import androidx.compose.material.icons.outlined.SyncDisabled
 import androidx.compose.material.icons.outlined.SyncProblem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -35,6 +36,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.ListCardDescriptionModel
 import org.hisp.dhis.mobile.ui.designsystem.component.ListCardTitleModel
 import org.hisp.dhis.mobile.ui.designsystem.component.MetadataAvatarSize
 import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
+import org.hisp.dhis.mobile.ui.designsystem.component.VerticalInfoListCard
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.ImageCardData
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
@@ -507,6 +509,107 @@ fun ListCardScreen() {
                 AdditionalInfoItem(key = "Drug resistance", value = "Monoresistance"),
                 AdditionalInfoItem(key = "treatment", value = "Initial regiment- first-line drugs"),
             ),
+            onCardClick = {},
+        )
+        Spacer(Modifier.size(Spacing.Spacing16))
+        SubTitle("Tei list:")
+        SubTitle("With shadow")
+
+        Spacer(Modifier.size(Spacing.Spacing16))
+        VerticalInfoListCard(
+            listAvatar = {
+                Avatar(
+                    style = AvatarStyleData.Metadata(
+                        imageCardData = ImageCardData.IconCardData(
+                            uid = "",
+                            label = "",
+                            iconRes = "dhis2_microscope_outline",
+                            iconTint = SurfaceColor.Primary,
+                        ),
+                        avatarSize = MetadataAvatarSize.L(),
+                        tintColor = SurfaceColor.Primary,
+                    ),
+                )
+            },
+            title = ListCardTitleModel(text = "Program Name"),
+            lastUpdated = "12 min",
+            description = ListCardDescriptionModel(text = "200 patients"),
+            additionalInfoList = listOf(
+                AdditionalInfoItem(
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Outlined.SyncDisabled,
+                            contentDescription = "Sync disabled",
+                            tint = TextColor.OnSurfaceLight,
+                        )
+                    },
+                    value = "Not synced",
+                    color = TextColor.OnSurfaceLight,
+                ),
+                AdditionalInfoItem(
+                    value = "This is the description of this program",
+                    color = TextColor.OnSurfaceLight,
+                ),
+            ),
+            loading = false,
+            expandLabelText = "Show description",
+            shrinkLabelText = "Hide description",
+            onCardClick = {},
+            actionButton = {
+                Button(
+                    style = ButtonStyle.TONAL,
+                    text = "Retry sync",
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Outlined.Sync,
+                            contentDescription = "Icon Button",
+                            tint = TextColor.OnPrimaryContainer,
+                        )
+                    },
+                    onClick = {},
+                    modifier = Modifier.fillMaxWidth(),
+                )
+            },
+        )
+
+        VerticalInfoListCard(
+            listAvatar = {
+                Avatar(
+                    style = AvatarStyleData.Metadata(
+                        imageCardData = ImageCardData.IconCardData(
+                            uid = "",
+                            label = "",
+                            iconRes = "dhis2_microscope_outline",
+                            iconTint = SurfaceColor.Primary,
+                        ),
+                        avatarSize = MetadataAvatarSize.L(),
+                        tintColor = SurfaceColor.Primary,
+                    ),
+                )
+            },
+            title = ListCardTitleModel(text = "Program Name"),
+            lastUpdated = "12 min",
+            description = ListCardDescriptionModel(text = "200 patients"),
+            additionalInfoList = listOf(
+                AdditionalInfoItem(
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Outlined.SyncDisabled,
+                            contentDescription = "Sync disabled",
+                            tint = TextColor.OnSurfaceLight,
+                        )
+                    },
+                    value = "Not synced",
+                    color = TextColor.OnSurfaceLight,
+                ),
+                AdditionalInfoItem(
+                    value = "This is the description of this program",
+                    color = TextColor.OnSurfaceLight,
+                ),
+            ),
+            loading = true,
+            expandLabelText = "Show description",
+            shrinkLabelText = "Hide description",
             onCardClick = {},
         )
         Spacer(Modifier.size(Spacing.Spacing16))

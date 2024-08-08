@@ -12,10 +12,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
-import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
-import org.hisp.dhis.mobile.ui.designsystem.theme.shadow
+import org.hisp.dhis.mobile.ui.designsystem.theme.dropShadow
 
 /**
  * DHIS2 [FAB] button with generic icon slot.
@@ -37,10 +36,16 @@ fun FAB(
 ) {
     FloatingActionButton(
         modifier = modifier
-            .shadow(
+            .dropShadow(
+                shape = MaterialTheme.shapes.small.copy(CornerSize(Radius.L)),
+                offsetY = 4.dp,
+                blur = 4.dp,
+                color = SurfaceColor.Primary.copy(alpha = 0.25f),
+            )
+           /* .shadow(
                 spotColor = Color(0x40007DEB),
                 blur = Spacing.Spacing4,
-            )
+            )*/
             .testTag("FAB"),
         onClick = onClick,
         shape = MaterialTheme.shapes.small.copy(CornerSize(Radius.L)),
@@ -73,9 +78,19 @@ fun ExtendedFAB(
 ) {
     ExtendedFloatingActionButton(
         modifier = modifier
-            .shadow(
-                spotColor = Color(0x40007DEB),
-                blur = Spacing.Spacing8,
+            .dropShadow(
+                shape = MaterialTheme.shapes.small.copy(CornerSize(Radius.L)),
+                offsetY = 2.dp,
+                blur = 4.dp,
+                spread = (-2).dp,
+                color = SurfaceColor.Primary.copy(alpha = 0.3f),
+            )
+            .dropShadow(
+                shape = MaterialTheme.shapes.small.copy(CornerSize(Radius.L)),
+                offsetY = 4.dp,
+                blur = 8.dp,
+                spread = 3.dp,
+                color = SurfaceColor.Primary.copy(alpha = 0.15f),
             )
             .testTag("EXTENDED_FAB_$text"),
         icon = icon,
