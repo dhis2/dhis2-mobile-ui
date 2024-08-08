@@ -28,13 +28,13 @@ class ListCardTest {
         AdditionalInfoItem(key = "Date of birth:", value = "12/12/1945"),
         AdditionalInfoItem(
             key = "Address:",
-            value = "134 Main Road, Behind the temple, Citytown, Basil District, Granite State"
+            value = "134 Main Road, Behind the temple, Citytown, Basil District, Granite State",
         ),
         AdditionalInfoItem(key = "Enrolled in:", value = "12/12/1945"),
         AdditionalInfoItem(
             key = "Programs:",
             value = "Tuberculosis, Nutrition \n" +
-                    "Assistance Program, Malaria Diagnosis",
+                "Assistance Program, Malaria Diagnosis",
         ),
         AdditionalInfoItem(
             icon = {
@@ -81,7 +81,7 @@ class ListCardTest {
                 modifier = Modifier.testTag("LIST_CARD"),
                 listAvatar = {
                     Avatar(
-                        style = AvatarStyleData.Text("X")
+                        style = AvatarStyleData.Text("X"),
                     )
                 },
                 title = ListCardTitleModel(text = "Anita Mathews, F, 72"),
