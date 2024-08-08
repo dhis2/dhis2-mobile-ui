@@ -22,6 +22,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.navigationBar.NavigationBa
 import org.hisp.dhis.mobile.ui.designsystem.component.navigationBar.NavigationBarTestTags.NAVIGATION_BAR_ITEM_BADGE_PREFIX
 import org.hisp.dhis.mobile.ui.designsystem.component.navigationBar.NavigationBarTestTags.NAVIGATION_BAR_ITEM_LABEL_PREFIX
 import org.hisp.dhis.mobile.ui.designsystem.component.navigationBar.NavigationBarTestTags.NAVIGATION_BAR_ITEM_PREFIX
+import org.hisp.dhis.mobile.ui.designsystem.resource.provideFontResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
@@ -55,17 +56,15 @@ fun NavigationBar(
                     },
                     label = {
                         Text(
-                            style = MaterialTheme.typography.labelMedium.copy(
-                                fontWeight = if (selected) {
-                                    FontWeight.SemiBold
-                                } else {
-                                    FontWeight.Medium
-                                },
-                            ),
-                            color = if (selected) {
-                                TextColor.OnSurface
+                            style = if (selected) {
+                                MaterialTheme.typography.labelMedium.copy(
+                                    fontFamily = provideFontResource("roboto_bold"),
+                                    fontWeight = FontWeight.Bold,
+                                )
                             } else {
-                                TextColor.OnSurfaceVariant
+                                MaterialTheme.typography.labelMedium.copy(
+                                    color = TextColor.OnSurfaceVariant,
+                                )
                             },
                             modifier = Modifier.testTag("$NAVIGATION_BAR_ITEM_LABEL_PREFIX${item.label}"),
                             text = item.label,
