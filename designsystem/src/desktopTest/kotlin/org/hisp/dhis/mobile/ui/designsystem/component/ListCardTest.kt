@@ -11,6 +11,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
+import org.hisp.dhis.mobile.ui.designsystem.Avatar
+import org.hisp.dhis.mobile.ui.designsystem.AvatarStyleData
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import org.junit.Rule
@@ -24,12 +26,15 @@ class ListCardTest {
     val additionalItemList = listOf(
         AdditionalInfoItem(key = "Phone:", value = "+234 123 111 6785"),
         AdditionalInfoItem(key = "Date of birth:", value = "12/12/1945"),
-        AdditionalInfoItem(key = "Address:", value = "134 Main Road, Behind the temple, Citytown, Basil District, Granite State"),
+        AdditionalInfoItem(
+            key = "Address:",
+            value = "134 Main Road, Behind the temple, Citytown, Basil District, Granite State"
+        ),
         AdditionalInfoItem(key = "Enrolled in:", value = "12/12/1945"),
         AdditionalInfoItem(
             key = "Programs:",
             value = "Tuberculosis, Nutrition \n" +
-                "Assistance Program, Malaria Diagnosis",
+                    "Assistance Program, Malaria Diagnosis",
         ),
         AdditionalInfoItem(
             icon = {
@@ -76,8 +81,7 @@ class ListCardTest {
                 modifier = Modifier.testTag("LIST_CARD"),
                 listAvatar = {
                     Avatar(
-                        textAvatar = "X",
-                        style = AvatarStyle.TEXT,
+                        style = AvatarStyleData.Text("X")
                     )
                 },
                 title = ListCardTitleModel(text = "Anita Mathews, F, 72"),
