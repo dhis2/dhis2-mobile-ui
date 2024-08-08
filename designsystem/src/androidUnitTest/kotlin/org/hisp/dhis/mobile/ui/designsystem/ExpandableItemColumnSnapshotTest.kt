@@ -28,7 +28,7 @@ class ExpandableItemColumnSnapshotTest {
 
     @Test
     fun launchAvatarTest() {
-        paparazzi().snapshot {
+        paparazzi.snapshot {
             val items = listOf("Program number 1", "Program number 2")
             ExpandableItemColumn(
                 modifier = Modifier.fillMaxSize().graphicsLayer { clip = false },
