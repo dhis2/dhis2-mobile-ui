@@ -1,8 +1,5 @@
 package org.hisp.dhis.common.screens.others
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Assignment
 import androidx.compose.material.icons.automirrored.filled.List
@@ -24,13 +21,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Modifier
+import org.hisp.dhis.common.screens.Groups
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
-import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.navigationBar.NavigationBar
 import org.hisp.dhis.mobile.ui.designsystem.component.navigationBar.NavigationBarItem
-import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 
 @Composable
 fun NavigationBarScreen() {
@@ -160,48 +155,46 @@ fun NavigationBarScreen() {
         ),
     )
 
-    ColumnComponentContainer(
-        title = "Navigation Bar",
-        modifier = Modifier
-            .background(SurfaceColor.Container),
+    ColumnScreenContainer(
+        title = Groups.NAVIGATION_BAR.label,
     ) {
-        SubTitle("Home")
-        var selectedHomeItemIndex by remember { mutableStateOf<Int?>(null) }
-        NavigationBar(
-            items = homeItems,
-            selectedItemIndex = selectedHomeItemIndex,
-        ) {
-            selectedHomeItemIndex = it
+        ColumnComponentContainer("Home") {
+            var selectedHomeItemIndex by remember { mutableStateOf<Int?>(null) }
+            NavigationBar(
+                items = homeItems,
+                selectedItemIndex = selectedHomeItemIndex,
+            ) {
+                selectedHomeItemIndex = it
+            }
+        }
+        ColumnComponentContainer("Program dashboard") {
+            var selectedProgramItemIndex by remember { mutableStateOf<Int?>(null) }
+            NavigationBar(
+                items = programItems,
+                selectedItemIndex = selectedProgramItemIndex,
+            ) {
+                selectedProgramItemIndex = it
+            }
         }
 
-        Spacer(modifier = Modifier.height(Spacing.Spacing24))
-        SubTitle("Program dashboard")
-        var selectedProgramItemIndex by remember { mutableStateOf<Int?>(null) }
-        NavigationBar(
-            items = programItems,
-            selectedItemIndex = selectedProgramItemIndex,
-        ) {
-            selectedProgramItemIndex = it
+        ColumnComponentContainer("Enrollment dashboard") {
+            var selectedEnrollmentItemIndex by remember { mutableStateOf<Int?>(null) }
+            NavigationBar(
+                items = enrollmentItems,
+                selectedItemIndex = selectedEnrollmentItemIndex,
+            ) {
+                selectedEnrollmentItemIndex = it
+            }
         }
 
-        Spacer(modifier = Modifier.height(Spacing.Spacing24))
-        SubTitle("Enrollment dashboard")
-        var selectedEnrollmentItemIndex by remember { mutableStateOf<Int?>(null) }
-        NavigationBar(
-            items = enrollmentItems,
-            selectedItemIndex = selectedEnrollmentItemIndex,
-        ) {
-            selectedEnrollmentItemIndex = it
-        }
-
-        Spacer(modifier = Modifier.height(Spacing.Spacing24))
-        SubTitle("Form")
-        var selectedFormItemIndex by remember { mutableStateOf<Int?>(null) }
-        NavigationBar(
-            items = formItems,
-            selectedItemIndex = selectedFormItemIndex,
-        ) {
-            selectedFormItemIndex = it
+        ColumnComponentContainer("Form") {
+            var selectedFormItemIndex by remember { mutableStateOf<Int?>(null) }
+            NavigationBar(
+                items = formItems,
+                selectedItemIndex = selectedFormItemIndex,
+            ) {
+                selectedFormItemIndex = it
+            }
         }
     }
 }
