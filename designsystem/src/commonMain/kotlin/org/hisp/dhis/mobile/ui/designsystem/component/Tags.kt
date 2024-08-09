@@ -8,6 +8,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
@@ -16,6 +17,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 enum class TagType {
     ERROR,
     WARNING,
+    SUCCESS,
     DEFAULT,
 }
 
@@ -34,6 +36,8 @@ fun Tag(
     modifier: Modifier = Modifier,
     label: String,
     type: TagType,
+    defaultBackgroundColor: Color = SurfaceColor.PrimaryContainer,
+    defaultTextColor: Color = TextColor.OnPrimaryContainer,
 ) {
     Box(
         modifier = modifier
@@ -42,7 +46,8 @@ fun Tag(
                 color = when (type) {
                     TagType.ERROR -> SurfaceColor.ErrorContainer
                     TagType.WARNING -> SurfaceColor.WarningContainer
-                    TagType.DEFAULT -> SurfaceColor.PrimaryContainer
+                    TagType.SUCCESS -> SurfaceColor.CustomGreen.copy(0.1f)
+                    TagType.DEFAULT -> defaultBackgroundColor
                 },
                 shape = Shape.ExtraSmall,
             ).padding(horizontal = Spacing.Spacing8),
@@ -54,7 +59,8 @@ fun Tag(
             color = when (type) {
                 TagType.ERROR -> TextColor.OnErrorContainer
                 TagType.WARNING -> TextColor.OnWarningContainer
-                TagType.DEFAULT -> TextColor.OnPrimaryContainer
+                TagType.SUCCESS -> SurfaceColor.CustomGreen
+                TagType.DEFAULT -> defaultTextColor
             },
         )
     }

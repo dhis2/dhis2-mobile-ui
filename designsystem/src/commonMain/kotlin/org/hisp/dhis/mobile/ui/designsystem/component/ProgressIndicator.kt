@@ -2,12 +2,16 @@ package org.hisp.dhis.mobile.ui.designsystem.component
 
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.ProgressIndicatorDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.Dp
+import org.hisp.dhis.mobile.ui.designsystem.theme.Border
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 
 enum class ProgressIndicatorType {
     CIRCULAR,
+    CIRCULAR_SMALL,
     LINEAR,
 }
 
@@ -18,8 +22,8 @@ enum class ProgressIndicatorType {
  * They communicate an app’s state and indicate available actions,
  * such as whether users can navigate away from the current screen.
  * @param modifier: optional modifier.
- * @param type: [ProgressIndicatorType] can be either
- * [ProgressIndicatorType.CIRCULAR] or [ProgressIndicatorType.LINEAR].
+ * @param type: [ProgressIndicatorType] can be [ProgressIndicatorType.CIRCULAR]
+ * [ProgressIndicatorType.CIRCULAR_SMALL] or [ProgressIndicatorType.LINEAR].
  * @param progress: indicates the loading progress
  * @param hasError: manages whether to show error or not.
  */
@@ -31,8 +35,18 @@ fun ProgressIndicator(
     hasError: Boolean = false,
 ) {
     when (type) {
-        ProgressIndicatorType.CIRCULAR -> CircularIndicator(modifier, progress, hasError)
         ProgressIndicatorType.LINEAR -> LinearIndicator(modifier, progress, hasError)
+        ProgressIndicatorType.CIRCULAR -> CircularIndicator(
+            modifier = modifier,
+            progress = progress,
+            hasError = hasError,
+        )
+        ProgressIndicatorType.CIRCULAR_SMALL -> CircularIndicator(
+            modifier = modifier,
+            strokeWidth = Border.Regular,
+            progress = progress,
+            hasError = hasError,
+        )
     }
 }
 
@@ -57,17 +71,24 @@ internal fun LinearIndicator(modifier: Modifier, progress: Float?, hasError: Boo
 }
 
 @Composable
-internal fun CircularIndicator(modifier: Modifier, progress: Float?, hasError: Boolean) {
+internal fun CircularIndicator(
+    modifier: Modifier,
+    strokeWidth: Dp = ProgressIndicatorDefaults.CircularStrokeWidth,
+    progress: Float?,
+    hasError: Boolean,
+) {
     val color = if (hasError) SurfaceColor.Error else SurfaceColor.Primary
     if (progress != null) {
         CircularProgressIndicator(
             progress = { progress },
             modifier = modifier,
+            strokeWidth = strokeWidth,
             color = color,
         )
     } else {
         CircularProgressIndicator(
             modifier = modifier,
+            strokeWidth = strokeWidth,
             color = color,
         )
     }
