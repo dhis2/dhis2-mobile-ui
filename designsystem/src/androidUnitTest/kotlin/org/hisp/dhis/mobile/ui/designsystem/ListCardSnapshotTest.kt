@@ -16,8 +16,11 @@ import org.hisp.dhis.mobile.ui.designsystem.component.Button
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.ListCard
 import org.hisp.dhis.mobile.ui.designsystem.component.ListCardTitleModel
+import org.hisp.dhis.mobile.ui.designsystem.component.state.rememberAdditionalInfoColumnState
+import org.hisp.dhis.mobile.ui.designsystem.component.state.rememberListCardState
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
+import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import org.junit.Rule
 import org.junit.Test
@@ -55,7 +58,7 @@ class ListCardSnapshotTest {
         AdditionalInfoItem(
             key = lorem,
             value = "Tuberculosis, Nutrition \n" +
-                "Assistance Program, Malaria Diagnosis",
+                    "Assistance Program, Malaria Diagnosis",
         ),
         AdditionalInfoItem(
             icon = {
@@ -82,7 +85,7 @@ class ListCardSnapshotTest {
             isConstantItem = true,
         ),
 
-    )
+        )
 
     @Test
     fun launchListCard() {
@@ -92,27 +95,60 @@ class ListCardSnapshotTest {
                 modifier = Modifier.padding(horizontal = Spacing.Spacing8),
             ) {
                 ListCard(
+                    listCardState = rememberListCardState(
+                        title = ListCardTitleModel(text = "Kunal Choudary, M, 55"),
+                        lastUpdated = "24 min",
+                        additionalInfoColumnState = rememberAdditionalInfoColumnState(
+                            additionalInfoList = enrollmentCompletedList.toMutableList(),
+                            syncProgressItem = AdditionalInfoItem(
+                                icon = {
+                                    Icon(
+                                        imageVector = Icons.Outlined.Sync,
+                                        contentDescription = "Icon Button",
+                                        tint = SurfaceColor.Primary,
+                                    )
+                                },
+                                value = "Syncing...",
+                                color = SurfaceColor.Primary,
+                                isConstantItem = false,
+                            ),
+                        ),
+                        loading = true,
+                    ),
                     listAvatar = {
                         Avatar(
                             style = AvatarStyleData.Image(provideDHIS2Icon("dhis2_microscope_outline")),
                         )
                     },
-                    title = ListCardTitleModel(text = "Kunal Choudary, M, 55"),
-                    lastUpdated = "24 min",
-                    additionalInfoList = enrollmentCompletedList.toMutableList(),
                     onCardClick = {},
-                    loading = true,
                 )
 
                 ListCard(
+                    listCardState = rememberListCardState(
+                        title = ListCardTitleModel(text = "Palak Khanna, F, 61"),
+                        lastUpdated = "5 hours",
+                        additionalInfoColumnState = rememberAdditionalInfoColumnState(
+                            additionalInfoList = basicAdditionalItemListWithMediumKeyText.toMutableList(),
+                            syncProgressItem = AdditionalInfoItem(
+                                icon = {
+                                    Icon(
+                                        imageVector = Icons.Outlined.Sync,
+                                        contentDescription = "Icon Button",
+                                        tint = SurfaceColor.Primary,
+                                    )
+                                },
+                                value = "Syncing...",
+                                color = SurfaceColor.Primary,
+                                isConstantItem = false,
+                            ),
+                        ),
+                    ),
                     listAvatar = {
                         Avatar(
                             style = AvatarStyleData.Text("P"),
                         )
                     },
-                    title = ListCardTitleModel(text = "Palak Khanna, F, 61"),
-                    lastUpdated = "5 hours",
-                    additionalInfoList = basicAdditionalItemListWithMediumKeyText.toMutableList(),
+
                     actionButton = {
                         Button(
                             style = ButtonStyle.TONAL,
@@ -131,14 +167,31 @@ class ListCardSnapshotTest {
                     onCardClick = {},
                 )
                 ListCard(
+                    listCardState = rememberListCardState(
+                        title = ListCardTitleModel(text = "Palak Khanna, F, 61"),
+                        lastUpdated = "5 hours",
+                        additionalInfoColumnState = rememberAdditionalInfoColumnState(
+                            additionalInfoList = basicAdditionalItemListWithLongValue.toMutableList(),
+                            syncProgressItem = AdditionalInfoItem(
+                                icon = {
+                                    Icon(
+                                        imageVector = Icons.Outlined.Sync,
+                                        contentDescription = "Icon Button",
+                                        tint = SurfaceColor.Primary,
+                                    )
+                                },
+                                value = "Syncing...",
+                                color = SurfaceColor.Primary,
+                                isConstantItem = false,
+                            ),
+                        ),
+                    ),
                     listAvatar = {
                         Avatar(
                             style = AvatarStyleData.Text("P"),
                         )
                     },
-                    title = ListCardTitleModel(text = "Palak Khanna, F, 61"),
-                    lastUpdated = "5 hours",
-                    additionalInfoList = basicAdditionalItemListWithLongValue.toMutableList(),
+
                     onCardClick = {},
                 )
             }

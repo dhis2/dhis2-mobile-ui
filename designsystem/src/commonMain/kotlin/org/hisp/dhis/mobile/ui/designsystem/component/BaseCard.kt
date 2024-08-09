@@ -109,9 +109,7 @@ fun <T> ExpandableItemColumn(
 ) {
     val density = LocalDensity.current
 
-    val itemCount by remember {
-        derivedStateOf { itemList.size }
-    }
+    val itemCount = itemList.size
 
     var parentSize by remember {
         mutableIntStateOf(-1)
@@ -121,7 +119,7 @@ fun <T> ExpandableItemColumn(
         mutableStateOf(mapOf<Int, Int>())
     }
 
-    val itemVerticalPadding by remember(childrenSize, itemCount) {
+    val itemVerticalPadding by remember(childrenSize) {
         derivedStateOf {
             val value = if (childrenSize.size == itemCount) {
                 var availableHeight =

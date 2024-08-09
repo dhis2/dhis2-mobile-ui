@@ -17,6 +17,8 @@ import org.hisp.dhis.mobile.ui.designsystem.component.ListCardTitleModel
 import org.hisp.dhis.mobile.ui.designsystem.component.MetadataAvatarSize
 import org.hisp.dhis.mobile.ui.designsystem.component.VerticalInfoListCard
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.ImageCardData
+import org.hisp.dhis.mobile.ui.designsystem.component.state.rememberAdditionalInfoColumnState
+import org.hisp.dhis.mobile.ui.designsystem.component.state.rememberListCardState
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import org.junit.Rule
@@ -36,6 +38,53 @@ class ExpandableItemColumnSnapshotTest {
             ) { item, verticalPadding, onSizeChanged ->
                 val index = items.indexOf(item)
                 VerticalInfoListCard(
+                    listCardState = rememberListCardState(
+                        title = ListCardTitleModel(text = item),
+                        lastUpdated = "12 min",
+                        description = ListCardDescriptionModel(text = "200 patients"),
+                        additionalInfoColumnState = rememberAdditionalInfoColumnState(
+                            additionalInfoList = buildList {
+                                if (index != 0) {
+                                    add(
+                                        AdditionalInfoItem(
+                                            icon = {
+                                                Icon(
+                                                    imageVector = Icons.Outlined.SyncDisabled,
+                                                    contentDescription = "Sync disabled",
+                                                    tint = TextColor.OnSurfaceLight,
+                                                )
+                                            },
+                                            value = "Not synced",
+                                            color = TextColor.OnSurfaceLight,
+                                        ),
+                                    )
+                                }
+                                add(
+                                    AdditionalInfoItem(
+                                        value = "this is a description",
+                                        color = TextColor.OnSurfaceLight,
+                                    ),
+                                )
+                            },
+                            expandLabelText = "Show description",
+                            shrinkLabelText = "Hide description",
+                            syncProgressItem = AdditionalInfoItem(
+                                icon = {
+                                    Icon(
+                                        imageVector = Icons.Outlined.Sync,
+                                        contentDescription = "Icon Button",
+                                        tint = SurfaceColor.Primary,
+                                    )
+                                },
+                                value = "Syncing...",
+                                color = SurfaceColor.Primary,
+                                isConstantItem = false,
+                            ),
+                        ),
+                        loading = false,
+                        expandable = true,
+                        itemVerticalPadding = verticalPadding,
+                    ),
                     listAvatar = {
                         Avatar(
                             style = AvatarStyleData.Metadata(
@@ -50,35 +99,6 @@ class ExpandableItemColumnSnapshotTest {
                             ),
                         )
                     },
-                    title = ListCardTitleModel(text = item),
-                    lastUpdated = "12 min",
-                    description = ListCardDescriptionModel(text = "200 patients"),
-                    additionalInfoList = buildList {
-                        if (index != 0) {
-                            add(
-                                AdditionalInfoItem(
-                                    icon = {
-                                        Icon(
-                                            imageVector = Icons.Outlined.SyncDisabled,
-                                            contentDescription = "Sync disabled",
-                                            tint = TextColor.OnSurfaceLight,
-                                        )
-                                    },
-                                    value = "Not synced",
-                                    color = TextColor.OnSurfaceLight,
-                                ),
-                            )
-                        }
-                        add(
-                            AdditionalInfoItem(
-                                value = "this is a description",
-                                color = TextColor.OnSurfaceLight,
-                            ),
-                        )
-                    },
-                    loading = false,
-                    expandLabelText = "Show description",
-                    shrinkLabelText = "Hide description",
                     onCardClick = {},
                     actionButton = {
                         if (index != 0) {
@@ -97,8 +117,6 @@ class ExpandableItemColumnSnapshotTest {
                             )
                         }
                     },
-                    expandable = true,
-                    itemVerticalPadding = verticalPadding,
                     onSizeChanged = onSizeChanged,
                 )
             }

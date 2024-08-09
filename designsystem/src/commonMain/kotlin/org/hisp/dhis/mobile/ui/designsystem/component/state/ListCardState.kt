@@ -44,7 +44,7 @@ fun rememberListCardState(
     shadow: Boolean = true,
     expandable: Boolean = false,
     itemVerticalPadding: Dp? = null,
-): ListCardState = remember {
+): ListCardState = remember(itemVerticalPadding, loading, additionalInfoColumnState, lastUpdated) {
     ListCardStateImpl(
         title,
         description,
