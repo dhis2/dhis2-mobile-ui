@@ -1,6 +1,7 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.Image
@@ -11,6 +12,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -18,10 +20,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.InlineTextContent
 import androidx.compose.foundation.text.appendInlineContent
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
@@ -31,6 +35,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -60,6 +65,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.conditional
+import org.hisp.dhis.mobile.ui.designsystem.component.internal.modifiers.fadingEdges
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2SCustomTextStyles
@@ -105,6 +111,7 @@ fun ListCard(
     onCardClick: () -> Unit,
     shadow: Boolean = true,
     modifier: Modifier = Modifier,
+    scrollableContent: Boolean = false,
 ) {
     val expandableItemList = mutableListOf<AdditionalInfoItem>()
     val constantItemList = mutableListOf<AdditionalInfoItem>()
@@ -134,7 +141,8 @@ fun ListCard(
                 onClick = onCardClick,
             )
             .hoverPointerIcon(true)
-            .padding(getPaddingValues(shadow, listAvatar != null)),
+            .padding(getPaddingValues(shadow, listAvatar != null))
+            .animateContentSize(),
     ) {
         listAvatar?.let {
             it.invoke()
@@ -142,7 +150,11 @@ fun ListCard(
         }
         Column(Modifier.fillMaxWidth().weight(1f)) {
             Row(horizontalArrangement = Arrangement.SpaceBetween) {
-                ListCardTitle(title = title, modifier.weight(1f).padding(bottom = if (description?.text != null) Spacing.Spacing0 else Spacing4))
+                ListCardTitle(
+                    title = title,
+                    Modifier.weight(1f)
+                        .padding(bottom = if (description?.text != null) Spacing.Spacing0 else Spacing4),
+                )
                 if (lastUpdated != null) {
                     ListCardLastUpdated(lastUpdated)
                 }
@@ -154,7 +166,6 @@ fun ListCard(
             AdditionalInfoColumn(
                 expandableItems = expandableItemList,
                 constantItems = constantItemList,
-                modifier = Modifier.testTag("LIST_CARD_ADDITIONAL_INFO_COLUMN"),
                 expandLabelText = expandLabelText,
                 shrinkLabelText = shrinkLabelText,
                 syncProgressItem = AdditionalInfoItem(
@@ -170,6 +181,7 @@ fun ListCard(
                     isConstantItem = false,
                 ),
                 loading = loading,
+                scrollableContent = scrollableContent,
             )
             actionButton?.invoke()
         }
@@ -232,7 +244,6 @@ fun CardDetail(
                 isDetailCard = true,
                 expandableItems = expandableItemList,
                 constantItems = constantItemList,
-                modifier = Modifier.testTag("LIST_CARD_ADDITIONAL_INFO_COLUMN"),
                 expandLabelText = expandLabelText,
                 shrinkLabelText = shrinkLabelText,
                 syncProgressItem = AdditionalInfoItem(
@@ -248,6 +259,7 @@ fun CardDetail(
                     isConstantItem = false,
                 ),
                 loading = showLoading,
+                scrollableContent = false,
             )
             actionButton?.invoke()
         }
@@ -279,10 +291,17 @@ fun Avatar(
                 Box(
                     modifier = modifier
                         .size(Spacing.Spacing40)
-                        .background(color = SurfaceColor.PrimaryContainer, shape = RoundedCornerShape(Radius.Full)),
+                        .background(
+                            color = SurfaceColor.PrimaryContainer,
+                            shape = RoundedCornerShape(Radius.Full),
+                        ),
                     contentAlignment = Alignment.Center,
                 ) {
-                    Text(text = textAvatar, color = SurfaceColor.Primary, style = MaterialTheme.typography.titleSmall)
+                    Text(
+                        text = textAvatar,
+                        color = SurfaceColor.Primary,
+                        style = MaterialTheme.typography.titleSmall,
+                    )
                 }
             }
         }
@@ -312,8 +331,7 @@ fun Avatar(
  *  used to display both key value lists, the constant one and the expandable one
  */
 @Composable
-private fun AdditionalInfoColumn(
-    modifier: Modifier = Modifier,
+private fun ColumnScope.AdditionalInfoColumn(
     expandableItems: List<AdditionalInfoItem>? = null,
     constantItems: List<AdditionalInfoItem>,
     syncProgressItem: AdditionalInfoItem,
@@ -321,86 +339,127 @@ private fun AdditionalInfoColumn(
     isDetailCard: Boolean = false,
     expandLabelText: String,
     shrinkLabelText: String,
+    scrollableContent: Boolean,
 ) {
     val loadingSectionState by remember(loading) { mutableStateOf(loading) }
-    var sectionState by remember(SectionState.CLOSE) { mutableStateOf(SectionState.CLOSE) }
+    var listState by remember(AdditionInfoState.CLOSED) { mutableStateOf(AdditionInfoState.CLOSED) }
 
-    var expandableItemList: List<AdditionalInfoItem>
-    var hiddenItemList: List<AdditionalInfoItem>
-    Column(
-        modifier = modifier,
+    val scrollState = rememberScrollState()
+    val scrollableModifier = Modifier.verticalScroll(scrollState)
+
+    val columnModifier by remember(listState) {
+        derivedStateOf {
+            when {
+                !scrollableContent -> Modifier
+                listState == AdditionInfoState.OPEN -> scrollableModifier.weight(1f)
+                else -> Modifier
+            }
+        }
+    }
+
+    val items = when (listState) {
+        AdditionInfoState.CLOSED -> expandableItems?.take(3)
+        AdditionInfoState.OPEN -> expandableItems
+    } ?: emptyList()
+
+    KeyValueList(
+        modifier = columnModifier
+            .fillMaxWidth()
+            .testTag("LIST_CARD_ADDITIONAL_INFO_COLUMN")
+            .conditional(
+                listState == AdditionInfoState.OPEN,
+                {
+                    fadingEdges(scrollState)
+                },
+            ),
+        itemList = items,
+        isDetailCard = isDetailCard,
+    )
+
+    AnimatedVisibility(
+        visible = loadingSectionState,
+        enter = expandVertically(expandFrom = Alignment.CenterVertically),
+        exit = shrinkVertically(shrinkTowards = Alignment.CenterVertically),
     ) {
-        if (expandableItems != null && expandableItems.size > 3) {
-            expandableItemList = expandableItems.take(3).toMutableList()
-            KeyValueList(expandableItemList, isDetailCard = isDetailCard)
-            hiddenItemList = expandableItems.drop(3).toMutableList()
+        KeyValue(syncProgressItem)
+    }
 
-            AnimatedVisibility(
-                visible = sectionState != SectionState.CLOSE,
-                enter = expandVertically(expandFrom = Alignment.CenterVertically),
-                exit = shrinkVertically(shrinkTowards = Alignment.CenterVertically),
-            ) {
-                KeyValueList(hiddenItemList, isDetailCard = isDetailCard)
-            }
-        } else {
-            expandableItems?.let {
-                KeyValueList(expandableItems, isDetailCard = isDetailCard)
-            }
-        }
-        AnimatedVisibility(
-            visible = loadingSectionState,
-            enter = expandVertically(expandFrom = Alignment.CenterVertically),
-            exit = shrinkVertically(shrinkTowards = Alignment.CenterVertically),
-        ) {
-            KeyValue(syncProgressItem)
-        }
-        KeyValueList(constantItems, isDetailCard = isDetailCard)
+    KeyValueList(
+        modifier = Modifier.testTag("LIST_CARD_ADDITIONAL_INFO_CONSTANT_COLUMN"),
+        itemList = constantItems,
+        isDetailCard = isDetailCard,
+    )
 
-        if (expandableItems != null && expandableItems.size > 3) {
-            val expandText = mutableStateOf(if (sectionState == SectionState.OPEN) shrinkLabelText else expandLabelText)
-            val interactionSource = remember { MutableInteractionSource() }
-
-            val iconVector = getIconVector(sectionState)
-            val expandTextColor = TextColor.OnSurfaceLight
-            Row(
-                Modifier
-                    .clip(RoundedCornerShape(Radius.M))
-                    .clickable(
-                        onClick = {
-                            sectionState = getSectionState(sectionState)
-                        },
-                        role = Role.Button,
-                        interactionSource = interactionSource,
-                        indication = rememberRipple(
-                            color = SurfaceColor.Primary,
-                        ),
-                    )
-                    .padding(end = Spacing.Spacing2)
-                    .offset(x = (-3).dp),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Icon(
-                    imageVector = iconVector,
-                    contentDescription = "Button",
-                    tint = expandTextColor,
-                )
-                Text(
-                    text = expandText.value,
-                    color = expandTextColor,
-                    style = MaterialTheme.typography.bodyMedium,
-                    modifier = Modifier.padding(horizontal = Spacing4),
-                )
-            }
+    if ((expandableItems?.size ?: 0) > 3) {
+        ExpandShrinkButton(listState, shrinkLabelText, expandLabelText) {
+            listState = getSectionState(listState)
         }
     }
 }
 
-fun getSectionState(sectionState: SectionState): SectionState {
-    return if (sectionState == SectionState.CLOSE) SectionState.OPEN else SectionState.CLOSE
+enum class AdditionInfoState {
+    OPEN, CLOSED;
+
+    fun getNextState(): AdditionInfoState {
+        return when (this) {
+            OPEN -> CLOSED
+            CLOSED -> OPEN
+        }
+    }
 }
 
-fun getIconVector(sectionState: SectionState): ImageVector {
-    return if (sectionState == SectionState.CLOSE) {
+@Composable
+private fun ExpandShrinkButton(
+    listState: AdditionInfoState,
+    shrinkLabelText: String,
+    expandLabelText: String,
+    onClick: () -> Unit,
+) {
+    val expandText =
+        mutableStateOf(if (listState == AdditionInfoState.OPEN) shrinkLabelText else expandLabelText)
+    val interactionSource = remember { MutableInteractionSource() }
+
+    val iconVector = getIconVector(listState)
+    val expandTextColor = TextColor.OnSurfaceLight
+    Row(
+        Modifier
+            .clip(RoundedCornerShape(Radius.M))
+            .clickable(
+                onClick = onClick,
+                role = Role.Button,
+                interactionSource = interactionSource,
+                indication = rememberRipple(
+                    color = SurfaceColor.Primary,
+                ),
+            )
+            .padding(end = Spacing.Spacing2)
+            .offset(x = (-3).dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Icon(
+            imageVector = iconVector,
+            contentDescription = "Button",
+            tint = expandTextColor,
+        )
+        Text(
+            text = expandText.value,
+            color = expandTextColor,
+            style = MaterialTheme.typography.bodyMedium,
+            modifier = Modifier.padding(horizontal = Spacing4),
+        )
+    }
+}
+
+private fun getSectionState(listState: AdditionInfoState): AdditionInfoState {
+    return if (listState == AdditionInfoState.CLOSED) {
+        AdditionInfoState.OPEN
+    } else {
+        AdditionInfoState.CLOSED
+    }
+}
+
+private fun getIconVector(listState: AdditionInfoState): ImageVector {
+    return if (listState == AdditionInfoState.CLOSED) {
         Icons.Filled.KeyboardArrowDown
     } else {
         Icons.Filled.KeyboardArrowUp
@@ -424,7 +483,11 @@ private fun KeyValue(
 }
 
 @Composable
-fun ProvideKeyValueItem(additionalInfoItem: AdditionalInfoItem, maxKeyWidth: Dp, isDetailCard: Boolean) {
+fun ProvideKeyValueItem(
+    additionalInfoItem: AdditionalInfoItem,
+    maxKeyWidth: Dp,
+    isDetailCard: Boolean,
+) {
     val keyText = additionalInfoItem.key
     val interactionSource = remember { MutableInteractionSource() }
 
@@ -432,7 +495,8 @@ fun ProvideKeyValueItem(additionalInfoItem: AdditionalInfoItem, maxKeyWidth: Dp,
 
     val keyTrimmedText = getKeyTrimmedText(keyText ?: "", maxKeyWidth, textMeasurer)
 
-    val finalAnnotatedString: AnnotatedString = getKeyValueAnnotatedString(keyTrimmedText, additionalInfoItem, isDetailCard)
+    val finalAnnotatedString: AnnotatedString =
+        getKeyValueAnnotatedString(keyTrimmedText, additionalInfoItem, isDetailCard)
 
     val inlineContent = mapOf(
         Pair(
@@ -487,7 +551,8 @@ fun getKeyValueAnnotatedString(
     isDetailCard: Boolean,
 ): AnnotatedString {
     val valueText = additionalInfoItem?.value
-    val keyStyle = DHIS2SCustomTextStyles.listCardKey.copy(color = AdditionalInfoItemColor.DEFAULT_KEY.color)
+    val keyStyle =
+        DHIS2SCustomTextStyles.listCardKey.copy(color = AdditionalInfoItemColor.DEFAULT_KEY.color)
 
     val valueColor = getValueColor(additionalInfoItem)
     val valueStyle = DHIS2SCustomTextStyles.listCardValue.copy(color = valueColor)
@@ -514,6 +579,7 @@ fun getKeyValueAnnotatedString(
         }
     }
 }
+
 fun formatText(text: String?, withSpace: Boolean): String {
     return if (withSpace) " $text" else text ?: ""
 }
@@ -530,10 +596,11 @@ fun getValueColor(additionalInfoItem: AdditionalInfoItem?): Color {
  */
 @Composable
 private fun KeyValueList(
+    modifier: Modifier = Modifier,
     itemList: List<AdditionalInfoItem>,
     isDetailCard: Boolean = false,
 ) {
-    Column {
+    Column(modifier = modifier) {
         itemList.forEach { item ->
             KeyValue(item, isDetailCard)
             Spacer(Modifier.size(if (isDetailCard) Spacing.Spacing8 else Spacing4))
