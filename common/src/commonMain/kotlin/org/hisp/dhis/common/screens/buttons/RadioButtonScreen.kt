@@ -1,22 +1,19 @@
 package org.hisp.dhis.common.screens.buttons
 
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Modifier
 import org.hisp.dhis.common.screens.previews.RadioButtonPreview
 import org.hisp.dhis.common.screens.previews.TextRadioButtonPreview
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.Orientation
 import org.hisp.dhis.mobile.ui.designsystem.component.RadioButtonBlock
 import org.hisp.dhis.mobile.ui.designsystem.component.RadioButtonData
 import org.hisp.dhis.mobile.ui.designsystem.component.RowComponentContainer
-import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
-import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
 @Composable
 fun RadioButtonScreen() {
@@ -51,42 +48,44 @@ fun RadioButtonScreen() {
         mutableStateOf(radioButtonDataItemsHorizontal[0])
     }
 
-    ColumnComponentContainer("Radio Buttons") {
-        SubTitle("Text Radio Button")
+    ColumnScreenContainer(title = ButtonScreens.RADIO.label) {
+        ColumnComponentContainer("Text Radio Button") {
+            TextRadioButtonPreview(selected == option1, true, option1) {
+                selected = option1
+            }
+            TextRadioButtonPreview(selected == option2, true, option2) {
+                selected = option2
+            }
+            TextRadioButtonPreview(selected == option3, true, option3) {
+                selected = option3
+            }
+            TextRadioButtonPreview(selected == option4, false, option4) {
+                selected = option1
+            }
+        }
 
-        TextRadioButtonPreview(selected == option1, true, option1) {
-            selected = option1
+        ColumnComponentContainer("Radio Button") {
+            Column {
+                RowComponentContainer {
+                    RadioButtonPreview(selected = true, enabled = true)
+                    RadioButtonPreview(selected = true, enabled = false)
+                }
+                RowComponentContainer {
+                    RadioButtonPreview(selected = false, enabled = true)
+                    RadioButtonPreview(selected = false, enabled = false)
+                }
+            }
         }
-        TextRadioButtonPreview(selected == option2, true, option2) {
-            selected = option2
+
+        ColumnComponentContainer("Horizontal Radio Button Block") {
+            RadioButtonBlock(Orientation.HORIZONTAL, radioButtonDataItemsHorizontal, selectedItemHorizontal) {
+                selectedItemHorizontal = it
+            }
         }
-        TextRadioButtonPreview(selected == option3, true, option3) {
-            selected = option3
-        }
-        TextRadioButtonPreview(selected == option4, false, option4) {
-            selected = option1
-        }
-        Spacer(Modifier.size(Spacing.Spacing18))
-        // RadioButton
-        SubTitle("Radio Button")
-        RowComponentContainer {
-            RadioButtonPreview(selected = true, enabled = true)
-            RadioButtonPreview(selected = true, enabled = false)
-        }
-        RowComponentContainer {
-            RadioButtonPreview(selected = false, enabled = true)
-            RadioButtonPreview(selected = false, enabled = false)
-        }
-        Spacer(Modifier.size(Spacing.Spacing18))
-        // RadioButtonBlock
-        SubTitle("Horizontal Radio Button Block")
-        RadioButtonBlock(Orientation.HORIZONTAL, radioButtonDataItemsHorizontal, selectedItemHorizontal) {
-            selectedItemHorizontal = it
-        }
-        Spacer(Modifier.size(Spacing.Spacing18))
-        SubTitle("Vertical Radio Button Block")
-        RadioButtonBlock(Orientation.VERTICAL, radioButtonDataItemsVertical, selectedItemVertical) {
-            selectedItemVertical = it
+        ColumnComponentContainer("Vertical Radio Button Block") {
+            RadioButtonBlock(Orientation.VERTICAL, radioButtonDataItemsVertical, selectedItemVertical) {
+                selectedItemVertical = it
+            }
         }
     }
 }

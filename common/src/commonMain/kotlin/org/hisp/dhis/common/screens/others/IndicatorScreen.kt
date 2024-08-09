@@ -2,12 +2,12 @@ package org.hisp.dhis.common.screens.others
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.Indicator
 
 @Composable
 fun IndicatorScreen() {
-    ColumnComponentContainer {
+    ColumnScreenContainer(title = "Indicator component") {
         Indicator(
             title = "Systolic and diastolic pressure",
             content = "120 mmHg / 80 mmHg",

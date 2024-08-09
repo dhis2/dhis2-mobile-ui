@@ -4,13 +4,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import org.hisp.dhis.common.screens.NoComponentSelectedScreen
+import org.hisp.dhis.common.screens.components.GroupComponentDropDown
 import org.hisp.dhis.mobile.ui.designsystem.component.DropdownItem
-import org.hisp.dhis.mobile.ui.designsystem.component.InputDropDown
-import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 
 @Composable
 fun ActionInputsScreen() {
-    val currentScreen = remember { mutableStateOf(ActionInputs.INPUT_AGE) }
+    val currentScreen = remember { mutableStateOf(ActionInputs.NO_COMPONENT_SELECTED) }
 
     val screenDropdownItemList = mutableListOf<DropdownItem>()
     ActionInputs.entries.forEach {
@@ -18,13 +17,11 @@ fun ActionInputsScreen() {
             screenDropdownItemList.add(DropdownItem(it.label))
         }
     }
-    InputDropDown(
-        "Display",
+    GroupComponentDropDown(
         dropdownItems = screenDropdownItemList.toList(),
         onItemSelected = { currentScreen.value = getCurrentScreen(it.label) },
         onResetButtonClicked = { currentScreen.value = ActionInputs.NO_COMPONENT_SELECTED },
         selectedItem = DropdownItem(currentScreen.value.label),
-        state = InputShellState.UNFOCUSED,
     )
     when (currentScreen.value) {
         ActionInputs.INPUT_QR_CODE -> InputQRCodeScreen()
@@ -46,20 +43,20 @@ fun ActionInputsScreen() {
 }
 
 enum class ActionInputs(val label: String) {
-    LOGIN("Login"),
-    INPUT_AGE("Input Age"),
-    INPUT_BARCODE("Input Barcode"),
-    INPUT_COORDINATE("Input Coordinate"),
-    INPUT_DATE_TIME("Input Date Time"),
-    INPUT_EMAIL("Input Email"),
-    INPUT_FILE_RESOURCE("Input File Resource"),
-    INPUT_IMAGE("Input Image"),
-    INPUT_LINK("Input Link"),
-    INPUT_ORG_UNIT("Input Org. Unit"),
-    INPUT_PHONE_NUMBER("Input Phone Number"),
-    INPUT_POLYGON("Input Polygon"),
-    INPUT_QR_CODE("Input QR code"),
-    INPUT_SIGNATURE("Input Signature"),
+    LOGIN("Login component"),
+    INPUT_AGE("Input Age component"),
+    INPUT_BARCODE("Input Barcode component"),
+    INPUT_COORDINATE("Input Coordinate component"),
+    INPUT_DATE_TIME("Input Date Time component"),
+    INPUT_EMAIL("Input Email component"),
+    INPUT_FILE_RESOURCE("Input File Resource component"),
+    INPUT_IMAGE("Input Image component"),
+    INPUT_LINK("Input Link component"),
+    INPUT_ORG_UNIT("Input Org. Unit component"),
+    INPUT_PHONE_NUMBER("Input Phone Number component"),
+    INPUT_POLYGON("Input Polygon component"),
+    INPUT_QR_CODE("Input QR code component"),
+    INPUT_SIGNATURE("Input Signature component"),
     NO_COMPONENT_SELECTED("No component selected"),
 }
 

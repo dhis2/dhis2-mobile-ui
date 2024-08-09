@@ -4,13 +4,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import org.hisp.dhis.common.screens.NoComponentSelectedScreen
+import org.hisp.dhis.common.screens.components.GroupComponentDropDown
 import org.hisp.dhis.mobile.ui.designsystem.component.DropdownItem
-import org.hisp.dhis.mobile.ui.designsystem.component.InputDropDown
-import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 
 @Composable
 fun BasicTextInputsScreen() {
-    val currentScreen = remember { mutableStateOf(BasicTextInputs.INPUT_TEXT) }
+    val currentScreen = remember { mutableStateOf(BasicTextInputs.NO_COMPONENT_SELECTED) }
 
     val screenDropdownItemList = mutableListOf<DropdownItem>()
     BasicTextInputs.entries.forEach {
@@ -18,13 +17,11 @@ fun BasicTextInputsScreen() {
             screenDropdownItemList.add(DropdownItem(it.label))
         }
     }
-    InputDropDown(
-        "Display",
+    GroupComponentDropDown(
         dropdownItems = screenDropdownItemList.toList(),
         onItemSelected = { currentScreen.value = getCurrentScreen(it.label) },
         onResetButtonClicked = { currentScreen.value = BasicTextInputs.NO_COMPONENT_SELECTED },
         selectedItem = DropdownItem(currentScreen.value.label),
-        state = InputShellState.UNFOCUSED,
     )
     when (currentScreen.value) {
         BasicTextInputs.FORM_SHELLS -> FormShellsScreen()
@@ -45,19 +42,19 @@ fun BasicTextInputsScreen() {
 }
 
 enum class BasicTextInputs(val label: String) {
-    FORM_SHELLS("Form Shells"),
-    INPUT_INTEGER("Input Integer"),
-    INPUT_LETTER("Input Letter"),
-    INPUT_LONG_TEXT("Input Long Text"),
-    INPUT_NEGATIVE_INTEGER("Input Negative Integer"),
-    INPUT_NOT_SUPPORTED("Input Not Supported"),
-    INPUT_NUMBER("Input Number"),
-    INPUT_PERCENTAGE("Input Percentage"),
-    INPUT_POSITIVE_INTEGER("Input Positive Integer"),
-    INPUT_POSITIVE_INTEGER_OR_ZERO("Input Positive Integer Or Zero"),
-    INPUT_TEXT("Input Text"),
-    INPUT_UNIT_INTERVAL("Input Unit Interval"),
-    SUPPORTING_TEXT("Supporting text"),
+    FORM_SHELLS("Form Shells component"),
+    INPUT_INTEGER("Input Integer component"),
+    INPUT_LETTER("Input Letter component"),
+    INPUT_LONG_TEXT("Input Long Text component"),
+    INPUT_NEGATIVE_INTEGER("Input Negative Integer component"),
+    INPUT_NOT_SUPPORTED("Input Not Supported component"),
+    INPUT_NUMBER("Input Number component"),
+    INPUT_PERCENTAGE("Input Percentage component"),
+    INPUT_POSITIVE_INTEGER("Input Positive Integer component"),
+    INPUT_POSITIVE_INTEGER_OR_ZERO("Input Positive or Zero Integer component"),
+    INPUT_TEXT("Input Text component"),
+    INPUT_UNIT_INTERVAL("Input Unit Interval component"),
+    SUPPORTING_TEXT("Supporting Text component"),
     NO_COMPONENT_SELECTED("No component selected"),
 }
 

@@ -1,7 +1,5 @@
 package org.hisp.dhis.common.screens.bottomSheets
 
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -9,7 +7,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Modifier
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,10 +20,9 @@ import org.hisp.dhis.common.screens.previews.lorem_short
 import org.hisp.dhis.mobile.ui.designsystem.component.Button
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.OrgBottomSheet
 import org.hisp.dhis.mobile.ui.designsystem.component.OrgTreeItem
-import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
-import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
 @Composable
 fun OrgTreeBottomSheetScreen() {
@@ -119,50 +115,50 @@ fun OrgTreeBottomSheetScreen() {
         )
     }
 
-    ColumnComponentContainer {
-        SubTitle("Org Tree Bottom Sheet")
-        Button(
-            enabled = true,
-            ButtonStyle.FILLED,
-            text = "Show One Org Tree Bottom Sheet",
-        ) {
-            showOneOrgTreeBottomSheet = !showOneOrgTreeBottomSheet
+    ColumnScreenContainer(title = BottomSheets.ORG_TREE_BOTTOM_SHEET.label) {
+        ColumnComponentContainer("Org Tree Bottom Sheet with single item") {
+            Button(
+                enabled = true,
+                ButtonStyle.FILLED,
+                text = "Show One Org Tree Bottom Sheet",
+            ) {
+                showOneOrgTreeBottomSheet = !showOneOrgTreeBottomSheet
+            }
         }
-        Spacer(modifier = Modifier.size(Spacing.Spacing10))
 
-        SubTitle("Org Tree Bottom Sheet")
-        Button(
-            enabled = true,
-            ButtonStyle.FILLED,
-            text = "Show Two Org Tree Bottom Sheet",
-        ) {
-            showTwoOrgTreeBottomSheet = !showTwoOrgTreeBottomSheet
+        ColumnComponentContainer("Org Tree Bottom Sheet with multiple items") {
+            Button(
+                enabled = true,
+                ButtonStyle.FILLED,
+                text = "Show Two Org Tree Bottom Sheet",
+            ) {
+                showTwoOrgTreeBottomSheet = !showTwoOrgTreeBottomSheet
+            }
         }
-        Spacer(modifier = Modifier.size(Spacing.Spacing10))
 
-        SubTitle("Org Tree Bottom Sheet")
-        Button(
-            enabled = true,
-            ButtonStyle.FILLED,
-            text = "Show Org Tree Bottom Sheet",
-        ) {
-            showMediumOrgTreeBottomSheet = !showMediumOrgTreeBottomSheet
+        ColumnComponentContainer("Org Tree Bottom Sheet with medium items") {
+            Button(
+                enabled = true,
+                ButtonStyle.FILLED,
+                text = "Show Org Tree Bottom Sheet",
+            ) {
+                showMediumOrgTreeBottomSheet = !showMediumOrgTreeBottomSheet
+            }
         }
-        Spacer(modifier = Modifier.size(Spacing.Spacing10))
 
-        SubTitle("Org Tree Bottom Sheet")
-        Button(
-            enabled = true,
-            ButtonStyle.FILLED,
-            text = "Show Large Org Tree Bottom Sheet",
-        ) {
-            showLargeOrgTreeBottomSheet = !showLargeOrgTreeBottomSheet
+        ColumnComponentContainer("Org Tree Bottom Sheet with large items") {
+            Button(
+                enabled = true,
+                ButtonStyle.FILLED,
+                text = "Show Large Org Tree Bottom Sheet",
+            ) {
+                showLargeOrgTreeBottomSheet = !showLargeOrgTreeBottomSheet
+            }
         }
     }
 }
 
 private class OrgTreeItemsFakeRepo {
-
     private val originalOrgTreeItems = listOf(
         OrgTreeItem(
             uid = "12",

@@ -1,23 +1,19 @@
 package org.hisp.dhis.common.screens.buttons
 
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Modifier
 import org.hisp.dhis.common.screens.previews.CheckboxPreview
 import org.hisp.dhis.common.screens.previews.TextCheckboxPreview
 import org.hisp.dhis.mobile.ui.designsystem.component.CheckBoxBlock
 import org.hisp.dhis.mobile.ui.designsystem.component.CheckBoxData
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.Orientation
-import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
-import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
 @Composable
 fun CheckboxScreen() {
@@ -54,57 +50,50 @@ fun CheckboxScreen() {
         )
     }
 
-    ColumnComponentContainer(
-        title = "CheckBox",
+    ColumnScreenContainer(
+        title = ButtonScreens.CHECK_BOX.label,
         content = {
-            SubTitle(
-                text = "Text Check Box",
-            )
-            TextCheckboxPreview(state1, true, option1) {
-                state1 = it
+            ColumnComponentContainer("Text Check Box") {
+                TextCheckboxPreview(state1, true, option1) {
+                    state1 = it
+                }
+                TextCheckboxPreview(state2, true, option2) { state2 = it }
+                TextCheckboxPreview(state3, false, option3) { state3 = it }
+                TextCheckboxPreview(state4, enabled = false, text = option4) { state4 = it }
             }
-            TextCheckboxPreview(state2, true, option2) { state2 = it }
-            TextCheckboxPreview(state3, false, option3) { state3 = it }
-            TextCheckboxPreview(state4, enabled = false, text = option4) { state4 = it }
-            Spacer(Modifier.size(Spacing.Spacing18))
 
-            SubTitle(
-                text = "Simple Check Box",
-            )
-            Row {
-                CheckboxPreview(state5, enabled = true) { state5 = it }
-                CheckboxPreview(state6, enabled = false) { state6 = it }
+            ColumnComponentContainer("Simple Check Box") {
+                Row {
+                    CheckboxPreview(state5, enabled = true) { state5 = it }
+                    CheckboxPreview(state6, enabled = false) { state6 = it }
+                }
+                Row {
+                    CheckboxPreview(state7, enabled = true) { state7 = it }
+                    CheckboxPreview(state8, enabled = false) { state8 = it }
+                }
             }
-            Row {
-                CheckboxPreview(state7, enabled = true) { state7 = it }
-                CheckboxPreview(state8, enabled = false) { state8 = it }
+
+            ColumnComponentContainer("Horizontal Check Box Block") {
+                CheckBoxBlock(
+                    Orientation.HORIZONTAL,
+                    checkBoxesStatesHorizontal,
+                    onItemChange = { checkBoxData ->
+                        val index = checkBoxesStatesHorizontal.withIndex().first { it.value.uid == checkBoxData.uid }.index
+                        checkBoxesStatesHorizontal[index] = checkBoxData.copy(checked = !checkBoxData.checked)
+                    },
+                )
             }
-            Spacer(Modifier.size(Spacing.Spacing18))
 
-            SubTitle(
-                text = "Horizontal Check Box Block",
-            )
-            CheckBoxBlock(
-                Orientation.HORIZONTAL,
-                checkBoxesStatesHorizontal,
-                onItemChange = { checkBoxData ->
-                    val index = checkBoxesStatesHorizontal.withIndex().first { it.value.uid == checkBoxData.uid }.index
-                    checkBoxesStatesHorizontal[index] = checkBoxData.copy(checked = !checkBoxData.checked)
-                },
-            )
-            Spacer(Modifier.size(Spacing.Spacing18))
-
-            SubTitle(
-                text = "Vertical Check Box Block",
-            )
-            CheckBoxBlock(
-                Orientation.VERTICAL,
-                checkBoxesStatesVertical,
-                onItemChange = { checkBoxData ->
-                    val index = checkBoxesStatesVertical.withIndex().first { it.value.uid == checkBoxData.uid }.index
-                    checkBoxesStatesVertical[index] = checkBoxData.copy(checked = !checkBoxData.checked)
-                },
-            )
+            ColumnComponentContainer("Vertical Check Box Block") {
+                CheckBoxBlock(
+                    Orientation.VERTICAL,
+                    checkBoxesStatesVertical,
+                    onItemChange = { checkBoxData ->
+                        val index = checkBoxesStatesVertical.withIndex().first { it.value.uid == checkBoxData.uid }.index
+                        checkBoxesStatesVertical[index] = checkBoxData.copy(checked = !checkBoxData.checked)
+                    },
+                )
+            }
         },
     )
 }

@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import org.hisp.dhis.mobile.ui.designsystem.component.Button
-import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InputRadioButton
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.Orientation
@@ -81,7 +81,7 @@ class InputRadioButtonSnapshotTest {
             }
             var showSupportingText by remember { mutableStateOf(false) }
             val focusRequester = remember { FocusRequester() }
-            ColumnComponentContainer("Radio Buttons") {
+            ColumnScreenContainer("Radio Buttons") {
                 LaunchedEffect(Unit) {
                     focusRequester.requestFocus()
                 }

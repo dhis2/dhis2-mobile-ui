@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import org.hisp.dhis.mobile.ui.designsystem.component.CheckBoxData
-import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InputCheckBox
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.Orientation
@@ -73,7 +73,7 @@ class InputCheckboxSnapshotTest {
                 focusRequester.requestFocus()
             }
 
-            ColumnComponentContainer("Checkboxes") {
+            ColumnScreenContainer("Checkboxes") {
                 SubTitle("Vertical")
                 InputCheckBox(
                     modifier = Modifier.focusRequester(focusRequester),

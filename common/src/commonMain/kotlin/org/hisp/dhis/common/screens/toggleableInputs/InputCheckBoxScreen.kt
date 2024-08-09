@@ -1,18 +1,14 @@
 package org.hisp.dhis.common.screens.toggleableInputs
 
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Modifier
 import org.hisp.dhis.mobile.ui.designsystem.component.CheckBoxData
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InputCheckBox
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.Orientation
-import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
-import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
 @Composable
 fun InputCheckBoxScreen() {
@@ -58,49 +54,52 @@ fun InputCheckBoxScreen() {
         )
     }
 
-    ColumnComponentContainer("Checkboxes") {
-        SubTitle("Vertical")
-        InputCheckBox(
-            title = "Label",
-            checkBoxData = checkBoxDataItemsVertical,
-            onItemChange = { checkBoxData ->
-                val index = checkBoxDataItemsVertical.withIndex().first { it.value.uid == checkBoxData.uid }.index
-                checkBoxDataItemsVertical[index] = checkBoxData.copy(checked = !checkBoxData.checked)
-            },
-            onClearSelection = { checkBoxDataItemsVertical.replaceAll { it.copy(checked = false) } },
-            state = InputShellState.UNFOCUSED,
-        )
-        Spacer(Modifier.size(Spacing.Spacing18))
-        InputCheckBox(
-            title = "Label",
-            checkBoxData = checkBoxDataItemsError,
-            state = InputShellState.ERROR,
-            onItemChange = { checkBoxData ->
-                val index = checkBoxDataItemsError.withIndex().first { it.value.uid == checkBoxData.uid }.index
-                checkBoxDataItemsError[index] = checkBoxData.copy(checked = !checkBoxData.checked)
-            },
-            onClearSelection = { checkBoxDataItemsError.replaceAll { it.copy(checked = false) } },
-        )
-        Spacer(Modifier.size(Spacing.Spacing18))
-        InputCheckBox(
-            title = "Label",
-            checkBoxData = checkBoxDataItemsDisabled,
-            state = InputShellState.DISABLED,
-            onItemChange = { },
-            onClearSelection = { },
-        )
-        Spacer(Modifier.size(Spacing.Spacing18))
-        SubTitle("Horizontal")
-        InputCheckBox(
-            title = "Label",
-            checkBoxData = checkBoxDataItemsHorizontal,
-            orientation = Orientation.HORIZONTAL,
-            onItemChange = { checkBoxData ->
-                val index = checkBoxDataItemsHorizontal.withIndex().first { it.value.uid == checkBoxData.uid }.index
-                checkBoxDataItemsHorizontal[index] = checkBoxData.copy(checked = !checkBoxData.checked)
-            },
-            onClearSelection = { checkBoxDataItemsHorizontal.replaceAll { it.copy(checked = false) } },
-            state = InputShellState.UNFOCUSED,
-        )
+    ColumnScreenContainer(ToggleableInputs.INPUT_CHECK_BOX.label) {
+        ColumnComponentContainer("Basic state with vertical orientation") {
+            InputCheckBox(
+                title = "Label",
+                checkBoxData = checkBoxDataItemsVertical,
+                onItemChange = { checkBoxData ->
+                    val index = checkBoxDataItemsVertical.withIndex().first { it.value.uid == checkBoxData.uid }.index
+                    checkBoxDataItemsVertical[index] = checkBoxData.copy(checked = !checkBoxData.checked)
+                },
+                onClearSelection = { checkBoxDataItemsVertical.replaceAll { it.copy(checked = false) } },
+                state = InputShellState.UNFOCUSED,
+            )
+        }
+        ColumnComponentContainer("Error state with vertical orientation") {
+            InputCheckBox(
+                title = "Label",
+                checkBoxData = checkBoxDataItemsError,
+                state = InputShellState.ERROR,
+                onItemChange = { checkBoxData ->
+                    val index = checkBoxDataItemsError.withIndex().first { it.value.uid == checkBoxData.uid }.index
+                    checkBoxDataItemsError[index] = checkBoxData.copy(checked = !checkBoxData.checked)
+                },
+                onClearSelection = { checkBoxDataItemsError.replaceAll { it.copy(checked = false) } },
+            )
+        }
+        ColumnComponentContainer("Disabled state with vertical orientation") {
+            InputCheckBox(
+                title = "Label",
+                checkBoxData = checkBoxDataItemsDisabled,
+                state = InputShellState.DISABLED,
+                onItemChange = { },
+                onClearSelection = { },
+            )
+        }
+        ColumnComponentContainer("Basic state with horizontal orientation") {
+            InputCheckBox(
+                title = "Label",
+                checkBoxData = checkBoxDataItemsHorizontal,
+                orientation = Orientation.HORIZONTAL,
+                onItemChange = { checkBoxData ->
+                    val index = checkBoxDataItemsHorizontal.withIndex().first { it.value.uid == checkBoxData.uid }.index
+                    checkBoxDataItemsHorizontal[index] = checkBoxData.copy(checked = !checkBoxData.checked)
+                },
+                onClearSelection = { checkBoxDataItemsHorizontal.replaceAll { it.copy(checked = false) } },
+                state = InputShellState.UNFOCUSED,
+            )
+        }
     }
 }
