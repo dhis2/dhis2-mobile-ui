@@ -466,7 +466,7 @@ fun ListCardScreen(horizontal: Boolean) {
                     title = ListCardTitleModel(
                         text = "Scheduled for 09/18/2021",
                         style = eventsInTeiDashboardTitleStyle,
-                        color = TextColor.OnSurface
+                        color = TextColor.OnSurface,
                     ),
                     additionalInfoList = listOf(
                         AdditionalInfoItem(
@@ -490,7 +490,7 @@ fun ListCardScreen(horizontal: Boolean) {
                     title = ListCardTitleModel(
                         text = "09/18/2021",
                         style = eventsInTeiDashboardTitleStyle,
-                        color = TextColor.OnSurface
+                        color = TextColor.OnSurface,
                     ),
                     description = ListCardDescriptionModel(text = "Treatment visits"),
                     additionalInfoList = listOf(
@@ -509,7 +509,7 @@ fun ListCardScreen(horizontal: Boolean) {
                         AdditionalInfoItem(key = "Drug resistance", value = "Monoresistance"),
                         AdditionalInfoItem(
                             key = "treatment",
-                            value = "Initial regiment- first-line drugs"
+                            value = "Initial regiment- first-line drugs",
                         ),
                     ),
 
@@ -535,7 +535,7 @@ fun ListCardScreen(horizontal: Boolean) {
                     title = ListCardTitleModel(
                         text = "Scheduled for 09/18/2021",
                         style = eventsInTeiDashboardTitleStyle,
-                        color = TextColor.OnSurface
+                        color = TextColor.OnSurface,
                     ),
                     additionalInfoList = listOf(
                         AdditionalInfoItem(
@@ -553,7 +553,7 @@ fun ListCardScreen(horizontal: Boolean) {
                         AdditionalInfoItem(key = "Drug resistance", value = "Monoresistance"),
                         AdditionalInfoItem(
                             key = "treatment",
-                            value = "Initial regiment- first-line drugs"
+                            value = "Initial regiment- first-line drugs",
                         ),
                     ),
                     onCardClick = {},
