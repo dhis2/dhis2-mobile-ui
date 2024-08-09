@@ -25,14 +25,16 @@ fun CardsScreen() {
     )
     when (currentScreen.value) {
         Cards.CARD_DETAIL -> CardDetailScreen()
-        Cards.LIST_CARD -> ListCardScreen()
+        Cards.LIST_CARD -> ListCardScreen(false)
+        Cards.LIST_CARD_HORIZONTAL -> ListCardScreen(true)
         Cards.NO_COMPONENT_SELECTED -> NoComponentSelectedScreen()
     }
 }
 
 enum class Cards(val label: String) {
     CARD_DETAIL("Card Detail"),
-    LIST_CARD("List Card"),
+    LIST_CARD("Vertical List Card"),
+    LIST_CARD_HORIZONTAL("Horizontal List Cards"),
     NO_COMPONENT_SELECTED("No component selected"),
 }
 

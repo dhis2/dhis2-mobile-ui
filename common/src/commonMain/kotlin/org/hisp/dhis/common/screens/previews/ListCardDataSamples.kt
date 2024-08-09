@@ -125,3 +125,9 @@ val fullItemList = listOf(
         isConstantItem = true,
     ),
 )
+
+val largeItemList = buildList {
+    repeat(10) {
+        addAll(basicAdditionalItemList)
+    }
+}
