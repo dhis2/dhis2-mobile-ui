@@ -17,5 +17,6 @@ enum class Groups(val label: String) {
     METADATA_AVATAR("Metadata Avatar"),
     INDICATOR("Indicators"),
     PARAMETER_SELECTOR("Parameter selector"),
+    NAVIGATION_BAR("Navigation Bar"),
     NO_GROUP_SELECTED("No group selected"),
 }
