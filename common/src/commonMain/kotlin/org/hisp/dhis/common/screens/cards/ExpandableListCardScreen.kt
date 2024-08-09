@@ -20,6 +20,8 @@ import org.hisp.dhis.mobile.ui.designsystem.component.ListCardTitleModel
 import org.hisp.dhis.mobile.ui.designsystem.component.MetadataAvatarSize
 import org.hisp.dhis.mobile.ui.designsystem.component.VerticalInfoListCard
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.ImageCardData
+import org.hisp.dhis.mobile.ui.designsystem.component.state.rememberAdditionalInfoColumnState
+import org.hisp.dhis.mobile.ui.designsystem.component.state.rememberListCardState
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
@@ -31,7 +33,60 @@ fun ExpandableListCardScreen() {
         itemList = items,
     ) { item, verticalPadding, onSizeChanged ->
         val index = items.indexOf(item)
+        val additionalInfoList = buildList {
+            if (index != 0) {
+                add(
+                    AdditionalInfoItem(
+                        icon = {
+                            Icon(
+                                imageVector = Icons.Outlined.SyncDisabled,
+                                contentDescription = "Sync disabled",
+                                tint = TextColor.OnSurfaceLight,
+                            )
+                        },
+                        value = "Not synced",
+                        color = TextColor.OnSurfaceLight,
+                    ),
+                )
+            }
+            add(
+                AdditionalInfoItem(
+                    value = lorem_medium,
+                    color = TextColor.OnSurfaceLight,
+                ),
+            )
+        }
         VerticalInfoListCard(
+            listCardState = rememberListCardState(
+                title = ListCardTitleModel(text = item),
+                description = ListCardDescriptionModel(text = "200 patients"),
+                lastUpdated = "12 min",
+                additionalInfoColumnState = rememberAdditionalInfoColumnState(
+                    additionalInfoList = additionalInfoList,
+                    syncProgressItem = AdditionalInfoItem(
+                        icon = {
+                            Icon(
+                                imageVector = Icons.Outlined.Sync,
+                                contentDescription = "Icon Button",
+                                tint = SurfaceColor.Primary,
+                            )
+                        },
+                        value = "Syncing...",
+                        color = SurfaceColor.Primary,
+                        isConstantItem = false,
+                    ),
+                    shrinkLabelText = "Hide description",
+                    expandLabelText = "Show description",
+                    minItemsToShow = when(additionalInfoList.size){
+                        1 -> 0
+                        else -> 1
+                    }
+                ),
+                loading = false,
+                shadow = true,
+                expandable = true,
+                itemVerticalPadding = verticalPadding,
+            ),
             listAvatar = {
                 Avatar(
                     style = AvatarStyleData.Metadata(
@@ -46,35 +101,6 @@ fun ExpandableListCardScreen() {
                     ),
                 )
             },
-            title = ListCardTitleModel(text = item),
-            lastUpdated = "12 min",
-            description = ListCardDescriptionModel(text = "200 patients"),
-            additionalInfoList = buildList {
-                if (index != 0) {
-                    add(
-                        AdditionalInfoItem(
-                            icon = {
-                                Icon(
-                                    imageVector = Icons.Outlined.SyncDisabled,
-                                    contentDescription = "Sync disabled",
-                                    tint = TextColor.OnSurfaceLight,
-                                )
-                            },
-                            value = "Not synced",
-                            color = TextColor.OnSurfaceLight,
-                        ),
-                    )
-                }
-                add(
-                    AdditionalInfoItem(
-                        value = lorem_medium,
-                        color = TextColor.OnSurfaceLight,
-                    ),
-                )
-            },
-            loading = false,
-            expandLabelText = "Show description",
-            shrinkLabelText = "Hide description",
             onCardClick = {},
             actionButton = {
                 if (index != 0) {
@@ -93,8 +119,6 @@ fun ExpandableListCardScreen() {
                     )
                 }
             },
-            expandable = true,
-            itemVerticalPadding = verticalPadding,
             onSizeChanged = onSizeChanged,
         )
     }

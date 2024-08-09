@@ -28,7 +28,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -52,6 +51,10 @@ import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.conditional
+import org.hisp.dhis.mobile.ui.designsystem.component.state.AdditionalInfoColumnState
+import org.hisp.dhis.mobile.ui.designsystem.component.state.ListCardState
+import org.hisp.dhis.mobile.ui.designsystem.component.state.rememberAdditionalInfoColumnState
+import org.hisp.dhis.mobile.ui.designsystem.component.state.rememberListCardState
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2SCustomTextStyles
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
@@ -64,23 +67,60 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 /**
  * DHIS2 ListCard.
  * Component intended for TEI/Event/DataSet card display.
+ * @param modifier: allows a modifier to be passed externally.
+ * @param listCardState: state containing all configurations for the card
  * @param listAvatar: composable element to be used as avatar.
- * @param title: is the card title.
- * @param description: the text to be used in description.
- * @param lastUpdated: shows the last time item was synchronized.
- * @param additionalInfoList: is a list of AdditionalInfoItem that
- * manages all the key value types that will be shown
- * if there are more than three items that are not constant
- * a show more/less button will appear and the rest of items will be hidden.
- * @param expandLabelText: the text to be shown for expand button.
- * @param shrinkLabelText: the text to be shown for shrink button.
  * @param actionButton: composable parameter for the sync button.
  * @param onCardClick: gives access to click event on the main container.
- * @param loading: controls visibility of the loading item.
- * @param shadow: whether to show a shadow or not.
- * @param modifier: allows a modifier to be passed externally.
  */
 @Composable
+fun ListCard(
+    modifier: Modifier = Modifier,
+    listCardState: ListCardState,
+    listAvatar: (@Composable () -> Unit)? = null,
+    actionButton: @Composable (() -> Unit)? = null,
+    onCardClick: () -> Unit,
+    onSizeChanged: ((IntSize) -> Unit)? = null,
+) {
+    BaseCard(
+        modifier = modifier,
+        showShadow = listCardState.shadow,
+        onCardClick = onCardClick,
+        expandable = listCardState.expandable,
+        itemVerticalPadding = listCardState.itemVerticalPadding,
+        onSizeChanged = onSizeChanged,
+        paddingValues = getPaddingValues(
+            expandable = listCardState.expandable,
+            hasShadow = listCardState.shadow,
+            hasAvatar = listAvatar != null,
+        ),
+    ) {
+        Row(horizontalArrangement = spacedBy(Spacing.Spacing16)) {
+            listAvatar?.invoke()
+            Column(Modifier.fillMaxWidth().weight(1f)) {
+                Row(horizontalArrangement = Arrangement.SpaceBetween) {
+                    ListCardTitle(
+                        title = listCardState.title,
+                        modifier.weight(1f)
+                            .padding(bottom = if (listCardState.description?.text != null) Spacing.Spacing0 else Spacing4),
+                    )
+                    listCardState.lastUpdateBasedOnLoading()?.let { ListCardLastUpdated(it) }
+                }
+                listCardState.descriptionBasedOnLoading()?.let { ListCardDescription(it, Modifier) }
+
+                AdditionalInfoColumn(
+                    additionalInfoColumnState = listCardState.additionalInfoColumnState,
+                    modifier = Modifier.testTag("LIST_CARD_ADDITIONAL_INFO_COLUMN"),
+                    loading = listCardState.loading,
+                )
+                actionButton?.invoke()
+            }
+        }
+    }
+}
+
+@Composable
+@Deprecated("Use rememberListCardState constructor")
 fun ListCard(
     listAvatar: (@Composable () -> Unit)? = null,
     title: ListCardTitleModel,
@@ -96,127 +136,79 @@ fun ListCard(
     modifier: Modifier = Modifier,
     expandable: Boolean = false,
     itemVerticalPadding: Dp? = null,
+    minItemsToShow: Int = 3,
     onSizeChanged: ((IntSize) -> Unit)? = null,
 ) {
-    val expandableItemList = mutableListOf<AdditionalInfoItem>()
-    val constantItemList = mutableListOf<AdditionalInfoItem>()
-
-    additionalInfoList.forEach { item ->
-        if (item.isConstantItem) {
-            constantItemList.add(item)
-        } else {
-            expandableItemList.add(item)
-        }
-    }
-
-    BaseCard(
-        modifier = modifier,
-        showShadow = shadow,
-        onCardClick = onCardClick,
-        expandable = expandable,
-        itemVerticalPadding = itemVerticalPadding,
-        onSizeChanged = onSizeChanged,
-        paddingValues = getPaddingValues(expandable, shadow, listAvatar != null),
-    ) {
-        listAvatar?.let {
-            it.invoke()
-            Spacer(Modifier.size(Spacing.Spacing16))
-        }
-        Column(Modifier.fillMaxWidth()) {
-            Row(horizontalArrangement = Arrangement.SpaceBetween) {
-                ListCardTitle(
-                    title = title,
-                    modifier.weight(1f)
-                        .padding(bottom = if (description?.text != null) Spacing.Spacing0 else Spacing4),
-                )
-                if (lastUpdated != null) {
-                    ListCardLastUpdated(lastUpdated)
-                }
-            }
-            description?.let {
-                ListCardDescription(it, Modifier)
-            }
-
-            AdditionalInfoColumn(
-                expandableItems = expandableItemList,
-                constantItems = constantItemList,
-                modifier = Modifier.testTag("LIST_CARD_ADDITIONAL_INFO_COLUMN"),
-                expandLabelText = expandLabelText,
-                shrinkLabelText = shrinkLabelText,
-                syncProgressItem = AdditionalInfoItem(
-                    icon = {
-                        Icon(
-                            imageVector = Icons.Outlined.Sync,
-                            contentDescription = "Icon Button",
-                            tint = SurfaceColor.Primary,
-                        )
-                    },
-                    value = "Syncing...",
-                    color = SurfaceColor.Primary,
-                    isConstantItem = false,
-                ),
-                loading = loading,
+    val syncProgressItem = AdditionalInfoItem(
+        icon = {
+            Icon(
+                imageVector = Icons.Outlined.Sync,
+                contentDescription = "Icon Button",
+                tint = SurfaceColor.Primary,
             )
-            actionButton?.invoke()
-        }
-    }
+        },
+        value = "Syncing...",
+        color = SurfaceColor.Primary,
+        isConstantItem = false,
+    )
+
+    val additionalInfoColumnState = rememberAdditionalInfoColumnState(
+        additionalInfoList,
+        syncProgressItem,
+        expandLabelText,
+        shrinkLabelText,
+        minItemsToShow,
+    )
+    val listCardState = rememberListCardState(
+        title,
+        description,
+        lastUpdated,
+        additionalInfoColumnState,
+        loading,
+        shadow,
+        expandable,
+        itemVerticalPadding,
+    )
+
+    ListCard(
+        modifier = modifier,
+        listCardState = listCardState,
+        listAvatar = listAvatar,
+        actionButton = actionButton,
+        onCardClick = onCardClick,
+        onSizeChanged = onSizeChanged,
+    )
 }
 
 /**
  * DHIS2 VerticalListCard.
  * Component intended for Program/DataSet card display.
+ * @param modifier: allows a modifier to be passed externally.
+ * @param listCardState: state containing all configurations for the card
  * @param listAvatar: composable element to be used as avatar.
- * @param title: is the card title.
- * @param description: the text to be used in description.
- * @param lastUpdated: shows the last time item was synchronized.
- * @param additionalInfoList: is a list of AdditionalInfoItem that
- * manages all the key value types that will be shown
- * if there are more than three items that are not constant
- * a show more/less button will appear and the rest of items will be hidden.
- * @param expandLabelText: the text to be shown for expand button.
- * @param shrinkLabelText: the text to be shown for shrink button.
  * @param actionButton: composable parameter for the sync button.
  * @param onCardClick: gives access to click event on the main container.
- * @param loading: controls visibility of the loading item.
- * @param shadow: whether to show a shadow or not.
- * @param modifier: allows a modifier to be passed externally.
  */
 @Composable
 fun VerticalInfoListCard(
-    listAvatar: (@Composable () -> Unit)? = null,
-    title: ListCardTitleModel,
-    description: ListCardDescriptionModel? = null,
-    lastUpdated: String? = null,
-    additionalInfoList: List<AdditionalInfoItem>,
-    actionButton: @Composable (() -> Unit)? = null,
-    expandLabelText: String = provideStringResource("show_more"),
-    shrinkLabelText: String = provideStringResource("show_less"),
-    loading: Boolean = false,
-    onCardClick: () -> Unit,
-    shadow: Boolean = true,
     modifier: Modifier = Modifier,
-    expandable: Boolean = false,
-    itemVerticalPadding: Dp? = null,
+    listCardState: ListCardState,
+    listAvatar: (@Composable () -> Unit)? = null,
+    actionButton: @Composable (() -> Unit)? = null,
+    onCardClick: () -> Unit,
     onSizeChanged: ((IntSize) -> Unit)? = null,
 ) {
-    val expandableItemList = mutableListOf<AdditionalInfoItem>()
-    val constantItemList = mutableListOf<AdditionalInfoItem>()
-
-    additionalInfoList.takeIf { !loading }?.forEach { item ->
-        if (item.isConstantItem) {
-            constantItemList.add(item)
-        } else {
-            expandableItemList.add(item)
-        }
-    }
-
     BaseCard(
         modifier = modifier,
-        showShadow = shadow,
+        showShadow = listCardState.shadow,
         onCardClick = onCardClick,
-        paddingValues = getPaddingValues(expandable, shadow, listAvatar != null),
-        expandable = expandable,
-        itemVerticalPadding = itemVerticalPadding,
+        paddingValues = getPaddingValues(
+            listCardState.expandable,
+            hasShadow = listCardState.shadow,
+            hasAvatar = listAvatar != null,
+        ),
+        expandable = listCardState.expandable,
+        itemVerticalPadding = listCardState.itemVerticalPadding,
         onSizeChanged = onSizeChanged,
     ) {
         Column(
@@ -231,41 +223,24 @@ fun VerticalInfoListCard(
                 verticalArrangement = spacedBy(Spacing.Spacing4),
             ) {
                 ListCardTitle(
-                    title = title,
+                    title = listCardState.title,
                     Modifier
-                        .padding(bottom = if (description?.text != null) Spacing.Spacing0 else Spacing4),
+                        .padding(bottom = if (listCardState.description?.text != null) Spacing.Spacing0 else Spacing4),
                 )
-                description?.takeIf { !loading }?.let {
+                listCardState.descriptionBasedOnLoading()?.let {
                     ListCardDescription(it, Modifier)
                 }
-                lastUpdated?.takeIf { !loading }?.let { ListCardLastUpdated(it) }
+                listCardState.lastUpdateBasedOnLoading()?.let {
+                    ListCardLastUpdated(it)
+                }
 
                 AdditionalInfoColumn(
-                    expandableItems = expandableItemList,
-                    constantItems = constantItemList,
-                    modifier = Modifier.testTag("LIST_CARD_ADDITIONAL_INFO_COLUMN"),
-                    expandLabelText = expandLabelText,
-                    shrinkLabelText = shrinkLabelText,
-                    syncProgressItem = AdditionalInfoItem(
-                        icon = {
-                            Icon(
-                                imageVector = Icons.Outlined.Sync,
-                                contentDescription = "Icon Button",
-                                tint = SurfaceColor.Primary,
-                            )
-                        },
-                        value = "Syncing...",
-                        color = SurfaceColor.Primary,
-                        isConstantItem = false,
-                    ),
-                    loading = loading,
-                    minItemsToShow = when (additionalInfoList.size) {
-                        1 -> 0
-                        else -> 1
-                    },
+                    additionalInfoColumnState = listCardState.additionalInfoColumnState,
+                    loading = listCardState.loading,
                     verticalArrangement = spacedBy(Spacing4),
                     horizontalAlignment = Alignment.CenterHorizontally,
                 )
+
                 actionButton?.invoke()
             }
         }
@@ -296,6 +271,23 @@ fun CardDetail(
     showLoading: Boolean = false,
     modifier: Modifier = Modifier,
 ) {
+    val additionalInfoColumnState = rememberAdditionalInfoColumnState(
+        additionalInfoList = additionalInfoList,
+        syncProgressItem = AdditionalInfoItem(
+            icon = {
+                Icon(
+                    imageVector = Icons.Outlined.Sync,
+                    contentDescription = "Icon Button",
+                    tint = SurfaceColor.Primary,
+                )
+            },
+            value = "Syncing...",
+            color = SurfaceColor.Primary,
+            isConstantItem = false,
+        ),
+        expandLabelText = expandLabelText,
+        shrinkLabelText = shrinkLabelText,
+    )
     val expandableItemList = mutableListOf<AdditionalInfoItem>()
     val constantItemList = mutableListOf<AdditionalInfoItem>()
 
@@ -325,25 +317,10 @@ fun CardDetail(
                 }
             }
             AdditionalInfoColumn(
-                isDetailCard = true,
-                expandableItems = expandableItemList,
-                constantItems = constantItemList,
                 modifier = Modifier.testTag("LIST_CARD_ADDITIONAL_INFO_COLUMN"),
-                expandLabelText = expandLabelText,
-                shrinkLabelText = shrinkLabelText,
-                syncProgressItem = AdditionalInfoItem(
-                    icon = {
-                        Icon(
-                            imageVector = Icons.Outlined.Sync,
-                            contentDescription = "Icon Button",
-                            tint = SurfaceColor.Primary,
-                        )
-                    },
-                    value = "Syncing...",
-                    color = SurfaceColor.Primary,
-                    isConstantItem = false,
-                ),
+                additionalInfoColumnState = additionalInfoColumnState,
                 loading = showLoading,
+                isDetailCard = true,
             )
             actionButton?.invoke()
         }
@@ -354,6 +331,60 @@ fun CardDetail(
  * DHIS2 AdditionalInfoColumn,
  *  used to display both key value lists, the constant one and the expandable one
  */
+@Composable
+private fun AdditionalInfoColumn(
+    modifier: Modifier = Modifier,
+    additionalInfoColumnState: AdditionalInfoColumnState,
+    loading: Boolean,
+    isDetailCard: Boolean = false,
+    verticalArrangement: Arrangement.Vertical = Arrangement.Top,
+    horizontalAlignment: Alignment.Horizontal = Alignment.Start,
+) {
+    val loadingSectionState by remember(loading) { mutableStateOf(loading) }
+
+    Column(
+        modifier = modifier,
+        verticalArrangement = verticalArrangement,
+        horizontalAlignment = horizontalAlignment,
+    ) {
+        if (additionalInfoColumnState.showExpandableContent()) {
+            KeyValueList(
+                additionalInfoColumnState.visibleExpandableItemList(),
+                isDetailCard = isDetailCard,
+            )
+            ExpandShrinkAnimatedVisibility(
+                expanded = additionalInfoColumnState.isExpanded(),
+            ) {
+                KeyValueList(
+                    additionalInfoColumnState.hiddenExpandableItemList(),
+                    isDetailCard = isDetailCard,
+                )
+            }
+        } else {
+            KeyValueList(
+                additionalInfoColumnState.expandableItemList(),
+                isDetailCard = isDetailCard,
+            )
+        }
+        ExpandShrinkAnimatedVisibility(
+            expanded = loadingSectionState,
+        ) {
+            KeyValue(additionalInfoColumnState.syncProgressItem)
+        }
+        KeyValueList(additionalInfoColumnState.constantItemList(), isDetailCard = isDetailCard)
+
+        if (additionalInfoColumnState.showExpandableContent()) {
+            ToggleInfoTextButton(
+                sectionState = additionalInfoColumnState.currentSectionState(),
+                shrinkLabelText = additionalInfoColumnState.shrinkLabelText,
+                expandLabelText = additionalInfoColumnState.expandLabelText,
+                onClick = additionalInfoColumnState::updateSectionState,
+            )
+        }
+    }
+}
+
+@Deprecated("Use additionalInfoColumn constructor")
 @Composable
 private fun AdditionalInfoColumn(
     modifier: Modifier = Modifier,
@@ -368,48 +399,22 @@ private fun AdditionalInfoColumn(
     verticalArrangement: Arrangement.Vertical = Arrangement.Top,
     horizontalAlignment: Alignment.Horizontal = Alignment.Start,
 ) {
-    val loadingSectionState by remember(loading) { mutableStateOf(loading) }
-    var sectionState by remember(SectionState.CLOSE) { mutableStateOf(SectionState.CLOSE) }
+    val additionalInfoColumnState = rememberAdditionalInfoColumnState(
+        additionalInfoList = (expandableItems ?: emptyList()) + constantItems,
+        syncProgressItem = syncProgressItem,
+        expandLabelText = expandLabelText,
+        shrinkLabelText = shrinkLabelText,
+        minItemsToShow = minItemsToShow,
+    )
 
-    var expandableItemList: List<AdditionalInfoItem>
-    var hiddenItemList: List<AdditionalInfoItem>
-    Column(
-        modifier = modifier,
-        verticalArrangement = verticalArrangement,
-        horizontalAlignment = horizontalAlignment,
-    ) {
-        if (expandableItems != null && expandableItems.size > minItemsToShow) {
-            expandableItemList = expandableItems.take(minItemsToShow).toMutableList()
-            KeyValueList(expandableItemList, isDetailCard = isDetailCard)
-            hiddenItemList = expandableItems.drop(minItemsToShow).toMutableList()
-
-            ExpandShrinkAnimatedVisibility(
-                expanded = sectionState != SectionState.CLOSE,
-            ) {
-                KeyValueList(hiddenItemList, isDetailCard = isDetailCard)
-            }
-        } else {
-            expandableItems?.let {
-                KeyValueList(expandableItems, isDetailCard = isDetailCard)
-            }
-        }
-        ExpandShrinkAnimatedVisibility(
-            expanded = loadingSectionState,
-        ) {
-            KeyValue(syncProgressItem)
-        }
-        KeyValueList(constantItems, isDetailCard = isDetailCard)
-
-        if (expandableItems != null && expandableItems.size > minItemsToShow) {
-            ToggleInfoTextButton(
-                sectionState = sectionState,
-                shrinkLabelText = shrinkLabelText,
-                expandLabelText = expandLabelText,
-            ) { newSectionState ->
-                sectionState = newSectionState
-            }
-        }
-    }
+    AdditionalInfoColumn(
+        modifier,
+        additionalInfoColumnState,
+        loading,
+        isDetailCard,
+        verticalArrangement,
+        horizontalAlignment,
+    )
 }
 
 /**
