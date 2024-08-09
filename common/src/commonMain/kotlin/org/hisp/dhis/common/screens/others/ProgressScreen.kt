@@ -81,41 +81,41 @@ internal fun ProgressScreen() {
                 )
             }
             RowComponentContainer {
+                ProgressIndicator(
+                    modifier = Modifier.size(24.dp),
+                    progress = 0.25f,
+                    type = ProgressIndicatorType.CIRCULAR_SMALL,
+                    hasError = false,
+                )
+                ProgressIndicator(
+                    modifier = Modifier.size(24.dp),
+                    progress = 0.50f,
+                    type = ProgressIndicatorType.CIRCULAR_SMALL,
+                    hasError = false,
+                )
+                ProgressIndicator(
+                    modifier = Modifier.size(24.dp),
+                    progress = 0.75f,
+                    type = ProgressIndicatorType.CIRCULAR_SMALL,
+                    hasError = false,
+                )
+                ProgressIndicator(
+                    modifier = Modifier.size(24.dp),
+                    progress = 1f,
+                    type = ProgressIndicatorType.CIRCULAR_SMALL,
+                    hasError = false,
+                )
+                ProgressIndicator(
+                    modifier = Modifier.size(24.dp),
+                    progress = 0.6f,
+                    type = ProgressIndicatorType.CIRCULAR_SMALL,
+                    hasError = false,
+                )
+            }
             ProgressIndicator(
-                modifier = Modifier.size(24.dp),
-                progress = 0.25f,
-                type = ProgressIndicatorType.CIRCULAR_SMALL,
+                type = ProgressIndicatorType.CIRCULAR,
                 hasError = false,
             )
-            ProgressIndicator(
-                modifier = Modifier.size(24.dp),
-                progress = 0.50f,
-                type = ProgressIndicatorType.CIRCULAR_SMALL,
-                hasError = false,
-            )
-            ProgressIndicator(
-                modifier = Modifier.size(24.dp),
-                progress = 0.75f,
-                type = ProgressIndicatorType.CIRCULAR_SMALL,
-                hasError = false,
-            )
-            ProgressIndicator(
-                modifier = Modifier.size(24.dp),
-                progress = 1f,
-                type = ProgressIndicatorType.CIRCULAR_SMALL,
-                hasError = false,
-            )
-            ProgressIndicator(
-                modifier = Modifier.size(24.dp),
-                progress = 0.6f,
-                type = ProgressIndicatorType.CIRCULAR_SMALL,
-                hasError = false,
-            )
-        }
-        ProgressIndicator(
-            type = ProgressIndicatorType.CIRCULAR,
-            hasError = false,
-        )
         }
 
         ColumnComponentContainer("Circular indicator - Error") {
