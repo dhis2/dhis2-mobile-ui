@@ -124,7 +124,7 @@ fun ListCardScreen(horizontal: Boolean) {
                         lastUpdated = "5 hours",
                         additionalInfoColumnState = rememberAdditionalInfoColumnState(
                             additionalInfoList = basicAdditionalItemList.toMutableList(),
-                            syncProgressItem = syncProgressItem()
+                            syncProgressItem = syncProgressItem(),
                         ),
                         loading = showLoading1,
                     ),
@@ -159,7 +159,7 @@ fun ListCardScreen(horizontal: Boolean) {
                         lastUpdated = "5 hours",
                         additionalInfoColumnState = rememberAdditionalInfoColumnState(
                             additionalInfoList = basicAdditionalItemListWithLongKeyText.toMutableList(),
-                            syncProgressItem = syncProgressItem()
+                            syncProgressItem = syncProgressItem(),
                         ),
                         loading = showLoading2,
                     ),
@@ -194,7 +194,7 @@ fun ListCardScreen(horizontal: Boolean) {
                         lastUpdated = "5 hours",
                         additionalInfoColumnState = rememberAdditionalInfoColumnState(
                             additionalInfoList = basicAdditionalItemListWithMediumKeyText.toMutableList(),
-                            syncProgressItem = syncProgressItem()
+                            syncProgressItem = syncProgressItem(),
                         ),
                         loading = showLoading3,
                     ),
@@ -229,7 +229,7 @@ fun ListCardScreen(horizontal: Boolean) {
                         lastUpdated = "5 hours",
                         additionalInfoColumnState = rememberAdditionalInfoColumnState(
                             additionalInfoList = basicAdditionalItemListWithLongValue.toMutableList(),
-                            syncProgressItem = syncProgressItem()
+                            syncProgressItem = syncProgressItem(),
                         ),
                         loading = showLoading4,
                     ),
@@ -264,7 +264,7 @@ fun ListCardScreen(horizontal: Boolean) {
                         lastUpdated = "24 min",
                         additionalInfoColumnState = rememberAdditionalInfoColumnState(
                             additionalInfoList = enrollmentCompletedList.toMutableList(),
-                            syncProgressItem = syncProgressItem()
+                            syncProgressItem = syncProgressItem(),
                         ),
                         loading = showLoading5,
                     ),
@@ -303,7 +303,7 @@ fun ListCardScreen(horizontal: Boolean) {
                         lastUpdated = "5 hours",
                         additionalInfoColumnState = rememberAdditionalInfoColumnState(
                             additionalInfoList = fullItemList.toMutableList(),
-                            syncProgressItem = syncProgressItem()
+                            syncProgressItem = syncProgressItem(),
                         ),
                         loading = showLoading6,
 
@@ -369,7 +369,7 @@ fun ListCardScreen(horizontal: Boolean) {
                         lastUpdated = "5 hours",
                         additionalInfoColumnState = rememberAdditionalInfoColumnState(
                             additionalInfoList = errorList,
-                            syncProgressItem = syncProgressItem()
+                            syncProgressItem = syncProgressItem(),
                         ),
                         loading = showLoading7,
                     ),
@@ -409,7 +409,7 @@ fun ListCardScreen(horizontal: Boolean) {
                         lastUpdated = "now",
                         additionalInfoColumnState = rememberAdditionalInfoColumnState(
                             additionalInfoList = basicAdditionalItemList,
-                            syncProgressItem = syncProgressItem()
+                            syncProgressItem = syncProgressItem(),
                         ),
                     ),
                     actionButton = {
@@ -439,7 +439,7 @@ fun ListCardScreen(horizontal: Boolean) {
                         lastUpdated = "now",
                         additionalInfoColumnState = rememberAdditionalInfoColumnState(
                             additionalInfoList = basicAdditionalItemList,
-                            syncProgressItem = syncProgressItem()
+                            syncProgressItem = syncProgressItem(),
                         ),
                     ),
                     actionButton = {
@@ -468,7 +468,7 @@ fun ListCardScreen(horizontal: Boolean) {
                         lastUpdated = "now",
                         additionalInfoColumnState = rememberAdditionalInfoColumnState(
                             additionalInfoList = eventsTimelineTeiDashboardList,
-                            syncProgressItem = syncProgressItem()
+                            syncProgressItem = syncProgressItem(),
                         ),
                     ),
                     listAvatar = {
@@ -513,7 +513,7 @@ fun ListCardScreen(horizontal: Boolean) {
                         lastUpdated = "now",
                         additionalInfoColumnState = rememberAdditionalInfoColumnState(
                             additionalInfoList = eventsTimelineTeiDashboardList,
-                            syncProgressItem = syncProgressItem()
+                            syncProgressItem = syncProgressItem(),
                         ),
                     ),
                     listAvatar = {
@@ -560,7 +560,7 @@ fun ListCardScreen(horizontal: Boolean) {
                                 ),
 
                                 ),
-                            syncProgressItem = syncProgressItem()
+                            syncProgressItem = syncProgressItem(),
                         ),
                     ),
                     onCardClick = {},
@@ -597,7 +597,7 @@ fun ListCardScreen(horizontal: Boolean) {
                                     value = "Initial regiment- first-line drugs"
                                 ),
                             ),
-                            syncProgressItem = syncProgressItem()
+                            syncProgressItem = syncProgressItem(),
                         ),
                     ),
                     onCardClick = {},
@@ -632,7 +632,7 @@ fun ListCardScreen(horizontal: Boolean) {
                                     value = "Initial regiment- first-line drugs"
                                 ),
                             ),
-                            syncProgressItem = syncProgressItem()
+                            syncProgressItem = syncProgressItem(),
                         ),
                     ),
                     listAvatar = {

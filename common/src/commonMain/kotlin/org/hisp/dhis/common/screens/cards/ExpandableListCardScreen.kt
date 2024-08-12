@@ -77,10 +77,10 @@ fun ExpandableListCardScreen() {
                     ),
                     shrinkLabelText = "Hide description",
                     expandLabelText = "Show description",
-                    minItemsToShow = when(additionalInfoList.size){
+                    minItemsToShow = when (additionalInfoList.size) {
                         1 -> 0
                         else -> 1
-                    }
+                    },
                 ),
                 loading = false,
                 shadow = true,
