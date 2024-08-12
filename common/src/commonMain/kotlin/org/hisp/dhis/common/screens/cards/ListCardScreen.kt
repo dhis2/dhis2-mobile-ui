@@ -306,8 +306,7 @@ fun ListCardScreen(horizontal: Boolean) {
                             syncProgressItem = syncProgressItem(),
                         ),
                         loading = showLoading6,
-
-                        ),
+                    ),
                     listAvatar = {
                         Avatar(
                             style = AvatarStyleData.Metadata(
@@ -558,8 +557,7 @@ fun ListCardScreen(horizontal: Boolean) {
                                     color = AdditionalInfoItemColor.SUCCESS.color,
                                     isConstantItem = true,
                                 ),
-
-                                ),
+                            ),
                             syncProgressItem = syncProgressItem(),
                         ),
                     ),
@@ -590,11 +588,11 @@ fun ListCardScreen(horizontal: Boolean) {
                                 ),
                                 AdditionalInfoItem(
                                     key = "Drug resistance",
-                                    value = "Monoresistance"
+                                    value = "Monoresistance",
                                 ),
                                 AdditionalInfoItem(
                                     key = "treatment",
-                                    value = "Initial regiment- first-line drugs"
+                                    value = "Initial regiment- first-line drugs",
                                 ),
                             ),
                             syncProgressItem = syncProgressItem(),
@@ -625,11 +623,11 @@ fun ListCardScreen(horizontal: Boolean) {
                                 ),
                                 AdditionalInfoItem(
                                     key = "Drug resistance",
-                                    value = "Monoresistance"
+                                    value = "Monoresistance",
                                 ),
                                 AdditionalInfoItem(
                                     key = "treatment",
-                                    value = "Initial regiment- first-line drugs"
+                                    value = "Initial regiment- first-line drugs",
                                 ),
                             ),
                             syncProgressItem = syncProgressItem(),
