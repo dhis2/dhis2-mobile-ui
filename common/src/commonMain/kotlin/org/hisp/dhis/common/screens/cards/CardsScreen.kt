@@ -28,6 +28,7 @@ fun CardsScreen() {
         Cards.LIST_CARD -> ListCardScreen(false)
         Cards.LIST_CARD_HORIZONTAL -> ListCardScreen(true)
         Cards.NO_COMPONENT_SELECTED -> NoComponentSelectedScreen()
+        Cards.EXPANDABLE_LIST_CARD -> ExpandableListCardScreen()
     }
 }
 
@@ -35,6 +36,7 @@ enum class Cards(val label: String) {
     CARD_DETAIL("Card Detail"),
     LIST_CARD("Vertical List Card"),
     LIST_CARD_HORIZONTAL("Horizontal List Cards"),
+    EXPANDABLE_LIST_CARD("Expandable list card"),
     NO_COMPONENT_SELECTED("No component selected"),
 }
 

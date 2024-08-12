@@ -76,8 +76,7 @@ class ListCardTest {
                 modifier = Modifier.testTag("LIST_CARD"),
                 listAvatar = {
                     Avatar(
-                        textAvatar = "X",
-                        style = AvatarStyle.TEXT,
+                        style = AvatarStyleData.Text("X"),
                     )
                 },
                 title = ListCardTitleModel(text = "Anita Mathews, F, 72"),
