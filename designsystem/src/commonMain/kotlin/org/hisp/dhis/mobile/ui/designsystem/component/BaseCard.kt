@@ -11,7 +11,6 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement.Absolute.spacedBy
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -19,9 +18,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
@@ -138,7 +135,7 @@ fun <T> ExpandableItemColumn(
         }
     }
 
-    LazyColumn (
+    LazyColumn(
         modifier = modifier
             .onSizeChanged {
                 if (parentSize == -1) {
@@ -146,10 +143,10 @@ fun <T> ExpandableItemColumn(
                 }
             },
         verticalArrangement = spacedBy(itemSpacing),
-        contentPadding = PaddingValues(Spacing16)
+        contentPadding = PaddingValues(Spacing16),
     ) {
         itemList.forEachIndexed { index, item ->
-            item{
+            item {
                 itemLayout(item, itemVerticalPadding) {
                     val childMap = childrenSize.toMutableMap()
                     childMap[index] = it.height
