@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -48,6 +49,7 @@ import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.conditional
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
+import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing16
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing4
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
@@ -136,21 +138,23 @@ fun <T> ExpandableItemColumn(
         }
     }
 
-    Column(
+    LazyColumn (
         modifier = modifier
-            .verticalScroll(rememberScrollState())
             .onSizeChanged {
                 if (parentSize == -1) {
                     parentSize = it.height
                 }
             },
         verticalArrangement = spacedBy(itemSpacing),
+        contentPadding = PaddingValues(Spacing16)
     ) {
         itemList.forEachIndexed { index, item ->
-            itemLayout(item, itemVerticalPadding) {
-                val childMap = childrenSize.toMutableMap()
-                childMap[index] = it.height
-                childrenSize = childMap
+            item{
+                itemLayout(item, itemVerticalPadding) {
+                    val childMap = childrenSize.toMutableMap()
+                    childMap[index] = it.height
+                    childrenSize = childMap
+                }
             }
         }
     }
