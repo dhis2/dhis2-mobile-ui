@@ -139,7 +139,7 @@ private fun MatrixIconCard(
                         painter = painterFor?.get(data.uid),
                     )
                 },
-                size = AvatarSize.Large,
+                size = MetadataAvatarSize.M(),
                 iconTint = iconTint,
                 backgroundColor = iconBackgroundColor,
             )

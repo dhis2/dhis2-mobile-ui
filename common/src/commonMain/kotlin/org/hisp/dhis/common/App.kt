@@ -35,6 +35,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.DropdownItem
 import org.hisp.dhis.mobile.ui.designsystem.component.InputDropDown
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.InputStyle
+import org.hisp.dhis.mobile.ui.designsystem.component.MetadataAvatarSize
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
@@ -115,3 +116,11 @@ fun Main(
 fun getCurrentScreen(label: String): Groups {
     return Groups.entries.firstOrNull { it.label == label } ?: Groups.ACTION_INPUTS
 }
+
+fun getAvailableMetadataAvatarSizes() = listOf(
+    MetadataAvatarSize.XS(),
+    MetadataAvatarSize.S(),
+    MetadataAvatarSize.M(),
+    MetadataAvatarSize.L(),
+    MetadataAvatarSize.XL(),
+)

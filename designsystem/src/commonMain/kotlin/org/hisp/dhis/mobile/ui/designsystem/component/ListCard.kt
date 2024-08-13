@@ -1,14 +1,13 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.shrinkVertically
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Arrangement.Absolute.spacedBy
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
@@ -20,8 +19,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.InlineTextContent
 import androidx.compose.foundation.text.appendInlineContent
@@ -44,9 +43,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.Role
@@ -62,11 +59,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.conditional
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.modifiers.fadingEdges
-import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
+import org.hisp.dhis.mobile.ui.designsystem.component.state.AdditionalInfoColumnState
+import org.hisp.dhis.mobile.ui.designsystem.component.state.ListCardState
+import org.hisp.dhis.mobile.ui.designsystem.component.state.rememberAdditionalInfoColumnState
+import org.hisp.dhis.mobile.ui.designsystem.component.state.rememberListCardState
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2SCustomTextStyles
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
@@ -75,8 +76,63 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing4
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
-import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
-import org.hisp.dhis.mobile.ui.designsystem.theme.shadow
+
+/**
+ * DHIS2 ListCard.
+ * Component intended for TEI/Event/DataSet card display.
+ * @param modifier: allows a modifier to be passed externally.
+ * @param listCardState: state containing all configurations for the card
+ * @param listAvatar: composable element to be used as avatar.
+ * @param actionButton: composable parameter for the sync button.
+ * @param onCardClick: gives access to click event on the main container.
+ */
+@Composable
+fun ListCard(
+    modifier: Modifier = Modifier,
+    listCardState: ListCardState,
+    listAvatar: (@Composable () -> Unit)? = null,
+    actionButton: @Composable (() -> Unit)? = null,
+    onCardClick: () -> Unit,
+    onSizeChanged: ((IntSize) -> Unit)? = null,
+) {
+    BaseCard(
+        modifier = modifier,
+        showShadow = listCardState.shadow,
+        onCardClick = onCardClick,
+        expandable = listCardState.expandable,
+        itemVerticalPadding = listCardState.itemVerticalPadding,
+        onSizeChanged = onSizeChanged,
+        paddingValues = getPaddingValues(
+            expandable = listCardState.expandable,
+            hasShadow = listCardState.shadow,
+            hasAvatar = listAvatar != null,
+        ),
+    ) {
+        Row(horizontalArrangement = spacedBy(Spacing.Spacing16)) {
+            listAvatar?.invoke()
+            Column(Modifier.fillMaxWidth().weight(1f)) {
+                Row(horizontalArrangement = Arrangement.SpaceBetween) {
+                    ListCardTitle(
+                        title = listCardState.title,
+                        Modifier.weight(1f)
+                            .padding(bottom = if (listCardState.description?.text != null) Spacing.Spacing0 else Spacing4),
+                    )
+                    listCardState.lastUpdateBasedOnLoading()?.let { ListCardLastUpdated(it) }
+                }
+                listCardState.descriptionBasedOnLoading()?.let { ListCardDescription(it, Modifier) }
+
+                AdditionalInfoColumn(
+                    additionalInfoColumnState = listCardState.additionalInfoColumnState,
+                    modifier = Modifier.testTag("LIST_CARD_ADDITIONAL_INFO_COLUMN"),
+                    loading = listCardState.loading,
+                    verticalArrangement = Arrangement.Top,
+                    horizontalAlignment = Alignment.Start,
+                )
+                actionButton?.invoke()
+            }
+        }
+    }
+}
 
 /**
  * DHIS2 ListCard.
@@ -98,6 +154,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.shadow
  * @param modifier: allows a modifier to be passed externally.
  */
 @Composable
+@Deprecated("Use rememberListCardState constructor")
 fun ListCard(
     listAvatar: (@Composable () -> Unit)? = null,
     title: ListCardTitleModel,
@@ -112,78 +169,116 @@ fun ListCard(
     shadow: Boolean = true,
     modifier: Modifier = Modifier,
     scrollableContent: Boolean = false,
+    expandable: Boolean = false,
+    itemVerticalPadding: Dp? = null,
+    minItemsToShow: Int = 3,
+    onSizeChanged: ((IntSize) -> Unit)? = null,
 ) {
-    val expandableItemList = mutableListOf<AdditionalInfoItem>()
-    val constantItemList = mutableListOf<AdditionalInfoItem>()
-
-    additionalInfoList.forEach { item ->
-        if (item.isConstantItem) {
-            constantItemList.add(item)
-        } else {
-            expandableItemList.add(item)
-        }
-    }
-    val interactionSource = remember { MutableInteractionSource() }
-
-    Row(
-        modifier = modifier
-            .conditional(shadow, {
-                shadow()
-            })
-            .background(color = TextColor.OnPrimary, shape = RoundedCornerShape(Radius.S))
-            .clip(shape = RoundedCornerShape(Radius.S))
-            .clickable(
-                role = Role.Button,
-                interactionSource = interactionSource,
-                indication = rememberRipple(
-                    color = SurfaceColor.Primary,
-                ),
-                onClick = onCardClick,
+    val syncProgressItem = AdditionalInfoItem(
+        icon = {
+            Icon(
+                imageVector = Icons.Outlined.Sync,
+                contentDescription = "Icon Button",
+                tint = SurfaceColor.Primary,
             )
-            .hoverPointerIcon(true)
-            .padding(getPaddingValues(shadow, listAvatar != null))
-            .animateContentSize(),
+        },
+        value = "Syncing...",
+        color = SurfaceColor.Primary,
+        isConstantItem = false,
+    )
+
+    val additionalInfoColumnState = rememberAdditionalInfoColumnState(
+        additionalInfoList,
+        syncProgressItem,
+        expandLabelText,
+        shrinkLabelText,
+        minItemsToShow,
+        scrollableContent,
+    )
+    val listCardState = rememberListCardState(
+        title,
+        description,
+        lastUpdated,
+        additionalInfoColumnState,
+        loading,
+        shadow,
+        expandable,
+        itemVerticalPadding,
+    )
+
+    ListCard(
+        modifier = modifier,
+        listCardState = listCardState,
+        listAvatar = listAvatar,
+        actionButton = actionButton,
+        onCardClick = onCardClick,
+        onSizeChanged = onSizeChanged,
+    )
+}
+
+/**
+ * DHIS2 VerticalListCard.
+ * Component intended for Program/DataSet card display.
+ * @param modifier: allows a modifier to be passed externally.
+ * @param listCardState: state containing all configurations for the card
+ * @param listAvatar: composable element to be used as avatar.
+ * @param actionButton: composable parameter for the sync button.
+ * @param onCardClick: gives access to click event on the main container.
+ */
+@Composable
+fun VerticalInfoListCard(
+    modifier: Modifier = Modifier,
+    listCardState: ListCardState,
+    listAvatar: (@Composable () -> Unit)? = null,
+    actionButton: @Composable (() -> Unit)? = null,
+    onCardClick: () -> Unit,
+    onSizeChanged: ((IntSize) -> Unit)? = null,
+) {
+    BaseCard(
+        modifier = modifier,
+        showShadow = listCardState.shadow,
+        onCardClick = onCardClick,
+        paddingValues = getPaddingValues(
+            listCardState.expandable,
+            hasShadow = listCardState.shadow,
+            hasAvatar = listAvatar != null,
+        ),
+        expandable = listCardState.expandable,
+        itemVerticalPadding = listCardState.itemVerticalPadding,
+        onSizeChanged = onSizeChanged,
     ) {
-        listAvatar?.let {
-            it.invoke()
-            Spacer(Modifier.size(Spacing.Spacing16))
-        }
-        Column(Modifier.fillMaxWidth().weight(1f)) {
-            Row(horizontalArrangement = Arrangement.SpaceBetween) {
+        Column(
+            modifier = Modifier.fillMaxWidth().wrapContentHeight(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = spacedBy(Spacing.Spacing16),
+        ) {
+            listAvatar?.invoke()
+            Column(
+                modifier = Modifier.wrapContentHeight(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = spacedBy(Spacing.Spacing4),
+            ) {
                 ListCardTitle(
-                    title = title,
-                    Modifier.weight(1f)
-                        .padding(bottom = if (description?.text != null) Spacing.Spacing0 else Spacing4),
+                    title = listCardState.title,
+                    Modifier
+                        .padding(bottom = if (listCardState.description?.text != null) Spacing.Spacing0 else Spacing4),
                 )
-                if (lastUpdated != null) {
-                    ListCardLastUpdated(lastUpdated)
+                listCardState.descriptionBasedOnLoading()?.let {
+                    ListCardDescription(it, Modifier)
                 }
-            }
-            description?.let {
-                ListCardDescription(it, Modifier)
-            }
+                listCardState.lastUpdateBasedOnLoading()?.let {
+                    ListCardLastUpdated(it)
+                }
 
-            AdditionalInfoColumn(
-                expandableItems = expandableItemList,
-                constantItems = constantItemList,
-                expandLabelText = expandLabelText,
-                shrinkLabelText = shrinkLabelText,
-                syncProgressItem = AdditionalInfoItem(
-                    icon = {
-                        Icon(
-                            imageVector = Icons.Outlined.Sync,
-                            contentDescription = "Icon Button",
-                            tint = SurfaceColor.Primary,
-                        )
-                    },
-                    value = "Syncing...",
-                    color = SurfaceColor.Primary,
-                    isConstantItem = false,
-                ),
-                loading = loading,
-                scrollableContent = scrollableContent,
-            )
-            actionButton?.invoke()
+                AdditionalInfoColumn(
+                    additionalInfoColumnState = listCardState.additionalInfoColumnState,
+                    loading = listCardState.loading,
+                    verticalArrangement = spacedBy(Spacing4),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                )
+
+                actionButton?.invoke()
+            }
         }
     }
 }
@@ -212,6 +307,24 @@ fun CardDetail(
     showLoading: Boolean = false,
     modifier: Modifier = Modifier,
 ) {
+    val additionalInfoColumnState = rememberAdditionalInfoColumnState(
+        additionalInfoList = additionalInfoList,
+        syncProgressItem = AdditionalInfoItem(
+            icon = {
+                Icon(
+                    imageVector = Icons.Outlined.Sync,
+                    contentDescription = "Icon Button",
+                    tint = SurfaceColor.Primary,
+                )
+            },
+            value = "Syncing...",
+            color = SurfaceColor.Primary,
+            isConstantItem = false,
+        ),
+        expandLabelText = expandLabelText,
+        shrinkLabelText = shrinkLabelText,
+    )
+
     val expandableItemList = mutableListOf<AdditionalInfoItem>()
     val constantItemList = mutableListOf<AdditionalInfoItem>()
 
@@ -241,87 +354,13 @@ fun CardDetail(
                 }
             }
             AdditionalInfoColumn(
+                additionalInfoColumnState = additionalInfoColumnState,
                 isDetailCard = true,
-                expandableItems = expandableItemList,
-                constantItems = constantItemList,
-                expandLabelText = expandLabelText,
-                shrinkLabelText = shrinkLabelText,
-                syncProgressItem = AdditionalInfoItem(
-                    icon = {
-                        Icon(
-                            imageVector = Icons.Outlined.Sync,
-                            contentDescription = "Icon Button",
-                            tint = SurfaceColor.Primary,
-                        )
-                    },
-                    value = "Syncing...",
-                    color = SurfaceColor.Primary,
-                    isConstantItem = false,
-                ),
                 loading = showLoading,
-                scrollableContent = false,
+                verticalArrangement = Arrangement.Top,
+                horizontalAlignment = Alignment.Start,
             )
             actionButton?.invoke()
-        }
-    }
-}
-
-/**
- * DHIS2 Avatar,
- *  used to display the avatar composable in card,
- *  must be one of the three styles given as parameters
- * @param style not nullable parameter that manages the avatar style
- * @param textAvatar style must be TEXT, will show a single character as avatar
- * @param imagePainter style must be IMAGE, will display an image as avatar
- * @param metadataAvatar style must be METADATA, composable should be DHIS2 [MetadataAvatar]
- * @param modifier allows a modifier to be passed externally
- */
-@Composable
-fun Avatar(
-    textAvatar: String? = null,
-    imagePainter: Painter = provideDHIS2Icon("dhis2_microscope_outline"),
-    metadataAvatar: (@Composable () -> Unit)? = null,
-    style: AvatarStyle = AvatarStyle.TEXT,
-    onImageClick: (() -> Unit)? = null,
-    modifier: Modifier = Modifier,
-) {
-    when (style) {
-        AvatarStyle.TEXT -> {
-            textAvatar?.let {
-                Box(
-                    modifier = modifier
-                        .size(Spacing.Spacing40)
-                        .background(
-                            color = SurfaceColor.PrimaryContainer,
-                            shape = RoundedCornerShape(Radius.Full),
-                        ),
-                    contentAlignment = Alignment.Center,
-                ) {
-                    Text(
-                        text = textAvatar,
-                        color = SurfaceColor.Primary,
-                        style = MaterialTheme.typography.titleSmall,
-                    )
-                }
-            }
-        }
-
-        AvatarStyle.METADATA -> {
-            metadataAvatar?.let {
-                metadataAvatar.invoke()
-            }
-        }
-
-        AvatarStyle.IMAGE -> {
-            Image(
-                painter = imagePainter,
-                contentDescription = "avatarImage",
-                contentScale = ContentScale.Crop,
-                modifier = modifier
-                    .size(Spacing.Spacing40)
-                    .clip(CircleShape)
-                    .clickable(onClick = { onImageClick?.invoke() }),
-            )
         }
     }
 }
@@ -332,6 +371,78 @@ fun Avatar(
  */
 @Composable
 private fun ColumnScope.AdditionalInfoColumn(
+    modifier: Modifier = Modifier,
+    additionalInfoColumnState: AdditionalInfoColumnState,
+    loading: Boolean,
+    isDetailCard: Boolean = false,
+    verticalArrangement: Arrangement.Vertical,
+    horizontalAlignment: Alignment.Horizontal,
+) {
+    val loadingSectionState by remember(loading) { mutableStateOf(loading) }
+    val scrollState = rememberScrollState()
+
+    val columnModifier by remember(additionalInfoColumnState) {
+        derivedStateOf {
+            when {
+                !additionalInfoColumnState.scrollableContent -> modifier
+                additionalInfoColumnState.isExpanded() -> modifier.verticalScroll(scrollState)
+                    .weight(1f)
+
+                else -> modifier
+            }
+        }
+    }
+
+    val items = when (additionalInfoColumnState.currentSectionState()) {
+        SectionState.CLOSE -> additionalInfoColumnState.visibleExpandableItemList()
+        SectionState.OPEN -> additionalInfoColumnState.expandableItemList()
+        else -> null
+    } ?: emptyList()
+
+    KeyValueList(
+        modifier = columnModifier
+            .fillMaxWidth()
+            .testTag("LIST_CARD_ADDITIONAL_INFO_COLUMN")
+            .conditional(
+                additionalInfoColumnState.isExpanded() and additionalInfoColumnState.scrollableContent,
+                {
+                    fadingEdges(scrollState)
+                },
+            ),
+        itemList = items,
+        isDetailCard = isDetailCard,
+        verticalArrangement = verticalArrangement,
+        horizontalAlignment = horizontalAlignment,
+    )
+
+    ExpandShrinkAnimatedVisibility(
+        expanded = loadingSectionState,
+    ) {
+        KeyValue(additionalInfoColumnState.syncProgressItem)
+    }
+    KeyValueList(
+        modifier = Modifier.testTag("LIST_CARD_ADDITIONAL_INFO_CONSTANT_COLUMN"),
+        itemList = additionalInfoColumnState.constantItemList(),
+        isDetailCard = isDetailCard,
+        verticalArrangement = verticalArrangement,
+        horizontalAlignment = horizontalAlignment,
+    )
+
+    if (additionalInfoColumnState.showExpandableContent()) {
+        ToggleInfoTextButton(
+            sectionState = additionalInfoColumnState.currentSectionState(),
+            shrinkLabelText = additionalInfoColumnState.shrinkLabelText,
+            expandLabelText = additionalInfoColumnState.expandLabelText,
+            onClick = additionalInfoColumnState::updateSectionState,
+        )
+    }
+//    }
+}
+
+@Deprecated("Use additionalInfoColumn constructor")
+@Composable
+private fun ColumnScope.AdditionalInfoColumn(
+    modifier: Modifier = Modifier,
     expandableItems: List<AdditionalInfoItem>? = null,
     constantItems: List<AdditionalInfoItem>,
     syncProgressItem: AdditionalInfoItem,
@@ -340,7 +451,28 @@ private fun ColumnScope.AdditionalInfoColumn(
     expandLabelText: String,
     shrinkLabelText: String,
     scrollableContent: Boolean,
+    minItemsToShow: Int = 3,
+    verticalArrangement: Arrangement.Vertical = Arrangement.Top,
+    horizontalAlignment: Alignment.Horizontal = Alignment.Start,
 ) {
+    val additionalInfoColumnState = rememberAdditionalInfoColumnState(
+        additionalInfoList = (expandableItems ?: emptyList()) + constantItems,
+        syncProgressItem = syncProgressItem,
+        expandLabelText = expandLabelText,
+        shrinkLabelText = shrinkLabelText,
+        minItemsToShow = minItemsToShow,
+        scrollableContent = scrollableContent,
+    )
+
+    AdditionalInfoColumn(
+        modifier,
+        additionalInfoColumnState,
+        loading,
+        isDetailCard,
+        verticalArrangement,
+        horizontalAlignment,
+    )
+
     val loadingSectionState by remember(loading) { mutableStateOf(loading) }
     var listState by remember(AdditionInfoState.CLOSED) { mutableStateOf(AdditionInfoState.CLOSED) }
 
@@ -374,6 +506,8 @@ private fun ColumnScope.AdditionalInfoColumn(
             ),
         itemList = items,
         isDetailCard = isDetailCard,
+        verticalArrangement = verticalArrangement,
+        horizontalAlignment = horizontalAlignment,
     )
 
     AnimatedVisibility(
@@ -388,6 +522,8 @@ private fun ColumnScope.AdditionalInfoColumn(
         modifier = Modifier.testTag("LIST_CARD_ADDITIONAL_INFO_CONSTANT_COLUMN"),
         itemList = constantItems,
         isDetailCard = isDetailCard,
+        verticalArrangement = verticalArrangement,
+        horizontalAlignment = horizontalAlignment,
     )
 
     if ((expandableItems?.size ?: 0) > 3) {
@@ -599,8 +735,14 @@ private fun KeyValueList(
     modifier: Modifier = Modifier,
     itemList: List<AdditionalInfoItem>,
     isDetailCard: Boolean = false,
+    verticalArrangement: Arrangement.Vertical,
+    horizontalAlignment: Alignment.Horizontal,
 ) {
-    Column(modifier = modifier) {
+    Column(
+        modifier = modifier,
+        verticalArrangement = verticalArrangement,
+        horizontalAlignment = horizontalAlignment,
+    ) {
         itemList.forEach { item ->
             KeyValue(item, isDetailCard)
             Spacer(Modifier.size(if (isDetailCard) Spacing.Spacing8 else Spacing4))
@@ -610,17 +752,32 @@ private fun KeyValueList(
 
 @Composable
 private fun getPaddingValues(
+    expandable: Boolean,
     hasShadow: Boolean,
     hasAvatar: Boolean,
 ): PaddingValues {
-    return if (!hasShadow) {
-        PaddingValues(Spacing.Spacing8)
+    val expandedVerticalPadding = if (expandable) {
+        0.dp
     } else {
-        if (hasAvatar) {
-            PaddingValues(Spacing.Spacing8, Spacing.Spacing16, Spacing.Spacing16, Spacing.Spacing16)
-        } else {
-            PaddingValues(Spacing.Spacing16)
-        }
+        null
+    }
+    return when {
+        !hasShadow -> PaddingValues(
+            vertical = expandedVerticalPadding ?: Spacing.Spacing8,
+            horizontal = Spacing.Spacing8,
+        )
+
+        hasShadow && hasAvatar -> PaddingValues(
+            start = if (expandable) Spacing.Spacing16 else Spacing.Spacing8,
+            top = expandedVerticalPadding ?: Spacing.Spacing16,
+            end = Spacing.Spacing16,
+            bottom = expandedVerticalPadding ?: Spacing.Spacing16,
+        )
+
+        else -> PaddingValues(
+            vertical = expandedVerticalPadding ?: Spacing.Spacing16,
+            horizontal = Spacing.Spacing16,
+        )
     }
 }
 
@@ -646,13 +803,6 @@ fun getKeyTrimmedText(text: String, maxKeyWidth: Dp, textMeasurer: TextMeasurer)
     } else {
         text + if (text.isNotEmpty()) ": " else ""
     }
-}
-
-enum class
-AvatarStyle {
-    TEXT,
-    IMAGE,
-    METADATA,
 }
 
 data class AdditionalInfoItem(
