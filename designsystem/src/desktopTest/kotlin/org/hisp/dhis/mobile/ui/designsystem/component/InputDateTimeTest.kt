@@ -8,9 +8,11 @@ import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.text.input.TextFieldValue
 import org.hisp.dhis.mobile.ui.designsystem.component.DateTimeActionType
 import org.hisp.dhis.mobile.ui.designsystem.component.InputDateTime
-import org.hisp.dhis.mobile.ui.designsystem.component.InputDateTimeModel
 import org.hisp.dhis.mobile.ui.designsystem.component.SelectableDates
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.DateTransformation
+import org.hisp.dhis.mobile.ui.designsystem.component.internal.TimeTransformation
+import org.hisp.dhis.mobile.ui.designsystem.component.state.InputDateTimeData
+import org.hisp.dhis.mobile.ui.designsystem.component.state.rememberInputDateTimeState
 import org.junit.Rule
 import org.junit.Test
 
@@ -24,14 +26,19 @@ class InputDateTimeTest {
         var input by mutableStateOf(TextFieldValue())
         rule.setContent {
             InputDateTime(
-                InputDateTimeModel(
-                    title = "Label",
+                state = rememberInputDateTimeState(
+                    inputDateTimeData =
+                    InputDateTimeData(
+                        title = "label",
+                        visualTransformation = DateTransformation(),
+                        actionType = DateTimeActionType.DATE,
+                    ),
                     inputTextFieldValue = input,
-                    onValueChanged = {
-                        input = it ?: TextFieldValue()
-                    },
-                    format = "ddMMYYYY",
                 ),
+
+                onValueChanged = {
+                    input = it ?: TextFieldValue()
+                },
 
             )
         }
@@ -47,16 +54,19 @@ class InputDateTimeTest {
 
         rule.setContent {
             InputDateTime(
-                InputDateTimeModel(
-                    title = "Label",
+                state = rememberInputDateTimeState(
+                    inputDateTimeData =
+                    InputDateTimeData(
+                        title = "label",
+                        visualTransformation = DateTransformation(),
+                        actionType = DateTimeActionType.DATE,
+                    ),
                     inputTextFieldValue = input,
-                    onValueChanged =
-                    {
-                        input = it ?: TextFieldValue()
-                    },
-                    format = "ddMMYYYY",
-
                 ),
+
+                onValueChanged = {
+                    input = it ?: TextFieldValue()
+                },
 
             )
         }
@@ -66,19 +76,23 @@ class InputDateTimeTest {
 
     @Test
     fun clickingOnResetButtonShouldClearInput() {
-        var input by mutableStateOf(TextFieldValue("1002"))
+        var input by mutableStateOf(TextFieldValue("10:02"))
 
         rule.setContent {
             InputDateTime(
-                InputDateTimeModel(
-                    title = "Label",
+                state = rememberInputDateTimeState(
+                    inputDateTimeData =
+                    InputDateTimeData(
+                        title = "label",
+                        visualTransformation = TimeTransformation(),
+                        actionType = DateTimeActionType.TIME,
+                    ),
                     inputTextFieldValue = input,
-                    onValueChanged = {
-                        input = it ?: TextFieldValue()
-                    },
-                    format = "HHMM",
-                    actionType = DateTimeActionType.TIME,
                 ),
+
+                onValueChanged = {
+                    input = it ?: TextFieldValue()
+                },
 
             )
         }
@@ -90,19 +104,25 @@ class InputDateTimeTest {
 
     @Test
     fun clickingOnActionButtonForDateInputShouldShowDatePicker() {
-        var input by mutableStateOf(TextFieldValue("10021991"))
+        var input by mutableStateOf(TextFieldValue("1991-10-21"))
 
         rule.setContent {
             InputDateTime(
-                InputDateTimeModel(
-                    title = "Label",
+                state = rememberInputDateTimeState(
+                    inputDateTimeData =
+                    InputDateTimeData(
+                        title = "label",
+                        visualTransformation = DateTransformation(),
+                        actionType = DateTimeActionType.DATE,
+                        selectableDates = SelectableDates("01092024", "12122024"),
+                    ),
                     inputTextFieldValue = input,
-                    visualTransformation = DateTransformation(),
-                    actionType = DateTimeActionType.DATE,
-                    onValueChanged = { input = it ?: TextFieldValue() },
-                    format = "ddMMyyyy",
-                    selectableDates = SelectableDates("01092024", "12122024"),
                 ),
+
+                onValueChanged = {
+                    input = it ?: TextFieldValue()
+                },
+
             )
         }
 
@@ -112,19 +132,25 @@ class InputDateTimeTest {
 
     @Test
     fun clickingOnActionButtonForTimeInputShouldShowTimePicker() {
-        var input by mutableStateOf(TextFieldValue("100219911900"))
+        var input by mutableStateOf(TextFieldValue("19:00"))
 
         rule.setContent {
             InputDateTime(
-                InputDateTimeModel(
-                    title = "Label",
+                state = rememberInputDateTimeState(
+                    inputDateTimeData =
+                    InputDateTimeData(
+                        title = "label",
+                        visualTransformation = TimeTransformation(),
+                        actionType = DateTimeActionType.TIME,
+                        selectableDates = SelectableDates("01092024", "12122024"),
+                    ),
                     inputTextFieldValue = input,
-                    visualTransformation = DateTransformation(),
-                    actionType = DateTimeActionType.TIME,
-                    onValueChanged = { input = it ?: TextFieldValue() },
-                    format = "ddMMyyyy",
-                    selectableDates = SelectableDates("01092024", "12122024"),
                 ),
+
+                onValueChanged = {
+                    input = it ?: TextFieldValue()
+                },
+
             )
         }
 
