@@ -30,7 +30,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
@@ -286,28 +285,28 @@ fun OrgUnitSelectorItem(
 @Composable
 private fun OrgTreeItemIcon(
     modifier: Modifier = Modifier,
-    orgTreeItem: OrgTreeItem
+    orgTreeItem: OrgTreeItem,
 ) {
     if (!orgTreeItem.hasChildren) {
         Icon(
             modifier = modifier,
             painter = provideDHIS2Icon("material_circle_outline"),
             contentDescription = null,
-            tint = TextColor.OnDisabledSurface
+            tint = TextColor.OnDisabledSurface,
         )
     } else if (orgTreeItem.isOpen) {
         Icon(
             modifier = modifier,
             painter = rememberVectorPainter(Icons.Filled.KeyboardArrowDown),
             contentDescription = null,
-            tint = TextColor.OnDisabledSurface
+            tint = TextColor.OnDisabledSurface,
         )
     } else {
         Icon(
             modifier = modifier,
             painter = rememberVectorPainter(Icons.AutoMirrored.Filled.KeyboardArrowRight),
             contentDescription = null,
-            tint = TextColor.OnSurfaceVariant
+            tint = TextColor.OnSurfaceVariant,
         )
     }
 }
