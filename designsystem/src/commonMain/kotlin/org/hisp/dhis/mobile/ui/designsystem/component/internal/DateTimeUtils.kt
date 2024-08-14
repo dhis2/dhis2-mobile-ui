@@ -7,10 +7,19 @@ import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Calendar
 
+@SuppressWarnings("deprecation")
+@Deprecated("This class is internal and should not be used replace with the new implementation")
 internal fun dateIsInRange(date: Long, allowedDates: SelectableDates, format: String = "ddMMyyyy"): Boolean {
     return (
         date >= parseStringDateToMillis(allowedDates.initialDate, format) &&
             date <= parseStringDateToMillis(allowedDates.endDate, format)
+        )
+}
+
+internal fun dateIsInRange(date: Long, allowedDates: SelectableDates): Boolean {
+    return (
+        date >= parseStringDateToMillis(allowedDates.initialDate) &&
+            date <= parseStringDateToMillis(allowedDates.endDate)
         )
 }
 

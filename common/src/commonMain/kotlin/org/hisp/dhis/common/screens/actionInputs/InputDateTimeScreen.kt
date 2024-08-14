@@ -11,125 +11,164 @@ import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.DateTimeActionType
 import org.hisp.dhis.mobile.ui.designsystem.component.InputDateTime
-import org.hisp.dhis.mobile.ui.designsystem.component.InputDateTimeModel
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.SelectableDates
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.DateTimeTransformation
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.DateTransformation
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.TimeTransformation
+import org.hisp.dhis.mobile.ui.designsystem.component.state.InputDateTimeData
+import org.hisp.dhis.mobile.ui.designsystem.component.state.rememberInputDateTimeState
 
 @Composable
 fun InputDateTimeScreen() {
     ColumnScreenContainer(title = ActionInputs.INPUT_DATE_TIME.label) {
-        var date by remember { mutableStateOf(TextFieldValue("18122024", selection = TextRange(8))) }
-        var time by remember { mutableStateOf(TextFieldValue("0930")) }
-        var dateTime by remember { mutableStateOf(TextFieldValue("121119910230")) }
-        var dateTime24hour by remember { mutableStateOf(TextFieldValue("121119911930")) }
+        var date by remember { mutableStateOf(TextFieldValue("2024-11-12", selection = TextRange(8))) }
+        var time by remember { mutableStateOf(TextFieldValue("09:30")) }
+        var dateTime by remember { mutableStateOf(TextFieldValue("1991-11-12T02:30")) }
+        var dateTime24hour by remember { mutableStateOf(TextFieldValue("1991-11-12T19:30")) }
 
-        var dateTimenoInput by remember { mutableStateOf(TextFieldValue("11112014")) }
-        var hour24time by remember { mutableStateOf(TextFieldValue("1630")) }
+        var dateTimenoInput by remember { mutableStateOf(TextFieldValue("09:30")) }
+        var hour24time by remember { mutableStateOf(TextFieldValue("16:30")) }
 
         ColumnComponentContainer("Date Input (allowed dates from 01/09/2024 to 12/12/2024)") {
             InputDateTime(
-                InputDateTimeModel(
-                    title = "Label",
+                state = rememberInputDateTimeState(
+                    inputDateTimeData =
+                    InputDateTimeData(
+                        title = "label",
+                        visualTransformation = DateTransformation(),
+                        actionType = DateTimeActionType.DATE,
+                        selectableDates = SelectableDates("01092024", "12122024"),
+                    ),
                     inputTextFieldValue = date,
-                    visualTransformation = DateTransformation(),
-                    actionType = DateTimeActionType.DATE,
-                    onValueChanged = { date = it ?: TextFieldValue() },
-                    selectableDates = SelectableDates("01092024", "12122024"),
                 ),
+
+                onValueChanged = { date = it ?: TextFieldValue() },
+
             )
         }
 
         ColumnComponentContainer("Time Input") {
             InputDateTime(
-                InputDateTimeModel(
-                    title = "Label",
-                    inputTextFieldValue = dateTimenoInput,
-                    visualTransformation = DateTransformation(),
-                    actionType = DateTimeActionType.DATE,
-                    onValueChanged = { dateTimenoInput = it ?: TextFieldValue() },
-                    allowsManualInput = false,
+                state = rememberInputDateTimeState(
+                    inputDateTimeData =
+                    InputDateTimeData(
+                        title = "label",
+                        visualTransformation = TimeTransformation(),
+                        actionType = DateTimeActionType.TIME,
+                        allowsManualInput = false,
+                    ),
+                    inputTextFieldValue = time,
                 ),
+
+                onValueChanged = { dateTimenoInput = it ?: TextFieldValue() },
+
             )
         }
 
         ColumnComponentContainer("24 hour format Time Input") {
             InputDateTime(
-                InputDateTimeModel(
-
-                    title = "Label",
+                state = rememberInputDateTimeState(
+                    inputDateTimeData =
+                    InputDateTimeData(
+                        title = "label",
+                        visualTransformation = TimeTransformation(),
+                        actionType = DateTimeActionType.TIME,
+                        is24hourFormat = true,
+                    ),
                     inputTextFieldValue = hour24time,
-                    visualTransformation = TimeTransformation(),
-                    actionType = DateTimeActionType.TIME,
-                    onValueChanged = { hour24time = it ?: TextFieldValue() },
-                    is24hourFormat = true,
                 ),
+
+                onValueChanged = { hour24time = it ?: TextFieldValue() },
             )
         }
 
         ColumnComponentContainer("12 hour format Time Input") {
             InputDateTime(
-                InputDateTimeModel(
-                    title = "Label",
+                state = rememberInputDateTimeState(
+                    inputDateTimeData =
+                    InputDateTimeData(
+                        title = "label",
+                        visualTransformation = TimeTransformation(),
+                        actionType = DateTimeActionType.TIME,
+                        is24hourFormat = false,
+                    ),
                     inputTextFieldValue = time,
-                    visualTransformation = TimeTransformation(),
-                    actionType = DateTimeActionType.TIME,
-                    onValueChanged = { time = it ?: TextFieldValue() },
                 ),
+
+                onValueChanged = { time = it ?: TextFieldValue() },
             )
         }
 
         ColumnComponentContainer("Date-Time Input") {
             InputDateTime(
-                InputDateTimeModel(
-                    title = "Label",
+                state = rememberInputDateTimeState(
+                    inputDateTimeData =
+                    InputDateTimeData(
+                        title = "label",
+                        visualTransformation = DateTimeTransformation(),
+                        actionType = DateTimeActionType.DATE_TIME,
+                    ),
                     inputTextFieldValue = dateTime,
-                    visualTransformation = DateTimeTransformation(),
-                    actionType = DateTimeActionType.DATE_TIME,
-                    onValueChanged = { dateTime = it ?: TextFieldValue() },
                 ),
+
+                onValueChanged = { dateTime = it ?: TextFieldValue() },
             )
         }
 
         ColumnComponentContainer("Date-Time Input 24 hour ") {
             InputDateTime(
-                InputDateTimeModel(
-                    title = "Label",
+                state = rememberInputDateTimeState(
+                    inputDateTimeData =
+                    InputDateTimeData(
+                        title = "label",
+                        visualTransformation = DateTimeTransformation(),
+                        actionType = DateTimeActionType.DATE_TIME,
+                        is24hourFormat = true,
+                    ),
                     inputTextFieldValue = dateTime24hour,
-                    visualTransformation = DateTimeTransformation(),
-                    actionType = DateTimeActionType.DATE_TIME,
-                    onValueChanged = { dateTime24hour = it ?: TextFieldValue() },
-                    is24hourFormat = true,
                 ),
+
+                onValueChanged = { dateTime24hour = it ?: TextFieldValue() },
             )
         }
 
         ColumnComponentContainer("Disabled") {
             InputDateTime(
-                InputDateTimeModel(
-                    title = "Label",
+                state = rememberInputDateTimeState(
+                    inputDateTimeData =
+                    InputDateTimeData(
+                        title = "label",
+                        visualTransformation = DateTimeTransformation(),
+                        actionType = DateTimeActionType.DATE_TIME,
+                    ),
                     inputTextFieldValue = TextFieldValue(),
-                    state = InputShellState.DISABLED,
-                    onValueChanged = {
-                        // no-op
-                    },
+                    inputState = InputShellState.DISABLED,
                 ),
+
+                onValueChanged = {
+                    // no-op
+                },
             )
         }
 
         ColumnComponentContainer("Error") {
             InputDateTime(
-                InputDateTimeModel(
-                    title = "Label",
+                state = rememberInputDateTimeState(
+                    inputDateTimeData =
+                    InputDateTimeData(
+                        title = "label",
+                        visualTransformation = DateTimeTransformation(),
+                        actionType = DateTimeActionType.DATE_TIME,
+                        isRequired = true,
+                    ),
                     inputTextFieldValue = TextFieldValue(),
-                    isRequired = true,
-                    state = InputShellState.ERROR,
-                    onValueChanged = {
-                        // no-op
-                    },
+                    inputState = InputShellState.ERROR,
                 ),
+
+                onValueChanged = {
+                    // no-op
+                },
             )
         }
     }
