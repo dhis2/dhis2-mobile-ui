@@ -210,7 +210,7 @@ fun ParameterSelectorScreen() {
                             title = "DateTime parameter",
                             visualTransformation = DateTimeTransformation(),
                             actionType = DateTimeActionType.DATE_TIME,
-                            inputStyle =  InputStyle.ParameterInputStyle()
+                            inputStyle = InputStyle.ParameterInputStyle(),
                         ),
                         inputTextFieldValue = TextFieldValue(),
                     ),
