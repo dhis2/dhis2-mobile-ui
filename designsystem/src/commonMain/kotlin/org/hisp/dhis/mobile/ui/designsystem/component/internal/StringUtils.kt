@@ -1,8 +1,10 @@
 package org.hisp.dhis.mobile.ui.designsystem.component.internal
 
 import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.input.OffsetMapping
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.TransformedText
 import androidx.compose.ui.text.input.VisualTransformation
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2SCustomTextStyles
@@ -265,6 +267,13 @@ class DateTimeTransformation : DateTimeVisualTransformation {
 
         return TransformedText(output, offsetMapping)
     }
+}
+
+internal fun convertStringToTextFieldValue(inputDateString: String?): TextFieldValue {
+    inputDateString?.let {
+        return TextFieldValue(inputDateString, TextRange(inputDateString.length))
+    }
+    return TextFieldValue()
 }
 
 enum class RegExValidations(val regex: Regex) {
