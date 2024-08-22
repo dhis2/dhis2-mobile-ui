@@ -41,7 +41,7 @@ class DateTimeUtilsTest {
         var storedValue = TextFieldValue("2022-10-12")
         assert(formatStoredDateToUI(storedValue, DateTimeActionType.DATE).text == "12102022")
 
-        storedValue = TextFieldValue(" \"2022-10\"")
+        storedValue = TextFieldValue("2022-10")
         assert(formatStoredDateToUI(storedValue, DateTimeActionType.DATE).text == "2022-10")
 
         storedValue = TextFieldValue("2022-10-1")
