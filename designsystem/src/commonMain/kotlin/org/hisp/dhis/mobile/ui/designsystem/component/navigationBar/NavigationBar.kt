@@ -16,6 +16,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import org.hisp.dhis.mobile.ui.designsystem.component.Badge
 import org.hisp.dhis.mobile.ui.designsystem.component.ErrorBadge
 import org.hisp.dhis.mobile.ui.designsystem.component.navigationBar.NavigationBarTestTags.NAVIGATION_BAR
 import org.hisp.dhis.mobile.ui.designsystem.component.navigationBar.NavigationBarTestTags.NAVIGATION_BAR_BORDER
@@ -113,7 +114,7 @@ private fun <T> NavigationBarItemIcon(item: NavigationBarItem<T>, selected: Bool
             }
             val badgeYOffset = if (!item.badgeText.isNullOrEmpty()) (-4).dp else 0.dp
 
-            ErrorBadge(
+            Badge(
                 modifier = Modifier.testTag("$NAVIGATION_BAR_ITEM_BADGE_PREFIX${item.label}")
                     .align(Alignment.TopEnd)
                     .offset(
