@@ -2,7 +2,6 @@ package org.hisp.dhis.common.screens.others
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Assignment
-import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.automirrored.filled.StickyNote2
 import androidx.compose.material.icons.automirrored.outlined.Assignment
 import androidx.compose.material.icons.automirrored.outlined.List
@@ -15,7 +14,6 @@ import androidx.compose.material.icons.outlined.BarChart
 import androidx.compose.material.icons.outlined.Description
 import androidx.compose.material.icons.outlined.Hub
 import androidx.compose.material.icons.outlined.Map
-import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -27,25 +25,27 @@ import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.navigationBar.NavigationBar
 import org.hisp.dhis.mobile.ui.designsystem.component.navigationBar.NavigationBarItem
 
+enum class NavigationItem {
+    DESCRIPTION,
+    VISUALIZATION,
+    LIST,
+    MAPS,
+    RELATIONSHIPS,
+    NOTES,
+    ASSIGNMENT,
+}
+
 @Composable
 fun NavigationBarScreen() {
     val homeItems = listOf(
         NavigationBarItem(
-            defaultIcon = {
-                Icon(imageVector = Icons.Outlined.Description, contentDescription = null)
-            },
-            selectedIcon = {
-                Icon(imageVector = Icons.Filled.Description, contentDescription = null)
-            },
+            id = NavigationItem.DESCRIPTION,
+            icon = Icons.Outlined.Description,
             label = "Description",
         ),
         NavigationBarItem(
-            defaultIcon = {
-                Icon(imageVector = Icons.Outlined.BarChart, contentDescription = null)
-            },
-            selectedIcon = {
-                Icon(imageVector = Icons.Filled.BarChart, contentDescription = null)
-            },
+            id = NavigationItem.VISUALIZATION,
+            icon = Icons.Outlined.BarChart,
             label = "Charts",
             showBadge = true,
         ),
@@ -53,30 +53,20 @@ fun NavigationBarScreen() {
 
     val programItems = listOf(
         NavigationBarItem(
-            defaultIcon = {
-                Icon(imageVector = Icons.AutoMirrored.Outlined.List, contentDescription = null)
-            },
-            selectedIcon = {
-                Icon(imageVector = Icons.AutoMirrored.Filled.List, contentDescription = null)
-            },
+            id = NavigationItem.LIST,
+            icon = Icons.AutoMirrored.Outlined.List,
             label = "List",
         ),
         NavigationBarItem(
-            defaultIcon = {
-                Icon(imageVector = Icons.Outlined.Map, contentDescription = null)
-            },
-            selectedIcon = {
-                Icon(imageVector = Icons.Filled.Map, contentDescription = null)
-            },
+            id = NavigationItem.MAPS,
+            icon = Icons.Outlined.Map,
+            selectedIcon = Icons.Filled.Map,
             label = "Maps",
         ),
         NavigationBarItem(
-            defaultIcon = {
-                Icon(imageVector = Icons.Outlined.BarChart, contentDescription = null)
-            },
-            selectedIcon = {
-                Icon(imageVector = Icons.Filled.BarChart, contentDescription = null)
-            },
+            id = NavigationItem.VISUALIZATION,
+            icon = Icons.Outlined.BarChart,
+            selectedIcon = Icons.Filled.BarChart,
             label = "Charts",
             showBadge = true,
             badgeText = "32",
@@ -85,39 +75,27 @@ fun NavigationBarScreen() {
 
     val enrollmentItems = listOf(
         NavigationBarItem(
-            defaultIcon = {
-                Icon(imageVector = Icons.AutoMirrored.Outlined.Assignment, contentDescription = null)
-            },
-            selectedIcon = {
-                Icon(imageVector = Icons.AutoMirrored.Filled.Assignment, contentDescription = null)
-            },
+            id = NavigationItem.ASSIGNMENT,
+            icon = Icons.AutoMirrored.Outlined.Assignment,
+            selectedIcon = Icons.AutoMirrored.Filled.Assignment,
             label = "Details",
         ),
         NavigationBarItem(
-            defaultIcon = {
-                Icon(imageVector = Icons.Outlined.BarChart, contentDescription = null)
-            },
-            selectedIcon = {
-                Icon(imageVector = Icons.Filled.BarChart, contentDescription = null)
-            },
+            id = NavigationItem.VISUALIZATION,
+            icon = Icons.Outlined.BarChart,
+            selectedIcon = Icons.Filled.BarChart,
             label = "Charts",
         ),
         NavigationBarItem(
-            defaultIcon = {
-                Icon(imageVector = Icons.Outlined.Hub, contentDescription = null)
-            },
-            selectedIcon = {
-                Icon(imageVector = Icons.Filled.Hub, contentDescription = null)
-            },
+            id = NavigationItem.RELATIONSHIPS,
+            icon = Icons.Outlined.Hub,
+            selectedIcon = Icons.Filled.Hub,
             label = "Relationships",
         ),
         NavigationBarItem(
-            defaultIcon = {
-                Icon(imageVector = Icons.AutoMirrored.Outlined.StickyNote2, contentDescription = null)
-            },
-            selectedIcon = {
-                Icon(imageVector = Icons.AutoMirrored.Filled.StickyNote2, contentDescription = null)
-            },
+            id = NavigationItem.NOTES,
+            icon = Icons.AutoMirrored.Outlined.StickyNote2,
+            selectedIcon = Icons.AutoMirrored.Filled.StickyNote2,
             label = "Notes",
             showBadge = true,
         ),
@@ -125,30 +103,21 @@ fun NavigationBarScreen() {
 
     val formItems = listOf(
         NavigationBarItem(
-            defaultIcon = {
-                Icon(imageVector = Icons.Outlined.Description, contentDescription = null)
-            },
-            selectedIcon = {
-                Icon(imageVector = Icons.Filled.Description, contentDescription = null)
-            },
+            id = NavigationItem.DESCRIPTION,
+            icon = Icons.Outlined.Description,
+            selectedIcon = Icons.Filled.Description,
             label = "Description",
         ),
         NavigationBarItem(
-            defaultIcon = {
-                Icon(imageVector = Icons.Outlined.BarChart, contentDescription = null)
-            },
-            selectedIcon = {
-                Icon(imageVector = Icons.Filled.BarChart, contentDescription = null)
-            },
+            id = NavigationItem.VISUALIZATION,
+            icon = Icons.Outlined.BarChart,
+            selectedIcon = Icons.Filled.BarChart,
             label = "Charts",
         ),
         NavigationBarItem(
-            defaultIcon = {
-                Icon(imageVector = Icons.AutoMirrored.Outlined.StickyNote2, contentDescription = null)
-            },
-            selectedIcon = {
-                Icon(imageVector = Icons.AutoMirrored.Filled.StickyNote2, contentDescription = null)
-            },
+            id = NavigationItem.NOTES,
+            icon = Icons.AutoMirrored.Outlined.StickyNote2,
+            selectedIcon = Icons.AutoMirrored.Filled.StickyNote2,
             label = "Notes",
             showBadge = true,
             badgeText = "3",
@@ -163,8 +132,8 @@ fun NavigationBarScreen() {
             NavigationBar(
                 items = homeItems,
                 selectedItemIndex = selectedHomeItemIndex,
-            ) {
-                selectedHomeItemIndex = it
+            ) { itemId ->
+                selectedHomeItemIndex = homeItems.indexOfFirst { it.id == itemId }
             }
         }
         ColumnComponentContainer("Program dashboard") {
@@ -172,8 +141,8 @@ fun NavigationBarScreen() {
             NavigationBar(
                 items = programItems,
                 selectedItemIndex = selectedProgramItemIndex,
-            ) {
-                selectedProgramItemIndex = it
+            ) { itemId ->
+                selectedProgramItemIndex = programItems.indexOfFirst { it.id == itemId }
             }
         }
 
@@ -182,8 +151,8 @@ fun NavigationBarScreen() {
             NavigationBar(
                 items = enrollmentItems,
                 selectedItemIndex = selectedEnrollmentItemIndex,
-            ) {
-                selectedEnrollmentItemIndex = it
+            ) { itemId ->
+                selectedEnrollmentItemIndex = enrollmentItems.indexOfFirst { it.id == itemId }
             }
         }
 
@@ -192,8 +161,8 @@ fun NavigationBarScreen() {
             NavigationBar(
                 items = formItems,
                 selectedItemIndex = selectedFormItemIndex,
-            ) {
-                selectedFormItemIndex = it
+            ) { itemId ->
+                selectedFormItemIndex = formItems.indexOfFirst { it.id == itemId }
             }
         }
     }
