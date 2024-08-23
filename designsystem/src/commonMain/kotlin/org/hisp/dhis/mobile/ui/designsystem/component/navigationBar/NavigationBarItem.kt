@@ -1,10 +1,11 @@
 package org.hisp.dhis.mobile.ui.designsystem.component.navigationBar
 
-import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.vector.ImageVector
 
-data class NavigationBarItem(
-    val defaultIcon: @Composable () -> Unit,
-    val selectedIcon: @Composable () -> Unit,
+data class NavigationBarItem<T>(
+    val id: T,
+    val icon: ImageVector,
+    val selectedIcon: ImageVector = icon,
     val label: String,
     val enabled: Boolean = true,
     val showBadge: Boolean = false,

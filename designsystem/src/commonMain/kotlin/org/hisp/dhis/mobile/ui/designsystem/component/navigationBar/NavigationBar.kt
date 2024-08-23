@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.offset
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
@@ -20,19 +21,21 @@ import org.hisp.dhis.mobile.ui.designsystem.component.navigationBar.NavigationBa
 import org.hisp.dhis.mobile.ui.designsystem.component.navigationBar.NavigationBarTestTags.NAVIGATION_BAR_BORDER
 import org.hisp.dhis.mobile.ui.designsystem.component.navigationBar.NavigationBarTestTags.NAVIGATION_BAR_CONTAINER
 import org.hisp.dhis.mobile.ui.designsystem.component.navigationBar.NavigationBarTestTags.NAVIGATION_BAR_ITEM_BADGE_PREFIX
+import org.hisp.dhis.mobile.ui.designsystem.component.navigationBar.NavigationBarTestTags.NAVIGATION_BAR_ITEM_DEFAULT_ICON_SUFFIX
 import org.hisp.dhis.mobile.ui.designsystem.component.navigationBar.NavigationBarTestTags.NAVIGATION_BAR_ITEM_LABEL_PREFIX
 import org.hisp.dhis.mobile.ui.designsystem.component.navigationBar.NavigationBarTestTags.NAVIGATION_BAR_ITEM_PREFIX
+import org.hisp.dhis.mobile.ui.designsystem.component.navigationBar.NavigationBarTestTags.NAVIGATION_BAR_ITEM_SELECTED_ICON_SUFFIX
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideFontResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
 @Composable
-fun NavigationBar(
+fun <T> NavigationBar(
     modifier: Modifier = Modifier,
-    items: List<NavigationBarItem>,
+    items: List<NavigationBarItem<T>>,
     selectedItemIndex: Int? = null,
-    onItemClick: (Int) -> Unit,
+    onItemClick: (T) -> Unit,
 ) {
     Column(
         modifier = modifier.testTag(NAVIGATION_BAR_CONTAINER),
@@ -75,7 +78,7 @@ fun NavigationBar(
                     enabled = item.enabled,
                     selected = selected,
                     onClick = {
-                        onItemClick(index)
+                        onItemClick(item.id)
                     },
                 )
             }
@@ -84,13 +87,24 @@ fun NavigationBar(
 }
 
 @Composable
-fun NavigationBarItemIcon(item: NavigationBarItem, selected: Boolean) {
+private fun <T> NavigationBarItemIcon(item: NavigationBarItem<T>, selected: Boolean) {
     Box {
-        if (selected) {
-            item.selectedIcon()
-        } else {
-            item.defaultIcon()
-        }
+        Icon(
+            modifier = Modifier.testTag(
+                item.iconTestTag(selected),
+            ),
+            imageVector = if (selected) {
+                item.selectedIcon
+            } else {
+                item.icon
+            },
+            contentDescription = item.label,
+            tint = if (selected) {
+                SurfaceColor.Primary
+            } else {
+                TextColor.OnSurfaceVariant
+            },
+        )
         if (item.showBadge) {
             val badgeXOffset = if (!item.badgeText.isNullOrEmpty()) {
                 4.dp * item.badgeText.length
@@ -110,6 +124,15 @@ fun NavigationBarItemIcon(item: NavigationBarItem, selected: Boolean) {
             )
         }
     }
+}
+
+private fun <T> NavigationBarItem<T>.iconTestTag(selected: Boolean): String {
+    val iconTestId = if (selected) {
+        NAVIGATION_BAR_ITEM_SELECTED_ICON_SUFFIX
+    } else {
+        NAVIGATION_BAR_ITEM_DEFAULT_ICON_SUFFIX
+    }
+    return "${NAVIGATION_BAR_ITEM_PREFIX}${iconTestId}$label"
 }
 
 @Composable
