@@ -1,5 +1,6 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -17,63 +18,28 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextOverflow
+import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopBar(
     modifier: Modifier = Modifier,
-    topBarData: TopBarData,
+    type: TopBarType = TopBarType.DEFAULT,
+    navigationIcon: @Composable () -> Unit,
+    actions: @Composable RowScope.() -> Unit,
+    title: String,
+    color: Color = SurfaceColor.PrimaryContainer,
 ) {
-    var showMenu by remember { mutableStateOf(false) }
-
-    if (topBarData.type == TopBarType.DEFAULT) {
+    if (type == TopBarType.DEFAULT) {
         TopAppBar(
             modifier = modifier,
             title = {
-                Text(text = topBarData.title)
+                Text(text = title)
             },
-            navigationIcon = {
-                topBarData.navigationIcon()
-            },
-            actions = {
-                if (topBarData.primaryAction != null) {
-                    IconButton(
-                        onClick = { topBarData.primaryAction.onClick() },
-                        icon = {
-                            Icon(
-                                imageVector = topBarData.primaryAction.icon,
-                                contentDescription = "Primary Action",
-                            )
-                        },
-                    )
-                }
-                if (topBarData.secondaryAction != null) {
-                    IconButton(
-                        onClick = { topBarData.secondaryAction.onClick() },
-                        icon = {
-                            Icon(
-                                imageVector = topBarData.secondaryAction.icon,
-                                contentDescription = "Primary Action",
-                            )
-                        },
-                    )
-                }
-
-                if (topBarData.dropdownMenu != null) {
-                    IconButton(
-                        onClick = { showMenu = !showMenu },
-                        icon = {
-                            Icon(
-                                imageVector = Icons.Default.MoreVert,
-                                contentDescription = "More",
-                            )
-                        },
-                    )
-                    topBarData.dropdownMenu()
-                }
-            },
+            navigationIcon = navigationIcon,
+            actions = actions,
             colors = TopAppBarDefaults.topAppBarColors(
-                containerColor = topBarData.color,
+                containerColor = color,
             ),
         )
     } else {
@@ -81,73 +47,54 @@ fun TopBar(
             modifier = modifier,
             title = {
                 Text(
-                    text = topBarData.title,
+                    text = title,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                 )
             },
-            navigationIcon = {
-                topBarData.navigationIcon()
-            },
-            actions = {
-                if (topBarData.primaryAction != null) {
-                    IconButton(
-                        onClick = { topBarData.primaryAction.onClick() },
-                        icon = {
-                            Icon(
-                                imageVector = topBarData.primaryAction.icon,
-                                contentDescription = "Primary Action",
-                            )
-                        },
-                    )
-                }
-                if (topBarData.secondaryAction != null) {
-                    IconButton(
-                        onClick = { topBarData.secondaryAction.onClick() },
-                        icon = {
-                            Icon(
-                                imageVector = topBarData.secondaryAction.icon,
-                                contentDescription = "Primary Action",
-                            )
-                        },
-                    )
-                }
-
-                if (topBarData.dropdownMenu != null) {
-                    IconButton(
-                        onClick = { showMenu = !showMenu },
-                        icon = {
-                            Icon(
-                                imageVector = Icons.Default.MoreVert,
-                                contentDescription = "More",
-                            )
-                        },
-                    )
-                    topBarData.dropdownMenu()
-                }
-            },
+            navigationIcon = navigationIcon,
+            actions = actions,
             colors = TopAppBarDefaults.topAppBarColors(
-                containerColor = topBarData.color,
+                containerColor = color,
             ),
         )
     }
 }
 
-@ExperimentalMaterial3Api
-data class TopBarData(
-    val type: TopBarType = TopBarType.DEFAULT,
-    val title: String,
-    val navigationIcon: @Composable () -> Unit,
-    val primaryAction: TopBarAction? = null,
-    val secondaryAction: TopBarAction? = null,
-    val dropdownMenu: (@Composable () -> Unit)? = null,
-    val color: Color,
-)
+@Composable
+fun TopBarActionIcon(
+    icon: ImageVector,
+    contentDescription: String = "",
+    onClick: () -> Unit,
+) {
+    IconButton(
+        onClick = onClick,
+        icon = {
+            Icon(
+                imageVector = icon,
+                contentDescription = contentDescription,
+            )
+        },
+    )
+}
 
-data class TopBarAction(
-    val icon: ImageVector,
-    val onClick: () -> Unit,
-)
+@Composable
+fun TopBarDropdownMenuIcon(
+    dropDownMenu: @Composable (showMenu: Boolean, onDismissRequest: () -> Unit) -> Unit,
+) {
+    var showMenu by remember { mutableStateOf(false) }
+
+    IconButton(
+        onClick = { showMenu = !showMenu },
+        icon = {
+            Icon(
+                imageVector = Icons.Default.MoreVert,
+                contentDescription = "More",
+            )
+        },
+    )
+    dropDownMenu(showMenu) { showMenu = false }
+}
 
 enum class TopBarType {
     DEFAULT,
