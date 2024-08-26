@@ -48,7 +48,7 @@ class TopBarSnapshotTest {
                                 icon = Icons.Outlined.FileDownload,
                                 onClick = { },
                             )
-                            TopBarDropdownMenuIcon {
+                            TopBarDropdownMenuIcon { _, _ ->
                             }
                         },
                         color = SurfaceColor.PrimaryContainer,
