@@ -5,6 +5,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.res.useResource
+import androidx.compose.ui.text.intl.Locale
 
 @Composable
 actual fun provideStringResource(id: String): String {
@@ -23,18 +24,37 @@ actual fun provideQuantityStringResource(id: String, quantity: Int): String {
 
 private fun getResources(): Map<String, String> {
     val stringsResources = mutableMapOf<String, String>()
-    // for translation we could use Locale.current.language to find the proper xml
-    useResource("values/strings_en.xml") { inputStream ->
+    val localePath = "values-${Locale.current.language}/strings.xml"
+    val defaultPath = "values/strings.xml"
 
-        val regex = Regex("""<string name="(.+?)">(.+?)</string>""")
+    try {
+        useResource(localePath) { inputStream ->
 
-        inputStream.bufferedReader().useLines { lines ->
-            lines.forEach { line ->
-                val matchResult = regex.find(line)
-                if (matchResult != null) {
-                    val key = matchResult.groupValues[1]
-                    val value = matchResult.groupValues[2]
-                    stringsResources[key] = value
+            val regex = Regex("""<string name="(.+?)">(.+?)</string>""")
+
+            inputStream.bufferedReader().useLines { lines ->
+                lines.forEach { line ->
+                    val matchResult = regex.find(line)
+                    if (matchResult != null) {
+                        val key = matchResult.groupValues[1]
+                        val value = matchResult.groupValues[2]
+                        stringsResources[key] = value
+                    }
+                }
+            }
+        }
+    } catch (e: IllegalArgumentException) {
+        useResource(defaultPath) { inputStream ->
+            val regex = Regex("""<string name="(.+?)">(.+?)</string>""")
+
+            inputStream.bufferedReader().useLines { lines ->
+                lines.forEach { line ->
+                    val matchResult = regex.find(line)
+                    if (matchResult != null) {
+                        val key = matchResult.groupValues[1]
+                        val value = matchResult.groupValues[2]
+                        stringsResources[key] = value
+                    }
                 }
             }
         }

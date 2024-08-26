@@ -4,13 +4,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import org.hisp.dhis.common.screens.NoComponentSelectedScreen
+import org.hisp.dhis.common.screens.components.GroupComponentDropDown
 import org.hisp.dhis.mobile.ui.designsystem.component.DropdownItem
-import org.hisp.dhis.mobile.ui.designsystem.component.InputDropDown
-import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 
 @Composable
 fun ButtonsScreen() {
-    val currentScreen = remember { mutableStateOf(ButtonScreens.BUTTON) }
+    val currentScreen = remember { mutableStateOf(ButtonScreens.NO_COMPONENT_SELECTED) }
 
     val screenDropdownItemList = mutableListOf<DropdownItem>()
     ButtonScreens.entries.forEach {
@@ -18,13 +17,11 @@ fun ButtonsScreen() {
             screenDropdownItemList.add(DropdownItem(it.label))
         }
     }
-    InputDropDown(
-        "Display",
+    GroupComponentDropDown(
         dropdownItems = screenDropdownItemList.toList(),
         onItemSelected = { currentScreen.value = getCurrentScreen(it.label) },
         onResetButtonClicked = { currentScreen.value = ButtonScreens.NO_COMPONENT_SELECTED },
         selectedItem = DropdownItem(currentScreen.value.label),
-        state = InputShellState.UNFOCUSED,
     )
     when (currentScreen.value) {
         ButtonScreens.BUTTON -> ButtonScreen()
@@ -40,14 +37,14 @@ fun ButtonsScreen() {
 }
 
 enum class ButtonScreens(val label: String) {
-    BUTTON("Button"),
-    BUTTON_BLOCK("Button block"),
-    CAROUSEL_BUTTONS("Carousel buttons"),
-    CHECK_BOX("Check Box"),
-    FAB("FAB"),
-    ICON_BUTTON("Icon Button"),
-    RADIO("Radio"),
-    SWITCH("Switch"),
+    BUTTON("Button component"),
+    BUTTON_BLOCK("Button block component"),
+    CAROUSEL_BUTTONS("Carousel button component"),
+    CHECK_BOX("Check Box component"),
+    FAB("FAB component"),
+    ICON_BUTTON("Icon Button component"),
+    RADIO("Radio component"),
+    SWITCH("Switch component"),
     NO_COMPONENT_SELECTED("No component selected"),
 }
 

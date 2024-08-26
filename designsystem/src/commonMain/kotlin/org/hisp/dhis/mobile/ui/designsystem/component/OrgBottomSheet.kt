@@ -2,24 +2,22 @@ package org.hisp.dhis.mobile.ui.designsystem.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.requiredHeightIn
 import androidx.compose.foundation.layout.requiredWidth
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.ClearAll
 import androidx.compose.material.icons.filled.KeyboardArrowDown
-import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material.ripple.rememberRipple
-import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -47,6 +45,7 @@ import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2SCustomTextStyles
+import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
@@ -88,7 +87,6 @@ fun OrgBottomSheet(
     onClearAll: () -> Unit,
     onDone: () -> Unit,
 ) {
-    val listState = rememberLazyListState()
     var searchQuery by remember { mutableStateOf("") }
     var orgTreeHeight by remember { mutableStateOf(0) }
     val orgTreeHeightInDp = with(LocalDensity.current) { orgTreeHeight.toDp() }
@@ -105,10 +103,10 @@ fun OrgBottomSheet(
             onSearch?.invoke(searchQuery)
         },
         onSearch = onSearch,
-        contentScrollState = listState,
+        scrollableContainerMinHeight = InternalSizeValues.Size386,
+        scrollableContainerMaxHeight = maxOf(orgTreeHeightInDp, InternalSizeValues.Size386),
         content = {
             OrgTreeList(
-                state = listState,
                 orgTreeItems = orgTreeItems,
                 searchQuery = searchQuery,
                 noResultsFoundText = noResultsFoundText,
@@ -120,8 +118,7 @@ fun OrgBottomSheet(
                         if (treeHeight > orgTreeHeight) {
                             orgTreeHeight = treeHeight
                         }
-                    }
-                    .requiredHeightIn(min = orgTreeHeightInDp),
+                    },
             )
         },
         buttonBlock = {
@@ -164,7 +161,6 @@ fun OrgBottomSheet(
 
 @Composable
 private fun OrgTreeList(
-    state: LazyListState,
     orgTreeItems: List<OrgTreeItem>,
     searchQuery: String,
     noResultsFoundText: String,
@@ -172,13 +168,14 @@ private fun OrgTreeList(
     onItemClick: (orgUnitUid: String) -> Unit,
     onItemSelected: (orgUnitUid: String, checked: Boolean) -> Unit,
 ) {
+    val scrollState = rememberScrollState()
     val hasSearchQuery by derivedStateOf { searchQuery.isNotBlank() }
     if (orgTreeItems.isEmpty() && hasSearchQuery) {
         Text(
             modifier = modifier
                 .fillMaxWidth()
-                .padding(top = Spacing.Spacing24, bottom = Spacing.Spacing96)
-                .padding(horizontal = Spacing.Spacing16)
+                .padding(horizontal = Spacing.Spacing24)
+                .padding(vertical = Spacing.Spacing24)
                 .testTag("ORG_TREE_NO_RESULTS_FOUND"),
             textAlign = TextAlign.Center,
             text = noResultsFoundText,
@@ -186,15 +183,17 @@ private fun OrgTreeList(
             style = MaterialTheme.typography.bodyMedium,
         )
     } else {
-        LazyColumn(
+        Column(
             modifier = modifier
-                .testTag("ORG_TREE_LIST"),
-            state = state,
+                .fillMaxWidth()
+                .testTag("ORG_TREE_LIST")
+                .horizontalScroll(scrollState),
             horizontalAlignment = Alignment.Start,
         ) {
-            items(orgTreeItems) { item ->
+            orgTreeItems.forEach { item ->
                 OrgUnitSelectorItem(
                     orgTreeItem = item,
+                    higherLevel = orgTreeItems.minBy { it.level }.level,
                     searchQuery = searchQuery,
                     onItemClick = onItemClick,
                     onItemSelected = onItemSelected,
@@ -207,6 +206,7 @@ private fun OrgTreeList(
 @Composable
 fun OrgUnitSelectorItem(
     orgTreeItem: OrgTreeItem,
+    higherLevel: Int,
     searchQuery: String,
     modifier: Modifier = Modifier,
     onItemClick: (uid: String) -> Unit,
@@ -226,7 +226,7 @@ fun OrgUnitSelectorItem(
             ) {
                 onItemClick(orgTreeItem.uid)
             }
-            .padding(start = ((orgTreeItem.level * 2) * 16).dp),
+            .padding(start = ((orgTreeItem.level - higherLevel) * 16).dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         val icon = orgTreeItemIcon(orgTreeItem)
@@ -245,28 +245,49 @@ fun OrgUnitSelectorItem(
             contentDescription = "",
         )
 
-        Text(
-            modifier = Modifier.weight(1f),
-            text = orgTreeItemLabel(
-                orgTreeItem = orgTreeItem,
-                searchQuery = searchQuery,
-            ),
-            style = DHIS2SCustomTextStyles.bodyLargeBold.copy(
-                fontWeight = if (orgTreeItem.selectedChildrenCount > 0 || orgTreeItem.selected) {
-                    FontWeight.Bold
-                } else {
-                    FontWeight.Normal
-                },
-            ),
-        )
+        val clickableModifier = if (orgTreeItem.canBeSelected) {
+            Modifier
+                .clickable(
+                    interactionSource = remember { MutableInteractionSource() },
+                    indication = null,
+                    onClick = {
+                        onItemSelected(orgTreeItem.uid, !orgTreeItem.selected)
+                    },
+                )
+        } else {
+            Modifier
+        }
 
-        if (orgTreeItem.canBeSelected) {
-            Checkbox(
-                modifier = Modifier.testTag("$ITEM_CHECK_TEST_TAG${orgTreeItem.label}"),
-                checked = orgTreeItem.selected,
-                onCheckedChange = { isChecked ->
-                    onItemSelected(orgTreeItem.uid, isChecked)
-                },
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = clickableModifier,
+        ) {
+            if (orgTreeItem.canBeSelected) {
+                val checkBoxData = CheckBoxData(uid = orgTreeItem.uid, enabled = true, checked = orgTreeItem.selected, textInput = null)
+                CheckBox(
+                    modifier = Modifier.testTag("$ITEM_CHECK_TEST_TAG${orgTreeItem.label}"),
+                    checkBoxData = checkBoxData,
+                    onCheckedChange = { isChecked ->
+                        onItemSelected(orgTreeItem.uid, isChecked)
+                    },
+                )
+            } else {
+                Spacer(modifier = Modifier.size(Spacing.Spacing16))
+            }
+
+            Text(
+                text = orgTreeItemLabel(
+                    orgTreeItem = orgTreeItem,
+                    searchQuery = searchQuery,
+                ),
+                maxLines = 1,
+                style = DHIS2SCustomTextStyles.bodyLargeBold.copy(
+                    fontWeight = if (orgTreeItem.selectedChildrenCount > 0 || orgTreeItem.selected) {
+                        FontWeight.Bold
+                    } else {
+                        FontWeight.Normal
+                    },
+                ),
             )
         }
     }
@@ -279,7 +300,7 @@ private fun orgTreeItemIcon(orgTreeItem: OrgTreeItem): Painter {
     return if (orgTreeItem.isOpen) {
         rememberVectorPainter(Icons.Filled.KeyboardArrowDown)
     } else {
-        rememberVectorPainter(Icons.Filled.KeyboardArrowRight)
+        rememberVectorPainter(Icons.AutoMirrored.Filled.KeyboardArrowRight)
     }
 }
 

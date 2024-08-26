@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="show_more">Mostrar más</string>
+    <string name="show_less">Mostrar menos</string>
+    <string name="date_birth">FECHA DE NACIMIENTO</string>
+    <string name="age">EDAD</string>
+    <string name="or"> O </string>
+    <string name="years">Años</string>
+    <string name="months">Meses</string>
+    <string name="days">Días</string>
+    <string name="error_one">%d error</string>
+    <string name="error_other">%d errores</string>
+    <string name="warning_one">%d advertencia</string>
+    <string name="warning_other">%d advertencias</string>
+    <string name="show_fields">Mostrar campos</string>
+    <string name="hide_fields">Ocultar campos</string>
+    <string name="action_next">Siguiente</string>
+    <string name="add_file">Agregar archivo</string>
+    <string name="yes">Sí</string>
+    <string name="no">No</string>
+    <string name="enter_phone_number">Ingrese número de teléfono</string>
+    <string name="qr_code">Código QR</string>
+    <string name="sync">Sincronizar</string>
+    <string name="add_polygon">Agregar polígono</string>
+    <string name="polygon_captured">Polígono capturado</string>
+    <string name="add_location">Agregar ubicación</string>
+    <string name="latitude">Lat</string>
+    <string name="longitude">Long</string>
+    <string name="add_signature">Agregar firma</string>
+    <string name="add_image">Agregar imagen</string>
+    <string name="not_supported">No soportado</string>
+    <string name="search">Buscar</string>
+    <string name="draw_here">Dibujar aquí</string>
+    <string name="reset">Restablecer</string>
+    <string name="done">Hecho</string>
+    <string name="clear_all">Limpiar todo</string>
+    <string name="no_results_found">No se encontraron resultados</string>
+    <string name="ok">Aceptar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="select_date">Seleccionar fecha</string>
+    <string name="date_out_of_range">Fecha fuera de rango</string>
+    <string name="incorrect_date_format">Formato de fecha incorrecto</string>
+    <string name="wrong_hour_format">Formato de hora incorrecto</string>
+    <string name="search_to_see_more">No se muestran todas las opciones.\n Busca para ver más.</string>
+</resources>

@@ -37,6 +37,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.internal.DateTransformatio
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.RegExValidations
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.dateIsInRange
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.isValidDate
+import org.hisp.dhis.mobile.ui.designsystem.component.internal.parseStringDateToMillis
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2LightColorScheme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
@@ -75,10 +76,19 @@ fun InputAge(
             is Age -> HelperStyle.WITH_HELPER_AFTER
         }
     }
-    val selectableDates = uiModel.selectableDates
+    val selectableDates = uiModel.selectableDates ?: SelectableDates(
+        MIN_DATE,
+        SimpleDateFormat(DATE_FORMAT).format(Calendar.getInstance().time),
+    )
 
     val focusRequester = remember { FocusRequester() }
-    val datePickerState = rememberDatePickerState()
+    val datePickerState = rememberDatePickerState(
+        selectableDates = object : androidx.compose.material3.SelectableDates {
+            override fun isSelectableDate(utcTimeMillis: Long): Boolean {
+                return dateIsInRange(utcTimeMillis, selectableDates)
+            }
+        },
+    )
 
     val calendarButton: (@Composable () -> Unit)? = if (uiModel.inputType is DateOfBirth) {
         @Composable {
@@ -150,7 +160,7 @@ fun InputAge(
                             .testTag("INPUT_AGE_TEXT_FIELD")
                             .fillMaxWidth(),
                         inputTextValue = getTextFieldValue(uiModel.inputType),
-                        helper = helperText,
+                        helper = if (helperText != null) provideStringResource(helperText).lowercase() else null,
                         isSingleLine = true,
                         helperStyle = helperStyle,
                         onInputChanged = { newText ->
@@ -211,12 +221,9 @@ fun InputAge(
                     modifier = Modifier.fillMaxWidth()
                         .testTag("INPUT_AGE_TIME_UNIT_SELECTOR"),
                     orientation = Orientation.HORIZONTAL,
-                    optionSelected = YEARS.value,
+                    optionSelected = YEARS,
                     enabled = uiModel.state != InputShellState.DISABLED,
-                    onClick = { itemData ->
-                        val timeUnit = TimeUnitValues.entries
-                            .first { it.value.contains(itemData.textInput!!, ignoreCase = true) }
-
+                    onClick = { timeUnit ->
                         uiModel.onValueChanged.invoke(uiModel.inputType.copy(unit = timeUnit))
                     },
                 )
@@ -283,9 +290,6 @@ fun InputAge(
                     state = datePickerState,
                     showModeToggle = true,
                     modifier = Modifier.padding(Spacing.Spacing0),
-                    dateValidator = { date ->
-                        dateIsInRange(date, uiModel.selectableDates)
-                    },
                 )
             }
         }
@@ -409,8 +413,5 @@ data class InputAgeModel(
     val acceptText: String? = null,
     val cancelText: String? = null,
     val onValueChanged: (AgeInputType) -> Unit,
-    val selectableDates: SelectableDates = SelectableDates(
-        MIN_DATE,
-        SimpleDateFormat(DATE_FORMAT).format(Calendar.getInstance().time),
-    ),
+    val selectableDates: SelectableDates? = null,
 )

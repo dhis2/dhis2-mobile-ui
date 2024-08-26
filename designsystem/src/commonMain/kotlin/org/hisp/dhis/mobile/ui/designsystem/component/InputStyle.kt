@@ -17,7 +17,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
  */
 sealed class InputStyle(
     val startIndent: Dp,
-    val backGroundColor: Color,
+    var backGroundColor: Color,
     val disabledBackGroundColor: Color,
     val unfocusedIndicatorColor: Color?,
     val disabledIndicatorColor: Color?,

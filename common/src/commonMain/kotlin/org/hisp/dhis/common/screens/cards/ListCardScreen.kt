@@ -1,8 +1,10 @@
 package org.hisp.dhis.common.screens.cards
 
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.Arrangement.Absolute.spacedBy
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Event
 import androidx.compose.material.icons.outlined.Sync
@@ -15,411 +17,652 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import org.hisp.dhis.common.screens.previews.basicAdditionalItemList
+import org.hisp.dhis.common.screens.previews.basicAdditionalItemListWithLongKeyText
+import org.hisp.dhis.common.screens.previews.basicAdditionalItemListWithLongValue
+import org.hisp.dhis.common.screens.previews.basicAdditionalItemListWithMediumKeyText
 import org.hisp.dhis.common.screens.previews.enrollmentCompletedList
 import org.hisp.dhis.common.screens.previews.fullItemList
+import org.hisp.dhis.common.screens.previews.largeItemList
 import org.hisp.dhis.mobile.ui.designsystem.component.AdditionalInfoItem
 import org.hisp.dhis.mobile.ui.designsystem.component.AdditionalInfoItemColor
 import org.hisp.dhis.mobile.ui.designsystem.component.Avatar
-import org.hisp.dhis.mobile.ui.designsystem.component.AvatarSize
-import org.hisp.dhis.mobile.ui.designsystem.component.AvatarStyle
+import org.hisp.dhis.mobile.ui.designsystem.component.AvatarStyleData
 import org.hisp.dhis.mobile.ui.designsystem.component.Button
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ListCard
 import org.hisp.dhis.mobile.ui.designsystem.component.ListCardDescriptionModel
 import org.hisp.dhis.mobile.ui.designsystem.component.ListCardTitleModel
-import org.hisp.dhis.mobile.ui.designsystem.component.MetadataAvatar
-import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
+import org.hisp.dhis.mobile.ui.designsystem.component.MetadataAvatarSize
+import org.hisp.dhis.mobile.ui.designsystem.component.internal.ImageCardData
+import org.hisp.dhis.mobile.ui.designsystem.component.state.rememberAdditionalInfoColumnState
+import org.hisp.dhis.mobile.ui.designsystem.component.state.rememberListCardState
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
-import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
 @Composable
-fun ListCardScreen() {
-    ColumnComponentContainer(title = "List Card Components") {
-        var showLoading1 by remember {
-            mutableStateOf(false)
-        }
-        SubTitle("Tei list:")
-        SubTitle("With shadow")
-        ListCard(
-            listAvatar = {
-                Avatar(
-                    textAvatar = "P",
-                    style = AvatarStyle.TEXT,
-                )
-            },
-            title = ListCardTitleModel(text = "Palak Khanna, F, 61"),
-            lastUpdated = "5 hours",
-            additionalInfoList = basicAdditionalItemList.toMutableList(),
-            actionButton = {
-                Button(
-                    style = ButtonStyle.TONAL,
-                    text = "Retry sync",
-                    icon = {
-                        Icon(
-                            imageVector = Icons.Outlined.Sync,
-                            contentDescription = "Icon Button",
-                            tint = TextColor.OnPrimaryContainer,
+fun ListCardScreen(horizontal: Boolean) {
+    if (horizontal) {
+        LazyRow(
+            modifier = Modifier.heightIn(0.dp, 500.dp),
+            horizontalArrangement = spacedBy(4.dp),
+            verticalAlignment = Alignment.Top,
+            contentPadding = PaddingValues(vertical = 4.dp, horizontal = 16.dp),
+        ) {
+            items(count = 4) { index ->
+                ListCard(
+                    listCardState = rememberListCardState(
+                        title = ListCardTitleModel(text = "Palak Khanna, F, 61"),
+                        lastUpdated = "5 hours",
+                        additionalInfoColumnState = rememberAdditionalInfoColumnState(
+                            additionalInfoList = largeItemList,
+                            syncProgressItem = syncProgressItem(),
+                            scrollableContent = true,
+                        ),
+                        loading = false,
+                    ),
+                    modifier = Modifier.fillParentMaxWidth(),
+                    listAvatar = {
+                        Avatar(
+                            style = AvatarStyleData.Text("$index"),
                         )
                     },
-                    onClick = { showLoading1 = !showLoading1 },
-                    modifier = Modifier.fillMaxWidth(),
+                    onCardClick = {},
                 )
-            },
-            onCardClick = {},
-            loading = showLoading1,
-        )
-        var showLoading2 by remember {
-            mutableStateOf(false)
+            }
         }
-        ListCard(
-            listAvatar = {
-                Avatar(
-                    imagePainter = provideDHIS2Icon("dhis2_microscope_outline"),
-                    style = AvatarStyle.IMAGE,
+    } else {
+        ColumnScreenContainer(title = Cards.LIST_CARD.label) {
+            var showLoading1 by remember {
+                mutableStateOf(false)
+            }
+            val eventsTimelineTeiDashboardList = remember {
+                mutableStateListOf(
+                    AdditionalInfoItem(key = "Date of birth", value = "12/12/1945"),
                 )
-            },
-            title = ListCardTitleModel(text = "Kunal Choudary, M, 55"),
-            lastUpdated = "24 min",
-            additionalInfoList = enrollmentCompletedList.toMutableList(),
-            actionButton = {
-                Button(
-                    style = ButtonStyle.TONAL,
-                    text = "Retry sync",
-                    icon = {
-                        Icon(
-                            imageVector = Icons.Outlined.Sync,
-                            contentDescription = "Icon Button",
-                            tint = TextColor.OnPrimaryContainer,
+            }
+            ColumnComponentContainer("Tei list with shadow") {
+                ListCard(
+                    listCardState = rememberListCardState(
+                        title = ListCardTitleModel(text = "Kunal Choudary, M, 55"),
+                        lastUpdated = "24 min",
+                        additionalInfoColumnState = rememberAdditionalInfoColumnState(
+                            additionalInfoList = enrollmentCompletedList.toMutableList(),
+                            syncProgressItem = AdditionalInfoItem(
+                                icon = {
+                                    Icon(
+                                        imageVector = Icons.Outlined.Sync,
+                                        contentDescription = "Icon Button",
+                                        tint = SurfaceColor.Primary,
+                                    )
+                                },
+                                value = "Syncing...",
+                                color = SurfaceColor.Primary,
+                                isConstantItem = false,
+                            ),
+                        ),
+                        loading = true,
+                    ),
+                    listAvatar = {
+                        Avatar(
+                            style = AvatarStyleData.Image(provideDHIS2Icon("dhis2_microscope_outline")),
                         )
                     },
-                    onClick = { showLoading2 = !showLoading2 },
-                    modifier = Modifier.fillMaxWidth(),
+                    onCardClick = {},
                 )
-            },
-            onCardClick = {},
-            loading = showLoading2,
-        )
-        SubTitle("Without shadow")
 
-        var showLoading3 by remember {
-            mutableStateOf(false)
-        }
-        ListCard(
-            shadow = false,
-            listAvatar = {
-                Avatar(
-                    metadataAvatar = {
-                        MetadataAvatar(
+                ListCard(
+                    listCardState = rememberListCardState(
+                        title = ListCardTitleModel(text = "Palak Khanna, F, 61"),
+                        lastUpdated = "5 hours",
+                        additionalInfoColumnState = rememberAdditionalInfoColumnState(
+                            additionalInfoList = basicAdditionalItemList.toMutableList(),
+                            syncProgressItem = syncProgressItem(),
+                        ),
+                        loading = showLoading1,
+                    ),
+                    listAvatar = {
+                        Avatar(
+                            style = AvatarStyleData.Text("P"),
+                        )
+                    },
+                    actionButton = {
+                        Button(
+                            style = ButtonStyle.TONAL,
+                            text = "Retry sync",
                             icon = {
                                 Icon(
-                                    painter = provideDHIS2Icon("dhis2_microscope_outline"),
-                                    contentDescription = "Button",
-                                    tint = SurfaceColor.Primary,
+                                    imageVector = Icons.Outlined.Sync,
+                                    contentDescription = "Icon Button",
+                                    tint = TextColor.OnPrimaryContainer,
                                 )
                             },
+                            onClick = { showLoading1 = !showLoading1 },
+                            modifier = Modifier.fillMaxWidth(),
                         )
                     },
-                    style = AvatarStyle.METADATA,
+                    onCardClick = {},
                 )
-            },
-            title = ListCardTitleModel(text = "Anita Mathews, F, 72"),
-            lastUpdated = "5 hours",
-            additionalInfoList = fullItemList.toMutableList(),
-            actionButton = {
-                Button(
-                    style = ButtonStyle.TONAL,
-                    text = "Retry sync",
-                    icon = {
-                        Icon(
-                            imageVector = Icons.Outlined.Sync,
-                            contentDescription = "Icon Button",
-                            tint = TextColor.OnPrimaryContainer,
+                var showLoading2 by remember {
+                    mutableStateOf(false)
+                }
+                ListCard(
+                    listCardState = rememberListCardState(
+                        title = ListCardTitleModel(text = "Palak Khanna, F, 61"),
+                        lastUpdated = "5 hours",
+                        additionalInfoColumnState = rememberAdditionalInfoColumnState(
+                            additionalInfoList = basicAdditionalItemListWithLongKeyText.toMutableList(),
+                            syncProgressItem = syncProgressItem(),
+                        ),
+                        loading = showLoading2,
+                    ),
+                    listAvatar = {
+                        Avatar(
+                            style = AvatarStyleData.Text("P"),
                         )
                     },
-                    onClick = { showLoading3 = !showLoading3 },
-                    modifier = Modifier.fillMaxWidth(),
-                )
-            },
-            onCardClick = {},
-            loading = showLoading3,
-        )
-
-        var showLoading4 by remember {
-            mutableStateOf(false)
-        }
-        val errorList = remember {
-            mutableStateListOf(
-                AdditionalInfoItem(key = "Phone:", value = "+234 123 111 6785"),
-                AdditionalInfoItem(key = "Date of birth:", value = "12/12/1945"),
-            )
-        }
-        val eventsTimelineTeiDashboardList = remember {
-            mutableStateListOf(
-                AdditionalInfoItem(value = "Birth"),
-                AdditionalInfoItem(key = "Date of birth:", value = "12/12/1945"),
-            )
-        }
-
-        val errorItem = AdditionalInfoItem(
-            icon = {
-                Icon(
-                    imageVector = Icons.Outlined.SyncProblem,
-                    contentDescription = "Icon Button",
-                    tint = AdditionalInfoItemColor.ERROR.color,
-                )
-            },
-            value = "Sync warning",
-            color = AdditionalInfoItemColor.ERROR.color,
-            isConstantItem = true,
-        )
-
-        ListCard(
-            listAvatar = {
-                Avatar(
-                    textAvatar = "A",
-                    style = AvatarStyle.TEXT,
-                )
-            },
-            title = ListCardTitleModel(text = "Aditi Singh, F, 61"),
-            lastUpdated = "5 hours",
-            additionalInfoList = errorList,
-            actionButton = {
-                Button(
-                    style = ButtonStyle.TONAL,
-                    text = "Retry sync",
-                    icon = {
-                        Icon(
-                            imageVector = Icons.Outlined.Sync,
-                            contentDescription = "Icon Button",
-                            tint = TextColor.OnPrimaryContainer,
-                        )
-                    },
-                    onClick = {
-                        if (!showLoading4) {
-                            errorList.remove(errorItem)
-                        } else {
-                            errorList.add(errorItem)
-                        }
-                        showLoading4 = !showLoading4
-                    },
-                    modifier = Modifier.fillMaxWidth(),
-                )
-            },
-            onCardClick = {},
-            loading = showLoading4,
-        )
-        Spacer(Modifier.size(Spacing.Spacing16))
-        SubTitle("Single events list:")
-        SubTitle("With shadow:")
-
-        ListCard(
-            title = ListCardTitleModel(text = "12/18/2021"),
-            lastUpdated = "now",
-            additionalInfoList = basicAdditionalItemList,
-            actionButton = {
-                Button(
-                    style = ButtonStyle.TONAL,
-                    text = "Retry sync",
-                    icon = {
-                        Icon(
-                            imageVector = Icons.Outlined.Sync,
-                            contentDescription = "Icon Button",
-                            tint = TextColor.OnPrimaryContainer,
-                        )
-                    },
-                    onClick = { },
-                    modifier = Modifier.fillMaxWidth(),
-                )
-            },
-            onCardClick = {},
-        )
-        Spacer(Modifier.size(Spacing.Spacing16))
-        SubTitle("Without shadow:")
-
-        ListCard(
-            shadow = false,
-            title = ListCardTitleModel(text = "12/18/2021"),
-            lastUpdated = "now",
-            additionalInfoList = basicAdditionalItemList,
-            actionButton = {
-                Button(
-                    style = ButtonStyle.TONAL,
-                    text = "Retry sync",
-                    icon = {
-                        Icon(
-                            imageVector = Icons.Outlined.Sync,
-                            contentDescription = "Icon Button",
-                            tint = TextColor.OnPrimaryContainer,
-                        )
-                    },
-                    onClick = { },
-                    modifier = Modifier.fillMaxWidth(),
-                )
-            },
-            onCardClick = {},
-        )
-        Spacer(Modifier.size(Spacing.Spacing16))
-        SubTitle("Events in timeline in TEI dashboard:")
-        SubTitle("With shadow:")
-
-        ListCard(
-            listAvatar = {
-                Avatar(
-                    metadataAvatar = {
-                        MetadataAvatar(
+                    actionButton = {
+                        Button(
+                            style = ButtonStyle.TONAL,
+                            text = "Retry sync",
                             icon = {
                                 Icon(
-                                    painter = provideDHIS2Icon("dhis2_baby_male_0203m_positive"),
-                                    contentDescription = "Button",
-
+                                    imageVector = Icons.Outlined.Sync,
+                                    contentDescription = "Icon Button",
+                                    tint = TextColor.OnPrimaryContainer,
                                 )
                             },
-                            iconTint = Color(0xFF11D9D9),
-                            size = AvatarSize.Large,
+                            onClick = { showLoading2 = !showLoading2 },
+                            modifier = Modifier.fillMaxWidth(),
                         )
                     },
-                    style = AvatarStyle.METADATA,
+                    onCardClick = {},
                 )
-            },
-            title = ListCardTitleModel(text = "12/18/2021 at 16:30"),
-            lastUpdated = "now",
-            additionalInfoList = eventsTimelineTeiDashboardList,
-            actionButton = {
-                Button(
-                    style = ButtonStyle.TONAL,
-                    text = "Retry sync",
-                    icon = {
-                        Icon(
-                            imageVector = Icons.Outlined.Sync,
-                            contentDescription = "Icon Button",
-                            tint = TextColor.OnPrimaryContainer,
+                var showLoading3 by remember {
+                    mutableStateOf(false)
+                }
+                ListCard(
+                    listCardState = rememberListCardState(
+                        title = ListCardTitleModel(text = "Palak Khanna, F, 61"),
+                        lastUpdated = "5 hours",
+                        additionalInfoColumnState = rememberAdditionalInfoColumnState(
+                            additionalInfoList = basicAdditionalItemListWithMediumKeyText.toMutableList(),
+                            syncProgressItem = syncProgressItem(),
+                        ),
+                        loading = showLoading3,
+                    ),
+                    listAvatar = {
+                        Avatar(
+                            style = AvatarStyleData.Text("P"),
                         )
                     },
-                    onClick = {},
-                    modifier = Modifier.fillMaxWidth(),
-                )
-            },
-            onCardClick = {},
-        )
-        Spacer(Modifier.size(Spacing.Spacing16))
-
-        SubTitle("Without shadow:")
-        ListCard(
-            shadow = false,
-            listAvatar = {
-                Avatar(
-                    metadataAvatar = {
-                        MetadataAvatar(
+                    actionButton = {
+                        Button(
+                            style = ButtonStyle.TONAL,
+                            text = "Retry sync",
                             icon = {
                                 Icon(
-                                    painter = provideDHIS2Icon("dhis2_baby_male_0203m_positive"),
-                                    contentDescription = "Button",
-
+                                    imageVector = Icons.Outlined.Sync,
+                                    contentDescription = "Icon Button",
+                                    tint = TextColor.OnPrimaryContainer,
                                 )
                             },
-                            iconTint = Color(0xFF11D9D9),
-                            size = AvatarSize.Large,
+                            onClick = { showLoading3 = !showLoading3 },
+                            modifier = Modifier.fillMaxWidth(),
                         )
                     },
-                    style = AvatarStyle.METADATA,
+                    onCardClick = {},
                 )
-            },
-            title = ListCardTitleModel(text = "12/18/2021 at 16:30"),
-            lastUpdated = "now",
-            additionalInfoList = eventsTimelineTeiDashboardList,
-            onCardClick = {},
-        )
+                var showLoading4 by remember {
+                    mutableStateOf(false)
+                }
+                ListCard(
+                    listCardState = rememberListCardState(
+                        title = ListCardTitleModel(text = "Palak Khanna, F, 61"),
+                        lastUpdated = "5 hours",
+                        additionalInfoColumnState = rememberAdditionalInfoColumnState(
+                            additionalInfoList = basicAdditionalItemListWithLongValue.toMutableList(),
+                            syncProgressItem = syncProgressItem(),
+                        ),
+                        loading = showLoading4,
+                    ),
+                    listAvatar = {
+                        Avatar(
+                            style = AvatarStyleData.Text("P"),
+                        )
+                    },
+                    actionButton = {
+                        Button(
+                            style = ButtonStyle.TONAL,
+                            text = "Retry sync",
+                            icon = {
+                                Icon(
+                                    imageVector = Icons.Outlined.Sync,
+                                    contentDescription = "Icon Button",
+                                    tint = TextColor.OnPrimaryContainer,
+                                )
+                            },
+                            onClick = { showLoading4 = !showLoading4 },
+                            modifier = Modifier.fillMaxWidth(),
+                        )
+                    },
+                    onCardClick = {},
+                )
+                var showLoading5 by remember {
+                    mutableStateOf(false)
+                }
+                ListCard(
+                    listCardState = rememberListCardState(
+                        title = ListCardTitleModel(text = "Kunal Choudary, M, 55"),
+                        lastUpdated = "24 min",
+                        additionalInfoColumnState = rememberAdditionalInfoColumnState(
+                            additionalInfoList = enrollmentCompletedList.toMutableList(),
+                            syncProgressItem = syncProgressItem(),
+                        ),
+                        loading = showLoading5,
+                    ),
+                    listAvatar = {
+                        Avatar(
+                            style = AvatarStyleData.Image(provideDHIS2Icon("dhis2_microscope_outline")),
+                        )
+                    },
+                    actionButton = {
+                        Button(
+                            style = ButtonStyle.TONAL,
+                            text = "Retry sync",
+                            icon = {
+                                Icon(
+                                    imageVector = Icons.Outlined.Sync,
+                                    contentDescription = "Icon Button",
+                                    tint = TextColor.OnPrimaryContainer,
+                                )
+                            },
+                            onClick = { showLoading5 = !showLoading5 },
+                            modifier = Modifier.fillMaxWidth(),
+                        )
+                    },
+                    onCardClick = {},
+                )
+            }
 
-        SubTitle("ListCards for events  displayed in TEI dashboard:")
+            ColumnComponentContainer("Without shadow") {
+                var showLoading6 by remember {
+                    mutableStateOf(false)
+                }
+                ListCard(
+                    listCardState = rememberListCardState(
+                        shadow = false,
+                        title = ListCardTitleModel(text = "Anita Mathews, F, 72"),
+                        lastUpdated = "5 hours",
+                        additionalInfoColumnState = rememberAdditionalInfoColumnState(
+                            additionalInfoList = fullItemList.toMutableList(),
+                            syncProgressItem = syncProgressItem(),
+                        ),
+                        loading = showLoading6,
+                    ),
+                    listAvatar = {
+                        Avatar(
+                            style = AvatarStyleData.Metadata(
+                                imageCardData = ImageCardData.IconCardData(
+                                    uid = "",
+                                    label = "",
+                                    iconRes = "dhis2_microscope_outline",
+                                    iconTint = SurfaceColor.Primary,
+                                ),
+                                avatarSize = MetadataAvatarSize.S(),
+                                tintColor = SurfaceColor.Primary,
+                            ),
+                        )
+                    },
+                    actionButton = {
+                        Button(
+                            style = ButtonStyle.TONAL,
+                            text = "Retry sync",
+                            icon = {
+                                Icon(
+                                    imageVector = Icons.Outlined.Sync,
+                                    contentDescription = "Icon Button",
+                                    tint = TextColor.OnPrimaryContainer,
+                                )
+                            },
+                            onClick = { showLoading6 = !showLoading6 },
+                            modifier = Modifier.fillMaxWidth(),
+                        )
+                    },
+                    onCardClick = {},
+                )
 
-        val eventsInTeiDashboardTitleStyle = MaterialTheme.typography.titleSmall
+                var showLoading7 by remember {
+                    mutableStateOf(false)
+                }
+                val errorList = remember {
+                    mutableStateListOf(
+                        AdditionalInfoItem(key = "Phone", value = "+234 123 111 6785"),
+                        AdditionalInfoItem(key = "Date of birth", value = "12/12/1945"),
+                    )
+                }
 
-        ListCard(
-
-            title = ListCardTitleModel(text = "Scheduled for 09/18/2021", style = eventsInTeiDashboardTitleStyle, color = TextColor.OnSurface),
-            additionalInfoList = listOf(
-                AdditionalInfoItem(
+                val errorItem = AdditionalInfoItem(
                     icon = {
                         Icon(
-                            imageVector = Icons.Outlined.Event,
+                            imageVector = Icons.Outlined.SyncProblem,
                             contentDescription = "Icon Button",
-                            tint = AdditionalInfoItemColor.SUCCESS.color,
+                            tint = AdditionalInfoItemColor.ERROR.color,
                         )
                     },
-                    value = "In 60 days",
-                    color = AdditionalInfoItemColor.SUCCESS.color,
+                    value = "Sync warning",
+                    color = AdditionalInfoItemColor.ERROR.color,
                     isConstantItem = true,
-                ),
+                )
 
-            ),
-            onCardClick = {},
-        )
-
-        ListCard(
-
-            title = ListCardTitleModel(text = "09/18/2021", style = eventsInTeiDashboardTitleStyle, color = TextColor.OnSurface),
-            description = ListCardDescriptionModel(text = "Treatment visits"),
-            additionalInfoList = listOf(
-                AdditionalInfoItem(
-                    icon = {
-                        Icon(
-                            imageVector = Icons.Outlined.Event,
-                            contentDescription = "Icon Button",
-                            tint = AdditionalInfoItemColor.SUCCESS.color,
-                        )
+                ListCard(
+                    listCardState = rememberListCardState(
+                        title = ListCardTitleModel(text = "Aditi Singh, F, 61"),
+                        lastUpdated = "5 hours",
+                        additionalInfoColumnState = rememberAdditionalInfoColumnState(
+                            additionalInfoList = errorList,
+                            syncProgressItem = syncProgressItem(),
+                        ),
+                        loading = showLoading7,
+                    ),
+                    listAvatar = {
+                        Avatar(style = AvatarStyleData.Text("A"))
                     },
-                    value = "In 60 days",
-                    color = AdditionalInfoItemColor.SUCCESS.color,
-                    isConstantItem = true,
-                ),
-                AdditionalInfoItem(key = "Drug resistance:", value = "Monoresistance"),
-                AdditionalInfoItem(key = "treatment:", value = "Initial regiment- first-line drugs"),
-            ),
-
-            onCardClick = {},
-        )
-        ListCard(
-            listAvatar = {
-                Avatar(
-                    metadataAvatar = {
-                        MetadataAvatar(
+                    actionButton = {
+                        Button(
+                            style = ButtonStyle.TONAL,
+                            text = "Retry sync",
                             icon = {
                                 Icon(
-                                    painter = provideDHIS2Icon("dhis2_microscope_outline"),
-                                    contentDescription = "Button",
-                                    tint = SurfaceColor.Primary,
+                                    imageVector = Icons.Outlined.Sync,
+                                    contentDescription = "Icon Button",
+                                    tint = TextColor.OnPrimaryContainer,
                                 )
                             },
+                            onClick = {
+                                if (!showLoading7) {
+                                    errorList.remove(errorItem)
+                                } else {
+                                    errorList.add(errorItem)
+                                }
+                                showLoading7 = !showLoading7
+                            },
+                            modifier = Modifier.fillMaxWidth(),
                         )
                     },
-                    style = AvatarStyle.METADATA,
+                    onCardClick = {},
                 )
-            },
-            title = ListCardTitleModel(text = "Scheduled for 09/18/2021", style = eventsInTeiDashboardTitleStyle, color = TextColor.OnSurface),
-            additionalInfoList = listOf(
-                AdditionalInfoItem(
-                    icon = {
-                        Icon(
-                            imageVector = Icons.Outlined.Event,
-                            contentDescription = "Icon Button",
-                            tint = AdditionalInfoItemColor.SUCCESS.color,
+            }
+
+            ColumnComponentContainer("Single events list with shadow") {
+                ListCard(
+                    listCardState = rememberListCardState(
+                        title = ListCardTitleModel(text = "12/18/2021"),
+                        lastUpdated = "now",
+                        additionalInfoColumnState = rememberAdditionalInfoColumnState(
+                            additionalInfoList = basicAdditionalItemList,
+                            syncProgressItem = syncProgressItem(),
+                        ),
+                    ),
+                    actionButton = {
+                        Button(
+                            style = ButtonStyle.TONAL,
+                            text = "Retry sync",
+                            icon = {
+                                Icon(
+                                    imageVector = Icons.Outlined.Sync,
+                                    contentDescription = "Icon Button",
+                                    tint = TextColor.OnPrimaryContainer,
+                                )
+                            },
+                            onClick = { },
+                            modifier = Modifier.fillMaxWidth(),
                         )
                     },
-                    value = "In 60 days",
-                    color = AdditionalInfoItemColor.SUCCESS.color,
-                    isConstantItem = true,
-                ),
-                AdditionalInfoItem(key = "Drug resistance:", value = "Monoresistance"),
-                AdditionalInfoItem(key = "treatment:", value = "Initial regiment- first-line drugs"),
-            ),
-            onCardClick = {},
-        )
-        Spacer(Modifier.size(Spacing.Spacing16))
+                    onCardClick = {},
+                )
+            }
+
+            ColumnComponentContainer("Single events list without shadow:") {
+                ListCard(
+                    listCardState = rememberListCardState(
+                        shadow = false,
+                        title = ListCardTitleModel(text = "12/18/2021"),
+                        lastUpdated = "now",
+                        additionalInfoColumnState = rememberAdditionalInfoColumnState(
+                            additionalInfoList = basicAdditionalItemList,
+                            syncProgressItem = syncProgressItem(),
+                        ),
+                    ),
+                    actionButton = {
+                        Button(
+                            style = ButtonStyle.TONAL,
+                            text = "Retry sync",
+                            icon = {
+                                Icon(
+                                    imageVector = Icons.Outlined.Sync,
+                                    contentDescription = "Icon Button",
+                                    tint = TextColor.OnPrimaryContainer,
+                                )
+                            },
+                            onClick = { },
+                            modifier = Modifier.fillMaxWidth(),
+                        )
+                    },
+                    onCardClick = {},
+                )
+            }
+
+            ColumnComponentContainer("Events in timeline in TEI dashboard with shadow") {
+                ListCard(
+                    listCardState = rememberListCardState(
+                        title = ListCardTitleModel(text = "12/18/2021 at 16:30"),
+                        lastUpdated = "now",
+                        additionalInfoColumnState = rememberAdditionalInfoColumnState(
+                            additionalInfoList = eventsTimelineTeiDashboardList,
+                            syncProgressItem = syncProgressItem(),
+                        ),
+                    ),
+                    listAvatar = {
+                        Avatar(
+                            style = AvatarStyleData.Metadata(
+                                imageCardData = ImageCardData.IconCardData(
+                                    uid = "",
+                                    label = "",
+                                    iconRes = "dhis2_baby_male_0203m_positive",
+                                    iconTint = Color(0xFF11D9D9),
+                                ),
+                                avatarSize = MetadataAvatarSize.M(),
+                                tintColor = Color(0xFF11D9D9),
+                            ),
+                        )
+                    },
+                    actionButton = {
+                        Button(
+                            style = ButtonStyle.TONAL,
+                            text = "Retry sync",
+                            icon = {
+                                Icon(
+                                    imageVector = Icons.Outlined.Sync,
+                                    contentDescription = "Icon Button",
+                                    tint = TextColor.OnPrimaryContainer,
+                                )
+                            },
+                            onClick = {},
+                            modifier = Modifier.fillMaxWidth(),
+                        )
+                    },
+                    onCardClick = {},
+                )
+            }
+
+            ColumnComponentContainer("Events in timeline in TEI dashboard without shadow:") {
+                ListCard(
+                    listCardState = rememberListCardState(
+                        shadow = false,
+                        title = ListCardTitleModel(text = "12/18/2021 at 16:30"),
+                        description = ListCardDescriptionModel(text = "Birth"),
+                        lastUpdated = "now",
+                        additionalInfoColumnState = rememberAdditionalInfoColumnState(
+                            additionalInfoList = eventsTimelineTeiDashboardList,
+                            syncProgressItem = syncProgressItem(),
+                        ),
+                    ),
+                    listAvatar = {
+                        Avatar(
+                            style = AvatarStyleData.Metadata(
+                                imageCardData = ImageCardData.IconCardData(
+                                    uid = "",
+                                    label = "",
+                                    iconRes = "dhis2_baby_male_0203m_positive",
+                                    iconTint = Color(0xFF11D9D9),
+                                ),
+                                avatarSize = MetadataAvatarSize.M(),
+                                tintColor = Color(0xFF11D9D9),
+                            ),
+                        )
+                    },
+                    onCardClick = {},
+                )
+            }
+
+            ColumnComponentContainer("ListCards for events  displayed in TEI dashboard:") {
+                val eventsInTeiDashboardTitleStyle = MaterialTheme.typography.titleSmall
+
+                ListCard(
+                    listCardState = rememberListCardState(
+                        title = ListCardTitleModel(
+                            text = "Scheduled for 09/18/2021",
+                            style = eventsInTeiDashboardTitleStyle,
+                            color = TextColor.OnSurface,
+                        ),
+                        additionalInfoColumnState = rememberAdditionalInfoColumnState(
+                            additionalInfoList = listOf(
+                                AdditionalInfoItem(
+                                    icon = {
+                                        Icon(
+                                            imageVector = Icons.Outlined.Event,
+                                            contentDescription = "Icon Button",
+                                            tint = AdditionalInfoItemColor.SUCCESS.color,
+                                        )
+                                    },
+                                    value = "In 60 days",
+                                    color = AdditionalInfoItemColor.SUCCESS.color,
+                                    isConstantItem = true,
+                                ),
+                            ),
+                            syncProgressItem = syncProgressItem(),
+                        ),
+                    ),
+                    onCardClick = {},
+                )
+
+                ListCard(
+                    listCardState = rememberListCardState(
+                        title = ListCardTitleModel(
+                            text = "09/18/2021",
+                            style = eventsInTeiDashboardTitleStyle,
+                            color = TextColor.OnSurface,
+                        ),
+                        description = ListCardDescriptionModel(text = "Treatment visits"),
+                        additionalInfoColumnState = rememberAdditionalInfoColumnState(
+                            additionalInfoList = listOf(
+                                AdditionalInfoItem(
+                                    icon = {
+                                        Icon(
+                                            imageVector = Icons.Outlined.Event,
+                                            contentDescription = "Icon Button",
+                                            tint = AdditionalInfoItemColor.SUCCESS.color,
+                                        )
+                                    },
+                                    value = "In 60 days",
+                                    color = AdditionalInfoItemColor.SUCCESS.color,
+                                    isConstantItem = true,
+                                ),
+                                AdditionalInfoItem(
+                                    key = "Drug resistance",
+                                    value = "Monoresistance",
+                                ),
+                                AdditionalInfoItem(
+                                    key = "treatment",
+                                    value = "Initial regiment- first-line drugs",
+                                ),
+                            ),
+                            syncProgressItem = syncProgressItem(),
+                        ),
+                    ),
+                    onCardClick = {},
+                )
+                ListCard(
+                    listCardState = rememberListCardState(
+                        title = ListCardTitleModel(
+                            text = "Scheduled for 09/18/2021",
+                            style = eventsInTeiDashboardTitleStyle,
+                            color = TextColor.OnSurface,
+                        ),
+                        additionalInfoColumnState = rememberAdditionalInfoColumnState(
+                            additionalInfoList = listOf(
+                                AdditionalInfoItem(
+                                    icon = {
+                                        Icon(
+                                            imageVector = Icons.Outlined.Event,
+                                            contentDescription = "Icon Button",
+                                            tint = AdditionalInfoItemColor.SUCCESS.color,
+                                        )
+                                    },
+                                    value = "In 60 days",
+                                    color = AdditionalInfoItemColor.SUCCESS.color,
+                                    isConstantItem = true,
+                                ),
+                                AdditionalInfoItem(
+                                    key = "Drug resistance",
+                                    value = "Monoresistance",
+                                ),
+                                AdditionalInfoItem(
+                                    key = "treatment",
+                                    value = "Initial regiment- first-line drugs",
+                                ),
+                            ),
+                            syncProgressItem = syncProgressItem(),
+                        ),
+                    ),
+                    listAvatar = {
+                        Avatar(
+                            style = AvatarStyleData.Metadata(
+                                imageCardData = ImageCardData.IconCardData(
+                                    uid = "",
+                                    label = "",
+                                    iconRes = "dhis2_microscope_outline",
+                                    iconTint = SurfaceColor.Primary,
+                                ),
+                                avatarSize = MetadataAvatarSize.M(),
+                                tintColor = SurfaceColor.Primary,
+                            ),
+                        )
+                    },
+                    onCardClick = {},
+                )
+            }
+        }
     }
 }
+
+private fun syncProgressItem() = AdditionalInfoItem(
+    icon = {
+        Icon(
+            imageVector = Icons.Outlined.Sync,
+            contentDescription = "Icon Button",
+            tint = SurfaceColor.Primary,
+        )
+    },
+    value = "Syncing...",
+    color = SurfaceColor.Primary,
+    isConstantItem = false,
+)

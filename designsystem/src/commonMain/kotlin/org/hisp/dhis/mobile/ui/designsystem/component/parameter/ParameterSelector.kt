@@ -16,7 +16,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material.ripple.rememberRipple
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -116,7 +116,7 @@ private fun EmptyParameterField(
             )
         }
         Box(Modifier.height(Spacing.Spacing2)) {
-            Divider(
+            HorizontalDivider(
                 modifier = Modifier.align(Alignment.BottomStart),
                 color = SurfaceColor.DisabledSurface,
                 thickness = Border.Thin,

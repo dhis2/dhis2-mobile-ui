@@ -14,25 +14,31 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import org.hisp.dhis.common.screens.previews.lorem
+import org.hisp.dhis.common.screens.previews.lorem_medium
+import org.hisp.dhis.common.screens.previews.lorem_short
 import org.hisp.dhis.mobile.ui.designsystem.component.Button
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.OrgBottomSheet
 import org.hisp.dhis.mobile.ui.designsystem.component.OrgTreeItem
-import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
 
 @Composable
 fun OrgTreeBottomSheetScreen() {
-    var showOrgTreeBottomSheet by rememberSaveable { mutableStateOf(false) }
+    var showOneOrgTreeBottomSheet by rememberSaveable { mutableStateOf(false) }
+    var showTwoOrgTreeBottomSheet by rememberSaveable { mutableStateOf(false) }
+    var showMediumOrgTreeBottomSheet by rememberSaveable { mutableStateOf(false) }
+    var showLargeOrgTreeBottomSheet by rememberSaveable { mutableStateOf(false) }
 
-    if (showOrgTreeBottomSheet) {
+    if (showOneOrgTreeBottomSheet) {
         val orgTreeItemsRepo = remember { OrgTreeItemsFakeRepo() }
-        val orgTreeItems by orgTreeItemsRepo.state.collectAsState(emptyList())
+        val oneOrgTreeItem by orgTreeItemsRepo.state.collectAsState(emptyList())
 
         OrgBottomSheet(
-            orgTreeItems = orgTreeItems,
+            orgTreeItems = oneOrgTreeItem.take(1),
             onDismiss = {
-                showOrgTreeBottomSheet = false
+                showOneOrgTreeBottomSheet = false
             },
             onSearch = orgTreeItemsRepo::search,
             onItemClick = orgTreeItemsRepo::toggleItemExpansion,
@@ -46,20 +52,113 @@ fun OrgTreeBottomSheetScreen() {
         )
     }
 
-    ColumnComponentContainer {
-        SubTitle("Org Tree Bottom Sheet")
-        Button(
-            enabled = true,
-            ButtonStyle.FILLED,
-            text = "Show Org Tree Bottom Sheet",
-        ) {
-            showOrgTreeBottomSheet = !showOrgTreeBottomSheet
+    if (showTwoOrgTreeBottomSheet) {
+        val orgTreeItemsRepo = remember { OrgTreeItemsFakeRepo() }
+        val oneOrgTreeItem by orgTreeItemsRepo.state.collectAsState(emptyList())
+
+        OrgBottomSheet(
+            orgTreeItems = oneOrgTreeItem.take(4),
+            onDismiss = {
+                showTwoOrgTreeBottomSheet = false
+            },
+            onSearch = orgTreeItemsRepo::search,
+            onItemClick = orgTreeItemsRepo::toggleItemExpansion,
+            onItemSelected = { uid, checked ->
+                orgTreeItemsRepo.toggleItemSelection(uid, checked)
+            },
+            onClearAll = { orgTreeItemsRepo.clearItemSelections() },
+            onDone = {
+                // no-op
+            },
+        )
+    }
+
+    if (showMediumOrgTreeBottomSheet) {
+        val orgTreeItemsRepo = remember { OrgTreeItemsFakeRepo() }
+        val oneOrgTreeItem by orgTreeItemsRepo.state.collectAsState(emptyList())
+
+        OrgBottomSheet(
+            orgTreeItems = oneOrgTreeItem.take(8),
+            onDismiss = {
+                showMediumOrgTreeBottomSheet = false
+            },
+            onSearch = orgTreeItemsRepo::search,
+            onItemClick = orgTreeItemsRepo::toggleItemExpansion,
+            onItemSelected = { uid, checked ->
+                orgTreeItemsRepo.toggleItemSelection(uid, checked)
+            },
+            onClearAll = { orgTreeItemsRepo.clearItemSelections() },
+            onDone = {
+                // no-op
+            },
+        )
+    }
+
+    if (showLargeOrgTreeBottomSheet) {
+        val orgTreeItemsRepo = remember { OrgTreeItemsFakeRepo() }
+        val oneOrgTreeItem by orgTreeItemsRepo.state.collectAsState(emptyList())
+
+        OrgBottomSheet(
+            orgTreeItems = oneOrgTreeItem,
+            onDismiss = {
+                showLargeOrgTreeBottomSheet = false
+            },
+            onSearch = orgTreeItemsRepo::search,
+            onItemClick = orgTreeItemsRepo::toggleItemExpansion,
+            onItemSelected = { uid, checked ->
+                orgTreeItemsRepo.toggleItemSelection(uid, checked)
+            },
+            onClearAll = { orgTreeItemsRepo.clearItemSelections() },
+            onDone = {
+                // no-op
+            },
+        )
+    }
+
+    ColumnScreenContainer(title = BottomSheets.ORG_TREE_BOTTOM_SHEET.label) {
+        ColumnComponentContainer("Org Tree Bottom Sheet with single item") {
+            Button(
+                enabled = true,
+                ButtonStyle.FILLED,
+                text = "Show One Org Tree Bottom Sheet",
+            ) {
+                showOneOrgTreeBottomSheet = !showOneOrgTreeBottomSheet
+            }
+        }
+
+        ColumnComponentContainer("Org Tree Bottom Sheet with multiple items") {
+            Button(
+                enabled = true,
+                ButtonStyle.FILLED,
+                text = "Show Two Org Tree Bottom Sheet",
+            ) {
+                showTwoOrgTreeBottomSheet = !showTwoOrgTreeBottomSheet
+            }
+        }
+
+        ColumnComponentContainer("Org Tree Bottom Sheet with medium items") {
+            Button(
+                enabled = true,
+                ButtonStyle.FILLED,
+                text = "Show Org Tree Bottom Sheet",
+            ) {
+                showMediumOrgTreeBottomSheet = !showMediumOrgTreeBottomSheet
+            }
+        }
+
+        ColumnComponentContainer("Org Tree Bottom Sheet with large items") {
+            Button(
+                enabled = true,
+                ButtonStyle.FILLED,
+                text = "Show Large Org Tree Bottom Sheet",
+            ) {
+                showLargeOrgTreeBottomSheet = !showLargeOrgTreeBottomSheet
+            }
         }
     }
 }
 
 private class OrgTreeItemsFakeRepo {
-
     private val originalOrgTreeItems = listOf(
         OrgTreeItem(
             uid = "12",
@@ -73,12 +172,48 @@ private class OrgTreeItemsFakeRepo {
             isOpen = false,
             hasChildren = false,
         ),
+        OrgTreeItem(
+            uid = "31",
+            label = lorem_medium,
+            isOpen = false,
+            hasChildren = false,
+        ),
+        OrgTreeItem(
+            uid = "41",
+            label = lorem,
+            isOpen = false,
+            hasChildren = false,
+        ),
+        OrgTreeItem(
+            uid = "51",
+            label = "UHC Alphabet",
+            isOpen = false,
+            hasChildren = false,
+        ),
+        OrgTreeItem(
+            uid = "61",
+            label = lorem_short,
+            isOpen = false,
+            hasChildren = false,
+        ),
+        OrgTreeItem(
+            uid = "71",
+            label = "UHC TEST 1",
+            isOpen = false,
+            hasChildren = false,
+        ),
+        OrgTreeItem(
+            uid = "81",
+            label = "UHC TEST 2",
+            isOpen = false,
+            hasChildren = false,
+        ),
     )
 
     private val childrenOrgItems = listOf(
         OrgTreeItem(
             uid = "12-1",
-            label = "Vijayawada",
+            label = "Vijayawada-$lorem",
             isOpen = false,
             level = 1,
             hasChildren = false,
@@ -158,6 +293,7 @@ private class OrgTreeItemsFakeRepo {
                         val selectedChildrenCount = getSelectedChildrenCount(selectionToggledList, it)
                         it.copy(selectedChildrenCount = selectedChildrenCount)
                     }
+
                     else -> {
                         it.copy(selectedChildrenCount = 0)
                     }

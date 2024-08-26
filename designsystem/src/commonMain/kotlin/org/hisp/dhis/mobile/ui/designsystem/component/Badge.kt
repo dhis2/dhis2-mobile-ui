@@ -1,22 +1,14 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.defaultMinSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.style.TextAlign
-import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
 /**
- * DHIS2 [Badge]) wraps Material 3's [Box].
+ * DHIS2 [Badge]) wraps [androidx.compose.material3.Badge].
  * Badges are used to convey dynamic information,
  * such as a count or status.
  * A badge can include text, labels, or numbers.
@@ -32,22 +24,20 @@ fun Badge(
     color: Color = SurfaceColor.Primary,
     textColor: Color = TextColor.OnPrimary,
 ) {
-    Box(
-        modifier
-            .defaultMinSize(Spacing.Spacing6, Spacing.Spacing6)
-            .background(color, CircleShape),
-    ) {
-        text?.let {
-            Text(
-                modifier = Modifier
-                    .padding(horizontal = Spacing.Spacing4)
-                    .padding(bottom = Spacing.Spacing1),
-                text = it,
-                textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.labelSmall.copy(color = textColor),
-            )
-        }
-    }
+    androidx.compose.material3.Badge(
+        modifier = modifier,
+        containerColor = color,
+        content = if (text != null) {
+            {
+                Text(
+                    text = text,
+                    color = textColor,
+                )
+            }
+        } else {
+            null
+        },
+    )
 }
 
 @Composable

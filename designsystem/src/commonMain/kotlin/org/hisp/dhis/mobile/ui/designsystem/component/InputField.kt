@@ -16,7 +16,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
@@ -50,7 +49,6 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.textFieldHoverPointerIcon
  * @param onNextClicked: gives access to the ImeAction event.
  * @param onSearchClicked: gives access to the ImeAction Search event.
  */
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun BasicTextField(
     helper: String? = null,

@@ -1,8 +1,5 @@
 package org.hisp.dhis.common.screens.parameter
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.QrCode2
 import androidx.compose.material3.Icon
@@ -12,18 +9,18 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.TextFieldValue
 import org.hisp.dhis.mobile.ui.designsystem.component.AgeInputType
 import org.hisp.dhis.mobile.ui.designsystem.component.CheckBoxData
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
+import org.hisp.dhis.mobile.ui.designsystem.component.DateTimeActionType
 import org.hisp.dhis.mobile.ui.designsystem.component.DropdownItem
 import org.hisp.dhis.mobile.ui.designsystem.component.InputAge
 import org.hisp.dhis.mobile.ui.designsystem.component.InputAgeModel
 import org.hisp.dhis.mobile.ui.designsystem.component.InputBarCode
 import org.hisp.dhis.mobile.ui.designsystem.component.InputCheckBox
 import org.hisp.dhis.mobile.ui.designsystem.component.InputDateTime
-import org.hisp.dhis.mobile.ui.designsystem.component.InputDateTimeModel
 import org.hisp.dhis.mobile.ui.designsystem.component.InputDropDown
 import org.hisp.dhis.mobile.ui.designsystem.component.InputEmail
 import org.hisp.dhis.mobile.ui.designsystem.component.InputInteger
@@ -39,12 +36,15 @@ import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.InputStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.InputText
 import org.hisp.dhis.mobile.ui.designsystem.component.RadioButtonData
+import org.hisp.dhis.mobile.ui.designsystem.component.internal.DateTimeTransformation
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.ImageCardData
 import org.hisp.dhis.mobile.ui.designsystem.component.parameter.ParameterSelectorItem
 import org.hisp.dhis.mobile.ui.designsystem.component.parameter.model.ParameterSelectorItemModel
 import org.hisp.dhis.mobile.ui.designsystem.component.parameter.model.ParameterSelectorItemModel.Status.CLOSED
 import org.hisp.dhis.mobile.ui.designsystem.component.parameter.model.ParameterSelectorItemModel.Status.FOCUSED
 import org.hisp.dhis.mobile.ui.designsystem.component.parameter.model.ParameterSelectorItemModel.Status.UNFOCUSED
+import org.hisp.dhis.mobile.ui.designsystem.component.state.InputDateTimeData
+import org.hisp.dhis.mobile.ui.designsystem.component.state.rememberInputDateTimeState
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 
@@ -142,7 +142,6 @@ fun ParameterSelectorScreen() {
                             ageInputType = it
                         },
                     ),
-
                 )
             },
             status = when (ageInputType) {
@@ -205,14 +204,20 @@ fun ParameterSelectorScreen() {
             helper = "Optional",
             inputField = {
                 InputDateTime(
-                    InputDateTimeModel(
-                        title = "DateTime parameter",
-                        inputStyle = InputStyle.ParameterInputStyle(),
+                    state = rememberInputDateTimeState(
+                        inputDateTimeData =
+                        InputDateTimeData(
+                            title = "DateTime parameter",
+                            visualTransformation = DateTimeTransformation(),
+                            actionType = DateTimeActionType.DATE_TIME,
+                            inputStyle = InputStyle.ParameterInputStyle(),
+                        ),
                         inputTextFieldValue = TextFieldValue(),
-                        onValueChanged = {},
-                        format = "ddMMYYYY",
                     ),
 
+                    onValueChanged = {
+                        // no op
+                    },
                 )
             },
             onExpand = {},
@@ -383,10 +388,7 @@ fun ParameterSelectorScreen() {
         ),
     )
 
-    Column(
-        modifier = Modifier
-            .verticalScroll(rememberScrollState()),
-    ) {
+    ColumnScreenContainer(title = "Parameter Selector component") {
         items.forEach {
             ParameterSelectorItem(
                 model = it,

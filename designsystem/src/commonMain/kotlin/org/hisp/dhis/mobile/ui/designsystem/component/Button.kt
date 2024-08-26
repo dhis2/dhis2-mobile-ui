@@ -75,6 +75,7 @@ fun Button(
             val buttonColors = when (colorStyle) {
                 ColorStyle.DEFAULT -> getFilledButtonColors(enabled)
                 ColorStyle.ERROR -> getErrorFilledButtonColors(enabled)
+                ColorStyle.WARNING -> getWarningFilledButtonColors(enabled)
             }
 
             SimpleButton(
@@ -98,10 +99,12 @@ fun Button(
             val buttonColors = when (colorStyle) {
                 ColorStyle.DEFAULT -> getTextButtonColors(style, enabled)
                 ColorStyle.ERROR -> getErrorTextButtonColors(style, enabled)
+                ColorStyle.WARNING -> getWarningTextButtonColors(style, enabled)
             }
             val theme = when (colorStyle) {
                 ColorStyle.DEFAULT -> Ripple.CustomDHISRippleTheme()
                 ColorStyle.ERROR -> Ripple.CustomDHISRippleTheme(SurfaceColor.Error)
+                ColorStyle.WARNING -> Ripple.CustomDHISRippleTheme(SurfaceColor.Warning)
             }
             CompositionLocalProvider(LocalRippleTheme provides theme) {
                 OutlinedButton(
@@ -189,6 +192,7 @@ fun Button(
                     shadowColor = when (colorStyle) {
                         ColorStyle.DEFAULT -> mutableStateOf(SurfaceColor.ContainerHighest)
                         ColorStyle.ERROR -> mutableStateOf(SurfaceColor.ErrorContainerHighest)
+                        ColorStyle.WARNING -> mutableStateOf(SurfaceColor.WarningContainer)
                     }
                     topPadding = mutableStateOf(0)
                 }
@@ -222,23 +226,34 @@ fun Button(
             val buttonColors = when (colorStyle) {
                 ColorStyle.DEFAULT -> getOutlinedButtonColors(enabled)
                 ColorStyle.ERROR -> getErrorOutlinedButtonColors(enabled)
+                ColorStyle.WARNING -> getWarningOutlinedButtonColors(enabled)
             }
 
-            OutlinedButton(
-                modifier = modifier.hoverPointerIcon(enabled).height(Spacing.Spacing40),
-                onClick = { onClick() },
-                enabled = enabled,
-                shape = ButtonDefaults.outlinedShape,
-                colors = ButtonDefaults.outlinedButtonColors(
-                    buttonColors.containerColor,
-                    buttonColors.contentColor,
-                    Color.Transparent,
-                    TextColor.OnDisabledSurface,
-                ),
-                border = BorderStroke(Border.Thin, if (enabled) Outline.Dark else SurfaceColor.DisabledSurface),
-                contentPadding = paddingValues,
-            ) {
-                ButtonText(text, buttonColors.textColor, icon, enabled)
+            val theme = when (colorStyle) {
+                ColorStyle.DEFAULT -> Ripple.CustomDHISRippleTheme()
+                ColorStyle.ERROR -> Ripple.CustomDHISRippleTheme(SurfaceColor.Error)
+                ColorStyle.WARNING -> Ripple.CustomDHISRippleTheme(SurfaceColor.Warning)
+            }
+            CompositionLocalProvider(LocalRippleTheme provides theme) {
+                OutlinedButton(
+                    modifier = modifier.hoverPointerIcon(enabled).height(Spacing.Spacing40),
+                    onClick = { onClick() },
+                    enabled = enabled,
+                    shape = ButtonDefaults.outlinedShape,
+                    colors = ButtonDefaults.outlinedButtonColors(
+                        buttonColors.containerColor,
+                        buttonColors.contentColor,
+                        Color.Transparent,
+                        TextColor.OnDisabledSurface,
+                    ),
+                    border = BorderStroke(
+                        Border.Thin,
+                        if (enabled) Outline.Dark else SurfaceColor.DisabledSurface,
+                    ),
+                    contentPadding = paddingValues,
+                ) {
+                    ButtonText(text, buttonColors.textColor, icon, enabled)
+                }
             }
         }
     }
@@ -385,6 +400,7 @@ enum class ButtonStyle {
 enum class ColorStyle {
     DEFAULT,
     ERROR,
+    WARNING,
 }
 
 /**
@@ -441,6 +457,14 @@ private fun getErrorFilledButtonColors(isEnabled: Boolean): CustomButtonColors {
     )
 }
 
+private fun getWarningFilledButtonColors(isEnabled: Boolean): CustomButtonColors {
+    return CustomButtonColors(
+        textColor = if (isEnabled) TextColor.OnWarning else TextColor.OnDisabledSurface,
+        containerColor = SurfaceColor.Warning,
+        contentColor = TextColor.OnWarning,
+    )
+}
+
 private fun getTextButtonColors(style: ButtonStyle, isEnabled: Boolean): CustomButtonColors {
     val textColor = when {
         !isEnabled -> TextColor.OnDisabledSurface
@@ -467,6 +491,19 @@ private fun getErrorTextButtonColors(style: ButtonStyle, isEnabled: Boolean): Cu
     )
 }
 
+private fun getWarningTextButtonColors(style: ButtonStyle, isEnabled: Boolean): CustomButtonColors {
+    val textColor = when {
+        !isEnabled -> TextColor.OnDisabledSurface
+        style == ButtonStyle.TEXT_LIGHT -> TextColor.OnError
+        else -> SurfaceColor.Warning
+    }
+    return CustomButtonColors(
+        textColor = textColor,
+        containerColor = Color.Transparent,
+        contentColor = SurfaceColor.Warning,
+    )
+}
+
 private fun getOutlinedButtonColors(isEnabled: Boolean): CustomButtonColors {
     return CustomButtonColors(
         textColor = if (isEnabled) SurfaceColor.Primary else TextColor.OnDisabledSurface,
@@ -480,5 +517,13 @@ private fun getErrorOutlinedButtonColors(isEnabled: Boolean): CustomButtonColors
         textColor = if (isEnabled) SurfaceColor.Error else TextColor.OnDisabledSurface,
         containerColor = Color.Transparent,
         contentColor = SurfaceColor.Error,
+    )
+}
+
+private fun getWarningOutlinedButtonColors(isEnabled: Boolean): CustomButtonColors {
+    return CustomButtonColors(
+        textColor = if (isEnabled) SurfaceColor.Warning else TextColor.OnDisabledSurface,
+        containerColor = Color.Transparent,
+        contentColor = SurfaceColor.Warning,
     )
 }

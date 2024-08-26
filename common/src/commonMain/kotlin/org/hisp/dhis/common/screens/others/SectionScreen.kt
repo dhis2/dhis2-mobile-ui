@@ -1,32 +1,25 @@
 package org.hisp.dhis.common.screens.others
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
 import org.hisp.dhis.common.screens.previews.lorem
 import org.hisp.dhis.common.screens.previews.lorem_medium
 import org.hisp.dhis.common.screens.previews.lorem_short
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.InputText
 import org.hisp.dhis.mobile.ui.designsystem.component.Section
 import org.hisp.dhis.mobile.ui.designsystem.component.SectionState
-import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
-import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
 @Composable
 fun SectionScreen() {
-    ColumnComponentContainer(title = "Section Header") {
-        SubTitle("Collapsible header")
-
-        Column {
+    ColumnScreenContainer(title = "Section Header component") {
+        ColumnComponentContainer("Collapsible header") {
             Section(
                 title = "Section title",
                 description = null,
@@ -89,69 +82,68 @@ fun SectionScreen() {
             )
         }
 
-        Spacer(Modifier.size(Spacing.Spacing18))
-
-        SubTitle("Flat header")
-        Section(
-            title = "Section title",
-            description = null,
-            completedFields = 2,
-            totalFields = 3,
-            state = SectionState.FIXED,
-            errorCount = 0,
-            warningCount = 0,
-            content = { TestingFields() },
-            onNextSection = { },
-            onSectionClick = { },
-        )
-        Section(
-            title = "Section title",
-            description = lorem,
-            completedFields = 2,
-            totalFields = 3,
-            state = SectionState.FIXED,
-            errorCount = 2,
-            warningCount = 1,
-            content = { TestingFields() },
-            onNextSection = { },
-            onSectionClick = { },
-        )
-        Section(
-            title = "Section title",
-            description = lorem_short,
-            completedFields = 2,
-            totalFields = 3,
-            state = SectionState.FIXED,
-            errorCount = 0,
-            warningCount = 0,
-            content = { TestingFields() },
-            onNextSection = { },
-            onSectionClick = { },
-        )
-        Section(
-            title = "Section title",
-            description = lorem_medium,
-            completedFields = 2,
-            totalFields = 3,
-            state = SectionState.FIXED,
-            errorCount = 0,
-            warningCount = 0,
-            content = { TestingFields() },
-            onNextSection = { },
-            onSectionClick = { },
-        )
-        Section(
-            title = "Section title Section title Section title Section title Section title",
-            description = lorem_medium,
-            completedFields = 2,
-            totalFields = 3,
-            state = SectionState.FIXED,
-            errorCount = 0,
-            warningCount = 0,
-            content = { TestingFields() },
-            onNextSection = { },
-            onSectionClick = { },
-        )
+        ColumnComponentContainer("Flat header") {
+            Section(
+                title = "Section title",
+                description = null,
+                completedFields = 2,
+                totalFields = 3,
+                state = SectionState.FIXED,
+                errorCount = 0,
+                warningCount = 0,
+                content = { TestingFields() },
+                onNextSection = { },
+                onSectionClick = { },
+            )
+            Section(
+                title = "Section title",
+                description = lorem,
+                completedFields = 2,
+                totalFields = 3,
+                state = SectionState.FIXED,
+                errorCount = 2,
+                warningCount = 1,
+                content = { TestingFields() },
+                onNextSection = { },
+                onSectionClick = { },
+            )
+            Section(
+                title = "Section title",
+                description = lorem_short,
+                completedFields = 2,
+                totalFields = 3,
+                state = SectionState.FIXED,
+                errorCount = 0,
+                warningCount = 0,
+                content = { TestingFields() },
+                onNextSection = { },
+                onSectionClick = { },
+            )
+            Section(
+                title = "Section title",
+                description = lorem_medium,
+                completedFields = 2,
+                totalFields = 3,
+                state = SectionState.FIXED,
+                errorCount = 0,
+                warningCount = 0,
+                content = { TestingFields() },
+                onNextSection = { },
+                onSectionClick = { },
+            )
+            Section(
+                title = "Section title Section title Section title Section title Section title",
+                description = lorem_medium,
+                completedFields = 2,
+                totalFields = 3,
+                state = SectionState.FIXED,
+                errorCount = 0,
+                warningCount = 0,
+                content = { TestingFields() },
+                onNextSection = { },
+                onSectionClick = { },
+            )
+        }
     }
 }
 

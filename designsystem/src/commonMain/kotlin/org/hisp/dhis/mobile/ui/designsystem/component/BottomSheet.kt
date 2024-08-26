@@ -6,36 +6,42 @@ import androidx.compose.foundation.gestures.ScrollableState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Close
-import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
-import org.hisp.dhis.mobile.ui.designsystem.component.internal.bottomSheet.rememberDimensionByName
+import org.hisp.dhis.mobile.ui.designsystem.component.internal.Keyboard
+import org.hisp.dhis.mobile.ui.designsystem.component.internal.keyboardAsState
+import org.hisp.dhis.mobile.ui.designsystem.theme.Border
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
@@ -140,6 +146,8 @@ fun BottomSheetHeader(
  * @param onDismiss: gives access to the onDismiss event.
  * @param modifier allows a modifier to be passed externally.
  * @param headerTextAlignment [Alignment] for header text.
+ * @param scrollableContainerMinHeight: Min size for scrollable content.
+ * @param scrollableContainerMaxHeight: Max size for scrollable content.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -155,16 +163,22 @@ fun BottomSheetShell(
     buttonBlock: @Composable (() -> Unit)? = null,
     modifier: Modifier = Modifier,
     headerTextAlignment: TextAlign = TextAlign.Center,
+    scrollableContainerMinHeight: Dp = Spacing0,
+    scrollableContainerMaxHeight: Dp = InternalSizeValues.Size386,
     onSearchQueryChanged: ((String) -> Unit)? = null,
     onSearch: ((String) -> Unit)? = null,
     onDismiss: () -> Unit,
 ) {
     val sheetState = rememberModalBottomSheetState(true)
     val scope = rememberCoroutineScope()
-    // TODO - hack to get navigation bar padding does not take into account IME padding (reflection)
-    // TODO - Should be remove when google publish https://issuetracker.google.com/issues/274872542
-    val topInsets = WindowInsets(top = rememberDimensionByName("status_bar_height"))
-    val bottomInsets = WindowInsets(bottom = rememberDimensionByName("navigation_bar_height"))
+    val keyboardState by keyboardAsState()
+
+    var isKeyboardOpen by remember { mutableStateOf(false) }
+    val showHeader by remember { derivedStateOf { !title.isNullOrBlank() && !isKeyboardOpen } }
+
+    LaunchedEffect(keyboardState) {
+        isKeyboardOpen = keyboardState == Keyboard.Opened
+    }
 
     ModalBottomSheet(
         modifier = modifier,
@@ -194,13 +208,11 @@ fun BottomSheetShell(
                 }
             }
         },
-        windowInsets = topInsets,
     ) {
         val canScrollForward by derivedStateOf { contentScrollState.canScrollForward }
 
         Column(
-            modifier = Modifier
-                .padding(bottomInsets.asPaddingValues()),
+            modifier = Modifier.systemBarsPadding(),
         ) {
             Column(
                 modifier = Modifier
@@ -210,8 +222,7 @@ fun BottomSheetShell(
             ) {
                 val hasSearch =
                     searchQuery != null && onSearchQueryChanged != null && onSearch != null
-                val hasTitle by derivedStateOf { !title.isNullOrBlank() }
-                if (hasTitle) {
+                if (showHeader) {
                     BottomSheetHeader(
                         title = title!!,
                         subTitle = subtitle,
@@ -225,7 +236,7 @@ fun BottomSheetShell(
                     )
                 }
 
-                if (hasTitle && hasSearch) {
+                if (showHeader && hasSearch) {
                     Spacer(Modifier.requiredHeight(16.dp))
                 }
 
@@ -238,12 +249,13 @@ fun BottomSheetShell(
                     )
                 }
 
-                if (hasTitle || hasSearch) {
+                if (showHeader || hasSearch) {
                     if (showSectionDivider) {
-                        Divider(
+                        HorizontalDivider(
                             modifier = Modifier.fillMaxWidth()
-                                .padding(top = Spacing24, start = Spacing24, end = Spacing24),
+                                .padding(top = Spacing24, start = Spacing24, end = Spacing24, bottom = Spacing8),
                             color = TextColor.OnDisabledSurface,
+                            thickness = Border.Thin,
                         )
                     } else {
                         Spacer(Modifier.requiredHeight(Spacing24))
@@ -260,15 +272,17 @@ fun BottomSheetShell(
                     Column(
                         modifier = Modifier
                             .padding(horizontal = Spacing24)
-                            .heightIn(Spacing0, InternalSizeValues.Size386)
+                            .heightIn(scrollableContainerMinHeight, scrollableContainerMaxHeight)
                             .then(scrollModifier),
                         horizontalAlignment = Alignment.CenterHorizontally,
                     ) {
                         content.invoke()
+                        Spacer(modifier = Modifier.weight(1f))
                         if (showSectionDivider) {
-                            Divider(
+                            HorizontalDivider(
                                 modifier = Modifier.fillMaxWidth().padding(top = Spacing8),
                                 color = TextColor.OnDisabledSurface,
+                                thickness = Border.Thin,
                             )
                         }
                     }

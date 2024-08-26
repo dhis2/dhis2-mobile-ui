@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -41,6 +42,8 @@ import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2SCustomTextStyles
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing0
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing16
+import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing56
+import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing64
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing8
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
@@ -83,11 +86,12 @@ fun InputDropDown(
     onResetButtonClicked: () -> Unit,
     onItemSelected: (DropdownItem) -> Unit,
     showSearchBar: Boolean = true,
+    expanded: Boolean = false,
     noResultsFoundString: String = provideStringResource("no_results_found"),
     searchToFindMoreString: String = provideStringResource("search_to_see_more"),
 ) {
     val focusRequester = remember { FocusRequester() }
-    var showDropdown by remember { mutableStateOf(false) }
+    var showDropdown by remember { mutableStateOf(expanded) }
 
     val inputField: @Composable (modifier: Modifier) -> Unit = { inputModifier ->
         DropdownInputField(
@@ -184,13 +188,13 @@ fun InputDropDown(
         ExposedDropdownMenuBox(
             expanded = showDropdown,
             onExpandedChange = { },
-            modifier = Modifier
+            modifier = modifier
                 .background(
                     color = SurfaceColor.SurfaceBright,
                     shape = RoundedCornerShape(Spacing8),
                 ),
         ) {
-            inputField(modifier.menuAnchor())
+            inputField(Modifier.menuAnchor())
 
             MaterialTheme(
                 shapes = Shapes(extraSmall = RoundedCornerShape(Spacing8)),
@@ -273,30 +277,30 @@ fun DropdownInputField(
     onDropdownIconClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    InputShell(
-        modifier = modifier
-            .testTag("INPUT_DROPDOWN")
-            .focusRequester(focusRequester),
-        title = title,
-        state = state,
-        isRequiredField = isRequiredField,
-        onFocusChanged = onFocusChanged,
-        supportingText = {
-            supportingTextData?.forEach { label ->
-                SupportingText(
-                    label.text,
-                    label.state,
-                    modifier = Modifier.testTag("INPUT_DROPDOWN_SUPPORTING_TEXT"),
-                )
-            }
-        },
-        legend = {
-            legendData?.let {
-                Legend(legendData, Modifier.testTag("INPUT_DROPDOWN_LEGEND"))
-            }
-        },
-        inputField = {
-            Box {
+    Box {
+        InputShell(
+            modifier = modifier
+                .testTag("INPUT_DROPDOWN")
+                .focusRequester(focusRequester),
+            title = title,
+            state = state,
+            isRequiredField = isRequiredField,
+            onFocusChanged = onFocusChanged,
+            supportingText = {
+                supportingTextData?.forEach { label ->
+                    SupportingText(
+                        label.text,
+                        label.state,
+                        modifier = Modifier.testTag("INPUT_DROPDOWN_SUPPORTING_TEXT"),
+                    )
+                }
+            },
+            legend = {
+                legendData?.let {
+                    Legend(legendData, Modifier.testTag("INPUT_DROPDOWN_LEGEND"))
+                }
+            },
+            inputField = {
                 Text(
                     modifier = Modifier
                         .testTag("INPUT_DROPDOWN_TEXT")
@@ -313,57 +317,59 @@ fun DropdownInputField(
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                 )
-                Box(
-                    modifier = Modifier
-                        .matchParentSize()
-                        .alpha(0f)
-                        .clickable(
-                            enabled = state != InputShellState.DISABLED,
-                            onClick = {
-                                focusRequester.requestFocus()
-                                onDropdownIconClick()
-                            },
-                        ),
-                )
-            }
-        },
-        primaryButton = {
-            IconButton(
-                modifier = Modifier.testTag("INPUT_DROPDOWN_ARROW_BUTTON").onFocusChanged {
-                    onFocusChanged?.invoke(it.isFocused)
-                },
-                enabled = state != InputShellState.DISABLED,
-                icon = {
-                    ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
-                },
-                onClick = {
-                    focusRequester.requestFocus()
-                    onDropdownIconClick()
-                },
-            )
-        },
-        secondaryButton =
-        if (selectedItem != null && state != InputShellState.DISABLED) {
-            {
+            },
+            primaryButton = {
                 IconButton(
-                    modifier = Modifier.testTag("INPUT_DROPDOWN_RESET_BUTTON"),
+                    modifier = Modifier.testTag("INPUT_DROPDOWN_ARROW_BUTTON").onFocusChanged {
+                        onFocusChanged?.invoke(it.isFocused)
+                    },
+                    enabled = state != InputShellState.DISABLED,
                     icon = {
-                        Icon(
-                            imageVector = Icons.Outlined.Cancel,
-                            contentDescription = "Reset Button",
-                        )
+                        ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
                     },
                     onClick = {
                         focusRequester.requestFocus()
-                        onResetButtonClicked.invoke()
+                        onDropdownIconClick()
                     },
                 )
-            }
-        } else {
-            null
-        },
-        inputStyle = inputStyle,
-    )
+            },
+            secondaryButton =
+            if (selectedItem != null && state != InputShellState.DISABLED) {
+                {
+                    IconButton(
+                        modifier = Modifier.testTag("INPUT_DROPDOWN_RESET_BUTTON"),
+                        icon = {
+                            Icon(
+                                imageVector = Icons.Outlined.Cancel,
+                                contentDescription = "Reset Button",
+                            )
+                        },
+                        onClick = {
+                            focusRequester.requestFocus()
+                            onResetButtonClicked.invoke()
+                        },
+                    )
+                }
+            } else {
+                null
+            },
+            inputStyle = inputStyle,
+        )
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(Spacing64)
+                .padding(end = Spacing56)
+                .alpha(0f)
+                .clickable(
+                    enabled = state != InputShellState.DISABLED,
+                    onClick = {
+                        focusRequester.requestFocus()
+                        onDropdownIconClick()
+                    },
+                ),
+        )
+    }
 }
 
 /**

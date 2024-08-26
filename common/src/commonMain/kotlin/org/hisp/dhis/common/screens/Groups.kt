@@ -1,6 +1,6 @@
 package org.hisp.dhis.common.screens
 
-enum class Components(val label: String) {
+enum class Groups(val label: String) {
     ACTION_INPUTS("Action inputs"),
     BASIC_TEXT_INPUTS("Basic text Inputs"),
     BOTTOM_SHEETS("Bottom sheet components"),
@@ -17,5 +17,6 @@ enum class Components(val label: String) {
     METADATA_AVATAR("Metadata Avatar"),
     INDICATOR("Indicators"),
     PARAMETER_SELECTOR("Parameter selector"),
-    NO_COMPONENT_SELECTED("No component selected"),
+    NAVIGATION_BAR("Navigation Bar"),
+    NO_GROUP_SELECTED("No group selected"),
 }
