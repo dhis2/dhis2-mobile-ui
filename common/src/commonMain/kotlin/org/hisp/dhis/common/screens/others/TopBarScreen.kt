@@ -73,7 +73,7 @@ fun TopBarScreen() {
                             )
                         }
                     }
-                }
+                },
             )
         }
 
@@ -97,7 +97,7 @@ fun TopBarScreen() {
                         icon = Icons.Outlined.Share,
                         onClick = { },
                     )
-                }
+                },
             )
         }
 
@@ -117,7 +117,7 @@ fun TopBarScreen() {
                     )
                 },
                 actions = {
-                }
+                },
             )
         }
 
@@ -161,7 +161,7 @@ fun TopBarScreen() {
                             )
                         }
                     }
-                }
+                },
             )
         }
     }
