@@ -16,7 +16,7 @@ In the module **build.gradle.kts**:
 
 ```kotlin
 dependencies {
-  implementation("org.hisp.dhis.mobile:designsystem:0.2")
+  implementation("org.hisp.dhis.mobile:designsystem:0.3.0")
 }
 ```
 
