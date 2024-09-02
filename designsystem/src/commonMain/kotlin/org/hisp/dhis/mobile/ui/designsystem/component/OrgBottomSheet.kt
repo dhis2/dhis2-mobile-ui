@@ -30,7 +30,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
@@ -150,6 +149,7 @@ fun OrgBottomSheet(
                             contentDescription = null,
                         )
                     },
+                    enabled = orgTreeItems.any { it.selected },
                     text = doneButtonText,
                     style = ButtonStyle.FILLED,
                 )
@@ -229,20 +229,9 @@ fun OrgUnitSelectorItem(
             .padding(start = ((orgTreeItem.level - higherLevel) * 16).dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        val icon = orgTreeItemIcon(orgTreeItem)
-        val iconTint = if (orgTreeItem.isOpen && orgTreeItem.hasChildren) {
-            TextColor.OnDisabledSurface
-        } else if (!orgTreeItem.isOpen && !orgTreeItem.hasChildren) {
-            TextColor.OnDisabledSurface
-        } else {
-            TextColor.OnSurfaceVariant
-        }
-
-        Icon(
+        OrgTreeItemIcon(
             modifier = Modifier.padding(Spacing.Spacing8),
-            painter = icon,
-            tint = iconTint,
-            contentDescription = "",
+            orgTreeItem = orgTreeItem,
         )
 
         val clickableModifier = if (orgTreeItem.canBeSelected) {
@@ -294,13 +283,31 @@ fun OrgUnitSelectorItem(
 }
 
 @Composable
-private fun orgTreeItemIcon(orgTreeItem: OrgTreeItem): Painter {
-    if (!orgTreeItem.hasChildren) return provideDHIS2Icon("material_circle_outline")
-
-    return if (orgTreeItem.isOpen) {
-        rememberVectorPainter(Icons.Filled.KeyboardArrowDown)
+private fun OrgTreeItemIcon(
+    modifier: Modifier = Modifier,
+    orgTreeItem: OrgTreeItem,
+) {
+    if (!orgTreeItem.hasChildren) {
+        Icon(
+            modifier = modifier,
+            painter = provideDHIS2Icon("material_circle_outline"),
+            contentDescription = null,
+            tint = TextColor.OnDisabledSurface,
+        )
+    } else if (orgTreeItem.isOpen) {
+        Icon(
+            modifier = modifier,
+            painter = rememberVectorPainter(Icons.Filled.KeyboardArrowDown),
+            contentDescription = null,
+            tint = TextColor.OnDisabledSurface,
+        )
     } else {
-        rememberVectorPainter(Icons.AutoMirrored.Filled.KeyboardArrowRight)
+        Icon(
+            modifier = modifier,
+            painter = rememberVectorPainter(Icons.AutoMirrored.Filled.KeyboardArrowRight),
+            contentDescription = null,
+            tint = TextColor.OnSurfaceVariant,
+        )
     }
 }
 
