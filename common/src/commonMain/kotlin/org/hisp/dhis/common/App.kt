@@ -23,6 +23,7 @@ import org.hisp.dhis.common.screens.others.BadgesScreen
 import org.hisp.dhis.common.screens.others.ChipsScreen
 import org.hisp.dhis.common.screens.others.IndicatorScreen
 import org.hisp.dhis.common.screens.others.LegendScreen
+import org.hisp.dhis.common.screens.others.MenuItemScreen
 import org.hisp.dhis.common.screens.others.MetadataAvatarScreen
 import org.hisp.dhis.common.screens.others.NavigationBarScreen
 import org.hisp.dhis.common.screens.others.ProgressScreen
@@ -101,6 +102,7 @@ fun Main(
                 Groups.TAGS -> TagsScreen()
                 Groups.SEARCH_BAR -> SearchBarScreen()
                 Groups.NAVIGATION_BAR -> NavigationBarScreen()
+                Groups.MENU_ITEM -> MenuItemScreen()
                 Groups.NO_GROUP_SELECTED -> NoComponentSelectedScreen()
                 Groups.TOP_BAR -> TopBarScreen()
             }
