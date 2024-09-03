@@ -13,12 +13,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
-import org.hisp.dhis.mobile.ui.designsystem.component.MenuItem
-import org.hisp.dhis.mobile.ui.designsystem.component.MenuItemData
-import org.hisp.dhis.mobile.ui.designsystem.component.MenuItemState
-import org.hisp.dhis.mobile.ui.designsystem.component.MenuItemStyle
-import org.hisp.dhis.mobile.ui.designsystem.component.MenuLeadingElement
-import org.hisp.dhis.mobile.ui.designsystem.component.MenuTrailingElement
+import org.hisp.dhis.mobile.ui.designsystem.component.menuItem.MenuItem
+import org.hisp.dhis.mobile.ui.designsystem.component.menuItem.MenuItemData
+import org.hisp.dhis.mobile.ui.designsystem.component.menuItem.MenuItemState
+import org.hisp.dhis.mobile.ui.designsystem.component.menuItem.MenuItemStyle
+import org.hisp.dhis.mobile.ui.designsystem.component.menuItem.MenuLeadingElement
+import org.hisp.dhis.mobile.ui.designsystem.component.menuItem.MenuTrailingElement
 
 @Composable
 fun MenuItemScreen() {
@@ -35,7 +35,7 @@ fun MenuItemScreen() {
                         modifier = Modifier.weight(1f),
                         menuItemData = MenuItemData(
                             label = "Menu Item",
-                            supportingText = "Supporting Text",
+                            supportingText = "Support Text",
                             showDivider = true,
                             leadingElement = MenuLeadingElement.Icon(
                                 icon = Icons.Outlined.Done,
@@ -50,7 +50,7 @@ fun MenuItemScreen() {
                         modifier = Modifier.weight(1f),
                         menuItemData = MenuItemData(
                             label = "Menu Item",
-                            supportingText = "Supporting Text",
+                            supportingText = "Support Text",
                             showDivider = true,
                             style = MenuItemStyle.ALERT,
                             leadingElement = MenuLeadingElement.Icon(
@@ -70,7 +70,7 @@ fun MenuItemScreen() {
                         modifier = Modifier.weight(1f),
                         menuItemData = MenuItemData(
                             label = "Menu Item",
-                            supportingText = "Supporting Text",
+                            supportingText = "Support Text",
                             showDivider = true,
                             state = MenuItemState.SELECTED,
                             leadingElement = MenuLeadingElement.Icon(
@@ -86,7 +86,7 @@ fun MenuItemScreen() {
                         modifier = Modifier.weight(1f),
                         menuItemData = MenuItemData(
                             label = "Menu Item",
-                            supportingText = "Supporting Text",
+                            supportingText = "Support Text",
                             showDivider = true,
                             state = MenuItemState.SELECTED,
                             style = MenuItemStyle.ALERT,
@@ -107,7 +107,7 @@ fun MenuItemScreen() {
                         modifier = Modifier.weight(1f),
                         menuItemData = MenuItemData(
                             label = "Menu Item",
-                            supportingText = "Supporting Text",
+                            supportingText = "Support Text",
                             showDivider = true,
                             state = MenuItemState.DISABLED,
                             leadingElement = MenuLeadingElement.Icon(
@@ -123,7 +123,7 @@ fun MenuItemScreen() {
                         modifier = Modifier.weight(1f),
                         menuItemData = MenuItemData(
                             label = "Menu Item",
-                            supportingText = "Supporting Text",
+                            supportingText = "Support Text",
                             showDivider = true,
                             state = MenuItemState.DISABLED,
                             style = MenuItemStyle.ALERT,

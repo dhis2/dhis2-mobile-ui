@@ -1,4 +1,4 @@
-package org.hisp.dhis.mobile.ui.designsystem.component
+package org.hisp.dhis.mobile.ui.designsystem.component.menuItem
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -18,6 +18,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.testTag
+import org.hisp.dhis.mobile.ui.designsystem.component.menuItem.MenuItemTestTags.MENU_ITEM_CONTAINER
+import org.hisp.dhis.mobile.ui.designsystem.component.menuItem.MenuItemTestTags.MENU_ITEM_DIVIDER
+import org.hisp.dhis.mobile.ui.designsystem.component.menuItem.MenuItemTestTags.MENU_ITEM_LEADING_ICON
+import org.hisp.dhis.mobile.ui.designsystem.component.menuItem.MenuItemTestTags.MENU_ITEM_LEADING_INDENT
+import org.hisp.dhis.mobile.ui.designsystem.component.menuItem.MenuItemTestTags.MENU_ITEM_SUPPORTING_TEXT
+import org.hisp.dhis.mobile.ui.designsystem.component.menuItem.MenuItemTestTags.MENU_ITEM_TEXT
+import org.hisp.dhis.mobile.ui.designsystem.component.menuItem.MenuItemTestTags.MENU_ITEM_TRAILING_ICON
+import org.hisp.dhis.mobile.ui.designsystem.component.menuItem.MenuItemTestTags.MENU_ITEM_TRAILING_TEXT
 import org.hisp.dhis.mobile.ui.designsystem.theme.Border
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
@@ -50,7 +59,7 @@ fun MenuItem(
     }
 
     Column(
-        modifier = modifier,
+        modifier = modifier.testTag(MENU_ITEM_CONTAINER),
     ) {
         Row(
             modifier = Modifier
@@ -76,12 +85,14 @@ fun MenuItem(
                 modifier = Modifier.weight(1f),
             ) {
                 Text(
+                    modifier = Modifier.testTag(MENU_ITEM_TEXT),
                     style = MaterialTheme.typography.bodyLarge,
                     color = if (menuItemData.style == MenuItemStyle.ALERT) SurfaceColor.Error else TextColor.OnSurface,
                     text = menuItemData.label,
                 )
                 if (!menuItemData.supportingText.isNullOrEmpty()) {
                     Text(
+                        modifier = Modifier.testTag(MENU_ITEM_SUPPORTING_TEXT),
                         style = MaterialTheme.typography.bodyMedium,
                         color = if (menuItemData.style == MenuItemStyle.ALERT) TextColor.OnErrorContainer else TextColor.OnSurfaceVariant,
                         text = menuItemData.supportingText,
@@ -96,7 +107,9 @@ fun MenuItem(
         }
         if (menuItemData.showDivider) {
             HorizontalDivider(
-                modifier = modifier.padding(vertical = Spacing.Spacing8),
+                modifier = modifier
+                    .testTag(MENU_ITEM_DIVIDER)
+                    .padding(vertical = Spacing.Spacing8),
                 thickness = Border.Thin,
                 color = Outline.Medium,
             )
@@ -112,7 +125,12 @@ private fun MenuItemLeadingElement(
 ) {
     when (leadingElement) {
         is MenuLeadingElement.Indent -> {
-            Box(modifier = Modifier.padding(end = Spacing.Spacing12).size(Spacing.Spacing24))
+            Box(
+                modifier = Modifier
+                    .testTag(MENU_ITEM_LEADING_INDENT)
+                    .padding(end = Spacing.Spacing12)
+                    .size(Spacing.Spacing24),
+            )
         }
 
         is MenuLeadingElement.Icon -> {
@@ -133,7 +151,10 @@ private fun MenuItemLeadingElement(
             }
             Icon(
                 imageVector = leadingElement.icon,
-                modifier = Modifier.padding(end = Spacing.Spacing12).size(Spacing.Spacing24),
+                modifier = Modifier
+                    .testTag(MENU_ITEM_LEADING_ICON)
+                    .padding(end = Spacing.Spacing12)
+                    .size(Spacing.Spacing24),
                 contentDescription = null,
                 tint = iconTint,
             )
@@ -151,8 +172,11 @@ private fun MenuItemTrailingElement(
     when (trailingElement) {
         is MenuTrailingElement.Icon -> {
             Icon(
+                modifier = Modifier
+                    .testTag(MENU_ITEM_TRAILING_ICON)
+                    .padding(start = Spacing.Spacing12)
+                    .size(Spacing.Spacing24),
                 imageVector = trailingElement.icon,
-                modifier = Modifier.padding(start = Spacing.Spacing12).size(Spacing.Spacing24),
                 contentDescription = null,
                 tint = if (state == MenuItemState.SELECTED) trailingElement.selectedTintColor else trailingElement.defaultTintColor,
             )
@@ -160,7 +184,9 @@ private fun MenuItemTrailingElement(
 
         is MenuTrailingElement.Text -> {
             Text(
-                modifier = Modifier.padding(start = Spacing.Spacing12),
+                modifier = Modifier
+                    .testTag(MENU_ITEM_TRAILING_TEXT)
+                    .padding(start = Spacing.Spacing12),
                 style = MaterialTheme.typography.bodyLarge,
                 color = if (state == MenuItemState.SELECTED) TextColor.OnSurface else TextColor.OnSurfaceVariant,
                 text = trailingElement.text,
