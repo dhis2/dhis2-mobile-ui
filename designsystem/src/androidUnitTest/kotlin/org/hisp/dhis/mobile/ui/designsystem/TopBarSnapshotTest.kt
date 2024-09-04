@@ -4,7 +4,10 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.FileDownload
 import androidx.compose.material.icons.outlined.Menu
 import androidx.compose.material.icons.outlined.Share
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
+import androidx.compose.ui.text.style.TextOverflow
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.IconButton
@@ -12,7 +15,6 @@ import org.hisp.dhis.mobile.ui.designsystem.component.TopBar
 import org.hisp.dhis.mobile.ui.designsystem.component.TopBarActionIcon
 import org.hisp.dhis.mobile.ui.designsystem.component.TopBarDropdownMenuIcon
 import org.hisp.dhis.mobile.ui.designsystem.component.TopBarType
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.junit.Rule
 import org.junit.Test
 
@@ -20,6 +22,7 @@ class TopBarSnapshotTest {
     @get:Rule
     val paparazzi = paparazzi()
 
+    @OptIn(ExperimentalMaterial3Api::class)
     @Test
     fun launchTopBar() {
         paparazzi.snapshot {
@@ -27,7 +30,13 @@ class TopBarSnapshotTest {
                 ColumnComponentContainer(subTitle = "Default") {
                     TopBar(
                         type = TopBarType.DEFAULT,
-                        title = "Title",
+                        title = {
+                            Text(
+                                text = "Title",
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis,
+                            )
+                        },
                         navigationIcon = {
                             IconButton(
                                 onClick = { },
@@ -51,14 +60,19 @@ class TopBarSnapshotTest {
                             TopBarDropdownMenuIcon { _, _ ->
                             }
                         },
-                        color = SurfaceColor.PrimaryContainer,
                     )
                 }
 
                 ColumnComponentContainer(subTitle = "Centered") {
                     TopBar(
                         type = TopBarType.CENTERED,
-                        title = "Title",
+                        title = {
+                            Text(
+                                text = "Title",
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis,
+                            )
+                        },
                         navigationIcon = {
                             IconButton(
                                 onClick = { },
@@ -80,7 +94,6 @@ class TopBarSnapshotTest {
                                 onClick = { },
                             )
                         },
-                        color = SurfaceColor.PrimaryContainer,
                     )
                 }
             }
