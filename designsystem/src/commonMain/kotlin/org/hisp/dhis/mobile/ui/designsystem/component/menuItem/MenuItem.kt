@@ -19,6 +19,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.text.style.TextOverflow
 import org.hisp.dhis.mobile.ui.designsystem.component.menuItem.MenuItemTestTags.MENU_ITEM_CONTAINER
 import org.hisp.dhis.mobile.ui.designsystem.component.menuItem.MenuItemTestTags.MENU_ITEM_DIVIDER
 import org.hisp.dhis.mobile.ui.designsystem.component.menuItem.MenuItemTestTags.MENU_ITEM_LEADING_ICON
@@ -85,6 +86,8 @@ fun MenuItem(
                 modifier = Modifier.weight(1f),
             ) {
                 Text(
+                    maxLines = if (!menuItemData.supportingText.isNullOrEmpty()) 1 else 2,
+                    overflow = TextOverflow.Ellipsis,
                     modifier = Modifier.testTag(MENU_ITEM_TEXT),
                     style = MaterialTheme.typography.bodyLarge,
                     color = if (menuItemData.style == MenuItemStyle.ALERT) SurfaceColor.Error else TextColor.OnSurface,
@@ -92,6 +95,8 @@ fun MenuItem(
                 )
                 if (!menuItemData.supportingText.isNullOrEmpty()) {
                     Text(
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
                         modifier = Modifier.testTag(MENU_ITEM_SUPPORTING_TEXT),
                         style = MaterialTheme.typography.bodyMedium,
                         color = if (menuItemData.style == MenuItemStyle.ALERT) TextColor.OnErrorContainer else TextColor.OnSurfaceVariant,
