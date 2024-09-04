@@ -49,37 +49,37 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
 @Composable
 fun ListCardScreen(horizontal: Boolean) {
-    if (horizontal) {
-        LazyRow(
-            modifier = Modifier.heightIn(0.dp, 500.dp),
-            horizontalArrangement = spacedBy(4.dp),
-            verticalAlignment = Alignment.Top,
-            contentPadding = PaddingValues(vertical = 4.dp, horizontal = 16.dp),
-        ) {
-            items(count = 4) { index ->
-                ListCard(
-                    listCardState = rememberListCardState(
-                        title = ListCardTitleModel(text = "Palak Khanna, F, 61"),
-                        lastUpdated = "5 hours",
-                        additionalInfoColumnState = rememberAdditionalInfoColumnState(
-                            additionalInfoList = largeItemList,
-                            syncProgressItem = syncProgressItem(),
-                            scrollableContent = true,
+    ColumnScreenContainer(title = if (horizontal) Cards.LIST_CARD_HORIZONTAL.label else Cards.LIST_CARD.label) {
+        if (horizontal) {
+            LazyRow(
+                modifier = Modifier.heightIn(0.dp, 500.dp),
+                horizontalArrangement = spacedBy(4.dp),
+                verticalAlignment = Alignment.Top,
+                contentPadding = PaddingValues(vertical = 4.dp, horizontal = 16.dp),
+            ) {
+                items(count = 4) { index ->
+                    ListCard(
+                        listCardState = rememberListCardState(
+                            title = ListCardTitleModel(text = "Palak Khanna, F, 61"),
+                            lastUpdated = "5 hours",
+                            additionalInfoColumnState = rememberAdditionalInfoColumnState(
+                                additionalInfoList = largeItemList,
+                                syncProgressItem = syncProgressItem(),
+                                scrollableContent = true,
+                            ),
+                            loading = false,
                         ),
-                        loading = false,
-                    ),
-                    modifier = Modifier.fillParentMaxWidth(),
-                    listAvatar = {
-                        Avatar(
-                            style = AvatarStyleData.Text("$index"),
-                        )
-                    },
-                    onCardClick = {},
-                )
+                        modifier = Modifier.fillParentMaxWidth(),
+                        listAvatar = {
+                            Avatar(
+                                style = AvatarStyleData.Text("$index"),
+                            )
+                        },
+                        onCardClick = {},
+                    )
+                }
             }
-        }
-    } else {
-        ColumnScreenContainer(title = Cards.LIST_CARD.label) {
+        } else {
             var showLoading1 by remember {
                 mutableStateOf(false)
             }
