@@ -29,6 +29,7 @@ import org.hisp.dhis.common.screens.others.ProgressScreen
 import org.hisp.dhis.common.screens.others.SearchBarScreen
 import org.hisp.dhis.common.screens.others.SectionScreen
 import org.hisp.dhis.common.screens.others.TagsScreen
+import org.hisp.dhis.common.screens.others.TopBarScreen
 import org.hisp.dhis.common.screens.parameter.ParameterSelectorScreen
 import org.hisp.dhis.common.screens.toggleableInputs.ToggleableInputsScreen
 import org.hisp.dhis.mobile.ui.designsystem.component.DropdownItem
@@ -101,6 +102,7 @@ fun Main(
                 Groups.SEARCH_BAR -> SearchBarScreen()
                 Groups.NAVIGATION_BAR -> NavigationBarScreen()
                 Groups.NO_GROUP_SELECTED -> NoComponentSelectedScreen()
+                Groups.TOP_BAR -> TopBarScreen()
             }
         } else {
             NoComponentSelectedScreen(
