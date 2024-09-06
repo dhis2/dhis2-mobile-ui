@@ -119,7 +119,9 @@ fun ListCard(
                     )
                     listCardState.lastUpdateBasedOnLoading()?.let { ListCardLastUpdated(it) }
                 }
-                listCardState.descriptionBasedOnLoading()?.let { ListCardDescription(it, Modifier) }
+                listCardState.descriptionBasedOnLoading()?.let {
+                    ListCardDescription(it, Modifier.padding(bottom = Spacing.Spacing8))
+                }
 
                 AdditionalInfoColumn(
                     additionalInfoColumnState = listCardState.additionalInfoColumnState,
@@ -256,7 +258,7 @@ fun VerticalInfoListCard(
             Column(
                 modifier = Modifier.wrapContentHeight(),
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = spacedBy(Spacing.Spacing4),
+                verticalArrangement = spacedBy(Spacing4),
             ) {
                 ListCardTitle(
                     title = listCardState.title,
@@ -264,7 +266,7 @@ fun VerticalInfoListCard(
                         .padding(bottom = if (listCardState.description?.text != null) Spacing.Spacing0 else Spacing4),
                 )
                 listCardState.descriptionBasedOnLoading()?.let {
-                    ListCardDescription(it, Modifier)
+                    ListCardDescription(it)
                 }
                 listCardState.lastUpdateBasedOnLoading()?.let {
                     ListCardLastUpdated(it)
@@ -673,8 +675,14 @@ fun ProvideKeyValueItem(
             text = finalAnnotatedString,
             textAlign = TextAlign.Start,
             style = MaterialTheme.typography.bodyMedium,
-            overflow = TextOverflow.Ellipsis,
-            maxLines = 2,
+            overflow = when {
+                additionalInfoItem.truncate -> TextOverflow.Ellipsis
+                else -> TextOverflow.Clip
+            },
+            maxLines = when {
+                additionalInfoItem.truncate -> 2
+                else -> Int.MAX_VALUE
+            },
             modifier = Modifier,
 
         )
@@ -811,6 +819,7 @@ data class AdditionalInfoItem(
     val value: String,
     val isConstantItem: Boolean = false,
     val color: Color? = null,
+    val truncate: Boolean = true,
     val action: (() -> Unit)? = null,
 )
 

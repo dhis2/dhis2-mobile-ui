@@ -105,7 +105,8 @@ fun BaseCard(
 fun <T> ExpandableItemColumn(
     modifier: Modifier = Modifier,
     itemList: List<T>,
-    itemSpacing: Dp = 16.dp,
+    itemSpacing: Dp = Spacing16,
+    contentPadding: Dp = Spacing16,
     itemLayout: @Composable (T, itemVerticalPadding: Dp, onSizeChanged: (IntSize) -> Unit) -> Unit,
 ) {
     val density = LocalDensity.current
@@ -123,8 +124,11 @@ fun <T> ExpandableItemColumn(
     val itemVerticalPadding by remember(childrenSize) {
         derivedStateOf {
             val value = if (childrenSize.size == itemCount) {
-                var availableHeight =
-                    parentSize - childrenSize.values.sum() - with(density) { itemSpacing.toPx() * (itemCount - 1) }
+                var availableHeight = parentSize -
+                    childrenSize.values.sum() -
+                    with(density) {
+                        itemSpacing.toPx() * (itemCount - 1) + contentPadding.toPx() * 2
+                    }
                 if (itemCount == 1) availableHeight /= 4
                 with(density) { (availableHeight / (2 * itemCount)).toDp() }.takeIf { it >= 16.dp }
                     ?: 16.dp
@@ -143,7 +147,7 @@ fun <T> ExpandableItemColumn(
                 }
             },
         verticalArrangement = spacedBy(itemSpacing),
-        contentPadding = PaddingValues(Spacing16),
+        contentPadding = PaddingValues(contentPadding),
     ) {
         itemList.forEachIndexed { index, item ->
             item {
