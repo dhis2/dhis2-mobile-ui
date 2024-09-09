@@ -1,0 +1,12 @@
+package org.hisp.dhis.mobile.ui.designsystem.component.menuItem
+
+object MenuItemTestTags {
+    const val MENU_ITEM_CONTAINER = "MENU_ITEM_CONTAINER"
+    const val MENU_ITEM_TEXT = "MENU_ITEM_TEXT"
+    const val MENU_ITEM_SUPPORTING_TEXT = "MENU_ITEM_SUPPORTING_TEXT"
+    const val MENU_ITEM_DIVIDER = "MENU_ITEM_DIVIDER"
+    const val MENU_ITEM_LEADING_INDENT = "MENU_ITEM_LEADING_INDENT"
+    const val MENU_ITEM_LEADING_ICON = "MENU_ITEM_LEADING_ICON"
+    const val MENU_ITEM_TRAILING_ICON = "MENU_ITEM_TRAILING_ICON"
+    const val MENU_ITEM_TRAILING_TEXT = "MENU_ITEM_TRAILING_TEXT"
+}
