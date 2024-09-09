@@ -117,7 +117,7 @@ fun BottomSheetHeader(
                 text = description,
                 style = MaterialTheme.typography.bodyMedium,
                 color = TextColor.OnSurfaceLight,
-                textAlign = headerTextAlignment,
+                textAlign = TextAlign.Start,
             )
         }
     }
