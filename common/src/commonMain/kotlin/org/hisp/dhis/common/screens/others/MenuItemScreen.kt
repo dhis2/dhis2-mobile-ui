@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowRight
 import androidx.compose.material.icons.automirrored.outlined.Assignment
@@ -27,7 +28,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import org.hisp.dhis.common.screens.Groups
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.menuItem.MenuItem
@@ -36,13 +39,15 @@ import org.hisp.dhis.mobile.ui.designsystem.component.menuItem.MenuItemState
 import org.hisp.dhis.mobile.ui.designsystem.component.menuItem.MenuItemStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.menuItem.MenuLeadingElement
 import org.hisp.dhis.mobile.ui.designsystem.component.menuItem.MenuTrailingElement
+import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
+import org.hisp.dhis.mobile.ui.designsystem.theme.dropShadow
 
 @Composable
 fun MenuItemScreen() {
-    ColumnScreenContainer("Menu Item") {
+    ColumnScreenContainer(Groups.MENU.label) {
         ColumnComponentContainer(
             "Enrollment dashboard menu",
         ) {
@@ -108,6 +113,13 @@ fun MenuItemScreen() {
 
             Column(
                 modifier = Modifier
+                    .dropShadow(
+                        shape = RoundedCornerShape(Radius.XS),
+                        blur = Spacing.Spacing2,
+                        spread = Spacing.Spacing0,
+                        color = Color(0x4D007DEB),
+                        offsetY = Spacing.Spacing1,
+                    )
                     .width(270.dp)
                     .background(SurfaceColor.ContainerLow)
                     .padding(vertical = Spacing.Spacing8),

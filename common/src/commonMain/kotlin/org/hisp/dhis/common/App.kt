@@ -102,7 +102,7 @@ fun Main(
                 Groups.TAGS -> TagsScreen()
                 Groups.SEARCH_BAR -> SearchBarScreen()
                 Groups.NAVIGATION_BAR -> NavigationBarScreen()
-                Groups.MENU_ITEM -> MenuItemScreen()
+                Groups.MENU -> MenuItemScreen()
                 Groups.NO_GROUP_SELECTED -> NoComponentSelectedScreen()
                 Groups.TOP_BAR -> TopBarScreen()
             }
