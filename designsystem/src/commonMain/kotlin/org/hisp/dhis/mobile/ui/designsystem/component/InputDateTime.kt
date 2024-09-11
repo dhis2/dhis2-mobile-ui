@@ -393,7 +393,7 @@ fun InputDateTime(
     }
 }
 
-fun getInputState(supportingTextList: List<SupportingTextData>, dateOutOfRangeItem: SupportingTextData, incorrectDateFormatItem: SupportingTextData, currentState: InputShellState): InputShellState {
+private fun getInputState(supportingTextList: List<SupportingTextData>, dateOutOfRangeItem: SupportingTextData, incorrectDateFormatItem: SupportingTextData, currentState: InputShellState): InputShellState {
     return if (supportingTextList.contains(dateOutOfRangeItem) || supportingTextList.contains(incorrectDateFormatItem)) InputShellState.ERROR else currentState
 }
 
