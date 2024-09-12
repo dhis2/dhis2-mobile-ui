@@ -1,5 +1,7 @@
 package org.hisp.dhis.common.screens.bottomSheets
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.MoveDown
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -7,6 +9,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.text.style.TextAlign
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -30,6 +33,7 @@ fun OrgTreeBottomSheetScreen() {
     var showTwoOrgTreeBottomSheet by rememberSaveable { mutableStateOf(false) }
     var showMediumOrgTreeBottomSheet by rememberSaveable { mutableStateOf(false) }
     var showLargeOrgTreeBottomSheet by rememberSaveable { mutableStateOf(false) }
+    var showTransferOrgBottomSheet by rememberSaveable { mutableStateOf(false) }
 
     if (showOneOrgTreeBottomSheet) {
         val orgTreeItemsRepo = remember { OrgTreeItemsFakeRepo() }
@@ -115,6 +119,31 @@ fun OrgTreeBottomSheetScreen() {
         )
     }
 
+    if (showTransferOrgBottomSheet) {
+        val orgTreeItemsRepo = remember { OrgTreeItemsFakeRepo() }
+        val oneOrgTreeItem by orgTreeItemsRepo.state.collectAsState(emptyList())
+
+        OrgBottomSheet(
+            title = "Transfer [tracked entity type]",
+            description = "From [current owner org. unit] to...",
+            orgTreeItems = oneOrgTreeItem,
+            doneButtonText = "Transfer",
+            doneButtonIcon = Icons.Outlined.MoveDown,
+            headerTextAlignment = TextAlign.Left,
+            onDismiss = {
+                showTransferOrgBottomSheet = false
+            },
+            onSearch = orgTreeItemsRepo::search,
+            onItemClick = orgTreeItemsRepo::toggleItemExpansion,
+            onItemSelected = { uid, checked ->
+                orgTreeItemsRepo.toggleItemSelection(uid, checked)
+            },
+            onDone = {
+                // no-op
+            },
+        )
+    }
+
     ColumnScreenContainer(title = BottomSheets.ORG_TREE_BOTTOM_SHEET.label) {
         ColumnComponentContainer("Org Tree Bottom Sheet with single item") {
             Button(
@@ -153,6 +182,16 @@ fun OrgTreeBottomSheetScreen() {
                 text = "Show Large Org Tree Bottom Sheet",
             ) {
                 showLargeOrgTreeBottomSheet = !showLargeOrgTreeBottomSheet
+            }
+        }
+
+        ColumnComponentContainer("Transfer Org Tree Bottom Sheet") {
+            Button(
+                enabled = true,
+                ButtonStyle.FILLED,
+                text = "Show Transfer Org Tree Bottom Sheet",
+            ) {
+                showTransferOrgBottomSheet = !showTransferOrgBottomSheet
             }
         }
     }
