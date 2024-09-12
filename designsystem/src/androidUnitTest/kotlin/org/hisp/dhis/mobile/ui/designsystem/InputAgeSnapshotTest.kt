@@ -74,7 +74,6 @@ class InputAgeSnapshotTest {
                     },
                 )
 
-
                 SubTitle("Input Age Component - Date Of Birth Required Error")
                 InputAge(
                     state = rememberInputAgeState(
