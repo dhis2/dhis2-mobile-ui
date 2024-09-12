@@ -44,7 +44,7 @@ class InputAgeSnapshotTest {
                     },
                 )
 
-                SubTitle("Input Age Component - Date Of Birth")
+                SubTitle("Input Age Component - Invalid Date Of Birth")
                 InputAge(
                     state = rememberInputAgeState(
                         inputAgeData = InputAgeData(
@@ -58,6 +58,22 @@ class InputAgeSnapshotTest {
                     onValueChanged = {
                     },
                 )
+
+                SubTitle("Input Age Component - Date Of Birth")
+                InputAge(
+                    state = rememberInputAgeState(
+                        inputAgeData = InputAgeData(
+                            title = "Label",
+                        ),
+                        inputType = AgeInputType.DateOfBirth(
+                            TextFieldValue("1991-11-27"),
+                        ),
+                        inputState = InputShellState.DISABLED,
+                    ),
+                    onValueChanged = {
+                    },
+                )
+
 
                 SubTitle("Input Age Component - Date Of Birth Required Error")
                 InputAge(

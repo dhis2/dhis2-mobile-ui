@@ -3,11 +3,13 @@ package org.hisp.dhis.mobile.ui.designsystem.component
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextClearance
 import androidx.compose.ui.test.performTextInput
+import androidx.compose.ui.text.input.TextFieldValue
 import org.hisp.dhis.mobile.ui.designsystem.component.state.InputAgeData
 import org.hisp.dhis.mobile.ui.designsystem.component.state.rememberInputAgeState
 import org.junit.Rule
@@ -222,5 +224,63 @@ class InputAgeTest {
         val newInputDaysType = inputType as AgeInputType.Age
         assert(newInputDaysType.value.text == "28")
         assert(newInputDaysType.unit == TimeUnitValues.DAYS)
+    }
+
+    @Test
+    fun shouldFormatDateCorrectly() {
+        rule.setContent {
+            InputAge(
+                state = rememberInputAgeState(
+                    inputAgeData = InputAgeData(
+                        title = "Label",
+                    ),
+                    inputType = AgeInputType.DateOfBirth(TextFieldValue("1991-11-27")),
+                ),
+                onValueChanged = {
+                    // no-op
+                },
+            )
+        }
+
+        rule.onNodeWithTag("INPUT_AGE_TEXT_FIELD").assertExists().assertTextEquals("27/11/1991")
+    }
+
+    @Test
+    fun shouldShowErrorForOutsideRangeDate() {
+        rule.setContent {
+            InputAge(
+                state = rememberInputAgeState(
+                    inputAgeData = InputAgeData(
+                        title = "Label",
+                    ),
+                    inputType = AgeInputType.DateOfBirth(TextFieldValue("2025-11-27")),
+                ),
+                onValueChanged = {
+                    // no-op
+                },
+            )
+        }
+
+        rule.onNodeWithTag("INPUT_AGE_TEXT_FIELD").assertExists().assertTextEquals("27/11/2025")
+        rule.onNodeWithTag("INPUT_AGE_SUPPORTING_TEXT").assertExists()
+    }
+
+    @Test
+    fun shouldWorkWithInvalidDate() {
+        rule.setContent {
+            InputAge(
+                state = rememberInputAgeState(
+                    inputAgeData = InputAgeData(
+                        title = "Label",
+                    ),
+                    inputType = AgeInputType.DateOfBirth(TextFieldValue("1004-9999-9999")),
+                ),
+                onValueChanged = {
+                    // no-op
+                },
+            )
+        }
+
+        rule.onNodeWithTag("INPUT_AGE_TEXT_FIELD").assertExists().assertTextEquals("99/99/9999")
     }
 }

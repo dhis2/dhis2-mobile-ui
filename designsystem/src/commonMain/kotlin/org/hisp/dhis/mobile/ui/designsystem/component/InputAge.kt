@@ -60,7 +60,7 @@ import java.util.Calendar
  * @param modifier: optional modifier.
  */
 @Suppress("DEPRECATION")
-@Deprecated("This component is deprecated and will be removed in the next release. Use InputDateTime instead.")
+@Deprecated("This component is deprecated and will be removed in the next release. Use InputAge instead.")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun InputAge(
