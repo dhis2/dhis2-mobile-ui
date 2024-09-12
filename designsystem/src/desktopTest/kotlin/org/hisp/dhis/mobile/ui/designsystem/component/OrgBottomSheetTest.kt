@@ -123,4 +123,38 @@ class OrgBottomSheetTest {
         rule.onNodeWithTag("ORG_TREE_ITEM_CHECKBOX_Item 1").assertExists()
         rule.onNodeWithTag("ORG_TREE_ITEM_CHECKBOX_Item 2").assertDoesNotExist()
     }
+
+    @Test
+    fun shouldHideClearButtonWhenOnClearAllMethodIsNotProvided() {
+        rule.setContent {
+            OrgBottomSheet(
+                orgTreeItems = listOf(
+                    OrgTreeItem(
+                        uid = "1",
+                        label = "Item 1",
+                        canBeSelected = true,
+                    ),
+                    OrgTreeItem(
+                        uid = "2",
+                        label = "Item 2",
+                        canBeSelected = false,
+                    ),
+                ),
+                onDismiss = {
+                    // no-op
+                },
+                onItemClick = {
+                    // no-op
+                },
+                onItemSelected = { _, _ ->
+                    // no-op
+                },
+                onDone = {
+                    // no-op
+                },
+            )
+        }
+
+        rule.onNodeWithTag("CLEAR_ALL_BUTTON").assertDoesNotExist()
+    }
 }
