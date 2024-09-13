@@ -271,7 +271,12 @@ fun getSelectableDates(selectableDates: SelectableDates): androidx.compose.mater
 
 @Deprecated("This function is deprecated and will be removed in the next release. Use overloaded fun  instead.")
 @Suppress("DEPRECATION")
-fun getSupportingTextList(uiModel: InputDateTimeModel, dateOutOfRangeItem: SupportingTextData, incorrectHourFormatItem: SupportingTextData, incorrectDateFormatItem: SupportingTextData): List<SupportingTextData> {
+fun getSupportingTextList(
+    uiModel: InputDateTimeModel,
+    dateOutOfRangeItem: SupportingTextData,
+    incorrectHourFormatItem: SupportingTextData,
+    incorrectDateFormatItem: SupportingTextData,
+): List<SupportingTextData> {
     val supportingTextList = mutableListOf<SupportingTextData>()
 
     uiModel.supportingText?.forEach { item ->
@@ -291,6 +296,7 @@ fun getSupportingTextList(uiModel: InputDateTimeModel, dateOutOfRangeItem: Suppo
                     uiModel.supportingText
                 }
             }
+
             DateTimeActionType.DATE_TIME -> {
                 if (uiModel.inputTextFieldValue?.text!!.length == 12) {
                     dateIsInRange = dateIsInRange(
@@ -307,6 +313,7 @@ fun getSupportingTextList(uiModel: InputDateTimeModel, dateOutOfRangeItem: Suppo
                     if (!isValidHourFormat) supportingTextList.add(incorrectHourFormatItem)
                 }
             }
+
             DateTimeActionType.DATE -> {
                 if (uiModel.inputTextFieldValue?.text!!.length == 8) {
                     dateIsInRange = dateIsInRange(parseStringDateToMillis(uiModel.inputTextFieldValue.text), uiModel.selectableDates, uiModel.format)
@@ -328,7 +335,6 @@ fun getSupportingTextList(
     dateOutOfRangeItem: SupportingTextData,
     incorrectHourFormatItem: SupportingTextData,
     incorrectDateFormatItem: SupportingTextData,
-
 ): List<SupportingTextData> {
     val supportingTextList = state.supportingText?.toMutableList() ?: mutableListOf()
 
@@ -337,22 +343,48 @@ fun getSupportingTextList(
             DateTimeActionType.TIME -> {
                 getTimeSupportingTextList(uiValue, supportingTextList, incorrectHourFormatItem)
             }
+
             DateTimeActionType.DATE_TIME -> {
-                getDateTimeSupportingTextList(uiValue, dateOutOfRangeItem, incorrectDateFormatItem, incorrectHourFormatItem, state, data, supportingTextList)
+                getDateTimeSupportingTextList(
+                    uiValue,
+                    dateOutOfRangeItem,
+                    incorrectDateFormatItem,
+                    incorrectHourFormatItem,
+                    state,
+                    data,
+                    supportingTextList,
+                )
             }
+
             DateTimeActionType.DATE -> {
-                getDateSupportingText(uiValue, data, supportingTextList, dateOutOfRangeItem, incorrectDateFormatItem)
+                getDateSupportingText(
+                    uiValue,
+                    data.selectableDates,
+                    data.actionType,
+                    data.yearRange,
+                    supportingTextList,
+                    dateOutOfRangeItem,
+                    incorrectDateFormatItem,
+                )
             }
         }
     }
     return supportingTextList.toList()
 }
 
-fun getDateSupportingText(uiValue: TextFieldValue, data: InputDateTimeData, supportingTextList: MutableList<SupportingTextData>, dateOutOfRangeItem: SupportingTextData, incorrectDateFormatItem: SupportingTextData): List<SupportingTextData> {
+fun getDateSupportingText(
+    uiValue: TextFieldValue,
+    selectableDates: SelectableDates,
+    actionType: DateTimeActionType,
+    yearRange: IntRange,
+    supportingTextList: MutableList<SupportingTextData>,
+    dateOutOfRangeItem: SupportingTextData,
+    incorrectDateFormatItem: SupportingTextData,
+): List<SupportingTextData> {
     if (uiValue.text.length == 8) {
-        val dateIsInRange = dateIsInRange(parseStringDateToMillis(uiValue.text), data.selectableDates)
+        val dateIsInRange = dateIsInRange(parseStringDateToMillis(uiValue.text), selectableDates)
         val isValidDateFormat = isValidDate(uiValue.text)
-        val dateIsInYearRange = yearIsInRange(uiValue.text, getDefaultFormat(data.actionType), data.yearRange)
+        val dateIsInYearRange = yearIsInRange(uiValue.text, getDefaultFormat(actionType), yearRange)
         if (!dateIsInRange || !dateIsInYearRange) supportingTextList.add(dateOutOfRangeItem)
         if (!isValidDateFormat) supportingTextList.add(incorrectDateFormatItem)
     }
@@ -385,7 +417,11 @@ fun getDateTimeSupportingTextList(
     return supportingTextList
 }
 
-fun getTimeSupportingTextList(inputTextFieldValue: TextFieldValue?, supportingTextList: MutableList<SupportingTextData>, incorrectHourFormatItem: SupportingTextData): List<SupportingTextData> {
+fun getTimeSupportingTextList(
+    inputTextFieldValue: TextFieldValue?,
+    supportingTextList: MutableList<SupportingTextData>,
+    incorrectHourFormatItem: SupportingTextData,
+): List<SupportingTextData> {
     if (inputTextFieldValue?.text!!.length == 4 && !isValidHourFormat(inputTextFieldValue.text)) {
         supportingTextList.add(incorrectHourFormatItem)
     }
@@ -395,7 +431,10 @@ fun getTimeSupportingTextList(inputTextFieldValue: TextFieldValue?, supportingTe
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 internal fun getTimePickerState(state: InputDateTimeState, uiData: InputDateTimeData): TimePickerState {
-    return if (state.inputTextFieldValue?.text?.isNotEmpty() == true && uiData.actionType == DateTimeActionType.TIME && isValidHourFormat(state.inputTextFieldValue?.text ?: "")) {
+    return if (state.inputTextFieldValue?.text?.isNotEmpty() == true && uiData.actionType == DateTimeActionType.TIME && isValidHourFormat(
+            state.inputTextFieldValue?.text ?: "",
+        )
+    ) {
         rememberTimePickerState(
             initialHour = state.inputTextFieldValue!!.text.substring(0, 2)
                 .toInt(),
@@ -404,7 +443,10 @@ internal fun getTimePickerState(state: InputDateTimeState, uiData: InputDateTime
         )
     } else if (state.inputTextFieldValue?.text?.length == 12 && isValidHourFormat(state.inputTextFieldValue!!.text.substring(8, 12))) {
         rememberTimePickerState(
-            initialHour = state.inputTextFieldValue?.text?.substring(state.inputTextFieldValue!!.text.length - 4, state.inputTextFieldValue!!.text.length - 2)!!
+            initialHour = state.inputTextFieldValue?.text?.substring(
+                state.inputTextFieldValue!!.text.length - 4,
+                state.inputTextFieldValue!!.text.length - 2,
+            )!!
                 .toInt(),
             state.inputTextFieldValue!!.text.substring(state.inputTextFieldValue!!.text.length - 2, state.inputTextFieldValue!!.text.length).toInt(),
             is24Hour = uiData.is24hourFormat,
