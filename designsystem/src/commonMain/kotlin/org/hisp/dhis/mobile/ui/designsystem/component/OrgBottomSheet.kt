@@ -79,7 +79,7 @@ fun OrgBottomSheet(
     subtitle: String? = null,
     description: String? = null,
     clearAllButtonText: String = provideStringResource("clear_all"),
-    doneButtonText: String = provideStringResource("done"),
+    doneButtonText: String? = null,
     doneButtonIcon: ImageVector = Icons.Filled.Check,
     noResultsFoundText: String = provideStringResource("no_results_found"),
     headerTextAlignment: TextAlign = TextAlign.Center,
@@ -158,7 +158,7 @@ fun OrgBottomSheet(
                         )
                     },
                     enabled = orgTreeItems.any { it.selected },
-                    text = doneButtonText,
+                    text = doneButtonText ?: provideStringResource("done"),
                     style = ButtonStyle.FILLED,
                 )
             }
