@@ -12,6 +12,7 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.view.WindowCompat
 import org.hisp.dhis.common.App
+import org.hisp.dhis.mobile.ui.designsystem.component.model.LocationItemModel
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,6 +29,26 @@ class MainActivity : AppCompatActivity() {
                             .also { it.inPreferredConfig = Bitmap.Config.ARGB_8888 },
                     ).asImageBitmap()
                 },
+                onLocationRequest = { locationQuery, locationSearchCallback ->
+
+                    if (locationQuery.isNotBlank()) {
+                        val fakeList = buildList<LocationItemModel> {
+                            repeat(20) {
+                                add(
+                                    LocationItemModel.SearchResult(
+                                        "Fake Location Title #$it",
+                                        "Fake Location Address, Fake Country, Fake City",
+                                        0.0,
+                                        0.0
+                                    )
+                                )
+                            }
+                        }
+                        locationSearchCallback(fakeList)
+                    }else{
+                        locationSearchCallback(emptyList())
+                    }
+                }
             )
         }
     }

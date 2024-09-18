@@ -42,4 +42,8 @@
     <string name="incorrect_date_format">Incorrect date format </string>
     <string name="wrong_hour_format">Incorrect time format </string>
     <string name="search_to_see_more">Not all options are displayed.\n Search to see more.</string>
+    <string name="search_location">Search location</string>
+    <string name="select_in_map">Select in map</string>
+    <string name="no_recent_results">No recent results</string>
+    <string name="no_results">No results</string>
 </resources>
