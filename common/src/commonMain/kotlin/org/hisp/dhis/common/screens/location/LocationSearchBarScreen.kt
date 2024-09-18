@@ -22,9 +22,8 @@ fun LocationSearchBarScreen(
         locationQuery: String,
         locationSearchCallback: (List<LocationItemModel>) -> Unit,
 
-        ) -> Unit
+    ) -> Unit,
 ) {
-
     var itemList: List<LocationItemModel> by remember {
         mutableStateOf(defaultLocationItems)
     }
@@ -44,8 +43,7 @@ fun LocationSearchBarScreen(
                 }
             },
             onLocationSelected = { locationItemModel ->
-
-            }
+            },
         )
     }
 }
@@ -55,12 +53,12 @@ private val defaultLocationItems = listOf(
         storedTitle = "Location #1",
         storedSubtitle = "Location description, location description, location description",
         storedLatitude = 0.0,
-        storedLongitude = 0.0
+        storedLongitude = 0.0,
     ),
     LocationItemModel.StoredResult(
         storedTitle = "Location #2",
         storedSubtitle = "Location description, location description, location description",
         storedLatitude = 0.0,
-        storedLongitude = 0.0
+        storedLongitude = 0.0,
     ),
 )

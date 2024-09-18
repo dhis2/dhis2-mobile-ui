@@ -39,16 +39,16 @@ class MainActivity : AppCompatActivity() {
                                         "Fake Location Title #$it",
                                         "Fake Location Address, Fake Country, Fake City",
                                         0.0,
-                                        0.0
-                                    )
+                                        0.0,
+                                    ),
                                 )
                             }
                         }
                         locationSearchCallback(fakeList)
-                    }else{
+                    } else {
                         locationSearchCallback(emptyList())
                     }
-                }
+                },
             )
         }
     }

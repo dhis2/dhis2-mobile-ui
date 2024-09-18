@@ -48,10 +48,12 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 @Composable
 fun App(
     imageBitmapLoader: (() -> ImageBitmap)? = null,
-    onLocationRequest: ((
-        locationQuery: String,
-        locationSearchCallback: (List<LocationItemModel>)-> Unit,
-    ) -> Unit)? = null,
+    onLocationRequest: (
+        (
+            locationQuery: String,
+            locationSearchCallback: (List<LocationItemModel>) -> Unit,
+        ) -> Unit
+    )? = null,
 ) {
     DHIS2Theme {
         Main(imageBitmapLoader, onLocationRequest)
@@ -61,10 +63,12 @@ fun App(
 @Composable
 fun Main(
     imageBitmapLoader: (() -> ImageBitmap)?,
-    onLocationRequest: ((
-        locationQuery: String,
-        locationSearchCallback: (List<LocationItemModel>)-> Unit,
-    ) -> Unit)?,
+    onLocationRequest: (
+        (
+            locationQuery: String,
+            locationSearchCallback: (List<LocationItemModel>) -> Unit,
+        ) -> Unit
+    )?,
 ) {
     val currentScreen = remember { mutableStateOf(Groups.NO_GROUP_SELECTED) }
     var isComponentSelected by remember { mutableStateOf(false) }
