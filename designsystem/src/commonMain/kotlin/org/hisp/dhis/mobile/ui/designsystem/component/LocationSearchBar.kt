@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
@@ -41,6 +40,8 @@ import androidx.compose.ui.Alignment.Companion.Top
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.style.TextOverflow
@@ -216,9 +217,9 @@ private fun LocationSearchBar(
             when {
                 currentResults.isNotEmpty() ->
                     itemsIndexed(items = currentResults) { index, locationItemModel ->
-                        LocationItem(
+                        SearchResultLocationItem(
                             modifier = Modifier.testTag("LOCATION_ITEM_$index"),
-                            locationItemModel = locationItemModel,
+                            locationItemModel,
                         ) {
                             onLocationSelected(locationItemModel)
                         }
@@ -276,6 +277,41 @@ private fun LocationSearchBar(
 fun LocationItem(
     modifier: Modifier = Modifier,
     locationItemModel: LocationItemModel,
+    icon: @Composable () -> Unit,
+    onClick: () -> Unit,
+) {
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .clip(Shape.Small)
+            .clickableWithRipple(onClick = onClick)
+            .padding(Spacing.Spacing8),
+        horizontalArrangement = spacedBy(Spacing.Spacing16),
+        verticalAlignment = Top,
+    ) {
+        icon()
+
+        Column(modifier = Modifier.fillMaxWidth()) {
+            Text(
+                text = locationItemModel.title,
+                style = DHIS2SCustomTextStyles.titleMediumBold,
+                color = TextColor.OnPrimaryContainer,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+            )
+            Text(
+                text = locationItemModel.subtitle,
+                style = MaterialTheme.typography.bodySmall,
+                color = TextColor.OnSurface,
+            )
+        }
+    }
+}
+
+@Composable
+private fun SearchResultLocationItem(
+    modifier: Modifier = Modifier,
+    locationItemModel: LocationItemModel,
     onClick: () -> Unit,
 ) {
     val icon = when (locationItemModel) {
@@ -292,42 +328,37 @@ fun LocationItem(
         is LocationItemModel.SearchResult -> SurfaceColor.PrimaryContainer
     }
 
-    Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .clip(Shape.Small)
-            .clickableWithRipple(onClick = onClick)
-            .padding(Spacing.Spacing8),
-        horizontalArrangement = spacedBy(Spacing.Spacing16),
-        verticalAlignment = Top,
-    ) {
-        Box(
-            modifier = Modifier.size(Spacing.Spacing40)
-                .clip(Shape.Full)
-                .background(color = bgColor, shape = Shape.Full),
-            contentAlignment = Center,
-        ) {
-            Icon(
-                imageVector = icon,
-                tint = tintedColor,
-                contentDescription = "location icon",
+    LocationItem(
+        modifier = modifier,
+        locationItemModel = locationItemModel,
+        icon = {
+            LocationItemIcon(
+                icon = icon,
+                tintedColor = tintedColor,
+                bgColor = bgColor,
             )
-        }
+        },
+        onClick = onClick,
+    )
+}
 
-        Column(modifier = Modifier.fillMaxWidth()) {
-            Text(
-                text = locationItemModel.title,
-                style = DHIS2SCustomTextStyles.titleMediumBold,
-                color = TextColor.OnPrimaryContainer,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-            )
-            Text(
-                text = locationItemModel.subtitle,
-                style = MaterialTheme.typography.bodySmall,
-                color = TextColor.OnSurface,
-            )
-        }
+@Composable
+fun LocationItemIcon(
+    icon: ImageVector,
+    tintedColor: Color,
+    bgColor: Color,
+) {
+    Box(
+        modifier = Modifier.size(Spacing.Spacing40)
+            .clip(Shape.Full)
+            .background(color = bgColor, shape = Shape.Full),
+        contentAlignment = Center,
+    ) {
+        Icon(
+            imageVector = icon,
+            tint = tintedColor,
+            contentDescription = "location icon",
+        )
     }
 }
 
