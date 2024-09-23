@@ -97,7 +97,7 @@ tasks.withType(DokkaTask::class).configureEach {
     """
     pluginsMapConfiguration.set(
         mapOf(
-            "org.jetbrains.dokka.base.DokkaBase" to dokkaBaseConfiguration
-        )
+            "org.jetbrains.dokka.base.DokkaBase" to dokkaBaseConfiguration,
+        ),
     )
 }

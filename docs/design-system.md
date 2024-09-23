@@ -6,4 +6,5 @@ sidebar_position: 4
 
 # Design system
 
-> Explain the figma design system, add the link and explain how to navigate it. 
+**DHIS2 Mobile UI library** is based in
+the [DHIS2 Mobile Design System Figma library](https://www.figma.com/file/eRk6bt0B8BJlTO9PZXirHN/DHIS2-Mobile-Design-System).

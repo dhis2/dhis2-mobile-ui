@@ -4,7 +4,10 @@ title: Api
 sidebar_position: 5
 ---
 
-# API docs
+# API documentation
 
-> Add the link to the API docs. https://dhis2.github.io/dhis2-mobile-ui/api/index.html).
-> Explain how to navigate it (Functions section in Components package).
+**DHIS2 Mobile UI library** API documentation is hosted
+in [Github repository](https://dhis2.github.io/dhis2-mobile-ui/api/-mobile%20-u-i/org.hisp.dhis.mobile.ui.designsystem.component/index.html).
+
+It is split in *types*, *functions* and *properties*. As in Compose, the components are considered
+as functions, you will have all them in the *functions* section.

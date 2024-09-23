@@ -6,5 +6,5 @@ sidebar_position: 3
 
 # Demo application
 
-> Give a description of the demo application (purpose, content,...)
-> Add the link to the artifacts, probably in the releases page. 
+In the [Release page](https://github.com/dhis2/dhis2-mobile-ui/releases) there is a list of demo
+applications to showcase all the components.
