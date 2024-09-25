@@ -6,9 +6,10 @@ sidebar_position: 2
 
 # Getting started
 
-> **@dhis2/dhis2-mobile-ui** is
-> a [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) DHIS2 design system
-> library for [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform.html) applications.
+**DHIS2 Mobile UI library** is
+a [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) DHIS2 design system
+library for [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform.html) and Android
+applications.
 
 ## DHIS2 UI Library Principles
 
