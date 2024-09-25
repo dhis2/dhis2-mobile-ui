@@ -1,5 +1,6 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.ScrollableState
@@ -222,7 +223,9 @@ fun BottomSheetShell(
             ) {
                 val hasSearch =
                     searchQuery != null && onSearchQueryChanged != null && onSearch != null
-                if (showHeader) {
+                AnimatedVisibility(
+                    visible = showHeader,
+                ) {
                     BottomSheetHeader(
                         title = title!!,
                         subTitle = subtitle,

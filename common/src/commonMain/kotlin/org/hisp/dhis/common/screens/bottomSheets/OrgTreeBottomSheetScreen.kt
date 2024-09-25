@@ -125,7 +125,7 @@ fun OrgTreeBottomSheetScreen() {
 
         OrgBottomSheet(
             title = "Transfer [tracked entity type]",
-            description = "From [current owner org. unit] to...",
+            subtitle = "From [current owner org. unit] to...",
             orgTreeItems = oneOrgTreeItem,
             doneButtonText = "Transfer",
             doneButtonIcon = Icons.Outlined.MoveDown,
