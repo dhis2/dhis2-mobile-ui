@@ -6,11 +6,11 @@ sidebar_position: 1
 
 # Overview
 
-**DHIS2 Mobile UI library** is an open source design system, it's based on [Compose multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/), is a
-modern UI toolkit that enables building user interfaces across multiple platforms, including Android
-and desktop, using a single codebase. This library simplifies the development process by allowing
-developers to write Compose UI code once and target both Android and desktop platforms with minimal
-changes.
+**DHIS2 Mobile UI library** is an open source design system based
+on [Compose multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/), a modern UI toolkit
+that enables building user interfaces across multiple platforms, including Android and desktop,
+using a single codebase. This library simplifies the development process by allowing developers to
+write Compose UI code once and target both Android and desktop platforms with minimal changes.
 
 ## Targets
 
@@ -26,7 +26,5 @@ Multiplatform library seamlessly integrates with Android Studio and the Android 
 ### Desktop
 
 **DHIS2 Mobile UI library** also supports desktop applications. When targeting desktop, you use a
-similar set of Compose APIs, but with desktop-specific configuration.
-
-This library is part of Compose Multiplatform, which means it is designed to work exclusively with
-Kotlin Multiplatform (KMP) projects.
+similar set of Compose APIs, but with desktop-specific configuration. It is designed to work
+exclusively with Kotlin Multiplatform (KMP) projects.

@@ -17,7 +17,7 @@ mobile targets in the future. The system is based on a foundation of principles,
 guidelines for designing user-friendly apps. A reusable component library provides the building
 blocks to develop DHIS2 apps with consistent user experience.
 
-The UI library more than just a collection of components, there also are principles, such as
+The UI library is more than just a collection of components, there also are principles, such as
 predefined colors, layout, typography, icons and patterns. You can find all of these in
 the [DHIS2 UI documentation](https://ui.dhis2.nu/).
 
@@ -40,6 +40,16 @@ In the module **build.gradle.kts**:
 ```kotlin
 dependencies {
     implementation("org.hisp.dhis.mobile:designsystem-desktop:0.3.0")
+}
+```
+
+### Multiplatform project
+
+In the module **build.gradle.kts**:
+
+```kotlin
+dependencies {
+    implementation("org.hisp.dhis.mobile:designsystem:0.3.0")
 }
 ```
 
