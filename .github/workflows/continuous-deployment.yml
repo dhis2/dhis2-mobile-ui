@@ -16,40 +16,13 @@ on:
         type: string
 
 jobs:
-  #  publish:
-  #    # The type of runner that the job will run on
-  #    runs-on: ubuntu-latest
-  #
-  #    # Steps represent a sequence of tasks that will be executed as part of the job
-  #    steps:
-  #      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-  #      - uses: actions/checkout@v3
-  #
-  #      - name: Set Up JDK
-  #        uses: actions/setup-java@v3
-  #        with:
-  #          distribution: 'zulu' # See 'Supported distributions' for available options
-  #          java-version: '17'
-  #          cache: 'gradle'
-  #
-  #      - name: Change wrapper permissions
-  #        run: chmod +x ./gradlew
-  #
-  #      # Create publish to maven
-  #      - name: Publish to maven
-  #        run: ./.github/workflows/scripts/publish-maven.sh
-  #        env:
-  #          OSSRH_USERNAME: ${{ secrets.SONATYPE_OSSRH_USERNAME }}
-  #          OSSRH_PASSWORD: ${{ secrets.SONATYPE_OSSRH_PASSWORD }}
-  #          SIGNING_PRIVATE_KEY: ${{ secrets.PGP_PRIVATE_KEY }}
-  #          SIGNING_PASSWORD: ${{ secrets.PGP_PASSPHRASE }}
-
-  create_artifacts:
-    runs-on: ubuntu-latest
+  create_release:
+    runs-on: windows-latest
     if: ${{ (inputs.release_version) && (inputs.release_version != '') }}
+
     strategy:
       matrix:
-        os: [ windows-latest, macos-latest, ubuntu-latest]
+        os: [windows-latest, ubuntu-latest, macos-latest]  # Add Windows, Linux, macOS
 
     steps:
       - uses: actions/checkout@v3
@@ -64,26 +37,75 @@ jobs:
       - name: Change wrapper permissions
         run: chmod +x ./gradlew
 
-      # Create Android APK
-      - name: Build apk debug project (APK) - ${{ env.main_project_module }} module
-        if: ${{ matrix.os == 'ubuntu-latest' }}
+      # Debugging: Check the current directory and list files
+      - name: Print working directory
+        run: pwd
+
+      - name: List files in main project module
+        run: ls -R ${{ env.main_project_module }}
+
+      - name: List files in desktop build directory
+        run: ls -R desktop/build
+
+      # Build APK only on Windows
+      - name: Build APK (Android Module)
+        if: ${{ matrix.os == 'windows-latest' }}
         run: ./gradlew assembleDebug
 
       # Create desktop JAR for each OS
       - name: Create desktop jar for ${{ matrix.os }}
         run: ./gradlew packageUberJarForCurrentOS
 
-      - name: Github Release
-        if: ${{ matrix.os == 'ubuntu-latest' }}
+      # Upload APK for Windows
+      - name: Upload APK (only on Windows)
+        if: ${{ matrix.os == 'windows-latest' }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: android-apk
+          path: ${{ env.main_project_module }}/build/outputs/apk/debug/*.apk
+
+      # Upload desktop JAR for each OS
+      - name: Upload Desktop JAR
+        uses: actions/upload-artifact@v3
+        with:
+          name: desktop-jar-${{ matrix.os }}
+          path: desktop/build/compose/jars/*.jar
+
+  # Separate job to download artifacts and create GitHub release
+  github_release:
+    runs-on: ubuntu-latest
+    needs: create_release
+    steps:
+      - name: Download APK
+        uses: actions/download-artifact@v3
+        with:
+          name: android-apk
+
+      - name: Download Windows JAR
+        uses: actions/download-artifact@v3
+        with:
+          name: desktop-jar-windows-latest
+
+      - name: Download Linux JAR
+        uses: actions/download-artifact@v3
+        with:
+          name: desktop-jar-ubuntu-latest
+
+      - name: Download macOS JAR
+        uses: actions/download-artifact@v3
+        with:
+          name: desktop-jar-macos-latest
+
+      - name: Create GitHub Release
         uses: ncipollo/release-action@v1
         with:
           allowUpdates: true
           draft: true
           generateReleaseNotes: true
-          name: "Release notes - DHIS2 Design system: ${{ inputs.release_version }}"
+          name: "Mobile Design system for DHIS 2 (v${{ inputs.release_version }})"
           tag: ${{ inputs.release_version }}
           artifacts: |
-            ${{ env.main_project_module }}/build/outputs/apk/debug/android-debug.apk,
-            ${{ github.workspace }}/desktop/build/compose/jars/mobile-ui-windows-x64-1.0.0.jar,
-            ${{ github.workspace }}/desktop/build/compose/jars/mobile-ui-linux-x64-1.0.0.jar,
-            ${{ github.workspace }}/desktop/build/compose/jars/mobile-ui-macos-x64-1.0.0.jar
+            android-apk/*.apk,
+            desktop-jar-windows-latest/*.jar,
+            desktop-jar-ubuntu-latest/*.jar,
+            desktop-jar-macos-latest/*.jar
