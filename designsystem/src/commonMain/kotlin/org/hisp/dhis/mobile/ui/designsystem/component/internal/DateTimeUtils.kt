@@ -251,7 +251,7 @@ internal fun getTime(timePickerState: TimePickerState, format: String = "HHmm"):
 @Suppress("deprecation")
 @Deprecated("This function is deprecated and will be removed once new implementation is added to the capture app. ")
 @OptIn(ExperimentalMaterial3Api::class)
-fun getSelectableDates(uiModel: InputDateTimeModel): androidx.compose.material3.SelectableDates {
+internal fun getSelectableDates(uiModel: InputDateTimeModel): androidx.compose.material3.SelectableDates {
     return object : androidx.compose.material3.SelectableDates {
         override fun isSelectableDate(utcTimeMillis: Long): Boolean {
             return dateIsInRange(utcTimeMillis, uiModel.selectableDates, uiModel.format)

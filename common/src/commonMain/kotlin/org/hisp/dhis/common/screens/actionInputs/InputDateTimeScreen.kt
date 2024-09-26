@@ -13,9 +13,9 @@ import org.hisp.dhis.mobile.ui.designsystem.component.DateTimeActionType
 import org.hisp.dhis.mobile.ui.designsystem.component.InputDateTime
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.SelectableDates
-import org.hisp.dhis.mobile.ui.designsystem.component.internal.DateTimeTransformation
-import org.hisp.dhis.mobile.ui.designsystem.component.internal.DateTransformation
-import org.hisp.dhis.mobile.ui.designsystem.component.internal.TimeTransformation
+import org.hisp.dhis.mobile.ui.designsystem.component.model.DateTimeTransformation
+import org.hisp.dhis.mobile.ui.designsystem.component.model.DateTransformation
+import org.hisp.dhis.mobile.ui.designsystem.component.model.TimeTransformation
 import org.hisp.dhis.mobile.ui.designsystem.component.state.InputDateTimeData
 import org.hisp.dhis.mobile.ui.designsystem.component.state.rememberInputDateTimeState
 
