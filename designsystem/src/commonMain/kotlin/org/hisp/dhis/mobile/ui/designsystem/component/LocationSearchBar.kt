@@ -57,7 +57,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing16
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
-private enum class SearchBarMode {
+enum class SearchBarMode {
     BUTTON,
     SEARCH,
 }
@@ -67,11 +67,17 @@ fun LocationBar(
     currentResults: List<LocationItemModel>,
     onBackClicked: () -> Unit,
     onClearLocation: () -> Unit,
-    onSearchLocation: (String) -> Unit,
+    onSearchLocation: (query: String) -> Unit,
     onLocationSelected: (LocationItemModel) -> Unit,
+    onModeChanged:(currentMode: SearchBarMode) -> Unit = {},
 ) {
     var currentMode by remember { mutableStateOf(SearchBarMode.BUTTON) }
     var currentSearch: String by remember { mutableStateOf("") }
+
+    LaunchedEffect(currentMode){
+        onModeChanged(currentMode)
+    }
+
     when (currentMode) {
         SearchBarMode.BUTTON -> LocationSearchBarButton(
             currentSearch = currentSearch,
@@ -96,6 +102,10 @@ fun LocationBar(
                 currentSearch = ""
                 currentMode = SearchBarMode.BUTTON
                 onSearchLocation(currentSearch)
+            },
+            onSearch = { searchQuery ->
+                currentMode = SearchBarMode.BUTTON
+                onSearchLocation(searchQuery)
             },
             onLocationSelected = {
                 currentSearch = it.title
@@ -170,6 +180,7 @@ private fun LocationSearchBar(
     currentSearch: String = "",
     currentResults: List<LocationItemModel>,
     onSearchChanged: (String) -> Unit,
+    onSearch: (String) -> Unit,
     onBackClicked: () -> Unit,
     onLocationSelected: (LocationItemModel) -> Unit,
 ) {
@@ -187,7 +198,7 @@ private fun LocationSearchBar(
             placeHolderText = provideStringResource("search_location"),
             onActiveChange = {},
             onQueryChange = onSearchChanged,
-            onSearch = onSearchChanged,
+            onSearch = onSearch,
             leadingIcon = {
                 IconButton(
                     style = IconButtonStyle.STANDARD,
@@ -242,25 +253,13 @@ private fun LocationSearchBar(
             item {
                 Row(
                     modifier = Modifier.fillMaxWidth().padding(8.dp),
-                    horizontalArrangement = spacedBy(16.dp),
                 ) {
-                    IconButton(
-                        icon = {
-                            Icon(
-                                imageVector = Icons.Outlined.Map,
-                                contentDescription = "map",
-                                tint = SurfaceColor.Primary,
-                            )
-                        },
-                        onClick = onBackClicked,
-                    )
-
                     Button(
                         modifier = Modifier.fillMaxWidth(),
                         style = ButtonStyle.TONAL,
                         icon = {
                             Icon(
-                                imageVector = Icons.Outlined.TouchApp,
+                                imageVector = Icons.Outlined.Map,
                                 contentDescription = "touch app",
                             )
                         },
@@ -303,6 +302,8 @@ fun LocationItem(
                 text = locationItemModel.subtitle,
                 style = MaterialTheme.typography.bodySmall,
                 color = TextColor.OnSurface,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
             )
         }
     }
