@@ -2,42 +2,80 @@
 
 name: Continuous deployment
 
-# Controls when the workflow will run
+env:
+  main_project_module: android
+
 on:
   push:
     branches:
-      - develop
+      - develop # Automatically generates snapshot versions
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+  workflow_dispatch: ## manually generates release versions
+    inputs:
+      release_version:
+        description: 'please, enter the release version'
+        required: true
+        type: string
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  publish:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+  #  publish:
+  #    # The type of runner that the job will run on
+  #    runs-on: ubuntu-latest
+  #
+  #    # Steps represent a sequence of tasks that will be executed as part of the job
+  #    steps:
+  #      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+  #      - uses: actions/checkout@v3
+  #
+  #      - name: Set Up JDK
+  #        uses: actions/setup-java@v3
+  #        with:
+  #          distribution: 'zulu' # See 'Supported distributions' for available options
+  #          java-version: '17'
+  #          cache: 'gradle'
+  #
+  #      - name: Change wrapper permissions
+  #        run: chmod +x ./gradlew
+  #
+  #      # Create publish to maven
+  #      - name: Publish to maven
+  #        run: ./.github/workflows/scripts/publish-maven.sh
+  #        env:
+  #          OSSRH_USERNAME: ${{ secrets.SONATYPE_OSSRH_USERNAME }}
+  #          OSSRH_PASSWORD: ${{ secrets.SONATYPE_OSSRH_PASSWORD }}
+  #          SIGNING_PRIVATE_KEY: ${{ secrets.PGP_PRIVATE_KEY }}
+  #          SIGNING_PASSWORD: ${{ secrets.PGP_PASSPHRASE }}
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
+  create_release:
+    runs-on: windows-latest
+    if: ${{ (inputs.release_version) && (inputs.release_version != '') }}
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
       - name: Set Up JDK
         uses: actions/setup-java@v3
         with:
-          distribution: 'zulu' # See 'Supported distributions' for available options
+          distribution: 'zulu'
           java-version: '17'
           cache: 'gradle'
 
       - name: Change wrapper permissions
         run: chmod +x ./gradlew
 
-      # Create publish to maven
-      - name: Publish to maven
-        run: ./.github/workflows/scripts/publish-maven.sh
-        env:
-          OSSRH_USERNAME: ${{ secrets.SONATYPE_OSSRH_USERNAME }}
-          OSSRH_PASSWORD: ${{ secrets.SONATYPE_OSSRH_PASSWORD }}
-          SIGNING_PRIVATE_KEY: ${{ secrets.PGP_PRIVATE_KEY }}
-          SIGNING_PASSWORD: ${{ secrets.PGP_PASSPHRASE }}
+      # Create APK Debug
+      - name: Build apk debug project (APK) - ${{ env.main_project_module }} module
+        run: ./gradlew assembleDebug
+
+      #Create binaries
+      - name: Create desktop jar for Windows
+        run: ./gradlew packageUberJarForCurrentOS
+
+      - name: Github Release
+        uses: ncipollo/release-action@v1
+        with:
+          allowUpdates: true
+          draft: true
+          generateReleaseNotes: true
+          name: "Mobile Design system for DHIS 2 (v${{ inputs.release_version }})"
+          tag: ${{ inputs.release_tag_name }}
+          artifacts: ${{ env.main_project_module }}/build/outputs/apk/debug/android-debug.apk, ${{ github.workspace }}/desktop/build/compose/jars/mobile-ui-windows-x64-1.0.0.jar
