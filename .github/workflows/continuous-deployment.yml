@@ -80,7 +80,7 @@ jobs:
           allowUpdates: true
           draft: true
           generateReleaseNotes: true
-          name: "Mobile Design system for DHIS 2 (v${{ inputs.release_version }})"
+          name: "Release notes - DHIS2 Design system: ${{ inputs.release_version }}"
           tag: ${{ inputs.release_version }}
           artifacts: |
             ${{ env.main_project_module }}/build/outputs/apk/debug/android-debug.apk,
