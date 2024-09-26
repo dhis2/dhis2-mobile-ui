@@ -1,5 +1,3 @@
-# This is a basic workflow to help you get started with Actions
-
 name: Continuous deployment
 
 env:
@@ -46,9 +44,13 @@ jobs:
   #          SIGNING_PRIVATE_KEY: ${{ secrets.PGP_PRIVATE_KEY }}
   #          SIGNING_PASSWORD: ${{ secrets.PGP_PASSPHRASE }}
 
-  create_release:
-    runs-on: windows-latest
+  create_artifacts:
+    runs-on: ubuntu-latest
     if: ${{ (inputs.release_version) && (inputs.release_version != '') }}
+    strategy:
+      matrix:
+        os: [ windows-latest, ubuntu-latest, macos-latest ]
+
     steps:
       - uses: actions/checkout@v3
 
@@ -64,11 +66,36 @@ jobs:
 
       # Create APK Debug
       - name: Build apk debug project (APK) - ${{ env.main_project_module }} module
+        if: ${{ matrix.os == 'ubuntu-latest' }}
         run: ./gradlew assembleDebug
 
-      #Create binaries
-      - name: Create desktop jar for Windows
+      # Create desktop JAR for each OS
+      - name: Create desktop jar for ${{ matrix.os }}
         run: ./gradlew packageUberJarForCurrentOS
+
+      # Upload the artifacts for each OS
+      - name: Upload APK (if Ubuntu)
+        if: ${{ matrix.os == 'ubuntu-latest' }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: android-apk
+          path: ${{ env.main_project_module }}/build/outputs/apk/debug/android-debug.apk
+
+      - name: Upload Desktop JAR
+        uses: actions/upload-artifact@v3
+        with:
+          name: desktop-jar-${{ matrix.os }}
+          path: desktop/build/compose/jars/*-${{ matrix.os }}-*.jar
+
+  # Job to create GitHub Release and upload artifacts
+  github_release:
+    runs-on: ubuntu-latest
+    needs: create_artifacts
+    steps:
+      - name: Download APK and JARs from all OSes
+        uses: actions/download-artifact@v3
+        with:
+          name: '*'
 
       - name: Github Release
         uses: ncipollo/release-action@v1
@@ -78,4 +105,8 @@ jobs:
           generateReleaseNotes: true
           name: "Mobile Design system for DHIS 2 (v${{ inputs.release_version }})"
           tag: ${{ inputs.release_version }}
-          artifacts: ${{ env.main_project_module }}/build/outputs/apk/debug/android-debug.apk, ${{ github.workspace }}/desktop/build/compose/jars/mobile-ui-windows-x64-1.0.0.jar
+          artifacts: |
+            android-apk/*.apk,
+            desktop-jar-windows-latest/*.jar,
+            desktop-jar-ubuntu-latest/*.jar,
+            desktop-jar-macos-latest/*.jar
