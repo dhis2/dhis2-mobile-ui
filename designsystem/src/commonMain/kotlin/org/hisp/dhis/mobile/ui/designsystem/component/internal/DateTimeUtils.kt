@@ -24,7 +24,6 @@ import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
 
-@Suppress("DEPRECATION")
 @Deprecated(
     "This function is deprecated and will be removed in the near future replace with." +
         " New implementation does not take format as a parameter.",
@@ -104,7 +103,7 @@ internal fun dateIsInRange(date: Long, allowedDates: SelectableDates): Boolean {
         )
 }
 
-fun parseStringDateToMillis(dateString: String): Long {
+internal fun parseStringDateToMillis(dateString: String): Long {
     val cal = Calendar.getInstance()
     return dateString.parseDate("ddMMyyyy")?.let {
         cal.time = it
@@ -207,7 +206,7 @@ internal fun formatUIDateToStored(textFieldValue: TextFieldValue, valueType: Dat
     }
 }
 
-fun String.parseDate(pattern: String): Date? {
+internal fun String.parseDate(pattern: String): Date? {
     return if (isNotEmpty() && length == pattern.length) {
         val sdf = SimpleDateFormat(pattern, Locale.getDefault())
         sdf.timeZone = TimeZone.getTimeZone("UTC")
@@ -238,7 +237,7 @@ internal fun timePickerColors(): TimePickerColors {
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
-internal fun getTime(timePickerState: TimePickerState, format: String? = "HHmm"): String {
+internal fun getTime(timePickerState: TimePickerState, format: String = "HHmm"): String {
     val cal = Calendar.getInstance()
     cal.set(Calendar.HOUR_OF_DAY, timePickerState.hour)
     cal.set(Calendar.MINUTE, timePickerState.minute)
@@ -261,7 +260,7 @@ fun getSelectableDates(uiModel: InputDateTimeModel): androidx.compose.material3.
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
-fun getSelectableDates(selectableDates: SelectableDates): androidx.compose.material3.SelectableDates {
+internal fun getSelectableDates(selectableDates: SelectableDates): androidx.compose.material3.SelectableDates {
     return object : androidx.compose.material3.SelectableDates {
         override fun isSelectableDate(utcTimeMillis: Long): Boolean {
             return dateIsInRange(utcTimeMillis, selectableDates)
@@ -271,7 +270,7 @@ fun getSelectableDates(selectableDates: SelectableDates): androidx.compose.mater
 
 @Deprecated("This function is deprecated and will be removed in the next release. Use overloaded fun  instead.")
 @Suppress("DEPRECATION")
-fun getSupportingTextList(uiModel: InputDateTimeModel, dateOutOfRangeItem: SupportingTextData, incorrectHourFormatItem: SupportingTextData, incorrectDateFormatItem: SupportingTextData): List<SupportingTextData> {
+internal fun getSupportingTextList(uiModel: InputDateTimeModel, dateOutOfRangeItem: SupportingTextData, incorrectHourFormatItem: SupportingTextData, incorrectDateFormatItem: SupportingTextData): List<SupportingTextData> {
     val supportingTextList = mutableListOf<SupportingTextData>()
 
     uiModel.supportingText?.forEach { item ->
@@ -321,7 +320,7 @@ fun getSupportingTextList(uiModel: InputDateTimeModel, dateOutOfRangeItem: Suppo
     return supportingTextList.toList()
 }
 
-fun getSupportingTextList(
+internal fun getSupportingTextList(
     state: InputDateTimeState,
     uiValue: TextFieldValue,
     data: InputDateTimeData,
@@ -348,7 +347,7 @@ fun getSupportingTextList(
     return supportingTextList.toList()
 }
 
-fun getDateSupportingText(uiValue: TextFieldValue, data: InputDateTimeData, supportingTextList: MutableList<SupportingTextData>, dateOutOfRangeItem: SupportingTextData, incorrectDateFormatItem: SupportingTextData): List<SupportingTextData> {
+internal fun getDateSupportingText(uiValue: TextFieldValue, data: InputDateTimeData, supportingTextList: MutableList<SupportingTextData>, dateOutOfRangeItem: SupportingTextData, incorrectDateFormatItem: SupportingTextData): List<SupportingTextData> {
     if (uiValue.text.length == 8) {
         val dateIsInRange = dateIsInRange(parseStringDateToMillis(uiValue.text), data.selectableDates)
         val isValidDateFormat = isValidDate(uiValue.text)
@@ -359,7 +358,7 @@ fun getDateSupportingText(uiValue: TextFieldValue, data: InputDateTimeData, supp
     return supportingTextList
 }
 
-fun getDateTimeSupportingTextList(
+internal fun getDateTimeSupportingTextList(
     uiValue: TextFieldValue,
     dateOutOfRangeItem: SupportingTextData,
     incorrectDateFormatItem: SupportingTextData,
@@ -385,7 +384,7 @@ fun getDateTimeSupportingTextList(
     return supportingTextList
 }
 
-fun getTimeSupportingTextList(inputTextFieldValue: TextFieldValue?, supportingTextList: MutableList<SupportingTextData>, incorrectHourFormatItem: SupportingTextData): List<SupportingTextData> {
+internal fun getTimeSupportingTextList(inputTextFieldValue: TextFieldValue?, supportingTextList: MutableList<SupportingTextData>, incorrectHourFormatItem: SupportingTextData): List<SupportingTextData> {
     if (inputTextFieldValue?.text!!.length == 4 && !isValidHourFormat(inputTextFieldValue.text)) {
         supportingTextList.add(incorrectHourFormatItem)
     }

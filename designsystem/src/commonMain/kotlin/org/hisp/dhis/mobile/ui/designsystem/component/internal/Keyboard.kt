@@ -8,4 +8,4 @@ enum class Keyboard {
 }
 
 @Composable
-expect fun keyboardAsState(): State<Keyboard>
+internal expect fun keyboardAsState(): State<Keyboard>
