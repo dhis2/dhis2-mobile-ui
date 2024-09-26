@@ -11,40 +11,40 @@ on:
   workflow_dispatch: ## manually generates release versions
     inputs:
       release_version:
-        description: 'please, enter the release version'
+        description: 'Please, enter the release version'
         required: true
         type: string
 
 jobs:
-  #  publish:
-  #    # The type of runner that the job will run on
-  #    runs-on: ubuntu-latest
-  #
-  #    # Steps represent a sequence of tasks that will be executed as part of the job
-  #    steps:
-  #      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-  #      - uses: actions/checkout@v3
-  #
-  #      - name: Set Up JDK
-  #        uses: actions/setup-java@v3
-  #        with:
-  #          distribution: 'zulu' # See 'Supported distributions' for available options
-  #          java-version: '17'
-  #          cache: 'gradle'
-  #
-  #      - name: Change wrapper permissions
-  #        run: chmod +x ./gradlew
-  #
-  #      # Create publish to maven
-  #      - name: Publish to maven
-  #        run: ./.github/workflows/scripts/publish-maven.sh
-  #        env:
-  #          OSSRH_USERNAME: ${{ secrets.SONATYPE_OSSRH_USERNAME }}
-  #          OSSRH_PASSWORD: ${{ secrets.SONATYPE_OSSRH_PASSWORD }}
-  #          SIGNING_PRIVATE_KEY: ${{ secrets.PGP_PRIVATE_KEY }}
-  #          SIGNING_PASSWORD: ${{ secrets.PGP_PASSPHRASE }}
+#  publish-maven:
+#    # The type of runner that the job will run on
+#    runs-on: ubuntu-latest
+#
+#    # Steps represent a sequence of tasks that will be executed as part of the job
+#    steps:
+#      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+#      - uses: actions/checkout@v3
+#
+#      - name: Set Up JDK
+#        uses: actions/setup-java@v3
+#        with:
+#          distribution: 'zulu' # See 'Supported distributions' for available options
+#          java-version: '17'
+#          cache: 'gradle'
+#
+#      - name: Change wrapper permissions
+#        run: chmod +x ./gradlew
+#
+#      # Create publish to maven
+#      - name: Publish to maven
+#        run: ./.github/workflows/scripts/publish-maven.sh
+#        env:
+#          OSSRH_USERNAME: ${{ secrets.SONATYPE_OSSRH_USERNAME }}
+#          OSSRH_PASSWORD: ${{ secrets.SONATYPE_OSSRH_PASSWORD }}
+#          SIGNING_PRIVATE_KEY: ${{ secrets.PGP_PRIVATE_KEY }}
+#          SIGNING_PASSWORD: ${{ secrets.PGP_PASSPHRASE }}
 
-  create_artifacts:
+  publish_github:
     runs-on: ubuntu-latest
     if: ${{ (inputs.release_version) && (inputs.release_version != '') }}
     steps:
@@ -61,9 +61,13 @@ jobs:
       - name: Change wrapper permissions
         run: chmod +x ./gradlew
 
-      # Create Android APK
       - name: Build Android (APK) - ${{ env.main_project_module }} module
         run: ./gradlew assembleDebug
+
+      - name: Rename APK
+        run: |
+          mv ${{ env.main_project_module }}/build/outputs/apk/debug/android-debug.apk ${{ env.main_project_module }}/build/outputs/apk/debug/ui-components-android-${{ inputs.release_version }}.apk
+
 
       - name: Github Release
         uses: ncipollo/release-action@v1.14.0
