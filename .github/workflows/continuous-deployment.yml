@@ -85,17 +85,33 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: desktop-jar-${{ matrix.os }}
-          path: desktop/build/compose/jars/*-${{ matrix.os }}-*.jar
+          path: desktop/build/compose/jars/*.jar
 
   # Job to create GitHub Release and upload artifacts
   github_release:
     runs-on: ubuntu-latest
     needs: create_artifacts
     steps:
-      - name: Download APK and JARs from all OSes
+      - name: Download APK
         uses: actions/download-artifact@v3
         with:
-          name: '*'
+          name: android-apk
+
+      - name: Download Windows JAR
+        uses: actions/download-artifact@v3
+        with:
+          name: desktop-jar-windows-latest
+
+      - name: Download Linux JAR
+        uses: actions/download-artifact@v3
+        with:
+          name: desktop-jar-ubuntu-latest
+
+      - name: Download macOS JAR
+        uses: actions/download-artifact@v3
+        with:
+          name: desktop-jar-macos-latest
+
 
       - name: Github Release
         uses: ncipollo/release-action@v1
