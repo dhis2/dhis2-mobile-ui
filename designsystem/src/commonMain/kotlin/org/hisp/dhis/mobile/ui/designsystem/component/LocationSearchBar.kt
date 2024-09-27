@@ -21,7 +21,6 @@ import androidx.compose.material.icons.outlined.Cancel
 import androidx.compose.material.icons.outlined.Map
 import androidx.compose.material.icons.outlined.Place
 import androidx.compose.material.icons.outlined.Search
-import androidx.compose.material.icons.outlined.TouchApp
 import androidx.compose.material.icons.outlined.WatchLater
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -69,12 +68,12 @@ fun LocationBar(
     onClearLocation: () -> Unit,
     onSearchLocation: (query: String) -> Unit,
     onLocationSelected: (LocationItemModel) -> Unit,
-    onModeChanged:(currentMode: SearchBarMode) -> Unit = {},
+    onModeChanged: (currentMode: SearchBarMode) -> Unit = {},
 ) {
     var currentMode by remember { mutableStateOf(SearchBarMode.BUTTON) }
     var currentSearch: String by remember { mutableStateOf("") }
 
-    LaunchedEffect(currentMode){
+    LaunchedEffect(currentMode) {
         onModeChanged(currentMode)
     }
 
@@ -99,18 +98,15 @@ fun LocationBar(
                 onSearchLocation(currentSearch)
             },
             onBackClicked = {
-                currentSearch = ""
                 currentMode = SearchBarMode.BUTTON
-                onSearchLocation(currentSearch)
             },
             onSearch = { searchQuery ->
                 currentMode = SearchBarMode.BUTTON
-                onSearchLocation(searchQuery)
             },
             onLocationSelected = {
                 currentSearch = it.title
-                onLocationSelected(it)
                 currentMode = SearchBarMode.BUTTON
+                onLocationSelected(it)
             },
         )
     }
@@ -303,7 +299,7 @@ fun LocationItem(
                 style = MaterialTheme.typography.bodySmall,
                 color = TextColor.OnSurface,
                 maxLines = 1,
-                overflow = TextOverflow.Ellipsis
+                overflow = TextOverflow.Ellipsis,
             )
         }
     }
