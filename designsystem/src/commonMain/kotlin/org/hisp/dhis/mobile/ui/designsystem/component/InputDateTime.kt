@@ -52,9 +52,6 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import org.hisp.dhis.mobile.ui.designsystem.component.internal.DateTimeVisualTransformation
-import org.hisp.dhis.mobile.ui.designsystem.component.internal.DateTransformation
-import org.hisp.dhis.mobile.ui.designsystem.component.internal.RegExValidations
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.convertStringToTextFieldValue
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.formatStoredDateToUI
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.formatUIDateToStored
@@ -65,10 +62,12 @@ import org.hisp.dhis.mobile.ui.designsystem.component.internal.getTime
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.getTimePickerState
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.isValidHourFormat
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.parseDate
-import org.hisp.dhis.mobile.ui.designsystem.component.internal.parseStringDateToMillis
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.provideDatePickerState
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.timePickerColors
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.yearIsInRange
+import org.hisp.dhis.mobile.ui.designsystem.component.model.DateTimeVisualTransformation
+import org.hisp.dhis.mobile.ui.designsystem.component.model.DateTransformation
+import org.hisp.dhis.mobile.ui.designsystem.component.model.RegExValidations
 import org.hisp.dhis.mobile.ui.designsystem.component.state.InputDateTimeState
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2LightColorScheme

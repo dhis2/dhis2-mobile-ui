@@ -16,6 +16,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.CheckBoxData
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.DateTimeActionType
 import org.hisp.dhis.mobile.ui.designsystem.component.DropdownItem
+import org.hisp.dhis.mobile.ui.designsystem.component.ImageCardData
 import org.hisp.dhis.mobile.ui.designsystem.component.InputAge
 import org.hisp.dhis.mobile.ui.designsystem.component.InputAgeModel
 import org.hisp.dhis.mobile.ui.designsystem.component.InputBarCode
@@ -36,8 +37,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.InputStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.InputText
 import org.hisp.dhis.mobile.ui.designsystem.component.RadioButtonData
-import org.hisp.dhis.mobile.ui.designsystem.component.internal.DateTimeTransformation
-import org.hisp.dhis.mobile.ui.designsystem.component.internal.ImageCardData
+import org.hisp.dhis.mobile.ui.designsystem.component.model.DateTimeTransformation
 import org.hisp.dhis.mobile.ui.designsystem.component.parameter.ParameterSelectorItem
 import org.hisp.dhis.mobile.ui.designsystem.component.parameter.model.ParameterSelectorItemModel
 import org.hisp.dhis.mobile.ui.designsystem.component.parameter.model.ParameterSelectorItemModel.Status.CLOSED

@@ -3,7 +3,7 @@ package org.hisp.dhis.mobile.ui.designsystem.component.internal
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 
-enum class Keyboard {
+internal enum class Keyboard {
     Opened, Closed
 }
 
