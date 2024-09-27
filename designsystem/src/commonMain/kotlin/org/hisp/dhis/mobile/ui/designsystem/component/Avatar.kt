@@ -16,19 +16,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
-import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 
-@Deprecated("Use data class AvatarStyle")
-enum class AvatarStyle {
-    TEXT,
-    IMAGE,
-    METADATA,
-}
-
-sealed class AvatarStyleData() {
+sealed class AvatarStyleData {
     data class Text(val textAvatar: String) : AvatarStyleData()
     data class Image(val imagePainter: Painter) : AvatarStyleData()
     data class Metadata(
@@ -87,68 +79,6 @@ fun Avatar(
         is AvatarStyleData.Image -> {
             Image(
                 painter = style.imagePainter,
-                contentDescription = "avatarImage",
-                contentScale = ContentScale.Crop,
-                modifier = modifier
-                    .size(Spacing.Spacing40)
-                    .clip(CircleShape)
-                    .clickable(onClick = { onImageClick?.invoke() }),
-            )
-        }
-    }
-}
-
-/**
- * DHIS2 Avatar,
- *  used to display the avatar composable in card,
- *  must be one of the three styles given as parameters
- * @param style not nullable parameter that manages the avatar style
- * @param textAvatar style must be TEXT, will show a single character as avatar
- * @param imagePainter style must be IMAGE, will display an image as avatar
- * @param metadataAvatar style must be METADATA, composable should be DHIS2 [MetadataAvatar]
- * @param modifier allows a modifier to be passed externally
- */
-@Suppress("DEPRECATION")
-@Deprecated("Use new Avatar constructor")
-@Composable
-fun Avatar(
-    textAvatar: String? = null,
-    imagePainter: Painter = provideDHIS2Icon("dhis2_microscope_outline"),
-    metadataAvatar: (@Composable () -> Unit)? = null,
-    style: AvatarStyle = AvatarStyle.TEXT,
-    onImageClick: (() -> Unit)? = null,
-    modifier: Modifier = Modifier,
-) {
-    when (style) {
-        AvatarStyle.TEXT -> {
-            textAvatar?.let {
-                Box(
-                    modifier = modifier
-                        .size(Spacing.Spacing40)
-                        .background(
-                            color = SurfaceColor.PrimaryContainer,
-                            shape = RoundedCornerShape(Radius.Full),
-                        ),
-                    contentAlignment = Alignment.Center,
-                ) {
-                    Text(
-                        text = textAvatar,
-                        color = SurfaceColor.Primary,
-                        style = MaterialTheme.typography.titleSmall,
-                    )
-                }
-            }
-        }
-
-        AvatarStyle.METADATA -> {
-            metadataAvatar?.let {
-                metadataAvatar.invoke()
-            }
-        }
-
-        AvatarStyle.IMAGE -> {
-            Image(
-                painter = imagePainter,
                 contentDescription = "avatarImage",
                 contentScale = ContentScale.Crop,
                 modifier = modifier
