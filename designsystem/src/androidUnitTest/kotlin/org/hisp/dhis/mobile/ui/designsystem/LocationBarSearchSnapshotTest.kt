@@ -19,14 +19,14 @@ class LocationBarSearchSnapshotTest {
                         "Location Item title",
                         "Location Item address",
                         0.0,
-                        0.0
+                        0.0,
                     ),
                     LocationItemModel.SearchResult(
                         "Location Item title 2",
                         "Location Item address 2",
                         0.0,
-                        0.0
-                    )
+                        0.0,
+                    ),
                 ),
                 mode = SearchBarMode.SEARCH,
                 onBackClicked = {},
