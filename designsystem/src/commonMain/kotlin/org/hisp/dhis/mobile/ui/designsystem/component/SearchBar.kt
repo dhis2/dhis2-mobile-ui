@@ -57,6 +57,8 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
  * @param onQueryChange: on query change callback.
  * @param state: input shell state.
  * @param modifier: optional modifier.
+ * @param leadingIcon: optional leading icon to display.
+ * @param focusRequester: optional focus requester.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -68,10 +70,11 @@ fun SearchBar(
     onQueryChange: (String) -> Unit = {},
     state: InputShellState = InputShellState.FOCUSED,
     modifier: Modifier = Modifier,
+    leadingIcon: @Composable (() -> Unit)? = null,
+    focusRequester: FocusRequester = remember { FocusRequester() },
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     val isPressed by interactionSource.collectIsPressedAsState()
-    val focusRequester = remember { FocusRequester() }
     val keyboardController = LocalSoftwareKeyboardController.current
 
     val containerColor = if (!isPressed) {
@@ -114,7 +117,7 @@ fun SearchBar(
                     false
                 }
             }
-            .padding(end = Spacing.Spacing4)
+            .padding(horizontal = Spacing.Spacing4)
             .semantics {
                 contentDescription = "Search"
             },
@@ -138,6 +141,7 @@ fun SearchBar(
                         color = TextColor.OnDisabledSurface,
                     )
                 },
+                leadingIcon = leadingIcon,
                 trailingIcon = {
                     if (text != "") {
                         IconButton(

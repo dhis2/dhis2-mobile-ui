@@ -18,7 +18,7 @@ kotlin {
             implementation(compose.material3)
             @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
             implementation(compose.components.resources)
-            implementation(project(":designsystem"))
+            api(project(":designsystem"))
         }
         commonTest.dependencies {
             implementation(kotlin("test"))
