@@ -40,6 +40,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.ListCard
 import org.hisp.dhis.mobile.ui.designsystem.component.ListCardDescriptionModel
 import org.hisp.dhis.mobile.ui.designsystem.component.ListCardTitleModel
 import org.hisp.dhis.mobile.ui.designsystem.component.MetadataAvatarSize
+import org.hisp.dhis.mobile.ui.designsystem.component.SelectionState
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.ImageCardData
 import org.hisp.dhis.mobile.ui.designsystem.component.state.rememberAdditionalInfoColumnState
 import org.hisp.dhis.mobile.ui.designsystem.component.state.rememberListCardState
@@ -648,6 +649,53 @@ fun ListCardScreen(horizontal: Boolean) {
                         )
                     },
                     onCardClick = {},
+                )
+            }
+
+            ColumnComponentContainer("Selectable list cards") {
+                var selectionState by remember {
+                    mutableStateOf(SelectionState.NONE)
+                }
+
+                ListCard(
+                    listCardState = rememberListCardState(
+                        title = ListCardTitleModel(text = "Palak Khanna, F, 61"),
+                        lastUpdated = "5 hours",
+                        additionalInfoColumnState = rememberAdditionalInfoColumnState(
+                            additionalInfoList = basicAdditionalItemList.toMutableList(),
+                            syncProgressItem = syncProgressItem(),
+                        ),
+                        selectionState = selectionState,
+                    ),
+                    listAvatar = {
+                        Avatar(
+                            style = AvatarStyleData.Text("P"),
+                        )
+                    },
+                    onCardClick = {},
+                    onCardSelected = { selectionState = it },
+                )
+                var selectionState2 by remember {
+                    mutableStateOf(SelectionState.NONE)
+                }
+
+                ListCard(
+                    listCardState = rememberListCardState(
+                        title = ListCardTitleModel(text = "Palak Khanna, F, 61"),
+                        lastUpdated = "5 hours",
+                        additionalInfoColumnState = rememberAdditionalInfoColumnState(
+                            additionalInfoList = basicAdditionalItemListWithLongKeyText.toMutableList(),
+                            syncProgressItem = syncProgressItem(),
+                        ),
+                        selectionState = selectionState2,
+                    ),
+                    listAvatar = {
+                        Avatar(
+                            style = AvatarStyleData.Text("P"),
+                        )
+                    },
+                    onCardClick = {},
+                    onCardSelected = { selectionState2 = it },
                 )
             }
         }
