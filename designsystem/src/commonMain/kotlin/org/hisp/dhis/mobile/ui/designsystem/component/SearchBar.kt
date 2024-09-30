@@ -57,6 +57,8 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
  * @param onQueryChange: on query change callback.
  * @param state: input shell state.
  * @param modifier: optional modifier.
+ * @param leadingIcon: optional leading icon to display.
+ * @param focusRequester: optional focus requester.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

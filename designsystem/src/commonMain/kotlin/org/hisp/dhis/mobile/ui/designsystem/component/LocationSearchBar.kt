@@ -56,21 +56,37 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing16
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
+/**
+ * DHIS2 Location Bar modes
+ * BUTTON: the Location Bar is displayed as a button and shows current search query if available.
+ * SEARCH: The Location Bar is displayed as an input and displays available location items.
+ */
 enum class SearchBarMode {
     BUTTON,
     SEARCH,
 }
 
+/**
+ * DHIS2 Location Bar.
+ * @param currentResults: the available location items to display before/after search.
+ * @param mode: the initial mode for the composable.
+ * @param onBackClicked: callback for when the back button is clicked.
+ * @param onClearLocation: callback for when the clear location button is clicked.
+ * @param onSearchLocation: callback for when the search location button is clicked.
+ * @param onLocationSelected: callback for when a location item is selected.
+ * @param onModeChanged: optional callback for when the mode is changed.
+ */
 @Composable
 fun LocationBar(
     currentResults: List<LocationItemModel>,
+    mode: SearchBarMode = SearchBarMode.BUTTON,
     onBackClicked: () -> Unit,
     onClearLocation: () -> Unit,
     onSearchLocation: (query: String) -> Unit,
     onLocationSelected: (LocationItemModel) -> Unit,
     onModeChanged: (currentMode: SearchBarMode) -> Unit = {},
 ) {
-    var currentMode by remember { mutableStateOf(SearchBarMode.BUTTON) }
+    var currentMode by remember { mutableStateOf(mode) }
     var currentSearch: String by remember { mutableStateOf("") }
 
     LaunchedEffect(currentMode) {
@@ -339,6 +355,12 @@ private fun SearchResultLocationItem(
     )
 }
 
+/**
+ * DHIS2 Location Item icon.
+ * @param icon: the ImageVector to display as an icon.
+ * @param tintedColor: the color to tint the icon with.
+ * @param bgColor: the color for the background.
+ */
 @Composable
 fun LocationItemIcon(
     icon: ImageVector,

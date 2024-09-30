@@ -11,7 +11,7 @@ import androidx.compose.ui.semantics.Role
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 
 @Composable
-fun Modifier.clickableWithRipple(
+internal fun Modifier.clickableWithRipple(
     role: Role = Role.Button,
     color: Color = SurfaceColor.Primary,
     onClick: () -> Unit,
