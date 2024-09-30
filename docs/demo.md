@@ -4,27 +4,6 @@ title: Demo
 sidebar_position: 3
 ---
 
-# Demo application
-
-The Mobile UI library includes a demo application to showcase all the components. This application can be used to see the components on action.
-
-![](resources/showcase.png)
-
-Each release of the Mobile UI has artifacts for some of the targets. 
-These artifacts can be found at the end of each [Release page](https://github.com/dhis2/dhis2-mobile-ui/releases) on Github, on the Assets section.
-
-![](resources/assets.png)
-
-
-
-
-
----
-id: demo
-title: Demo Application
-sidebar_position: 3
----
-
 # Demo Application
 
 The Mobile UI library includes a **demo application** that showcases all the components available in the library. This application allows you to see the components in action and understand how they can be integrated into your projects.
