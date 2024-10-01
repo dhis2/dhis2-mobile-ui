@@ -31,22 +31,20 @@ The design system encompasses a wide array of elements that contribute to a cohe
 9. **Buttons**: Interactive elements that trigger actions, available in various styles like text, outlined, and contained buttons.
 10. **Checkboxes**: Controls that allow users to select one or multiple options from a list, indicating selection with a checkmark.
 11. **Chips**: Compact elements representing inputs, attributes, or actions, often used for filters or selections.
-12. **Filter Bar** (WIP): A component that enables users to refine content displayed on the screen based on specific criteria.
-13. **Forms**: Structured layouts for data entry, including input fields, dropdowns, and validation messages. They allow easily capture data for all the data entry types in the DHIS2 world.
-14. **Indicators**: Used to provide specific information like feedback or program indicators.
-15. **Info Bar**: A horizontal component that displays brief messages, alerts, or notifications to the user.
-16. **Navigation Bar**: A bar located at the bottom of the screen for primary navigation between app sections.
-17. **Progress Indicators**: Linear and circular indicators that show the progress of a task or process.
-18. **Radio Buttons**: Controls that allow users to select a single option from a set, displaying the selection with a filled circle.
-19. **Lists**: Organized collections of items, and cards to display text, images, or interactive elements, ready for DHIS2 objects.
-20. **Menu**: A list of options or actions presented contextually or via a dedicated button, often used for secondary navigation.
-21. **Search Bar**: An input field where users can enter queries to search and filter content within the app.
-22. **Section Title (WIP)**: Headers that introduce and label different sections or groupings of content for better organization.
-23. **Sections**: Divisions within a page or screen that group related content or functionality together.
-24. **Snackbar**: Temporary messages that appear at the bottom of the screen to provide brief feedback about an operation.
-25. **Switches**: Toggles that allow users to turn options or settings on or off, indicating the current state immediately.
-26. **Tags**: Labels used to categorize, organize, or filter content, displayed as small, rounded rectangles.
-27. **Top Bar**: The header area at the top of the screen, usually containing the app title, navigation controls, and action items.
+12. **Forms**: Structured layouts for data entry, including input fields, dropdowns, and validation messages. They allow easily capture data for all the data entry types in the DHIS2 world.
+13. **Indicators**: Used to provide specific information like feedback or program indicators.
+14. **Info Bar**: A horizontal component that displays brief messages, alerts, or notifications to the user.
+15. **Navigation Bar**: A bar located at the bottom of the screen for primary navigation between app sections.
+16. **Progress Indicators**: Linear and circular indicators that show the progress of a task or process.
+17. **Radio Buttons**: Controls that allow users to select a single option from a set, displaying the selection with a filled circle.
+18. **Lists**: Organized collections of items, and cards to display text, images, or interactive elements, ready for DHIS2 objects.
+19. **Menu**: A list of options or actions presented contextually or via a dedicated button, often used for secondary navigation.
+20. **Search Bar**: An input field where users can enter queries to search and filter content within the app.
+21. **Sections**: Divisions within a page or screen that group related content or functionality together.
+22. **Snackbar**: Temporary messages that appear at the bottom of the screen to provide brief feedback about an operation.
+23. **Switches**: Toggles that allow users to turn options or settings on or off, indicating the current state immediately.
+24. **Tags**: Labels used to categorize, organize, or filter content, displayed as small, rounded rectangles.
+25. **Top Bar**: The header area at the top of the screen, usually containing the app title, navigation controls, and action items.
 
 ---
 
