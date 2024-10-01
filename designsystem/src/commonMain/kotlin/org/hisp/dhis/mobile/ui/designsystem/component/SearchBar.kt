@@ -35,6 +35,7 @@ import androidx.compose.ui.input.key.KeyEventType
 import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.onKeyEvent
 import androidx.compose.ui.input.key.type
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.Role
@@ -76,6 +77,7 @@ fun SearchBar(
     val interactionSource = remember { MutableInteractionSource() }
     val isPressed by interactionSource.collectIsPressedAsState()
     val keyboardController = LocalSoftwareKeyboardController.current
+    val focusManager = LocalFocusManager.current
 
     val containerColor = if (!isPressed) {
         SurfaceColor.ContainerLow
@@ -124,7 +126,11 @@ fun SearchBar(
         enabled = true,
         singleLine = true,
         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
-        keyboardActions = KeyboardActions(onSearch = { onSearch(text) }),
+        keyboardActions = KeyboardActions(onSearch = {
+            keyboardController?.hide()
+            focusManager.clearFocus()
+            onSearch(text)
+        }),
         interactionSource = interactionSource,
         textStyle = MaterialTheme.typography.bodyLarge,
         decorationBox = @Composable { innerTextField ->
@@ -155,7 +161,6 @@ fun SearchBar(
                             },
                             onClick = {
                                 onQueryChange.invoke("")
-                                keyboardController?.hide()
                             },
                         )
                     } else {
