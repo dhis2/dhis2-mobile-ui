@@ -14,8 +14,6 @@ The Mobile UI library includes a **demo application** that showcases all the com
 
 Each release of the Mobile UI library provides artifacts for various targets, including Android and desktop platforms. You can download the demo application from the **Assets** section at the bottom of each [release page](https://github.com/dhis2/dhis2-mobile-ui/releases) on GitHub.
 
-![](resources/assets.png)
-
 ### Steps to Download:
 
 1. **Visit the Releases Page**: Go to the [Mobile UI releases page](https://github.com/dhis2/dhis2-mobile-ui/releases) on GitHub.
@@ -24,6 +22,8 @@ Each release of the Mobile UI library provides artifacts for various targets, in
 4. **Download the Artifact**: Click on the appropriate file for your platform:
     - **Android**: Download the `Android.APK.zip` file.
     - **Desktop (Windows)**: Download the `Desktop.jar.-.Windows.zip` file.
+
+![](resources/assets.png)
 
 ## Installing the Demo Application
 
