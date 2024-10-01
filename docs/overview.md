@@ -28,3 +28,7 @@ Multiplatform library seamlessly integrates with Android Studio and the Android 
 **DHIS2 Mobile UI library** also supports desktop applications. When targeting desktop, you use a
 similar set of Compose APIs, but with desktop-specific configuration. It is designed to work
 exclusively with Kotlin Multiplatform (KMP) projects.
+
+## Feedback and Contributions
+
+We welcome feedback to improve the Mobile UI library and its showcase application. Feel free to [open issues](https://dhis2.atlassian.net/jira/software/c/projects/ANDROAPP/boards/113?quickFilter=730) on Jira.
