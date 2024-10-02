@@ -103,7 +103,7 @@ fun ListCard(
         expandable = listCardState.expandable,
         itemVerticalPadding = listCardState.itemVerticalPadding,
         onSizeChanged = onSizeChanged,
-        isSelectionMode = listCardState.selectionState != SelectionState.NONE,
+        selectionMode = listCardState.selectionState,
         onCardSelected = {
             onCardSelected?.invoke(listCardState.selectionState.changeState())
         },
@@ -257,7 +257,7 @@ fun VerticalInfoListCard(
         ),
         expandable = listCardState.expandable,
         itemVerticalPadding = listCardState.itemVerticalPadding,
-        isSelectionMode = false,
+        selectionMode = SelectionState.NONE,
         onCardSelected = {},
         onSizeChanged = onSizeChanged,
     ) {
