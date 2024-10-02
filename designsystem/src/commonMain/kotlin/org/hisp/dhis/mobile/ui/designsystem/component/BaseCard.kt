@@ -82,7 +82,7 @@ fun BaseCard(
                     SelectionState.SELECTED -> SurfaceColor.ContainerLow
                     else -> SurfaceColor.SurfaceBright
                 },
-                shape = RoundedCornerShape(Radius.S)
+                shape = RoundedCornerShape(Radius.S),
             )
             .clip(shape = RoundedCornerShape(Radius.S))
             .combinedClickable(
@@ -140,10 +140,10 @@ fun <T> ExpandableItemColumn(
         derivedStateOf {
             val value = if (childrenSize.size == itemCount) {
                 var availableHeight = parentSize -
-                        childrenSize.values.sum() -
-                        with(density) {
-                            itemSpacing.toPx() * (itemCount - 1) + contentPadding.toPx() * 2
-                        }
+                    childrenSize.values.sum() -
+                    with(density) {
+                        itemSpacing.toPx() * (itemCount - 1) + contentPadding.toPx() * 2
+                    }
                 if (itemCount == 1) availableHeight /= 4
                 with(density) { (availableHeight / (2 * itemCount)).toDp() }.takeIf { it >= 16.dp }
                     ?: 16.dp
