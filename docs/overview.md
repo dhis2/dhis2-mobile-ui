@@ -15,7 +15,7 @@ write Compose UI code once and target both Android and desktop platforms with mi
 ## Targets
 
 This library currently supports **desktop** and **Android** targets, in the next versions it will
-support **iOS** and **web**.
+support **iOS**.
 
 ### Android
 
