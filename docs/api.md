@@ -11,3 +11,5 @@ in [Github repository](https://dhis2.github.io/dhis2-mobile-ui/api/-mobile%20-u-
 
 It is split in *types*, *functions* and *properties*. As in Compose, the components are considered
 as functions, you will have all them in the *functions* section.
+
+![](resources/api.png)
