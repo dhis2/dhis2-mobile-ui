@@ -13,7 +13,10 @@ import androidx.compose.ui.Alignment.Companion.TopCenter
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import org.hisp.dhis.common.screens.components.GroupComponentDropDown
+import org.hisp.dhis.mobile.ui.designsystem.component.DropdownItem
 import org.hisp.dhis.mobile.ui.designsystem.component.LocationBar
+import org.hisp.dhis.mobile.ui.designsystem.component.OnSearchAction
 import org.hisp.dhis.mobile.ui.designsystem.component.model.LocationItemModel
 
 @Composable
@@ -27,24 +30,74 @@ fun LocationSearchBarScreen(
     var itemList: List<LocationItemModel> by remember {
         mutableStateOf(defaultLocationItems)
     }
-    Box(
-        modifier = Modifier.fillMaxSize()
-            .background(Color.White)
-            .padding(16.dp),
-        contentAlignment = TopCenter,
-    ) {
-        LocationBar(
-            currentResults = itemList,
-            onBackClicked = {},
-            onClearLocation = {},
-            onSearchLocation = { locationQuery ->
-                onSearchLocation(locationQuery) {
-                    itemList = it.takeIf { locationQuery.isNotBlank() } ?: defaultLocationItems
-                }
-            },
-            onLocationSelected = { locationItemModel ->
-            },
-        )
+
+    val currentScreen = remember { mutableStateOf(LocationSearchBarOptions.DEFAULT_BEHAVIOUR) }
+    val screenDropdownItemList = mutableListOf<DropdownItem>()
+    LocationSearchBarOptions.entries.forEach {
+        screenDropdownItemList.add(DropdownItem(it.label))
+    }
+
+    GroupComponentDropDown(
+        dropdownItems = screenDropdownItemList.toList(),
+        onItemSelected = {
+            itemList = defaultLocationItems
+            currentScreen.value = getCurrentScreen(it.label)
+        },
+        onResetButtonClicked = {
+            itemList = defaultLocationItems
+            currentScreen.value = LocationSearchBarOptions.DEFAULT_BEHAVIOUR
+        },
+        selectedItem = DropdownItem(currentScreen.value.label),
+    )
+
+    when (currentScreen.value) {
+        LocationSearchBarOptions.DEFAULT_BEHAVIOUR -> {
+            Box(
+                modifier = Modifier.fillMaxSize()
+                    .background(Color.White)
+                    .padding(16.dp),
+                contentAlignment = TopCenter,
+            ) {
+                LocationBar(
+                    currentResults = itemList,
+                    onBackClicked = {},
+                    onClearLocation = {},
+                    onSearchLocation = { locationQuery ->
+                        onSearchLocation(locationQuery) {
+                            itemList =
+                                it.takeIf { locationQuery.isNotBlank() } ?: defaultLocationItems
+                        }
+                    },
+                    onLocationSelected = { locationItemModel ->
+                    },
+                )
+            }
+        }
+
+        LocationSearchBarOptions.AUTOSELECT_ON_ONE_ITEM_FOUND -> {
+            Box(
+                modifier = Modifier.fillMaxSize()
+                    .background(Color.White)
+                    .padding(16.dp),
+                contentAlignment = TopCenter,
+            ) {
+                LocationBar(
+                    currentResults = itemList,
+                    searchAction = OnSearchAction.OnOneItemSelect,
+                    onBackClicked = {},
+                    onClearLocation = {},
+                    onSearchLocation = { locationQuery ->
+                        onSearchLocation(locationQuery) {
+                            itemList =
+                                it.take(1).takeIf { locationQuery.isNotBlank() }
+                                    ?: defaultLocationItems
+                        }
+                    },
+                    onLocationSelected = { locationItemModel ->
+                    },
+                )
+            }
+        }
     }
 }
 
@@ -62,3 +115,13 @@ private val defaultLocationItems = listOf(
         storedLongitude = 0.0,
     ),
 )
+
+private enum class LocationSearchBarOptions(val label: String) {
+    DEFAULT_BEHAVIOUR("Default behaviour"),
+    AUTOSELECT_ON_ONE_ITEM_FOUND("Autoselect on one item found"),
+}
+
+private fun getCurrentScreen(label: String): LocationSearchBarOptions {
+    return LocationSearchBarOptions.entries.firstOrNull { it.label == label }
+        ?: LocationSearchBarOptions.DEFAULT_BEHAVIOUR
+}
