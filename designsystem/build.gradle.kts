@@ -1,3 +1,5 @@
+import org.jetbrains.dokka.gradle.DokkaTask
+
 version = rootProject.version
 group = rootProject.group
 
@@ -80,4 +82,22 @@ android {
     kotlin {
         jvmToolchain(17)
     }
+}
+
+tasks.withType(DokkaTask::class).configureEach {
+    dokkaSourceSets {
+        configureEach {
+            moduleName.set("Mobile UI")
+        }
+    }
+    val dokkaBaseConfiguration = """
+    {
+      "customAssets": ["${file("../assets/logo-icon.svg")}"]
+    }
+    """
+    pluginsMapConfiguration.set(
+        mapOf(
+            "org.jetbrains.dokka.base.DokkaBase" to dokkaBaseConfiguration,
+        ),
+    )
 }
