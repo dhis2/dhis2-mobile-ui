@@ -72,11 +72,10 @@ fun BaseCard(
     val interactionSource = remember { MutableInteractionSource() }
     Row(
         modifier = modifier
-            .conditional(showShadow, {
-                dropShadow(
-                    RoundedCornerShape(Radius.S),
-                )
-            })
+            .conditional(
+                selectionMode != SelectionState.SELECTED && showShadow,
+                { dropShadow(RoundedCornerShape(Radius.S)) },
+            )
             .background(
                 color = when (selectionMode) {
                     SelectionState.SELECTED -> SurfaceColor.ContainerLow
