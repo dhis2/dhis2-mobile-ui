@@ -1,4 +1,4 @@
-package org.hisp.dhis.mobile.ui.designsystem.component.menuItem
+package org.hisp.dhis.mobile.ui.designsystem.component.menu
 
 object MenuItemTestTags {
     const val MENU_ITEM_CONTAINER = "MENU_ITEM_CONTAINER"

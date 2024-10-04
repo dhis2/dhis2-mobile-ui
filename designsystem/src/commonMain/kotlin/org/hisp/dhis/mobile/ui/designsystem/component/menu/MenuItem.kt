@@ -1,4 +1,4 @@
-package org.hisp.dhis.mobile.ui.designsystem.component.menuItem
+package org.hisp.dhis.mobile.ui.designsystem.component.menu
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -20,14 +20,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.style.TextOverflow
-import org.hisp.dhis.mobile.ui.designsystem.component.menuItem.MenuItemTestTags.MENU_ITEM_CONTAINER
-import org.hisp.dhis.mobile.ui.designsystem.component.menuItem.MenuItemTestTags.MENU_ITEM_DIVIDER
-import org.hisp.dhis.mobile.ui.designsystem.component.menuItem.MenuItemTestTags.MENU_ITEM_LEADING_ICON
-import org.hisp.dhis.mobile.ui.designsystem.component.menuItem.MenuItemTestTags.MENU_ITEM_LEADING_INDENT
-import org.hisp.dhis.mobile.ui.designsystem.component.menuItem.MenuItemTestTags.MENU_ITEM_SUPPORTING_TEXT
-import org.hisp.dhis.mobile.ui.designsystem.component.menuItem.MenuItemTestTags.MENU_ITEM_TEXT
-import org.hisp.dhis.mobile.ui.designsystem.component.menuItem.MenuItemTestTags.MENU_ITEM_TRAILING_ICON
-import org.hisp.dhis.mobile.ui.designsystem.component.menuItem.MenuItemTestTags.MENU_ITEM_TRAILING_TEXT
+import org.hisp.dhis.mobile.ui.designsystem.component.menu.MenuItemTestTags.MENU_ITEM_CONTAINER
+import org.hisp.dhis.mobile.ui.designsystem.component.menu.MenuItemTestTags.MENU_ITEM_DIVIDER
+import org.hisp.dhis.mobile.ui.designsystem.component.menu.MenuItemTestTags.MENU_ITEM_LEADING_ICON
+import org.hisp.dhis.mobile.ui.designsystem.component.menu.MenuItemTestTags.MENU_ITEM_LEADING_INDENT
+import org.hisp.dhis.mobile.ui.designsystem.component.menu.MenuItemTestTags.MENU_ITEM_SUPPORTING_TEXT
+import org.hisp.dhis.mobile.ui.designsystem.component.menu.MenuItemTestTags.MENU_ITEM_TEXT
+import org.hisp.dhis.mobile.ui.designsystem.component.menu.MenuItemTestTags.MENU_ITEM_TRAILING_ICON
+import org.hisp.dhis.mobile.ui.designsystem.component.menu.MenuItemTestTags.MENU_ITEM_TRAILING_TEXT
 import org.hisp.dhis.mobile.ui.designsystem.theme.Border
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
@@ -42,10 +42,10 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
  * @param onItemClick: callback to when menu item is clicked.
  */
 @Composable
-fun MenuItem(
+fun <T> MenuItem(
     modifier: Modifier = Modifier,
-    menuItemData: MenuItemData,
-    onItemClick: () -> Unit,
+    menuItemData: MenuItemData<T>,
+    onItemClick: (T) -> Unit,
 ) {
     val itemContainerBackground = when (menuItemData.state) {
         MenuItemState.SELECTED -> {
@@ -69,7 +69,7 @@ fun MenuItem(
                 .clickable(
                     enabled = menuItemData.state != MenuItemState.DISABLED,
                     onClick = {
-                        onItemClick.invoke()
+                        onItemClick(menuItemData.id)
                     },
                 )
                 .hoverPointerIcon(menuItemData.state != MenuItemState.DISABLED)
@@ -213,7 +213,8 @@ private fun MenuItemTrailingElement(
  * @param supportingText: controls the supporting text to be shown.
  * @param showDivider: controls whether a divider should be shown.
  */
-data class MenuItemData(
+data class MenuItemData<T>(
+    val id: T,
     val label: String,
     val state: MenuItemState = MenuItemState.ENABLED,
     val style: MenuItemStyle = MenuItemStyle.DEFAULT,

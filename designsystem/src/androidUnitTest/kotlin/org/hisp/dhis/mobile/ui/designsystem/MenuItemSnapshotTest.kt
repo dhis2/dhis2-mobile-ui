@@ -11,12 +11,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
-import org.hisp.dhis.mobile.ui.designsystem.component.menuItem.MenuItem
-import org.hisp.dhis.mobile.ui.designsystem.component.menuItem.MenuItemData
-import org.hisp.dhis.mobile.ui.designsystem.component.menuItem.MenuItemState
-import org.hisp.dhis.mobile.ui.designsystem.component.menuItem.MenuItemStyle
-import org.hisp.dhis.mobile.ui.designsystem.component.menuItem.MenuLeadingElement
-import org.hisp.dhis.mobile.ui.designsystem.component.menuItem.MenuTrailingElement
+import org.hisp.dhis.mobile.ui.designsystem.component.menu.MenuItem
+import org.hisp.dhis.mobile.ui.designsystem.component.menu.MenuItemData
+import org.hisp.dhis.mobile.ui.designsystem.component.menu.MenuItemState
+import org.hisp.dhis.mobile.ui.designsystem.component.menu.MenuItemStyle
+import org.hisp.dhis.mobile.ui.designsystem.component.menu.MenuLeadingElement
+import org.hisp.dhis.mobile.ui.designsystem.component.menu.MenuTrailingElement
 import org.junit.Rule
 import org.junit.Test
 
@@ -39,6 +39,7 @@ class MenuItemSnapshotTest {
                             MenuItem(
                                 modifier = Modifier.weight(1f),
                                 menuItemData = MenuItemData(
+                                    id = "menu_item",
                                     label = "Label",
                                     supportingText = "Support Text",
                                     showDivider = true,
@@ -54,6 +55,7 @@ class MenuItemSnapshotTest {
                             MenuItem(
                                 modifier = Modifier.weight(1f),
                                 menuItemData = MenuItemData(
+                                    id = "menu_item",
                                     label = "Label",
                                     supportingText = "Support Text",
                                     showDivider = true,
@@ -74,6 +76,7 @@ class MenuItemSnapshotTest {
                             MenuItem(
                                 modifier = Modifier.weight(1f),
                                 menuItemData = MenuItemData(
+                                    id = "menu_item",
                                     label = "Label",
                                     supportingText = "Support Text",
                                     showDivider = true,
@@ -90,6 +93,7 @@ class MenuItemSnapshotTest {
                             MenuItem(
                                 modifier = Modifier.weight(1f),
                                 menuItemData = MenuItemData(
+                                    id = "menu_item",
                                     label = "Label",
                                     supportingText = "Support Text",
                                     showDivider = true,
@@ -111,6 +115,7 @@ class MenuItemSnapshotTest {
                             MenuItem(
                                 modifier = Modifier.weight(1f),
                                 menuItemData = MenuItemData(
+                                    id = "menu_item",
                                     label = "Label",
                                     supportingText = "Support Text",
                                     showDivider = true,
@@ -127,6 +132,7 @@ class MenuItemSnapshotTest {
                             MenuItem(
                                 modifier = Modifier.weight(1f),
                                 menuItemData = MenuItemData(
+                                    id = "menu_item",
                                     label = "Label",
                                     supportingText = "Support Text",
                                     showDivider = true,

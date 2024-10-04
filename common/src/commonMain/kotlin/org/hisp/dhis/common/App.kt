@@ -20,11 +20,11 @@ import org.hisp.dhis.common.screens.bottomSheets.BottomSheetsScreen
 import org.hisp.dhis.common.screens.buttons.ButtonsScreen
 import org.hisp.dhis.common.screens.cards.CardsScreen
 import org.hisp.dhis.common.screens.location.LocationSearchBarScreen
+import org.hisp.dhis.common.screens.menu.MenuScreen
 import org.hisp.dhis.common.screens.others.BadgesScreen
 import org.hisp.dhis.common.screens.others.ChipsScreen
 import org.hisp.dhis.common.screens.others.IndicatorScreen
 import org.hisp.dhis.common.screens.others.LegendScreen
-import org.hisp.dhis.common.screens.others.MenuItemScreen
 import org.hisp.dhis.common.screens.others.MetadataAvatarScreen
 import org.hisp.dhis.common.screens.others.NavigationBarScreen
 import org.hisp.dhis.common.screens.others.ProgressScreen
@@ -119,7 +119,7 @@ fun Main(
                 Groups.TAGS -> TagsScreen()
                 Groups.SEARCH_BAR -> SearchBarScreen()
                 Groups.NAVIGATION_BAR -> NavigationBarScreen()
-                Groups.MENU -> MenuItemScreen()
+                Groups.MENU -> MenuScreen()
                 Groups.NO_GROUP_SELECTED -> NoComponentSelectedScreen()
                 Groups.TOP_BAR -> TopBarScreen()
                 Groups.LOCATION_SEARCH_BAR -> LocationSearchBarScreen { locationQuery, locationCallback ->
