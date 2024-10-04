@@ -4,18 +4,18 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Done
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
-import org.hisp.dhis.mobile.ui.designsystem.component.menuItem.MenuItem
-import org.hisp.dhis.mobile.ui.designsystem.component.menuItem.MenuItemData
-import org.hisp.dhis.mobile.ui.designsystem.component.menuItem.MenuItemTestTags.MENU_ITEM_CONTAINER
-import org.hisp.dhis.mobile.ui.designsystem.component.menuItem.MenuItemTestTags.MENU_ITEM_DIVIDER
-import org.hisp.dhis.mobile.ui.designsystem.component.menuItem.MenuItemTestTags.MENU_ITEM_LEADING_ICON
-import org.hisp.dhis.mobile.ui.designsystem.component.menuItem.MenuItemTestTags.MENU_ITEM_LEADING_INDENT
-import org.hisp.dhis.mobile.ui.designsystem.component.menuItem.MenuItemTestTags.MENU_ITEM_SUPPORTING_TEXT
-import org.hisp.dhis.mobile.ui.designsystem.component.menuItem.MenuItemTestTags.MENU_ITEM_TEXT
-import org.hisp.dhis.mobile.ui.designsystem.component.menuItem.MenuItemTestTags.MENU_ITEM_TRAILING_ICON
-import org.hisp.dhis.mobile.ui.designsystem.component.menuItem.MenuItemTestTags.MENU_ITEM_TRAILING_TEXT
-import org.hisp.dhis.mobile.ui.designsystem.component.menuItem.MenuLeadingElement
-import org.hisp.dhis.mobile.ui.designsystem.component.menuItem.MenuTrailingElement
+import org.hisp.dhis.mobile.ui.designsystem.component.menu.MenuItem
+import org.hisp.dhis.mobile.ui.designsystem.component.menu.MenuItemData
+import org.hisp.dhis.mobile.ui.designsystem.component.menu.MenuItemTestTags.MENU_ITEM_CONTAINER
+import org.hisp.dhis.mobile.ui.designsystem.component.menu.MenuItemTestTags.MENU_ITEM_DIVIDER
+import org.hisp.dhis.mobile.ui.designsystem.component.menu.MenuItemTestTags.MENU_ITEM_LEADING_ICON
+import org.hisp.dhis.mobile.ui.designsystem.component.menu.MenuItemTestTags.MENU_ITEM_LEADING_INDENT
+import org.hisp.dhis.mobile.ui.designsystem.component.menu.MenuItemTestTags.MENU_ITEM_SUPPORTING_TEXT
+import org.hisp.dhis.mobile.ui.designsystem.component.menu.MenuItemTestTags.MENU_ITEM_TEXT
+import org.hisp.dhis.mobile.ui.designsystem.component.menu.MenuItemTestTags.MENU_ITEM_TRAILING_ICON
+import org.hisp.dhis.mobile.ui.designsystem.component.menu.MenuItemTestTags.MENU_ITEM_TRAILING_TEXT
+import org.hisp.dhis.mobile.ui.designsystem.component.menu.MenuLeadingElement
+import org.hisp.dhis.mobile.ui.designsystem.component.menu.MenuTrailingElement
 import org.junit.Rule
 import org.junit.Test
 
@@ -28,6 +28,7 @@ class MenuItemTest {
         rule.setContent {
             MenuItem(
                 menuItemData = MenuItemData(
+                    id = "menu_item",
                     label = "Menu Item",
                 ),
             ) {}
@@ -41,6 +42,7 @@ class MenuItemTest {
         rule.setContent {
             MenuItem(
                 menuItemData = MenuItemData(
+                    id = "menu_item",
                     label = "Menu Item",
                     supportingText = "Supporting Text",
                 ),
@@ -55,6 +57,7 @@ class MenuItemTest {
         rule.setContent {
             MenuItem(
                 menuItemData = MenuItemData(
+                    id = "menu_item",
                     label = "Menu Item",
                     showDivider = true,
                 ),
@@ -69,6 +72,7 @@ class MenuItemTest {
         rule.setContent {
             MenuItem(
                 menuItemData = MenuItemData(
+                    id = "menu_item",
                     label = "Menu Item",
                     leadingElement = MenuLeadingElement.Indent,
                 ),
@@ -83,6 +87,7 @@ class MenuItemTest {
         rule.setContent {
             MenuItem(
                 menuItemData = MenuItemData(
+                    id = "menu_item",
                     label = "Menu Item",
                     leadingElement = MenuLeadingElement.Icon(
                         icon = Icons.Outlined.Done,
@@ -99,6 +104,7 @@ class MenuItemTest {
         rule.setContent {
             MenuItem(
                 menuItemData = MenuItemData(
+                    id = "menu_item",
                     label = "Menu Item",
                     trailingElement = MenuTrailingElement.Icon(
                         icon = Icons.Outlined.Done,
@@ -115,6 +121,7 @@ class MenuItemTest {
         rule.setContent {
             MenuItem(
                 menuItemData = MenuItemData(
+                    id = "menu_item",
                     label = "Menu Item",
                     trailingElement = MenuTrailingElement.Text(
                         text = "Trailing Text",
