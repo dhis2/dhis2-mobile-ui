@@ -5,8 +5,10 @@ import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.shrinkVertically
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement.Absolute.spacedBy
 import androidx.compose.foundation.layout.Box
@@ -53,6 +55,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.dropShadow
 import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun BaseCard(
     modifier: Modifier = Modifier,
@@ -62,25 +65,36 @@ fun BaseCard(
     expandable: Boolean,
     itemVerticalPadding: Dp?,
     onSizeChanged: ((IntSize) -> Unit)?,
+    selectionMode: SelectionState,
+    onCardSelected: () -> Unit,
     content: @Composable () -> Unit,
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     Row(
         modifier = modifier
-            .conditional(showShadow, {
-                dropShadow(
-                    RoundedCornerShape(Radius.S),
-                )
-            })
-            .background(color = TextColor.OnPrimary, shape = RoundedCornerShape(Radius.S))
+            .conditional(
+                selectionMode != SelectionState.SELECTED && showShadow,
+                { dropShadow(RoundedCornerShape(Radius.S)) },
+            )
+            .background(
+                color = when (selectionMode) {
+                    SelectionState.SELECTED -> SurfaceColor.ContainerLow
+                    else -> SurfaceColor.SurfaceBright
+                },
+                shape = RoundedCornerShape(Radius.S),
+            )
             .clip(shape = RoundedCornerShape(Radius.S))
-            .clickable(
+            .combinedClickable(
                 role = Role.Button,
                 interactionSource = interactionSource,
                 indication = rememberRipple(
                     color = SurfaceColor.Primary,
                 ),
-                onClick = onCardClick,
+                onClick = when {
+                    selectionMode != SelectionState.NONE -> onCardSelected
+                    else -> onCardClick
+                },
+                onLongClick = onCardSelected,
             )
             .hoverPointerIcon(true)
             .padding(paddingValues)
