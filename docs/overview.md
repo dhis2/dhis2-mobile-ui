@@ -19,9 +19,11 @@ support **iOS**.
 
 ### Android
 
-**DHIS2 Mobile UI library** provides native support for Android. When targeting Android, you can
-leverage the full power of Jetpack Compose, Google's modern UI toolkit for Android. The Compose
-Multiplatform library seamlessly integrates with Android Studio and the Android build system.
+**DHIS2 Mobile UI library** provides native support for Android, primarily using Kotlin and Compose. However, if your project uses Java and XML layouts, you can still integrate the library by embedding Compose components within your existing views.
+
+#### Using with Java and XML
+
+If your project uses Java and XML layouts, you can still integrate the library by embedding Compose components within your existing views. For guidance on interoperability between XML and Compose, refer to the [Android Developers Interoperability Guide](https://developer.android.com/develop/ui/compose/migrate/interoperability-apis).
 
 ### Desktop
 
