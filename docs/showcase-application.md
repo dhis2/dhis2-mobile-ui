@@ -6,13 +6,13 @@ sidebar_position: 3
 
 # Showcase Application
 
-The Mobile UI library includes a **demo application** that showcases all the components available in the library. This application allows you to see the components in action and understand how they can be integrated into your projects.
+The Mobile UI library includes an application that showcases all the components available in the library. This application allows you to see the components in action and understand how they can be integrated into your projects.
 
 ![](resources/showcase.png)
 
-## Downloading the Showcase application
+## Downloading the Showcase Application
 
-Each release of the Mobile UI library provides artifacts for various targets, including Android and desktop platforms. You can download the demo application from the **Assets** section at the bottom of each [release page](https://github.com/dhis2/dhis2-mobile-ui/releases) on GitHub.
+Each release of the Mobile UI library provides artifacts for various targets, including Android and desktop platforms. You can download the Showcase application from the **Assets** section at the bottom of each [release page](https://github.com/dhis2/dhis2-mobile-ui/releases) on GitHub.
 
 ### Steps to Download:
 
@@ -25,7 +25,7 @@ Each release of the Mobile UI library provides artifacts for various targets, in
 
 ![](resources/assets.png)
 
-## Installing the Demo Application
+## Installing the Showcase Application
 
 ### On Android:
 
@@ -41,7 +41,7 @@ Each release of the Mobile UI library provides artifacts for various targets, in
 
 1. **Ensure Java is Installed**:
 
-    - The demo application requires the Java Runtime Environment (JRE) to run.
+    - The Showcase application requires the Java Runtime Environment (JRE) to run.
     - Download and install Java from the [official website](https://www.java.com/en/download/) if you haven't already.
 
 2. **Extract the ZIP File**:
@@ -59,13 +59,13 @@ Each release of the Mobile UI library provides artifacts for various targets, in
         - Navigate to the directory containing the `.jar` file.
         - Run the command:
           ```
-          java -jar your-demo-application.jar
+          java -jar your-showcase-application.jar
           ```
 
    **Note**: If double-clicking the `.jar` file doesn't work, ensure that the file association for `.jar` files is correctly set to the Java Runtime Environment.
 
-## Using the Demo Application
+## Using the Showcase Application
 
-1. **Launch the App**: Open the demo application on your device.
+1. **Launch the App**: Open the Showcase application on your device.
 2. **Explore Components**: Browse through the various components showcased in the app.
 3. **Interactive Examples**: Interact with the components to see how they behave and respond.
