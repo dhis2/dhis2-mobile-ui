@@ -66,6 +66,11 @@ enum class SearchBarMode {
     SEARCH,
 }
 
+enum class OnSearchAction {
+    Default,
+    OnOneItemSelect,
+}
+
 /**
  * DHIS2 Location Bar.
  * @param currentResults: the available location items to display before/after search.
@@ -80,6 +85,7 @@ enum class SearchBarMode {
 fun LocationBar(
     currentResults: List<LocationItemModel>,
     mode: SearchBarMode = SearchBarMode.BUTTON,
+    searchAction: OnSearchAction = OnSearchAction.Default,
     onBackClicked: () -> Unit,
     onClearLocation: () -> Unit,
     onSearchLocation: (query: String) -> Unit,
@@ -88,9 +94,23 @@ fun LocationBar(
 ) {
     var currentMode by remember { mutableStateOf(mode) }
     var currentSearch: String by remember { mutableStateOf("") }
+    fun selectItem(item: LocationItemModel) {
+        currentSearch = item.title
+        currentMode = SearchBarMode.BUTTON
+        onLocationSelected(item)
+    }
 
     LaunchedEffect(currentMode) {
         onModeChanged(currentMode)
+    }
+
+    LaunchedEffect(searchAction, currentResults) {
+        if (searchAction == OnSearchAction.OnOneItemSelect) {
+            currentResults.filterIsInstance<LocationItemModel.SearchResult>()
+                .takeIf { it.size == 1 }?.let {
+                    selectItem(it.first())
+                }
+        }
     }
 
     when (currentMode) {
@@ -120,6 +140,7 @@ fun LocationBar(
                 currentMode = SearchBarMode.BUTTON
             },
             onLocationSelected = {
+                selectItem(it)
                 currentSearch = it.title
                 currentMode = SearchBarMode.BUTTON
                 onLocationSelected(it)
@@ -314,7 +335,7 @@ fun LocationItem(
                 text = locationItemModel.subtitle,
                 style = MaterialTheme.typography.bodySmall,
                 color = TextColor.OnSurface,
-                maxLines = 1,
+                maxLines = 2,
                 overflow = TextOverflow.Ellipsis,
             )
         }
