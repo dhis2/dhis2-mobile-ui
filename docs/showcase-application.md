@@ -1,16 +1,16 @@
 ---
-id: demo
-title: Demo
+id: showcase-application
+title: Showcase application
 sidebar_position: 3
 ---
 
-# Demo Application
+# Showcase Application
 
 The Mobile UI library includes a **demo application** that showcases all the components available in the library. This application allows you to see the components in action and understand how they can be integrated into your projects.
 
 ![](resources/showcase.png)
 
-## Downloading the Demo Application
+## Downloading the Showcase application
 
 Each release of the Mobile UI library provides artifacts for various targets, including Android and desktop platforms. You can download the demo application from the **Assets** section at the bottom of each [release page](https://github.com/dhis2/dhis2-mobile-ui/releases) on GitHub.
 
