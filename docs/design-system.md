@@ -6,7 +6,7 @@ sidebar_position: 4
 
 # Design System
 
-The **DHIS2 Mobile UI Library** is built upon the [DHIS2 Mobile Design System Figma library](https://www.figma.com/file/eRk6bt0B8BJlTO9PZXirHN/DHIS2-Mobile-Design-System). This design system offers a comprehensive set of guidelines, components, and best practices to ensure consistency and enhance user experience across all DHIS2 mobile applications.
+The **DHIS2 Mobile UI Library** is built upon the [DHIS2 Mobile Design System Figma library](https://www.figma.com/community/file/1423970586603523207/dhis2-mobile-design-system). This design system offers a comprehensive set of guidelines, components, and best practices to ensure consistency and enhance user experience across all DHIS2 mobile applications.
 
 ![](resources/design-system.png)
 
@@ -52,7 +52,8 @@ The design system encompasses a wide array of elements that contribute to a cohe
 
 To incorporate the DHIS2 Mobile Design System into your project:
 
-1. **Explore the Figma Library**: Familiarize yourself with the available components and styles by accessing the [Figma library](https://www.figma.com/file/eRk6bt0B8BJlTO9PZXirHN/DHIS2-Mobile-Design-System).
+1. **Explore the Figma Library**: Familiarize yourself with the available components and styles by accessing the [Figma library](https://www.figma.com/community/file/1423970586603523207/dhis2-mobile-design-system).
+2. **Use the Figma Library for Mock-ups and Prototypes**: Before starting development, you can utilize the Figma library to create mock-ups and prototypes. This allows you to visualize the app's design and functionality, facilitating better planning and collaboration among team members.
 2. **Follow the Guidelines**: Apply the design principles and component guidelines to ensure a consistent and user-friendly interface.
 3. **Maintain Accessibility**: Ensure all design elements meet accessibility standards for color contrast, font sizes, and interactive elements.
 4. **Collaborate and Contribute**: Share feedback, suggest improvements, or contribute new components to help evolve the design system.
