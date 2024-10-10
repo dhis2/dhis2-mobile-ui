@@ -24,6 +24,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -199,13 +200,15 @@ private fun OrgTreeList(
             horizontalAlignment = Alignment.Start,
         ) {
             orgTreeItems.forEach { item ->
-                OrgUnitSelectorItem(
-                    orgTreeItem = item,
-                    higherLevel = orgTreeItems.minBy { it.level }.level,
-                    searchQuery = searchQuery,
-                    onItemClick = onItemClick,
-                    onItemSelected = onItemSelected,
-                )
+                key(item.uid) {
+                    OrgUnitSelectorItem(
+                        orgTreeItem = item,
+                        higherLevel = orgTreeItems.minBy { it.level }.level,
+                        searchQuery = searchQuery,
+                        onItemClick = onItemClick,
+                        onItemSelected = onItemSelected,
+                    )
+                }
             }
         }
     }
