@@ -18,7 +18,6 @@ import org.hisp.dhis.mobile.ui.designsystem.component.DateTimeActionType
 import org.hisp.dhis.mobile.ui.designsystem.component.DropdownItem
 import org.hisp.dhis.mobile.ui.designsystem.component.ImageCardData
 import org.hisp.dhis.mobile.ui.designsystem.component.InputAge
-import org.hisp.dhis.mobile.ui.designsystem.component.InputAgeModel
 import org.hisp.dhis.mobile.ui.designsystem.component.InputBarCode
 import org.hisp.dhis.mobile.ui.designsystem.component.InputCheckBox
 import org.hisp.dhis.mobile.ui.designsystem.component.InputDateTime
@@ -43,7 +42,9 @@ import org.hisp.dhis.mobile.ui.designsystem.component.parameter.model.ParameterS
 import org.hisp.dhis.mobile.ui.designsystem.component.parameter.model.ParameterSelectorItemModel.Status.CLOSED
 import org.hisp.dhis.mobile.ui.designsystem.component.parameter.model.ParameterSelectorItemModel.Status.FOCUSED
 import org.hisp.dhis.mobile.ui.designsystem.component.parameter.model.ParameterSelectorItemModel.Status.UNFOCUSED
+import org.hisp.dhis.mobile.ui.designsystem.component.state.InputAgeData
 import org.hisp.dhis.mobile.ui.designsystem.component.state.InputDateTimeData
+import org.hisp.dhis.mobile.ui.designsystem.component.state.rememberInputAgeState
 import org.hisp.dhis.mobile.ui.designsystem.component.state.rememberInputDateTimeState
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
@@ -134,14 +135,16 @@ fun ParameterSelectorScreen() {
             helper = "Optional",
             inputField = {
                 InputAge(
-                    InputAgeModel(
-                        title = "Age parameter",
+                    state = rememberInputAgeState(
+                        inputAgeData = InputAgeData(
+                            title = "Age parameter",
+                            inputStyle = InputStyle.ParameterInputStyle(),
+                        ),
                         inputType = ageInputType,
-                        inputStyle = InputStyle.ParameterInputStyle(),
-                        onValueChanged = {
-                            ageInputType = it
-                        },
                     ),
+                    onValueChanged = {
+                        ageInputType = it ?: AgeInputType.None
+                    },
                 )
             },
             status = when (ageInputType) {

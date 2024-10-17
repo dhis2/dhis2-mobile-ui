@@ -98,7 +98,7 @@ internal fun Modifier.iconCardShadow(
     }
 }.padding(bottom = shadowRadius)
 
-internal fun Modifier.dropShadow(
+fun Modifier.dropShadow(
     shape: Shape,
     color: Color = SurfaceColor.Container,
     blur: Dp = 10.dp,
@@ -112,10 +112,10 @@ internal fun Modifier.dropShadow(
 
         // Create a Paint object
         val paint = Paint()
-// Apply specified color
+        // Apply specified color
         paint.color = color
 
-// Check for valid blur radius
+        // Check for valid blur radius
         if (blur.toPx() > 0) {
             paint.asFrameworkPaint().apply {
                 // Apply blur to the Paint

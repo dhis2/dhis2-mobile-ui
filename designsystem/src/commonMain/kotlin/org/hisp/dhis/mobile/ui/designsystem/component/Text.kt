@@ -151,7 +151,7 @@ internal fun ListCardDescription(
             description.text,
             color = description.color ?: TextColor.OnSurface,
             style = description.style ?: MaterialTheme.typography.bodyMedium,
-            modifier = modifier.padding(bottom = Spacing.Spacing8),
+            modifier = modifier,
         )
     }
 }
