@@ -1,6 +1,7 @@
 package org.hisp.dhis.mobile.ui.designsystem.component.internal
 
 import androidx.compose.ui.text.AnnotatedString
+import org.hisp.dhis.mobile.ui.designsystem.component.model.TimeTransformation
 import org.junit.Test
 
 class TimeTransformationTest {

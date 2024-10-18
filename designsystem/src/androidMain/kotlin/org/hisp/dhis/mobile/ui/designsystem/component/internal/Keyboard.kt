@@ -10,7 +10,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalView
 
 @Composable
-actual fun keyboardAsState(): State<Keyboard> {
+internal actual fun keyboardAsState(): State<Keyboard> {
     val keyboardState = remember { mutableStateOf(Keyboard.Closed) }
     val view = LocalView.current
     DisposableEffect(view) {

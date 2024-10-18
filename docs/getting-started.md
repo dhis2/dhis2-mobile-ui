@@ -1,67 +1,79 @@
 ---
 id: getting-started
 title: Getting started
-sidebar_position: 1
+sidebar_position: 2
 ---
 
-# DHIS2 Mobile UI
+# Getting started
 
-> **@dhis2/dhis2-mobile-ui** is
-> a [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) DHIS2 design system
-> library for [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform.html) applications.
+**DHIS2 Mobile UI library** is
+a [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) DHIS2 design system
+library for [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform.html) and Android
+applications.
 
-**DHIS2 Mobile UI library** is based in
-the [DHIS2 Mobile Design System Figma library](https://www.figma.com/file/eRk6bt0B8BJlTO9PZXirHN/DHIS2-Mobile-Design-System).
+## DHIS2 UI Library Principles
 
-This library currently supports **desktop** and **Android** targets, in the next versions it will
-support **iOS**.
+**DHIS2 Mobile UI library** is an open source design system for building DHIS2 Android and more
+mobile targets in the future. The system is based on a foundation of principles, patterns, and
+guidelines for designing user-friendly apps. A reusable component library provides the building
+blocks to develop DHIS2 apps with consistent user experience.
 
-## 1. Getting started
+The UI library is more than just a collection of components, there also are principles, such as
+predefined colors, layout, typography, icons and patterns. You can find all of these in
+the [DHIS2 UI documentation](https://ui.dhis2.nu/).
 
-### DHIS2 UI Library Principles
+## 1. Installation
 
-The UI library more than just a collection of components, there also are principles, such as predefined colors, layout, typography, icons and patterns. You can find all of these in the [DHIS2 UI documentation](https://ui.dhis2.nu/).
-
-### Live demos documentation
-
-//TODO link to github releases artifact maybe?
-
-### Installation
+### Android
 
 In the module **build.gradle.kts**:
 
 ```kotlin
 dependencies {
-  implementation("org.hisp.dhis.mobile:designsystem:0.2")
+    implementation("org.hisp.dhis.mobile:designsystem-android:0.3.0")
+}
+```
+
+### Desktop
+
+In the module **build.gradle.kts**:
+
+```kotlin
+dependencies {
+    implementation("org.hisp.dhis.mobile:designsystem-desktop:0.3.0")
+}
+```
+
+### Multiplatform project
+
+In the module **build.gradle.kts**:
+
+```kotlin
+dependencies {
+    implementation("org.hisp.dhis.mobile:designsystem:0.3.0")
 }
 ```
 
 ## 2. Usage
 
-```kotlin
+```kotlin 
 setContent {
-  DHIS2Theme {
-    // A surface container using the 'background' color from the theme
-    Surface(
-      modifier = Modifier.fillMaxSize(),
-      color = SurfaceColor.Container
-    ) {
-      Components()
+    DHIS2Theme {
+        Surface(
+            modifier = Modifier.fillMaxSize(),
+            color = SurfaceColor.Container
+        ) {
+            Button(
+                text = provideStringResource("show_more"),
+                icon = {
+                    Icon(
+                        painter = provideDHIS2Icon(resourceName = "dhis2_blood_a_n_positive"),
+                        contentDescription = ""
+                    )
+                },
+                style = ButtonStyle.KEYBOARDKEY
+            ) {}
+        }
     }
-  }
 }
-```
-
-### Add a Button
-```kotlin
-Button(
-  text = provideStringResource("show_more"),
-  icon = {
-    Icon(
-      painter = provideDHIS2Icon(resourceName = "dhis2_blood_a_n_positive"),
-      contentDescription = ""
-    )
-  },
-  style = ButtonStyle.KEYBOARDKEY
-) {}
 ```

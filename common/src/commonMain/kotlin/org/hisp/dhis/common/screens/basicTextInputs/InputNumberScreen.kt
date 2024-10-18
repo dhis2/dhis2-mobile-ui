@@ -10,7 +10,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InputNumber
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
-import org.hisp.dhis.mobile.ui.designsystem.component.internal.RegExValidations
+import org.hisp.dhis.mobile.ui.designsystem.component.model.RegExValidations
 
 @Composable
 fun InputNumberScreen() {

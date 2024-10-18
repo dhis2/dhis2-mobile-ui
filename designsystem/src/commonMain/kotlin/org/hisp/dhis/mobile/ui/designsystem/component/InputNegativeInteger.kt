@@ -11,7 +11,7 @@ import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
-import org.hisp.dhis.mobile.ui.designsystem.component.internal.RegExValidations
+import org.hisp.dhis.mobile.ui.designsystem.component.model.RegExValidations
 
 /**
  * DHIS2 Input negative Integer. Wraps DHIS · [BasicTextInput].

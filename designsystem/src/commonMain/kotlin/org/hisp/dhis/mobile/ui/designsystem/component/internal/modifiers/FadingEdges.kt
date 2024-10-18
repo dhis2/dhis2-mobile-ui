@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlin.math.min
 
-fun Modifier.fadingEdges(
+internal fun Modifier.fadingEdges(
     scrollState: ScrollState,
     topEdgeHeight: Dp = 72.dp,
     bottomEdgeHeight: Dp = 72.dp,
@@ -36,7 +36,8 @@ fun Modifier.fadingEdges(
 
             val bottomColors = listOf(Color.Black, Color.Transparent)
             val bottomEndY = size.height - scrollState.maxValue + scrollState.value
-            val bottomGradientHeight = min(bottomEdgeHeight.toPx(), scrollState.maxValue.toFloat() - scrollState.value)
+            val bottomGradientHeight =
+                min(bottomEdgeHeight.toPx(), scrollState.maxValue.toFloat() - scrollState.value)
             if (bottomGradientHeight != 0f) {
                 drawRect(
                     brush = Brush.verticalGradient(

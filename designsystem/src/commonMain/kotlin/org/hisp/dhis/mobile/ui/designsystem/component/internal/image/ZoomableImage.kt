@@ -91,7 +91,7 @@ private fun <T> getAnimationSpec(showAnimation: Boolean): FiniteAnimationSpec<T>
     }
 }
 
-fun Offset.calculateNewOffset(
+private fun Offset.calculateNewOffset(
     centroid: Offset,
     pan: Offset,
     scale: Float,
@@ -106,7 +106,7 @@ fun Offset.calculateNewOffset(
     )
 }
 
-fun calculateDoubleTapOffset(
+private fun calculateDoubleTapOffset(
     scale: Float,
     size: IntSize,
     tapOffset: Offset,
@@ -118,7 +118,7 @@ fun calculateDoubleTapOffset(
     )
 }
 
-fun calculateDoubleTapScale(
+private fun calculateDoubleTapScale(
     currentScale: Float,
     srcSize: Size,
     size: IntSize,
