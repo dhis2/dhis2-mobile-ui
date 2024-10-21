@@ -11,7 +11,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.InputStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.LegendData
 import org.hisp.dhis.mobile.ui.designsystem.component.SelectableDates
 import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextData
-import org.hisp.dhis.mobile.ui.designsystem.component.internal.DateTimeVisualTransformation
+import org.hisp.dhis.mobile.ui.designsystem.component.model.DateTimeVisualTransformation
 
 @Stable
 interface InputDateTimeState {

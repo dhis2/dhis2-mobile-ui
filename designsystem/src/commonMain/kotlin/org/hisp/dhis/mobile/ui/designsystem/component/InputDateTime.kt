@@ -52,9 +52,6 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import org.hisp.dhis.mobile.ui.designsystem.component.internal.DateTimeVisualTransformation
-import org.hisp.dhis.mobile.ui.designsystem.component.internal.DateTransformation
-import org.hisp.dhis.mobile.ui.designsystem.component.internal.RegExValidations
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.convertStringToTextFieldValue
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.formatStoredDateToUI
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.formatUIDateToStored
@@ -65,10 +62,12 @@ import org.hisp.dhis.mobile.ui.designsystem.component.internal.getTime
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.getTimePickerState
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.isValidHourFormat
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.parseDate
-import org.hisp.dhis.mobile.ui.designsystem.component.internal.parseStringDateToMillis
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.provideDatePickerState
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.timePickerColors
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.yearIsInRange
+import org.hisp.dhis.mobile.ui.designsystem.component.model.DateTimeVisualTransformation
+import org.hisp.dhis.mobile.ui.designsystem.component.model.DateTransformation
+import org.hisp.dhis.mobile.ui.designsystem.component.model.RegExValidations
 import org.hisp.dhis.mobile.ui.designsystem.component.state.InputDateTimeState
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2LightColorScheme
@@ -113,7 +112,8 @@ fun InputDateTime(
         uiModel.selectableDates.initialDate,
     ) + " - " +
         formatStringToDate(uiModel.selectableDates.endDate) + ")"
-    val incorrectHourFormatText = uiModel.incorrectHourFormatText ?: provideStringResource("wrong_hour_format")
+    val incorrectHourFormatText =
+        uiModel.incorrectHourFormatText ?: provideStringResource("wrong_hour_format")
     val incorrectHourFormatItem = SupportingTextData(
         text = incorrectHourFormatText,
         SupportingTextState.ERROR,
@@ -127,13 +127,25 @@ fun InputDateTime(
         SupportingTextState.ERROR,
     )
     val supportingTextList =
-        getSupportingTextList(uiModel, dateOutOfRangeItem, incorrectHourFormatItem, incorrectDateFormatItem)
+        getSupportingTextList(
+            uiModel,
+            dateOutOfRangeItem,
+            incorrectHourFormatItem,
+            incorrectDateFormatItem,
+        )
 
     InputShell(
         modifier = modifier.testTag("INPUT_DATE_TIME")
             .focusRequester(focusRequester),
         title = uiModel.title,
-        state = if (supportingTextList.contains(dateOutOfRangeItem) || supportingTextList.contains(incorrectDateFormatItem)) InputShellState.ERROR else uiModel.state,
+        state = if (supportingTextList.contains(dateOutOfRangeItem) || supportingTextList.contains(
+                incorrectDateFormatItem,
+            )
+        ) {
+            InputShellState.ERROR
+        } else {
+            uiModel.state
+        },
         isRequiredField = uiModel.isRequired,
         onFocusChanged = uiModel.onFocusChanged,
         inputField = {
@@ -142,7 +154,10 @@ fun InputDateTime(
                     modifier = Modifier
                         .testTag("INPUT_DATE_TIME_TEXT_FIELD")
                         .fillMaxWidth(),
-                    inputTextValue = TextFieldValue(uiModel.inputTextFieldValue?.text ?: "", TextRange(uiModel.inputTextFieldValue?.text?.length ?: 0)),
+                    inputTextValue = TextFieldValue(
+                        uiModel.inputTextFieldValue?.text ?: "",
+                        TextRange(uiModel.inputTextFieldValue?.text?.length ?: 0),
+                    ),
                     isSingleLine = true,
                     onInputChanged = { newText ->
                         if (newText.text.length > uiModel.visualTransformation.maskLength) {
@@ -155,7 +170,10 @@ fun InputDateTime(
                     },
                     enabled = uiModel.state != InputShellState.DISABLED,
                     state = uiModel.state,
-                    keyboardOptions = KeyboardOptions(imeAction = uiModel.imeAction, keyboardType = KeyboardType.Number),
+                    keyboardOptions = KeyboardOptions(
+                        imeAction = uiModel.imeAction,
+                        keyboardType = KeyboardType.Number,
+                    ),
                     visualTransformation = uiModel.visualTransformation,
                     onNextClicked = {
                         if (uiModel.onNextClicked != null) {
@@ -201,7 +219,8 @@ fun InputDateTime(
         primaryButton = {
             if (!uiModel.inputTextFieldValue?.text.isNullOrBlank() && uiModel.state != InputShellState.DISABLED) {
                 IconButton(
-                    modifier = Modifier.testTag("INPUT_DATE_TIME_RESET_BUTTON").padding(Spacing.Spacing0),
+                    modifier = Modifier.testTag("INPUT_DATE_TIME_RESET_BUTTON")
+                        .padding(Spacing.Spacing0),
                     icon = {
                         Icon(
                             imageVector = Icons.Outlined.Cancel,
@@ -283,7 +302,14 @@ fun InputDateTime(
                         showDatePicker = false
                         if (uiModel.actionType != DateTimeActionType.DATE_TIME) {
                             datePickerState.selectedDateMillis?.let {
-                                uiModel.onValueChanged(TextFieldValue(getDate(it, uiModel.format), selection = TextRange(uiModel.inputTextFieldValue?.text?.length ?: 0)))
+                                uiModel.onValueChanged(
+                                    TextFieldValue(
+                                        getDate(it, uiModel.format),
+                                        selection = TextRange(
+                                            uiModel.inputTextFieldValue?.text?.length ?: 0,
+                                        ),
+                                    ),
+                                )
                             }
                         } else {
                             showTimePicker = true
@@ -313,7 +339,10 @@ fun InputDateTime(
                         Text(
                             text = uiModel.title,
                             style = MaterialTheme.typography.bodyLarge,
-                            modifier = Modifier.padding(start = Spacing.Spacing24, top = Spacing.Spacing24),
+                            modifier = Modifier.padding(
+                                start = Spacing.Spacing24,
+                                top = Spacing.Spacing24,
+                            ),
                         )
                     },
                     state = datePickerState,
@@ -326,24 +355,45 @@ fun InputDateTime(
 
     if (showTimePicker) {
         var timePickerState = rememberTimePickerState(0, 0, is24Hour = uiModel.is24hourFormat)
-        if (!uiModel.inputTextFieldValue?.text.isNullOrEmpty() && uiModel.actionType == DateTimeActionType.TIME && isValidHourFormat(uiModel.inputTextFieldValue?.text ?: "")) {
+        if (!uiModel.inputTextFieldValue?.text.isNullOrEmpty() && uiModel.actionType == DateTimeActionType.TIME && isValidHourFormat(
+                uiModel.inputTextFieldValue?.text ?: "",
+            )
+        ) {
             timePickerState = rememberTimePickerState(
                 initialHour = uiModel.inputTextFieldValue?.text?.substring(0, 2)!!
                     .toInt(),
-                uiModel.inputTextFieldValue.text.substring(2, 4).toInt(), is24Hour = uiModel.is24hourFormat,
+                uiModel.inputTextFieldValue.text.substring(2, 4).toInt(),
+                is24Hour = uiModel.is24hourFormat,
             )
         } else {
-            if (uiModel.inputTextFieldValue?.text?.length == 12 && isValidHourFormat(uiModel.inputTextFieldValue.text.substring(8, 12))) {
+            if (uiModel.inputTextFieldValue?.text?.length == 12 && isValidHourFormat(
+                    uiModel.inputTextFieldValue.text.substring(
+                        8,
+                        12,
+                    ),
+                )
+            ) {
                 timePickerState = rememberTimePickerState(
-                    initialHour = uiModel.inputTextFieldValue.text.substring(uiModel.inputTextFieldValue.text.length - 4, uiModel.inputTextFieldValue.text.length - 2)
+                    initialHour = uiModel.inputTextFieldValue.text.substring(
+                        uiModel.inputTextFieldValue.text.length - 4,
+                        uiModel.inputTextFieldValue.text.length - 2,
+                    )
                         .toInt(),
-                    uiModel.inputTextFieldValue.text.substring(uiModel.inputTextFieldValue.text.length - 2, uiModel.inputTextFieldValue.text.length).toInt(), is24Hour = uiModel.is24hourFormat,
+                    uiModel.inputTextFieldValue.text.substring(
+                        uiModel.inputTextFieldValue.text.length - 2,
+                        uiModel.inputTextFieldValue.text.length,
+                    ).toInt(),
+                    is24Hour = uiModel.is24hourFormat,
                 )
             }
         }
         Dialog(
             onDismissRequest = { showDatePicker = false },
-            properties = DialogProperties(dismissOnBackPress = true, dismissOnClickOutside = true, usePlatformDefaultWidth = true),
+            properties = DialogProperties(
+                dismissOnBackPress = true,
+                dismissOnClickOutside = true,
+                usePlatformDefaultWidth = true,
+            ),
         ) {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -382,9 +432,25 @@ fun InputDateTime(
                     ) {
                         showTimePicker = false
                         if (uiModel.actionType != DateTimeActionType.DATE_TIME) {
-                            uiModel.onValueChanged(TextFieldValue(getTime(timePickerState), selection = TextRange(uiModel.inputTextFieldValue?.text?.length ?: 0)))
+                            uiModel.onValueChanged(
+                                TextFieldValue(
+                                    getTime(timePickerState),
+                                    selection = TextRange(
+                                        uiModel.inputTextFieldValue?.text?.length ?: 0,
+                                    ),
+                                ),
+                            )
                         } else {
-                            uiModel.onValueChanged(TextFieldValue(getDate(datePickerState.selectedDateMillis) + getTime(timePickerState), selection = TextRange(uiModel.inputTextFieldValue?.text?.length ?: 0)))
+                            uiModel.onValueChanged(
+                                TextFieldValue(
+                                    getDate(datePickerState.selectedDateMillis) + getTime(
+                                        timePickerState,
+                                    ),
+                                    selection = TextRange(
+                                        uiModel.inputTextFieldValue?.text?.length ?: 0,
+                                    ),
+                                ),
+                            )
                         }
                     }
                 }
@@ -393,11 +459,23 @@ fun InputDateTime(
     }
 }
 
-private fun getInputState(supportingTextList: List<SupportingTextData>, dateOutOfRangeItem: SupportingTextData, incorrectDateFormatItem: SupportingTextData, currentState: InputShellState): InputShellState {
-    return if (supportingTextList.contains(dateOutOfRangeItem) || supportingTextList.contains(incorrectDateFormatItem)) InputShellState.ERROR else currentState
+private fun getInputState(
+    supportingTextList: List<SupportingTextData>,
+    dateOutOfRangeItem: SupportingTextData,
+    incorrectDateFormatItem: SupportingTextData,
+    currentState: InputShellState,
+): InputShellState {
+    return if (supportingTextList.contains(dateOutOfRangeItem) || supportingTextList.contains(
+            incorrectDateFormatItem,
+        )
+    ) {
+        InputShellState.ERROR
+    } else {
+        currentState
+    }
 }
 
-fun getActionButtonIcon(actionType: DateTimeActionType): ImageVector {
+private fun getActionButtonIcon(actionType: DateTimeActionType): ImageVector {
     return when (actionType) {
         DateTimeActionType.DATE, DateTimeActionType.DATE_TIME -> Icons.Filled.Event
         DateTimeActionType.TIME -> Icons.Filled.Schedule
@@ -411,7 +489,7 @@ fun getActionButtonIcon(actionType: DateTimeActionType): ImageVector {
  * component uses Material 3 [DatePicker] and [TimePicker]
  * input formats supported are mentioned in the date time input ui model documentation.
  * [DatePicker] Input mode  will always follow locale format.
- * @param uiModel: an [InputDateTimeModel] with all the parameters for the input
+ * @param state: an [InputDateTimeState] with all the parameters for the input
  * @param modifier: optional modifier.
  */
 @OptIn(ExperimentalMaterial3Api::class)
@@ -426,7 +504,12 @@ fun InputDateTime(
 ) {
     val uiData = state.uiData
 
-    val uiValue = remember(state.inputTextFieldValue) { formatStoredDateToUI(state.inputTextFieldValue ?: TextFieldValue(), uiData.actionType) }
+    val uiValue = remember(state.inputTextFieldValue) {
+        formatStoredDateToUI(
+            state.inputTextFieldValue ?: TextFieldValue(),
+            uiData.actionType,
+        )
+    }
     val focusManager = LocalFocusManager.current
     val focusRequester = remember { FocusRequester() }
     var showDatePicker by rememberSaveable { mutableStateOf(false) }
@@ -437,7 +520,8 @@ fun InputDateTime(
         uiData.selectableDates.initialDate,
     ) + " - " +
         formatStringToDate(uiData.selectableDates.endDate) + ")"
-    val incorrectHourFormatTextdd = uiData.incorrectHourFormatText ?: provideStringResource("wrong_hour_format")
+    val incorrectHourFormatTextdd =
+        uiData.incorrectHourFormatText ?: provideStringResource("wrong_hour_format")
     val incorrectHourFormatItem = SupportingTextData(
         text = incorrectHourFormatTextdd,
         SupportingTextState.ERROR,
@@ -451,13 +535,25 @@ fun InputDateTime(
         SupportingTextState.ERROR,
     )
     val supportingTextList =
-        getSupportingTextList(state, uiValue, uiData, dateOutOfRangeItem, incorrectHourFormatItem, incorrectDateFormatItem)
+        getSupportingTextList(
+            state,
+            uiValue,
+            uiData,
+            dateOutOfRangeItem,
+            incorrectHourFormatItem,
+            incorrectDateFormatItem,
+        )
 
     InputShell(
         modifier = modifier.testTag("INPUT_DATE_TIME")
             .focusRequester(focusRequester),
         title = uiData.title,
-        state = getInputState(supportingTextList, dateOutOfRangeItem, incorrectDateFormatItem, state.inputState),
+        state = getInputState(
+            supportingTextList,
+            dateOutOfRangeItem,
+            incorrectDateFormatItem,
+            state.inputState,
+        ),
         isRequiredField = uiData.isRequired,
         onFocusChanged = onFocusChanged,
         inputField = {
@@ -477,7 +573,10 @@ fun InputDateTime(
                     },
                     enabled = state.inputState != InputShellState.DISABLED,
                     state = state.inputState,
-                    keyboardOptions = KeyboardOptions(imeAction = uiData.imeAction, keyboardType = KeyboardType.Number),
+                    keyboardOptions = KeyboardOptions(
+                        imeAction = uiData.imeAction,
+                        keyboardType = KeyboardType.Number,
+                    ),
                     visualTransformation = uiData.visualTransformation,
                     onNextClicked = {
                         manageOnNext(focusManager, onNextClicked)
@@ -578,7 +677,14 @@ fun InputDateTime(
                         showDatePicker = false
                         if (uiData.actionType != DateTimeActionType.DATE_TIME) {
                             datePickerState.selectedDateMillis?.let {
-                                onValueChanged(TextFieldValue(getDate(it), selection = TextRange(state.inputTextFieldValue?.text?.length ?: 0)))
+                                onValueChanged(
+                                    TextFieldValue(
+                                        getDate(it),
+                                        selection = TextRange(
+                                            state.inputTextFieldValue?.text?.length ?: 0,
+                                        ),
+                                    ),
+                                )
                             }
                         } else {
                             showTimePicker = true
@@ -608,7 +714,10 @@ fun InputDateTime(
                         Text(
                             text = uiData.title,
                             style = MaterialTheme.typography.bodyLarge,
-                            modifier = Modifier.padding(start = Spacing.Spacing24, top = Spacing.Spacing24),
+                            modifier = Modifier.padding(
+                                start = Spacing.Spacing24,
+                                top = Spacing.Spacing24,
+                            ),
                         )
                     },
                     state = datePickerState,
@@ -624,7 +733,11 @@ fun InputDateTime(
 
         Dialog(
             onDismissRequest = { showDatePicker = false },
-            properties = DialogProperties(dismissOnBackPress = true, dismissOnClickOutside = true, usePlatformDefaultWidth = true),
+            properties = DialogProperties(
+                dismissOnBackPress = true,
+                dismissOnClickOutside = true,
+                usePlatformDefaultWidth = true,
+            ),
         ) {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -662,7 +775,17 @@ fun InputDateTime(
                         uiData.acceptText ?: provideStringResource("ok"),
                     ) {
                         showTimePicker = false
-                        manageOnValueChangedFromDateTimePicker(convertStringToTextFieldValue(getTime(timePickerState)), onValueChanged, uiData.actionType, datePickerState, timePickerState)
+                        manageOnValueChangedFromDateTimePicker(
+                            convertStringToTextFieldValue(
+                                getTime(
+                                    timePickerState,
+                                ),
+                            ),
+                            onValueChanged,
+                            uiData.actionType,
+                            datePickerState,
+                            timePickerState,
+                        )
                     }
                 }
             }
@@ -671,7 +794,11 @@ fun InputDateTime(
 }
 
 @Composable
-fun InputDateResetButton(state: InputDateTimeState, onValueChanged: (TextFieldValue?) -> Unit, focusRequester: FocusRequester) {
+fun InputDateResetButton(
+    state: InputDateTimeState,
+    onValueChanged: (TextFieldValue?) -> Unit,
+    focusRequester: FocusRequester,
+) {
     if (!state.inputTextFieldValue?.text.isNullOrBlank() && state.inputState != InputShellState.DISABLED) {
         IconButton(
             modifier = Modifier.testTag("INPUT_DATE_TIME_RESET_BUTTON").padding(Spacing.Spacing0),
@@ -705,7 +832,11 @@ fun manageOnNext(focusManager: FocusManager, onNextClicked: (() -> Unit)?) {
     }
 }
 
-private fun manageOnValueChanged(newText: TextFieldValue, onValueChanged: (TextFieldValue?) -> Unit, actionType: DateTimeActionType) {
+private fun manageOnValueChanged(
+    newText: TextFieldValue,
+    onValueChanged: (TextFieldValue?) -> Unit,
+    actionType: DateTimeActionType,
+) {
     val allowedCharacters = RegExValidations.DATE_TIME.regex
     if (allowedCharacters.containsMatchIn(newText.text) || newText.text.isBlank()) {
         onValueChanged.invoke(formatUIDateToStored(newText, actionType))
@@ -713,19 +844,40 @@ private fun manageOnValueChanged(newText: TextFieldValue, onValueChanged: (TextF
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
-private fun manageOnValueChangedFromDateTimePicker(newValue: TextFieldValue?, onValueChanged: (TextFieldValue?) -> Unit, actionType: DateTimeActionType, datePickerState: DatePickerState, timePickerState: TimePickerState) {
+private fun manageOnValueChangedFromDateTimePicker(
+    newValue: TextFieldValue?,
+    onValueChanged: (TextFieldValue?) -> Unit,
+    actionType: DateTimeActionType,
+    datePickerState: DatePickerState,
+    timePickerState: TimePickerState,
+) {
     if (actionType != DateTimeActionType.DATE_TIME) {
-        onValueChanged(TextFieldValue(getTime(timePickerState), selection = TextRange(newValue?.text?.length ?: 0)))
+        onValueChanged(
+            TextFieldValue(
+                getTime(timePickerState),
+                selection = TextRange(newValue?.text?.length ?: 0),
+            ),
+        )
     } else {
-        onValueChanged(TextFieldValue(getDate(datePickerState.selectedDateMillis) + getTime(timePickerState), selection = TextRange(newValue?.text?.length ?: 0)))
+        onValueChanged(
+            TextFieldValue(
+                getDate(datePickerState.selectedDateMillis) + getTime(
+                    timePickerState,
+                ),
+                selection = TextRange(newValue?.text?.length ?: 0),
+            ),
+        )
     }
 }
 
 @Suppress("deprecation")
-@Deprecated("This function is deprecated and will be removed in the next release.", replaceWith = ReplaceWith("provideDatePickerState(state: InputDateTimeState, data: InputDateTimeData)"))
+@Deprecated(
+    "This function is deprecated and will be removed in the next release.",
+    replaceWith = ReplaceWith("provideDatePickerState(state: InputDateTimeState, data: InputDateTimeData)"),
+)
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-internal fun provideDatePickerState(uiModel: InputDateTimeModel): DatePickerState {
+private fun provideDatePickerState(uiModel: InputDateTimeModel): DatePickerState {
     return uiModel.inputTextFieldValue?.text?.takeIf {
         it.isNotEmpty() &&
             yearIsInRange(it, getDefaultFormat(uiModel.actionType), uiModel.yearRange)
@@ -754,8 +906,11 @@ fun datePickerColors(): DatePickerColors {
     )
 }
 
-@Deprecated("This function is deprecated and will be removed in the near future", replaceWith = ReplaceWith("parseStringDateToMillis(dateString: String, pattern: String)"))
-fun parseStringDateToMillis(dateString: String, pattern: String = "ddMMyyyy"): Long {
+@Deprecated(
+    "This function is deprecated and will be removed in the near future",
+    replaceWith = ReplaceWith("parseStringDateToMillis(dateString: String, pattern: String)"),
+)
+private fun parseStringDateToMillis(dateString: String, pattern: String = "ddMMyyyy"): Long {
     val cal = Calendar.getInstance()
     return dateString.parseDate(pattern)?.let {
         cal.time = it
@@ -794,7 +949,10 @@ internal fun getDate(milliSeconds: Long?, format: String? = "ddMMyyyy"): String 
 
 fun formatStringToDate(dateString: String): String {
     return if (dateString.length == 8) {
-        dateString.substring(0, 2) + "/" + dateString.substring(2, 4) + "/" + dateString.substring(4, 8)
+        dateString.substring(0, 2) + "/" + dateString.substring(
+            2,
+            4,
+        ) + "/" + dateString.substring(4, 8)
     } else {
         dateString
     }

@@ -35,14 +35,15 @@ import org.hisp.dhis.mobile.ui.designsystem.component.AgeInputType.Age
 import org.hisp.dhis.mobile.ui.designsystem.component.AgeInputType.DateOfBirth
 import org.hisp.dhis.mobile.ui.designsystem.component.AgeInputType.None
 import org.hisp.dhis.mobile.ui.designsystem.component.TimeUnitValues.YEARS
-import org.hisp.dhis.mobile.ui.designsystem.component.internal.DateTransformation.Companion.DATE_MASK
-import org.hisp.dhis.mobile.ui.designsystem.component.internal.RegExValidations
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.dateIsInRange
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.formatStoredDateToUI
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.formatUIDateToStored
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.getDateSupportingText
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.getSelectableDates
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.isValidDate
+import org.hisp.dhis.mobile.ui.designsystem.component.internal.parseStringDateToMillis
+import org.hisp.dhis.mobile.ui.designsystem.component.model.DateTransformation.Companion.DATE_MASK
+import org.hisp.dhis.mobile.ui.designsystem.component.model.RegExValidations
 import org.hisp.dhis.mobile.ui.designsystem.component.state.InputAgeState
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2LightColorScheme

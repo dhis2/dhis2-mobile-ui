@@ -1,4 +1,4 @@
-package org.hisp.dhis.mobile.ui.designsystem.component.internal
+package org.hisp.dhis.mobile.ui.designsystem.component
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.ColumnScope
