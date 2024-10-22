@@ -1,6 +1,4 @@
 import sys
-
-import sys
 import re
 
 def update_version_in_gradle(file_path, new_version):
