@@ -7,7 +7,7 @@ on:
   push:
     branches:
       - develop # Automatically generates snapshot versions
-
+      - release/* # Automatically generates release versions
   workflow_dispatch: ## manually generates release versions
     inputs:
       release_version:
@@ -20,22 +20,19 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
       - name: Set Up JDK
         uses: actions/setup-java@v3
         with:
-          distribution: 'zulu' # See 'Supported distributions' for available options
+          distribution: 'zulu'
           java-version: '17'
           cache: 'gradle'
 
       - name: Change wrapper permissions
         run: chmod +x ./gradlew
 
-      # Create publish to maven
       - name: Publish to maven
         run: ./.github/workflows/scripts/publish-maven.sh
         env:
