@@ -35,6 +35,8 @@ import androidx.compose.ui.input.key.KeyEventType
 import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.onKeyEvent
 import androidx.compose.ui.input.key.type
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
@@ -56,6 +58,8 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
  * @param onQueryChange: on query change callback.
  * @param state: input shell state.
  * @param modifier: optional modifier.
+ * @param leadingIcon: optional leading icon to display.
+ * @param focusRequester: optional focus requester.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -67,10 +71,14 @@ fun SearchBar(
     onQueryChange: (String) -> Unit = {},
     state: InputShellState = InputShellState.FOCUSED,
     modifier: Modifier = Modifier,
+    leadingIcon: @Composable (() -> Unit)? = null,
+    focusRequester: FocusRequester = remember { FocusRequester() },
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     val isPressed by interactionSource.collectIsPressedAsState()
-    val focusRequester = remember { FocusRequester() }
+    val keyboardController = LocalSoftwareKeyboardController.current
+    val focusManager = LocalFocusManager.current
+
     val containerColor = if (!isPressed) {
         SurfaceColor.ContainerLow
     } else {
@@ -111,14 +119,18 @@ fun SearchBar(
                     false
                 }
             }
-            .padding(end = Spacing.Spacing4)
+            .padding(horizontal = Spacing.Spacing4)
             .semantics {
                 contentDescription = "Search"
             },
         enabled = true,
         singleLine = true,
         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
-        keyboardActions = KeyboardActions(onSearch = { onSearch(text) }),
+        keyboardActions = KeyboardActions(onSearch = {
+            keyboardController?.hide()
+            focusManager.clearFocus()
+            onSearch(text)
+        }),
         interactionSource = interactionSource,
         textStyle = MaterialTheme.typography.bodyLarge,
         decorationBox = @Composable { innerTextField ->
@@ -135,6 +147,7 @@ fun SearchBar(
                         color = TextColor.OnDisabledSurface,
                     )
                 },
+                leadingIcon = leadingIcon,
                 trailingIcon = {
                     if (text != "") {
                         IconButton(

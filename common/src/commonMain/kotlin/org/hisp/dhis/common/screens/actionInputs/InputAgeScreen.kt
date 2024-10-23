@@ -11,10 +11,11 @@ import org.hisp.dhis.mobile.ui.designsystem.component.AgeInputType
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InputAge
-import org.hisp.dhis.mobile.ui.designsystem.component.InputAgeModel
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.LegendData
 import org.hisp.dhis.mobile.ui.designsystem.component.TimeUnitValues
+import org.hisp.dhis.mobile.ui.designsystem.component.state.InputAgeData
+import org.hisp.dhis.mobile.ui.designsystem.component.state.rememberInputAgeState
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 
 @Composable
@@ -24,100 +25,108 @@ fun InputAgeScreen() {
 
         ColumnComponentContainer("Input Age Component - Idle") {
             InputAge(
-                InputAgeModel(
-                    title = "Label",
+                state = rememberInputAgeState(
+                    inputAgeData = InputAgeData(
+                        title = "Label",
+                    ),
                     inputType = inputType,
-                    onValueChanged = { newInputType ->
-                        inputType = newInputType
-                    },
                 ),
+                onValueChanged = { newInputType ->
+                    inputType = newInputType ?: AgeInputType.None
+                },
             )
         }
 
         ColumnComponentContainer("Input Age Component - Idle Disabled") {
             InputAge(
-                InputAgeModel(
-                    title = "Label",
-                    inputType = AgeInputType.None,
-                    state = InputShellState.DISABLED,
-                    onValueChanged = { newInputType ->
-                        inputType = newInputType
-                    },
+                state = rememberInputAgeState(
+                    inputAgeData = InputAgeData(
+                        title = "Label",
+                    ),
+                    inputState = InputShellState.DISABLED,
                 ),
+                onValueChanged = { newInputType ->
+                    inputType = newInputType ?: AgeInputType.None
+                },
             )
         }
 
         ColumnComponentContainer("Input Age Component - Date Of Birth") {
             InputAge(
-                InputAgeModel(
-                    title = "Label",
+                state = rememberInputAgeState(
+                    inputAgeData = InputAgeData(
+                        title = "Label",
+                    ),
                     inputType = AgeInputType.DateOfBirth(TextFieldValue("01011985")),
-                    state = InputShellState.DISABLED,
-
-                    onValueChanged = { newInputType ->
-                        inputType = newInputType
-                    },
+                    inputState = InputShellState.DISABLED,
                 ),
+                onValueChanged = { newInputType ->
+                    inputType = newInputType ?: AgeInputType.None
+                },
             )
         }
 
         ColumnComponentContainer("Input Age Component - Date Of Birth Required Error") {
             InputAge(
-                InputAgeModel(
-                    title = "Label",
+                state = rememberInputAgeState(
+                    inputAgeData = InputAgeData(
+                        title = "Label",
+                        isRequired = true,
+                    ),
                     inputType = AgeInputType.DateOfBirth(TextFieldValue("010")),
-                    state = InputShellState.ERROR,
-                    isRequired = true,
-
-                    onValueChanged = {
-                        // no-op
-                    },
+                    inputState = InputShellState.ERROR,
                 ),
+                onValueChanged = {
+                    // no-op
+                },
             )
         }
 
         ColumnComponentContainer("Input Age Component - Age Disabled") {
             InputAge(
-                InputAgeModel(
-                    title = "Label",
+                state = rememberInputAgeState(
+                    inputAgeData = InputAgeData(
+                        title = "Label",
+                    ),
                     inputType = AgeInputType.Age(value = TextFieldValue("56"), unit = TimeUnitValues.YEARS),
-                    state = InputShellState.DISABLED,
-
-                    onValueChanged = { newInputType ->
-                        inputType = newInputType
-                    },
+                    inputState = InputShellState.DISABLED,
                 ),
+                onValueChanged = { newInputType ->
+                    inputType = newInputType ?: AgeInputType.None
+                },
             )
         }
 
         ColumnComponentContainer("Input Age Component - Age Required Error") {
             InputAge(
-                InputAgeModel(
-                    title = "Label",
+                state = rememberInputAgeState(
+                    inputAgeData = InputAgeData(
+                        title = "Label",
+                        isRequired = true,
+                    ),
                     inputType = AgeInputType.Age(value = TextFieldValue("56"), unit = TimeUnitValues.YEARS),
-                    state = InputShellState.ERROR,
-                    isRequired = true,
-
-                    onValueChanged = {
-                        // no-op
-                    },
+                    inputState = InputShellState.ERROR,
                 ),
+                onValueChanged = {
+                    // no-op
+                },
             )
         }
 
         ColumnComponentContainer("Input Age Component - Legend") {
             InputAge(
-                InputAgeModel(
-                    title = "Label",
+                state = rememberInputAgeState(
+                    inputAgeData = InputAgeData(
+                        title = "Label",
+                        isRequired = true,
+                    ),
                     inputType = AgeInputType.Age(value = TextFieldValue("56"), unit = TimeUnitValues.YEARS),
-                    state = InputShellState.ERROR,
-                    isRequired = true,
-
-                    onValueChanged = {
-                        // no-op
-                    },
+                    inputState = InputShellState.ERROR,
                     legendData = LegendData(SurfaceColor.CustomGreen, "Legend", popUpLegendDescriptionData = regularLegendList),
                 ),
+                onValueChanged = {
+                    // no-op
+                },
             )
         }
     }

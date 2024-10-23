@@ -6,6 +6,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.unit.Dp
 import org.hisp.dhis.mobile.ui.designsystem.component.ListCardDescriptionModel
 import org.hisp.dhis.mobile.ui.designsystem.component.ListCardTitleModel
+import org.hisp.dhis.mobile.ui.designsystem.component.SelectionState
 
 @Stable
 interface ListCardState {
@@ -17,6 +18,7 @@ interface ListCardState {
     val shadow: Boolean
     val expandable: Boolean
     val itemVerticalPadding: Dp?
+    val selectionState: SelectionState
 
     fun descriptionBasedOnLoading() = description?.takeIf { !loading }
     fun lastUpdateBasedOnLoading() = lastUpdated?.takeIf { !loading }
@@ -32,6 +34,7 @@ internal class ListCardStateImpl(
     override val shadow: Boolean,
     override val expandable: Boolean,
     override val itemVerticalPadding: Dp?,
+    override val selectionState: SelectionState,
 ) : ListCardState
 
 @Composable
@@ -44,12 +47,14 @@ fun rememberListCardState(
     shadow: Boolean = true,
     expandable: Boolean = false,
     itemVerticalPadding: Dp? = null,
+    selectionState: SelectionState = SelectionState.NONE,
 ): ListCardState = remember(
     description,
     itemVerticalPadding,
     loading,
     additionalInfoColumnState,
     lastUpdated,
+    selectionState,
 ) {
     ListCardStateImpl(
         title,
@@ -60,5 +65,6 @@ fun rememberListCardState(
         shadow,
         expandable,
         itemVerticalPadding,
+        selectionState,
     )
 }

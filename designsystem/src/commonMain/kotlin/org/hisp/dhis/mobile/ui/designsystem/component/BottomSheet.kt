@@ -1,5 +1,6 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.ScrollableState
@@ -117,7 +118,7 @@ fun BottomSheetHeader(
                 text = description,
                 style = MaterialTheme.typography.bodyMedium,
                 color = TextColor.OnSurfaceLight,
-                textAlign = headerTextAlignment,
+                textAlign = TextAlign.Start,
             )
         }
     }
@@ -165,6 +166,7 @@ fun BottomSheetShell(
     headerTextAlignment: TextAlign = TextAlign.Center,
     scrollableContainerMinHeight: Dp = Spacing0,
     scrollableContainerMaxHeight: Dp = InternalSizeValues.Size386,
+    animateHeaderOnKeyboardAppearance: Boolean = true,
     onSearchQueryChanged: ((String) -> Unit)? = null,
     onSearch: ((String) -> Unit)? = null,
     onDismiss: () -> Unit,
@@ -174,7 +176,15 @@ fun BottomSheetShell(
     val keyboardState by keyboardAsState()
 
     var isKeyboardOpen by remember { mutableStateOf(false) }
-    val showHeader by remember { derivedStateOf { !title.isNullOrBlank() && !isKeyboardOpen } }
+    val showHeader by remember {
+        derivedStateOf {
+            if (animateHeaderOnKeyboardAppearance) {
+                !title.isNullOrBlank() && !isKeyboardOpen
+            } else {
+                !title.isNullOrBlank()
+            }
+        }
+    }
 
     LaunchedEffect(keyboardState) {
         isKeyboardOpen = keyboardState == Keyboard.Opened
@@ -222,7 +232,9 @@ fun BottomSheetShell(
             ) {
                 val hasSearch =
                     searchQuery != null && onSearchQueryChanged != null && onSearch != null
-                if (showHeader) {
+                AnimatedVisibility(
+                    visible = showHeader,
+                ) {
                     BottomSheetHeader(
                         title = title!!,
                         subTitle = subtitle,

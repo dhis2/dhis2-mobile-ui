@@ -94,6 +94,7 @@ fun ListCard(
     actionButton: @Composable (() -> Unit)? = null,
     onCardClick: () -> Unit,
     onSizeChanged: ((IntSize) -> Unit)? = null,
+    onCardSelected: ((SelectionState) -> Unit)? = null,
 ) {
     BaseCard(
         modifier = modifier,
@@ -102,6 +103,10 @@ fun ListCard(
         expandable = listCardState.expandable,
         itemVerticalPadding = listCardState.itemVerticalPadding,
         onSizeChanged = onSizeChanged,
+        selectionMode = listCardState.selectionState,
+        onCardSelected = {
+            onCardSelected?.invoke(listCardState.selectionState.changeState())
+        },
         paddingValues = getPaddingValues(
             expandable = listCardState.expandable,
             hasShadow = listCardState.shadow,
@@ -109,7 +114,12 @@ fun ListCard(
         ),
     ) {
         Row(horizontalArrangement = spacedBy(Spacing.Spacing16)) {
-            listAvatar?.invoke()
+            when (listCardState.selectionState) {
+                SelectionState.SELECTABLE -> UnselectedItemIcon()
+                SelectionState.SELECTED -> SelectedItemIcon()
+                SelectionState.NONE -> listAvatar?.invoke()
+            }
+
             Column(Modifier.fillMaxWidth().weight(1f)) {
                 Row(horizontalArrangement = Arrangement.SpaceBetween) {
                     ListCardTitle(
@@ -119,7 +129,9 @@ fun ListCard(
                     )
                     listCardState.lastUpdateBasedOnLoading()?.let { ListCardLastUpdated(it) }
                 }
-                listCardState.descriptionBasedOnLoading()?.let { ListCardDescription(it, Modifier) }
+                listCardState.descriptionBasedOnLoading()?.let {
+                    ListCardDescription(it, Modifier.padding(bottom = Spacing.Spacing8))
+                }
 
                 AdditionalInfoColumn(
                     additionalInfoColumnState = listCardState.additionalInfoColumnState,
@@ -245,6 +257,8 @@ fun VerticalInfoListCard(
         ),
         expandable = listCardState.expandable,
         itemVerticalPadding = listCardState.itemVerticalPadding,
+        selectionMode = SelectionState.NONE,
+        onCardSelected = {},
         onSizeChanged = onSizeChanged,
     ) {
         Column(
@@ -256,7 +270,7 @@ fun VerticalInfoListCard(
             Column(
                 modifier = Modifier.wrapContentHeight(),
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = spacedBy(Spacing.Spacing4),
+                verticalArrangement = spacedBy(Spacing4),
             ) {
                 ListCardTitle(
                     title = listCardState.title,
@@ -264,7 +278,7 @@ fun VerticalInfoListCard(
                         .padding(bottom = if (listCardState.description?.text != null) Spacing.Spacing0 else Spacing4),
                 )
                 listCardState.descriptionBasedOnLoading()?.let {
-                    ListCardDescription(it, Modifier)
+                    ListCardDescription(it)
                 }
                 listCardState.lastUpdateBasedOnLoading()?.let {
                     ListCardLastUpdated(it)
@@ -673,8 +687,14 @@ fun ProvideKeyValueItem(
             text = finalAnnotatedString,
             textAlign = TextAlign.Start,
             style = MaterialTheme.typography.bodyMedium,
-            overflow = TextOverflow.Ellipsis,
-            maxLines = 2,
+            overflow = when {
+                additionalInfoItem.truncate -> TextOverflow.Ellipsis
+                else -> TextOverflow.Clip
+            },
+            maxLines = when {
+                additionalInfoItem.truncate -> 2
+                else -> Int.MAX_VALUE
+            },
             modifier = Modifier,
 
         )
@@ -811,6 +831,7 @@ data class AdditionalInfoItem(
     val value: String,
     val isConstantItem: Boolean = false,
     val color: Color? = null,
+    val truncate: Boolean = true,
     val action: (() -> Unit)? = null,
 )
 

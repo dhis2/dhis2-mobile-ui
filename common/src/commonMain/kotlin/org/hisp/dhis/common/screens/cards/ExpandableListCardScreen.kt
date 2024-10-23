@@ -8,7 +8,7 @@ import androidx.compose.material.icons.outlined.SyncDisabled
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import org.hisp.dhis.common.screens.previews.lorem_medium
+import org.hisp.dhis.common.screens.previews.lorem
 import org.hisp.dhis.mobile.ui.designsystem.component.AdditionalInfoItem
 import org.hisp.dhis.mobile.ui.designsystem.component.Avatar
 import org.hisp.dhis.mobile.ui.designsystem.component.AvatarStyleData
@@ -51,8 +51,9 @@ fun ExpandableListCardScreen() {
             }
             add(
                 AdditionalInfoItem(
-                    value = lorem_medium,
+                    value = lorem,
                     color = TextColor.OnSurfaceLight,
+                    truncate = false,
                 ),
             )
         }
