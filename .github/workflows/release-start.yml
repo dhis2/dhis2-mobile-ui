@@ -42,7 +42,7 @@ jobs:
         run: git checkout -b release/${{ inputs.release_version_name }}
 
       - name: Run Python script to update release branch version
-        run: python scripts/updateVersionName.py ${{ inputs.release_version_name }}
+        run: python .github/workflows/scripts/updateVersionName.py ${{ inputs.release_version_name }}
 
       - name: Push
         run: |
@@ -73,7 +73,7 @@ jobs:
         run: git checkout -b update_version_to${{ inputs.development_version_name }}
 
       - name: Run Python script to update base branch version
-        run: python scripts/updateVersionName.py ${{ inputs.development_version_name }}
+        run: python .github/workflows/scripts/updateVersionName.py ${{ inputs.development_version_name }}
 
       - name: Commit and Push Changes
         run: |
