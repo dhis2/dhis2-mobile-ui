@@ -46,4 +46,5 @@
     <string name="select_in_map">Select in map</string>
     <string name="no_recent_results">No recent results</string>
     <string name="no_results">No results</string>
+    <string name="searching_location">Searching...</string>
 </resources>
