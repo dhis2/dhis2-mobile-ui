@@ -66,6 +66,11 @@ enum class SearchBarMode {
     SEARCH,
 }
 
+/**
+ * DHIS2 Location Bar search actions
+ * Default: The user will need to select a result to mark it as selected
+ * OnOneItemSelect: If only one item is available, it will be selected automatically
+ * */
 enum class OnSearchAction {
     Default,
     OnOneItemSelect,
@@ -75,6 +80,8 @@ enum class OnSearchAction {
  * DHIS2 Location Bar.
  * @param currentResults: the available location items to display before/after search.
  * @param mode: the initial mode for the composable.
+ * @param searchAction: How the search result selection is carried out.
+ * @param searching: whether the search is currently in progress.
  * @param onBackClicked: callback for when the back button is clicked.
  * @param onClearLocation: callback for when the clear location button is clicked.
  * @param onSearchLocation: callback for when the search location button is clicked.
@@ -86,6 +93,7 @@ fun LocationBar(
     currentResults: List<LocationItemModel>,
     mode: SearchBarMode = SearchBarMode.BUTTON,
     searchAction: OnSearchAction = OnSearchAction.Default,
+    searching: Boolean,
     onBackClicked: () -> Unit,
     onClearLocation: () -> Unit,
     onSearchLocation: (query: String) -> Unit,
@@ -129,6 +137,7 @@ fun LocationBar(
         SearchBarMode.SEARCH -> LocationSearchBar(
             currentSearch = currentSearch,
             currentResults = currentResults,
+            activeSearching = searching,
             onSearchChanged = {
                 currentSearch = it
                 onSearchLocation(currentSearch)
@@ -212,6 +221,7 @@ private fun LocationSearchBarButton(
 private fun LocationSearchBar(
     currentSearch: String = "",
     currentResults: List<LocationItemModel>,
+    activeSearching: Boolean,
     onSearchChanged: (String) -> Unit,
     onSearch: (String) -> Unit,
     onBackClicked: () -> Unit,
@@ -221,6 +231,7 @@ private fun LocationSearchBar(
     val focusRequester = remember { FocusRequester() }
     val keyboardController = LocalSoftwareKeyboardController.current
     var needsToFocus by remember { mutableStateOf(true) }
+    var searching by remember(currentSearch) { mutableStateOf(false) }
 
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -259,6 +270,11 @@ private fun LocationSearchBar(
 
         LazyColumn(modifier = Modifier.fillMaxWidth(), state = scrollState) {
             when {
+                activeSearching ->
+                    item {
+                        SearchProgressMessage()
+                    }
+
                 currentResults.isNotEmpty() ->
                     itemsIndexed(items = currentResults) { index, locationItemModel ->
                         SearchResultLocationItem(
@@ -424,6 +440,27 @@ private fun NoResultsMessage(isSearching: Boolean) {
             tint = SurfaceColor.ContainerHighest,
             contentDescription = "Travel explore",
         )
+        Text(
+            text = message,
+            style = MaterialTheme.typography.bodyLarge,
+            color = TextColor.OnSurfaceVariant,
+        )
+    }
+}
+
+@Composable
+private fun SearchProgressMessage() {
+    val message = provideStringResource("searching_location")
+
+    Column(
+        modifier = Modifier
+            .testTag("SEARCHING_LOCATION")
+            .fillMaxWidth()
+            .padding(vertical = 64.dp),
+        verticalArrangement = spacedBy(16.dp),
+        horizontalAlignment = CenterHorizontally,
+    ) {
+        ProgressIndicator(type = ProgressIndicatorType.CIRCULAR)
         Text(
             text = message,
             style = MaterialTheme.typography.bodyLarge,
