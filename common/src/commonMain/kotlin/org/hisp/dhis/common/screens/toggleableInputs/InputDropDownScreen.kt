@@ -30,64 +30,85 @@ fun InputDropDownScreen() {
         )
         var selectedItem by remember { mutableStateOf<DropdownItem?>(null) }
 
-        ColumnComponentContainer("Basic Input Dropdown with < 7 inputs") {
+        ColumnComponentContainer("Basic Input Dropdown") {
             InputDropDown(
                 title = "Label",
                 state = InputShellState.UNFOCUSED,
-                dropdownItems = options.take(6),
+                itemCount = options.size,
+                onSearchOption = {},
+                fetchItem = { index -> options[index] },
                 onResetButtonClicked = {
                     selectedItem = null
                 },
-                onItemSelected = {
-                    selectedItem = it
+                onItemSelected = { _, item ->
+                    selectedItem = item
                 },
                 selectedItem = selectedItem,
+                loadOptions = {
+                    /*no-op*/
+                },
             )
 
             InputDropDown(
                 title = "Label - With supporting text",
                 state = InputShellState.UNFOCUSED,
-                dropdownItems = options.take(6),
+                itemCount = options.size,
+                onSearchOption = {},
+                fetchItem = { index -> options[index] },
                 onResetButtonClicked = {
                     selectedItem = null
                 },
-                onItemSelected = {
-                    selectedItem = it
+                onItemSelected = { _, item ->
+                    selectedItem = item
                 },
                 selectedItem = selectedItem,
                 supportingTextData = listOf(
                     SupportingTextData(text = "Options"),
                 ),
+                loadOptions = {
+                    /*no-op*/
+                },
             )
 
             InputDropDown(
                 title = "Label - Parameter Style",
                 inputStyle = InputStyle.ParameterInputStyle(),
                 state = InputShellState.UNFOCUSED,
-                dropdownItems = options.take(6),
+                itemCount = options.size,
+                onSearchOption = {},
+                fetchItem = { index -> options[index] },
                 onResetButtonClicked = {
                     selectedItem = null
                 },
-                onItemSelected = {
-                    selectedItem = it
+                onItemSelected = { _, item ->
+                    selectedItem = item
                 },
                 selectedItem = selectedItem,
+                loadOptions = {
+                    /*no-op*/
+                },
             )
         }
 
-        ColumnComponentContainer("Basic Input Dropdown with >= 7 inputs") {
+        ColumnComponentContainer("Basic Input Dropdown for large set") {
             var selectedItem4 by remember { mutableStateOf<DropdownItem?>(null) }
             InputDropDown(
                 title = "Label",
                 state = InputShellState.UNFOCUSED,
-                dropdownItems = options,
+                itemCount = options.size,
+                onSearchOption = {},
+                fetchItem = { index -> options[index] },
+                useDropDown = false,
                 onResetButtonClicked = {
                     selectedItem4 = null
                 },
-                onItemSelected = {
-                    selectedItem4 = it
+                onItemSelected = { _, item ->
+                    selectedItem4 = item
                 },
                 selectedItem = selectedItem4,
+                loadOptions = {
+                    /*no-op*/
+                },
             )
         }
 
@@ -96,14 +117,20 @@ fun InputDropDownScreen() {
             InputDropDown(
                 title = "Label",
                 state = InputShellState.UNFOCUSED,
-                dropdownItems = options,
+                itemCount = options.size,
+                onSearchOption = {},
+                fetchItem = { index -> options[index] },
+                useDropDown = false,
                 onResetButtonClicked = {
                     selectedItem1 = null
                 },
-                onItemSelected = {
-                    selectedItem1 = it
+                onItemSelected = { _, item ->
+                    selectedItem1 = item
                 },
                 selectedItem = selectedItem1,
+                loadOptions = {
+                    /*no-op*/
+                },
             )
         }
 
@@ -112,14 +139,20 @@ fun InputDropDownScreen() {
             InputDropDown(
                 title = "Label",
                 state = InputShellState.ERROR,
-                dropdownItems = options,
+                itemCount = options.size,
+                onSearchOption = {},
+                fetchItem = { index -> options[index] },
+                useDropDown = false,
                 onResetButtonClicked = {
                     selectedItem2 = null
                 },
-                onItemSelected = {
-                    selectedItem2 = it
+                onItemSelected = { _, item ->
+                    selectedItem2 = item
                 },
                 selectedItem = selectedItem2,
+                loadOptions = {
+                    /*no-op*/
+                },
             )
         }
 
@@ -128,14 +161,20 @@ fun InputDropDownScreen() {
             InputDropDown(
                 title = "Label",
                 state = InputShellState.DISABLED,
-                dropdownItems = options,
+                itemCount = options.size,
+                onSearchOption = {},
+                fetchItem = { index -> options[index] },
+                useDropDown = false,
                 onResetButtonClicked = {
                     selectedItem3 = null
                 },
-                onItemSelected = {
-                    selectedItem3 = it
+                onItemSelected = { _, item ->
+                    selectedItem3 = item
                 },
                 selectedItem = selectedItem3,
+                loadOptions = {
+                    /*no-op*/
+                },
             )
         }
 
@@ -148,14 +187,20 @@ fun InputDropDownScreen() {
             InputDropDown(
                 title = "Label",
                 state = InputShellState.UNFOCUSED,
-                dropdownItems = dropdownItems,
+                itemCount = dropdownItems.size,
+                onSearchOption = {},
+                fetchItem = { index -> options[index] },
+                useDropDown = false,
                 onResetButtonClicked = {
                     selectedItem = null
                 },
-                onItemSelected = {
-                    selectedItem = it
+                onItemSelected = { _, item ->
+                    selectedItem = item
                 },
                 selectedItem = selectedItem,
+                loadOptions = {
+                    /*no-op*/
+                },
             )
         }
     }

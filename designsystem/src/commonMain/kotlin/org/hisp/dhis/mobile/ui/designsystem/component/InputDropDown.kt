@@ -4,15 +4,15 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Cancel
-import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
@@ -76,7 +76,9 @@ fun InputDropDown(
     title: String,
     state: InputShellState,
     inputStyle: InputStyle = InputStyle.DataInputStyle(),
-    dropdownItems: List<DropdownItem>,
+    itemCount: Int,
+    onSearchOption: (String) -> Unit,
+    fetchItem: (index: Int) -> DropdownItem,
     selectedItem: DropdownItem? = null,
     supportingTextData: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
@@ -84,14 +86,17 @@ fun InputDropDown(
     modifier: Modifier = Modifier,
     onFocusChanged: ((Boolean) -> Unit)? = null,
     onResetButtonClicked: () -> Unit,
-    onItemSelected: (DropdownItem) -> Unit,
+    onItemSelected: (index: Int, item: DropdownItem) -> Unit,
     showSearchBar: Boolean = true,
     expanded: Boolean = false,
+    useDropDown: Boolean = true,
+    loadOptions: () -> Unit,
     noResultsFoundString: String = provideStringResource("no_results_found"),
     searchToFindMoreString: String = provideStringResource("search_to_see_more"),
 ) {
     val focusRequester = remember { FocusRequester() }
     var showDropdown by remember { mutableStateOf(expanded) }
+    var currentItem by remember(selectedItem) { mutableStateOf(selectedItem) }
 
     val inputField: @Composable (modifier: Modifier) -> Unit = { inputModifier ->
         DropdownInputField(
@@ -105,7 +110,7 @@ fun InputDropDown(
             onFocusChanged = onFocusChanged,
             supportingTextData = supportingTextData,
             legendData = legendData,
-            selectedItem = selectedItem,
+            selectedItem = currentItem,
             onResetButtonClicked = onResetButtonClicked,
             onDropdownIconClick = {
                 showDropdown = !showDropdown
@@ -113,61 +118,60 @@ fun InputDropDown(
         )
     }
 
-    if (dropdownItems.size > MAX_DROPDOWN_ITEMS) {
+    if (!useDropDown) {
         Box {
             inputField(modifier)
 
             if (showDropdown) {
                 var searchQuery by remember { mutableStateOf("") }
 
-                var filteredOptions = dropdownItems
-
-                if (searchQuery.isNotEmpty()) {
-                    filteredOptions =
-                        dropdownItems.filter { it.label.contains(searchQuery, ignoreCase = true) }
-                }
-
+                val scrollState = rememberLazyListState()
                 BottomSheetShell(
                     modifier = Modifier.testTag("INPUT_DROPDOWN_BOTTOM_SHEET"),
                     title = title,
+                    contentScrollState = scrollState,
                     content = {
-                        Column(
+                        LazyColumn(
                             modifier = Modifier
                                 .testTag("INPUT_DROPDOWN_BOTTOM_SHEET_ITEMS")
                                 .padding(top = Spacing8),
+                            state = scrollState,
                         ) {
-                            if (filteredOptions.isNotEmpty()) {
-                                filteredOptions
-                                    .take(MAX_DROPDOWN_ITEMS_TO_SHOW)
-                                    .forEachIndexed { index, item ->
-                                        DropdownItem(
-                                            modifier = Modifier.testTag("INPUT_DROPDOWN_BOTTOM_SHEET_ITEM_$index"),
-                                            item = item,
-                                            selected = selectedItem == item,
-                                            contentPadding = PaddingValues(Spacing8),
-                                            onItemClick = {
-                                                onItemSelected(item)
-                                                showDropdown = false
-                                            },
+                            when {
+                                itemCount > 0 ->
+                                    items(count = itemCount) { index ->
+                                        with(fetchItem(index)) {
+                                            DropdownItem(
+                                                modifier = Modifier.testTag("INPUT_DROPDOWN_BOTTOM_SHEET_ITEM_$index"),
+                                                item = this,
+                                                selected = selectedItem == this,
+                                                contentPadding = PaddingValues(Spacing8),
+                                                onItemClick = {
+                                                    currentItem = this
+                                                    onItemSelected(index, this)
+                                                    showDropdown = false
+                                                },
+                                            )
+                                        }
+                                    }
+
+                                searchQuery.isEmpty() -> {
+                                    item {
+                                        ProgressIndicator(type = ProgressIndicatorType.CIRCULAR_SMALL)
+                                    }
+                                    loadOptions()
+                                }
+
+                                else ->
+                                    item {
+                                        Text(
+                                            text = noResultsFoundString,
+                                            textAlign = TextAlign.Center,
+                                            modifier = Modifier
+                                                .fillMaxWidth()
+                                                .padding(24.dp),
                                         )
                                     }
-                                if (filteredOptions.size > MAX_DROPDOWN_ITEMS_TO_SHOW) {
-                                    Text(
-                                        text = searchToFindMoreString,
-                                        textAlign = TextAlign.Center,
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .padding(24.dp),
-                                    )
-                                }
-                            } else {
-                                Text(
-                                    text = noResultsFoundString,
-                                    textAlign = TextAlign.Center,
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(24.dp),
-                                )
                             }
                         }
                     },
@@ -179,8 +183,14 @@ fun InputDropDown(
                     } else {
                         null
                     },
-                    onSearch = { searchQuery = it },
-                    onSearchQueryChanged = { searchQuery = it },
+                    onSearch = {
+                        searchQuery = it
+                        onSearchOption(it)
+                    },
+                    onSearchQueryChanged = {
+                        searchQuery = it
+                        onSearchOption(it)
+                    },
                 )
             }
         }
@@ -199,10 +209,7 @@ fun InputDropDown(
             MaterialTheme(
                 shapes = Shapes(extraSmall = RoundedCornerShape(Spacing8)),
             ) {
-                // TODO: Replace with ExposedDropdownMenu once the fix for the following issue
-                //  is available in Compose Multiplatform
-                //  https://issuetracker.google.com/issues/205589613
-                DropdownMenu(
+                ExposedDropdownMenu(
                     expanded = showDropdown,
                     onDismissRequest = { showDropdown = false },
                     modifier = Modifier.background(
@@ -210,22 +217,25 @@ fun InputDropDown(
                         shape = RoundedCornerShape(Spacing8),
                     ).exposedDropdownSize().testTag("INPUT_DROPDOWN_MENU"),
                 ) {
-                    dropdownItems.forEachIndexed { index, item ->
-                        DropdownItem(
-                            modifier = Modifier.testTag("INPUT_DROPDOWN_MENU_ITEM_$index")
-                                .fillMaxWidth()
-                                .padding(start = dropdownStartPadding(inputStyle) + 8.dp),
-                            item = item,
-                            selected = selectedItem == item,
-                            contentPadding = PaddingValues(
-                                horizontal = Spacing8,
-                                vertical = Spacing16,
-                            ),
-                            onItemClick = {
-                                onItemSelected(item)
-                                showDropdown = false
-                            },
-                        )
+                    repeat(itemCount) { index ->
+                        with(fetchItem(index)) {
+                            DropdownItem(
+                                modifier = Modifier.testTag("INPUT_DROPDOWN_MENU_ITEM_$index")
+                                    .fillMaxWidth()
+                                    .padding(start = dropdownStartPadding(inputStyle) + 8.dp),
+                                item = this,
+                                selected = selectedItem == this,
+                                contentPadding = PaddingValues(
+                                    horizontal = Spacing8,
+                                    vertical = Spacing16,
+                                ),
+                                onItemClick = {
+                                    currentItem = this
+                                    onItemSelected(index, this)
+                                    showDropdown = false
+                                },
+                            )
+                        }
                     }
                 }
             }
