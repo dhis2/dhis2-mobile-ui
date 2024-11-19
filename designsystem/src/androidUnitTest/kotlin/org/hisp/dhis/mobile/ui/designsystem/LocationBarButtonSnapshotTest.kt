@@ -17,6 +17,7 @@ class LocationBarButtonSnapshotTest {
                 onClearLocation = {},
                 onSearchLocation = {},
                 onLocationSelected = {},
+                searching = false,
             )
         }
     }
