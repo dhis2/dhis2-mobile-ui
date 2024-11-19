@@ -18,5 +18,8 @@ enum class Groups(val label: String) {
     INDICATOR("Indicators"),
     PARAMETER_SELECTOR("Parameter selector"),
     NAVIGATION_BAR("Navigation Bar"),
+    TOP_BAR("Top Bar"),
+    MENU("Menu"),
     NO_GROUP_SELECTED("No group selected"),
+    LOCATION_SEARCH_BAR("Location Search Bar"),
 }

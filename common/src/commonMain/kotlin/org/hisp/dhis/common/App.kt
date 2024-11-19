@@ -19,6 +19,8 @@ import org.hisp.dhis.common.screens.basicTextInputs.BasicTextInputsScreen
 import org.hisp.dhis.common.screens.bottomSheets.BottomSheetsScreen
 import org.hisp.dhis.common.screens.buttons.ButtonsScreen
 import org.hisp.dhis.common.screens.cards.CardsScreen
+import org.hisp.dhis.common.screens.location.LocationSearchBarScreen
+import org.hisp.dhis.common.screens.menu.MenuScreen
 import org.hisp.dhis.common.screens.others.BadgesScreen
 import org.hisp.dhis.common.screens.others.ChipsScreen
 import org.hisp.dhis.common.screens.others.IndicatorScreen
@@ -29,6 +31,7 @@ import org.hisp.dhis.common.screens.others.ProgressScreen
 import org.hisp.dhis.common.screens.others.SearchBarScreen
 import org.hisp.dhis.common.screens.others.SectionScreen
 import org.hisp.dhis.common.screens.others.TagsScreen
+import org.hisp.dhis.common.screens.others.TopBarScreen
 import org.hisp.dhis.common.screens.parameter.ParameterSelectorScreen
 import org.hisp.dhis.common.screens.toggleableInputs.ToggleableInputsScreen
 import org.hisp.dhis.mobile.ui.designsystem.component.DropdownItem
@@ -36,21 +39,36 @@ import org.hisp.dhis.mobile.ui.designsystem.component.InputDropDown
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.InputStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.MetadataAvatarSize
+import org.hisp.dhis.mobile.ui.designsystem.component.model.LocationItemModel
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 
 @Composable
-fun App(imageBitmapLoader: (() -> ImageBitmap)? = null) {
+fun App(
+    imageBitmapLoader: (() -> ImageBitmap)? = null,
+    onLocationRequest: (
+        (
+            locationQuery: String,
+            locationSearchCallback: (List<LocationItemModel>) -> Unit,
+        ) -> Unit
+    )? = null,
+) {
     DHIS2Theme {
-        Main(imageBitmapLoader)
+        Main(imageBitmapLoader, onLocationRequest)
     }
 }
 
 @Composable
 fun Main(
     imageBitmapLoader: (() -> ImageBitmap)?,
+    onLocationRequest: (
+        (
+            locationQuery: String,
+            locationSearchCallback: (List<LocationItemModel>) -> Unit,
+        ) -> Unit
+    )?,
 ) {
     val currentScreen = remember { mutableStateOf(Groups.NO_GROUP_SELECTED) }
     var isComponentSelected by remember { mutableStateOf(false) }
@@ -79,7 +97,8 @@ fun Main(
                 state = InputShellState.UNFOCUSED,
                 expanded = true,
                 selectedItem = DropdownItem(currentScreen.value.label),
-                inputStyle = InputStyle.DataInputStyle().apply { backGroundColor = SurfaceColor.SurfaceBright },
+                inputStyle = InputStyle.DataInputStyle()
+                    .apply { backGroundColor = SurfaceColor.SurfaceBright },
             )
 
             when (currentScreen.value) {
@@ -100,7 +119,12 @@ fun Main(
                 Groups.TAGS -> TagsScreen()
                 Groups.SEARCH_BAR -> SearchBarScreen()
                 Groups.NAVIGATION_BAR -> NavigationBarScreen()
+                Groups.MENU -> MenuScreen()
                 Groups.NO_GROUP_SELECTED -> NoComponentSelectedScreen()
+                Groups.TOP_BAR -> TopBarScreen()
+                Groups.LOCATION_SEARCH_BAR -> LocationSearchBarScreen { locationQuery, locationCallback ->
+                    onLocationRequest?.invoke(locationQuery, locationCallback)
+                }
             }
         } else {
             NoComponentSelectedScreen(

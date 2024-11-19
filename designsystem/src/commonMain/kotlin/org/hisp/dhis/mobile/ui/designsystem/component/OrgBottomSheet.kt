@@ -24,13 +24,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
@@ -59,7 +60,9 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
  * @param description: optional description.
  * @param clearAllButtonText: text for clear all button.
  * @param doneButtonText: text for accept button.
+ * @param doneButtonIcon: icon for accept button.
  * @param noResultsFoundText: text for no results found.
+ * @param headerTextAlignment [Alignment] for header text.
  * @param icon: optional icon to be shown above the header .
  * @param onSearch: access to the on search event.
  * @param onDismiss: access to the on dismiss event.
@@ -77,14 +80,16 @@ fun OrgBottomSheet(
     subtitle: String? = null,
     description: String? = null,
     clearAllButtonText: String = provideStringResource("clear_all"),
-    doneButtonText: String = provideStringResource("done"),
+    doneButtonText: String? = null,
+    doneButtonIcon: ImageVector = Icons.Filled.Check,
     noResultsFoundText: String = provideStringResource("no_results_found"),
+    headerTextAlignment: TextAlign = TextAlign.Center,
     icon: @Composable (() -> Unit)? = null,
     onSearch: ((String) -> Unit)? = null,
     onDismiss: () -> Unit,
     onItemClick: (uid: String) -> Unit,
     onItemSelected: (uid: String, checked: Boolean) -> Unit,
-    onClearAll: () -> Unit,
+    onClearAll: (() -> Unit)? = null,
     onDone: () -> Unit,
 ) {
     var searchQuery by remember { mutableStateOf("") }
@@ -96,6 +101,7 @@ fun OrgBottomSheet(
         title = title,
         subtitle = subtitle,
         description = description,
+        headerTextAlignment = headerTextAlignment,
         icon = icon,
         searchQuery = searchQuery,
         onSearchQueryChanged = { query ->
@@ -125,32 +131,35 @@ fun OrgBottomSheet(
             Row(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                Button(
-                    modifier = Modifier.weight(1f)
-                        .testTag("CLEAR_ALL_BUTTON"),
-                    onClick = onClearAll,
-                    icon = {
-                        Icon(
-                            imageVector = Icons.Filled.ClearAll,
-                            contentDescription = null,
-                        )
-                    },
-                    text = clearAllButtonText,
-                    enabled = orgTreeItems.any { it.selected },
-                )
+                if (onClearAll != null) {
+                    Button(
+                        modifier = Modifier.weight(1f)
+                            .testTag("CLEAR_ALL_BUTTON"),
+                        onClick = onClearAll,
+                        icon = {
+                            Icon(
+                                imageVector = Icons.Filled.ClearAll,
+                                contentDescription = null,
+                            )
+                        },
+                        text = clearAllButtonText,
+                        enabled = orgTreeItems.any { it.selected },
+                    )
 
-                Spacer(Modifier.requiredWidth(Spacing.Spacing16))
+                    Spacer(Modifier.requiredWidth(Spacing.Spacing16))
+                }
 
                 Button(
                     modifier = Modifier.weight(1f),
                     onClick = onDone,
                     icon = {
                         Icon(
-                            imageVector = Icons.Filled.Check,
+                            imageVector = doneButtonIcon,
                             contentDescription = null,
                         )
                     },
-                    text = doneButtonText,
+                    enabled = orgTreeItems.any { it.selected },
+                    text = doneButtonText ?: provideStringResource("done"),
                     style = ButtonStyle.FILLED,
                 )
             }
@@ -191,13 +200,15 @@ private fun OrgTreeList(
             horizontalAlignment = Alignment.Start,
         ) {
             orgTreeItems.forEach { item ->
-                OrgUnitSelectorItem(
-                    orgTreeItem = item,
-                    higherLevel = orgTreeItems.minBy { it.level }.level,
-                    searchQuery = searchQuery,
-                    onItemClick = onItemClick,
-                    onItemSelected = onItemSelected,
-                )
+                key(item.uid) {
+                    OrgUnitSelectorItem(
+                        orgTreeItem = item,
+                        higherLevel = orgTreeItems.minBy { it.level }.level,
+                        searchQuery = searchQuery,
+                        onItemClick = onItemClick,
+                        onItemSelected = onItemSelected,
+                    )
+                }
             }
         }
     }
@@ -229,20 +240,9 @@ fun OrgUnitSelectorItem(
             .padding(start = ((orgTreeItem.level - higherLevel) * 16).dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        val icon = orgTreeItemIcon(orgTreeItem)
-        val iconTint = if (orgTreeItem.isOpen && orgTreeItem.hasChildren) {
-            TextColor.OnDisabledSurface
-        } else if (!orgTreeItem.isOpen && !orgTreeItem.hasChildren) {
-            TextColor.OnDisabledSurface
-        } else {
-            TextColor.OnSurfaceVariant
-        }
-
-        Icon(
+        OrgTreeItemIcon(
             modifier = Modifier.padding(Spacing.Spacing8),
-            painter = icon,
-            tint = iconTint,
-            contentDescription = "",
+            orgTreeItem = orgTreeItem,
         )
 
         val clickableModifier = if (orgTreeItem.canBeSelected) {
@@ -294,13 +294,31 @@ fun OrgUnitSelectorItem(
 }
 
 @Composable
-private fun orgTreeItemIcon(orgTreeItem: OrgTreeItem): Painter {
-    if (!orgTreeItem.hasChildren) return provideDHIS2Icon("material_circle_outline")
-
-    return if (orgTreeItem.isOpen) {
-        rememberVectorPainter(Icons.Filled.KeyboardArrowDown)
+private fun OrgTreeItemIcon(
+    modifier: Modifier = Modifier,
+    orgTreeItem: OrgTreeItem,
+) {
+    if (!orgTreeItem.hasChildren) {
+        Icon(
+            modifier = modifier,
+            painter = provideDHIS2Icon("material_circle_outline"),
+            contentDescription = null,
+            tint = TextColor.OnDisabledSurface,
+        )
+    } else if (orgTreeItem.isOpen) {
+        Icon(
+            modifier = modifier,
+            painter = rememberVectorPainter(Icons.Filled.KeyboardArrowDown),
+            contentDescription = null,
+            tint = TextColor.OnDisabledSurface,
+        )
     } else {
-        rememberVectorPainter(Icons.AutoMirrored.Filled.KeyboardArrowRight)
+        Icon(
+            modifier = modifier,
+            painter = rememberVectorPainter(Icons.AutoMirrored.Filled.KeyboardArrowRight),
+            contentDescription = null,
+            tint = TextColor.OnSurfaceVariant,
+        )
     }
 }
 
