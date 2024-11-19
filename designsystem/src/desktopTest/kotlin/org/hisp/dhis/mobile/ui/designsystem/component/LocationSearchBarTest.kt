@@ -30,6 +30,7 @@ class LocationSearchBarTest {
                 onClearLocation = {},
                 onSearchLocation = {},
                 onLocationSelected = {},
+                searching = false,
             )
         }
 
@@ -60,6 +61,7 @@ class LocationSearchBarTest {
                 onClearLocation = {},
                 onSearchLocation = {},
                 onLocationSelected = {},
+                searching = false,
             )
         }
 
@@ -97,6 +99,7 @@ class LocationSearchBarTest {
                     items = listOf()
                 },
                 onLocationSelected = {},
+                searching = false,
             )
         }
 
@@ -144,6 +147,7 @@ class LocationSearchBarTest {
                     )
                 },
                 onLocationSelected = {},
+                searching = false,
             )
         }
 
@@ -192,6 +196,7 @@ class LocationSearchBarTest {
                     )
                 },
                 onLocationSelected = {},
+                searching = false,
             )
         }
 
