@@ -8,11 +8,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment.Companion.TopCenter
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.hisp.dhis.common.screens.components.GroupComponentDropDown
 import org.hisp.dhis.mobile.ui.designsystem.component.DropdownItem
 import org.hisp.dhis.mobile.ui.designsystem.component.LocationBar
@@ -37,6 +40,8 @@ fun LocationSearchBarScreen(
         screenDropdownItemList.add(DropdownItem(it.label))
     }
 
+    val scope = rememberCoroutineScope()
+
     GroupComponentDropDown(
         dropdownItems = screenDropdownItemList.toList(),
         onItemSelected = {
@@ -52,6 +57,8 @@ fun LocationSearchBarScreen(
 
     when (currentScreen.value) {
         LocationSearchBarOptions.DEFAULT_BEHAVIOUR -> {
+            var searching by remember { mutableStateOf(false) }
+
             Box(
                 modifier = Modifier.fillMaxSize()
                     .background(Color.White)
@@ -63,18 +70,26 @@ fun LocationSearchBarScreen(
                     onBackClicked = {},
                     onClearLocation = {},
                     onSearchLocation = { locationQuery ->
-                        onSearchLocation(locationQuery) {
-                            itemList =
-                                it.takeIf { locationQuery.isNotBlank() } ?: defaultLocationItems
+                        searching = true
+                        scope.launch {
+                            delay(3000)
+                            onSearchLocation(locationQuery) {
+                                itemList =
+                                    it.takeIf { locationQuery.isNotBlank() } ?: defaultLocationItems
+                                searching = false
+                            }
                         }
                     },
                     onLocationSelected = { locationItemModel ->
                     },
+                    searching = searching,
                 )
             }
         }
 
         LocationSearchBarOptions.AUTOSELECT_ON_ONE_ITEM_FOUND -> {
+            var searching by remember { mutableStateOf(false) }
+
             Box(
                 modifier = Modifier.fillMaxSize()
                     .background(Color.White)
@@ -87,14 +102,19 @@ fun LocationSearchBarScreen(
                     onBackClicked = {},
                     onClearLocation = {},
                     onSearchLocation = { locationQuery ->
-                        onSearchLocation(locationQuery) {
-                            itemList =
-                                it.take(1).takeIf { locationQuery.isNotBlank() }
-                                    ?: defaultLocationItems
+                        searching = true
+                        scope.launch {
+                            onSearchLocation(locationQuery) {
+                                itemList =
+                                    it.take(1).takeIf { locationQuery.isNotBlank() }
+                                        ?: defaultLocationItems
+                                searching = false
+                            }
                         }
                     },
                     onLocationSelected = { locationItemModel ->
                     },
+                    searching = searching,
                 )
             }
         }

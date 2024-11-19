@@ -33,6 +33,7 @@ class LocationBarSearchSnapshotTest {
                 onClearLocation = {},
                 onSearchLocation = {},
                 onLocationSelected = {},
+                searching = false,
             )
         }
     }
