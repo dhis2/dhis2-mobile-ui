@@ -59,7 +59,9 @@ private const val MAX_DROPDOWN_ITEMS_TO_SHOW = 50
  * @param title: controls the text to be shown for the title.
  * @param state: Manages the InputShell state.
  * @param inputStyle: Manages the InputShell style.
- * @param dropdownItems: list of [DropdownItem] to be used.
+ * @param itemCount: controls the number of items to be shown.
+ * @param onSearchOption: callback to search for an specific option.
+ * @param fetchItem: gets the item to display in the list.
  * @param selectedItem: manages the value of the selected item.
  * @param supportingTextData: is a list of SupportingTextData that
  * manages all the messages to be shown.
@@ -71,6 +73,8 @@ private const val MAX_DROPDOWN_ITEMS_TO_SHOW = 50
  * @param onResetButtonClicked: callback to when reset button is clicked.
  * @param onItemSelected: callback to when a dropdown item is selected.
  * @param showSearchBar: config whether to show search bar in the bottom sheet.
+ * @param expanded: config whether the dropdown should be initially displayed.
+ * @param useDropDown: use dropdown if true. Bottomsheet with search capability otherwise.
  * @param noResultsFoundString: text to be shown in pop up when no results are found.
  */
 @OptIn(ExperimentalMaterial3Api::class)
