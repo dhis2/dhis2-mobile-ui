@@ -47,7 +47,7 @@ class InputDropDownSnapshotTest {
 
                 SubTitle(
                     "Basic Input Dropdown with < 7 inputs",
-                    textColor = TextColor.OnSurfaceVariant
+                    textColor = TextColor.OnSurfaceVariant,
                 )
                 var selectedItem by remember { mutableStateOf<DropdownItem?>(null) }
                 val focusRequester = remember { FocusRequester() }
@@ -67,10 +67,8 @@ class InputDropDownSnapshotTest {
                         sixOptions[index]
                     },
                     onSearchOption = {
-
                     },
                     loadOptions = {
-
                     },
                     onResetButtonClicked = {
                         selectedItem = null
@@ -90,10 +88,8 @@ class InputDropDownSnapshotTest {
                         sixOptions[index]
                     },
                     onSearchOption = {
-
                     },
                     loadOptions = {
-
                     },
                     onResetButtonClicked = {
                         selectedItem = null
@@ -108,7 +104,7 @@ class InputDropDownSnapshotTest {
 
                 SubTitle(
                     "Basic Input Dropdown with >= 7 inputs",
-                    textColor = TextColor.OnSurfaceVariant
+                    textColor = TextColor.OnSurfaceVariant,
                 )
 
                 var selectedItem4 by remember { mutableStateOf<DropdownItem?>(null) }
@@ -120,10 +116,8 @@ class InputDropDownSnapshotTest {
                         options[index]
                     },
                     onSearchOption = {
-
                     },
                     loadOptions = {
-
                     },
                     onResetButtonClicked = {
                         selectedItem4 = null
@@ -138,7 +132,7 @@ class InputDropDownSnapshotTest {
 
                 SubTitle(
                     "Basic Input Dropdown with content ",
-                    textColor = TextColor.OnSurfaceVariant
+                    textColor = TextColor.OnSurfaceVariant,
                 )
                 var selectedItem1 by remember { mutableStateOf<DropdownItem?>(options[0]) }
                 InputDropDown(
@@ -149,10 +143,8 @@ class InputDropDownSnapshotTest {
                         options[index]
                     },
                     onSearchOption = {
-
                     },
                     loadOptions = {
-
                     },
                     onResetButtonClicked = {
                         selectedItem1 = null
@@ -174,10 +166,8 @@ class InputDropDownSnapshotTest {
                         options[index]
                     },
                     onSearchOption = {
-
                     },
                     loadOptions = {
-
                     },
                     onResetButtonClicked = {
                         selectedItem2 = null
@@ -191,7 +181,7 @@ class InputDropDownSnapshotTest {
 
                 SubTitle(
                     "Disabled Input Dropdown with content ",
-                    textColor = TextColor.OnSurfaceVariant
+                    textColor = TextColor.OnSurfaceVariant,
                 )
                 var selectedItem3 by remember { mutableStateOf<DropdownItem?>(options[1]) }
                 InputDropDown(
@@ -202,10 +192,8 @@ class InputDropDownSnapshotTest {
                         options[index]
                     },
                     onSearchOption = {
-
                     },
                     loadOptions = {
-
                     },
                     onResetButtonClicked = {
                         selectedItem3 = null
