@@ -34,6 +34,9 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.SemanticsPropertyKey
+import androidx.compose.ui.semantics.SemanticsPropertyReceiver
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
@@ -134,6 +137,9 @@ fun InputDropDown(
                         LazyColumn(
                             modifier = Modifier
                                 .testTag("INPUT_DROPDOWN_BOTTOM_SHEET_ITEMS")
+                                .semantics {
+                                    dropDownItemCount = itemCount
+                                }
                                 .padding(top = Spacing8),
                             state = scrollState,
                         ) {
@@ -427,3 +433,8 @@ private fun DropdownItem(
 
 @Immutable
 data class DropdownItem(val label: String)
+
+val DropDownItemCount = SemanticsPropertyKey<Int>(
+    name = "DropDownItemCount",
+)
+var SemanticsPropertyReceiver.dropDownItemCount by DropDownItemCount

@@ -92,12 +92,15 @@ fun InputDropDownScreen() {
 
         ColumnComponentContainer("Basic Input Dropdown for large set") {
             var selectedItem4 by remember { mutableStateOf<DropdownItem?>(null) }
+            var filteredItems by remember { mutableStateOf(options) }
             InputDropDown(
                 title = "Label",
                 state = InputShellState.UNFOCUSED,
-                itemCount = options.size,
-                onSearchOption = {},
-                fetchItem = { index -> options[index] },
+                itemCount = filteredItems.size,
+                onSearchOption = { query ->
+                    filteredItems = options.filter { it.label.contains(query) }
+                },
+                fetchItem = { index -> filteredItems[index] },
                 useDropDown = false,
                 onResetButtonClicked = {
                     selectedItem4 = null

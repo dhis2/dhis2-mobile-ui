@@ -1,19 +1,27 @@
+@file:OptIn(ExperimentalTestApi::class)
+
 package org.hisp.dhis.mobile.ui.designsystem.component
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.test.ExperimentalTestApi
+import androidx.compose.ui.test.SemanticsMatcher
+import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.assertTextEquals
+import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onChildren
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performTextClearance
 import androidx.compose.ui.test.performTextInput
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.junit.Rule
@@ -25,13 +33,21 @@ class InputDropDownTest {
 
     @Test
     fun shouldAllowDropDownSelectionWhenEnabled() {
+        val options = listOf(DropdownItem("Option 1"))
         rule.setContent {
             InputDropDown(
                 title = "Label",
-                dropdownItems = listOf(DropdownItem("Option 1")),
+                itemCount = options.size,
+                onSearchOption = {
+                },
+                fetchItem = {
+                    options[it]
+                },
+                loadOptions = {
+                },
                 state = InputShellState.UNFOCUSED,
                 onResetButtonClicked = {},
-                onItemSelected = {},
+                onItemSelected = { _, _ -> },
             )
         }
         rule.onNodeWithTag("INPUT_DROPDOWN").assertExists()
@@ -40,13 +56,21 @@ class InputDropDownTest {
 
     @Test
     fun shouldNotAllowDropDownSelectionWhenDisabled() {
+        val options = listOf(DropdownItem("Option 1"))
         rule.setContent {
             InputDropDown(
                 title = "Label",
-                dropdownItems = listOf(DropdownItem("Option 1")),
+                itemCount = options.size,
+                onSearchOption = {
+                },
+                fetchItem = {
+                    options[it]
+                },
+                loadOptions = {
+                },
                 state = InputShellState.DISABLED,
                 onResetButtonClicked = {},
-                onItemSelected = {},
+                onItemSelected = { _, _ -> },
             )
         }
         rule.onNodeWithTag("INPUT_DROPDOWN").assertExists()
@@ -55,16 +79,23 @@ class InputDropDownTest {
 
     @Test
     fun shouldShowResetButtonWhenItemIsSelected() {
-        val dropdownItem = DropdownItem("Option 1")
+        val options = listOf(DropdownItem("Option 1"))
 
         rule.setContent {
             InputDropDown(
                 title = "Label",
-                dropdownItems = listOf(dropdownItem),
-                selectedItem = dropdownItem,
+                itemCount = options.size,
+                onSearchOption = {
+                },
+                fetchItem = {
+                    options[it]
+                },
+                loadOptions = {
+                },
+                selectedItem = options[0],
                 state = InputShellState.UNFOCUSED,
                 onResetButtonClicked = {},
-                onItemSelected = {},
+                onItemSelected = { _, _ -> },
             )
         }
         rule.onNodeWithTag("INPUT_DROPDOWN").assertExists()
@@ -73,13 +104,21 @@ class InputDropDownTest {
 
     @Test
     fun shouldHideResetButtonWhenNoItemIsSelected() {
+        val options = emptyList<DropdownItem>()
         rule.setContent {
             InputDropDown(
                 title = "Label",
-                dropdownItems = emptyList(),
+                itemCount = options.size,
+                onSearchOption = {
+                },
+                fetchItem = {
+                    options[it]
+                },
+                loadOptions = {
+                },
                 state = InputShellState.UNFOCUSED,
                 onResetButtonClicked = {},
-                onItemSelected = {},
+                onItemSelected = { _, _ -> },
             )
         }
         rule.onNodeWithTag("INPUT_DROPDOWN").assertExists()
@@ -89,15 +128,22 @@ class InputDropDownTest {
     @Test
     fun shouldHideResetButtonWhenDisabled() {
         rule.setContent {
-            val dropdownItem = DropdownItem("Option 1")
+            val options = listOf(DropdownItem("Option 1"))
 
             InputDropDown(
                 title = "Label",
-                dropdownItems = listOf(dropdownItem),
-                selectedItem = dropdownItem,
+                itemCount = options.size,
+                onSearchOption = {
+                },
+                fetchItem = {
+                    options[it]
+                },
+                loadOptions = {
+                },
+                selectedItem = options[0],
                 state = InputShellState.DISABLED,
                 onResetButtonClicked = {},
-                onItemSelected = {},
+                onItemSelected = { _, _ -> },
             )
         }
         rule.onNodeWithTag("INPUT_DROPDOWN").assertExists()
@@ -107,19 +153,26 @@ class InputDropDownTest {
     @Test
     fun shouldRemoveSelectedItemWhenResetButtonIsClickedAndHideResetButton() {
         rule.setContent {
-            val dropdownItem = DropdownItem("Option 1")
-            var itemSelected by rememberSaveable { mutableStateOf<DropdownItem?>(dropdownItem) }
+            val options = listOf(DropdownItem("Option 1"))
+            var itemSelected by rememberSaveable { mutableStateOf<DropdownItem?>(options.first()) }
 
             InputDropDown(
                 title = "Label",
-                dropdownItems = listOf(dropdownItem),
+                itemCount = options.size,
+                onSearchOption = {
+                },
+                fetchItem = {
+                    options[it]
+                },
+                loadOptions = {
+                },
                 selectedItem = itemSelected,
                 state = InputShellState.UNFOCUSED,
                 onResetButtonClicked = {
                     itemSelected = null
                 },
-                onItemSelected = {
-                    itemSelected = it
+                onItemSelected = { _, item ->
+                    itemSelected = item
                 },
             )
         }
@@ -132,14 +185,22 @@ class InputDropDownTest {
 
     @Test
     fun shouldShowLegendCorrectly() {
+        val options = emptyList<DropdownItem>()
         rule.setContent {
             InputDropDown(
                 title = "Label",
-                dropdownItems = emptyList(),
+                itemCount = options.size,
+                onSearchOption = {
+                },
+                fetchItem = {
+                    options[it]
+                },
+                loadOptions = {
+                },
                 legendData = LegendData(SurfaceColor.CustomGreen, "Legend"),
                 state = InputShellState.UNFOCUSED,
                 onResetButtonClicked = {},
-                onItemSelected = {},
+                onItemSelected = { _, _ -> },
             )
         }
         rule.onNodeWithTag("INPUT_DROPDOWN").assertExists()
@@ -148,14 +209,27 @@ class InputDropDownTest {
 
     @Test
     fun shouldShowSupportingTextCorrectly() {
+        val options = emptyList<DropdownItem>()
         rule.setContent {
             InputDropDown(
                 title = "Label",
-                dropdownItems = emptyList(),
-                supportingTextData = listOf(SupportingTextData("Supporting text", SupportingTextState.DEFAULT)),
+                itemCount = options.size,
+                onSearchOption = {
+                },
+                fetchItem = {
+                    options[it]
+                },
+                loadOptions = {
+                },
+                supportingTextData = listOf(
+                    SupportingTextData(
+                        "Supporting text",
+                        SupportingTextState.DEFAULT,
+                    ),
+                ),
                 state = InputShellState.UNFOCUSED,
                 onResetButtonClicked = {},
-                onItemSelected = {},
+                onItemSelected = { _, _ -> },
             )
         }
         rule.onNodeWithTag("INPUT_DROPDOWN").assertExists()
@@ -164,7 +238,7 @@ class InputDropDownTest {
 
     @Test
     fun shouldShowDropdownMenuOnIconClickIfThereAreLessThan7Items() {
-        val dropdownItems = listOf(
+        val options = listOf(
             DropdownItem("Option 1"),
             DropdownItem("Option 2"),
             DropdownItem("Option 3"),
@@ -176,11 +250,23 @@ class InputDropDownTest {
         rule.setContent {
             InputDropDown(
                 title = "Label",
-                dropdownItems = dropdownItems,
-                supportingTextData = listOf(SupportingTextData("Supporting text", SupportingTextState.DEFAULT)),
+                itemCount = options.size,
+                onSearchOption = {
+                },
+                fetchItem = {
+                    options[it]
+                },
+                loadOptions = {
+                },
+                supportingTextData = listOf(
+                    SupportingTextData(
+                        "Supporting text",
+                        SupportingTextState.DEFAULT,
+                    ),
+                ),
                 state = InputShellState.UNFOCUSED,
                 onResetButtonClicked = {},
-                onItemSelected = {},
+                onItemSelected = { _, _ -> },
             )
         }
         rule.onNodeWithTag("INPUT_DROPDOWN").assertExists()
@@ -190,7 +276,7 @@ class InputDropDownTest {
 
     @Test
     fun shouldShowBottomSheetOnIconClickIfThereAre7OrMoreItems() {
-        val dropdownItems = listOf(
+        val options = listOf(
             DropdownItem("Option 1"),
             DropdownItem("Option 2"),
             DropdownItem("Option 3"),
@@ -203,11 +289,24 @@ class InputDropDownTest {
         rule.setContent {
             InputDropDown(
                 title = "Label",
-                dropdownItems = dropdownItems,
-                supportingTextData = listOf(SupportingTextData("Supporting text", SupportingTextState.DEFAULT)),
+                itemCount = options.size,
+                onSearchOption = {
+                },
+                fetchItem = {
+                    options[it]
+                },
+                loadOptions = {
+                },
+                supportingTextData = listOf(
+                    SupportingTextData(
+                        "Supporting text",
+                        SupportingTextState.DEFAULT,
+                    ),
+                ),
                 state = InputShellState.UNFOCUSED,
                 onResetButtonClicked = {},
-                onItemSelected = {},
+                onItemSelected = { _, _ -> },
+                useDropDown = false,
             )
         }
         rule.onNodeWithTag("INPUT_DROPDOWN").assertExists()
@@ -217,7 +316,7 @@ class InputDropDownTest {
 
     @Test
     fun shouldOnlyShowMatchedSearchResultsInBottomSheet() {
-        val dropdownItems = listOf(
+        val options = listOf(
             DropdownItem("Option 1"),
             DropdownItem("Option 2"),
             DropdownItem("Option 3"),
@@ -233,31 +332,56 @@ class InputDropDownTest {
         val searchSemantics = "Search"
 
         rule.setContent {
+            var filteredOptions by remember { mutableStateOf(options) }
             InputDropDown(
                 title = "Label",
-                dropdownItems = dropdownItems,
-                supportingTextData = listOf(SupportingTextData("Supporting text", SupportingTextState.DEFAULT)),
+                itemCount = filteredOptions.size,
+                onSearchOption = { query ->
+                    filteredOptions = options.filter { it.label.contains(query) }.toMutableList()
+                },
+                fetchItem = {
+                    filteredOptions[it]
+                },
+                loadOptions = {
+                },
+                supportingTextData = listOf(
+                    SupportingTextData(
+                        "Supporting text",
+                        SupportingTextState.DEFAULT,
+                    ),
+                ),
                 state = InputShellState.UNFOCUSED,
                 onResetButtonClicked = {},
-                onItemSelected = {},
+                onItemSelected = { _, _ -> },
+                useDropDown = false,
             )
         }
         rule.onNodeWithTag("INPUT_DROPDOWN").assertExists()
         rule.onNodeWithTag("INPUT_DROPDOWN_ARROW_BUTTON").performClick()
         rule.onNodeWithTag("INPUT_DROPDOWN_BOTTOM_SHEET").assertExists()
-        rule.onNodeWithTag("INPUT_DROPDOWN_BOTTOM_SHEET_ITEMS").onChildren().assertCountEquals(10)
+        rule.onNode(
+            hasTestTag("INPUT_DROPDOWN_BOTTOM_SHEET_ITEMS").and(
+                SemanticsMatcher.expectValue(DropDownItemCount, options.size),
+            ),
+        ).assertExists()
         rule.onNodeWithContentDescription(searchSemantics).assertExists()
 
         // Search
         rule.onNodeWithContentDescription(searchSemantics).performTextInput("Option 1")
-        rule.onNodeWithTag("INPUT_DROPDOWN_BOTTOM_SHEET_ITEMS").onChildren().assertCountEquals(2)
-        rule.onNodeWithTag("INPUT_DROPDOWN_BOTTOM_SHEET_ITEMS").onChildren()[0].assertTextEquals("Option 1")
-        rule.onNodeWithTag("INPUT_DROPDOWN_BOTTOM_SHEET_ITEMS").onChildren()[1].assertTextEquals("Option 10")
+        rule.onNode(
+            hasTestTag("INPUT_DROPDOWN_BOTTOM_SHEET_ITEMS").and(
+                SemanticsMatcher.expectValue(DropDownItemCount, 2),
+            ),
+        ).assertExists()
+        rule.onNodeWithTag("INPUT_DROPDOWN_BOTTOM_SHEET_ITEMS")
+            .onChildren()[0].assertTextEquals("Option 1")
+        rule.onNodeWithTag("INPUT_DROPDOWN_BOTTOM_SHEET_ITEMS")
+            .onChildren()[1].assertTextEquals("Option 10")
     }
 
     @Test
     fun shouldNoResultsFoundTextWhenThereAreNoSearchResults() {
-        val dropdownItems = listOf(
+        val options = listOf(
             DropdownItem("Option 1"),
             DropdownItem("Option 2"),
             DropdownItem("Option 3"),
@@ -273,13 +397,29 @@ class InputDropDownTest {
         val searchSemantics = "Search"
 
         rule.setContent {
+            var filteredOptions by remember { mutableStateOf(options) }
             InputDropDown(
                 title = "Label",
-                dropdownItems = dropdownItems,
-                supportingTextData = listOf(SupportingTextData("Supporting text", SupportingTextState.DEFAULT)),
+                itemCount = filteredOptions.size,
+                onSearchOption = { query ->
+                    filteredOptions = options.filter { it.label.contains(query) }
+                },
+                fetchItem = {
+                    filteredOptions[it]
+                },
+                loadOptions = {
+                },
+                supportingTextData = listOf(
+                    SupportingTextData(
+                        "Supporting text",
+                        SupportingTextState.DEFAULT,
+                    ),
+                ),
                 state = InputShellState.UNFOCUSED,
                 onResetButtonClicked = {},
-                onItemSelected = {},
+                onItemSelected = { _, _ -> },
+                useDropDown = false,
+                noResultsFoundString = "No results found",
             )
         }
         rule.onNodeWithTag("INPUT_DROPDOWN").assertExists()
@@ -290,13 +430,17 @@ class InputDropDownTest {
 
         // Search
         rule.onNodeWithContentDescription(searchSemantics).performTextInput("Option 50")
-        rule.onNodeWithTag("INPUT_DROPDOWN_BOTTOM_SHEET_ITEMS").onChildren().assertCountEquals(1)
+        rule.onNode(
+            hasTestTag("INPUT_DROPDOWN_BOTTOM_SHEET_ITEMS").and(
+                SemanticsMatcher.expectValue(DropDownItemCount, 0),
+            ),
+        ).assertExists()
         rule.onNodeWithText("No results found").assertExists()
     }
 
     @Test
     fun shouldNotShowSearchBarWhenSearchBarConfigIsFalse() {
-        val dropdownItems = listOf(
+        val options = listOf(
             DropdownItem("Option 1"),
             DropdownItem("Option 2"),
             DropdownItem("Option 3"),
@@ -314,12 +458,25 @@ class InputDropDownTest {
         rule.setContent {
             InputDropDown(
                 title = "Label",
-                dropdownItems = dropdownItems,
-                supportingTextData = listOf(SupportingTextData("Supporting text", SupportingTextState.DEFAULT)),
+                itemCount = options.size,
+                onSearchOption = {
+                },
+                fetchItem = {
+                    options[it]
+                },
+                loadOptions = {
+                },
+                supportingTextData = listOf(
+                    SupportingTextData(
+                        "Supporting text",
+                        SupportingTextState.DEFAULT,
+                    ),
+                ),
                 state = InputShellState.UNFOCUSED,
                 onResetButtonClicked = {},
-                onItemSelected = {},
+                onItemSelected = { _, _ -> },
                 showSearchBar = false,
+                useDropDown = false,
             )
         }
         rule.onNodeWithTag("INPUT_DROPDOWN").assertExists()
@@ -331,7 +488,7 @@ class InputDropDownTest {
 
     @Test
     fun clickingOnDropdownMenuItemShouldTriggerCallbackAndDismissMenu() {
-        val dropdownItems = listOf(
+        val options = listOf(
             DropdownItem("Option 1"),
             DropdownItem("Option 2"),
             DropdownItem("Option 3"),
@@ -345,13 +502,25 @@ class InputDropDownTest {
         rule.setContent {
             InputDropDown(
                 title = "Label",
-                dropdownItems = dropdownItems,
+                itemCount = options.size,
+                onSearchOption = {
+                },
+                fetchItem = {
+                    options[it]
+                },
+                loadOptions = {
+                },
                 selectedItem = selectedItem,
-                supportingTextData = listOf(SupportingTextData("Supporting text", SupportingTextState.DEFAULT)),
+                supportingTextData = listOf(
+                    SupportingTextData(
+                        "Supporting text",
+                        SupportingTextState.DEFAULT,
+                    ),
+                ),
                 state = InputShellState.UNFOCUSED,
                 onResetButtonClicked = {},
-                onItemSelected = {
-                    selectedItem = it
+                onItemSelected = { _, item ->
+                    selectedItem = item
                 },
             )
         }
@@ -360,12 +529,12 @@ class InputDropDownTest {
         rule.onNodeWithTag("INPUT_DROPDOWN_MENU").assertExists()
         rule.onNodeWithTag("INPUT_DROPDOWN_MENU_ITEM_0").performClick()
         rule.onNodeWithTag("INPUT_DROPDOWN_MENU").assertDoesNotExist()
-        assert(selectedItem == dropdownItems.first())
+        assert(selectedItem == options.first())
     }
 
     @Test
     fun clickingOnBottomSheetItemShouldTriggerCallbackAndDismissBottomSheet() {
-        val dropdownItems = listOf(
+        val options = listOf(
             DropdownItem("Option 1"),
             DropdownItem("Option 2"),
             DropdownItem("Option 3"),
@@ -380,14 +549,28 @@ class InputDropDownTest {
         rule.setContent {
             InputDropDown(
                 title = "Label",
-                dropdownItems = dropdownItems,
+                itemCount = options.size,
+                onSearchOption = {
+                },
+                fetchItem = {
+                    options[it]
+                },
+                loadOptions = {
+                },
                 selectedItem = selectedItem,
-                supportingTextData = listOf(SupportingTextData("Supporting text", SupportingTextState.DEFAULT)),
+                supportingTextData = listOf(
+                    SupportingTextData(
+                        "Supporting text",
+                        SupportingTextState.DEFAULT,
+                    ),
+                ),
                 state = InputShellState.UNFOCUSED,
                 onResetButtonClicked = {},
-                onItemSelected = {
-                    selectedItem = it
+                onItemSelected = { _, item ->
+                    selectedItem = item
                 },
+                useDropDown = false,
+                noResultsFoundString = "No results found",
             )
         }
         rule.onNodeWithTag("INPUT_DROPDOWN").assertExists()
@@ -395,14 +578,14 @@ class InputDropDownTest {
         rule.onNodeWithTag("INPUT_DROPDOWN_BOTTOM_SHEET").assertExists()
         rule.onNodeWithTag("INPUT_DROPDOWN_BOTTOM_SHEET_ITEM_2").performClick()
         rule.onNodeWithTag("INPUT_DROPDOWN_BOTTOM_SHEET").assertDoesNotExist()
-        assert(selectedItem == dropdownItems[2])
+        assert(selectedItem == options[2])
     }
 
     @Test
     fun shouldShowSearchForMoreOptionTextWhenMoreThan50Option() {
-        val dropdownItems = mutableListOf<DropdownItem>()
+        val options = mutableListOf<DropdownItem>()
         for (i in 1..100) {
-            dropdownItems.add(
+            options.add(
                 DropdownItem("Option $i"),
             )
         }
@@ -410,35 +593,73 @@ class InputDropDownTest {
         val searchSemantics = "Search"
 
         rule.setContent {
+            var filteredOptions by remember { mutableStateOf(options) }
+
             InputDropDown(
                 title = "Label",
-                dropdownItems = dropdownItems,
-                supportingTextData = listOf(SupportingTextData("Supporting text", SupportingTextState.DEFAULT)),
+                itemCount = filteredOptions.size,
+                onSearchOption = { query ->
+                    filteredOptions = options.filter { it.label.contains(query) }.toMutableList()
+                },
+                fetchItem = {
+                    filteredOptions[it]
+                },
+                loadOptions = {
+                },
+                supportingTextData = listOf(
+                    SupportingTextData(
+                        "Supporting text",
+                        SupportingTextState.DEFAULT,
+                    ),
+                ),
                 state = InputShellState.UNFOCUSED,
                 onResetButtonClicked = {},
-                onItemSelected = {},
+                onItemSelected = { _, _ -> },
+                useDropDown = false,
+                noResultsFoundString = "No results found",
             )
         }
         rule.onNodeWithTag("INPUT_DROPDOWN").assertExists()
         rule.onNodeWithTag("INPUT_DROPDOWN_ARROW_BUTTON").performClick()
         rule.onNodeWithTag("INPUT_DROPDOWN_BOTTOM_SHEET").assertExists()
-        rule.onNodeWithTag("INPUT_DROPDOWN_BOTTOM_SHEET_ITEMS").onChildren().assertCountEquals(51)
+        rule.onNodeWithTag("INPUT_DROPDOWN_BOTTOM_SHEET_ITEMS").onChildren().assertCountEquals(10)
         rule.onNodeWithContentDescription(searchSemantics).assertExists()
 
-        rule.onNodeWithTag("INPUT_DROPDOWN_BOTTOM_SHEET_ITEMS").onChildren().assertCountEquals(51)
-        rule.onNodeWithText("Not all options are displayed.\\n Search to see more.").assertExists()
+        rule.onNode(
+            hasTestTag("INPUT_DROPDOWN_BOTTOM_SHEET_ITEMS").and(
+                SemanticsMatcher.expectValue(DropDownItemCount, options.size),
+            ),
+        ).assertExists()
+        rule.onNodeWithText("Not all options are displayed.\\n Search to see more.")
+            .assertDoesNotExist()
 
         // Search
         rule.onNodeWithContentDescription(searchSemantics).performTextInput("5")
-        rule.onNodeWithTag("INPUT_DROPDOWN_BOTTOM_SHEET_ITEMS").onChildren().assertCountEquals(19)
-        rule.onNodeWithText("Not all options are displayed.\\n Search to see more.").assertDoesNotExist()
+        rule.onNode(
+            hasTestTag("INPUT_DROPDOWN_BOTTOM_SHEET_ITEMS").and(
+                SemanticsMatcher.expectValue(DropDownItemCount, 19),
+            ),
+        ).assertExists()
+        rule.onNodeWithText("Not all options are displayed.\\n Search to see more.")
+            .assertDoesNotExist()
 
+        rule.onNodeWithContentDescription(searchSemantics).performTextClearance()
         rule.onNodeWithContentDescription(searchSemantics).performTextInput("55")
-        rule.onNodeWithTag("INPUT_DROPDOWN_BOTTOM_SHEET_ITEMS").onChildren().assertCountEquals(1)
-        rule.onNodeWithText("Not all options are displayed.\\n Search to see more.").assertDoesNotExist()
+        rule.onNode(
+            hasTestTag("INPUT_DROPDOWN_BOTTOM_SHEET_ITEMS").and(
+                SemanticsMatcher.expectValue(DropDownItemCount, options.filter { it.label.contains("55") }.size),
+            ),
+        ).assertExists()
+        rule.onNodeWithText("Not all options are displayed.\\n Search to see more.")
+            .assertDoesNotExist()
 
+        rule.onNodeWithContentDescription(searchSemantics).performTextClearance()
         rule.onNodeWithContentDescription(searchSemantics).performTextInput("555")
-        rule.onNodeWithTag("INPUT_DROPDOWN_BOTTOM_SHEET_ITEMS").onChildren().assertCountEquals(1)
+        rule.onNode(
+            hasTestTag("INPUT_DROPDOWN_BOTTOM_SHEET_ITEMS").and(
+                SemanticsMatcher.expectValue(DropDownItemCount, 0),
+            ),
+        ).assertExists()
         rule.onNodeWithText("No results found").assertExists()
     }
 }
