@@ -45,7 +45,10 @@ class InputDropDownSnapshotTest {
                 )
                 Title("Input Dropdown", textColor = TextColor.OnSurfaceVariant)
 
-                SubTitle("Basic Input Dropdown with < 7 inputs", textColor = TextColor.OnSurfaceVariant)
+                SubTitle(
+                    "Basic Input Dropdown with < 7 inputs",
+                    textColor = TextColor.OnSurfaceVariant
+                )
                 var selectedItem by remember { mutableStateOf<DropdownItem?>(null) }
                 val focusRequester = remember { FocusRequester() }
 
@@ -53,15 +56,26 @@ class InputDropDownSnapshotTest {
                     focusRequester.requestFocus()
                 }
 
+                val sixOptions = options.take(6)
+
                 InputDropDown(
                     modifier = Modifier.focusRequester(focusRequester),
                     title = "Label",
                     state = InputShellState.FOCUSED,
-                    dropdownItems = options.take(6),
+                    itemCount = sixOptions.size,
+                    fetchItem = { index ->
+                        sixOptions[index]
+                    },
+                    onSearchOption = {
+
+                    },
+                    loadOptions = {
+
+                    },
                     onResetButtonClicked = {
                         selectedItem = null
                     },
-                    onItemSelected = {
+                    onItemSelected = { _, it ->
                         selectedItem = it
                     },
                     selectedItem = selectedItem,
@@ -71,11 +85,20 @@ class InputDropDownSnapshotTest {
                     title = "Label - Parameter Style",
                     inputStyle = InputStyle.ParameterInputStyle(),
                     state = InputShellState.UNFOCUSED,
-                    dropdownItems = options.take(6),
+                    itemCount = sixOptions.size,
+                    fetchItem = { index ->
+                        sixOptions[index]
+                    },
+                    onSearchOption = {
+
+                    },
+                    loadOptions = {
+
+                    },
                     onResetButtonClicked = {
                         selectedItem = null
                     },
-                    onItemSelected = {
+                    onItemSelected = { _, it ->
                         selectedItem = it
                     },
                     selectedItem = selectedItem,
@@ -83,16 +106,29 @@ class InputDropDownSnapshotTest {
 
                 Spacer(Modifier.size(Spacing.Spacing18))
 
-                SubTitle("Basic Input Dropdown with >= 7 inputs", textColor = TextColor.OnSurfaceVariant)
+                SubTitle(
+                    "Basic Input Dropdown with >= 7 inputs",
+                    textColor = TextColor.OnSurfaceVariant
+                )
+
                 var selectedItem4 by remember { mutableStateOf<DropdownItem?>(null) }
                 InputDropDown(
                     title = "Label",
                     state = InputShellState.UNFOCUSED,
-                    dropdownItems = options,
+                    itemCount = options.size,
+                    fetchItem = { index ->
+                        options[index]
+                    },
+                    onSearchOption = {
+
+                    },
+                    loadOptions = {
+
+                    },
                     onResetButtonClicked = {
                         selectedItem4 = null
                     },
-                    onItemSelected = {
+                    onItemSelected = { _, it ->
                         selectedItem4 = it
                     },
                     selectedItem = selectedItem4,
@@ -100,16 +136,28 @@ class InputDropDownSnapshotTest {
 
                 Spacer(Modifier.size(Spacing.Spacing18))
 
-                SubTitle("Basic Input Dropdown with content ", textColor = TextColor.OnSurfaceVariant)
+                SubTitle(
+                    "Basic Input Dropdown with content ",
+                    textColor = TextColor.OnSurfaceVariant
+                )
                 var selectedItem1 by remember { mutableStateOf<DropdownItem?>(options[0]) }
                 InputDropDown(
                     title = "Label",
                     state = InputShellState.UNFOCUSED,
-                    dropdownItems = options,
+                    itemCount = options.size,
+                    fetchItem = { index ->
+                        options[index]
+                    },
+                    onSearchOption = {
+
+                    },
+                    loadOptions = {
+
+                    },
                     onResetButtonClicked = {
                         selectedItem1 = null
                     },
-                    onItemSelected = {
+                    onItemSelected = { _, it ->
                         selectedItem1 = it
                     },
                     selectedItem = selectedItem1,
@@ -121,27 +169,48 @@ class InputDropDownSnapshotTest {
                 InputDropDown(
                     title = "Label",
                     state = InputShellState.ERROR,
-                    dropdownItems = options,
+                    itemCount = options.size,
+                    fetchItem = { index ->
+                        options[index]
+                    },
+                    onSearchOption = {
+
+                    },
+                    loadOptions = {
+
+                    },
                     onResetButtonClicked = {
                         selectedItem2 = null
                     },
-                    onItemSelected = {
+                    onItemSelected = { _, it ->
                         selectedItem2 = it
                     },
                     selectedItem = selectedItem2,
                 )
                 Spacer(Modifier.size(Spacing.Spacing18))
 
-                SubTitle("Disabled Input Dropdown with content ", textColor = TextColor.OnSurfaceVariant)
+                SubTitle(
+                    "Disabled Input Dropdown with content ",
+                    textColor = TextColor.OnSurfaceVariant
+                )
                 var selectedItem3 by remember { mutableStateOf<DropdownItem?>(options[1]) }
                 InputDropDown(
                     title = "Label",
                     state = InputShellState.DISABLED,
-                    dropdownItems = options,
+                    itemCount = options.size,
+                    fetchItem = { index ->
+                        options[index]
+                    },
+                    onSearchOption = {
+
+                    },
+                    loadOptions = {
+
+                    },
                     onResetButtonClicked = {
                         selectedItem3 = null
                     },
-                    onItemSelected = {
+                    onItemSelected = { _, it ->
                         selectedItem3 = it
                     },
                     selectedItem = selectedItem3,
