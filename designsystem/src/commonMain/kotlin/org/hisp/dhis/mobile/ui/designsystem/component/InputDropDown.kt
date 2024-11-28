@@ -75,6 +75,7 @@ private const val MAX_DROPDOWN_ITEMS_TO_SHOW = 50
  * @param showSearchBar: config whether to show search bar in the bottom sheet.
  * @param expanded: config whether the dropdown should be initially displayed.
  * @param useDropDown: use dropdown if true. Bottomsheet with search capability otherwise.
+ * @param onDismiss: gives access to the onDismiss event.
  * @param noResultsFoundString: text to be shown in pop up when no results are found.
  */
 @OptIn(ExperimentalMaterial3Api::class)
@@ -98,6 +99,7 @@ fun InputDropDown(
     expanded: Boolean = false,
     useDropDown: Boolean = true,
     loadOptions: () -> Unit,
+    onDismiss: () -> Unit = {},
     noResultsFoundString: String = provideStringResource("no_results_found"),
     searchToFindMoreString: String = provideStringResource("search_to_see_more"),
 ) {
@@ -160,6 +162,7 @@ fun InputDropDown(
                                                     currentItem = this
                                                     onItemSelected(index, this)
                                                     showDropdown = false
+                                                    onDismiss()
                                                 },
                                             )
                                         }
@@ -187,6 +190,7 @@ fun InputDropDown(
                     },
                     onDismiss = {
                         showDropdown = false
+                        onDismiss()
                     },
                     searchQuery = if (showSearchBar) {
                         searchQuery
@@ -221,7 +225,10 @@ fun InputDropDown(
             ) {
                 ExposedDropdownMenu(
                     expanded = showDropdown,
-                    onDismissRequest = { showDropdown = false },
+                    onDismissRequest = {
+                        showDropdown = false
+                        onDismiss()
+                    },
                     modifier = Modifier.background(
                         color = SurfaceColor.SurfaceBright,
                         shape = RoundedCornerShape(Spacing8),
@@ -243,6 +250,7 @@ fun InputDropDown(
                                     currentItem = this
                                     onItemSelected(index, this)
                                     showDropdown = false
+                                    onDismiss()
                                 },
                             )
                         }
