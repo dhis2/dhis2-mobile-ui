@@ -1,0 +1,335 @@
+package org.hisp.dhis.mobile.ui.designsystem.component.composetable.ui
+
+
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.ErrorOutline
+import androidx.compose.material3.BottomSheetScaffold
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.SheetState
+import androidx.compose.material3.rememberBottomSheetScaffoldState
+import androidx.compose.material3.rememberModalBottomSheetState
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.launch
+import org.hisp.dhis.mobile.ui.designsystem.component.composetable.TableScreenState
+import org.hisp.dhis.mobile.ui.designsystem.component.composetable.TableState
+import org.hisp.dhis.mobile.ui.designsystem.component.composetable.actions.TableInteractions
+import org.hisp.dhis.mobile.ui.designsystem.component.composetable.actions.TextInputInteractions
+import org.hisp.dhis.mobile.ui.designsystem.component.composetable.model.TableCell
+import org.hisp.dhis.mobile.ui.designsystem.component.composetable.model.TableDialogModel
+import org.hisp.dhis.mobile.ui.designsystem.component.composetable.model.TextInputModel
+import org.hisp.dhis.mobile.ui.designsystem.component.composetable.model.ValidationResult
+import org.hisp.dhis.mobile.ui.designsystem.component.composetable.ui.compositions.LocalCurrentCellValue
+import org.hisp.dhis.mobile.ui.designsystem.component.composetable.ui.compositions.LocalInteraction
+import org.hisp.dhis.mobile.ui.designsystem.component.composetable.ui.compositions.LocalUpdatingCell
+import org.hisp.dhis.mobile.ui.designsystem.component.composetable.ui.extensions.collapseIfExpanded
+import org.hisp.dhis.mobile.ui.designsystem.component.composetable.ui.extensions.expandIfCollapsed
+import org.hisp.dhis.mobile.ui.designsystem.component.AdditionalInfoItemColor
+import org.hisp.dhis.mobile.ui.designsystem.component.InfoBar
+import org.hisp.dhis.mobile.ui.designsystem.component.InfoBarData
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun DataSetTableScreen(
+    tableScreenState: TableScreenState,
+    onCellClick: (
+        tableId: String,
+        TableCell,
+        updateCellValue: (TableCell) -> Unit,
+    ) -> TextInputModel?,
+    emptyTablesText: String? = null,
+    onEdition: (editing: Boolean) -> Unit,
+    onSaveValue: (TableCell) -> Unit,
+    bottomContent: @Composable (() -> Unit)? = null,
+) {
+    val bottomSheetState = rememberBottomSheetScaffoldState(
+        bottomSheetState = rememberModalBottomSheetState(),
+    )
+
+    var currentCell by remember { mutableStateOf<TableCell?>(null) }
+    var updatingCell by remember { mutableStateOf<TableCell?>(null) }
+    var currentInputType by remember { mutableStateOf(TextInputModel()) }
+    var displayDescription by remember { mutableStateOf<TableDialogModel?>(null) }
+    val coroutineScope = rememberCoroutineScope()
+    var tableSelection by remember { mutableStateOf<TableSelection>(TableSelection.Unselected()) }
+
+    val focusManager = LocalFocusManager.current
+    val tableConfiguration = LocalTableConfiguration.current
+    val focusRequester = remember { FocusRequester() }
+
+    var alreadyFinish by remember { mutableStateOf(false) }
+
+    val isKeyboardOpen by keyboardAsState()
+
+    fun finishEdition() {
+        focusManager.clearFocus(true)
+        tableSelection = TableSelection.Unselected()
+        onEdition(false)
+    }
+
+    fun collapseBottomSheet(finish: Boolean = false) {
+        focusManager.clearFocus(true)
+        coroutineScope.launch {
+            bottomSheetState.bottomSheetState.collapseIfExpanded {
+                if (finish) {
+                    finishEdition()
+                }
+                alreadyFinish = true
+            }
+        }
+    }
+
+    fun startEdition() {
+        coroutineScope.launch {
+            bottomSheetState.bottomSheetState.expandIfCollapsed { onEdition(true) }
+        }
+        alreadyFinish = false
+    }
+
+    fun updateError(tableCell: TableCell) {
+        currentInputType = currentInputType.copy(error = tableCell.error)
+        currentCell = currentCell?.copy(error = tableCell.error)
+    }
+
+    fun updateCellValue(tableCell: TableCell?) {
+        currentCell = tableCell
+    }
+
+    var saveClicked by remember { mutableStateOf(false) }
+
+    if (saveClicked) {
+        (tableSelection as? TableSelection.CellSelection)?.let { cellSelected ->
+            val currentTable = tableScreenState.tables.firstOrNull { it.id == cellSelected.tableId }
+            currentTable?.cellHasError(cellSelected)?.let {
+                updateError(it)
+                saveClicked = false
+            }
+        }
+    }
+    //todo manage back handle with new compose multiplatform logic, might have to use expect actual logic
+//    BackHandler(
+//        bottomSheetState.bottomSheetState.isExpanded &&
+//            bottomSheetState.bottomSheetState.progress == 1f,
+//    ) {
+//        collapseBottomSheet(finish = true)
+//    }
+
+    LaunchedEffect(bottomSheetState.bottomSheetState.currentValue) {
+        if (
+            !bottomSheetState.bottomSheetState.hasExpandedState && !alreadyFinish
+        ) {
+            finishEdition()
+        }
+    }
+
+    LaunchedEffect(isKeyboardOpen) {
+        if (isKeyboardOpen == Keyboard.Closed) {
+            if (tableConfiguration.textInputViewMode) {
+                focusManager.clearFocus(true)
+            } else if (bottomSheetState.bottomSheetState.hasExpandedState) {
+                collapseBottomSheet(true)
+                bottomSheetState.bottomSheetState.collapseIfExpanded {  }
+            }
+        }
+    }
+
+    val iter by remember {
+        mutableStateOf(
+            object : TableInteractions {
+                override fun onSelectionChange(newTableSelection: TableSelection) {
+                    tableSelection = newTableSelection
+                }
+
+                override fun onDecorationClick(dialogModel: TableDialogModel) {
+                    displayDescription = dialogModel
+                }
+
+                override fun onClick(tableCell: TableCell) {
+                    currentCell?.takeIf { it != tableCell }?.let { onSaveValue(it) }
+                    updatingCell = currentCell
+                    onCellClick(
+                        tableSelection.tableId,
+                        tableCell,
+                    ) { updateCellValue(it) }?.let { inputModel ->
+                        currentCell = tableCell
+                        currentInputType =
+                            inputModel.copy(currentValue = currentCell?.value)
+                        startEdition()
+                        focusRequester.requestFocus()
+                    } ?: collapseBottomSheet()
+                }
+
+                override fun onOptionSelected(cell: TableCell, code: String, label: String) {
+                    currentCell = cell.copy(
+                        value = label,
+                        error = null,
+                    ).also {
+                        onSaveValue(cell.copy(value = code))
+                    }
+                }
+            },
+        )
+    }
+
+    BottomSheetScaffold(
+        scaffoldState = bottomSheetState,
+        sheetContent = {
+            val validator = TableTheme.validator
+            val textInputInteractions by remember(tableScreenState) {
+                derivedStateOf {
+                    object : TextInputInteractions {
+                        override fun onTextChanged(textInputModel: TextInputModel) {
+                            currentInputType = textInputModel
+                            currentCell = currentCell?.copy(
+                                value = textInputModel.currentValue,
+                                error = null,
+                            )
+                        }
+
+                        override fun onSave() {
+                            if (!tableConfiguration.textInputViewMode) {
+                                collapseBottomSheet(true)
+                            }
+                            currentCell?.let { onSaveValue(it) }
+                            saveClicked = true
+                        }
+
+                        override fun onNextSelected() {
+                            currentCell?.let { tableCell ->
+                                val result = validator.validate(tableCell)
+                                onSaveValue(tableCell)
+                                (tableSelection as? TableSelection.CellSelection)
+                                    ?.let { cellSelected ->
+                                        val currentTable = tableScreenState.tables.first {
+                                            it.id == cellSelected.tableId
+                                        }
+                                        currentTable.getNextCell(
+                                            cellSelection = cellSelected,
+                                            successValidation = result is ValidationResult.Success,
+                                        )?.let { (tableCell, nextCell) ->
+                                            if (nextCell != cellSelected) {
+                                                updatingCell = currentCell
+                                                tableSelection = nextCell
+                                                onCellClick(
+                                                    tableSelection.tableId,
+                                                    tableCell,
+                                                ) { updateCellValue(it) }?.let { inputModel ->
+                                                    currentCell = tableCell
+                                                    currentInputType = inputModel
+                                                    focusRequester.requestFocus()
+                                                } ?: collapseBottomSheet()
+                                            } else {
+                                                updateError(tableCell)
+                                            }
+                                        } ?: collapseBottomSheet(finish = true)
+                                    }
+                            }
+                        }
+                    }
+                }
+            }
+            TextInput(
+                textInputModel = currentInputType,
+                textInputInteractions = textInputInteractions,
+                focusRequester = focusRequester,
+            )
+        },
+        sheetPeekHeight = 0.dp,
+        sheetShape = RoundedCornerShape(
+            topStart = 16.dp,
+            topEnd = 16.dp,
+        ),
+    ) {
+        AnimatedVisibility(
+            visible = tableScreenState.state == TableState.LOADING,
+            enter = fadeIn(),
+            exit = fadeOut(),
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .fillMaxWidth()
+                    .background(Color.White),
+                contentAlignment = Alignment.Center,
+            ) {
+                CircularProgressIndicator()
+            }
+        }
+        CompositionLocalProvider(
+            LocalTableSelection provides tableSelection,
+            LocalCurrentCellValue provides { currentCell?.value },
+            LocalUpdatingCell provides updatingCell,
+            LocalInteraction provides iter,
+        ) {
+            if (tableScreenState.state == TableState.SUCCESS && tableScreenState.tables.isEmpty()) {
+                Column(
+                    modifier = Modifier.fillMaxWidth()
+                        .padding(16.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                ) {
+                    InfoBar(
+                        infoBarData = InfoBarData(
+                            text = emptyTablesText ?: "",
+                            icon = {
+                                Icon(
+                                    imageVector = Icons.Outlined.ErrorOutline,
+                                    contentDescription = "warning",
+                                    tint = AdditionalInfoItemColor.WARNING.color,
+                                )
+                            },
+                            color = AdditionalInfoItemColor.WARNING.color,
+                            backgroundColor = AdditionalInfoItemColor.WARNING.color.copy(alpha = 0.1f),
+                            actionText = null,
+                            onClick = {},
+                        ),
+                        Modifier.testTag(EMPTY_TABLE_TEXT_TAG),
+                    )
+                }
+            } else {
+                DataTable(
+                    tableList = tableScreenState.tables,
+                    bottomContent = bottomContent,
+                )
+            }
+        }
+        displayDescription?.let {
+            TableDialog(
+                dialogModel = it,
+                onDismiss = {
+                    displayDescription = null
+                },
+                onPrimaryButtonClick = {
+                    displayDescription = null
+                },
+            )
+        }
+    }
+}
+
+const val EMPTY_TABLE_TEXT_TAG = "EMPTY_TABLE_TEXT_TAG"
