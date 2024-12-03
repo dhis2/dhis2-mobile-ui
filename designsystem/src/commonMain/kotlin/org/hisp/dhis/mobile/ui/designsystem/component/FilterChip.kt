@@ -5,10 +5,11 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
-import androidx.compose.material.ripple.LocalRippleTheme
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.LocalRippleConfiguration
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -21,9 +22,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.unit.IntOffset
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
-import org.hisp.dhis.mobile.ui.designsystem.theme.Ripple
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
+import org.hisp.dhis.mobile.ui.designsystem.theme.customRippleConfiguration
 
 /**
  * DHIS2 [FilterChip] button with generic icon slot.
@@ -36,6 +37,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
  * @param onSelected: Will be called when the user taps the chip.
  * @param badge: the text to be displayed within the badge.
  */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FilterChip(
     modifier: Modifier = Modifier,
@@ -45,7 +47,7 @@ fun FilterChip(
     badge: String? = null,
 ) {
     Box(modifier = modifier) {
-        CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme()) {
+        CompositionLocalProvider(LocalRippleConfiguration provides customRippleConfiguration()) {
             FilterChip(
                 onClick = { onSelected?.invoke(!selected) },
                 label = { Text(label, color = TextColor.OnSurfaceVariant) },

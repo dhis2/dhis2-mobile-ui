@@ -7,7 +7,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.ripple.LocalRippleTheme
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.LocalRippleConfiguration
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.RadioButtonDefaults
@@ -21,10 +22,10 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.AnnotatedString
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
-import org.hisp.dhis.mobile.ui.designsystem.theme.Ripple
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
+import org.hisp.dhis.mobile.ui.designsystem.theme.customRippleConfiguration
 import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
 
 /**
@@ -36,6 +37,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
  * @param onClick Will be called when the user clicks the button.
  *
  */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RadioButton(
     radioButtonData: RadioButtonData,
@@ -59,7 +61,7 @@ fun RadioButton(
                 enabled = radioButtonData.enabled,
             ),
     ) {
-        CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme()) {
+        CompositionLocalProvider(LocalRippleConfiguration provides customRippleConfiguration()) {
             RadioButton(
                 selected = radioButtonData.selected,
                 onClick = {

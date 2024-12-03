@@ -11,7 +11,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.ripple.LocalRippleTheme
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.LocalRippleConfiguration
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,9 +23,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
-import org.hisp.dhis.mobile.ui.designsystem.theme.Ripple
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
+import org.hisp.dhis.mobile.ui.designsystem.theme.customRippleConfiguration
 
 /**
  * DHIS2 InfoBar. Wraps compose [Row].
@@ -33,6 +34,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
  * parameters for component.
  * @param modifier: optional modifier.
  */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun InfoBar(
     infoBarData: InfoBarData,
@@ -53,7 +55,7 @@ fun InfoBar(
         Text(color = infoBarData.color, text = infoBarData.text, style = MaterialTheme.typography.bodyMedium)
         Spacer(Modifier.weight(1f))
         if (infoBarData.onClick != null && infoBarData.actionText?.isNotEmpty() == true) {
-            CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme()) {
+            CompositionLocalProvider(LocalRippleConfiguration provides customRippleConfiguration()) {
                 Column(
                     Modifier
                         .clip(shape = RoundedCornerShape(Radius.L))

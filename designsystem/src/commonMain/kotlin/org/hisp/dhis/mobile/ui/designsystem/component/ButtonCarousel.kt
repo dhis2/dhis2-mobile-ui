@@ -14,8 +14,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.ripple.LocalRippleTheme
-import androidx.compose.material.ripple.rememberRipple
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.LocalRippleConfiguration
+import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
@@ -23,12 +24,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
-import org.hisp.dhis.mobile.ui.designsystem.theme.Ripple
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing16
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing24
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing64
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
+import org.hisp.dhis.mobile.ui.designsystem.theme.customRippleConfiguration
 import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
 
 /**
@@ -36,12 +37,13 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
  * @param buttonData: [CarouselButtonData] data model with all parameters  for component.
  * @param modifier: optional [Modifier].
  */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CarouselButton(
     buttonData: CarouselButtonData,
     modifier: Modifier = Modifier,
 ) {
-    CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme()) {
+    CompositionLocalProvider(LocalRippleConfiguration provides customRippleConfiguration()) {
         Box(
             modifier = modifier
                 .size(Spacing.Spacing80)
@@ -51,7 +53,7 @@ fun CarouselButton(
                     onClick = {
                         buttonData.onClick.invoke()
                     },
-                    indication = rememberRipple(
+                    indication = ripple(
                         color = SurfaceColor.Primary,
                     ),
                     enabled = buttonData.enabled,

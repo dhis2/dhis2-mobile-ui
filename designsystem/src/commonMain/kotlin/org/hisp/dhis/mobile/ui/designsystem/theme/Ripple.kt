@@ -1,26 +1,20 @@
 package org.hisp.dhis.mobile.ui.designsystem.theme
 
 import androidx.compose.material.ripple.RippleAlpha
-import androidx.compose.material.ripple.RippleTheme
-import androidx.compose.runtime.Composable
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.RippleConfiguration
 import androidx.compose.ui.graphics.Color
 
-object Ripple {
-    internal class CustomDHISRippleTheme(
-        private val color: Color = SurfaceColor.Primary,
-    ) : RippleTheme {
-
-        private val alpha = RippleAlpha(
-            focusedAlpha = 0.16f,
-            draggedAlpha = 0.16f,
-            hoveredAlpha = 0.04f,
-            pressedAlpha = 0.16f,
-        )
-
-        @Composable
-        override fun defaultColor(): Color = color
-
-        @Composable
-        override fun rippleAlpha(): RippleAlpha = alpha
-    }
-}
+@OptIn(ExperimentalMaterial3Api::class)
+internal fun customRippleConfiguration(
+    color: Color = SurfaceColor.Primary,
+    alpha: RippleAlpha = RippleAlpha(
+        focusedAlpha = 0.16f,
+        draggedAlpha = 0.16f,
+        hoveredAlpha = 0.04f,
+        pressedAlpha = 0.16f,
+    ),
+) = RippleConfiguration(
+    color,
+    alpha,
+)

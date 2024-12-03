@@ -11,12 +11,13 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.ripple.LocalRippleTheme
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ElevatedButton
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilledIconButton
 import androidx.compose.material3.FilledTonalIconButton
 import androidx.compose.material3.IconButtonDefaults
+import androidx.compose.material3.LocalRippleConfiguration
 import androidx.compose.material3.OutlinedIconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -37,11 +38,11 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Border
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
-import org.hisp.dhis.mobile.ui.designsystem.theme.Ripple
 import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
+import org.hisp.dhis.mobile.ui.designsystem.theme.customRippleConfiguration
 import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
 import org.hisp.dhis.mobile.ui.designsystem.theme.iconButtonshadow
 
@@ -178,6 +179,7 @@ internal fun BottomSheetIconButton(
  * @param scope: coroutine scope to be used.
  * @param modifier: optional modifier.
  */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun StandardIconButton(
     enabled: Boolean = true,
@@ -187,7 +189,7 @@ private fun StandardIconButton(
     scope: CoroutineScope = rememberCoroutineScope(),
     onClick: () -> Unit,
 ) {
-    CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme()) {
+    CompositionLocalProvider(LocalRippleConfiguration provides customRippleConfiguration()) {
         Box(
             Modifier.size(InternalSizeValues.Size48).clickable(
                 enabled = enabled,
@@ -277,6 +279,7 @@ private fun FilledIconButton(
  * @param scope: Coroutine scope to be used.
  * @param modifier: optional modifier.
  */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun FilledTonalIconButton(
     enabled: Boolean = true,
@@ -286,7 +289,7 @@ private fun FilledTonalIconButton(
     scope: CoroutineScope = rememberCoroutineScope(),
     onClick: () -> Unit,
 ) {
-    CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme()) {
+    CompositionLocalProvider(LocalRippleConfiguration provides customRippleConfiguration()) {
         Box(
             Modifier.size(InternalSizeValues.Size48).clickable(
                 enabled = enabled,
@@ -331,6 +334,7 @@ private fun FilledTonalIconButton(
  * @param scope: coroutine scope to be used.
  * @param modifier: optional modifier.
  */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun OutlinedIconButton(
     enabled: Boolean = true,
@@ -340,7 +344,7 @@ private fun OutlinedIconButton(
     scope: CoroutineScope = rememberCoroutineScope(),
     onClick: () -> Unit,
 ) {
-    CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme()) {
+    CompositionLocalProvider(LocalRippleConfiguration provides customRippleConfiguration()) {
         Box(
             Modifier.size(InternalSizeValues.Size48).clickable(
                 enabled = enabled,

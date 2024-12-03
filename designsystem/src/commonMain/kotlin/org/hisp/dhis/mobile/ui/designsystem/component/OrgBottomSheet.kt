@@ -17,10 +17,10 @@ import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.ClearAll
 import androidx.compose.material.icons.filled.KeyboardArrowDown
-import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -233,7 +233,7 @@ fun OrgUnitSelectorItem(
                 interactionSource = remember {
                     MutableInteractionSource()
                 },
-                indication = rememberRipple(bounded = true),
+                indication = ripple(bounded = true),
             ) {
                 onItemClick(orgTreeItem.uid)
             }

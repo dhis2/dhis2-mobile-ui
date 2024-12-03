@@ -29,10 +29,10 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.icons.outlined.Sync
-import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -578,7 +578,7 @@ private fun ExpandShrinkButton(
                 onClick = onClick,
                 role = Role.Button,
                 interactionSource = interactionSource,
-                indication = rememberRipple(
+                indication = ripple(
                     color = SurfaceColor.Primary,
                 ),
             )
@@ -675,7 +675,7 @@ fun ProvideKeyValueItem(
                 clickable(
                     role = Role.Button,
                     interactionSource = interactionSource,
-                    indication = rememberRipple(
+                    indication = ripple(
                         color = SurfaceColor.Primary,
                     ),
                     onClick = additionalInfoItem.action ?: {},
