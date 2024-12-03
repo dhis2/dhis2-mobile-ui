@@ -6,7 +6,8 @@ import androidx.compose.foundation.interaction.PressInteraction
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.ClickableText
-import androidx.compose.material.ripple.LocalRippleTheme
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.LocalRippleConfiguration
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
@@ -26,10 +27,10 @@ import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.launch
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2SCustomTextStyles
-import org.hisp.dhis.mobile.ui.designsystem.theme.Ripple
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
+import org.hisp.dhis.mobile.ui.designsystem.theme.customRippleConfiguration
 
 /**
  * DHIS2 SupportingText component, wraps Compose [ClickableText].
@@ -45,6 +46,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
  * If the text to be shown has overflow the component will automatically add
  * the expand functionality.
  */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SupportingText(
     text: String,
@@ -135,7 +137,7 @@ fun SupportingText(
         }
     }
 
-    CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme()) {
+    CompositionLocalProvider(LocalRippleConfiguration provides customRippleConfiguration()) {
         ClickableText(
             text = annotatedText,
             maxLines = if (isExpanded) Int.MAX_VALUE else maxLines,

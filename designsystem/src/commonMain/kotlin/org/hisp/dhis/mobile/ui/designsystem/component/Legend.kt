@@ -15,11 +15,11 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.HelpOutline
 import androidx.compose.material.icons.outlined.Info
-import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -63,7 +63,7 @@ fun Legend(
                 },
                 role = Role.Button,
                 interactionSource = interactionSource,
-                indication = rememberRipple(
+                indication = ripple(
                     color = SurfaceColor.Primary,
                 ),
             )
