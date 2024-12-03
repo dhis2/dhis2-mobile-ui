@@ -21,11 +21,18 @@ fun GroupComponentDropDown(
     InputDropDown(
         modifier = modifier.padding(horizontal = Spacing.Spacing16),
         title = "Component",
-        dropdownItems = dropdownItems,
-        onItemSelected = onItemSelected,
+        itemCount = dropdownItems.size,
+        onSearchOption = {},
+        fetchItem = { index -> dropdownItems[index] },
+        onItemSelected = { _, item -> onItemSelected(item) },
         onResetButtonClicked = onResetButtonClicked,
         selectedItem = selectedItem,
         state = InputShellState.UNFOCUSED,
-        inputStyle = InputStyle.DataInputStyle().apply { backGroundColor = SurfaceColor.SurfaceBright },
+        useDropDown = false,
+        inputStyle = InputStyle.DataInputStyle()
+            .apply { backGroundColor = SurfaceColor.SurfaceBright },
+        loadOptions = {
+            /*no-op*/
+        },
     )
 }

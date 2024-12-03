@@ -78,9 +78,8 @@ fun Main(
         modifier = Modifier
             .background(SurfaceColor.Container),
     ) {
-        val screenDropdownItemList = mutableListOf<DropdownItem>()
-        Groups.entries.forEach {
-            screenDropdownItemList.add(DropdownItem(it.label))
+        var screenDropdownItemList by remember {
+            mutableStateOf(emptyList<DropdownItem>())
         }
 
         if (isComponentSelected) {
@@ -91,14 +90,30 @@ fun Main(
                     top = Spacing.Spacing16,
                 ),
                 title = "Group",
-                dropdownItems = screenDropdownItemList.toList(),
-                onItemSelected = { currentScreen.value = getCurrentScreen(it.label) },
+                fetchItem = { index -> screenDropdownItemList[index] },
+                itemCount = screenDropdownItemList.size,
+                onSearchOption = { query ->
+                    screenDropdownItemList = if (query.isNotEmpty()) {
+                        screenDropdownItemList.filter { it.label.contains(query) }
+                    } else {
+                        Groups.entries.map {
+                            DropdownItem(it.label)
+                        }
+                    }
+                },
+                useDropDown = false,
+                onItemSelected = { _, item -> currentScreen.value = getCurrentScreen(item.label) },
                 onResetButtonClicked = { currentScreen.value = Groups.NO_GROUP_SELECTED },
                 state = InputShellState.UNFOCUSED,
                 expanded = true,
                 selectedItem = DropdownItem(currentScreen.value.label),
                 inputStyle = InputStyle.DataInputStyle()
                     .apply { backGroundColor = SurfaceColor.SurfaceBright },
+                loadOptions = {
+                    screenDropdownItemList = Groups.entries.map {
+                        DropdownItem(it.label)
+                    }
+                },
             )
 
             when (currentScreen.value) {

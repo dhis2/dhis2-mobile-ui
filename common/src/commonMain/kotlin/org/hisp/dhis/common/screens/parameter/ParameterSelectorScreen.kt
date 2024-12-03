@@ -233,12 +233,16 @@ fun ParameterSelectorScreen() {
                     title = "DropDown parameter",
                     state = InputShellState.UNFOCUSED,
                     inputStyle = InputStyle.ParameterInputStyle(),
-                    dropdownItems = listOf(
-                        DropdownItem("Item 1"),
-                        DropdownItem("Item 2"),
-                    ),
-                    onItemSelected = {},
+                    itemCount = 2,
+                    onSearchOption = {},
+                    fetchItem = { index ->
+                        DropdownItem("Item $index")
+                    },
+                    onItemSelected = { _, _ -> },
                     onResetButtonClicked = {},
+                    loadOptions = {
+                        /*no-op*/
+                    },
                 )
             },
             onExpand = {},
