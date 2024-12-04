@@ -8,10 +8,10 @@
     <string name="years">Años</string>
     <string name="months">Meses</string>
     <string name="days">Días</string>
-    <string name="error_one">%d error</string>
-    <string name="error_other">%d errores</string>
-    <string name="warning_one">%d advertencia</string>
-    <string name="warning_other">%d advertencias</string>
+    <string name="error_one">%1$d error</string>
+    <string name="error_other">%1$d errores</string>
+    <string name="warning_one">%1$d advertencia</string>
+    <string name="warning_other">%1$d advertencias</string>
     <string name="show_fields">Mostrar campos</string>
     <string name="hide_fields">Ocultar campos</string>
     <string name="action_next">Siguiente</string>
