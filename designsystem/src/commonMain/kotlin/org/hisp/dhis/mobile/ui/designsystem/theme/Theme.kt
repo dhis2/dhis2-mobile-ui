@@ -6,11 +6,15 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.sp
-import org.hisp.dhis.mobile.ui.designsystem.resource.provideFontResource
+import org.hisp.dhis.mobile.designsystem.generated.resources.Res
+import org.hisp.dhis.mobile.designsystem.generated.resources.roboto_medium
+import org.hisp.dhis.mobile.designsystem.generated.resources.roboto_regular
+import org.jetbrains.compose.resources.Font
 
 val DHIS2LightColorScheme = lightColorScheme(
     primary = SurfaceColor.Primary,
@@ -41,7 +45,7 @@ fun DHIS2Theme(content: @Composable () -> Unit) {
                 fontSize = 32.sp,
                 lineHeight = 40.sp,
                 lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
-                fontFamily = provideFontResource("roboto_regular"),
+                fontFamily = FontFamily(Font(Res.font.roboto_regular)),
                 fontWeight = FontWeight.Normal,
                 color = TextColor.OnSurface,
             ),
@@ -49,7 +53,7 @@ fun DHIS2Theme(content: @Composable () -> Unit) {
                 fontSize = 28.sp,
                 lineHeight = 36.sp,
                 lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
-                fontFamily = provideFontResource("roboto_regular"),
+                fontFamily = FontFamily(Font(Res.font.roboto_regular)),
                 fontWeight = FontWeight.Normal,
                 color = TextColor.OnSurface,
             ),
@@ -57,7 +61,7 @@ fun DHIS2Theme(content: @Composable () -> Unit) {
                 fontSize = 24.sp,
                 lineHeight = 32.sp,
                 lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
-                fontFamily = provideFontResource("roboto_regular"),
+                fontFamily = FontFamily(Font(Res.font.roboto_regular)),
                 fontWeight = FontWeight.Normal,
                 color = TextColor.OnSurface,
             ),
@@ -65,7 +69,7 @@ fun DHIS2Theme(content: @Composable () -> Unit) {
                 fontSize = 20.sp,
                 lineHeight = 28.sp,
                 lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
-                fontFamily = provideFontResource("roboto_medium"),
+                fontFamily = FontFamily(Font(Res.font.roboto_medium)),
                 fontWeight = FontWeight.Medium,
                 color = TextColor.OnSurface,
             ),
@@ -73,7 +77,7 @@ fun DHIS2Theme(content: @Composable () -> Unit) {
                 fontSize = 16.sp,
                 lineHeight = 24.sp,
                 lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
-                fontFamily = provideFontResource("roboto_medium"),
+                fontFamily = FontFamily(Font(Res.font.roboto_medium)),
                 fontWeight = FontWeight.Medium,
                 color = TextColor.OnSurface,
                 letterSpacing = 0.15.sp,
@@ -83,7 +87,7 @@ fun DHIS2Theme(content: @Composable () -> Unit) {
                 fontSize = 14.sp,
                 lineHeight = 20.sp,
                 lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
-                fontFamily = provideFontResource("roboto_medium"),
+                fontFamily = FontFamily(Font(Res.font.roboto_medium)),
                 fontWeight = FontWeight.Medium,
                 color = TextColor.OnSurface,
                 letterSpacing = 0.1.sp,
@@ -92,7 +96,7 @@ fun DHIS2Theme(content: @Composable () -> Unit) {
                 fontSize = 14.sp,
                 lineHeight = 20.sp,
                 lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
-                fontFamily = provideFontResource("roboto_medium"),
+                fontFamily = FontFamily(Font(Res.font.roboto_medium)),
                 fontWeight = FontWeight.Medium,
                 color = TextColor.OnSurface,
                 letterSpacing = 0.1.sp,
@@ -101,7 +105,7 @@ fun DHIS2Theme(content: @Composable () -> Unit) {
                 fontSize = 12.sp,
                 lineHeight = 16.sp,
                 lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
-                fontFamily = provideFontResource("roboto_medium"),
+                fontFamily = FontFamily(Font(Res.font.roboto_medium)),
                 fontWeight = FontWeight.Medium,
                 color = TextColor.OnSurface,
                 letterSpacing = 0.5.sp,
@@ -110,7 +114,7 @@ fun DHIS2Theme(content: @Composable () -> Unit) {
                 fontSize = 11.sp,
                 lineHeight = 16.sp,
                 lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
-                fontFamily = provideFontResource("roboto_medium"),
+                fontFamily = FontFamily(Font(Res.font.roboto_medium)),
                 fontWeight = FontWeight.Medium,
                 color = TextColor.OnSurface,
                 letterSpacing = 0.5.sp,
@@ -119,7 +123,7 @@ fun DHIS2Theme(content: @Composable () -> Unit) {
                 fontSize = 16.sp,
                 lineHeight = 24.sp,
                 lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
-                fontFamily = provideFontResource("roboto_regular"),
+                fontFamily = FontFamily(Font(Res.font.roboto_regular)),
                 fontWeight = FontWeight.Normal,
                 color = TextColor.OnSurface,
                 letterSpacing = 0.5.sp,
@@ -128,7 +132,7 @@ fun DHIS2Theme(content: @Composable () -> Unit) {
                 fontSize = 14.sp,
                 lineHeight = 20.sp,
                 lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
-                fontFamily = provideFontResource("roboto_regular"),
+                fontFamily = FontFamily(Font(Res.font.roboto_regular)),
                 fontWeight = FontWeight.Normal,
                 color = TextColor.OnSurface,
                 letterSpacing = 0.25.sp,
@@ -137,7 +141,7 @@ fun DHIS2Theme(content: @Composable () -> Unit) {
                 fontSize = 12.sp,
                 lineHeight = 16.sp,
                 lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
-                fontFamily = provideFontResource("roboto_regular"),
+                fontFamily = FontFamily(Font(Res.font.roboto_regular)),
                 fontWeight = FontWeight.Normal,
                 color = TextColor.OnSurface,
                 letterSpacing = 0.4.sp,

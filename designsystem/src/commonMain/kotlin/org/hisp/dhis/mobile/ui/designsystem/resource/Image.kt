@@ -2,9 +2,10 @@ package org.hisp.dhis.mobile.ui.designsystem.resource
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.painter.Painter
-import org.jetbrains.compose.resources.DrawableResource
-import org.jetbrains.compose.resources.InternalResourceApi
-import org.jetbrains.compose.resources.ResourceItem
+import org.hisp.dhis.mobile.designsystem.generated.resources.Res
+import org.hisp.dhis.mobile.designsystem.generated.resources.allDrawableResources
+import org.hisp.dhis.mobile.designsystem.generated.resources.dhis2_default_outline
+import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 
 /**
@@ -13,34 +14,11 @@ import org.jetbrains.compose.resources.painterResource
  */
 @Composable
 fun provideDHIS2Icon(resourceName: String): Painter {
-    val iconName = if (!resourceExists(resourceName)) {
-        "dhis2_default_outline"
-    } else {
-        resourceName
-    }
     return painterResource(
-        drawableResource(iconName, "xml"),
+        drawableResource(resourceName) ?: Res.drawable.dhis2_default_outline,
     )
 }
 
-@Composable
-fun provideImage(resourceName: String): Painter =
-    painterResource(
-        drawableResource(resourceName, "jpg"),
-    )
-
-@OptIn(InternalResourceApi::class)
-fun drawableResource(resourceName: String, fileExtension: String): DrawableResource =
-    lazy {
-        DrawableResource(
-            resourceName,
-            setOf(
-                ResourceItem(
-                    setOf(),
-                    "drawable/$resourceName.$fileExtension",
-                    -1,
-                    -1,
-                ),
-            ),
-        )
-    }.value
+@OptIn(ExperimentalResourceApi::class)
+internal fun drawableResource(resourceName: String) =
+    Res.allDrawableResources[resourceName]
