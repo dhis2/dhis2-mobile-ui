@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <resources>
+    <string name="no_string_default">No string fo this key</string>
     <string name="show_more">Show more</string>
     <string name="show_less">Show less</string>
     <string name="date_birth">DATE OF BIRTH</string>
@@ -8,10 +9,10 @@
     <string name="years">Years</string>
     <string name="months">Months</string>
     <string name="days">Days</string>
-    <string name="error_one">%d error</string>
-    <string name="error_other">%d errors</string>
-    <string name="warning_one">%d warning</string>
-    <string name="warning_other">%d warnings</string>
+    <string name="error_one">%1$d error</string>
+    <string name="error_other">%1$d errors</string>
+    <string name="warning_one">%1$d warning</string>
+    <string name="warning_other">%1$d warnings</string>
     <string name="show_fields">Show fields</string>
     <string name="hide_fields">Hide fields</string>
     <string name="action_next">Next</string>
