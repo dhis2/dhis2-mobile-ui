@@ -1,5 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 version = "0.4.1-SNAPSHOT"
 group = "org.hisp.dhis.mobile"
 
@@ -33,8 +33,10 @@ allprojects {
         }
     }
 
-    tasks.withType<KotlinCompile>().all {
-        kotlinOptions { freeCompilerArgs += "-Xexpect-actual-classes" }
+    tasks.withType<KotlinCompilationTask<*>>().all {
+        compilerOptions {
+            freeCompilerArgs.add("-Xexpect-actual-classes")
+        }
     }
 }
 
