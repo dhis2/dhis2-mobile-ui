@@ -6,6 +6,7 @@ import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHISShapes
 import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
@@ -16,6 +17,7 @@ fun <T> DropDownMenu(
     modifier: Modifier = Modifier,
     items: List<MenuItemData<T>>,
     expanded: Boolean = false,
+    offset: DpOffset = DpOffset(0.dp, 0.dp),
     selectedItemIndex: Int? = null,
     onDismissRequest: () -> Unit,
     onItemClick: (T) -> Unit,
@@ -27,6 +29,7 @@ fun <T> DropDownMenu(
                 .widthIn(min = 270.dp),
             expanded = expanded,
             onDismissRequest = onDismissRequest,
+            offset = offset,
         ) {
             items.forEachIndexed { index, item ->
                 MenuItem(
