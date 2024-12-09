@@ -8,7 +8,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.PopupProperties
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHISShapes
 import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
@@ -31,7 +30,6 @@ fun <T> DropDownMenu(
             expanded = expanded,
             onDismissRequest = onDismissRequest,
             offset = offset,
-            properties = PopupProperties(clippingEnabled = false),
         ) {
             items.forEachIndexed { index, item ->
                 MenuItem(
