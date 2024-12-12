@@ -400,8 +400,6 @@ private fun ColumnScope.AdditionalInfoColumn(
             when {
                 !additionalInfoColumnState.scrollableContent -> modifier
                 additionalInfoColumnState.isExpanded() -> modifier.verticalScroll(scrollState)
-                    .weight(1f)
-
                 else -> modifier
             }
         }
