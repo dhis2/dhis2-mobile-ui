@@ -12,7 +12,7 @@ on:
     inputs:
       release_version:
         description: 'Please, enter the release version'
-        required: false
+        required: true
         type: string
 
 jobs:
