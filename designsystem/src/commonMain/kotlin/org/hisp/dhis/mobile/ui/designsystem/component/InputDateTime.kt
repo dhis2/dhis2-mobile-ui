@@ -677,13 +677,15 @@ fun InputDateTime(
                         showDatePicker = false
                         if (uiData.actionType != DateTimeActionType.DATE_TIME) {
                             datePickerState.selectedDateMillis?.let {
-                                onValueChanged(
+                                manageOnValueChanged(
                                     TextFieldValue(
                                         getDate(it),
                                         selection = TextRange(
                                             state.inputTextFieldValue?.text?.length ?: 0,
                                         ),
                                     ),
+                                    onValueChanged,
+                                    uiData.actionType,
                                 )
                             }
                         } else {
@@ -918,7 +920,7 @@ private fun parseStringDateToMillis(dateString: String, pattern: String = "ddMMy
     } ?: 0L
 }
 
-internal fun getDate(milliSeconds: Long?, format: String? = "ddMMyyyy"): String {
+internal fun getDate(milliSeconds: Long?, format: String = "ddMMyyyy"): String {
     val cal = Calendar.getInstance()
     val currentTimeZone: TimeZone = cal.getTimeZone()
     val currentDt: Calendar = GregorianCalendar(currentTimeZone, Locale.getDefault())
