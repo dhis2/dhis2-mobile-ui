@@ -1,8 +1,12 @@
 package org.hisp.dhis.mobile.ui.designsystem
 
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.platform.LocalInspectionMode
 import org.hisp.dhis.mobile.ui.designsystem.component.LocationBar
 import org.hisp.dhis.mobile.ui.designsystem.component.SearchBarMode
 import org.hisp.dhis.mobile.ui.designsystem.component.model.LocationItemModel
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.PreviewContextConfigurationEffect
 import org.junit.Rule
 import org.junit.Test
 
@@ -10,9 +14,13 @@ class LocationBarSearchSnapshotTest {
     @get:Rule
     val paparazzi = paparazzi()
 
+    @OptIn(ExperimentalResourceApi::class)
     @Test
     fun launchSearchBarButtonTest() {
         paparazzi.snapshot {
+            CompositionLocalProvider(LocalInspectionMode provides true) {
+                PreviewContextConfigurationEffect()
+            }
             LocationBar(
                 currentResults = listOf(
                     LocationItemModel.StoredResult(

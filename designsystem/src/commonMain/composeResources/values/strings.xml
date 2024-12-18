@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <resources>
-    <string name="no_string_default">No string fo this key</string>
     <string name="show_more">Show more</string>
     <string name="show_less">Show less</string>
     <string name="date_birth">DATE OF BIRTH</string>

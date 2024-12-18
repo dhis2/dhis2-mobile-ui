@@ -6,8 +6,10 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Sync
 import androidx.compose.material.icons.outlined.SyncDisabled
 import androidx.compose.material3.Icon
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.LocalInspectionMode
 import org.hisp.dhis.mobile.ui.designsystem.component.AdditionalInfoItem
 import org.hisp.dhis.mobile.ui.designsystem.component.Avatar
 import org.hisp.dhis.mobile.ui.designsystem.component.AvatarStyleData
@@ -23,6 +25,9 @@ import org.hisp.dhis.mobile.ui.designsystem.component.state.rememberAdditionalIn
 import org.hisp.dhis.mobile.ui.designsystem.component.state.rememberListCardState
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.PreviewContextConfigurationEffect
+import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 
@@ -30,14 +35,25 @@ class ExpandableItemColumnSnapshotTest {
     @get:Rule
     val paparazzi = paparazzi()
 
+    @Ignore(
+        "This screen is performing layout calculations and does an 'animation effect'" +
+            "causing the screenshot to be taken before the final layout is displayed." +
+            "Paparazzi has an issue but as of version 1.3.5 it is not fixed." +
+            "https://github.com/cashapp/paparazzi/issues/1757",
+    )
+    @OptIn(ExperimentalResourceApi::class)
     @Test
     fun launchAvatarTest() {
         paparazzi.snapshot {
+            CompositionLocalProvider(LocalInspectionMode provides true) {
+                PreviewContextConfigurationEffect()
+            }
             val items = listOf("Program number 1", "Program number 2")
             ExpandableItemColumn(
                 modifier = Modifier.fillMaxSize().graphicsLayer { clip = false },
                 itemList = items,
             ) { item, verticalPadding, onSizeChanged ->
+                print("itemVerticalPadding: $verticalPadding")
                 val index = items.indexOf(item)
                 VerticalInfoListCard(
                     listCardState = rememberListCardState(
