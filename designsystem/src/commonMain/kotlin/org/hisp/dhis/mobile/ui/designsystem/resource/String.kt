@@ -1,12 +1,46 @@
 package org.hisp.dhis.mobile.ui.designsystem.resource
 
 import androidx.compose.runtime.Composable
+import org.hisp.dhis.mobile.designsystem.generated.resources.Res
+import org.hisp.dhis.mobile.designsystem.generated.resources.allDrawableResources
+import org.hisp.dhis.mobile.designsystem.generated.resources.allStringResources
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.stringResource
 
+@OptIn(ExperimentalResourceApi::class)
 @Composable
-expect fun provideStringResource(id: String): String
+fun provideStringResource(resourceName: String): String {
+    return if (resourceExists(resourceName, ResourceType.STRING)) {
+        stringResource(Res.allStringResources[resourceName]!!)
+    } else {
+        "Key not found"
+    }
+}
 
+@OptIn(ExperimentalResourceApi::class)
 @Composable
-expect fun provideQuantityStringResource(id: String, quantity: Int): String
+fun provideQuantityStringResource(resourceName: String, quantity: Int): String {
+    val formattedName = when (quantity) {
+        1 -> "${resourceName}_one"
+        else -> "${resourceName}_other"
+    }
+    return if (resourceExists(formattedName, ResourceType.STRING)) {
+        stringResource(Res.allStringResources[formattedName]!!, quantity)
+    } else {
+        "Key not found"
+    }
+}
 
+@OptIn(ExperimentalResourceApi::class)
 @Composable
-expect fun resourceExists(resourceName: String, resourceType: String = "drawable"): Boolean
+fun resourceExists(resourceName: String, resourceType: ResourceType = ResourceType.DRAWABLE): Boolean {
+    return when (resourceType) {
+        ResourceType.DRAWABLE -> Res.allDrawableResources.containsKey(resourceName)
+        ResourceType.STRING -> Res.allStringResources.containsKey(resourceName)
+    }
+}
+
+enum class ResourceType {
+    DRAWABLE,
+    STRING,
+}

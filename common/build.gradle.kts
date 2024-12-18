@@ -24,8 +24,8 @@ kotlin {
             implementation(kotlin("test"))
         }
         androidMain.dependencies {
-            api("androidx.appcompat:appcompat:1.6.1")
-            api("androidx.core:core-ktx:1.12.0")
+            api("androidx.appcompat:appcompat:1.7.0")
+            api("androidx.core:core-ktx:1.15.0")
         }
         val androidUnitTest by getting {
             dependencies {
@@ -46,8 +46,8 @@ android {
     namespace = "org.hisp.dhis.mobile.ui.common"
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
-    sourceSets["main"].res.srcDirs("src/androidMain/res", "src/commonMain/resources")
-    sourceSets["main"].resources.srcDirs("src/commonMain/resources")
+    sourceSets["main"].res.srcDirs("src/androidMain/res", "src/commonMain/composeResources")
+    sourceSets["main"].resources.srcDirs("src/commonMain/composeResources")
 
     defaultConfig {
         minSdk = (findProperty("android.minSdk") as String).toInt()

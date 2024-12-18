@@ -6,7 +6,9 @@ import androidx.compose.foundation.interaction.PressInteraction
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.ClickableText
-import androidx.compose.material.ripple.LocalRippleTheme
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.LocalRippleConfiguration
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
@@ -18,18 +20,22 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.LinkAnnotation
 import androidx.compose.ui.text.ParagraphStyle
 import androidx.compose.ui.text.TextLayoutResult
+import androidx.compose.ui.text.TextLinkStyles
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.withLink
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.launch
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2SCustomTextStyles
-import org.hisp.dhis.mobile.ui.designsystem.theme.Ripple
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
+import org.hisp.dhis.mobile.ui.designsystem.theme.customRippleConfiguration
 
 /**
  * DHIS2 SupportingText component, wraps Compose [ClickableText].
@@ -45,6 +51,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
  * If the text to be shown has overflow the component will automatically add
  * the expand functionality.
  */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SupportingText(
     text: String,
@@ -79,6 +86,29 @@ fun SupportingText(
     LaunchedEffect(textLayoutResult) {
         if (textLayoutResult == null) return@LaunchedEffect
 
+        val link = LinkAnnotation.Clickable(
+            tag = seeMoreTag,
+            styles = TextLinkStyles(
+                clickableTextStyle.copy(fontWeight = FontWeight.SemiBold),
+            ),
+        ) {
+            val link = it as LinkAnnotation.Clickable
+            if (link.tag == seeMoreTag) {
+                if (isClickable) {
+                    isExpanded = !isExpanded
+                }
+            } else {
+                onNoInteraction?.invoke()?.let { (interactionSource, action) ->
+                    scope.launch {
+                        action.invoke()
+                        val pressInteraction = PressInteraction.Press(Offset.Zero)
+                        interactionSource.emit(pressInteraction)
+                        interactionSource.emit(PressInteraction.Release(pressInteraction))
+                    }
+                }
+            }
+        }
+
         when {
             !isExpanded && textLayoutResult.hasVisualOverflow -> {
                 val lastCharIndex = textLayoutResult.getLineEnd(maxLines - 1)
@@ -94,7 +124,7 @@ fun SupportingText(
                         withStyle(style = nonClickableTextStyle) {
                             append(unexpandedText)
                         }
-                        withStyle(style = clickableTextStyle) {
+                        withLink(link) {
                             append(showMoreText)
                         }
                     }
@@ -118,9 +148,7 @@ fun SupportingText(
                         ) {
                             append(expandedText)
                         }
-                        withStyle(
-                            style = clickableTextStyle,
-                        ) {
+                        withLink(link) {
                             append(showLessText)
                         }
                     }
@@ -135,27 +163,11 @@ fun SupportingText(
         }
     }
 
-    CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme()) {
-        ClickableText(
+    CompositionLocalProvider(LocalRippleConfiguration provides customRippleConfiguration()) {
+        Text(
             text = annotatedText,
             maxLines = if (isExpanded) Int.MAX_VALUE else maxLines,
             onTextLayout = { textLayoutResultState.value = it },
-            onClick = { position ->
-                val annotations =
-                    annotatedText.getStringAnnotations(seeMoreTag, start = position, end = position)
-                annotations.firstOrNull()?.let {
-                    if (isClickable) {
-                        isExpanded = !isExpanded
-                    }
-                } ?: onNoInteraction?.invoke()?.let { (interactionSource, action) ->
-                    scope.launch {
-                        action.invoke()
-                        val pressInteraction = PressInteraction.Press(Offset.Zero)
-                        interactionSource.emit(pressInteraction)
-                        interactionSource.emit(PressInteraction.Release(pressInteraction))
-                    }
-                }
-            },
             modifier = modifier.padding(paddingValues).animateContentSize(),
         )
     }
