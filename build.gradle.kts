@@ -1,5 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 version = "0.4.1-SNAPSHOT"
 group = "org.hisp.dhis.mobile"
 
@@ -8,7 +8,7 @@ plugins {
     id("com.android.application") apply false
     id("com.android.library") apply false
     id("org.jetbrains.compose") apply false
-    id("org.jlleitschuh.gradle.ktlint") version "11.5.1"
+    id("org.jlleitschuh.gradle.ktlint") version "12.1.2"
     id("org.jetbrains.dokka") version "1.9.20"
     id("io.github.gradle-nexus.publish-plugin") version "1.3.0"
     alias(libs.plugins.compose.compiler)
@@ -33,8 +33,10 @@ allprojects {
         }
     }
 
-    tasks.withType<KotlinCompile>().all {
-        kotlinOptions { freeCompilerArgs += "-Xexpect-actual-classes" }
+    tasks.withType<KotlinCompilationTask<*>>().all {
+        compilerOptions {
+            freeCompilerArgs.add("-Xexpect-actual-classes")
+        }
     }
 }
 

@@ -64,7 +64,6 @@ fun SetStatusBarColor() {
             WindowCompat.getInsetsController(it, it.decorView).apply {
                 isAppearanceLightStatusBars = true
             }
-            it.statusBarColor = 0xFFE2F2FF.toInt()
         }
     }
 }
