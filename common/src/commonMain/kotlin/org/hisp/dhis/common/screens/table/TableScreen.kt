@@ -1,29 +1,34 @@
 package org.hisp.dhis.common.screens.table
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import kotlinx.serialization.json.Json
+import mobile_ui.common.generated.resources.Res
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableModel
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.DataTable
-import java.io.InputStream
+import org.jetbrains.compose.resources.ExperimentalResourceApi
 
+@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun TableScreen() {
-    DataTable(
-        tableList = getTableData(),
-    )
-}
+    var bytes by remember {
+        mutableStateOf(ByteArray(0))
+    }
+    LaunchedEffect(Unit) {
+        bytes = Res.readBytes("files/multi_header_table_list.json")
+    }
+    val jsonString = bytes.decodeToString()
+    if (jsonString.isNotEmpty()) {
+        val data = parseJson(jsonString)
+        DataTable(
+            tableList = data,
+        )
+    }
 
-fun getTableData(): List<TableModel> {
-    val jsonString = readJsonFile("multi_header_table_list.json")
-    val data = parseJson(jsonString)
-    return data
-}
-
-fun readJsonFile(fileName: String): String {
-    val classLoader = Thread.currentThread().contextClassLoader
-    val inputStream: InputStream = classLoader!!.getResourceAsStream(fileName)
-        ?: throw IllegalArgumentException("File not found: $fileName")
-    return inputStream.bufferedReader().use { it.readText() }
 }
 
 fun parseJson(jsonString: String): List<TableModel> {
