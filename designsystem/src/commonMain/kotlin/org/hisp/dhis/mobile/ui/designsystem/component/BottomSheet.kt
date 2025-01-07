@@ -4,15 +4,18 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.ScrollableState
+import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -199,8 +202,7 @@ fun BottomSheetShell(
         sheetState = sheetState,
         dragHandle = {
             Box(
-                modifier = Modifier.background(Color.Transparent)
-                    .padding(top = Spacing.Spacing72),
+                modifier = Modifier.padding(top = Spacing.Spacing72),
             ) {
                 BottomSheetIconButton(
                     icon = {
@@ -222,7 +224,9 @@ fun BottomSheetShell(
         val canScrollForward by derivedStateOf { contentScrollState.canScrollForward }
 
         Column(
-            modifier = Modifier.systemBarsPadding(),
+            modifier = Modifier.padding(
+                bottom = WindowInsets.systemBars.asPaddingValues().calculateBottomPadding(),
+            ),
         ) {
             Column(
                 modifier = Modifier
@@ -287,12 +291,12 @@ fun BottomSheetShell(
                             .heightIn(scrollableContainerMinHeight, scrollableContainerMaxHeight)
                             .then(scrollModifier),
                         horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = spacedBy(Spacing8),
                     ) {
                         content.invoke()
-                        Spacer(modifier = Modifier.weight(1f))
                         if (showSectionDivider) {
                             HorizontalDivider(
-                                modifier = Modifier.fillMaxWidth().padding(top = Spacing8),
+                                modifier = Modifier.fillMaxWidth(),
                                 color = TextColor.OnDisabledSurface,
                                 thickness = Border.Thin,
                             )
