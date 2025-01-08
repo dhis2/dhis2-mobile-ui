@@ -28,7 +28,6 @@ fun TableScreen() {
             tableList = data,
         )
     }
-
 }
 
 fun parseJson(jsonString: String): List<TableModel> {
