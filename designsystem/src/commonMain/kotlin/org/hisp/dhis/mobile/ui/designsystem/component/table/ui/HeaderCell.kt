@@ -25,7 +25,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.semantics.rowInde
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.semantics.tableIdColumnHeader
 
 @Composable
-fun HeaderCell(itemHeaderUiState: ItemColumnHeaderUiState, modifier: Modifier = Modifier) {
+internal fun HeaderCell(itemHeaderUiState: ItemColumnHeaderUiState, modifier: Modifier = Modifier) {
     Box(
         modifier = modifier
             .width(with(LocalDensity.current) { itemHeaderUiState.headerMeasures.width.toDp() })

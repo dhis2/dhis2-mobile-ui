@@ -3,8 +3,6 @@ package org.hisp.dhis.mobile.ui.designsystem.component.table.ui
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -13,10 +11,9 @@ import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
 
 @Composable
-fun CellLegendBox(
+internal fun CellLegendBox(
     modifier: Modifier = Modifier,
     legendColor: Color?,
     content: @Composable
@@ -40,15 +37,4 @@ fun CellLegendBox(
         modifier = boxModifier,
         content = content,
     )
-}
-
-// todo remove or implement preview correctly
-@Composable
-fun CellLegendPreview() {
-    CellLegendBox(
-        modifier = Modifier
-            .width(44.dp)
-            .height(16.dp),
-        legendColor = Color(44, 152, 240),
-    ) {}
 }

@@ -3,6 +3,15 @@ package org.hisp.dhis.mobile.ui.designsystem.component.table.model
 import kotlinx.serialization.Serializable
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableSelection
 
+/**
+ * Data class representing a table model.
+ *
+ * @property id The unique identifier of the table.
+ * @property title The title of the table.
+ * @property tableHeaderModel The header of the table.
+ * @property tableRows The rows of the table.
+ * @property overwrittenValues The values that have been overwritten.
+ */
 @Serializable
 data class TableModel(
     val id: String? = null,

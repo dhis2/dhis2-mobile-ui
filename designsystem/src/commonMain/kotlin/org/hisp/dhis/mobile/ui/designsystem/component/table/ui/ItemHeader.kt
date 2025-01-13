@@ -22,7 +22,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.ItemHeaderUiState
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableDialogModel
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.semantics.INFO_ICON
@@ -30,10 +29,15 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.semantics.infoIco
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.semantics.rowBackground
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.semantics.rowIndexSemantic
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.semantics.tableIdSemantic
+import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
-// todo ensure icons are correct and replace hardcoded dp values with spacing class
+/**
+ * Composable function to display a table item header.
+ *
+ * @param uiState The state of the item header, containing information such as table ID, row header, cell style, etc.
+ */
 @Composable
-fun ItemHeader(uiState: ItemHeaderUiState) {
+internal fun ItemHeader(uiState: ItemHeaderUiState) {
     Box {
         Row(
             modifier = Modifier
@@ -45,7 +49,7 @@ fun ItemHeader(uiState: ItemHeaderUiState) {
                 .background(uiState.cellStyle.backgroundColor())
                 .semantics {
                     tableIdSemantic = uiState.tableId
-                    uiState.rowHeader.row?.let { rowIndexSemantic = uiState.rowHeader.row }
+                    rowIndexSemantic = uiState.rowHeader.row
                     infoIconId = if (uiState.rowHeader.showDecoration) INFO_ICON else ""
                     rowBackground = uiState.cellStyle.backgroundColor()
                 }
@@ -66,7 +70,7 @@ fun ItemHeader(uiState: ItemHeaderUiState) {
             Row(
                 modifier = Modifier
                     .weight(1f)
-                    .padding(4.dp),
+                    .padding(Spacing.Spacing4),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Text(
@@ -79,14 +83,14 @@ fun ItemHeader(uiState: ItemHeaderUiState) {
                     overflow = TextOverflow.Ellipsis,
                 )
                 if (uiState.rowHeader.showDecoration) {
-                    Spacer(modifier = Modifier.size(4.dp))
-                    // todo ensure icon is displayed correctly
+                    Spacer(modifier = Modifier.size(Spacing.Spacing4))
+                    // TODO ensure icon is displayed correctly
                     Icon(
                         imageVector = Icons.Outlined.Info,
                         contentDescription = "info",
                         modifier = Modifier
-                            .height(10.dp)
-                            .width(10.dp),
+                            .height(Spacing.Spacing10)
+                            .width(Spacing.Spacing10),
                         tint = uiState.cellStyle.mainColor(),
                     )
                 }
@@ -94,7 +98,7 @@ fun ItemHeader(uiState: ItemHeaderUiState) {
             HorizontalDivider(
                 modifier = Modifier
                     .fillMaxHeight()
-                    .width(1.dp),
+                    .width(Spacing.Spacing1),
                 color = TableTheme.colors.primary,
             )
         }
@@ -102,7 +106,7 @@ fun ItemHeader(uiState: ItemHeaderUiState) {
         val isSelected = LocalTableSelection.current !is TableSelection.AllCellSelection &&
             LocalTableSelection.current.isRowSelected(
                 selectedTableId = uiState.tableId,
-                rowHeaderIndex = uiState.rowHeader.row ?: -1,
+                rowHeaderIndex = uiState.rowHeader.row,
             )
         if (isSelected) {
             VerticalResizingRule(

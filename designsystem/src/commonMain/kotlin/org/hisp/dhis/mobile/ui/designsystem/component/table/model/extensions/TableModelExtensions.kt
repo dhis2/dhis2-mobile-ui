@@ -2,7 +2,7 @@ package org.hisp.dhis.mobile.ui.designsystem.component.table.model.extensions
 
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableModel
 
-fun TableModel.areAllValuesEmpty(): Boolean {
+internal fun TableModel.areAllValuesEmpty(): Boolean {
     this.tableRows.forEach { row ->
         val result = row.values.values.filterNot { it.value == "" }
         if (result.isNotEmpty()) {

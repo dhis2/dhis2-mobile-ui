@@ -18,8 +18,20 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableHeader
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableHeaderCell
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme.dimensions
 
+/**
+ * Composable function to display the table header.
+ *
+ * @param tableId The unique identifier of the table.
+ * @param modifier The modifier to be applied to the layout.
+ * @param tableHeaderModel The model containing the table header data.
+ * @param horizontalScrollState The scroll state for horizontal scrolling.
+ * @param cellStyle A composable function to provide the style for each cell.
+ * @param onHeaderCellSelected Callback function invoked when a header cell is selected.
+ * @param onHeaderResize Callback function invoked when the header is resized.
+ * @param onResizing Callback function invoked during the resizing of the header.
+ */
 @Composable
-fun TableHeader(
+internal fun TableHeader(
     tableId: String?,
     modifier: Modifier,
     tableHeaderModel: TableHeader,

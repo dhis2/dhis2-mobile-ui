@@ -6,7 +6,7 @@ import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.runtime.Composable
 
 @ExperimentalFoundationApi
-fun LazyListScope.fixedStickyHeader(
+internal fun LazyListScope.fixedStickyHeader(
     fixHeader: Boolean = true,
     key: Any? = null,
     contentType: Any? = null,

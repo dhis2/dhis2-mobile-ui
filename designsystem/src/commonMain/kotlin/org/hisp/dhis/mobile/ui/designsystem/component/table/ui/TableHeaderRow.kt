@@ -17,10 +17,24 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.model.ResizingCell
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableCornerUiState
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableModel
 
-// todo this composable was surrounded with a Constraint layout, review whether it still can be used with
+/**
+ * Composable function to display the table header row.
+ *
+ * @param modifier The modifier to be applied to the layout.
+ * @param cornerUiState The UI state of the table corner.
+ * @param tableModel The model containing the table data.
+ * @param horizontalScrollState The scroll state for horizontal scrolling.
+ * @param cellStyle A composable function to provide the style for each cell.
+ * @param onTableCornerClick Callback function invoked when the table corner is clicked.
+ * @param onHeaderCellClick Callback function invoked when a header cell is clicked.
+ * @param onHeaderResize Callback function invoked when the header is resized.
+ * @param onResizing Callback function invoked during the resizing of the header.
+ * @param onResetResize Callback function invoked to reset the resize state.
+ */
+// TODO this composable was surrounded with a Constraint layout, review whether it still can be used with
 // a column or whether a custom component is needed to maintain any old functionalities
 @Composable
-fun TableHeaderRow(
+internal fun TableHeaderRow(
     modifier: Modifier = Modifier,
     cornerUiState: TableCornerUiState,
     tableModel: TableModel,

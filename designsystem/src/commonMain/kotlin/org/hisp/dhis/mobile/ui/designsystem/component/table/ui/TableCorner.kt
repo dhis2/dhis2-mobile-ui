@@ -15,7 +15,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableCornerUiS
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.modifiers.cornerBackground
 
 @Composable
-fun TableCorner(
+internal fun TableCorner(
     modifier: Modifier = Modifier,
     tableCornerUiState: TableCornerUiState,
     tableId: String,

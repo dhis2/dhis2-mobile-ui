@@ -24,7 +24,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableRowModel
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.semantics.ROW_TEST_TAG
 
 @Composable
-fun TableItemRow(
+internal fun TableItemRow(
     tableModel: TableModel,
     horizontalScrollState: ScrollState,
     rowModel: TableRowModel,

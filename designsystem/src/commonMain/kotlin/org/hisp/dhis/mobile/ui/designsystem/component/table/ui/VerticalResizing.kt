@@ -34,7 +34,7 @@ import kotlin.math.abs
 import kotlin.math.roundToInt
 
 @Composable
-fun VerticalResizingView(modifier: Modifier = Modifier, provideResizingCell: () -> ResizingCell?) {
+internal fun VerticalResizingView(modifier: Modifier = Modifier, provideResizingCell: () -> ResizingCell?) {
     val colorPrimary = TableTheme.colors.primary
     provideResizingCell()?.let { resizingCell ->
         val offsetX = resizingCell.initialPosition.x + resizingCell.draggingOffsetX
@@ -74,7 +74,7 @@ fun VerticalResizingView(modifier: Modifier = Modifier, provideResizingCell: () 
 }
 
 @Composable
-fun VerticalResizingRule(
+internal fun VerticalResizingRule(
     modifier: Modifier = Modifier,
     checkMaxMinCondition: (dimensions: TableDimensions, currentOffsetX: Float) -> Boolean,
     onHeaderResize: (Float) -> Unit,
