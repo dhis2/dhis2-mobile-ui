@@ -30,7 +30,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.layout.onGloballyPositioned
@@ -109,7 +108,6 @@ fun OrgBottomSheet(
             onSearch?.invoke(searchQuery)
         },
         onSearch = onSearch,
-        scrollableContainerMinHeight = InternalSizeValues.Size386,
         scrollableContainerMaxHeight = maxOf(orgTreeHeightInDp, InternalSizeValues.Size386),
         content = {
             OrgTreeList(
@@ -130,6 +128,7 @@ fun OrgBottomSheet(
         buttonBlock = {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.padding(Spacing.Spacing24),
             ) {
                 if (onClearAll != null) {
                     Button(
@@ -227,7 +226,6 @@ fun OrgUnitSelectorItem(
         modifier = modifier
             .testTag("$ITEM_TEST_TAG${orgTreeItem.label}")
             .fillMaxWidth()
-            .background(Color.White)
             .clickable(
                 enabled = orgTreeItem.hasChildren,
                 interactionSource = remember {
