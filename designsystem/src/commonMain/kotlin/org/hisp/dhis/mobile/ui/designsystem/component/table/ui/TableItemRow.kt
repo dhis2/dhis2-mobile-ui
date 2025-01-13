@@ -23,6 +23,18 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableModel
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableRowModel
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.semantics.ROW_TEST_TAG
 
+/**
+ * Composable function to display a table item row.
+ *
+ * @param tableModel The model containing the table data.
+ * @param horizontalScrollState The scroll state for horizontal scrolling.
+ * @param rowModel The model containing the row data.
+ * @param rowHeaderCellStyle A composable function to provide the style for the row header cell.
+ * @param onRowHeaderClick Callback function invoked when the row header is clicked.
+ * @param onDecorationClick Callback function invoked when a decoration is clicked.
+ * @param onHeaderResize Callback function invoked when the header is resized.
+ * @param onResizing Callback function invoked during the resizing of the header.
+ */
 @Composable
 internal fun TableItemRow(
     tableModel: TableModel,
@@ -74,7 +86,7 @@ internal fun TableItemRow(
             )
         }
         if (!rowModel.isLastRow) {
-            // todo review if new divider is implemented correctly
+            // TODO review if new divider is implemented correctly
             HorizontalDivider(
                 modifier = Modifier
                     .fillMaxWidth()

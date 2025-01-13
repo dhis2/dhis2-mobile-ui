@@ -7,8 +7,17 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.model.DropdownOption
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableCell
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 
+/**
+ * Composable function to display a multi-option selector.
+ *
+ * @param options The list of dropdown options available for selection.
+ * @param cell The table cell containing the current value and editability state.
+ * @param title The title of the multi-option selector.
+ * @param onSave The callback to be invoked when the selected options are saved, with the selected codes and values.
+ * @param onDismiss The callback to be invoked when the selector is dismissed.
+ */
 @Composable
-fun MultiOptionSelector(
+internal fun MultiOptionSelector(
     options: List<DropdownOption>,
     cell: TableCell,
     title: String,

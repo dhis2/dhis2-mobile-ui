@@ -14,9 +14,16 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
-// todo review dividers
+
+// TODO review dividers
+/**
+ * Composable function to display an extended divider for table rows.
+ *
+ * @param tableId The ID of the table.
+ * @param selected Indicates if the divider is selected.
+ */
 @Composable
-fun ExtendDivider(tableId: String, selected: Boolean) {
+internal fun ExtendDivider(tableId: String, selected: Boolean) {
     val background = TableTheme.colors.primary
     Row(modifier = Modifier.fillMaxWidth()) {
         Box(

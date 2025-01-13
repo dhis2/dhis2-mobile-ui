@@ -3,23 +3,55 @@ package org.hisp.dhis.mobile.ui.designsystem.component.table.ui
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
-sealed class CellStyle {
+internal sealed class CellStyle {
+
+    /**
+     * Style for header cells.
+     *
+     * @property backgroundColor The background color of the header cell.
+     * @property textColor The text color of the header cell.
+     */
     data class HeaderStyle(val backgroundColor: Color, val textColor: Color) : CellStyle()
+
+    /**
+     * Style for cells with borders.
+     *
+     * @property backgroundColor The background color of the cell.
+     * @property borderColor The border color of the cell.
+     */
     data class CellBorderStyle(val backgroundColor: Color, val borderColor: Color) : CellStyle()
 
+    /**
+     * Returns the background color of the cell.
+     *
+     * @return The background color.
+     */
     fun backgroundColor() = when (this) {
         is CellBorderStyle -> backgroundColor
         is HeaderStyle -> backgroundColor
     }
 
+    /**
+     * Returns the main color of the cell (text or border color).
+     *
+     * @return The main color.
+     */
     fun mainColor() = when (this) {
         is CellBorderStyle -> borderColor
         is HeaderStyle -> textColor
     }
 }
 
+/**
+ * Returns the style for column header cells based on their selection state and index.
+ *
+ * @param isSelected Indicates if the column header is selected.
+ * @param isParentSelected Indicates if the parent column header is selected.
+ * @param columnIndex The index of the column.
+ * @return The style for the column header cell.
+ */
 @Composable
-fun styleForColumnHeader(
+internal fun styleForColumnHeader(
     isSelected: Boolean,
     isParentSelected: Boolean,
     columnIndex: Int,
@@ -43,8 +75,16 @@ fun styleForColumnHeader(
         )
 }
 
+/**
+ * Returns the style for column header cells based on their selection state and index.
+ *
+ * @param isSelected Indicates if the column header is selected.
+ * @param isParentSelected Indicates if the parent column header is selected.
+ * @param columnIndex The index of the column.
+ * @return The style for the column header cell.
+ */
 @Composable
-fun styleForRowHeader(isSelected: Boolean, isOtherRowSelected: Boolean): CellStyle = when {
+internal fun styleForRowHeader(isSelected: Boolean, isOtherRowSelected: Boolean): CellStyle = when {
     isSelected -> CellStyle.HeaderStyle(
         TableTheme.colors.primary,
         TableTheme.colors.onPrimary,
@@ -59,7 +99,19 @@ fun styleForRowHeader(isSelected: Boolean, isOtherRowSelected: Boolean): CellSty
     )
 }
 
-fun styleForCell(
+/**
+ * Returns the style for table cells based on various states and properties.
+ *
+ * @param tableColorProvider A function providing the table colors.
+ * @param isSelected Indicates if the cell is selected.
+ * @param isParentSelected Indicates if the parent cell is selected.
+ * @param hasError Indicates if the cell has an error.
+ * @param hasWarning Indicates if the cell has a warning.
+ * @param isEditable Indicates if the cell is editable.
+ * @param legendColor The color of the legend, if any.
+ * @return The style for the table cell.
+ */
+internal fun styleForCell(
     tableColorProvider: () -> TableColors,
     isSelected: Boolean,
     isParentSelected: Boolean,

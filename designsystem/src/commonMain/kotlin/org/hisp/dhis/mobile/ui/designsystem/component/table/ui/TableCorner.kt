@@ -14,6 +14,14 @@ import androidx.compose.ui.zIndex
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableCornerUiState
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.modifiers.cornerBackground
 
+/**
+ * Composable function to display the table corner.
+ *
+ * @param modifier The modifier to be applied to the layout.
+ * @param tableCornerUiState The state of the table corner.
+ * @param tableId The ID of the table.
+ * @param onClick The action to be executed
+ */
 @Composable
 internal fun TableCorner(
     modifier: Modifier = Modifier,

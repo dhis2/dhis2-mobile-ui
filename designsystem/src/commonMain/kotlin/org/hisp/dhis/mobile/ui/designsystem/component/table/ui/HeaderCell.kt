@@ -24,8 +24,17 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.semantics.columnI
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.semantics.rowIndexHeader
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.semantics.tableIdColumnHeader
 
+/**
+ * Composable function to display a header cell.
+ *
+ * @param itemHeaderUiState The state of the header cell.
+ * @param modifier The modifier to be applied to the cell.
+ */
 @Composable
-internal fun HeaderCell(itemHeaderUiState: ItemColumnHeaderUiState, modifier: Modifier = Modifier) {
+internal fun HeaderCell(
+    itemHeaderUiState: ItemColumnHeaderUiState,
+    modifier: Modifier = Modifier,
+) {
     Box(
         modifier = modifier
             .width(with(LocalDensity.current) { itemHeaderUiState.headerMeasures.width.toDp() })
@@ -57,7 +66,7 @@ internal fun HeaderCell(itemHeaderUiState: ItemColumnHeaderUiState, modifier: Mo
             maxLines = 3,
             softWrap = true,
         )
-        // todo ensure new dividers are implemented correctly
+        // TODO ensure new dividers are implemented correctly
         HorizontalDivider(
             color = TableTheme.colors.primary,
             modifier = Modifier

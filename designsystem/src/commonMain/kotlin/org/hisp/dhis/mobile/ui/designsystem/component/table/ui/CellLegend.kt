@@ -12,6 +12,13 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 
+/**
+ * Composable function to display a cell with a legend color.
+ *
+ * @param modifier The modifier to be applied to the layout.
+ * @param legendColor The color of the legend to be displayed.
+ * @param content The content to be displayed inside the box.
+ */
 @Composable
 internal fun CellLegendBox(
     modifier: Modifier = Modifier,

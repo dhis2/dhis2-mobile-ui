@@ -18,6 +18,12 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme.tableS
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.compositions.LocalInteraction
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.compositions.LocalTableResizeActions
 
+/**
+ * Composable function to display a data table.
+ *
+ * @param tableList The list of table models to be displayed.
+ * @param bottomContent Optional composable content to be displayed at the bottom of the table.
+ */
 @Composable
 fun DataTable(tableList: List<TableModel>, bottomContent: @Composable (() -> Unit)? = null) {
     val tableResizeActions = LocalTableResizeActions.current

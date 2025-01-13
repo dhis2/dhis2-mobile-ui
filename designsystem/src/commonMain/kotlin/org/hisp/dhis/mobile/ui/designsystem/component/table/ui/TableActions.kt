@@ -15,14 +15,21 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+/**
+ * Composable function to display table actions with a title and action icons.
+ *
+ * @param modifier The modifier to be applied to the layout.
+ * @param title The title of the table actions.
+ * @param actionIcons A composable function to display the action icons.
+ */
 @Composable
-fun TableActions(modifier: Modifier, title: String, actionIcons: @Composable () -> Unit) {
+internal fun TableActions(modifier: Modifier, title: String, actionIcons: @Composable () -> Unit) {
     Row(
         modifier = modifier,
         horizontalArrangement = Arrangement.Absolute.spacedBy(8.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        // todo verify icon is correct
+        // TODO verify icon is correct
         Icon(
             imageVector = Icons.Outlined.TableView,
             contentDescription = "",

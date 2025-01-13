@@ -53,9 +53,19 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.semantics.hasErro
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.semantics.isBlocked
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.semantics.rowBackground
 
+/**
+ * Composable function to display a table cell.
+ *
+ * @param tableId The ID of the table.
+ * @param cell The cell to be displayed.
+ * @param maxLines The maximum number of lines to be displayed in the cell.
+ * @param headerExtraSize The extra size to be added to the header.
+ * @param options The list of dropdown options.
+ * @param headerLabel The label of the header.
+ */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun TableCell(
+internal fun TableCell(
     tableId: String,
     cell: TableCell,
     maxLines: Int,

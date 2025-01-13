@@ -36,9 +36,18 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme.tableS
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.compositions.LocalTableResizeActions
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.extensions.fixedStickyHeader
 
+/**
+ * Composable function to display a table.
+ *
+ * @param tableList The list of table models to be displayed.
+ * @param tableHeaderRow Optional composable function to display the header row of the table.
+ * @param tableItemRow Optional composable function to display the item row of the table.
+ * @param verticalResizingView Optional composable function to display the vertical resizing view.
+ * @param bottomContent Optional composable content to be displayed at the bottom of the table.
+ */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun Table(
+internal fun Table(
     tableList: List<TableModel>,
     tableHeaderRow: @Composable ((index: Int, tableModel: TableModel) -> Unit)? = null,
     tableItemRow: @Composable (

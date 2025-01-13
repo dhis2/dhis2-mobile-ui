@@ -13,8 +13,20 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableCell
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableHeader
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.semantics.CELL_TEST_TAG
 
+/**
+ * Composable function to display item values in a table row.
+ *
+ * @param tableId The ID of the table.
+ * @param horizontalScrollState The state of the horizontal scroll.
+ * @param maxLines The maximum number of lines to display in each cell.
+ * @param cellValues A map of column indices to table cells representing the cell values.
+ * @param overridenValues A map of column indices to table cells representing the overridden cell values.
+ * @param tableHeaderModel The model representing the table header.
+ * @param options The list of dropdown options available for the cells.
+ * @param headerLabel The label for the header.
+ */
 @Composable
-fun ItemValues(
+internal fun ItemValues(
     tableId: String,
     horizontalScrollState: ScrollState,
     maxLines: Int,
