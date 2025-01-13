@@ -9,6 +9,7 @@ import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.ClipOp
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.NativePaint
 import androidx.compose.ui.graphics.Paint
@@ -84,11 +85,11 @@ internal fun Modifier.buttonShadow(
     },
 )
 
-fun Modifier.innerShadow(
+internal fun Modifier.innerShadow(
     blur: Dp = 10.dp,
 ): Modifier = this.then(
     drawBehind {
-        val shadowSize = Size(size.width, 24.dp.toPx())
+        val shadowSize = Size(size.width, 12.dp.toPx())
         val shadowOutline = RectangleShape.createOutline(shadowSize, layoutDirection, this)
 
         // Create a Paint object
@@ -109,6 +110,7 @@ fun Modifier.innerShadow(
             canvas.save()
             // Translate to specified offsets
             canvas.translate(Spacing.Spacing0.toPx(), size.height - 12.dp.toPx())
+            canvas.clipRect(0f, size.height - 12.dp.toPx(), size.width, size.height - 12.dp.toPx(), ClipOp.Difference)
             // Draw the shadow
             canvas.drawOutline(shadowOutline, paint)
             // Restore the canvas state
