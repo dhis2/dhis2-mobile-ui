@@ -231,8 +231,7 @@ fun BottomSheetShell(
                 modifier = Modifier
                     .weight(1f, fill = false)
                     .background(SurfaceColor.SurfaceBright, Shape.ExtraLargeTop)
-                    .padding(top = Spacing24)
-                    .then(scrollColumnShadow),
+                    .padding(top = Spacing24),
             ) {
                 val hasSearch =
                     searchQuery != null && onSearchQueryChanged != null && onSearch != null
@@ -284,24 +283,28 @@ fun BottomSheetShell(
                     } else {
                         Modifier
                     }
-
                     Column(
-                        modifier = Modifier
-                            .padding(horizontal = Spacing24)
-                            .heightIn(scrollableContainerMinHeight, scrollableContainerMaxHeight)
-                            .then(scrollModifier),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = spacedBy(Spacing8),
+                        Modifier
+                            .then(scrollColumnShadow),
                     ) {
-                        content.invoke()
+                        Column(
+                            modifier = Modifier
+                                .padding(horizontal = Spacing24)
+                                .heightIn(scrollableContainerMinHeight, scrollableContainerMaxHeight)
+                                .then(scrollModifier),
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = spacedBy(Spacing8),
+                        ) {
+                            content.invoke()
+                        }
+                        if (showSectionDivider && !canScrollForward) {
+                            HorizontalDivider(
+                                modifier = Modifier.fillMaxWidth().padding(horizontal = Spacing24),
+                                color = TextColor.OnDisabledSurface,
+                                thickness = Border.Thin,
+                            )
+                        }
                     }
-                }
-                if (showSectionDivider && !canScrollForward) {
-                    HorizontalDivider(
-                        modifier = Modifier.fillMaxWidth().padding(horizontal = Spacing24),
-                        color = TextColor.OnDisabledSurface,
-                        thickness = Border.Thin,
-                    )
                 }
             }
             buttonBlock?.let {
