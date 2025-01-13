@@ -1,11 +1,13 @@
 package org.hisp.dhis.common.screens.bottomSheets
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredWidth
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -34,6 +36,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.ColorStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.LegendRange
+import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 
 @Composable
@@ -191,41 +194,45 @@ fun BottomSheetScreen() {
             subtitle = "Subtitle",
             description = lorem,
             buttonBlock = {
-                ButtonBlock(
-                    primaryButton = {
-                        Button(
-                            style = ButtonStyle.OUTLINED,
-                            icon = {
-                                Icon(
-                                    imageVector = Icons.Filled.Add,
-                                    contentDescription = "Button",
-                                )
-                            },
-                            enabled = true,
-                            text = "Label",
-                            onClick = {
-                                showBottomSheetShellTwoButtons = false
-                            },
-                            modifier = Modifier.fillMaxWidth(),
-                        )
-                    },
-                    secondaryButton = {
-                        Button(
-                            style = ButtonStyle.FILLED,
-                            icon = {
-                                Icon(
-                                    imageVector = Icons.Filled.Add,
-                                    contentDescription = "Button",
-                                )
-                            },
-                            enabled = true,
-                            text = "Label",
-                            onClick = {
-                            },
-                            modifier = Modifier.fillMaxWidth(),
-                        )
-                    },
-                )
+                Row(
+                    modifier = Modifier.padding(Spacing.Spacing24),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                ) {
+                    Button(
+                        modifier = Modifier.weight(0.5f),
+                        style = ButtonStyle.OUTLINED,
+                        icon = {
+                            Icon(
+                                imageVector = Icons.Filled.Add,
+                                contentDescription = "Button",
+                            )
+                        },
+                        enabled = true,
+                        text = "Label",
+                        onClick = {
+                            showBottomSheetShellTwoButtons = false
+                        },
+
+                    )
+
+                    Spacer(Modifier.size(Spacing.Spacing8))
+                    Button(
+                        modifier = Modifier.weight(0.5f),
+
+                        style = ButtonStyle.FILLED,
+                        icon = {
+                            Icon(
+                                imageVector = Icons.Filled.Add,
+                                contentDescription = "Button",
+                            )
+                        },
+                        enabled = true,
+                        text = "Label",
+                        onClick = {
+                        },
+                    )
+                }
             },
             icon = {
                 Icon(

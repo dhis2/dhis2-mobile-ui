@@ -12,6 +12,7 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.NativePaint
 import androidx.compose.ui.graphics.Paint
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.drawOutline
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
@@ -79,6 +80,39 @@ internal fun Modifier.buttonShadow(
                 radiusY = borderRadius.toPx(),
                 paint,
             )
+        }
+    },
+)
+
+fun Modifier.innerShadow(
+    blur: Dp = 10.dp,
+): Modifier = this.then(
+    drawBehind {
+        val shadowSize = Size(size.width, 24.dp.toPx())
+        val shadowOutline = RectangleShape.createOutline(shadowSize, layoutDirection, this)
+
+        // Create a Paint object
+        val paint = Paint()
+        // Apply specified color
+        paint.color = TextColor.OnSurfaceVariant.copy(alpha = 0.3f)
+
+        // Check for valid blur radius
+        if (blur.toPx() > 0) {
+            paint.asFrameworkPaint().apply {
+                // Apply blur to the Paint
+                paintBlur(blur.toPx())
+            }
+        }
+
+        drawIntoCanvas { canvas ->
+            // Save the canvas state
+            canvas.save()
+            // Translate to specified offsets
+            canvas.translate(Spacing.Spacing0.toPx(), size.height - 12.dp.toPx())
+            // Draw the shadow
+            canvas.drawOutline(shadowOutline, paint)
+            // Restore the canvas state
+            canvas.restore()
         }
     },
 )
