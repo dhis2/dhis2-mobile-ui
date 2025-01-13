@@ -286,6 +286,7 @@ fun BottomSheetShell(
                     Column(
                         Modifier
                             .then(scrollColumnShadow),
+                        horizontalAlignment = Alignment.CenterHorizontally,
                     ) {
                         Column(
                             modifier = Modifier
