@@ -128,6 +128,7 @@ fun OrgBottomSheet(
         buttonBlock = {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.padding(Spacing.Spacing24),
             ) {
                 if (onClearAll != null) {
                     Button(
