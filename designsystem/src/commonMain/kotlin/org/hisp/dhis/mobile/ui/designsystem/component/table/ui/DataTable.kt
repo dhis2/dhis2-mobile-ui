@@ -11,12 +11,18 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
-import org.hisp.dhis.mobile.ui.designsystem.component.table.model.ResizingCell
-import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableCornerUiState
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableModel
+import org.hisp.dhis.mobile.ui.designsystem.component.table.model.internal.ResizingCell
+import org.hisp.dhis.mobile.ui.designsystem.component.table.model.internal.TableCornerUiState
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme.tableSelection
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.compositions.LocalInteraction
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.compositions.LocalTableResizeActions
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.Table
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.TableHeaderRow
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.TableItemRow
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.VerticalResizingView
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.styleForColumnHeader
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.styleForRowHeader
 
 /**
  * Composable function to display a data table.
