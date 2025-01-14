@@ -15,7 +15,6 @@ import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -39,6 +38,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme.tableSelection
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.compositions.LocalTableResizeActions
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.extensions.fixedStickyHeader
+import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
 
 /**
  * Composable function to display a table.
@@ -68,7 +68,7 @@ internal fun Table(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
-            .clip(RoundedCornerShape(8.dp)),
+            .clip(Shape.Small),
     ) {
         val resizeActions = LocalTableResizeActions.current
         var tableHeight: Int? by remember { mutableStateOf(null) }

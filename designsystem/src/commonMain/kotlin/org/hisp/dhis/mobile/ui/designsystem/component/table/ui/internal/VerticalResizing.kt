@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Expand
 import androidx.compose.material3.Icon
@@ -32,6 +31,8 @@ import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.internal.ResizingCell
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableDimensions
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme
+import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
+import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import kotlin.math.abs
 import kotlin.math.roundToInt
 
@@ -64,9 +65,9 @@ internal fun VerticalResizingView(modifier: Modifier = Modifier, provideResizing
                     }
                     .background(
                         color = colorPrimary,
-                        shape = RoundedCornerShape(16.dp),
+                        shape = Shape.Large,
                     )
-                    .size(14.dp),
+                    .size(Spacing.Spacing14),
                 imageVector = Icons.Outlined.Expand,
                 contentDescription = "",
                 tint = Color.White,
@@ -92,8 +93,8 @@ internal fun VerticalResizingRule(
     Box(
         modifier
             .fillMaxHeight()
-            .width(48.dp)
-            .offset(24.dp)
+            .width(Spacing.Spacing48)
+            .offset(Spacing.Spacing24)
             .pointerInput(Unit) {
                 detectDragGestures(
                     onDragEnd = {
@@ -117,9 +118,9 @@ internal fun VerticalResizingRule(
                 .align(Alignment.Center)
                 .background(
                     color = TableTheme.colors.primary,
-                    shape = RoundedCornerShape(16.dp),
+                    shape = Shape.Large,
                 )
-                .size(14.dp)
+                .size(Spacing.Spacing14)
                 .onGloballyPositioned { coordinates ->
                     positionInRoot = coordinates.positionInRoot()
                 },

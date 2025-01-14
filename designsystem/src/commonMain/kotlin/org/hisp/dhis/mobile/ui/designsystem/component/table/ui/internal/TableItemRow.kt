@@ -87,7 +87,6 @@ internal fun TableItemRow(
             )
         }
         if (!rowModel.isLastRow) {
-            // TODO review if new divider is implemented correctly
             HorizontalDivider(
                 modifier = Modifier
                     .fillMaxWidth()

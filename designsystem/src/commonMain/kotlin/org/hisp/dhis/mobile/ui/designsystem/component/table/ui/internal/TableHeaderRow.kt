@@ -10,13 +10,13 @@ import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import org.hisp.dhis.mobile.ui.designsystem.component.IconButton
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableModel
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.internal.ResizingCell
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.internal.TableCornerUiState
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme
+import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
 /**
  * Composable function to display the table header row.
@@ -56,7 +56,7 @@ internal fun TableHeaderRow(
         if (isHeaderActionEnabled) {
             TableActions(
                 modifier = Modifier
-                    .padding(bottom = 24.dp),
+                    .padding(bottom = Spacing.Spacing24),
                 title = tableModel.title,
                 actionIcons = {
                     if (TableTheme.dimensions.hasOverriddenWidths(tableModel.id ?: "")) {
