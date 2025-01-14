@@ -1,6 +1,6 @@
 # DHIS2 Mobile UI
 
-Dhis2 Mobile UI library documentation, installation and usage is explained in [DHIS2 Developer portal](https://developers.dhis2.org/mobile/mobile-ui/overview)
+Dhis2 Mobile UI library documentation, installation and usage is explained in [DHIS2 Developer portal](https://developers.dhis2.org/docs/mobile/mobile-ui/overview)
 
 ## Compose Compiler Reports
 
