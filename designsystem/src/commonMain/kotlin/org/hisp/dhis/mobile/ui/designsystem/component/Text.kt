@@ -133,10 +133,14 @@ internal fun ListCardTitle(
     title: ListCardTitleModel,
     modifier: Modifier = Modifier,
 ) {
+    val maxLines = if (title.allowOverflow) Int.MAX_VALUE else 2
+
     Text(
         title.text,
         color = title.color ?: TextColor.OnPrimaryContainer,
         style = title.style ?: MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
+        maxLines = maxLines,
+        overflow = TextOverflow.Ellipsis,
         modifier = modifier,
     )
 }
