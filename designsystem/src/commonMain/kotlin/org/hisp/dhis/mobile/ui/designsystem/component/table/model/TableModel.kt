@@ -38,6 +38,13 @@ data class TableModel(
             }.toMap()
     }
 
+    /**
+     * Get the next cell to be selected.
+     *
+     * @param cellSelection The current cell selection.
+     * @param successValidation The validation result.
+     * @return The next cell to be selected.
+     */
     fun getNextCell(
         cellSelection: TableSelection.CellSelection,
         successValidation: Boolean,
@@ -61,6 +68,12 @@ data class TableModel(
         }
     }
 
+    /**
+     * Check if a cell has an error.
+     *
+     * @param cell The cell to check.
+     * @return The cell with an error.
+     */
     fun cellHasError(cell: TableSelection.CellSelection): TableCell? {
         return when {
             tableRows.size == 1 && tableRows.size == cell.rowIndex -> {
@@ -73,7 +86,12 @@ data class TableModel(
         }
     }
 
-    // review whether this class is still needed
+    /**
+     * Check if the table has a cell with a specific ID.
+     *
+     * @param cellId The ID to check.
+     * @return True if the table has a cell with the ID, false otherwise.
+     */
     fun hasCellWithId(cellId: String?): Boolean {
         return tableRows.any { row ->
             row.rowHeader.id?.let {

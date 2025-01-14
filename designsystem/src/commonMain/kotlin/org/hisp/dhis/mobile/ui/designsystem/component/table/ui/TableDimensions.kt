@@ -5,8 +5,8 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
 /**
  * Data class representing the dimensions of the table component.
@@ -38,22 +38,25 @@ import androidx.compose.ui.unit.sp
  */
 @Immutable
 data class TableDimensions(
-    val tableHorizontalPadding: Dp = 16.dp,
-    val tableVerticalPadding: Dp = 16.dp,
+    val tableHorizontalPadding: Dp = Spacing.Spacing16,
+    val tableVerticalPadding: Dp = Spacing.Spacing16,
     val defaultCellWidth: Int = 160,
-    val defaultCellHeight: Dp = 36.dp,
+    val defaultCellHeight: Dp = Spacing.Spacing36,
     val defaultRowHeaderWidth: Int = 275,
     val defaultHeaderHeight: Int = 36,
-    val defaultLegendCornerSize: Dp = 2.dp,
-    val defaultLegendBorderWidth: Dp = 8.dp,
+    val defaultLegendCornerSize: Dp = Spacing.Spacing2,
+    val defaultLegendBorderWidth: Dp = Spacing.Spacing8,
     val defaultHeaderTextSize: TextUnit = 12.sp,
     val defaultRowHeaderTextSize: TextUnit = 12.sp,
     val defaultCellTextSize: TextUnit = 12.sp,
     val totalWidth: Int = 0,
-    val cellVerticalPadding: Dp = 4.dp,
-    val cellHorizontalPadding: Dp = 4.dp,
-    val headerCellPaddingValues: PaddingValues = PaddingValues(horizontal = 4.dp, vertical = 11.dp),
-    val tableBottomPadding: Dp = 200.dp,
+    val cellVerticalPadding: Dp = Spacing.Spacing4,
+    val cellHorizontalPadding: Dp = Spacing.Spacing4,
+    val headerCellPaddingValues: PaddingValues = PaddingValues(
+        horizontal = Spacing.Spacing4,
+        vertical = Spacing.Spacing11,
+    ),
+    val tableBottomPadding: Dp = Spacing.Spacing200,
     val extraWidths: Map<String, Int> = emptyMap(),
     val rowHeaderWidths: Map<String, Int> = emptyMap(),
     val columnWidth: Map<String, Map<Int, Int>> = emptyMap(),
@@ -61,7 +64,7 @@ data class TableDimensions(
     val minColumnWidth: Int = 130,
     val maxRowHeaderWidth: Int = Int.MAX_VALUE,
     val maxColumnWidth: Int = Int.MAX_VALUE,
-    val tableEndExtraScroll: Dp = 6.dp,
+    val tableEndExtraScroll: Dp = Spacing.Spacing6,
 ) {
 
     private var currentExtraSize: MutableMap<String, Int> = mutableMapOf()
@@ -69,6 +72,11 @@ data class TableDimensions(
 
     var textInputHeight = 0
 
+    /**
+     * Update the width of the row header.
+     * @param tableId The ID of the table.
+     * @return The updated dimensions.
+     */
     fun rowHeaderWidth(tableId: String): Int {
         return (rowHeaderWidths[tableId] ?: defaultRowHeaderWidth) + extraWidthInTable(tableId)
     }
@@ -158,12 +166,22 @@ data class TableDimensions(
         return this.copy(columnWidth = newMap)
     }
 
+    /**
+     * Check if the table has overridden widths.
+     * @param tableId The ID of the table.
+     * @return `true` if the table has overridden widths, `false` otherwise.
+     */
     fun hasOverriddenWidths(tableId: String): Boolean {
         return rowHeaderWidths.containsKey(tableId) ||
             columnWidth.containsKey(tableId) ||
             extraWidths.containsKey(tableId)
     }
 
+    /**
+     * Reset the widths of the table.
+     * @param tableId The ID of the table.
+     * @return The updated dimensions.
+     */
     fun resetWidth(tableId: String): TableDimensions {
         val newExtraWidths = extraWidths.toMutableMap()
         val newColumnMap = columnWidth.toMutableMap()
@@ -218,17 +236,39 @@ data class TableDimensions(
             } ?: true
     }
 
+    /**
+     * Get the width of the row header.
+     *
+     * @param tableId The ID of the table.
+     * @return The width of the row header.
+     */
     fun getRowHeaderWidth(tableId: String): Int {
         return rowHeaderWidths[tableId] ?: defaultRowHeaderWidth
     }
 
+    /**
+     * Get the width of the column.
+     *
+     * @param tableId The ID of the table.
+     * @param column The index of the column.
+     * @return The width of the column.
+     */
     fun getColumnWidth(tableId: String, column: Int): Int {
         return columnWidth[tableId]?.get(column) ?: defaultCellWidth
     }
 
+    /**
+     * Get the extra widths of the table.
+     *
+     * @param tableId The ID of the table.
+     * @return The extra widths of the table.
+     */
     fun getExtraWidths(tableId: String): Int {
         return extraWidths[tableId] ?: 0
     }
 }
 
+/**
+ * Composition local for the table dimensions.
+ */
 val LocalTableDimensions = compositionLocalOf { TableDimensions() }
