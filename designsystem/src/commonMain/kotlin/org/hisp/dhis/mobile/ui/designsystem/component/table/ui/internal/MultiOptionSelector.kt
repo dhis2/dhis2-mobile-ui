@@ -1,11 +1,15 @@
 package org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal
 
 import androidx.compose.runtime.Composable
+import org.hisp.dhis.mobile.designsystem.generated.resources.Res
+import org.hisp.dhis.mobile.designsystem.generated.resources.done
+import org.hisp.dhis.mobile.designsystem.generated.resources.no_results_found
+import org.hisp.dhis.mobile.designsystem.generated.resources.search_to_see_more
 import org.hisp.dhis.mobile.ui.designsystem.component.CheckBoxData
 import org.hisp.dhis.mobile.ui.designsystem.component.MultiSelectBottomSheet
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.DropdownOption
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableCell
-import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
+import org.jetbrains.compose.resources.stringResource
 
 /**
  * Composable function to display a multi-option selector.
@@ -34,9 +38,9 @@ internal fun MultiOptionSelector(
             )
         },
         title = title,
-        noResultsFoundString = provideStringResource("no_results_found"),
-        searchToFindMoreString = provideStringResource("search_to_see_more"),
-        doneButtonText = provideStringResource("done"),
+        noResultsFoundString = stringResource(Res.string.no_results_found),
+        searchToFindMoreString = stringResource(Res.string.search_to_see_more),
+        doneButtonText = stringResource(Res.string.done),
         onItemsSelected = { checkBoxes ->
             val checkedCodes = checkBoxes
                 .filter { item -> item.checked }
