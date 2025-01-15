@@ -28,6 +28,7 @@ import org.hisp.dhis.common.screens.previews.basicAdditionalItemListWithMediumKe
 import org.hisp.dhis.common.screens.previews.enrollmentCompletedList
 import org.hisp.dhis.common.screens.previews.fullItemList
 import org.hisp.dhis.common.screens.previews.largeItemList
+import org.hisp.dhis.common.screens.previews.lorem
 import org.hisp.dhis.mobile.ui.designsystem.component.AdditionalInfoItem
 import org.hisp.dhis.mobile.ui.designsystem.component.AdditionalInfoItemColor
 import org.hisp.dhis.mobile.ui.designsystem.component.Avatar
@@ -42,11 +43,19 @@ import org.hisp.dhis.mobile.ui.designsystem.component.ListCardDescriptionModel
 import org.hisp.dhis.mobile.ui.designsystem.component.ListCardTitleModel
 import org.hisp.dhis.mobile.ui.designsystem.component.MetadataAvatarSize
 import org.hisp.dhis.mobile.ui.designsystem.component.SelectionState
+import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
 import org.hisp.dhis.mobile.ui.designsystem.component.state.rememberAdditionalInfoColumnState
 import org.hisp.dhis.mobile.ui.designsystem.component.state.rememberListCardState
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
+
+const val LAST_UPDATED_MINS = "24 min"
+const val LAST_UPDATED_HOURS = "5 hours"
+const val RETRY_SYNC = "Retry sync"
+const val DUE_DATE = "In 60 days"
+const val DEFAULT_NAME = "Palak Khanna, F, 61"
+const val ICON_BUTTON_DESCRIPTION = "Icon Button"
 
 @Composable
 fun ListCardScreen(horizontal: Boolean) {
@@ -61,8 +70,8 @@ fun ListCardScreen(horizontal: Boolean) {
                 items(count = 4) { index ->
                     ListCard(
                         listCardState = rememberListCardState(
-                            title = ListCardTitleModel(text = "Palak Khanna, F, 61"),
-                            lastUpdated = "5 hours",
+                            title = ListCardTitleModel(text = DEFAULT_NAME),
+                            lastUpdated = LAST_UPDATED_HOURS,
                             additionalInfoColumnState = rememberAdditionalInfoColumnState(
                                 additionalInfoList = largeItemList,
                                 syncProgressItem = syncProgressItem(),
@@ -93,14 +102,14 @@ fun ListCardScreen(horizontal: Boolean) {
                 ListCard(
                     listCardState = rememberListCardState(
                         title = ListCardTitleModel(text = "Kunal Choudary, M, 55"),
-                        lastUpdated = "24 min",
+                        lastUpdated = LAST_UPDATED_MINS,
                         additionalInfoColumnState = rememberAdditionalInfoColumnState(
                             additionalInfoList = enrollmentCompletedList.toMutableList(),
                             syncProgressItem = AdditionalInfoItem(
                                 icon = {
                                     Icon(
                                         imageVector = Icons.Outlined.Sync,
-                                        contentDescription = "Icon Button",
+                                        contentDescription = ICON_BUTTON_DESCRIPTION,
                                         tint = SurfaceColor.Primary,
                                     )
                                 },
@@ -121,8 +130,8 @@ fun ListCardScreen(horizontal: Boolean) {
 
                 ListCard(
                     listCardState = rememberListCardState(
-                        title = ListCardTitleModel(text = "Palak Khanna, F, 61"),
-                        lastUpdated = "5 hours",
+                        title = ListCardTitleModel(text = DEFAULT_NAME),
+                        lastUpdated = LAST_UPDATED_HOURS,
                         additionalInfoColumnState = rememberAdditionalInfoColumnState(
                             additionalInfoList = basicAdditionalItemList.toMutableList(),
                             syncProgressItem = syncProgressItem(),
@@ -137,11 +146,11 @@ fun ListCardScreen(horizontal: Boolean) {
                     actionButton = {
                         Button(
                             style = ButtonStyle.TONAL,
-                            text = "Retry sync",
+                            text = RETRY_SYNC,
                             icon = {
                                 Icon(
                                     imageVector = Icons.Outlined.Sync,
-                                    contentDescription = "Icon Button",
+                                    contentDescription = ICON_BUTTON_DESCRIPTION,
                                     tint = TextColor.OnPrimaryContainer,
                                 )
                             },
@@ -156,8 +165,8 @@ fun ListCardScreen(horizontal: Boolean) {
                 }
                 ListCard(
                     listCardState = rememberListCardState(
-                        title = ListCardTitleModel(text = "Palak Khanna, F, 61"),
-                        lastUpdated = "5 hours",
+                        title = ListCardTitleModel(text = DEFAULT_NAME),
+                        lastUpdated = LAST_UPDATED_HOURS,
                         additionalInfoColumnState = rememberAdditionalInfoColumnState(
                             additionalInfoList = basicAdditionalItemListWithLongKeyText.toMutableList(),
                             syncProgressItem = syncProgressItem(),
@@ -172,11 +181,11 @@ fun ListCardScreen(horizontal: Boolean) {
                     actionButton = {
                         Button(
                             style = ButtonStyle.TONAL,
-                            text = "Retry sync",
+                            text = RETRY_SYNC,
                             icon = {
                                 Icon(
                                     imageVector = Icons.Outlined.Sync,
-                                    contentDescription = "Icon Button",
+                                    contentDescription = ICON_BUTTON_DESCRIPTION,
                                     tint = TextColor.OnPrimaryContainer,
                                 )
                             },
@@ -191,8 +200,8 @@ fun ListCardScreen(horizontal: Boolean) {
                 }
                 ListCard(
                     listCardState = rememberListCardState(
-                        title = ListCardTitleModel(text = "Palak Khanna, F, 61"),
-                        lastUpdated = "5 hours",
+                        title = ListCardTitleModel(text = DEFAULT_NAME),
+                        lastUpdated = LAST_UPDATED_HOURS,
                         additionalInfoColumnState = rememberAdditionalInfoColumnState(
                             additionalInfoList = basicAdditionalItemListWithMediumKeyText.toMutableList(),
                             syncProgressItem = syncProgressItem(),
@@ -207,11 +216,11 @@ fun ListCardScreen(horizontal: Boolean) {
                     actionButton = {
                         Button(
                             style = ButtonStyle.TONAL,
-                            text = "Retry sync",
+                            text = RETRY_SYNC,
                             icon = {
                                 Icon(
                                     imageVector = Icons.Outlined.Sync,
-                                    contentDescription = "Icon Button",
+                                    contentDescription = ICON_BUTTON_DESCRIPTION,
                                     tint = TextColor.OnPrimaryContainer,
                                 )
                             },
@@ -226,8 +235,8 @@ fun ListCardScreen(horizontal: Boolean) {
                 }
                 ListCard(
                     listCardState = rememberListCardState(
-                        title = ListCardTitleModel(text = "Palak Khanna, F, 61"),
-                        lastUpdated = "5 hours",
+                        title = ListCardTitleModel(text = DEFAULT_NAME),
+                        lastUpdated = LAST_UPDATED_HOURS,
                         additionalInfoColumnState = rememberAdditionalInfoColumnState(
                             additionalInfoList = basicAdditionalItemListWithLongValue.toMutableList(),
                             syncProgressItem = syncProgressItem(),
@@ -242,11 +251,11 @@ fun ListCardScreen(horizontal: Boolean) {
                     actionButton = {
                         Button(
                             style = ButtonStyle.TONAL,
-                            text = "Retry sync",
+                            text = RETRY_SYNC,
                             icon = {
                                 Icon(
                                     imageVector = Icons.Outlined.Sync,
-                                    contentDescription = "Icon Button",
+                                    contentDescription = ICON_BUTTON_DESCRIPTION,
                                     tint = TextColor.OnPrimaryContainer,
                                 )
                             },
@@ -262,7 +271,7 @@ fun ListCardScreen(horizontal: Boolean) {
                 ListCard(
                     listCardState = rememberListCardState(
                         title = ListCardTitleModel(text = "Kunal Choudary, M, 55"),
-                        lastUpdated = "24 min",
+                        lastUpdated = LAST_UPDATED_MINS,
                         additionalInfoColumnState = rememberAdditionalInfoColumnState(
                             additionalInfoList = enrollmentCompletedList.toMutableList(),
                             syncProgressItem = syncProgressItem(),
@@ -277,11 +286,78 @@ fun ListCardScreen(horizontal: Boolean) {
                     actionButton = {
                         Button(
                             style = ButtonStyle.TONAL,
-                            text = "Retry sync",
+                            text = RETRY_SYNC,
                             icon = {
                                 Icon(
                                     imageVector = Icons.Outlined.Sync,
-                                    contentDescription = "Icon Button",
+                                    contentDescription = ICON_BUTTON_DESCRIPTION,
+                                    tint = TextColor.OnPrimaryContainer,
+                                )
+                            },
+                            onClick = { showLoading5 = !showLoading5 },
+                            modifier = Modifier.fillMaxWidth(),
+                        )
+                    },
+                    onCardClick = {},
+                )
+                SubTitle(text = "Long title with overflow")
+                ListCard(
+                    listCardState = rememberListCardState(
+                        title = ListCardTitleModel(text = lorem, allowOverflow = true),
+                        lastUpdated = LAST_UPDATED_MINS,
+                        additionalInfoColumnState = rememberAdditionalInfoColumnState(
+                            additionalInfoList = enrollmentCompletedList.toMutableList(),
+                            syncProgressItem = syncProgressItem(),
+                        ),
+                        loading = showLoading5,
+                    ),
+                    listAvatar = {
+                        Avatar(
+                            style = AvatarStyleData.Image(provideDHIS2Icon("dhis2_microscope_outline")),
+                        )
+                    },
+                    actionButton = {
+                        Button(
+                            style = ButtonStyle.TONAL,
+                            text = RETRY_SYNC,
+                            icon = {
+                                Icon(
+                                    imageVector = Icons.Outlined.Sync,
+                                    contentDescription = ICON_BUTTON_DESCRIPTION,
+                                    tint = TextColor.OnPrimaryContainer,
+                                )
+                            },
+                            onClick = { showLoading5 = !showLoading5 },
+                            modifier = Modifier.fillMaxWidth(),
+                        )
+                    },
+                    onCardClick = {},
+                )
+
+                SubTitle(text = "Long title without overflow")
+                ListCard(
+                    listCardState = rememberListCardState(
+                        title = ListCardTitleModel(text = lorem, allowOverflow = false),
+                        lastUpdated = LAST_UPDATED_MINS,
+                        additionalInfoColumnState = rememberAdditionalInfoColumnState(
+                            additionalInfoList = enrollmentCompletedList.toMutableList(),
+                            syncProgressItem = syncProgressItem(),
+                        ),
+                        loading = showLoading5,
+                    ),
+                    listAvatar = {
+                        Avatar(
+                            style = AvatarStyleData.Image(provideDHIS2Icon("dhis2_microscope_outline")),
+                        )
+                    },
+                    actionButton = {
+                        Button(
+                            style = ButtonStyle.TONAL,
+                            text = RETRY_SYNC,
+                            icon = {
+                                Icon(
+                                    imageVector = Icons.Outlined.Sync,
+                                    contentDescription = ICON_BUTTON_DESCRIPTION,
                                     tint = TextColor.OnPrimaryContainer,
                                 )
                             },
@@ -301,7 +377,7 @@ fun ListCardScreen(horizontal: Boolean) {
                     listCardState = rememberListCardState(
                         shadow = false,
                         title = ListCardTitleModel(text = "Anita Mathews, F, 72"),
-                        lastUpdated = "5 hours",
+                        lastUpdated = LAST_UPDATED_HOURS,
                         additionalInfoColumnState = rememberAdditionalInfoColumnState(
                             additionalInfoList = fullItemList.toMutableList(),
                             syncProgressItem = syncProgressItem(),
@@ -325,11 +401,11 @@ fun ListCardScreen(horizontal: Boolean) {
                     actionButton = {
                         Button(
                             style = ButtonStyle.TONAL,
-                            text = "Retry sync",
+                            text = RETRY_SYNC,
                             icon = {
                                 Icon(
                                     imageVector = Icons.Outlined.Sync,
-                                    contentDescription = "Icon Button",
+                                    contentDescription = ICON_BUTTON_DESCRIPTION,
                                     tint = TextColor.OnPrimaryContainer,
                                 )
                             },
@@ -354,7 +430,7 @@ fun ListCardScreen(horizontal: Boolean) {
                     icon = {
                         Icon(
                             imageVector = Icons.Outlined.SyncProblem,
-                            contentDescription = "Icon Button",
+                            contentDescription = ICON_BUTTON_DESCRIPTION,
                             tint = AdditionalInfoItemColor.ERROR.color,
                         )
                     },
@@ -366,7 +442,7 @@ fun ListCardScreen(horizontal: Boolean) {
                 ListCard(
                     listCardState = rememberListCardState(
                         title = ListCardTitleModel(text = "Aditi Singh, F, 61"),
-                        lastUpdated = "5 hours",
+                        lastUpdated = LAST_UPDATED_HOURS,
                         additionalInfoColumnState = rememberAdditionalInfoColumnState(
                             additionalInfoList = errorList,
                             syncProgressItem = syncProgressItem(),
@@ -379,11 +455,11 @@ fun ListCardScreen(horizontal: Boolean) {
                     actionButton = {
                         Button(
                             style = ButtonStyle.TONAL,
-                            text = "Retry sync",
+                            text = RETRY_SYNC,
                             icon = {
                                 Icon(
                                     imageVector = Icons.Outlined.Sync,
-                                    contentDescription = "Icon Button",
+                                    contentDescription = ICON_BUTTON_DESCRIPTION,
                                     tint = TextColor.OnPrimaryContainer,
                                 )
                             },
@@ -415,11 +491,11 @@ fun ListCardScreen(horizontal: Boolean) {
                     actionButton = {
                         Button(
                             style = ButtonStyle.TONAL,
-                            text = "Retry sync",
+                            text = RETRY_SYNC,
                             icon = {
                                 Icon(
                                     imageVector = Icons.Outlined.Sync,
-                                    contentDescription = "Icon Button",
+                                    contentDescription = ICON_BUTTON_DESCRIPTION,
                                     tint = TextColor.OnPrimaryContainer,
                                 )
                             },
@@ -445,11 +521,11 @@ fun ListCardScreen(horizontal: Boolean) {
                     actionButton = {
                         Button(
                             style = ButtonStyle.TONAL,
-                            text = "Retry sync",
+                            text = RETRY_SYNC,
                             icon = {
                                 Icon(
                                     imageVector = Icons.Outlined.Sync,
-                                    contentDescription = "Icon Button",
+                                    contentDescription = ICON_BUTTON_DESCRIPTION,
                                     tint = TextColor.OnPrimaryContainer,
                                 )
                             },
@@ -488,11 +564,11 @@ fun ListCardScreen(horizontal: Boolean) {
                     actionButton = {
                         Button(
                             style = ButtonStyle.TONAL,
-                            text = "Retry sync",
+                            text = RETRY_SYNC,
                             icon = {
                                 Icon(
                                     imageVector = Icons.Outlined.Sync,
-                                    contentDescription = "Icon Button",
+                                    contentDescription = ICON_BUTTON_DESCRIPTION,
                                     tint = TextColor.OnPrimaryContainer,
                                 )
                             },
@@ -550,11 +626,11 @@ fun ListCardScreen(horizontal: Boolean) {
                                     icon = {
                                         Icon(
                                             imageVector = Icons.Outlined.Event,
-                                            contentDescription = "Icon Button",
+                                            contentDescription = ICON_BUTTON_DESCRIPTION,
                                             tint = AdditionalInfoItemColor.SUCCESS.color,
                                         )
                                     },
-                                    value = "In 60 days",
+                                    value = DUE_DATE,
                                     color = AdditionalInfoItemColor.SUCCESS.color,
                                     isConstantItem = true,
                                 ),
@@ -579,11 +655,11 @@ fun ListCardScreen(horizontal: Boolean) {
                                     icon = {
                                         Icon(
                                             imageVector = Icons.Outlined.Event,
-                                            contentDescription = "Icon Button",
+                                            contentDescription = ICON_BUTTON_DESCRIPTION,
                                             tint = AdditionalInfoItemColor.SUCCESS.color,
                                         )
                                     },
-                                    value = "In 60 days",
+                                    value = DUE_DATE,
                                     color = AdditionalInfoItemColor.SUCCESS.color,
                                     isConstantItem = true,
                                 ),
@@ -614,11 +690,11 @@ fun ListCardScreen(horizontal: Boolean) {
                                     icon = {
                                         Icon(
                                             imageVector = Icons.Outlined.Event,
-                                            contentDescription = "Icon Button",
+                                            contentDescription = ICON_BUTTON_DESCRIPTION,
                                             tint = AdditionalInfoItemColor.SUCCESS.color,
                                         )
                                     },
-                                    value = "In 60 days",
+                                    value = DUE_DATE,
                                     color = AdditionalInfoItemColor.SUCCESS.color,
                                     isConstantItem = true,
                                 ),
@@ -659,8 +735,8 @@ fun ListCardScreen(horizontal: Boolean) {
 
                 ListCard(
                     listCardState = rememberListCardState(
-                        title = ListCardTitleModel(text = "Palak Khanna, F, 61"),
-                        lastUpdated = "5 hours",
+                        title = ListCardTitleModel(text = DEFAULT_NAME),
+                        lastUpdated = LAST_UPDATED_HOURS,
                         additionalInfoColumnState = rememberAdditionalInfoColumnState(
                             additionalInfoList = basicAdditionalItemList.toMutableList(),
                             syncProgressItem = syncProgressItem(),
@@ -681,8 +757,8 @@ fun ListCardScreen(horizontal: Boolean) {
 
                 ListCard(
                     listCardState = rememberListCardState(
-                        title = ListCardTitleModel(text = "Palak Khanna, F, 61"),
-                        lastUpdated = "5 hours",
+                        title = ListCardTitleModel(text = DEFAULT_NAME),
+                        lastUpdated = LAST_UPDATED_HOURS,
                         additionalInfoColumnState = rememberAdditionalInfoColumnState(
                             additionalInfoList = basicAdditionalItemListWithLongKeyText.toMutableList(),
                             syncProgressItem = syncProgressItem(),
@@ -706,7 +782,7 @@ private fun syncProgressItem() = AdditionalInfoItem(
     icon = {
         Icon(
             imageVector = Icons.Outlined.Sync,
-            contentDescription = "Icon Button",
+            contentDescription = ICON_BUTTON_DESCRIPTION,
             tint = SurfaceColor.Primary,
         )
     },

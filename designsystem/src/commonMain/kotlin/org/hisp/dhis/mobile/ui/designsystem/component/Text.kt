@@ -128,12 +128,14 @@ fun Description(
     )
 }
 
+const val MAX_OVERFLOW_LINES = 2
+
 @Composable
 internal fun ListCardTitle(
     title: ListCardTitleModel,
     modifier: Modifier = Modifier,
 ) {
-    val maxLines = if (title.allowOverflow) Int.MAX_VALUE else 2
+    val maxLines = if (title.allowOverflow) Int.MAX_VALUE else MAX_OVERFLOW_LINES
 
     Text(
         title.text,
