@@ -139,6 +139,7 @@ fun BottomSheetHeader(
  * @param showTopSectionDivider: whether to show the top divider or not.
  * @param showBottomSectionDivider: whether to show the bottom divider or not.
  * @param windowInsets: The insets to use for the bottom sheet shell.
+ * @param bottomPadding The lower padding for the bottom sheet shell.
  * @param icon: the icon to be shown.
  * @param buttonBlock: Space for the lower buttons.
  * @param content: to be shown under the header.
