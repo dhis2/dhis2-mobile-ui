@@ -1,7 +1,10 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Draw
+import androidx.compose.material3.BottomSheetDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -10,14 +13,18 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.unit.Dp
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.signature.SignatureBottomSheet
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
+import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing0
 
 /**
  * DHIS2 Input signature. Wraps DHIS · [BasicInputImage].
  * @param title: controls the text to be shown for the title.
  * @param state: manages the InputShell state.
  * @param inputStyle: manages the InputShell style.
+ * @param windowInsets: the insets for the bottom sheet shell.
+ * @param bottomSheetLowerPadding the padding for the bottom sheet shell.
  * @param supportingText: is a list of SupportingTextData that.
  * manages all the messages to be shown.
  * @param legendData: manages the legendComponent.
@@ -33,11 +40,14 @@ import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
  * @param onResetButtonClicked: callback to when reset button is clicked.
  * @param onSaveSignature: callback to when save button is clicked.
  */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun <T> InputSignature(
     title: String,
     state: InputShellState = InputShellState.UNFOCUSED,
     inputStyle: InputStyle = InputStyle.DataInputStyle(),
+    windowInsets: @Composable () -> WindowInsets = { BottomSheetDefaults.windowInsets },
+    bottomSheetLowerPadding: Dp = Spacing0,
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
     addSignatureBtnText: String = provideStringResource("add_signature"),
@@ -86,6 +96,8 @@ fun <T> InputSignature(
                 onSaveSignature.invoke(it)
                 showBottomSheet = false
             },
+            windowInsets = windowInsets,
+            bottomSheetLowerPadding = bottomSheetLowerPadding,
         )
     }
 }

@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredWidth
@@ -50,10 +51,14 @@ fun BottomSheetScreen() {
     var showBottomSheetWithSearchBar by rememberSaveable { mutableStateOf(false) }
     var showBottomSheetWithoutTitle by rememberSaveable { mutableStateOf(false) }
     var showBottomSheetWithoutContent by rememberSaveable { mutableStateOf(false) }
+    var showBottomSheetWithAndroid35Paddings by rememberSaveable { mutableStateOf(false) }
 
+    val android35WindowInsets: @Composable () -> WindowInsets = { WindowInsets(0, 0, 0, 0) }
     if (showLegendBottomSheetShell) {
         BottomSheetShell(
             title = "Legend name ",
+            showTopSectionDivider = true,
+            showBottomSectionDivider = true,
             icon = {
                 Icon(
                     imageVector = Icons.Outlined.Info,
@@ -76,6 +81,8 @@ fun BottomSheetScreen() {
         val scrollState = rememberLazyListState()
         BottomSheetShell(
             title = "Legend name ",
+            showTopSectionDivider = true,
+            showBottomSectionDivider = true,
             icon = {
                 Icon(
                     imageVector = Icons.Outlined.Info,
@@ -103,8 +110,60 @@ fun BottomSheetScreen() {
             title = "Legend name ",
             subtitle = "Subtitle",
             description = lorem + lorem,
+            showTopSectionDivider = true,
+            showBottomSectionDivider = true,
             buttonBlock = {
                 ButtonBlock(
+                    modifier = Modifier.padding(top = Spacing.Spacing0, bottom = Spacing.Spacing24, start = Spacing.Spacing24, end = Spacing.Spacing24),
+                    primaryButton = {
+                        Button(
+                            style = ButtonStyle.FILLED,
+                            icon = {
+                                Icon(
+                                    imageVector = Icons.Filled.Add,
+                                    contentDescription = "Button",
+                                )
+                            },
+                            enabled = true,
+                            text = "Label",
+                            onClick = {
+                                showBottomSheetShellMaxExpansion = false
+                            },
+                            modifier = Modifier.fillMaxWidth(),
+                        )
+                    },
+                )
+            },
+            icon = {
+                Icon(
+                    imageVector = Icons.Outlined.Info,
+                    contentDescription = "Button",
+                    tint = SurfaceColor.Primary,
+                )
+            },
+            content = {
+                Column {
+                    LegendRange(
+                        longLegendList,
+                    )
+                }
+            },
+        ) {
+            showBottomSheetShellMaxExpansion = false
+        }
+    }
+
+    if (showBottomSheetWithAndroid35Paddings) {
+        BottomSheetShell(
+            windowInsets = android35WindowInsets,
+            title = "Legend name ",
+            subtitle = "Subtitle",
+            description = lorem + lorem,
+            showTopSectionDivider = true,
+            showBottomSectionDivider = true,
+            buttonBlock = {
+                ButtonBlock(
+                    modifier = Modifier.padding(top = Spacing.Spacing0, bottom = Spacing.Spacing24, start = Spacing.Spacing24, end = Spacing.Spacing24),
                     primaryButton = {
                         Button(
                             style = ButtonStyle.FILLED,
@@ -148,6 +207,8 @@ fun BottomSheetScreen() {
             title = "Legend name ",
             subtitle = "Subtitle",
             description = lorem,
+            showTopSectionDivider = true,
+            showBottomSectionDivider = true,
             buttonBlock = {
                 ButtonBlock(
                     primaryButton = {
@@ -164,7 +225,8 @@ fun BottomSheetScreen() {
                             onClick = {
                                 showBottomSheetShellSingleButton = false
                             },
-                            modifier = Modifier.fillMaxWidth(),
+                            modifier = Modifier.fillMaxWidth()
+                                .padding(top = Spacing.Spacing0, bottom = Spacing.Spacing24, start = Spacing.Spacing24, end = Spacing.Spacing24),
                         )
                     },
                 )
@@ -193,9 +255,11 @@ fun BottomSheetScreen() {
             title = "Legend name ",
             subtitle = "Subtitle",
             description = lorem,
+            showTopSectionDivider = true,
+            showBottomSectionDivider = true,
             buttonBlock = {
                 Row(
-                    modifier = Modifier.padding(Spacing.Spacing24),
+                    modifier = Modifier.padding(top = Spacing.Spacing0, bottom = Spacing.Spacing24, start = Spacing.Spacing24, end = Spacing.Spacing24),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
@@ -260,8 +324,11 @@ fun BottomSheetScreen() {
             title = "Bottom Sheet with Search Bar",
             subtitle = "Subtitle",
             description = lorem,
+            showTopSectionDivider = true,
+            showBottomSectionDivider = true,
             buttonBlock = {
                 ButtonBlock(
+                    modifier = Modifier.padding(top = Spacing.Spacing0, bottom = Spacing.Spacing24, start = Spacing.Spacing24, end = Spacing.Spacing24),
                     primaryButton = {
                         Button(
                             style = ButtonStyle.OUTLINED,
@@ -324,6 +391,8 @@ fun BottomSheetScreen() {
         var searchQuery by rememberSaveable { mutableStateOf("") }
 
         BottomSheetShell(
+            showTopSectionDivider = true,
+            showBottomSectionDivider = true,
             icon = {
                 Icon(
                     imageVector = Icons.Outlined.Info,
@@ -348,6 +417,8 @@ fun BottomSheetScreen() {
 
     if (showBottomSheetWithoutContent) {
         BottomSheetShell(
+            showTopSectionDivider = true,
+            showBottomSectionDivider = false,
             icon = {
                 Icon(
                     imageVector = Icons.Outlined.Info,
@@ -360,6 +431,7 @@ fun BottomSheetScreen() {
             buttonBlock = {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.padding(top = Spacing.Spacing0, bottom = Spacing.Spacing24, start = Spacing.Spacing24, end = Spacing.Spacing24),
                 ) {
                     Button(
                         modifier = Modifier.weight(1f),
@@ -435,6 +507,16 @@ fun BottomSheetScreen() {
                 text = "Show Modal",
             ) {
                 showBottomSheetShellTwoButtons = !showBottomSheetShellTwoButtons
+            }
+        }
+
+        ColumnComponentContainer("Bottom sheet shell with android 35 insets") {
+            Button(
+                enabled = true,
+                ButtonStyle.FILLED,
+                text = "Show Modal",
+            ) {
+                showBottomSheetWithAndroid35Paddings = !showBottomSheetWithAndroid35Paddings
             }
         }
 

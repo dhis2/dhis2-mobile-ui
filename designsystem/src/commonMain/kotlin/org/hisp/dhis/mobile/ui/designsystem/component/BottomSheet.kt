@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
@@ -17,6 +18,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Close
+import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -134,7 +136,9 @@ fun BottomSheetHeader(
  * @param subtitle: subTitle to be shown.
  * @param description: PopUp description.
  * @param searchQuery: Search query to be displayed in the search bar.
- * @param showSectionDivider: whether to show the divider or not.
+ * @param showTopSectionDivider: whether to show the top divider or not.
+ * @param showBottomSectionDivider: whether to show the bottom divider or not.
+ * @param windowInsets: The insets to use for the bottom sheet shell.
  * @param icon: the icon to be shown.
  * @param buttonBlock: Space for the lower buttons.
  * @param content: to be shown under the header.
@@ -157,7 +161,10 @@ fun BottomSheetShell(
     subtitle: String? = null,
     description: String? = null,
     searchQuery: String? = null,
-    showSectionDivider: Boolean = true,
+    showTopSectionDivider: Boolean = true,
+    showBottomSectionDivider: Boolean = true,
+    windowInsets: @Composable () -> WindowInsets = { BottomSheetDefaults.windowInsets },
+    bottomPadding: Dp = Spacing0,
     contentScrollState: ScrollableState = rememberScrollState(),
     icon: @Composable (() -> Unit)? = null,
     buttonBlock: @Composable (() -> Unit)? = null,
@@ -192,6 +199,7 @@ fun BottomSheetShell(
     ModalBottomSheet(
         modifier = modifier,
         containerColor = Color.Transparent,
+        contentWindowInsets = windowInsets,
         onDismissRequest = {
             onDismiss()
         },
@@ -230,7 +238,6 @@ fun BottomSheetShell(
             Column(
                 modifier = Modifier
                     .weight(1f, fill = false)
-                    .background(SurfaceColor.SurfaceBright, Shape.ExtraLargeTop)
                     .padding(top = Spacing24),
             ) {
                 val hasSearch =
@@ -265,10 +272,10 @@ fun BottomSheetShell(
                 }
 
                 if (showHeader || hasSearch) {
-                    if (showSectionDivider) {
+                    if (showTopSectionDivider) {
                         HorizontalDivider(
                             modifier = Modifier.fillMaxWidth()
-                                .padding(top = Spacing24, start = Spacing24, end = Spacing24, bottom = Spacing8),
+                                .padding(top = Spacing24, start = Spacing24, end = Spacing24, bottom = Spacing0),
                             color = TextColor.OnDisabledSurface,
                             thickness = Border.Thin,
                         )
@@ -284,10 +291,10 @@ fun BottomSheetShell(
                         Modifier
                     }
                     Column(
-                        Modifier
-                            .then(scrollColumnShadow),
+                        Modifier.then(scrollColumnShadow),
                         horizontalAlignment = Alignment.CenterHorizontally,
                     ) {
+                        Spacer(Modifier.requiredHeight(Spacing8))
                         Column(
                             modifier = Modifier
                                 .padding(horizontal = Spacing24)
@@ -297,10 +304,11 @@ fun BottomSheetShell(
                             verticalArrangement = spacedBy(Spacing8),
                         ) {
                             content.invoke()
+                            Spacer(Modifier.requiredHeight(Spacing8))
                         }
-                        if (showSectionDivider && !canScrollForward) {
+                        if (showBottomSectionDivider && !canScrollForward) {
                             HorizontalDivider(
-                                modifier = Modifier.fillMaxWidth().padding(horizontal = Spacing24),
+                                modifier = Modifier.fillMaxWidth().padding(start = Spacing24, end = Spacing24, bottom = Spacing0, top = Spacing0),
                                 color = TextColor.OnDisabledSurface,
                                 thickness = Border.Thin,
                             )
@@ -308,9 +316,11 @@ fun BottomSheetShell(
                     }
                 }
             }
+            Spacer(Modifier.requiredHeight(Spacing24))
             buttonBlock?.let {
                 buttonBlock.invoke()
             }
+            Spacer(Modifier.requiredHeight(bottomPadding))
         }
     }
 }
