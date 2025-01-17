@@ -46,5 +46,6 @@
     <string name="select_in_map">Seleccionar en el mapa</string>
     <string name="no_recent_results">No hay resultados recientes</string>
     <string name="no_results">No hay resultados</string>
+    <string name="accept">Aceptar</string>
     <string name="searching_location">Buscando...</string>
 </resources>

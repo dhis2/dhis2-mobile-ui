@@ -33,6 +33,7 @@ import org.hisp.dhis.common.screens.others.SectionScreen
 import org.hisp.dhis.common.screens.others.TagsScreen
 import org.hisp.dhis.common.screens.others.TopBarScreen
 import org.hisp.dhis.common.screens.parameter.ParameterSelectorScreen
+import org.hisp.dhis.common.screens.table.TableScreen
 import org.hisp.dhis.common.screens.toggleableInputs.ToggleableInputsScreen
 import org.hisp.dhis.mobile.ui.designsystem.component.DropdownItem
 import org.hisp.dhis.mobile.ui.designsystem.component.InputDropDown
@@ -140,6 +141,7 @@ fun Main(
                 Groups.LOCATION_SEARCH_BAR -> LocationSearchBarScreen { locationQuery, locationCallback ->
                     onLocationRequest?.invoke(locationQuery, locationCallback)
                 }
+                Groups.TABLE -> TableScreen()
             }
         } else {
             NoComponentSelectedScreen(
