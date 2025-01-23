@@ -53,9 +53,9 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
 @Composable
 fun Legend(
     legendData: LegendData,
+    modifier: Modifier = Modifier,
     windowInsets: @Composable () -> WindowInsets = { BottomSheetDefaults.windowInsets },
     bottomSheetLowerPadding: Dp = Spacing0,
-    modifier: Modifier = Modifier,
 ) {
     var showBottomSheetShell by rememberSaveable { mutableStateOf(false) }
 
