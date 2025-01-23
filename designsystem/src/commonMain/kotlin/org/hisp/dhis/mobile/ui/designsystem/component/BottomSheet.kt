@@ -7,6 +7,7 @@ import androidx.compose.foundation.gestures.ScrollableState
 import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -48,6 +49,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing0
+import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing16
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing24
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing8
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
@@ -141,7 +143,8 @@ fun BottomSheetHeader(
  * @param windowInsets: The insets to use for the bottom sheet shell.
  * @param bottomPadding The lower padding for the bottom sheet shell.
  * @param icon: the icon to be shown.
- * @param buttonBlock: Space for the lower buttons.
+ * @param buttonBlock: Space for the lower buttons, use together with BottomSheetShellDefaults
+ * button block padding to ensure a correct style is displayed.
  * @param content: to be shown under the header.
  * @param contentScrollState: Pass custom scroll state when content is
  * scrollable. For example, pass configure it when using `LazyColumn` to `Modifier.verticalScroll`
@@ -322,6 +325,45 @@ fun BottomSheetShell(
                 buttonBlock.invoke()
             }
             Spacer(Modifier.requiredHeight(bottomPadding))
+        }
+    }
+}
+
+/**
+ * Provides default values and configurations for the BottomSheet component.
+ */
+class BottomSheetShellDefaults {
+
+    companion object {
+        /**
+         * Returns the default padding values for the button block in the BottomSheet.
+         *
+         * @return PaddingValues with top, bottom, start, and end padding.
+         */
+        fun buttonBlockPaddings(): PaddingValues {
+            return PaddingValues(top = Spacing0, bottom = Spacing24, start = Spacing24, end = Spacing24)
+        }
+
+        /**
+         * Returns the appropriate window insets for the BottomSheet based on whether edge-to-edge mode is enabled.
+         *
+         * @param isEdgeToEdgeEnabled Boolean indicating if edge-to-edge mode is enabled.
+         * @return WindowInsets with appropriate values based on the edge-to-edge mode.
+         */
+        @Composable
+        @OptIn(ExperimentalMaterial3Api::class)
+        fun windowInsets(isEdgeToEdgeEnabled: Boolean): WindowInsets {
+            return if (isEdgeToEdgeEnabled) WindowInsets(0, 0, 0, 0) else { BottomSheetDefaults.windowInsets }
+        }
+
+        /**
+         * Returns the appropriate lower padding for the BottomSheet based on whether edge-to-edge mode is enabled.
+         *
+         * @param isEdgeToEdgeEnabled Boolean indicating if edge-to-edge mode is enabled.
+         * @return a dp value based on the edge-to-edge mode.
+         */
+        fun lowerPadding(isEdgeToEdgeEnabled: Boolean): Dp {
+            return if (isEdgeToEdgeEnabled) Spacing16 else Spacing0
         }
     }
 }

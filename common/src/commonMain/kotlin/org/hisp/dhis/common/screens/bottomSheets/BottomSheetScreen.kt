@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredWidth
@@ -30,6 +29,7 @@ import org.hisp.dhis.common.screens.previews.longLegendList
 import org.hisp.dhis.common.screens.previews.lorem
 import org.hisp.dhis.common.screens.previews.regularLegendList
 import org.hisp.dhis.mobile.ui.designsystem.component.BottomSheetShell
+import org.hisp.dhis.mobile.ui.designsystem.component.BottomSheetShellDefaults
 import org.hisp.dhis.mobile.ui.designsystem.component.Button
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonBlock
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonStyle
@@ -53,7 +53,6 @@ fun BottomSheetScreen() {
     var showBottomSheetWithoutContent by rememberSaveable { mutableStateOf(false) }
     var showBottomSheetWithAndroid35Paddings by rememberSaveable { mutableStateOf(false) }
 
-    val android35WindowInsets: @Composable () -> WindowInsets = { WindowInsets(0, 0, 0, 0) }
     if (showLegendBottomSheetShell) {
         BottomSheetShell(
             title = "Legend name ",
@@ -114,7 +113,7 @@ fun BottomSheetScreen() {
             showBottomSectionDivider = true,
             buttonBlock = {
                 ButtonBlock(
-                    modifier = Modifier.padding(top = Spacing.Spacing0, bottom = Spacing.Spacing24, start = Spacing.Spacing24, end = Spacing.Spacing24),
+                    modifier = Modifier.padding(BottomSheetShellDefaults.buttonBlockPaddings()),
                     primaryButton = {
                         Button(
                             style = ButtonStyle.FILLED,
@@ -155,8 +154,9 @@ fun BottomSheetScreen() {
 
     if (showBottomSheetWithAndroid35Paddings) {
         BottomSheetShell(
-            windowInsets = android35WindowInsets,
+            windowInsets = { BottomSheetShellDefaults.windowInsets(true) },
             title = "Legend name ",
+            bottomPadding = BottomSheetShellDefaults.lowerPadding(true),
             subtitle = "Subtitle",
             description = lorem + lorem,
             showTopSectionDivider = true,
@@ -225,10 +225,10 @@ fun BottomSheetScreen() {
                             onClick = {
                                 showBottomSheetShellSingleButton = false
                             },
-                            modifier = Modifier.fillMaxWidth()
-                                .padding(top = Spacing.Spacing0, bottom = Spacing.Spacing24, start = Spacing.Spacing24, end = Spacing.Spacing24),
+                            modifier = Modifier.fillMaxWidth(),
                         )
                     },
+                    modifier = Modifier.padding(BottomSheetShellDefaults.buttonBlockPaddings()),
                 )
             },
             icon = {
@@ -259,7 +259,7 @@ fun BottomSheetScreen() {
             showBottomSectionDivider = true,
             buttonBlock = {
                 Row(
-                    modifier = Modifier.padding(top = Spacing.Spacing0, bottom = Spacing.Spacing24, start = Spacing.Spacing24, end = Spacing.Spacing24),
+                    modifier = Modifier.padding(BottomSheetShellDefaults.buttonBlockPaddings()),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
@@ -328,7 +328,7 @@ fun BottomSheetScreen() {
             showBottomSectionDivider = true,
             buttonBlock = {
                 ButtonBlock(
-                    modifier = Modifier.padding(top = Spacing.Spacing0, bottom = Spacing.Spacing24, start = Spacing.Spacing24, end = Spacing.Spacing24),
+                    modifier = Modifier.padding(BottomSheetShellDefaults.buttonBlockPaddings()),
                     primaryButton = {
                         Button(
                             style = ButtonStyle.OUTLINED,
@@ -431,7 +431,7 @@ fun BottomSheetScreen() {
             buttonBlock = {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.padding(top = Spacing.Spacing0, bottom = Spacing.Spacing24, start = Spacing.Spacing24, end = Spacing.Spacing24),
+                    modifier = Modifier.padding(BottomSheetShellDefaults.buttonBlockPaddings()),
                 ) {
                     Button(
                         modifier = Modifier.weight(1f),
@@ -510,7 +510,7 @@ fun BottomSheetScreen() {
             }
         }
 
-        ColumnComponentContainer("Bottom sheet shell with android 35 insets") {
+        ColumnComponentContainer("Bottom sheet shell with for devices with edge to edge enabled") {
             Button(
                 enabled = true,
                 ButtonStyle.FILLED,

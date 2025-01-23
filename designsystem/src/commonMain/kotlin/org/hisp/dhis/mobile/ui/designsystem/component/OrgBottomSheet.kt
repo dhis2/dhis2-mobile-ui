@@ -139,7 +139,7 @@ fun OrgBottomSheet(
         buttonBlock = {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.padding(top = Spacing.Spacing0, start = Spacing.Spacing24, end = Spacing.Spacing24, bottom = Spacing.Spacing24),
+                modifier = Modifier.padding(BottomSheetShellDefaults.buttonBlockPaddings()),
             ) {
                 if (onClearAll != null) {
                     Button(

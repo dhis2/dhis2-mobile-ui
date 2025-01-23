@@ -5,6 +5,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import org.hisp.dhis.mobile.ui.designsystem.component.BottomSheetShellDefaults
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.DropdownItem
@@ -112,6 +113,33 @@ fun InputDropDownScreen() {
                 loadOptions = {
                     /*no-op*/
                 },
+            )
+        }
+
+        ColumnComponentContainer("Basic Input Dropdown for large set and devices with edge to edge enabled") {
+            var selectedItem4 by remember { mutableStateOf<DropdownItem?>(null) }
+            var filteredItems by remember { mutableStateOf(options) }
+            InputDropDown(
+                title = "Label",
+                state = InputShellState.UNFOCUSED,
+                itemCount = filteredItems.size,
+                onSearchOption = { query ->
+                    filteredItems = options.filter { it.label.contains(query) }
+                },
+                fetchItem = { index -> filteredItems[index] },
+                useDropDown = false,
+                onResetButtonClicked = {
+                    selectedItem4 = null
+                },
+                onItemSelected = { _, item ->
+                    selectedItem4 = item
+                },
+                selectedItem = selectedItem4,
+                loadOptions = {
+                    /*no-op*/
+                },
+                bottomSheetLowerPadding = BottomSheetShellDefaults.lowerPadding(isEdgeToEdgeEnabled = true),
+                windowInsets = { BottomSheetShellDefaults.windowInsets(true) },
             )
         }
 
