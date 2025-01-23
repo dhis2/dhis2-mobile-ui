@@ -17,10 +17,10 @@ import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.ClearAll
 import androidx.compose.material.icons.filled.KeyboardArrowDown
-import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -30,7 +30,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.layout.onGloballyPositioned
@@ -109,7 +108,6 @@ fun OrgBottomSheet(
             onSearch?.invoke(searchQuery)
         },
         onSearch = onSearch,
-        scrollableContainerMinHeight = InternalSizeValues.Size386,
         scrollableContainerMaxHeight = maxOf(orgTreeHeightInDp, InternalSizeValues.Size386),
         content = {
             OrgTreeList(
@@ -130,6 +128,7 @@ fun OrgBottomSheet(
         buttonBlock = {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.padding(Spacing.Spacing24),
             ) {
                 if (onClearAll != null) {
                     Button(
@@ -227,13 +226,12 @@ fun OrgUnitSelectorItem(
         modifier = modifier
             .testTag("$ITEM_TEST_TAG${orgTreeItem.label}")
             .fillMaxWidth()
-            .background(Color.White)
             .clickable(
                 enabled = orgTreeItem.hasChildren,
                 interactionSource = remember {
                     MutableInteractionSource()
                 },
-                indication = rememberRipple(bounded = true),
+                indication = ripple(bounded = true),
             ) {
                 onItemClick(orgTreeItem.uid)
             }

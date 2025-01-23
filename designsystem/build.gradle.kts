@@ -8,7 +8,7 @@ plugins {
     id("org.jetbrains.compose")
     id("com.android.library")
     id("convention.publication")
-    id("app.cash.paparazzi").version("1.3.3")
+    id("app.cash.paparazzi").version("1.3.5")
     alias(libs.plugins.compose.compiler)
 }
 
@@ -34,9 +34,9 @@ kotlin {
 
         val androidMain by getting {
             dependencies {
-                api("androidx.activity:activity-compose:1.8.2")
-                api("androidx.appcompat:appcompat:1.6.1")
-                api("androidx.core:core-ktx:1.12.0")
+                api("androidx.activity:activity-compose:1.9.3")
+                api("androidx.appcompat:appcompat:1.7.0")
+                api("androidx.core:core-ktx:1.15.0")
                 implementation("com.google.zxing:core:3.5.2")
                 implementation("se.warting.signature:signature-pad:0.1.2")
             }
@@ -69,8 +69,8 @@ android {
     namespace = "org.hisp.dhis.mobile.ui.designsystem"
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
-    sourceSets["main"].res.srcDirs("src/androidMain/res", "src/commonMain/resources")
-    sourceSets["main"].resources.srcDirs("src/commonMain/resources")
+    sourceSets["main"].res.srcDirs("src/androidMain/res", "src/commonMain/composeResources")
+    sourceSets["main"].resources.srcDirs("src/commonMain/composeResources")
 
     defaultConfig {
         minSdk = (findProperty("android.minSdk") as String).toInt()

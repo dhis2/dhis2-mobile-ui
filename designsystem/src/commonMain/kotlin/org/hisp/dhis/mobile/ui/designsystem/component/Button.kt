@@ -13,11 +13,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.ripple.LocalRippleTheme
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ElevatedButton
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.LocalRippleConfiguration
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
@@ -35,12 +36,12 @@ import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.theme.Border
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
-import org.hisp.dhis.mobile.ui.designsystem.theme.Ripple
 import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.buttonShadow
+import org.hisp.dhis.mobile.ui.designsystem.theme.customRippleConfiguration
 import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
 
 /**
@@ -58,6 +59,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
  * @param modifier: optional [Modifier].
  * @param onClick :Will be called when the user clicks the button.
  */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Button(
     enabled: Boolean = true,
@@ -101,12 +103,12 @@ fun Button(
                 ColorStyle.ERROR -> getErrorTextButtonColors(style, enabled)
                 ColorStyle.WARNING -> getWarningTextButtonColors(style, enabled)
             }
-            val theme = when (colorStyle) {
-                ColorStyle.DEFAULT -> Ripple.CustomDHISRippleTheme()
-                ColorStyle.ERROR -> Ripple.CustomDHISRippleTheme(SurfaceColor.Error)
-                ColorStyle.WARNING -> Ripple.CustomDHISRippleTheme(SurfaceColor.Warning)
+            val rippleConfiguration = when (colorStyle) {
+                ColorStyle.DEFAULT -> customRippleConfiguration()
+                ColorStyle.ERROR -> customRippleConfiguration(SurfaceColor.Error)
+                ColorStyle.WARNING -> customRippleConfiguration(SurfaceColor.Warning)
             }
-            CompositionLocalProvider(LocalRippleTheme provides theme) {
+            CompositionLocalProvider(LocalRippleConfiguration provides rippleConfiguration) {
                 OutlinedButton(
                     modifier = modifier,
                     onClick = { onClick() },
@@ -155,7 +157,7 @@ fun Button(
             } else {
                 TextColor.OnDisabledSurface
             }
-            CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme()) {
+            CompositionLocalProvider(LocalRippleConfiguration provides customRippleConfiguration()) {
                 SimpleButton(
                     modifier = modifier,
                     onClick = { onClick() },
@@ -229,12 +231,12 @@ fun Button(
                 ColorStyle.WARNING -> getWarningOutlinedButtonColors(enabled)
             }
 
-            val theme = when (colorStyle) {
-                ColorStyle.DEFAULT -> Ripple.CustomDHISRippleTheme()
-                ColorStyle.ERROR -> Ripple.CustomDHISRippleTheme(SurfaceColor.Error)
-                ColorStyle.WARNING -> Ripple.CustomDHISRippleTheme(SurfaceColor.Warning)
+            val rippleConfiguration = when (colorStyle) {
+                ColorStyle.DEFAULT -> customRippleConfiguration()
+                ColorStyle.ERROR -> customRippleConfiguration(SurfaceColor.Error)
+                ColorStyle.WARNING -> customRippleConfiguration(SurfaceColor.Warning)
             }
-            CompositionLocalProvider(LocalRippleTheme provides theme) {
+            CompositionLocalProvider(LocalRippleConfiguration provides rippleConfiguration) {
                 OutlinedButton(
                     modifier = modifier.hoverPointerIcon(enabled).height(Spacing.Spacing40),
                     onClick = { onClick() },

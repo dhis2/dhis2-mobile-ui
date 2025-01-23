@@ -4,9 +4,10 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.offset
-import androidx.compose.material.ripple.LocalRippleTheme
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.AssistChipDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.LocalRippleConfiguration
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -20,9 +21,9 @@ import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.IntOffset
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
-import org.hisp.dhis.mobile.ui.designsystem.theme.Ripple
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
+import org.hisp.dhis.mobile.ui.designsystem.theme.customRippleConfiguration
 
 /**
  * DHIS2 [AssistChip] button with custom icon slot.
@@ -36,6 +37,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
  * @param onClick: Will be called when the user taps the chip.
  * @param badge: the text to be displayed within the badge.
  */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AssistChip(
     modifier: Modifier = Modifier,
@@ -47,9 +49,10 @@ fun AssistChip(
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     val isPressed by interactionSource.collectIsPressedAsState()
+    val rippleConfiguration = customRippleConfiguration()
 
     Box(modifier = Modifier) {
-        CompositionLocalProvider(LocalRippleTheme provides Ripple.CustomDHISRippleTheme()) {
+        CompositionLocalProvider(LocalRippleConfiguration provides rippleConfiguration) {
             AssistChip(
                 onClick = { onClick.invoke() },
                 label = {

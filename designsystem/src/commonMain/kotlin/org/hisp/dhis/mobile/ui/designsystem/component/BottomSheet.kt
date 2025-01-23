@@ -4,6 +4,7 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.ScrollableState
+import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -12,7 +13,6 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -34,7 +34,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
@@ -51,7 +50,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing24
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing8
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
-import org.hisp.dhis.mobile.ui.designsystem.theme.Color as ThemeColor
+import org.hisp.dhis.mobile.ui.designsystem.theme.innerShadow
 
 /**
  * DHIS2 [BottomSheetHeader] component designed to be used
@@ -199,8 +198,7 @@ fun BottomSheetShell(
         sheetState = sheetState,
         dragHandle = {
             Box(
-                modifier = Modifier.background(Color.Transparent)
-                    .padding(top = Spacing.Spacing72),
+                modifier = Modifier.padding(top = Spacing.Spacing72),
             ) {
                 BottomSheetIconButton(
                     icon = {
@@ -222,8 +220,13 @@ fun BottomSheetShell(
         val canScrollForward by derivedStateOf { contentScrollState.canScrollForward }
 
         Column(
-            modifier = Modifier.systemBarsPadding(),
+            modifier = Modifier.padding(bottom = Spacing0).background(SurfaceColor.SurfaceBright, Shape.ExtraLargeTop),
         ) {
+            val scrollColumnShadow = if (canScrollForward) {
+                Modifier.innerShadow(blur = 32.dp)
+            } else {
+                Modifier
+            }
             Column(
                 modifier = Modifier
                     .weight(1f, fill = false)
@@ -280,19 +283,24 @@ fun BottomSheetShell(
                     } else {
                         Modifier
                     }
-
                     Column(
-                        modifier = Modifier
-                            .padding(horizontal = Spacing24)
-                            .heightIn(scrollableContainerMinHeight, scrollableContainerMaxHeight)
-                            .then(scrollModifier),
+                        Modifier
+                            .then(scrollColumnShadow),
                         horizontalAlignment = Alignment.CenterHorizontally,
                     ) {
-                        content.invoke()
-                        Spacer(modifier = Modifier.weight(1f))
-                        if (showSectionDivider) {
+                        Column(
+                            modifier = Modifier
+                                .padding(horizontal = Spacing24)
+                                .heightIn(scrollableContainerMinHeight, scrollableContainerMaxHeight)
+                                .then(scrollModifier),
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = spacedBy(Spacing8),
+                        ) {
+                            content.invoke()
+                        }
+                        if (showSectionDivider && !canScrollForward) {
                             HorizontalDivider(
-                                modifier = Modifier.fillMaxWidth().padding(top = Spacing8),
+                                modifier = Modifier.fillMaxWidth().padding(horizontal = Spacing24),
                                 color = TextColor.OnDisabledSurface,
                                 thickness = Border.Thin,
                             )
@@ -300,31 +308,8 @@ fun BottomSheetShell(
                     }
                 }
             }
-
-            val shadowModifier = if (canScrollForward && content != null) {
-                Modifier.shadow(
-                    elevation = 32.dp,
-                    ambientColor = ThemeColor.Blue900,
-                    spotColor = ThemeColor.Blue900,
-                )
-            } else {
-                Modifier
-            }
-
-            Box(
-                Modifier.fillMaxWidth()
-                    .then(shadowModifier)
-                    .background(SurfaceColor.SurfaceBright)
-                    .padding(
-                        start = Spacing24,
-                        top = Spacing24,
-                        end = Spacing24,
-                        bottom = Spacing24,
-                    ),
-                contentAlignment = Alignment.BottomCenter,
-            ) {
-                buttonBlock?.invoke()
-                Spacer(Modifier.size(Spacing8))
+            buttonBlock?.let {
+                buttonBlock.invoke()
             }
         }
     }
