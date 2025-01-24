@@ -46,8 +46,10 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
 /**
  * DHIS2 Legend.
  * Used to display information on input value based on a range of values.
- * @param legendData: data class with all parameters for component.
- * @param modifier: optional modifier.
+ * @param legendData data class with all parameters for component.
+ * @param modifier optional modifier.
+ * @param windowInsets optional window insets to be used by the bottom sheet.
+ * @param bottomSheetLowerPadding optional bottom sheet lower padding.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

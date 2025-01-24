@@ -58,22 +58,23 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
  * DHIS2 [OrgBottomSheet] component designed to be used
  * with Input Org Unit, wraps DHIS2 [BottomSheetShell].
  * @param orgTreeItems list of [OrgTreeItem] with Org tree information
- * @param title: Header.
- * @param subtitle: optional subtitle.
- * @param description: optional description.
- * @param clearAllButtonText: text for clear all button.
- * @param doneButtonText: text for accept button.
- * @param doneButtonIcon: icon for accept button.
- * @param windowInsets: The insets to use for the bottom sheet shell.
- * @param noResultsFoundText: text for no results found.
+ * @param title Header.
+ * @param subtitle optional subtitle.
+ * @param description optional description.
+ * @param clearAllButtonText text for clear all button.
+ * @param doneButtonText text for accept button.
+ * @param doneButtonIcon icon for accept button.
+ * @param windowInsets The insets to use for the bottom sheet shell.
+ * @param bottomSheetLowerPadding padding for the bottom sheet.
+ * @param noResultsFoundText text for no results found.
  * @param headerTextAlignment [Alignment] for header text.
- * @param icon: optional icon to be shown above the header .
- * @param onSearch: access to the on search event.
- * @param onDismiss: access to the on dismiss event.
- * @param onItemSelected: access to the on item selected event.
- * @param onItemClick: access to onItemClick event.
- * @param onClearAll: access to the on clear all event.
- * @param onDone: access to the on done event.
+ * @param icon optional icon to be shown above the header .
+ * @param onSearch access to the on search event.
+ * @param onDismiss access to the on dismiss event.
+ * @param onItemSelected access to the on item selected event.
+ * @param onItemClick access to onItemClick event.
+ * @param onClearAll access to the on clear all event.
+ * @param onDone access to the on done event.
  * @param modifier width and size of the barcode.
  */
 @OptIn(ExperimentalMaterial3Api::class)
