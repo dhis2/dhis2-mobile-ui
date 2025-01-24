@@ -138,13 +138,9 @@ fun BottomSheetHeader(
  * @param subtitle: subTitle to be shown.
  * @param description: PopUp description.
  * @param searchQuery: Search query to be displayed in the search bar.
- * @param showTopSectionDivider: whether to show the top divider or not.
- * @param showBottomSectionDivider: whether to show the bottom divider or not.
- * @param windowInsets: The insets to use for the bottom sheet shell.
- * @param bottomPadding The lower padding for the bottom sheet shell.
+ * @param showSectionDivider: whether to show the divider or not.
  * @param icon: the icon to be shown.
- * @param buttonBlock: Space for the lower buttons, use together with BottomSheetShellDefaults
- * button block padding to ensure a correct style is displayed.
+ * @param buttonBlock: Space for the lower buttons.
  * @param content: to be shown under the header.
  * @param contentScrollState: Pass custom scroll state when content is
  * scrollable. For example, pass configure it when using `LazyColumn` to `Modifier.verticalScroll`
@@ -158,6 +154,7 @@ fun BottomSheetHeader(
  * @param scrollableContainerMaxHeight: Max size for scrollable content.
  */
 @OptIn(ExperimentalMaterial3Api::class)
+@Deprecated("Use the new BottomSheetShell with the new parameters")
 @Composable
 fun BottomSheetShell(
     content: @Composable (() -> Unit)?,
@@ -165,10 +162,7 @@ fun BottomSheetShell(
     subtitle: String? = null,
     description: String? = null,
     searchQuery: String? = null,
-    showTopSectionDivider: Boolean = true,
-    showBottomSectionDivider: Boolean = true,
-    windowInsets: @Composable () -> WindowInsets = { BottomSheetDefaults.windowInsets },
-    bottomPadding: Dp = Spacing0,
+    showSectionDivider: Boolean = true,
     contentScrollState: ScrollableState = rememberScrollState(),
     icon: @Composable (() -> Unit)? = null,
     buttonBlock: @Composable (() -> Unit)? = null,
@@ -192,6 +186,182 @@ fun BottomSheetShell(
                 !title.isNullOrBlank() && !isKeyboardOpen
             } else {
                 !title.isNullOrBlank()
+            }
+        }
+    }
+
+    LaunchedEffect(keyboardState) {
+        isKeyboardOpen = keyboardState == Keyboard.Opened
+    }
+
+    ModalBottomSheet(
+        modifier = modifier,
+        containerColor = Color.Transparent,
+        onDismissRequest = {
+            onDismiss()
+        },
+        sheetState = sheetState,
+        dragHandle = {
+            Box(
+                modifier = Modifier.padding(top = Spacing.Spacing72),
+            ) {
+                BottomSheetIconButton(
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Outlined.Close,
+                            contentDescription = "Button",
+                            tint = SurfaceColor.SurfaceBright,
+                        )
+                    },
+                    modifier = Modifier.padding(bottom = Spacing.Spacing4),
+                ) {
+                    scope.launch {
+                        onDismiss()
+                    }
+                }
+            }
+        },
+    ) {
+        val canScrollForward by derivedStateOf { contentScrollState.canScrollForward }
+
+        Column(
+            modifier = Modifier.padding(bottom = Spacing0).background(SurfaceColor.SurfaceBright, Shape.ExtraLargeTop),
+        ) {
+            val scrollColumnShadow = if (canScrollForward) {
+                Modifier.innerShadow(blur = 32.dp)
+            } else {
+                Modifier
+            }
+            Column(
+                modifier = Modifier
+                    .weight(1f, fill = false)
+                    .background(SurfaceColor.SurfaceBright, Shape.ExtraLargeTop)
+                    .padding(top = Spacing24),
+            ) {
+                val hasSearch =
+                    searchQuery != null && onSearchQueryChanged != null && onSearch != null
+                AnimatedVisibility(
+                    visible = showHeader,
+                ) {
+                    BottomSheetHeader(
+                        title = title!!,
+                        subTitle = subtitle,
+                        description = description,
+                        icon = icon,
+                        hasSearch = hasSearch,
+                        headerTextAlignment = headerTextAlignment,
+                        modifier = Modifier
+                            .padding(vertical = Spacing0)
+                            .align(Alignment.CenterHorizontally),
+                    )
+                }
+
+                if (showHeader && hasSearch) {
+                    Spacer(Modifier.requiredHeight(16.dp))
+                }
+
+                if (hasSearch) {
+                    SearchBar(
+                        modifier = Modifier.fillMaxWidth().padding(horizontal = Spacing24),
+                        text = searchQuery!!,
+                        onQueryChange = onSearchQueryChanged!!,
+                        onSearch = onSearch!!,
+                    )
+                }
+
+                if (showHeader || hasSearch) {
+                    if (showSectionDivider) {
+                        HorizontalDivider(
+                            modifier = Modifier.fillMaxWidth()
+                                .padding(top = Spacing24, start = Spacing24, end = Spacing24, bottom = Spacing8),
+                            color = TextColor.OnDisabledSurface,
+                            thickness = Border.Thin,
+                        )
+                    } else {
+                        Spacer(Modifier.requiredHeight(Spacing24))
+                    }
+                }
+
+                content?.let {
+                    val scrollModifier = if ((contentScrollState as? ScrollState) != null) {
+                        Modifier.verticalScroll(contentScrollState)
+                    } else {
+                        Modifier
+                    }
+                    Column(
+                        Modifier
+                            .then(scrollColumnShadow),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                    ) {
+                        Column(
+                            modifier = Modifier
+                                .padding(horizontal = Spacing24)
+                                .heightIn(scrollableContainerMinHeight, scrollableContainerMaxHeight)
+                                .then(scrollModifier),
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = spacedBy(Spacing8),
+                        ) {
+                            content.invoke()
+                        }
+                        if (showSectionDivider && !canScrollForward) {
+                            HorizontalDivider(
+                                modifier = Modifier.fillMaxWidth().padding(horizontal = Spacing24),
+                                color = TextColor.OnDisabledSurface,
+                                thickness = Border.Thin,
+                            )
+                        }
+                    }
+                }
+            }
+            buttonBlock?.let {
+                buttonBlock.invoke()
+            }
+        }
+    }
+}
+
+/**
+ * DHIS2 BottomSheetShell. Wraps compose · [ModalBottomSheet].
+ * desktop version to be implemented
+ * @param uiState UI data class of type [BottomSheetShellUIState] with all the values for the ui elements used in the component.
+ * @param windowInsets: The insets to use for the bottom sheet shell.
+ * @param icon: the icon to be shown.
+ * @param buttonBlock: Space for the lower buttons, use together with BottomSheetShellDefaults
+ * button block padding to ensure a correct style is displayed.
+ * @param content: to be shown under the header.
+ * @param contentScrollState: Pass custom scroll state when content is
+ * scrollable. For example, pass configure it when using `LazyColumn` to `Modifier.verticalScroll`
+ * for content.
+ * @param onSearchQueryChanged: Callback when search query is changed.
+ * @param onSearch: Callback when search action is triggered.
+ * @param onDismiss: gives access to the onDismiss event.
+ * @param modifier allows a modifier to be passed externally.
+ */
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun BottomSheetShell(
+    uiState: BottomSheetShellUIState,
+    modifier: Modifier = Modifier,
+    content: @Composable (() -> Unit)?,
+    windowInsets: @Composable () -> WindowInsets = { BottomSheetDefaults.windowInsets },
+    contentScrollState: ScrollableState = rememberScrollState(),
+    icon: @Composable (() -> Unit)? = null,
+    buttonBlock: @Composable (() -> Unit)? = null,
+    onSearchQueryChanged: ((String) -> Unit)? = null,
+    onSearch: ((String) -> Unit)? = null,
+    onDismiss: () -> Unit,
+) {
+    val sheetState = rememberModalBottomSheetState(true)
+    val scope = rememberCoroutineScope()
+    val keyboardState by keyboardAsState()
+
+    var isKeyboardOpen by remember { mutableStateOf(false) }
+    val showHeader by remember {
+        derivedStateOf {
+            if (uiState.animateHeaderOnKeyboardAppearance) {
+                !uiState.title.isNullOrBlank() && !isKeyboardOpen
+            } else {
+                !uiState.title.isNullOrBlank()
             }
         }
     }
@@ -245,17 +415,17 @@ fun BottomSheetShell(
                     .padding(top = Spacing24),
             ) {
                 val hasSearch =
-                    searchQuery != null && onSearchQueryChanged != null && onSearch != null
+                    uiState.searchQuery != null && onSearchQueryChanged != null && onSearch != null
                 AnimatedVisibility(
                     visible = showHeader,
                 ) {
                     BottomSheetHeader(
-                        title = title!!,
-                        subTitle = subtitle,
-                        description = description,
+                        title = uiState.title!!,
+                        subTitle = uiState.subtitle,
+                        description = uiState.description,
                         icon = icon,
                         hasSearch = hasSearch,
-                        headerTextAlignment = headerTextAlignment,
+                        headerTextAlignment = uiState.headerTextAlignment,
                         modifier = Modifier
                             .padding(vertical = Spacing0)
                             .align(Alignment.CenterHorizontally),
@@ -269,14 +439,14 @@ fun BottomSheetShell(
                 if (hasSearch) {
                     SearchBar(
                         modifier = Modifier.fillMaxWidth().padding(horizontal = Spacing24),
-                        text = searchQuery!!,
+                        text = uiState.searchQuery!!,
                         onQueryChange = onSearchQueryChanged!!,
                         onSearch = onSearch!!,
                     )
                 }
 
                 if (showHeader || hasSearch) {
-                    if (showTopSectionDivider) {
+                    if (uiState.showTopSectionDivider) {
                         HorizontalDivider(
                             modifier = Modifier.fillMaxWidth()
                                 .padding(top = Spacing24, start = Spacing24, end = Spacing24, bottom = Spacing0),
@@ -302,7 +472,7 @@ fun BottomSheetShell(
                         Column(
                             modifier = Modifier
                                 .padding(horizontal = Spacing24)
-                                .heightIn(scrollableContainerMinHeight, scrollableContainerMaxHeight)
+                                .heightIn(uiState.scrollableContainerMinHeight, uiState.scrollableContainerMaxHeight)
                                 .then(scrollModifier),
                             horizontalAlignment = Alignment.CenterHorizontally,
                             verticalArrangement = spacedBy(Spacing8),
@@ -310,7 +480,7 @@ fun BottomSheetShell(
                             content.invoke()
                             Spacer(Modifier.requiredHeight(Spacing8))
                         }
-                        if (showBottomSectionDivider && !canScrollForward) {
+                        if (uiState.showBottomSectionDivider && !canScrollForward) {
                             HorizontalDivider(
                                 modifier = Modifier.fillMaxWidth().padding(start = Spacing24, end = Spacing24, bottom = Spacing0, top = Spacing0),
                                 color = TextColor.OnDisabledSurface,
@@ -324,10 +494,40 @@ fun BottomSheetShell(
             buttonBlock?.let {
                 buttonBlock.invoke()
             }
-            Spacer(Modifier.requiredHeight(bottomPadding))
+            Spacer(Modifier.requiredHeight(uiState.bottomPadding))
         }
     }
 }
+
+/**
+ * Data class representing the UI state for the BottomSheetShell component.
+ *
+ * @property title The title to be displayed in the bottom sheet header.
+ * @property subtitle The subtitle to be displayed in the bottom sheet header.
+ * @property description The description to be displayed in the bottom sheet header.
+ * @property searchQuery The search query to be displayed in the search bar.
+ * @property showTopSectionDivider Whether to show the top section divider.
+ * @property showBottomSectionDivider Whether to show the bottom section divider.
+ * @property bottomPadding The lower padding for the bottom sheet shell.
+ * @property headerTextAlignment The alignment for the header text.
+ * @property scrollableContainerMinHeight The minimum height for the scrollable content container.
+ * @property scrollableContainerMaxHeight The maximum height for the scrollable content container.
+ * @property animateHeaderOnKeyboardAppearance Whether to animate the header when the keyboard appears.
+ */
+
+data class BottomSheetShellUIState(
+    val title: String? = null,
+    val subtitle: String? = null,
+    val description: String? = null,
+    val searchQuery: String? = null,
+    val showTopSectionDivider: Boolean = true,
+    val showBottomSectionDivider: Boolean = true,
+    val bottomPadding: Dp = Spacing0,
+    val headerTextAlignment: TextAlign = TextAlign.Center,
+    val scrollableContainerMinHeight: Dp = Spacing0,
+    val scrollableContainerMaxHeight: Dp = InternalSizeValues.Size386,
+    val animateHeaderOnKeyboardAppearance: Boolean = true,
+)
 
 /**
  * Provides default values and configurations for the BottomSheet component.
