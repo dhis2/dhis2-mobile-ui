@@ -103,24 +103,18 @@ fun OrgBottomSheet(
     var searchQuery by remember { mutableStateOf("") }
     var orgTreeHeight by remember { mutableStateOf(0) }
     val orgTreeHeightInDp = with(LocalDensity.current) { orgTreeHeight.toDp() }
-
     BottomSheetShell(
-        windowInsets = windowInsets,
-        bottomPadding = bottomSheetLowerPadding,
+        uiState = BottomSheetShellUIState(
+            title = title,
+            subtitle = subtitle,
+            description = description,
+            headerTextAlignment = headerTextAlignment,
+            searchQuery = searchQuery,
+            scrollableContainerMaxHeight = maxOf(orgTreeHeightInDp, InternalSizeValues.Size386),
+            scrollableContainerMinHeight = InternalSizeValues.Size316,
+            bottomPadding = bottomSheetLowerPadding,
+        ),
         modifier = modifier,
-        title = title,
-        subtitle = subtitle,
-        description = description,
-        headerTextAlignment = headerTextAlignment,
-        icon = icon,
-        searchQuery = searchQuery,
-        onSearchQueryChanged = { query ->
-            searchQuery = query
-            onSearch?.invoke(searchQuery)
-        },
-        onSearch = onSearch,
-        scrollableContainerMinHeight = InternalSizeValues.Size316,
-        scrollableContainerMaxHeight = maxOf(orgTreeHeightInDp, InternalSizeValues.Size386),
         content = {
             OrgTreeList(
                 orgTreeItems = orgTreeItems,
@@ -137,6 +131,8 @@ fun OrgBottomSheet(
                     },
             )
         },
+        windowInsets = windowInsets,
+        icon = icon,
         buttonBlock = {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
@@ -175,6 +171,11 @@ fun OrgBottomSheet(
                 )
             }
         },
+        onSearchQueryChanged = { query ->
+            searchQuery = query
+            onSearch?.invoke(searchQuery)
+        },
+        onSearch = onSearch,
         onDismiss = onDismiss,
     )
 }

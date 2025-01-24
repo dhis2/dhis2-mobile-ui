@@ -293,10 +293,12 @@ fun MultiSelectBottomSheet(
     val itemsModified = remember { items.toMutableList() }
 
     BottomSheetShell(
+        uiState = BottomSheetShellUIState(
+            title = title,
+            bottomPadding = bottomSheetLowerPadding,
+            searchQuery = searchQuery,
+        ),
         modifier = Modifier.testTag("INPUT_MULTI_SELECT_BOTTOM_SHEET"),
-        title = title,
-        windowInsets = windowInsets,
-        bottomPadding = bottomSheetLowerPadding,
         content = {
             Column(
                 modifier = Modifier
@@ -340,10 +342,7 @@ fun MultiSelectBottomSheet(
                 }
             }
         },
-        onDismiss = onDismiss,
-        searchQuery = searchQuery,
-        onSearch = { searchQuery = it },
-        onSearchQueryChanged = { searchQuery = it },
+        windowInsets = windowInsets,
         buttonBlock = {
             Button(
                 modifier = Modifier.fillMaxWidth(),
@@ -364,6 +363,9 @@ fun MultiSelectBottomSheet(
                 style = ButtonStyle.FILLED,
             )
         },
+        onSearchQueryChanged = { searchQuery = it },
+        onSearch = { searchQuery = it },
+        onDismiss = onDismiss,
     )
 }
 

@@ -127,19 +127,21 @@ fun Legend(
 
     if (showBottomSheetShell) {
         BottomSheetShell(
-            windowInsets = windowInsets,
-            bottomPadding = bottomSheetLowerPadding,
+            uiState = BottomSheetShellUIState(
+                title = legendData.title,
+                bottomPadding = bottomSheetLowerPadding,
+            ),
             modifier = Modifier.testTag("LEGEND_BOTTOM_SHEET"),
-            title = legendData.title,
+            content = {
+                legendData.popUpLegendDescriptionData?.let { LegendRange(it) }
+            },
+            windowInsets = windowInsets,
             icon = {
                 Icon(
                     imageVector = Icons.Outlined.Info,
                     contentDescription = "Button",
                     tint = SurfaceColor.Primary,
                 )
-            },
-            content = {
-                legendData.popUpLegendDescriptionData?.let { LegendRange(it) }
             },
         ) {
             showBottomSheetShell = false

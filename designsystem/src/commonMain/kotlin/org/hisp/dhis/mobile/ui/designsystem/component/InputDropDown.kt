@@ -143,13 +143,18 @@ fun InputDropDown(
 
                 val scrollState = rememberLazyListState()
                 BottomSheetShell(
-                    windowInsets = windowInsets,
+                    uiState = BottomSheetShellUIState(
+                        showBottomSectionDivider = true,
+                        showTopSectionDivider = true,
+                        bottomPadding = bottomSheetLowerPadding,
+                        title = title,
+                        searchQuery = if (showSearchBar) {
+                            searchQuery
+                        } else {
+                            null
+                        },
+                    ),
                     modifier = Modifier.testTag("INPUT_DROPDOWN_BOTTOM_SHEET"),
-                    showBottomSectionDivider = true,
-                    showTopSectionDivider = true,
-                    bottomPadding = bottomSheetLowerPadding,
-                    title = title,
-                    contentScrollState = scrollState,
                     content = {
                         LazyColumn(
                             modifier = Modifier
@@ -198,22 +203,19 @@ fun InputDropDown(
                             }
                         }
                     },
-                    onDismiss = {
-                        showDropdown = false
-                        onDismiss()
-                    },
-                    searchQuery = if (showSearchBar) {
-                        searchQuery
-                    } else {
-                        null
+                    windowInsets = windowInsets,
+                    contentScrollState = scrollState,
+                    onSearchQueryChanged = {
+                        searchQuery = it
+                        onSearchOption(it)
                     },
                     onSearch = {
                         searchQuery = it
                         onSearchOption(it)
                     },
-                    onSearchQueryChanged = {
-                        searchQuery = it
-                        onSearchOption(it)
+                    onDismiss = {
+                        showDropdown = false
+                        onDismiss()
                     },
                 )
             }

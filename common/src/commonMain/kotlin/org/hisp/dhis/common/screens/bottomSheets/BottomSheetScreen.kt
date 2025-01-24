@@ -30,6 +30,7 @@ import org.hisp.dhis.common.screens.previews.lorem
 import org.hisp.dhis.common.screens.previews.regularLegendList
 import org.hisp.dhis.mobile.ui.designsystem.component.BottomSheetShell
 import org.hisp.dhis.mobile.ui.designsystem.component.BottomSheetShellDefaults
+import org.hisp.dhis.mobile.ui.designsystem.component.BottomSheetShellUIState
 import org.hisp.dhis.mobile.ui.designsystem.component.Button
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonBlock
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonStyle
@@ -55,22 +56,22 @@ fun BottomSheetScreen() {
 
     if (showLegendBottomSheetShell) {
         BottomSheetShell(
-            title = "Legend name ",
-            showTopSectionDivider = true,
-            showBottomSectionDivider = true,
-            icon = {
-                Icon(
-                    imageVector = Icons.Outlined.Info,
-                    contentDescription = "Button",
-                    tint = SurfaceColor.Primary,
-                )
-            },
+            uiState = BottomSheetShellUIState(
+                title = "Legend name ",
+            ),
             content = {
                 Column {
                     LegendRange(
                         regularLegendList,
                     )
                 }
+            },
+            icon = {
+                Icon(
+                    imageVector = Icons.Outlined.Info,
+                    contentDescription = "Button",
+                    tint = SurfaceColor.Primary,
+                )
             },
         ) {
             showLegendBottomSheetShell = false
@@ -79,9 +80,23 @@ fun BottomSheetScreen() {
     if (showBottomSheetShellScrollableContent) {
         val scrollState = rememberLazyListState()
         BottomSheetShell(
-            title = "Legend name ",
-            showTopSectionDivider = true,
-            showBottomSectionDivider = true,
+            uiState = BottomSheetShellUIState(
+                title = "Legend name ",
+            ),
+            content = {
+                LazyColumn(state = scrollState) {
+                    items(longLegendList) { item ->
+                        Column {
+                            Text(
+                                text = item.text,
+                                modifier = Modifier.padding(horizontal = 24.dp, vertical = 12.dp),
+                            )
+                            HorizontalDivider()
+                        }
+                    }
+                }
+            },
+            contentScrollState = scrollState,
             icon = {
                 Icon(
                     imageVector = Icons.Outlined.Info,
@@ -89,28 +104,31 @@ fun BottomSheetScreen() {
                     tint = SurfaceColor.Primary,
                 )
             },
-            contentScrollState = scrollState,
-            content = {
-                LazyColumn(state = scrollState) {
-                    items(longLegendList) { item ->
-                        Column {
-                            Text(text = item.text, modifier = Modifier.padding(horizontal = 24.dp, vertical = 12.dp))
-                            HorizontalDivider()
-                        }
-                    }
-                }
-            },
         ) {
             showBottomSheetShellScrollableContent = false
         }
     }
     if (showBottomSheetShellMaxExpansion) {
         BottomSheetShell(
-            title = "Legend name ",
-            subtitle = "Subtitle",
-            description = lorem + lorem,
-            showTopSectionDivider = true,
-            showBottomSectionDivider = true,
+            uiState = BottomSheetShellUIState(
+                title = "Legend name ",
+                subtitle = "Subtitle",
+                description = lorem + lorem,
+            ),
+            content = {
+                Column {
+                    LegendRange(
+                        longLegendList,
+                    )
+                }
+            },
+            icon = {
+                Icon(
+                    imageVector = Icons.Outlined.Info,
+                    contentDescription = "Button",
+                    tint = SurfaceColor.Primary,
+                )
+            },
             buttonBlock = {
                 ButtonBlock(
                     modifier = Modifier.padding(BottomSheetShellDefaults.buttonBlockPaddings()),
@@ -133,20 +151,6 @@ fun BottomSheetScreen() {
                     },
                 )
             },
-            icon = {
-                Icon(
-                    imageVector = Icons.Outlined.Info,
-                    contentDescription = "Button",
-                    tint = SurfaceColor.Primary,
-                )
-            },
-            content = {
-                Column {
-                    LegendRange(
-                        longLegendList,
-                    )
-                }
-            },
         ) {
             showBottomSheetShellMaxExpansion = false
         }
@@ -154,16 +158,32 @@ fun BottomSheetScreen() {
 
     if (showBottomSheetWithAndroid35Paddings) {
         BottomSheetShell(
+            uiState = BottomSheetShellUIState(
+                title = "Legend name ",
+                bottomPadding = BottomSheetShellDefaults.lowerPadding(true),
+                subtitle = "Subtitle",
+                description = lorem + lorem,
+            ),
+            content = {
+                Column {
+                    LegendRange(
+                        longLegendList,
+                    )
+                }
+            },
             windowInsets = { BottomSheetShellDefaults.windowInsets(true) },
-            title = "Legend name ",
-            bottomPadding = BottomSheetShellDefaults.lowerPadding(true),
-            subtitle = "Subtitle",
-            description = lorem + lorem,
-            showTopSectionDivider = true,
-            showBottomSectionDivider = true,
+            icon = {
+                Icon(
+                    imageVector = Icons.Outlined.Info,
+                    contentDescription = "Button",
+                    tint = SurfaceColor.Primary,
+                )
+            },
             buttonBlock = {
                 ButtonBlock(
-                    modifier = Modifier.padding(top = Spacing.Spacing0, bottom = Spacing.Spacing24, start = Spacing.Spacing24, end = Spacing.Spacing24),
+                    modifier = Modifier.padding(
+                        BottomSheetShellDefaults.buttonBlockPaddings(),
+                    ),
                     primaryButton = {
                         Button(
                             style = ButtonStyle.FILLED,
@@ -183,20 +203,6 @@ fun BottomSheetScreen() {
                     },
                 )
             },
-            icon = {
-                Icon(
-                    imageVector = Icons.Outlined.Info,
-                    contentDescription = "Button",
-                    tint = SurfaceColor.Primary,
-                )
-            },
-            content = {
-                Column {
-                    LegendRange(
-                        longLegendList,
-                    )
-                }
-            },
         ) {
             showBottomSheetShellMaxExpansion = false
         }
@@ -204,11 +210,25 @@ fun BottomSheetScreen() {
 
     if (showBottomSheetShellSingleButton) {
         BottomSheetShell(
-            title = "Legend name ",
-            subtitle = "Subtitle",
-            description = lorem,
-            showTopSectionDivider = true,
-            showBottomSectionDivider = true,
+            uiState = BottomSheetShellUIState(
+                title = "Legend name ",
+                subtitle = "Subtitle",
+                description = lorem,
+            ),
+            content = {
+                Column {
+                    LegendRange(
+                        regularLegendList,
+                    )
+                }
+            },
+            icon = {
+                Icon(
+                    imageVector = Icons.Outlined.Info,
+                    contentDescription = "Button",
+                    tint = SurfaceColor.Primary,
+                )
+            },
             buttonBlock = {
                 ButtonBlock(
                     primaryButton = {
@@ -231,20 +251,6 @@ fun BottomSheetScreen() {
                     modifier = Modifier.padding(BottomSheetShellDefaults.buttonBlockPaddings()),
                 )
             },
-            icon = {
-                Icon(
-                    imageVector = Icons.Outlined.Info,
-                    contentDescription = "Button",
-                    tint = SurfaceColor.Primary,
-                )
-            },
-            content = {
-                Column {
-                    LegendRange(
-                        regularLegendList,
-                    )
-                }
-            },
         ) {
             showBottomSheetShellSingleButton = false
         }
@@ -252,11 +258,25 @@ fun BottomSheetScreen() {
 
     if (showBottomSheetShellTwoButtons) {
         BottomSheetShell(
-            title = "Legend name ",
-            subtitle = "Subtitle",
-            description = lorem,
-            showTopSectionDivider = true,
-            showBottomSectionDivider = true,
+            uiState = BottomSheetShellUIState(
+                title = "Legend name ",
+                subtitle = "Subtitle",
+                description = lorem,
+            ),
+            content = {
+                Column {
+                    LegendRange(
+                        regularLegendList,
+                    )
+                }
+            },
+            icon = {
+                Icon(
+                    imageVector = Icons.Outlined.Info,
+                    contentDescription = "Button",
+                    tint = SurfaceColor.Primary,
+                )
+            },
             buttonBlock = {
                 Row(
                     modifier = Modifier.padding(BottomSheetShellDefaults.buttonBlockPaddings()),
@@ -298,20 +318,6 @@ fun BottomSheetScreen() {
                     )
                 }
             },
-            icon = {
-                Icon(
-                    imageVector = Icons.Outlined.Info,
-                    contentDescription = "Button",
-                    tint = SurfaceColor.Primary,
-                )
-            },
-            content = {
-                Column {
-                    LegendRange(
-                        regularLegendList,
-                    )
-                }
-            },
         ) {
             showBottomSheetShellTwoButtons = false
         }
@@ -321,11 +327,25 @@ fun BottomSheetScreen() {
         var searchQuery by rememberSaveable { mutableStateOf("") }
 
         BottomSheetShell(
-            title = "Bottom Sheet with Search Bar",
-            subtitle = "Subtitle",
-            description = lorem,
-            showTopSectionDivider = true,
-            showBottomSectionDivider = true,
+            uiState = BottomSheetShellUIState(
+                title = "Bottom Sheet with Search Bar",
+                subtitle = "Subtitle",
+                description = lorem,
+            ),
+            content = {
+                Column {
+                    LegendRange(
+                        regularLegendList,
+                    )
+                }
+            },
+            icon = {
+                Icon(
+                    imageVector = Icons.Outlined.Info,
+                    contentDescription = "Button",
+                    tint = SurfaceColor.Primary,
+                )
+            },
             buttonBlock = {
                 ButtonBlock(
                     modifier = Modifier.padding(BottomSheetShellDefaults.buttonBlockPaddings()),
@@ -364,21 +384,6 @@ fun BottomSheetScreen() {
                     },
                 )
             },
-            icon = {
-                Icon(
-                    imageVector = Icons.Outlined.Info,
-                    contentDescription = "Button",
-                    tint = SurfaceColor.Primary,
-                )
-            },
-            content = {
-                Column {
-                    LegendRange(
-                        regularLegendList,
-                    )
-                }
-            },
-            searchQuery = searchQuery,
             onSearchQueryChanged = { searchQuery = it },
             onSearch = { searchQuery = it },
             onDismiss = {
@@ -391,18 +396,7 @@ fun BottomSheetScreen() {
         var searchQuery by rememberSaveable { mutableStateOf("") }
 
         BottomSheetShell(
-            showTopSectionDivider = true,
-            showBottomSectionDivider = true,
-            icon = {
-                Icon(
-                    imageVector = Icons.Outlined.Info,
-                    contentDescription = "Button",
-                    tint = SurfaceColor.Primary,
-                )
-            },
-            searchQuery = searchQuery,
-            onSearchQueryChanged = { searchQuery = it },
-            onSearch = { searchQuery = it },
+            uiState = BottomSheetShellUIState(),
             content = {
                 Column {
                     LegendRange(
@@ -410,15 +404,6 @@ fun BottomSheetScreen() {
                     )
                 }
             },
-        ) {
-            showBottomSheetWithoutTitle = false
-        }
-    }
-
-    if (showBottomSheetWithoutContent) {
-        BottomSheetShell(
-            showTopSectionDivider = true,
-            showBottomSectionDivider = false,
             icon = {
                 Icon(
                     imageVector = Icons.Outlined.Info,
@@ -426,8 +411,27 @@ fun BottomSheetScreen() {
                     tint = SurfaceColor.Primary,
                 )
             },
-            title = "Delete item?",
-            description = "Item from this list will be deleted",
+            onSearchQueryChanged = { searchQuery = it },
+            onSearch = { searchQuery = it },
+        ) {
+            showBottomSheetWithoutTitle = false
+        }
+    }
+
+    if (showBottomSheetWithoutContent) {
+        BottomSheetShell(
+            uiState = BottomSheetShellUIState(
+                showTopSectionDivider = true,
+                showBottomSectionDivider = false,
+            ),
+            content = null,
+            icon = {
+                Icon(
+                    imageVector = Icons.Outlined.Info,
+                    contentDescription = "Button",
+                    tint = SurfaceColor.Primary,
+                )
+            },
             buttonBlock = {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
@@ -454,7 +458,6 @@ fun BottomSheetScreen() {
                     )
                 }
             },
-            content = null,
         ) {
             showBottomSheetWithoutContent = false
         }

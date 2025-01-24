@@ -27,6 +27,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.component.BottomSheetShell
+import org.hisp.dhis.mobile.ui.designsystem.component.BottomSheetShellUIState
 import org.hisp.dhis.mobile.ui.designsystem.component.Button
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonBlock
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonStyle
@@ -58,11 +59,12 @@ internal fun SignatureBottomSheet(
     var isSigning by rememberSaveable { mutableStateOf(false) }
 
     BottomSheetShell(
+        uiState = BottomSheetShellUIState(
+            title = title,
+            showTopSectionDivider = false,
+            bottomPadding = bottomSheetLowerPadding,
+        ),
         modifier = Modifier.testTag("INPUT_SIGNATURE_BOTTOM_SHEET"),
-        title = title,
-        showTopSectionDivider = false,
-        windowInsets = windowInsets,
-        bottomPadding = bottomSheetLowerPadding,
         content = {
             Box(
                 modifier = Modifier
@@ -102,7 +104,7 @@ internal fun SignatureBottomSheet(
                 )
             }
         },
-        onDismiss = onDismiss,
+        windowInsets = windowInsets,
         buttonBlock = {
             ButtonBlock(
                 primaryButton = {
@@ -142,5 +144,6 @@ internal fun SignatureBottomSheet(
                 },
             )
         },
+        onDismiss = onDismiss,
     )
 }

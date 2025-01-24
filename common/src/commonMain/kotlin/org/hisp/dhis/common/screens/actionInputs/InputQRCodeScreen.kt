@@ -15,6 +15,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.TextFieldValue
 import org.hisp.dhis.common.screens.previews.threeButtonCarousel
 import org.hisp.dhis.mobile.ui.designsystem.component.BottomSheetShell
+import org.hisp.dhis.mobile.ui.designsystem.component.BottomSheetShellUIState
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonCarousel
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
@@ -34,19 +35,21 @@ fun InputQRCodeScreen() {
 
         if (showEnabledQRBottomSheet) {
             BottomSheetShell(
+                uiState = BottomSheetShellUIState(
+                    title = provideStringResource("qr_code"),
+                ),
                 modifier = Modifier.testTag("LEGEND_BOTTOM_SHEET"),
-                title = provideStringResource("qr_code"),
+                content = {
+                    Row(horizontalArrangement = Arrangement.Center) {
+                        QrCodeBlock(data = inputValue1.text)
+                    }
+                },
                 icon = {
                     Icon(
                         imageVector = Icons.Outlined.Info,
                         contentDescription = "Button",
                         tint = SurfaceColor.Primary,
                     )
-                },
-                content = {
-                    Row(horizontalArrangement = Arrangement.Center) {
-                        QrCodeBlock(data = inputValue1.text)
-                    }
                 },
                 buttonBlock = {
                     ButtonCarousel(
