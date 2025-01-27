@@ -128,15 +128,21 @@ fun Description(
     )
 }
 
+const val MAX_OVERFLOW_LINES = 2
+
 @Composable
 internal fun ListCardTitle(
     title: ListCardTitleModel,
     modifier: Modifier = Modifier,
 ) {
+    val maxLines = if (title.allowOverflow) Int.MAX_VALUE else MAX_OVERFLOW_LINES
+
     Text(
         title.text,
         color = title.color ?: TextColor.OnPrimaryContainer,
         style = title.style ?: MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
+        maxLines = maxLines,
+        overflow = TextOverflow.Ellipsis,
         modifier = modifier,
     )
 }
