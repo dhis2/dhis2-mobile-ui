@@ -1,0 +1,209 @@
+package org.hisp.dhis.mobile.ui.designsystem.component
+
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.test.SemanticsMatcher
+import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.assertIsEnabled
+import androidx.compose.ui.test.assertTextEquals
+import androidx.compose.ui.test.hasParent
+import androidx.compose.ui.test.hasTestTag
+import androidx.compose.ui.test.junit4.ComposeContentTestRule
+import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performScrollTo
+import org.hisp.dhis.mobile.ui.designsystem.component.table.actions.TableInteractions
+import org.hisp.dhis.mobile.ui.designsystem.component.table.actions.TableResizeActions
+import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableModel
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.DataTable
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.LocalTableSelection
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableColors
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableConfiguration
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableSelection
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.compositions.LocalInteraction
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.CELL_TEST_TAG
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.ColumnBackground
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.ColumnIndexHeader
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.HEADER_CELL
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.INFO_ICON
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.InfoIconId
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.MANDATORY_ICON_TEST_TAG
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.RowBackground
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.RowIndex
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.RowIndexHeader
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.TableId
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.TableIdColumnHeader
+import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
+
+fun tableRobot(
+    composeTestRule: ComposeContentTestRule,
+    tableRobot: TableRobot.() -> Unit,
+) {
+    TableRobot(composeTestRule).apply {
+        tableRobot()
+    }
+}
+
+class TableRobot(
+    private val composeTestRule: ComposeContentTestRule,
+) {
+
+    fun initTable(
+        table: List<TableModel>,
+        tableColors: TableColors = TableColors(),
+    ) {
+        composeTestRule.setContent {
+            var tableSelection by remember {
+                mutableStateOf<TableSelection>(TableSelection.Unselected())
+            }
+            TableTheme(
+                tableColors = tableColors.copy(primary = SurfaceColor.Primary),
+                tableConfiguration = TableConfiguration(headerActionsEnabled = false),
+                tableResizeActions = object : TableResizeActions {},
+            ) {
+                val iteractions = object : TableInteractions {
+                    override fun onSelectionChange(newTableSelection: TableSelection) {
+                        tableSelection = newTableSelection
+                    }
+                }
+                CompositionLocalProvider(
+                    LocalTableSelection provides tableSelection,
+                    LocalInteraction provides iteractions,
+                ) {
+                    DataTable(
+                        tableList = table,
+                    )
+                }
+            }
+        }
+    }
+
+    /*private fun updateValue(fakeModel: List<TableModel>, tableCell: TableCell): List<TableModel> {
+        return fakeModel.map { tableModel ->
+            val hasRowWithDataElement = tableModel.tableRows.find {
+                tableCell.id?.contains(it.rowHeader.id.toString()) == true
+            }
+            if (hasRowWithDataElement != null) {
+                tableModel.copy(
+                    overwrittenValues = mapOf(
+                        Pair(tableCell.column!!, tableCell)
+                    )
+                )
+            } else {
+                tableModel
+            }
+        }
+    }
+
+    fun assertClickOnCellShouldOpenInputComponent(
+        tableId: String,
+        rowIndex: Int,
+        columnIndex: Int
+    ) {
+        clickOnCell(tableId, rowIndex, columnIndex)
+        composeTestRule.waitForIdle()
+        assertInputComponentIsDisplayed()
+    }
+
+    fun assertClickOnEditOpensInputKeyboard() {
+        clickOnEditionIcon()
+        composeTestRule.waitForIdle()
+        val checkKeyboardCmd = "dumpsys input_method | grep mInputShown"
+        try {
+            val device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
+            val keyboardOpened = device.executeShellCommand(checkKeyboardCmd)
+                .contains("mInputShown=true")
+            Assert.assertTrue(keyboardOpened)
+        } catch (e: IOException) {
+            throw RuntimeException("Keyboard check failed", e)
+        }
+        assertInputIcon(R.drawable.ic_finish_edit_input)
+    }
+
+    fun assertClickOnBackClearsFocus() {
+        pressBack()
+        composeTestRule.waitForIdle()
+        assertInputIcon(R.drawable.ic_edit_input)
+    }
+
+    fun assertClickOnSaveHidesKeyboardAndSaveValue(valueToType: String) {
+        clearInput()
+        composeTestRule.waitForIdle()
+        typeInput(valueToType)
+        composeTestRule.waitForIdle()
+        clickOnAccept()
+    }*/
+
+    fun assertInfoIcon(tableId: String, rowIndex: Int) {
+        composeTestRule.onNode(
+            SemanticsMatcher.expectValue(TableId, tableId)
+                .and(SemanticsMatcher.expectValue(RowIndex, rowIndex))
+                .and(SemanticsMatcher.expectValue(InfoIconId, INFO_ICON)),
+        ).assertExists()
+    }
+
+    fun assertRowHeaderBackgroundChangeToPrimary(
+        tableId: String,
+        rowIndex: Int,
+    ) {
+        composeTestRule.onNode(
+            SemanticsMatcher.expectValue(TableId, tableId)
+                .and(SemanticsMatcher.expectValue(RowIndex, rowIndex))
+                .and(SemanticsMatcher.expectValue(RowBackground, SurfaceColor.Primary)),
+        ).assertExists()
+    }
+
+    fun assertColumnHeaderBackgroundColor(
+        tableId: String,
+        rowIndex: Int,
+        columnIndex: Int,
+        color: Color,
+    ) {
+        composeTestRule.onNode(
+            SemanticsMatcher.expectValue(TableIdColumnHeader, tableId)
+                .and(SemanticsMatcher.expectValue(RowIndexHeader, rowIndex))
+                .and(SemanticsMatcher.expectValue(ColumnIndexHeader, columnIndex))
+                .and(SemanticsMatcher.expectValue(ColumnBackground, color)),
+        ).assertExists()
+    }
+
+    fun clickOnCell(tableId: String, rowIndex: Int, columnIndex: Int) {
+        composeTestRule.onNodeWithTag("$tableId${CELL_TEST_TAG}$rowIndex$columnIndex", true)
+            .performScrollTo()
+            .performClick()
+    }
+
+    fun clickOnHeaderElement(tableId: String, rowIndex: Int, columnIndex: Int) {
+        composeTestRule.onNodeWithTag("$HEADER_CELL$tableId$rowIndex$columnIndex", true)
+            .performClick()
+        composeTestRule.waitForIdle()
+    }
+
+    fun clickOnRowHeader(tableId: String, rowIndex: Int) {
+        composeTestRule.onNodeWithTag("$tableId$rowIndex").performClick()
+        composeTestRule.waitForIdle()
+    }
+
+    fun assertRowHeaderText(tableId: String, text: String, rowIndex: Int) {
+        composeTestRule.onNodeWithTag("${tableId}$rowIndex").assertTextEquals(text)
+    }
+
+    fun assertRowHeaderIsClickable(tableId: String, rowIndex: Int) {
+        composeTestRule.onNodeWithTag("$tableId$rowIndex").assertIsEnabled()
+    }
+
+    fun assertCellHasMandatoryIcon(tableId: String, rowIndex: Int, columnIndex: Int) {
+        composeTestRule.onNode(
+            hasParent(hasTestTag("$tableId${CELL_TEST_TAG}$rowIndex$columnIndex"))
+                and
+                hasTestTag(MANDATORY_ICON_TEST_TAG),
+            true,
+        )
+            .assertIsDisplayed()
+    }
+}
