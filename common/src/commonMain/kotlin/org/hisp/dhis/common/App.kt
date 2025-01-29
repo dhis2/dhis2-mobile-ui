@@ -19,6 +19,7 @@ import org.hisp.dhis.common.screens.basicTextInputs.BasicTextInputsScreen
 import org.hisp.dhis.common.screens.bottomSheets.BottomSheetsScreen
 import org.hisp.dhis.common.screens.buttons.ButtonsScreen
 import org.hisp.dhis.common.screens.cards.CardsScreen
+import org.hisp.dhis.common.screens.layouts.TwoPaneLayoutScreen
 import org.hisp.dhis.common.screens.location.LocationSearchBarScreen
 import org.hisp.dhis.common.screens.menu.MenuScreen
 import org.hisp.dhis.common.screens.others.BadgesScreen
@@ -144,6 +145,7 @@ fun Main(
                 }
                 Groups.TABLE -> TableScreen()
                 Groups.TABS -> TabsScreen()
+                Groups.TWO_PANE_LAYOUT -> TwoPaneLayoutScreen()
             }
         } else {
             NoComponentSelectedScreen(

@@ -24,4 +24,5 @@ enum class Groups(val label: String) {
     LOCATION_SEARCH_BAR("Location Search Bar"),
     TABLE("Table"),
     TABS("Tabs"),
+    TWO_PANE_LAYOUT("Two pane layout"),
 }
