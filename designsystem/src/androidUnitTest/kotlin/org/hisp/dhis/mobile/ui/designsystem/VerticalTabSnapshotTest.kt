@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.component.VerticalTabs
 import org.hisp.dhis.mobile.ui.designsystem.component.model.Tab
@@ -55,6 +56,7 @@ class VerticalTabSnapshotTest {
                                                 .fillMaxWidth(),
                                             tabColorStyle = tabColorStyle,
                                             tabStyle = tabStyle,
+                                            backgroundShape = RectangleShape,
                                             initialSelectedTabIndex = if (selected) 0 else 1,
                                             tabs = listOf(Tab(id = "1", label = "Tab")),
                                             onSectionSelected = {

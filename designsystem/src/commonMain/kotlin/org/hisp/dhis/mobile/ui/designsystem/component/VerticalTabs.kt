@@ -163,6 +163,8 @@ object VerticalTabsDefaults {
     val tabHeight = 48.dp
     val indicatorWidth = 6.dp
     val indicatorHeight = tabHeight
+    val indicatorVerticalPadding = 2.dp
+
     val textColor: Color
         @Composable get() = MaterialTheme.colorScheme.onSurfaceVariant
     val textColorVariant: Color
@@ -214,6 +216,7 @@ object VerticalTabsDefaults {
                 .offset(x = width / 2, y = verticalOffset)
                 .requiredHeight(height)
                 .requiredWidth(width)
+                .padding(vertical = indicatorVerticalPadding / 2)
                 .background(
                     color = color,
                     shape = RoundedCornerShape(width / 2),
