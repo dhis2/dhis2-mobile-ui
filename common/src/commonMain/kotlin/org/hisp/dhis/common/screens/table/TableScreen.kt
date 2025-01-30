@@ -19,7 +19,7 @@ fun TableScreen() {
         mutableStateOf(ByteArray(0))
     }
     LaunchedEffect(Unit) {
-        bytes = Res.readBytes("files/json/multi_header_table_list.json")
+        bytes = Res.readBytes("files/json/table_demo.json")
     }
     val jsonString = bytes.decodeToString()
     if (jsonString.isNotEmpty()) {
