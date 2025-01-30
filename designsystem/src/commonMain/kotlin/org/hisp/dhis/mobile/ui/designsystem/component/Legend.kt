@@ -57,8 +57,6 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
 fun Legend(
     legendData: LegendData,
     modifier: Modifier = Modifier,
-    windowInsets: @Composable () -> WindowInsets = { BottomSheetDefaults.windowInsets },
-    bottomSheetLowerPadding: Dp = Spacing0,
 ) {
     var showBottomSheetShell by rememberSaveable { mutableStateOf(false) }
 
@@ -130,13 +128,13 @@ fun Legend(
         BottomSheetShell(
             uiState = BottomSheetShellUIState(
                 title = legendData.title,
-                bottomPadding = bottomSheetLowerPadding,
+                bottomPadding = legendData.bottomSheetLowerPadding,
             ),
             modifier = Modifier.testTag("LEGEND_BOTTOM_SHEET"),
             content = {
                 legendData.popUpLegendDescriptionData?.let { LegendRange(it) }
             },
-            windowInsets = windowInsets,
+            windowInsets = legendData.windowInsets,
             icon = {
                 Icon(
                     imageVector = Icons.Outlined.Info,
@@ -223,8 +221,12 @@ data class LegendDescriptionData(
  * @param popUpLegendDescriptionData list of [LegendDescriptionData] with information for the
  * legend range description pop up.
  */
-data class LegendData(
+data class LegendData
+@OptIn(ExperimentalMaterial3Api::class)
+constructor(
     val color: Color,
     val title: String,
     val popUpLegendDescriptionData: List<LegendDescriptionData>? = null,
+    val windowInsets: @Composable () -> WindowInsets = { BottomSheetDefaults.windowInsets },
+    val bottomSheetLowerPadding: Dp = Spacing0,
 )

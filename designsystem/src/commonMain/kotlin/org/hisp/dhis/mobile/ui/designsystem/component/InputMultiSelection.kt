@@ -64,12 +64,14 @@ private const val MAX_CHECKBOXES_ITEMS_TO_SHOW = 50
  * @param doneButtonText: text to be shown for accept button in pop up.
  * @param onClearItemSelection: callback for clear item selection.
  */
-@OptIn(ExperimentalLayoutApi::class)
+@OptIn(ExperimentalLayoutApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun InputMultiSelection(
     items: List<CheckBoxData>,
     title: String,
     state: InputShellState,
+    windowInsets: @Composable () -> WindowInsets = { BottomSheetDefaults.windowInsets },
+    bottomSheetLowerPadding: Dp = Spacing0,
     supportingTextData: List<SupportingTextData>?,
     legendData: LegendData?,
     isRequired: Boolean,
@@ -229,6 +231,8 @@ fun InputMultiSelection(
 
         if (showMultiSelectBottomSheet) {
             MultiSelectBottomSheet(
+                windowInsets = windowInsets,
+                bottomSheetLowerPadding = bottomSheetLowerPadding,
                 items = items,
                 title = title,
                 noResultsFoundString = noResultsFoundString,
