@@ -27,11 +27,11 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.component.BottomSheetShell
-import org.hisp.dhis.mobile.ui.designsystem.component.BottomSheetShellUIState
 import org.hisp.dhis.mobile.ui.designsystem.component.Button
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonBlock
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.dashedBorder
+import org.hisp.dhis.mobile.ui.designsystem.component.state.BottomSheetShellUIState
 import org.hisp.dhis.mobile.ui.designsystem.resource.Signature
 import org.hisp.dhis.mobile.ui.designsystem.resource.SignatureCanvas
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
