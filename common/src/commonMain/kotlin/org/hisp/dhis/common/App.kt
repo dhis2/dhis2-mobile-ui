@@ -14,7 +14,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import org.hisp.dhis.common.screens.Groups
 import org.hisp.dhis.common.screens.NoComponentSelectedScreen
-import org.hisp.dhis.common.screens.VerticalTabsScreen
 import org.hisp.dhis.common.screens.actionInputs.ActionInputsScreen
 import org.hisp.dhis.common.screens.basicTextInputs.BasicTextInputsScreen
 import org.hisp.dhis.common.screens.bottomSheets.BottomSheetsScreen
@@ -35,6 +34,7 @@ import org.hisp.dhis.common.screens.others.TagsScreen
 import org.hisp.dhis.common.screens.others.TopBarScreen
 import org.hisp.dhis.common.screens.parameter.ParameterSelectorScreen
 import org.hisp.dhis.common.screens.table.TableScreen
+import org.hisp.dhis.common.screens.tabs.TabsScreen
 import org.hisp.dhis.common.screens.toggleableInputs.ToggleableInputsScreen
 import org.hisp.dhis.mobile.ui.designsystem.component.DropdownItem
 import org.hisp.dhis.mobile.ui.designsystem.component.InputDropDown
@@ -143,7 +143,7 @@ fun Main(
                     onLocationRequest?.invoke(locationQuery, locationCallback)
                 }
                 Groups.TABLE -> TableScreen()
-                Groups.VERTICAL_TABS -> VerticalTabsScreen()
+                Groups.TABS -> TabsScreen()
             }
         } else {
             NoComponentSelectedScreen(

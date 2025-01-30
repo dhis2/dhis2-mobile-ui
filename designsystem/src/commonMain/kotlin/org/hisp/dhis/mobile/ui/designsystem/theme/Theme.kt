@@ -34,6 +34,8 @@ val DHIS2LightColorScheme = lightColorScheme(
     outline = Outline.Dark,
     outlineVariant = Outline.Light,
     scrim = SurfaceColor.Scrim,
+    surfaceContainerHigh = SurfaceColor.ContainerHigh,
+    surfaceBright = SurfaceColor.SurfaceBright,
 )
 
 @Composable

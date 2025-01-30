@@ -8,6 +8,7 @@ object Spacing {
     val Spacing1: Dp = 1.dp
     val Spacing2: Dp = 2.dp
     val Spacing4: Dp = 4.dp
+    val Spacing5: Dp = 5.dp
     val Spacing6: Dp = 6.dp
     val Spacing8: Dp = 8.dp
     val Spacing10: Dp = 10.dp
