@@ -6,6 +6,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,14 +18,14 @@ import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.requiredWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Circle
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -34,6 +35,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -49,12 +52,22 @@ fun VerticalTabs(
     tabStyle: TabStyle = TabStyle.LabelOnly,
     tabColorStyle: TabColorStyle = TabColorStyle.Tonal,
     initialSelectedTabIndex: Int = 0,
-    backgroundShape: Shape = MaterialTheme.shapes.large,
+    backgroundShape: Shape = MaterialTheme.shapes.medium,
     onSectionSelected: (String) -> Unit,
+    contentPadding: PaddingValues = PaddingValues(),
 ) {
+    val density = LocalDensity.current
     var selectedSection by remember { mutableStateOf(initialSelectedTabIndex) }
+
+    val scrollState = rememberLazyListState()
+    val scrollOffset by remember {
+        derivedStateOf {
+            VerticalTabsDefaults.tabHeight * scrollState.firstVisibleItemIndex + with(density) { scrollState.firstVisibleItemScrollOffset.toDp() }
+        }
+    }
+
     val indicatorVerticalOffset by animateDpAsState(
-        targetValue = VerticalTabsDefaults.tabHeight * selectedSection,
+        targetValue = VerticalTabsDefaults.tabHeight * selectedSection - scrollOffset,
         label = "",
     )
 
@@ -67,12 +80,15 @@ fun VerticalTabs(
             .clip(backgroundShape),
     ) {
         LazyColumn(
+            state = scrollState,
             modifier = Modifier.fillMaxSize(),
+            contentPadding = contentPadding,
         ) {
             itemsIndexed(tabs) { index, tab ->
                 VerticalTab(
                     label = tab.label,
                     selected = index == selectedSection,
+                    iconImage = tab.icon(index == selectedSection),
                     tabStyle = tabStyle,
                     tabColorStyle = tabColorStyle,
                     defaultVerticalTabHeight = VerticalTabsDefaults.tabHeight,
@@ -100,6 +116,7 @@ internal fun VerticalTab(
     selected: Boolean,
     tabStyle: TabStyle,
     tabColorStyle: TabColorStyle,
+    iconImage: ImageVector?,
     defaultVerticalTabHeight: Dp,
     onTabClick: () -> Unit,
 ) {
@@ -108,6 +125,14 @@ internal fun VerticalTab(
         modifier = Modifier
             .fillMaxWidth()
             .height(defaultVerticalTabHeight)
+            .padding(
+                horizontal = if (tabStyle is TabStyle.IconOnly) {
+                    Spacing.Spacing5
+                } else {
+                    Spacing.Spacing16
+                },
+                vertical = Spacing.Spacing5,
+            )
             .clickable(
                 onClick = onTabClick,
                 role = Role.Tab,
@@ -115,19 +140,20 @@ internal fun VerticalTab(
                 indication = ripple(
                     color = MaterialTheme.colorScheme.primary,
                 ),
-            )
-            .padding(horizontal = Spacing.Spacing16, vertical = Spacing.Spacing5),
+            ),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = spacedBy(Spacing.Spacing2),
+        horizontalArrangement = spacedBy(Spacing.Spacing4),
     ) {
         when (tabStyle) {
             TabStyle.IconAndLabel -> {
-                Icon(
-                    modifier = Modifier.padding(Spacing.Spacing6),
-                    imageVector = Icons.Filled.Circle,
-                    contentDescription = "",
-                    tint = VerticalTabsDefaults.textColor(tabColorStyle, selected),
-                )
+                iconImage?.let {
+                    Icon(
+                        modifier = Modifier.padding(Spacing.Spacing6),
+                        imageVector = iconImage,
+                        contentDescription = "",
+                        tint = VerticalTabsDefaults.textColor(tabColorStyle, selected),
+                    )
+                }
                 Text(
                     text = label,
                     color = VerticalTabsDefaults.textColor(tabColorStyle, selected),
@@ -140,12 +166,14 @@ internal fun VerticalTab(
                     modifier = Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center,
                 ) {
-                    Icon(
-                        modifier = Modifier.padding(Spacing.Spacing6),
-                        imageVector = Icons.Filled.Circle,
-                        contentDescription = "",
-                        tint = VerticalTabsDefaults.textColor(tabColorStyle, selected),
-                    )
+                    iconImage?.let {
+                        Icon(
+                            modifier = Modifier.padding(Spacing.Spacing6),
+                            imageVector = iconImage,
+                            contentDescription = "",
+                            tint = VerticalTabsDefaults.textColor(tabColorStyle, selected),
+                        )
+                    }
                 }
 
             TabStyle.LabelOnly ->

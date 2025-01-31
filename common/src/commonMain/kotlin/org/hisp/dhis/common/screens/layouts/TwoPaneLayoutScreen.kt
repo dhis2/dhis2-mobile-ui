@@ -1,53 +1,88 @@
 package org.hisp.dhis.common.screens.layouts
 
-import androidx.compose.animation.core.InfiniteRepeatableSpec
-import androidx.compose.animation.core.RepeatMode
-import androidx.compose.animation.core.animateFloat
-import androidx.compose.animation.core.rememberInfiniteTransition
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
+import org.hisp.dhis.common.screens.Groups
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
+import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.layout.TwoPaneConfig
 import org.hisp.dhis.mobile.ui.designsystem.component.layout.TwoPaneLayout
 
 @Composable
 fun TwoPaneLayoutScreen() {
-    val infiniteTransition = rememberInfiniteTransition()
+    ColumnScreenContainer(Groups.TWO_PANE_LAYOUT.label) {
+        ColumnComponentContainer(
+            "Primary pane 70% of the screen",
+        ) {
+            TwoPaneLayout(
+                modifier = Modifier.fillMaxWidth().height(300.dp),
+                paneConfig = TwoPaneConfig.Weight(0.7f),
+                primaryPane = {
+                    PrimaryPane()
+                },
+                secondaryPane = {
+                    SecondaryPane()
+                },
+            )
+        }
+        ColumnComponentContainer(
+            "Primary pane fixed 200 dp width",
+        ) {
+            TwoPaneLayout(
+                modifier = Modifier.fillMaxWidth().height(300.dp),
+                paneConfig = TwoPaneConfig.PrimaryPaneFixedSize(300.dp),
+                primaryPane = {
+                    PrimaryPane()
+                },
+                secondaryPane = {
+                    SecondaryPane()
+                },
+            )
+        }
+        ColumnComponentContainer(
+            "Secondary pane fixed 100 dp width",
+        ) {
+            TwoPaneLayout(
+                modifier = Modifier.fillMaxWidth().height(300.dp),
+                paneConfig = TwoPaneConfig.SecondaryPaneFixedSize(150.dp),
+                primaryPane = {
+                    PrimaryPane()
+                },
+                secondaryPane = {
+                    SecondaryPane()
+                },
+            )
+        }
+    }
+}
 
-    val weight by infiniteTransition.animateFloat(
-        initialValue = 0.1f,
-        targetValue = 0.9f,
-        animationSpec = InfiniteRepeatableSpec(
-            animation = tween(2000),
-            repeatMode = RepeatMode.Reverse,
-        ),
-    )
+@Composable
+private fun PrimaryPane() {
+    Box(
+        modifier = Modifier.fillMaxSize()
+            .background(MaterialTheme.colorScheme.surfaceContainerHighest),
+        contentAlignment = Alignment.Center,
+    ) {
+        Text(text = "Primary pane")
+    }
+}
 
-    TwoPaneLayout(
-        modifier = Modifier.fillMaxSize(),
-        paneConfig = TwoPaneConfig.Weight(weight),
-        primaryPane = {
-            Box(
-                modifier = Modifier.fillMaxSize().background(Color.Red),
-                contentAlignment = Alignment.Center,
-            ) {
-                Text(text = "Primary pane")
-            }
-        },
-        secondaryPane = {
-            Box(
-                modifier = Modifier.fillMaxSize().background(Color.Green),
-                contentAlignment = Alignment.Center,
-            ) {
-                Text(text = "Secondary pane")
-            }
-        },
-    )
+@Composable
+private fun SecondaryPane() {
+    Box(
+        modifier = Modifier.fillMaxSize()
+            .background(MaterialTheme.colorScheme.surfaceContainerHigh),
+        contentAlignment = Alignment.Center,
+    ) {
+        Text(text = "Secondary pane")
+    }
 }
