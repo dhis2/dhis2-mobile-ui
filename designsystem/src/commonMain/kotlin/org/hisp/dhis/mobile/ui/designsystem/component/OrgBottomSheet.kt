@@ -1,12 +1,12 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredWidth
@@ -17,6 +17,8 @@ import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.ClearAll
 import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material3.BottomSheetDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -41,12 +43,16 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import org.hisp.dhis.mobile.ui.designsystem.component.state.BottomSheetShellDefaults
+import org.hisp.dhis.mobile.ui.designsystem.component.state.BottomSheetShellUIState
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2SCustomTextStyles
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
+import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing0
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
@@ -54,23 +60,26 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
  * DHIS2 [OrgBottomSheet] component designed to be used
  * with Input Org Unit, wraps DHIS2 [BottomSheetShell].
  * @param orgTreeItems list of [OrgTreeItem] with Org tree information
- * @param title: Header.
- * @param subtitle: optional subtitle.
- * @param description: optional description.
- * @param clearAllButtonText: text for clear all button.
- * @param doneButtonText: text for accept button.
- * @param doneButtonIcon: icon for accept button.
- * @param noResultsFoundText: text for no results found.
+ * @param title Header.
+ * @param subtitle optional subtitle.
+ * @param description optional description.
+ * @param clearAllButtonText text for clear all button.
+ * @param doneButtonText text for accept button.
+ * @param doneButtonIcon icon for accept button.
+ * @param windowInsets The insets to use for the bottom sheet shell.
+ * @param bottomSheetLowerPadding padding for the bottom sheet.
+ * @param noResultsFoundText text for no results found.
  * @param headerTextAlignment [Alignment] for header text.
- * @param icon: optional icon to be shown above the header .
- * @param onSearch: access to the on search event.
- * @param onDismiss: access to the on dismiss event.
- * @param onItemSelected: access to the on item selected event.
- * @param onItemClick: access to onItemClick event.
- * @param onClearAll: access to the on clear all event.
- * @param onDone: access to the on done event.
+ * @param icon optional icon to be shown above the header .
+ * @param onSearch access to the on search event.
+ * @param onDismiss access to the on dismiss event.
+ * @param onItemSelected access to the on item selected event.
+ * @param onItemClick access to onItemClick event.
+ * @param onClearAll access to the on clear all event.
+ * @param onDone access to the on done event.
  * @param modifier width and size of the barcode.
  */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun OrgBottomSheet(
     orgTreeItems: List<OrgTreeItem>,
@@ -81,6 +90,8 @@ fun OrgBottomSheet(
     clearAllButtonText: String = provideStringResource("clear_all"),
     doneButtonText: String? = null,
     doneButtonIcon: ImageVector = Icons.Filled.Check,
+    windowInsets: @Composable () -> WindowInsets = { BottomSheetDefaults.windowInsets },
+    bottomSheetLowerPadding: Dp = Spacing0,
     noResultsFoundText: String = provideStringResource("no_results_found"),
     headerTextAlignment: TextAlign = TextAlign.Center,
     icon: @Composable (() -> Unit)? = null,
@@ -94,21 +105,18 @@ fun OrgBottomSheet(
     var searchQuery by remember { mutableStateOf("") }
     var orgTreeHeight by remember { mutableStateOf(0) }
     val orgTreeHeightInDp = with(LocalDensity.current) { orgTreeHeight.toDp() }
-
     BottomSheetShell(
+        uiState = BottomSheetShellUIState(
+            title = title,
+            subtitle = subtitle,
+            description = description,
+            headerTextAlignment = headerTextAlignment,
+            searchQuery = searchQuery,
+            scrollableContainerMaxHeight = maxOf(orgTreeHeightInDp, InternalSizeValues.Size386),
+            scrollableContainerMinHeight = InternalSizeValues.Size316,
+            bottomPadding = bottomSheetLowerPadding,
+        ),
         modifier = modifier,
-        title = title,
-        subtitle = subtitle,
-        description = description,
-        headerTextAlignment = headerTextAlignment,
-        icon = icon,
-        searchQuery = searchQuery,
-        onSearchQueryChanged = { query ->
-            searchQuery = query
-            onSearch?.invoke(searchQuery)
-        },
-        onSearch = onSearch,
-        scrollableContainerMaxHeight = maxOf(orgTreeHeightInDp, InternalSizeValues.Size386),
         content = {
             OrgTreeList(
                 orgTreeItems = orgTreeItems,
@@ -125,10 +133,12 @@ fun OrgBottomSheet(
                     },
             )
         },
+        windowInsets = windowInsets,
+        icon = icon,
         buttonBlock = {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.padding(Spacing.Spacing24),
+                modifier = Modifier.padding(BottomSheetShellDefaults.buttonBlockPaddings()),
             ) {
                 if (onClearAll != null) {
                     Button(
@@ -163,6 +173,11 @@ fun OrgBottomSheet(
                 )
             }
         },
+        onSearchQueryChanged = { query ->
+            searchQuery = query
+            onSearch?.invoke(searchQuery)
+        },
+        onSearch = onSearch,
         onDismiss = onDismiss,
     )
 }

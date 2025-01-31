@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
@@ -17,6 +18,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Close
+import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -41,6 +43,7 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.Keyboard
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.keyboardAsState
+import org.hisp.dhis.mobile.ui.designsystem.component.state.BottomSheetShellUIState
 import org.hisp.dhis.mobile.ui.designsystem.theme.Border
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
@@ -150,6 +153,7 @@ fun BottomSheetHeader(
  * @param scrollableContainerMaxHeight: Max size for scrollable content.
  */
 @OptIn(ExperimentalMaterial3Api::class)
+@Deprecated("Use the new BottomSheetShell with the new parameters")
 @Composable
 fun BottomSheetShell(
     content: @Composable (() -> Unit)?,
@@ -311,6 +315,185 @@ fun BottomSheetShell(
             buttonBlock?.let {
                 buttonBlock.invoke()
             }
+        }
+    }
+}
+
+/**
+ * DHIS2 BottomSheetShell. Wraps compose · [ModalBottomSheet].
+ * desktop version to be implemented
+ * @param uiState UI data class of type [BottomSheetShellUIState] with all the values for the ui elements used in the component.
+ * @param windowInsets: The insets to use for the bottom sheet shell.
+ * @param icon: the icon to be shown.
+ * @param buttonBlock: Space for the lower buttons, use together with BottomSheetShellDefaults
+ * button block padding to ensure a correct style is displayed.
+ * @param content: to be shown under the header.
+ * @param contentScrollState: Pass custom scroll state when content is
+ * scrollable. For example, pass configure it when using `LazyColumn` to `Modifier.verticalScroll`
+ * for content.
+ * @param onSearchQueryChanged: Callback when search query is changed.
+ * @param onSearch: Callback when search action is triggered.
+ * @param onDismiss: gives access to the onDismiss event.
+ * @param modifier allows a modifier to be passed externally.
+ */
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun BottomSheetShell(
+    uiState: BottomSheetShellUIState,
+    modifier: Modifier = Modifier,
+    content: @Composable (() -> Unit)?,
+    windowInsets: @Composable () -> WindowInsets = { BottomSheetDefaults.windowInsets },
+    contentScrollState: ScrollableState = rememberScrollState(),
+    icon: @Composable (() -> Unit)? = null,
+    buttonBlock: @Composable (() -> Unit)? = null,
+    onSearchQueryChanged: ((String) -> Unit)? = null,
+    onSearch: ((String) -> Unit)? = null,
+    onDismiss: () -> Unit,
+) {
+    val sheetState = rememberModalBottomSheetState(true)
+    val scope = rememberCoroutineScope()
+    val keyboardState by keyboardAsState()
+
+    var isKeyboardOpen by remember { mutableStateOf(false) }
+    val showHeader by remember {
+        derivedStateOf {
+            if (uiState.animateHeaderOnKeyboardAppearance) {
+                !uiState.title.isNullOrBlank() && !isKeyboardOpen
+            } else {
+                !uiState.title.isNullOrBlank()
+            }
+        }
+    }
+
+    LaunchedEffect(keyboardState) {
+        isKeyboardOpen = keyboardState == Keyboard.Opened
+    }
+
+    ModalBottomSheet(
+        modifier = modifier,
+        containerColor = Color.Transparent,
+        contentWindowInsets = windowInsets,
+        onDismissRequest = {
+            onDismiss()
+        },
+        sheetState = sheetState,
+        dragHandle = {
+            Box(
+                modifier = Modifier.padding(top = Spacing.Spacing72),
+            ) {
+                BottomSheetIconButton(
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Outlined.Close,
+                            contentDescription = "Button",
+                            tint = SurfaceColor.SurfaceBright,
+                        )
+                    },
+                    modifier = Modifier.padding(bottom = Spacing.Spacing4),
+                ) {
+                    scope.launch {
+                        onDismiss()
+                    }
+                }
+            }
+        },
+    ) {
+        val canScrollForward by derivedStateOf { contentScrollState.canScrollForward }
+
+        Column(
+            modifier = Modifier.padding(bottom = Spacing0).background(SurfaceColor.SurfaceBright, Shape.ExtraLargeTop),
+        ) {
+            val scrollColumnShadow = if (canScrollForward) {
+                Modifier.innerShadow(blur = 32.dp)
+            } else {
+                Modifier
+            }
+            Column(
+                modifier = Modifier
+                    .weight(1f, fill = false)
+                    .padding(top = Spacing24),
+            ) {
+                val hasSearch =
+                    uiState.searchQuery != null && onSearchQueryChanged != null && onSearch != null
+                AnimatedVisibility(
+                    visible = showHeader,
+                ) {
+                    BottomSheetHeader(
+                        title = uiState.title!!,
+                        subTitle = uiState.subtitle,
+                        description = uiState.description,
+                        icon = icon,
+                        hasSearch = hasSearch,
+                        headerTextAlignment = uiState.headerTextAlignment,
+                        modifier = Modifier
+                            .padding(vertical = Spacing0)
+                            .align(Alignment.CenterHorizontally),
+                    )
+                }
+
+                if (showHeader && hasSearch) {
+                    Spacer(Modifier.requiredHeight(16.dp))
+                }
+
+                if (hasSearch) {
+                    SearchBar(
+                        modifier = Modifier.fillMaxWidth().padding(horizontal = Spacing24),
+                        text = uiState.searchQuery!!,
+                        onQueryChange = onSearchQueryChanged!!,
+                        onSearch = onSearch!!,
+                    )
+                }
+
+                if (showHeader || hasSearch) {
+                    if (uiState.showTopSectionDivider) {
+                        HorizontalDivider(
+                            modifier = Modifier.fillMaxWidth()
+                                .padding(top = Spacing24, start = Spacing24, end = Spacing24, bottom = Spacing0),
+                            color = TextColor.OnDisabledSurface,
+                            thickness = Border.Thin,
+                        )
+                    } else {
+                        Spacer(Modifier.requiredHeight(Spacing24))
+                    }
+                }
+
+                content?.let {
+                    val scrollModifier = if ((contentScrollState as? ScrollState) != null) {
+                        Modifier.verticalScroll(contentScrollState)
+                    } else {
+                        Modifier
+                    }
+                    Column(
+                        Modifier.then(scrollColumnShadow),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                    ) {
+                        Spacer(Modifier.requiredHeight(Spacing8))
+                        Column(
+                            modifier = Modifier
+                                .padding(horizontal = Spacing24)
+                                .heightIn(uiState.scrollableContainerMinHeight, uiState.scrollableContainerMaxHeight)
+                                .then(scrollModifier),
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = spacedBy(Spacing8),
+                        ) {
+                            content.invoke()
+                            Spacer(Modifier.requiredHeight(Spacing8))
+                        }
+                        if (uiState.showBottomSectionDivider && !canScrollForward) {
+                            HorizontalDivider(
+                                modifier = Modifier.fillMaxWidth().padding(start = Spacing24, end = Spacing24, bottom = Spacing0, top = Spacing0),
+                                color = TextColor.OnDisabledSurface,
+                                thickness = Border.Thin,
+                            )
+                        }
+                    }
+                }
+            }
+            Spacer(Modifier.requiredHeight(Spacing24))
+            buttonBlock?.let {
+                buttonBlock.invoke()
+            }
+            Spacer(Modifier.requiredHeight(uiState.bottomPadding))
         }
     }
 }

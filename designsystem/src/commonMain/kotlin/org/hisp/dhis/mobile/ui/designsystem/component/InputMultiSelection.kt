@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
@@ -16,6 +17,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.outlined.Cancel
+import androidx.compose.material3.BottomSheetDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -34,9 +37,12 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import org.hisp.dhis.mobile.ui.designsystem.component.state.BottomSheetShellUIState
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
+import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing0
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 
 private const val INLINE_CHECKBOXES_MIN_REQ_ITEMS = 6
@@ -58,12 +64,14 @@ private const val MAX_CHECKBOXES_ITEMS_TO_SHOW = 50
  * @param doneButtonText: text to be shown for accept button in pop up.
  * @param onClearItemSelection: callback for clear item selection.
  */
-@OptIn(ExperimentalLayoutApi::class)
+@OptIn(ExperimentalLayoutApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun InputMultiSelection(
     items: List<CheckBoxData>,
     title: String,
     state: InputShellState,
+    windowInsets: @Composable () -> WindowInsets = { BottomSheetDefaults.windowInsets },
+    bottomSheetLowerPadding: Dp = Spacing0,
     supportingTextData: List<SupportingTextData>?,
     legendData: LegendData?,
     isRequired: Boolean,
@@ -223,6 +231,8 @@ fun InputMultiSelection(
 
         if (showMultiSelectBottomSheet) {
             MultiSelectBottomSheet(
+                windowInsets = windowInsets,
+                bottomSheetLowerPadding = bottomSheetLowerPadding,
                 items = items,
                 title = title,
                 noResultsFoundString = noResultsFoundString,
@@ -266,6 +276,7 @@ private fun SelectedItemChip(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MultiSelectBottomSheet(
     items: List<CheckBoxData>,
@@ -273,6 +284,8 @@ fun MultiSelectBottomSheet(
     noResultsFoundString: String,
     searchToFindMoreString: String,
     doneButtonText: String,
+    windowInsets: @Composable () -> WindowInsets = { BottomSheetDefaults.windowInsets },
+    bottomSheetLowerPadding: Dp = Spacing0,
     onItemsSelected: (List<CheckBoxData>) -> Unit,
     onDismiss: () -> Unit,
 ) {
@@ -285,8 +298,12 @@ fun MultiSelectBottomSheet(
     val itemsModified = remember { items.toMutableList() }
 
     BottomSheetShell(
+        uiState = BottomSheetShellUIState(
+            title = title,
+            bottomPadding = bottomSheetLowerPadding,
+            searchQuery = searchQuery,
+        ),
         modifier = Modifier.testTag("INPUT_MULTI_SELECT_BOTTOM_SHEET"),
-        title = title,
         content = {
             Column(
                 modifier = Modifier
@@ -330,10 +347,7 @@ fun MultiSelectBottomSheet(
                 }
             }
         },
-        onDismiss = onDismiss,
-        searchQuery = searchQuery,
-        onSearch = { searchQuery = it },
-        onSearchQueryChanged = { searchQuery = it },
+        windowInsets = windowInsets,
         buttonBlock = {
             Button(
                 modifier = Modifier.fillMaxWidth(),
@@ -354,6 +368,9 @@ fun MultiSelectBottomSheet(
                 style = ButtonStyle.FILLED,
             )
         },
+        onSearchQueryChanged = { searchQuery = it },
+        onSearch = { searchQuery = it },
+        onDismiss = onDismiss,
     )
 }
 

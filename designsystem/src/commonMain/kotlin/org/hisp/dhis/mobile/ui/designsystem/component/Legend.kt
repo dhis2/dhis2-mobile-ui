@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -15,6 +16,8 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.HelpOutline
 import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material3.BottomSheetDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -32,18 +35,24 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.unit.Dp
+import org.hisp.dhis.mobile.ui.designsystem.component.state.BottomSheetShellUIState
 import org.hisp.dhis.mobile.ui.designsystem.theme.Border
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
+import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing0
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
 
 /**
  * DHIS2 Legend.
  * Used to display information on input value based on a range of values.
- * @param legendData: data class with all parameters for component.
- * @param modifier: optional modifier.
+ * @param legendData data class with all parameters for component.
+ * @param modifier optional modifier.
+ * @param windowInsets optional window insets to be used by the bottom sheet.
+ * @param bottomSheetLowerPadding optional bottom sheet lower padding.
  */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Legend(
     legendData: LegendData,
@@ -117,17 +126,21 @@ fun Legend(
 
     if (showBottomSheetShell) {
         BottomSheetShell(
+            uiState = BottomSheetShellUIState(
+                title = legendData.title,
+                bottomPadding = legendData.bottomSheetLowerPadding,
+            ),
             modifier = Modifier.testTag("LEGEND_BOTTOM_SHEET"),
-            title = legendData.title,
+            content = {
+                legendData.popUpLegendDescriptionData?.let { LegendRange(it) }
+            },
+            windowInsets = legendData.windowInsets,
             icon = {
                 Icon(
                     imageVector = Icons.Outlined.Info,
                     contentDescription = "Button",
                     tint = SurfaceColor.Primary,
                 )
-            },
-            content = {
-                legendData.popUpLegendDescriptionData?.let { LegendRange(it) }
             },
         ) {
             showBottomSheetShell = false
@@ -208,8 +221,12 @@ data class LegendDescriptionData(
  * @param popUpLegendDescriptionData list of [LegendDescriptionData] with information for the
  * legend range description pop up.
  */
-data class LegendData(
+data class LegendData
+@OptIn(ExperimentalMaterial3Api::class)
+constructor(
     val color: Color,
     val title: String,
     val popUpLegendDescriptionData: List<LegendDescriptionData>? = null,
+    val windowInsets: @Composable () -> WindowInsets = { BottomSheetDefaults.windowInsets },
+    val bottomSheetLowerPadding: Dp = Spacing0,
 )

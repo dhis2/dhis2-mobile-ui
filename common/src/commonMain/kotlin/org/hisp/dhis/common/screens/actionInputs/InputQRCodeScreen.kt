@@ -23,6 +23,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.QrCodeBlock
 import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextData
 import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextState
+import org.hisp.dhis.mobile.ui.designsystem.component.state.BottomSheetShellUIState
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 
@@ -34,19 +35,21 @@ fun InputQRCodeScreen() {
 
         if (showEnabledQRBottomSheet) {
             BottomSheetShell(
+                uiState = BottomSheetShellUIState(
+                    title = provideStringResource("qr_code"),
+                ),
                 modifier = Modifier.testTag("LEGEND_BOTTOM_SHEET"),
-                title = provideStringResource("qr_code"),
+                content = {
+                    Row(horizontalArrangement = Arrangement.Center) {
+                        QrCodeBlock(data = inputValue1.text)
+                    }
+                },
                 icon = {
                     Icon(
                         imageVector = Icons.Outlined.Info,
                         contentDescription = "Button",
                         tint = SurfaceColor.Primary,
                     )
-                },
-                content = {
-                    Row(horizontalArrangement = Arrangement.Center) {
-                        QrCodeBlock(data = inputValue1.text)
-                    }
                 },
                 buttonBlock = {
                     ButtonCarousel(
