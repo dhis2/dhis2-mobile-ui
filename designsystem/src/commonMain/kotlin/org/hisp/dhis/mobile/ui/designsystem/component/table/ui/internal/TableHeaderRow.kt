@@ -2,7 +2,11 @@ package org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal
 
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.RestartAlt
@@ -32,8 +36,6 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
  * @param onResizing Callback function invoked during the resizing of the header.
  * @param onResetResize Callback function invoked to reset the resize state.
  */
-// TODO this composable was surrounded with a Constraint layout, review whether it still can be used with
-// a column or whether a custom component is needed to maintain any old functionalities
 @Composable
 internal fun TableHeaderRow(
     modifier: Modifier = Modifier,
@@ -56,6 +58,7 @@ internal fun TableHeaderRow(
         if (isHeaderActionEnabled) {
             TableActions(
                 modifier = Modifier
+                    .fillMaxWidth()
                     .padding(bottom = Spacing.Spacing24),
                 title = tableModel.title,
                 actionIcons = {
@@ -74,24 +77,24 @@ internal fun TableHeaderRow(
                 },
             )
         }
+        Row(Modifier.height(IntrinsicSize.Min)) {
+            TableCorner(
+                modifier = Modifier.zIndex(1f),
+                tableCornerUiState = cornerUiState,
+                tableId = tableModel.id ?: "",
+                onClick = onTableCornerClick,
+            )
 
-        TableCorner(
-            modifier = Modifier
-                .zIndex(1f),
-            tableCornerUiState = cornerUiState,
-            tableId = tableModel.id ?: "",
-            onClick = onTableCornerClick,
-        )
-
-        TableHeader(
-            tableId = tableModel.id,
-            modifier = Modifier,
-            tableHeaderModel = tableModel.tableHeaderModel,
-            horizontalScrollState = horizontalScrollState,
-            cellStyle = cellStyle,
-            onHeaderCellSelected = onHeaderCellClick,
-            onHeaderResize = onHeaderResize,
-            onResizing = onResizing,
-        )
+            TableHeader(
+                tableId = tableModel.id,
+                modifier = Modifier,
+                tableHeaderModel = tableModel.tableHeaderModel,
+                horizontalScrollState = horizontalScrollState,
+                cellStyle = cellStyle,
+                onHeaderCellSelected = onHeaderCellClick,
+                onHeaderResize = onHeaderResize,
+                onResizing = onResizing,
+            )
+        }
     }
 }
