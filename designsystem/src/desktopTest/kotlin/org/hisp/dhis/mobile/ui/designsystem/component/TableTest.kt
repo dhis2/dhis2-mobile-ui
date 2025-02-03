@@ -260,6 +260,45 @@ class TableTest {
         }
     }
 
+    @Test
+    fun shouldBlockClickAndSetCorrectColorIfNonEditable() = runBlocking {
+        val table = loadTableFromJson("multi_header_table_list.json")
+
+        tableRobot(composeTestRule) {
+            initTable(table)
+
+            val firstId = table.first().id!!
+            clickOnCell(firstId, 0, 1)
+            assertCellBlockedCell(firstId, 0, 1)
+        }
+    }
+
+    @Test
+    fun shouldSetCorrectColorIfHasError() = runBlocking {
+        val table = loadTableFromJson("mandatory_cell_table_list.json")
+
+        tableRobot(composeTestRule) {
+            initTable(table)
+            val firstId = table.first().id!!
+            assertUnselectedCellErrorStyle(firstId, 2, 0)
+            clickOnCell(firstId, 2, 0)
+            assertSelectedCellErrorStyle(firstId, 2, 0)
+        }
+    }
+
+    @Test
+    fun shouldSetDropdownValue() = runBlocking {
+        val table = loadTableFromJson("dropdown_table.json")
+
+        tableRobot(composeTestRule) {
+            initTable(table)
+            val firstId = table.first().id!!
+            clickOnCell(firstId, 1, 0)
+            selectDropdownItem("Option 1")
+            assertCellHasValue(firstId, 1, 0, "Option 1")
+        }
+    }
+
     private suspend fun loadTableFromJson(fileName: String): List<TableModel> {
         val bytes = Res.readBytes("files/json/$fileName")
         val jsonString = bytes.decodeToString()

@@ -12,12 +12,13 @@ import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.hasParent
 import androidx.compose.ui.test.hasTestTag
+import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
+import org.hisp.dhis.mobile.ui.designsystem.component.menu.MenuItemTestTags.MENU_ITEM_TEXT
 import org.hisp.dhis.mobile.ui.designsystem.component.table.actions.TableInteractions
-import org.hisp.dhis.mobile.ui.designsystem.component.table.actions.TableResizeActions
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableModel
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.DataTable
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.LocalTableSelection
@@ -26,12 +27,16 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableConfiguratio
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableSelection
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.compositions.LocalInteraction
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.CELL_ERROR_UNDERLINE_TEST_TAG
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.CELL_TEST_TAG
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.CELL_VALUE_TEST_TAG
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.ColumnBackground
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.ColumnIndexHeader
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.HEADER_CELL
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.HasError
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.INFO_ICON
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.InfoIconId
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.IsBlocked
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.MANDATORY_ICON_TEST_TAG
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.RowBackground
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.RowIndex
@@ -64,7 +69,6 @@ class TableRobot(
             TableTheme(
                 tableColors = tableColors.copy(primary = SurfaceColor.Primary),
                 tableConfiguration = TableConfiguration(headerActionsEnabled = false),
-                tableResizeActions = object : TableResizeActions {},
             ) {
                 val iteractions = object : TableInteractions {
                     override fun onSelectionChange(newTableSelection: TableSelection) {
@@ -205,5 +209,53 @@ class TableRobot(
             true,
         )
             .assertIsDisplayed()
+    }
+
+    fun assertCellBlockedCell(tableId: String, rowIndex: Int, columnIndex: Int) {
+        composeTestRule
+            .onNode(
+                hasTestTag("$tableId${CELL_TEST_TAG}$rowIndex$columnIndex")
+                    and
+                    SemanticsMatcher.expectValue(IsBlocked, true),
+                true,
+            )
+            .assertIsDisplayed()
+    }
+
+    fun assertUnselectedCellErrorStyle(tableId: String, rowIndex: Int, columnIndex: Int) {
+        composeTestRule.onNode(
+            hasTestTag("$tableId${CELL_TEST_TAG}$rowIndex$columnIndex")
+                and
+                SemanticsMatcher.expectValue(HasError, true),
+            true,
+        ).assertIsDisplayed()
+        composeTestRule.onNodeWithTag(CELL_ERROR_UNDERLINE_TEST_TAG, true).assertIsDisplayed()
+    }
+
+    fun assertSelectedCellErrorStyle(tableId: String, rowIndex: Int, columnIndex: Int) {
+        composeTestRule.onNode(
+            hasTestTag("$tableId${CELL_TEST_TAG}$rowIndex$columnIndex")
+                and
+                SemanticsMatcher.expectValue(HasError, true),
+            true,
+        ).assertIsDisplayed()
+    }
+
+    fun selectDropdownItem(text: String) {
+        composeTestRule.onNode(
+            hasTestTag(MENU_ITEM_TEXT)
+                and
+                hasText(text),
+            true,
+        ).performClick()
+    }
+
+    fun assertCellHasValue(tableId: String, rowIndex: Int, columnIndex: Int, value: String) {
+        composeTestRule.onNode(
+            hasParent(hasTestTag("$tableId${CELL_TEST_TAG}$rowIndex$columnIndex"))
+                and
+                hasTestTag(CELL_VALUE_TEST_TAG),
+            true,
+        ).assertTextEquals(value)
     }
 }
