@@ -7,8 +7,6 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Expand
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -28,11 +26,14 @@ import androidx.compose.ui.layout.positionInRoot
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
+import org.hisp.dhis.mobile.designsystem.generated.resources.Res
+import org.hisp.dhis.mobile.designsystem.generated.resources.ic_row_widener
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.internal.ResizingCell
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableDimensions
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
+import org.jetbrains.compose.resources.painterResource
 import kotlin.math.abs
 import kotlin.math.roundToInt
 
@@ -41,6 +42,8 @@ internal fun VerticalResizingView(modifier: Modifier = Modifier, provideResizing
     val colorPrimary = TableTheme.colors.primary
     provideResizingCell()?.let { resizingCell ->
         val offsetX = resizingCell.initialPosition.x + resizingCell.draggingOffsetX
+        var tableOffset by remember { mutableStateOf(Offset.Zero) }
+
         Box(
             modifier
                 .offset { IntOffset(offsetX.roundToInt(), 0) }
@@ -52,6 +55,9 @@ internal fun VerticalResizingView(modifier: Modifier = Modifier, provideResizing
                         size = Size(2.dp.toPx(), size.height),
                     )
                 }
+                .onGloballyPositioned {
+                    tableOffset = it.positionInRoot()
+                }
                 .graphicsLayer(clip = false),
         ) {
             Icon(
@@ -60,7 +66,7 @@ internal fun VerticalResizingView(modifier: Modifier = Modifier, provideResizing
                     .offset {
                         IntOffset(
                             -15.dp.value.toInt(),
-                            resizingCell.initialPosition.y.roundToInt(),
+                            resizingCell.initialPosition.y.roundToInt() - tableOffset.y.roundToInt(),
                         )
                     }
                     .background(
@@ -68,7 +74,7 @@ internal fun VerticalResizingView(modifier: Modifier = Modifier, provideResizing
                         shape = Shape.Large,
                     )
                     .size(Spacing.Spacing14),
-                imageVector = Icons.Outlined.Expand,
+                painter = painterResource(Res.drawable.ic_row_widener),
                 contentDescription = "",
                 tint = Color.White,
             )
@@ -78,10 +84,10 @@ internal fun VerticalResizingView(modifier: Modifier = Modifier, provideResizing
 
 @Composable
 internal fun VerticalResizingRule(
-    modifier: Modifier = Modifier,
     checkMaxMinCondition: (dimensions: TableDimensions, currentOffsetX: Float) -> Boolean,
     onHeaderResize: (Float) -> Unit,
     onResizing: (ResizingCell?) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     var dimensions by remember { mutableStateOf<TableDimensions?>(null) }
     dimensions = TableTheme.dimensions
@@ -124,7 +130,7 @@ internal fun VerticalResizingRule(
                 .onGloballyPositioned { coordinates ->
                     positionInRoot = coordinates.positionInRoot()
                 },
-            imageVector = Icons.Outlined.Expand,
+            painter = painterResource(Res.drawable.ic_row_widener),
             contentDescription = "",
             tint = Color.White,
         )

@@ -3,7 +3,7 @@ package org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.TableView
+import androidx.compose.material.icons.filled.TableChart
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -27,9 +27,8 @@ internal fun TableActions(modifier: Modifier, title: String, actionIcons: @Compo
         horizontalArrangement = Arrangement.Absolute.spacedBy(8.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        // TODO verify icon is correct
         Icon(
-            imageVector = Icons.Outlined.TableView,
+            imageVector = Icons.Default.TableChart,
             contentDescription = "",
             tint = TableTheme.colors.primary,
         )

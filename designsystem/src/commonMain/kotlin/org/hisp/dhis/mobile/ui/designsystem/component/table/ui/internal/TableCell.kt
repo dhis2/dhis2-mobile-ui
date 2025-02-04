@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.relocation.BringIntoViewRequester
 import androidx.compose.foundation.relocation.bringIntoViewRequester
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Emergency
 import androidx.compose.material.icons.outlined.Emergency
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -37,6 +38,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
+import org.hisp.dhis.mobile.ui.designsystem.component.menu.DropDownMenu
+import org.hisp.dhis.mobile.ui.designsystem.component.menu.MenuItemData
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.DropdownOption
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableCell
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.LocalTableColors
@@ -78,6 +81,7 @@ internal fun TableCell(
     headerLabel: String,
 ) {
     val localInteraction = LocalInteraction.current
+    val tableSelection = LocalTableSelection.current
     val (dropDownExpanded, setExpanded) = remember { mutableStateOf(false) }
     val (showMultiSelector, setShowMultiSelector) = remember { mutableStateOf(false) }
 
@@ -96,9 +100,8 @@ internal fun TableCell(
 
     val backgroundColor = TableTheme.colors.disabledCellBackground
     val coroutineScope = rememberCoroutineScope()
-    val isSelected =
-        TableTheme.tableSelection.isCellSelected(tableId, cell.column, cell.row ?: -1)
-    val isParentSelected = TableTheme.tableSelection.isCellParentSelected(
+    val isSelected = tableSelection.isCellSelected(tableId, cell.column, cell.row ?: -1)
+    val isParentSelected = tableSelection.isCellParentSelected(
         selectedTableId = tableId,
         columnIndex = cell.column,
         rowIndex = cell.row ?: -1,
@@ -202,11 +205,16 @@ internal fun TableCell(
             ),
         )
         if (options.isNotEmpty()) {
-            DropDownOptions(
+            DropDownMenu(
                 expanded = dropDownExpanded,
-                options = options,
-                onDismiss = { setExpanded(false) },
-                onSelected = { code, label ->
+                onDismissRequest = { setExpanded(false) },
+                items = options.map {
+                    MenuItemData(
+                        id = it.code,
+                        label = it.name,
+                    )
+                },
+                onItemClick = { code ->
                     setExpanded(false)
                     localInteraction.onSelectionChange(
                         TableSelection.CellSelection(
@@ -216,8 +224,12 @@ internal fun TableCell(
                             globalIndex = 0,
                         ),
                     )
-                    localInteraction.onOptionSelected(cell, code, label)
-                    cellValue = label
+                    val label = options.first { it.code == code }.name
+                    localInteraction.onOptionSelected(
+                        cell.copy(value = label),
+                        code,
+                        label,
+                    )
                 },
             )
             if (showMultiSelector) {
@@ -246,9 +258,8 @@ internal fun TableCell(
         }
 
         if (cell.mandatory == true) {
-            // todo verify icon is correct vector and size with new multiplatform implementation
             Icon(
-                imageVector = Icons.Outlined.Emergency,
+                imageVector = Icons.Default.Emergency,
                 contentDescription = "mandatory",
                 modifier = Modifier
                     .testTag(MANDATORY_ICON_TEST_TAG)

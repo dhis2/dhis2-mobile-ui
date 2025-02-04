@@ -139,21 +139,21 @@ data class TableDimensions(
         return rowHeaderWidth(tableId) + defaultCellWidth * totalColumns + totalCellWidth
     }
 
-    private fun updateAllWidthBy(tableId: String, widthOffset: Float): TableDimensions {
+    fun updateAllWidthBy(tableId: String, widthOffset: Float): TableDimensions {
         val newWidth = (extraWidths[tableId] ?: 0) + widthOffset - 11
         val newMap = extraWidths.toMutableMap()
         newMap[tableId] = newWidth.toInt()
         return copy(extraWidths = newMap)
     }
 
-    private fun updateHeaderWidth(tableId: String, widthOffset: Float): TableDimensions {
+    fun updateHeaderWidth(tableId: String, widthOffset: Float): TableDimensions {
         val newWidth = (rowHeaderWidths[tableId] ?: defaultRowHeaderWidth) + widthOffset - 11
         val newMap = rowHeaderWidths.toMutableMap()
         newMap[tableId] = newWidth.toInt()
         return copy(rowHeaderWidths = newMap)
     }
 
-    private fun updateColumnWidth(tableId: String, column: Int, widthOffset: Float): TableDimensions {
+    fun updateColumnWidth(tableId: String, column: Int, widthOffset: Float): TableDimensions {
         val newWidth = (
             columnWidth[tableId]?.get(column)
                 ?: (defaultCellWidth + (currentExtraSize[tableId] ?: 0))

@@ -69,7 +69,6 @@ internal fun HeaderCell(
             maxLines = 3,
             softWrap = true,
         )
-        // TODO ensure new dividers are implemented correctly
         HorizontalDivider(
             color = TableTheme.colors.primary,
             modifier = Modifier

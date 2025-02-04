@@ -2,14 +2,12 @@ package org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.internal.TableCornerUiState
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.LocalTableColors
@@ -17,6 +15,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.LocalTableSelecti
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableSelection
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.modifiers.cornerBackground
+import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
 /**
  * Composable function to display the table corner.
@@ -28,10 +27,10 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.modifier
  */
 @Composable
 internal fun TableCorner(
-    modifier: Modifier = Modifier,
     tableCornerUiState: TableCornerUiState,
     tableId: String,
     onClick: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     val isSelected = LocalTableSelection.current is TableSelection.AllCellSelection
     Box(
@@ -52,9 +51,7 @@ internal fun TableCorner(
         contentAlignment = Alignment.CenterEnd,
     ) {
         VerticalDivider(
-            modifier
-                .fillMaxHeight()
-                .width(1.dp),
+            thickness = Spacing.Spacing1,
             color = TableTheme.colors.primary,
         )
         if (isSelected) {

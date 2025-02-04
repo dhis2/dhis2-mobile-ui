@@ -16,7 +16,6 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme
 
-// TODO review dividers
 /**
  * Composable function to display an extended divider for table rows.
  *

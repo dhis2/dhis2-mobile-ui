@@ -13,9 +13,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Info
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
+import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -87,7 +87,6 @@ internal fun ItemHeader(uiState: ItemHeaderUiState) {
                 )
                 if (uiState.rowHeader.showDecoration) {
                     Spacer(modifier = Modifier.size(Spacing.Spacing4))
-                    // TODO ensure icon is displayed correctly
                     Icon(
                         imageVector = Icons.Outlined.Info,
                         contentDescription = "info",
@@ -98,10 +97,8 @@ internal fun ItemHeader(uiState: ItemHeaderUiState) {
                     )
                 }
             }
-            HorizontalDivider(
-                modifier = Modifier
-                    .fillMaxHeight()
-                    .width(Spacing.Spacing1),
+            VerticalDivider(
+                thickness = Spacing.Spacing1,
                 color = TableTheme.colors.primary,
             )
         }
