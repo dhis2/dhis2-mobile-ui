@@ -44,6 +44,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import org.hisp.dhis.mobile.ui.designsystem.component.internal.modifiers.draggableList
 import org.hisp.dhis.mobile.ui.designsystem.component.state.BottomSheetShellUIState
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2SCustomTextStyles
@@ -162,7 +163,9 @@ fun InputDropDown(
                                 .testTag("INPUT_DROPDOWN_BOTTOM_SHEET_ITEMS")
                                 .semantics {
                                     dropDownItemCount = itemCount
-                                },
+                                }.draggableList(
+                                    scrollState = scrollState,
+                                ),
                             state = scrollState,
                         ) {
                             when {
