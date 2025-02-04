@@ -92,7 +92,7 @@ fun InputDialog(
                                     } else {
                                         Row(
                                             modifier = Modifier
-                                                .padding(Spacing.Spacing16)
+                                                .padding(start = Spacing.Spacing16, top = Spacing.Spacing12, end = Spacing.Spacing16, bottom = Spacing.Spacing12)
                                                 .background(SurfaceColor.SurfaceBright),
                                         ) {
                                             IconButton(

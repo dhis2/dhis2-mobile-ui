@@ -14,9 +14,26 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
+
+/* ## InputDialogContainer
+
+The `InputDialogContainer` is a composable function designed to contain input dialogs with background styles that adhere to DHIS2 design guidelines. It provides a structured layout with a gradient background at the top and a consistent background color for the rest of the content.
+
+### Usage
+
+To use the `InputDialogContainer`, simply wrap your input dialog content within the `InputDialogContainer` composable. The container will automatically apply the necessary background styles.
+
+### Example
+*/
+
+/**
+ * The `InputDialogContainer` is a composable function designed to contain [InputDialog]
+ * with background styles that adhere to DHIS2 design guidelines.
+ * It provides a structured layout with a gradient background at the top
+ * and a consistent background color for the rest of the content.
+ */
 
 @Composable
 internal fun InputDialogContainer(
@@ -44,7 +61,7 @@ internal fun InputDialogContainer(
                             .background(
                                 brush = Brush.verticalGradient(
                                     colors = listOf(
-                                        Color.White,
+                                        SurfaceColor.Primary.copy(alpha = 0f),
                                         SurfaceColor.Primary.copy(alpha = 0.20f),
                                     ),
                                 ),
