@@ -27,12 +27,12 @@ fun TwoPaneLayout(
         val (primaryPaneModifier, secondaryPaneModifier) = getPaneModifier(paneConfig)
 
         Box(
-            modifier = primaryPaneModifier,
+            modifier = secondaryPaneModifier,
         ) {
             secondaryPane()
         }
         Box(
-            modifier = secondaryPaneModifier,
+            modifier = primaryPaneModifier,
         ) {
             primaryPane()
         }
