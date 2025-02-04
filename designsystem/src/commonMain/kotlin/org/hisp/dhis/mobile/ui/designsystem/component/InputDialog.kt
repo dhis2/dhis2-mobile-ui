@@ -29,6 +29,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.InputDialogContainer
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
@@ -54,63 +55,33 @@ fun InputDialog(
     modifier: Modifier = Modifier,
 ) {
     var detailShown by remember { mutableStateOf(false) }
-
-    LazyColumn(
-        contentPadding = PaddingValues(horizontal = Spacing.Spacing10),
-        verticalArrangement = Arrangement.Bottom,
-        modifier = modifier,
-    ) {
-        item {
-            Box {
-                Card(
-                    shape = Shape.Large,
-                    modifier = Modifier.clip(Shape.Large),
-                    content = {
-                        Column(
-                            modifier = Modifier.background(color = SurfaceColor.SurfaceBright),
-                        ) {
-                            input()
-                            if (detailShown) {
-                                Button(
-                                    modifier = Modifier.padding(Spacing.Spacing16)
-                                        .fillMaxWidth(),
-                                    text = provideStringResource("hide_details"),
-                                    style = ButtonStyle.TONAL,
-                                    icon = {
-                                        Icon(
-                                            imageVector = Icons.Filled.ArrowDropUp,
-                                            contentDescription = "Icon Button",
-                                        )
-                                    },
-                                    onClick = {
-                                        detailShown = !detailShown
-                                    },
-                                )
-                            } else {
-                                Row(
-                                    modifier = Modifier
-                                        .padding(Spacing.Spacing16)
-                                        .background(SurfaceColor.SurfaceBright),
+    InputDialogContainer(
+        content = {
+            LazyColumn(
+                contentPadding = PaddingValues(horizontal = Spacing.Spacing10),
+                verticalArrangement = Arrangement.Bottom,
+                modifier = modifier,
+            ) {
+                item {
+                    Spacer(Modifier.size(Spacing.Spacing24))
+                    Box {
+                        Card(
+                            shape = Shape.Large,
+                            modifier = Modifier.clip(Shape.Large),
+                            content = {
+                                Column(
+                                    modifier = Modifier.background(color = SurfaceColor.SurfaceBright),
                                 ) {
-                                    IconButton(
-                                        style = IconButtonStyle.TONAL,
-                                        icon = {
-                                            Icon(
-                                                imageVector = Icons.Outlined.KeyboardArrowDown,
-                                                contentDescription = "Icon Button",
-                                            )
-                                        },
-                                        onClick = {
-                                            onDismiss.invoke()
-                                        },
-                                    )
-                                    Spacer(Modifier.size(Spacing.Spacing10))
-                                    if (details != null) {
-                                        IconButton(
-                                            style = IconButtonStyle.TONAL,
+                                    input()
+                                    if (detailShown) {
+                                        Button(
+                                            modifier = Modifier.padding(Spacing.Spacing16)
+                                                .fillMaxWidth(),
+                                            text = provideStringResource("hide_details"),
+                                            style = ButtonStyle.TONAL,
                                             icon = {
                                                 Icon(
-                                                    imageVector = Icons.Outlined.Info,
+                                                    imageVector = Icons.Filled.ArrowDropUp,
                                                     contentDescription = "Icon Button",
                                                 )
                                             },
@@ -118,53 +89,87 @@ fun InputDialog(
                                                 detailShown = !detailShown
                                             },
                                         )
-                                        Spacer(Modifier.size(Spacing.Spacing10))
+                                    } else {
+                                        Row(
+                                            modifier = Modifier
+                                                .padding(Spacing.Spacing16)
+                                                .background(SurfaceColor.SurfaceBright),
+                                        ) {
+                                            IconButton(
+                                                style = IconButtonStyle.TONAL,
+                                                icon = {
+                                                    Icon(
+                                                        imageVector = Icons.Outlined.KeyboardArrowDown,
+                                                        contentDescription = "Icon Button",
+                                                    )
+                                                },
+                                                onClick = {
+                                                    onDismiss.invoke()
+                                                },
+                                            )
+                                            Spacer(Modifier.size(Spacing.Spacing10))
+                                            if (details != null) {
+                                                IconButton(
+                                                    style = IconButtonStyle.TONAL,
+                                                    icon = {
+                                                        Icon(
+                                                            imageVector = Icons.Outlined.Info,
+                                                            contentDescription = "Icon Button",
+                                                        )
+                                                    },
+                                                    onClick = {
+                                                        detailShown = !detailShown
+                                                    },
+                                                )
+                                                Spacer(Modifier.size(Spacing.Spacing10))
+                                            }
+                                            actionButton()
+                                        }
                                     }
-                                    actionButton()
+                                }
+                            },
+                        )
+                    }
+                }
+                if (detailShown) {
+                    item {
+                        AnimatedVisibility(
+                            visible = detailShown,
+                            enter = slideInVertically(
+                                initialOffsetY = { it },
+                                animationSpec = tween(durationMillis = 500),
+                            ),
+                            exit = slideOutVertically(
+                                targetOffsetY = { it },
+                                animationSpec = tween(durationMillis = 500),
+                            ),
+                        ) {
+                            details?.let {
+                                Column {
+                                    details()
+                                    Spacer(Modifier.size(Spacing.Spacing10))
+                                    Button(
+                                        modifier = Modifier
+                                            .fillMaxWidth(),
+                                        text = provideStringResource("hide_details"),
+                                        style = ButtonStyle.TONAL,
+                                        icon = {
+                                            Icon(
+                                                imageVector = Icons.Filled.ArrowDropUp,
+                                                contentDescription = "Icon Button",
+                                            )
+                                        },
+                                        onClick = {
+                                            detailShown = !detailShown
+                                        },
+                                    )
+                                    Spacer(Modifier.size(Spacing.Spacing10))
                                 }
                             }
-                        }
-                    },
-                )
-            }
-        }
-        if (detailShown) {
-            item {
-                AnimatedVisibility(
-                    visible = detailShown,
-                    enter = slideInVertically(
-                        initialOffsetY = { it },
-                        animationSpec = tween(durationMillis = 500),
-                    ),
-                    exit = slideOutVertically(
-                        targetOffsetY = { it },
-                        animationSpec = tween(durationMillis = 500),
-                    ),
-                ) {
-                    details?.let {
-                        Column {
-                            details()
-                            Spacer(Modifier.size(Spacing.Spacing10))
-                            Button(
-                                modifier = Modifier
-                                    .fillMaxWidth(),
-                                text = provideStringResource("hide_details"),
-                                style = ButtonStyle.TONAL,
-                                icon = {
-                                    Icon(
-                                        imageVector = Icons.Filled.ArrowDropUp,
-                                        contentDescription = "Icon Button",
-                                    )
-                                },
-                                onClick = {
-                                    detailShown = !detailShown
-                                },
-                            )
-                            Spacer(Modifier.size(Spacing.Spacing10))
                         }
                     }
                 }
             }
-        }
-    }
+        },
+    )
 }
