@@ -34,6 +34,7 @@ import org.hisp.dhis.common.screens.others.SectionScreen
 import org.hisp.dhis.common.screens.others.TagsScreen
 import org.hisp.dhis.common.screens.others.TopBarScreen
 import org.hisp.dhis.common.screens.parameter.ParameterSelectorScreen
+import org.hisp.dhis.common.screens.table.InputDialogScreen
 import org.hisp.dhis.common.screens.table.TableScreen
 import org.hisp.dhis.common.screens.tabs.TabsScreen
 import org.hisp.dhis.common.screens.toggleableInputs.ToggleableInputsScreen
@@ -144,6 +145,7 @@ fun Main(
                     onLocationRequest?.invoke(locationQuery, locationCallback)
                 }
                 Groups.TABLE -> TableScreen()
+                Groups.INPUT_DIALOG -> InputDialogScreen()
                 Groups.TABS -> TabsScreen()
                 Groups.TWO_PANE_LAYOUT -> TwoPaneLayoutScreen()
             }

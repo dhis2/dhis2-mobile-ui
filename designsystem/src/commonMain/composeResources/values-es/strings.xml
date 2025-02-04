@@ -48,4 +48,5 @@
     <string name="no_results">No hay resultados</string>
     <string name="accept">Aceptar</string>
     <string name="searching_location">Buscando...</string>
+    <string name="hide_details">Ocultar detalles</string>
 </resources>
