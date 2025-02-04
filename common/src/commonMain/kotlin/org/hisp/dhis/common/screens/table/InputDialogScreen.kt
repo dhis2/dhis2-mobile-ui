@@ -12,10 +12,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.Assignment
 import androidx.compose.material.icons.automirrored.outlined.Message
@@ -39,7 +37,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.TextFieldValue
@@ -56,6 +53,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.InputText
 import org.hisp.dhis.mobile.ui.designsystem.component.ListCard
 import org.hisp.dhis.mobile.ui.designsystem.component.ListCardDescriptionModel
 import org.hisp.dhis.mobile.ui.designsystem.component.ListCardTitleModel
+import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
 import org.hisp.dhis.mobile.ui.designsystem.component.Title
 import org.hisp.dhis.mobile.ui.designsystem.component.state.rememberAdditionalInfoColumnState
 import org.hisp.dhis.mobile.ui.designsystem.component.state.rememberListCardState
@@ -70,7 +68,7 @@ fun InputDialogScreen() {
 
     var inputValue1 by remember() {
         mutableStateOf(
-            TextFieldValue("Value", selection = TextRange(5, 5)),
+            TextFieldValue("Label", selection = TextRange(5, 5)),
         )
     }
     Box(
@@ -87,7 +85,12 @@ fun InputDialogScreen() {
                 text = "Input Data Entry",
                 modifier = Modifier.padding(vertical = Spacing.Spacing16),
             )
+            Spacer(Modifier.size(Spacing.Spacing16))
 
+            SubTitle(
+                text = "Input dialog with content",
+                modifier = Modifier.padding(vertical = Spacing.Spacing16),
+            )
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Button(
                     style = ButtonStyle.FILLED,
@@ -118,77 +121,48 @@ fun InputDialogScreen() {
                 verticalArrangement = Arrangement.Bottom,
                 modifier = Modifier.align(Alignment.BottomCenter),
             ) {
-                Box(
-                    modifier = Modifier
-                        .height(Spacing.Spacing24)
-                        .fillMaxWidth()
-                        .background(
-                            brush =
-                            Brush.verticalGradient(
-                                colors = listOf(
-                                    Color.White,
-                                    SurfaceColor.Primary.copy(alpha = 0.20f),
-                                ),
-
-                            ),
-
-                        ),
-
-                )
-                Box(
-                    modifier = Modifier
-                        .wrapContentSize()
-                        .background(
-                            color = SurfaceColor.Primary.copy(alpha = 0.20f),
-                        ),
-                    contentAlignment = Alignment.BottomCenter,
-                ) {
-                    Column(verticalArrangement = Arrangement.Bottom) {
-                        InputDialog(
-                            input = {
-                                InputText(
-                                    modifier = Modifier.focusRequester(focusRequester),
-                                    title = "Label",
-                                    inputTextFieldValue = inputValue1,
-                                    onValueChanged = {
-                                        if (it != null) {
-                                            inputValue1 = it
-                                        }
-                                    },
-                                    state = InputShellState.FOCUSED,
-                                    onFocusChanged = {
-                                    },
-                                )
+                InputDialog(
+                    input = {
+                        InputText(
+                            modifier = Modifier.focusRequester(focusRequester),
+                            title = "Label",
+                            inputTextFieldValue = inputValue1,
+                            onValueChanged = {
+                                if (it != null) {
+                                    inputValue1 = it
+                                }
                             },
-                            details = {
-                                InputDataEntryDetails()
+                            state = InputShellState.FOCUSED,
+                            onFocusChanged = {
                             },
-                            actionButton = {
-                                Button(
-                                    style = ButtonStyle.FILLED,
-                                    text = "Done",
-                                    onClick = {
-                                        showTextInputDataEntry = false
-                                    },
-                                    icon = {
-                                        Icon(
-                                            imageVector = Icons.Default.Done,
-                                            contentDescription = "Done",
-                                        )
-                                    },
-                                    modifier = Modifier.fillMaxWidth(),
-                                )
-                            },
-                            onDismiss = {
+                        )
+                    },
+                    details = {
+                        InputDialogDetails()
+                    },
+                    actionButton = {
+                        Button(
+                            style = ButtonStyle.FILLED,
+                            text = "Done",
+                            onClick = {
                                 showTextInputDataEntry = false
                             },
-                            modifier = Modifier,
+                            icon = {
+                                Icon(
+                                    imageVector = Icons.Default.Done,
+                                    contentDescription = "Done",
+                                )
+                            },
+                            modifier = Modifier.fillMaxWidth(),
                         )
-                        Spacer(Modifier.size(Spacing.Spacing10))
-                    }
-                    LaunchedEffect(Unit) {
-                        focusRequester.requestFocus()
-                    }
+                    },
+                    onDismiss = {
+                        showTextInputDataEntry = false
+                    },
+                    modifier = Modifier,
+                )
+                LaunchedEffect(Unit) {
+                    focusRequester.requestFocus()
                 }
             }
         }
@@ -196,7 +170,7 @@ fun InputDialogScreen() {
 }
 
 @Composable
-fun InputDataEntryDetails() {
+fun InputDialogDetails() {
     Column {
         Spacer(Modifier.size(Spacing.Spacing10))
 
