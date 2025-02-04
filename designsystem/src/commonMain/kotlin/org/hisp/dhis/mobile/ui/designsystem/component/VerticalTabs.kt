@@ -67,7 +67,7 @@ fun VerticalTabs(
     }
 
     val indicatorVerticalOffset by animateDpAsState(
-        targetValue = VerticalTabsDefaults.tabHeight * selectedSection - scrollOffset,
+        targetValue = VerticalTabsDefaults.tabHeight * selectedSection - scrollOffset + contentPadding.calculateTopPadding(),
         label = "",
     )
 
@@ -125,6 +125,18 @@ internal fun VerticalTab(
         modifier = Modifier
             .fillMaxWidth()
             .height(defaultVerticalTabHeight)
+            .clickable(
+                onClick = onTabClick,
+                role = Role.Tab,
+                interactionSource = interactionSource,
+                indication = ripple(
+                    color = if (tabColorStyle is TabColorStyle.Primary) {
+                        MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.16f)
+                    } else {
+                        MaterialTheme.colorScheme.primary
+                    },
+                ),
+            )
             .padding(
                 horizontal = if (tabStyle is TabStyle.IconOnly) {
                     Spacing.Spacing5
@@ -132,14 +144,6 @@ internal fun VerticalTab(
                     Spacing.Spacing16
                 },
                 vertical = Spacing.Spacing5,
-            )
-            .clickable(
-                onClick = onTabClick,
-                role = Role.Tab,
-                interactionSource = interactionSource,
-                indication = ripple(
-                    color = MaterialTheme.colorScheme.primary,
-                ),
             ),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = spacedBy(Spacing.Spacing4),

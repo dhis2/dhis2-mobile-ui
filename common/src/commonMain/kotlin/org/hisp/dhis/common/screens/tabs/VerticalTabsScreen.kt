@@ -56,7 +56,7 @@ fun VerticalTabsScreen(
             tabColorStyle = tabColorStyle,
             onSectionSelected = {
             },
-            contentPadding = PaddingValues(horizontal = Spacing.Spacing12),
+            contentPadding = PaddingValues(vertical = Spacing.Spacing12),
         )
     }
 }
