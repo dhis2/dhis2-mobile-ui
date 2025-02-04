@@ -3,6 +3,7 @@ package org.hisp.dhis.mobile.ui.designsystem.component
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.ScrollableState
 import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.Box
@@ -379,7 +380,15 @@ fun BottomSheetShell(
         sheetState = sheetState,
         dragHandle = {
             Box(
-                modifier = Modifier.padding(top = Spacing.Spacing72),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable(
+                        interactionSource = null,
+                        onClick = onDismiss,
+                        indication = null,
+                    )
+                    .padding(top = Spacing.Spacing72),
+                contentAlignment = Alignment.BottomCenter,
             ) {
                 BottomSheetIconButton(
                     icon = {
