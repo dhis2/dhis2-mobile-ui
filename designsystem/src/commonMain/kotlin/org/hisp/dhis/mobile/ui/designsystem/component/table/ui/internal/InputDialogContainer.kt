@@ -39,7 +39,7 @@ To use the `InputDialogContainer`, simply wrap your input dialog content within 
 @Composable
 internal fun InputDialogContainer(
     content: @Composable () -> Unit,
-    isExpanded: Boolean = false,
+    isFullyExpanded: Boolean = false,
 ) {
     Column(
         verticalArrangement = Arrangement.Bottom,
@@ -84,7 +84,7 @@ internal fun InputDialogContainer(
                 content.invoke()
                 Spacer(Modifier.size(Spacing.Spacing10))
             }
-            if (isExpanded) {
+            if (isFullyExpanded) {
                 Box(
                     modifier = Modifier
                         .align(Alignment.TopCenter)
