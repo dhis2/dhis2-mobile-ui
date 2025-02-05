@@ -36,8 +36,6 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 
-
-
 /**
  * DHIS2 Expandable Input Shell is a component designed to contain an Input with additional details
  * that will be shown bellow the component.
