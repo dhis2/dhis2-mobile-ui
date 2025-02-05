@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropUp
 import androidx.compose.material.icons.outlined.Info
@@ -55,14 +56,19 @@ fun InputDialog(
     modifier: Modifier = Modifier,
 ) {
     var detailShown by remember { mutableStateOf(false) }
+    val scrollState = rememberLazyListState()
+
+    var isScrollActive by remember(scrollState) { mutableStateOf(false) }
     InputDialogContainer(
-        isExpanded = detailShown,
+        isFullyExpanded = isScrollActive,
         content = {
             LazyColumn(
+                state = scrollState,
                 contentPadding = PaddingValues(horizontal = Spacing.Spacing10),
                 verticalArrangement = Arrangement.Bottom,
                 modifier = modifier,
             ) {
+                isScrollActive = scrollState.canScrollForward || scrollState.canScrollBackward
                 item {
                     Spacer(Modifier.size(Spacing.Spacing24))
                     Box {

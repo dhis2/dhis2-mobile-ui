@@ -85,6 +85,14 @@ fun InputDialogScreen() {
         )
     }
 
+    var showInputDialogWithSmallContent by remember { mutableStateOf(false) }
+
+    var inputValue5 by remember() {
+        mutableStateOf(
+            TextFieldValue("Label", selection = TextRange(5, 5)),
+        )
+    }
+
     var showInputDialogWithoutContent by remember { mutableStateOf(false) }
 
     var inputValue2 by remember() {
@@ -144,6 +152,22 @@ fun InputDialogScreen() {
                     },
                 )
                 Text(" Value: ${inputValue1.text}")
+            }
+
+            SubTitle(
+                text = "Input dialog with small content",
+                modifier = Modifier.padding(bottom = Spacing.Spacing16),
+            )
+
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Button(
+                    style = ButtonStyle.FILLED,
+                    text = "Show Input Dialog with small content",
+                    onClick = {
+                        showInputDialogWithSmallContent = !showInputDialogWithSmallContent
+                    },
+                )
+                Text(" Value: ${inputValue5.text}")
             }
 
             SubTitle(
@@ -277,6 +301,69 @@ fun InputDialogScreen() {
                     },
                     onDismiss = {
                         showInputDialogWithContent = false
+                    },
+                    modifier = Modifier,
+                )
+                LaunchedEffect(Unit) {
+                    focusRequester.requestFocus()
+                }
+            }
+        }
+
+        AnimatedVisibility(
+            visible = showInputDialogWithSmallContent,
+            enter = slideInVertically(
+                initialOffsetY = { it },
+                animationSpec = tween(durationMillis = 400),
+            ),
+            exit = slideOutVertically(
+                targetOffsetY = { it },
+                animationSpec = tween(durationMillis = 400),
+            ),
+        ) {
+            val focusRequester = remember { FocusRequester() }
+
+            Column(
+                verticalArrangement = Arrangement.Bottom,
+                modifier = Modifier.align(Alignment.BottomCenter),
+            ) {
+                InputDialog(
+                    input = {
+                        InputText(
+                            modifier = Modifier.focusRequester(focusRequester),
+                            title = "Label",
+                            inputTextFieldValue = inputValue1,
+                            onValueChanged = {
+                                if (it != null) {
+                                    inputValue5 = it
+                                }
+                            },
+                            state = InputShellState.FOCUSED,
+                            onFocusChanged = {
+                            },
+                        )
+                    },
+                    details = {
+                        InputDialogDetailsSmall()
+                    },
+                    actionButton = {
+                        Button(
+                            style = ButtonStyle.FILLED,
+                            text = "Done",
+                            onClick = {
+                                showInputDialogWithSmallContent = false
+                            },
+                            icon = {
+                                Icon(
+                                    imageVector = Icons.Default.Done,
+                                    contentDescription = "Done",
+                                )
+                            },
+                            modifier = Modifier.fillMaxWidth(),
+                        )
+                    },
+                    onDismiss = {
+                        showInputDialogWithSmallContent = false
                     },
                     modifier = Modifier,
                 )
@@ -861,5 +948,120 @@ fun InputDialogDetails() {
                 )
             }
         }
+    }
+}
+
+@Composable
+fun InputDialogDetailsSmall() {
+    Column {
+        Spacer(Modifier.size(Spacing.Spacing10))
+
+        Card(
+            shape = Shape.Large,
+            modifier = Modifier.clip(Shape.Large)
+                .background(color = SurfaceColor.Primary.copy(alpha = 0.2f)),
+
+        ) {
+            Column(
+                modifier = Modifier.background(SurfaceColor.SurfaceBright)
+                    .padding(Spacing.Spacing16),
+            ) {
+                Row(
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Outlined.Assignment,
+                        contentDescription = "Done",
+                        modifier = Modifier.padding(Spacing.Spacing16),
+                    )
+                    Text(
+                        "Details",
+                        style = MaterialTheme.typography.titleMedium,
+                        modifier = Modifier.weight(0.7f),
+                    )
+
+                    IconButton(
+                        style = IconButtonStyle.TONAL,
+                        icon = {
+                            Icon(
+                                imageVector = Icons.Filled.KeyboardArrowUp,
+                                contentDescription = "Icon Button",
+                            )
+                        },
+                        onClick = {
+                        },
+                    )
+                }
+                Spacer(Modifier.size(Spacing.Spacing10))
+
+                Text(
+                    "Label / Label",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = TextColor.OnPrimaryContainer,
+                )
+                Spacer(Modifier.size(Spacing.Spacing4))
+
+                Row {
+                    Text(
+                        "Code: ",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = TextColor.OnSurfaceLight,
+                    )
+                    Text(
+                        "DE_359532 ",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = TextColor.OnSurface,
+                    )
+                }
+                Spacer(Modifier.size(Spacing.Spacing4))
+
+                Row {
+                    Text(
+                        "Data element id:  ",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = TextColor.OnSurfaceLight,
+                    )
+                    Text(
+                        "fbfJHSPpUQD ",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = TextColor.OnSurface,
+                    )
+                }
+                Spacer(Modifier.size(Spacing.Spacing4))
+                Row {
+                    Text(
+                        "Category option combo ID: ",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = TextColor.OnSurfaceLight,
+                    )
+                    Text(
+                        "pq2X15kz2BY ",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = TextColor.OnSurface,
+                    )
+                }
+
+                Spacer(Modifier.size(Spacing.Spacing16))
+                InfoBar(
+                    InfoBarData(
+                        text = "Marked for follow up",
+                        icon = {
+                            Icon(
+                                imageVector = Icons.Filled.Flag,
+                                contentDescription = "not synced",
+                                tint = SurfaceColor.Warning,
+                            )
+                        },
+                        color = TextColor.OnSurfaceLight,
+                        backgroundColor = SurfaceColor.Surface,
+                        actionText = "Remove",
+                        onClick = {},
+                    ),
+                )
+                Spacer(Modifier.size(Spacing.Spacing16))
+            }
+        }
+        Spacer(Modifier.size(Spacing.Spacing10))
     }
 }
