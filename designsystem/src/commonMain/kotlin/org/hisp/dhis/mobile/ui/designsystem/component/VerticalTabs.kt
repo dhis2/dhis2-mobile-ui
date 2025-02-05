@@ -152,7 +152,6 @@ internal fun VerticalTab(
             TabStyle.IconAndLabel -> {
                 iconImage?.let {
                     Icon(
-                        modifier = Modifier.padding(Spacing.Spacing6),
                         imageVector = iconImage,
                         contentDescription = "",
                         tint = VerticalTabsDefaults.textColor(tabColorStyle, selected),
@@ -172,7 +171,6 @@ internal fun VerticalTab(
                 ) {
                     iconImage?.let {
                         Icon(
-                            modifier = Modifier.padding(Spacing.Spacing6),
                             imageVector = iconImage,
                             contentDescription = "",
                             tint = VerticalTabsDefaults.textColor(tabColorStyle, selected),
