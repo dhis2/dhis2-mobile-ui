@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.runtime.Composable
@@ -38,6 +39,7 @@ To use the `InputDialogContainer`, simply wrap your input dialog content within 
 @Composable
 internal fun InputDialogContainer(
     content: @Composable () -> Unit,
+    isExpanded: Boolean = false,
 ) {
     Column(
         verticalArrangement = Arrangement.Bottom,
@@ -66,7 +68,9 @@ internal fun InputDialogContainer(
                                     ),
                                 ),
                             ),
+
                     )
+
                     Box(
                         modifier = Modifier
                             .fillMaxSize()
@@ -79,6 +83,22 @@ internal fun InputDialogContainer(
             Column(verticalArrangement = Arrangement.Bottom) {
                 content.invoke()
                 Spacer(Modifier.size(Spacing.Spacing10))
+            }
+            if (isExpanded) {
+                Box(
+                    modifier = Modifier
+                        .align(Alignment.TopCenter)
+                        .requiredHeight(Spacing.Spacing24)
+                        .fillMaxWidth()
+                        .background(
+                            brush = Brush.verticalGradient(
+                                colors = listOf(
+                                    SurfaceColor.Primary.copy(alpha = 0.20f),
+                                    SurfaceColor.Primary.copy(alpha = 0f),
+                                ),
+                            ),
+                        ),
+                )
             }
         }
     }
