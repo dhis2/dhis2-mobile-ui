@@ -1,4 +1,4 @@
-package org.hisp.dhis.mobile.ui.designsystem.component.internal.modifiers
+package org.hisp.dhis.mobile.ui.designsystem.component.modifier
 
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.Composable
@@ -7,7 +7,7 @@ import androidx.compose.ui.Modifier
 import kotlinx.coroutines.CoroutineScope
 
 @Composable
-internal expect fun Modifier.draggableList(
+expect fun Modifier.draggableList(
     coroutineScope: CoroutineScope = rememberCoroutineScope(),
     scrollState: LazyListState,
 ): Modifier

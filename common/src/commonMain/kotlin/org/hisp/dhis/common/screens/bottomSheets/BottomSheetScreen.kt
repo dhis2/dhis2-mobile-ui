@@ -36,6 +36,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.ColorStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.LegendRange
+import org.hisp.dhis.mobile.ui.designsystem.component.modifier.draggableList
 import org.hisp.dhis.mobile.ui.designsystem.component.state.BottomSheetShellDefaults
 import org.hisp.dhis.mobile.ui.designsystem.component.state.BottomSheetShellUIState
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
@@ -84,7 +85,10 @@ fun BottomSheetScreen() {
                 title = "Legend name ",
             ),
             content = {
-                LazyColumn(state = scrollState) {
+                LazyColumn(
+                    modifier = Modifier.draggableList(scrollState = scrollState),
+                    state = scrollState,
+                ) {
                     items(longLegendList) { item ->
                         Column {
                             Text(

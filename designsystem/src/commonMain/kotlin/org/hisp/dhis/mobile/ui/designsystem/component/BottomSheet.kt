@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Close
@@ -25,6 +24,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.SheetValue
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
@@ -153,7 +153,6 @@ fun BottomSheetHeader(
  * @param scrollableContainerMinHeight: Min size for scrollable content.
  * @param scrollableContainerMaxHeight: Max size for scrollable content.
  */
-@OptIn(ExperimentalMaterial3Api::class)
 @Deprecated("Use the new BottomSheetShell with the new parameters")
 @Composable
 fun BottomSheetShell(
@@ -163,7 +162,7 @@ fun BottomSheetShell(
     description: String? = null,
     searchQuery: String? = null,
     showSectionDivider: Boolean = true,
-    contentScrollState: ScrollableState = rememberScrollState(),
+    contentScrollState: ScrollableState? = null,
     icon: @Composable (() -> Unit)? = null,
     buttonBlock: @Composable (() -> Unit)? = null,
     modifier: Modifier = Modifier,
@@ -175,149 +174,28 @@ fun BottomSheetShell(
     onSearch: ((String) -> Unit)? = null,
     onDismiss: () -> Unit,
 ) {
-    val sheetState = rememberModalBottomSheetState(true)
-    val scope = rememberCoroutineScope()
-    val keyboardState by keyboardAsState()
-
-    var isKeyboardOpen by remember { mutableStateOf(false) }
-    val showHeader by remember {
-        derivedStateOf {
-            if (animateHeaderOnKeyboardAppearance) {
-                !title.isNullOrBlank() && !isKeyboardOpen
-            } else {
-                !title.isNullOrBlank()
-            }
-        }
-    }
-
-    LaunchedEffect(keyboardState) {
-        isKeyboardOpen = keyboardState == Keyboard.Opened
-    }
-
-    ModalBottomSheet(
+    BottomSheetShell(
+        uiState = BottomSheetShellUIState(
+            title = title,
+            subtitle = subtitle,
+            description = description,
+            searchQuery = searchQuery,
+            showTopSectionDivider = showSectionDivider,
+            showBottomSectionDivider = showSectionDivider,
+            headerTextAlignment = headerTextAlignment,
+            scrollableContainerMinHeight = scrollableContainerMinHeight,
+            scrollableContainerMaxHeight = scrollableContainerMaxHeight,
+            animateHeaderOnKeyboardAppearance = animateHeaderOnKeyboardAppearance,
+        ),
         modifier = modifier,
-        containerColor = Color.Transparent,
-        onDismissRequest = {
-            onDismiss()
-        },
-        sheetState = sheetState,
-        dragHandle = {
-            Box(
-                modifier = Modifier.padding(top = Spacing.Spacing72),
-            ) {
-                BottomSheetIconButton(
-                    icon = {
-                        Icon(
-                            imageVector = Icons.Outlined.Close,
-                            contentDescription = "Button",
-                            tint = SurfaceColor.SurfaceBright,
-                        )
-                    },
-                    modifier = Modifier.padding(bottom = Spacing.Spacing4),
-                ) {
-                    scope.launch {
-                        onDismiss()
-                    }
-                }
-            }
-        },
-    ) {
-        val canScrollForward by derivedStateOf { contentScrollState.canScrollForward }
-
-        Column(
-            modifier = Modifier.padding(bottom = Spacing0).background(SurfaceColor.SurfaceBright, Shape.ExtraLargeTop),
-        ) {
-            val scrollColumnShadow = if (canScrollForward) {
-                Modifier.innerShadow(blur = 32.dp)
-            } else {
-                Modifier
-            }
-            Column(
-                modifier = Modifier
-                    .weight(1f, fill = false)
-                    .background(SurfaceColor.SurfaceBright, Shape.ExtraLargeTop)
-                    .padding(top = Spacing24),
-            ) {
-                val hasSearch =
-                    searchQuery != null && onSearchQueryChanged != null && onSearch != null
-                AnimatedVisibility(
-                    visible = showHeader,
-                ) {
-                    BottomSheetHeader(
-                        title = title!!,
-                        subTitle = subtitle,
-                        description = description,
-                        icon = icon,
-                        hasSearch = hasSearch,
-                        headerTextAlignment = headerTextAlignment,
-                        modifier = Modifier
-                            .padding(vertical = Spacing0)
-                            .align(Alignment.CenterHorizontally),
-                    )
-                }
-
-                if (showHeader && hasSearch) {
-                    Spacer(Modifier.requiredHeight(16.dp))
-                }
-
-                if (hasSearch) {
-                    SearchBar(
-                        modifier = Modifier.fillMaxWidth().padding(horizontal = Spacing24),
-                        text = searchQuery!!,
-                        onQueryChange = onSearchQueryChanged!!,
-                        onSearch = onSearch!!,
-                    )
-                }
-
-                if (showHeader || hasSearch) {
-                    if (showSectionDivider) {
-                        HorizontalDivider(
-                            modifier = Modifier.fillMaxWidth()
-                                .padding(top = Spacing24, start = Spacing24, end = Spacing24, bottom = Spacing8),
-                            color = TextColor.OnDisabledSurface,
-                            thickness = Border.Thin,
-                        )
-                    } else {
-                        Spacer(Modifier.requiredHeight(Spacing24))
-                    }
-                }
-
-                content?.let {
-                    val scrollModifier = if ((contentScrollState as? ScrollState) != null) {
-                        Modifier.verticalScroll(contentScrollState)
-                    } else {
-                        Modifier
-                    }
-                    Column(
-                        Modifier
-                            .then(scrollColumnShadow),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                    ) {
-                        Column(
-                            modifier = Modifier
-                                .padding(horizontal = Spacing24)
-                                .heightIn(scrollableContainerMinHeight, scrollableContainerMaxHeight)
-                                .then(scrollModifier),
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                            verticalArrangement = spacedBy(Spacing8),
-                        ) {
-                            content.invoke()
-                        }
-                        if (showSectionDivider && !canScrollForward) {
-                            HorizontalDivider(
-                                modifier = Modifier.fillMaxWidth().padding(horizontal = Spacing24),
-                                color = TextColor.OnDisabledSurface,
-                                thickness = Border.Thin,
-                            )
-                        }
-                    }
-                }
-            }
-            buttonBlock?.let {
-                buttonBlock.invoke()
-            }
-        }
-    }
+        content = content,
+        contentScrollState = contentScrollState,
+        icon = icon,
+        buttonBlock = buttonBlock,
+        onSearchQueryChanged = onSearchQueryChanged,
+        onSearch = onSearch,
+        onDismiss = onDismiss,
+    )
 }
 
 /**
@@ -344,16 +222,27 @@ fun BottomSheetShell(
     modifier: Modifier = Modifier,
     content: @Composable (() -> Unit)?,
     windowInsets: @Composable () -> WindowInsets = { BottomSheetDefaults.windowInsets },
-    contentScrollState: ScrollableState = rememberScrollState(),
+    contentScrollState: ScrollableState? = null,
     icon: @Composable (() -> Unit)? = null,
     buttonBlock: @Composable (() -> Unit)? = null,
     onSearchQueryChanged: ((String) -> Unit)? = null,
     onSearch: ((String) -> Unit)? = null,
     onDismiss: () -> Unit,
 ) {
-    val sheetState = rememberModalBottomSheetState(true)
     val scope = rememberCoroutineScope()
     val keyboardState by keyboardAsState()
+    val canDismissByDragging = contentScrollState == null
+    val sheetState = rememberModalBottomSheetState(
+        skipPartiallyExpanded = true,
+        confirmValueChange = {
+            when (it) {
+                SheetValue.Hidden -> canDismissByDragging
+                SheetValue.Expanded -> true
+                SheetValue.PartiallyExpanded -> true
+                else -> true
+            }
+        },
+    )
 
     var isKeyboardOpen by remember { mutableStateOf(false) }
     val showHeader by remember {
@@ -407,10 +296,11 @@ fun BottomSheetShell(
             }
         },
     ) {
-        val canScrollForward by derivedStateOf { contentScrollState.canScrollForward }
+        val canScrollForward by derivedStateOf { contentScrollState?.canScrollForward == true }
 
         Column(
-            modifier = Modifier.padding(bottom = Spacing0).background(SurfaceColor.SurfaceBright, Shape.ExtraLargeTop),
+            modifier = Modifier.padding(bottom = Spacing0)
+                .background(SurfaceColor.SurfaceBright, Shape.ExtraLargeTop),
         ) {
             val scrollColumnShadow = if (canScrollForward) {
                 Modifier.innerShadow(blur = 32.dp)
@@ -457,7 +347,12 @@ fun BottomSheetShell(
                     if (uiState.showTopSectionDivider) {
                         HorizontalDivider(
                             modifier = Modifier.fillMaxWidth()
-                                .padding(top = Spacing24, start = Spacing24, end = Spacing24, bottom = Spacing0),
+                                .padding(
+                                    top = Spacing24,
+                                    start = Spacing24,
+                                    end = Spacing24,
+                                    bottom = Spacing0,
+                                ),
                             color = TextColor.OnDisabledSurface,
                             thickness = Border.Thin,
                         )
@@ -480,7 +375,10 @@ fun BottomSheetShell(
                         Column(
                             modifier = Modifier
                                 .padding(horizontal = Spacing24)
-                                .heightIn(uiState.scrollableContainerMinHeight, uiState.scrollableContainerMaxHeight)
+                                .heightIn(
+                                    uiState.scrollableContainerMinHeight,
+                                    uiState.scrollableContainerMaxHeight,
+                                )
                                 .then(scrollModifier),
                             horizontalAlignment = Alignment.CenterHorizontally,
                             verticalArrangement = spacedBy(Spacing8),
@@ -490,7 +388,12 @@ fun BottomSheetShell(
                         }
                         if (uiState.showBottomSectionDivider && !canScrollForward) {
                             HorizontalDivider(
-                                modifier = Modifier.fillMaxWidth().padding(start = Spacing24, end = Spacing24, bottom = Spacing0, top = Spacing0),
+                                modifier = Modifier.fillMaxWidth().padding(
+                                    start = Spacing24,
+                                    end = Spacing24,
+                                    bottom = Spacing0,
+                                    top = Spacing0,
+                                ),
                                 color = TextColor.OnDisabledSurface,
                                 thickness = Border.Thin,
                             )

@@ -1,5 +1,6 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -105,6 +106,7 @@ fun OrgBottomSheet(
     var searchQuery by remember { mutableStateOf("") }
     var orgTreeHeight by remember { mutableStateOf(0) }
     val orgTreeHeightInDp = with(LocalDensity.current) { orgTreeHeight.toDp() }
+    val contentScrollState = rememberScrollState()
     BottomSheetShell(
         uiState = BottomSheetShellUIState(
             title = title,
@@ -117,6 +119,7 @@ fun OrgBottomSheet(
             bottomPadding = bottomSheetLowerPadding,
         ),
         modifier = modifier,
+        contentScrollState = contentScrollState,
         content = {
             OrgTreeList(
                 orgTreeItems = orgTreeItems,
@@ -124,6 +127,7 @@ fun OrgBottomSheet(
                 noResultsFoundText = noResultsFoundText,
                 onItemClick = onItemClick,
                 onItemSelected = onItemSelected,
+                scrollState = contentScrollState,
                 modifier = Modifier
                     .onGloballyPositioned { coordinates ->
                         val treeHeight = coordinates.size.height
@@ -188,10 +192,10 @@ private fun OrgTreeList(
     searchQuery: String,
     noResultsFoundText: String,
     modifier: Modifier = Modifier,
+    scrollState: ScrollState = rememberScrollState(),
     onItemClick: (orgUnitUid: String) -> Unit,
     onItemSelected: (orgUnitUid: String, checked: Boolean) -> Unit,
 ) {
-    val scrollState = rememberScrollState()
     val hasSearchQuery by derivedStateOf { searchQuery.isNotBlank() }
     if (orgTreeItems.isEmpty() && hasSearchQuery) {
         Text(

@@ -20,6 +20,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
@@ -46,6 +47,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.conditional
+import org.hisp.dhis.mobile.ui.designsystem.component.modifier.draggableList
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing16
@@ -153,13 +155,18 @@ fun <T> ExpandableItemColumn(
         }
     }
 
+    val scrollState = rememberLazyListState()
+
     LazyColumn(
         modifier = modifier
             .onSizeChanged {
                 if (parentSize == -1) {
                     parentSize = it.height
                 }
-            },
+            }.draggableList(
+                scrollState = scrollState,
+            ),
+        state = scrollState,
         verticalArrangement = spacedBy(itemSpacing),
         contentPadding = PaddingValues(contentPadding),
     ) {

@@ -1,6 +1,7 @@
-package org.hisp.dhis.mobile.ui.designsystem.component.internal.modifiers
+package org.hisp.dhis.mobile.ui.designsystem.component.modifier
 
 import androidx.compose.foundation.gestures.detectVerticalDragGestures
+import androidx.compose.foundation.gestures.scrollBy
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -9,7 +10,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 @Composable
-internal actual fun Modifier.draggableList(
+actual fun Modifier.draggableList(
     coroutineScope: CoroutineScope,
     scrollState: LazyListState,
 ): Modifier {
