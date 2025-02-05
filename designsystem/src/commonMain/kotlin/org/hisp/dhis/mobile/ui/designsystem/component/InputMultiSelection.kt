@@ -351,7 +351,7 @@ fun MultiSelectBottomSheet(
         windowInsets = windowInsets,
         buttonBlock = {
             Button(
-                modifier = Modifier.fillMaxWidth().padding(BottomSheetShellDefaults.buttonBlockPaddings()),
+                modifier = Modifier.fillMaxWidth(),
                 onClick = {
                     onItemsSelected(
                         items.map { item ->
