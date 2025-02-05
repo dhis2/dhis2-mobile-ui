@@ -56,6 +56,7 @@ fun InputDialog(
 ) {
     var detailShown by remember { mutableStateOf(false) }
     InputDialogContainer(
+        isExpanded = detailShown,
         content = {
             LazyColumn(
                 contentPadding = PaddingValues(horizontal = Spacing.Spacing10),
