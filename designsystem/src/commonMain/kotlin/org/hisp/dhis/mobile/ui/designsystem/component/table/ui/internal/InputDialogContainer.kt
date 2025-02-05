@@ -65,9 +65,7 @@ internal fun InputDialogContainer(
                                         SurfaceColor.Primary.copy(alpha = 0.20f),
                                     ),
                                 ),
-
                             ),
-
                     )
                     Box(
                         modifier = Modifier
