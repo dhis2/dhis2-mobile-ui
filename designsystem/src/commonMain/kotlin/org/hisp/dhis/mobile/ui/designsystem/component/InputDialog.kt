@@ -36,6 +36,8 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 
+
+
 /**
  * DHIS2 Expandable Input Shell is a component designed to contain an Input with additional details
  * that will be shown bellow the component.
@@ -99,7 +101,7 @@ fun InputDialog(
                                     } else {
                                         Row(
                                             modifier = Modifier
-                                                .padding(start = Spacing.Spacing16, top = Spacing.Spacing12, end = Spacing.Spacing16, bottom = Spacing.Spacing12)
+                                                .padding(start = Spacing.Spacing12, top = Spacing.Spacing12, end = Spacing.Spacing16, bottom = Spacing.Spacing12)
                                                 .background(SurfaceColor.SurfaceBright),
                                         ) {
                                             IconButton(
