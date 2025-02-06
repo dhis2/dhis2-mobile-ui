@@ -15,15 +15,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.ArrowRight
+import androidx.compose.material.icons.automirrored.outlined.ArrowForward
 import androidx.compose.material.icons.automirrored.outlined.Assignment
 import androidx.compose.material.icons.automirrored.outlined.Message
-import androidx.compose.material.icons.filled.ArrowDropUp
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.Flag
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.icons.outlined.Add
-import androidx.compose.material.icons.outlined.ArrowRight
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -540,7 +538,7 @@ fun InputDialogScreen() {
                             },
                             icon = {
                                 Icon(
-                                    imageVector = Icons.AutoMirrored.Outlined.ArrowRight,
+                                    imageVector = Icons.AutoMirrored.Outlined.ArrowForward,
                                     contentDescription = "Done",
                                 )
                             },
@@ -723,8 +721,8 @@ fun InputDialogScreen() {
 
 @Composable
 fun InputDialogDetails() {
-    Column {
-        Spacer(Modifier.size(Spacing.Spacing10))
+    Column(Modifier.padding(Spacing.Spacing0)) {
+        Spacer(Modifier.size(Spacing.Spacing8))
 
         Card(
             shape = Shape.Large,
@@ -743,12 +741,12 @@ fun InputDialogDetails() {
                     Icon(
                         imageVector = Icons.AutoMirrored.Outlined.Assignment,
                         contentDescription = "Done",
-                        modifier = Modifier.padding(Spacing.Spacing16),
+                        modifier = Modifier.padding(end = Spacing.Spacing16),
                     )
                     Text(
                         "Details",
                         style = MaterialTheme.typography.titleMedium,
-                        modifier = Modifier.weight(0.7f),
+                        modifier = Modifier.weight(0.8f),
                     )
 
                     IconButton(
@@ -820,7 +818,7 @@ fun InputDialogDetails() {
                             Icon(
                                 imageVector = Icons.Filled.Flag,
                                 contentDescription = "not synced",
-                                tint = SurfaceColor.Warning,
+                                tint = SurfaceColor.CustomOrange,
                             )
                         },
                         color = TextColor.OnSurfaceLight,
@@ -832,7 +830,7 @@ fun InputDialogDetails() {
                 Spacer(Modifier.size(Spacing.Spacing16))
             }
         }
-        Spacer(Modifier.size(Spacing.Spacing10))
+        Spacer(Modifier.size(Spacing.Spacing8))
         Card(
             shape = Shape.Large,
             modifier = Modifier.clip(Shape.Large)
@@ -849,19 +847,19 @@ fun InputDialogDetails() {
                     Icon(
                         imageVector = Icons.AutoMirrored.Outlined.Message,
                         contentDescription = "Done",
-                        modifier = Modifier.padding(Spacing.Spacing16),
+                        modifier = Modifier.padding(end = Spacing.Spacing16),
                     )
                     Text(
                         "Comments",
                         style = MaterialTheme.typography.titleMedium,
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier.weight(0.8f),
                     )
 
                     IconButton(
                         style = IconButtonStyle.TONAL,
                         icon = {
                             Icon(
-                                imageVector = Icons.Filled.ArrowDropUp,
+                                imageVector = Icons.Filled.KeyboardArrowUp,
                                 contentDescription = "Icon Button",
                             )
                         },
@@ -948,13 +946,14 @@ fun InputDialogDetails() {
                 )
             }
         }
+        Spacer(Modifier.size(Spacing.Spacing4))
     }
 }
 
 @Composable
 fun InputDialogDetailsSmall() {
     Column {
-        Spacer(Modifier.size(Spacing.Spacing10))
+        Spacer(Modifier.size(Spacing.Spacing8))
 
         Card(
             shape = Shape.Large,
@@ -973,12 +972,12 @@ fun InputDialogDetailsSmall() {
                     Icon(
                         imageVector = Icons.AutoMirrored.Outlined.Assignment,
                         contentDescription = "Done",
-                        modifier = Modifier.padding(Spacing.Spacing16),
+                        modifier = Modifier.padding(end = Spacing.Spacing16),
                     )
                     Text(
                         "Details",
                         style = MaterialTheme.typography.titleMedium,
-                        modifier = Modifier.weight(0.7f),
+                        modifier = Modifier.weight(0.8f),
                     )
 
                     IconButton(
@@ -1050,7 +1049,7 @@ fun InputDialogDetailsSmall() {
                             Icon(
                                 imageVector = Icons.Filled.Flag,
                                 contentDescription = "not synced",
-                                tint = SurfaceColor.Warning,
+                                tint = SurfaceColor.CustomOrange,
                             )
                         },
                         color = TextColor.OnSurfaceLight,
@@ -1062,6 +1061,6 @@ fun InputDialogDetailsSmall() {
                 Spacer(Modifier.size(Spacing.Spacing16))
             }
         }
-        Spacer(Modifier.size(Spacing.Spacing10))
+        Spacer(Modifier.size(Spacing.Spacing8))
     }
 }

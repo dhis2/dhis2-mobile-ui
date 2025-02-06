@@ -82,7 +82,7 @@ internal fun InputDialogContainer(
             }
             Column(verticalArrangement = Arrangement.Bottom) {
                 content.invoke()
-                Spacer(Modifier.size(Spacing.Spacing10))
+                Spacer(Modifier.size(Spacing.Spacing8))
             }
             if (isFullyExpanded) {
                 Box(

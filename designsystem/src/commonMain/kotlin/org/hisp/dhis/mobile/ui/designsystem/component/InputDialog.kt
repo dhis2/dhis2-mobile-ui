@@ -64,7 +64,7 @@ fun InputDialog(
         content = {
             LazyColumn(
                 state = scrollState,
-                contentPadding = PaddingValues(horizontal = Spacing.Spacing10),
+                contentPadding = PaddingValues(horizontal = Spacing.Spacing8),
                 verticalArrangement = Arrangement.Bottom,
                 modifier = modifier,
             ) {
@@ -152,9 +152,8 @@ fun InputDialog(
                             ),
                         ) {
                             details?.let {
-                                Column {
+                                Column(Modifier.padding(Spacing.Spacing0)) {
                                     details()
-                                    Spacer(Modifier.size(Spacing.Spacing10))
                                     Button(
                                         modifier = Modifier
                                             .fillMaxWidth(),
@@ -170,7 +169,7 @@ fun InputDialog(
                                             detailShown = !detailShown
                                         },
                                     )
-                                    Spacer(Modifier.size(Spacing.Spacing10))
+                                    Spacer(Modifier.size(Spacing.Spacing4))
                                 }
                             }
                         }
