@@ -1,5 +1,7 @@
 package org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal
 
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -43,7 +45,10 @@ internal fun InputDialogContainer(
 ) {
     Column(
         verticalArrangement = Arrangement.Bottom,
-        modifier = Modifier,
+        modifier = Modifier.animateContentSize(
+            animationSpec = tween(durationMillis = 400),
+
+        ),
     ) {
         Box(
             modifier = Modifier

@@ -952,7 +952,7 @@ fun InputDialogDetails() {
 
 @Composable
 fun InputDialogDetailsSmall() {
-    Column {
+    Column(modifier = Modifier.padding(Spacing.Spacing0)) {
         Spacer(Modifier.size(Spacing.Spacing8))
 
         Card(
@@ -1061,6 +1061,6 @@ fun InputDialogDetailsSmall() {
                 Spacer(Modifier.size(Spacing.Spacing16))
             }
         }
-        Spacer(Modifier.size(Spacing.Spacing8))
+        Spacer(Modifier.size(Spacing.Spacing4))
     }
 }

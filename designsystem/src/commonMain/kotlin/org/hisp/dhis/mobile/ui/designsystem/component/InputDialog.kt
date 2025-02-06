@@ -138,39 +138,37 @@ fun InputDialog(
                         )
                     }
                 }
-                if (detailShown) {
-                    item {
-                        AnimatedVisibility(
-                            visible = detailShown,
-                            enter = slideInVertically(
-                                initialOffsetY = { it },
-                                animationSpec = tween(durationMillis = 500),
-                            ),
-                            exit = slideOutVertically(
-                                targetOffsetY = { it },
-                                animationSpec = tween(durationMillis = 500),
-                            ),
-                        ) {
-                            details?.let {
-                                Column(Modifier.padding(Spacing.Spacing0)) {
-                                    details()
-                                    Button(
-                                        modifier = Modifier
-                                            .fillMaxWidth(),
-                                        text = provideStringResource("hide_details"),
-                                        style = ButtonStyle.TONAL,
-                                        icon = {
-                                            Icon(
-                                                imageVector = Icons.Filled.ArrowDropUp,
-                                                contentDescription = "Icon Button",
-                                            )
-                                        },
-                                        onClick = {
-                                            detailShown = !detailShown
-                                        },
-                                    )
-                                    Spacer(Modifier.size(Spacing.Spacing4))
-                                }
+                item {
+                    AnimatedVisibility(
+                        visible = detailShown,
+                        enter = slideInVertically(
+                            initialOffsetY = { it },
+                            animationSpec = tween(durationMillis = 400),
+                        ),
+                        exit = slideOutVertically(
+                            targetOffsetY = { it },
+                            animationSpec = tween(durationMillis = 400),
+                        ),
+                    ) {
+                        details?.let {
+                            Column(Modifier.padding(Spacing.Spacing0)) {
+                                details()
+                                Button(
+                                    modifier = Modifier
+                                        .fillMaxWidth(),
+                                    text = provideStringResource("hide_details"),
+                                    style = ButtonStyle.TONAL,
+                                    icon = {
+                                        Icon(
+                                            imageVector = Icons.Filled.ArrowDropUp,
+                                            contentDescription = "Icon Button",
+                                        )
+                                    },
+                                    onClick = {
+                                        detailShown = !detailShown
+                                    },
+                                )
+                                Spacer(Modifier.size(Spacing.Spacing4))
                             }
                         }
                     }
