@@ -38,12 +38,12 @@ fun TabsScreen() {
 }
 
 enum class Tabs(val label: String) {
-    VERTICAL_TONAL_TABS_LABEL_ONLY("Tonal label only"),
-    VERTICAL_TONAL_TABS_ICON_ONLY("Tonal icon only"),
-    VERTICAL_TONAL_TABS_ICON_LABEL("Tonal icon and label"),
-    VERTICAL_PRIMARY_TABS_LABEL_ONLY("Primary label only"),
-    VERTICAL_PRIMARY_TABS_ICON_ONLY("Primary icon only"),
-    VERTICAL_PRIMARY_TABS_ICON_LABEL("Primary icon and label"),
+    VERTICAL_TONAL_TABS_LABEL_ONLY("Vertical tabs: Tonal label only"),
+    VERTICAL_TONAL_TABS_ICON_ONLY("Vertical tabs: Tonal icon only"),
+    VERTICAL_TONAL_TABS_ICON_LABEL("Vertical tabs: Tonal icon and label"),
+    VERTICAL_PRIMARY_TABS_LABEL_ONLY("Vertical tabs: Primary label only"),
+    VERTICAL_PRIMARY_TABS_ICON_ONLY("Vertical tabs: Primary icon only"),
+    VERTICAL_PRIMARY_TABS_ICON_LABEL("Vertical tabs: Primary icon and label"),
     NO_COMPONENT_SELECTED("No component selected"),
 }
 

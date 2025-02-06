@@ -39,6 +39,7 @@ fun ColumnScreenContainer(
     modifier: Modifier = Modifier,
     verticalArrangement: Arrangement.Vertical = Arrangement.spacedBy(Spacing.Spacing16),
     horizontalAlignment: Alignment.Horizontal = Alignment.Start,
+    scrollable: Boolean = true,
     content: @Composable (() -> Unit),
 ) {
     Column(
@@ -47,7 +48,7 @@ fun ColumnScreenContainer(
         modifier = modifier
             .fillMaxSize().background(Color.White, Shape.LargeTop)
             .padding(horizontal = Spacing.Spacing16)
-            .verticalScroll(rememberScrollState()),
+            .then(if (scrollable)Modifier.verticalScroll(rememberScrollState())else Modifier),
     ) {
         title?.let {
             Title(title, modifier = Modifier.padding(top = Spacing.Spacing16))
