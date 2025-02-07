@@ -81,11 +81,8 @@ internal fun TableItemRow(
                 tableId = tableModel.id ?: "",
                 horizontalScrollState = horizontalScrollState,
                 cellValues = rowModel.values,
-                overridenValues = tableModel.overwrittenValues,
                 maxLines = rowModel.maxLines,
                 tableHeaderModel = tableModel.tableHeaderModel,
-                options = rowModel.dropDownOptions ?: emptyList(),
-                headerLabel = rowModel.rowHeader.title,
                 columnCount = columnCount,
             )
         }
