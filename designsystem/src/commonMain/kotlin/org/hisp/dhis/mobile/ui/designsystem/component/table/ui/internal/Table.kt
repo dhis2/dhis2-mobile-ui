@@ -2,6 +2,7 @@ package org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.draggable
 import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -30,6 +31,7 @@ import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.Keyboard
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.keyboardAsState
+import org.hisp.dhis.mobile.ui.designsystem.component.model.DraggableType
 import org.hisp.dhis.mobile.ui.designsystem.component.modifier.draggableList
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableModel
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableRowModel
@@ -141,7 +143,10 @@ internal fun Table(
                     )
                     .onSizeChanged {
                         resizeActions.onTableWidthChanged(it.width)
-                    }.draggableList(scrollState = verticalScrollState),
+                    }.draggableList(
+                        scrollState = verticalScrollState,
+                        draggableType = DraggableType.Vertical,
+                    ),
                 verticalArrangement = spacedBy(
                     if (TableTheme.configuration.groupTables) {
                         0.dp

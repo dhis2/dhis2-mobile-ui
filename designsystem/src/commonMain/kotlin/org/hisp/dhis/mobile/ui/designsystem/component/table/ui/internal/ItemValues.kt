@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.key
 import androidx.compose.ui.Modifier
+import org.hisp.dhis.mobile.ui.designsystem.component.model.DraggableType
+import org.hisp.dhis.mobile.ui.designsystem.component.modifier.draggableList
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableCell
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableHeader
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme
@@ -33,7 +35,11 @@ internal fun ItemValues(
 ) {
     Row(
         modifier = Modifier
-            .horizontalScroll(state = horizontalScrollState),
+            .horizontalScroll(state = horizontalScrollState)
+            .draggableList(
+                scrollState = horizontalScrollState,
+                draggableType = DraggableType.Horizontal,
+            ),
     ) {
         repeat(
             times = columnCount,

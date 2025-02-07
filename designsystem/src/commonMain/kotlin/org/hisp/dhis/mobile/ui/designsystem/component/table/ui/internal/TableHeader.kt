@@ -12,6 +12,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.zIndex
+import org.hisp.dhis.mobile.ui.designsystem.component.model.DraggableType
+import org.hisp.dhis.mobile.ui.designsystem.component.modifier.draggableList
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableHeader
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableHeaderCell
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.internal.HeaderMeasures
@@ -51,7 +53,11 @@ internal fun TableHeader(
     Row(
         modifier = modifier
             .horizontalScroll(state = horizontalScrollState)
-            .height(IntrinsicSize.Min),
+            .height(IntrinsicSize.Min)
+            .draggableList(
+                scrollState = horizontalScrollState,
+                draggableType = DraggableType.Horizontal,
+            ),
     ) {
         Column(
             modifier = Modifier
