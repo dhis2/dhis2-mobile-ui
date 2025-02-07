@@ -361,8 +361,7 @@
             "column": 47,
             "value": null
           }
-        },
-        "dropDownOptions": []
+        }
       },
       {
         "rowHeader": {
@@ -672,8 +671,7 @@
             "column": 47,
             "value": null
           }
-        },
-        "dropDownOptions": []
+        }
       },
       {
         "rowHeader": {
@@ -984,8 +982,7 @@
             "column": 47,
             "value": null
           }
-        },
-        "dropDownOptions": []
+        }
       }
     ]
   },
@@ -1349,8 +1346,7 @@
             "column": 47,
             "value": null
           }
-        },
-        "dropDownOptions": []
+        }
       },
       {
         "rowHeader": {
@@ -1660,8 +1656,7 @@
             "column": 47,
             "value": null
           }
-        },
-        "dropDownOptions": []
+        }
       },
       {
         "rowHeader": {
@@ -1971,8 +1966,7 @@
             "column": 47,
             "value": null
           }
-        },
-        "dropDownOptions": []
+        }
       },
       {
         "rowHeader": {
@@ -2282,8 +2276,7 @@
             "column": 47,
             "value": null
           }
-        },
-        "dropDownOptions": []
+        }
       },
       {
         "rowHeader": {
@@ -2593,8 +2586,7 @@
             "column": 47,
             "value": null
           }
-        },
-        "dropDownOptions": []
+        }
       }
     ]
   }

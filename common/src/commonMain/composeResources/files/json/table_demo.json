@@ -2274,8 +2274,7 @@
             "column": 47,
             "value": null
           }
-        },
-        "dropDownOptions": []
+        }
       },
       {
         "rowHeader": {
@@ -2585,8 +2584,7 @@
             "column": 47,
             "value": null
           }
-        },
-        "dropDownOptions": []
+        }
       }
     ]
   },
@@ -2631,8 +2629,7 @@
             "value": "2",
             "editable": false
           }
-        },
-        "dropDownOptions": []
+        }
       },
       {
         "rowHeader": {
@@ -2656,17 +2653,7 @@
             "value": "4",
             "editable": false
           }
-        },
-        "dropDownOptions": [
-          {
-            "code": "CODE1",
-            "name": "Option 1"
-          },
-          {
-            "code": "CODE2",
-            "name": "Option 2"
-          }
-        ]
+        }
       }
     ]
   }
