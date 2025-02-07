@@ -10,12 +10,14 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.zIndex
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableHeader
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableHeaderCell
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.internal.HeaderMeasures
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.internal.ItemColumnHeaderUiState
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.internal.ResizingCell
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme.dimensions
 
 /**
@@ -36,12 +38,16 @@ internal fun TableHeader(
     modifier: Modifier,
     tableHeaderModel: TableHeader,
     horizontalScrollState: ScrollState,
+    columnCount: Int,
     cellStyle: @Composable
     (columnIndex: Int, rowIndex: Int) -> CellStyle,
     onHeaderCellSelected: (columnIndex: Int, headerRowIndex: Int) -> Unit,
     onHeaderResize: (Int, Float) -> Unit,
     onResizing: (ResizingCell?) -> Unit,
 ) {
+    val configuration = TableTheme.configuration
+    val extraColumns = columnCount - tableHeaderModel.tableMaxColumns()
+
     Row(
         modifier = modifier
             .horizontalScroll(state = horizontalScrollState)
@@ -74,16 +80,28 @@ internal fun TableHeader(
                                         width = dimensions.headerCellWidth(
                                             tableId = tableId ?: "",
                                             column = columnIndex,
-                                            headerRowColumns = tableHeaderModel.numberOfColumns(rowIndex),
+                                            headerRowColumns = tableHeaderModel.numberOfColumns(
+                                                rowIndex,
+                                            ),
                                             totalColumns = tableHeaderModel.tableMaxColumns(),
                                             hasTotal = tableHeaderModel.hasTotals,
+                                            groupedTables = configuration.groupTables,
                                         ),
                                         height = dimensions.defaultHeaderHeight,
                                     ),
                                     paddingValues = dimensions.headerCellPaddingValues,
                                     cellStyle = cellStyle(columnIndex, rowIndex),
                                     onCellSelected = { onHeaderCellSelected(it, rowIndex) },
-                                    onHeaderResize = onHeaderResize,
+                                    onHeaderResize = { headerRow, column, newValue ->
+                                        val numberOfSubColumns =
+                                            tableHeaderModel.tableMaxColumns() / tableHeaderModel.numberOfColumns(
+                                                headerRow,
+                                            )
+                                        val startColumnIndex = column * numberOfSubColumns
+                                        for (i in startColumnIndex until startColumnIndex + numberOfSubColumns) {
+                                            onHeaderResize(i, newValue.div(numberOfSubColumns))
+                                        }
+                                    },
                                     onResizing = onResizing,
                                     isLastRow = tableHeaderModel.rows.lastIndex == rowIndex,
                                 ) { dimensions, currentOffsetX ->
@@ -91,8 +109,9 @@ internal fun TableHeader(
                                         tableId = tableId ?: "",
                                         currentOffsetX = currentOffsetX,
                                         columnIndex = columnIndex,
-                                        tableHeaderModel.tableMaxColumns(),
-                                        tableHeaderModel.hasTotals,
+                                        totalColumns = tableHeaderModel.tableMaxColumns(),
+                                        hasTotal = tableHeaderModel.hasTotals,
+                                        groupedTables = configuration.groupTables,
                                     )
                                 },
                             )
@@ -102,7 +121,7 @@ internal fun TableHeader(
                         HeaderCell(
                             ItemColumnHeaderUiState(
                                 tableId = tableId,
-                                rowIndex = 0,
+                                rowIndex = rowIndex,
                                 columnIndex = tableHeaderModel.rows.size,
                                 headerCell = TableHeaderCell("Total"),
                                 HeaderMeasures(
@@ -110,6 +129,7 @@ internal fun TableHeader(
                                         tableId = tableId ?: "",
                                         totalColumns = tableHeaderModel.tableMaxColumns(),
                                         hasExtra = true,
+                                        groupedTables = configuration.groupTables,
                                     ),
                                     dimensions.defaultHeaderHeight * tableHeaderModel.rows.size,
                                 ),
@@ -119,7 +139,41 @@ internal fun TableHeader(
                                     tableHeaderModel.rows.size - 1,
                                 ),
                                 onCellSelected = {},
-                                onHeaderResize = { _, _ -> },
+                                onHeaderResize = { _, _, _ -> },
+                                onResizing = {},
+                                isLastRow = false,
+                                checkMaxCondition = { _, _ -> false },
+                            ),
+                        )
+                    }
+                    repeat(extraColumns) { extraColumnIndex ->
+                        val columnIndex = if (tableHeaderModel.hasTotals) {
+                            tableHeaderModel.rows.size + extraColumnIndex + 1
+                        } else {
+                            tableHeaderModel.rows.size + extraColumnIndex
+                        }
+                        HeaderCell(
+                            ItemColumnHeaderUiState(
+                                tableId = tableId,
+                                rowIndex = rowIndex,
+                                columnIndex = columnIndex,
+                                headerCell = TableHeaderCell(""),
+                                headerMeasures = HeaderMeasures(
+                                    width = dimensions.defaultCellWidthWithExtraSize(
+                                        tableId = tableId ?: "",
+                                        totalColumns = tableHeaderModel.tableMaxColumns(),
+                                        hasExtra = true,
+                                        groupedTables = configuration.groupTables,
+                                    ),
+                                    height = dimensions.defaultHeaderHeight * tableHeaderModel.rows.size,
+                                ),
+                                paddingValues = dimensions.headerCellPaddingValues,
+                                cellStyle = CellStyle.HeaderStyle(
+                                    backgroundColor = Color.Transparent,
+                                    textColor = Color.Transparent,
+                                ),
+                                onCellSelected = {},
+                                onHeaderResize = { _, _, _ -> },
                                 onResizing = {},
                                 isLastRow = false,
                                 checkMaxCondition = { _, _ -> false },

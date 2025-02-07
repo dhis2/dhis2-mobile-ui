@@ -40,6 +40,7 @@ data class TableColors(
     val tableBackground: Color = SurfaceColor.SurfaceBright,
     val iconColor: Color = TextColor.OnSurfaceLight,
     val onPrimary: Color = TextColor.OnPrimary,
+    val selectedCell: Color = SurfaceColor.ContainerHighest,
 ) {
 
     /**

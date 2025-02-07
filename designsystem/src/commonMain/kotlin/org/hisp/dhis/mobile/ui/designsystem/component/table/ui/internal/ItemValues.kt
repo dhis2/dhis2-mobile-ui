@@ -36,20 +36,21 @@ internal fun ItemValues(
     tableHeaderModel: TableHeader,
     options: List<DropdownOption>,
     headerLabel: String,
+    columnCount: Int,
 ) {
     Row(
         modifier = Modifier
             .horizontalScroll(state = horizontalScrollState),
     ) {
         repeat(
-            times = cellValues.size,
+            times = columnCount,
             action = { columnIndex ->
                 val cellValue =
                     if (overridenValues[columnIndex]?.id == cellValues[columnIndex]?.id) {
                         overridenValues[columnIndex]
                     } else {
                         cellValues[columnIndex]
-                    } ?: TableCell(value = "", column = columnIndex)
+                    } ?: TableCell(editable = false, value = "", column = columnIndex)
 
                 key("$tableId$CELL_TEST_TAG${cellValue.row}${cellValue.column}") {
                     TableCell(
@@ -57,10 +58,11 @@ internal fun ItemValues(
                         cell = cellValue,
                         maxLines = maxLines,
                         headerExtraSize = TableTheme.dimensions.extraSize(
-                            tableId,
-                            tableHeaderModel.tableMaxColumns(),
-                            tableHeaderModel.hasTotals,
-                            columnIndex,
+                            groupedTables = TableTheme.configuration.groupTables,
+                            tableId = tableId,
+                            totalColumns = tableHeaderModel.tableMaxColumns(),
+                            hasTotal = tableHeaderModel.hasTotals,
+                            column = columnIndex,
                         ),
                         options = options,
                         headerLabel = headerLabel,

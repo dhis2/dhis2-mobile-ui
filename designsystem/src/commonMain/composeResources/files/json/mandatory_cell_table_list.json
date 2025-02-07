@@ -985,7 +985,6 @@
             "value": null
           }
         },
-        "isLastRow": true,
         "dropDownOptions": []
       }
     ]
@@ -2595,7 +2594,6 @@
             "value": null
           }
         },
-        "isLastRow": true,
         "dropDownOptions": []
       }
     ]

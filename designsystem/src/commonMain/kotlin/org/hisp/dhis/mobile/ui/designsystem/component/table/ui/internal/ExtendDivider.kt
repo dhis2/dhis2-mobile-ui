@@ -25,13 +25,17 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme
 @Composable
 internal fun ExtendDivider(tableId: String, selected: Boolean) {
     val background = TableTheme.colors.primary
+    val config = TableTheme.configuration
     Row(modifier = Modifier.fillMaxWidth()) {
         Box(
             modifier = Modifier
                 .width(
                     with(LocalDensity.current) {
                         TableTheme.dimensions
-                            .rowHeaderWidth(tableId)
+                            .rowHeaderWidth(
+                                groupedTables = config.groupTables,
+                                tableId = tableId,
+                            )
                             .toDp()
                     },
                 )

@@ -83,7 +83,7 @@ internal fun HeaderCell(
                 columnHeaderRowIndex = itemHeaderUiState.rowIndex,
             )
         }
-        if (isSelected && itemHeaderUiState.isLastRow) {
+        if (isSelected) {
             VerticalResizingRule(
                 modifier = Modifier
                     .align(Alignment.CenterEnd)
@@ -91,6 +91,7 @@ internal fun HeaderCell(
                 checkMaxMinCondition = itemHeaderUiState.checkMaxCondition,
                 onHeaderResize = { newValue ->
                     itemHeaderUiState.onHeaderResize(
+                        itemHeaderUiState.rowIndex,
                         itemHeaderUiState.columnIndex,
                         newValue,
                     )

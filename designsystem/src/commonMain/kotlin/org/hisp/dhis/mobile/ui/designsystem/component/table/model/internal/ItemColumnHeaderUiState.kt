@@ -31,7 +31,7 @@ internal data class ItemColumnHeaderUiState(
     val paddingValues: PaddingValues,
     val cellStyle: CellStyle,
     val onCellSelected: (Int) -> Unit,
-    val onHeaderResize: (Int, Float) -> Unit,
+    val onHeaderResize: (Int, Int, Float) -> Unit,
     val onResizing: (ResizingCell?) -> Unit,
     val isLastRow: Boolean,
     val checkMaxCondition: (TableDimensions, Float) -> Boolean,

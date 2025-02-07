@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -23,6 +24,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.compositions.Loca
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.compositions.LocalInteraction
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.compositions.LocalTableResizeActions
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.compositions.LocalUpdatingCell
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.HorizontalScrollConfig
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.Table
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.TableHeaderRow
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.TableItemRow
@@ -44,7 +46,15 @@ fun DataTable(
     onResizedActions: TableResizeActions? = null,
     bottomContent: @Composable (() -> Unit)? = null,
 ) {
+    val maxColumns by remember(tableList.size) {
+        derivedStateOf {
+            tableList.maxOf {
+                it.tableHeaderModel.tableMaxColumns()
+            }
+        }
+    }
     val themeDimensions = TableTheme.dimensions
+    val config = TableTheme.configuration
     var dimensions by remember { mutableStateOf(themeDimensions) }
     var tableSelection by remember(currentSelection) { mutableStateOf(currentSelection) }
     var updatingCell by remember { mutableStateOf<TableCell?>(null) }
@@ -84,22 +94,38 @@ fun DataTable(
                 }
 
                 override fun onRowHeaderResize(tableId: String, newValue: Float) {
-                    dimensions = dimensions.updateHeaderWidth(tableId, newValue)
+                    dimensions = dimensions.updateHeaderWidth(
+                        config.groupTables,
+                        tableId,
+                        newValue,
+                    )
                     onResizedActions?.onRowHeaderResize(tableId, newValue)
                 }
 
                 override fun onColumnHeaderResize(tableId: String, column: Int, newValue: Float) {
-                    dimensions = dimensions.updateColumnWidth(tableId, column, newValue)
+                    dimensions = dimensions.updateColumnWidth(
+                        config.groupTables,
+                        tableId,
+                        column,
+                        newValue,
+                    )
                     onResizedActions?.onColumnHeaderResize(tableId, column, newValue)
                 }
 
                 override fun onTableDimensionResize(tableId: String, newValue: Float) {
-                    dimensions = dimensions.updateAllWidthBy(tableId, newValue)
+                    dimensions = dimensions.updateAllWidthBy(
+                        config.groupTables,
+                        tableId,
+                        newValue,
+                    )
                     onResizedActions?.onTableDimensionResize(tableId, newValue)
                 }
 
                 override fun onTableDimensionReset(tableId: String) {
-                    dimensions = dimensions.resetWidth(tableId)
+                    dimensions = dimensions.resetWidth(
+                        config.groupTables,
+                        tableId,
+                    )
                     onResizedActions?.onTableDimensionReset(tableId)
                 }
             },
@@ -107,7 +133,11 @@ fun DataTable(
     }
     var resizingCell: ResizingCell? by remember { mutableStateOf(null) }
     val currentCell by remember { mutableStateOf<TableCell?>(null) }
-    val horizontalScrollStates = tableList.map { rememberScrollState() }
+    val horizontalScrollConfig = if (TableTheme.configuration.groupTables) {
+        HorizontalScrollConfig.Grouped(rememberScrollState())
+    } else {
+        HorizontalScrollConfig.Individual(tableList.map { rememberScrollState() })
+    }
 
     CompositionLocalProvider(
         LocalTableDimensions provides dimensions,
@@ -143,9 +173,11 @@ fun DataTable(
                         singleValueTable = isSingleValue,
                     ),
                     tableModel = tableModel,
-                    horizontalScrollState = horizontalScrollStates[index],
+                    horizontalScrollState = horizontalScrollConfig.getScrollState(index),
+                    columnCount = maxColumns,
                     cellStyle = { columnIndex, rowIndex ->
                         styleForColumnHeader(
+                            isCornerSelected = tableSelection.isCornerSelected(tableModel.id ?: ""),
                             isSelected = tableSelection.isHeaderSelected(
                                 selectedTableId = tableModel.id ?: "",
                                 columnIndex = columnIndex,
@@ -194,10 +226,11 @@ fun DataTable(
             tableItemRow = { index, tableModel, tableRowModel ->
                 TableItemRow(
                     tableModel = tableModel,
-                    horizontalScrollState = horizontalScrollStates[index],
+                    horizontalScrollState = horizontalScrollConfig.getScrollState(index),
                     rowModel = tableRowModel,
                     rowHeaderCellStyle = { rowHeaderIndex ->
                         styleForRowHeader(
+                            isCornerSelected = tableSelection.isCornerSelected(tableModel.id ?: ""),
                             isSelected = tableSelection.isRowSelected(
                                 selectedTableId = tableModel.id ?: "",
                                 rowHeaderIndex = rowHeaderIndex ?: -1,
@@ -224,6 +257,7 @@ fun DataTable(
                         )
                     },
                     onResizing = { resizingCell = it },
+                    columnCount = maxColumns,
                 )
             },
             verticalResizingView = { tableHeight ->

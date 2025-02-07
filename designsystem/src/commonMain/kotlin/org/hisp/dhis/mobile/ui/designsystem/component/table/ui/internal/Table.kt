@@ -2,6 +2,7 @@ package org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -15,6 +16,7 @@ import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -87,14 +89,30 @@ internal fun Table(
                         tableHeight = it.height
                     },
             ) {
-                tableList.forEachIndexed { index, tableModel ->
-                    tableHeaderRow?.invoke(index, tableModel)
-                    tableModel.tableRows.forEach { tableRowModel ->
-                        tableItemRow?.invoke(index, tableModel, tableRowModel)
-                        LastRowDivider(
-                            tableId = tableModel.id ?: "",
-                            isLastRow = tableRowModel.isLastRow,
-                        )
+                tableList.forEachIndexed { tableIndex, tableModel ->
+                    val isLastTable = tableList.lastIndex == tableIndex
+                    tableHeaderRow?.invoke(tableIndex, tableModel)
+                    tableModel.tableRows.forEachIndexed { rowIndex, tableRowModel ->
+                        val isLastRow = tableModel.tableRows.lastIndex == rowIndex
+                        tableItemRow?.invoke(tableIndex, tableModel, tableRowModel)
+                        if (!isLastRow or TableTheme.configuration.groupTables) {
+                            HorizontalDivider(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(end = TableTheme.dimensions.tableEndExtraScroll),
+                            )
+                        }
+                        val showExtendedDivider = if (TableTheme.configuration.groupTables) {
+                            isLastTable && isLastRow
+                        } else {
+                            isLastRow
+                        }
+                        if (showExtendedDivider) {
+                            ExtendDivider(
+                                tableId = tableModel.id ?: "",
+                                selected = tableSelection.isCornerSelected(tableModel.id ?: ""),
+                            )
+                        }
                     }
                 }
             }
@@ -102,6 +120,7 @@ internal fun Table(
             val verticalScrollState = rememberLazyListState()
             val keyboardState by keyboardAsState()
             val tableSelection = LocalTableSelection.current
+            val tableConfiguration = TableTheme.configuration
 
             LaunchedEffect(keyboardState) {
                 val isCellSelection = tableSelection is TableSelection.CellSelection
@@ -123,39 +142,59 @@ internal fun Table(
                     .onSizeChanged {
                         resizeActions.onTableWidthChanged(it.width)
                     }.draggableList(scrollState = verticalScrollState),
+                verticalArrangement = spacedBy(
+                    if (TableTheme.configuration.groupTables) {
+                        0.dp
+                    } else {
+                        TableTheme.dimensions.tableVerticalPadding
+                    },
+                ),
                 contentPadding = PaddingValues(bottom = TableTheme.dimensions.tableBottomPadding),
                 state = verticalScrollState,
             ) {
-                tableList.forEachIndexed { index, tableModel ->
+                tableList.forEachIndexed { tableIndex, tableModel ->
+                    val isLastTable = tableList.lastIndex == tableIndex
                     fixedStickyHeader(
                         fixHeader = keyboardState == Keyboard.Closed,
                         key = tableModel.id,
                     ) {
-                        tableHeaderRow?.invoke(index, tableModel)
+                        tableHeaderRow?.invoke(tableIndex, tableModel)
                     }
                     itemsIndexed(
                         items = tableModel.tableRows,
                         key = { _, item -> item.rowHeader.id!! },
-                    ) { _, tableRowModel ->
-                        tableItemRow?.invoke(index, tableModel, tableRowModel)
-                        LastRowDivider(tableModel.id ?: "", tableRowModel.isLastRow)
+                    ) { rowIndex, tableRowModel ->
+                        val isLastRow = tableModel.tableRows.lastIndex == rowIndex
+                        tableItemRow?.invoke(tableIndex, tableModel, tableRowModel)
+                        if (!isLastRow or TableTheme.configuration.groupTables) {
+                            HorizontalDivider(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(end = TableTheme.dimensions.tableEndExtraScroll),
+                            )
+                        }
+                        val showExtendedDivider = if (TableTheme.configuration.groupTables) {
+                            isLastTable && isLastRow
+                        } else {
+                            isLastRow
+                        }
+                        if (showExtendedDivider) {
+                            ExtendDivider(
+                                tableId = tableModel.id ?: "",
+                                selected = TableTheme.tableSelection.isCornerSelected(
+                                    tableModel.id ?: "",
+                                ),
+                            )
+                        }
                     }
-                    stickyFooter(keyboardState == Keyboard.Closed)
+                    if (!tableConfiguration.groupTables) {
+                        stickyFooter(keyboardState == Keyboard.Closed)
+                    }
                 }
                 bottomContent?.let { item { it.invoke() } }
             }
         }
         verticalResizingView?.invoke(tableHeight)
-    }
-}
-
-@Composable
-private fun LastRowDivider(tableId: String, isLastRow: Boolean) {
-    if (isLastRow) {
-        ExtendDivider(
-            tableId = tableId,
-            selected = tableSelection.isCornerSelected(tableId),
-        )
     }
 }
 

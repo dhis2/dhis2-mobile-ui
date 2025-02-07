@@ -1,11 +1,11 @@
 package org.hisp.dhis.mobile.ui.designsystem.component.table.ui
 
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import org.hisp.dhis.mobile.ui.designsystem.component.table.actions.DefaultValidator
 import org.hisp.dhis.mobile.ui.designsystem.component.table.actions.Validator
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.compositions.LocalValidator
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 
 /**
  * Composable function to provide table-related theme settings to the content.
@@ -31,7 +31,7 @@ fun TableTheme(
         LocalTableConfiguration provides tableConfiguration,
         LocalValidator provides tableValidator,
     ) {
-        MaterialTheme(
+        DHIS2Theme(
             content = content,
         )
     }

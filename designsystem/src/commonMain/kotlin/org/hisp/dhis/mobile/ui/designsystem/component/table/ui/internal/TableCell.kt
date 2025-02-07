@@ -13,7 +13,6 @@ import androidx.compose.foundation.relocation.BringIntoViewRequester
 import androidx.compose.foundation.relocation.bringIntoViewRequester
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Emergency
-import androidx.compose.material.icons.outlined.Emergency
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -123,14 +122,16 @@ internal fun TableCell(
     }
     val localDensity = LocalDensity.current
     val dimensions = TableTheme.dimensions
+    val config = TableTheme.configuration
 
     val cellWidth by remember(dimensions) {
         derivedStateOf {
             with(localDensity) {
                 dimensions
                     .columnWidthWithTableExtra(
-                        tableId,
-                        cell.column,
+                        groupedTables = config.groupTables,
+                        tableId = tableId,
+                        column = cell.column,
                     )
                     .plus(headerExtraSize)
                     .toDp()
@@ -167,6 +168,7 @@ internal fun TableCell(
                         cell.isMultiText -> setShowMultiSelector(true)
                         else -> setExpanded(true)
                     }
+
                     else -> {
                         localInteraction.onSelectionChange(
                             TableSelection.CellSelection(
