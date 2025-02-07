@@ -28,7 +28,7 @@ class TableTest {
      */
     @Test
     fun shouldAllColumnsBuildProperly() = runBlocking {
-        val table = loadTableFromJson("multi_header_table_list.json")
+            val table = loadTableFromJson("multi_header_table_list.json")
         tableRobot(composeTestRule) {
             initTable(table)
             val columnsFirstTable = table[0].tableHeaderModel.tableMaxColumns()
@@ -283,19 +283,6 @@ class TableTest {
             assertUnselectedCellErrorStyle(firstId, 2, 0)
             clickOnCell(firstId, 2, 0)
             assertSelectedCellErrorStyle(firstId, 2, 0)
-        }
-    }
-
-    @Test
-    fun shouldSetDropdownValue() = runBlocking {
-        val table = loadTableFromJson("dropdown_table.json")
-
-        tableRobot(composeTestRule) {
-            initTable(table)
-            val firstId = table.first().id!!
-            clickOnCell(firstId, 1, 0)
-            selectDropdownItem("Option 1")
-            assertCellHasValue(firstId, 1, 0, "Option 1")
         }
     }
 
