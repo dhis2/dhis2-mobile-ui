@@ -46,6 +46,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.modifiers.clickableWithRipple
+import org.hisp.dhis.mobile.ui.designsystem.component.model.DraggableType
 import org.hisp.dhis.mobile.ui.designsystem.component.model.LocationItemModel
 import org.hisp.dhis.mobile.ui.designsystem.component.modifier.draggableList
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
@@ -271,7 +272,10 @@ private fun LocationSearchBar(
 
         LazyColumn(
             modifier = Modifier.fillMaxWidth()
-                .draggableList(scrollState = scrollState),
+                .draggableList(
+                    scrollState = scrollState,
+                    draggableType = DraggableType.Vertical,
+                ),
             state = scrollState,
         ) {
             when {

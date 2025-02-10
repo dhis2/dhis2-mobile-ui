@@ -40,6 +40,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import org.hisp.dhis.mobile.ui.designsystem.component.model.DraggableType
 import org.hisp.dhis.mobile.ui.designsystem.component.model.Tab
 import org.hisp.dhis.mobile.ui.designsystem.component.model.TabColorStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.model.TabStyle
@@ -85,6 +86,7 @@ fun VerticalTabs(
             modifier = Modifier.fillMaxSize()
                 .draggableList(
                     scrollState = scrollState,
+                    draggableType = DraggableType.Vertical,
                 ),
             contentPadding = contentPadding,
         ) {
