@@ -28,7 +28,7 @@ class TableTest {
      */
     @Test
     fun shouldAllColumnsBuildProperly() = runBlocking {
-            val table = loadTableFromJson("multi_header_table_list.json")
+        val table = loadTableFromJson("multi_header_table_list.json")
         tableRobot(composeTestRule) {
             initTable(table)
             val columnsFirstTable = table[0].tableHeaderModel.tableMaxColumns()

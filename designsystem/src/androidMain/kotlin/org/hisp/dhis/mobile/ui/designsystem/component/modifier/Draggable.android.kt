@@ -10,5 +10,5 @@ import org.hisp.dhis.mobile.ui.designsystem.component.model.DraggableType
 actual fun Modifier.draggableList(
     coroutineScope: CoroutineScope,
     scrollState: ScrollableState,
-    draggableType: DraggableType
+    draggableType: DraggableType,
 ): Modifier = this
