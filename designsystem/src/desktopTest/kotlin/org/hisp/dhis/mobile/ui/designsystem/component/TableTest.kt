@@ -1,5 +1,6 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.test.junit4.createComposeRule
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.json.Json
@@ -80,10 +81,10 @@ class TableTest {
 
             clickOnHeaderElement(firstTableId, 0, 0)
             for (i in 0 until sonColumnsHighlight) {
-                assertColumnHeaderBackgroundColor(firstTableId, 1, i, tableColors.primaryLight)
+                assertColumnHeaderBackgroundColor(firstTableId, 1, i, SurfaceColor.ContainerHighest)
             }
             for (i in 0 until grandsonColumnsHighlight) {
-                assertColumnHeaderBackgroundColor(firstTableId, 2, i, tableColors.primaryLight)
+                assertColumnHeaderBackgroundColor(firstTableId, 2, i, SurfaceColor.ContainerHighest)
             }
             val firstNonHighlightColumn = grandsonColumnsHighlight + 1
             for (i in firstNonHighlightColumn until maxColumnGrandSon) {
