@@ -368,10 +368,12 @@ fun BottomSheetShell(
                         Modifier
                     }
                     Column(
-                        Modifier.then(scrollColumnShadow),
+                        Modifier.then(scrollColumnShadow).padding(Spacing0),
                         horizontalAlignment = Alignment.CenterHorizontally,
                     ) {
-                        Spacer(Modifier.requiredHeight(Spacing8))
+                        if (uiState.showTopSectionDivider) {
+                            Spacer(Modifier.requiredHeight(Spacing8))
+                        }
                         Column(
                             modifier = Modifier
                                 .padding(horizontal = Spacing24)
@@ -384,7 +386,9 @@ fun BottomSheetShell(
                             verticalArrangement = spacedBy(Spacing8),
                         ) {
                             content.invoke()
-                            Spacer(Modifier.requiredHeight(Spacing8))
+                            if (uiState.showBottomSectionDivider) {
+                                Spacer(Modifier.requiredHeight(Spacing8))
+                            }
                         }
                         if (uiState.showBottomSectionDivider && !canScrollForward) {
                             HorizontalDivider(
