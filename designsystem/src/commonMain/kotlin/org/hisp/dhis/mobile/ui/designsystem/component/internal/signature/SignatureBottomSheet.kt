@@ -31,6 +31,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.Button
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonBlock
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.dashedBorder
+import org.hisp.dhis.mobile.ui.designsystem.component.state.BottomSheetShellDefaults
 import org.hisp.dhis.mobile.ui.designsystem.component.state.BottomSheetShellUIState
 import org.hisp.dhis.mobile.ui.designsystem.resource.Signature
 import org.hisp.dhis.mobile.ui.designsystem.resource.SignatureCanvas
@@ -107,6 +108,7 @@ internal fun SignatureBottomSheet(
         windowInsets = windowInsets,
         buttonBlock = {
             ButtonBlock(
+                modifier = Modifier.padding(BottomSheetShellDefaults.buttonBlockPaddings()),
                 primaryButton = {
                     Button(
                         style = ButtonStyle.OUTLINED,
