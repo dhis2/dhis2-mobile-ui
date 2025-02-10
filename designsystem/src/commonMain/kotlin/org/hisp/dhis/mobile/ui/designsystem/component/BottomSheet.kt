@@ -209,7 +209,8 @@ fun BottomSheetShell(
  * @param content: to be shown under the header.
  * @param contentScrollState: Pass custom scroll state when content is
  * scrollable. For example, pass configure it when using `LazyColumn` to `Modifier.verticalScroll`
- * for content.
+ * for content. If you want the content to be scrollable in desktop using the middle mouse button,
+ * the modifier [Modifier.draggableList] must be used.
  * @param onSearchQueryChanged: Callback when search query is changed.
  * @param onSearch: Callback when search action is triggered.
  * @param onDismiss: gives access to the onDismiss event.
