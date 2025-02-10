@@ -43,6 +43,7 @@ import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.component.model.Tab
 import org.hisp.dhis.mobile.ui.designsystem.component.model.TabColorStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.model.TabStyle
+import org.hisp.dhis.mobile.ui.designsystem.component.modifier.draggableList
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
 @Composable
@@ -81,7 +82,10 @@ fun VerticalTabs(
     ) {
         LazyColumn(
             state = scrollState,
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier.fillMaxSize()
+                .draggableList(
+                    scrollState = scrollState,
+                ),
             contentPadding = contentPadding,
         ) {
             itemsIndexed(tabs) { index, tab ->

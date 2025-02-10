@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.outlined.Info
@@ -36,6 +38,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.ColorStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.LegendRange
+import org.hisp.dhis.mobile.ui.designsystem.component.modifier.draggableList
 import org.hisp.dhis.mobile.ui.designsystem.component.state.BottomSheetShellDefaults
 import org.hisp.dhis.mobile.ui.designsystem.component.state.BottomSheetShellUIState
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
@@ -84,7 +87,10 @@ fun BottomSheetScreen() {
                 title = "Legend name ",
             ),
             content = {
-                LazyColumn(state = scrollState) {
+                LazyColumn(
+                    modifier = Modifier.draggableList(scrollState = scrollState),
+                    state = scrollState,
+                ) {
                     items(longLegendList) { item ->
                         Column {
                             Text(
@@ -109,6 +115,8 @@ fun BottomSheetScreen() {
         }
     }
     if (showBottomSheetShellMaxExpansion) {
+        val scrollState = rememberScrollState()
+
         BottomSheetShell(
             uiState = BottomSheetShellUIState(
                 title = "Legend name ",
@@ -116,7 +124,7 @@ fun BottomSheetScreen() {
                 description = lorem + lorem,
             ),
             content = {
-                Column {
+                Column(modifier = Modifier.verticalScroll(state = scrollState)) {
                     LegendRange(
                         longLegendList,
                     )
