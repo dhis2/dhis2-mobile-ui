@@ -246,6 +246,18 @@ class TableTest {
     }
 
     @Test
+    fun shouldSelectCell() = runBlocking {
+        val table = loadTableFromJson("mandatory_cell_table_list.json")
+
+        tableRobot(composeTestRule) {
+            initTable(table)
+            val firstId = table.first().id!!
+            clickOnCell(firstId, 0, 0)
+            assertCellIsSelected(firstId, 0, 0)
+        }
+    }
+
+    @Test
     fun shouldBlockClickAndSetCorrectColorIfNonEditable() = runBlocking {
         val tables = loadTableFromJson("multi_header_table_list.json")
 
@@ -261,17 +273,15 @@ class TableTest {
     }
 
     @Test
-    fun shouldSetCorrectColorIfHasError() = runBlocking {
+    fun shouldSetCorrectCellColors() = runBlocking {
         val table = loadTableFromJson("mandatory_cell_table_list.json")
 
         tableRobot(composeTestRule) {
             initTable(table)
-            with(table.first()) {
-                val cellId = tableRows[2].values[0]!!.id
-                assertUnselectedCellErrorStyle(id, cellId)
-                clickOnCell(id, cellId)
-                assertSelectedCellErrorStyle(id, cellId)
-            }
+            val firstId = table.first().id!!
+            assertCellErrorStyle(firstId, 2, 0)
+            assertCellDisabledStyle(firstId, 2, 1)
+            assertCellWarningStyle(firstId, 2, 2)
         }
     }
 

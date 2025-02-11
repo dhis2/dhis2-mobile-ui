@@ -27,9 +27,9 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableConfiguratio
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableSelection
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.compositions.LocalInteraction
-import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.CELL_ERROR_UNDERLINE_TEST_TAG
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.CELL_TEST_TAG
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.CELL_VALUE_TEST_TAG
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.CellSelected
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.ColumnBackground
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.ColumnIndexHeader
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.HasError
@@ -170,21 +170,48 @@ class TableRobot(
             .assertIsDisplayed()
     }
 
-    fun assertUnselectedCellErrorStyle(tableId: String, cellId: String) {
+    fun assertCellIsSelected(tableId: String, rowIndex: Int, columnIndex: Int) {
         composeTestRule.onNode(
-            hasTestTag(cellTestTag(tableId, cellId))
+            hasTestTag("$tableId${CELL_TEST_TAG}$rowIndex$columnIndex")
                 and
-                SemanticsMatcher.expectValue(HasError, true),
+                SemanticsMatcher.expectValue(CellSelected, true)
+                and
+                SemanticsMatcher.expectValue(HasError, false)
+                and
+                SemanticsMatcher.expectValue(RowBackground, SurfaceColor.SurfaceBright),
             true,
         ).assertIsDisplayed()
-        composeTestRule.onNodeWithTag(CELL_ERROR_UNDERLINE_TEST_TAG, true).assertIsDisplayed()
     }
 
-    fun assertSelectedCellErrorStyle(tableId: String, cellId: String) {
+    fun assertCellErrorStyle(tableId: String, rowIndex: Int, columnIndex: Int) {
+        composeTestRule.onNode(
+            hasTestTag("$tableId${CELL_TEST_TAG}$rowIndex$columnIndex")
+                and
+                SemanticsMatcher.expectValue(HasError, true)
+                and
+                SemanticsMatcher.expectValue(RowBackground, SurfaceColor.ErrorContainer),
+            true,
+        ).assertIsDisplayed()
+    }
+
+    fun assertCellWarningStyle(tableId: String, rowIndex: Int, columnIndex: Int) {
         composeTestRule.onNode(
             hasTestTag(cellTestTag(tableId, cellId))
                 and
-                SemanticsMatcher.expectValue(HasError, true),
+                SemanticsMatcher.expectValue(HasError, true)
+                and
+                SemanticsMatcher.expectValue(RowBackground, SurfaceColor.WarningContainer),
+            true,
+        ).assertIsDisplayed()
+    }
+
+    fun assertCellDisabledStyle(tableId: String, rowIndex: Int, columnIndex: Int) {
+        composeTestRule.onNode(
+            hasTestTag(cellTestTag(tableId, cellId))
+                and
+                SemanticsMatcher.expectValue(IsBlocked, true)
+                and
+                SemanticsMatcher.expectValue(RowBackground, SurfaceColor.DisabledSurfaceBright),
             true,
         ).assertIsDisplayed()
     }
