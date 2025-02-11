@@ -13,6 +13,8 @@ import org.hisp.dhis.mobile.ui.designsystem.component.modifier.draggableList
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableCell
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableHeader
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme.tableSelection
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.modifiers.rowSupportForCellBorder
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.CELL_TEST_TAG
 
 /**
@@ -23,6 +25,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantic
  * @param maxLines The maximum number of lines to display in each cell.
  * @param cellValues A map of column indices to table cells representing the cell values.
  * @param tableHeaderModel The model representing the table header.
+ * @param rowHeader The row header item.
  * @param columnCount number of columns
  */
 @Composable
@@ -33,10 +36,13 @@ internal fun ItemValues(
     maxLines: Int,
     cellValues: Map<Int, TableCell>,
     tableHeaderModel: TableHeader,
+    rowHeader: RowHeader,
     columnCount: Int,
 ) {
+    val firstCellSelected = tableSelection.isCellSelected(tableId, 0, rowHeader.row)
     Row(
         modifier = modifier
+            .rowSupportForCellBorder(firstCellSelected, TableTheme.colors.primary)
             .horizontalScroll(state = horizontalScrollState)
             .draggableList(
                 scrollState = horizontalScrollState,
@@ -65,6 +71,7 @@ internal fun ItemValues(
                             extraColumns = tableHeaderModel.extraColumns.size,
                             column = columnIndex,
                         ),
+                        headerLabel = rowHeader.title,
                     )
                 }
             },

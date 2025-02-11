@@ -6,6 +6,7 @@ import androidx.compose.ui.graphics.Color
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.LocalTableColors
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableColors
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme
+import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 
 internal sealed class CellStyle {
 
@@ -144,14 +145,11 @@ internal fun styleForCell(
     isEditable: Boolean,
     legendColor: Int?,
 ) = CellStyle.CellBorderStyle(
-    borderColor = when {
-        isSelected && hasError -> tableColorProvider().errorColor
-        isSelected && hasWarning -> tableColorProvider().warningColor
-        isSelected -> tableColorProvider().primary
-        else -> Color.Transparent
-    },
+    borderColor = tableColorProvider().primary,
     backgroundColor = when {
-        legendColor != null -> Color.Transparent
+        hasError -> SurfaceColor.ErrorContainer
+        hasWarning -> SurfaceColor.WarningContainer
+        legendColor != null -> Color(legendColor).copy(alpha = 0.15f)
         !isEditable && isParentSelected -> tableColorProvider().disabledSelectedBackground
         isParentSelected -> tableColorProvider().selectedCell
         !isEditable -> tableColorProvider().disabledCellBackground

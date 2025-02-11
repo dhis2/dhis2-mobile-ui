@@ -3,6 +3,7 @@ package org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.defaultMinSize
@@ -13,6 +14,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
@@ -43,7 +45,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
  */
 @Composable
 internal fun ItemHeader(uiState: ItemHeaderUiState) {
-    Box {
+    Box(Modifier.width(IntrinsicSize.Min)) {
         Row(
             modifier = Modifier
                 .defaultMinSize(
@@ -75,12 +77,13 @@ internal fun ItemHeader(uiState: ItemHeaderUiState) {
             Row(
                 modifier = Modifier
                     .weight(1f)
-                    .padding(Spacing.Spacing4),
+                    .padding(end = Spacing.Spacing4),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Text(
                     modifier = Modifier
-                        .weight(1f),
+                        .weight(1f)
+                        .padding(TableTheme.dimensions.headerCellPaddingValues),
                     text = uiState.rowHeader.title,
                     color = uiState.cellStyle.mainColor(),
                     fontSize = TableTheme.dimensions.defaultRowHeaderTextSize,
@@ -126,5 +129,11 @@ internal fun ItemHeader(uiState: ItemHeaderUiState) {
                 onResizing = uiState.onResizing,
             )
         }
+        HorizontalDivider(
+            modifier = Modifier
+                .padding(end = Spacing.Spacing1)
+                .align(Alignment.BottomCenter),
+            thickness = Spacing.Spacing1,
+        )
     }
 }

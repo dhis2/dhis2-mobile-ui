@@ -1,11 +1,10 @@
 package org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.focusable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -13,9 +12,8 @@ import androidx.compose.foundation.relocation.BringIntoViewRequester
 import androidx.compose.foundation.relocation.bringIntoViewRequester
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Emergency
-import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.DividerDefaults
 import androidx.compose.material3.Icon
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
@@ -37,16 +35,17 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
+import org.hisp.dhis.mobile.ui.designsystem.component.table.model.DropdownOption
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableCell
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.LocalTableColors
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.LocalTableSelection
-import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableSelection
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.compositions.LocalInteraction
-import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.extensions.isNumeric
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.cells.TextCell
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.modifiers.cellBorder
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.CELL_ERROR_UNDERLINE_TEST_TAG
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.CELL_VALUE_TEST_TAG
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.CELL_TEST_TAG
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.MANDATORY_ICON_TEST_TAG
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.cellSelected
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.cellTestTag
@@ -123,7 +122,7 @@ internal fun TableCell(
 
     var currentCellHeight = 0
 
-    CellLegendBox(
+    Box(
         modifier = Modifier
             .onSizeChanged { currentCellHeight = it.height }
             .width(cellWidth)
@@ -137,13 +136,13 @@ internal fun TableCell(
                 isBlocked = style.backgroundColor() == backgroundColor
             }
             .cellBorder(
+                selected = isSelected,
                 borderColor = style.mainColor(),
                 backgroundColor = style.backgroundColor(),
+                dividerColor = cell.legendColor?.let { Color(it) } ?: DividerDefaults.color,
             )
             .bringIntoViewRequester(bringIntoViewRequester)
             .focusable()
-            .fillMaxWidth()
-            .fillMaxHeight()
             .clickable(cell.editable) {
                 localInteraction.onSelectionChange(
                     TableSelection.CellSelection(
@@ -155,31 +154,14 @@ internal fun TableCell(
                 )
                 localInteraction.onClick(cell)
             },
-        legendColor = cell.legendColor?.let { Color(it) },
     ) {
-        Text(
-            modifier = Modifier
-                .testTag(CELL_VALUE_TEST_TAG)
-                .align(Alignment.Center)
-                .fillMaxWidth()
-                .padding(
-                    horizontal = TableTheme.dimensions.cellHorizontalPadding,
-                    vertical = TableTheme.dimensions.cellVerticalPadding,
-                ),
-            text = cellValue ?: "",
+        TextCell(
+            tableId = tableId,
+            cellValue = cellValue ?: "",
             maxLines = maxLines,
-            overflow = TextOverflow.Ellipsis,
-            style = TextStyle.Default.copy(
-                fontSize = TableTheme.dimensions.defaultCellTextSize,
-                textAlign = if (cellValue.isNumeric()) TextAlign.End else TextAlign.Start,
-                color = LocalTableColors.current.cellTextColor(
-                    hasError = cell.error != null,
-                    hasWarning = cell.warning != null,
-                    isEditable = cell.editable,
-                ),
-            ),
+            cell = cell,
+            headerLabel = headerLabel,
         )
-
         if (cell.mandatory == true) {
             Icon(
                 imageVector = Icons.Default.Emergency,
@@ -196,19 +178,6 @@ internal fun TableCell(
                 tint = LocalTableColors.current.cellMandatoryIconColor(
                     cellValue?.isNotEmpty() == true,
                 ),
-            )
-        }
-        if (cell.hasErrorOrWarning()) {
-            HorizontalDivider(
-                modifier = Modifier
-                    .testTag(CELL_ERROR_UNDERLINE_TEST_TAG)
-                    .align(Alignment.BottomCenter)
-                    .fillMaxWidth(),
-                color = if (cell.error != null) {
-                    TableTheme.colors.errorColor
-                } else {
-                    TableTheme.colors.warningColor
-                },
             )
         }
     }

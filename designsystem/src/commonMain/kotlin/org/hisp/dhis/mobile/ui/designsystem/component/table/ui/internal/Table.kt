@@ -58,7 +58,13 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
 @Composable
 internal fun Table(
     tableList: List<TableModel>,
-    tableHeaderRow: @Composable ((index: Int, tableModel: TableModel) -> Unit)? = null,
+    tableHeaderRow: @Composable (
+        (
+            index: Int,
+            tableModel: TableModel,
+            isTableScrolled: Boolean,
+        ) -> Unit
+    )? = null,
     tableItemRow: @Composable (
         (
             index: Int,
@@ -93,7 +99,7 @@ internal fun Table(
             ) {
                 tableList.forEachIndexed { tableIndex, tableModel ->
                     val isLastTable = tableList.lastIndex == tableIndex
-                    tableHeaderRow?.invoke(tableIndex, tableModel)
+                    tableHeaderRow?.invoke(tableIndex, tableModel, false)
                     tableModel.tableRows.forEachIndexed { rowIndex, tableRowModel ->
                         val isLastRow = tableModel.tableRows.lastIndex == rowIndex
                         tableItemRow?.invoke(tableIndex, tableModel, tableRowModel)
@@ -164,7 +170,11 @@ internal fun Table(
                         fixHeader = keyboardState == Keyboard.Closed,
                         key = tableModel.id,
                     ) {
-                        tableHeaderRow?.invoke(tableIndex, tableModel)
+                        tableHeaderRow?.invoke(
+                            tableIndex,
+                            tableModel,
+                            verticalScrollState.firstVisibleItemScrollOffset != 0,
+                        )
                     }
                     itemsIndexed(
                         items = tableModel.tableRows,
