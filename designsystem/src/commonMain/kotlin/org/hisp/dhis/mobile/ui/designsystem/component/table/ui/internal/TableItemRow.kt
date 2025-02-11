@@ -32,6 +32,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantic
  * @param onDecorationClick Callback function invoked when a decoration is clicked.
  * @param onHeaderResize Callback function invoked when the header is resized.
  * @param onResizing Callback function invoked during the resizing of the header.
+ * @param columnCount number of columns
  */
 @Composable
 internal fun TableItemRow(

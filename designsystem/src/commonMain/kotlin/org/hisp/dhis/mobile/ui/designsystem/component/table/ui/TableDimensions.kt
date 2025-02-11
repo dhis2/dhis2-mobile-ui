@@ -8,6 +8,8 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
+const val GROUPED_ID = "GROUPED"
+
 /**
  * Data class representing the dimensions of the table component.
  *
@@ -81,7 +83,7 @@ data class TableDimensions(
         groupedTables: Boolean,
         tableId: String,
     ): Int {
-        val tableIdToUse = if (groupedTables) "GROUPED" else tableId
+        val tableIdToUse = if (groupedTables) GROUPED_ID else tableId
         return (rowHeaderWidths[tableIdToUse] ?: defaultRowHeaderWidth) + extraWidthInTable(
             tableIdToUse,
         )
@@ -101,7 +103,7 @@ data class TableDimensions(
         tableId: String,
         column: Int? = null,
     ): Int {
-        val tableIdToUse = if (groupedTables) "GROUPED" else tableId
+        val tableIdToUse = if (groupedTables) GROUPED_ID else tableId
         return (columnWidth[tableIdToUse]?.get(column) ?: defaultCellWidth) + extraWidthInTable(
             tableIdToUse,
         )
@@ -176,7 +178,7 @@ data class TableDimensions(
         tableId: String,
         widthOffset: Float,
     ): TableDimensions {
-        val tableIdToUse = if (groupedTables) "GROUPED" else tableId
+        val tableIdToUse = if (groupedTables) GROUPED_ID else tableId
 
         val newWidth = (extraWidths[tableIdToUse] ?: 0) + widthOffset - 11
         val newMap = extraWidths.toMutableMap()
@@ -189,7 +191,7 @@ data class TableDimensions(
         tableId: String,
         widthOffset: Float,
     ): TableDimensions {
-        val tableIdToUse = if (groupedTables) "GROUPED" else tableId
+        val tableIdToUse = if (groupedTables) GROUPED_ID else tableId
         val newWidth = (rowHeaderWidths[tableIdToUse] ?: defaultRowHeaderWidth) + widthOffset - 11
         val newMap = rowHeaderWidths.toMutableMap()
         newMap[tableIdToUse] = newWidth.toInt()
@@ -202,7 +204,7 @@ data class TableDimensions(
         column: Int,
         widthOffset: Float,
     ): TableDimensions {
-        val tableIdToUse = if (groupedTables) "GROUPED" else tableId
+        val tableIdToUse = if (groupedTables) GROUPED_ID else tableId
         val newWidth = (
             columnWidth[tableIdToUse]?.get(column)
                 ?: (defaultCellWidth + (currentExtraSize[tableIdToUse] ?: 0))
@@ -235,7 +237,7 @@ data class TableDimensions(
         groupedTables: Boolean,
         tableId: String,
     ): TableDimensions {
-        val tableIdToUse = if (groupedTables) "GROUPED" else tableId
+        val tableIdToUse = if (groupedTables) GROUPED_ID else tableId
         val newExtraWidths = extraWidths.toMutableMap()
         val newColumnMap = columnWidth.toMutableMap()
         val newRowHeaderMap = rowHeaderWidths.toMutableMap()
@@ -297,7 +299,7 @@ data class TableDimensions(
         tableId: String,
         widthOffset: Float,
     ): Boolean {
-        val tableIdToUse = if (groupedTables) "GROUPED" else tableId
+        val tableIdToUse = if (groupedTables) GROUPED_ID else tableId
         val desiredDimension = updateAllWidthBy(
             groupedTables = groupedTables,
             tableId = tableIdToUse,
@@ -330,7 +332,7 @@ data class TableDimensions(
         groupedTables: Boolean,
         tableId: String,
     ): Int {
-        val tableIdToUse = if (groupedTables) "GROUPED" else tableId
+        val tableIdToUse = if (groupedTables) GROUPED_ID else tableId
         return rowHeaderWidths[tableIdToUse] ?: defaultRowHeaderWidth
     }
 
@@ -346,7 +348,7 @@ data class TableDimensions(
         tableId: String,
         column: Int,
     ): Int {
-        val tableIdToUse = if (groupedTables) "GROUPED" else tableId
+        val tableIdToUse = if (groupedTables) GROUPED_ID else tableId
         return columnWidth[tableIdToUse]?.get(column) ?: defaultCellWidth
     }
 
