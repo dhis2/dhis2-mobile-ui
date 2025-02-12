@@ -1,5 +1,6 @@
 package org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal
 
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.LocalTableColors
@@ -55,22 +56,31 @@ internal sealed class CellStyle {
  */
 @Composable
 internal fun styleForColumnHeader(
+    isCornerSelected: Boolean,
     isSelected: Boolean,
     isParentSelected: Boolean,
     columnIndex: Int,
 ): CellStyle = when {
+    isCornerSelected -> CellStyle.HeaderStyle(
+        backgroundColor = MaterialTheme.colorScheme.surfaceContainerHighest,
+        textColor = MaterialTheme.colorScheme.primary,
+    )
+
     isSelected -> CellStyle.HeaderStyle(
         backgroundColor = LocalTableColors.current.primary,
         textColor = LocalTableColors.current.onPrimary,
     )
+
     isParentSelected -> CellStyle.HeaderStyle(
-        backgroundColor = LocalTableColors.current.primaryLight,
+        backgroundColor = MaterialTheme.colorScheme.surfaceContainerHighest,
         textColor = LocalTableColors.current.headerText,
     )
+
     columnIndex % 2 == 0 -> CellStyle.HeaderStyle(
         backgroundColor = LocalTableColors.current.headerBackground1,
         textColor = LocalTableColors.current.headerText,
     )
+
     else ->
         CellStyle.HeaderStyle(
             backgroundColor = LocalTableColors.current.headerBackground2,
@@ -87,15 +97,26 @@ internal fun styleForColumnHeader(
  * @return The style for the column header cell.
  */
 @Composable
-internal fun styleForRowHeader(isSelected: Boolean, isOtherRowSelected: Boolean): CellStyle = when {
+internal fun styleForRowHeader(
+    isCornerSelected: Boolean,
+    isSelected: Boolean,
+    isOtherRowSelected: Boolean,
+): CellStyle = when {
+    isCornerSelected -> CellStyle.HeaderStyle(
+        backgroundColor = MaterialTheme.colorScheme.surfaceContainerHighest,
+        textColor = MaterialTheme.colorScheme.primary,
+    )
+
     isSelected -> CellStyle.HeaderStyle(
         TableTheme.colors.primary,
         TableTheme.colors.onPrimary,
     )
+
     isOtherRowSelected -> CellStyle.HeaderStyle(
-        TableTheme.colors.primaryLight,
-        TableTheme.colors.primary,
+        backgroundColor = TableTheme.colors.tableBackground,
+        textColor = TableTheme.colors.primary,
     )
+
     else -> CellStyle.HeaderStyle(
         backgroundColor = TableTheme.colors.tableBackground,
         textColor = TableTheme.colors.primary,
@@ -132,7 +153,7 @@ internal fun styleForCell(
     backgroundColor = when {
         legendColor != null -> Color.Transparent
         !isEditable && isParentSelected -> tableColorProvider().disabledSelectedBackground
-        isParentSelected -> tableColorProvider().primaryLight
+        isParentSelected -> tableColorProvider().selectedCell
         !isEditable -> tableColorProvider().disabledCellBackground
         isSelected -> tableColorProvider().tableBackground
         else -> tableColorProvider().tableBackground

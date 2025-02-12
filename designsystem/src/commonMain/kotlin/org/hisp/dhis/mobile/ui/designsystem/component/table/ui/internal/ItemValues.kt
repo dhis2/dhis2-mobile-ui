@@ -8,7 +8,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.key
 import androidx.compose.ui.Modifier
-import org.hisp.dhis.mobile.ui.designsystem.component.table.model.DropdownOption
+import org.hisp.dhis.mobile.ui.designsystem.component.model.DraggableType
+import org.hisp.dhis.mobile.ui.designsystem.component.modifier.draggableList
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableCell
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableHeader
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme
@@ -21,10 +22,8 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantic
  * @param horizontalScrollState The state of the horizontal scroll.
  * @param maxLines The maximum number of lines to display in each cell.
  * @param cellValues A map of column indices to table cells representing the cell values.
- * @param overridenValues A map of column indices to table cells representing the overridden cell values.
  * @param tableHeaderModel The model representing the table header.
- * @param options The list of dropdown options available for the cells.
- * @param headerLabel The label for the header.
+ * @param columnCount number of columns
  */
 @Composable
 internal fun ItemValues(
@@ -32,24 +31,25 @@ internal fun ItemValues(
     horizontalScrollState: ScrollState,
     maxLines: Int,
     cellValues: Map<Int, TableCell>,
-    overridenValues: Map<Int, TableCell>,
     tableHeaderModel: TableHeader,
-    options: List<DropdownOption>,
-    headerLabel: String,
+    columnCount: Int,
 ) {
     Row(
         modifier = Modifier
-            .horizontalScroll(state = horizontalScrollState),
+            .horizontalScroll(state = horizontalScrollState)
+            .draggableList(
+                scrollState = horizontalScrollState,
+                draggableType = DraggableType.Horizontal,
+            ),
     ) {
         repeat(
-            times = cellValues.size,
+            times = columnCount,
             action = { columnIndex ->
-                val cellValue =
-                    if (overridenValues[columnIndex]?.id == cellValues[columnIndex]?.id) {
-                        overridenValues[columnIndex]
-                    } else {
-                        cellValues[columnIndex]
-                    } ?: TableCell(value = "", column = columnIndex)
+                val cellValue = cellValues[columnIndex] ?: TableCell(
+                    editable = false,
+                    value = "",
+                    column = columnIndex,
+                )
 
                 key("$tableId$CELL_TEST_TAG${cellValue.row}${cellValue.column}") {
                     TableCell(
@@ -57,13 +57,12 @@ internal fun ItemValues(
                         cell = cellValue,
                         maxLines = maxLines,
                         headerExtraSize = TableTheme.dimensions.extraSize(
-                            tableId,
-                            tableHeaderModel.tableMaxColumns(),
-                            tableHeaderModel.hasTotals,
-                            columnIndex,
+                            groupedTables = TableTheme.configuration.groupTables,
+                            tableId = tableId,
+                            totalColumns = tableHeaderModel.tableMaxColumns(),
+                            hasTotal = tableHeaderModel.hasTotals,
+                            column = columnIndex,
                         ),
-                        options = options,
-                        headerLabel = headerLabel,
                     )
                 }
             },

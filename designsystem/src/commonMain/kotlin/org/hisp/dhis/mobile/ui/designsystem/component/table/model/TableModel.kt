@@ -10,7 +10,6 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableSelection
  * @property title The title of the table.
  * @property tableHeaderModel The header of the table.
  * @property tableRows The rows of the table.
- * @property overwrittenValues The values that have been overwritten.
  */
 @Serializable
 data class TableModel(
@@ -18,7 +17,6 @@ data class TableModel(
     val title: String = "",
     val tableHeaderModel: TableHeader,
     val tableRows: List<TableRowModel>,
-    val overwrittenValues: Map<Int, TableCell> = emptyMap(),
 ) {
     fun countChildrenOfSelectedHeader(
         headerRowIndex: Int,

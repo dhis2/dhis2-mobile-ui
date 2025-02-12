@@ -3,6 +3,7 @@ package org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -11,8 +12,6 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.zIndex
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.internal.TableCornerUiState
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.LocalTableColors
-import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.LocalTableSelection
-import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableSelection
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.modifiers.cornerBackground
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
@@ -32,18 +31,23 @@ internal fun TableCorner(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val isSelected = LocalTableSelection.current is TableSelection.AllCellSelection
+    val isSelected = TableTheme.tableSelection.isCornerSelected(tableId)
+    val config = TableTheme.configuration
+
     Box(
         modifier = modifier
             .cornerBackground(
                 isSelected = isSelected,
-                selectedColor = LocalTableColors.current.primaryLight,
+                selectedColor = MaterialTheme.colorScheme.primary,
                 defaultColor = LocalTableColors.current.tableBackground,
             )
             .width(
                 with(LocalDensity.current) {
                     TableTheme.dimensions
-                        .rowHeaderWidth(tableId)
+                        .rowHeaderWidth(
+                            groupedTables = config.groupTables,
+                            tableId = tableId,
+                        )
                         .toDp()
                 },
             )
@@ -62,11 +66,13 @@ internal fun TableCorner(
                 checkMaxMinCondition = { dimensions, currentOffsetX ->
                     if (tableCornerUiState.singleValueTable) {
                         dimensions.canUpdateRowHeaderWidth(
+                            groupedTables = config.groupTables,
                             tableId = tableId,
                             widthOffset = currentOffsetX,
                         )
                     } else {
                         dimensions.canUpdateAllWidths(
+                            groupedTables = config.groupTables,
                             tableId = tableId,
                             widthOffset = currentOffsetX,
                         )

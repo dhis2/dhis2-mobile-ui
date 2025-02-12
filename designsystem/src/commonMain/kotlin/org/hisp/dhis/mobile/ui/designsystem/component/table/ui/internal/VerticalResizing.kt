@@ -5,8 +5,12 @@ import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.SwapHorizontalCircle
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -26,14 +30,10 @@ import androidx.compose.ui.layout.positionInRoot
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
-import org.hisp.dhis.mobile.designsystem.generated.resources.Res
-import org.hisp.dhis.mobile.designsystem.generated.resources.ic_row_widener
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.internal.ResizingCell
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableDimensions
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme
-import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-import org.jetbrains.compose.resources.painterResource
 import kotlin.math.abs
 import kotlin.math.roundToInt
 
@@ -65,16 +65,17 @@ internal fun VerticalResizingView(modifier: Modifier = Modifier, provideResizing
                     .align(Alignment.TopCenter)
                     .offset {
                         IntOffset(
-                            -15.dp.value.toInt(),
-                            resizingCell.initialPosition.y.roundToInt() - tableOffset.y.roundToInt(),
+                            x = -21.dp.roundToPx(),
+                            y = -8.dp.roundToPx() + resizingCell.initialPosition.y.roundToInt() - tableOffset.y.roundToInt(),
                         )
                     }
                     .background(
                         color = colorPrimary,
-                        shape = Shape.Large,
+                        shape = CircleShape,
                     )
-                    .size(Spacing.Spacing14),
-                painter = painterResource(Res.drawable.ic_row_widener),
+                    .size(Spacing.Spacing40)
+                    .padding(8.dp),
+                imageVector = Icons.Outlined.SwapHorizontalCircle,
                 contentDescription = "",
                 tint = Color.White,
             )
@@ -121,16 +122,17 @@ internal fun VerticalResizingRule(
     ) {
         Icon(
             modifier = Modifier
-                .align(Alignment.Center)
+                .align(Alignment.BottomCenter)
                 .background(
                     color = TableTheme.colors.primary,
-                    shape = Shape.Large,
+                    shape = CircleShape,
                 )
-                .size(Spacing.Spacing14)
+                .size(Spacing.Spacing40)
+                .padding(8.dp)
                 .onGloballyPositioned { coordinates ->
                     positionInRoot = coordinates.positionInRoot()
                 },
-            painter = painterResource(Res.drawable.ic_row_widener),
+            imageVector = Icons.Outlined.SwapHorizontalCircle,
             contentDescription = "",
             tint = Color.White,
         )

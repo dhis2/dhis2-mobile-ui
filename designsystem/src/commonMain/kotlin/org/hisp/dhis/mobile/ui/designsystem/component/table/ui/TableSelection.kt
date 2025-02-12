@@ -119,8 +119,7 @@ sealed class TableSelection(open val tableId: String) {
      * @return True if the header cell is selected, false otherwise.
      */
     fun isHeaderSelected(selectedTableId: String, columnIndex: Int, columnHeaderRowIndex: Int) =
-        this.isCornerSelected(selectedTableId) ||
-            selectedTableId == tableId && (this is ColumnSelection) &&
+        selectedTableId == tableId && (this is ColumnSelection) &&
             this.columnIndex == columnIndex &&
             this.columnHeaderRow == columnHeaderRowIndex
 
@@ -140,7 +139,6 @@ sealed class TableSelection(open val tableId: String) {
         (
             when {
                 columnHeaderRowIndex < this.columnHeaderRow -> false
-                columnHeaderRowIndex == this.columnHeaderRow -> this.columnIndex != columnIndex
                 else -> this.childrenOfSelectedHeader[columnHeaderRowIndex]?.isInRange(
                     columnIndex,
                 ) ?: false
@@ -156,7 +154,8 @@ sealed class TableSelection(open val tableId: String) {
      */
     fun isRowSelected(selectedTableId: String, rowHeaderIndex: Int) =
         this.isCornerSelected(selectedTableId) ||
-            selectedTableId == tableId && (this is RowSelection) &&
+            selectedTableId == tableId &&
+            (this is RowSelection) &&
             this.rowIndex == rowHeaderIndex
 
     /**
@@ -166,9 +165,10 @@ sealed class TableSelection(open val tableId: String) {
      * @param rowHeaderIndex The index of the row header.
      * @return True if another row is selected, false otherwise.
      */
-    fun isOtherRowSelected(selectedTableId: String, rowHeaderIndex: Int) =
-        selectedTableId == tableId && (this is RowSelection) &&
-            this.rowIndex != rowHeaderIndex
+    fun isOtherRowSelected(
+        selectedTableId: String,
+        rowHeaderIndex: Int,
+    ) = selectedTableId == tableId && (this is RowSelection) && this.rowIndex != rowHeaderIndex
 
     /**
      * Checks if a cell is selected.
@@ -191,9 +191,12 @@ sealed class TableSelection(open val tableId: String) {
      * @param rowIndex The index of the row.
      * @return True if the cell's parent is selected, false otherwise.
      */
-    fun isCellParentSelected(selectedTableId: String, columnIndex: Int, rowIndex: Int) =
+    fun isCellParentSelected(
+        selectedTableId: String,
+        columnIndex: Int,
+        rowIndex: Int,
+    ) =
         when (this) {
-            is AllCellSelection -> isCornerSelected(selectedTableId)
             is ColumnSelection ->
                 if (childrenOfSelectedHeader.isEmpty()) {
                     isCellValid(columnIndex, rowIndex) &&
@@ -204,9 +207,11 @@ sealed class TableSelection(open val tableId: String) {
                         this.tableId == selectedTableId &&
                         this.childrenOfSelectedHeader.values.last().isInRange(columnIndex)
                 }
+
             is RowSelection -> {
                 isRowSelected(selectedTableId, rowIndex)
             }
+
             else -> false
         }
 

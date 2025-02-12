@@ -6,11 +6,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
@@ -35,6 +32,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantic
  * @param onDecorationClick Callback function invoked when a decoration is clicked.
  * @param onHeaderResize Callback function invoked when the header is resized.
  * @param onResizing Callback function invoked during the resizing of the header.
+ * @param columnCount number of columns
  */
 @Composable
 internal fun TableItemRow(
@@ -47,7 +45,9 @@ internal fun TableItemRow(
     onDecorationClick: (dialogModel: TableDialogModel) -> Unit,
     onHeaderResize: (Float) -> Unit,
     onResizing: (ResizingCell?) -> Unit,
+    columnCount: Int,
 ) {
+    val config = TableTheme.configuration
     Column(
         Modifier
             .testTag("$ROW_TEST_TAG${rowModel.rowHeader.row}")
@@ -65,7 +65,10 @@ internal fun TableItemRow(
                         rowHeader = rowModel.rowHeader,
                         cellStyle = rowHeaderCellStyle(rowModel.rowHeader.row),
                         width = with(LocalDensity.current) {
-                            TableTheme.dimensions.rowHeaderWidth(tableModel.id ?: "").toDp()
+                            TableTheme.dimensions.rowHeaderWidth(
+                                groupedTables = config.groupTables,
+                                tableId = tableModel.id ?: "",
+                            ).toDp()
                         },
                         maxLines = rowModel.maxLines,
                         onCellSelected = onRowHeaderClick,
@@ -79,18 +82,9 @@ internal fun TableItemRow(
                 tableId = tableModel.id ?: "",
                 horizontalScrollState = horizontalScrollState,
                 cellValues = rowModel.values,
-                overridenValues = tableModel.overwrittenValues,
                 maxLines = rowModel.maxLines,
                 tableHeaderModel = tableModel.tableHeaderModel,
-                options = rowModel.dropDownOptions ?: emptyList(),
-                headerLabel = rowModel.rowHeader.title,
-            )
-        }
-        if (!rowModel.isLastRow) {
-            HorizontalDivider(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(end = TableTheme.dimensions.tableEndExtraScroll),
+                columnCount = columnCount,
             )
         }
     }

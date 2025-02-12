@@ -13,7 +13,6 @@ import androidx.compose.foundation.relocation.BringIntoViewRequester
 import androidx.compose.foundation.relocation.bringIntoViewRequester
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Emergency
-import androidx.compose.material.icons.outlined.Emergency
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -38,9 +37,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
-import org.hisp.dhis.mobile.ui.designsystem.component.menu.DropDownMenu
-import org.hisp.dhis.mobile.ui.designsystem.component.menu.MenuItemData
-import org.hisp.dhis.mobile.ui.designsystem.component.table.model.DropdownOption
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableCell
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.LocalTableColors
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.LocalTableSelection
@@ -67,8 +63,6 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantic
  * @param cell The cell to be displayed.
  * @param maxLines The maximum number of lines to be displayed in the cell.
  * @param headerExtraSize The extra size to be added to the header.
- * @param options The list of dropdown options.
- * @param headerLabel The label of the header.
  */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -77,13 +71,9 @@ internal fun TableCell(
     cell: TableCell,
     maxLines: Int,
     headerExtraSize: Int,
-    options: List<DropdownOption>,
-    headerLabel: String,
 ) {
     val localInteraction = LocalInteraction.current
     val tableSelection = LocalTableSelection.current
-    val (dropDownExpanded, setExpanded) = remember { mutableStateOf(false) }
-    val (showMultiSelector, setShowMultiSelector) = remember { mutableStateOf(false) }
 
     var cellValue by remember {
         mutableStateOf<String?>(null)
@@ -123,14 +113,16 @@ internal fun TableCell(
     }
     val localDensity = LocalDensity.current
     val dimensions = TableTheme.dimensions
+    val config = TableTheme.configuration
 
     val cellWidth by remember(dimensions) {
         derivedStateOf {
             with(localDensity) {
                 dimensions
                     .columnWidthWithTableExtra(
-                        tableId,
-                        cell.column,
+                        groupedTables = config.groupTables,
+                        tableId = tableId,
+                        column = cell.column,
                     )
                     .plus(headerExtraSize)
                     .toDp()
@@ -162,23 +154,15 @@ internal fun TableCell(
             .fillMaxWidth()
             .fillMaxHeight()
             .clickable(cell.editable) {
-                when {
-                    options.isNotEmpty() -> when {
-                        cell.isMultiText -> setShowMultiSelector(true)
-                        else -> setExpanded(true)
-                    }
-                    else -> {
-                        localInteraction.onSelectionChange(
-                            TableSelection.CellSelection(
-                                tableId = tableId,
-                                columnIndex = cell.column,
-                                rowIndex = cell.row ?: -1,
-                                globalIndex = 0,
-                            ),
-                        )
-                        localInteraction.onClick(cell)
-                    }
-                }
+                localInteraction.onSelectionChange(
+                    TableSelection.CellSelection(
+                        tableId = tableId,
+                        columnIndex = cell.column,
+                        rowIndex = cell.row ?: -1,
+                        globalIndex = 0,
+                    ),
+                )
+                localInteraction.onClick(cell)
             },
         legendColor = cell.legendColor?.let { Color(it) },
     ) {
@@ -204,58 +188,6 @@ internal fun TableCell(
                 ),
             ),
         )
-        if (options.isNotEmpty()) {
-            DropDownMenu(
-                expanded = dropDownExpanded,
-                onDismissRequest = { setExpanded(false) },
-                items = options.map {
-                    MenuItemData(
-                        id = it.code,
-                        label = it.name,
-                    )
-                },
-                onItemClick = { code ->
-                    setExpanded(false)
-                    localInteraction.onSelectionChange(
-                        TableSelection.CellSelection(
-                            tableId = tableId,
-                            columnIndex = cell.column,
-                            rowIndex = cell.row ?: -1,
-                            globalIndex = 0,
-                        ),
-                    )
-                    val label = options.first { it.code == code }.name
-                    localInteraction.onOptionSelected(
-                        cell.copy(value = label),
-                        code,
-                        label,
-                    )
-                },
-            )
-            if (showMultiSelector) {
-                MultiOptionSelector(
-                    options = options,
-                    cell = cell,
-                    title = headerLabel,
-                    onSave = { codes, values ->
-                        localInteraction.onSelectionChange(
-                            TableSelection.CellSelection(
-                                tableId = tableId,
-                                columnIndex = cell.column,
-                                rowIndex = cell.row ?: -1,
-                                globalIndex = 0,
-                            ),
-                        )
-                        cellValue = values
-                        localInteraction.onOptionSelected(cell, codes, values)
-                        setShowMultiSelector(false)
-                    },
-                    onDismiss = {
-                        setShowMultiSelector(false)
-                    },
-                )
-            }
-        }
 
         if (cell.mandatory == true) {
             Icon(

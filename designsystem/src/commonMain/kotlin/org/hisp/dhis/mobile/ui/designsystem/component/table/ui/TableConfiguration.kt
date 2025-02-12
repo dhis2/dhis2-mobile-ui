@@ -12,9 +12,10 @@ import androidx.compose.runtime.staticCompositionLocalOf
  */
 @Immutable
 data class TableConfiguration(
-    val headerActionsEnabled: Boolean = true,
+    val headerActionsEnabled: Boolean = false,
     val editable: Boolean = true,
     val textInputViewMode: Boolean = true,
+    val groupTables: Boolean = true,
 )
 
 /**

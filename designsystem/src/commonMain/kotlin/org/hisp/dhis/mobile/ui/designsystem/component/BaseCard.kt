@@ -47,6 +47,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.conditional
+import org.hisp.dhis.mobile.ui.designsystem.component.model.DraggableType
 import org.hisp.dhis.mobile.ui.designsystem.component.modifier.draggableList
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
@@ -165,6 +166,7 @@ fun <T> ExpandableItemColumn(
                 }
             }.draggableList(
                 scrollState = scrollState,
+                draggableType = DraggableType.Vertical,
             ),
         state = scrollState,
         verticalArrangement = spacedBy(itemSpacing),

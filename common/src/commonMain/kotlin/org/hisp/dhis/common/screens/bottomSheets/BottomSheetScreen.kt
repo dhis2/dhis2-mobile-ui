@@ -38,6 +38,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.ColorStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.LegendRange
+import org.hisp.dhis.mobile.ui.designsystem.component.model.DraggableType
 import org.hisp.dhis.mobile.ui.designsystem.component.modifier.draggableList
 import org.hisp.dhis.mobile.ui.designsystem.component.state.BottomSheetShellDefaults
 import org.hisp.dhis.mobile.ui.designsystem.component.state.BottomSheetShellUIState
@@ -88,7 +89,10 @@ fun BottomSheetScreen() {
             ),
             content = {
                 LazyColumn(
-                    modifier = Modifier.draggableList(scrollState = scrollState),
+                    modifier = Modifier.draggableList(
+                        scrollState = scrollState,
+                        draggableType = DraggableType.Vertical,
+                    ),
                     state = scrollState,
                 ) {
                     items(longLegendList) { item ->

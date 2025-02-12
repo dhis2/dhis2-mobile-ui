@@ -8,6 +8,8 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
+const val GROUPED_ID = "GROUPED"
+
 /**
  * Data class representing the dimensions of the table component.
  *
@@ -77,22 +79,38 @@ data class TableDimensions(
      * @param tableId The ID of the table.
      * @return The updated dimensions.
      */
-    fun rowHeaderWidth(tableId: String): Int {
-        return (rowHeaderWidths[tableId] ?: defaultRowHeaderWidth) + extraWidthInTable(tableId)
+    fun rowHeaderWidth(
+        groupedTables: Boolean,
+        tableId: String,
+    ): Int {
+        val tableIdToUse = if (groupedTables) GROUPED_ID else tableId
+        return (rowHeaderWidths[tableIdToUse] ?: defaultRowHeaderWidth) + extraWidthInTable(
+            tableIdToUse,
+        )
     }
 
     internal fun defaultCellWidthWithExtraSize(
+        groupedTables: Boolean,
         tableId: String,
         totalColumns: Int,
         hasExtra: Boolean = false,
     ): Int = defaultCellWidth +
-        extraSize(tableId, totalColumns, hasExtra) +
+        extraSize(groupedTables, tableId, totalColumns, hasExtra) +
         extraWidthInTable(tableId)
 
-    internal fun columnWidthWithTableExtra(tableId: String, column: Int? = null): Int =
-        (columnWidth[tableId]?.get(column) ?: defaultCellWidth) + extraWidthInTable(tableId)
+    internal fun columnWidthWithTableExtra(
+        groupedTables: Boolean,
+        tableId: String,
+        column: Int? = null,
+    ): Int {
+        val tableIdToUse = if (groupedTables) GROUPED_ID else tableId
+        return (columnWidth[tableIdToUse]?.get(column) ?: defaultCellWidth) + extraWidthInTable(
+            tableIdToUse,
+        )
+    }
 
     internal fun headerCellWidth(
+        groupedTables: Boolean,
         tableId: String,
         column: Int,
         headerRowColumns: Int,
@@ -106,19 +124,27 @@ data class TableDimensions(
                 val maxColumn = rowHeaderRatio * (1 + column) - 1
                 val minColumn = rowHeaderRatio * column
                 (minColumn..maxColumn).sumOf {
-                    columnWidthWithTableExtra(tableId, it) +
-                        extraSize(tableId, totalColumns, hasTotal, column)
+                    columnWidthWithTableExtra(groupedTables, tableId, it) +
+                        extraSize(groupedTables, tableId, totalColumns, hasTotal, column)
                 }
             }
-            else -> columnWidthWithTableExtra(tableId, column) +
-                extraSize(tableId, totalColumns, hasTotal, column)
+
+            else -> columnWidthWithTableExtra(groupedTables, tableId, column) +
+                extraSize(groupedTables, tableId, totalColumns, hasTotal, column)
         }
         return result
     }
 
-    internal fun extraSize(tableId: String, totalColumns: Int, hasTotal: Boolean, column: Int? = null): Int {
+    internal fun extraSize(
+        groupedTables: Boolean,
+        tableId: String,
+        totalColumns: Int,
+        hasTotal: Boolean,
+        column: Int? = null,
+    ): Int {
+        if (groupedTables) return 0
         val screenWidth = totalWidth
-        val tableWidth = tableWidth(tableId, totalColumns, hasTotal)
+        val tableWidth = tableWidth(groupedTables, tableId, totalColumns, hasTotal)
         val columnHasResizedValue = column?.let {
             columnWidth[tableId]?.containsKey(it)
         }
@@ -134,35 +160,60 @@ data class TableDimensions(
         }
     }
 
-    private fun tableWidth(tableId: String, totalColumns: Int, hasTotal: Boolean): Int {
+    private fun tableWidth(
+        groupedTables: Boolean,
+        tableId: String,
+        totalColumns: Int,
+        hasTotal: Boolean,
+    ): Int {
         val totalCellWidth = defaultCellWidth.takeIf { hasTotal } ?: 0
-        return rowHeaderWidth(tableId) + defaultCellWidth * totalColumns + totalCellWidth
+        return rowHeaderWidth(
+            groupedTables,
+            tableId,
+        ) + defaultCellWidth * totalColumns + totalCellWidth
     }
 
-    fun updateAllWidthBy(tableId: String, widthOffset: Float): TableDimensions {
-        val newWidth = (extraWidths[tableId] ?: 0) + widthOffset - 11
+    fun updateAllWidthBy(
+        groupedTables: Boolean,
+        tableId: String,
+        widthOffset: Float,
+    ): TableDimensions {
+        val tableIdToUse = if (groupedTables) GROUPED_ID else tableId
+
+        val newWidth = (extraWidths[tableIdToUse] ?: 0) + widthOffset - 11
         val newMap = extraWidths.toMutableMap()
-        newMap[tableId] = newWidth.toInt()
+        newMap[tableIdToUse] = newWidth.toInt()
         return copy(extraWidths = newMap)
     }
 
-    fun updateHeaderWidth(tableId: String, widthOffset: Float): TableDimensions {
-        val newWidth = (rowHeaderWidths[tableId] ?: defaultRowHeaderWidth) + widthOffset - 11
+    fun updateHeaderWidth(
+        groupedTables: Boolean,
+        tableId: String,
+        widthOffset: Float,
+    ): TableDimensions {
+        val tableIdToUse = if (groupedTables) GROUPED_ID else tableId
+        val newWidth = (rowHeaderWidths[tableIdToUse] ?: defaultRowHeaderWidth) + widthOffset - 11
         val newMap = rowHeaderWidths.toMutableMap()
-        newMap[tableId] = newWidth.toInt()
+        newMap[tableIdToUse] = newWidth.toInt()
         return copy(rowHeaderWidths = newMap)
     }
 
-    fun updateColumnWidth(tableId: String, column: Int, widthOffset: Float): TableDimensions {
+    fun updateColumnWidth(
+        groupedTables: Boolean,
+        tableId: String,
+        column: Int,
+        widthOffset: Float,
+    ): TableDimensions {
+        val tableIdToUse = if (groupedTables) GROUPED_ID else tableId
         val newWidth = (
-            columnWidth[tableId]?.get(column)
-                ?: (defaultCellWidth + (currentExtraSize[tableId] ?: 0))
+            columnWidth[tableIdToUse]?.get(column)
+                ?: (defaultCellWidth + (currentExtraSize[tableIdToUse] ?: 0))
             ) + widthOffset - 11
 
         val newMap = columnWidth.toMutableMap()
-        val tableColumnMap = columnWidth[tableId]?.toMutableMap() ?: mutableMapOf()
+        val tableColumnMap = columnWidth[tableIdToUse]?.toMutableMap() ?: mutableMapOf()
         tableColumnMap[column] = newWidth.toInt()
-        newMap[tableId] = tableColumnMap
+        newMap[tableIdToUse] = tableColumnMap
         return this.copy(columnWidth = newMap)
     }
 
@@ -182,13 +233,17 @@ data class TableDimensions(
      * @param tableId The ID of the table.
      * @return The updated dimensions.
      */
-    fun resetWidth(tableId: String): TableDimensions {
+    fun resetWidth(
+        groupedTables: Boolean,
+        tableId: String,
+    ): TableDimensions {
+        val tableIdToUse = if (groupedTables) GROUPED_ID else tableId
         val newExtraWidths = extraWidths.toMutableMap()
         val newColumnMap = columnWidth.toMutableMap()
         val newRowHeaderMap = rowHeaderWidths.toMutableMap()
-        newExtraWidths.remove(tableId)
-        newColumnMap.remove(tableId)
-        newRowHeaderMap.remove(tableId)
+        newExtraWidths.remove(tableIdToUse)
+        newColumnMap.remove(tableIdToUse)
+        newRowHeaderMap.remove(tableIdToUse)
         return this.copy(
             extraWidths = newExtraWidths,
             rowHeaderWidths = newRowHeaderMap,
@@ -196,9 +251,20 @@ data class TableDimensions(
         )
     }
 
-    internal fun canUpdateRowHeaderWidth(tableId: String, widthOffset: Float): Boolean {
-        val desiredDimension = updateHeaderWidth(tableId = tableId, widthOffset = widthOffset)
-        return desiredDimension.rowHeaderWidth(tableId) in minRowHeaderWidth..maxRowHeaderWidth
+    internal fun canUpdateRowHeaderWidth(
+        groupedTables: Boolean,
+        tableId: String,
+        widthOffset: Float,
+    ): Boolean {
+        val desiredDimension = updateHeaderWidth(
+            groupedTables = groupedTables,
+            tableId = tableId,
+            widthOffset = widthOffset,
+        )
+        return desiredDimension.rowHeaderWidth(
+            groupedTables = groupedTables,
+            tableId = tableId,
+        ) in minRowHeaderWidth..maxRowHeaderWidth
     }
 
     internal fun canUpdateColumnHeaderWidth(
@@ -207,16 +273,20 @@ data class TableDimensions(
         columnIndex: Int,
         totalColumns: Int,
         hasTotal: Boolean,
+        groupedTables: Boolean,
     ): Boolean {
         val desiredDimension = updateColumnWidth(
+            groupedTables = groupedTables,
             tableId = tableId,
             widthOffset = currentOffsetX,
             column = columnIndex,
         )
         return desiredDimension.columnWidthWithTableExtra(
-            tableId,
-            columnIndex,
+            groupedTables = groupedTables,
+            tableId = tableId,
+            column = columnIndex,
         ) + extraSize(
+            groupedTables = groupedTables,
             tableId = tableId,
             totalColumns = totalColumns,
             hasTotal = hasTotal,
@@ -224,14 +294,30 @@ data class TableDimensions(
         ) in minColumnWidth..maxColumnWidth
     }
 
-    internal fun canUpdateAllWidths(tableId: String, widthOffset: Float): Boolean {
-        val desiredDimension = updateAllWidthBy(tableId = tableId, widthOffset = widthOffset)
-        return desiredDimension.rowHeaderWidth(tableId) in minRowHeaderWidth..maxRowHeaderWidth &&
-            desiredDimension.columnWidthWithTableExtra(tableId) in minColumnWidth..maxColumnWidth &&
-            desiredDimension.columnWidth[tableId]?.all { (column, _) ->
+    internal fun canUpdateAllWidths(
+        groupedTables: Boolean,
+        tableId: String,
+        widthOffset: Float,
+    ): Boolean {
+        val tableIdToUse = if (groupedTables) GROUPED_ID else tableId
+        val desiredDimension = updateAllWidthBy(
+            groupedTables = groupedTables,
+            tableId = tableIdToUse,
+            widthOffset = widthOffset,
+        )
+        return desiredDimension.rowHeaderWidth(
+            groupedTables = groupedTables,
+            tableId = tableIdToUse,
+        ) in minRowHeaderWidth..maxRowHeaderWidth &&
+            desiredDimension.columnWidthWithTableExtra(
+                groupedTables = groupedTables,
+                tableId = tableIdToUse,
+            ) in minColumnWidth..maxColumnWidth &&
+            desiredDimension.columnWidth[tableIdToUse]?.all { (column, _) ->
                 desiredDimension.columnWidthWithTableExtra(
-                    tableId,
-                    column,
+                    groupedTables = groupedTables,
+                    tableId = tableIdToUse,
+                    column = column,
                 ) in minColumnWidth..maxColumnWidth
             } ?: true
     }
@@ -242,8 +328,12 @@ data class TableDimensions(
      * @param tableId The ID of the table.
      * @return The width of the row header.
      */
-    fun getRowHeaderWidth(tableId: String): Int {
-        return rowHeaderWidths[tableId] ?: defaultRowHeaderWidth
+    fun getRowHeaderWidth(
+        groupedTables: Boolean,
+        tableId: String,
+    ): Int {
+        val tableIdToUse = if (groupedTables) GROUPED_ID else tableId
+        return rowHeaderWidths[tableIdToUse] ?: defaultRowHeaderWidth
     }
 
     /**
@@ -253,8 +343,13 @@ data class TableDimensions(
      * @param column The index of the column.
      * @return The width of the column.
      */
-    fun getColumnWidth(tableId: String, column: Int): Int {
-        return columnWidth[tableId]?.get(column) ?: defaultCellWidth
+    fun getColumnWidth(
+        groupedTables: Boolean,
+        tableId: String,
+        column: Int,
+    ): Int {
+        val tableIdToUse = if (groupedTables) GROUPED_ID else tableId
+        return columnWidth[tableIdToUse]?.get(column) ?: defaultCellWidth
     }
 
     /**

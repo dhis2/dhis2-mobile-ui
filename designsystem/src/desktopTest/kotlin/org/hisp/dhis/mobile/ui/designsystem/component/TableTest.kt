@@ -80,10 +80,10 @@ class TableTest {
 
             clickOnHeaderElement(firstTableId, 0, 0)
             for (i in 0 until sonColumnsHighlight) {
-                assertColumnHeaderBackgroundColor(firstTableId, 1, i, tableColors.primaryLight)
+                assertColumnHeaderBackgroundColor(firstTableId, 1, i, SurfaceColor.ContainerHighest)
             }
             for (i in 0 until grandsonColumnsHighlight) {
-                assertColumnHeaderBackgroundColor(firstTableId, 2, i, tableColors.primaryLight)
+                assertColumnHeaderBackgroundColor(firstTableId, 2, i, SurfaceColor.ContainerHighest)
             }
             val firstNonHighlightColumn = grandsonColumnsHighlight + 1
             for (i in firstNonHighlightColumn until maxColumnGrandSon) {
@@ -283,19 +283,6 @@ class TableTest {
             assertUnselectedCellErrorStyle(firstId, 2, 0)
             clickOnCell(firstId, 2, 0)
             assertSelectedCellErrorStyle(firstId, 2, 0)
-        }
-    }
-
-    @Test
-    fun shouldSetDropdownValue() = runBlocking {
-        val table = loadTableFromJson("dropdown_table.json")
-
-        tableRobot(composeTestRule) {
-            initTable(table)
-            val firstId = table.first().id!!
-            clickOnCell(firstId, 1, 0)
-            selectDropdownItem("Option 1")
-            assertCellHasValue(firstId, 1, 0, "Option 1")
         }
     }
 

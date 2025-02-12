@@ -109,11 +109,13 @@ internal fun ItemHeader(uiState: ItemHeaderUiState) {
                 rowHeaderIndex = uiState.rowHeader.row,
             )
         if (isSelected) {
+            val config = TableTheme.configuration
             VerticalResizingRule(
                 modifier = Modifier
                     .align(Alignment.CenterEnd),
                 checkMaxMinCondition = { dimensions, currentOffsetX ->
                     dimensions.canUpdateRowHeaderWidth(
+                        groupedTables = config.groupTables,
                         tableId = uiState.tableId,
                         widthOffset = currentOffsetX,
                     )

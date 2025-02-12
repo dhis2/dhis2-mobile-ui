@@ -87,62 +87,6 @@ class TableRobot(
         }
     }
 
-    /*private fun updateValue(fakeModel: List<TableModel>, tableCell: TableCell): List<TableModel> {
-        return fakeModel.map { tableModel ->
-            val hasRowWithDataElement = tableModel.tableRows.find {
-                tableCell.id?.contains(it.rowHeader.id.toString()) == true
-            }
-            if (hasRowWithDataElement != null) {
-                tableModel.copy(
-                    overwrittenValues = mapOf(
-                        Pair(tableCell.column!!, tableCell)
-                    )
-                )
-            } else {
-                tableModel
-            }
-        }
-    }
-
-    fun assertClickOnCellShouldOpenInputComponent(
-        tableId: String,
-        rowIndex: Int,
-        columnIndex: Int
-    ) {
-        clickOnCell(tableId, rowIndex, columnIndex)
-        composeTestRule.waitForIdle()
-        assertInputComponentIsDisplayed()
-    }
-
-    fun assertClickOnEditOpensInputKeyboard() {
-        clickOnEditionIcon()
-        composeTestRule.waitForIdle()
-        val checkKeyboardCmd = "dumpsys input_method | grep mInputShown"
-        try {
-            val device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
-            val keyboardOpened = device.executeShellCommand(checkKeyboardCmd)
-                .contains("mInputShown=true")
-            Assert.assertTrue(keyboardOpened)
-        } catch (e: IOException) {
-            throw RuntimeException("Keyboard check failed", e)
-        }
-        assertInputIcon(R.drawable.ic_finish_edit_input)
-    }
-
-    fun assertClickOnBackClearsFocus() {
-        pressBack()
-        composeTestRule.waitForIdle()
-        assertInputIcon(R.drawable.ic_edit_input)
-    }
-
-    fun assertClickOnSaveHidesKeyboardAndSaveValue(valueToType: String) {
-        clearInput()
-        composeTestRule.waitForIdle()
-        typeInput(valueToType)
-        composeTestRule.waitForIdle()
-        clickOnAccept()
-    }*/
-
     fun assertInfoIcon(tableId: String, rowIndex: Int) {
         composeTestRule.onNode(
             SemanticsMatcher.expectValue(TableId, tableId)

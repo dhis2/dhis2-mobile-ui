@@ -42,6 +42,7 @@ internal fun TableHeaderRow(
     cornerUiState: TableCornerUiState,
     tableModel: TableModel,
     horizontalScrollState: ScrollState,
+    columnCount: Int,
     cellStyle: @Composable
     (headerColumnIndex: Int, headerRowIndex: Int) -> CellStyle,
     onTableCornerClick: () -> Unit = {},
@@ -94,6 +95,7 @@ internal fun TableHeaderRow(
                 onHeaderCellSelected = onHeaderCellClick,
                 onHeaderResize = onHeaderResize,
                 onResizing = onResizing,
+                columnCount = columnCount,
             )
         }
     }
