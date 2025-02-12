@@ -28,8 +28,10 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 internal fun TableCorner(
     tableCornerUiState: TableCornerUiState,
     tableId: String,
+    maxRowColumnHeaders: Int,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
+
 ) {
     val isSelected = TableTheme.tableSelection.isCornerSelected(tableId)
     val config = TableTheme.configuration
@@ -43,12 +45,13 @@ internal fun TableCorner(
             )
             .width(
                 with(LocalDensity.current) {
-                    TableTheme.dimensions
-                        .rowHeaderWidth(
-                            groupedTables = config.groupTables,
-                            tableId = tableId,
-                        )
-                        .toDp()
+                    (
+                        maxRowColumnHeaders * TableTheme.dimensions
+                            .rowHeaderWidth(
+                                groupedTables = config.groupTables,
+                                tableId = tableId,
+                            )
+                        ).toDp()
                 },
             )
             .clickable { onClick() },

@@ -198,7 +198,7 @@ internal fun Table(
                     }
                     itemsIndexed(
                         items = tableModel.tableRows,
-                        key = { _, item -> item.rowHeader.id!! },
+                        key = { _, item -> item.id() },
                     ) { rowIndex, tableRowModel ->
                         val isLastRow = tableModel.tableRows.lastIndex == rowIndex
                         tableItemRow?.invoke(tableIndex, tableModel, tableRowModel)

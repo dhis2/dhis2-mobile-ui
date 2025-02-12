@@ -2,6 +2,7 @@ package org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -12,13 +13,18 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
+import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.text.style.TextOverflow
+import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableDialogModel
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.internal.ItemHeaderUiState
+import org.hisp.dhis.mobile.ui.designsystem.component.table.model.internal.ResizingCell
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.LocalTableSelection
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableSelection
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme
@@ -32,9 +38,20 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
  * Composable function to display a table item header.
  *
  * @param uiState The state of the item header, containing information such as table ID, row header, cell style, etc.
+ * @param onCellSelected Callback function invoked when a cell is selected.
+ * @param onDecorationClick Callback function invoked when the decoration icon is clicked.
+ * @param onHeaderResize Callback function invoked when the header is resized.
+ * @param onResizing Callback function invoked during the resizing of the header.
  */
 @Composable
-internal fun ItemHeader(uiState: ItemHeaderUiState) {
+internal fun ItemHeader(
+    uiState: ItemHeaderUiState,
+    clickableInteraction: MutableInteractionSource = remember { MutableInteractionSource() },
+    onCellSelected: (Int?) -> Unit,
+    onDecorationClick: (dialogModel: TableDialogModel) -> Unit,
+    onHeaderResize: (Float) -> Unit,
+    onResizing: (ResizingCell?) -> Unit,
+) {
     Box(
         Modifier
             .defaultMinSize(
@@ -49,9 +66,14 @@ internal fun ItemHeader(uiState: ItemHeaderUiState) {
                 rowIndexSemantic = uiState.rowHeader.row
                 rowBackground = uiState.cellStyle.backgroundColor()
             }
-            .clickable {
-                uiState.onCellSelected(uiState.rowHeader.row)
-            },
+            .clickable(
+                role = Role.Button,
+                indication = ripple(),
+                interactionSource = clickableInteraction,
+                onClick = {
+                    onCellSelected(uiState.rowHeader.row)
+                },
+            ),
         contentAlignment = Alignment.Center,
     ) {
         Text(
@@ -65,17 +87,20 @@ internal fun ItemHeader(uiState: ItemHeaderUiState) {
             overflow = TextOverflow.Ellipsis,
             style = MaterialTheme.typography.bodySmall,
         )
+
         VerticalDivider(
             modifier = Modifier.align(Alignment.TopEnd),
             thickness = Spacing.Spacing1,
             color = TableTheme.colors.primary,
         )
 
+
         val isSelected = LocalTableSelection.current !is TableSelection.AllCellSelection &&
-            LocalTableSelection.current.isRowSelected(
-                selectedTableId = uiState.tableId,
-                rowHeaderIndex = uiState.rowHeader.row,
-            )
+                LocalTableSelection.current.isRowSelected(
+                    selectedTableId = uiState.tableId,
+                    rowHeaderIndex = uiState.rowHeader.row,
+                    rowColumnIndex = uiState.rowHeader.column,
+                )
 
         HorizontalDivider(
             modifier = Modifier
@@ -101,8 +126,8 @@ internal fun ItemHeader(uiState: ItemHeaderUiState) {
                         widthOffset = currentOffsetX,
                     )
                 },
-                onHeaderResize = uiState.onHeaderResize,
-                onResizing = uiState.onResizing,
+                onHeaderResize = onHeaderResize,
+                onResizing = onResizing,
             )
         }
     }
