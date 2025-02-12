@@ -1,6 +1,7 @@
 package org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.defaultMinSize
@@ -35,10 +36,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
-import org.hisp.dhis.mobile.ui.designsystem.component.table.model.DropdownOption
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableCell
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.LocalTableColors
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.LocalTableSelection
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableSelection
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.compositions.LocalInteraction
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.cells.TextCell
@@ -156,11 +157,9 @@ internal fun TableCell(
             },
     ) {
         TextCell(
-            tableId = tableId,
             cellValue = cellValue ?: "",
             maxLines = maxLines,
             cell = cell,
-            headerLabel = headerLabel,
         )
         if (cell.mandatory == true) {
             Icon(

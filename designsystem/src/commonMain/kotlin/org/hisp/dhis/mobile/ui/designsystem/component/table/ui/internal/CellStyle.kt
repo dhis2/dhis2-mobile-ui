@@ -147,11 +147,10 @@ internal fun styleForCell(
 ) = CellStyle.CellBorderStyle(
     borderColor = tableColorProvider().primary,
     backgroundColor = when {
+        isParentSelected -> tableColorProvider().selectedCell
         hasError -> SurfaceColor.ErrorContainer
         hasWarning -> SurfaceColor.WarningContainer
         legendColor != null -> Color(legendColor).copy(alpha = 0.15f)
-        !isEditable && isParentSelected -> tableColorProvider().disabledSelectedBackground
-        isParentSelected -> tableColorProvider().selectedCell
         !isEditable -> tableColorProvider().disabledCellBackground
         isSelected -> tableColorProvider().tableBackground
         else -> tableColorProvider().tableBackground

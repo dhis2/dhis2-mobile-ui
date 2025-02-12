@@ -182,13 +182,13 @@ internal fun Table(
                     ) { rowIndex, tableRowModel ->
                         val isLastRow = tableModel.tableRows.lastIndex == rowIndex
                         tableItemRow?.invoke(tableIndex, tableModel, tableRowModel)
-                        if (!isLastRow or TableTheme.configuration.groupTables) {
+                        /*if (!isLastRow or TableTheme.configuration.groupTables) {
                             HorizontalDivider(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .padding(end = TableTheme.dimensions.tableEndExtraScroll),
                             )
-                        }
+                        }*/
                         val showExtendedDivider = if (TableTheme.configuration.groupTables) {
                             isLastTable && isLastRow
                         } else {

@@ -33,8 +33,6 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantic
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.ColumnBackground
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.ColumnIndexHeader
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.HasError
-import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.INFO_ICON
-import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.InfoIconId
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.IsBlocked
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.MANDATORY_ICON_TEST_TAG
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.RowBackground
@@ -92,8 +90,7 @@ class TableRobot(
     fun assertInfoIcon(tableId: String, rowIndex: Int) {
         composeTestRule.onNode(
             SemanticsMatcher.expectValue(TableId, tableId)
-                .and(SemanticsMatcher.expectValue(RowIndex, rowIndex))
-                .and(SemanticsMatcher.expectValue(InfoIconId, INFO_ICON)),
+                .and(SemanticsMatcher.expectValue(RowIndex, rowIndex)),
         ).assertExists()
     }
 

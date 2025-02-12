@@ -10,6 +10,7 @@ import androidx.compose.runtime.key
 import androidx.compose.ui.Modifier
 import org.hisp.dhis.mobile.ui.designsystem.component.model.DraggableType
 import org.hisp.dhis.mobile.ui.designsystem.component.modifier.draggableList
+import org.hisp.dhis.mobile.ui.designsystem.component.table.model.RowHeader
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableCell
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableHeader
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme
@@ -71,7 +72,6 @@ internal fun ItemValues(
                             extraColumns = tableHeaderModel.extraColumns.size,
                             column = columnIndex,
                         ),
-                        headerLabel = rowHeader.title,
                     )
                 }
             },

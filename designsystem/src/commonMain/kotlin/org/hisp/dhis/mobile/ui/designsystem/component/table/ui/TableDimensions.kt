@@ -40,7 +40,7 @@ data class TableDimensions(
     val tableHorizontalPadding: Dp = Spacing.Spacing16,
     val tableVerticalPadding: Dp = Spacing.Spacing16,
     val defaultCellWidth: Int = 160,
-    val defaultCellHeight: Dp = Spacing.Spacing36,
+    val defaultCellHeight: Dp = Spacing.Spacing40,
     val defaultRowHeaderWidth: Int = 275,
     val defaultHeaderHeight: Int = 36,
     val defaultHeaderTextSize: TextUnit = 12.sp,
@@ -132,11 +132,13 @@ data class TableDimensions(
     }
 
     internal fun extraSize(
-        groupedTables: Boolean,tableId: String,
+        groupedTables: Boolean,
+        tableId: String,
         totalColumns: Int,
         extraColumns: Int,
         column: Int? = null,
-    ): Int {if (groupedTables) return 0
+    ): Int {
+        if (groupedTables) return 0
         val screenWidth = totalWidth
         val tableWidth = tableWidth(groupedTables, tableId, totalColumns, extraColumns)
         val columnHasResizedValue = column?.let {

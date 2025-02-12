@@ -46,7 +46,7 @@ internal fun Modifier.cellBorder(
         )
         drawRect(
             color = dividerColor,
-            topLeft = Offset(outBorderOffset, size.height - outBorderOffset),
+            topLeft = Offset(0f, size.height - outBorderOffset),
             size = Size(width = size.width, height = borderWidth.toPx()),
         )
         drawCircle(
