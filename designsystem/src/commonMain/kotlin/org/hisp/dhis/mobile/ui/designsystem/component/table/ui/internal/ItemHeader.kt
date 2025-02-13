@@ -80,7 +80,8 @@ internal fun ItemHeader(uiState: ItemHeaderUiState) {
                     fontSize = TableTheme.dimensions.defaultRowHeaderTextSize,
                     maxLines = uiState.maxLines,
                     overflow = TextOverflow.Ellipsis,
-                )
+                    style = MaterialTheme.typography.bodySmall,
+                    )
                 if (uiState.rowHeader.showDecoration) {
                     Spacer(modifier = Modifier.size(Spacing.Spacing4))
                     Icon(

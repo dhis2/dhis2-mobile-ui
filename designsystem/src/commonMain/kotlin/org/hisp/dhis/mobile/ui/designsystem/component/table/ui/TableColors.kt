@@ -19,7 +19,6 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
  * @property disabledCellBackground The background color of disabled cells.
  * @property disabledSelectedBackground The background color of selected disabled cells.
  * @property tableBackground The background color of the table.
- * @property iconColor The color of icons.
  * @property onPrimary The color used for text/icons on primary color.
  */
 @Immutable
@@ -34,7 +33,6 @@ data class TableColors(
     val disabledCellBackground: Color = SurfaceColor.DisabledSurfaceBright,
     val disabledSelectedBackground: Color = SurfaceColor.DisabledSurface,
     val tableBackground: Color = SurfaceColor.SurfaceBright,
-    val iconColor: Color = TextColor.OnSurfaceLight,
     val onPrimary: Color = TextColor.OnPrimary,
     val selectedCell: Color = SurfaceColor.ContainerHighest,
 ) {
@@ -52,17 +50,6 @@ data class TableColors(
         hasWarning -> TextColor.OnWarningContainer
         !isEditable -> disabledCellText
         else -> cellText
-    }
-
-    /**
-     * Returns the appropriate color for the mandatory icon based on the cell value state.
-     *
-     * @param hasValue Indicates if the cell has a value.
-     * @return The color to be used for the mandatory icon.
-     */
-    fun cellMandatoryIconColor(hasValue: Boolean) = when (hasValue) {
-        true -> iconColor
-        false -> SurfaceColor.Error
     }
 }
 

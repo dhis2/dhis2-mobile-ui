@@ -6,15 +6,10 @@ import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.relocation.BringIntoViewRequester
 import androidx.compose.foundation.relocation.bringIntoViewRequester
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Emergency
 import androidx.compose.material3.DividerDefaults
-import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
@@ -22,6 +17,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Rect
@@ -37,17 +33,18 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableCell
-import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.LocalTableColors
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.LocalTableSelection
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableSelection
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.compositions.LocalInteraction
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.compositions.LocalUpdatingCell
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.cells.MandatoryIcon
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.cells.MandatoryIconStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.cells.TextCell
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.modifiers.cellBorder
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.CELL_ERROR_UNDERLINE_TEST_TAG
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.CELL_VALUE_TEST_TAG
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.CELL_TEST_TAG
-import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.MANDATORY_ICON_TEST_TAG
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.cellSelected
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.cellTestTag
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.hasError
@@ -162,21 +159,13 @@ internal fun TableCell(
             cell = cell,
         )
         if (cell.mandatory == true) {
-            Icon(
-                imageVector = Icons.Default.Emergency,
-                contentDescription = "mandatory",
-                modifier = Modifier
-                    .testTag(MANDATORY_ICON_TEST_TAG)
-                    .padding(4.dp)
-                    .size(6.dp)
-                    .align(
-                        alignment = mandatoryIconAlignment(
-                            cellValue?.isNotEmpty() == true,
-                        ),
-                    ),
-                tint = LocalTableColors.current.cellMandatoryIconColor(
-                    cellValue?.isNotEmpty() == true,
-                ),
+            val mandatoryStyle = when {
+                cellValue?.isNotEmpty() == true -> MandatoryIconStyle.FilledMandatoryStyle
+                else -> MandatoryIconStyle.DefaultMandatoryStyle
+            }
+            MandatoryIcon(
+                style = mandatoryStyle,
+                modifier = Modifier.align(mandatoryStyle.alignment),
             )
         }
     }
@@ -194,9 +183,4 @@ internal fun TableCell(
             }
         }
     }
-}
-
-private fun mandatoryIconAlignment(hasValue: Boolean) = when (hasValue) {
-    true -> Alignment.TopStart
-    false -> Alignment.CenterEnd
 }

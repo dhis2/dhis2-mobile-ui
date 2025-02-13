@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -58,7 +59,6 @@ internal fun HeaderCell(
         Text(
             modifier = Modifier
                 .padding(itemHeaderUiState.paddingValues)
-                .align(Alignment.Center)
                 .fillMaxWidth()
                 .align(Alignment.Center),
             color = itemHeaderUiState.cellStyle.mainColor(),
@@ -66,11 +66,12 @@ internal fun HeaderCell(
             textAlign = TextAlign.Center,
             fontSize = TableTheme.dimensions.defaultHeaderTextSize,
             overflow = TextOverflow.Ellipsis,
+            style = MaterialTheme.typography.bodySmall,
             maxLines = 3,
             softWrap = true,
         )
         HorizontalDivider(
-            color = TableTheme.colors.primary,
+            color = itemHeaderUiState.cellStyle.dividerColor,
             modifier = Modifier
                 .fillMaxWidth()
                 .align(Alignment.BottomCenter),

@@ -29,7 +29,7 @@ internal data class ItemColumnHeaderUiState(
     val headerCell: TableHeaderCell,
     val headerMeasures: HeaderMeasures,
     val paddingValues: PaddingValues,
-    val cellStyle: CellStyle,
+    val cellStyle: CellStyle.HeaderStyle,
     val onCellSelected: (Int) -> Unit,
     val onHeaderResize: (Int, Int, Float) -> Unit,
     val onResizing: (ResizingCell?) -> Unit,

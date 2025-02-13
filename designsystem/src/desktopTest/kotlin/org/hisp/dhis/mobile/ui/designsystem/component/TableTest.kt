@@ -288,7 +288,8 @@ class TableTest {
     private suspend fun loadTableFromJson(fileName: String): List<TableModel> {
         val bytes = Res.readBytes("files/json/$fileName")
         val jsonString = bytes.decodeToString()
-        return Json.decodeFromString(jsonString)
+        val json = Json { ignoreUnknownKeys = true }
+        return json.decodeFromString(jsonString)
     }
 
     companion object {

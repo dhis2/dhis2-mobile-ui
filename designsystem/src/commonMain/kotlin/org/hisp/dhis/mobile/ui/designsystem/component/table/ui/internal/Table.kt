@@ -166,6 +166,10 @@ internal fun Table(
             ) {
                 tableList.forEachIndexed { tableIndex, tableModel ->
                     val isLastTable = tableList.lastIndex == tableIndex
+                    val isFirstVisibleStickyHeader = verticalScrollState
+                        .layoutInfo.visibleItemsInfo
+                        .firstOrNull()?.key == "${tableModel.id}_sticky"
+                    val isScrolled = verticalScrollState.firstVisibleItemScrollOffset != 0
                     fixedStickyHeader(
                         fixHeader = keyboardState == Keyboard.Closed,
                         key = tableModel.id,
@@ -173,7 +177,7 @@ internal fun Table(
                         tableHeaderRow?.invoke(
                             tableIndex,
                             tableModel,
-                            verticalScrollState.firstVisibleItemScrollOffset != 0,
+                            isFirstVisibleStickyHeader && isScrolled,
                         )
                     }
                     itemsIndexed(
