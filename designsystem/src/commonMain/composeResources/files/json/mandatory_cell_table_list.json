@@ -53,13 +53,16 @@
     },
     "tableRows": [
       {
-        "rowHeader": {
-          "id": "sIqaW66yIfI",
-          "title": "Text 1",
-          "showDecoration": true,
-          "row": 0,
-          "description": "No hay información para este campo"
-        },
+        "rowHeaders": [
+          {
+            "id": "sIqaW66yIfI",
+            "title": "Text 1",
+            "showDecoration": true,
+            "row": 0,
+            "column": 0,
+            "description": "No hay información para este campo"
+          }
+        ],
         "values": {
           "0": {
             "id": "sIqaW66yIfI_F6ULrynnld7",
@@ -365,12 +368,15 @@
         }
       },
       {
-        "rowHeader": {
-          "id": "SQyQZDqII5A",
-          "title": "Text 2",
-          "row": 1,
-          "description": "No hay información para este campo"
-        },
+        "rowHeaders": [
+          {
+            "id": "SQyQZDqII5A",
+            "title": "Text 2",
+            "row": 1,
+            "column": 0,
+            "description": "No hay información para este campo"
+          }
+        ],
         "values": {
           "0": {
             "id": "SQyQZDqII5A_F6ULrynnld7",
@@ -675,12 +681,15 @@
         }
       },
       {
-        "rowHeader": {
-          "id": "CgJ9UN6mh5c",
-          "title": "Text 3",
-          "row": 2,
-          "description": "No hay información para este campo"
-        },
+        "rowHeaders": [
+          {
+            "id": "CgJ9UN6mh5c",
+            "title": "Text 3",
+            "row": 2,
+            "column": 0,
+            "description": "No hay información para este campo"
+          }
+        ],
         "values": {
           "0": {
             "id": "CgJ9UN6mh5c_F6ULrynnld7",
@@ -1042,12 +1051,15 @@
     },
     "tableRows": [
       {
-        "rowHeader": {
-          "id": "tikrRbUTDps",
-          "title": "Number",
-          "row": 0,
-          "description": "No hay información para este campo"
-        },
+        "rowHeaders": [
+          {
+            "id": "tikrRbUTDps",
+            "title": "Number",
+            "row": 0,
+            "column": 0,
+            "description": "No hay información para este campo"
+          }
+        ],
         "values": {
           "0": {
             "id": "tikrRbUTDps_r7qkmwpSSCQ",
@@ -1352,12 +1364,15 @@
         }
       },
       {
-        "rowHeader": {
-          "id": "QUAPkqxiw4C",
-          "title": "Text",
-          "row": 1,
-          "description": "No hay información para este campo"
-        },
+        "rowHeaders": [
+          {
+            "id": "QUAPkqxiw4C",
+            "title": "Text",
+            "row": 1,
+            "column": 0,
+            "description": "No hay información para este campo"
+          }
+        ],
         "values": {
           "0": {
             "id": "QUAPkqxiw4C_r7qkmwpSSCQ",
@@ -1662,12 +1677,15 @@
         }
       },
       {
-        "rowHeader": {
-          "id": "xQ517ooLHsu",
-          "title": "Long Text",
-          "row": 2,
-          "description": "No hay información para este campo"
-        },
+        "rowHeaders": [
+          {
+            "id": "xQ517ooLHsu",
+            "title": "Long Text",
+            "row": 2,
+            "column": 0,
+            "description": "No hay información para este campo"
+          }
+        ],
         "values": {
           "0": {
             "id": "xQ517ooLHsu_r7qkmwpSSCQ",
@@ -1972,12 +1990,15 @@
         }
       },
       {
-        "rowHeader": {
-          "id": "d8N01hPNSrg",
-          "title": "Integer",
-          "row": 3,
-          "description": "No hay información para este campo"
-        },
+        "rowHeaders": [
+          {
+            "id": "d8N01hPNSrg",
+            "title": "Integer",
+            "row": 3,
+            "column": 0,
+            "description": "No hay información para este campo"
+          }
+        ],
         "values": {
           "0": {
             "id": "d8N01hPNSrg_r7qkmwpSSCQ",
@@ -2282,12 +2303,15 @@
         }
       },
       {
-        "rowHeader": {
-          "id": "kdR6AeQZKdy",
-          "title": "Percentage",
-          "row": 4,
-          "description": "No hay información para este campo"
-        },
+        "rowHeaders": [
+          {
+            "id": "kdR6AeQZKdy",
+            "title": "Percentage",
+            "row": 4,
+            "column": 0,
+            "description": "No hay información para este campo"
+          }
+        ],
         "values": {
           "0": {
             "id": "kdR6AeQZKdy_r7qkmwpSSCQ",
