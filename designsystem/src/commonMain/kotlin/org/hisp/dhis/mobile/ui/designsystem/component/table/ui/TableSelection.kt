@@ -35,7 +35,7 @@ sealed class TableSelection(open val tableId: String) {
      */
     data class RowSelection(
         override val tableId: String,
-        val rowIndex: Int,
+        val rowIndex: List<Int>,
         val rowColumnIndex: Int,
     ) : TableSelection(tableId)
 
@@ -156,12 +156,18 @@ sealed class TableSelection(open val tableId: String) {
     fun isRowSelected(
         selectedTableId: String,
         rowHeaderIndex: Int,
-        rowColumnIndex: Int,
     ) = this.isCornerSelected(selectedTableId) ||
         selectedTableId == tableId &&
         (this is RowSelection) &&
-        this.rowIndex == rowHeaderIndex &&
-        this.rowColumnIndex == rowColumnIndex
+        this.rowIndex.contains(rowHeaderIndex)
+
+    fun isRowSelected(
+        selectedTableId: String,
+        rowHeaderIndexes: List<Int>,
+    ) = this.isCornerSelected(selectedTableId) ||
+        selectedTableId == tableId &&
+        (this is RowSelection) &&
+        rowHeaderIndexes == this.rowIndex
 
     /**
      * Checks if another row is selected.
@@ -172,8 +178,12 @@ sealed class TableSelection(open val tableId: String) {
      */
     fun isOtherRowSelected(
         selectedTableId: String,
-        rowHeaderIndex: Int,
-    ) = selectedTableId == tableId && (this is RowSelection) && this.rowIndex != rowHeaderIndex
+        rowHeaderIndexes: List<Int>,
+        rowHeaderColumnIndex: Int,
+    ) = selectedTableId == tableId &&
+        (this is RowSelection) &&
+        this.rowColumnIndex < rowHeaderColumnIndex &&
+        this.rowIndex.containsAll(rowHeaderIndexes)
 
     /**
      * Checks if a cell is selected.
@@ -212,7 +222,9 @@ sealed class TableSelection(open val tableId: String) {
                         this.tableId == selectedTableId &&
                         this.childrenOfSelectedHeader.values.last().isInRange(columnIndex)
                 }
-
+            is RowSelection -> {
+                isRowSelected(selectedTableId, rowIndex)
+            }
             else -> false
         }
 

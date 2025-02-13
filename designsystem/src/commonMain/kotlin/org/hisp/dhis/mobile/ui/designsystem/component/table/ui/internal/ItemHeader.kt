@@ -52,6 +52,8 @@ internal fun ItemHeader(
     onHeaderResize: (Float) -> Unit,
     onResizing: (ResizingCell?) -> Unit,
 ) {
+    val tableSelection = LocalTableSelection.current
+
     Box(
         Modifier
             .defaultMinSize(
@@ -94,13 +96,11 @@ internal fun ItemHeader(
             color = TableTheme.colors.primary,
         )
 
-
-        val isSelected = LocalTableSelection.current !is TableSelection.AllCellSelection &&
-                LocalTableSelection.current.isRowSelected(
-                    selectedTableId = uiState.tableId,
-                    rowHeaderIndex = uiState.rowHeader.row,
-                    rowColumnIndex = uiState.rowHeader.column,
-                )
+        val isSelected = tableSelection !is TableSelection.AllCellSelection &&
+            tableSelection.isRowSelected(
+                selectedTableId = uiState.tableId,
+                rowHeaderIndexes = uiState.headerIndexes,
+            )
 
         HorizontalDivider(
             modifier = Modifier

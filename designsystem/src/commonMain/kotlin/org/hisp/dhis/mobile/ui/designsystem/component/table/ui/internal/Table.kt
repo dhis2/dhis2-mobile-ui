@@ -70,7 +70,7 @@ internal fun Table(
         (
             index: Int,
             tableModel: TableModel,
-            tableRowModel: TableRowModel,
+            tableRowModel: List<TableRowModel>,
         ) -> Unit
     )? = null,
     verticalResizingView: @Composable ((tableHeight: Int?) -> Unit)? = null,
@@ -103,7 +103,7 @@ internal fun Table(
                     tableHeaderRow?.invoke(tableIndex, tableModel, false)
                     tableModel.tableRows.forEachIndexed { rowIndex, tableRowModel ->
                         val isLastRow = tableModel.tableRows.lastIndex == rowIndex
-                        tableItemRow?.invoke(tableIndex, tableModel, tableRowModel)
+                        tableItemRow?.invoke(tableIndex, tableModel, listOf(tableRowModel))
                         if (!isLastRow or TableTheme.configuration.groupTables) {
                             HorizontalDivider(
                                 modifier = Modifier
@@ -197,8 +197,8 @@ internal fun Table(
                         )
                     }
                     itemsIndexed(
-                        items = tableModel.tableRows,
-                        key = { _, item -> item.id() },
+                        items = tableModel.tableRows.groupBy { it.rowHeaders.first().id }.values.toList(),
+                        key = { _, item -> item.first().id() },
                     ) { rowIndex, tableRowModel ->
                         val isLastRow = tableModel.tableRows.lastIndex == rowIndex
                         tableItemRow?.invoke(tableIndex, tableModel, tableRowModel)

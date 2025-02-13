@@ -235,26 +235,26 @@ fun DataTable(
                 TableItemRow(
                     tableModel = tableModel,
                     horizontalScrollState = horizontalScrollConfig.getScrollState(index),
-                    rowModel = tableRowModel,
-                    rowHeaderCellStyle = { rowHeaderIndex, rowColumnIndex ->
+                    rowModels = tableRowModel,
+                    rowHeaderCellStyle = { rowHeaderIndexes, rowColumnIndex ->
                         styleForRowHeader(
                             isCornerSelected = tableSelection.isCornerSelected(tableModel.id ?: ""),
                             isSelected = tableSelection.isRowSelected(
                                 selectedTableId = tableModel.id ?: "",
-                                rowHeaderIndex = rowHeaderIndex ?: -1,
-                                rowColumnIndex = rowColumnIndex ?: -1,
+                                rowHeaderIndexes = rowHeaderIndexes,
                             ),
                             isOtherRowSelected = tableSelection.isOtherRowSelected(
                                 selectedTableId = tableModel.id ?: "",
-                                rowHeaderIndex = rowHeaderIndex ?: -1,
+                                rowHeaderIndexes = rowHeaderIndexes,
+                                rowHeaderColumnIndex = rowColumnIndex ?: -1,
                             ),
                         )
                     },
-                    onRowHeaderClick = { rowHeaderIndex, rowHeaderColumnIndex ->
+                    onRowHeaderClick = { rowHeaderIndexes, rowHeaderColumnIndex ->
                         defaultsTableInteractions.onSelectionChange(
                             TableSelection.RowSelection(
                                 tableId = tableModel.id ?: "",
-                                rowIndex = rowHeaderIndex ?: -1,
+                                rowIndex = rowHeaderIndexes,
                                 rowColumnIndex = rowHeaderColumnIndex ?: -1,
                             ),
                         )

@@ -4,13 +4,9 @@ import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.derivedStateOf
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.semantics
@@ -45,13 +41,13 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantic
 internal fun TableItemRow(
     tableModel: TableModel,
     horizontalScrollState: ScrollState,
-    rowModel: TableRowModel,
+    rowModels: List<TableRowModel>,
     rowHeaderCellStyle: @Composable
     (
-        rowHeaderIndex: Int?,
+        rowHeaderIndex: List<Int>,
         rowHeaderColumnIndex: Int?,
     ) -> CellStyle,
-    onRowHeaderClick: (rowHeaderIndex: Int?, rowHeaderColumnIndex: Int?) -> Unit,
+    onRowHeaderClick: (rowHeaderIndex: List<Int>, rowHeaderColumnIndex: Int?) -> Unit,
     onDecorationClick: (dialogModel: TableDialogModel) -> Unit,
     onHeaderResize: (Float) -> Unit,
     onResizing: (ResizingCell?) -> Unit,
@@ -67,6 +63,7 @@ internal fun TableItemRow(
         tableSelection.isCellSelected(tableModel.id, it.value.column, rowModel.rowHeader.row)
     }
     val config = TableTheme.configuration
+    val rowModel = rowModels.first()
 
     Row(
         Modifier
@@ -76,75 +73,105 @@ internal fun TableItemRow(
                 rowIndexSemantic = rowModel.rowHeader.row
             }
             .width(IntrinsicSize.Min)
+            .height(IntrinsicSize.Min)
             .zIndex(if (isCellSelectedOnRow) 1f else 0f),
     ) {
-        Row(Modifier.height(IntrinsicSize.Min)) {
-            rowModel.rowHeaders.forEachIndexed { rowHeaderColumnIndex, rowHeader ->
-                Box(
-                    modifier = Modifier
-                        .fillMaxHeight()
-                        .zIndex((rowModel.rowHeaders.size - rowModel.row() - rowHeaderColumnIndex).toFloat()),
-                ) {
-                    val hideLabel by remember(tableModel) {
-                        derivedStateOf {
-                            val prevRow = tableModel.tableRows.getOrNull(rowModel.row() - 1)
-                            prevRow?.rowHeaders?.get(rowHeaderColumnIndex)?.id == rowModel.rowHeaders.getOrNull(
-                                rowHeaderColumnIndex,
-                            )?.id
-                        }
-                    }
+        repeat(rowModel.rowHeaders.size) { rowHeaderColumnIndex ->
+            Column(
+                modifier = Modifier.zIndex((rowModel.rowHeaders.size - rowHeaderColumnIndex).toFloat()),
+            ) {
+                val rowHeaders = getRowHeaders(rowModels, rowHeaderColumnIndex)
 
-                    ItemHeader(
-                        uiState = ItemHeaderUiState(
-                            tableId = tableModel.id,
-                            hideLabel = hideLabel,
-                            totalColumns = rowModel.rowHeaders.size,
-                            rowHeader = rowHeader,
-                            cellStyle = rowHeaderCellStyle(rowHeader.row, rowHeaderColumnIndex),
-                            width = when {
-                                maxRowColumnHeaders == rowModel.rowHeaders.size ->
-                                    with(LocalDensity.current) {
-                                        TableTheme.dimensions.rowHeaderWidth(
-                                            groupedTables = config.groupTables,
-                                            tableId = tableModel.id,
-                                        ).toDp()
-                                    }
+                rowHeaders.forEach { rowHeader ->
+                    Box(
+                        modifier = Modifier
+                            .weight(1f),
+                    ) {
+                        ItemHeader(
+                            uiState = ItemHeaderUiState(
+                                tableId = tableModel.id,
+                                totalColumns = rowModel.rowHeaders.size,
+                                rowHeader = rowHeader,
+                                cellStyle = rowHeaderCellStyle(
+                                    getSelectedIndexes(rowHeader.row, rowModels, rowHeaderColumnIndex),
+                                    rowHeaderColumnIndex,
+                                ),
+                                width = when {
+                                    maxRowColumnHeaders == rowModel.rowHeaders.size ->
+                                        with(LocalDensity.current) {
+                                            TableTheme.dimensions.rowHeaderWidth(
+                                                groupedTables = config.groupTables,
+                                                tableId = tableModel.id,
+                                            ).toDp()
+                                        }
 
-                                else ->
-                                    with(LocalDensity.current) {
-                                        TableTheme.dimensions.rowHeaderWidth(
-                                            groupedTables = config.groupTables,
-                                            tableId = tableModel.id ?: "",
-                                        ).times(maxRowColumnHeaders).toDp()
-                                    }
+                                    else ->
+                                        with(LocalDensity.current) {
+                                            TableTheme.dimensions.rowHeaderWidth(
+                                                groupedTables = config.groupTables,
+                                                tableId = tableModel.id ?: "",
+                                            ).times(maxRowColumnHeaders).toDp()
+                                        }
+                                },
+                                maxLines = rowModel.maxLines,
+                                headerIndexes = getSelectedIndexes(rowHeader.row, rowModels, rowHeaderColumnIndex),
+                            ),
+                            onCellSelected = { rowIndex ->
+                                val indexes = getSelectedIndexes(
+                                    rowIndex = rowIndex,
+                                    rowModels = rowModels,
+                                    rowHeaderColumnIndex = rowHeaderColumnIndex,
+                                )
+                                onRowHeaderClick(
+                                    indexes,
+                                    rowHeaderColumnIndex,
+                                )
                             },
-                            maxLines = rowModel.maxLines,
-                        ),
-                        onCellSelected = {
-                            onRowHeaderClick(
-                                it,
-                                rowHeaderColumnIndex,
-                            )
-                        },
-                        onDecorationClick = onDecorationClick,
-                        onHeaderResize = onHeaderResize,
-                        onResizing = onResizing,
-                    )
+                            onDecorationClick = onDecorationClick,
+                            onHeaderResize = onHeaderResize,
+                            onResizing = onResizing,
+                        )
+                    }
                 }
             }
-            ItemValues(
-                modifier = Modifier
-                    .semantics {
+        }
+
+        Column {
+            rowModels.forEach {
+                ItemValues(
+                    modifier = Modifier.semantics {
                         testTag = rowValuesTestTag(tableModel.id, rowModel.rowHeader.id)
-                    },
-                tableId = tableModel.id,
-                horizontalScrollState = horizontalScrollState,
-                cellValues = rowModel.values,
-                maxLines = rowModel.maxLines,
-                tableHeaderModel = tableModel.tableHeaderModel,
-                rowIndex = rowModel.rowHeader.row,
-                columnCount = columnCount,
-            )
+                    }.weight(1f),
+                    tableId = tableModel.id,
+                    horizontalScrollState = horizontalScrollState,
+                    cellValues = it.values,
+                    maxLines = it.maxLines,
+                    tableHeaderModel = tableModel.tableHeaderModel,
+                    rowIndex = rowModel.rowHeader.row,columnCount = columnCount,
+                )
+            }
         }
     }
+}
+
+private fun getRowHeaders(rowModels: List<TableRowModel>, rowHeaderColumnIndex: Int) =
+    rowModels.mapNotNull {
+        it.rowHeaders.getOrNull(rowHeaderColumnIndex)
+    }.distinctBy { it.id }
+
+private fun getSelectedIndexes(
+    rowIndex: Int?,
+    rowModels: List<TableRowModel>,
+    rowHeaderColumnIndex: Int,
+): List<Int> {
+    val nextSize =
+        getRowHeaders(rowModels, rowHeaderColumnIndex + 1).size
+
+    return rowIndex?.let {
+        if (nextSize > 0) {
+            (rowIndex until rowIndex + nextSize).toList()
+        } else {
+            listOf(rowIndex)
+        }
+    } ?: emptyList()
 }

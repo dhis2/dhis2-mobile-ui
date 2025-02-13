@@ -127,7 +127,7 @@ internal fun styleForRowHeader(
     )
 
     isOtherRowSelected -> CellStyle.HeaderStyle(
-        backgroundColor = TableTheme.colors.tableBackground,
+        backgroundColor = MaterialTheme.colorScheme.surfaceContainerHighest,
         textColor = TableTheme.colors.primary,
         dividerColor = Outline.Light,
     )
