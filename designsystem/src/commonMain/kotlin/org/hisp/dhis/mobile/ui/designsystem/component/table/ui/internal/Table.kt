@@ -167,13 +167,6 @@ internal fun Table(
                         TableTheme.dimensions.tableVerticalPadding
                     },
                 ),
-                verticalArrangement = spacedBy(
-                    if (TableTheme.configuration.groupTables) {
-                        0.dp
-                    } else {
-                        TableTheme.dimensions.tableVerticalPadding
-                    },
-                ),
                 contentPadding = PaddingValues(bottom = TableTheme.dimensions.tableBottomPadding),
                 state = verticalScrollState,
             ) {

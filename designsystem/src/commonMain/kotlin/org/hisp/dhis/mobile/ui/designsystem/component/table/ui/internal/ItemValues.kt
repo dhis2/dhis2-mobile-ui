@@ -38,7 +38,6 @@ internal fun ItemValues(
     tableHeaderModel: TableHeader,
     rowIndex: Int,
     columnCount: Int,
-    columnCount: Int,
 ) {
     val firstCellSelected = tableSelection.isCellSelected(tableId, 0, rowIndex)
     Row(
