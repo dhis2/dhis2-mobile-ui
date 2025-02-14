@@ -69,26 +69,26 @@ internal fun styleForColumnHeader(
     columnIndex: Int,
 ): CellStyle.HeaderStyle = when {
     isCornerSelected -> CellStyle.HeaderStyle(
-        backgroundColor = MaterialTheme.colorScheme.surfaceContainerHighest,
-        textColor = MaterialTheme.colorScheme.primary,
+        backgroundColor = TableTheme.colors.primaryLight,
+        textColor = TableTheme.colors.primary,
         dividerColor = TableTheme.colors.primary,
     )
 
     isSelected -> CellStyle.HeaderStyle(
-        backgroundColor = LocalTableColors.current.primary,
-        textColor = LocalTableColors.current.onPrimary,
+        backgroundColor = TableTheme.colors.primary,
+        textColor = TableTheme.colors.onPrimary,
         dividerColor = TableTheme.colors.primary,
     )
 
     isParentSelected -> CellStyle.HeaderStyle(
-        backgroundColor = MaterialTheme.colorScheme.surfaceContainerHighest,
-        textColor = LocalTableColors.current.headerText,
+        backgroundColor = TableTheme.colors.primaryLight,
+        textColor = TableTheme.colors.headerText,
         dividerColor = TableTheme.colors.primary,
     )
 
     columnIndex % 2 == 0 -> CellStyle.HeaderStyle(
-        backgroundColor = LocalTableColors.current.headerBackground1,
-        textColor = LocalTableColors.current.headerText,
+        backgroundColor = TableTheme.colors.headerBackground1,
+        textColor = TableTheme.colors.headerText,
         dividerColor = TableTheme.colors.primary,
     )
 

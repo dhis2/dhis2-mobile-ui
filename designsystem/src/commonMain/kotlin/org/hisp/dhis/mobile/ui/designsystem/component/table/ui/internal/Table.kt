@@ -19,6 +19,7 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -139,6 +140,11 @@ internal fun Table(
                 )
             }
 
+            val isScrolled by remember {
+                derivedStateOf {
+                    verticalScrollState.firstVisibleItemScrollOffset != 0
+                }
+            }
             LazyColumn(
                 modifier = Modifier
                     .testTag("TABLE_SCROLLABLE_COLUMN")
@@ -166,14 +172,17 @@ internal fun Table(
             ) {
                 tableList.forEachIndexed { tableIndex, tableModel ->
                     val isLastTable = tableList.lastIndex == tableIndex
-                    val isFirstVisibleStickyHeader = verticalScrollState
-                        .layoutInfo.visibleItemsInfo
-                        .firstOrNull()?.key == "${tableModel.id}_sticky"
-                    val isScrolled = verticalScrollState.firstVisibleItemScrollOffset != 0
                     fixedStickyHeader(
                         fixHeader = keyboardState == Keyboard.Closed,
                         key = tableModel.id,
                     ) {
+                        val isFirstVisibleStickyHeader by remember {
+                            derivedStateOf {
+                                verticalScrollState
+                                    .layoutInfo.visibleItemsInfo
+                                    .firstOrNull()?.key == "${tableModel.id}_sticky"
+                            }
+                        }
                         tableHeaderRow?.invoke(
                             tableIndex,
                             tableModel,
