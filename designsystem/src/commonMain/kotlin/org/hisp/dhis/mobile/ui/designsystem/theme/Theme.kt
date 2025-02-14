@@ -156,8 +156,6 @@ fun DHIS2Theme(content: @Composable () -> Unit) {
         shapes = DHISShapes,
         content = content,
     )
-
-    MaterialTheme.typography.bodyLarge
 }
 
 enum class DHIS2TextStyle {
