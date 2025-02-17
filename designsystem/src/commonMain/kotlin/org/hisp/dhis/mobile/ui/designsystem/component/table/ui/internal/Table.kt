@@ -27,6 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onSizeChanged
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.Keyboard
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.keyboardAsState
@@ -134,6 +135,7 @@ internal fun Table(
 
             LazyColumn(
                 modifier = Modifier
+                    .testTag("TABLE_SCROLLABLE_COLUMN")
                     .background(Color.White)
                     .fillMaxWidth()
                     .padding(
