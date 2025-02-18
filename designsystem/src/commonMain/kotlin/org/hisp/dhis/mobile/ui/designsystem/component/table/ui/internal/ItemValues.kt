@@ -60,7 +60,7 @@ internal fun ItemValues(
                             groupedTables = TableTheme.configuration.groupTables,
                             tableId = tableId,
                             totalColumns = tableHeaderModel.tableMaxColumns(),
-                            hasTotal = tableHeaderModel.hasTotals,
+                            extraColumns = tableHeaderModel.extraColumns.size,
                             column = columnIndex,
                         ),
                     )

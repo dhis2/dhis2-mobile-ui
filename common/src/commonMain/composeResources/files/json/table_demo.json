@@ -48,7 +48,8 @@
             }
           ]
         }
-      ]
+      ],
+      "extraColumns": []
     },
     "tableRows": [
       {
@@ -1033,6 +1034,11 @@
             }
           ]
         }
+      ],
+      "extraColumns": [
+        {
+          "value": "Total"
+        }
       ]
     },
     "tableRows": [
@@ -1048,13 +1054,13 @@
             "id": "tikrRbUTDps_r7qkmwpSSCQ",
             "row": 0,
             "column": 0,
-            "value": null
+            "value": "1"
           },
           "1": {
             "id": "tikrRbUTDps_Zq5okO88JLW",
             "row": 0,
             "column": 1,
-            "value": null
+            "value": "2"
           },
           "2": {
             "id": "tikrRbUTDps_lBIUCjlRFx6",
@@ -1343,6 +1349,13 @@
             "row": 0,
             "column": 47,
             "value": null
+          },
+          "48": {
+            "id": "tikrRbUTDps_L69d8nfJsbZ",
+            "row": 0,
+            "column": 47,
+            "value": "3",
+            "editable": false
           }
         }
       },
@@ -2603,7 +2616,8 @@
             }
           ]
         }
-      ]
+      ],
+      "extraColumns": []
     },
     "tableRows": [
       {

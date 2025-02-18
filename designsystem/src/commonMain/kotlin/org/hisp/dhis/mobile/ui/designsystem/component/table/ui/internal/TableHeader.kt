@@ -90,7 +90,7 @@ internal fun TableHeader(
                                                 rowIndex,
                                             ),
                                             totalColumns = tableHeaderModel.tableMaxColumns(),
-                                            hasTotal = tableHeaderModel.hasTotals,
+                                            extraColumns = tableHeaderModel.extraColumns.size,
                                             groupedTables = configuration.groupTables,
                                         ),
                                         height = dimensions.defaultHeaderHeight,
@@ -116,25 +116,26 @@ internal fun TableHeader(
                                         currentOffsetX = currentOffsetX,
                                         columnIndex = columnIndex,
                                         totalColumns = tableHeaderModel.tableMaxColumns(),
-                                        hasTotal = tableHeaderModel.hasTotals,
+                                        extraColumns = tableHeaderModel.extraColumns.size,
                                         groupedTables = configuration.groupTables,
                                     )
                                 },
                             )
                         },
                     )
-                    if (tableHeaderModel.hasTotals) {
+                    tableHeaderModel.extraColumns.forEachIndexed { extraColumnIndex, extraColumnHeader ->
                         HeaderCell(
-                            ItemColumnHeaderUiState(
+                            itemHeaderUiState = ItemColumnHeaderUiState(
                                 tableId = tableId,
                                 rowIndex = rowIndex,
-                                columnIndex = tableHeaderModel.rows.size,
-                                headerCell = TableHeaderCell("Total"),
-                                HeaderMeasures(
+                                columnIndex = tableHeaderModel.rows.size + extraColumnIndex,
+                                headerCell = extraColumnHeader
+                                    .takeIf { rowIndex == tableHeaderModel.rows.lastIndex }
+                                    ?: TableHeaderCell(""),
+                                headerMeasures = HeaderMeasures(
                                     dimensions.defaultCellWidthWithExtraSize(
                                         tableId = tableId ?: "",
                                         totalColumns = tableHeaderModel.tableMaxColumns(),
-                                        hasExtra = true,
                                         groupedTables = configuration.groupTables,
                                     ),
                                     dimensions.defaultHeaderHeight * tableHeaderModel.rows.size,
@@ -153,11 +154,8 @@ internal fun TableHeader(
                         )
                     }
                     repeat(extraColumns) { extraColumnIndex ->
-                        val columnIndex = if (tableHeaderModel.hasTotals) {
-                            tableHeaderModel.rows.size + extraColumnIndex + 1
-                        } else {
-                            tableHeaderModel.rows.size + extraColumnIndex
-                        }
+                        val columnIndex =
+                            tableHeaderModel.rows.size + tableHeaderModel.extraColumns.size + extraColumnIndex
                         HeaderCell(
                             ItemColumnHeaderUiState(
                                 tableId = tableId,
@@ -168,7 +166,6 @@ internal fun TableHeader(
                                     width = dimensions.defaultCellWidthWithExtraSize(
                                         tableId = tableId ?: "",
                                         totalColumns = tableHeaderModel.tableMaxColumns(),
-                                        hasExtra = true,
                                         groupedTables = configuration.groupTables,
                                     ),
                                     height = dimensions.defaultHeaderHeight * tableHeaderModel.rows.size,

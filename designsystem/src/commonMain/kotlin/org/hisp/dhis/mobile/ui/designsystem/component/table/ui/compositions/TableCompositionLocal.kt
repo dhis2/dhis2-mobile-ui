@@ -6,17 +6,6 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.actions.DefaultValid
 import org.hisp.dhis.mobile.ui.designsystem.component.table.actions.TableInteractions
 import org.hisp.dhis.mobile.ui.designsystem.component.table.actions.TableResizeActions
 import org.hisp.dhis.mobile.ui.designsystem.component.table.actions.Validator
-import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableCell
-
-/**
- * Composition local for the current cell value.
- */
-val LocalCurrentCellValue = compositionLocalOf<() -> String?> { { "" } }
-
-/**
- * Composition local for the currently updating cell.
- */
-val LocalUpdatingCell = compositionLocalOf<TableCell?> { null }
 
 /**
  * Composition local for table interactions.

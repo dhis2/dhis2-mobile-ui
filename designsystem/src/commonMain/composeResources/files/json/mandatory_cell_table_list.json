@@ -48,7 +48,8 @@
             }
           ]
         }
-      ]
+      ],
+      "extraColumns": []
     },
     "tableRows": [
       {
@@ -1035,7 +1036,8 @@
             }
           ]
         }
-      ]
+      ],
+      "extraColumns": []
     },
     "tableRows": [
       {
