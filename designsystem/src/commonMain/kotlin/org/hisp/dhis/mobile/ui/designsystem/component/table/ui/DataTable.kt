@@ -130,7 +130,6 @@ fun DataTable(
         )
     }
     var resizingCell: ResizingCell? by remember { mutableStateOf(null) }
-    val currentCell by remember { mutableStateOf<TableCell?>(null) }
     val horizontalScrollConfig = if (TableTheme.configuration.groupTables) {
         HorizontalScrollConfig.Grouped(rememberScrollState())
     } else {
@@ -142,8 +141,6 @@ fun DataTable(
         LocalTableResizeActions provides tableResizeActions,
         LocalTableSelection provides tableSelection,
         LocalInteraction provides defaultsTableInteractions,
-        /*        LocalCurrentCellValue provides { currentCell?.value },
-                LocalUpdatingCell provides updatingCell,*/
     ) {
         Table(
             tableList = tableList,
