@@ -93,9 +93,8 @@ data class TableDimensions(
         groupedTables: Boolean,
         tableId: String,
         totalColumns: Int,
-        hasExtra: Boolean = false,
     ): Int = defaultCellWidth +
-        extraSize(groupedTables, tableId, totalColumns, hasExtra) +
+        extraSize(groupedTables, tableId, totalColumns, 0) +
         extraWidthInTable(tableId)
 
     internal fun columnWidthWithTableExtra(
@@ -115,7 +114,7 @@ data class TableDimensions(
         column: Int,
         headerRowColumns: Int,
         totalColumns: Int,
-        hasTotal: Boolean = false,
+        extraColumns: Int = 0,
     ): Int {
         val rowHeaderRatio = totalColumns / headerRowColumns
 
@@ -125,12 +124,12 @@ data class TableDimensions(
                 val minColumn = rowHeaderRatio * column
                 (minColumn..maxColumn).sumOf {
                     columnWidthWithTableExtra(groupedTables, tableId, it) +
-                        extraSize(groupedTables, tableId, totalColumns, hasTotal, column)
+                        extraSize(groupedTables, tableId, totalColumns, extraColumns, column)
                 }
             }
 
             else -> columnWidthWithTableExtra(groupedTables, tableId, column) +
-                extraSize(groupedTables, tableId, totalColumns, hasTotal, column)
+                extraSize(groupedTables, tableId, totalColumns, extraColumns, column)
         }
         return result
     }
@@ -139,19 +138,18 @@ data class TableDimensions(
         groupedTables: Boolean,
         tableId: String,
         totalColumns: Int,
-        hasTotal: Boolean,
+        extraColumns: Int,
         column: Int? = null,
     ): Int {
         if (groupedTables) return 0
         val screenWidth = totalWidth
-        val tableWidth = tableWidth(groupedTables, tableId, totalColumns, hasTotal)
+        val tableWidth = tableWidth(groupedTables, tableId, totalColumns, extraColumns)
         val columnHasResizedValue = column?.let {
             columnWidth[tableId]?.containsKey(it)
         }
 
         return if (tableWidth < screenWidth && columnHasResizedValue != true) {
-            val totalColumnCount = 1.takeIf { hasTotal } ?: 0
-            val columnsCount = totalColumns + totalColumnCount
+            val columnsCount = totalColumns + extraColumns
             ((screenWidth - tableWidth) / columnsCount).also {
                 currentExtraSize[tableId] = it
             }
@@ -164,9 +162,9 @@ data class TableDimensions(
         groupedTables: Boolean,
         tableId: String,
         totalColumns: Int,
-        hasTotal: Boolean,
+        extraColumns: Int,
     ): Int {
-        val totalCellWidth = defaultCellWidth.takeIf { hasTotal } ?: 0
+        val totalCellWidth = defaultCellWidth * extraColumns
         return rowHeaderWidth(
             groupedTables,
             tableId,
@@ -272,7 +270,7 @@ data class TableDimensions(
         currentOffsetX: Float,
         columnIndex: Int,
         totalColumns: Int,
-        hasTotal: Boolean,
+        extraColumns: Int,
         groupedTables: Boolean,
     ): Boolean {
         val desiredDimension = updateColumnWidth(
@@ -289,7 +287,7 @@ data class TableDimensions(
             groupedTables = groupedTables,
             tableId = tableId,
             totalColumns = totalColumns,
-            hasTotal = hasTotal,
+            extraColumns = extraColumns,
             column = columnIndex,
         ) in minColumnWidth..maxColumnWidth
     }

@@ -6,10 +6,10 @@ import kotlinx.serialization.Serializable
  * Data class representing the header of a table.
  *
  * @property rows The list of header rows in the table.
- * @property hasTotals Indicates if the table has a totals column.
+ * @property extraColumns Extra columns to add at the end of the table.
  */
 @Serializable
-data class TableHeader(val rows: List<TableHeaderRow>, val hasTotals: Boolean = false) {
+data class TableHeader(val rows: List<TableHeaderRow>, val extraColumns: List<TableHeaderCell>) {
 
     /**
      * Calculates the number of columns for a given row index.
@@ -30,5 +30,5 @@ data class TableHeader(val rows: List<TableHeaderRow>, val hasTotals: Boolean = 
      *
      * @return The maximum number of columns.
      */
-    fun tableMaxColumns() = numberOfColumns(rows.size - 1)
+    fun tableMaxColumns() = numberOfColumns(rows.size - 1) + extraColumns.size
 }

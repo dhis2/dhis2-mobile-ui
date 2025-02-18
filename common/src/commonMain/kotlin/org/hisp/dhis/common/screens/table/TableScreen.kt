@@ -92,17 +92,25 @@ fun TableScreen() {
                                 textFieldValue = fieldValue ?: TextFieldValue()
                                 scope.launch {
                                     data = data.map { table ->
+                                        val hasTotal = table.tableHeaderModel.extraColumns.isNotEmpty()
                                         val tableRows = table.tableRows.map { tableRowModel ->
                                             val cell =
                                                 tableRowModel.values.values.find { tableCell ->
                                                     tableCell.id == it.id
                                                 }
+                                            val totalsCell = tableRowModel.values.values.last().takeIf { hasTotal }
                                             if (cell != null) {
                                                 val updatedValues =
                                                     tableRowModel.values.toMutableMap()
                                                 updatedValues[cell.column] = cell.copy(
                                                     value = textFieldValue.text.takeIf { value -> value.isNotEmpty() },
                                                 )
+                                                totalsCell?.let { totalCell ->
+                                                    val totalValue = updatedValues.values.toList().dropLast(1).sumOf { tableCell -> tableCell.value?.toDoubleOrNull() ?: 0.0 }
+
+                                                    updatedValues[tableRowModel.values.size - 1] =
+                                                        totalCell.copy(value = totalValue.toString())
+                                                }
                                                 tableRowModel.copy(values = updatedValues)
                                             } else {
                                                 tableRowModel
@@ -143,5 +151,8 @@ fun TableScreen() {
 }
 
 fun parseJson(jsonString: String): List<TableModel> {
-    return Json.decodeFromString(jsonString)
+    val json = Json {
+        ignoreUnknownKeys = true
+    }
+    return json.decodeFromString(jsonString)
 }
