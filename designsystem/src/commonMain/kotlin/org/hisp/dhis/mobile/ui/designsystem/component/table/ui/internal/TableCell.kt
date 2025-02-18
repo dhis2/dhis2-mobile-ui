@@ -23,7 +23,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Rect
@@ -42,9 +41,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.LocalTableColors
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.LocalTableSelection
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableSelection
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme
-import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.compositions.LocalCurrentCellValue
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.compositions.LocalInteraction
-import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.compositions.LocalUpdatingCell
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.extensions.isNumeric
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.modifiers.cellBorder
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.CELL_ERROR_UNDERLINE_TEST_TAG
@@ -75,15 +72,8 @@ internal fun TableCell(
     val localInteraction = LocalInteraction.current
     val tableSelection = LocalTableSelection.current
 
-    var cellValue by remember {
-        mutableStateOf<String?>(null)
-    }
-    cellValue = when {
-        LocalUpdatingCell.current?.id == cell.id -> LocalUpdatingCell.current?.value
-        LocalTableSelection.current.isCellSelected(tableId, cell.column, cell.row ?: -1) ->
-            LocalCurrentCellValue.current()
-
-        else -> cell.value
+    val cellValue by remember(cell.value) {
+        mutableStateOf(cell.value)
     }
 
     val bringIntoViewRequester = remember { BringIntoViewRequester() }

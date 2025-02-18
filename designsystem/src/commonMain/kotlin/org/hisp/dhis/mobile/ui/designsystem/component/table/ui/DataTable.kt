@@ -20,10 +20,8 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableDialogMod
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableModel
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.internal.ResizingCell
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.internal.TableCornerUiState
-import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.compositions.LocalCurrentCellValue
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.compositions.LocalInteraction
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.compositions.LocalTableResizeActions
-import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.compositions.LocalUpdatingCell
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.HorizontalScrollConfig
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.Table
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.TableHeaderRow
@@ -144,8 +142,8 @@ fun DataTable(
         LocalTableResizeActions provides tableResizeActions,
         LocalTableSelection provides tableSelection,
         LocalInteraction provides defaultsTableInteractions,
-        LocalCurrentCellValue provides { currentCell?.value },
-        LocalUpdatingCell provides updatingCell,
+        /*        LocalCurrentCellValue provides { currentCell?.value },
+                LocalUpdatingCell provides updatingCell,*/
     ) {
         Table(
             tableList = tableList,
