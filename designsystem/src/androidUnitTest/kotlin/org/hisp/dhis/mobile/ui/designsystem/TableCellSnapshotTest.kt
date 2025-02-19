@@ -37,6 +37,7 @@ class TableCellSnapshotTest {
                     ),
                 ),
             ),
+            extraColumns = emptyList(),
         ),
         tableRows = listOf(
             TableRowModel(
