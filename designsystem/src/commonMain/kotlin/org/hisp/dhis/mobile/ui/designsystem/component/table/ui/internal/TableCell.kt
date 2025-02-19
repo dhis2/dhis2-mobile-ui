@@ -18,7 +18,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Color
@@ -37,7 +36,6 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.LocalTableSelecti
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableSelection
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.compositions.LocalInteraction
-import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.compositions.LocalUpdatingCell
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.cells.MandatoryIcon
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.cells.MandatoryIconStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.cells.TextCell
