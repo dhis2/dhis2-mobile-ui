@@ -16,6 +16,20 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import androidx.compose.material3.DatePicker as Material3DatePicker
 
+/**
+ * DHIS2 DatePicker component
+ * a picker to enter Date values
+ * component wraps Material 3 [DatePicker]
+ * @param title text to be used for the picker title.
+ * @param state a [DatePickerState] to manage the value changes.
+ * @param cancelText text to be used for the cancel button.
+ * @param acceptText text to be used for the confirm button.
+ * @param onDismissRequest callback for when user taps outside the dialog.
+ * @param onConfirm callBack for the confirm button.
+ * @param onCancel callback for the cancel button.
+ * @param modifier: optional modifier.
+ */
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DatePicker(
@@ -26,7 +40,7 @@ fun DatePicker(
     onConfirm: (DatePickerState) -> Unit,
     onCancel: () -> Unit,
     onDismissRequest: () -> Unit,
-
+    modifier: Modifier = Modifier,
 ) {
     MaterialTheme(
         colorScheme = DHIS2LightColorScheme.copy(
@@ -34,7 +48,7 @@ fun DatePicker(
         ),
     ) {
         DatePickerDialog(
-            modifier = Modifier.testTag("DATE_PICKER"),
+            modifier = modifier.testTag("DATE_PICKER"),
             onDismissRequest = { onDismissRequest() },
             confirmButton = {
                 Button(
