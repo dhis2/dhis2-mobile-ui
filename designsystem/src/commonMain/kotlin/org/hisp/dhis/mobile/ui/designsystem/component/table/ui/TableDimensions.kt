@@ -116,7 +116,7 @@ data class TableDimensions(
         totalColumns: Int,
         extraColumns: Int = 0,
     ): Int {
-        val rowHeaderRatio = totalColumns / headerRowColumns
+        val rowHeaderRatio = (totalColumns - extraColumns) / headerRowColumns
 
         val result = when {
             rowHeaderRatio != 1 -> {

@@ -32,7 +32,6 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantic
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.CELL_VALUE_TEST_TAG
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.ColumnBackground
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.ColumnIndexHeader
-import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.HEADER_CELL
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.HasError
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.INFO_ICON
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.InfoIconId
@@ -43,6 +42,9 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantic
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.RowIndexHeader
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.TableId
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.TableIdColumnHeader
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.cellTestTag
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.headerTestTag
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.rowHeaderTestTag
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 
 fun tableRobot(
@@ -120,34 +122,36 @@ class TableRobot(
         ).assertExists()
     }
 
-    fun clickOnCell(tableId: String, rowIndex: Int, columnIndex: Int) {
-        composeTestRule.onNodeWithTag("$tableId${CELL_TEST_TAG}$rowIndex$columnIndex", true)
+    fun clickOnCell(tableId: String, cellId: String) {
+        composeTestRule.onNodeWithTag(cellTestTag(tableId, cellId), true)
             .performScrollTo()
             .performClick()
     }
 
     fun clickOnHeaderElement(tableId: String, rowIndex: Int, columnIndex: Int) {
-        composeTestRule.onNodeWithTag("$HEADER_CELL$tableId$rowIndex$columnIndex", true)
-            .performClick()
+        composeTestRule.onNodeWithTag(
+            headerTestTag(tableId, rowIndex, columnIndex),
+            true,
+        ).performClick()
         composeTestRule.waitForIdle()
     }
 
-    fun clickOnRowHeader(tableId: String, rowIndex: Int) {
-        composeTestRule.onNodeWithTag("$tableId$rowIndex").performClick()
+    fun clickOnRowHeader(tableId: String, rowHeaderId: String) {
+        composeTestRule.onNodeWithTag(rowHeaderTestTag(tableId, rowHeaderId)).performClick()
         composeTestRule.waitForIdle()
     }
 
-    fun assertRowHeaderText(tableId: String, text: String, rowIndex: Int) {
-        composeTestRule.onNodeWithTag("${tableId}$rowIndex").assertTextEquals(text)
+    fun assertRowHeaderText(tableId: String, text: String, rowHeaderId: String) {
+        composeTestRule.onNodeWithTag(rowHeaderTestTag(tableId, rowHeaderId)).assertTextEquals(text)
     }
 
-    fun assertRowHeaderIsClickable(tableId: String, rowIndex: Int) {
-        composeTestRule.onNodeWithTag("$tableId$rowIndex").assertIsEnabled()
+    fun assertRowHeaderIsClickable(tableId: String, rowHeaderId: String) {
+        composeTestRule.onNodeWithTag(rowHeaderTestTag(tableId, rowHeaderId)).assertIsEnabled()
     }
 
-    fun assertCellHasMandatoryIcon(tableId: String, rowIndex: Int, columnIndex: Int) {
+    fun assertCellHasMandatoryIcon(tableId: String, cellId: String) {
         composeTestRule.onNode(
-            hasParent(hasTestTag("$tableId${CELL_TEST_TAG}$rowIndex$columnIndex"))
+            hasParent(hasTestTag(cellTestTag(tableId, cellId)))
                 and
                 hasTestTag(MANDATORY_ICON_TEST_TAG),
             true,
@@ -155,10 +159,10 @@ class TableRobot(
             .assertIsDisplayed()
     }
 
-    fun assertCellBlockedCell(tableId: String, rowIndex: Int, columnIndex: Int) {
+    fun assertCellBlockedCell(tableId: String, cellId: String) {
         composeTestRule
             .onNode(
-                hasTestTag("$tableId${CELL_TEST_TAG}$rowIndex$columnIndex")
+                hasTestTag(cellTestTag(tableId, cellId))
                     and
                     SemanticsMatcher.expectValue(IsBlocked, true),
                 true,
@@ -166,9 +170,9 @@ class TableRobot(
             .assertIsDisplayed()
     }
 
-    fun assertUnselectedCellErrorStyle(tableId: String, rowIndex: Int, columnIndex: Int) {
+    fun assertUnselectedCellErrorStyle(tableId: String, cellId: String) {
         composeTestRule.onNode(
-            hasTestTag("$tableId${CELL_TEST_TAG}$rowIndex$columnIndex")
+            hasTestTag(cellTestTag(tableId, cellId))
                 and
                 SemanticsMatcher.expectValue(HasError, true),
             true,
@@ -176,9 +180,9 @@ class TableRobot(
         composeTestRule.onNodeWithTag(CELL_ERROR_UNDERLINE_TEST_TAG, true).assertIsDisplayed()
     }
 
-    fun assertSelectedCellErrorStyle(tableId: String, rowIndex: Int, columnIndex: Int) {
+    fun assertSelectedCellErrorStyle(tableId: String, cellId: String) {
         composeTestRule.onNode(
-            hasTestTag("$tableId${CELL_TEST_TAG}$rowIndex$columnIndex")
+            hasTestTag(cellTestTag(tableId, cellId))
                 and
                 SemanticsMatcher.expectValue(HasError, true),
             true,

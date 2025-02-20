@@ -14,12 +14,16 @@ import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.zIndex
 import org.hisp.dhis.mobile.ui.designsystem.component.IconButton
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableModel
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.internal.ResizingCell
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.internal.TableCornerUiState
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.cornerTestTag
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.tableIdSemantic
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
 /**
@@ -80,9 +84,14 @@ internal fun TableHeaderRow(
         }
         Row(Modifier.height(IntrinsicSize.Min)) {
             TableCorner(
-                modifier = Modifier.zIndex(1f),
+                modifier = Modifier
+                    .semantics {
+                        testTag = cornerTestTag(tableModel.id)
+                        tableIdSemantic = tableModel.id
+                    }
+                    .zIndex(1f),
                 tableCornerUiState = cornerUiState,
-                tableId = tableModel.id ?: "",
+                tableId = tableModel.id,
                 onClick = onTableCornerClick,
             )
 

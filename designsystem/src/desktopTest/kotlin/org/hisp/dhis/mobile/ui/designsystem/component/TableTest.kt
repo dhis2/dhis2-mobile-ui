@@ -51,7 +51,7 @@ class TableTest {
         val table = loadTableFromJson("multi_header_table_list.json")
         tableRobot(composeTestRule) {
             initTable(table)
-            val firstTableId = table[0].id!!
+            val firstTableId = table[0].id
 
             clickOnHeaderElement(firstTableId, 2, 3)
             assertColumnHeaderBackgroundColor(firstTableId, 2, 3, SurfaceColor.Primary)
@@ -179,9 +179,11 @@ class TableTest {
 
         tableRobot(composeTestRule) {
             initTable(table)
-            val firstId = table.first().id!!
-            clickOnCell(firstId, 0, 0)
-            assertCellHasMandatoryIcon(firstId, 0, 0)
+            with(table.first()) {
+                val cellId = tableRows.first().values[0]?.id!!
+                clickOnCell(id, cellId)
+                assertCellHasMandatoryIcon(id, cellId)
+            }
         }
     }
 
@@ -211,35 +213,20 @@ class TableTest {
      */
     @Test
     fun shouldAllRowsBuildProperly() = runBlocking {
-        val table = loadTableFromJson("multi_header_table_list.json")
+        val tables = loadTableFromJson("multi_header_table_list.json")
 
         tableRobot(composeTestRule) {
-            initTable(table)
-            val firstTableId = table[0].id!!
-            val secondTableId = table[1].id!!
+            initTable(tables)
 
-            assert(table[0].tableRows.size == 3)
-            assertRowHeaderText(firstTableId, "Text 1", 0)
-            assertRowHeaderText(firstTableId, "Text 2", 1)
-            assertRowHeaderText(firstTableId, "Text 3", 2)
+            assert(tables[0].tableRows.size == 3)
+            assert(tables[1].tableRows.size == 5)
 
-            assertRowHeaderIsClickable(firstTableId, 0)
-            assertRowHeaderIsClickable(firstTableId, 1)
-            assertRowHeaderIsClickable(firstTableId, 2)
-
-            assert(table[1].tableRows.size == 5)
-
-            assertRowHeaderText(secondTableId, "Number", 0)
-            assertRowHeaderText(secondTableId, "Text", 1)
-            assertRowHeaderText(secondTableId, "Long Text", 2)
-            assertRowHeaderText(secondTableId, "Integer", 3)
-            assertRowHeaderText(secondTableId, "Percentage", 4)
-
-            assertRowHeaderIsClickable(secondTableId, 0)
-            assertRowHeaderIsClickable(secondTableId, 1)
-            assertRowHeaderIsClickable(secondTableId, 2)
-            assertRowHeaderIsClickable(secondTableId, 3)
-            assertRowHeaderIsClickable(secondTableId, 4)
+            tables.forEach { table ->
+                table.tableRows.forEach { row ->
+                    assertRowHeaderText(table.id, row.rowHeader.title, row.rowHeader.id)
+                    assertRowHeaderIsClickable(table.id, row.rowHeader.id)
+                }
+            }
         }
     }
 
@@ -249,27 +236,27 @@ class TableTest {
 
         tableRobot(composeTestRule) {
             initTable(table)
-            val firstTableId = table[0].id!!
 
-            composeTestRule.waitForIdle()
-            clickOnRowHeader(firstTableId, 0)
-            assertRowHeaderBackgroundChangeToPrimary(
-                firstTableId,
-                0,
-            )
+            with(table.first()) {
+                composeTestRule.waitForIdle()
+                clickOnRowHeader(id, tableRows.first().rowHeader.id)
+                assertRowHeaderBackgroundChangeToPrimary(id, 0)
+            }
         }
     }
 
     @Test
     fun shouldBlockClickAndSetCorrectColorIfNonEditable() = runBlocking {
-        val table = loadTableFromJson("multi_header_table_list.json")
+        val tables = loadTableFromJson("multi_header_table_list.json")
 
         tableRobot(composeTestRule) {
-            initTable(table)
+            initTable(tables)
 
-            val firstId = table.first().id!!
-            clickOnCell(firstId, 0, 1)
-            assertCellBlockedCell(firstId, 0, 1)
+            with(tables.first()) {
+                val cellId = tableRows.first().values[1]?.id!!
+                clickOnCell(id, cellId)
+                assertCellBlockedCell(id, cellId)
+            }
         }
     }
 
@@ -279,10 +266,12 @@ class TableTest {
 
         tableRobot(composeTestRule) {
             initTable(table)
-            val firstId = table.first().id!!
-            assertUnselectedCellErrorStyle(firstId, 2, 0)
-            clickOnCell(firstId, 2, 0)
-            assertSelectedCellErrorStyle(firstId, 2, 0)
+            with(table.first()) {
+                val cellId = tableRows[2].values[0]!!.id
+                assertUnselectedCellErrorStyle(id, cellId)
+                clickOnCell(id, cellId)
+                assertSelectedCellErrorStyle(id, cellId)
+            }
         }
     }
 

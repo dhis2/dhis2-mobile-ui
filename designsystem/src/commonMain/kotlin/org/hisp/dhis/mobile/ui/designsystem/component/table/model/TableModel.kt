@@ -13,7 +13,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableSelection
  */
 @Serializable
 data class TableModel(
-    val id: String? = null,
+    val id: String,
     val title: String = "",
     val tableHeaderModel: TableHeader,
     val tableRows: List<TableRowModel>,

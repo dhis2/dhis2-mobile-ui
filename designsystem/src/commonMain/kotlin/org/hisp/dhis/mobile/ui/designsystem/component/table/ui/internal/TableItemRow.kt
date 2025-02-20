@@ -11,7 +11,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.zIndex
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableDialogModel
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableModel
@@ -19,7 +20,10 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableRowModel
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.internal.ItemHeaderUiState
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.internal.ResizingCell
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme
-import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.ROW_TEST_TAG
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.rowIndexSemantic
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.rowTestTag
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.rowValuesTestTag
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.tableIdSemantic
 
 /**
  * Composable function to display a table item row.
@@ -50,7 +54,11 @@ internal fun TableItemRow(
     val config = TableTheme.configuration
     Column(
         Modifier
-            .testTag("$ROW_TEST_TAG${rowModel.rowHeader.row}")
+            .semantics {
+                testTag = rowTestTag(tableModel.id, rowModel.rowHeader.id)
+                tableIdSemantic = tableModel.id
+                rowIndexSemantic = rowModel.rowHeader.row
+            }
             .width(IntrinsicSize.Min),
     ) {
         Row(Modifier.height(IntrinsicSize.Min)) {
@@ -61,13 +69,13 @@ internal fun TableItemRow(
             ) {
                 ItemHeader(
                     ItemHeaderUiState(
-                        tableId = tableModel.id ?: "",
+                        tableId = tableModel.id,
                         rowHeader = rowModel.rowHeader,
                         cellStyle = rowHeaderCellStyle(rowModel.rowHeader.row),
                         width = with(LocalDensity.current) {
                             TableTheme.dimensions.rowHeaderWidth(
                                 groupedTables = config.groupTables,
-                                tableId = tableModel.id ?: "",
+                                tableId = tableModel.id,
                             ).toDp()
                         },
                         maxLines = rowModel.maxLines,
@@ -79,7 +87,11 @@ internal fun TableItemRow(
                 )
             }
             ItemValues(
-                tableId = tableModel.id ?: "",
+                modifier = Modifier
+                    .semantics {
+                        testTag = rowValuesTestTag(tableModel.id, rowModel.rowHeader.id)
+                    },
+                tableId = tableModel.id,
                 horizontalScrollState = horizontalScrollState,
                 cellValues = rowModel.values,
                 maxLines = rowModel.maxLines,

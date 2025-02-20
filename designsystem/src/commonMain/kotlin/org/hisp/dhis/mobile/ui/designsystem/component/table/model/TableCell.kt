@@ -18,7 +18,7 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class TableCell(
-    val id: String? = null,
+    val id: String,
     val row: Int? = null,
     val column: Int,
     val value: String?,
