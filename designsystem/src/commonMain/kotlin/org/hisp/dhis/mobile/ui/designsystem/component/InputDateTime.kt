@@ -81,6 +81,8 @@ import java.util.Calendar
 import java.util.GregorianCalendar
 import java.util.Locale
 import java.util.TimeZone
+import org.hisp.dhis.mobile.ui.designsystem.component.DatePicker as DHIS2DatePicker
+import org.hisp.dhis.mobile.ui.designsystem.component.TimePicker as DHIS2TimePicker
 
 /**
  * DHIS2 Input Date Time
@@ -656,142 +658,68 @@ fun InputDateTime(
         },
         inputStyle = uiData.inputStyle,
     )
-    val datePickerState = provideDatePickerState(state.inputTextFieldValue, uiData)
+    var datePickerState = provideDatePickerState(state.inputTextFieldValue, uiData)
 
     if (showDatePicker) {
-        MaterialTheme(
-            colorScheme = DHIS2LightColorScheme.copy(
-                outlineVariant = Outline.Medium,
-            ),
-        ) {
-            DatePickerDialog(
-                modifier = Modifier.testTag("DATE_PICKER"),
-                onDismissRequest = { showDatePicker = false },
-                confirmButton = {
-                    Button(
-                        enabled = true,
-                        ButtonStyle.TEXT,
-                        ColorStyle.DEFAULT,
-                        uiData.acceptText ?: provideStringResource("ok"),
-                    ) {
-                        showDatePicker = false
-                        if (uiData.actionType != DateTimeActionType.DATE_TIME) {
-                            datePickerState.selectedDateMillis?.let {
-                                manageOnValueChanged(
-                                    TextFieldValue(
-                                        getDate(it),
-                                        selection = TextRange(
-                                            state.inputTextFieldValue?.text?.length ?: 0,
-                                        ),
-                                    ),
-                                    onValueChanged,
-                                    uiData.actionType,
-                                )
-                            }
-                        } else {
-                            showTimePicker = true
-                        }
-                    }
-                },
-                colors = datePickerColors(),
-                dismissButton = {
-                    Button(
-                        enabled = true,
-                        ButtonStyle.TEXT,
-                        ColorStyle.DEFAULT,
-                        uiData.cancelText ?: provideStringResource("cancel"),
-
-                    ) {
-                        showDatePicker = false
-                    }
-                },
-                properties = DialogProperties(
-                    dismissOnBackPress = true,
-                    dismissOnClickOutside = true,
-                    usePlatformDefaultWidth = true,
-                ),
-            ) {
-                DatePicker(
-                    title = {
-                        Text(
-                            text = uiData.title,
-                            style = MaterialTheme.typography.bodyLarge,
-                            modifier = Modifier.padding(
-                                start = Spacing.Spacing24,
-                                top = Spacing.Spacing24,
+        DHIS2DatePicker(
+            onConfirm = { updatedState ->
+                datePickerState = updatedState
+                showDatePicker = false
+                if (uiData.actionType != DateTimeActionType.DATE_TIME) {
+                    datePickerState.selectedDateMillis?.let {
+                        manageOnValueChanged(
+                            TextFieldValue(
+                                getDate(it),
+                                selection = TextRange(
+                                    state.inputTextFieldValue?.text?.length ?: 0,
+                                ),
                             ),
+                            onValueChanged,
+                            uiData.actionType,
                         )
-                    },
-                    state = datePickerState,
-                    showModeToggle = true,
-                    modifier = Modifier.padding(Spacing.Spacing0),
-                )
-            }
-        }
+                    }
+                } else {
+                    showTimePicker = true
+                }
+            },
+            onCancel = {
+                showDatePicker = false
+            },
+            onDismissRequest = { showDatePicker = false },
+            state = datePickerState,
+            title = uiData.title,
+            acceptText = uiData.acceptText,
+            cancelText = uiData.cancelText,
+        )
     }
 
     if (showTimePicker) {
         val timePickerState = getTimePickerState(state, uiData)
 
-        Dialog(
-            onDismissRequest = { showDatePicker = false },
-            properties = DialogProperties(
-                dismissOnBackPress = true,
-                dismissOnClickOutside = true,
-                usePlatformDefaultWidth = true,
-            ),
-        ) {
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.background(
-                    color = SurfaceColor.Container,
-                    shape = RoundedCornerShape(Radius.L),
-                ).testTag("TIME_PICKER")
-                    .padding(vertical = Spacing.Spacing16, horizontal = Spacing.Spacing24),
-            ) {
-                Text(
-                    text = uiData.title,
-                    style = MaterialTheme.typography.titleSmall,
-                    modifier = Modifier.padding(bottom = Spacing.Spacing16).align(Alignment.Start),
-                )
-                TimePicker(
-                    state = timePickerState,
-                    layoutType = TimePickerLayoutType.Vertical,
-                    colors = timePickerColors(),
-                    modifier = Modifier.align(Alignment.CenterHorizontally),
-                )
-                Row(Modifier.align(Alignment.End)) {
-                    Button(
-                        enabled = true,
-                        ButtonStyle.TEXT,
-                        ColorStyle.DEFAULT,
-                        uiData.cancelText ?: provideStringResource("cancel"),
-
-                    ) {
-                        showTimePicker = false
-                    }
-                    Button(
-                        enabled = true,
-                        ButtonStyle.TEXT,
-                        ColorStyle.DEFAULT,
-                        uiData.acceptText ?: provideStringResource("ok"),
-                    ) {
-                        showTimePicker = false
-                        manageOnValueChangedFromDateTimePicker(
-                            convertStringToTextFieldValue(
-                                getTime(
-                                    timePickerState,
-                                ),
-                            ),
-                            onValueChanged,
-                            uiData.actionType,
-                            datePickerState,
+        DHIS2TimePicker(
+            state = timePickerState,
+            title = uiData.title,
+            onDismissRequest = { showTimePicker = false },
+            onAccept = {
+                showTimePicker = false
+                manageOnValueChangedFromDateTimePicker(
+                    convertStringToTextFieldValue(
+                        getTime(
                             timePickerState,
-                        )
-                    }
-                }
-            }
-        }
+                        ),
+                    ),
+                    onValueChanged,
+                    uiData.actionType,
+                    datePickerState,
+                    timePickerState,
+                )
+            },
+            onCancel = {
+                showTimePicker = false
+            },
+            acceptText = uiData.acceptText,
+            cancelText = uiData.cancelText,
+        )
     }
 }
 
