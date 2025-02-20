@@ -30,7 +30,7 @@ fun InputDateTimeScreen() {
         var dateTimenoInput by remember { mutableStateOf(TextFieldValue("09:30")) }
         var hour24time by remember { mutableStateOf(TextFieldValue("16:30")) }
 
-        ColumnComponentContainer("Date Input (allowed dates from 01/09/2024 to 12/12/2024)") {
+        ColumnComponentContainer("Date Input (allowed dates from 01/09/2024 to 12/12/2025)") {
             InputDateTime(
                 state = rememberInputDateTimeState(
                     inputDateTimeData =
@@ -38,7 +38,7 @@ fun InputDateTimeScreen() {
                         title = "label",
                         visualTransformation = DateTransformation(),
                         actionType = DateTimeActionType.DATE,
-                        selectableDates = SelectableDates("01092024", "12122024"),
+                        selectableDates = SelectableDates("01092024", "12122025"),
                     ),
                     inputTextFieldValue = date,
                 ),

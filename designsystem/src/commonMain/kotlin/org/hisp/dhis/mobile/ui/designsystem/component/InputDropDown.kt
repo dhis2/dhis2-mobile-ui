@@ -428,7 +428,7 @@ fun DropdownInputField(
  * @param modifier: optional modifier.
  */
 @Composable
-private fun DropdownItem(
+fun DropdownItem(
     item: DropdownItem,
     contentPadding: PaddingValues,
     modifier: Modifier = Modifier,

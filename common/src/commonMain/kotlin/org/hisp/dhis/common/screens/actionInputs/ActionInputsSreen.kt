@@ -30,6 +30,7 @@ fun ActionInputsScreen() {
         ActionInputs.INPUT_ORG_UNIT -> InputOrgUnitScreen()
         ActionInputs.INPUT_FILE_RESOURCE -> InputFileResourceScreen()
         ActionInputs.INPUT_DATE_TIME -> InputDateTimeScreen()
+        ActionInputs.PICKERS -> PickersScreen()
         ActionInputs.INPUT_COORDINATE -> InputCoordinateScreen()
         ActionInputs.INPUT_SIGNATURE -> InputSignatureScreen()
         ActionInputs.INPUT_IMAGE -> InputImageScreen()
@@ -48,6 +49,7 @@ enum class ActionInputs(val label: String) {
     INPUT_BARCODE("Input Barcode component"),
     INPUT_COORDINATE("Input Coordinate component"),
     INPUT_DATE_TIME("Input Date Time component"),
+    PICKERS("Pickers"),
     INPUT_EMAIL("Input Email component"),
     INPUT_FILE_RESOURCE("Input File Resource component"),
     INPUT_IMAGE("Input Image component"),
