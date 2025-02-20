@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.zIndex
 import org.hisp.dhis.mobile.ui.designsystem.component.model.DraggableType
 import org.hisp.dhis.mobile.ui.designsystem.component.modifier.draggableList
@@ -21,6 +23,12 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.model.internal.ItemC
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.internal.ResizingCell
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme.dimensions
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.columnHeaderColumn
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.columnHeaderRow
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.headerRowTestTag
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.headerTestTag
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.headersTestTag
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.tableIdSemantic
 
 /**
  * Composable function to display the table header.
@@ -36,7 +44,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme.dimens
  */
 @Composable
 internal fun TableHeader(
-    tableId: String?,
+    tableId: String,
     modifier: Modifier,
     tableHeaderModel: TableHeader,
     horizontalScrollState: ScrollState,
@@ -52,6 +60,10 @@ internal fun TableHeader(
 
     Row(
         modifier = modifier
+            .semantics {
+                testTag = headersTestTag(tableId)
+                this.tableIdSemantic = tableId
+            }
             .horizontalScroll(state = horizontalScrollState)
             .height(IntrinsicSize.Min)
             .draggableList(
@@ -66,6 +78,10 @@ internal fun TableHeader(
             tableHeaderModel.rows.forEachIndexed { rowIndex, tableHeaderRow ->
                 Row(
                     modifier = Modifier
+                        .semantics {
+                            testTag = headerRowTestTag(tableId, rowIndex)
+                            this.tableIdSemantic = tableId
+                        }
                         .height(IntrinsicSize.Min)
                         .zIndex(1f),
                 ) {
@@ -76,7 +92,14 @@ internal fun TableHeader(
                         action = { columnIndex ->
                             val cellIndex = columnIndex % rowOptions
                             HeaderCell(
-                                modifier = Modifier.zIndex((totalColumns - columnIndex) * 1f),
+                                modifier = Modifier
+                                    .semantics {
+                                        testTag = headerTestTag(tableId, rowIndex, columnIndex)
+                                        this.tableIdSemantic = tableId
+                                        columnHeaderRow = rowIndex
+                                        columnHeaderColumn = columnIndex
+                                    }
+                                    .zIndex((totalColumns - columnIndex) * 1f),
                                 itemHeaderUiState = ItemColumnHeaderUiState(
                                     tableId = tableId,
                                     rowIndex = rowIndex,
@@ -84,7 +107,7 @@ internal fun TableHeader(
                                     headerCell = tableHeaderRow.cells[cellIndex],
                                     headerMeasures = HeaderMeasures(
                                         width = dimensions.headerCellWidth(
-                                            tableId = tableId ?: "",
+                                            tableId = tableId,
                                             column = columnIndex,
                                             headerRowColumns = tableHeaderModel.numberOfColumns(
                                                 rowIndex,
@@ -112,7 +135,7 @@ internal fun TableHeader(
                                     isLastRow = tableHeaderModel.rows.lastIndex == rowIndex,
                                 ) { dimensions, currentOffsetX ->
                                     dimensions.canUpdateColumnHeaderWidth(
-                                        tableId = tableId ?: "",
+                                        tableId = tableId,
                                         currentOffsetX = currentOffsetX,
                                         columnIndex = columnIndex,
                                         totalColumns = tableHeaderModel.tableMaxColumns(),
@@ -134,7 +157,7 @@ internal fun TableHeader(
                                     ?: TableHeaderCell(""),
                                 headerMeasures = HeaderMeasures(
                                     dimensions.defaultCellWidthWithExtraSize(
-                                        tableId = tableId ?: "",
+                                        tableId = tableId,
                                         totalColumns = tableHeaderModel.tableMaxColumns(),
                                         groupedTables = configuration.groupTables,
                                     ),
@@ -164,7 +187,7 @@ internal fun TableHeader(
                                 headerCell = TableHeaderCell(""),
                                 headerMeasures = HeaderMeasures(
                                     width = dimensions.defaultCellWidthWithExtraSize(
-                                        tableId = tableId ?: "",
+                                        tableId = tableId,
                                         totalColumns = tableHeaderModel.tableMaxColumns(),
                                         groupedTables = configuration.groupTables,
                                     ),

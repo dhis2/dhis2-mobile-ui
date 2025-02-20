@@ -31,6 +31,7 @@ import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -45,10 +46,10 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.compositions.Loca
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.extensions.isNumeric
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.modifiers.cellBorder
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.CELL_ERROR_UNDERLINE_TEST_TAG
-import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.CELL_TEST_TAG
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.CELL_VALUE_TEST_TAG
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.MANDATORY_ICON_TEST_TAG
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.cellSelected
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.cellTestTag
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.hasError
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.isBlocked
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.rowBackground
@@ -124,12 +125,12 @@ internal fun TableCell(
 
     CellLegendBox(
         modifier = Modifier
-            .testTag("$tableId$CELL_TEST_TAG${cell.row}${cell.column}")
             .onSizeChanged { currentCellHeight = it.height }
             .width(cellWidth)
             .fillMaxHeight()
             .defaultMinSize(minHeight = dimensions.defaultCellHeight)
             .semantics {
+                testTag = cellTestTag(tableId, cell.id)
                 rowBackground = style.backgroundColor()
                 cellSelected = isSelected
                 hasError = cell.hasErrorOrWarning()

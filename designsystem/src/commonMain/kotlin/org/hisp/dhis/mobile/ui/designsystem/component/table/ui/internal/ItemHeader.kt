@@ -21,6 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.text.style.TextOverflow
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableDialogModel
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.internal.ItemHeaderUiState
@@ -30,6 +31,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.INFO_ICON
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.infoIconId
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.rowBackground
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.rowHeaderTestTag
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.rowIndexSemantic
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.tableIdSemantic
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
@@ -51,12 +53,12 @@ internal fun ItemHeader(uiState: ItemHeaderUiState) {
                 .fillMaxHeight()
                 .background(uiState.cellStyle.backgroundColor())
                 .semantics {
+                    testTag = rowHeaderTestTag(uiState.tableId, uiState.rowHeader.id)
                     tableIdSemantic = uiState.tableId
                     rowIndexSemantic = uiState.rowHeader.row
                     infoIconId = if (uiState.rowHeader.showDecoration) INFO_ICON else ""
                     rowBackground = uiState.cellStyle.backgroundColor()
                 }
-                .testTag("${uiState.tableId}${uiState.rowHeader.row}")
                 .clickable {
                     uiState.onCellSelected(uiState.rowHeader.row)
                     if (uiState.rowHeader.showDecoration) {

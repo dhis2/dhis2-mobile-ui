@@ -27,6 +27,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantic
  */
 @Composable
 internal fun ItemValues(
+    modifier: Modifier = Modifier,
     tableId: String,
     horizontalScrollState: ScrollState,
     maxLines: Int,
@@ -35,7 +36,7 @@ internal fun ItemValues(
     columnCount: Int,
 ) {
     Row(
-        modifier = Modifier
+        modifier = modifier
             .horizontalScroll(state = horizontalScrollState)
             .draggableList(
                 scrollState = horizontalScrollState,
@@ -46,6 +47,7 @@ internal fun ItemValues(
             times = columnCount,
             action = { columnIndex ->
                 val cellValue = cellValues[columnIndex] ?: TableCell(
+                    id = "",
                     editable = false,
                     value = "",
                     column = columnIndex,
