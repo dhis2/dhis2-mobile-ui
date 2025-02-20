@@ -15,7 +15,6 @@ import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.text.style.TextOverflow
@@ -36,69 +35,41 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
  */
 @Composable
 internal fun ItemHeader(uiState: ItemHeaderUiState) {
-    Box(Modifier.width(IntrinsicSize.Min)) {
-        Row(
-            modifier = Modifier
-                .defaultMinSize(
-                    minHeight = TableTheme.dimensions.defaultCellHeight,
-                )
-                .width(uiState.width)
-                .fillMaxHeight()
-                .background(uiState.cellStyle.backgroundColor())
-                .semantics {
-                    testTag = rowHeaderTestTag(uiState.tableId, uiState.rowHeader.id)
-                    tableIdSemantic = uiState.tableId
-                    rowIndexSemantic = uiState.rowHeader.row
-                    infoIconId = if (uiState.rowHeader.showDecoration) INFO_ICON else ""
-                    rowBackground = uiState.cellStyle.backgroundColor()
-                }
-                .clickable {
-                    uiState.onCellSelected(uiState.rowHeader.row)
-                    if (uiState.rowHeader.showDecoration) {
-                        uiState.onDecorationClick(
-                            TableDialogModel(
-                                uiState.rowHeader.title,
-                                uiState.rowHeader.description ?: "",
-                            ),
-                        )
-                    }
-                },
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Row(
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(end = Spacing.Spacing4),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Text(
-                    modifier = Modifier
-                        .weight(1f)
-                        .padding(TableTheme.dimensions.headerCellPaddingValues),
-                    text = uiState.rowHeader.title,
-                    color = uiState.cellStyle.mainColor(),
-                    fontSize = TableTheme.dimensions.defaultRowHeaderTextSize,
-                    maxLines = uiState.maxLines,
-                    overflow = TextOverflow.Ellipsis,
-                    style = MaterialTheme.typography.bodySmall,
-                    )
-                if (uiState.rowHeader.showDecoration) {
-                    Spacer(modifier = Modifier.size(Spacing.Spacing4))
-                    Icon(
-                        imageVector = Icons.Outlined.Info,
-                        contentDescription = "info",
-                        modifier = Modifier
-                            .height(Spacing.Spacing10)
-                            .width(Spacing.Spacing10),
-                        tint = uiState.cellStyle.mainColor(),
-                    )
-                }
-            }
-            VerticalDivider(
-                thickness = Spacing.Spacing1,
-                color = TableTheme.colors.primary,
+    Box(
+        Modifier
+            .defaultMinSize(
+                minHeight = TableTheme.dimensions.defaultCellHeight,
             )
-        }
+            .width(uiState.width)
+            .fillMaxHeight()
+            .background(uiState.cellStyle.backgroundColor())
+            .semantics {
+                testTag = rowHeaderTestTag(uiState.tableId, uiState.rowHeader.id)
+                tableIdSemantic = uiState.tableId
+                rowIndexSemantic = uiState.rowHeader.row
+                rowBackground = uiState.cellStyle.backgroundColor()
+            }
+            .clickable {
+                uiState.onCellSelected(uiState.rowHeader.row)
+            },
+        contentAlignment = Alignment.Center,
+    ) {
+        Text(
+            modifier = Modifier
+                .align(Alignment.CenterStart)
+                .padding(TableTheme.dimensions.headerCellPaddingValues),
+            text = uiState.rowHeader.title,
+            color = uiState.cellStyle.mainColor(),
+            fontSize = TableTheme.dimensions.defaultRowHeaderTextSize,
+            maxLines = uiState.maxLines,
+            overflow = TextOverflow.Ellipsis,
+            style = MaterialTheme.typography.bodySmall,
+        )
+        VerticalDivider(
+            modifier = Modifier.align(Alignment.TopEnd),
+            thickness = Spacing.Spacing1,
+            color = TableTheme.colors.primary,
+        )
 
         val isSelected = LocalTableSelection.current !is TableSelection.AllCellSelection &&
             LocalTableSelection.current.isRowSelected(
@@ -134,11 +105,5 @@ internal fun ItemHeader(uiState: ItemHeaderUiState) {
                 onResizing = uiState.onResizing,
             )
         }
-        HorizontalDivider(
-            modifier = Modifier
-                .padding(end = Spacing.Spacing1)
-                .align(Alignment.BottomCenter),
-            thickness = Spacing.Spacing1,
-        )
     }
 }

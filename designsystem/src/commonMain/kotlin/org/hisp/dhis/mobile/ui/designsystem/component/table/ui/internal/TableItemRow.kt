@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
@@ -52,11 +53,11 @@ internal fun TableItemRow(
 ) {
     val tableSelection = LocalTableSelection.current
     val isRowSelected = LocalTableSelection.current.isRowSelected(
-        selectedTableId = tableModel.id ?: "",
+        selectedTableId = tableModel.id,
         rowHeaderIndex = rowModel.rowHeader.row,
     )
     val isCellSelectedOnRow = rowModel.values.any {
-        tableSelection.isCellSelected(tableModel.id ?: "", it.value.column, rowModel.rowHeader.row)
+        tableSelection.isCellSelected(tableModel.id, it.value.column, rowModel.rowHeader.row)
     }
     val config = TableTheme.configuration
 
@@ -67,7 +68,7 @@ internal fun TableItemRow(
                 tableIdSemantic = tableModel.id
                 rowIndexSemantic = rowModel.rowHeader.row
             }
-            .width(IntrinsicSize.Min),
+            .width(IntrinsicSize.Min)
             .zIndex(if (isCellSelectedOnRow) 1f else 0f),
     ) {
         Row(Modifier.height(IntrinsicSize.Min)) {
@@ -105,6 +106,7 @@ internal fun TableItemRow(
                 cellValues = rowModel.values,
                 maxLines = rowModel.maxLines,
                 tableHeaderModel = tableModel.tableHeaderModel,
+                rowIndex = rowModel.rowHeader.row,
                 columnCount = columnCount,
             )
         }

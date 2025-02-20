@@ -376,8 +376,7 @@
             "id": "SQyQZDqII5A_F6ULrynnld7",
             "row": 1,
             "column": 0,
-            "value": "25",
-            "legendColor": -98
+            "value": "25"
           },
           "1": {
             "id": "SQyQZDqII5A_lGGEDgZg0kq",
@@ -688,26 +687,29 @@
             "id": "CgJ9UN6mh5c_F6ULrynnld7",
             "row": 2,
             "column": 0,
-            "value": null
+            "value": "Label",
+            "legendColor": -13776851
           },
           "1": {
             "id": "CgJ9UN6mh5c_lGGEDgZg0kq",
             "row": 2,
             "column": 1,
-            "value": null,
-            "editable": false
+            "value": "Label",
+            "legendColor": -16711681
           },
           "2": {
             "id": "CgJ9UN6mh5c_KCumzFOigNa",
             "row": 2,
             "column": 2,
-            "value": null
+            "value": "Label",
+            "legendColor": -65281
           },
           "3": {
             "id": "CgJ9UN6mh5c_c6plZIBSzVp",
             "row": 2,
             "column": 3,
-            "value": null
+            "value": "Label",
+            "legendColor": -256
           },
           "4": {
             "id": "CgJ9UN6mh5c_ARBrBZDLMYW",

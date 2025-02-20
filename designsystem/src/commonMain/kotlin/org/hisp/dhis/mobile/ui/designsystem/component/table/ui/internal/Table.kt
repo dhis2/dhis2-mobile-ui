@@ -118,8 +118,8 @@ internal fun Table(
                         }
                         if (showExtendedDivider) {
                             ExtendDivider(
-                                tableId = tableModel.id ?: "",
-                                selected = tableSelection.isCornerSelected(tableModel.id ?: ""),
+                                tableId = tableModel.id,
+                                selected = tableSelection.isCornerSelected(tableModel.id),
                             )
                         }
                     }
@@ -195,13 +195,6 @@ internal fun Table(
                     ) { rowIndex, tableRowModel ->
                         val isLastRow = tableModel.tableRows.lastIndex == rowIndex
                         tableItemRow?.invoke(tableIndex, tableModel, tableRowModel)
-                        /*if (!isLastRow or TableTheme.configuration.groupTables) {
-                            HorizontalDivider(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(end = TableTheme.dimensions.tableEndExtraScroll),
-                            )
-                        }*/
                         val showExtendedDivider = if (TableTheme.configuration.groupTables) {
                             isLastTable && isLastRow
                         } else {
@@ -209,9 +202,9 @@ internal fun Table(
                         }
                         if (showExtendedDivider) {
                             ExtendDivider(
-                                tableId = tableModel.id ?: "",
+                                tableId = tableModel.id,
                                 selected = TableTheme.tableSelection.isCornerSelected(
-                                    tableModel.id ?: "",
+                                    tableModel.id,
                                 ),
                             )
                         }

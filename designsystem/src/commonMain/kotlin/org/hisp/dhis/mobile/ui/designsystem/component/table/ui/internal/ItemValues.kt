@@ -10,7 +10,6 @@ import androidx.compose.runtime.key
 import androidx.compose.ui.Modifier
 import org.hisp.dhis.mobile.ui.designsystem.component.model.DraggableType
 import org.hisp.dhis.mobile.ui.designsystem.component.modifier.draggableList
-import org.hisp.dhis.mobile.ui.designsystem.component.table.model.RowHeader
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableCell
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableHeader
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme
@@ -26,7 +25,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantic
  * @param maxLines The maximum number of lines to display in each cell.
  * @param cellValues A map of column indices to table cells representing the cell values.
  * @param tableHeaderModel The model representing the table header.
- * @param rowHeader The row header item.
+ * @param rowIndex The row header item.
  * @param columnCount number of columns
  */
 @Composable
@@ -37,13 +36,13 @@ internal fun ItemValues(
     maxLines: Int,
     cellValues: Map<Int, TableCell>,
     tableHeaderModel: TableHeader,
-    rowHeader: RowHeader,
+    rowIndex: Int,
     columnCount: Int,
 ) {
-    val firstCellSelected = tableSelection.isCellSelected(tableId, 0, rowHeader.row)
+    val firstCellSelected = tableSelection.isCellSelected(tableId, 0, rowIndex)
     Row(
         modifier = modifier
-            .rowSupportForCellBorder(firstCellSelected, TableTheme.colors.primary)
+            .rowSupportForCellBorder(firstCellSelected && horizontalScrollState.value == 0, TableTheme.colors.primary)
             .horizontalScroll(state = horizontalScrollState)
             .draggableList(
                 scrollState = horizontalScrollState,

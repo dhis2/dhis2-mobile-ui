@@ -26,22 +26,22 @@ internal fun Modifier.cellBorder(
         )
         drawRect(
             color = if (selected) borderColor else Color.Unspecified,
-            topLeft = Offset(0f, 0f),
+            topLeft = Offset(-outBorderOffset, -outBorderOffset),
             size = Size(width = outBorderOffset, height = size.height + outBorderOffset),
         )
         drawRect(
             color = if (selected) borderColor else Color.Unspecified,
-            topLeft = Offset(size.width, 0f),
+            topLeft = Offset(size.width, -outBorderOffset),
             size = Size(width = outBorderOffset, height = size.height + outBorderOffset),
         )
         drawRect(
             color = if (selected) borderColor else Color.Unspecified,
-            topLeft = Offset(0f, 0f),
-            size = Size(width = size.width, height = borderWidth.toPx()),
+            topLeft = Offset(0f, -outBorderOffset),
+            size = Size(width = size.width + outBorderOffset, height = borderWidth.toPx()),
         )
         drawRect(
             color = if (selected) borderColor else Color.Unspecified,
-            topLeft = Offset(0f, size.height),
+            topLeft = Offset(-outBorderOffset, size.height),
             size = Size(width = size.width, height = borderWidth.toPx()),
         )
         drawRect(

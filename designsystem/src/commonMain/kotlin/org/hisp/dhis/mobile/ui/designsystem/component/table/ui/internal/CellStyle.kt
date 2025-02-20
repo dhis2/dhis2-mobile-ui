@@ -165,7 +165,7 @@ internal fun styleForCell(
         isParentSelected -> tableColorProvider().selectedCell
         hasError -> SurfaceColor.ErrorContainer
         hasWarning -> SurfaceColor.WarningContainer
-        legendColor != null -> Color(legendColor).copy(alpha = 0.15f)
+        legendColor != null -> Color(legendColor).copy(alpha = 0.3f)
         !isEditable -> tableColorProvider().disabledCellBackground
         isSelected -> tableColorProvider().tableBackground
         else -> tableColorProvider().tableBackground
