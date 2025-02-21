@@ -26,10 +26,6 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTag
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableCell
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.LocalTableSelection
@@ -40,9 +36,6 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.cells.Ma
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.cells.MandatoryIconStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.cells.TextCell
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.modifiers.cellBorder
-import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.CELL_ERROR_UNDERLINE_TEST_TAG
-import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.CELL_VALUE_TEST_TAG
-import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.CELL_TEST_TAG
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.cellSelected
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.cellTestTag
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.hasError
