@@ -285,6 +285,7 @@ fun DataTable(
                 )
             },
             bottomContent = bottomContent,
+            maxRowColumnHeaders = maxRowColumnHeaders,
         )
     }
 }

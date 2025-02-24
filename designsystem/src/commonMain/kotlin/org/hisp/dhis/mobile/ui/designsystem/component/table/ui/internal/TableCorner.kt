@@ -8,7 +8,11 @@ import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.internal.TableCornerUiState
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.LocalTableColors
@@ -26,15 +30,16 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
  */
 @Composable
 internal fun TableCorner(
+    modifier: Modifier = Modifier,
     tableCornerUiState: TableCornerUiState,
     tableId: String,
+    rowColumnHeaders: Int,
     maxRowColumnHeaders: Int,
     onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-
 ) {
     val isSelected = TableTheme.tableSelection.isCornerSelected(tableId)
     val config = TableTheme.configuration
+    val colorPrimary = MaterialTheme.colorScheme.primary
 
     Box(
         modifier = modifier
@@ -54,6 +59,16 @@ internal fun TableCorner(
                         ).toDp()
                 },
             )
+            .drawBehind {
+                repeat(rowColumnHeaders) { index ->
+                    val xOffset = (size.width / rowColumnHeaders) * (index + 1)
+                    drawRect(
+                        color = colorPrimary,
+                        topLeft = Offset((xOffset - 1.dp.toPx()), 0f),
+                        size = Size(1.dp.toPx(), size.height),
+                    )
+                }
+            }
             .clickable { onClick() },
         contentAlignment = Alignment.CenterEnd,
     ) {

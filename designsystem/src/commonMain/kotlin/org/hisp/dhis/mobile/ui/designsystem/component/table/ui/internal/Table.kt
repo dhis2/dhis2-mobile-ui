@@ -75,6 +75,7 @@ internal fun Table(
     )? = null,
     verticalResizingView: @Composable ((tableHeight: Int?) -> Unit)? = null,
     bottomContent: @Composable (() -> Unit)? = null,
+    maxRowColumnHeaders: Int,
 ) {
     Box(
         modifier = Modifier
@@ -120,6 +121,7 @@ internal fun Table(
                             ExtendDivider(
                                 tableId = tableModel.id,
                                 selected = tableSelection.isCornerSelected(tableModel.id),
+                                rowHeaderCount = maxRowColumnHeaders,
                             )
                         }
                     }
@@ -206,6 +208,7 @@ internal fun Table(
                                 selected = TableTheme.tableSelection.isCornerSelected(
                                     tableModel.id,
                                 ),
+                                rowHeaderCount = maxRowColumnHeaders,
                             )
                         }
                     }

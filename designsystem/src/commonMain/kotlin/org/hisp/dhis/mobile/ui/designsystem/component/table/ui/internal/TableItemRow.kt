@@ -68,9 +68,9 @@ internal fun TableItemRow(
     Row(
         Modifier
             .semantics {
-                testTag = rowTestTag(tableModel.id, rowModel.rowHeader.id)
+                testTag = rowTestTag(tableModel.id, rowModel.id())
                 tableIdSemantic = tableModel.id
-                rowIndexSemantic = rowModel.rowHeader.row
+                rowIndexSemantic = rowModel.row()
             }
             .width(IntrinsicSize.Min)
             .height(IntrinsicSize.Min)
@@ -140,7 +140,7 @@ internal fun TableItemRow(
             rowModels.forEach {
                 ItemValues(
                     modifier = Modifier.semantics {
-                        testTag = rowValuesTestTag(tableModel.id, rowModel.rowHeader.id)
+                        testTag = rowValuesTestTag(tableModel.id, rowModel.id())
                     }.weight(1f),
                     tableId = tableModel.id,
                     horizontalScrollState = horizontalScrollState,

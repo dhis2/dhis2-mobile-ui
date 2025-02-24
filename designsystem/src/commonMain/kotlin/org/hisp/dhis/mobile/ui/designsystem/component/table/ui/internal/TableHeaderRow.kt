@@ -93,6 +93,7 @@ internal fun TableHeaderRow(
                     .zIndex(1f),
                 tableCornerUiState = cornerUiState,
                 maxRowColumnHeaders = maxRowColumnHeaders,
+                rowColumnHeaders = tableModel.tableRows.first().rowHeaders.size,
                 tableId = tableModel.id,
                 onClick = onTableCornerClick,
             )

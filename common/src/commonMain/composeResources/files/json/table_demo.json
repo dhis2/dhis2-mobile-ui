@@ -1247,13 +1247,16 @@
     },
     "tableRows": [
       {
-        "rowHeader": {
-          "id": "firstRowId",
-          "title": "Number 1",
-          "showDecoration": false,
-          "row": 0,
-          "description": null
-        },
+        "rowHeaders": [
+          {
+            "id": "firstRowId",
+            "title": "Number 1",
+            "showDecoration": false,
+            "row": 0,
+            "column": 0,
+            "description": null
+          }
+        ],
         "values": {
           "0": {
             "id": "00",
@@ -1271,13 +1274,16 @@
         }
       },
       {
-        "rowHeader": {
-          "id": "secondRowId",
-          "title": "Number 2",
-          "showDecoration": false,
-          "row": 1,
-          "description": null
-        },
+        "rowHeaders": [
+          {
+            "id": "secondRowId",
+            "title": "Number 2",
+            "showDecoration": false,
+            "row": 1,
+            "column": 0,
+            "description": null
+          }
+        ],
         "values": {
           "0": {
             "id": "10",
@@ -1295,13 +1301,16 @@
         }
       },
       {
-        "rowHeader": {
-          "id": "totalColumn",
-          "title": "Total",
-          "showDecoration": false,
-          "row": 2,
-          "description": null
-        },
+        "rowHeaders": [
+          {
+            "id": "totalColumn",
+            "title": "Total",
+            "showDecoration": false,
+            "row": 2,
+            "column": 0,
+            "description": null
+          }
+        ],
         "values": {
           "0": {
             "id": "total0",
