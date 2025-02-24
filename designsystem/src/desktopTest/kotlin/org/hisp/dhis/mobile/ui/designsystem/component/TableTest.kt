@@ -206,8 +206,8 @@ class TableTest {
 
             tables.forEach { table ->
                 table.tableRows.forEach { row ->
-                    assertRowHeaderText(table.id, row.rowHeader.title, row.rowHeader.id)
-                    assertRowHeaderIsClickable(table.id, row.rowHeader.id)
+                    assertRowHeaderText(table.id, row.rowHeaders.first().title, row.rowHeaders.first().id)
+                    assertRowHeaderIsClickable(table.id, row.rowHeaders.first().id)
                 }
             }
         }
@@ -222,7 +222,7 @@ class TableTest {
 
             with(table.first()) {
                 composeTestRule.waitForIdle()
-                clickOnRowHeader(id, tableRows.first().rowHeader.id)
+                clickOnRowHeader(id, tableRows.first().rowHeaders.first().id)
                 assertRowHeaderBackgroundChangeToPrimary(id, 0)
             }
         }
