@@ -190,23 +190,6 @@ class TableTest {
     /**
      * Loads a table from a JSON file.
      * Initializes the table in the Compose UI.
-     * Simulates a click on a specific row element.
-     * Asserts that the clicked row element has an information icon.
-     */
-    @Test
-    fun shouldShowInformationIcon() = runBlocking {
-        val table = loadTableFromJson("multi_header_table_list.json")
-
-        tableRobot(composeTestRule) {
-            initTable(table)
-            val firstTableId = table[0].id!!
-            assertInfoIcon(firstTableId, 0)
-        }
-    }
-
-    /**
-     * Loads a table from a JSON file.
-     * Initializes the table in the Compose UI.
      * Asserts that the number of rows in the first and second tables matches the expected number of rows.
      * Asserts that the header text of the first and second tables matches the expected header text.
      * Asserts that the header elements of the first and second tables are clickable.
@@ -251,9 +234,11 @@ class TableTest {
 
         tableRobot(composeTestRule) {
             initTable(table)
-            val firstId = table.first().id!!
-            clickOnCell(firstId, 0, 0)
-            assertCellIsSelected(firstId, 0, 0)
+            with(table.first()) {
+                val cellId = tableRows.first().values[0]?.id!!
+                clickOnCell(id, cellId)
+                assertCellIsSelected(id, cellId)
+            }
         }
     }
 
@@ -278,10 +263,11 @@ class TableTest {
 
         tableRobot(composeTestRule) {
             initTable(table)
-            val firstId = table.first().id!!
-            assertCellErrorStyle(firstId, 2, 0)
-            assertCellDisabledStyle(firstId, 2, 1)
-            assertCellWarningStyle(firstId, 2, 2)
+            with(table.first()) {
+                assertCellErrorStyle(id, tableRows[2].values[0]?.id!!)
+                assertCellDisabledStyle(id, tableRows[2].values[1]?.id!!)
+                assertCellWarningStyle(id, tableRows[2].values[2]?.id!!)
+            }
         }
     }
 

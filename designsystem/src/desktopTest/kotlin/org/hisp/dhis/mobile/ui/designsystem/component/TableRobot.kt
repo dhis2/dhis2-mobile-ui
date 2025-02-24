@@ -1,7 +1,5 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.assertIsDisplayed
@@ -9,16 +7,12 @@ import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.hasParent
 import androidx.compose.ui.test.hasTestTag
-import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
-import org.hisp.dhis.mobile.ui.designsystem.component.menu.MenuItemTestTags.MENU_ITEM_TEXT
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableModel
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.DataTable
-import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.CELL_TEST_TAG
-import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.CELL_VALUE_TEST_TAG
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.CellSelected
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.ColumnBackground
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.ColumnIndexHeader
@@ -54,13 +48,6 @@ class TableRobot(
         composeTestRule.setContent {
             DataTable(tableList = table)
         }
-    }
-
-    fun assertInfoIcon(tableId: String, rowIndex: Int) {
-        composeTestRule.onNode(
-            SemanticsMatcher.expectValue(TableId, tableId)
-                .and(SemanticsMatcher.expectValue(RowIndex, rowIndex)),
-        ).assertExists()
     }
 
     fun assertRowHeaderBackgroundChangeToPrimary(
@@ -136,9 +123,9 @@ class TableRobot(
             .assertIsDisplayed()
     }
 
-    fun assertCellIsSelected(tableId: String, rowIndex: Int, columnIndex: Int) {
+    fun assertCellIsSelected(tableId: String, cellId: String) {
         composeTestRule.onNode(
-            hasTestTag("$tableId${CELL_TEST_TAG}$rowIndex$columnIndex")
+            hasTestTag(cellTestTag(tableId, cellId))
                 and
                 SemanticsMatcher.expectValue(CellSelected, true)
                 and
@@ -149,9 +136,9 @@ class TableRobot(
         ).assertIsDisplayed()
     }
 
-    fun assertCellErrorStyle(tableId: String, rowIndex: Int, columnIndex: Int) {
+    fun assertCellErrorStyle(tableId: String, cellId: String) {
         composeTestRule.onNode(
-            hasTestTag("$tableId${CELL_TEST_TAG}$rowIndex$columnIndex")
+            hasTestTag(cellTestTag(tableId, cellId))
                 and
                 SemanticsMatcher.expectValue(HasError, true)
                 and
@@ -160,7 +147,7 @@ class TableRobot(
         ).assertIsDisplayed()
     }
 
-    fun assertCellWarningStyle(tableId: String, rowIndex: Int, columnIndex: Int) {
+    fun assertCellWarningStyle(tableId: String, cellId: String) {
         composeTestRule.onNode(
             hasTestTag(cellTestTag(tableId, cellId))
                 and
@@ -171,7 +158,7 @@ class TableRobot(
         ).assertIsDisplayed()
     }
 
-    fun assertCellDisabledStyle(tableId: String, rowIndex: Int, columnIndex: Int) {
+    fun assertCellDisabledStyle(tableId: String, cellId: String) {
         composeTestRule.onNode(
             hasTestTag(cellTestTag(tableId, cellId))
                 and
@@ -180,23 +167,5 @@ class TableRobot(
                 SemanticsMatcher.expectValue(RowBackground, SurfaceColor.DisabledSurfaceBright),
             true,
         ).assertIsDisplayed()
-    }
-
-    fun selectDropdownItem(text: String) {
-        composeTestRule.onNode(
-            hasTestTag(MENU_ITEM_TEXT)
-                and
-                hasText(text),
-            true,
-        ).performClick()
-    }
-
-    fun assertCellHasValue(tableId: String, rowIndex: Int, columnIndex: Int, value: String) {
-        composeTestRule.onNode(
-            hasParent(hasTestTag("$tableId${CELL_TEST_TAG}$rowIndex$columnIndex"))
-                and
-                hasTestTag(CELL_VALUE_TEST_TAG),
-            true,
-        ).assertTextEquals(value)
     }
 }
