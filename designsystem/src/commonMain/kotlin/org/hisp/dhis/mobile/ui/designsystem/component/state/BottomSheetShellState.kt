@@ -26,6 +26,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing24
  * @property scrollableContainerMinHeight The minimum height for the scrollable content container.
  * @property scrollableContainerMaxHeight The maximum height for the scrollable content container.
  * @property animateHeaderOnKeyboardAppearance Whether to animate the header when the keyboard appears.
+ * @property contentPadding The padding values for the content.
  */
 
 data class BottomSheetShellUIState(
@@ -40,6 +41,7 @@ data class BottomSheetShellUIState(
     val scrollableContainerMinHeight: Dp = Spacing0,
     val scrollableContainerMaxHeight: Dp = InternalSizeValues.Size386,
     val animateHeaderOnKeyboardAppearance: Boolean = true,
+    val contentPadding: PaddingValues = PaddingValues(horizontal = Spacing24),
 )
 
 /**

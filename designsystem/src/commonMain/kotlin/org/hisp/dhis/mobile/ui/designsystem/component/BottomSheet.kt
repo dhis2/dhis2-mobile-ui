@@ -377,7 +377,7 @@ fun BottomSheetShell(
                         }
                         Column(
                             modifier = Modifier
-                                .padding(horizontal = Spacing24)
+                                .padding(uiState.contentPadding)
                                 .heightIn(
                                     uiState.scrollableContainerMinHeight,
                                     uiState.scrollableContainerMaxHeight,

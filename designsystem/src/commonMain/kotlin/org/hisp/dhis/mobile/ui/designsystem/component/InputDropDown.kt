@@ -426,6 +426,7 @@ fun DropdownInputField(
  * @param selected: whether item is selected or not.
  * @param onItemClick: call back for item selected.
  * @param modifier: optional modifier.
+ * @param enabled: whether item is enabled or not.
  */
 @Composable
 fun DropdownListItem(
@@ -433,6 +434,7 @@ fun DropdownListItem(
     contentPadding: PaddingValues,
     modifier: Modifier = Modifier,
     selected: Boolean = false,
+    enabled: Boolean = true,
     onItemClick: () -> Unit,
 ) {
     Box(
@@ -456,7 +458,7 @@ fun DropdownListItem(
             } else {
                 MaterialTheme.typography.bodyLarge
             },
-            color = TextColor.OnSurface,
+            color = if (enabled) TextColor.OnSurface else TextColor.OnDisabledSurface,
         )
     }
 }
