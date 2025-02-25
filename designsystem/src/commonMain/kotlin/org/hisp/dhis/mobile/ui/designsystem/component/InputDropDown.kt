@@ -426,6 +426,7 @@ fun DropdownInputField(
  * @param selected: whether item is selected or not.
  * @param onItemClick: call back for item selected.
  * @param modifier: optional modifier.
+ * @param enabled: whether item is enabled or not.
  */
 @Composable
 fun DropdownListItem(
