@@ -421,7 +421,7 @@ fun DropdownInputField(
 /**
  * DHIS2 composable  DropdownListItem.
  * used internally for DHIS2 component [InputDropDown] with
- * @param item: [DropdownListItem] with label to be used.
+ * @param item: [DropdownItem] data class with label to be used.
  * @param contentPadding: the padding to be used.
  * @param selected: whether item is selected or not.
  * @param onItemClick: call back for item selected.
