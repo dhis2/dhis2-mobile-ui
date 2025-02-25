@@ -174,7 +174,7 @@ fun InputDropDown(
                                 itemCount > 0 ->
                                     items(count = itemCount) { index ->
                                         with(fetchItem(index)) {
-                                            DropdownItem(
+                                            DropdownListItem(
                                                 modifier = Modifier.testTag("INPUT_DROPDOWN_BOTTOM_SHEET_ITEM_$index"),
                                                 item = this,
                                                 selected = selectedItem == this,
@@ -254,7 +254,7 @@ fun InputDropDown(
                 ) {
                     repeat(itemCount) { index ->
                         with(fetchItem(index)) {
-                            DropdownItem(
+                            DropdownListItem(
                                 modifier = Modifier.testTag("INPUT_DROPDOWN_MENU_ITEM_$index")
                                     .fillMaxWidth()
                                     .padding(start = dropdownStartPadding(inputStyle) + 8.dp),
@@ -419,16 +419,16 @@ fun DropdownInputField(
 }
 
 /**
- * DHIS2 composable  DropdownItem.
+ * DHIS2 composable  DropdownListItem.
  * used internally for DHIS2 component [InputDropDown] with
- * @param item: [DropdownItem] with label to be used.
+ * @param item: [DropdownItem] data class with label to be used.
  * @param contentPadding: the padding to be used.
  * @param selected: whether item is selected or not.
  * @param onItemClick: call back for item selected.
  * @param modifier: optional modifier.
  */
 @Composable
-fun DropdownItem(
+fun DropdownListItem(
     item: DropdownItem,
     contentPadding: PaddingValues,
     modifier: Modifier = Modifier,
