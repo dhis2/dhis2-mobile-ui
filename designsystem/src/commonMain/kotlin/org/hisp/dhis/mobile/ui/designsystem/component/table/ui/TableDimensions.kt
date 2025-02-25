@@ -19,14 +19,11 @@ const val GROUPED_ID = "GROUPED"
  * @property defaultCellHeight The default height of the table cells.
  * @property defaultRowHeaderWidth The default width of the row header.
  * @property defaultHeaderHeight The default height of the header.
- * @property defaultLegendCornerSize The default size of the legend corner.
- * @property defaultLegendBorderWidth The default width of the legend border.
  * @property defaultHeaderTextSize The default size of the header text.
  * @property defaultRowHeaderTextSize The default size of the row header text.
  * @property defaultCellTextSize The default size of the cell text.
  * @property totalWidth The total width of the table.
- * @property cellVerticalPadding The vertical padding of the table cells.
- * @property cellHorizontalPadding The horizontal padding of the table cells.
+ * @property cellPaddingValues The padding of the table cells.
  * @property headerCellPaddingValues The padding values of the header cells.
  * @property tableBottomPadding The bottom padding of the table.
  * @property extraWidths The extra widths of the table.
@@ -43,20 +40,20 @@ data class TableDimensions(
     val tableHorizontalPadding: Dp = Spacing.Spacing16,
     val tableVerticalPadding: Dp = Spacing.Spacing16,
     val defaultCellWidth: Int = 160,
-    val defaultCellHeight: Dp = Spacing.Spacing36,
+    val defaultCellHeight: Dp = Spacing.Spacing40,
     val defaultRowHeaderWidth: Int = 275,
     val defaultHeaderHeight: Int = 36,
-    val defaultLegendCornerSize: Dp = Spacing.Spacing2,
-    val defaultLegendBorderWidth: Dp = Spacing.Spacing8,
     val defaultHeaderTextSize: TextUnit = 12.sp,
     val defaultRowHeaderTextSize: TextUnit = 12.sp,
     val defaultCellTextSize: TextUnit = 12.sp,
     val totalWidth: Int = 0,
-    val cellVerticalPadding: Dp = Spacing.Spacing4,
-    val cellHorizontalPadding: Dp = Spacing.Spacing4,
+    val cellPaddingValues: PaddingValues = PaddingValues(
+        horizontal = Spacing.Spacing8,
+        vertical = Spacing.Spacing12,
+    ),
     val headerCellPaddingValues: PaddingValues = PaddingValues(
-        horizontal = Spacing.Spacing4,
-        vertical = Spacing.Spacing11,
+        horizontal = Spacing.Spacing8,
+        vertical = Spacing.Spacing12,
     ),
     val tableBottomPadding: Dp = Spacing.Spacing200,
     val extraWidths: Map<String, Int> = emptyMap(),

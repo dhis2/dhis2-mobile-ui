@@ -2,7 +2,6 @@ package org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal
 
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -19,6 +18,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableModel
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableRowModel
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.internal.ItemHeaderUiState
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.internal.ResizingCell
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.LocalTableSelection
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.rowIndexSemantic
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.rowTestTag
@@ -51,21 +51,31 @@ internal fun TableItemRow(
     onResizing: (ResizingCell?) -> Unit,
     columnCount: Int,
 ) {
+    val tableSelection = LocalTableSelection.current
+    val isRowSelected = LocalTableSelection.current.isRowSelected(
+        selectedTableId = tableModel.id,
+        rowHeaderIndex = rowModel.rowHeader.row,
+    )
+    val isCellSelectedOnRow = rowModel.values.any {
+        tableSelection.isCellSelected(tableModel.id, it.value.column, rowModel.rowHeader.row)
+    }
     val config = TableTheme.configuration
-    Column(
+
+    Row(
         Modifier
             .semantics {
                 testTag = rowTestTag(tableModel.id, rowModel.rowHeader.id)
                 tableIdSemantic = tableModel.id
                 rowIndexSemantic = rowModel.rowHeader.row
             }
-            .width(IntrinsicSize.Min),
+            .width(IntrinsicSize.Min)
+            .zIndex(if (isCellSelectedOnRow) 1f else 0f),
     ) {
         Row(Modifier.height(IntrinsicSize.Min)) {
             Box(
                 modifier = Modifier
                     .fillMaxHeight()
-                    .zIndex(1f),
+                    .zIndex(if (isRowSelected) 1f else 0f),
             ) {
                 ItemHeader(
                     ItemHeaderUiState(
@@ -96,6 +106,7 @@ internal fun TableItemRow(
                 cellValues = rowModel.values,
                 maxLines = rowModel.maxLines,
                 tableHeaderModel = tableModel.tableHeaderModel,
+                rowIndex = rowModel.rowHeader.row,
                 columnCount = columnCount,
             )
         }

@@ -29,6 +29,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantic
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.headerTestTag
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.headersTestTag
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.tableIdSemantic
+import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 
 /**
  * Composable function to display the table header.
@@ -50,7 +51,7 @@ internal fun TableHeader(
     horizontalScrollState: ScrollState,
     columnCount: Int,
     cellStyle: @Composable
-    (columnIndex: Int, rowIndex: Int) -> CellStyle,
+    (columnIndex: Int, rowIndex: Int) -> CellStyle.HeaderStyle,
     onHeaderCellSelected: (columnIndex: Int, headerRowIndex: Int) -> Unit,
     onHeaderResize: (Int, Float) -> Unit,
     onResizing: (ResizingCell?) -> Unit,
@@ -195,8 +196,9 @@ internal fun TableHeader(
                                 ),
                                 paddingValues = dimensions.headerCellPaddingValues,
                                 cellStyle = CellStyle.HeaderStyle(
-                                    backgroundColor = Color.Transparent,
+                                    backgroundColor = TableTheme.colors.disabledCellBackground,
                                     textColor = Color.Transparent,
+                                    dividerColor = Outline.Light,
                                 ),
                                 onCellSelected = {},
                                 onHeaderResize = { _, _, _ -> },

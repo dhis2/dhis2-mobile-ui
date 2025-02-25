@@ -190,23 +190,6 @@ class TableTest {
     /**
      * Loads a table from a JSON file.
      * Initializes the table in the Compose UI.
-     * Simulates a click on a specific row element.
-     * Asserts that the clicked row element has an information icon.
-     */
-    @Test
-    fun shouldShowInformationIcon() = runBlocking {
-        val table = loadTableFromJson("multi_header_table_list.json")
-
-        tableRobot(composeTestRule) {
-            initTable(table)
-            val firstTableId = table[0].id!!
-            assertInfoIcon(firstTableId, 0)
-        }
-    }
-
-    /**
-     * Loads a table from a JSON file.
-     * Initializes the table in the Compose UI.
      * Asserts that the number of rows in the first and second tables matches the expected number of rows.
      * Asserts that the header text of the first and second tables matches the expected header text.
      * Asserts that the header elements of the first and second tables are clickable.
@@ -246,6 +229,20 @@ class TableTest {
     }
 
     @Test
+    fun shouldSelectCell() = runBlocking {
+        val table = loadTableFromJson("mandatory_cell_table_list.json")
+
+        tableRobot(composeTestRule) {
+            initTable(table)
+            with(table.first()) {
+                val cellId = tableRows.first().values[0]?.id!!
+                clickOnCell(id, cellId)
+                assertCellIsSelected(id, cellId)
+            }
+        }
+    }
+
+    @Test
     fun shouldBlockClickAndSetCorrectColorIfNonEditable() = runBlocking {
         val tables = loadTableFromJson("multi_header_table_list.json")
 
@@ -261,16 +258,15 @@ class TableTest {
     }
 
     @Test
-    fun shouldSetCorrectColorIfHasError() = runBlocking {
+    fun shouldSetCorrectCellColors() = runBlocking {
         val table = loadTableFromJson("mandatory_cell_table_list.json")
 
         tableRobot(composeTestRule) {
             initTable(table)
             with(table.first()) {
-                val cellId = tableRows[2].values[0]!!.id
-                assertUnselectedCellErrorStyle(id, cellId)
-                clickOnCell(id, cellId)
-                assertSelectedCellErrorStyle(id, cellId)
+                assertCellErrorStyle(id, tableRows[2].values[0]?.id!!)
+                assertCellDisabledStyle(id, tableRows[2].values[1]?.id!!)
+                assertCellWarningStyle(id, tableRows[2].values[2]?.id!!)
             }
         }
     }
@@ -278,7 +274,8 @@ class TableTest {
     private suspend fun loadTableFromJson(fileName: String): List<TableModel> {
         val bytes = Res.readBytes("files/json/$fileName")
         val jsonString = bytes.decodeToString()
-        return Json.decodeFromString(jsonString)
+        val json = Json { ignoreUnknownKeys = true }
+        return json.decodeFromString(jsonString)
     }
 
     companion object {

@@ -19,6 +19,7 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -58,7 +59,13 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
 @Composable
 internal fun Table(
     tableList: List<TableModel>,
-    tableHeaderRow: @Composable ((index: Int, tableModel: TableModel) -> Unit)? = null,
+    tableHeaderRow: @Composable (
+        (
+            index: Int,
+            tableModel: TableModel,
+            isTableScrolled: Boolean,
+        ) -> Unit
+    )? = null,
     tableItemRow: @Composable (
         (
             index: Int,
@@ -93,7 +100,7 @@ internal fun Table(
             ) {
                 tableList.forEachIndexed { tableIndex, tableModel ->
                     val isLastTable = tableList.lastIndex == tableIndex
-                    tableHeaderRow?.invoke(tableIndex, tableModel)
+                    tableHeaderRow?.invoke(tableIndex, tableModel, false)
                     tableModel.tableRows.forEachIndexed { rowIndex, tableRowModel ->
                         val isLastRow = tableModel.tableRows.lastIndex == rowIndex
                         tableItemRow?.invoke(tableIndex, tableModel, tableRowModel)
@@ -111,8 +118,8 @@ internal fun Table(
                         }
                         if (showExtendedDivider) {
                             ExtendDivider(
-                                tableId = tableModel.id ?: "",
-                                selected = tableSelection.isCornerSelected(tableModel.id ?: ""),
+                                tableId = tableModel.id,
+                                selected = tableSelection.isCornerSelected(tableModel.id),
                             )
                         }
                     }
@@ -133,6 +140,11 @@ internal fun Table(
                 )
             }
 
+            val isScrolled by remember {
+                derivedStateOf {
+                    verticalScrollState.firstVisibleItemScrollOffset != 0
+                }
+            }
             LazyColumn(
                 modifier = Modifier
                     .testTag("TABLE_SCROLLABLE_COLUMN")
@@ -164,7 +176,18 @@ internal fun Table(
                         fixHeader = keyboardState == Keyboard.Closed,
                         key = tableModel.id,
                     ) {
-                        tableHeaderRow?.invoke(tableIndex, tableModel)
+                        val isFirstVisibleStickyHeader by remember {
+                            derivedStateOf {
+                                verticalScrollState
+                                    .layoutInfo.visibleItemsInfo
+                                    .firstOrNull()?.key == "${tableModel.id}_sticky"
+                            }
+                        }
+                        tableHeaderRow?.invoke(
+                            tableIndex,
+                            tableModel,
+                            isFirstVisibleStickyHeader && isScrolled,
+                        )
                     }
                     itemsIndexed(
                         items = tableModel.tableRows,
@@ -172,13 +195,6 @@ internal fun Table(
                     ) { rowIndex, tableRowModel ->
                         val isLastRow = tableModel.tableRows.lastIndex == rowIndex
                         tableItemRow?.invoke(tableIndex, tableModel, tableRowModel)
-                        if (!isLastRow or TableTheme.configuration.groupTables) {
-                            HorizontalDivider(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(end = TableTheme.dimensions.tableEndExtraScroll),
-                            )
-                        }
                         val showExtendedDivider = if (TableTheme.configuration.groupTables) {
                             isLastTable && isLastRow
                         } else {
@@ -186,9 +202,9 @@ internal fun Table(
                         }
                         if (showExtendedDivider) {
                             ExtendDivider(
-                                tableId = tableModel.id ?: "",
+                                tableId = tableModel.id,
                                 selected = TableTheme.tableSelection.isCornerSelected(
-                                    tableModel.id ?: "",
+                                    tableModel.id,
                                 ),
                             )
                         }

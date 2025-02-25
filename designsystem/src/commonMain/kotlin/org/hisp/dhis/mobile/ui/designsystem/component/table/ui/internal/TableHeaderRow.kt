@@ -48,7 +48,7 @@ internal fun TableHeaderRow(
     horizontalScrollState: ScrollState,
     columnCount: Int,
     cellStyle: @Composable
-    (headerColumnIndex: Int, headerRowIndex: Int) -> CellStyle,
+    (headerColumnIndex: Int, headerRowIndex: Int) -> CellStyle.HeaderStyle,
     onTableCornerClick: () -> Unit = {},
     onHeaderCellClick: (headerColumnIndex: Int, headerRowIndex: Int) -> Unit = { _, _ -> },
     onHeaderResize: (Int, Float) -> Unit,

@@ -700,7 +700,8 @@
             "id": "CgJ9UN6mh5c_KCumzFOigNa",
             "row": 2,
             "column": 2,
-            "value": null
+            "value": null,
+            "warning": "This is a warning"
           },
           "3": {
             "id": "CgJ9UN6mh5c_c6plZIBSzVp",

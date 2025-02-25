@@ -18,16 +18,13 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
  * @property disabledCellText The color of the text in disabled cells.
  * @property disabledCellBackground The background color of disabled cells.
  * @property disabledSelectedBackground The background color of selected disabled cells.
- * @property errorColor The color used to indicate errors.
- * @property warningColor The color used to indicate warnings.
  * @property tableBackground The background color of the table.
- * @property iconColor The color of icons.
  * @property onPrimary The color used for text/icons on primary color.
  */
 @Immutable
 data class TableColors(
     val primary: Color = SurfaceColor.Primary,
-    val primaryLight: Color = SurfaceColor.PrimaryContainer,
+    val primaryLight: Color = SurfaceColor.ContainerHighest,
     val headerText: Color = TextColor.OnSurfaceLight,
     val headerBackground1: Color = SurfaceColor.ContainerLow,
     val headerBackground2: Color = SurfaceColor.Container,
@@ -35,10 +32,7 @@ data class TableColors(
     val disabledCellText: Color = TextColor.OnDisabledSurface,
     val disabledCellBackground: Color = SurfaceColor.DisabledSurfaceBright,
     val disabledSelectedBackground: Color = SurfaceColor.DisabledSurface,
-    val errorColor: Color = SurfaceColor.Error,
-    val warningColor: Color = SurfaceColor.Warning,
     val tableBackground: Color = SurfaceColor.SurfaceBright,
-    val iconColor: Color = TextColor.OnSurfaceLight,
     val onPrimary: Color = TextColor.OnPrimary,
     val selectedCell: Color = SurfaceColor.ContainerHighest,
 ) {
@@ -52,21 +46,10 @@ data class TableColors(
      * @return The color to be used for the cell text.
      */
     fun cellTextColor(hasError: Boolean, hasWarning: Boolean, isEditable: Boolean) = when {
-        hasError -> errorColor
-        hasWarning -> warningColor
+        hasError -> TextColor.OnErrorContainer
+        hasWarning -> TextColor.OnWarningContainer
         !isEditable -> disabledCellText
         else -> cellText
-    }
-
-    /**
-     * Returns the appropriate color for the mandatory icon based on the cell value state.
-     *
-     * @param hasValue Indicates if the cell has a value.
-     * @return The color to be used for the mandatory icon.
-     */
-    fun cellMandatoryIconColor(hasValue: Boolean) = when (hasValue) {
-        true -> iconColor
-        false -> errorColor
     }
 }
 

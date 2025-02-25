@@ -13,6 +13,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.zIndex
 import org.hisp.dhis.mobile.ui.designsystem.component.table.actions.TableInteractions
 import org.hisp.dhis.mobile.ui.designsystem.component.table.actions.TableResizeActions
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableCell
@@ -144,10 +145,11 @@ fun DataTable(
     ) {
         Table(
             tableList = tableList,
-            tableHeaderRow = { index, tableModel ->
+            tableHeaderRow = { index, tableModel, isTableScrolled ->
                 val isSingleValue = tableModel.tableRows.firstOrNull()?.values?.size == 1
                 TableHeaderRow(
                     modifier = Modifier
+                        .zIndex(if (isTableScrolled) 2f else 0f)
                         .background(Color.White),
                     cornerUiState = TableCornerUiState(
                         isSelected = tableSelection.isCornerSelected(tableModel.id ?: ""),
