@@ -433,6 +433,7 @@ fun DropdownListItem(
     contentPadding: PaddingValues,
     modifier: Modifier = Modifier,
     selected: Boolean = false,
+    enabled: Boolean = true,
     onItemClick: () -> Unit,
 ) {
     Box(
@@ -456,7 +457,7 @@ fun DropdownListItem(
             } else {
                 MaterialTheme.typography.bodyLarge
             },
-            color = TextColor.OnSurface,
+            color = if (enabled) TextColor.OnSurface else TextColor.OnDisabledSurface,
         )
     }
 }
