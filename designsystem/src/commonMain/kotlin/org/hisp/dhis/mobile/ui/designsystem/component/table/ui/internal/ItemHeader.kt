@@ -22,7 +22,6 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.text.style.TextOverflow
-import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableDialogModel
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.internal.ItemHeaderUiState
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.internal.ResizingCell
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.LocalTableSelection
@@ -48,7 +47,6 @@ internal fun ItemHeader(
     uiState: ItemHeaderUiState,
     clickableInteraction: MutableInteractionSource = remember { MutableInteractionSource() },
     onCellSelected: (Int?) -> Unit,
-    onDecorationClick: (dialogModel: TableDialogModel) -> Unit,
     onHeaderResize: (Float) -> Unit,
     onResizing: (ResizingCell?) -> Unit,
 ) {

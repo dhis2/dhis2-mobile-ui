@@ -78,19 +78,28 @@ internal fun Modifier.cellBorder(
 )
 
 internal fun Modifier.rowSupportForCellBorder(
-    selected: Boolean,
+    isCellSelectedOnRow: Boolean,
+    isFirstCellOnRowSelected: Boolean,
     borderColor: Color,
+    subRowCount: Int,
+    subRowIndex: Int,
 ) = this.then(
-    zIndex(if (selected) 1f else 0f)
+    zIndex(
+        if (isCellSelectedOnRow) {
+            (subRowCount - subRowIndex).toFloat()
+        } else {
+            subRowCount + 1f
+        },
+    )
         .drawBehind {
             drawCircle(
-                color = if (selected) Color.White else Color.Unspecified,
+                color = if (isFirstCellOnRowSelected) Color.White else Color.Unspecified,
                 radius = 4.dp.toPx(),
                 center = Offset(0.5.dp.toPx(), 0.5.dp.toPx()),
                 blendMode = BlendMode.SrcAtop,
             )
             drawCircle(
-                color = if (selected) borderColor else Color.Unspecified,
+                color = if (isFirstCellOnRowSelected) borderColor else Color.Unspecified,
                 radius = 2.dp.toPx(),
                 center = Offset(0.5.dp.toPx(), 0.5.dp.toPx()),
                 blendMode = BlendMode.SrcAtop,

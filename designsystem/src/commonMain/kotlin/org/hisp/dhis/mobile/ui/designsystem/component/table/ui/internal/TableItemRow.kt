@@ -2,6 +2,7 @@ package org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal
 
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
@@ -12,13 +13,13 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.zIndex
-import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableDialogModel
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableModel
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableRowModel
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.internal.ItemHeaderUiState
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.internal.ResizingCell
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.LocalTableSelection
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.modifiers.rowSupportForCellBorder
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.rowIndexSemantic
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.rowTestTag
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.rowValuesTestTag
@@ -48,19 +49,17 @@ internal fun TableItemRow(
         rowHeaderColumnIndex: Int?,
     ) -> CellStyle,
     onRowHeaderClick: (rowHeaderIndex: List<Int>, rowHeaderColumnIndex: Int?) -> Unit,
-    onDecorationClick: (dialogModel: TableDialogModel) -> Unit,
     onHeaderResize: (Float) -> Unit,
     onResizing: (ResizingCell?) -> Unit,
     columnCount: Int,
     maxRowColumnHeaders: Int,
 ) {
     val tableSelection = LocalTableSelection.current
-    val isRowSelected = LocalTableSelection.current.isRowSelected(
-        selectedTableId = tableModel.id,
-        rowHeaderIndex = rowModel.rowHeader.row,
-    )
-    val isCellSelectedOnRow = rowModel.values.any {
-        tableSelection.isCellSelected(tableModel.id, it.value.column, rowModel.rowHeader.row)
+
+    val isCellSelectedOnRow = rowModels.any { rowModel ->
+        rowModel.values.any {
+            tableSelection.isCellSelected(tableModel.id, it.value.column, rowModel.row())
+        }
     }
     val config = TableTheme.configuration
     val rowModel = rowModels.first()
@@ -77,15 +76,31 @@ internal fun TableItemRow(
             .zIndex(if (isCellSelectedOnRow) 1f else 0f),
     ) {
         repeat(rowModel.rowHeaders.size) { rowHeaderColumnIndex ->
-            Column(
-                modifier = Modifier.zIndex((rowModel.rowHeaders.size - rowHeaderColumnIndex).toFloat()),
-            ) {
-                val rowHeaders = getRowHeaders(rowModels, rowHeaderColumnIndex)
 
+            val rowHeaders = getRowHeaders(rowModels, rowHeaderColumnIndex)
+
+            val isAnyHeaderSelectedInColumn = rowHeaders.any { rowHeader ->
+                TableTheme.tableSelection.isRowSelected(
+                    selectedTableId = tableModel.id,
+                    rowHeaderIndexes = getSelectedIndexes(
+                        rowHeader.row,
+                        rowModels,
+                        rowHeaderColumnIndex,
+                    ),
+                )
+            }
+            Column(
+                modifier = Modifier.zIndex(
+                    if (isAnyHeaderSelectedInColumn) {
+                        rowModel.rowHeaders.size + 2f
+                    } else {
+                        (rowModel.rowHeaders.size - rowHeaderColumnIndex).toFloat()
+                    },
+                ),
+            ) {
                 rowHeaders.forEach { rowHeader ->
                     Box(
-                        modifier = Modifier
-                            .weight(1f),
+                        modifier = Modifier.weight(1f),
                     ) {
                         ItemHeader(
                             uiState = ItemHeaderUiState(
@@ -93,7 +108,11 @@ internal fun TableItemRow(
                                 totalColumns = rowModel.rowHeaders.size,
                                 rowHeader = rowHeader,
                                 cellStyle = rowHeaderCellStyle(
-                                    getSelectedIndexes(rowHeader.row, rowModels, rowHeaderColumnIndex),
+                                    getSelectedIndexes(
+                                        rowHeader.row,
+                                        rowModels,
+                                        rowHeaderColumnIndex,
+                                    ),
                                     rowHeaderColumnIndex,
                                 ),
                                 width = when {
@@ -114,7 +133,11 @@ internal fun TableItemRow(
                                         }
                                 },
                                 maxLines = rowModel.maxLines,
-                                headerIndexes = getSelectedIndexes(rowHeader.row, rowModels, rowHeaderColumnIndex),
+                                headerIndexes = getSelectedIndexes(
+                                    rowHeader.row,
+                                    rowModels,
+                                    rowHeaderColumnIndex,
+                                ),
                             ),
                             onCellSelected = { rowIndex ->
                                 val indexes = getSelectedIndexes(
@@ -127,7 +150,6 @@ internal fun TableItemRow(
                                     rowHeaderColumnIndex,
                                 )
                             },
-                            onDecorationClick = onDecorationClick,
                             onHeaderResize = onHeaderResize,
                             onResizing = onResizing,
                         )
@@ -136,18 +158,37 @@ internal fun TableItemRow(
             }
         }
 
-        Column {
-            rowModels.forEach {
+        Column(
+            Modifier.zIndex(rowModel.rowHeaders.size + 1f),
+        ) {
+            rowModels.forEachIndexed { subRowIndex, tableRowModel ->
+                val firstCellSelected =
+                    TableTheme.tableSelection.isCellSelected(tableModel.id, 0, rowModels[subRowIndex].values[0]?.row ?: -1)
+
+                val cellSelectedOnRow = tableRowModel.values.any {
+                    tableSelection.isCellSelected(tableModel.id, it.value.column, rowModel.row())
+                }
+
                 ItemValues(
-                    modifier = Modifier.semantics {
-                        testTag = rowValuesTestTag(tableModel.id, rowModel.id())
-                    }.weight(1f),
+                    modifier = Modifier
+                        .semantics {
+                            testTag = rowValuesTestTag(tableModel.id, rowModel.id())
+                        }
+                        .weight(1f)
+                        .rowSupportForCellBorder(
+                            isCellSelectedOnRow = cellSelectedOnRow,
+                            isFirstCellOnRowSelected = firstCellSelected && horizontalScrollState.value == 0,
+                            borderColor = TableTheme.colors.primary,
+                            subRowCount = tableModel.tableRows.size,
+                            subRowIndex = subRowIndex,
+                        ),
                     tableId = tableModel.id,
                     horizontalScrollState = horizontalScrollState,
-                    cellValues = it.values,
-                    maxLines = it.maxLines,
+                    cellValues = tableRowModel.values,
+                    maxLines = tableRowModel.maxLines,
                     tableHeaderModel = tableModel.tableHeaderModel,
-                    rowIndex = rowModel.rowHeader.row,columnCount = columnCount,
+                    rowIndex = rowModel.row(),
+                    columnCount = columnCount,
                 )
             }
         }

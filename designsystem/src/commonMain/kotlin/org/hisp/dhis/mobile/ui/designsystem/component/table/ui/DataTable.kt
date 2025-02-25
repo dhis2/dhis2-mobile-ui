@@ -259,7 +259,6 @@ fun DataTable(
                             ),
                         )
                     },
-                    onDecorationClick = { defaultsTableInteractions.onDecorationClick(it) },
                     onHeaderResize = { width ->
                         tableResizeActions.onRowHeaderResize(
                             tableModel.id ?: "",
