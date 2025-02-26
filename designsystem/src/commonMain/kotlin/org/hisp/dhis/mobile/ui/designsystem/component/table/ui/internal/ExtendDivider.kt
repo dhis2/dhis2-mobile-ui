@@ -23,7 +23,11 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme
  * @param selected Indicates if the divider is selected.
  */
 @Composable
-internal fun ExtendDivider(tableId: String, selected: Boolean) {
+internal fun ExtendDivider(
+    tableId: String,
+    selected: Boolean,
+    rowHeaderCount: Int,
+) {
     val background = TableTheme.colors.primary
     val config = TableTheme.configuration
     Row(modifier = Modifier.fillMaxWidth()) {
@@ -31,12 +35,13 @@ internal fun ExtendDivider(tableId: String, selected: Boolean) {
             modifier = Modifier
                 .width(
                     with(LocalDensity.current) {
-                        TableTheme.dimensions
-                            .rowHeaderWidth(
-                                groupedTables = config.groupTables,
-                                tableId = tableId,
-                            )
-                            .toDp()
+                        (
+                            TableTheme.dimensions
+                                .rowHeaderWidth(
+                                    groupedTables = config.groupTables,
+                                    tableId = tableId,
+                                ) * rowHeaderCount
+                            ).toDp()
                     },
                 )
                 .height(8.dp)

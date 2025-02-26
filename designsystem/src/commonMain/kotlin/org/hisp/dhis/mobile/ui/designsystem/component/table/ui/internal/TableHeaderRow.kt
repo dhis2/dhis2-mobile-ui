@@ -47,6 +47,7 @@ internal fun TableHeaderRow(
     tableModel: TableModel,
     horizontalScrollState: ScrollState,
     columnCount: Int,
+    maxRowColumnHeaders: Int,
     cellStyle: @Composable
     (headerColumnIndex: Int, headerRowIndex: Int) -> CellStyle.HeaderStyle,
     onTableCornerClick: () -> Unit = {},
@@ -91,6 +92,8 @@ internal fun TableHeaderRow(
                     }
                     .zIndex(1f),
                 tableCornerUiState = cornerUiState,
+                maxRowColumnHeaders = maxRowColumnHeaders,
+                rowColumnHeaders = tableModel.tableRows.first().rowHeaders.size,
                 tableId = tableModel.id,
                 onClick = onTableCornerClick,
             )

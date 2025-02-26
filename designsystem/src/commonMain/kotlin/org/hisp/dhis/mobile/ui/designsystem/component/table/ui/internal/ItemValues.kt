@@ -13,8 +13,6 @@ import org.hisp.dhis.mobile.ui.designsystem.component.modifier.draggableList
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableCell
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableHeader
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme
-import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme.tableSelection
-import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.modifiers.rowSupportForCellBorder
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.CELL_TEST_TAG
 
 /**
@@ -39,10 +37,8 @@ internal fun ItemValues(
     rowIndex: Int,
     columnCount: Int,
 ) {
-    val firstCellSelected = tableSelection.isCellSelected(tableId, 0, rowIndex)
     Row(
         modifier = modifier
-            .rowSupportForCellBorder(firstCellSelected && horizontalScrollState.value == 0, TableTheme.colors.primary)
             .horizontalScroll(state = horizontalScrollState)
             .draggableList(
                 scrollState = horizontalScrollState,

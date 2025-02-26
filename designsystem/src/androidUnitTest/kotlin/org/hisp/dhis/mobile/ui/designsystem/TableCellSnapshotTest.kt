@@ -41,10 +41,13 @@ class TableCellSnapshotTest {
         ),
         tableRows = listOf(
             TableRowModel(
-                rowHeader = RowHeader(
-                    id = "0",
-                    title = "Label 1",
-                    row = 0,
+                rowHeaders = listOf(
+                    RowHeader(
+                        id = "0",
+                        title = "Label 1",
+                        row = 0,
+                        column = 0,
+                    ),
                 ),
                 values = mapOf(
                     0 to TableCell(
@@ -84,10 +87,13 @@ class TableCellSnapshotTest {
                 maxLines = 3,
             ),
             TableRowModel(
-                rowHeader = RowHeader(
-                    id = "1",
-                    title = "Label 2",
-                    row = 1,
+                rowHeaders = listOf(
+                    RowHeader(
+                        id = "1",
+                        title = "Label 2",
+                        row = 1,
+                        column = 0,
+                    ),
                 ),
                 values = mapOf(
                     0 to TableCell(
@@ -127,10 +133,13 @@ class TableCellSnapshotTest {
                 maxLines = 3,
             ),
             TableRowModel(
-                rowHeader = RowHeader(
-                    id = "2",
-                    title = "Label 2",
-                    row = 2,
+                rowHeaders = listOf(
+                    RowHeader(
+                        id = "2",
+                        title = "Label 2",
+                        row = 2,
+                        column = 0,
+                    ),
                 ),
                 values = mapOf(
                     0 to TableCell(

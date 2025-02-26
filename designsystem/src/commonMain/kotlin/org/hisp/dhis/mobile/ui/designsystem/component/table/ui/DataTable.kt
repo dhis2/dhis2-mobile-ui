@@ -52,6 +52,16 @@ fun DataTable(
             }
         }
     }
+    val maxRowColumnHeaders by remember(tableList.size) {
+        derivedStateOf {
+            tableList.maxOf { tableModel ->
+                tableModel.tableRows.maxOf { tableRowModel ->
+                    tableRowModel.rowHeaders.size
+                }
+            }
+        }
+    }
+
     val themeDimensions = TableTheme.dimensions
     val config = TableTheme.configuration
     var dimensions by remember { mutableStateOf(themeDimensions) }
@@ -172,6 +182,7 @@ fun DataTable(
                     tableModel = tableModel,
                     horizontalScrollState = horizontalScrollConfig.getScrollState(index),
                     columnCount = maxColumns,
+                    maxRowColumnHeaders = maxRowColumnHeaders,
                     cellStyle = { columnIndex, rowIndex ->
                         styleForColumnHeader(
                             isCornerSelected = tableSelection.isCornerSelected(tableModel.id ?: ""),
@@ -224,29 +235,30 @@ fun DataTable(
                 TableItemRow(
                     tableModel = tableModel,
                     horizontalScrollState = horizontalScrollConfig.getScrollState(index),
-                    rowModel = tableRowModel,
-                    rowHeaderCellStyle = { rowHeaderIndex ->
+                    rowModels = tableRowModel,
+                    rowHeaderCellStyle = { rowHeaderIndexes, rowColumnIndex ->
                         styleForRowHeader(
                             isCornerSelected = tableSelection.isCornerSelected(tableModel.id ?: ""),
                             isSelected = tableSelection.isRowSelected(
                                 selectedTableId = tableModel.id ?: "",
-                                rowHeaderIndex = rowHeaderIndex ?: -1,
+                                rowHeaderIndexes = rowHeaderIndexes,
                             ),
                             isOtherRowSelected = tableSelection.isOtherRowSelected(
                                 selectedTableId = tableModel.id ?: "",
-                                rowHeaderIndex = rowHeaderIndex ?: -1,
+                                rowHeaderIndexes = rowHeaderIndexes,
+                                rowHeaderColumnIndex = rowColumnIndex ?: -1,
                             ),
                         )
                     },
-                    onRowHeaderClick = { rowHeaderIndex ->
+                    onRowHeaderClick = { rowHeaderIndexes, rowHeaderColumnIndex ->
                         defaultsTableInteractions.onSelectionChange(
                             TableSelection.RowSelection(
                                 tableId = tableModel.id ?: "",
-                                rowIndex = rowHeaderIndex ?: -1,
+                                rowIndex = rowHeaderIndexes,
+                                rowColumnIndex = rowHeaderColumnIndex ?: -1,
                             ),
                         )
                     },
-                    onDecorationClick = { defaultsTableInteractions.onDecorationClick(it) },
                     onHeaderResize = { width ->
                         tableResizeActions.onRowHeaderResize(
                             tableModel.id ?: "",
@@ -255,6 +267,7 @@ fun DataTable(
                     },
                     onResizing = { resizingCell = it },
                     columnCount = maxColumns,
+                    maxRowColumnHeaders = maxRowColumnHeaders,
                 )
             },
             verticalResizingView = { tableHeight ->
@@ -271,6 +284,7 @@ fun DataTable(
                 )
             },
             bottomContent = bottomContent,
+            maxRowColumnHeaders = maxRowColumnHeaders,
         )
     }
 }

@@ -53,13 +53,16 @@
     },
     "tableRows": [
       {
-        "rowHeader": {
-          "id": "sIqaW66yIfI",
-          "title": "Text 1 with more text",
-          "showDecoration": true,
-          "row": 0,
-          "description": "No hay información para este campo"
-        },
+        "rowHeaders": [
+          {
+            "id": "sIqaW66yIfI",
+            "title": "Text 1 with more text",
+            "showDecoration": true,
+            "row": 0,
+            "column": 0,
+            "description": "No hay información para este campo"
+          }
+        ],
         "values": {
           "0": {
             "id": "sIqaW66yIfI_F6ULrynnld7",
@@ -365,12 +368,15 @@
         }
       },
       {
-        "rowHeader": {
-          "id": "SQyQZDqII5A",
-          "title": "Text 2",
-          "row": 1,
-          "description": "No hay información para este campo"
-        },
+        "rowHeaders": [
+          {
+            "id": "SQyQZDqII5A",
+            "title": "Text 2",
+            "row": 1,
+            "column": 0,
+            "description": "No hay información para este campo"
+          }
+        ],
         "values": {
           "0": {
             "id": "SQyQZDqII5A_F6ULrynnld7",
@@ -676,12 +682,15 @@
         }
       },
       {
-        "rowHeader": {
-          "id": "CgJ9UN6mh5c",
-          "title": "Text 3",
-          "row": 2,
-          "description": "No hay información para este campo"
-        },
+        "rowHeaders": [
+          {
+            "id": "CgJ9UN6mh5c",
+            "title": "Text 3",
+            "row": 2,
+            "column": 0,
+            "description": "No hay información para este campo"
+          }
+        ],
         "values": {
           "0": {
             "id": "CgJ9UN6mh5c_F6ULrynnld7",
@@ -997,45 +1006,10 @@
         {
           "cells": [
             {
-              "value": "Level 3 - AA"
+              "value": "<1y"
             },
             {
-              "value": "Level 3 - CC"
-            },
-            {
-              "value": "Level 3 - DD"
-            },
-            {
-              "value": "Level 3 - EE"
-            }
-          ]
-        },
-        {
-          "cells": [
-            {
-              "value": "Level 2 - a"
-            },
-            {
-              "value": "Level 2 - b"
-            },
-            {
-              "value": "Level 2 - c"
-            },
-            {
-              "value": "Level 2 - d"
-            }
-          ]
-        },
-        {
-          "cells": [
-            {
-              "value": "Level 1 - A"
-            },
-            {
-              "value": "Level 1 - B"
-            },
-            {
-              "value": "Level 1 - C"
+              "value": ">1y"
             }
           ]
         }
@@ -1048,12 +1022,22 @@
     },
     "tableRows": [
       {
-        "rowHeader": {
-          "id": "tikrRbUTDps",
-          "title": "Number",
-          "row": 0,
-          "description": "No hay información para este campo"
-        },
+        "rowHeaders": [
+          {
+            "id": "DataElementBCGId",
+            "title": "BCG doses given",
+            "row": 0,
+            "column": 0,
+            "description": "No hay información para este campo"
+          },
+          {
+            "id": "CatOptionFixedId",
+            "title": "Fixed",
+            "row": 0,
+            "column": 1,
+            "description": "No hay información para este campo"
+          }
+        ],
         "values": {
           "0": {
             "id": "tikrRbUTDps_r7qkmwpSSCQ",
@@ -1066,1540 +1050,101 @@
             "row": 0,
             "column": 1,
             "value": "2"
-          },
-          "2": {
-            "id": "tikrRbUTDps_lBIUCjlRFx6",
-            "row": 0,
-            "column": 2,
-            "value": null
-          },
-          "3": {
-            "id": "tikrRbUTDps_DWevxPKryfN",
-            "row": 0,
-            "column": 3,
-            "value": null
-          },
-          "4": {
-            "id": "tikrRbUTDps_hH4IR5tFS4E",
-            "row": 0,
-            "column": 4,
-            "value": null
-          },
-          "5": {
-            "id": "tikrRbUTDps_iUgRu33TOHd",
-            "row": 0,
-            "column": 5,
-            "value": null
-          },
-          "6": {
-            "id": "tikrRbUTDps_Bhhy1HEJ3k8",
-            "row": 0,
-            "column": 6,
-            "value": null
-          },
-          "7": {
-            "id": "tikrRbUTDps_afpyqsbyCFY",
-            "row": 0,
-            "column": 7,
-            "value": null
-          },
-          "8": {
-            "id": "tikrRbUTDps_JXaPk4bC6sy",
-            "row": 0,
-            "column": 8,
-            "value": null
-          },
-          "9": {
-            "id": "tikrRbUTDps_ncEFSkXoTdh",
-            "row": 0,
-            "column": 9,
-            "value": null
-          },
-          "10": {
-            "id": "tikrRbUTDps_d6GaETRID3d",
-            "row": 0,
-            "column": 10,
-            "value": null
-          },
-          "11": {
-            "id": "tikrRbUTDps_ZTLnIr82huH",
-            "row": 0,
-            "column": 11,
-            "value": null
-          },
-          "12": {
-            "id": "tikrRbUTDps_MVLLtKbT1cS",
-            "row": 0,
-            "column": 12,
-            "value": null,
-            "editable": false
-          },
-          "13": {
-            "id": "tikrRbUTDps_gzWhEMJGne8",
-            "row": 0,
-            "column": 13,
-            "value": null,
-            "editable": false
-          },
-          "14": {
-            "id": "tikrRbUTDps_xhWnf9YgYOj",
-            "row": 0,
-            "column": 14,
-            "value": null,
-            "editable": false
-          },
-          "15": {
-            "id": "tikrRbUTDps_Qrre06QjGxR",
-            "row": 0,
-            "column": 15,
-            "value": null,
-            "editable": false
-          },
-          "16": {
-            "id": "tikrRbUTDps_PzxbfD0fbvJ",
-            "row": 0,
-            "column": 16,
-            "value": null,
-            "editable": false
-          },
-          "17": {
-            "id": "tikrRbUTDps_lg5ch93lNRy",
-            "row": 0,
-            "column": 17,
-            "value": null,
-            "editable": false
-          },
-          "18": {
-            "id": "tikrRbUTDps_u0Y9neqz48B",
-            "row": 0,
-            "column": 18,
-            "value": null,
-            "editable": false
-          },
-          "19": {
-            "id": "tikrRbUTDps_F7qgvNRdLgq",
-            "row": 0,
-            "column": 19,
-            "value": null,
-            "editable": false
-          },
-          "20": {
-            "id": "tikrRbUTDps_g6lInFZdxxZ",
-            "row": 0,
-            "column": 20,
-            "value": null,
-            "editable": false
-          },
-          "21": {
-            "id": "tikrRbUTDps_VSb9x2b4xpB",
-            "row": 0,
-            "column": 21,
-            "value": null,
-            "editable": false
-          },
-          "22": {
-            "id": "tikrRbUTDps_gVrcFlevVSJ",
-            "row": 0,
-            "column": 22,
-            "value": null,
-            "editable": false
-          },
-          "23": {
-            "id": "tikrRbUTDps_riaMRDv1UXW",
-            "row": 0,
-            "column": 23,
-            "value": null,
-            "editable": false
-          },
-          "24": {
-            "id": "tikrRbUTDps_QaFWL9G2pir",
-            "row": 0,
-            "column": 24,
-            "value": null
-          },
-          "25": {
-            "id": "tikrRbUTDps_tg4b2ha1B4w",
-            "row": 0,
-            "column": 25,
-            "value": null
-          },
-          "26": {
-            "id": "tikrRbUTDps_IFmyCdxbxmp",
-            "row": 0,
-            "column": 26,
-            "value": null
-          },
-          "27": {
-            "id": "tikrRbUTDps_jJeN8Uktw9K",
-            "row": 0,
-            "column": 27,
-            "value": null
-          },
-          "28": {
-            "id": "tikrRbUTDps_aJf2ey7ixf9",
-            "row": 0,
-            "column": 28,
-            "value": null
-          },
-          "29": {
-            "id": "tikrRbUTDps_Ux7l1jfvqPa",
-            "row": 0,
-            "column": 29,
-            "value": null
-          },
-          "30": {
-            "id": "tikrRbUTDps_nCnyX6MNEe7",
-            "row": 0,
-            "column": 30,
-            "value": null
-          },
-          "31": {
-            "id": "tikrRbUTDps_Vy4nWUif905",
-            "row": 0,
-            "column": 31,
-            "value": null
-          },
-          "32": {
-            "id": "tikrRbUTDps_AriV0IzHlqN",
-            "row": 0,
-            "column": 32,
-            "value": null
-          },
-          "33": {
-            "id": "tikrRbUTDps_tDfq6rsrMhx",
-            "row": 0,
-            "column": 33,
-            "value": null
-          },
-          "34": {
-            "id": "tikrRbUTDps_G6nr84KOGgo",
-            "row": 0,
-            "column": 34,
-            "value": null
-          },
-          "35": {
-            "id": "tikrRbUTDps_cPpGJxQNXyO",
-            "row": 0,
-            "column": 35,
-            "value": null
-          },
-          "36": {
-            "id": "tikrRbUTDps_oZDExCJMTII",
-            "row": 0,
-            "column": 36,
-            "value": null
-          },
-          "37": {
-            "id": "tikrRbUTDps_HYELTPF46Bw",
-            "row": 0,
-            "column": 37,
-            "value": null
-          },
-          "38": {
-            "id": "tikrRbUTDps_EnQECfrTv2D",
-            "row": 0,
-            "column": 38,
-            "value": null
-          },
-          "39": {
-            "id": "tikrRbUTDps_DaEs0fCJDYC",
-            "row": 0,
-            "column": 39,
-            "value": null
-          },
-          "40": {
-            "id": "tikrRbUTDps_Vw5AhclmoF4",
-            "row": 0,
-            "column": 40,
-            "value": null
-          },
-          "41": {
-            "id": "tikrRbUTDps_AiycbKXUtHa",
-            "row": 0,
-            "column": 41,
-            "value": null
-          },
-          "42": {
-            "id": "tikrRbUTDps_oPmCdy2H9PM",
-            "row": 0,
-            "column": 42,
-            "value": null
-          },
-          "43": {
-            "id": "tikrRbUTDps_j3ydXft04ch",
-            "row": 0,
-            "column": 43,
-            "value": null
-          },
-          "44": {
-            "id": "tikrRbUTDps_NCT1RDEfSap",
-            "row": 0,
-            "column": 44,
-            "value": null
-          },
-          "45": {
-            "id": "tikrRbUTDps_SQhjmO1LqOj",
-            "row": 0,
-            "column": 45,
-            "value": null
-          },
-          "46": {
-            "id": "tikrRbUTDps_gdbsdXBPhCx",
-            "row": 0,
-            "column": 46,
-            "value": null
-          },
-          "47": {
-            "id": "tikrRbUTDps_L69d8nfJsbZ",
-            "row": 0,
-            "column": 47,
-            "value": null
-          },
-          "48": {
-            "id": "tikrRbUTDps_L69d8nfJsbZ",
-            "row": 0,
-            "column": 47,
-            "value": "3",
-            "editable": false
           }
         }
       },
       {
-        "rowHeader": {
-          "id": "QUAPkqxiw4C",
-          "title": "Text",
-          "row": 1,
-          "description": "No hay información para este campo"
-        },
-        "values": {
-          "0": {
-            "id": "QUAPkqxiw4C_r7qkmwpSSCQ",
+        "rowHeaders": [
+          {
+            "id": "DataElementBCGId",
+            "title": "BCG doses given",
             "row": 1,
             "column": 0,
-            "value": null
+            "description": "No hay información para este campo"
           },
-          "1": {
-            "id": "QUAPkqxiw4C_Zq5okO88JLW",
+          {
+            "id": "CatOptionOutreachId",
+            "title": "Outreach",
             "row": 1,
             "column": 1,
-            "value": null
-          },
-          "2": {
-            "id": "QUAPkqxiw4C_lBIUCjlRFx6",
+            "description": "No hay información para este campo"
+          }
+        ],
+        "values": {
+          "0": {
+            "id": "tikrRbUTDps_r7qkmwpSSCQ",
             "row": 1,
-            "column": 2,
-            "value": null
+            "column": 0,
+            "value": "3"
           },
-          "3": {
-            "id": "QUAPkqxiw4C_DWevxPKryfN",
+          "1": {
+            "id": "tikrRbUTDps_Zq5okO88JLW",
             "row": 1,
-            "column": 3,
-            "value": null
-          },
-          "4": {
-            "id": "QUAPkqxiw4C_hH4IR5tFS4E",
-            "row": 1,
-            "column": 4,
-            "value": null
-          },
-          "5": {
-            "id": "QUAPkqxiw4C_iUgRu33TOHd",
-            "row": 1,
-            "column": 5,
-            "value": null
-          },
-          "6": {
-            "id": "QUAPkqxiw4C_Bhhy1HEJ3k8",
-            "row": 1,
-            "column": 6,
-            "value": null
-          },
-          "7": {
-            "id": "QUAPkqxiw4C_afpyqsbyCFY",
-            "row": 1,
-            "column": 7,
-            "value": null
-          },
-          "8": {
-            "id": "QUAPkqxiw4C_JXaPk4bC6sy",
-            "row": 1,
-            "column": 8,
-            "value": null
-          },
-          "9": {
-            "id": "QUAPkqxiw4C_ncEFSkXoTdh",
-            "row": 1,
-            "column": 9,
-            "value": null
-          },
-          "10": {
-            "id": "QUAPkqxiw4C_d6GaETRID3d",
-            "row": 1,
-            "column": 10,
-            "value": null
-          },
-          "11": {
-            "id": "QUAPkqxiw4C_ZTLnIr82huH",
-            "row": 1,
-            "column": 11,
-            "value": null
-          },
-          "12": {
-            "id": "QUAPkqxiw4C_MVLLtKbT1cS",
-            "row": 1,
-            "column": 12,
-            "value": null,
-            "editable": false
-          },
-          "13": {
-            "id": "QUAPkqxiw4C_gzWhEMJGne8",
-            "row": 1,
-            "column": 13,
-            "value": null,
-            "editable": false
-          },
-          "14": {
-            "id": "QUAPkqxiw4C_xhWnf9YgYOj",
-            "row": 1,
-            "column": 14,
-            "value": null,
-            "editable": false
-          },
-          "15": {
-            "id": "QUAPkqxiw4C_Qrre06QjGxR",
-            "row": 1,
-            "column": 15,
-            "value": null,
-            "editable": false
-          },
-          "16": {
-            "id": "QUAPkqxiw4C_PzxbfD0fbvJ",
-            "row": 1,
-            "column": 16,
-            "value": null,
-            "editable": false
-          },
-          "17": {
-            "id": "QUAPkqxiw4C_lg5ch93lNRy",
-            "row": 1,
-            "column": 17,
-            "value": null,
-            "editable": false
-          },
-          "18": {
-            "id": "QUAPkqxiw4C_u0Y9neqz48B",
-            "row": 1,
-            "column": 18,
-            "value": null,
-            "editable": false
-          },
-          "19": {
-            "id": "QUAPkqxiw4C_F7qgvNRdLgq",
-            "row": 1,
-            "column": 19,
-            "value": null,
-            "editable": false
-          },
-          "20": {
-            "id": "QUAPkqxiw4C_g6lInFZdxxZ",
-            "row": 1,
-            "column": 20,
-            "value": null,
-            "editable": false
-          },
-          "21": {
-            "id": "QUAPkqxiw4C_VSb9x2b4xpB",
-            "row": 1,
-            "column": 21,
-            "value": null,
-            "editable": false
-          },
-          "22": {
-            "id": "QUAPkqxiw4C_gVrcFlevVSJ",
-            "row": 1,
-            "column": 22,
-            "value": null,
-            "editable": false
-          },
-          "23": {
-            "id": "QUAPkqxiw4C_riaMRDv1UXW",
-            "row": 1,
-            "column": 23,
-            "value": null,
-            "editable": false
-          },
-          "24": {
-            "id": "QUAPkqxiw4C_QaFWL9G2pir",
-            "row": 1,
-            "column": 24,
-            "value": null
-          },
-          "25": {
-            "id": "QUAPkqxiw4C_tg4b2ha1B4w",
-            "row": 1,
-            "column": 25,
-            "value": null
-          },
-          "26": {
-            "id": "QUAPkqxiw4C_IFmyCdxbxmp",
-            "row": 1,
-            "column": 26,
-            "value": null
-          },
-          "27": {
-            "id": "QUAPkqxiw4C_jJeN8Uktw9K",
-            "row": 1,
-            "column": 27,
-            "value": null
-          },
-          "28": {
-            "id": "QUAPkqxiw4C_aJf2ey7ixf9",
-            "row": 1,
-            "column": 28,
-            "value": null
-          },
-          "29": {
-            "id": "QUAPkqxiw4C_Ux7l1jfvqPa",
-            "row": 1,
-            "column": 29,
-            "value": null
-          },
-          "30": {
-            "id": "QUAPkqxiw4C_nCnyX6MNEe7",
-            "row": 1,
-            "column": 30,
-            "value": null
-          },
-          "31": {
-            "id": "QUAPkqxiw4C_Vy4nWUif905",
-            "row": 1,
-            "column": 31,
-            "value": null
-          },
-          "32": {
-            "id": "QUAPkqxiw4C_AriV0IzHlqN",
-            "row": 1,
-            "column": 32,
-            "value": null
-          },
-          "33": {
-            "id": "QUAPkqxiw4C_tDfq6rsrMhx",
-            "row": 1,
-            "column": 33,
-            "value": null
-          },
-          "34": {
-            "id": "QUAPkqxiw4C_G6nr84KOGgo",
-            "row": 1,
-            "column": 34,
-            "value": null
-          },
-          "35": {
-            "id": "QUAPkqxiw4C_cPpGJxQNXyO",
-            "row": 1,
-            "column": 35,
-            "value": null
-          },
-          "36": {
-            "id": "QUAPkqxiw4C_oZDExCJMTII",
-            "row": 1,
-            "column": 36,
-            "value": null
-          },
-          "37": {
-            "id": "QUAPkqxiw4C_HYELTPF46Bw",
-            "row": 1,
-            "column": 37,
-            "value": null
-          },
-          "38": {
-            "id": "QUAPkqxiw4C_EnQECfrTv2D",
-            "row": 1,
-            "column": 38,
-            "value": null
-          },
-          "39": {
-            "id": "QUAPkqxiw4C_DaEs0fCJDYC",
-            "row": 1,
-            "column": 39,
-            "value": null
-          },
-          "40": {
-            "id": "QUAPkqxiw4C_Vw5AhclmoF4",
-            "row": 1,
-            "column": 40,
-            "value": null
-          },
-          "41": {
-            "id": "QUAPkqxiw4C_AiycbKXUtHa",
-            "row": 1,
-            "column": 41,
-            "value": null
-          },
-          "42": {
-            "id": "QUAPkqxiw4C_oPmCdy2H9PM",
-            "row": 1,
-            "column": 42,
-            "value": null
-          },
-          "43": {
-            "id": "QUAPkqxiw4C_j3ydXft04ch",
-            "row": 1,
-            "column": 43,
-            "value": null
-          },
-          "44": {
-            "id": "QUAPkqxiw4C_NCT1RDEfSap",
-            "row": 1,
-            "column": 44,
-            "value": null
-          },
-          "45": {
-            "id": "QUAPkqxiw4C_SQhjmO1LqOj",
-            "row": 1,
-            "column": 45,
-            "value": null
-          },
-          "46": {
-            "id": "QUAPkqxiw4C_gdbsdXBPhCx",
-            "row": 1,
-            "column": 46,
-            "value": null
-          },
-          "47": {
-            "id": "QUAPkqxiw4C_L69d8nfJsbZ",
-            "row": 1,
-            "column": 47,
-            "value": null
+            "column": 1,
+            "value": "4"
           }
         }
       },
       {
-        "rowHeader": {
-          "id": "xQ517ooLHsu",
-          "title": "Long Text",
-          "row": 2,
-          "description": "No hay información para este campo"
-        },
+        "rowHeaders": [
+          {
+            "id": "DataElementFullyImmunizedId",
+            "title": "Fully Immunized child",
+            "row": 2,
+            "column": 0,
+            "description": "No hay información para este campo"
+          },
+          {
+            "id": "CatOptionFixedId",
+            "title": "Fixed",
+            "row": 2,
+            "column": 1,
+            "description": "No hay información para este campo"
+          }
+        ],
         "values": {
           "0": {
-            "id": "xQ517ooLHsu_r7qkmwpSSCQ",
+            "id": "tikrRbUTDps_r7qkmwpSSCQ",
             "row": 2,
             "column": 0,
             "value": null
           },
           "1": {
-            "id": "xQ517ooLHsu_Zq5okO88JLW",
+            "id": "tikrRbUTDps_Zq5okO88JLW",
             "row": 2,
             "column": 1,
-            "value": null
-          },
-          "2": {
-            "id": "xQ517ooLHsu_lBIUCjlRFx6",
-            "row": 2,
-            "column": 2,
-            "value": null
-          },
-          "3": {
-            "id": "xQ517ooLHsu_DWevxPKryfN",
-            "row": 2,
-            "column": 3,
-            "value": null
-          },
-          "4": {
-            "id": "xQ517ooLHsu_hH4IR5tFS4E",
-            "row": 2,
-            "column": 4,
-            "value": null
-          },
-          "5": {
-            "id": "xQ517ooLHsu_iUgRu33TOHd",
-            "row": 2,
-            "column": 5,
-            "value": null
-          },
-          "6": {
-            "id": "xQ517ooLHsu_Bhhy1HEJ3k8",
-            "row": 2,
-            "column": 6,
-            "value": null
-          },
-          "7": {
-            "id": "xQ517ooLHsu_afpyqsbyCFY",
-            "row": 2,
-            "column": 7,
-            "value": null
-          },
-          "8": {
-            "id": "xQ517ooLHsu_JXaPk4bC6sy",
-            "row": 2,
-            "column": 8,
-            "value": null
-          },
-          "9": {
-            "id": "xQ517ooLHsu_ncEFSkXoTdh",
-            "row": 2,
-            "column": 9,
-            "value": null
-          },
-          "10": {
-            "id": "xQ517ooLHsu_d6GaETRID3d",
-            "row": 2,
-            "column": 10,
-            "value": null
-          },
-          "11": {
-            "id": "xQ517ooLHsu_ZTLnIr82huH",
-            "row": 2,
-            "column": 11,
-            "value": null
-          },
-          "12": {
-            "id": "xQ517ooLHsu_MVLLtKbT1cS",
-            "row": 2,
-            "column": 12,
-            "value": null,
-            "editable": false
-          },
-          "13": {
-            "id": "xQ517ooLHsu_gzWhEMJGne8",
-            "row": 2,
-            "column": 13,
-            "value": null,
-            "editable": false
-          },
-          "14": {
-            "id": "xQ517ooLHsu_xhWnf9YgYOj",
-            "row": 2,
-            "column": 14,
-            "value": null,
-            "editable": false
-          },
-          "15": {
-            "id": "xQ517ooLHsu_Qrre06QjGxR",
-            "row": 2,
-            "column": 15,
-            "value": null,
-            "editable": false
-          },
-          "16": {
-            "id": "xQ517ooLHsu_PzxbfD0fbvJ",
-            "row": 2,
-            "column": 16,
-            "value": null,
-            "editable": false
-          },
-          "17": {
-            "id": "xQ517ooLHsu_lg5ch93lNRy",
-            "row": 2,
-            "column": 17,
-            "value": null,
-            "editable": false
-          },
-          "18": {
-            "id": "xQ517ooLHsu_u0Y9neqz48B",
-            "row": 2,
-            "column": 18,
-            "value": null,
-            "editable": false
-          },
-          "19": {
-            "id": "xQ517ooLHsu_F7qgvNRdLgq",
-            "row": 2,
-            "column": 19,
-            "value": null,
-            "editable": false
-          },
-          "20": {
-            "id": "xQ517ooLHsu_g6lInFZdxxZ",
-            "row": 2,
-            "column": 20,
-            "value": null,
-            "editable": false
-          },
-          "21": {
-            "id": "xQ517ooLHsu_VSb9x2b4xpB",
-            "row": 2,
-            "column": 21,
-            "value": null,
-            "editable": false
-          },
-          "22": {
-            "id": "xQ517ooLHsu_gVrcFlevVSJ",
-            "row": 2,
-            "column": 22,
-            "value": null,
-            "editable": false
-          },
-          "23": {
-            "id": "xQ517ooLHsu_riaMRDv1UXW",
-            "row": 2,
-            "column": 23,
-            "value": null,
-            "editable": false
-          },
-          "24": {
-            "id": "xQ517ooLHsu_QaFWL9G2pir",
-            "row": 2,
-            "column": 24,
-            "value": null
-          },
-          "25": {
-            "id": "xQ517ooLHsu_tg4b2ha1B4w",
-            "row": 2,
-            "column": 25,
-            "value": null
-          },
-          "26": {
-            "id": "xQ517ooLHsu_IFmyCdxbxmp",
-            "row": 2,
-            "column": 26,
-            "value": null
-          },
-          "27": {
-            "id": "xQ517ooLHsu_jJeN8Uktw9K",
-            "row": 2,
-            "column": 27,
-            "value": null
-          },
-          "28": {
-            "id": "xQ517ooLHsu_aJf2ey7ixf9",
-            "row": 2,
-            "column": 28,
-            "value": null
-          },
-          "29": {
-            "id": "xQ517ooLHsu_Ux7l1jfvqPa",
-            "row": 2,
-            "column": 29,
-            "value": null
-          },
-          "30": {
-            "id": "xQ517ooLHsu_nCnyX6MNEe7",
-            "row": 2,
-            "column": 30,
-            "value": null
-          },
-          "31": {
-            "id": "xQ517ooLHsu_Vy4nWUif905",
-            "row": 2,
-            "column": 31,
-            "value": null
-          },
-          "32": {
-            "id": "xQ517ooLHsu_AriV0IzHlqN",
-            "row": 2,
-            "column": 32,
-            "value": null
-          },
-          "33": {
-            "id": "xQ517ooLHsu_tDfq6rsrMhx",
-            "row": 2,
-            "column": 33,
-            "value": null
-          },
-          "34": {
-            "id": "xQ517ooLHsu_G6nr84KOGgo",
-            "row": 2,
-            "column": 34,
-            "value": null
-          },
-          "35": {
-            "id": "xQ517ooLHsu_cPpGJxQNXyO",
-            "row": 2,
-            "column": 35,
-            "value": null
-          },
-          "36": {
-            "id": "xQ517ooLHsu_oZDExCJMTII",
-            "row": 2,
-            "column": 36,
-            "value": null
-          },
-          "37": {
-            "id": "xQ517ooLHsu_HYELTPF46Bw",
-            "row": 2,
-            "column": 37,
-            "value": null
-          },
-          "38": {
-            "id": "xQ517ooLHsu_EnQECfrTv2D",
-            "row": 2,
-            "column": 38,
-            "value": null
-          },
-          "39": {
-            "id": "xQ517ooLHsu_DaEs0fCJDYC",
-            "row": 2,
-            "column": 39,
-            "value": null
-          },
-          "40": {
-            "id": "xQ517ooLHsu_Vw5AhclmoF4",
-            "row": 2,
-            "column": 40,
-            "value": null
-          },
-          "41": {
-            "id": "xQ517ooLHsu_AiycbKXUtHa",
-            "row": 2,
-            "column": 41,
-            "value": null
-          },
-          "42": {
-            "id": "xQ517ooLHsu_oPmCdy2H9PM",
-            "row": 2,
-            "column": 42,
-            "value": null
-          },
-          "43": {
-            "id": "xQ517ooLHsu_j3ydXft04ch",
-            "row": 2,
-            "column": 43,
-            "value": null
-          },
-          "44": {
-            "id": "xQ517ooLHsu_NCT1RDEfSap",
-            "row": 2,
-            "column": 44,
-            "value": null
-          },
-          "45": {
-            "id": "xQ517ooLHsu_SQhjmO1LqOj",
-            "row": 2,
-            "column": 45,
-            "value": null
-          },
-          "46": {
-            "id": "xQ517ooLHsu_gdbsdXBPhCx",
-            "row": 2,
-            "column": 46,
-            "value": null
-          },
-          "47": {
-            "id": "xQ517ooLHsu_L69d8nfJsbZ",
-            "row": 2,
-            "column": 47,
             "value": null
           }
         }
       },
       {
-        "rowHeader": {
-          "id": "d8N01hPNSrg",
-          "title": "Integer",
-          "row": 3,
-          "description": "No hay información para este campo"
-        },
-        "values": {
-          "0": {
-            "id": "d8N01hPNSrg_r7qkmwpSSCQ",
+        "rowHeaders": [
+          {
+            "id": "DataElementFullyImmunizedId",
+            "title": "Fully immunized child",
             "row": 3,
             "column": 0,
-            "value": null
+            "description": "No hay información para este campo"
           },
-          "1": {
-            "id": "d8N01hPNSrg_Zq5okO88JLW",
+          {
+            "id": "CatOptionOutreachId",
+            "title": "Outreach",
             "row": 3,
             "column": 1,
-            "value": null
-          },
-          "2": {
-            "id": "d8N01hPNSrg_lBIUCjlRFx6",
-            "row": 3,
-            "column": 2,
-            "value": null
-          },
-          "3": {
-            "id": "d8N01hPNSrg_DWevxPKryfN",
-            "row": 3,
-            "column": 3,
-            "value": null
-          },
-          "4": {
-            "id": "d8N01hPNSrg_hH4IR5tFS4E",
-            "row": 3,
-            "column": 4,
-            "value": null
-          },
-          "5": {
-            "id": "d8N01hPNSrg_iUgRu33TOHd",
-            "row": 3,
-            "column": 5,
-            "value": null
-          },
-          "6": {
-            "id": "d8N01hPNSrg_Bhhy1HEJ3k8",
-            "row": 3,
-            "column": 6,
-            "value": null
-          },
-          "7": {
-            "id": "d8N01hPNSrg_afpyqsbyCFY",
-            "row": 3,
-            "column": 7,
-            "value": null
-          },
-          "8": {
-            "id": "d8N01hPNSrg_JXaPk4bC6sy",
-            "row": 3,
-            "column": 8,
-            "value": null
-          },
-          "9": {
-            "id": "d8N01hPNSrg_ncEFSkXoTdh",
-            "row": 3,
-            "column": 9,
-            "value": null
-          },
-          "10": {
-            "id": "d8N01hPNSrg_d6GaETRID3d",
-            "row": 3,
-            "column": 10,
-            "value": null
-          },
-          "11": {
-            "id": "d8N01hPNSrg_ZTLnIr82huH",
-            "row": 3,
-            "column": 11,
-            "value": null
-          },
-          "12": {
-            "id": "d8N01hPNSrg_MVLLtKbT1cS",
-            "row": 3,
-            "column": 12,
-            "value": null,
-            "editable": false
-          },
-          "13": {
-            "id": "d8N01hPNSrg_gzWhEMJGne8",
-            "row": 3,
-            "column": 13,
-            "value": null,
-            "editable": false
-          },
-          "14": {
-            "id": "d8N01hPNSrg_xhWnf9YgYOj",
-            "row": 3,
-            "column": 14,
-            "value": null,
-            "editable": false
-          },
-          "15": {
-            "id": "d8N01hPNSrg_Qrre06QjGxR",
-            "row": 3,
-            "column": 15,
-            "value": null,
-            "editable": false
-          },
-          "16": {
-            "id": "d8N01hPNSrg_PzxbfD0fbvJ",
-            "row": 3,
-            "column": 16,
-            "value": null,
-            "editable": false
-          },
-          "17": {
-            "id": "d8N01hPNSrg_lg5ch93lNRy",
-            "row": 3,
-            "column": 17,
-            "value": null,
-            "editable": false
-          },
-          "18": {
-            "id": "d8N01hPNSrg_u0Y9neqz48B",
-            "row": 3,
-            "column": 18,
-            "value": null,
-            "editable": false
-          },
-          "19": {
-            "id": "d8N01hPNSrg_F7qgvNRdLgq",
-            "row": 3,
-            "column": 19,
-            "value": null,
-            "editable": false
-          },
-          "20": {
-            "id": "d8N01hPNSrg_g6lInFZdxxZ",
-            "row": 3,
-            "column": 20,
-            "value": null,
-            "editable": false
-          },
-          "21": {
-            "id": "d8N01hPNSrg_VSb9x2b4xpB",
-            "row": 3,
-            "column": 21,
-            "value": null,
-            "editable": false
-          },
-          "22": {
-            "id": "d8N01hPNSrg_gVrcFlevVSJ",
-            "row": 3,
-            "column": 22,
-            "value": null,
-            "editable": false
-          },
-          "23": {
-            "id": "d8N01hPNSrg_riaMRDv1UXW",
-            "row": 3,
-            "column": 23,
-            "value": null,
-            "editable": false
-          },
-          "24": {
-            "id": "d8N01hPNSrg_QaFWL9G2pir",
-            "row": 3,
-            "column": 24,
-            "value": null
-          },
-          "25": {
-            "id": "d8N01hPNSrg_tg4b2ha1B4w",
-            "row": 3,
-            "column": 25,
-            "value": null
-          },
-          "26": {
-            "id": "d8N01hPNSrg_IFmyCdxbxmp",
-            "row": 3,
-            "column": 26,
-            "value": null
-          },
-          "27": {
-            "id": "d8N01hPNSrg_jJeN8Uktw9K",
-            "row": 3,
-            "column": 27,
-            "value": null
-          },
-          "28": {
-            "id": "d8N01hPNSrg_aJf2ey7ixf9",
-            "row": 3,
-            "column": 28,
-            "value": null
-          },
-          "29": {
-            "id": "d8N01hPNSrg_Ux7l1jfvqPa",
-            "row": 3,
-            "column": 29,
-            "value": null
-          },
-          "30": {
-            "id": "d8N01hPNSrg_nCnyX6MNEe7",
-            "row": 3,
-            "column": 30,
-            "value": null
-          },
-          "31": {
-            "id": "d8N01hPNSrg_Vy4nWUif905",
-            "row": 3,
-            "column": 31,
-            "value": null
-          },
-          "32": {
-            "id": "d8N01hPNSrg_AriV0IzHlqN",
-            "row": 3,
-            "column": 32,
-            "value": null
-          },
-          "33": {
-            "id": "d8N01hPNSrg_tDfq6rsrMhx",
-            "row": 3,
-            "column": 33,
-            "value": null
-          },
-          "34": {
-            "id": "d8N01hPNSrg_G6nr84KOGgo",
-            "row": 3,
-            "column": 34,
-            "value": null
-          },
-          "35": {
-            "id": "d8N01hPNSrg_cPpGJxQNXyO",
-            "row": 3,
-            "column": 35,
-            "value": null
-          },
-          "36": {
-            "id": "d8N01hPNSrg_oZDExCJMTII",
-            "row": 3,
-            "column": 36,
-            "value": null
-          },
-          "37": {
-            "id": "d8N01hPNSrg_HYELTPF46Bw",
-            "row": 3,
-            "column": 37,
-            "value": null
-          },
-          "38": {
-            "id": "d8N01hPNSrg_EnQECfrTv2D",
-            "row": 3,
-            "column": 38,
-            "value": null
-          },
-          "39": {
-            "id": "d8N01hPNSrg_DaEs0fCJDYC",
-            "row": 3,
-            "column": 39,
-            "value": null
-          },
-          "40": {
-            "id": "d8N01hPNSrg_Vw5AhclmoF4",
-            "row": 3,
-            "column": 40,
-            "value": null
-          },
-          "41": {
-            "id": "d8N01hPNSrg_AiycbKXUtHa",
-            "row": 3,
-            "column": 41,
-            "value": null
-          },
-          "42": {
-            "id": "d8N01hPNSrg_oPmCdy2H9PM",
-            "row": 3,
-            "column": 42,
-            "value": null
-          },
-          "43": {
-            "id": "d8N01hPNSrg_j3ydXft04ch",
-            "row": 3,
-            "column": 43,
-            "value": null
-          },
-          "44": {
-            "id": "d8N01hPNSrg_NCT1RDEfSap",
-            "row": 3,
-            "column": 44,
-            "value": null
-          },
-          "45": {
-            "id": "d8N01hPNSrg_SQhjmO1LqOj",
-            "row": 3,
-            "column": 45,
-            "value": null
-          },
-          "46": {
-            "id": "d8N01hPNSrg_gdbsdXBPhCx",
-            "row": 3,
-            "column": 46,
-            "value": null
-          },
-          "47": {
-            "id": "d8N01hPNSrg_L69d8nfJsbZ",
-            "row": 3,
-            "column": 47,
-            "value": null
+            "description": "No hay información para este campo"
           }
-        }
-      },
-      {
-        "rowHeader": {
-          "id": "kdR6AeQZKdy",
-          "title": "Percentage",
-          "row": 4,
-          "description": "No hay información para este campo"
-        },
+        ],
         "values": {
           "0": {
-            "id": "kdR6AeQZKdy_r7qkmwpSSCQ",
-            "row": 4,
+            "id": "tikrRbUTDps_r7qkmwpSSCQ",
+            "row": 3,
             "column": 0,
             "value": null
           },
           "1": {
-            "id": "kdR6AeQZKdy_Zq5okO88JLW",
-            "row": 4,
+            "id": "tikrRbUTDps_Zq5okO88JLW",
+            "row": 3,
             "column": 1,
-            "value": null
-          },
-          "2": {
-            "id": "kdR6AeQZKdy_lBIUCjlRFx6",
-            "row": 4,
-            "column": 2,
-            "value": null
-          },
-          "3": {
-            "id": "kdR6AeQZKdy_DWevxPKryfN",
-            "row": 4,
-            "column": 3,
-            "value": null
-          },
-          "4": {
-            "id": "kdR6AeQZKdy_hH4IR5tFS4E",
-            "row": 4,
-            "column": 4,
-            "value": null
-          },
-          "5": {
-            "id": "kdR6AeQZKdy_iUgRu33TOHd",
-            "row": 4,
-            "column": 5,
-            "value": null
-          },
-          "6": {
-            "id": "kdR6AeQZKdy_Bhhy1HEJ3k8",
-            "row": 4,
-            "column": 6,
-            "value": null
-          },
-          "7": {
-            "id": "kdR6AeQZKdy_afpyqsbyCFY",
-            "row": 4,
-            "column": 7,
-            "value": null
-          },
-          "8": {
-            "id": "kdR6AeQZKdy_JXaPk4bC6sy",
-            "row": 4,
-            "column": 8,
-            "value": null
-          },
-          "9": {
-            "id": "kdR6AeQZKdy_ncEFSkXoTdh",
-            "row": 4,
-            "column": 9,
-            "value": null
-          },
-          "10": {
-            "id": "kdR6AeQZKdy_d6GaETRID3d",
-            "row": 4,
-            "column": 10,
-            "value": null
-          },
-          "11": {
-            "id": "kdR6AeQZKdy_ZTLnIr82huH",
-            "row": 4,
-            "column": 11,
-            "value": null
-          },
-          "12": {
-            "id": "kdR6AeQZKdy_MVLLtKbT1cS",
-            "row": 4,
-            "column": 12,
-            "value": null,
-            "editable": false
-          },
-          "13": {
-            "id": "kdR6AeQZKdy_gzWhEMJGne8",
-            "row": 4,
-            "column": 13,
-            "value": null,
-            "editable": false
-          },
-          "14": {
-            "id": "kdR6AeQZKdy_xhWnf9YgYOj",
-            "row": 4,
-            "column": 14,
-            "value": null,
-            "editable": false
-          },
-          "15": {
-            "id": "kdR6AeQZKdy_Qrre06QjGxR",
-            "row": 4,
-            "column": 15,
-            "value": null,
-            "editable": false
-          },
-          "16": {
-            "id": "kdR6AeQZKdy_PzxbfD0fbvJ",
-            "row": 4,
-            "column": 16,
-            "value": null,
-            "editable": false
-          },
-          "17": {
-            "id": "kdR6AeQZKdy_lg5ch93lNRy",
-            "row": 4,
-            "column": 17,
-            "value": null,
-            "editable": false
-          },
-          "18": {
-            "id": "kdR6AeQZKdy_u0Y9neqz48B",
-            "row": 4,
-            "column": 18,
-            "value": null,
-            "editable": false
-          },
-          "19": {
-            "id": "kdR6AeQZKdy_F7qgvNRdLgq",
-            "row": 4,
-            "column": 19,
-            "value": null,
-            "editable": false
-          },
-          "20": {
-            "id": "kdR6AeQZKdy_g6lInFZdxxZ",
-            "row": 4,
-            "column": 20,
-            "value": null,
-            "editable": false
-          },
-          "21": {
-            "id": "kdR6AeQZKdy_VSb9x2b4xpB",
-            "row": 4,
-            "column": 21,
-            "value": null,
-            "editable": false
-          },
-          "22": {
-            "id": "kdR6AeQZKdy_gVrcFlevVSJ",
-            "row": 4,
-            "column": 22,
-            "value": null,
-            "editable": false
-          },
-          "23": {
-            "id": "kdR6AeQZKdy_riaMRDv1UXW",
-            "row": 4,
-            "column": 23,
-            "value": null,
-            "editable": false
-          },
-          "24": {
-            "id": "kdR6AeQZKdy_QaFWL9G2pir",
-            "row": 4,
-            "column": 24,
-            "value": null
-          },
-          "25": {
-            "id": "kdR6AeQZKdy_tg4b2ha1B4w",
-            "row": 4,
-            "column": 25,
-            "value": null
-          },
-          "26": {
-            "id": "kdR6AeQZKdy_IFmyCdxbxmp",
-            "row": 4,
-            "column": 26,
-            "value": null
-          },
-          "27": {
-            "id": "kdR6AeQZKdy_jJeN8Uktw9K",
-            "row": 4,
-            "column": 27,
-            "value": null
-          },
-          "28": {
-            "id": "kdR6AeQZKdy_aJf2ey7ixf9",
-            "row": 4,
-            "column": 28,
-            "value": null
-          },
-          "29": {
-            "id": "kdR6AeQZKdy_Ux7l1jfvqPa",
-            "row": 4,
-            "column": 29,
-            "value": null
-          },
-          "30": {
-            "id": "kdR6AeQZKdy_nCnyX6MNEe7",
-            "row": 4,
-            "column": 30,
-            "value": null
-          },
-          "31": {
-            "id": "kdR6AeQZKdy_Vy4nWUif905",
-            "row": 4,
-            "column": 31,
-            "value": null
-          },
-          "32": {
-            "id": "kdR6AeQZKdy_AriV0IzHlqN",
-            "row": 4,
-            "column": 32,
-            "value": null
-          },
-          "33": {
-            "id": "kdR6AeQZKdy_tDfq6rsrMhx",
-            "row": 4,
-            "column": 33,
-            "value": null
-          },
-          "34": {
-            "id": "kdR6AeQZKdy_G6nr84KOGgo",
-            "row": 4,
-            "column": 34,
-            "value": null
-          },
-          "35": {
-            "id": "kdR6AeQZKdy_cPpGJxQNXyO",
-            "row": 4,
-            "column": 35,
-            "value": null
-          },
-          "36": {
-            "id": "kdR6AeQZKdy_oZDExCJMTII",
-            "row": 4,
-            "column": 36,
-            "value": null
-          },
-          "37": {
-            "id": "kdR6AeQZKdy_HYELTPF46Bw",
-            "row": 4,
-            "column": 37,
-            "value": null
-          },
-          "38": {
-            "id": "kdR6AeQZKdy_EnQECfrTv2D",
-            "row": 4,
-            "column": 38,
-            "value": null
-          },
-          "39": {
-            "id": "kdR6AeQZKdy_DaEs0fCJDYC",
-            "row": 4,
-            "column": 39,
-            "value": null
-          },
-          "40": {
-            "id": "kdR6AeQZKdy_Vw5AhclmoF4",
-            "row": 4,
-            "column": 40,
-            "value": null
-          },
-          "41": {
-            "id": "kdR6AeQZKdy_AiycbKXUtHa",
-            "row": 4,
-            "column": 41,
-            "value": null
-          },
-          "42": {
-            "id": "kdR6AeQZKdy_oPmCdy2H9PM",
-            "row": 4,
-            "column": 42,
-            "value": null
-          },
-          "43": {
-            "id": "kdR6AeQZKdy_j3ydXft04ch",
-            "row": 4,
-            "column": 43,
-            "value": null
-          },
-          "44": {
-            "id": "kdR6AeQZKdy_NCT1RDEfSap",
-            "row": 4,
-            "column": 44,
-            "value": null
-          },
-          "45": {
-            "id": "kdR6AeQZKdy_SQhjmO1LqOj",
-            "row": 4,
-            "column": 45,
-            "value": null
-          },
-          "46": {
-            "id": "kdR6AeQZKdy_gdbsdXBPhCx",
-            "row": 4,
-            "column": 46,
-            "value": null
-          },
-          "47": {
-            "id": "kdR6AeQZKdy_L69d8nfJsbZ",
-            "row": 4,
-            "column": 47,
             "value": null
           }
         }
@@ -2626,20 +1171,23 @@
     },
     "tableRows": [
       {
-        "rowHeader": {
-          "id": "s1qaW66yIfI",
-          "title": "Text 1",
-          "showDecoration": true,
-          "row": 0,
-          "description": "No hay información para este campo"
-        },
+        "rowHeaders": [
+          {
+            "id": "s1qaW66yIfI",
+            "title": "Text 1",
+            "showDecoration": true,
+            "row": 0,
+            "column": 0,
+            "description": "No hay información para este campo"
+          }
+        ],
         "values": {
           "0": {
             "id": "s1qaW66yIfI_F6ULrynnld7",
             "row": 0,
             "column": 0,
             "value": "1",
-            "mandatory":  true
+            "mandatory": true
           },
           "1": {
             "id": "s1qaW66yIfI_lGGEDgZg0kq",
@@ -2651,19 +1199,22 @@
         }
       },
       {
-        "rowHeader": {
-          "id": "SQ5QZDqII5A",
-          "title": "Text 2",
-          "row": 1,
-          "description": "No hay información para este campo"
-        },
+        "rowHeaders": [
+          {
+            "id": "SQ5QZDqII5A",
+            "title": "Text 2",
+            "row": 1,
+            "column": 0,
+            "description": "No hay información para este campo"
+          }
+        ],
         "values": {
           "0": {
             "id": "SQ5QZDqII5A_F6ULrynnld7",
             "row": 1,
             "column": 0,
             "value": null,
-            "mandatory":  true
+            "mandatory": true
           },
           "1": {
             "id": "SQ5QZDqII5A_lGGEDgZg0kq",
@@ -2696,13 +1247,16 @@
     },
     "tableRows": [
       {
-        "rowHeader": {
-          "id": "firstRowId",
-          "title": "Number 1",
-          "showDecoration": false,
-          "row": 0,
-          "description": null
-        },
+        "rowHeaders": [
+          {
+            "id": "firstRowId",
+            "title": "Number 1",
+            "showDecoration": false,
+            "row": 0,
+            "column": 0,
+            "description": null
+          }
+        ],
         "values": {
           "0": {
             "id": "00",
@@ -2720,13 +1274,16 @@
         }
       },
       {
-        "rowHeader": {
-          "id": "secondRowId",
-          "title": "Number 2",
-          "showDecoration": false,
-          "row": 1,
-          "description": null
-        },
+        "rowHeaders": [
+          {
+            "id": "secondRowId",
+            "title": "Number 2",
+            "showDecoration": false,
+            "row": 1,
+            "column": 0,
+            "description": null
+          }
+        ],
         "values": {
           "0": {
             "id": "10",
@@ -2744,13 +1301,16 @@
         }
       },
       {
-        "rowHeader": {
-          "id": "totalColumn",
-          "title": "Total",
-          "showDecoration": false,
-          "row": 2,
-          "description": null
-        },
+        "rowHeaders": [
+          {
+            "id": "totalColumn",
+            "title": "Total",
+            "showDecoration": false,
+            "row": 2,
+            "column": 0,
+            "description": null
+          }
+        ],
         "values": {
           "0": {
             "id": "total0",
