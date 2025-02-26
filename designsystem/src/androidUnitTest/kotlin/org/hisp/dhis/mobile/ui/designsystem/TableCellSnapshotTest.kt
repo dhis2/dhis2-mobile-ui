@@ -47,7 +47,7 @@ class TableCellSnapshotTest {
                         title = "Label 1",
                         row = 0,
                         column = 0,
-                    )
+                    ),
                 ),
                 values = mapOf(
                     0 to TableCell(
@@ -93,7 +93,7 @@ class TableCellSnapshotTest {
                         title = "Label 2",
                         row = 1,
                         column = 0,
-                    )
+                    ),
                 ),
                 values = mapOf(
                     0 to TableCell(
@@ -139,7 +139,7 @@ class TableCellSnapshotTest {
                         title = "Label 2",
                         row = 2,
                         column = 0,
-                    )
+                    ),
                 ),
                 values = mapOf(
                     0 to TableCell(
