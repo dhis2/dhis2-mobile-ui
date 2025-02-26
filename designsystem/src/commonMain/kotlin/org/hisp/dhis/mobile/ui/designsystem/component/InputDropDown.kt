@@ -441,7 +441,7 @@ fun DropdownListItem(
         modifier = modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(Spacing8))
-            .clickable(onClick = onItemClick)
+            .clickable(enabled = enabled, onClick = onItemClick)
             .background(
                 color = if (selected) {
                     SurfaceColor.PrimaryContainer
