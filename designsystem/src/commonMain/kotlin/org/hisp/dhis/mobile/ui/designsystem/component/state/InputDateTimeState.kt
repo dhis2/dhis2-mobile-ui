@@ -44,6 +44,7 @@ fun rememberInputDateTimeState(
     inputState,
     legendData,
     supportingText,
+    inputDateTimeData,
 ) {
     InputDateTimeStateImpl(
         inputDateTimeData,
