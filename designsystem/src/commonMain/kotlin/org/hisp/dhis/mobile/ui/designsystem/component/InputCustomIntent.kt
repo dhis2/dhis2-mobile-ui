@@ -28,8 +28,9 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
 const val INPUT_CUSTOM_INTENT_TEST_TAG = "INPUT_CUSTOM_INTENT_"
 const val VALUE_CHIP_TEST_TAG = "VALUE_CHIP_"
-const val INPUT_CUSTOM_INTENT_BUTTON_TEST_TAG = "CLEAR_BUTTON"
+const val INPUT_CUSTOM_INTENT_CLEAR_BUTTON_TEST_TAG = "CLEAR_BUTTON"
 const val LAUNCH_BUTTON_TEST_TAG = "LAUNCH_BUTTON"
+const val LAUNCH_ICON_BUTTON_TEST_TAG = "LAUNCH_ICON_BUTTON"
 const val CIRCULAR_PROGRESS_INDICATOR_TEST_TAG = "PROGRESS_INDICATOR"
 const val INPUT_CUSTOM_INTENT_SUPPORTING_TEXT_TEST_TAG = "SUPPORTING_TEXT"
 const val VALUE_TEST_TAG = "VALUE"
@@ -73,7 +74,7 @@ fun InputCustomIntent(
     val primaryButton: @Composable (() -> Unit)? = if (customIntentState == LOADED && inputShellState != InputShellState.DISABLED) {
         {
             IconButton(
-                modifier = Modifier.testTag(INPUT_CUSTOM_INTENT_TEST_TAG + INPUT_CUSTOM_INTENT_BUTTON_TEST_TAG),
+                modifier = Modifier.testTag(INPUT_CUSTOM_INTENT_TEST_TAG + INPUT_CUSTOM_INTENT_CLEAR_BUTTON_TEST_TAG),
                 icon = {
                     Icon(
                         imageVector = Icons.Outlined.Cancel,
@@ -93,7 +94,7 @@ fun InputCustomIntent(
         if (customIntentState == LOADED && inputShellState != InputShellState.DISABLED) {
             {
                 SquareIconButton(
-                    modifier = Modifier.testTag(INPUT_CUSTOM_INTENT_TEST_TAG + LAUNCH_BUTTON_TEST_TAG),
+                    modifier = Modifier.testTag(INPUT_CUSTOM_INTENT_TEST_TAG + LAUNCH_ICON_BUTTON_TEST_TAG),
                     icon = {
                         Icon(
                             imageVector = Icons.AutoMirrored.Outlined.OpenInNew,
