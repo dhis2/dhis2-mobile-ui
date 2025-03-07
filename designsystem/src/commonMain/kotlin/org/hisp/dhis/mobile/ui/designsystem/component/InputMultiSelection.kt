@@ -287,7 +287,7 @@ private fun SelectedItemChip(
 fun MultiSelectBottomSheet(
     items: List<CheckBoxData>,
     title: String,
-    maxItemsToShow: Int,
+    maxItemsToShow: Int = MAX_CHECKBOXES_ITEMS_TO_SHOW,
     noResultsFoundString: String,
     searchToFindMoreString: String,
     doneButtonText: String,
