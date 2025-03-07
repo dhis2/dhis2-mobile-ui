@@ -13,6 +13,8 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeightIn
 import androidx.compose.foundation.layout.requiredSize
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.Check
@@ -83,8 +85,10 @@ fun InputMultiSelection(
     doneButtonText: String = provideStringResource("done"),
     inputStyle: InputStyle = InputStyle.DataInputStyle(),
     onClearItemSelection: () -> Unit,
+    bottomSheetExpanded: Boolean = false,
+    maxItemsToShow: Int = MAX_CHECKBOXES_ITEMS_TO_SHOW,
 ) {
-    var showMultiSelectBottomSheet by remember { mutableStateOf(false) }
+    var showMultiSelectBottomSheet by remember { mutableStateOf(bottomSheetExpanded) }
     val focusRequester = remember { FocusRequester() }
 
     val clearSelectionButton: (@Composable () -> Unit)? =
@@ -236,6 +240,7 @@ fun InputMultiSelection(
                 bottomSheetLowerPadding = bottomSheetLowerPadding,
                 items = items,
                 title = title,
+                maxItemsToShow = maxItemsToShow,
                 noResultsFoundString = noResultsFoundString,
                 searchToFindMoreString = searchToFindMoreString,
                 doneButtonText = doneButtonText,
@@ -282,6 +287,7 @@ private fun SelectedItemChip(
 fun MultiSelectBottomSheet(
     items: List<CheckBoxData>,
     title: String,
+    maxItemsToShow: Int,
     noResultsFoundString: String,
     searchToFindMoreString: String,
     doneButtonText: String,
@@ -306,14 +312,13 @@ fun MultiSelectBottomSheet(
         ),
         modifier = Modifier.testTag("INPUT_MULTI_SELECT_BOTTOM_SHEET"),
         content = {
-            Column(
+            LazyColumn(
                 modifier = Modifier
                     .padding(top = Spacing.Spacing8),
             ) {
-                if (filteredOptions.isNotEmpty()) {
-                    filteredOptions
-                        .take(MAX_CHECKBOXES_ITEMS_TO_SHOW)
-                        .forEachIndexed { index, item ->
+                when {
+                    filteredOptions.take(maxItemsToShow).isNotEmpty() -> {
+                        itemsIndexed(items = filteredOptions) { index, item ->
                             CheckBox(
                                 checkBoxData = item.copy(
                                     textInput = bottomSheetItemLabel(
@@ -328,30 +333,37 @@ fun MultiSelectBottomSheet(
                                 modifier = Modifier.fillMaxWidth(),
                             )
                         }
-                    if (filteredOptions.size > MAX_CHECKBOXES_ITEMS_TO_SHOW) {
-                        Text(
-                            text = searchToFindMoreString,
-                            textAlign = TextAlign.Center,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(24.dp),
-                        )
+                        if (filteredOptions.size > maxItemsToShow) {
+                            item {
+                                Text(
+                                    text = searchToFindMoreString,
+                                    textAlign = TextAlign.Center,
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(24.dp),
+                                )
+                            }
+                        }
                     }
-                } else {
-                    Text(
-                        text = noResultsFoundString,
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(24.dp),
-                    )
+
+                    else ->
+                        item {
+                            Text(
+                                text = noResultsFoundString,
+                                textAlign = TextAlign.Center,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(24.dp),
+                            )
+                        }
                 }
             }
         },
         windowInsets = windowInsets,
         buttonBlock = {
             Button(
-                modifier = Modifier.fillMaxWidth().padding(BottomSheetShellDefaults.buttonBlockPaddings())
+                modifier = Modifier.fillMaxWidth()
+                    .padding(BottomSheetShellDefaults.buttonBlockPaddings())
                     .padding(BottomSheetShellDefaults.buttonBlockPaddings()),
                 onClick = {
                     onItemsSelected(
