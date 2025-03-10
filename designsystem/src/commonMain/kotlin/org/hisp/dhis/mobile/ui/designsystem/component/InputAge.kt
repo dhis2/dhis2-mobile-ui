@@ -538,9 +538,8 @@ fun InputAge(
                         showDatePicker = false
                         if (inputType is DateOfBirth) {
                             datePickerState.selectedDateMillis?.let {
-                                val newInputType: AgeInputType = updateDateOfBirth(
-                                    inputType,
-                                    TextFieldValue(getDate(it), TextRange(getDate(it).length)),
+                                val newInputType: AgeInputType = DateOfBirth(
+                                    formatUIDateToStored(TextFieldValue(getDate(it), TextRange(getDate(it).length)), DateTimeActionType.DATE),
                                 )
                                 onValueChanged.invoke(newInputType)
                             }
