@@ -783,18 +783,25 @@ private fun manageOnValueChangedFromDateTimePicker(
 ) {
     if (actionType != DateTimeActionType.DATE_TIME) {
         onValueChanged(
-            TextFieldValue(
-                getTime(timePickerState),
-                selection = TextRange(newValue?.text?.length ?: 0),
+            formatUIDateToStored(
+                TextFieldValue(
+                    getTime(timePickerState),
+                    selection = TextRange(newValue?.text?.length ?: 0),
+                ),
+                actionType,
             ),
+
         )
     } else {
         onValueChanged(
-            TextFieldValue(
-                getDate(datePickerState.selectedDateMillis) + getTime(
-                    timePickerState,
+            formatUIDateToStored(
+                TextFieldValue(
+                    getDate(datePickerState.selectedDateMillis) + getTime(
+                        timePickerState,
+                    ),
+                    selection = TextRange(newValue?.text?.length ?: 0),
                 ),
-                selection = TextRange(newValue?.text?.length ?: 0),
+                actionType,
             ),
         )
     }
