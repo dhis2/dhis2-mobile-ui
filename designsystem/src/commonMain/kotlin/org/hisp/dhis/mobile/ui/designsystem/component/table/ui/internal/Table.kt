@@ -193,7 +193,7 @@ internal fun Table(
                     }
                     itemsIndexed(
                         items = tableModel.tableRows.groupBy { it.rowHeaders.first().id }.values.toList(),
-                        key = { _, item -> item.first().id() },
+                        key = { _, item -> "${tableModel.id}_${item.first().id()}" },
                     ) { rowIndex, tableRowModel ->
                         val isLastRow = tableModel.tableRows.lastIndex == rowIndex
                         tableItemRow?.invoke(tableIndex, tableModel, tableRowModel)
@@ -213,7 +213,10 @@ internal fun Table(
                         }
                     }
                     if (!tableConfiguration.groupTables) {
-                        stickyFooter(keyboardState == Keyboard.Closed)
+                        stickyFooter(
+                            key = "${tableModel.id}_footer",
+                            showFooter = keyboardState == Keyboard.Closed,
+                        )
                     }
                 }
                 bottomContent?.let { item { it.invoke() } }
@@ -234,9 +237,12 @@ private suspend fun LazyListState.animateToIf(index: Int, condition: Boolean) {
 }
 
 @OptIn(ExperimentalFoundationApi::class)
-private fun LazyListScope.stickyFooter(showFooter: Boolean = true) {
+private fun LazyListScope.stickyFooter(
+    key: String?,
+    showFooter: Boolean = true,
+) {
     if (showFooter) {
-        stickyHeader {
+        stickyHeader(key = key) {
             Spacer(
                 modifier = Modifier
                     .height(16.dp)
