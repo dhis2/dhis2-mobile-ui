@@ -61,17 +61,17 @@ internal fun Table(
     tableList: List<TableModel>,
     tableHeaderRow: @Composable (
         (
-        index: Int,
-        tableModel: TableModel,
-        isTableScrolled: Boolean,
-    ) -> Unit
+            index: Int,
+            tableModel: TableModel,
+            isTableScrolled: Boolean,
+        ) -> Unit
     )? = null,
     tableItemRow: @Composable (
         (
-        index: Int,
-        tableModel: TableModel,
-        tableRowModel: List<TableRowModel>,
-    ) -> Unit
+            index: Int,
+            tableModel: TableModel,
+            tableRowModel: List<TableRowModel>,
+        ) -> Unit
     )? = null,
     verticalResizingView: @Composable ((tableHeight: Int?) -> Unit)? = null,
     bottomContent: @Composable (() -> Unit)? = null,
@@ -215,7 +215,7 @@ internal fun Table(
                     if (!tableConfiguration.groupTables) {
                         stickyFooter(
                             key = "${tableModel.id}_footer",
-                            showFooter = keyboardState == Keyboard.Closed
+                            showFooter = keyboardState == Keyboard.Closed,
                         )
                     }
                 }
@@ -239,7 +239,7 @@ private suspend fun LazyListState.animateToIf(index: Int, condition: Boolean) {
 @OptIn(ExperimentalFoundationApi::class)
 private fun LazyListScope.stickyFooter(
     key: String?,
-    showFooter: Boolean = true
+    showFooter: Boolean = true,
 ) {
     if (showFooter) {
         stickyHeader(key = key) {
