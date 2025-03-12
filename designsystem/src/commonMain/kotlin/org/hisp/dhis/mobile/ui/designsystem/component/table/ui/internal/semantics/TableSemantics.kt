@@ -29,11 +29,11 @@ var SemanticsPropertyReceiver.tableIdSemantic by TableId
 fun cornerTestTag(tableId: String) = "$TEST_TAG_CORNER$tableId"
 
 /* Row*/
-internal val InfoIconId = SemanticsPropertyKey<String>("InfoIconId")
+val InfoIconId = SemanticsPropertyKey<String>("InfoIconId")
 internal var SemanticsPropertyReceiver.infoIconId by InfoIconId
-internal val RowIndex = SemanticsPropertyKey<Int?>("RowIndex")
+val RowIndex = SemanticsPropertyKey<Int?>("RowIndex")
 internal var SemanticsPropertyReceiver.rowIndexSemantic by RowIndex
-internal val RowBackground = SemanticsPropertyKey<Color>("RowBackground")
+val RowBackground = SemanticsPropertyKey<Color>("RowBackground")
 internal var SemanticsPropertyReceiver.rowBackground by RowBackground
 fun rowTestTag(tableId: String, rowHeaderId: String) = "$ROW_TEST_TAG$tableId$rowHeaderId"
 fun rowHeaderTestTag(tableId: String, rowHeaderId: String) = "$ROW_HEADER_TEST_TAG$tableId$rowHeaderId"
@@ -44,23 +44,23 @@ val ColumnHeaderRow = SemanticsPropertyKey<Int>("ColumnHeaderRow")
 var SemanticsPropertyReceiver.columnHeaderRow: Int by ColumnHeaderRow
 val ColumnHeaderColumn = SemanticsPropertyKey<Int>("ColumnHeaderColumn")
 var SemanticsPropertyReceiver.columnHeaderColumn: Int by ColumnHeaderColumn
-internal val ColumnBackground = SemanticsPropertyKey<Color>("ColumnBackground")
+val ColumnBackground = SemanticsPropertyKey<Color>("ColumnBackground")
 internal var SemanticsPropertyReceiver.columnBackground by ColumnBackground
-internal val ColumnIndexHeader = SemanticsPropertyKey<Int>("ColumnIndexHeader")
+val ColumnIndexHeader = SemanticsPropertyKey<Int>("ColumnIndexHeader")
 internal var SemanticsPropertyReceiver.columnIndexHeader by ColumnIndexHeader
-internal val RowIndexHeader = SemanticsPropertyKey<Int>("RowIndexHeader")
+val RowIndexHeader = SemanticsPropertyKey<Int>("RowIndexHeader")
 internal var SemanticsPropertyReceiver.rowIndexHeader by RowIndexHeader
-internal val TableIdColumnHeader = SemanticsPropertyKey<String>("TableIdColumnHeader")
+val TableIdColumnHeader = SemanticsPropertyKey<String>("TableIdColumnHeader")
 internal var SemanticsPropertyReceiver.tableIdColumnHeader by TableIdColumnHeader
 fun headersTestTag(tableId: String) = "$TEST_TAG_COLUMN_HEADERS$tableId"
 fun headerRowTestTag(tableId: String, headerRowIndex: Int) = "$TEST_TAG_COLUMN_HEADER_ROW$tableId$headerRowIndex"
 fun headerTestTag(tableId: String, headerRowIndex: Int, columnIndex: Int) = "$TEST_TAG_COLUMN_HEADER$tableId$headerRowIndex$columnIndex"
 
 /* Cell */
-internal val CellSelected = SemanticsPropertyKey<Boolean>("CellSelected")
+val CellSelected = SemanticsPropertyKey<Boolean>("CellSelected")
 internal var SemanticsPropertyReceiver.cellSelected by CellSelected
-internal val HasError = SemanticsPropertyKey<Boolean>("HasError")
+val HasError = SemanticsPropertyKey<Boolean>("HasError")
 internal var SemanticsPropertyReceiver.hasError by HasError
-internal val IsBlocked = SemanticsPropertyKey<Boolean>("IsBlocked")
+val IsBlocked = SemanticsPropertyKey<Boolean>("IsBlocked")
 internal var SemanticsPropertyReceiver.isBlocked by IsBlocked
 fun cellTestTag(tableId: String, cellId: String) = "$CELL_TEST_TAG$tableId$cellId"
