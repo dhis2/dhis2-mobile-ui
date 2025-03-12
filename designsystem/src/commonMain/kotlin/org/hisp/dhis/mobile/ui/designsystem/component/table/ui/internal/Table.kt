@@ -74,6 +74,7 @@ internal fun Table(
         ) -> Unit
     )? = null,
     verticalResizingView: @Composable ((tableHeight: Int?) -> Unit)? = null,
+    topContent: @Composable (() -> Unit)? = null,
     bottomContent: @Composable (() -> Unit)? = null,
     maxRowColumnHeaders: Int,
 ) {
@@ -172,6 +173,7 @@ internal fun Table(
                 contentPadding = PaddingValues(bottom = TableTheme.dimensions.tableBottomPadding),
                 state = verticalScrollState,
             ) {
+                topContent?.let { item { it.invoke() } }
                 tableList.forEachIndexed { tableIndex, tableModel ->
                     val isLastTable = tableList.lastIndex == tableIndex
                     fixedStickyHeader(
