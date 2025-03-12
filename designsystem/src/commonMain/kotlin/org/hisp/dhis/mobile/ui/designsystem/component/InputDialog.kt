@@ -30,6 +30,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.testTag
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.InputDialogContainer
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
@@ -103,6 +104,7 @@ fun InputDialog(
                                                 .background(SurfaceColor.SurfaceBright),
                                         ) {
                                             IconButton(
+                                                modifier = Modifier.testTag("INPUT_DIALOG_DISMISS_TAG"),
                                                 style = IconButtonStyle.TONAL,
                                                 icon = {
                                                     Icon(
