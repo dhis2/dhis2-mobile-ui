@@ -35,6 +35,10 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.styleFor
  * Composable function to display a data table.
  *
  * @param tableList The list of table models to be displayed.
+ * @param currentSelection The current table selection.
+ * @param tableInteractions Optional table interactions callback.
+ * @param onResizedActions Optional table resize actions callback.
+ * @param topContent Optional composable content to be displayed at the top of the table.
  * @param bottomContent Optional composable content to be displayed at the bottom of the table.
  */
 @Composable
@@ -43,6 +47,7 @@ fun DataTable(
     currentSelection: TableSelection = TableSelection.Unselected(),
     tableInteractions: TableInteractions? = null,
     onResizedActions: TableResizeActions? = null,
+    topContent: @Composable (() -> Unit)? = null,
     bottomContent: @Composable (() -> Unit)? = null,
 ) {
     val maxColumns by remember(tableList.size) {
@@ -283,6 +288,7 @@ fun DataTable(
                     provideResizingCell = { resizingCell },
                 )
             },
+            topContent = topContent,
             bottomContent = bottomContent,
             maxRowColumnHeaders = maxRowColumnHeaders,
         )
