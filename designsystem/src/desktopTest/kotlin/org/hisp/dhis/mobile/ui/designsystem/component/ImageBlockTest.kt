@@ -7,10 +7,10 @@ import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
+import java.io.File
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.image.provideImage
 import org.junit.Rule
 import org.junit.Test
-import java.io.File
 
 class ImageBlockTest {
 
@@ -22,7 +22,13 @@ class ImageBlockTest {
         rule.setContent {
             ImageBlock(
                 title = "title",
-                load = { provideImage(File("")) },
+                load = {
+                    try {
+                        Result.success(provideImage(""))
+                    } catch (e: Exception) {
+                        Result.failure(e)
+                    }
+                },
                 painterFor = { BitmapPainter(it!!) },
                 onDownloadButtonClick = {},
                 onShareButtonClick = {},
@@ -37,7 +43,7 @@ class ImageBlockTest {
         rule.setContent {
             ImageBlock(
                 title = "title",
-                load = { (Icons.Outlined.FileUpload) },
+                load = { Result.success(Icons.Outlined.FileUpload) },
                 painterFor = { rememberVectorPainter(it) },
                 onDownloadButtonClick = {},
                 onShareButtonClick = {},
@@ -54,7 +60,7 @@ class ImageBlockTest {
         rule.setContent {
             ImageBlock(
                 title = "title",
-                load = { (Icons.Outlined.FileUpload) },
+                load = { Result.success(Icons.Outlined.FileUpload) },
                 painterFor = { rememberVectorPainter(it) },
                 onDownloadButtonClick = {},
                 onShareButtonClick = {},

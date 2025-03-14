@@ -31,6 +31,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.window.DialogProperties
+import kotlinx.datetime.format
 import org.hisp.dhis.mobile.ui.designsystem.component.AgeInputType.Age
 import org.hisp.dhis.mobile.ui.designsystem.component.AgeInputType.DateOfBirth
 import org.hisp.dhis.mobile.ui.designsystem.component.AgeInputType.None
@@ -49,8 +50,9 @@ import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2LightColorScheme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-import java.text.SimpleDateFormat
-import java.util.Calendar
+import org.hisp.dhis.mobile.ui.designsystem.component.internal.dates.currentDate
+import org.hisp.dhis.mobile.ui.designsystem.component.internal.dates.dateFormat
+import org.hisp.dhis.mobile.ui.designsystem.component.internal.dates.dateTimeFormatLength
 
 /**
  * DHIS2 Input Age component wraps DHIS2 [InputShell].
@@ -87,7 +89,7 @@ fun InputAge(
     }
     val selectableDates = uiModel.selectableDates ?: SelectableDates(
         MIN_DATE,
-        SimpleDateFormat(DATE_FORMAT).format(Calendar.getInstance().time),
+        currentDate().date.format(dateFormat),
     )
 
     val focusRequester = remember { FocusRequester() }
@@ -351,7 +353,7 @@ fun InputAge(
     }
     val selectableDates = uiData.selectableDates ?: SelectableDates(
         MIN_DATE,
-        SimpleDateFormat(DATE_FORMAT).format(Calendar.getInstance().time),
+        currentDate().date.format(dateFormat),
     )
 
     val datePickerState = rememberDatePickerState(
@@ -622,7 +624,7 @@ private fun provideSupportingText(
 ): List<SupportingTextData>? =
     (uiModel.inputType as? DateOfBirth)?.value?.text?.let {
         if (
-            it.length == DATE_FORMAT.length && (!isValidDate(it) || !dateIsInRange(parseStringDateToMillis(it), selectableDates))
+            it.length == dateTimeFormatLength() && (!isValidDate(it) || !dateIsInRange(parseStringDateToMillis(it), selectableDates))
         ) {
             val supportingTextErrorList: MutableList<SupportingTextData> = mutableListOf()
             if (!isValidDate(it)) {
@@ -687,8 +689,7 @@ private fun updateDateOfBirth(inputType: DateOfBirth, newText: TextFieldValue): 
 
 internal const val MIN_DATE = "10111901"
 internal const val MIN_YEAR = 1901
-internal val MAX_YEAR = Calendar.getInstance().get(Calendar.YEAR)
-internal const val DATE_FORMAT = "ddMMYYYY"
+internal val MAX_YEAR = currentDate().year
 
 sealed interface AgeInputType {
     data object None : AgeInputType

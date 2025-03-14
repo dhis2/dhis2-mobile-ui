@@ -27,7 +27,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-import java.io.IOException
 
 /**
  * DHIS2 Image Block. Wraps compose [Image].
@@ -43,7 +42,7 @@ import java.io.IOException
 @Composable
 fun <T> ImageBlock(
     title: String,
-    load: suspend () -> T,
+    load: suspend () -> Result<T>,
     painterFor: @Composable (T) -> Painter,
     modifier: Modifier = Modifier,
     downloadButtonVisible: Boolean = true,
@@ -53,13 +52,7 @@ fun <T> ImageBlock(
     var isFullScreen by remember { mutableStateOf(false) }
 
     val image: T? by produceState<T?>(null) {
-        value = withContext(Dispatchers.IO) {
-            try {
-                load()
-            } catch (e: IOException) {
-                null
-            }
-        }
+        value = load().getOrNull()
     }
 
     if (image != null) {

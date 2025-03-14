@@ -25,7 +25,7 @@ fun InputSignatureScreen() {
 
             InputSignature(
                 title = "Label",
-                load = { sampleSignature0 },
+                load = { Result.success(sampleSignature0) },
                 painterFor = sampleSignature0?.let { imageBitmap ->
                     {
                         BitmapPainter(imageBitmap)
@@ -47,7 +47,7 @@ fun InputSignatureScreen() {
 
             InputSignature(
                 title = "Label",
-                load = { sampleSignature },
+                load = { Result.success(sampleSignature) },
                 painterFor = { remember { it } },
                 onDownloadButtonClick = {},
                 onShareButtonClick = {},
@@ -61,7 +61,7 @@ fun InputSignatureScreen() {
             InputSignature(
                 title = "Label",
                 state = InputShellState.DISABLED,
-                load = { },
+                load = { Result.success(null) },
                 onDownloadButtonClick = {},
                 onShareButtonClick = {},
                 onResetButtonClicked = {},
@@ -74,7 +74,7 @@ fun InputSignatureScreen() {
             InputSignature(
                 title = "Label",
                 state = InputShellState.DISABLED,
-                load = { sampleSignature2 },
+                load = { Result.success(sampleSignature2) },
                 painterFor = { it },
                 onDownloadButtonClick = {},
                 onShareButtonClick = {},

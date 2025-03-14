@@ -1,4 +1,6 @@
 import org.jetbrains.dokka.gradle.DokkaTask
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
+import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
 
 version = rootProject.version
 group = rootProject.group
@@ -20,6 +22,30 @@ kotlin {
 
     jvm("desktop")
 
+    @OptIn(ExperimentalWasmDsl::class)
+    wasmJs {
+        moduleName = "designsystem"
+        browser {
+            commonWebpackConfig {
+                outputFileName = "designSystem.js"
+                devServer =
+                    (devServer ?: KotlinWebpackConfig.DevServer()).apply {
+                        static =
+                            (static ?: mutableListOf()).apply {
+                                // Serve sources to debug inside browser
+                                add(project.rootDir.path)
+                                add(project.projectDir.path)
+                            }
+                    }
+                sourceMaps = true
+            }
+            testTask {
+                enabled = false
+            }
+        }
+        binaries.executable()
+    }
+
     sourceSets {
         val commonMain by getting {
             dependencies {
@@ -31,6 +57,7 @@ kotlin {
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
+                api("org.jetbrains.kotlinx:kotlinx-datetime:0.6.2")
             }
         }
 
@@ -63,6 +90,9 @@ kotlin {
                 implementation(compose.desktop.currentOs)
             }
         }
+
+        val wasmJsMain by getting { }
+        val wasmJsTest by getting { }
     }
 }
 

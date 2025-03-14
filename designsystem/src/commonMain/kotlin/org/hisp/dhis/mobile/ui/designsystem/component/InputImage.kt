@@ -39,7 +39,7 @@ fun <T> InputImage(
     addImageBtnText: String = provideStringResource("add_image"),
     downloadButtonVisible: Boolean = true,
     isRequired: Boolean = false,
-    load: suspend () -> T,
+    load: suspend () -> Result<T>,
     painterFor: (@Composable (T) -> Painter)? = null,
     modifier: Modifier = Modifier,
     onDownloadButtonClick: () -> Unit,

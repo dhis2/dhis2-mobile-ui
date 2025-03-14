@@ -34,7 +34,6 @@ import org.hisp.dhis.mobile.ui.designsystem.component.model.RegExValidations
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
-import java.util.Locale
 
 /**
  * DHIS2 BasicTextInput. Wraps DHIS · [InputShell].
@@ -161,11 +160,11 @@ internal fun BasicTextInput(
                     onInputChanged = { newValue ->
                         if (allowedCharacters != null) {
                             if (allowedCharacters == RegExValidations.SINGLE_LETTER.regex) {
-                                if (newValue.text.uppercase(Locale.getDefault())
+                                if (newValue.text.uppercase()
                                         .matches(allowedCharacters) || newValue.text.isEmpty()
                                 ) {
-                                    onValueChanged?.invoke(TextFieldValue(newValue.text.uppercase(Locale.getDefault()), newValue.selection, newValue.composition))
-                                    inputValue = TextFieldValue(newValue.text.uppercase(Locale.getDefault()), newValue.selection, newValue.composition)
+                                    onValueChanged?.invoke(TextFieldValue(newValue.text.uppercase(), newValue.selection, newValue.composition))
+                                    inputValue = TextFieldValue(newValue.text.uppercase(), newValue.selection, newValue.composition)
 
                                     deleteButtonIsVisible = newValue.text.isNotEmpty()
                                 }

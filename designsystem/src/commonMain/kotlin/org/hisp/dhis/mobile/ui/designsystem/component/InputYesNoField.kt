@@ -13,7 +13,6 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.testTag
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-import java.util.Locale
 
 /**
  * DHIS2 Input Yes/No Field. Wraps DHIS · [RadioButton].
@@ -69,7 +68,7 @@ fun InputYesNoField(
                     it.value,
                     itemSelected == it,
                     state != InputShellState.DISABLED,
-                    provideStringResource(it.value.lowercase(Locale.getDefault())),
+                    provideStringResource(it.value.lowercase()),
                 )
             }
             RadioButtonBlock(

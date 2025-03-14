@@ -53,7 +53,7 @@ fun <T> InputSignature(
     addSignatureBtnText: String = provideStringResource("add_signature"),
     downloadButtonVisible: Boolean = true,
     isRequired: Boolean = false,
-    load: suspend () -> T,
+    load: suspend () -> Result<T>,
     painterFor: (@Composable (T) -> Painter)? = null,
     modifier: Modifier = Modifier,
     onDownloadButtonClick: () -> Unit,

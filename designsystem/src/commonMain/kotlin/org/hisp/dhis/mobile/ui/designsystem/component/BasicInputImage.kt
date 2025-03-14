@@ -56,7 +56,7 @@ internal fun <T> BasicInputImage(
     uploadState: UploadState = UploadState.ADD,
     downloadButtonVisible: Boolean = true,
     isRequired: Boolean = false,
-    load: suspend () -> T,
+    load: suspend () -> Result<T>,
     painterFor: (@Composable (T) -> Painter)? = null,
     testTag: String = "",
     addButtonText: String,

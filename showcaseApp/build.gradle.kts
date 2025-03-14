@@ -15,6 +15,30 @@ kotlin {
 
     jvm("desktop")
 
+    @OptIn(ExperimentalWasmDsl::class)
+    wasmJs {
+        moduleName = "showcaseApp"
+        browser {
+            commonWebpackConfig {
+                outputFileName = "showcaseApp.js"
+                devServer =
+                    (devServer ?: KotlinWebpackConfig.DevServer()).apply {
+                        static =
+                            (static ?: mutableListOf()).apply {
+                                // Serve sources to debug inside browser
+                                add(project.rootDir.path)
+                                add(project.projectDir.path)
+                            }
+                    }
+                sourceMaps = true
+            }
+            testTask {
+                enabled = false
+            }
+        }
+        binaries.executable()
+    }
+
     sourceSets {
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -47,6 +71,9 @@ kotlin {
             }
         }
         val desktopTest by getting
+
+        val wasmJsMain by getting
+        val wasmJsTest by getting
     }
 }
 
