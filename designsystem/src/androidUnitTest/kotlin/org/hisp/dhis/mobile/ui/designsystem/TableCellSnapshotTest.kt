@@ -1,5 +1,6 @@
 package org.hisp.dhis.mobile.ui.designsystem
 
+import androidx.compose.foundation.layout.PaddingValues
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.RowHeader
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableCell
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableHeader
@@ -8,6 +9,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableHeaderRow
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableModel
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableRowModel
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.DataTable
+import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.junit.Rule
 import org.junit.Test
 
@@ -20,6 +22,12 @@ class TableCellSnapshotTest {
         paparazzi.snapshot {
             DataTable(
                 tableList = listOf(tableModel()),
+                contentPadding = PaddingValues(
+                    top = Spacing.Spacing16,
+                    bottom = Spacing.Spacing200,
+                    start = Spacing.Spacing16,
+                    end = Spacing.Spacing16,
+                )
             )
         }
     }
