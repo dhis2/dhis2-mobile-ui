@@ -1,8 +1,6 @@
 rootProject.name = "mobile-ui"
 
-include(":android")
-include(":desktop")
-include(":common")
+include(":showcaseApp")
 include(":designsystem")
 includeBuild("convention-plugins")
 
