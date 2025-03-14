@@ -27,7 +27,7 @@ class TableCellSnapshotTest {
                     bottom = Spacing.Spacing200,
                     start = Spacing.Spacing16,
                     end = Spacing.Spacing16,
-                )
+                ),
             )
         }
     }
