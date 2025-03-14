@@ -4,13 +4,13 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.FileDownload
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
-import org.hisp.dhis.showcaseapp.screens.previews.fiveButtonCarousel
-import org.hisp.dhis.showcaseapp.screens.previews.overflowButtonCarousel
-import org.hisp.dhis.showcaseapp.screens.previews.threeButtonCarousel
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonCarousel
 import org.hisp.dhis.mobile.ui.designsystem.component.CarouselButtonData
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
+import org.hisp.dhis.showcaseapp.screens.previews.fiveButtonCarousel
+import org.hisp.dhis.showcaseapp.screens.previews.overflowButtonCarousel
+import org.hisp.dhis.showcaseapp.screens.previews.threeButtonCarousel
 
 @Composable
 fun ButtonCarouselScreen() {

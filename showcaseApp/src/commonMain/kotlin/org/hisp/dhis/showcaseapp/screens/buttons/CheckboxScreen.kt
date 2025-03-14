@@ -7,13 +7,13 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import org.hisp.dhis.showcaseapp.screens.previews.CheckboxPreview
-import org.hisp.dhis.showcaseapp.screens.previews.TextCheckboxPreview
 import org.hisp.dhis.mobile.ui.designsystem.component.CheckBoxBlock
 import org.hisp.dhis.mobile.ui.designsystem.component.CheckBoxData
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.Orientation
+import org.hisp.dhis.showcaseapp.screens.previews.CheckboxPreview
+import org.hisp.dhis.showcaseapp.screens.previews.TextCheckboxPreview
 
 @Composable
 fun CheckboxScreen() {

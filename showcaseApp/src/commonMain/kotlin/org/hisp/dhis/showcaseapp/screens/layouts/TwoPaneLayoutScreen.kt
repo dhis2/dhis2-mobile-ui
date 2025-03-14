@@ -11,11 +11,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import org.hisp.dhis.showcaseapp.screens.Groups
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.layout.TwoPaneConfig
 import org.hisp.dhis.mobile.ui.designsystem.component.layout.TwoPaneLayout
+import org.hisp.dhis.showcaseapp.screens.Groups
 
 @Composable
 fun TwoPaneLayoutScreen() {

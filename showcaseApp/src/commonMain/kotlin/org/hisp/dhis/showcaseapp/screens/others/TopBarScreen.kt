@@ -15,7 +15,6 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
-import org.hisp.dhis.showcaseapp.screens.Groups
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.IconButton
@@ -23,6 +22,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.TopBar
 import org.hisp.dhis.mobile.ui.designsystem.component.TopBarActionIcon
 import org.hisp.dhis.mobile.ui.designsystem.component.TopBarDropdownMenuIcon
 import org.hisp.dhis.mobile.ui.designsystem.component.TopBarType
+import org.hisp.dhis.showcaseapp.screens.Groups
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

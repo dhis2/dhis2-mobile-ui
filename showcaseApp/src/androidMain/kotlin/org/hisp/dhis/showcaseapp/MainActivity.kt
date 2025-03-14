@@ -13,7 +13,6 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.view.WindowCompat
-import org.hisp.dhis.showcaseapp.App
 import org.hisp.dhis.mobile.ui.designsystem.component.model.LocationItemModel
 
 class MainActivity : AppCompatActivity() {

@@ -7,7 +7,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.painter.Painter
-
+import mobile_ui.showcaseapp.generated.resources.Res
+import mobile_ui.showcaseapp.generated.resources.sample
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ImageBlock
@@ -17,8 +18,6 @@ import org.hisp.dhis.mobile.ui.designsystem.component.UploadState
 import org.jetbrains.compose.resources.painterResource
 import java.util.Timer
 import kotlin.concurrent.schedule
-import mobile_ui.showcaseapp.generated.resources.Res
-import mobile_ui.showcaseapp.generated.resources.sample
 
 @Composable
 fun InputImageScreen() {

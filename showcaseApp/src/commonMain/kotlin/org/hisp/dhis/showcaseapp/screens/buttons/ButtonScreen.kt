@@ -1,14 +1,14 @@
 package org.hisp.dhis.showcaseapp.screens.buttons
 
 import androidx.compose.runtime.Composable
-import org.hisp.dhis.showcaseapp.screens.previews.ButtonPreview
-import org.hisp.dhis.showcaseapp.screens.previews.ButtonPreviewWithIcon
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.ColorStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.RowComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.Title
+import org.hisp.dhis.showcaseapp.screens.previews.ButtonPreview
+import org.hisp.dhis.showcaseapp.screens.previews.ButtonPreviewWithIcon
 
 @Composable
 fun ButtonScreen() {

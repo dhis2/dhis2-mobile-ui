@@ -3,11 +3,11 @@ package org.hisp.dhis.showcaseapp.screens.tabs
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import org.hisp.dhis.showcaseapp.screens.NoComponentSelectedScreen
-import org.hisp.dhis.showcaseapp.screens.components.GroupComponentDropDown
 import org.hisp.dhis.mobile.ui.designsystem.component.DropdownItem
 import org.hisp.dhis.mobile.ui.designsystem.component.model.TabColorStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.model.TabStyle
+import org.hisp.dhis.showcaseapp.screens.NoComponentSelectedScreen
+import org.hisp.dhis.showcaseapp.screens.components.GroupComponentDropDown
 
 @Composable
 fun TabsScreen() {
