@@ -9,6 +9,7 @@ import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -24,7 +25,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.unit.dp
-import org.hisp.dhis.showcaseapp.screens.Groups
 import org.hisp.dhis.mobile.ui.designsystem.component.DropdownItem
 import org.hisp.dhis.mobile.ui.designsystem.component.InputDropDown
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
@@ -39,6 +39,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
+import org.hisp.dhis.showcaseapp.screens.Groups
 import org.hisp.dhis.showcaseapp.screens.NoComponentSelectedScreen
 import org.hisp.dhis.showcaseapp.screens.actionInputs.ActionInputsScreen
 import org.hisp.dhis.showcaseapp.screens.basicTextInputs.BasicTextInputsScreen
@@ -92,7 +93,7 @@ fun App(
                         onLocationRequest = onLocationRequest,
                         animatedVisibilityScope = this,
                         sharedTransitionScope = this@SharedTransitionLayout
-                    ){
+                    ) {
                         currentScreen = it
                     }
 
@@ -102,7 +103,7 @@ fun App(
                         onLocationRequest = onLocationRequest,
                         animatedVisibilityScope = this,
                         sharedTransitionScope = this@SharedTransitionLayout
-                    ){
+                    ) {
                         currentScreen = it
                     }
                 }
@@ -146,16 +147,18 @@ fun ExpandedMain(
             }
         },
         secondaryPane = {
-            val tabs by remember { derivedStateOf {
-                Groups.entries.map {
-                    Tab(
-                        id = it.name,
-                        label = it.label,
-                    )
-                }.sortedBy {
-                    it.label
+            val tabs by remember {
+                derivedStateOf {
+                    Groups.entries.map {
+                        Tab(
+                            id = it.name,
+                            label = it.label,
+                        )
+                    }.sortedBy {
+                        it.label
+                    }
                 }
-            } }
+            }
             val selectedTabIndex by remember(currentScreen) {
                 derivedStateOf {
                     tabs.indexOfFirst { it.label == currentScreen.label }
@@ -267,7 +270,8 @@ fun ScreenProvider(
                 .sharedElement(
                     rememberSharedContentState(key = "screen"),
                     animatedVisibilityScope = animatedVisibilityScope
-                )
+                ),
+            verticalArrangement = spacedBy(Spacing.Spacing16),
         ) {
             when (screen) {
                 Groups.ACTION_INPUTS -> ActionInputsScreen()
