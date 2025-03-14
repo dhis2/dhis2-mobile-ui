@@ -1,6 +1,7 @@
 package org.hisp.dhis.mobile.ui.designsystem.component.table.ui
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.runtime.Composable
@@ -21,6 +22,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableDialogMod
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableModel
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.internal.ResizingCell
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.internal.TableCornerUiState
+import org.hisp.dhis.mobile.ui.designsystem.component.table.model.internal.extensions.areAllValuesEmpty
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.compositions.LocalInteraction
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.compositions.LocalTableResizeActions
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.HorizontalScrollConfig
@@ -40,6 +42,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.styleFor
  * @param onResizedActions Optional table resize actions callback.
  * @param topContent Optional composable content to be displayed at the top of the table.
  * @param bottomContent Optional composable content to be displayed at the bottom of the table.
+ * @param contentPadding The padding values for the content of the table.
  */
 @Composable
 fun DataTable(
@@ -49,6 +52,17 @@ fun DataTable(
     onResizedActions: TableResizeActions? = null,
     topContent: @Composable (() -> Unit)? = null,
     bottomContent: @Composable (() -> Unit)? = null,
+    contentPadding: PaddingValues = if (
+        !TableTheme.configuration.editable &&
+        !tableList.all { it.areAllValuesEmpty() }
+    ) {
+        PaddingValues(
+            vertical = LocalTableDimensions.current.tableVerticalPadding,
+            horizontal = LocalTableDimensions.current.tableHorizontalPadding,
+        )
+    } else {
+        PaddingValues(bottom = TableTheme.dimensions.tableBottomPadding)
+    },
 ) {
     val maxColumns by remember(tableList.size) {
         derivedStateOf {
@@ -291,6 +305,7 @@ fun DataTable(
             topContent = topContent,
             bottomContent = bottomContent,
             maxRowColumnHeaders = maxRowColumnHeaders ?: 0,
+            contentPadding = contentPadding,
         )
     }
 }

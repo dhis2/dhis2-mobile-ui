@@ -3,6 +3,7 @@ package org.hisp.dhis.common.screens.table
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.Icon
@@ -29,6 +30,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.actions.TableInterac
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableCell
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableModel
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.DataTable
+import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 
 @OptIn(ExperimentalResourceApi::class)
@@ -51,7 +53,8 @@ fun TableScreen() {
         val scope = rememberCoroutineScope()
 
         Box(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier.fillMaxSize()
+                .padding(horizontal = Spacing.Spacing16),
             contentAlignment = Alignment.BottomCenter,
         ) {
             DataTable(
