@@ -193,16 +193,28 @@ internal fun Table(
                             isFirstVisibleStickyHeader && isScrolled,
                         )
                     }
+                    val rowItems = tableModel.tableRows.groupBy { it.rowHeaders.first().id }.values.toList().dropLast(1)
                     itemsIndexed(
-                        items = tableModel.tableRows.groupBy { it.rowHeaders.first().id }.values.toList(),
+                        items = rowItems,
                         key = { _, item -> "${tableModel.id}_${item.first().id()}" },
-                    ) { rowIndex, tableRowModel ->
-                        val isLastRow = tableModel.tableRows.lastIndex == rowIndex
+                    ) { _, tableRowModel ->
                         tableItemRow?.invoke(tableIndex, tableModel, tableRowModel)
+                    }
+                    val lastItem = tableModel.tableRows.groupBy { it.rowHeaders.first().id }.values.toList().last()
+
+                    fixedStickyHeader(
+                        fixHeader = keyboardState == Keyboard.Closed,
+                        key = "${tableModel.id}_sticky_last_row",
+                    ) {
+                        tableItemRow?.invoke(
+                            tableIndex,
+                            tableModel,
+                            lastItem,
+                        )
                         val showExtendedDivider = if (TableTheme.configuration.groupTables) {
-                            isLastTable && isLastRow
+                            isLastTable
                         } else {
-                            isLastRow
+                            true
                         }
                         if (showExtendedDivider) {
                             ExtendDivider(
@@ -214,6 +226,7 @@ internal fun Table(
                             )
                         }
                     }
+
                     if (!tableConfiguration.groupTables) {
                         stickyFooter(
                             key = "${tableModel.id}_footer",
