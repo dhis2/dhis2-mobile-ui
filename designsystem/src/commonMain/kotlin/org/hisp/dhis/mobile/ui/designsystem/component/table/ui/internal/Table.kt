@@ -17,6 +17,7 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
@@ -37,14 +38,12 @@ import org.hisp.dhis.mobile.ui.designsystem.component.modifier.draggableList
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableModel
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableRowModel
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.internal.extensions.areAllValuesEmpty
-import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.LocalTableDimensions
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.LocalTableSelection
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableSelection
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme.tableSelection
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.compositions.LocalTableResizeActions
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.extensions.fixedStickyHeader
-import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
 
 /**
  * Composable function to display a table.
@@ -53,7 +52,10 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
  * @param tableHeaderRow Optional composable function to display the header row of the table.
  * @param tableItemRow Optional composable function to display the item row of the table.
  * @param verticalResizingView Optional composable function to display the vertical resizing view.
+ * @param topContent Optional composable content to be displayed at the top of the table.
  * @param bottomContent Optional composable content to be displayed at the bottom of the table.
+ * @param maxRowColumnHeaders The maximum number of row column headers.
+ * @param contentPadding The padding values for the content of the table.
  */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -77,12 +79,16 @@ internal fun Table(
     topContent: @Composable (() -> Unit)? = null,
     bottomContent: @Composable (() -> Unit)? = null,
     maxRowColumnHeaders: Int,
+    contentPadding: PaddingValues,
 ) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White)
-            .clip(Shape.Small),
+            .background(
+                color = TableTheme.colors.tableBackground,
+                shape = MaterialTheme.shapes.small,
+            )
+            .clip(MaterialTheme.shapes.small),
     ) {
         val resizeActions = LocalTableResizeActions.current
         var tableHeight: Int? by remember { mutableStateOf(null) }
@@ -91,10 +97,7 @@ internal fun Table(
             Column(
                 Modifier
                     .fillMaxWidth()
-                    .padding(
-                        vertical = LocalTableDimensions.current.tableVerticalPadding,
-                        horizontal = LocalTableDimensions.current.tableHorizontalPadding,
-                    )
+                    .padding(contentPadding)
                     .onSizeChanged {
                         resizeActions.onTableWidthChanged(it.width)
                         tableHeight = it.height
@@ -153,10 +156,6 @@ internal fun Table(
                     .testTag("TABLE_SCROLLABLE_COLUMN")
                     .background(Color.White)
                     .fillMaxWidth()
-                    .padding(
-                        horizontal = TableTheme.dimensions.tableHorizontalPadding,
-                        vertical = TableTheme.dimensions.tableVerticalPadding,
-                    )
                     .onSizeChanged {
                         resizeActions.onTableWidthChanged(it.width)
                     }.draggableList(
@@ -170,7 +169,7 @@ internal fun Table(
                         TableTheme.dimensions.tableVerticalPadding
                     },
                 ),
-                contentPadding = PaddingValues(bottom = TableTheme.dimensions.tableBottomPadding),
+                contentPadding = contentPadding,
                 state = verticalScrollState,
             ) {
                 topContent?.let { item { it.invoke() } }
@@ -193,14 +192,18 @@ internal fun Table(
                             isFirstVisibleStickyHeader && isScrolled,
                         )
                     }
-                    val rowItems = tableModel.tableRows.groupBy { it.rowHeaders.first().id }.values.toList().dropLast(1)
+                    val rowItems =
+                        tableModel.tableRows.groupBy { it.rowHeaders.first().id }.values.toList()
+                            .dropLast(1)
                     itemsIndexed(
                         items = rowItems,
                         key = { _, item -> "${tableModel.id}_${item.first().id()}" },
                     ) { _, tableRowModel ->
                         tableItemRow?.invoke(tableIndex, tableModel, tableRowModel)
                     }
-                    val lastItem = tableModel.tableRows.groupBy { it.rowHeaders.first().id }.values.toList().last()
+                    val lastItem =
+                        tableModel.tableRows.groupBy { it.rowHeaders.first().id }.values.toList()
+                            .last()
 
                     fixedStickyHeader(
                         fixHeader = keyboardState == Keyboard.Closed,
