@@ -87,7 +87,13 @@ internal fun HeaderCell(
         if (isSelected) {
             VerticalResizingRule(
                 modifier = Modifier
-                    .align(Alignment.CenterEnd)
+                    .align(
+                        if (itemHeaderUiState.isLastColumn) {
+                            Alignment.CenterStart
+                        } else {
+                            Alignment.CenterEnd
+                        },
+                    )
                     .zIndex(2f),
                 checkMaxMinCondition = itemHeaderUiState.checkMaxCondition,
                 onHeaderResize = { newValue ->
@@ -98,6 +104,7 @@ internal fun HeaderCell(
                     )
                 },
                 onResizing = itemHeaderUiState.onResizing,
+                inverse = itemHeaderUiState.isLastColumn,
             )
         }
     }

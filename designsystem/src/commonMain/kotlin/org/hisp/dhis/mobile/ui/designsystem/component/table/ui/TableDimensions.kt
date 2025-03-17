@@ -49,11 +49,11 @@ data class TableDimensions(
     val totalWidth: Int = 0,
     val cellPaddingValues: PaddingValues = PaddingValues(
         horizontal = Spacing.Spacing8,
-        vertical = Spacing.Spacing12,
+        vertical = Spacing.Spacing11,
     ),
     val headerCellPaddingValues: PaddingValues = PaddingValues(
         horizontal = Spacing.Spacing8,
-        vertical = Spacing.Spacing12,
+        vertical = Spacing.Spacing11,
     ),
     val tableBottomPadding: Dp = Spacing.Spacing200,
     val extraWidths: Map<String, Int> = emptyMap(),
@@ -203,7 +203,7 @@ data class TableDimensions(
         val newWidth = (
             columnWidth[tableIdToUse]?.get(column)
                 ?: (defaultCellWidth + (currentExtraSize[tableIdToUse] ?: 0))
-            ) + widthOffset - 11
+            ) + widthOffset
 
         val newMap = columnWidth.toMutableMap()
         val tableColumnMap = columnWidth[tableIdToUse]?.toMutableMap() ?: mutableMapOf()
@@ -315,46 +315,6 @@ data class TableDimensions(
                     column = column,
                 ) in minColumnWidth..maxColumnWidth
             } ?: true
-    }
-
-    /**
-     * Get the width of the row header.
-     *
-     * @param tableId The ID of the table.
-     * @return The width of the row header.
-     */
-    fun getRowHeaderWidth(
-        groupedTables: Boolean,
-        tableId: String,
-    ): Int {
-        val tableIdToUse = if (groupedTables) GROUPED_ID else tableId
-        return rowHeaderWidths[tableIdToUse] ?: defaultRowHeaderWidth
-    }
-
-    /**
-     * Get the width of the column.
-     *
-     * @param tableId The ID of the table.
-     * @param column The index of the column.
-     * @return The width of the column.
-     */
-    fun getColumnWidth(
-        groupedTables: Boolean,
-        tableId: String,
-        column: Int,
-    ): Int {
-        val tableIdToUse = if (groupedTables) GROUPED_ID else tableId
-        return columnWidth[tableIdToUse]?.get(column) ?: defaultCellWidth
-    }
-
-    /**
-     * Get the extra widths of the table.
-     *
-     * @param tableId The ID of the table.
-     * @return The extra widths of the table.
-     */
-    fun getExtraWidths(tableId: String): Int {
-        return extraWidths[tableId] ?: 0
     }
 }
 
