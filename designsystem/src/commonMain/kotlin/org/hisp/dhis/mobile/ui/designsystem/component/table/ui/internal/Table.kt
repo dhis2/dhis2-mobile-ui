@@ -1,5 +1,6 @@
 package org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement.spacedBy
@@ -16,7 +17,10 @@ import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.RestartAlt
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -25,12 +29,15 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
+import org.hisp.dhis.mobile.ui.designsystem.component.Button
+import org.hisp.dhis.mobile.ui.designsystem.component.ButtonStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.Keyboard
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.keyboardAsState
 import org.hisp.dhis.mobile.ui.designsystem.component.model.DraggableType
@@ -38,12 +45,16 @@ import org.hisp.dhis.mobile.ui.designsystem.component.modifier.draggableList
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableModel
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableRowModel
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.internal.extensions.areAllValuesEmpty
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.GROUPED_ID
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.LocalTableSelection
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableSelection
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme.tableSelection
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.compositions.LocalTableResizeActions
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.extensions.fixedStickyHeader
+import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
+import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
+import org.jetbrains.compose.resources.ExperimentalResourceApi
 
 /**
  * Composable function to display a table.
@@ -57,7 +68,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.extensio
  * @param maxRowColumnHeaders The maximum number of row column headers.
  * @param contentPadding The padding values for the content of the table.
  */
-@OptIn(ExperimentalFoundationApi::class)
+@OptIn(ExperimentalFoundationApi::class, ExperimentalResourceApi::class)
 @Composable
 internal fun Table(
     tableList: List<TableModel>,
@@ -241,6 +252,36 @@ internal fun Table(
             }
         }
         verticalResizingView?.invoke(tableHeight)
+
+        AnimatedVisibility(
+            modifier = Modifier
+                .align(alignment = Alignment.BottomCenter)
+                .fillMaxWidth(),
+            visible = TableTheme.dimensions.hasOverriddenWidths(GROUPED_ID),
+        ) {
+            Box(
+                Modifier
+                    .background(Color.White.copy(alpha = 0.8f))
+                    .padding(Spacing.Spacing16),
+                contentAlignment = Alignment.Center,
+            ) {
+                Button(
+                    modifier = Modifier.fillMaxWidth(),
+                    style = ButtonStyle.TONAL,
+                    text = provideStringResource("reset_table_layout"),
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Outlined.RestartAlt,
+                            contentDescription = "Reset table layout",
+                            tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                        )
+                    },
+                    onClick = {
+                        resizeActions.onTableDimensionReset(GROUPED_ID)
+                    },
+                )
+            }
+        }
     }
 }
 
