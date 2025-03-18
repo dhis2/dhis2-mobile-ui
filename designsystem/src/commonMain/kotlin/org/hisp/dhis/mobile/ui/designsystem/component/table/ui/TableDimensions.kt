@@ -316,6 +316,46 @@ data class TableDimensions(
                 ) in minColumnWidth..maxColumnWidth
             } ?: true
     }
+
+    /**
+     * Get the width of the row header.
+     *
+     * @param tableId The ID of the table.
+     * @return The width of the row header.
+     */
+    fun getRowHeaderWidth(
+        groupedTables: Boolean,
+        tableId: String,
+    ): Int {
+        val tableIdToUse = if (groupedTables) GROUPED_ID else tableId
+        return rowHeaderWidths[tableIdToUse] ?: defaultRowHeaderWidth
+    }
+
+    /**
+     * Get the width of the column.
+     *
+     * @param tableId The ID of the table.
+     * @param column The index of the column.
+     * @return The width of the column.
+     */
+    fun getColumnWidth(
+        groupedTables: Boolean,
+        tableId: String,
+        column: Int,
+    ): Int {
+        val tableIdToUse = if (groupedTables) GROUPED_ID else tableId
+        return columnWidth[tableIdToUse]?.get(column) ?: defaultCellWidth
+    }
+
+    /**
+     * Get the extra widths of the table.
+     *
+     * @param tableId The ID of the table.
+     * @return The extra widths of the table.
+     */
+    fun getExtraWidths(tableId: String): Int {
+        return extraWidths[tableId] ?: 0
+    }
 }
 
 /**
