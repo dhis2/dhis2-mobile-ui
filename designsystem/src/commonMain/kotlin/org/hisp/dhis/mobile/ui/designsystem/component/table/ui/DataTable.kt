@@ -113,6 +113,7 @@ fun DataTable(
             },
         )
     }
+    val localDensity = LocalDensity.current
     val tableResizeActions by remember {
         mutableStateOf(
             object : TableResizeActions {
@@ -122,31 +123,57 @@ fun DataTable(
                 }
 
                 override fun onRowHeaderResize(tableId: String, newValue: Float) {
-                    dimensions = dimensions.updateHeaderWidth(
-                        config.groupTables,
-                        tableId,
-                        newValue,
-                    )
-                    onResizedActions?.onRowHeaderResize(tableId, newValue)
+                    with(localDensity) {
+                        dimensions = dimensions.updateHeaderWidth(
+                            groupedTables = config.groupTables,
+                            tableId = tableId,
+                            widthOffset = newValue,
+                        )
+                        val widthDpValue =
+                            dimensions.getRowHeaderWidth(config.groupTables, tableId).toDp().value
+
+                        onResizedActions?.onRowHeaderResize(
+                            tableId = tableId.takeIf { config.groupTables.not() } ?: GROUPED_ID,
+                            newValue = widthDpValue,
+                        )
+                    }
                 }
 
                 override fun onColumnHeaderResize(tableId: String, column: Int, newValue: Float) {
-                    dimensions = dimensions.updateColumnWidth(
-                        config.groupTables,
-                        tableId,
-                        column,
-                        newValue,
-                    )
-                    onResizedActions?.onColumnHeaderResize(tableId, column, newValue)
+                    with(localDensity) {
+                        dimensions = dimensions.updateColumnWidth(
+                            groupedTables = config.groupTables,
+                            tableId = tableId,
+                            column = column,
+                            widthOffset = newValue,
+                        )
+                        val widthDpValue = dimensions.getColumnWidth(
+                            groupedTables = config.groupTables,
+                            tableId = tableId,
+                            column = column,
+                        ).toDp().value
+                        onResizedActions?.onColumnHeaderResize(
+                            tableId = tableId.takeIf { config.groupTables.not() } ?: GROUPED_ID,
+                            column = column,
+                            newValue = widthDpValue,
+                        )
+                    }
                 }
 
                 override fun onTableDimensionResize(tableId: String, newValue: Float) {
-                    dimensions = dimensions.updateAllWidthBy(
-                        config.groupTables,
-                        tableId,
-                        newValue,
-                    )
-                    onResizedActions?.onTableDimensionResize(tableId, newValue)
+                    with(localDensity) {
+                        dimensions = dimensions.updateAllWidthBy(
+                            groupedTables = config.groupTables,
+                            tableId = tableId,
+                            widthOffset = newValue,
+                        )
+                        val widthDpValue =
+                            dimensions.getExtraWidths(tableId).toDp().value
+                        onResizedActions?.onTableDimensionResize(
+                            tableId = tableId.takeIf { config.groupTables.not() } ?: GROUPED_ID,
+                            newValue = widthDpValue,
+                        )
+                    }
                 }
 
                 override fun onTableDimensionReset(tableId: String) {
@@ -154,7 +181,9 @@ fun DataTable(
                         config.groupTables,
                         tableId,
                     )
-                    onResizedActions?.onTableDimensionReset(tableId)
+                    onResizedActions?.onTableDimensionReset(
+                        tableId = tableId.takeIf { config.groupTables.not() } ?: GROUPED_ID,
+                    )
                 }
             },
         )
