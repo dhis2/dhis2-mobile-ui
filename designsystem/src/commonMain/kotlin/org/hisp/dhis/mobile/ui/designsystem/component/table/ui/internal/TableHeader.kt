@@ -195,9 +195,14 @@ internal fun TableHeader(
                                 columnIndex = columnIndex,
                                 headerCell = TableHeaderCell(""),
                                 headerMeasures = HeaderMeasures(
-                                    width = dimensions.defaultCellWidthWithExtraSize(
+                                    width = dimensions.headerCellWidth(
                                         tableId = tableId,
+                                        column = columnIndex,
+                                        headerRowColumns = tableHeaderModel.numberOfColumns(
+                                            tableHeaderModel.rows.size - 1,
+                                        ),
                                         totalColumns = tableHeaderModel.tableMaxColumns(),
+                                        extraColumns = tableHeaderModel.extraColumns.size,
                                         groupedTables = configuration.groupTables,
                                     ),
                                     height = dimensions.defaultHeaderHeight * tableHeaderModel.rows.size,
