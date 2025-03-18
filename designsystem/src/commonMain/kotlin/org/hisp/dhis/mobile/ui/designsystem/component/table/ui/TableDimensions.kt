@@ -49,11 +49,11 @@ data class TableDimensions(
     val totalWidth: Int = 0,
     val cellPaddingValues: PaddingValues = PaddingValues(
         horizontal = Spacing.Spacing8,
-        vertical = Spacing.Spacing12,
+        vertical = Spacing.Spacing11,
     ),
     val headerCellPaddingValues: PaddingValues = PaddingValues(
         horizontal = Spacing.Spacing8,
-        vertical = Spacing.Spacing12,
+        vertical = Spacing.Spacing11,
     ),
     val tableBottomPadding: Dp = Spacing.Spacing200,
     val extraWidths: Map<String, Int> = emptyMap(),
@@ -203,7 +203,7 @@ data class TableDimensions(
         val newWidth = (
             columnWidth[tableIdToUse]?.get(column)
                 ?: (defaultCellWidth + (currentExtraSize[tableIdToUse] ?: 0))
-            ) + widthOffset - 11
+            ) + widthOffset
 
         val newMap = columnWidth.toMutableMap()
         val tableColumnMap = columnWidth[tableIdToUse]?.toMutableMap() ?: mutableMapOf()

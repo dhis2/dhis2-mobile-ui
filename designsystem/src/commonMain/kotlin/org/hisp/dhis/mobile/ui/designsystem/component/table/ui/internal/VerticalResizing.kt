@@ -12,6 +12,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.SwapHorizontalCircle
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -38,14 +39,20 @@ import kotlin.math.abs
 import kotlin.math.roundToInt
 
 @Composable
-internal fun VerticalResizingView(modifier: Modifier = Modifier, provideResizingCell: () -> ResizingCell?) {
+internal fun VerticalResizingView(
+    modifier: Modifier = Modifier,
+    provideResizingCell: () -> ResizingCell?,
+) {
     val colorPrimary = TableTheme.colors.primary
     provideResizingCell()?.let { resizingCell ->
-        val offsetX = resizingCell.initialPosition.x + resizingCell.draggingOffsetX
-        var tableOffset by remember { mutableStateOf(Offset.Zero) }
+        val offsetX = resizingCell.initialPosition.x + Spacing.Spacing12.value + resizingCell.draggingOffsetX
+        var tableOffset: Offset? by remember { mutableStateOf(null) }
 
         Box(
             modifier
+                .onGloballyPositioned {
+                    tableOffset = it.positionInRoot()
+                }
                 .offset { IntOffset(offsetX.roundToInt(), 0) }
                 .fillMaxHeight()
                 .drawBehind {
@@ -55,30 +62,29 @@ internal fun VerticalResizingView(modifier: Modifier = Modifier, provideResizing
                         size = Size(2.dp.toPx(), size.height),
                     )
                 }
-                .onGloballyPositioned {
-                    tableOffset = it.positionInRoot()
-                }
                 .graphicsLayer(clip = false),
         ) {
-            Icon(
-                modifier = Modifier
-                    .align(Alignment.TopCenter)
-                    .offset {
-                        IntOffset(
-                            x = -21.dp.roundToPx(),
-                            y = -8.dp.roundToPx() + resizingCell.initialPosition.y.roundToInt() - tableOffset.y.roundToInt(),
+            tableOffset?.let {
+                Icon(
+                    modifier = Modifier
+                        .align(Alignment.TopCenter)
+                        .offset {
+                            IntOffset(
+                                x = -19.dp.roundToPx(),
+                                y = -8.dp.roundToPx() + resizingCell.initialPosition.y.roundToInt() - it.y.roundToInt(),
+                            )
+                        }
+                        .background(
+                            color = colorPrimary,
+                            shape = CircleShape,
                         )
-                    }
-                    .background(
-                        color = colorPrimary,
-                        shape = CircleShape,
-                    )
-                    .size(Spacing.Spacing40)
-                    .padding(8.dp),
-                imageVector = Icons.Outlined.SwapHorizontalCircle,
-                contentDescription = "",
-                tint = Color.White,
-            )
+                        .size(Spacing.Spacing40)
+                        .padding(8.dp),
+                    imageVector = Icons.Outlined.SwapHorizontalCircle,
+                    contentDescription = "",
+                    tint = Color.White,
+                )
+            }
         }
     }
 }
@@ -89,11 +95,17 @@ internal fun VerticalResizingRule(
     onHeaderResize: (Float) -> Unit,
     onResizing: (ResizingCell?) -> Unit,
     modifier: Modifier = Modifier,
+    inverse: Boolean = false,
 ) {
     var dimensions by remember { mutableStateOf<TableDimensions?>(null) }
     dimensions = TableTheme.dimensions
 
-    val minOffset = with(LocalDensity.current) { 5.dp.toPx() }
+    val minOffset = with(LocalDensity.current) {
+        when (inverse) {
+            true -> -5
+            false -> 5
+        }.dp.toPx()
+    }
     var offsetX by remember { mutableStateOf(minOffset) }
     var positionInRoot by remember { mutableStateOf(Offset.Zero) }
 
@@ -101,40 +113,52 @@ internal fun VerticalResizingRule(
         modifier
             .fillMaxHeight()
             .width(Spacing.Spacing48)
-            .offset(Spacing.Spacing24)
+            .offset(if (inverse) -Spacing.Spacing24 else Spacing.Spacing24)
             .pointerInput(Unit) {
                 detectDragGestures(
                     onDragEnd = {
-                        if (abs(offsetX) > minOffset) {
+                        onResizing(null)
+                        if (abs(offsetX) > abs(minOffset)) {
                             onHeaderResize(offsetX)
                         }
                         offsetX = minOffset
-                        onResizing(null)
                     },
                 ) { change, dragAmount ->
                     change.consume()
-                    if (checkMaxMinCondition(dimensions!!, offsetX + dragAmount.x)) {
-                        offsetX += dragAmount.x
+                    val offsetChange = when (inverse) {
+                        true -> offsetX - dragAmount.x
+                        false -> offsetX + dragAmount.x
                     }
-                    onResizing(ResizingCell(positionInRoot, offsetX))
+                    if (checkMaxMinCondition(dimensions!!, offsetChange)) {
+                        offsetX = offsetChange
+                    }
+                    when (inverse) {
+                        true -> onResizing(ResizingCell(positionInRoot, -offsetX))
+                        false -> onResizing(ResizingCell(positionInRoot, offsetX))
+                    }
                 }
             },
     ) {
-        Icon(
+        IconButton(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .background(
                     color = TableTheme.colors.primary,
                     shape = CircleShape,
                 )
-                .size(Spacing.Spacing40)
-                .padding(8.dp)
-                .onGloballyPositioned { coordinates ->
-                    positionInRoot = coordinates.positionInRoot()
-                },
-            imageVector = Icons.Outlined.SwapHorizontalCircle,
-            contentDescription = "",
-            tint = Color.White,
-        )
+                .size(Spacing.Spacing40),
+            onClick = {},
+        ) {
+            Icon(
+                modifier = Modifier
+                    .padding(8.dp)
+                    .onGloballyPositioned { coordinates ->
+                        positionInRoot = coordinates.positionInRoot()
+                    },
+                imageVector = Icons.Outlined.SwapHorizontalCircle,
+                contentDescription = "",
+                tint = Color.White,
+            )
+        }
     }
 }

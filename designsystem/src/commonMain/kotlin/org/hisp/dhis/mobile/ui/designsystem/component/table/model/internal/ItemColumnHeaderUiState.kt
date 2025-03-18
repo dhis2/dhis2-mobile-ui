@@ -19,7 +19,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantic
  * @property onCellSelected Callback function invoked when a cell is selected.
  * @property onHeaderResize Callback function invoked when the header is resized.
  * @property onResizing Callback function invoked during the resizing of the header.
- * @property isLastRow Indicates if this is the last row.
+ * @property isLastColumn Indicates if this is the last column.
  * @property checkMaxCondition Function to check the maximum condition for resizing.
  */
 internal data class ItemColumnHeaderUiState(
@@ -33,7 +33,7 @@ internal data class ItemColumnHeaderUiState(
     val onCellSelected: (Int) -> Unit,
     val onHeaderResize: (Int, Int, Float) -> Unit,
     val onResizing: (ResizingCell?) -> Unit,
-    val isLastRow: Boolean,
+    val isLastColumn: Boolean,
     val checkMaxCondition: (TableDimensions, Float) -> Boolean,
 ) {
     val testTag = "$HEADER_CELL$tableId$rowIndex$columnIndex"
