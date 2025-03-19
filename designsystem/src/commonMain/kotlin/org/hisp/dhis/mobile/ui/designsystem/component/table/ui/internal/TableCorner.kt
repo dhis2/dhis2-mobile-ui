@@ -2,8 +2,11 @@ package org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -12,10 +15,11 @@ import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.internal.TableCornerUiState
-import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.LocalTableColors
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.modifiers.cornerBackground
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
@@ -33,6 +37,7 @@ internal fun TableCorner(
     modifier: Modifier = Modifier,
     tableCornerUiState: TableCornerUiState,
     tableId: String,
+    label: String?,
     rowColumnHeaders: Int,
     maxRowColumnHeaders: Int,
     onClick: () -> Unit,
@@ -44,9 +49,8 @@ internal fun TableCorner(
     Box(
         modifier = modifier
             .cornerBackground(
+                hasLabel = !label.isNullOrEmpty(),
                 isSelected = isSelected,
-                selectedColor = MaterialTheme.colorScheme.primary,
-                defaultColor = LocalTableColors.current.tableBackground,
             )
             .width(
                 with(LocalDensity.current) {
@@ -72,6 +76,30 @@ internal fun TableCorner(
             .clickable { onClick() },
         contentAlignment = Alignment.CenterEnd,
     ) {
+        label?.takeIf { it.isNotEmpty() }?.let { label ->
+            Text(
+                modifier = Modifier
+                    .padding(
+                        horizontal = Spacing.Spacing8,
+                        vertical = Spacing.Spacing12,
+                    )
+                    .fillMaxWidth()
+                    .align(Alignment.Center),
+                color = if (isSelected) {
+                    MaterialTheme.colorScheme.onPrimary
+                } else {
+                    TableTheme.colors.headerText
+                },
+                text = label,
+                textAlign = TextAlign.Start,
+                fontSize = TableTheme.dimensions.defaultHeaderTextSize,
+                overflow = TextOverflow.Ellipsis,
+                style = MaterialTheme.typography.bodySmall,
+                maxLines = 3,
+                softWrap = true,
+            )
+        }
+
         VerticalDivider(
             thickness = Spacing.Spacing1,
             color = TableTheme.colors.primary,

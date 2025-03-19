@@ -68,7 +68,7 @@ internal fun TableHeaderRow(
                     .padding(bottom = Spacing.Spacing24),
                 title = tableModel.title,
                 actionIcons = {
-                    if (TableTheme.dimensions.hasOverriddenWidths(tableModel.id ?: "")) {
+                    if (TableTheme.dimensions.hasOverriddenWidths(tableModel.id)) {
                         IconButton(
                             onClick = onResetResize,
                             icon = {
@@ -95,6 +95,7 @@ internal fun TableHeaderRow(
                 maxRowColumnHeaders = maxRowColumnHeaders,
                 rowColumnHeaders = tableModel.tableRows.first().rowHeaders.size,
                 tableId = tableModel.id,
+                label = tableModel.title,
                 onClick = onTableCornerClick,
             )
 
