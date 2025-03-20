@@ -21,14 +21,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import org.hisp.dhis.showcaseapp.screens.previews.basicAdditionalItemList
-import org.hisp.dhis.showcaseapp.screens.previews.basicAdditionalItemListWithLongKeyText
-import org.hisp.dhis.showcaseapp.screens.previews.basicAdditionalItemListWithLongValue
-import org.hisp.dhis.showcaseapp.screens.previews.basicAdditionalItemListWithMediumKeyText
-import org.hisp.dhis.showcaseapp.screens.previews.enrollmentCompletedList
-import org.hisp.dhis.showcaseapp.screens.previews.fullItemList
-import org.hisp.dhis.showcaseapp.screens.previews.largeItemList
-import org.hisp.dhis.showcaseapp.screens.previews.lorem
 import org.hisp.dhis.mobile.ui.designsystem.component.AdditionalInfoItem
 import org.hisp.dhis.mobile.ui.designsystem.component.AdditionalInfoItemColor
 import org.hisp.dhis.mobile.ui.designsystem.component.Avatar
@@ -49,6 +41,14 @@ import org.hisp.dhis.mobile.ui.designsystem.component.state.rememberListCardStat
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
+import org.hisp.dhis.showcaseapp.screens.previews.basicAdditionalItemList
+import org.hisp.dhis.showcaseapp.screens.previews.basicAdditionalItemListWithLongKeyText
+import org.hisp.dhis.showcaseapp.screens.previews.basicAdditionalItemListWithLongValue
+import org.hisp.dhis.showcaseapp.screens.previews.basicAdditionalItemListWithMediumKeyText
+import org.hisp.dhis.showcaseapp.screens.previews.enrollmentCompletedList
+import org.hisp.dhis.showcaseapp.screens.previews.fullItemList
+import org.hisp.dhis.showcaseapp.screens.previews.largeItemList
+import org.hisp.dhis.showcaseapp.screens.previews.lorem
 
 const val LAST_UPDATED_MINS = "24 min"
 const val LAST_UPDATED_HOURS = "5 hours"

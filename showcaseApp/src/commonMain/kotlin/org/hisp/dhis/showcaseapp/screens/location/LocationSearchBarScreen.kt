@@ -16,11 +16,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import org.hisp.dhis.showcaseapp.screens.components.GroupComponentDropDown
 import org.hisp.dhis.mobile.ui.designsystem.component.DropdownItem
 import org.hisp.dhis.mobile.ui.designsystem.component.LocationBar
 import org.hisp.dhis.mobile.ui.designsystem.component.OnSearchAction
 import org.hisp.dhis.mobile.ui.designsystem.component.model.LocationItemModel
+import org.hisp.dhis.showcaseapp.screens.components.GroupComponentDropDown
 
 @Composable
 fun LocationSearchBarScreen(

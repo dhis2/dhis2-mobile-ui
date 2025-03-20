@@ -27,9 +27,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import org.hisp.dhis.showcaseapp.screens.previews.longLegendList
-import org.hisp.dhis.showcaseapp.screens.previews.lorem
-import org.hisp.dhis.showcaseapp.screens.previews.regularLegendList
 import org.hisp.dhis.mobile.ui.designsystem.component.BottomSheetShell
 import org.hisp.dhis.mobile.ui.designsystem.component.Button
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonBlock
@@ -44,6 +41,9 @@ import org.hisp.dhis.mobile.ui.designsystem.component.state.BottomSheetShellDefa
 import org.hisp.dhis.mobile.ui.designsystem.component.state.BottomSheetShellUIState
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
+import org.hisp.dhis.showcaseapp.screens.previews.longLegendList
+import org.hisp.dhis.showcaseapp.screens.previews.lorem
+import org.hisp.dhis.showcaseapp.screens.previews.regularLegendList
 
 @Composable
 fun BottomSheetScreen() {

@@ -7,7 +7,6 @@ import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
-import java.io.File
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.image.provideImage
 import org.junit.Rule
 import org.junit.Test

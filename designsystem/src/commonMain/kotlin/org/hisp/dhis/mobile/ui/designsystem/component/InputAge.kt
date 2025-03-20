@@ -37,6 +37,9 @@ import org.hisp.dhis.mobile.ui.designsystem.component.AgeInputType.DateOfBirth
 import org.hisp.dhis.mobile.ui.designsystem.component.AgeInputType.None
 import org.hisp.dhis.mobile.ui.designsystem.component.TimeUnitValues.YEARS
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.dateIsInRange
+import org.hisp.dhis.mobile.ui.designsystem.component.internal.dates.currentDate
+import org.hisp.dhis.mobile.ui.designsystem.component.internal.dates.dateFormat
+import org.hisp.dhis.mobile.ui.designsystem.component.internal.dates.dateTimeFormatLength
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.formatStoredDateToUI
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.formatUIDateToStored
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.getDateSupportingText
@@ -50,9 +53,6 @@ import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2LightColorScheme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-import org.hisp.dhis.mobile.ui.designsystem.component.internal.dates.currentDate
-import org.hisp.dhis.mobile.ui.designsystem.component.internal.dates.dateFormat
-import org.hisp.dhis.mobile.ui.designsystem.component.internal.dates.dateTimeFormatLength
 
 /**
  * DHIS2 Input Age component wraps DHIS2 [InputShell].

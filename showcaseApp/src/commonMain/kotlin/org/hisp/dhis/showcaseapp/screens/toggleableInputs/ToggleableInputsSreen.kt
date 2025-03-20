@@ -4,9 +4,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.ImageBitmap
+import org.hisp.dhis.mobile.ui.designsystem.component.DropdownItem
 import org.hisp.dhis.showcaseapp.screens.NoComponentSelectedScreen
 import org.hisp.dhis.showcaseapp.screens.components.GroupComponentDropDown
-import org.hisp.dhis.mobile.ui.designsystem.component.DropdownItem
 
 @Composable
 fun ToggleableInputsScreen(imageBitmapLoader: (() -> ImageBitmap)?) {

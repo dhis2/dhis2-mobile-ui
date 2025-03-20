@@ -61,7 +61,6 @@ import org.hisp.dhis.mobile.ui.designsystem.component.internal.getSupportingText
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.getTime
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.getTimePickerState
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.isValidHourFormat
-import org.hisp.dhis.mobile.ui.designsystem.component.internal.parseDate
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.provideDatePickerState
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.timePickerColors
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.yearIsInRange

@@ -10,8 +10,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
-import org.hisp.dhis.showcaseapp.screens.previews.lorem
-import org.hisp.dhis.showcaseapp.screens.previews.regularLegendList
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.Description
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
@@ -23,6 +21,8 @@ import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextState
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
+import org.hisp.dhis.showcaseapp.screens.previews.lorem
+import org.hisp.dhis.showcaseapp.screens.previews.regularLegendList
 
 @Composable
 fun FormShellsScreen() {

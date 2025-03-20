@@ -6,7 +6,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.text.input.TextFieldValue
-import org.hisp.dhis.showcaseapp.screens.previews.regularLegendList
 import org.hisp.dhis.mobile.ui.designsystem.component.AgeInputType
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
@@ -17,6 +16,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.TimeUnitValues
 import org.hisp.dhis.mobile.ui.designsystem.component.state.InputAgeData
 import org.hisp.dhis.mobile.ui.designsystem.component.state.rememberInputAgeState
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
+import org.hisp.dhis.showcaseapp.screens.previews.regularLegendList
 
 @Composable
 fun InputAgeScreen() {

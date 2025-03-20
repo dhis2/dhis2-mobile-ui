@@ -13,7 +13,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.TextFieldValue
-import org.hisp.dhis.showcaseapp.screens.previews.threeButtonCarousel
 import org.hisp.dhis.mobile.ui.designsystem.component.BottomSheetShell
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonCarousel
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
@@ -26,6 +25,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextState
 import org.hisp.dhis.mobile.ui.designsystem.component.state.BottomSheetShellUIState
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
+import org.hisp.dhis.showcaseapp.screens.previews.threeButtonCarousel
 
 @Composable
 fun InputQRCodeScreen() {

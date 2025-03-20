@@ -73,9 +73,9 @@ fun App(
     imageBitmapLoader: (() -> ImageBitmap)? = null,
     onLocationRequest: (
         (
-        locationQuery: String,
-        locationSearchCallback: (List<LocationItemModel>) -> Unit,
-    ) -> Unit
+            locationQuery: String,
+            locationSearchCallback: (List<LocationItemModel>) -> Unit,
+        ) -> Unit
     )? = null,
 ) {
     DHIS2Theme {
@@ -84,7 +84,7 @@ fun App(
 
             AnimatedContent(
                 sizeClass.widthSizeClass,
-                label = "content_size_transition"
+                label = "content_size_transition",
             ) { widthSizeClass ->
                 when (widthSizeClass) {
                     WindowWidthSizeClass.Expanded -> ExpandedMain(
@@ -92,7 +92,7 @@ fun App(
                         imageBitmapLoader = imageBitmapLoader,
                         onLocationRequest = onLocationRequest,
                         animatedVisibilityScope = this,
-                        sharedTransitionScope = this@SharedTransitionLayout
+                        sharedTransitionScope = this@SharedTransitionLayout,
                     ) {
                         currentScreen = it
                     }
@@ -102,7 +102,7 @@ fun App(
                         imageBitmapLoader = imageBitmapLoader,
                         onLocationRequest = onLocationRequest,
                         animatedVisibilityScope = this,
-                        sharedTransitionScope = this@SharedTransitionLayout
+                        sharedTransitionScope = this@SharedTransitionLayout,
                     ) {
                         currentScreen = it
                     }
@@ -118,15 +118,14 @@ fun ExpandedMain(
     imageBitmapLoader: (() -> ImageBitmap)?,
     onLocationRequest: (
         (
-        locationQuery: String,
-        locationSearchCallback: (List<LocationItemModel>) -> Unit,
-    ) -> Unit
+            locationQuery: String,
+            locationSearchCallback: (List<LocationItemModel>) -> Unit,
+        ) -> Unit
     )?,
     animatedVisibilityScope: AnimatedVisibilityScope,
     sharedTransitionScope: SharedTransitionScope,
     onSectionChanged: (Groups) -> Unit,
 ) {
-
     TwoPaneLayout(
         paneConfig = TwoPaneConfig.SecondaryPaneFixedSize(200.dp),
         primaryPane = {
@@ -182,9 +181,9 @@ fun Main(
     imageBitmapLoader: (() -> ImageBitmap)?,
     onLocationRequest: (
         (
-        locationQuery: String,
-        locationSearchCallback: (List<LocationItemModel>) -> Unit,
-    ) -> Unit
+            locationQuery: String,
+            locationSearchCallback: (List<LocationItemModel>) -> Unit,
+        ) -> Unit
     )?,
     animatedVisibilityScope: AnimatedVisibilityScope,
     sharedTransitionScope: SharedTransitionScope,
@@ -242,9 +241,8 @@ fun Main(
                 imageBitmapLoader = imageBitmapLoader,
                 onLocationRequest = onLocationRequest,
                 animatedVisibilityScope = animatedVisibilityScope,
-                sharedTransitionScope = sharedTransitionScope
+                sharedTransitionScope = sharedTransitionScope,
             )
-
         } else {
             NoComponentSelectedScreen(
                 modifier = Modifier
@@ -269,7 +267,7 @@ fun ScreenProvider(
             modifier = Modifier
                 .sharedElement(
                     rememberSharedContentState(key = "screen"),
-                    animatedVisibilityScope = animatedVisibilityScope
+                    animatedVisibilityScope = animatedVisibilityScope,
                 ),
             verticalArrangement = spacedBy(Spacing.Spacing16),
         ) {
