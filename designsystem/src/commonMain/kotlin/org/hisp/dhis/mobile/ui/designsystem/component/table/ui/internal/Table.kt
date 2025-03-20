@@ -116,7 +116,8 @@ internal fun Table(
             ) {
                 tableList.forEachIndexed { tableIndex, tableModel ->
                     val isLastTable = tableList.lastIndex == tableIndex
-                    tableHeaderRow?.invoke(tableIndex, tableModel, false)
+                    tableHeaderRow?.takeIf { tableModel.hasHeaders() }
+                        ?.invoke(tableIndex, tableModel, false)
                     tableModel.tableRows.forEachIndexed { rowIndex, tableRowModel ->
                         val isLastRow = tableModel.tableRows.lastIndex == rowIndex
                         tableItemRow?.invoke(tableIndex, tableModel, listOf(tableRowModel))
@@ -135,7 +136,6 @@ internal fun Table(
                         if (showExtendedDivider) {
                             ExtendDivider(
                                 tableId = tableModel.id,
-                                selected = tableSelection.isCornerSelected(tableModel.id),
                                 rowHeaderCount = maxRowColumnHeaders,
                             )
                         }
@@ -197,7 +197,7 @@ internal fun Table(
                                     .firstOrNull()?.key == "${tableModel.id}_sticky"
                             }
                         }
-                        tableHeaderRow?.invoke(
+                        tableHeaderRow?.takeIf { tableModel.hasHeaders() }?.invoke(
                             tableIndex,
                             tableModel,
                             isFirstVisibleStickyHeader && isScrolled,
@@ -233,9 +233,6 @@ internal fun Table(
                         if (showExtendedDivider) {
                             ExtendDivider(
                                 tableId = tableModel.id,
-                                selected = TableTheme.tableSelection.isCornerSelected(
-                                    tableModel.id,
-                                ),
                                 rowHeaderCount = maxRowColumnHeaders,
                             )
                         }

@@ -102,4 +102,6 @@ data class TableModel(
             }
         }
     }
+
+    fun hasHeaders() = tableHeaderModel.tableMaxColumns() > 0
 }
