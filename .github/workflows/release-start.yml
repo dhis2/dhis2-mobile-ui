@@ -7,12 +7,12 @@ on:
     # Inputs the workflow accepts.
     inputs:
       release_version_name:
-        description: 'New release version name'
+        description: 'New release version name' // 0.5.0
         required: true
         type: string
 
       development_version_name:
-        description: 'Development version name'
+        description: 'Development version name' //0.5.1-SNAPSHOT
         required: true
         type: string
 
@@ -41,14 +41,8 @@ jobs:
       - name: Create release branch
         run: git checkout -b release/${{ inputs.release_version_name }}
 
-      - name: Run Python script to update release branch version
-        run: python .github/workflows/scripts/updateVersionName.py ${{ inputs.release_version_name }}
-
       - name: Push
-        run: |
-          git add .
-          git commit -m "Update version to ${{ inputs.release_version_name }}"
-          git push origin release/${{ inputs.release_version_name }}
+        run: git push origin release/${{ inputs.release_version_name }}
 
   update_version:
 
