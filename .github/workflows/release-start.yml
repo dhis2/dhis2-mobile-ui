@@ -7,12 +7,12 @@ on:
     # Inputs the workflow accepts.
     inputs:
       release_version_name:
-        description: 'New release version name' // 0.5.0
+        description: 'New release version name'
         required: true
         type: string
 
       development_version_name:
-        description: 'Development version name' //0.5.1-SNAPSHOT
+        description: 'Development version name'
         required: true
         type: string
 
