@@ -59,7 +59,9 @@ publishing {
 
 // Signing artifacts. Signing.* extra properties values will be used
 signing {
-    setRequired({ !version.toString().endsWith("-SNAPSHOT") })
+    setRequired({
+        !(version.toString().endsWith("-SNAPSHOT") || version.toString().endsWith("-SNAPSHOTLOCAL"))
+    })
     useInMemoryPgpKeys(signingPrivateKey, signingPassword)
     sign(publishing.publications)
 }
