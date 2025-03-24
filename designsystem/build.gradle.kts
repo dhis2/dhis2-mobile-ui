@@ -94,7 +94,7 @@ tasks.withType(DokkaTask::class).configureEach {
     }
     val dokkaBaseConfiguration = """
     {
-      "customAssets": ["${file("../assets/logo-icon.svg")}"]
+      "customAssets": ["${file("../assets/logo-icon.svg").absolutePath.replace("\\", "/")}"]
     }
     """
     pluginsMapConfiguration.set(
