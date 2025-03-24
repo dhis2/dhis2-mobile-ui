@@ -30,10 +30,9 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantic
  *
  * @param tableModel The model containing the table data.
  * @param horizontalScrollState The scroll state for horizontal scrolling.
- * @param rowModel The model containing the row data.
+ * @param rowModels A list containing the row data.
  * @param rowHeaderCellStyle A composable function to provide the style for the row header cell.
  * @param onRowHeaderClick Callback function invoked when the row header is clicked.
- * @param onDecorationClick Callback function invoked when a decoration is clicked.
  * @param onHeaderResize Callback function invoked when the header is resized.
  * @param onResizing Callback function invoked during the resizing of the header.
  * @param columnCount number of columns
@@ -47,6 +46,7 @@ internal fun TableItemRow(
     (
         rowHeaderIndex: List<Int>,
         rowHeaderColumnIndex: Int?,
+        disabled: Boolean,
     ) -> CellStyle,
     onRowHeaderClick: (rowHeaderIndex: List<Int>, rowHeaderColumnIndex: Int?) -> Unit,
     onHeaderResize: (Float) -> Unit,
@@ -114,6 +114,7 @@ internal fun TableItemRow(
                                         rowHeaderColumnIndex,
                                     ),
                                     rowHeaderColumnIndex,
+                                    rowHeader.disabled,
                                 ),
                                 width = when {
                                     maxRowColumnHeaders == rowModel.rowHeaders.size ->
@@ -128,7 +129,7 @@ internal fun TableItemRow(
                                         with(LocalDensity.current) {
                                             TableTheme.dimensions.rowHeaderWidth(
                                                 groupedTables = config.groupTables,
-                                                tableId = tableModel.id ?: "",
+                                                tableId = tableModel.id,
                                             ).times(maxRowColumnHeaders).toDp()
                                         }
                                 },
@@ -163,7 +164,11 @@ internal fun TableItemRow(
         ) {
             rowModels.forEachIndexed { subRowIndex, tableRowModel ->
                 val firstCellSelected =
-                    TableTheme.tableSelection.isCellSelected(tableModel.id, 0, rowModels[subRowIndex].values[0]?.row ?: -1)
+                    TableTheme.tableSelection.isCellSelected(
+                        tableModel.id,
+                        0,
+                        rowModels[subRowIndex].values[0]?.row ?: -1,
+                    )
 
                 val cellSelectedOnRow = tableRowModel.values.any {
                     tableSelection.isCellSelected(tableModel.id, it.value.column, rowModel.row())

@@ -8,4 +8,7 @@ import kotlinx.serialization.Serializable
  * @property value The value displayed in the header cell.
  */
 @Serializable
-data class TableHeaderCell(val value: String)
+data class TableHeaderCell(
+    val value: String,
+    val disabled: Boolean = false,
+)
