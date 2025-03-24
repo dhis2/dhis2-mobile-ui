@@ -1,6 +1,7 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
 import androidx.compose.ui.test.junit4.createComposeRule
+import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.json.Json
 import org.hisp.dhis.mobile.designsystem.generated.resources.Res
@@ -206,7 +207,11 @@ class TableTest {
 
             tables.forEach { table ->
                 table.tableRows.forEach { row ->
-                    assertRowHeaderText(table.id, row.rowHeaders.first().title, row.rowHeaders.first().id)
+                    assertRowHeaderText(
+                        table.id,
+                        row.rowHeaders.first().title,
+                        row.rowHeaders.first().id,
+                    )
                     assertRowHeaderIsClickable(table.id, row.rowHeaders.first().id)
                 }
             }
@@ -267,6 +272,23 @@ class TableTest {
                 assertCellErrorStyle(id, tableRows[2].values[0]?.id!!)
                 assertCellDisabledStyle(id, tableRows[2].values[1]?.id!!)
                 assertCellWarningStyle(id, tableRows[2].values[2]?.id!!)
+            }
+        }
+    }
+
+    @Test
+    fun shouldCalculateCorrectColumnIndexes() = runBlocking {
+        val table = loadTableFromJson("mandatory_cell_table_list.json")
+        tableRobot(composeTestRule) {
+            initTable(table)
+            with(table.first()) {
+                assertEquals(Pair(0, 12), tableHeaderModel.columnIndexes(0, 0))
+                assertEquals(Pair(12, 24), tableHeaderModel.columnIndexes(0, 1))
+                assertEquals(Pair(24, 36), tableHeaderModel.columnIndexes(0, 2))
+                assertEquals(Pair(0, 4), tableHeaderModel.columnIndexes(1, 0))
+                assertEquals(Pair(4, 8), tableHeaderModel.columnIndexes(1, 1))
+                assertEquals(Pair(0, 1), tableHeaderModel.columnIndexes(2, 0))
+                assertEquals(Pair(1, 2), tableHeaderModel.columnIndexes(2, 1))
             }
         }
     }
