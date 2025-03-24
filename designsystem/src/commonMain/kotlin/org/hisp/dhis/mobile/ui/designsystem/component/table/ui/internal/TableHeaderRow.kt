@@ -7,15 +7,23 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.RestartAlt
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTag
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import org.hisp.dhis.mobile.ui.designsystem.component.IconButton
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableModel
@@ -84,8 +92,11 @@ internal fun TableHeaderRow(
             )
         }
         Row(Modifier.height(IntrinsicSize.Min)) {
+            var headersHeight by remember { mutableStateOf(0.dp) }
+            val density = LocalDensity.current
             TableCorner(
                 modifier = Modifier
+                    .heightIn(max = headersHeight)
                     .semantics {
                         testTag = cornerTestTag(tableModel.id)
                         tableIdSemantic = tableModel.id
@@ -101,7 +112,9 @@ internal fun TableHeaderRow(
 
             TableHeader(
                 tableId = tableModel.id,
-                modifier = Modifier,
+                modifier = Modifier.onGloballyPositioned {
+                    headersHeight = with(density) { it.size.height.toDp() }
+                },
                 tableHeaderModel = tableModel.tableHeaderModel,
                 horizontalScrollState = horizontalScrollState,
                 cellStyle = cellStyle,

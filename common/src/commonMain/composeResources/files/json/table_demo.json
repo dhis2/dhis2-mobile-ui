@@ -1154,7 +1154,7 @@
   },
   {
     "id": "PjKGwf90xBE",
-    "title": "Simple Table",
+    "title": "Simple Table Simple Table Simple Table Simple Table Simple Table Simple Table Simple Table",
     "tableHeaderModel": {
       "rows": [
         {
@@ -1324,6 +1324,76 @@
             "id": "totaltotal",
             "row": 2,
             "column": 1,
+            "value": "1",
+            "editable": false
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "NoHeadersTableId",
+    "tableHeaderModel": {
+      "rows": [],
+      "extraColumns": []
+    },
+    "tableRows": [
+      {
+        "rowHeaders": [
+          {
+            "id": "nht_firstRowId",
+            "title": "Number 1",
+            "showDecoration": false,
+            "row": 0,
+            "column": 0,
+            "description": null
+          }
+        ],
+        "values": {
+          "0": {
+            "id": "00",
+            "row": 0,
+            "column": 0,
+            "value": "1"
+          }
+        }
+      },
+      {
+        "rowHeaders": [
+          {
+            "id": "nht_secondRowId",
+            "title": "Number 2",
+            "showDecoration": false,
+            "row": 1,
+            "column": 0,
+            "description": null
+          }
+        ],
+        "values": {
+          "0": {
+            "id": "10",
+            "row": 1,
+            "column": 0,
+            "value": "2"
+          }
+        }
+      },
+      {
+        "rowHeaders": [
+          {
+            "id": "totalColumn",
+            "title": "Total",
+            "showDecoration": false,
+            "row": 2,
+            "column": 0,
+            "description": null
+          }
+        ],
+        "values": {
+          "0": {
+            "id": "total0",
+            "row": 2,
+            "column": 0,
             "value": "1",
             "editable": false
           }
