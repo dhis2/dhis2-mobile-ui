@@ -3,10 +3,13 @@ package org.hisp.dhis.mobile.ui.designsystem.component
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertTextEquals
+import androidx.compose.ui.test.hasText
+import androidx.compose.ui.test.isSelectable
+import androidx.compose.ui.test.isSelected
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
-import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextClearance
 import androidx.compose.ui.test.performTextInput
@@ -183,7 +186,7 @@ class InputAgeTest {
 
         rule.onNodeWithTag("INPUT_AGE_OPEN_CALENDAR_BUTTON").performClick()
         rule.onNodeWithTag("DATE_PICKER").assertExists()
-        rule.onNodeWithText("27 nov 1991").assertExists()
+        rule.onNode(hasText("27", true) and isSelectable()).assert(isSelected())
     }
 
     @Test

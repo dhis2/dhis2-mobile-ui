@@ -1,6 +1,10 @@
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.test.assert
+import androidx.compose.ui.test.hasText
+import androidx.compose.ui.test.isSelectable
+import androidx.compose.ui.test.isSelected
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
@@ -129,7 +133,7 @@ class InputDateTimeTest {
 
         rule.onNodeWithTag("INPUT_DATE_TIME_ACTION_BUTTON").performClick()
         rule.onNodeWithTag("DATE_PICKER").assertExists()
-        rule.onNodeWithText("21 oct 1991").assertExists()
+        rule.onNode(hasText("21", true) and isSelectable()).assert(isSelected())
     }
 
     @Test
