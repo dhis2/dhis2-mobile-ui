@@ -103,9 +103,9 @@ internal fun dateIsInRange(date: Long, allowedDates: SelectableDates): Boolean {
         )
 }
 
-internal fun parseStringDateToMillis(dateString: String): Long {
+internal fun parseStringDateToMillis(dateString: String, pattern: String = "ddMMyyyy"): Long {
     val cal = Calendar.getInstance()
-    return dateString.parseDate("ddMMyyyy")?.let {
+    return dateString.parseDate(pattern)?.let {
         cal.time = it
         cal.timeInMillis
     } ?: 0L
@@ -149,6 +149,7 @@ internal fun provideDatePickerState(inputTextFieldValue: TextFieldValue?, data: 
         rememberDatePickerState(
             initialSelectedDateMillis = parseStringDateToMillis(
                 dateString = it,
+                pattern = getDefaultFormat(data.actionType),
             ),
             yearRange = data.yearRange,
             selectableDates = getSelectableDates(data.selectableDates),
@@ -429,25 +430,25 @@ internal fun getTimeSupportingTextList(
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-internal fun getTimePickerState(state: InputDateTimeState, uiData: InputDateTimeData): TimePickerState {
-    return if (state.inputTextFieldValue?.text?.isNotEmpty() == true && uiData.actionType == DateTimeActionType.TIME && isValidHourFormat(
-            state.inputTextFieldValue?.text ?: "",
+internal fun getTimePickerState(inputTextFieldValue: TextFieldValue?, uiData: InputDateTimeData): TimePickerState {
+    return if (inputTextFieldValue?.text?.isNotEmpty() == true && uiData.actionType == DateTimeActionType.TIME && isValidHourFormat(
+            inputTextFieldValue.text,
         )
     ) {
         rememberTimePickerState(
-            initialHour = state.inputTextFieldValue!!.text.substring(0, 2)
+            initialHour = inputTextFieldValue.text.substring(0, 2)
                 .toInt(),
-            state.inputTextFieldValue?.text!!.substring(2, 4).toInt(),
+            inputTextFieldValue.text.substring(2, 4).toInt(),
             is24Hour = uiData.is24hourFormat,
         )
-    } else if (state.inputTextFieldValue?.text?.length == 12 && isValidHourFormat(state.inputTextFieldValue!!.text.substring(8, 12))) {
+    } else if (inputTextFieldValue?.text?.length == 12 && isValidHourFormat(inputTextFieldValue.text.substring(8, 12))) {
         rememberTimePickerState(
-            initialHour = state.inputTextFieldValue?.text?.substring(
-                state.inputTextFieldValue!!.text.length - 4,
-                state.inputTextFieldValue!!.text.length - 2,
-            )!!
+            initialHour = inputTextFieldValue.text.substring(
+                inputTextFieldValue.text.length - 4,
+                inputTextFieldValue.text.length - 2,
+            )
                 .toInt(),
-            state.inputTextFieldValue!!.text.substring(state.inputTextFieldValue!!.text.length - 2, state.inputTextFieldValue!!.text.length).toInt(),
+            inputTextFieldValue.text.substring(inputTextFieldValue.text.length - 2, inputTextFieldValue.text.length).toInt(),
             is24Hour = uiData.is24hourFormat,
         )
     } else {

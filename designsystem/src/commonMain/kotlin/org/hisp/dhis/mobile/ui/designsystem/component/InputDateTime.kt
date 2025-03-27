@@ -658,7 +658,7 @@ fun InputDateTime(
         },
         inputStyle = uiData.inputStyle,
     )
-    var datePickerState = provideDatePickerState(state.inputTextFieldValue, uiData)
+    var datePickerState = provideDatePickerState(uiValue, uiData)
 
     if (showDatePicker) {
         DHIS2DatePicker(
@@ -694,7 +694,7 @@ fun InputDateTime(
     }
 
     if (showTimePicker) {
-        val timePickerState = getTimePickerState(state, uiData)
+        val timePickerState = getTimePickerState(uiValue, uiData)
 
         DHIS2TimePicker(
             state = timePickerState,

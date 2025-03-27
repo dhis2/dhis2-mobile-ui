@@ -3,6 +3,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.text.input.TextFieldValue
@@ -128,6 +129,7 @@ class InputDateTimeTest {
 
         rule.onNodeWithTag("INPUT_DATE_TIME_ACTION_BUTTON").performClick()
         rule.onNodeWithTag("DATE_PICKER").assertExists()
+        rule.onNodeWithText("21 oct 1991").assertExists()
     }
 
     @Test
@@ -156,5 +158,6 @@ class InputDateTimeTest {
 
         rule.onNodeWithTag("INPUT_DATE_TIME_ACTION_BUTTON").performClick()
         rule.onNodeWithTag("TIME_PICKER").assertExists()
+        rule.onNodeWithText("19:00").assertExists()
     }
 }
