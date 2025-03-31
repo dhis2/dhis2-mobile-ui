@@ -151,10 +151,13 @@ internal fun Table(
                 val selectedIndex = tableSelection.getSelectedCellRowIndex(tableSelection.tableId)
                 val isCellSelection = tableSelection is TableSelection.CellSelection
                 val isKeyboardOpen = keyboardState == Keyboard.Opened
-
+                val isItemVisible = verticalScrollState.layoutInfo.visibleItemsInfo.any { itemInfo ->
+                    itemInfo.index == selectedIndex && itemInfo.offset >= 0
+                }
+                val shouldScroll = isItemVisible && (isCellSelection || isKeyboardOpen)
                 verticalScrollState.animateToIf(
                     selectedIndex,
-                    (isCellSelection || isKeyboardOpen),
+                    shouldScroll,
                 )
             }
 
