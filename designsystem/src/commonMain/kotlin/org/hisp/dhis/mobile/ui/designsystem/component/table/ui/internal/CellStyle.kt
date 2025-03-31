@@ -103,10 +103,9 @@ internal fun styleForColumnHeader(
 /**
  * Returns the style for column header cells based on their selection state and index.
  *
+ * @param isCornerSelected Indicates if whole table is selected.
  * @param isSelected Indicates if the column header is selected.
- * @param isParentSelected Indicates if the parent column header is selected.
- * @param columnIndex The index of the column.
- * @return The style for the column header cell.
+ * @param isOtherRowSelected Indicates if other row is selected.
  */
 @Composable
 internal fun styleForRowHeader(
@@ -160,7 +159,11 @@ internal fun styleForCell(
     isEditable: Boolean,
     legendColor: Int?,
 ) = CellStyle.CellBorderStyle(
-    borderColor = tableColorProvider().primary,
+    borderColor = when {
+        hasError -> SurfaceColor.Error
+        hasWarning -> SurfaceColor.Warning
+        else -> tableColorProvider().primary
+    },
     backgroundColor = when {
         isParentSelected -> tableColorProvider().selectedCell
         hasError -> SurfaceColor.ErrorContainer

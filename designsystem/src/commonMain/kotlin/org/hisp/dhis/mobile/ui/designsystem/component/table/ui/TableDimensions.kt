@@ -175,7 +175,7 @@ data class TableDimensions(
     ): TableDimensions {
         val tableIdToUse = if (groupedTables) GROUPED_ID else tableId
 
-        val newWidth = (extraWidths[tableIdToUse] ?: 0) + widthOffset - 11
+        val newWidth = (extraWidths[tableIdToUse] ?: 0) + widthOffset
         val newMap = extraWidths.toMutableMap()
         newMap[tableIdToUse] = newWidth.toInt()
         return copy(extraWidths = newMap)
@@ -187,7 +187,7 @@ data class TableDimensions(
         widthOffset: Float,
     ): TableDimensions {
         val tableIdToUse = if (groupedTables) GROUPED_ID else tableId
-        val newWidth = (rowHeaderWidths[tableIdToUse] ?: defaultRowHeaderWidth) + widthOffset - 11
+        val newWidth = (rowHeaderWidths[tableIdToUse] ?: defaultRowHeaderWidth) + widthOffset
         val newMap = rowHeaderWidths.toMutableMap()
         newMap[tableIdToUse] = newWidth.toInt()
         return copy(rowHeaderWidths = newMap)

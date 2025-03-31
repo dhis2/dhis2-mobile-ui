@@ -127,11 +127,13 @@ internal fun TableHeader(
                                     onCellSelected = { onHeaderCellSelected(it, rowIndex) },
                                     onHeaderResize = { headerRow, column, newValue ->
                                         val numberOfSubColumns =
-                                            tableHeaderModel.tableMaxColumns() / tableHeaderModel.numberOfColumns(
-                                                headerRow,
-                                            )
-                                        val startColumnIndex = column * numberOfSubColumns
-                                        for (i in startColumnIndex until startColumnIndex + numberOfSubColumns) {
+                                            tableHeaderModel.numberOfSubColumns(rowIndex)
+                                        val (columnStartIndex, columnEndIndex) = tableHeaderModel.columnIndexes(
+                                            headerRow,
+                                            column,
+                                            numberOfSubColumns,
+                                        )
+                                        for (i in columnStartIndex until columnEndIndex) {
                                             onHeaderResize(i, newValue.div(numberOfSubColumns))
                                         }
                                     },
@@ -187,7 +189,8 @@ internal fun TableHeader(
                         )
                     }
                     repeat(extraColumns) { extraColumnIndex ->
-                        val columnIndex = totalColumns + tableHeaderModel.extraColumns.size + extraColumnIndex
+                        val columnIndex =
+                            totalColumns + tableHeaderModel.extraColumns.size + extraColumnIndex
                         HeaderCell(
                             ItemColumnHeaderUiState(
                                 tableId = tableId,

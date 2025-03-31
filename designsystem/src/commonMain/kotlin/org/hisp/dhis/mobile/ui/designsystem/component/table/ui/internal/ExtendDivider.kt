@@ -20,12 +20,10 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme
  * Composable function to display an extended divider for table rows.
  *
  * @param tableId The ID of the table.
- * @param selected Indicates if the divider is selected.
  */
 @Composable
 internal fun ExtendDivider(
     tableId: String,
-    selected: Boolean,
     rowHeaderCount: Int,
 ) {
     val background = TableTheme.colors.primary
@@ -45,13 +43,7 @@ internal fun ExtendDivider(
                     },
                 )
                 .height(8.dp)
-                .background(
-                    color = if (selected) {
-                        TableTheme.colors.primary
-                    } else {
-                        Color.White
-                    },
-                )
+                .background(Color.White)
                 .drawBehind {
                     drawRect(
                         color = background,
@@ -64,13 +56,7 @@ internal fun ExtendDivider(
             modifier = Modifier
                 .weight(1f)
                 .height(8.dp)
-                .background(
-                    color = if (selected) {
-                        TableTheme.colors.primaryLight
-                    } else {
-                        Color.White
-                    },
-                ),
+                .background(Color.White),
         )
     }
 }

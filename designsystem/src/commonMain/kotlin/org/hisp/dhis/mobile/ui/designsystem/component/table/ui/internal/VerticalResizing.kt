@@ -15,6 +15,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -45,7 +46,7 @@ internal fun VerticalResizingView(
 ) {
     val colorPrimary = TableTheme.colors.primary
     provideResizingCell()?.let { resizingCell ->
-        val offsetX = resizingCell.initialPosition.x + Spacing.Spacing12.value + resizingCell.draggingOffsetX
+        val offsetX = resizingCell.initialPosition.x + resizingCell.draggingOffsetX
         var tableOffset: Offset? by remember { mutableStateOf(null) }
 
         Box(
@@ -53,7 +54,7 @@ internal fun VerticalResizingView(
                 .onGloballyPositioned {
                     tableOffset = it.positionInRoot()
                 }
-                .offset { IntOffset(offsetX.roundToInt(), 0) }
+                .offset { IntOffset(offsetX.roundToInt() + 2.dp.roundToPx(), 0) }
                 .fillMaxHeight()
                 .drawBehind {
                     drawRect(
@@ -71,7 +72,7 @@ internal fun VerticalResizingView(
                         .offset {
                             IntOffset(
                                 x = -19.dp.roundToPx(),
-                                y = -8.dp.roundToPx() + resizingCell.initialPosition.y.roundToInt() - it.y.roundToInt(),
+                                y = resizingCell.initialPosition.y.roundToInt() - it.y.roundToInt(),
                             )
                         }
                         .background(
@@ -100,13 +101,8 @@ internal fun VerticalResizingRule(
     var dimensions by remember { mutableStateOf<TableDimensions?>(null) }
     dimensions = TableTheme.dimensions
 
-    val minOffset = with(LocalDensity.current) {
-        when (inverse) {
-            true -> -5
-            false -> 5
-        }.dp.toPx()
-    }
-    var offsetX by remember { mutableStateOf(minOffset) }
+    val minOffset = with(LocalDensity.current) { 5.dp.toPx() }
+    var offsetX by remember { mutableFloatStateOf(0f) }
     var positionInRoot by remember { mutableStateOf(Offset.Zero) }
 
     Box(
@@ -121,7 +117,7 @@ internal fun VerticalResizingRule(
                         if (abs(offsetX) > abs(minOffset)) {
                             onHeaderResize(offsetX)
                         }
-                        offsetX = minOffset
+                        offsetX = 0f
                     },
                 ) { change, dragAmount ->
                     change.consume()
@@ -151,10 +147,10 @@ internal fun VerticalResizingRule(
         ) {
             Icon(
                 modifier = Modifier
-                    .padding(8.dp)
                     .onGloballyPositioned { coordinates ->
                         positionInRoot = coordinates.positionInRoot()
-                    },
+                    }
+                    .padding(8.dp),
                 imageVector = Icons.Outlined.SwapHorizontalCircle,
                 contentDescription = "",
                 tint = Color.White,

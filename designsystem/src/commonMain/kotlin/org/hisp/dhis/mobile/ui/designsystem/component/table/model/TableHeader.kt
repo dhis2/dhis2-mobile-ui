@@ -31,4 +31,31 @@ data class TableHeader(val rows: List<TableHeaderRow>, val extraColumns: List<Ta
      * @return The maximum number of columns.
      */
     fun tableMaxColumns() = numberOfColumns(rows.size - 1) + extraColumns.size
+
+    /**
+     * Calculates the column indexes for a given header row and column index.
+     * @param headerRowIndex The index of the header row.
+     * @param headerRowColumnIndex The index of the header row column.
+     * @param subColumnCount The number of sub columns for a given header row.
+     * @return start and end indexes of the columns
+     * */
+    fun columnIndexes(
+        headerRowIndex: Int,
+        headerRowColumnIndex: Int,
+        subColumnCount: Int = numberOfSubColumns(headerRowIndex),
+    ): Pair<Int, Int> {
+        val startColumnIndex = headerRowColumnIndex * subColumnCount
+        val endColumnIndex = startColumnIndex + subColumnCount
+        return Pair(startColumnIndex, endColumnIndex)
+    }
+
+    /**
+     * Calculates the number of sub columns for a given header row index.
+     * @param headerRowIndex The index of the header row.
+     * @return The number of sub columns for a given header row.
+     * */
+    fun numberOfSubColumns(headerRowIndex: Int): Int {
+        return tableMaxColumns()
+            .div(numberOfColumns(headerRowIndex) + extraColumns.size)
+    }
 }
