@@ -21,7 +21,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 @Composable
 fun InputAgeScreen() {
     ColumnScreenContainer(title = ActionInputs.INPUT_AGE.label) {
-        var inputType by remember { mutableStateOf<AgeInputType>(AgeInputType.None) }
+        var inputType by remember { mutableStateOf<AgeInputType>(AgeInputType.DateOfBirth(TextFieldValue("2024-11-12"))) }
 
         ColumnComponentContainer("Input Age Component - Idle") {
             InputAge(

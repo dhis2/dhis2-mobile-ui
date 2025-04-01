@@ -1,8 +1,13 @@
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.test.assert
+import androidx.compose.ui.test.hasText
+import androidx.compose.ui.test.isSelectable
+import androidx.compose.ui.test.isSelected
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.text.input.TextFieldValue
@@ -128,6 +133,7 @@ class InputDateTimeTest {
 
         rule.onNodeWithTag("INPUT_DATE_TIME_ACTION_BUTTON").performClick()
         rule.onNodeWithTag("DATE_PICKER").assertExists()
+        rule.onNode(hasText("21", true) and isSelectable()).assert(isSelected())
     }
 
     @Test
@@ -156,5 +162,6 @@ class InputDateTimeTest {
 
         rule.onNodeWithTag("INPUT_DATE_TIME_ACTION_BUTTON").performClick()
         rule.onNodeWithTag("TIME_PICKER").assertExists()
+        rule.onNodeWithText("19:00").assertExists()
     }
 }
