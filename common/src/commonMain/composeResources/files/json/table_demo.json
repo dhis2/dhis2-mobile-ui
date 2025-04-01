@@ -1017,7 +1017,8 @@
       ],
       "extraColumns": [
         {
-          "value": "Total"
+          "value": "Totals",
+          "disabled": true
         }
       ]
     },
@@ -1242,7 +1243,8 @@
       ],
       "extraColumns": [
         {
-          "value": "Total"
+          "value": "Totals",
+          "disabled": true
         }
       ]
     },
@@ -1305,11 +1307,12 @@
         "rowHeaders": [
           {
             "id": "totalColumn",
-            "title": "Total",
+            "title": "Totals",
             "showDecoration": false,
             "row": 2,
             "column": 0,
-            "description": null
+            "description": null,
+            "disabled": true
           }
         ],
         "values": {
@@ -1382,11 +1385,12 @@
         "rowHeaders": [
           {
             "id": "totalColumn",
-            "title": "Total",
+            "title": "Totals",
             "showDecoration": false,
             "row": 2,
             "column": 0,
-            "description": null
+            "description": null,
+            "disabled": true
           }
         ],
         "values": {

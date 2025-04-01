@@ -52,7 +52,7 @@ internal fun TableHeader(
     horizontalScrollState: ScrollState,
     columnCount: Int,
     cellStyle: @Composable
-    (columnIndex: Int, rowIndex: Int) -> CellStyle.HeaderStyle,
+    (columnIndex: Int, rowIndex: Int, disabled: Boolean) -> CellStyle.HeaderStyle,
     onHeaderCellSelected: (columnIndex: Int, headerRowIndex: Int) -> Unit,
     onHeaderResize: (Int, Float) -> Unit,
     onResizing: (ResizingCell?) -> Unit,
@@ -123,7 +123,7 @@ internal fun TableHeader(
                                         height = dimensions.defaultHeaderHeight,
                                     ),
                                     paddingValues = dimensions.headerCellPaddingValues,
-                                    cellStyle = cellStyle(columnIndex, rowIndex),
+                                    cellStyle = cellStyle(columnIndex, rowIndex, tableHeaderRow.cells[cellIndex].disabled),
                                     onCellSelected = { onHeaderCellSelected(it, rowIndex) },
                                     onHeaderResize = { headerRow, column, newValue ->
                                         val numberOfSubColumns =
@@ -179,6 +179,7 @@ internal fun TableHeader(
                                 cellStyle = cellStyle(
                                     tableHeaderModel.numberOfColumns(tableHeaderModel.rows.size - 1),
                                     tableHeaderModel.rows.size - 1,
+                                    extraColumnHeader.disabled,
                                 ),
                                 onCellSelected = {},
                                 onHeaderResize = { _, _, _ -> },

@@ -210,16 +210,16 @@ fun DataTable(
                         .zIndex(if (isTableScrolled) 2f else 0f)
                         .background(Color.White),
                     cornerUiState = TableCornerUiState(
-                        isSelected = tableSelection.isCornerSelected(tableModel.id ?: ""),
+                        isSelected = tableSelection.isCornerSelected(tableModel.id),
                         onTableResize = {
                             if (isSingleValue) {
                                 tableResizeActions.onRowHeaderResize(
-                                    tableModel.id ?: "",
+                                    tableModel.id,
                                     it,
                                 )
                             } else {
                                 tableResizeActions.onTableDimensionResize(
-                                    tableModel.id ?: "",
+                                    tableModel.id,
                                     it,
                                 )
                             }
@@ -231,16 +231,17 @@ fun DataTable(
                     horizontalScrollState = horizontalScrollConfig.getScrollState(index),
                     columnCount = maxColumns ?: 0,
                     maxRowColumnHeaders = maxRowColumnHeaders ?: 0,
-                    cellStyle = { columnIndex, rowIndex ->
+                    cellStyle = { columnIndex, rowIndex, disabled ->
                         styleForColumnHeader(
-                            isCornerSelected = tableSelection.isCornerSelected(tableModel.id ?: ""),
+                            isDisabled = disabled,
+                            isCornerSelected = tableSelection.isCornerSelected(tableModel.id),
                             isSelected = tableSelection.isHeaderSelected(
-                                selectedTableId = tableModel.id ?: "",
+                                selectedTableId = tableModel.id,
                                 columnIndex = columnIndex,
                                 columnHeaderRowIndex = rowIndex,
                             ),
                             isParentSelected = tableSelection.isParentHeaderSelected(
-                                selectedTableId = tableModel.id ?: "",
+                                selectedTableId = tableModel.id,
                                 columnIndex = columnIndex,
                                 columnHeaderRowIndex = rowIndex,
                             ),
@@ -249,13 +250,13 @@ fun DataTable(
                     },
                     onTableCornerClick = {
                         defaultsTableInteractions.onSelectionChange(
-                            TableSelection.AllCellSelection(tableModel.id ?: ""),
+                            TableSelection.AllCellSelection(tableModel.id),
                         )
                     },
                     onHeaderCellClick = { headerColumnIndex, headerRowIndex ->
                         defaultsTableInteractions.onSelectionChange(
                             TableSelection.ColumnSelection(
-                                tableId = tableModel.id ?: "",
+                                tableId = tableModel.id,
                                 columnIndex = headerColumnIndex,
                                 columnHeaderRow = headerRowIndex,
                                 childrenOfSelectedHeader =
@@ -268,14 +269,14 @@ fun DataTable(
                     },
                     onHeaderResize = { column, width ->
                         tableResizeActions.onColumnHeaderResize(
-                            tableModel.id ?: "",
+                            tableModel.id,
                             column,
                             width,
                         )
                     },
                     onResizing = { resizingCell = it },
                     onResetResize = {
-                        tableResizeActions.onTableDimensionReset(tableModel.id ?: "")
+                        tableResizeActions.onTableDimensionReset(tableModel.id)
                     },
                 )
             },
@@ -284,15 +285,16 @@ fun DataTable(
                     tableModel = tableModel,
                     horizontalScrollState = horizontalScrollConfig.getScrollState(index),
                     rowModels = tableRowModel,
-                    rowHeaderCellStyle = { rowHeaderIndexes, rowColumnIndex ->
+                    rowHeaderCellStyle = { rowHeaderIndexes, rowColumnIndex, disabled ->
                         styleForRowHeader(
-                            isCornerSelected = tableSelection.isCornerSelected(tableModel.id ?: ""),
+                            isDisabled = disabled,
+                            isCornerSelected = tableSelection.isCornerSelected(tableModel.id),
                             isSelected = tableSelection.isRowSelected(
-                                selectedTableId = tableModel.id ?: "",
+                                selectedTableId = tableModel.id,
                                 rowHeaderIndexes = rowHeaderIndexes,
                             ),
                             isOtherRowSelected = tableSelection.isOtherRowSelected(
-                                selectedTableId = tableModel.id ?: "",
+                                selectedTableId = tableModel.id,
                                 rowHeaderIndexes = rowHeaderIndexes,
                                 rowHeaderColumnIndex = rowColumnIndex ?: -1,
                             ),
@@ -301,7 +303,7 @@ fun DataTable(
                     onRowHeaderClick = { rowHeaderIndexes, rowHeaderColumnIndex ->
                         defaultsTableInteractions.onSelectionChange(
                             TableSelection.RowSelection(
-                                tableId = tableModel.id ?: "",
+                                tableId = tableModel.id,
                                 rowIndex = rowHeaderIndexes,
                                 rowColumnIndex = rowHeaderColumnIndex ?: -1,
                             ),
@@ -309,7 +311,7 @@ fun DataTable(
                     },
                     onHeaderResize = { width ->
                         tableResizeActions.onRowHeaderResize(
-                            tableModel.id ?: "",
+                            tableModel.id,
                             width,
                         )
                     },
