@@ -38,6 +38,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.styleFor
  *
  * @param tableList The list of table models to be displayed.
  * @param currentSelection The current table selection.
+ * @param inputDialogSize The size of the input component to display
  * @param tableInteractions Optional table interactions callback.
  * @param onResizedActions Optional table resize actions callback.
  * @param topContent Optional composable content to be displayed at the top of the table.
@@ -48,6 +49,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.styleFor
 fun DataTable(
     tableList: List<TableModel>,
     currentSelection: TableSelection = TableSelection.Unselected(),
+    inputDialogSize: Int? = null,
     tableInteractions: TableInteractions? = null,
     onResizedActions: TableResizeActions? = null,
     topContent: @Composable (() -> Unit)? = null,
@@ -203,6 +205,7 @@ fun DataTable(
     ) {
         Table(
             tableList = tableList,
+            inputDialogSize = inputDialogSize,
             tableHeaderRow = { index, tableModel, isTableScrolled ->
                 val isSingleValue = tableModel.tableRows.firstOrNull()?.values?.size == 1
                 TableHeaderRow(

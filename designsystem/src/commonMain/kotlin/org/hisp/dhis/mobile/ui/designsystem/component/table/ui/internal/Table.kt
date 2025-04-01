@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.calculateEndPadding
+import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -35,6 +37,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.component.Button
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonStyle
@@ -72,6 +75,7 @@ import org.jetbrains.compose.resources.ExperimentalResourceApi
 @Composable
 internal fun Table(
     tableList: List<TableModel>,
+    inputDialogSize: Int?,
     tableHeaderRow: @Composable (
         (
             index: Int,
@@ -147,7 +151,7 @@ internal fun Table(
             val keyboardState by keyboardAsState()
             val tableSelection = LocalTableSelection.current
             val tableConfiguration = TableTheme.configuration
-            LaunchedEffect(tableSelection.getSelectedCellRowIndex(tableSelection.tableId)) {
+            LaunchedEffect(tableSelection.getSelectedCellRowIndex(tableSelection.tableId), inputDialogSize) {
                 val selectedIndex = tableSelection.getSelectedCellRowIndex(tableSelection.tableId)
                 val isCellSelection = tableSelection is TableSelection.CellSelection
                 val isKeyboardOpen = keyboardState == Keyboard.Opened
@@ -165,6 +169,21 @@ internal fun Table(
                 derivedStateOf {
                     verticalScrollState.firstVisibleItemScrollOffset != 0
                 }
+            }
+
+            val lazyColumnContentPadding by remember(inputDialogSize) {
+                mutableStateOf(
+                    if (inputDialogSize != null) {
+                        PaddingValues(
+                            start = contentPadding.calculateStartPadding(LayoutDirection.Ltr),
+                            top = contentPadding.calculateTopPadding(),
+                            end = contentPadding.calculateEndPadding(LayoutDirection.Rtl),
+                            inputDialogSize.dp / 2,
+                        )
+                    } else {
+                        contentPadding
+                    },
+                )
             }
             LazyColumn(
                 modifier = Modifier
@@ -184,7 +203,7 @@ internal fun Table(
                         TableTheme.dimensions.tableVerticalPadding
                     },
                 ),
-                contentPadding = contentPadding,
+                contentPadding = lazyColumnContentPadding,
                 state = verticalScrollState,
             ) {
                 topContent?.let { item { it.invoke() } }
@@ -290,7 +309,7 @@ private suspend fun LazyListState.animateToIf(index: Int, condition: Boolean) {
     if (condition) {
         apply {
             if (index >= 0) {
-                animateScrollToItem(index, 250)
+                animateScrollToItem(index)
             }
         }
     }
