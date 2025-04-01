@@ -49,7 +49,6 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.styleFor
 fun DataTable(
     tableList: List<TableModel>,
     currentSelection: TableSelection = TableSelection.Unselected(),
-    inputDialogSize: Int? = null,
     tableInteractions: TableInteractions? = null,
     onResizedActions: TableResizeActions? = null,
     topContent: @Composable (() -> Unit)? = null,
@@ -205,7 +204,6 @@ fun DataTable(
     ) {
         Table(
             tableList = tableList,
-            inputDialogSize = inputDialogSize,
             tableHeaderRow = { index, tableModel, isTableScrolled ->
                 val isSingleValue = tableModel.tableRows.firstOrNull()?.values?.size == 1
                 TableHeaderRow(
