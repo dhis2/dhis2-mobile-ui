@@ -291,7 +291,7 @@ private suspend fun LazyListState.animateToIf(index: Int, condition: Boolean) {
     if (condition) {
         apply {
             if (index >= 0) {
-                animateScrollToItem(index, 100)
+                animateScrollToItem(index, 200)
             }
         }
     }
