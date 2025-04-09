@@ -18,7 +18,6 @@ data class TableHeader(val rows: List<TableHeaderRow>, val extraColumns: List<Ta
      * @return The total number of columns.
      */
     fun numberOfColumns(rowIndex: Int): Int {
-        if (rowIndex < 0) return 0
         var totalCells = 1
         for (index in 0 until rowIndex + 1) {
             totalCells *= rows[index].cells.size
