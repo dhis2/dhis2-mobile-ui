@@ -146,7 +146,7 @@ internal fun TableItemRow(
                                     rowModels = rowModels,
                                     rowHeaderColumnIndex = rowHeaderColumnIndex,
                                 )
-                                if(!rowHeader.disabled) {
+                                if (!rowHeader.disabled) {
                                     onRowHeaderClick(
                                         indexes,
                                         rowHeaderColumnIndex,
