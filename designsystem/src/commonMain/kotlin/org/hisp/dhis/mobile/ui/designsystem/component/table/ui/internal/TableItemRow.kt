@@ -146,10 +146,12 @@ internal fun TableItemRow(
                                     rowModels = rowModels,
                                     rowHeaderColumnIndex = rowHeaderColumnIndex,
                                 )
-                                onRowHeaderClick(
-                                    indexes,
-                                    rowHeaderColumnIndex,
-                                )
+                                if (!rowHeader.disabled) {
+                                    onRowHeaderClick(
+                                        indexes,
+                                        rowHeaderColumnIndex,
+                                    )
+                                }
                             },
                             onHeaderResize = onHeaderResize,
                             onResizing = onResizing,
