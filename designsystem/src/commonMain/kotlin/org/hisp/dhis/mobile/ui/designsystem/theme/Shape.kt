@@ -38,11 +38,11 @@ object Shape {
     )
 
     val ExtraLargeTop = RoundedCornerShape(
-        topStart = CornerSize(Radius.XL),
-        topEnd = CornerSize(Radius.XL),
+        topStart = CornerSize(Radius.XXL),
+        topEnd = CornerSize(Radius.XXL),
         bottomEnd = CornerSize(Radius.NoRounding),
         bottomStart = CornerSize(Radius.NoRounding),
     )
-    val ExtraLarge = RoundedCornerShape(Radius.XL)
+    val ExtraLarge = RoundedCornerShape(Radius.XXL)
     val Full = RoundedCornerShape(Radius.Full)
 }
