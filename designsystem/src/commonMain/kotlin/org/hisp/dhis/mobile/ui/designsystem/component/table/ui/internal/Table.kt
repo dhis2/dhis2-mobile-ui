@@ -147,13 +147,17 @@ internal fun Table(
             val keyboardState by keyboardAsState()
             val tableSelection = LocalTableSelection.current
             val tableConfiguration = TableTheme.configuration
-
-            LaunchedEffect(keyboardState) {
+            LaunchedEffect(tableSelection.getSelectedCellRowIndex(tableSelection.tableId), contentPadding) {
+                val selectedIndex = tableSelection.getSelectedCellRowIndex(tableSelection.tableId)
                 val isCellSelection = tableSelection is TableSelection.CellSelection
                 val isKeyboardOpen = keyboardState == Keyboard.Opened
+                val isItemVisible = verticalScrollState.layoutInfo.visibleItemsInfo.any { itemInfo ->
+                    itemInfo.index == selectedIndex && itemInfo.offset >= 0
+                }
+                val shouldScroll = isItemVisible && (isCellSelection || isKeyboardOpen)
                 verticalScrollState.animateToIf(
-                    tableSelection.getSelectedCellRowIndex(tableSelection.tableId),
-                    isCellSelection && isKeyboardOpen,
+                    selectedIndex,
+                    shouldScroll,
                 )
             }
 
@@ -162,6 +166,7 @@ internal fun Table(
                     verticalScrollState.firstVisibleItemScrollOffset != 0
                 }
             }
+
             LazyColumn(
                 modifier = Modifier
                     .testTag("TABLE_SCROLLABLE_COLUMN")
@@ -286,7 +291,7 @@ private suspend fun LazyListState.animateToIf(index: Int, condition: Boolean) {
     if (condition) {
         apply {
             if (index >= 0) {
-                animateScrollToItem(index)
+                animateScrollToItem(index, 200)
             }
         }
     }
