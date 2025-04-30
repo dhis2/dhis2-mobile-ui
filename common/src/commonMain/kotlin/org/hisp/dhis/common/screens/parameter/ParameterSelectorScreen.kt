@@ -1,6 +1,7 @@
 package org.hisp.dhis.common.screens.parameter
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.OpenInNew
 import androidx.compose.material.icons.outlined.QrCode2
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
@@ -14,12 +15,14 @@ import androidx.compose.ui.text.input.TextFieldValue
 import org.hisp.dhis.mobile.ui.designsystem.component.AgeInputType
 import org.hisp.dhis.mobile.ui.designsystem.component.CheckBoxData
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
+import org.hisp.dhis.mobile.ui.designsystem.component.CustomIntentState
 import org.hisp.dhis.mobile.ui.designsystem.component.DateTimeActionType
 import org.hisp.dhis.mobile.ui.designsystem.component.DropdownItem
 import org.hisp.dhis.mobile.ui.designsystem.component.ImageCardData
 import org.hisp.dhis.mobile.ui.designsystem.component.InputAge
 import org.hisp.dhis.mobile.ui.designsystem.component.InputBarCode
 import org.hisp.dhis.mobile.ui.designsystem.component.InputCheckBox
+import org.hisp.dhis.mobile.ui.designsystem.component.InputCustomIntent
 import org.hisp.dhis.mobile.ui.designsystem.component.InputDateTime
 import org.hisp.dhis.mobile.ui.designsystem.component.InputDropDown
 import org.hisp.dhis.mobile.ui.designsystem.component.InputEmail
@@ -35,6 +38,8 @@ import org.hisp.dhis.mobile.ui.designsystem.component.InputRadioButton
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.InputStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.InputText
+import org.hisp.dhis.mobile.ui.designsystem.component.ProgressIndicator
+import org.hisp.dhis.mobile.ui.designsystem.component.ProgressIndicatorType
 import org.hisp.dhis.mobile.ui.designsystem.component.RadioButtonData
 import org.hisp.dhis.mobile.ui.designsystem.component.model.DateTimeTransformation
 import org.hisp.dhis.mobile.ui.designsystem.component.parameter.ParameterSelectorItem
@@ -81,6 +86,18 @@ fun ParameterSelectorScreen() {
 
     var ageInputType by remember {
         mutableStateOf<AgeInputType>(AgeInputType.None)
+    }
+
+    var inputCustomIntentValue by remember { mutableStateOf(emptyList<String>()) }
+    var inputCustomIntentState by remember { mutableStateOf(CustomIntentState.LAUNCH) }
+    var inputCustomIntentStatus by remember(inputCustomIntentState) {
+        mutableStateOf(
+            if (inputCustomIntentState == CustomIntentState.LAUNCH) {
+                CLOSED
+            } else {
+                UNFOCUSED
+            },
+        )
     }
 
     val items = listOf(
@@ -173,6 +190,44 @@ fun ParameterSelectorScreen() {
                 )
             },
             onExpand = {},
+        ),
+        ParameterSelectorItemModel(
+            icon = {
+                if (inputCustomIntentState != CustomIntentState.LOADING) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Outlined.OpenInNew,
+                        contentDescription = "Icon Button",
+                        tint = SurfaceColor.Primary,
+                    )
+                } else {
+                    ProgressIndicator(
+                        type = ProgressIndicatorType.CIRCULAR,
+                    )
+                }
+            },
+            label = "Custom intent parameter",
+            helper = "Optional",
+            inputField = {
+                InputCustomIntent(
+                    title = "Custom intent parameter",
+                    values = inputCustomIntentValue,
+                    customIntentState = CustomIntentState.LOADED,
+                    inputStyle = InputStyle.ParameterInputStyle(),
+                    onLaunch = {
+                        inputCustomIntentValue = listOf("option 1", "option 2", "option 3")
+                    },
+                    onClear = {
+                        inputCustomIntentValue = emptyList()
+                        inputCustomIntentStatus = CLOSED
+                    },
+                    buttonText = "Launch",
+                )
+            },
+            status = inputCustomIntentStatus,
+            onExpand = {
+                inputCustomIntentState = CustomIntentState.LOADED
+                inputCustomIntentStatus = FOCUSED
+            },
         ),
         ParameterSelectorItemModel(
             label = "CheckBox parameter",

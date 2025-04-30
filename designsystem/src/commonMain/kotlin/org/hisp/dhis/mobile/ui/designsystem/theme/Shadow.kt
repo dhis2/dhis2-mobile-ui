@@ -89,13 +89,13 @@ internal fun Modifier.innerShadow(
     blur: Dp = 10.dp,
 ): Modifier = this.then(
     drawBehind {
-        val shadowSize = Size(size.width, 12.dp.toPx())
+        val shadowSize = Size(size.width, 32.dp.toPx())
         val shadowOutline = RectangleShape.createOutline(shadowSize, layoutDirection, this)
 
         // Create a Paint object
         val paint = Paint()
         // Apply specified color
-        paint.color = TextColor.OnSurfaceVariant.copy(alpha = 0.3f)
+        paint.color = SurfaceColor.CustomShadow.copy(alpha = 0.16f)
 
         // Check for valid blur radius
         if (blur.toPx() > 0) {
@@ -109,8 +109,8 @@ internal fun Modifier.innerShadow(
             // Save the canvas state
             canvas.save()
             // Translate to specified offsets
-            canvas.translate(Spacing.Spacing0.toPx(), size.height - 12.dp.toPx())
-            canvas.clipRect(0f, size.height - 12.dp.toPx(), size.width, size.height - 12.dp.toPx(), ClipOp.Difference)
+            canvas.translate(Spacing.Spacing0.toPx(), size.height)
+            canvas.clipRect(0f, 0f, size.width, size.height, ClipOp.Difference)
             // Draw the shadow
             canvas.drawOutline(shadowOutline, paint)
             // Restore the canvas state

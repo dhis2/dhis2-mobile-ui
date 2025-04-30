@@ -19,6 +19,7 @@ import org.hisp.dhis.common.screens.basicTextInputs.BasicTextInputsScreen
 import org.hisp.dhis.common.screens.bottomSheets.BottomSheetsScreen
 import org.hisp.dhis.common.screens.buttons.ButtonsScreen
 import org.hisp.dhis.common.screens.cards.CardsScreen
+import org.hisp.dhis.common.screens.layouts.TwoPaneLayoutScreen
 import org.hisp.dhis.common.screens.location.LocationSearchBarScreen
 import org.hisp.dhis.common.screens.menu.MenuScreen
 import org.hisp.dhis.common.screens.others.BadgesScreen
@@ -33,6 +34,9 @@ import org.hisp.dhis.common.screens.others.SectionScreen
 import org.hisp.dhis.common.screens.others.TagsScreen
 import org.hisp.dhis.common.screens.others.TopBarScreen
 import org.hisp.dhis.common.screens.parameter.ParameterSelectorScreen
+import org.hisp.dhis.common.screens.table.InputDialogScreen
+import org.hisp.dhis.common.screens.table.TableScreen
+import org.hisp.dhis.common.screens.tabs.TabsScreen
 import org.hisp.dhis.common.screens.toggleableInputs.ToggleableInputsScreen
 import org.hisp.dhis.mobile.ui.designsystem.component.DropdownItem
 import org.hisp.dhis.mobile.ui.designsystem.component.InputDropDown
@@ -140,6 +144,10 @@ fun Main(
                 Groups.LOCATION_SEARCH_BAR -> LocationSearchBarScreen { locationQuery, locationCallback ->
                     onLocationRequest?.invoke(locationQuery, locationCallback)
                 }
+                Groups.TABLE -> TableScreen()
+                Groups.INPUT_DIALOG -> InputDialogScreen()
+                Groups.TABS -> TabsScreen()
+                Groups.TWO_PANE_LAYOUT -> TwoPaneLayoutScreen()
             }
         } else {
             NoComponentSelectedScreen(

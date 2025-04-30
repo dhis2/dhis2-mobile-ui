@@ -5,6 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -13,6 +14,7 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Cancel
+import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
@@ -42,6 +44,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import org.hisp.dhis.mobile.ui.designsystem.component.model.DraggableType
+import org.hisp.dhis.mobile.ui.designsystem.component.modifier.draggableList
+import org.hisp.dhis.mobile.ui.designsystem.component.state.BottomSheetShellUIState
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2SCustomTextStyles
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing0
@@ -77,6 +82,8 @@ private const val MAX_DROPDOWN_ITEMS_TO_SHOW = 50
  * @param expanded: config whether the dropdown should be initially displayed.
  * @param useDropDown: use dropdown if true. Bottomsheet with search capability otherwise.
  * @param onDismiss: gives access to the onDismiss event.
+ * @param windowInsets: The insets to use for the bottom sheet shell.
+ * @param bottomSheetLowerPadding the lower padding to use for the bottom sheet
  * @param noResultsFoundString: text to be shown in pop up when no results are found.
  */
 @OptIn(ExperimentalMaterial3Api::class)
@@ -101,6 +108,8 @@ fun InputDropDown(
     useDropDown: Boolean = true,
     loadOptions: () -> Unit,
     onDismiss: () -> Unit = {},
+    windowInsets: @Composable () -> WindowInsets = { BottomSheetDefaults.windowInsets },
+    bottomSheetLowerPadding: Dp = Spacing0,
     noResultsFoundString: String = provideStringResource("no_results_found"),
     searchToFindMoreString: String = provideStringResource("search_to_see_more"),
 ) {
@@ -137,24 +146,35 @@ fun InputDropDown(
 
                 val scrollState = rememberLazyListState()
                 BottomSheetShell(
+                    uiState = BottomSheetShellUIState(
+                        showBottomSectionDivider = true,
+                        showTopSectionDivider = true,
+                        bottomPadding = bottomSheetLowerPadding,
+                        title = title,
+                        searchQuery = if (showSearchBar) {
+                            searchQuery
+                        } else {
+                            null
+                        },
+                    ),
                     modifier = Modifier.testTag("INPUT_DROPDOWN_BOTTOM_SHEET"),
-                    title = title,
-                    contentScrollState = scrollState,
                     content = {
                         LazyColumn(
                             modifier = Modifier
                                 .testTag("INPUT_DROPDOWN_BOTTOM_SHEET_ITEMS")
                                 .semantics {
                                     dropDownItemCount = itemCount
-                                }
-                                .padding(top = Spacing8),
+                                }.draggableList(
+                                    scrollState = scrollState,
+                                    draggableType = DraggableType.Vertical,
+                                ),
                             state = scrollState,
                         ) {
                             when {
                                 itemCount > 0 ->
                                     items(count = itemCount) { index ->
                                         with(fetchItem(index)) {
-                                            DropdownItem(
+                                            DropdownListItem(
                                                 modifier = Modifier.testTag("INPUT_DROPDOWN_BOTTOM_SHEET_ITEM_$index"),
                                                 item = this,
                                                 selected = selectedItem == this,
@@ -189,22 +209,19 @@ fun InputDropDown(
                             }
                         }
                     },
-                    onDismiss = {
-                        showDropdown = false
-                        onDismiss()
-                    },
-                    searchQuery = if (showSearchBar) {
-                        searchQuery
-                    } else {
-                        null
+                    windowInsets = windowInsets,
+                    contentScrollState = scrollState,
+                    onSearchQueryChanged = {
+                        searchQuery = it
+                        onSearchOption(it)
                     },
                     onSearch = {
                         searchQuery = it
                         onSearchOption(it)
                     },
-                    onSearchQueryChanged = {
-                        searchQuery = it
-                        onSearchOption(it)
+                    onDismiss = {
+                        showDropdown = false
+                        onDismiss()
                     },
                 )
             }
@@ -237,7 +254,7 @@ fun InputDropDown(
                 ) {
                     repeat(itemCount) { index ->
                         with(fetchItem(index)) {
-                            DropdownItem(
+                            DropdownListItem(
                                 modifier = Modifier.testTag("INPUT_DROPDOWN_MENU_ITEM_$index")
                                     .fillMaxWidth()
                                     .padding(start = dropdownStartPadding(inputStyle) + 8.dp),
@@ -402,27 +419,29 @@ fun DropdownInputField(
 }
 
 /**
- * DHIS2 composable  DropdownItem.
+ * DHIS2 composable  DropdownListItem.
  * used internally for DHIS2 component [InputDropDown] with
- * @param item: [DropdownItem] with label to be used.
+ * @param item: [DropdownItem] data class with label to be used.
  * @param contentPadding: the padding to be used.
  * @param selected: whether item is selected or not.
  * @param onItemClick: call back for item selected.
  * @param modifier: optional modifier.
+ * @param enabled: whether item is enabled or not.
  */
 @Composable
-private fun DropdownItem(
+fun DropdownListItem(
     item: DropdownItem,
     contentPadding: PaddingValues,
     modifier: Modifier = Modifier,
     selected: Boolean = false,
+    enabled: Boolean = true,
     onItemClick: () -> Unit,
 ) {
     Box(
         modifier = modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(Spacing8))
-            .clickable(onClick = onItemClick)
+            .clickable(enabled = enabled, onClick = onItemClick)
             .background(
                 color = if (selected) {
                     SurfaceColor.PrimaryContainer
@@ -439,7 +458,7 @@ private fun DropdownItem(
             } else {
                 MaterialTheme.typography.bodyLarge
             },
-            color = TextColor.OnSurface,
+            color = if (enabled) TextColor.OnSurface else TextColor.OnDisabledSurface,
         )
     }
 }

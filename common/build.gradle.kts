@@ -2,6 +2,7 @@ plugins {
     kotlin("multiplatform")
     id("org.jetbrains.compose")
     id("com.android.library")
+    id("org.jetbrains.kotlin.plugin.serialization").version("2.0.20")
     alias(libs.plugins.compose.compiler)
 }
 
@@ -19,6 +20,7 @@ kotlin {
             @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
             implementation(compose.components.resources)
             api(project(":designsystem"))
+            implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
         }
         commonTest.dependencies {
             implementation(kotlin("test"))

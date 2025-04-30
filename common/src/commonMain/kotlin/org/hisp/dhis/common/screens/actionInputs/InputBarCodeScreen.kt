@@ -26,6 +26,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.RowComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
 import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextData
 import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextState
+import org.hisp.dhis.mobile.ui.designsystem.component.state.BottomSheetShellUIState
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 
@@ -38,19 +39,21 @@ fun InputBarCodeScreen() {
 
             if (showEnabledBarCodeBottomSheet) {
                 BottomSheetShell(
+                    uiState = BottomSheetShellUIState(
+                        title = provideStringResource("qr_code"),
+                    ),
                     modifier = Modifier.testTag("LEGEND_BOTTOM_SHEET"),
-                    title = provideStringResource("qr_code"),
+                    content = {
+                        Row(horizontalArrangement = Arrangement.Center) {
+                            BarcodeBlock(data = inputValue1.text)
+                        }
+                    },
                     icon = {
                         Icon(
                             imageVector = Icons.Outlined.Info,
                             contentDescription = "Button",
                             tint = SurfaceColor.Primary,
                         )
-                    },
-                    content = {
-                        Row(horizontalArrangement = Arrangement.Center) {
-                            BarcodeBlock(data = inputValue1.text)
-                        }
                     },
                     buttonBlock = {
                         ButtonCarousel(

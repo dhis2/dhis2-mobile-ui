@@ -23,5 +23,7 @@ object SurfaceColor {
     val CustomPink = Color.CustomDarkPink
     val CustomYellow = Color.CustomYellow
     val CustomBrown = Color.CustomBrown
+    val CustomOrange = Color.Orange600
     val CustomGray = Color.CustomGray
+    val CustomShadow = Color.Blue900
 }

@@ -30,8 +30,10 @@ fun ActionInputsScreen() {
         ActionInputs.INPUT_ORG_UNIT -> InputOrgUnitScreen()
         ActionInputs.INPUT_FILE_RESOURCE -> InputFileResourceScreen()
         ActionInputs.INPUT_DATE_TIME -> InputDateTimeScreen()
+        ActionInputs.PICKERS -> PickersScreen()
         ActionInputs.INPUT_COORDINATE -> InputCoordinateScreen()
         ActionInputs.INPUT_SIGNATURE -> InputSignatureScreen()
+        ActionInputs.INPUT_CUSTOM_INTENT -> InputCustomIntentScreen()
         ActionInputs.INPUT_IMAGE -> InputImageScreen()
         ActionInputs.INPUT_AGE -> InputAgeScreen()
         ActionInputs.INPUT_PHONE_NUMBER -> InputPhoneNumberScreen()
@@ -48,6 +50,7 @@ enum class ActionInputs(val label: String) {
     INPUT_BARCODE("Input Barcode component"),
     INPUT_COORDINATE("Input Coordinate component"),
     INPUT_DATE_TIME("Input Date Time component"),
+    PICKERS("Pickers"),
     INPUT_EMAIL("Input Email component"),
     INPUT_FILE_RESOURCE("Input File Resource component"),
     INPUT_IMAGE("Input Image component"),
@@ -57,6 +60,7 @@ enum class ActionInputs(val label: String) {
     INPUT_POLYGON("Input Polygon component"),
     INPUT_QR_CODE("Input QR code component"),
     INPUT_SIGNATURE("Input Signature component"),
+    INPUT_CUSTOM_INTENT("Input Custom Intent component"),
     NO_COMPONENT_SELECTED("No component selected"),
 }
 

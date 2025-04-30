@@ -838,6 +838,7 @@ data class ListCardTitleModel(
     val color: Color? = TextColor.OnPrimaryContainer,
     val text: String,
     val modifier: Modifier = Modifier,
+    val allowOverflow: Boolean = true,
 )
 
 data class ListCardDescriptionModel(

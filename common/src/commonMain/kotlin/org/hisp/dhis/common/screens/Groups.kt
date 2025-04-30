@@ -22,4 +22,8 @@ enum class Groups(val label: String) {
     MENU("Menu"),
     NO_GROUP_SELECTED("No group selected"),
     LOCATION_SEARCH_BAR("Location Search Bar"),
+    TABLE("Table"),
+    INPUT_DIALOG("Input Dialog"),
+    TABS("Tabs"),
+    TWO_PANE_LAYOUT("Two pane layout"),
 }
