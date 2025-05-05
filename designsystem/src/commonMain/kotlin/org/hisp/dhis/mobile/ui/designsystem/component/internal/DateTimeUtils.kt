@@ -17,6 +17,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.state.InputDateTimeData
 import org.hisp.dhis.mobile.ui.designsystem.component.state.InputDateTimeState
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
+import java.text.DecimalFormatSymbols
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -246,7 +247,7 @@ internal fun getTime(timePickerState: TimePickerState, format: String = "HHmm"):
     cal.set(Calendar.MILLISECOND, 0)
 
     val formater = SimpleDateFormat(format)
-    return formater.format(cal.time)
+    return normalizeToGregorian(formater.format(cal.time))
 }
 
 @Suppress("deprecation")
@@ -454,4 +455,13 @@ internal fun getTimePickerState(inputTextFieldValue: TextFieldValue?, uiData: In
     } else {
         rememberTimePickerState(0, 0, is24Hour = uiData.is24hourFormat)
     }
+}
+
+internal fun normalizeToGregorian(input: String): String {
+    val symbols = DecimalFormatSymbols(Locale.getDefault())
+    val zeroDigit = symbols.zeroDigit
+    val arabicToGregorianMap = (0..9).associate {
+        (zeroDigit + it) to ('0' + it)
+    }
+    return input.map { arabicToGregorianMap[it] ?: it }.joinToString("")
 }

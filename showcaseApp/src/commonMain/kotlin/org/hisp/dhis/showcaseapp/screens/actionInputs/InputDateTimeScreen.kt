@@ -27,7 +27,7 @@ fun InputDateTimeScreen() {
         var dateTime by remember { mutableStateOf(TextFieldValue("1991-11-12T02:30")) }
         var dateTime24hour by remember { mutableStateOf(TextFieldValue("1991-11-12T19:30")) }
 
-        var dateTimenoInput by remember { mutableStateOf(TextFieldValue("09:30")) }
+        var dateTimeInput by remember { mutableStateOf(TextFieldValue("09:30")) }
         var hour24time by remember { mutableStateOf(TextFieldValue("16:30")) }
 
         ColumnComponentContainer("Date Input (allowed dates from 01/09/2024 to 12/12/2025)") {
@@ -58,10 +58,10 @@ fun InputDateTimeScreen() {
                         actionType = DateTimeActionType.TIME,
                         allowsManualInput = false,
                     ),
-                    inputTextFieldValue = time,
+                    inputTextFieldValue = dateTimeInput,
                 ),
 
-                onValueChanged = { dateTimenoInput = it ?: TextFieldValue() },
+                onValueChanged = { dateTimeInput = it ?: TextFieldValue() },
 
             )
         }
