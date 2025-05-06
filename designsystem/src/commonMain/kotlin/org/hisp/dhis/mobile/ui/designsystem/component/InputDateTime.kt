@@ -61,7 +61,6 @@ import org.hisp.dhis.mobile.ui.designsystem.component.internal.getSupportingText
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.getTime
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.getTimePickerState
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.isValidHourFormat
-import org.hisp.dhis.mobile.ui.designsystem.component.internal.normalizeToGregorian
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.parseDate
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.provideDatePickerState
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.timePickerColors
@@ -768,15 +767,7 @@ private fun manageOnValueChanged(
     onValueChanged: (TextFieldValue?) -> Unit,
     actionType: DateTimeActionType,
 ) {
-    val normalizedText = normalizeToGregorian(newText.text)
-    val normalizedTextField = newText.copy(
-        text = normalizedText,
-        selection = TextRange(normalizedText.length),
-    )
-    val allowedCharacters = RegExValidations.DATE_TIME.regex
-    if (allowedCharacters.containsMatchIn(normalizedTextField.text) || normalizedTextField.text.isBlank()) {
-        onValueChanged.invoke(formatUIDateToStored(normalizedTextField, actionType))
-    }
+    onValueChanged.invoke(formatUIDateToStored(newText, actionType))
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
