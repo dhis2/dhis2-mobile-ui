@@ -19,6 +19,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.state.InputDateTimeState
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import java.text.DecimalFormatSymbols
+import java.text.NumberFormat
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -168,45 +169,50 @@ internal fun getDefaultFormat(actionType: DateTimeActionType): String {
 }
 
 internal fun formatUIDateToStored(textFieldValue: TextFieldValue, valueType: DateTimeActionType?): TextFieldValue {
-    val normalizedDateString = normalizeToGregorian(textFieldValue.text)
-    val normalizedTextField = textFieldValue.copy(
-        text = normalizedDateString,
-        selection = TextRange(normalizedDateString.length),
-    )
+    val normalizedTextField = if (localeUsesLatinDigits()) {
+        textFieldValue
+    } else {
+        val normalizedDateString = normalizeToGregorian(textFieldValue.text)
+        textFieldValue.copy(
+            text = normalizedDateString,
+            selection = TextRange(normalizedDateString.length),
+        )
+    }
+    val inputDateString = normalizedTextField.text
 
     return when (valueType) {
         DateTimeActionType.DATE_TIME -> {
-            if (normalizedDateString.length != 12) {
-                textFieldValue
+            if (inputDateString.length != 12) {
+                normalizedTextField
             } else {
-                val minutes = normalizedDateString.substring(10, 12)
-                val hours = normalizedDateString.substring(8, 10)
-                val year = normalizedDateString.substring(4, 8)
-                val month = normalizedDateString.substring(2, 4)
-                val day = normalizedDateString.substring(0, 2)
+                val minutes = inputDateString.substring(10, 12)
+                val hours = inputDateString.substring(8, 10)
+                val year = inputDateString.substring(4, 8)
+                val month = inputDateString.substring(2, 4)
+                val day = inputDateString.substring(0, 2)
                 val dateTimeValue = "$year-$month-$day" + "T$hours:$minutes"
                 TextFieldValue(dateTimeValue, normalizedTextField.selection, normalizedTextField.composition)
             }
         }
 
         DateTimeActionType.TIME -> {
-            if (normalizedDateString.length != 4 && normalizedDateString.length != 12) {
-                textFieldValue
+            if (inputDateString.length != 4 && inputDateString.length != 12) {
+                normalizedTextField
             } else {
-                val minutes = normalizedDateString.substring(2, 4)
-                val hours = normalizedDateString.substring(0, 2)
+                val minutes = inputDateString.substring(2, 4)
+                val hours = inputDateString.substring(0, 2)
                 val timeValue = "$hours:$minutes"
                 TextFieldValue(timeValue, normalizedTextField.selection, normalizedTextField.composition)
             }
         }
 
         else -> {
-            if (normalizedDateString.length != 8) {
-                textFieldValue
+            if (inputDateString.length != 8) {
+                normalizedTextField
             } else {
-                val year = normalizedDateString.substring(4, 8)
-                val month = normalizedDateString.substring(2, 4)
-                val day = normalizedDateString.substring(0, 2)
+                val year = inputDateString.substring(4, 8)
+                val month = inputDateString.substring(2, 4)
+                val day = inputDateString.substring(0, 2)
                 val dateValue = "$year-$month-$day"
                 TextFieldValue(dateValue, normalizedTextField.selection, normalizedTextField.composition)
             }
@@ -463,11 +469,19 @@ internal fun getTimePickerState(inputTextFieldValue: TextFieldValue?, uiData: In
     }
 }
 
-internal fun normalizeToGregorian(input: String): String {
+private fun normalizeToGregorian(input: String): String {
     val symbols = DecimalFormatSymbols(Locale.getDefault())
     val zeroDigit = symbols.zeroDigit
     val arabicToGregorianMap = (0..9).associate {
         (zeroDigit + it) to ('0' + it)
     }
     return input.map { arabicToGregorianMap[it] ?: it }.joinToString("")
+}
+
+private fun localeUsesLatinDigits(): Boolean {
+    val locale = Locale.getDefault()
+    val numberFormat = NumberFormat.getInstance(locale)
+    val formatted = numberFormat.format(1234567890)
+    val digitsOnly = formatted.filter { it.isDigit() }
+    return digitsOnly.all { it in '0'..'9' }
 }
