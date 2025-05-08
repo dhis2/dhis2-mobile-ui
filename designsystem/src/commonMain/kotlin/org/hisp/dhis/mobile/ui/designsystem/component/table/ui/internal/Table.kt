@@ -205,6 +205,7 @@ internal fun Table(
                         TableTheme.dimensions.tableVerticalPadding
                     },
                 ),
+                contentPadding = PaddingValues(bottom = contentPadding.calculateBottomPadding()),
                 state = verticalScrollState,
             ) {
                 topContent?.let { item { it.invoke() } }
