@@ -36,6 +36,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onSizeChanged
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
@@ -180,7 +181,9 @@ internal fun Table(
 
             val offset by animateIntOffsetAsState(
                 targetValue = if (isFirstItemHidden) {
-                    IntOffset(0, 48)
+                    with(LocalDensity.current) {
+                        IntOffset(0, Spacing.Spacing16.roundToPx())
+                    }
                 } else {
                     IntOffset.Zero
                 },
