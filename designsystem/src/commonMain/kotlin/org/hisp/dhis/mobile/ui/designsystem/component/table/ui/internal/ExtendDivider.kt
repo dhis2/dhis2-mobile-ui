@@ -30,7 +30,7 @@ internal fun ExtendDivider(
 ) {
     val background = TableTheme.colors.primary
     val config = TableTheme.configuration
-    Row(modifier = Modifier.fillMaxWidth().padding(  horizontal = Spacing.Spacing16)) {
+    Row(modifier = Modifier.fillMaxWidth().padding(horizontal = Spacing.Spacing16)) {
         Box(
             modifier = Modifier
                 .width(
