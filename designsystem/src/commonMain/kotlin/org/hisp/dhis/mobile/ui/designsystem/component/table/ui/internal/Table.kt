@@ -1,6 +1,7 @@
 package org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.animateIntOffsetAsState
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement.spacedBy
@@ -11,6 +12,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
@@ -35,9 +37,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.component.Button
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonStyle
+import org.hisp.dhis.mobile.ui.designsystem.component.ProgressIndicator
+import org.hisp.dhis.mobile.ui.designsystem.component.ProgressIndicatorType
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.Keyboard
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.keyboardAsState
 import org.hisp.dhis.mobile.ui.designsystem.component.model.DraggableType
@@ -49,11 +54,11 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.GROUPED_ID
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.LocalTableSelection
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableSelection
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme
-import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme.tableSelection
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.compositions.LocalTableResizeActions
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.extensions.fixedStickyHeader
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
+import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 
 /**
@@ -91,6 +96,7 @@ internal fun Table(
     bottomContent: @Composable (() -> Unit)? = null,
     maxRowColumnHeaders: Int,
     contentPadding: PaddingValues,
+    loading: Boolean = false,
 ) {
     Box(
         modifier = Modifier
@@ -166,18 +172,32 @@ internal fun Table(
                     verticalScrollState.firstVisibleItemScrollOffset != 0
                 }
             }
+            val isFirstItemHidden by remember {
+                derivedStateOf {
+                    verticalScrollState.firstVisibleItemIndex > 0
+                }
+            }
+
+            val offset by animateIntOffsetAsState(
+                targetValue = if (isFirstItemHidden) {
+                    IntOffset(0, 48)
+                } else {
+                    IntOffset.Zero
+                },
+                label = "offset",
+            )
 
             LazyColumn(
                 modifier = Modifier
                     .testTag("TABLE_SCROLLABLE_COLUMN")
-                    .background(Color.White)
+                    .background(Color.Transparent)
                     .fillMaxWidth()
                     .onSizeChanged {
                         resizeActions.onTableWidthChanged(it.width)
                     }.draggableList(
                         scrollState = verticalScrollState,
                         draggableType = DraggableType.Vertical,
-                    ),
+                    ).offset { offset },
                 verticalArrangement = spacedBy(
                     if (TableTheme.configuration.groupTables) {
                         0.dp
@@ -185,69 +205,79 @@ internal fun Table(
                         TableTheme.dimensions.tableVerticalPadding
                     },
                 ),
-                contentPadding = contentPadding,
                 state = verticalScrollState,
             ) {
                 topContent?.let { item { it.invoke() } }
-                tableList.forEachIndexed { tableIndex, tableModel ->
-                    val isLastTable = tableList.lastIndex == tableIndex
-                    fixedStickyHeader(
-                        fixHeader = keyboardState == Keyboard.Closed,
-                        key = tableModel.id,
-                    ) {
-                        val isFirstVisibleStickyHeader by remember {
-                            derivedStateOf {
-                                verticalScrollState
-                                    .layoutInfo.visibleItemsInfo
-                                    .firstOrNull()?.key == "${tableModel.id}_sticky"
+                if (loading) {
+                    item {
+                        Box(
+                            modifier = Modifier.fillMaxSize().background(SurfaceColor.SurfaceBright),
+                            contentAlignment = Alignment.Center,
+                        ) {
+                            ProgressIndicator(type = ProgressIndicatorType.CIRCULAR)
+                        }
+                    }
+                } else {
+                    tableList.forEachIndexed { tableIndex, tableModel ->
+                        val isLastTable = tableList.lastIndex == tableIndex
+                        fixedStickyHeader(
+                            fixHeader = keyboardState == Keyboard.Closed,
+                            key = tableModel.id,
+                        ) {
+                            val isFirstVisibleStickyHeader by remember {
+                                derivedStateOf {
+                                    verticalScrollState
+                                        .layoutInfo.visibleItemsInfo
+                                        .firstOrNull()?.key == "${tableModel.id}_sticky"
+                                }
                             }
-                        }
-                        tableHeaderRow?.takeIf { tableModel.hasHeaders() }?.invoke(
-                            tableIndex,
-                            tableModel,
-                            isFirstVisibleStickyHeader && isScrolled,
-                        )
-                    }
-                    val rowItems =
-                        tableModel.tableRows.groupBy { it.rowHeaders.first().id }.values.toList()
-                            .dropLast(1)
-                    itemsIndexed(
-                        items = rowItems,
-                        key = { _, item -> "${tableModel.id}_${item.first().id()}" },
-                    ) { _, tableRowModel ->
-                        tableItemRow?.invoke(tableIndex, tableModel, tableRowModel)
-                    }
-                    val lastItem =
-                        tableModel.tableRows.groupBy { it.rowHeaders.first().id }.values.toList()
-                            .last()
-
-                    fixedStickyHeader(
-                        fixHeader = keyboardState == Keyboard.Closed,
-                        key = "${tableModel.id}_sticky_last_row",
-                    ) {
-                        tableItemRow?.invoke(
-                            tableIndex,
-                            tableModel,
-                            lastItem,
-                        )
-                        val showExtendedDivider = if (TableTheme.configuration.groupTables) {
-                            isLastTable
-                        } else {
-                            true
-                        }
-                        if (showExtendedDivider) {
-                            ExtendDivider(
-                                tableId = tableModel.id,
-                                rowHeaderCount = maxRowColumnHeaders,
+                            tableHeaderRow?.takeIf { tableModel.hasHeaders() }?.invoke(
+                                tableIndex,
+                                tableModel,
+                                isFirstVisibleStickyHeader && isScrolled,
                             )
                         }
-                    }
+                        val rowItems =
+                            tableModel.tableRows.groupBy { it.rowHeaders.first().id }.values.toList()
+                                .dropLast(1)
+                        itemsIndexed(
+                            items = rowItems,
+                            key = { _, item -> "${tableModel.id}_${item.first().id()}" },
+                        ) { _, tableRowModel ->
+                            tableItemRow?.invoke(tableIndex, tableModel, tableRowModel)
+                        }
+                        val lastItem =
+                            tableModel.tableRows.groupBy { it.rowHeaders.first().id }.values.toList()
+                                .last()
 
-                    if (!tableConfiguration.groupTables) {
-                        stickyFooter(
-                            key = "${tableModel.id}_footer",
-                            showFooter = keyboardState == Keyboard.Closed,
-                        )
+                        fixedStickyHeader(
+                            fixHeader = keyboardState == Keyboard.Closed,
+                            key = "${tableModel.id}_sticky_last_row",
+                        ) {
+                            tableItemRow?.invoke(
+                                tableIndex,
+                                tableModel,
+                                lastItem,
+                            )
+                            val showExtendedDivider = if (TableTheme.configuration.groupTables) {
+                                isLastTable
+                            } else {
+                                true
+                            }
+                            if (showExtendedDivider) {
+                                ExtendDivider(
+                                    tableId = tableModel.id,
+                                    rowHeaderCount = maxRowColumnHeaders,
+                                )
+                            }
+                        }
+
+                        if (!tableConfiguration.groupTables) {
+                            stickyFooter(
+                                key = "${tableModel.id}_footer",
+                                showFooter = keyboardState == Keyboard.Closed,
+                            )
+                        }
                     }
                 }
                 bottomContent?.let { item { it.invoke() } }

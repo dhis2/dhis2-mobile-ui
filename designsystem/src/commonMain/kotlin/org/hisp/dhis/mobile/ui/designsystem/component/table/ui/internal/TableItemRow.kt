@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -24,6 +25,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantic
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.rowTestTag
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.rowValuesTestTag
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.tableIdSemantic
+import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
 /**
  * Composable function to display a table item row.
@@ -73,6 +75,7 @@ internal fun TableItemRow(
             }
             .width(IntrinsicSize.Min)
             .height(IntrinsicSize.Min)
+            .padding(start = Spacing.Spacing16, end = Spacing.Spacing16)
             .zIndex(if (isCellSelectedOnRow) 1f else 0f),
     ) {
         repeat(rowModel.rowHeaders.size) { rowHeaderColumnIndex ->
