@@ -522,10 +522,10 @@ fun InputDateTime(
         uiData.selectableDates.initialDate,
     ) + " - " +
         formatStringToDate(uiData.selectableDates.endDate) + ")"
-    val incorrectHourFormatTextdd =
+    val incorrectHourFormat =
         uiData.incorrectHourFormatText ?: provideStringResource("wrong_hour_format")
     val incorrectHourFormatItem = SupportingTextData(
-        text = incorrectHourFormatTextdd,
+        text = incorrectHourFormat,
         SupportingTextState.ERROR,
     )
     val incorrectDateFormatItem = SupportingTextData(
@@ -767,10 +767,7 @@ private fun manageOnValueChanged(
     onValueChanged: (TextFieldValue?) -> Unit,
     actionType: DateTimeActionType,
 ) {
-    val allowedCharacters = RegExValidations.DATE_TIME.regex
-    if (allowedCharacters.containsMatchIn(newText.text) || newText.text.isBlank()) {
-        onValueChanged.invoke(formatUIDateToStored(newText, actionType))
-    }
+    onValueChanged.invoke(formatUIDateToStored(newText, actionType))
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
