@@ -65,7 +65,7 @@ fun DataTable(
     } else {
         PaddingValues(bottom = TableTheme.dimensions.tableBottomPadding)
     },
-    loading: Boolean,
+    loading: Boolean = false,
 ) {
     val maxColumns by remember(tableList.size) {
         derivedStateOf {
