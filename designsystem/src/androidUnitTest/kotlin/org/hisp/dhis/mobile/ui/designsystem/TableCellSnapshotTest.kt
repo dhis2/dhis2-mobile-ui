@@ -1,6 +1,9 @@
 package org.hisp.dhis.mobile.ui.designsystem
 
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.size
+import androidx.compose.ui.Modifier
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.RowHeader
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableCell
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableHeader
@@ -22,6 +25,9 @@ class TableCellSnapshotTest {
         paparazzi.snapshot {
             DataTable(
                 tableList = listOf(tableModel()),
+                topContent = {
+                    Spacer(modifier = Modifier.size(Spacing.Spacing16))
+                },
                 contentPadding = PaddingValues(
                     top = Spacing.Spacing16,
                     bottom = Spacing.Spacing200,

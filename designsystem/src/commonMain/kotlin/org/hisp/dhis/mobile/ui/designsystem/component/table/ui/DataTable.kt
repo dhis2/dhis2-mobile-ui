@@ -3,6 +3,7 @@ package org.hisp.dhis.mobile.ui.designsystem.component.table.ui
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -32,6 +33,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.TableIte
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.VerticalResizingView
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.styleForColumnHeader
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.styleForRowHeader
+import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
 /**
  * Composable function to display a data table.
@@ -63,6 +65,7 @@ fun DataTable(
     } else {
         PaddingValues(bottom = TableTheme.dimensions.tableBottomPadding)
     },
+    loading: Boolean = false,
 ) {
     val maxColumns by remember(tableList.size) {
         derivedStateOf {
@@ -208,7 +211,8 @@ fun DataTable(
                 TableHeaderRow(
                     modifier = Modifier
                         .zIndex(if (isTableScrolled) 2f else 0f)
-                        .background(Color.White),
+                        .background(Color.White)
+                        .padding(start = Spacing.Spacing16, end = Spacing.Spacing16),
                     cornerUiState = TableCornerUiState(
                         isSelected = tableSelection.isCornerSelected(tableModel.id),
                         onTableResize = {
@@ -337,6 +341,7 @@ fun DataTable(
             bottomContent = bottomContent,
             maxRowColumnHeaders = maxRowColumnHeaders ?: 0,
             contentPadding = contentPadding,
+            loading = loading,
         )
     }
 }
