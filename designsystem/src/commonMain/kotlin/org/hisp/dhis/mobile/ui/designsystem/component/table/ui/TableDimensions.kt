@@ -113,10 +113,14 @@ data class TableDimensions(
         totalColumns: Int,
         extraColumns: Int = 0,
     ): Int {
-        val rowHeaderRatio = (totalColumns - extraColumns) / headerRowColumns
+        val rowHeaderRatio = if (headerRowColumns != 0) {
+            (totalColumns - extraColumns) / headerRowColumns
+        } else {
+            null
+        }
 
         val result = when {
-            rowHeaderRatio != 1 -> {
+            rowHeaderRatio != null && rowHeaderRatio != 1 -> {
                 val maxColumn = rowHeaderRatio * (1 + column) - 1
                 val minColumn = rowHeaderRatio * column
                 (minColumn..maxColumn).sumOf {
