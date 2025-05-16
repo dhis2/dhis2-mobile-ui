@@ -154,8 +154,6 @@ class InputIntegerTest {
         rule.onNodeWithTag("INPUT_INTEGER_FIELD").assert(hasText("0"))
         rule.onNodeWithTag("INPUT_INTEGER_FIELD").performTextInput("1")
         rule.onNodeWithTag("INPUT_INTEGER_FIELD").assert(hasText("0"))
-
-
     }
 
     @Test
