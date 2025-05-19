@@ -79,6 +79,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
+import java.util.GregorianCalendar
 import java.util.Locale
 import java.util.TimeZone
 import org.hisp.dhis.mobile.ui.designsystem.component.DatePicker as DHIS2DatePicker
@@ -857,8 +858,12 @@ internal fun getDate(milliSeconds: Long?, format: String = "ddMMyyyy"): String {
         return ""
     }
 
+    val calendar = GregorianCalendar(TimeZone.getTimeZone("UTC"), Locale.getDefault())
+    calendar.timeInMillis = milliSeconds
+
     val formatter = SimpleDateFormat(format, Locale.getDefault())
     formatter.timeZone = TimeZone.getTimeZone("UTC")
+    formatter.calendar = calendar
 
     val date = Date(milliSeconds)
     return formatter.format(date)
