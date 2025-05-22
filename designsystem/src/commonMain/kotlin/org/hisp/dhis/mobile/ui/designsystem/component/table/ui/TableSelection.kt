@@ -222,9 +222,11 @@ sealed class TableSelection(open val tableId: String) {
                         this.tableId == selectedTableId &&
                         this.childrenOfSelectedHeader.values.last().isInRange(columnIndex)
                 }
+
             is RowSelection -> {
                 isRowSelected(selectedTableId, rowIndex)
             }
+
             else -> false
         }
 
@@ -237,6 +239,22 @@ sealed class TableSelection(open val tableId: String) {
      */
     private fun isCellValid(columnIndex: Int, rowIndex: Int): Boolean {
         return columnIndex != -1 && rowIndex != -1
+    }
+
+    /**
+     * Check if reset button can be displayed.
+     *
+     * @return True if the table can display the reset button, false otherwise.
+     * */
+    fun canDisplayReset(): Boolean = when (this) {
+        is AllCellSelection,
+        is ColumnSelection,
+        is RowSelection,
+        -> true
+
+        is CellSelection,
+        is Unselected,
+        -> false
     }
 }
 

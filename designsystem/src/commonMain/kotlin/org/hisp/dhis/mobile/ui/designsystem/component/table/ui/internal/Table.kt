@@ -293,7 +293,7 @@ internal fun Table(
             modifier = Modifier
                 .align(alignment = Alignment.BottomCenter)
                 .fillMaxWidth(),
-            visible = TableTheme.dimensions.hasOverriddenWidths(GROUPED_ID),
+            visible = TableTheme.dimensions.hasOverriddenWidths(GROUPED_ID) && TableTheme.tableSelection.canDisplayReset(),
         ) {
             Box(
                 Modifier
