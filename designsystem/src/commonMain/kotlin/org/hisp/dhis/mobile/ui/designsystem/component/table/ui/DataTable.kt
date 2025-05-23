@@ -14,6 +14,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.zIndex
 import org.hisp.dhis.mobile.ui.designsystem.component.table.actions.TableInteractions
@@ -212,7 +213,10 @@ fun DataTable(
                     modifier = Modifier
                         .zIndex(2f)
                         .background(Color.White)
-                        .padding(start = Spacing.Spacing16, end = Spacing.Spacing16),
+                        .padding(start = Spacing.Spacing16, end = Spacing.Spacing16)
+                        .onSizeChanged {
+                            tableResizeActions.onTableWidthChanged(it.width)
+                        },
                     cornerUiState = TableCornerUiState(
                         isSelected = tableSelection.isCornerSelected(tableModel.id),
                         onTableResize = {

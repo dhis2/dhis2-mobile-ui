@@ -7,6 +7,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
+import kotlin.math.roundToInt
 
 const val GROUPED_ID = "GROUPED"
 
@@ -142,7 +143,6 @@ data class TableDimensions(
         extraColumns: Int,
         column: Int? = null,
     ): Int {
-        if (groupedTables) return 0
         val screenWidth = totalWidth
         val tableWidth = tableWidth(groupedTables, tableId, totalColumns, extraColumns)
         val columnHasResizedValue = column?.let {
@@ -169,7 +169,9 @@ data class TableDimensions(
         return rowHeaderWidth(
             groupedTables,
             tableId,
-        ) + defaultCellWidth * totalColumns + totalCellWidth
+        ) + defaultCellWidth * totalColumns +
+            totalCellWidth +
+            tableEndExtraScroll.value.roundToInt()
     }
 
     fun updateAllWidthBy(

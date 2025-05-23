@@ -37,6 +37,7 @@ internal fun ItemValues(
     rowIndex: Int,
     columnCount: Int,
 ) {
+    val extraColumns = columnCount - tableHeaderModel.tableMaxColumns()
     Row(
         modifier = modifier
             .horizontalScroll(state = horizontalScrollState)
@@ -64,7 +65,7 @@ internal fun ItemValues(
                             groupedTables = TableTheme.configuration.groupTables,
                             tableId = tableId,
                             totalColumns = tableHeaderModel.tableMaxColumns(),
-                            extraColumns = tableHeaderModel.extraColumns.size,
+                            extraColumns = extraColumns,
                             column = columnIndex,
                         ),
                     )
