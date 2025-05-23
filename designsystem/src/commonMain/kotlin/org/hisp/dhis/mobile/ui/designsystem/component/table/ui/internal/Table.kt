@@ -4,6 +4,7 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateIntOffsetAsState
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.animateScrollBy
 import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -162,10 +163,18 @@ internal fun Table(
                     itemInfo.index == selectedIndex && itemInfo.offset >= 0
                 }
                 val shouldScroll = isItemVisible && (isCellSelection || isKeyboardOpen)
-                verticalScrollState.animateToIf(
-                    selectedIndex,
-                    shouldScroll,
-                )
+                if (shouldScroll) {
+                    verticalScrollState.animateScrollToItem(
+                        selectedIndex,
+                        -2,
+                    )
+                }
+            }
+
+            LaunchedEffect(keyboardState) {
+                if (tableSelection is TableSelection.CellSelection && keyboardState == Keyboard.Closed) {
+                    verticalScrollState.animateScrollBy(-250f)
+                }
             }
 
             val isScrolled by remember {
