@@ -84,7 +84,6 @@ internal fun Table(
         (
             index: Int,
             tableModel: TableModel,
-            isTableScrolled: Boolean,
         ) -> Unit
     )? = null,
     tableItemRow: @Composable (
@@ -126,7 +125,7 @@ internal fun Table(
                 tableList.forEachIndexed { tableIndex, tableModel ->
                     val isLastTable = tableList.lastIndex == tableIndex
                     tableHeaderRow?.takeIf { tableModel.hasHeaders() }
-                        ?.invoke(tableIndex, tableModel, false)
+                        ?.invoke(tableIndex, tableModel)
                     tableModel.tableRows.forEachIndexed { rowIndex, tableRowModel ->
                         val isLastRow = tableModel.tableRows.lastIndex == rowIndex
                         tableItemRow?.invoke(tableIndex, tableModel, listOf(tableRowModel))
@@ -235,7 +234,7 @@ internal fun Table(
                     tableList.forEachIndexed { tableIndex, tableModel ->
                         val isLastTable = tableList.lastIndex == tableIndex
                         fixedStickyHeader(
-                            fixHeader = keyboardState == Keyboard.Closed,
+                            fixHeader = true,
                             key = tableModel.id,
                         ) {
                             val isFirstVisibleStickyHeader by remember {
@@ -248,7 +247,6 @@ internal fun Table(
                             tableHeaderRow?.takeIf { tableModel.hasHeaders() }?.invoke(
                                 tableIndex,
                                 tableModel,
-                                isFirstVisibleStickyHeader && isScrolled,
                             )
                         }
                         val rowItems =
@@ -265,7 +263,7 @@ internal fun Table(
                                 .last()
 
                         fixedStickyHeader(
-                            fixHeader = keyboardState == Keyboard.Closed,
+                            fixHeader = true,
                             key = "${tableModel.id}_sticky_last_row",
                         ) {
                             tableItemRow?.invoke(
@@ -289,7 +287,7 @@ internal fun Table(
                         if (!tableConfiguration.groupTables) {
                             stickyFooter(
                                 key = "${tableModel.id}_footer",
-                                showFooter = keyboardState == Keyboard.Closed,
+                                showFooter = true,
                             )
                         }
                     }

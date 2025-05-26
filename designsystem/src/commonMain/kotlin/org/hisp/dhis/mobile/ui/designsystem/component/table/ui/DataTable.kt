@@ -206,11 +206,11 @@ fun DataTable(
     ) {
         Table(
             tableList = tableList,
-            tableHeaderRow = { index, tableModel, isTableScrolled ->
+            tableHeaderRow = { index, tableModel ->
                 val isSingleValue = tableModel.tableRows.firstOrNull()?.values?.size == 1
                 TableHeaderRow(
                     modifier = Modifier
-                        .zIndex(if (isTableScrolled) 2f else 0f)
+                        .zIndex(2f)
                         .background(Color.White)
                         .padding(start = Spacing.Spacing16, end = Spacing.Spacing16),
                     cornerUiState = TableCornerUiState(
