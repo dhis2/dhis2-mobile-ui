@@ -61,7 +61,9 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.extensio
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
-import org.jetbrains.compose.resources.ExperimentalResourceApi
+
+const val SELECTED_CELL_INDEX_SCROLL_OFFSET = -2
+const val SCROLL_OFFSET_STICKY_HEADER = -250f
 
 /**
  * Composable function to display a table.
@@ -75,7 +77,7 @@ import org.jetbrains.compose.resources.ExperimentalResourceApi
  * @param maxRowColumnHeaders The maximum number of row column headers.
  * @param contentPadding The padding values for the content of the table.
  */
-@OptIn(ExperimentalFoundationApi::class, ExperimentalResourceApi::class)
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 internal fun Table(
     tableList: List<TableModel>,
@@ -166,14 +168,14 @@ internal fun Table(
                 if (shouldScroll) {
                     verticalScrollState.animateScrollToItem(
                         selectedIndex,
-                        -2,
+                        SELECTED_CELL_INDEX_SCROLL_OFFSET,
                     )
                 }
             }
 
             LaunchedEffect(keyboardState) {
                 if (tableSelection is TableSelection.CellSelection && keyboardState == Keyboard.Closed) {
-                    verticalScrollState.animateScrollBy(-250f)
+                    verticalScrollState.animateScrollBy(SCROLL_OFFSET_STICKY_HEADER)
                 }
             }
 
