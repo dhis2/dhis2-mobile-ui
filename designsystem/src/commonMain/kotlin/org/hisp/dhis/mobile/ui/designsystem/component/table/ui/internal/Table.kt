@@ -17,7 +17,6 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
-import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
@@ -327,16 +326,6 @@ internal fun Table(
                         resizeActions.onTableDimensionReset(GROUPED_ID)
                     },
                 )
-            }
-        }
-    }
-}
-
-private suspend fun LazyListState.animateToIf(index: Int, condition: Boolean) {
-    if (condition) {
-        apply {
-            if (index >= 0) {
-                animateScrollToItem(index, 200)
             }
         }
     }
