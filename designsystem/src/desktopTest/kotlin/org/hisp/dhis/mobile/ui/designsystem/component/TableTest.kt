@@ -54,8 +54,8 @@ class TableTest {
             initTable(table)
             val firstTableId = table[0].id
 
-            clickOnHeaderElement(firstTableId, 2, 3)
-            assertColumnHeaderBackgroundColor(firstTableId, 2, 3, SurfaceColor.Primary)
+            clickOnHeaderElement(firstTableId, 2, 2)
+            assertColumnHeaderBackgroundColor(firstTableId, 2, 2, SurfaceColor.Primary)
         }
     }
 
