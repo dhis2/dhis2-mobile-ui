@@ -768,7 +768,10 @@ private fun manageOnValueChanged(
     onValueChanged: (TextFieldValue?) -> Unit,
     actionType: DateTimeActionType,
 ) {
-    onValueChanged.invoke(formatUIDateToStored(newText, actionType))
+    val allowedCharacters = RegExValidations.DATE_TIME.regex
+    if (allowedCharacters.containsMatchIn(newText.text) || newText.text.isBlank()) {
+        onValueChanged.invoke(formatUIDateToStored(newText, actionType))
+    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
