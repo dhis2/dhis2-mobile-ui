@@ -4,6 +4,7 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateIntOffsetAsState
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.animateScrollBy
 import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,7 +17,6 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
-import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
@@ -60,7 +60,9 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.extensio
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
-import org.jetbrains.compose.resources.ExperimentalResourceApi
+
+const val SELECTED_CELL_INDEX_SCROLL_OFFSET = -2
+const val SCROLL_OFFSET_STICKY_HEADER = -250f
 
 /**
  * Composable function to display a table.
@@ -74,7 +76,7 @@ import org.jetbrains.compose.resources.ExperimentalResourceApi
  * @param maxRowColumnHeaders The maximum number of row column headers.
  * @param contentPadding The padding values for the content of the table.
  */
-@OptIn(ExperimentalFoundationApi::class, ExperimentalResourceApi::class)
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 internal fun Table(
     tableList: List<TableModel>,
@@ -82,7 +84,6 @@ internal fun Table(
         (
             index: Int,
             tableModel: TableModel,
-            isTableScrolled: Boolean,
         ) -> Unit
     )? = null,
     tableItemRow: @Composable (
@@ -124,7 +125,7 @@ internal fun Table(
                 tableList.forEachIndexed { tableIndex, tableModel ->
                     val isLastTable = tableList.lastIndex == tableIndex
                     tableHeaderRow?.takeIf { tableModel.hasHeaders() }
-                        ?.invoke(tableIndex, tableModel, false)
+                        ?.invoke(tableIndex, tableModel)
                     tableModel.tableRows.forEachIndexed { rowIndex, tableRowModel ->
                         val isLastRow = tableModel.tableRows.lastIndex == rowIndex
                         tableItemRow?.invoke(tableIndex, tableModel, listOf(tableRowModel))
@@ -162,10 +163,18 @@ internal fun Table(
                     itemInfo.index == selectedIndex && itemInfo.offset >= 0
                 }
                 val shouldScroll = isItemVisible && (isCellSelection || isKeyboardOpen)
-                verticalScrollState.animateToIf(
-                    selectedIndex,
-                    shouldScroll,
-                )
+                if (shouldScroll) {
+                    verticalScrollState.animateScrollToItem(
+                        selectedIndex,
+                        SELECTED_CELL_INDEX_SCROLL_OFFSET,
+                    )
+                }
+            }
+
+            LaunchedEffect(keyboardState) {
+                if (tableSelection is TableSelection.CellSelection && keyboardState == Keyboard.Closed) {
+                    verticalScrollState.animateScrollBy(SCROLL_OFFSET_STICKY_HEADER)
+                }
             }
 
             val isScrolled by remember {
@@ -225,7 +234,7 @@ internal fun Table(
                     tableList.forEachIndexed { tableIndex, tableModel ->
                         val isLastTable = tableList.lastIndex == tableIndex
                         fixedStickyHeader(
-                            fixHeader = keyboardState == Keyboard.Closed,
+                            fixHeader = true,
                             key = tableModel.id,
                         ) {
                             val isFirstVisibleStickyHeader by remember {
@@ -238,7 +247,6 @@ internal fun Table(
                             tableHeaderRow?.takeIf { tableModel.hasHeaders() }?.invoke(
                                 tableIndex,
                                 tableModel,
-                                isFirstVisibleStickyHeader && isScrolled,
                             )
                         }
                         val rowItems =
@@ -255,7 +263,7 @@ internal fun Table(
                                 .last()
 
                         fixedStickyHeader(
-                            fixHeader = keyboardState == Keyboard.Closed,
+                            fixHeader = true,
                             key = "${tableModel.id}_sticky_last_row",
                         ) {
                             tableItemRow?.invoke(
@@ -279,7 +287,7 @@ internal fun Table(
                         if (!tableConfiguration.groupTables) {
                             stickyFooter(
                                 key = "${tableModel.id}_footer",
-                                showFooter = keyboardState == Keyboard.Closed,
+                                showFooter = true,
                             )
                         }
                     }
@@ -316,16 +324,6 @@ internal fun Table(
                         resizeActions.onTableDimensionReset(GROUPED_ID)
                     },
                 )
-            }
-        }
-    }
-}
-
-private suspend fun LazyListState.animateToIf(index: Int, condition: Boolean) {
-    if (condition) {
-        apply {
-            if (index >= 0) {
-                animateScrollToItem(index, 200)
             }
         }
     }

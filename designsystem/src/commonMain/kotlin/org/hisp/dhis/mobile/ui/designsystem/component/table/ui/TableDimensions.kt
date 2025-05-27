@@ -39,7 +39,7 @@ const val GROUPED_ID = "GROUPED"
 data class TableDimensions(
     val tableHorizontalPadding: Dp = Spacing.Spacing16,
     val tableVerticalPadding: Dp = Spacing.Spacing16,
-    val defaultCellWidth: Int = 160,
+    val defaultCellWidth: Int = 260,
     val defaultCellHeight: Dp = Spacing.Spacing40,
     val defaultRowHeaderWidth: Int = 275,
     val defaultHeaderHeight: Int = 36,
