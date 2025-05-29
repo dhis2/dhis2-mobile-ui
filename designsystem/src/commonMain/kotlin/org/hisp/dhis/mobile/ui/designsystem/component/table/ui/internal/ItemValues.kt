@@ -23,8 +23,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantic
  * @param maxLines The maximum number of lines to display in each cell.
  * @param cellValues A map of column indices to table cells representing the cell values.
  * @param tableHeaderModel The model representing the table header.
- * @param rowIndex The row header item.
- * @param columnCount number of columns
+ * @param totalTableColumns max number of columns in the table, including extra columns and empty non selectable ones.
  */
 @Composable
 internal fun ItemValues(
@@ -34,10 +33,9 @@ internal fun ItemValues(
     maxLines: Int,
     cellValues: Map<Int, TableCell>,
     tableHeaderModel: TableHeader,
-    rowIndex: Int,
-    columnCount: Int,
+    totalTableColumns: Int,
 ) {
-    val extraColumns = columnCount - tableHeaderModel.tableMaxColumns()
+    val extraColumns = totalTableColumns - tableHeaderModel.tableMaxColumns()
     Row(
         modifier = modifier
             .horizontalScroll(state = horizontalScrollState)
@@ -47,7 +45,7 @@ internal fun ItemValues(
             ),
     ) {
         repeat(
-            times = columnCount,
+            times = totalTableColumns,
             action = { columnIndex ->
                 val cellValue = cellValues[columnIndex] ?: TableCell(
                     id = "",

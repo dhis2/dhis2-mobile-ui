@@ -106,6 +106,15 @@ data class TableDimensions(
         )
     }
 
+    /**
+     * Method to get the required width of the header.
+     * @param groupedTables whether the tables are grouped together or not.
+     * @param tableId the table id.
+     * @param column the index of the column where the header cell is rendered.
+     * @param headerRowColumns the number of columns with content.
+     * @param totalColumns the total number of columns in the table.
+     * @param extraColumns the number of extra empty columns at the end of the table.
+     */
     internal fun headerCellWidth(
         groupedTables: Boolean,
         tableId: String,
@@ -121,7 +130,7 @@ data class TableDimensions(
         }
 
         val result = when {
-            rowHeaderRatio != null && rowHeaderRatio != 1 -> {
+            rowHeaderRatio != null && rowHeaderRatio > 1 -> {
                 val maxColumn = rowHeaderRatio * (1 + column) - 1
                 val minColumn = rowHeaderRatio * column
                 (minColumn..maxColumn).sumOf {

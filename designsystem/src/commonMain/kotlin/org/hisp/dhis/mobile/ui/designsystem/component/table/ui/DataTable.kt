@@ -68,14 +68,14 @@ fun DataTable(
     },
     loading: Boolean = false,
 ) {
-    val maxColumns by remember(tableList.size) {
+    val totalTableColumns by remember(tableList) {
         derivedStateOf {
             tableList.maxOfOrNull {
                 it.tableHeaderModel.tableMaxColumns()
             }
         }
     }
-    val maxRowColumnHeaders by remember(tableList.size) {
+    val maxRowColumnHeaders by remember(tableList) {
         derivedStateOf {
             tableList.maxOfOrNull { tableModel ->
                 tableModel.tableRows.maxOf { tableRowModel ->
@@ -237,7 +237,7 @@ fun DataTable(
                     ),
                     tableModel = tableModel,
                     horizontalScrollState = horizontalScrollConfig.getScrollState(index),
-                    columnCount = maxColumns ?: 0,
+                    totalTableColumns = totalTableColumns ?: 0,
                     maxRowColumnHeaders = maxRowColumnHeaders ?: 0,
                     cellStyle = { columnIndex, rowIndex, disabled ->
                         styleForColumnHeader(
@@ -324,7 +324,7 @@ fun DataTable(
                         )
                     },
                     onResizing = { resizingCell = it },
-                    columnCount = maxColumns ?: 0,
+                    totalTableColumns = totalTableColumns ?: 0,
                     maxRowColumnHeaders = maxRowColumnHeaders ?: 0,
                 )
             },
