@@ -3,8 +3,9 @@ host     = https://www.transifex.com
 lang_map = fa_AF: prs, uz@Cyrl: uz, uz@Latn: b+uz+Latn, zh_CN: zh-rCN, pt_BR: pt-rBR, es_419: b+es+419
 
 [o:hisp-uio:p:mobile-ui:r:strings-xml]
-file_filter  = designsystem/src/commonMain/resources/values-<lang>/strings.xml
-source_file  = designsystem/src/commonMain/resources/values/strings.xml
+file_filter  = designsystem/src/commonMain/composeResources/values-<lang>/strings.xml
+source_file  = designsystem/src/commonMain/composeResources/values/strings.xml
 source_lang  = en
 type         = ANDROID
 minimum_perc = 0
+resource_name = DesignSystem
