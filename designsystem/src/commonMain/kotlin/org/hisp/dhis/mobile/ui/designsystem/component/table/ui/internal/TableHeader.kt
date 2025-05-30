@@ -43,6 +43,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
  * @param onHeaderCellSelected Callback function invoked when a header cell is selected.
  * @param onHeaderResize Callback function invoked when the header is resized.
  * @param onResizing Callback function invoked during the resizing of the header.
+ * @param totalTableColumns max number of columns in the table, including extra columns and empty non-selectable ones.
  */
 @Composable
 internal fun TableHeader(
@@ -50,7 +51,7 @@ internal fun TableHeader(
     modifier: Modifier = Modifier,
     tableHeaderModel: TableHeader,
     horizontalScrollState: ScrollState,
-    columnCount: Int,
+    totalTableColumns: Int,
     cellStyle: @Composable
     (columnIndex: Int, rowIndex: Int, disabled: Boolean) -> CellStyle.HeaderStyle,
     onHeaderCellSelected: (columnIndex: Int, headerRowIndex: Int) -> Unit,
@@ -58,7 +59,8 @@ internal fun TableHeader(
     onResizing: (ResizingCell?) -> Unit,
 ) {
     val configuration = TableTheme.configuration
-    val extraColumns = columnCount - tableHeaderModel.tableMaxColumns()
+    val extraEmptyColumns = totalTableColumns - tableHeaderModel.tableMaxColumns()
+    val extraNonEmptyColumns = tableHeaderModel.extraColumns.size
 
     Row(
         modifier = modifier
@@ -78,6 +80,7 @@ internal fun TableHeader(
                 .height(IntrinsicSize.Min),
         ) {
             tableHeaderModel.rows.forEachIndexed { rowIndex, tableHeaderRow ->
+                // For each row in the header, create a row with cells
                 Row(
                     modifier = Modifier
                         .semantics {
@@ -87,10 +90,17 @@ internal fun TableHeader(
                         .height(IntrinsicSize.Min)
                         .zIndex(1f),
                 ) {
-                    val totalColumns = tableHeaderModel.numberOfColumns(rowIndex)
+                    val totalRowHeaderColumns = tableHeaderModel.numberOfColumns(rowIndex)
                     val rowOptions = tableHeaderRow.cells.size
+
+                    var headerRowColumns = tableHeaderModel.numberOfColumns(
+                        rowIndex,
+                    )
+
+                    if (headerRowColumns == 1) headerRowColumns += extraNonEmptyColumns
+                    // Repeat for each column in the row header
                     repeat(
-                        times = totalColumns,
+                        times = totalRowHeaderColumns,
                         action = { columnIndex ->
                             val isSelected =
                                 tableSelection.isHeaderSelected(tableId, columnIndex, rowIndex)
@@ -113,11 +123,9 @@ internal fun TableHeader(
                                         width = dimensions.headerCellWidth(
                                             tableId = tableId,
                                             column = columnIndex,
-                                            headerRowColumns = tableHeaderModel.numberOfColumns(
-                                                rowIndex,
-                                            ),
-                                            totalColumns = tableHeaderModel.tableMaxColumns(),
-                                            extraColumns = tableHeaderModel.extraColumns.size,
+                                            headerRowColumns = headerRowColumns,
+                                            totalColumns = totalTableColumns,
+                                            extraColumns = extraEmptyColumns,
                                             groupedTables = configuration.groupTables,
                                         ),
                                         height = dimensions.defaultHeaderHeight,
@@ -138,22 +146,23 @@ internal fun TableHeader(
                                         }
                                     },
                                     onResizing = onResizing,
-                                    isLastColumn = columnCount == columnIndex + 1 && columnIndex > 0,
+                                    isLastColumn = totalTableColumns == columnIndex + 1 && columnIndex > 0,
                                 ) { dimensions, currentOffsetX ->
                                     dimensions.canUpdateColumnHeaderWidth(
                                         tableId = tableId,
                                         currentOffsetX = currentOffsetX,
                                         columnIndex = columnIndex,
                                         totalColumns = tableHeaderModel.tableMaxColumns(),
-                                        extraColumns = tableHeaderModel.extraColumns.size,
+                                        extraColumns = extraEmptyColumns,
                                         groupedTables = configuration.groupTables,
                                     )
                                 },
                             )
                         },
                     )
+                    // Add extra columns in the header row
                     tableHeaderModel.extraColumns.forEachIndexed { extraColumnIndex, extraColumnHeader ->
-                        val columnIndex = totalColumns + extraColumnIndex
+                        val columnIndex = totalRowHeaderColumns + extraColumnIndex
                         HeaderCell(
                             itemHeaderUiState = ItemColumnHeaderUiState(
                                 tableId = tableId,
@@ -168,9 +177,9 @@ internal fun TableHeader(
                                         column = columnIndex,
                                         headerRowColumns = tableHeaderModel.numberOfColumns(
                                             tableHeaderModel.rows.size - 1,
-                                        ),
-                                        totalColumns = tableHeaderModel.tableMaxColumns(),
-                                        extraColumns = tableHeaderModel.extraColumns.size,
+                                        ) + tableHeaderModel.extraColumns.size,
+                                        totalColumns = totalTableColumns,
+                                        extraColumns = extraEmptyColumns,
                                         groupedTables = configuration.groupTables,
                                     ),
                                     dimensions.defaultHeaderHeight * tableHeaderModel.rows.size,
@@ -189,9 +198,10 @@ internal fun TableHeader(
                             ),
                         )
                     }
-                    repeat(extraColumns) { extraColumnIndex ->
+                    // Add extra empty columns in the header row to fill the remaining space
+                    repeat(extraEmptyColumns) { extraColumnIndex ->
                         val columnIndex =
-                            totalColumns + tableHeaderModel.extraColumns.size + extraColumnIndex
+                            totalRowHeaderColumns + tableHeaderModel.extraColumns.size + extraColumnIndex
                         HeaderCell(
                             ItemColumnHeaderUiState(
                                 tableId = tableId,
@@ -204,9 +214,9 @@ internal fun TableHeader(
                                         column = columnIndex,
                                         headerRowColumns = tableHeaderModel.numberOfColumns(
                                             tableHeaderModel.rows.size - 1,
-                                        ),
-                                        totalColumns = tableHeaderModel.tableMaxColumns(),
-                                        extraColumns = tableHeaderModel.extraColumns.size,
+                                        ) + extraEmptyColumns,
+                                        totalColumns = totalTableColumns,
+                                        extraColumns = extraEmptyColumns,
                                         groupedTables = configuration.groupTables,
                                     ),
                                     height = dimensions.defaultHeaderHeight * tableHeaderModel.rows.size,

@@ -37,7 +37,8 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
  * @param onRowHeaderClick Callback function invoked when the row header is clicked.
  * @param onHeaderResize Callback function invoked when the header is resized.
  * @param onResizing Callback function invoked during the resizing of the header.
- * @param columnCount number of columns
+ * @param totalTableColumns max number of columns in the table, including extra columns and empty non-selectable ones.
+ * @param maxRowColumnHeaders number of columns in the row that have a column header.
  */
 @Composable
 internal fun TableItemRow(
@@ -53,7 +54,7 @@ internal fun TableItemRow(
     onRowHeaderClick: (rowHeaderIndex: List<Int>, rowHeaderColumnIndex: Int?) -> Unit,
     onHeaderResize: (Float) -> Unit,
     onResizing: (ResizingCell?) -> Unit,
-    columnCount: Int,
+    totalTableColumns: Int,
     maxRowColumnHeaders: Int,
 ) {
     val tableSelection = LocalTableSelection.current
@@ -197,8 +198,7 @@ internal fun TableItemRow(
                     cellValues = tableRowModel.values,
                     maxLines = tableRowModel.maxLines,
                     tableHeaderModel = tableModel.tableHeaderModel,
-                    rowIndex = rowModel.row(),
-                    columnCount = columnCount,
+                    totalTableColumns = totalTableColumns,
                 )
             }
         }

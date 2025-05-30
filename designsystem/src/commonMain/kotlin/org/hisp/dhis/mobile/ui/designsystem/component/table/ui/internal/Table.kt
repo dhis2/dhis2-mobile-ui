@@ -204,9 +204,7 @@ internal fun Table(
                     .testTag("TABLE_SCROLLABLE_COLUMN")
                     .background(Color.Transparent)
                     .fillMaxWidth()
-                    .onSizeChanged {
-                        resizeActions.onTableWidthChanged(it.width)
-                    }.draggableList(
+                    .draggableList(
                         scrollState = verticalScrollState,
                         draggableType = DraggableType.Vertical,
                     ).offset { offset },

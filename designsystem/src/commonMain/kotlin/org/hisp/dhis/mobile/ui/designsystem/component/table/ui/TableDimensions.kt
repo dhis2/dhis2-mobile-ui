@@ -7,6 +7,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
+import kotlin.math.roundToInt
 
 const val GROUPED_ID = "GROUPED"
 
@@ -105,6 +106,15 @@ data class TableDimensions(
         )
     }
 
+    /**
+     * Method to get the required width of the header.
+     * @param groupedTables whether the tables are grouped together or not.
+     * @param tableId the table id.
+     * @param column the index of the column where the header cell is rendered.
+     * @param headerRowColumns the number of columns with content.
+     * @param totalColumns the total number of columns in the table.
+     * @param extraColumns the number of extra empty columns at the end of the table.
+     */
     internal fun headerCellWidth(
         groupedTables: Boolean,
         tableId: String,
@@ -120,7 +130,7 @@ data class TableDimensions(
         }
 
         val result = when {
-            rowHeaderRatio != null && rowHeaderRatio != 1 -> {
+            rowHeaderRatio != null && rowHeaderRatio > 1 -> {
                 val maxColumn = rowHeaderRatio * (1 + column) - 1
                 val minColumn = rowHeaderRatio * column
                 (minColumn..maxColumn).sumOf {
@@ -130,7 +140,7 @@ data class TableDimensions(
             }
 
             else -> columnWidthWithTableExtra(groupedTables, tableId, column) +
-                extraSize(groupedTables, tableId, totalColumns, extraColumns, column)
+                extraSize(groupedTables, tableId, totalColumns, if (headerRowColumns + extraColumns == totalColumns) 0 else extraColumns, column)
         }
         return result
     }
@@ -142,7 +152,6 @@ data class TableDimensions(
         extraColumns: Int,
         column: Int? = null,
     ): Int {
-        if (groupedTables) return 0
         val screenWidth = totalWidth
         val tableWidth = tableWidth(groupedTables, tableId, totalColumns, extraColumns)
         val columnHasResizedValue = column?.let {
@@ -169,7 +178,9 @@ data class TableDimensions(
         return rowHeaderWidth(
             groupedTables,
             tableId,
-        ) + defaultCellWidth * totalColumns + totalCellWidth
+        ) + defaultCellWidth * totalColumns +
+            totalCellWidth +
+            tableEndExtraScroll.value.roundToInt()
     }
 
     fun updateAllWidthBy(
