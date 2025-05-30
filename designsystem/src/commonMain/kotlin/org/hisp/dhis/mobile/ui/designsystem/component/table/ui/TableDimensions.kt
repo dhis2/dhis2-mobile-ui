@@ -140,7 +140,7 @@ data class TableDimensions(
             }
 
             else -> columnWidthWithTableExtra(groupedTables, tableId, column) +
-                extraSize(groupedTables, tableId, totalColumns, extraColumns, column)
+                extraSize(groupedTables, tableId, totalColumns, if (headerRowColumns + extraColumns == totalColumns) 0 else extraColumns, column)
         }
         return result
     }
