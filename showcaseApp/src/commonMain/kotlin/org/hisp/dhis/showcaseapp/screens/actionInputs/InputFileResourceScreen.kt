@@ -16,6 +16,7 @@ import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 fun InputFileResourceScreen() {
     ColumnScreenContainer(title = ActionInputs.INPUT_FILE_RESOURCE.label) {
         var currentFileName = "filename.extension"
+        var longFileName = "this_is_a_very_long_file_name_that_should_be_truncated.extension"
         var currentFileWeight = "524kb"
         val currentFileName2 = "filename.extension"
         val currentFileWeight2 = "524kb"
@@ -27,6 +28,21 @@ fun InputFileResourceScreen() {
                 title = "Label",
                 buttonText = provideStringResource("add_file"),
                 fileName = currentFileName,
+                fileWeight = currentFileWeight,
+                uploadFileState = inputFileResourceState,
+                onSelectFile = {
+                    inputFileResourceState = UploadFileState.LOADED
+                },
+                onUploadFile = {},
+                onClear = {
+                    inputFileResourceState = UploadFileState.ADD
+                },
+            )
+
+            InputFileResource(
+                title = "Long file name",
+                buttonText = provideStringResource("add_file"),
+                fileName = longFileName,
                 fileWeight = currentFileWeight,
                 uploadFileState = inputFileResourceState,
                 onSelectFile = {

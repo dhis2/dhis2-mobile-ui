@@ -15,7 +15,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 fun InputPercentageScreen() {
     ColumnScreenContainer(title = BasicTextInputs.INPUT_PERCENTAGE.label) {
         ColumnComponentContainer("Basic Percentage ") {
-            var inputValue1 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("12")) }
+            var inputValue1 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("12%")) }
             InputPercentage(
                 title = "Label",
                 inputTextFieldValue = inputValue1,
