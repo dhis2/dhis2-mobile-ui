@@ -11,7 +11,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.TextFieldValue
 import org.hisp.dhis.mobile.ui.designsystem.component.DateTimeActionType
-import org.hisp.dhis.mobile.ui.designsystem.component.InputDateTimeModel
 import org.hisp.dhis.mobile.ui.designsystem.component.SelectableDates
 import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextData
 import org.hisp.dhis.mobile.ui.designsystem.component.state.InputDateTimeData
@@ -26,18 +25,6 @@ import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
-
-@Deprecated(
-    "This function is deprecated and will be removed in the near future replace with." +
-        " New implementation does not take format as a parameter.",
-    replaceWith = ReplaceWith("dateIsInRange(date, allowedDates: SelectableDates)"),
-)
-internal fun dateIsInRange(date: Long, allowedDates: SelectableDates, format: String = "ddMMyyyy"): Boolean {
-    return (
-        date >= parseStringDateToMillis(allowedDates.initialDate) &&
-            date <= parseStringDateToMillis(allowedDates.endDate)
-        )
-}
 
 internal fun formatStoredDateToUI(textFieldValue: TextFieldValue, valueType: DateTimeActionType?): TextFieldValue {
     try {
@@ -262,17 +249,6 @@ internal fun getTime(timePickerState: TimePickerState, format: String = "HHmm"):
     return formater.format(cal.time)
 }
 
-@Suppress("deprecation")
-@Deprecated("This function is deprecated and will be removed once new implementation is added to the capture app. ")
-@OptIn(ExperimentalMaterial3Api::class)
-internal fun getSelectableDates(uiModel: InputDateTimeModel): androidx.compose.material3.SelectableDates {
-    return object : androidx.compose.material3.SelectableDates {
-        override fun isSelectableDate(utcTimeMillis: Long): Boolean {
-            return dateIsInRange(utcTimeMillis, uiModel.selectableDates, uiModel.format)
-        }
-    }
-}
-
 @OptIn(ExperimentalMaterial3Api::class)
 internal fun getSelectableDates(selectableDates: SelectableDates): androidx.compose.material3.SelectableDates {
     return object : androidx.compose.material3.SelectableDates {
@@ -280,65 +256,6 @@ internal fun getSelectableDates(selectableDates: SelectableDates): androidx.comp
             return dateIsInRange(utcTimeMillis, selectableDates)
         }
     }
-}
-
-@Deprecated("This function is deprecated and will be removed in the next release. Use overloaded fun  instead.")
-@Suppress("DEPRECATION")
-internal fun getSupportingTextList(
-    uiModel: InputDateTimeModel,
-    dateOutOfRangeItem: SupportingTextData,
-    incorrectHourFormatItem: SupportingTextData,
-    incorrectDateFormatItem: SupportingTextData,
-): List<SupportingTextData> {
-    val supportingTextList = mutableListOf<SupportingTextData>()
-
-    uiModel.supportingText?.forEach { item ->
-        supportingTextList.add(item)
-    }
-    if (!uiModel.inputTextFieldValue?.text.isNullOrEmpty()) {
-        val dateIsInRange: Boolean
-        val dateIsInYearRange: Boolean
-        val isValidHourFormat: Boolean
-        val isValidDateFormat: Boolean
-
-        when (uiModel.actionType) {
-            DateTimeActionType.TIME -> {
-                if (uiModel.inputTextFieldValue?.text!!.length == 4) {
-                    isValidHourFormat = isValidHourFormat(uiModel.inputTextFieldValue.text)
-                    if (!isValidHourFormat) supportingTextList.add(incorrectHourFormatItem)
-                    uiModel.supportingText
-                }
-            }
-
-            DateTimeActionType.DATE_TIME -> {
-                if (uiModel.inputTextFieldValue?.text!!.length == 12) {
-                    dateIsInRange = dateIsInRange(
-                        parseStringDateToMillis(
-                            uiModel.inputTextFieldValue.text.substring(0, uiModel.inputTextFieldValue.text.length - 4),
-                        ),
-                        uiModel.selectableDates, uiModel.format,
-                    )
-                    dateIsInYearRange = yearIsInRange(uiModel.inputTextFieldValue.text, getDefaultFormat(uiModel.actionType), uiModel.yearRange)
-                    isValidHourFormat = isValidHourFormat(uiModel.inputTextFieldValue.text.substring(8, 12))
-                    isValidDateFormat = isValidDate(uiModel.inputTextFieldValue.text.substring(0, 8))
-                    if (!dateIsInRange || !dateIsInYearRange) supportingTextList.add(dateOutOfRangeItem)
-                    if (!isValidDateFormat) supportingTextList.add(incorrectDateFormatItem)
-                    if (!isValidHourFormat) supportingTextList.add(incorrectHourFormatItem)
-                }
-            }
-
-            DateTimeActionType.DATE -> {
-                if (uiModel.inputTextFieldValue?.text!!.length == 8) {
-                    dateIsInRange = dateIsInRange(parseStringDateToMillis(uiModel.inputTextFieldValue.text), uiModel.selectableDates, uiModel.format)
-                    isValidDateFormat = isValidDate(uiModel.inputTextFieldValue.text)
-                    dateIsInYearRange = yearIsInRange(uiModel.inputTextFieldValue.text, getDefaultFormat(uiModel.actionType), uiModel.yearRange)
-                    if (!dateIsInRange || !dateIsInYearRange) supportingTextList.add(dateOutOfRangeItem)
-                    if (!isValidDateFormat) supportingTextList.add(incorrectDateFormatItem)
-                }
-            }
-        }
-    }
-    return supportingTextList.toList()
 }
 
 internal fun getSupportingTextList(
