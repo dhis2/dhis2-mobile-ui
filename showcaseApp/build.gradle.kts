@@ -1,16 +1,15 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
 plugins {
-    kotlin("multiplatform")
-    id("org.jetbrains.compose")
-    id("com.android.application")
-    id("org.jetbrains.kotlin.plugin.serialization").version("2.1.21")
-    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.kotlinMultiplatform)
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.composeMultiplatform)
+    alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.composeHotReload)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 kotlin {
-    androidTarget()
-
     jvm("desktop")
 
     sourceSets {
@@ -19,31 +18,31 @@ kotlin {
             implementation(compose.foundation)
             implementation(compose.ui)
             implementation(compose.material3)
-            @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
             implementation(compose.components.resources)
             api(project(":designsystem"))
-            implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
-            implementation("org.jetbrains.compose.material3:material3-window-size-class:1.7.3")
+            implementation(libs.kotlinx.serialization.json)
+            implementation(libs.compose.material3.windowsizeclass)
         }
         commonTest.dependencies {
             implementation(kotlin("test"))
         }
         androidMain.dependencies {
-            implementation("androidx.activity:activity-compose:1.10.0")
-            implementation("androidx.appcompat:appcompat:1.7.0")
-            implementation("androidx.core:core-ktx:1.16.0")
+            implementation(libs.androidx.activity.compose)
+            implementation(libs.androidx.appcompat)
+            implementation(libs.androidx.core.ktx)
         }
-        val androidUnitTest by getting {
+        androidUnitTest.dependencies {
             dependencies {
-                implementation("junit:junit:4.13.2")
+                implementation(libs.test.junit)
             }
         }
-        val desktopMain by getting {
+        val desktopMain by getting{
             dependencies {
-                api(compose.preview)
+                implementation(compose.preview)
                 implementation(compose.desktop.currentOs)
             }
         }
+
         val desktopTest by getting
     }
 }
