@@ -240,7 +240,6 @@ fun BottomSheetShell(
                 SheetValue.Hidden -> canDismissByDragging
                 SheetValue.Expanded -> true
                 SheetValue.PartiallyExpanded -> true
-                else -> true
             }
         },
     )

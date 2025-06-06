@@ -4,7 +4,7 @@ plugins {
     kotlin("multiplatform")
     id("org.jetbrains.compose")
     id("com.android.application")
-    id("org.jetbrains.kotlin.plugin.serialization").version("2.0.20")
+    id("org.jetbrains.kotlin.plugin.serialization").version("2.1.21")
     alias(libs.plugins.compose.compiler)
 }
 
@@ -31,7 +31,7 @@ kotlin {
         androidMain.dependencies {
             implementation("androidx.activity:activity-compose:1.10.0")
             implementation("androidx.appcompat:appcompat:1.7.0")
-            implementation("androidx.core:core-ktx:1.15.0")
+            implementation("androidx.core:core-ktx:1.16.0")
         }
         val androidUnitTest by getting {
             dependencies {
