@@ -12,6 +12,8 @@ plugins {
 kotlin {
     jvm("desktop")
 
+    androidTarget()
+
     sourceSets {
         commonMain.dependencies {
             implementation(compose.runtime)
