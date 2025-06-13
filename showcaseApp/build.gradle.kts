@@ -36,7 +36,7 @@ kotlin {
                 implementation(libs.test.junit)
             }
         }
-        val desktopMain by getting{
+        val desktopMain by getting {
             dependencies {
                 implementation(compose.preview)
                 implementation(compose.desktop.currentOs)

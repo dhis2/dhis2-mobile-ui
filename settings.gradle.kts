@@ -1,3 +1,5 @@
+@file:Suppress("UnstableApiUsage")
+
 rootProject.name = "mobile-ui"
 
 include(":designsystem")
@@ -12,7 +14,6 @@ pluginManagement {
                 includeGroupAndSubgroups("com.android")
                 includeGroupAndSubgroups("com.google")
             }
-
         }
         mavenCentral()
         gradlePluginPortal()
