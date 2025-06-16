@@ -199,6 +199,7 @@ internal fun TableItemRow(
                     maxLines = tableRowModel.maxLines,
                     tableHeaderModel = tableModel.tableHeaderModel,
                     totalTableColumns = totalTableColumns,
+                    totalHeaderRows = maxRowColumnHeaders,
                 )
             }
         }

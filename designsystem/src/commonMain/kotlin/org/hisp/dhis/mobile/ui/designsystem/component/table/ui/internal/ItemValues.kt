@@ -34,6 +34,7 @@ internal fun ItemValues(
     cellValues: Map<Int, TableCell>,
     tableHeaderModel: TableHeader,
     totalTableColumns: Int,
+    totalHeaderRows: Int,
 ) {
     val extraColumns = totalTableColumns - tableHeaderModel.tableMaxColumns()
     Row(
@@ -65,6 +66,7 @@ internal fun ItemValues(
                             totalColumns = tableHeaderModel.tableMaxColumns(),
                             extraColumns = extraColumns,
                             column = columnIndex,
+                            totalHeaderRows = totalHeaderRows,
                         ),
                     )
                 }
