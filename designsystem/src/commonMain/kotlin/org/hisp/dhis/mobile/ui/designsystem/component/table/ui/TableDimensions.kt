@@ -129,8 +129,13 @@ data class TableDimensions(
             null
         }
 
+        val tableIdToUse = if (groupedTables) GROUPED_ID else tableId
+
+        val columnHasResizedValue = column.let {
+            columnWidth[tableIdToUse]?.containsKey(it)
+        } ?: false
         val result = when {
-            rowHeaderRatio != null && rowHeaderRatio > 1 -> {
+            rowHeaderRatio != null && rowHeaderRatio > 1 && !columnHasResizedValue -> {
                 val maxColumn = rowHeaderRatio * (1 + column) - 1
                 val minColumn = rowHeaderRatio * column
                 (minColumn..maxColumn).sumOf {
@@ -151,17 +156,19 @@ data class TableDimensions(
         totalColumns: Int,
         extraColumns: Int,
         column: Int? = null,
+        totalHeaderRows: Int = 1,
     ): Int {
         val screenWidth = totalWidth
-        val tableWidth = tableWidth(groupedTables, tableId, totalColumns, extraColumns)
+        val tableWidth = tableWidth(groupedTables, tableId, totalColumns, extraColumns, totalHeaderRows)
+        val tableIdToUse = if (groupedTables) GROUPED_ID else tableId
         val columnHasResizedValue = column?.let {
-            columnWidth[tableId]?.containsKey(it)
-        }
+            columnWidth[tableIdToUse]?.containsKey(it)
+        } ?: false
 
-        return if (tableWidth < screenWidth && columnHasResizedValue != true) {
+        return if (tableWidth < screenWidth && !columnHasResizedValue) {
             val columnsCount = totalColumns + extraColumns
             ((screenWidth - tableWidth) / columnsCount).also {
-                currentExtraSize[tableId] = it
+                currentExtraSize[tableIdToUse] = it
             }
         } else {
             0
@@ -173,12 +180,13 @@ data class TableDimensions(
         tableId: String,
         totalColumns: Int,
         extraColumns: Int,
+        totalRowHeaders: Int,
     ): Int {
         val totalCellWidth = defaultCellWidth * extraColumns
         return rowHeaderWidth(
             groupedTables,
             tableId,
-        ) + defaultCellWidth * totalColumns +
+        ) * totalRowHeaders + defaultCellWidth * totalColumns +
             totalCellWidth +
             tableEndExtraScroll.value.roundToInt()
     }
