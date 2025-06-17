@@ -156,12 +156,13 @@ internal fun Table(
             val tableSelection = LocalTableSelection.current
             val tableConfiguration = TableTheme.configuration
             LaunchedEffect(tableSelection.getSelectedCellRowIndex(tableSelection.tableId), contentPadding) {
-                val selectedIndex = tableSelection.getSelectedCellRowIndex(tableSelection.tableId)
+                var selectedIndex = tableSelection.getSelectedCellRowIndex(tableSelection.tableId)
                 val isCellSelection = tableSelection is TableSelection.CellSelection
                 val isKeyboardOpen = keyboardState == Keyboard.Opened
                 val isItemVisible = verticalScrollState.layoutInfo.visibleItemsInfo.any { itemInfo ->
                     itemInfo.index == selectedIndex && itemInfo.offset >= 0
                 }
+                if (selectedIndex == 0) selectedIndex++
                 val shouldScroll = isItemVisible && (isCellSelection || isKeyboardOpen)
                 if (shouldScroll) {
                     verticalScrollState.animateScrollToItem(
