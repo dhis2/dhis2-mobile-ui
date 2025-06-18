@@ -176,12 +176,6 @@ internal fun Table(
                     verticalScrollState.animateScrollBy(SCROLL_OFFSET_STICKY_HEADER)
                 }
             }
-
-            val isScrolled by remember {
-                derivedStateOf {
-                    verticalScrollState.firstVisibleItemScrollOffset != 0
-                }
-            }
             val isFirstItemHidden by remember {
                 derivedStateOf {
                     verticalScrollState.firstVisibleItemIndex > 0
@@ -234,16 +228,8 @@ internal fun Table(
                     tableList.forEachIndexed { tableIndex, tableModel ->
                         val isLastTable = tableList.lastIndex == tableIndex
                         fixedStickyHeader(
-                            fixHeader = true,
                             key = tableModel.id,
                         ) {
-                            val isFirstVisibleStickyHeader by remember {
-                                derivedStateOf {
-                                    verticalScrollState
-                                        .layoutInfo.visibleItemsInfo
-                                        .firstOrNull()?.key == "${tableModel.id}_sticky"
-                                }
-                            }
                             tableHeaderRow?.takeIf { tableModel.hasHeaders() }?.invoke(
                                 tableIndex,
                                 tableModel,
@@ -263,7 +249,6 @@ internal fun Table(
                                 .last()
 
                         fixedStickyHeader(
-                            fixHeader = true,
                             key = "${tableModel.id}_sticky_last_row",
                         ) {
                             tableItemRow?.invoke(

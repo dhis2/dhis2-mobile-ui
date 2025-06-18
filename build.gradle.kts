@@ -4,14 +4,14 @@ version = "0.6.0-SNAPSHOT"
 group = "org.hisp.dhis.mobile"
 
 plugins {
-    kotlin("multiplatform") apply false
-    id("com.android.application") apply false
-    id("com.android.library") apply false
-    id("org.jetbrains.compose") apply false
-    id("org.jlleitschuh.gradle.ktlint") version "12.1.2"
-    id("org.jetbrains.dokka") version "1.9.20"
-    id("io.github.gradle-nexus.publish-plugin") version "1.3.0"
-    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.android.library) apply false
+    alias(libs.plugins.composeMultiplatform) apply false
+    alias(libs.plugins.composeCompiler) apply false
+    alias(libs.plugins.kotlinMultiplatform) apply false
+    alias(libs.plugins.ktlint)
+    alias(libs.plugins.dokka)
+    alias(libs.plugins.nexus)
 }
 
 /**
