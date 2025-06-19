@@ -67,7 +67,7 @@ jobs:
 
 
       - name: Github Release
-        uses: ncipollo/release-action@v1.14.0
+        uses: ncipollo/release-action@v1.16.0
         with:
           allowUpdates: true
           draft: true
