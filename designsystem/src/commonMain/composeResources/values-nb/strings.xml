@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="show_more">Vis mer</string>
+    <string name="show_less">Vis mindre</string>
+    <string name="years">År</string>
+    <string name="months">Måneder</string>
+    <string name="days">Dager</string>
+    <string name="action_next">Neste</string>
+    <string name="add_file">Legg til fil</string>
+    <string name="yes">Ja</string>
+    <string name="no">Nei</string>
+    <string name="enter_phone_number">Legg inn telefonnummer</string>
+    <string name="sync">Synk</string>
+    <string name="polygon_captured">Polygon oppfanget</string>
+    <string name="latitude">Breddegrad</string>
+    <string name="longitude">Lengdegrad</string>
+    <string name="not_supported">Ikke støttet</string>
+    <string name="search">Søk</string>
+    <string name="reset">Resett</string>
+    <string name="done">Fullfør</string>
+    <string name="clear_all">Fjern alt</string>
+    <string name="no_results_found">Ingen resultater funnet</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Avbryt</string>
+    <string name="no_results">Ingen resultater</string>
+    <string name="accept">Aksepter</string>
+    <string name="hide_details">Skjul detaljer</string>
+    </resources>

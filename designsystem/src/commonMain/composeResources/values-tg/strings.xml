@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="years">Солҳо</string>
+    <string name="months">Моҳҳо</string>
+    <string name="action_next">Навбатӣ</string>
+    <string name="yes">Ҳа</string>
+    <string name="no">Не</string>
+    <string name="search">Ҷустуҷӯ</string>
+    <string name="reset">Танзими дубора</string>
+    <string name="done">Иҷро шуд</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Бекор кардан</string>
+    <string name="hide_details">Пинҳон кардани маълумоти муфассал</string>
+    </resources>

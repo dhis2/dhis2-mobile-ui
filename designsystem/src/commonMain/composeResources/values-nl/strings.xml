@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="show_more">Laat meer zien</string>
+    <string name="show_less">Toon minder</string>
+    <string name="years">Jaren</string>
+    <string name="months">Maanden</string>
+    <string name="days">Dagen</string>
+    <string name="error_one">%1$d-fout</string>
+    <string name="error_other">%1$d fouten</string>
+    <string name="warning_one">%1$d waarschuwing</string>
+    <string name="warning_other">%1$d waarschuwingen</string>
+    <string name="action_next">Volgende</string>
+    <string name="add_file">Bestand toevoegen</string>
+    <string name="yes">Ja</string>
+    <string name="no">Nee</string>
+    <string name="enter_phone_number">Voer telefoonnummer in</string>
+    <string name="sync">Synchroniseren</string>
+    <string name="polygon_captured">Polygoon vastgelegd</string>
+    <string name="not_supported">Niet ondersteund</string>
+    <string name="search">Zoek</string>
+    <string name="reset">Resetten</string>
+    <string name="done">Klaar</string>
+    <string name="no_results_found">Geen resultaten gevonden</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Annuleren</string>
+    <string name="no_results">Geen resultaten</string>
+    <string name="accept">Aanvaarden</string>
+    <string name="hide_details">Verberg details</string>
+    </resources>
