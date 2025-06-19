@@ -1,6 +1,6 @@
 [main]
 host     = https://www.transifex.com
-lang_map = fa_AF: prs, uz@Cyrl: uz, uz@Latn: b+uz+Latn, zh_CN: zh-rCN, pt_BR: pt-rBR, es_419: b+es+419
+lang_map = fa_AF: prs, uz@Cyrl: uz, uz@Latn: uz-rUZ, zh_CN: zh-rCN, pt_BR: pt-rBR, es_419: es-rES, ar_IQ: ar-rIQ, hi_IN: hi-rIN, ko_KR: ko
 
 [o:hisp-uio:p:mobile-ui:r:develop--strings-xml]
 file_filter  = designsystem/src/commonMain/composeResources/values-<lang>/strings.xml

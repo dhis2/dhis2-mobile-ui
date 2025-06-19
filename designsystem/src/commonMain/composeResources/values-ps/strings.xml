@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="show_more">ډېر ښکاره کړئ</string>
+    <string name="show_less">لږ ښکاره کړئ</string>
+    <string name="years">کلونه</string>
+    <string name="months">میاشت</string>
+    <string name="days">ورځې</string>
+    <string name="action_next">راتلونکی</string>
+    <string name="yes">هو</string>
+    <string name="no">نه</string>
+    <string name="search">جستجو</string>
+    <string name="done">ترسره شو</string>
+    <string name="no_results_found">هېڅ پایله ترلاسه نه شوه</string>
+    <string name="ok">سم دی</string>
+    <string name="cancel">رد یې کړئ [ ژباړه ـ ردول ]</string>
+    <string name="accept">د منلو وړ</string>
+    <string name="hide_details">توضیحات پټ کړئ</string>
+    </resources>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="years">Ani</string>
+    <string name="months">Luni</string>
+    <string name="days">Zile</string>
+    <string name="action_next">Următorul</string>
+    <string name="yes">Da</string>
+    <string name="no">Nu</string>
+    <string name="search">Căutare</string>
+    <string name="done">Terminat</string>
+    <string name="no_results_found">Nu au fost găsite rezultate</string>
+    <string name="cancel">Anulare</string>
+    <string name="no_results">Nu există rezultate</string>
+    <string name="accept">Accept</string>
+    </resources>

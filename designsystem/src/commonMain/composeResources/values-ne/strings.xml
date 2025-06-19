@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="search">खोज</string>
+    <string name="no_results_found">कुनै पनि नतिजा भेटिएन</string>
+    <string name="cancel">रद्द गर्नुहोस्</string>
+    <string name="accept">स्वीकार</string>
+    </resources>

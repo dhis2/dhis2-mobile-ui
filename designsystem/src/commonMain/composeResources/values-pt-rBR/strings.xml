@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="years">Anos</string>
+    <string name="months">Meses</string>
+    <string name="days">Dias</string>
+    <string name="action_next">Próximo</string>
+    <string name="yes">Sim</string>
+    <string name="no">Não</string>
+    <string name="polygon_captured">Polígono capturado</string>
+    <string name="search">Pesquisar</string>
+    <string name="reset">Refazer</string>
+    <string name="done">Concluído</string>
+    <string name="clear_all">Limpar tudo</string>
+    <string name="no_results_found">Nenhum resultado encontrado</string>
+    <string name="ok">Aprovado</string>
+    <string name="cancel">Cancelar</string>
+    <string name="hide_details">Esconder detalhes</string>
+    </resources>

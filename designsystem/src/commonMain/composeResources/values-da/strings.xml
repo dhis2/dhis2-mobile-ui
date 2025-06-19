@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="action_next">Next</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="no_results_found">No results found</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="hide_details">Hide details</string>
+    </resources>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="show_more">نمایش دادن بیشتر</string>
+    <string name="show_less">نمایش دادن کم</string>
+    <string name="years">سالانه</string>
+    <string name="months">ماه ها</string>
+    <string name="days">روزها</string>
+    <string name="action_next">بعدی</string>
+    <string name="yes">بلی</string>
+    <string name="no">نخیر</string>
+    <string name="search">جستجو</string>
+    <string name="reset">مرتب سازی مجدد</string>
+    <string name="done">انجام شد</string>
+    <string name="no_results_found">هیج نتیجه ی یافت نشد</string>
+    <string name="ok">تأیید</string>
+    <string name="cancel">انصراف</string>
+    <string name="accept">پذیرش</string>
+    <string name="hide_details">پنهان کردن جزئیات</string>
+    </resources>
