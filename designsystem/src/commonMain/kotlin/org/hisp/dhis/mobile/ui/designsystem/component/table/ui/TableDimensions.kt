@@ -129,13 +129,8 @@ data class TableDimensions(
             null
         }
 
-        val tableIdToUse = if (groupedTables) GROUPED_ID else tableId
-
-        val columnHasResizedValue = column.let {
-            columnWidth[tableIdToUse]?.containsKey(it)
-        } ?: false
         val result = when {
-            rowHeaderRatio != null && rowHeaderRatio > 1 && !columnHasResizedValue -> {
+            rowHeaderRatio != null && rowHeaderRatio > 1 -> {
                 val maxColumn = rowHeaderRatio * (1 + column) - 1
                 val minColumn = rowHeaderRatio * column
                 (minColumn..maxColumn).sumOf {
@@ -160,15 +155,14 @@ data class TableDimensions(
     ): Int {
         val screenWidth = totalWidth
         val tableWidth = tableWidth(groupedTables, tableId, totalColumns, extraColumns, totalHeaderRows)
-        val tableIdToUse = if (groupedTables) GROUPED_ID else tableId
         val columnHasResizedValue = column?.let {
-            columnWidth[tableIdToUse]?.containsKey(it)
+            columnWidth[tableId]?.containsKey(it)
         } ?: false
 
         return if (tableWidth < screenWidth && !columnHasResizedValue) {
             val columnsCount = totalColumns + extraColumns
             ((screenWidth - tableWidth) / columnsCount).also {
-                currentExtraSize[tableIdToUse] = it
+                currentExtraSize[tableId] = it
             }
         } else {
             0
