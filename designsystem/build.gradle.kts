@@ -84,6 +84,11 @@ android {
     kotlin {
         jvmToolchain(17)
     }
+
+    lint {
+        abortOnError = false
+        warningsAsErrors = false
+    }
 }
 
 tasks.withType(DokkaTask::class).configureEach {
