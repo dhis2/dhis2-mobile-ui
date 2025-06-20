@@ -1,8 +1,5 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.expandVertically
-import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -16,7 +13,6 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -26,8 +22,6 @@ import androidx.compose.foundation.text.InlineTextContent
 import androidx.compose.foundation.text.appendInlineContent
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.KeyboardArrowDown
-import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.icons.outlined.Sync
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -43,7 +37,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.Role
@@ -67,7 +60,6 @@ import org.hisp.dhis.mobile.ui.designsystem.component.internal.modifiers.fadingE
 import org.hisp.dhis.mobile.ui.designsystem.component.state.AdditionalInfoColumnState
 import org.hisp.dhis.mobile.ui.designsystem.component.state.ListCardState
 import org.hisp.dhis.mobile.ui.designsystem.component.state.rememberAdditionalInfoColumnState
-import org.hisp.dhis.mobile.ui.designsystem.component.state.rememberListCardState
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2SCustomTextStyles
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
@@ -144,88 +136,6 @@ fun ListCard(
             }
         }
     }
-}
-
-/**
- * DHIS2 ListCard.
- * Component intended for TEI/Event/DataSet card display.
- * @param listAvatar: composable element to be used as avatar.
- * @param title: is the card title.
- * @param description: the text to be used in description.
- * @param lastUpdated: shows the last time item was synchronized.
- * @param additionalInfoList: is a list of AdditionalInfoItem that
- * manages all the key value types that will be shown
- * if there are more than three items that are not constant
- * a show more/less button will appear and the rest of items will be hidden.
- * @param expandLabelText: the text to be shown for expand button.
- * @param shrinkLabelText: the text to be shown for shrink button.
- * @param actionButton: composable parameter for the sync button.
- * @param onCardClick: gives access to click event on the main container.
- * @param loading: controls visibility of the loading item.
- * @param shadow: whether to show a shadow or not.
- * @param modifier: allows a modifier to be passed externally.
- */
-@Composable
-@Deprecated("Use rememberListCardState constructor")
-fun ListCard(
-    listAvatar: (@Composable () -> Unit)? = null,
-    title: ListCardTitleModel,
-    description: ListCardDescriptionModel? = null,
-    lastUpdated: String? = null,
-    additionalInfoList: List<AdditionalInfoItem>,
-    actionButton: @Composable (() -> Unit)? = null,
-    expandLabelText: String = provideStringResource("show_more"),
-    shrinkLabelText: String = provideStringResource("show_less"),
-    loading: Boolean = false,
-    onCardClick: () -> Unit,
-    shadow: Boolean = true,
-    modifier: Modifier = Modifier,
-    scrollableContent: Boolean = false,
-    expandable: Boolean = false,
-    itemVerticalPadding: Dp? = null,
-    minItemsToShow: Int = 3,
-    onSizeChanged: ((IntSize) -> Unit)? = null,
-) {
-    val syncProgressItem = AdditionalInfoItem(
-        icon = {
-            Icon(
-                imageVector = Icons.Outlined.Sync,
-                contentDescription = "Icon Button",
-                tint = SurfaceColor.Primary,
-            )
-        },
-        value = "Syncing...",
-        color = SurfaceColor.Primary,
-        isConstantItem = false,
-    )
-
-    val additionalInfoColumnState = rememberAdditionalInfoColumnState(
-        additionalInfoList,
-        syncProgressItem,
-        expandLabelText,
-        shrinkLabelText,
-        minItemsToShow,
-        scrollableContent,
-    )
-    val listCardState = rememberListCardState(
-        title,
-        description,
-        lastUpdated,
-        additionalInfoColumnState,
-        loading,
-        shadow,
-        expandable,
-        itemVerticalPadding,
-    )
-
-    ListCard(
-        modifier = modifier,
-        listCardState = listCardState,
-        listAvatar = listAvatar,
-        actionButton = actionButton,
-        onCardClick = onCardClick,
-        onSizeChanged = onSizeChanged,
-    )
 }
 
 /**
@@ -447,170 +357,6 @@ private fun ColumnScope.AdditionalInfoColumn(
             expandLabelText = additionalInfoColumnState.expandLabelText,
             onClick = additionalInfoColumnState::updateSectionState,
         )
-    }
-//    }
-}
-
-@Deprecated("Use additionalInfoColumn constructor")
-@Composable
-private fun ColumnScope.AdditionalInfoColumn(
-    modifier: Modifier = Modifier,
-    expandableItems: List<AdditionalInfoItem>? = null,
-    constantItems: List<AdditionalInfoItem>,
-    syncProgressItem: AdditionalInfoItem,
-    loading: Boolean,
-    isDetailCard: Boolean = false,
-    expandLabelText: String,
-    shrinkLabelText: String,
-    scrollableContent: Boolean,
-    minItemsToShow: Int = 3,
-    verticalArrangement: Arrangement.Vertical = Arrangement.Top,
-    horizontalAlignment: Alignment.Horizontal = Alignment.Start,
-) {
-    val additionalInfoColumnState = rememberAdditionalInfoColumnState(
-        additionalInfoList = (expandableItems ?: emptyList()) + constantItems,
-        syncProgressItem = syncProgressItem,
-        expandLabelText = expandLabelText,
-        shrinkLabelText = shrinkLabelText,
-        minItemsToShow = minItemsToShow,
-        scrollableContent = scrollableContent,
-    )
-
-    AdditionalInfoColumn(
-        modifier,
-        additionalInfoColumnState,
-        loading,
-        isDetailCard,
-        verticalArrangement,
-        horizontalAlignment,
-    )
-
-    val loadingSectionState by remember(loading) { mutableStateOf(loading) }
-    var listState by remember(AdditionInfoState.CLOSED) { mutableStateOf(AdditionInfoState.CLOSED) }
-
-    val scrollState = rememberScrollState()
-    val scrollableModifier = Modifier.verticalScroll(scrollState)
-
-    val columnModifier by remember(listState) {
-        derivedStateOf {
-            when {
-                !scrollableContent -> Modifier
-                listState == AdditionInfoState.OPEN -> scrollableModifier.weight(1f)
-                else -> Modifier
-            }
-        }
-    }
-
-    val items = when (listState) {
-        AdditionInfoState.CLOSED -> expandableItems?.take(3)
-        AdditionInfoState.OPEN -> expandableItems
-    } ?: emptyList()
-
-    KeyValueList(
-        modifier = columnModifier
-            .fillMaxWidth()
-            .testTag("LIST_CARD_ADDITIONAL_INFO_COLUMN")
-            .conditional(
-                listState == AdditionInfoState.OPEN,
-                {
-                    fadingEdges(scrollState)
-                },
-            ),
-        itemList = items,
-        isDetailCard = isDetailCard,
-        verticalArrangement = verticalArrangement,
-        horizontalAlignment = horizontalAlignment,
-    )
-
-    AnimatedVisibility(
-        visible = loadingSectionState,
-        enter = expandVertically(expandFrom = Alignment.CenterVertically),
-        exit = shrinkVertically(shrinkTowards = Alignment.CenterVertically),
-    ) {
-        KeyValue(syncProgressItem)
-    }
-
-    KeyValueList(
-        modifier = Modifier.testTag("LIST_CARD_ADDITIONAL_INFO_CONSTANT_COLUMN"),
-        itemList = constantItems,
-        isDetailCard = isDetailCard,
-        verticalArrangement = verticalArrangement,
-        horizontalAlignment = horizontalAlignment,
-    )
-
-    if ((expandableItems?.size ?: 0) > 3) {
-        ExpandShrinkButton(listState, shrinkLabelText, expandLabelText) {
-            listState = getSectionState(listState)
-        }
-    }
-}
-
-enum class AdditionInfoState {
-    OPEN, CLOSED;
-
-    fun getNextState(): AdditionInfoState {
-        return when (this) {
-            OPEN -> CLOSED
-            CLOSED -> OPEN
-        }
-    }
-}
-
-@Composable
-private fun ExpandShrinkButton(
-    listState: AdditionInfoState,
-    shrinkLabelText: String,
-    expandLabelText: String,
-    onClick: () -> Unit,
-) {
-    val expandText =
-        mutableStateOf(if (listState == AdditionInfoState.OPEN) shrinkLabelText else expandLabelText)
-    val interactionSource = remember { MutableInteractionSource() }
-
-    val iconVector = getIconVector(listState)
-    val expandTextColor = TextColor.OnSurfaceLight
-    Row(
-        Modifier
-            .clip(RoundedCornerShape(Radius.M))
-            .clickable(
-                onClick = onClick,
-                role = Role.Button,
-                interactionSource = interactionSource,
-                indication = ripple(
-                    color = SurfaceColor.Primary,
-                ),
-            )
-            .padding(end = Spacing.Spacing2)
-            .offset(x = (-3).dp),
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        Icon(
-            imageVector = iconVector,
-            contentDescription = "Button",
-            tint = expandTextColor,
-        )
-        Text(
-            text = expandText.value,
-            color = expandTextColor,
-            style = MaterialTheme.typography.bodyMedium,
-            modifier = Modifier.padding(horizontal = Spacing4),
-        )
-    }
-}
-
-private fun getSectionState(listState: AdditionInfoState): AdditionInfoState {
-    return if (listState == AdditionInfoState.CLOSED) {
-        AdditionInfoState.OPEN
-    } else {
-        AdditionInfoState.CLOSED
-    }
-}
-
-private fun getIconVector(listState: AdditionInfoState): ImageVector {
-    return if (listState == AdditionInfoState.CLOSED) {
-        Icons.Filled.KeyboardArrowDown
-    } else {
-        Icons.Filled.KeyboardArrowUp
     }
 }
 
