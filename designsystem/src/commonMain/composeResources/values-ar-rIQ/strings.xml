@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="show_more">إظهار المزيد</string>
+    <string name="show_less">إظهار الأقل</string>
+    <string name="years">السنوات</string>
+    <string name="months">الأشهر</string>
+    <string name="days">‏‏الأيام</string>
+    <string name="action_next">التالي</string>
+    <string name="yes">نعم</string>
+    <string name="no">لا</string>
+    <string name="search">البحث</string>
+    <string name="cancel">إلغاء</string>
+    <string name="no_results">لا توجد نتائج</string>
+    <string name="accept">قبول</string>
+    </resources>

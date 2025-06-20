@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="show_more">Koʼproq koʼrsatish</string>
+    <string name="show_less">Kamroq koʼrsatish</string>
+    <string name="years">Yillar</string>
+    <string name="months">Oylar</string>
+    <string name="days">Kunlar</string>
+    <string name="action_next">Кейинги</string>
+    <string name="add_file">Fayl qoʼshish</string>
+    <string name="yes">Ҳа</string>
+    <string name="no">Йўқ</string>
+    <string name="enter_phone_number">Telefon raqamini kiriting</string>
+    <string name="sync">Sinxronlash</string>
+    <string name="polygon_captured">Koʼpburchak ushlandi</string>
+    <string name="search">Izlash</string>
+    <string name="clear_all">Barchasini tozalash</string>
+    <string name="no_results_found">Hech qanday natija topilmadi</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Бекор қилиш</string>
+    <string name="no_results">Natija yoʼq</string>
+    <string name="accept">Qabul qiling</string>
+    <string name="hide_details">Detallarni berkitish</string>
+    </resources>

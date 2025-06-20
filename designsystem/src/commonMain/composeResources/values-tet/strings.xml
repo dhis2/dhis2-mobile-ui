@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="years">Tinan</string>
+    <string name="months">Fulan</string>
+    <string name="action_next">Próximu</string>
+    <string name="yes">Sim</string>
+    <string name="no">Lae</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Kansela</string>
+    <string name="hide_details">Subar detalles</string>
+    </resources>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="show_more">වැඩියෙන් පෙන්වන්න</string>
+    <string name="years">අවුරුදු</string>
+    <string name="months">මාස</string>
+    <string name="days">දින</string>
+    <string name="yes">ඔව්</string>
+    <string name="no">නැත</string>
+    <string name="search">සොයන්න</string>
+    <string name="reset">නැවත පිහිටුවන්න</string>
+    <string name="done">නිම කළා</string>
+    <string name="accept">පිළිගන්න</string>
+    </resources>

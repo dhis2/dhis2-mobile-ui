@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="show_more">اور دیکھاو</string>
+    <string name="show_less">کم دکھائیں</string>
+    <string name="years">سال</string>
+    <string name="months">مہینے</string>
+    <string name="days">دن</string>
+    <string name="action_next">اگلہ</string>
+    <string name="yes">Ø¬Û ÛØ§Úº</string>
+    <string name="no">ÙÛÛÚº</string>
+    <string name="search">تلاش کریں</string>
+    <string name="reset">ری سیٹ کریں</string>
+    <string name="done">ہو گیا</string>
+    <string name="no_results_found">کوئی نتیجہ نہیں ملا</string>
+    <string name="ok">ٹھیک</string>
+    <string name="cancel">منسوخ</string>
+    <string name="hide_details">تفصیل چھپاؤ</string>
+    </resources>

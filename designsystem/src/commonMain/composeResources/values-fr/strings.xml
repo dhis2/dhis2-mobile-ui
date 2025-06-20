@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="show_more">Afficher plus</string>
+    <string name="show_less">Afficher moins</string>
+    <string name="date_birth">DATE DE NAISSANCE</string>
+    <string name="age">ÂGE</string>
+    <string name="or"> OU </string>
+    <string name="years">Années</string>
+    <string name="months">Mois</string>
+    <string name="days">Jours</string>
+    <string name="error_one">%1$d erreur</string>
+    <string name="error_other">%1$d erreurs</string>
+    <string name="warning_one">%1$d avertissement</string>
+    <string name="warning_other">%1$d avertissements</string>
+    <string name="show_fields">Afficher les champs</string>
+    <string name="hide_fields">Masquer les champs</string>
+    <string name="action_next">Suivant</string>
+    <string name="add_file">Ajouter un fichier</string>
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
+    <string name="enter_phone_number">Entrez le numéro de téléphone</string>
+    <string name="qr_code">Code QR</string>
+    <string name="sync">Synchronisation</string>
+    <string name="add_polygon">Ajouter un polygone</string>
+    <string name="polygon_captured">Le polygône a été défini</string>
+    <string name="add_location">Ajouter un lieu</string>
+    <string name="add_signature">Ajouter une signature</string>
+    <string name="add_image">Ajouter une image</string>
+    <string name="not_supported">Non supporté</string>
+    <string name="search">Rechercher</string>
+    <string name="reset">Réinitialiser</string>
+    <string name="done">Terminé</string>
+    <string name="clear_all">Tout effacer</string>
+    <string name="no_results_found">Aucun résultat trouvé</string>
+    <string name="ok">Ok</string>
+    <string name="cancel">Annuler</string>
+    <string name="select_date">Sélectionner la date</string>
+    <string name="wrong_hour_format">Format d\'heure incorrect </string>
+    <string name="no_results">Aucun résultat</string>
+    <string name="accept">Accepter</string>
+    <string name="hide_details">Masquer les détails</string>
+    </resources>

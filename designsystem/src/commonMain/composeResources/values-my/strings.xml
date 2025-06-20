@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="years">နှစ်များ</string>
+    <string name="months">လများ</string>
+    <string name="action_next">ရှေ့သို့</string>
+    <string name="yes">မှန်</string>
+    <string name="no">No</string>
+    <string name="done">Done</string>
+    <string name="no_results_found">No results found</string>
+    <string name="ok">လက်ခံသည်</string>
+    <string name="cancel">ပယ်ဖျက်သည်</string>
+    <string name="hide_details">အတိအကျဖော်ပြချက်များကိုဖွက်ထားပါ</string>
+    </resources>
