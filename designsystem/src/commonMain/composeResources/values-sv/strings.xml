@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="show_more">Visa mer</string>
+    <string name="show_less">Visa mindre</string>
+    <string name="years">År</string>
+    <string name="months">Månader</string>
+    <string name="days">Dagar</string>
+    <string name="action_next">Nästa</string>
+    <string name="add_file">Lägg till fil</string>
+    <string name="yes">Ja</string>
+    <string name="no">Nej</string>
+    <string name="sync">Synkronisera</string>
+    <string name="search">Sök</string>
+    <string name="clear_all">Rensa alla</string>
+    <string name="no_results_found">Inga resultat hittades</string>
+    <string name="ok">ok</string>
+    <string name="cancel">Avbryt</string>
+    <string name="accept">Acceptera</string>
+    <string name="hide_details">Gömma detaljer</string>
+    </resources>

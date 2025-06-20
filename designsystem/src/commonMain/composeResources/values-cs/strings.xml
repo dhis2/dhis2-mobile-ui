@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="show_more">Zobrazit více</string>
+    <string name="show_less">Zobrazit méně</string>
+    <string name="date_birth">DATUM NAROZENÍ</string>
+    <string name="age">VĚK</string>
+    <string name="or">NEBO</string>
+    <string name="years">Let</string>
+    <string name="months">Měsíce</string>
+    <string name="days">Dnů</string>
+    <string name="error_one">%1$d chyba</string>
+    <string name="error_other">%1$d chyb</string>
+    <string name="warning_one">%1$d upozornění</string>
+    <string name="warning_other">%1$d upozornění</string>
+    <string name="show_fields">Zobrazit pole</string>
+    <string name="hide_fields">Skrýt pole</string>
+    <string name="action_next">Další</string>
+    <string name="add_file">Přidat soubor</string>
+    <string name="yes">Ano</string>
+    <string name="no">Ne</string>
+    <string name="enter_phone_number">Zadejte telefonní číslo</string>
+    <string name="qr_code">QR kód</string>
+    <string name="sync">Synchronizace</string>
+    <string name="add_polygon">Přidat polygon</string>
+    <string name="polygon_captured">Polygon zaznamenán</string>
+    <string name="add_location">Přidat umístění</string>
+    <string name="latitude">Lat</string>
+    <string name="longitude">Long</string>
+    <string name="add_signature">Přidat podpis</string>
+    <string name="add_image">Přidat obrázek</string>
+    <string name="not_supported">Není podporováno</string>
+    <string name="search">Hledat</string>
+    <string name="draw_here">Zde kreslete</string>
+    <string name="reset">Reset</string>
+    <string name="done">Hotovo</string>
+    <string name="clear_all">Vymazat vše</string>
+    <string name="no_results_found">Nenalezeny žádné výsledky</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Zrušit</string>
+    <string name="select_date">Zvolte datum</string>
+    <string name="date_out_of_range">Datum mimo rozsah </string>
+    <string name="wrong_hour_format">Nesprávný formát času </string>
+    <string name="search_to_see_more">Nezobrazují se všechny možnosti.\n Pro zobrazení dalších možností použijte vyhledávání.</string>
+    <string name="no_results">Žádné výsledky</string>
+    <string name="accept">Přijmout</string>
+    <string name="hide_details">Skrýt detaily</string>
+    </resources>

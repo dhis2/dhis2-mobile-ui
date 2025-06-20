@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="show_more">إظهار المزيد</string>
+    <string name="show_less">إظهار أقل</string>
+    <string name="years">السنوات</string>
+    <string name="months">الأشهر</string>
+    <string name="days">‏‏الأيام</string>
+    <string name="error_one">%1$d الخطأ</string>
+    <string name="error_other">%1$d الأخطاء</string>
+    <string name="warning_one">%1$d تحذير</string>
+    <string name="warning_other">%1$d التحذيرات</string>
+    <string name="show_fields">إظهار الحقول</string>
+    <string name="hide_fields">إخفاء الحقول</string>
+    <string name="action_next">التالي</string>
+    <string name="add_file">إضافة ملف</string>
+    <string name="yes">نعم</string>
+    <string name="no">لا</string>
+    <string name="enter_phone_number">أدخل رقم هاتف</string>
+    <string name="qr_code">رمز الاستجابة السريعة</string>
+    <string name="sync">حالة التزامن</string>
+    <string name="polygon_captured">تم التقاط المضلع</string>
+    <string name="add_location">إضافة موقع</string>
+    <string name="not_supported">غير مدعوم</string>
+    <string name="search">بحث</string>
+    <string name="reset">إعادة تعيين</string>
+    <string name="done">تم</string>
+    <string name="clear_all">تنظيف الكل</string>
+    <string name="no_results_found">لم يتم العثور على أي نتائج</string>
+    <string name="ok">موافق</string>
+    <string name="cancel">إلغاء</string>
+    <string name="no_results">لا توجد نتائج</string>
+    <string name="accept">قبول</string>
+    <string name="hide_details">إخفاء التفاصيل</string>
+    </resources>

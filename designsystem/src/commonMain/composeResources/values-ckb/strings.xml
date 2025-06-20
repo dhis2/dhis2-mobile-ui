@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="years">ساڵەکان</string>
+    <string name="months">مانگەکان</string>
+    <string name="days">رۆژەکان</string>
+    <string name="action_next">داهاتوو</string>
+    <string name="yes">بەڵێ</string>
+    <string name="no">نەخێر</string>
+    <string name="search">گەڕان</string>
+    <string name="done">تةواو كرا</string>
+    <string name="ok">تةواو</string>
+    <string name="cancel">لابردن</string>
+    <string name="no_results">هیچ ئەنجامێک بەردەست نیە</string>
+    <string name="accept">پەسندکردن</string>
+    </resources>

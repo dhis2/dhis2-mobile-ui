@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="show_more">Tampilkan lebih</string>
+    <string name="show_less">Tampilkan kurang</string>
+    <string name="years">Tahun</string>
+    <string name="months">Bulan</string>
+    <string name="days">Hari</string>
+    <string name="action_next">Selanjutnya</string>
+    <string name="add_file">Tambahkan berkas</string>
+    <string name="yes">Iya</string>
+    <string name="no">Tidak</string>
+    <string name="enter_phone_number">Masukkan nomor telepon</string>
+    <string name="sync">Sinkronkan</string>
+    <string name="polygon_captured">Poligon ditangkap</string>
+    <string name="not_supported">Tidak didukung</string>
+    <string name="search">Pencarian</string>
+    <string name="reset">Reset</string>
+    <string name="done">Selesai</string>
+    <string name="no_results_found">Tidak ada hasil ditemukan</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Batal</string>
+    <string name="accept">Terima</string>
+    <string name="hide_details">Sembunyikan detail</string>
+    </resources>
