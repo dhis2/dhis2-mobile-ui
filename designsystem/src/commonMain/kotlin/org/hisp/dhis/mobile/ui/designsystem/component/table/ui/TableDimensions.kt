@@ -151,14 +151,15 @@ data class TableDimensions(
         totalColumns: Int,
         extraColumns: Int,
         column: Int? = null,
+        totalHeaderRows: Int = 1,
     ): Int {
         val screenWidth = totalWidth
-        val tableWidth = tableWidth(groupedTables, tableId, totalColumns, extraColumns)
+        val tableWidth = tableWidth(groupedTables, tableId, totalColumns, extraColumns, totalHeaderRows)
         val columnHasResizedValue = column?.let {
             columnWidth[tableId]?.containsKey(it)
-        }
+        } ?: false
 
-        return if (tableWidth < screenWidth && columnHasResizedValue != true) {
+        return if (tableWidth < screenWidth && !columnHasResizedValue) {
             val columnsCount = totalColumns + extraColumns
             ((screenWidth - tableWidth) / columnsCount).also {
                 currentExtraSize[tableId] = it
@@ -173,12 +174,13 @@ data class TableDimensions(
         tableId: String,
         totalColumns: Int,
         extraColumns: Int,
+        totalRowHeaders: Int,
     ): Int {
         val totalCellWidth = defaultCellWidth * extraColumns
         return rowHeaderWidth(
             groupedTables,
             tableId,
-        ) + defaultCellWidth * totalColumns +
+        ) * totalRowHeaders + defaultCellWidth * totalColumns +
             totalCellWidth +
             tableEndExtraScroll.value.roundToInt()
     }
