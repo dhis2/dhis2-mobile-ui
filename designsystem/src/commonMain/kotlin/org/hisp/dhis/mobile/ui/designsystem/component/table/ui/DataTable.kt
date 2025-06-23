@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -88,6 +89,9 @@ fun DataTable(
     val themeDimensions = TableTheme.dimensions
     val config = TableTheme.configuration
     var dimensions by remember { mutableStateOf(themeDimensions) }
+    LaunchedEffect(tableList) {
+        dimensions = themeDimensions
+    }
     var tableSelection by remember(currentSelection) { mutableStateOf(currentSelection) }
     var updatingCell by remember { mutableStateOf<TableCell?>(null) }
     val defaultsTableInteractions by remember {
