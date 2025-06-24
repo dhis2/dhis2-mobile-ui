@@ -85,14 +85,16 @@ subprojects {
     }
 }
 
-val ossrhUsername: String? = System.getenv("OSSRH_USERNAME")
-val ossrhPassword: String? = System.getenv("OSSRH_PASSWORD")
+val centralPortalUsername: String? = System.getenv("SONATYPE_USERNAME")
+val centralPortalPassword: String? = System.getenv("SONATYPE_PASSWORD")
 
 nexusPublishing {
     this.repositories {
         sonatype {
-            username.set(ossrhUsername)
-            password.set(ossrhPassword)
+            nexusUrl.set(uri("https://ossrh-staging-api.central.sonatype.com/service/local/"))
+            snapshotRepositoryUrl.set(uri("https://central.sonatype.com/repository/maven-snapshots/"))
+            username.set(centralPortalUsername)
+            password.set(centralPortalPassword)
         }
     }
 }
