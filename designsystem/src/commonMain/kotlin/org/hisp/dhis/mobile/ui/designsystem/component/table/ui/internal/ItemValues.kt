@@ -63,10 +63,9 @@ internal fun ItemValues(
                         headerExtraSize = TableTheme.dimensions.extraSize(
                             groupedTables = TableTheme.configuration.groupTables,
                             tableId = tableId,
-                            totalColumns = tableHeaderModel.tableMaxColumns(),
-                            extraColumns = extraColumns,
-                            column = columnIndex,
+                            totalColumns = totalTableColumns,
                             totalHeaderRows = totalHeaderRows,
+                            column = columnIndex,
                         ),
                     )
                 }

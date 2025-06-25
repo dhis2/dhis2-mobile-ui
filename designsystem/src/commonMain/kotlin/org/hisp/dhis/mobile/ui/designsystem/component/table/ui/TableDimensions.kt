@@ -87,14 +87,6 @@ data class TableDimensions(
         )
     }
 
-    internal fun defaultCellWidthWithExtraSize(
-        groupedTables: Boolean,
-        tableId: String,
-        totalColumns: Int,
-    ): Int = defaultCellWidth +
-        extraSize(groupedTables, tableId, totalColumns, 0) +
-        extraWidthInTable(tableId)
-
     internal fun columnWidthWithTableExtra(
         groupedTables: Boolean,
         tableId: String,
@@ -135,12 +127,22 @@ data class TableDimensions(
                 val minColumn = rowHeaderRatio * column
                 (minColumn..maxColumn).sumOf {
                     columnWidthWithTableExtra(groupedTables, tableId, it) +
-                        extraSize(groupedTables, tableId, totalColumns, extraColumns, column)
+                        extraSize(
+                            groupedTables = groupedTables,
+                            tableId = tableId,
+                            totalColumns = totalColumns,
+                            column = it,
+                        )
                 }
             }
 
             else -> columnWidthWithTableExtra(groupedTables, tableId, column) +
-                extraSize(groupedTables, tableId, totalColumns, if (headerRowColumns + extraColumns == totalColumns) 0 else extraColumns, column)
+                extraSize(
+                    groupedTables = groupedTables,
+                    tableId = tableId,
+                    totalColumns = totalColumns,
+                    column = column,
+                )
         }
         return result
     }
@@ -149,21 +151,18 @@ data class TableDimensions(
         groupedTables: Boolean,
         tableId: String,
         totalColumns: Int,
-        extraColumns: Int,
-        column: Int? = null,
         totalHeaderRows: Int = 1,
+        column: Int? = null,
     ): Int {
         val screenWidth = totalWidth
         val tableIdToUse = if (groupedTables) GROUPED_ID else tableId
-
-        val tableWidth = tableWidth(groupedTables, tableIdToUse, totalColumns, extraColumns, totalHeaderRows)
         val columnHasResizedValue = column?.let {
             columnWidth[tableIdToUse]?.containsKey(it)
         } ?: false
+        val tableWidth = tableWidth(groupedTables, tableIdToUse, totalColumns, totalHeaderRows)
 
         return if (tableWidth < screenWidth && !columnHasResizedValue) {
-            val columnsCount = totalColumns + extraColumns
-            ((screenWidth - tableWidth) / columnsCount).also {
+            ((screenWidth - tableWidth) / totalColumns).also {
                 currentExtraSize[tableIdToUse] = it
             }
         } else {
@@ -175,16 +174,23 @@ data class TableDimensions(
         groupedTables: Boolean,
         tableId: String,
         totalColumns: Int,
-        extraColumns: Int,
         totalRowHeaders: Int,
     ): Int {
-        val totalCellWidth = defaultCellWidth * extraColumns
         return rowHeaderWidth(
             groupedTables,
             tableId,
-        ) * totalRowHeaders + defaultCellWidth * totalColumns +
-            totalCellWidth +
+        ) * totalRowHeaders + getSumOfColumnWidths(groupedTables, tableId, totalColumns) +
             tableEndExtraScroll.value.roundToInt()
+    }
+
+    private fun getSumOfColumnWidths(
+        groupedTables: Boolean,
+        tableId: String,
+        totalColumns: Int,
+    ): Int {
+        return (0 until totalColumns).sumOf { columnIndex ->
+            getColumnWidth(groupedTables, tableId, columnIndex)
+        }
     }
 
     fun updateAllWidthBy(
@@ -286,7 +292,6 @@ data class TableDimensions(
         currentOffsetX: Float,
         columnIndex: Int,
         totalColumns: Int,
-        extraColumns: Int,
         groupedTables: Boolean,
     ): Boolean {
         val desiredDimension = updateColumnWidth(
@@ -303,7 +308,6 @@ data class TableDimensions(
             groupedTables = groupedTables,
             tableId = tableId,
             totalColumns = totalColumns,
-            extraColumns = extraColumns,
             column = columnIndex,
         ) in minColumnWidth..maxColumnWidth
     }

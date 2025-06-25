@@ -86,6 +86,14 @@ fun DataTable(
         }
     }
 
+    val rowHeadersAreAllSameSize by remember(tableList) {
+        derivedStateOf {
+            val allHeaderSizes = tableList.flatMap { tableModel ->
+                tableModel.tableRows.map { it.rowHeaders.size }
+            }
+            allHeaderSizes.isNotEmpty() && allHeaderSizes.distinct().size == 1
+        }
+    }
     val themeDimensions = TableTheme.dimensions
     val config = TableTheme.configuration
     var dimensions by remember { mutableStateOf(themeDimensions) }
@@ -292,11 +300,11 @@ fun DataTable(
                     },
                 )
             },
-            tableItemRow = { index, tableModel, tableRowModel ->
+            tableItemRow = { index, tableModel, tableRowModels ->
                 TableItemRow(
                     tableModel = tableModel,
                     horizontalScrollState = horizontalScrollConfig.getScrollState(index),
-                    rowModels = tableRowModel,
+                    rowModels = tableRowModels,
                     rowHeaderCellStyle = { rowHeaderIndexes, rowColumnIndex, disabled ->
                         styleForRowHeader(
                             isDisabled = disabled,
@@ -330,6 +338,7 @@ fun DataTable(
                     onResizing = { resizingCell = it },
                     totalTableColumns = totalTableColumns ?: 0,
                     maxRowColumnHeaders = maxRowColumnHeaders ?: 0,
+                    allRowHeadersAreSameSize = rowHeadersAreAllSameSize,
                 )
             },
             verticalResizingView = { tableHeight ->
