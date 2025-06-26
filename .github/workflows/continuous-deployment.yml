@@ -63,7 +63,7 @@ jobs:
 
       - name: Rename APK
         run: |
-          mv ${{ env.main_project_module }}/build/outputs/apk/debug/android-debug.apk ${{ env.main_project_module }}/build/outputs/apk/debug/ui-components-android-${{ inputs.release_version }}.apk
+          mv showcaseApp/build/outputs/apk/debug/showcaseApp-debug.apk showcaseApp/build/outputs/apk/debug/ui-components-android-${{ inputs.release_version }}.apk
 
 
       - name: Github Release
