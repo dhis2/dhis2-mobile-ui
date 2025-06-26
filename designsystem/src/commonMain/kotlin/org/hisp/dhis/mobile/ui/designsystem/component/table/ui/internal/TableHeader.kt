@@ -153,7 +153,6 @@ internal fun TableHeader(
                                         currentOffsetX = currentOffsetX,
                                         columnIndex = columnIndex,
                                         totalColumns = tableHeaderModel.tableMaxColumns(),
-                                        extraColumns = extraEmptyColumns,
                                         groupedTables = configuration.groupTables,
                                     )
                                 },

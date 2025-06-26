@@ -34,6 +34,7 @@ internal fun ItemValues(
     cellValues: Map<Int, TableCell>,
     tableHeaderModel: TableHeader,
     totalTableColumns: Int,
+    totalHeaderRows: Int,
 ) {
     val extraColumns = totalTableColumns - tableHeaderModel.tableMaxColumns()
     Row(
@@ -62,8 +63,8 @@ internal fun ItemValues(
                         headerExtraSize = TableTheme.dimensions.extraSize(
                             groupedTables = TableTheme.configuration.groupTables,
                             tableId = tableId,
-                            totalColumns = tableHeaderModel.tableMaxColumns(),
-                            extraColumns = extraColumns,
+                            totalColumns = totalTableColumns,
+                            totalHeaderRows = totalHeaderRows,
                             column = columnIndex,
                         ),
                     )

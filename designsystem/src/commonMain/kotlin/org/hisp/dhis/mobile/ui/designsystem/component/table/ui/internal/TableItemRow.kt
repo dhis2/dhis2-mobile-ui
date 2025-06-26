@@ -56,6 +56,7 @@ internal fun TableItemRow(
     onResizing: (ResizingCell?) -> Unit,
     totalTableColumns: Int,
     maxRowColumnHeaders: Int,
+    allRowHeadersAreSameSize: Boolean,
 ) {
     val tableSelection = LocalTableSelection.current
 
@@ -168,6 +169,7 @@ internal fun TableItemRow(
         Column(
             Modifier.zIndex(rowModel.rowHeaders.size + 1f),
         ) {
+            val rowHeaderCountForItemValues = if (allRowHeadersAreSameSize) maxRowColumnHeaders else 1
             rowModels.forEachIndexed { subRowIndex, tableRowModel ->
                 val firstCellSelected =
                     TableTheme.tableSelection.isCellSelected(
@@ -199,6 +201,7 @@ internal fun TableItemRow(
                     maxLines = tableRowModel.maxLines,
                     tableHeaderModel = tableModel.tableHeaderModel,
                     totalTableColumns = totalTableColumns,
+                    totalHeaderRows = rowHeaderCountForItemValues,
                 )
             }
         }
