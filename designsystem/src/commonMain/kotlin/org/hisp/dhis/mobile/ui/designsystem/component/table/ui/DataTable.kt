@@ -232,17 +232,10 @@ fun DataTable(
                     cornerUiState = TableCornerUiState(
                         isSelected = tableSelection.isCornerSelected(tableModel.id),
                         onTableResize = {
-                            if (isSingleValue) {
-                                tableResizeActions.onRowHeaderResize(
-                                    tableModel.id,
-                                    it,
-                                )
-                            } else {
-                                tableResizeActions.onTableDimensionResize(
-                                    tableModel.id,
-                                    it,
-                                )
-                            }
+                            tableResizeActions.onRowHeaderResize(
+                                tableModel.id,
+                                it,
+                            )
                         },
                         onResizing = { resizingCell = it },
                         singleValueTable = isSingleValue,
