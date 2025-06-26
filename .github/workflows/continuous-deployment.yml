@@ -74,4 +74,4 @@ jobs:
           bodyFile: "RELEASE.md"
           name: "Release notes - DHIS2 Design system: ${{ inputs.release_version }}"
           tag: ${{ inputs.release_version }}
-          artifacts: ${{ env.main_project_module }}/build/outputs/apk/debug/ui-components-android-${{ inputs.release_version }}.apk
+          artifacts: showcaseApp/build/outputs/apk/debug/ui-components-android-${{ inputs.release_version }}.apk
