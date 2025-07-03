@@ -60,6 +60,7 @@ android {
     defaultConfig {
         applicationId = "org.hisp.dhis.showcaseapp"
         minSdk = (findProperty("android.minSdk") as String).toInt()
+        targetSdk = (findProperty("android.targetSdk") as String).toInt()
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
