@@ -36,3 +36,4 @@
 [ANDROAPP-6969](https://dhis2.atlassian.net/browse/ANDROAPP-6969) Group sample app in showcase module
 
 [ANDROAPP-6487](https://dhis2.atlassian.net/browse/ANDROAPP-7096) Transifex integration
+
