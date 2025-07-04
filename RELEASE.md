@@ -1,29 +1,38 @@
 ### Bug
 
-[ANDROAPP-6744](https://dhis2.atlassian.net/browse/ANDROAPP-6744) Review BottomSheet Issues
+[ANDROAPP-6906](https://dhis2.atlassian.net/browse/ANDROAPP-6906) Incorrect initial width of tables without category combination
 
-[ANDROAPP-6822](https://dhis2.atlassian.net/browse/ANDROAPP-6822) Table resizing tool gets stuck sometimes
+[ANDROAPP-6912](https://dhis2.atlassian.net/browse/ANDROAPP-6912) Incorrect render of rowHeader total
 
-### Feature
+[ANDROAPP-7023](https://dhis2.atlassian.net/browse/ANDROAPP-7023) Non gregorian numbers in InputAge and InputDate
 
-[ANDROAPP-6437](https://dhis2.atlassian.net/browse/ANDROAPP-6437) \[mobile-ui\] ListCard force title overflow for  map cards
+[ANDROAPP-7025](https://dhis2.atlassian.net/browse/ANDROAPP-7025) Manage table loading internally and sticky row header offset
 
-[ANDROAPP-6793](https://dhis2.atlassian.net/browse/ANDROAPP-6793) Add TwoPaneLayout to mobile ui
+[ANDROAPP-7096](https://dhis2.atlassian.net/browse/ANDROAPP-7096) Review Mobile ui github publish step
 
-[ANDROAPP-6794](https://dhis2.atlassian.net/browse/ANDROAPP-6794) Add vertical tabs to mobile ui
+[ANDROAPP-6899](https://dhis2.atlassian.net/browse/ANDROAPP-6899) Implement persist table resizing layout
+
+[ANDROAPP-7080](https://dhis2.atlassian.net/browse/ANDROAPP-7080) Data set top row irregular navigation
+
+[ANDROAPP-7065](https://dhis2.atlassian.net/browse/ANDROAPP-7065) Add Text Transformation for specific value types in cell
+
+[ANDROAPP-6961](https://dhis2.atlassian.net/browse/ANDROAPP-6961) Cannot use calendar (date picker) when database language is in Arabic
+
+[ANDROAPP-6885](https://dhis2.atlassian.net/browse/ANDROAPP-6885) Scrolling in dataset with keyboard open
+
+[ANDROAPP-6937](https://dhis2.atlassian.net/browse/ANDROAPP-6937) Reset Table Layout Button Visibility
+
+[ANDROAPP-6906](https://dhis2.atlassian.net/browse/ANDROAPP-6906) Incorrect initial width of tables without category combination
+
+[ANDROAPP-6278](https://dhis2.atlassian.net/browse/ANDROAPP-6278) Incorrect date assignment (due to device time zone)
+
+[ANDROAPP-7029](https://dhis2.atlassian.net/browse/ANDROAPP-7029) Cannot enter 0 in integer data type
+
+[ANDROAPP-6977](https://dhis2.atlassian.net/browse/ANDROAPP-6977) DS crash when an empty category combination is assigned to a data element
+
 
 ### Task
 
-[ANDROAPP-6693](https://dhis2.atlassian.net/browse/ANDROAPP-6693) Move table to design system
+[ANDROAPP-6969](https://dhis2.atlassian.net/browse/ANDROAPP-6969) Group sample app in showcase module
 
-[ANDROAPP-6720](https://dhis2.atlassian.net/browse/ANDROAPP-6720) Update cell component for table
-
-[ANDROAPP-6756](https://dhis2.atlassian.net/browse/ANDROAPP-6756) Table touch-up details
-
-[ANDROAPP-6762](https://dhis2.atlassian.net/browse/ANDROAPP-6762) Migrate Table tests to design system
-
-[ANDROAPP-6798](https://dhis2.atlassian.net/browse/ANDROAPP-6798) Update AGP to 8.8.0 and compose multiplatform to 1.7.3
-
-[ANDROAPP-6823](https://dhis2.atlassian.net/browse/ANDROAPP-6823) Table Composable: Make last row sticky to move headers when scrolling
-
-[ANDROAPP-6839](https://dhis2.atlassian.net/browse/ANDROAPP-6839) Extract and expose date picker and time picker
+[ANDROAPP-6487](https://dhis2.atlassian.net/browse/ANDROAPP-7096) Transifex integration
