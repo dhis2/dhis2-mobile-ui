@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="show_more">Mostre mais</string>
+    <string name="show_less">Mostre menos</string>
+    <string name="years">Anos</string>
+    <string name="months">Meses</string>
+    <string name="days">Dias</string>
+    <string name="error_one">%1$d erro</string>
+    <string name="error_other">%1$d erros</string>
+    <string name="warning_one">%1$d aviso</string>
+    <string name="warning_other">%1$d avisos</string>
+    <string name="show_fields">Mostrar campos</string>
+    <string name="hide_fields">Ocultar campos</string>
+    <string name="action_next">Próximo</string>
+    <string name="add_file">Adicionar ficheiro</string>
+    <string name="yes">sim</string>
+    <string name="no">Não</string>
+    <string name="enter_phone_number">Digite o número de telefone</string>
+    <string name="qr_code">Código QR</string>
+    <string name="sync">Sincronizar</string>
+    <string name="polygon_captured">Polígono capturado</string>
+    <string name="add_location">Adicionar localização</string>
+    <string name="add_signature">Adicionar assinatura</string>
+    <string name="not_supported">Não suportado</string>
+    <string name="search">Procurar</string>
+    <string name="draw_here">Desenhar aqui</string>
+    <string name="reset">Reiniciar</string>
+    <string name="done">Feito</string>
+    <string name="clear_all">Limpar tudo</string>
+    <string name="no_results_found">Nenhum resultado encontrado</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancelar</string>
+    <string name="no_results">Sem resultados</string>
+    <string name="accept">Aceitar</string>
+    <string name="hide_details">Esconder detalhes</string>
+    </resources>

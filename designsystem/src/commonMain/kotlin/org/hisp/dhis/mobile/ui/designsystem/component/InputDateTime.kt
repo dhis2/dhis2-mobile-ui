@@ -78,6 +78,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Date
 import java.util.GregorianCalendar
 import java.util.Locale
 import java.util.TimeZone
@@ -522,10 +523,10 @@ fun InputDateTime(
         uiData.selectableDates.initialDate,
     ) + " - " +
         formatStringToDate(uiData.selectableDates.endDate) + ")"
-    val incorrectHourFormatTextdd =
+    val incorrectHourFormat =
         uiData.incorrectHourFormatText ?: provideStringResource("wrong_hour_format")
     val incorrectHourFormatItem = SupportingTextData(
-        text = incorrectHourFormatTextdd,
+        text = incorrectHourFormat,
         SupportingTextState.ERROR,
     )
     val incorrectDateFormatItem = SupportingTextData(
@@ -658,7 +659,7 @@ fun InputDateTime(
         },
         inputStyle = uiData.inputStyle,
     )
-    var datePickerState = provideDatePickerState(state.inputTextFieldValue, uiData)
+    var datePickerState = provideDatePickerState(uiValue, uiData)
 
     if (showDatePicker) {
         DHIS2DatePicker(
@@ -694,7 +695,7 @@ fun InputDateTime(
     }
 
     if (showTimePicker) {
-        val timePickerState = getTimePickerState(state, uiData)
+        val timePickerState = getTimePickerState(uiValue, uiData)
 
         DHIS2TimePicker(
             state = timePickerState,
@@ -856,32 +857,19 @@ private fun parseStringDateToMillis(dateString: String, pattern: String = "ddMMy
 }
 
 internal fun getDate(milliSeconds: Long?, format: String = "ddMMyyyy"): String {
-    val cal = Calendar.getInstance()
-    val currentTimeZone: TimeZone = cal.getTimeZone()
-    val currentDt: Calendar = GregorianCalendar(currentTimeZone, Locale.getDefault())
-    var gmtOffset: Int = currentTimeZone.getOffset(
-        currentDt[Calendar.ERA],
-        currentDt[Calendar.YEAR],
-        currentDt[Calendar.MONTH],
-        currentDt[Calendar.DAY_OF_MONTH],
-        currentDt[Calendar.DAY_OF_WEEK],
-        currentDt[Calendar.MILLISECOND],
-    )
-    gmtOffset /= (60 * 60 * 1000)
-    cal.add(Calendar.HOUR_OF_DAY, +gmtOffset)
-    return if (milliSeconds != null) {
-        cal.timeInMillis = milliSeconds
-        val formater = SimpleDateFormat(format)
-        if (gmtOffset < 0) {
-            var day = formater.format(cal.time).substring(0, 2).toInt()
-            day += 1
-            formater.format(cal.time).replaceRange(0, 2, String.format("%02d", day))
-        } else {
-            formater.format(cal.time)
-        }
-    } else {
-        ""
+    if (milliSeconds == null) {
+        return ""
     }
+
+    val calendar = GregorianCalendar(TimeZone.getTimeZone("UTC"), Locale.getDefault())
+    calendar.timeInMillis = milliSeconds
+
+    val formatter = SimpleDateFormat(format, Locale.getDefault())
+    formatter.timeZone = TimeZone.getTimeZone("UTC")
+    formatter.calendar = calendar
+
+    val date = Date(milliSeconds)
+    return formatter.format(date)
 }
 
 fun formatStringToDate(dateString: String): String {

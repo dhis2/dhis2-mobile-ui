@@ -3,8 +3,6 @@ plugins {
     signing
 }
 
-val ossrhUsername: String? = System.getenv("OSSRH_USERNAME")
-val ossrhPassword: String? = System.getenv("OSSRH_PASSWORD")
 val signingPrivateKey: String? = System.getenv("SIGNING_PRIVATE_KEY")
 val signingPassword: String? = System.getenv("SIGNING_PASSWORD")
 
@@ -59,7 +57,9 @@ publishing {
 
 // Signing artifacts. Signing.* extra properties values will be used
 signing {
-    setRequired({ !version.toString().endsWith("-SNAPSHOT") })
+    setRequired({
+        !(version.toString().endsWith("-SNAPSHOT") || version.toString().endsWith("-SNAPSHOTLOCAL"))
+    })
     useInMemoryPgpKeys(signingPrivateKey, signingPassword)
     sign(publishing.publications)
 }

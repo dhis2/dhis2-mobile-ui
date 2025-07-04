@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="show_more">Hiện thêm</string>
+    <string name="show_less">Ẩn bớt</string>
+    <string name="years">Năm</string>
+    <string name="months">Tháng</string>
+    <string name="days">Ngày</string>
+    <string name="error_other">Các lỗi %1$d</string>
+    <string name="warning_other">Các cảnh báo %1$d</string>
+    <string name="show_fields">Hiện trường dữ liệu</string>
+    <string name="hide_fields">Ẩn trường dữ liệu</string>
+    <string name="action_next">Tiếp tục</string>
+    <string name="add_file">Thêm tập tin</string>
+    <string name="yes">Có</string>
+    <string name="no">Không</string>
+    <string name="enter_phone_number">Nhập số điện thoại</string>
+    <string name="qr_code">Mã QR</string>
+    <string name="sync">Đồng bộ</string>
+    <string name="polygon_captured">Đã thêm bản đồ ranh giới</string>
+    <string name="add_location">Thêm vị trí</string>
+    <string name="add_signature">Thêm chữ ký</string>
+    <string name="not_supported">Không được hỗ trợ</string>
+    <string name="search">Tìm kiếm</string>
+    <string name="draw_here">Vẽ ở đây</string>
+    <string name="reset">Cài đặt lại</string>
+    <string name="done">Hoàn thành</string>
+    <string name="clear_all">Xóa tất cả</string>
+    <string name="no_results_found">Không tìm thấy kết quả nào</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Hủy</string>
+    <string name="no_results">Không có kết quả</string>
+    <string name="accept">Chấp nhận</string>
+    <string name="hide_details">Ẩn chi tiết</string>
+    </resources>

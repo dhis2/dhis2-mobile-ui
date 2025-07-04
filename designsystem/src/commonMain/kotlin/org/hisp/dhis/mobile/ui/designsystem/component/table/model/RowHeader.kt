@@ -17,4 +17,5 @@ data class RowHeader(
     val row: Int,
     val column: Int,
     val description: String? = null,
+    val disabled: Boolean = false,
 )

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="years">Años</string>
+    <string name="months">Meses</string>
+    <string name="days">Días</string>
+    <string name="action_next">Siguiente</string>
+    <string name="add_file">Añadir archivo</string>
+    <string name="yes">Sí</string>
+    <string name="no">No</string>
+    <string name="enter_phone_number">Introduzca número de teléfono</string>
+    <string name="sync">Sincronizado</string>
+    <string name="polygon_captured">Polígono guardado</string>
+    <string name="search">Buscar</string>
+    <string name="reset">Reajustar</string>
+    <string name="done">Terminado</string>
+    <string name="no_results_found">No se han encontrado resultados</string>
+    <string name="ok">Correcto</string>
+    <string name="cancel">Cancelar</string>
+    <string name="no_results">No hay resultados</string>
+    <string name="accept">Aceptar</string>
+    </resources>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="years">ឆ្នាំ</string>
+    <string name="months">ខែ</string>
+    <string name="days">ថ្ងៃ</string>
+    <string name="action_next">បន្ទាប់</string>
+    <string name="add_file">បញ្ចូលឯកសារ</string>
+    <string name="yes">បាទ/ចាស</string>
+    <string name="no">ទេ</string>
+    <string name="sync">បញ្ចូន</string>
+    <string name="search">ស្វែងរក</string>
+    <string name="done">Done</string>
+    <string name="no_results_found">មិនមានលទ្ធផលបង្ហាញ</string>
+    <string name="ok">យល់ព្រម</string>
+    <string name="cancel">បោះបង់</string>
+    <string name="accept">ទទួលយក</string>
+    <string name="hide_details">លាក់​ព័ត៌មាន​លម្អិត</string>
+    </resources>

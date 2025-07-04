@@ -8,6 +8,7 @@ import androidx.compose.material3.TimePickerState
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.TextFieldValue
 import org.hisp.dhis.mobile.ui.designsystem.component.DateTimeActionType
 import org.hisp.dhis.mobile.ui.designsystem.component.InputDateTimeModel
@@ -17,6 +18,8 @@ import org.hisp.dhis.mobile.ui.designsystem.component.state.InputDateTimeData
 import org.hisp.dhis.mobile.ui.designsystem.component.state.InputDateTimeState
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
+import java.text.DecimalFormatSymbols
+import java.text.NumberFormat
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -103,9 +106,9 @@ internal fun dateIsInRange(date: Long, allowedDates: SelectableDates): Boolean {
         )
 }
 
-internal fun parseStringDateToMillis(dateString: String): Long {
+internal fun parseStringDateToMillis(dateString: String, pattern: String = "ddMMyyyy"): Long {
     val cal = Calendar.getInstance()
-    return dateString.parseDate("ddMMyyyy")?.let {
+    return dateString.parseDate(pattern)?.let {
         cal.time = it
         cal.timeInMillis
     } ?: 0L
@@ -149,6 +152,7 @@ internal fun provideDatePickerState(inputTextFieldValue: TextFieldValue?, data: 
         rememberDatePickerState(
             initialSelectedDateMillis = parseStringDateToMillis(
                 dateString = it,
+                pattern = getDefaultFormat(data.actionType),
             ),
             yearRange = data.yearRange,
             selectableDates = getSelectableDates(data.selectableDates),
@@ -165,11 +169,21 @@ internal fun getDefaultFormat(actionType: DateTimeActionType): String {
 }
 
 internal fun formatUIDateToStored(textFieldValue: TextFieldValue, valueType: DateTimeActionType?): TextFieldValue {
-    val inputDateString = textFieldValue.text
+    val normalizedTextField = if (localeUsesLatinDigits()) {
+        textFieldValue
+    } else {
+        val normalizedDateString = normalizeToGregorian(textFieldValue.text)
+        textFieldValue.copy(
+            text = normalizedDateString,
+            selection = TextRange(normalizedDateString.length),
+        )
+    }
+    val inputDateString = normalizedTextField.text
+
     return when (valueType) {
         DateTimeActionType.DATE_TIME -> {
             if (inputDateString.length != 12) {
-                textFieldValue
+                normalizedTextField
             } else {
                 val minutes = inputDateString.substring(10, 12)
                 val hours = inputDateString.substring(8, 10)
@@ -177,30 +191,30 @@ internal fun formatUIDateToStored(textFieldValue: TextFieldValue, valueType: Dat
                 val month = inputDateString.substring(2, 4)
                 val day = inputDateString.substring(0, 2)
                 val dateTimeValue = "$year-$month-$day" + "T$hours:$minutes"
-                TextFieldValue(dateTimeValue, textFieldValue.selection, textFieldValue.composition)
+                TextFieldValue(dateTimeValue, normalizedTextField.selection, normalizedTextField.composition)
             }
         }
 
         DateTimeActionType.TIME -> {
             if (inputDateString.length != 4 && inputDateString.length != 12) {
-                textFieldValue
+                normalizedTextField
             } else {
                 val minutes = inputDateString.substring(2, 4)
                 val hours = inputDateString.substring(0, 2)
                 val timeValue = "$hours:$minutes"
-                TextFieldValue(timeValue, textFieldValue.selection, textFieldValue.composition)
+                TextFieldValue(timeValue, normalizedTextField.selection, normalizedTextField.composition)
             }
         }
 
         else -> {
             if (inputDateString.length != 8) {
-                textFieldValue
+                normalizedTextField
             } else {
                 val year = inputDateString.substring(4, 8)
                 val month = inputDateString.substring(2, 4)
                 val day = inputDateString.substring(0, 2)
                 val dateValue = "$year-$month-$day"
-                TextFieldValue(dateValue, textFieldValue.selection, textFieldValue.composition)
+                TextFieldValue(dateValue, normalizedTextField.selection, normalizedTextField.composition)
             }
         }
     }
@@ -429,28 +443,45 @@ internal fun getTimeSupportingTextList(
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-internal fun getTimePickerState(state: InputDateTimeState, uiData: InputDateTimeData): TimePickerState {
-    return if (state.inputTextFieldValue?.text?.isNotEmpty() == true && uiData.actionType == DateTimeActionType.TIME && isValidHourFormat(
-            state.inputTextFieldValue?.text ?: "",
+internal fun getTimePickerState(inputTextFieldValue: TextFieldValue?, uiData: InputDateTimeData): TimePickerState {
+    return if (inputTextFieldValue?.text?.isNotEmpty() == true && uiData.actionType == DateTimeActionType.TIME && isValidHourFormat(
+            inputTextFieldValue.text,
         )
     ) {
         rememberTimePickerState(
-            initialHour = state.inputTextFieldValue!!.text.substring(0, 2)
+            initialHour = inputTextFieldValue.text.substring(0, 2)
                 .toInt(),
-            state.inputTextFieldValue?.text!!.substring(2, 4).toInt(),
+            inputTextFieldValue.text.substring(2, 4).toInt(),
             is24Hour = uiData.is24hourFormat,
         )
-    } else if (state.inputTextFieldValue?.text?.length == 12 && isValidHourFormat(state.inputTextFieldValue!!.text.substring(8, 12))) {
+    } else if (inputTextFieldValue?.text?.length == 12 && isValidHourFormat(inputTextFieldValue.text.substring(8, 12))) {
         rememberTimePickerState(
-            initialHour = state.inputTextFieldValue?.text?.substring(
-                state.inputTextFieldValue!!.text.length - 4,
-                state.inputTextFieldValue!!.text.length - 2,
-            )!!
+            initialHour = inputTextFieldValue.text.substring(
+                inputTextFieldValue.text.length - 4,
+                inputTextFieldValue.text.length - 2,
+            )
                 .toInt(),
-            state.inputTextFieldValue!!.text.substring(state.inputTextFieldValue!!.text.length - 2, state.inputTextFieldValue!!.text.length).toInt(),
+            inputTextFieldValue.text.substring(inputTextFieldValue.text.length - 2, inputTextFieldValue.text.length).toInt(),
             is24Hour = uiData.is24hourFormat,
         )
     } else {
         rememberTimePickerState(0, 0, is24Hour = uiData.is24hourFormat)
     }
+}
+
+private fun normalizeToGregorian(input: String): String {
+    val symbols = DecimalFormatSymbols(Locale.getDefault())
+    val zeroDigit = symbols.zeroDigit
+    val arabicToGregorianMap = (0..9).associate {
+        (zeroDigit + it) to ('0' + it)
+    }
+    return input.map { arabicToGregorianMap[it] ?: it }.joinToString("")
+}
+
+private fun localeUsesLatinDigits(): Boolean {
+    val locale = Locale.getDefault()
+    val numberFormat = NumberFormat.getInstance(locale)
+    val formatted = numberFormat.format(1234567890)
+    val digitsOnly = formatted.filter { it.isDigit() }
+    return digitsOnly.all { it in '0'..'9' }
 }

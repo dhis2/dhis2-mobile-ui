@@ -136,7 +136,7 @@ class InputIntegerTest {
     }
 
     @Test
-    fun shouldNotAllowAnInitialValueOfZero() {
+    fun shouldAllowAnInitialValueOfZero() {
         rule.setContent {
             var inputValue by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue()) }
             InputInteger(
@@ -151,7 +151,9 @@ class InputIntegerTest {
         rule.onNodeWithTag("INPUT_INTEGER").assertExists()
         rule.onNodeWithTag("INPUT_INTEGER_FIELD").assertExists()
         rule.onNodeWithTag("INPUT_INTEGER_FIELD").performTextInput("0")
-        rule.onNodeWithTag("INPUT_INTEGER_FIELD").assert(hasText(""))
+        rule.onNodeWithTag("INPUT_INTEGER_FIELD").assert(hasText("0"))
+        rule.onNodeWithTag("INPUT_INTEGER_FIELD").performTextInput("1")
+        rule.onNodeWithTag("INPUT_INTEGER_FIELD").assert(hasText("0"))
     }
 
     @Test

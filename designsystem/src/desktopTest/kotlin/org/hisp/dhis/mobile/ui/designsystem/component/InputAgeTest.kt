@@ -3,7 +3,11 @@ package org.hisp.dhis.mobile.ui.designsystem.component
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertTextEquals
+import androidx.compose.ui.test.hasText
+import androidx.compose.ui.test.isSelectable
+import androidx.compose.ui.test.isSelected
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
@@ -160,6 +164,29 @@ class InputAgeTest {
         rule.onNodeWithTag("INPUT_AGE_RESET_BUTTON").assertDoesNotExist()
         rule.onNodeWithTag("INPUT_AGE_OPEN_CALENDAR_BUTTON").assertDoesNotExist()
         rule.onNodeWithTag("INPUT_AGE_TIME_UNIT_SELECTOR").assertDoesNotExist()
+    }
+
+    @Test
+    fun clickingOnActionButtonForAgeInputShouldShowDatePicker() {
+        val input by mutableStateOf(AgeInputType.DateOfBirth(TextFieldValue("1991-11-27")))
+
+        rule.setContent {
+            InputAge(
+                state = rememberInputAgeState(
+                    inputAgeData = InputAgeData(
+                        title = "Label",
+                    ),
+                    inputType = input,
+                ),
+                onValueChanged = {
+                    /* no-op */
+                },
+            )
+        }
+
+        rule.onNodeWithTag("INPUT_AGE_OPEN_CALENDAR_BUTTON").performClick()
+        rule.onNodeWithTag("DATE_PICKER").assertExists()
+        rule.onNode(hasText("27", true) and isSelectable()).assert(isSelected())
     }
 
     @Test

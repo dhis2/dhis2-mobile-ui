@@ -354,9 +354,14 @@ fun InputAge(
         SimpleDateFormat(DATE_FORMAT).format(Calendar.getInstance().time),
     )
 
-    val datePickerState = rememberDatePickerState(
-        selectableDates = getSelectableDates(selectableDates),
-    )
+    val datePickerState = uiValue.text.takeIf {
+        it.isNotEmpty() && isValidDate(it) && dateIsInRange(parseStringDateToMillis(it), selectableDates)
+    }?.let {
+        rememberDatePickerState(
+            initialSelectedDateMillis = parseStringDateToMillis(it),
+            selectableDates = getSelectableDates(selectableDates),
+        )
+    } ?: rememberDatePickerState(selectableDates = getSelectableDates(selectableDates))
 
     val calendarButton: (@Composable () -> Unit)? = if (inputType is DateOfBirth) {
         @Composable {

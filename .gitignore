@@ -41,3 +41,5 @@ bin/
 
 local.properties
 /java_pid44785.hprof
+
+.kotlin

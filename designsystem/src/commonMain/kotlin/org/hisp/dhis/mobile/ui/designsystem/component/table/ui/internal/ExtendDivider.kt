@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -15,6 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme
+import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
 /**
  * Composable function to display an extended divider for table rows.
@@ -28,7 +30,7 @@ internal fun ExtendDivider(
 ) {
     val background = TableTheme.colors.primary
     val config = TableTheme.configuration
-    Row(modifier = Modifier.fillMaxWidth()) {
+    Row(modifier = Modifier.fillMaxWidth().padding(horizontal = Spacing.Spacing16)) {
         Box(
             modifier = Modifier
                 .width(

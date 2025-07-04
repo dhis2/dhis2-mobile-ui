@@ -42,7 +42,7 @@ fun InfoBar(
 ) {
     Row(
         modifier = modifier
-            .clip(shape = RoundedCornerShape(Radius.Full))
+            .clip(shape = RoundedCornerShape(Radius.XL))
             .background(color = infoBarData.backgroundColor)
             .padding(Spacing.Spacing8)
             .fillMaxWidth(),

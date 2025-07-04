@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="show_more">Кўпроқ кўрсатиш</string>
+    <string name="show_less">Камроқ кўрсатиш</string>
+    <string name="date_birth">ТУҒИЛГАН КУНИ</string>
+    <string name="age">ЁШИ</string>
+    <string name="or">ЁКИ</string>
+    <string name="years">Йиллар</string>
+    <string name="months">Ойлар</string>
+    <string name="days">Кунлар</string>
+    <string name="error_one">%1$d хатолик</string>
+    <string name="error_other">%1$d da xatoliklar</string>
+    <string name="warning_one">%1$d огоҳлантириш</string>
+    <string name="warning_other">%1$d da ogohlantirishlar</string>
+    <string name="show_fields">Қаторларни кўрсатиш</string>
+    <string name="hide_fields">Қаторларни беркитиш</string>
+    <string name="action_next">Кейинги</string>
+    <string name="add_file">Файл қўшиш</string>
+    <string name="yes">Ҳа</string>
+    <string name="no">Йўқ</string>
+    <string name="enter_phone_number">Телефон рақамини киритинг</string>
+    <string name="qr_code">QR код</string>
+    <string name="sync">Синх</string>
+    <string name="add_polygon">Полигон қўшинг</string>
+    <string name="polygon_captured">Полигон белгиланди</string>
+    <string name="add_location">Локация қўшинг</string>
+    <string name="latitude">Кенглик</string>
+    <string name="longitude">Узунлик</string>
+    <string name="add_signature">Имзо қўшинг</string>
+    <string name="add_image">Расм қўшинг</string>
+    <string name="not_supported">Қўллаб қувватланмайди</string>
+    <string name="search">Излаш</string>
+    <string name="draw_here">Шу ерда чизинг</string>
+    <string name="reset">Қайта юкланг</string>
+    <string name="done">Бўлди</string>
+    <string name="clear_all">Барчасини тозалаш</string>
+    <string name="no_results_found">Натижа йўқ</string>
+    <string name="ok">ЯХШИ</string>
+    <string name="cancel">Рад этиш</string>
+    <string name="select_date">Санани танланг</string>
+    <string name="date_out_of_range">Сана диапазондан ташқари</string>
+    <string name="wrong_hour_format">Сана формати нотўғри</string>
+    <string name="search_to_see_more">Барча вариантлар кўрсатилмади.\n Кўпроқ маълумот топиш учун изланг.</string>
+    <string name="no_results">Натижа йўқ</string>
+    <string name="accept">Қабул қилинг</string>
+    <string name="hide_details">Деталларни беркитиш</string>
+    </resources>

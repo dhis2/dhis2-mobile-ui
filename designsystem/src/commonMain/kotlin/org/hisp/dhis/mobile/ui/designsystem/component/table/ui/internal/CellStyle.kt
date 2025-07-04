@@ -63,6 +63,7 @@ internal sealed class CellStyle {
  */
 @Composable
 internal fun styleForColumnHeader(
+    isDisabled: Boolean,
     isCornerSelected: Boolean,
     isSelected: Boolean,
     isParentSelected: Boolean,
@@ -86,6 +87,12 @@ internal fun styleForColumnHeader(
         dividerColor = TableTheme.colors.primary,
     )
 
+    isDisabled -> CellStyle.HeaderStyle(
+        backgroundColor = TableTheme.colors.disabledCellBackground,
+        textColor = TableTheme.colors.disabledCellText,
+        dividerColor = Outline.Light,
+    )
+
     columnIndex % 2 == 0 -> CellStyle.HeaderStyle(
         backgroundColor = TableTheme.colors.headerBackground1,
         textColor = TableTheme.colors.headerText,
@@ -102,13 +109,15 @@ internal fun styleForColumnHeader(
 
 /**
  * Returns the style for column header cells based on their selection state and index.
- *
- * @param isCornerSelected Indicates if whole table is selected.
+ * @param isDisabled Indicates if the column header is disabled.
+ * @param isCornerSelected Indicates if the corner column header is selected.
  * @param isSelected Indicates if the column header is selected.
- * @param isOtherRowSelected Indicates if other row is selected.
+ * @param isOtherRowSelected Indicates if another row is selected.
+ * @return The style for the column header cell.
  */
 @Composable
 internal fun styleForRowHeader(
+    isDisabled: Boolean,
     isCornerSelected: Boolean,
     isSelected: Boolean,
     isOtherRowSelected: Boolean,
@@ -128,6 +137,12 @@ internal fun styleForRowHeader(
     isOtherRowSelected -> CellStyle.HeaderStyle(
         backgroundColor = MaterialTheme.colorScheme.surfaceContainerHighest,
         textColor = TableTheme.colors.primary,
+        dividerColor = Outline.Light,
+    )
+
+    isDisabled -> CellStyle.HeaderStyle(
+        backgroundColor = TableTheme.colors.disabledCellBackground,
+        textColor = TableTheme.colors.disabledCellText,
         dividerColor = Outline.Light,
     )
 
