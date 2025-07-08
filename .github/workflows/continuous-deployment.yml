@@ -36,8 +36,8 @@ jobs:
       - name: Publish to maven
         run: ./.github/workflows/scripts/publish-maven.sh
         env:
-          OSSRH_USERNAME: ${{ secrets.SONATYPE_OSSRH_USERNAME }}
-          OSSRH_PASSWORD: ${{ secrets.SONATYPE_OSSRH_PASSWORD }}
+          SONATYPE_USERNAME: ${{ secrets.SONATYPE_PORTAL_USERNAME }}
+          SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PORTAL_PASSWORD }}
           SIGNING_PRIVATE_KEY: ${{ secrets.PGP_PRIVATE_KEY }}
           SIGNING_PASSWORD: ${{ secrets.PGP_PASSPHRASE }}
 
@@ -63,7 +63,7 @@ jobs:
 
       - name: Rename APK
         run: |
-          mv ${{ env.main_project_module }}/build/outputs/apk/debug/android-debug.apk ${{ env.main_project_module }}/build/outputs/apk/debug/ui-components-android-${{ inputs.release_version }}.apk
+          mv showcaseApp/build/outputs/apk/debug/showcaseApp-debug.apk showcaseApp/build/outputs/apk/debug/ui-components-android-${{ inputs.release_version }}.apk
 
 
       - name: Github Release
@@ -74,4 +74,4 @@ jobs:
           bodyFile: "RELEASE.md"
           name: "Release notes - DHIS2 Design system: ${{ inputs.release_version }}"
           tag: ${{ inputs.release_version }}
-          artifacts: ${{ env.main_project_module }}/build/outputs/apk/debug/ui-components-android-${{ inputs.release_version }}.apk
+          artifacts: showcaseApp/build/outputs/apk/debug/ui-components-android-${{ inputs.release_version }}.apk

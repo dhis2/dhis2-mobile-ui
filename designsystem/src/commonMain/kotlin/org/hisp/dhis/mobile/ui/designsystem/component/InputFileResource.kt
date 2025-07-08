@@ -1,6 +1,7 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Arrangement.Absolute.spacedBy
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -19,6 +20,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.component.UploadFileState.ADD
 import org.hisp.dhis.mobile.ui.designsystem.component.UploadFileState.LOADED
 import org.hisp.dhis.mobile.ui.designsystem.component.UploadFileState.UPLOADING
@@ -173,6 +176,8 @@ fun InputFileResource(
                 }
                 LOADED -> {
                     Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = spacedBy(2.dp),
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
                         fileName?.let {
@@ -180,8 +185,8 @@ fun InputFileResource(
                                 text = it,
                                 color = if (inputShellState != InputShellState.DISABLED) TextColor.OnSurface else TextColor.OnDisabledSurface,
                                 maxLines = 1,
-                                modifier = Modifier.testTag(INPUT_FILE_TEST_TAG + UPLOAD_TEXT_FILE_NAME_TEST_TAG)
-                                    .padding(end = Spacing.Spacing2),
+                                overflow = TextOverflow.Ellipsis,
+                                modifier = Modifier.testTag(INPUT_FILE_TEST_TAG + UPLOAD_TEXT_FILE_NAME_TEST_TAG).weight(1f),
                             )
                         }
                         fileWeight?.let {

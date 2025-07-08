@@ -47,6 +47,8 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
  * @param onHeaderResize Callback function invoked when the header is resized.
  * @param onResizing Callback function invoked during the resizing of the header.
  * @param onResetResize Callback function invoked to reset the resize state.
+ * @param totalTableColumns max number of columns in the table, including extra columns and empty non-selectable ones.
+ * @param maxRowColumnHeaders number of columns in the row that have a column header.
  */
 @Composable
 internal fun TableHeaderRow(
@@ -54,7 +56,7 @@ internal fun TableHeaderRow(
     cornerUiState: TableCornerUiState,
     tableModel: TableModel,
     horizontalScrollState: ScrollState,
-    columnCount: Int,
+    totalTableColumns: Int,
     maxRowColumnHeaders: Int,
     cellStyle: @Composable
     (headerColumnIndex: Int, headerRowIndex: Int, disabled: Boolean) -> CellStyle.HeaderStyle,
@@ -121,7 +123,7 @@ internal fun TableHeaderRow(
                 onHeaderCellSelected = onHeaderCellClick,
                 onHeaderResize = onHeaderResize,
                 onResizing = onResizing,
-                columnCount = columnCount,
+                totalTableColumns = totalTableColumns,
             )
         }
     }
