@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
@@ -79,15 +80,19 @@ fun App(
     )? = null,
 ) {
     DHIS2Theme {
-        SharedTransitionLayout {
-            var currentScreen by remember { mutableStateOf(Groups.NO_GROUP_SELECTED) }
+        Scaffold(
+            modifier = Modifier.fillMaxSize(),
+            containerColor = Color.Transparent,
+        ) { innerPadding ->
+            SharedTransitionLayout(modifier = Modifier.padding(innerPadding)) {
+                var currentScreen by remember { mutableStateOf(Groups.NO_GROUP_SELECTED) }
 
-            AnimatedContent(
-                sizeClass.widthSizeClass,
-                label = "content_size_transition",
-            ) { widthSizeClass ->
-                when (widthSizeClass) {
-                    WindowWidthSizeClass.Expanded ->
+                AnimatedContent(
+                    sizeClass.widthSizeClass,
+                    label = "content_size_transition",
+                ) { widthSizeClass ->
+                    when (widthSizeClass) {
+                        WindowWidthSizeClass.Expanded ->
                         ExpandedMain(
                             currentScreen = currentScreen,
                             imageBitmapLoader = imageBitmapLoader,
@@ -98,7 +103,7 @@ fun App(
                             currentScreen = it
                         }
 
-                    else ->
+                        else ->
                         Main(
                             currentScreen = currentScreen,
                             imageBitmapLoader = imageBitmapLoader,
@@ -108,6 +113,7 @@ fun App(
                         ) {
                             currentScreen = it
                         }
+                    }
                 }
             }
         }
