@@ -8,7 +8,7 @@ import kotlinx.serialization.Serializable
  * @property id The unique identifier of the cell.
  * @property row The row index of the cell.
  * @property column The column index of the cell.
- * @property value The value contained in the cell.
+ * @property content The content of the cell.
  * @property editable Indicates if the cell is editable.
  * @property mandatory Indicates if the cell is mandatory.
  * @property error The error message associated with the cell, if any.
@@ -21,7 +21,7 @@ data class TableCell(
     val id: String,
     val row: Int? = null,
     val column: Int,
-    val value: String?,
+    val content: TableCellContent,
     val editable: Boolean = true,
     val mandatory: Boolean? = false,
     val error: String? = null,
@@ -29,6 +29,13 @@ data class TableCell(
     val legendColor: Int? = null,
     val isMultiText: Boolean = false,
 ) {
+
+    val value: String?
+        get() = when (content) {
+            is TableCellContent.Text -> content.value
+            is TableCellContent.Checkbox -> content.isChecked.toString()
+        }
+
     /**
      * Checks if the cell has either an error or a warning.
      * @return True if the cell has an error or a warning, false otherwise.
