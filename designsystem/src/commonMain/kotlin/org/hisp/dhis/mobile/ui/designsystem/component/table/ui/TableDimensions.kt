@@ -313,7 +313,7 @@ data class TableDimensions(
             tableId = tableId,
             column = columnIndex,
         ) +
-            extraSize(
+            desiredDimension.extraSize(
                 groupedTables = groupedTables,
                 tableId = tableId,
                 totalColumns = totalColumns,
