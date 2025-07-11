@@ -32,7 +32,9 @@ fun CardsScreen() {
     }
 }
 
-enum class Cards(val label: String) {
+enum class Cards(
+    val label: String,
+) {
     CARD_DETAIL("Card Detail"),
     LIST_CARD("Vertical List Card"),
     LIST_CARD_HORIZONTAL("Horizontal List Cards"),
@@ -40,6 +42,4 @@ enum class Cards(val label: String) {
     NO_COMPONENT_SELECTED("No component selected"),
 }
 
-fun getCurrentScreen(label: String): Cards {
-    return Cards.entries.firstOrNull { it.label == label } ?: Cards.CARD_DETAIL
-}
+fun getCurrentScreen(label: String): Cards = Cards.entries.firstOrNull { it.label == label } ?: Cards.CARD_DETAIL

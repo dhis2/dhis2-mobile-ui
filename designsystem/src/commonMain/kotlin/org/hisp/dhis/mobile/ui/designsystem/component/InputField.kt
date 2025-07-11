@@ -93,20 +93,20 @@ fun BasicTextField(
         }
     }
 
-    val customTextSelectionColors = TextSelectionColors(
-        handleColor = cursorColor,
-        backgroundColor = Blue300,
-    )
+    val customTextSelectionColors =
+        TextSelectionColors(
+            handleColor = cursorColor,
+            backgroundColor = Blue300,
+        )
 
     CompositionLocalProvider(LocalTextSelectionColors provides customTextSelectionColors) {
         BasicTextField(
-
-            modifier = modifier
-                .background(
-                    Color.Transparent,
-                )
-                .fillMaxWidth()
-                .textFieldHoverPointerIcon(enabled),
+            modifier =
+                modifier
+                    .background(
+                        Color.Transparent,
+                    ).fillMaxWidth()
+                    .textFieldHoverPointerIcon(enabled),
             value = inputTextValue ?: TextFieldValue(),
             onValueChange = {
                 onInputChanged.invoke(it)
@@ -124,17 +124,18 @@ fun BasicTextField(
                 }
             },
             keyboardOptions = keyboardOptions,
-            keyboardActions = KeyboardActions(
-                onNext = {
-                    onNextClicked?.invoke()
-                },
-                onSearch = {
-                    onSearchClicked?.invoke()
-                },
-                onDone = {
-                    keyboardController?.hide()
-                },
-            ),
+            keyboardActions =
+                KeyboardActions(
+                    onNext = {
+                        onNextClicked?.invoke()
+                    },
+                    onSearch = {
+                        onSearchClicked?.invoke()
+                    },
+                    onDone = {
+                        keyboardController?.hide()
+                    },
+                ),
             visualTransformation = textFieldVisualTransformation,
             cursorBrush = SolidColor(cursorColor),
         )

@@ -83,8 +83,10 @@ fun InputDialog(
                                     input()
                                     if (detailShown) {
                                         Button(
-                                            modifier = Modifier.padding(Spacing.Spacing16)
-                                                .fillMaxWidth(),
+                                            modifier =
+                                                Modifier
+                                                    .padding(Spacing.Spacing16)
+                                                    .fillMaxWidth(),
                                             text = provideStringResource("hide_details"),
                                             style = ButtonStyle.TONAL,
                                             icon = {
@@ -99,9 +101,14 @@ fun InputDialog(
                                         )
                                     } else {
                                         Row(
-                                            modifier = Modifier
-                                                .padding(start = Spacing.Spacing12, top = Spacing.Spacing12, end = Spacing.Spacing16, bottom = Spacing.Spacing12)
-                                                .background(SurfaceColor.SurfaceBright),
+                                            modifier =
+                                                Modifier
+                                                    .padding(
+                                                        start = Spacing.Spacing12,
+                                                        top = Spacing.Spacing12,
+                                                        end = Spacing.Spacing16,
+                                                        bottom = Spacing.Spacing12,
+                                                    ).background(SurfaceColor.SurfaceBright),
                                         ) {
                                             IconButton(
                                                 modifier = Modifier.testTag("INPUT_DIALOG_DISMISS_TAG"),
@@ -143,21 +150,24 @@ fun InputDialog(
                 item {
                     AnimatedVisibility(
                         visible = detailShown,
-                        enter = slideInVertically(
-                            initialOffsetY = { it },
-                            animationSpec = tween(durationMillis = 400),
-                        ),
-                        exit = slideOutVertically(
-                            targetOffsetY = { it },
-                            animationSpec = tween(durationMillis = 400),
-                        ),
+                        enter =
+                            slideInVertically(
+                                initialOffsetY = { it },
+                                animationSpec = tween(durationMillis = 400),
+                            ),
+                        exit =
+                            slideOutVertically(
+                                targetOffsetY = { it },
+                                animationSpec = tween(durationMillis = 400),
+                            ),
                     ) {
                         details?.let {
                             Column(Modifier.padding(Spacing.Spacing0)) {
                                 details()
                                 Button(
-                                    modifier = Modifier
-                                        .fillMaxWidth(),
+                                    modifier =
+                                        Modifier
+                                            .fillMaxWidth(),
                                     text = provideStringResource("hide_details"),
                                     style = ButtonStyle.TONAL,
                                     icon = {

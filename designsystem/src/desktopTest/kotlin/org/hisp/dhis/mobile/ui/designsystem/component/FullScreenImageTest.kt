@@ -14,7 +14,6 @@ import org.junit.Rule
 import org.junit.Test
 
 class FullScreenImageTest {
-
     @get:Rule
     val rule = createComposeRule()
 

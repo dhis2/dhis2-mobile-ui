@@ -13,7 +13,6 @@ import org.junit.Test
 import java.io.File
 
 class ImageBlockTest {
-
     @get:Rule
     val rule = createComposeRule()
 

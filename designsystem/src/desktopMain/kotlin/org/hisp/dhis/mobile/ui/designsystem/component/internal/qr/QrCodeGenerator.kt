@@ -11,27 +11,29 @@ import com.google.zxing.datamatrix.DataMatrixWriter
 import java.awt.image.BufferedImage
 
 internal actual class QrCodeGenerator {
-
     private val colorBlack = 0xFF000000.toInt()
     private val colorWhite = 0xFFFFFFFF.toInt()
 
-    actual fun generate(data: String, isDataMatrix: Boolean): ImageBitmap? {
-        return try {
+    actual fun generate(
+        data: String,
+        isDataMatrix: Boolean,
+    ): ImageBitmap? =
+        try {
             val writer = if (!isDataMatrix) MultiFormatWriter() else DataMatrixWriter()
-            val bitMatrix = writer.encode(
-                data,
-                if (isDataMatrix) BarcodeFormat.DATA_MATRIX else BarcodeFormat.QR_CODE,
-                QR_CODE_SIZE,
-                QR_CODE_SIZE,
-                mapOf(Pair(EncodeHintType.MARGIN, 1)),
-            )
+            val bitMatrix =
+                writer.encode(
+                    data,
+                    if (isDataMatrix) BarcodeFormat.DATA_MATRIX else BarcodeFormat.QR_CODE,
+                    QR_CODE_SIZE,
+                    QR_CODE_SIZE,
+                    mapOf(Pair(EncodeHintType.MARGIN, 1)),
+                )
             val image = createBufferedImage(bitMatrix)
 
             image.toComposeImageBitmap()
         } catch (e: WriterException) {
             null
         }
-    }
 
     private fun createBufferedImage(bitMatrix: BitMatrix): BufferedImage {
         val width = bitMatrix.width

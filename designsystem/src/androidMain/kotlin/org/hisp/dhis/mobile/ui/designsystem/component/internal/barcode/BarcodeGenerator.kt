@@ -10,23 +10,22 @@ import com.google.zxing.WriterException
 import com.google.zxing.common.BitMatrix
 
 internal actual class BarcodeGenerator {
-
-    actual fun generate(data: String): ImageBitmap? {
-        return try {
+    actual fun generate(data: String): ImageBitmap? =
+        try {
             val writer = MultiFormatWriter()
-            val bitMatrix = writer.encode(
-                data,
-                BarcodeFormat.CODE_128,
-                BARCODE_WIDTH,
-                BARCODE_HEIGHT,
-            )
+            val bitMatrix =
+                writer.encode(
+                    data,
+                    BarcodeFormat.CODE_128,
+                    BARCODE_WIDTH,
+                    BARCODE_HEIGHT,
+                )
             val bitmap = createAndroidBitmap(bitMatrix)
 
             bitmap.asImageBitmap()
         } catch (e: WriterException) {
             null
         }
-    }
 
     private fun createAndroidBitmap(bitMatrix: BitMatrix): Bitmap {
         val width = bitMatrix.width

@@ -19,7 +19,6 @@ import org.junit.Rule
 import org.junit.Test
 
 class InputPositiveIntegerOrZeroTest {
-
     @get:Rule
     val rule = createComposeRule()
 

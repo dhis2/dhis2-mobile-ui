@@ -64,7 +64,8 @@ fun VerticalTabs(
     val scrollState = rememberLazyListState()
     val scrollOffset by remember {
         derivedStateOf {
-            VerticalTabsDefaults.tabHeight * scrollState.firstVisibleItemIndex + with(density) { scrollState.firstVisibleItemScrollOffset.toDp() }
+            VerticalTabsDefaults.tabHeight * scrollState.firstVisibleItemIndex +
+                with(density) { scrollState.firstVisibleItemScrollOffset.toDp() }
         }
     }
 
@@ -74,20 +75,22 @@ fun VerticalTabs(
     )
 
     Box(
-        modifier = modifier
-            .background(
-                color = VerticalTabsDefaults.backgroundColor(tabColorStyle),
-                shape = backgroundShape,
-            )
-            .clip(backgroundShape),
+        modifier =
+            modifier
+                .background(
+                    color = VerticalTabsDefaults.backgroundColor(tabColorStyle),
+                    shape = backgroundShape,
+                ).clip(backgroundShape),
     ) {
         LazyColumn(
             state = scrollState,
-            modifier = Modifier.fillMaxSize()
-                .draggableList(
-                    scrollState = scrollState,
-                    draggableType = DraggableType.Vertical,
-                ),
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .draggableList(
+                        scrollState = scrollState,
+                        draggableType = DraggableType.Vertical,
+                    ),
             contentPadding = contentPadding,
         ) {
             itemsIndexed(tabs) { index, tab ->
@@ -128,29 +131,32 @@ internal fun VerticalTab(
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(defaultVerticalTabHeight)
-            .clickable(
-                onClick = onTabClick,
-                role = Role.Tab,
-                interactionSource = interactionSource,
-                indication = ripple(
-                    color = if (tabColorStyle is TabColorStyle.Primary) {
-                        MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.16f)
-                    } else {
-                        MaterialTheme.colorScheme.primary
-                    },
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .height(defaultVerticalTabHeight)
+                .clickable(
+                    onClick = onTabClick,
+                    role = Role.Tab,
+                    interactionSource = interactionSource,
+                    indication =
+                        ripple(
+                            color =
+                                if (tabColorStyle is TabColorStyle.Primary) {
+                                    MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.16f)
+                                } else {
+                                    MaterialTheme.colorScheme.primary
+                                },
+                        ),
+                ).padding(
+                    horizontal =
+                        if (tabStyle is TabStyle.IconOnly) {
+                            Spacing.Spacing5
+                        } else {
+                            Spacing.Spacing16
+                        },
+                    vertical = Spacing.Spacing5,
                 ),
-            )
-            .padding(
-                horizontal = if (tabStyle is TabStyle.IconOnly) {
-                    Spacing.Spacing5
-                } else {
-                    Spacing.Spacing16
-                },
-                vertical = Spacing.Spacing5,
-            ),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = spacedBy(Spacing.Spacing4),
     ) {
@@ -219,7 +225,10 @@ object VerticalTabsDefaults {
         @Composable get() = MaterialTheme.colorScheme.surfaceBright
 
     @Composable
-    fun textColor(tabColorStyle: TabColorStyle, selected: Boolean) = when {
+    fun textColor(
+        tabColorStyle: TabColorStyle,
+        selected: Boolean,
+    ) = when {
         tabColorStyle == TabColorStyle.Primary && !selected -> textColorVariant
         tabColorStyle == TabColorStyle.Tonal && !selected -> textColor
         tabColorStyle == TabColorStyle.Primary && selected -> selectedTextColorVariant
@@ -228,16 +237,18 @@ object VerticalTabsDefaults {
     }
 
     @Composable
-    fun backgroundColor(tabColorStyle: TabColorStyle) = when (tabColorStyle) {
-        TabColorStyle.Primary -> backgroundColorVariant
-        TabColorStyle.Tonal -> backgroundColor
-    }
+    fun backgroundColor(tabColorStyle: TabColorStyle) =
+        when (tabColorStyle) {
+            TabColorStyle.Primary -> backgroundColorVariant
+            TabColorStyle.Tonal -> backgroundColor
+        }
 
     @Composable
-    fun indicatorColor(tabColorStyle: TabColorStyle) = when (tabColorStyle) {
-        TabColorStyle.Primary -> indicatorColorVariant
-        TabColorStyle.Tonal -> indicatorColor
-    }
+    fun indicatorColor(tabColorStyle: TabColorStyle) =
+        when (tabColorStyle) {
+            TabColorStyle.Primary -> indicatorColorVariant
+            TabColorStyle.Tonal -> indicatorColor
+        }
 
     @Composable
     fun Indicator(

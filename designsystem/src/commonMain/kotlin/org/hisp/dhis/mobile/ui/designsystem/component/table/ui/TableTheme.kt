@@ -22,8 +22,7 @@ fun TableTheme(
     tableDimensions: TableDimensions = LocalTableDimensions.current,
     tableConfiguration: TableConfiguration = LocalTableConfiguration.current,
     tableValidator: Validator = DefaultValidator(),
-    content: @Composable
-    () -> Unit,
+    content: @Composable () -> Unit,
 ) {
     CompositionLocalProvider(
         LocalTableColors provides tableColors,
@@ -41,7 +40,6 @@ fun TableTheme(
  * Object to access the current table theme settings.
  */
 object TableTheme {
-
     /**
      * The current table colors.
      */

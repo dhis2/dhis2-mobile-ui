@@ -29,7 +29,6 @@ data class TableCell(
     val legendColor: Int? = null,
     val isMultiText: Boolean = false,
 ) {
-
     /**
      * Checks if the cell has either an error or a warning.
      * @return True if the cell has an error or a warning, false otherwise.

@@ -5,7 +5,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.SupportingText
 import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextState
-import org.hisp.dhis.showcaseapp.screens.previews.lorem
+import org.hisp.dhis.showcaseapp.screens.previews.LOREM
 
 @Composable
 fun SupportingTextScreen() {
@@ -20,13 +20,13 @@ fun SupportingTextScreen() {
             SupportingText("Supporting Text", SupportingTextState.ERROR)
         }
         ColumnComponentContainer("Overflow Default Supporting Text") {
-            SupportingText(lorem)
+            SupportingText(LOREM)
         }
         ColumnComponentContainer("Overflow Warning Supporting Text") {
-            SupportingText(lorem, SupportingTextState.WARNING)
+            SupportingText(LOREM, SupportingTextState.WARNING)
         }
         ColumnComponentContainer("Overflow Error Supporting Text") {
-            SupportingText(lorem, SupportingTextState.ERROR)
+            SupportingText(LOREM, SupportingTextState.ERROR)
         }
     }
 }

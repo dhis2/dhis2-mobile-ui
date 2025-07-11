@@ -30,14 +30,17 @@ import org.hisp.dhis.showcaseapp.screens.previews.threeButtonCarousel
 @Composable
 fun InputQRCodeScreen() {
     ColumnScreenContainer(title = ActionInputs.INPUT_QR_CODE.label) {
-        var inputValue1 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("889026a1-d01e-4d34-8209-81e8ed5c614b")) }
+        var inputValue1 by rememberSaveable(stateSaver = TextFieldValue.Saver) {
+            mutableStateOf(TextFieldValue("889026a1-d01e-4d34-8209-81e8ed5c614b"))
+        }
         var showEnabledQRBottomSheet by rememberSaveable { mutableStateOf(false) }
 
         if (showEnabledQRBottomSheet) {
             BottomSheetShell(
-                uiState = BottomSheetShellUIState(
-                    title = provideStringResource("qr_code"),
-                ),
+                uiState =
+                    BottomSheetShellUIState(
+                        title = provideStringResource("qr_code"),
+                    ),
                 modifier = Modifier.testTag("LEGEND_BOTTOM_SHEET"),
                 content = {
                     Row(horizontalArrangement = Arrangement.Center) {

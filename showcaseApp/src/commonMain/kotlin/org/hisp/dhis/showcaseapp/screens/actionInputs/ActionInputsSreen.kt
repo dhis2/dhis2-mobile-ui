@@ -44,7 +44,9 @@ fun ActionInputsScreen() {
     }
 }
 
-enum class ActionInputs(val label: String) {
+enum class ActionInputs(
+    val label: String,
+) {
     LOGIN("Login component"),
     INPUT_AGE("Input Age component"),
     INPUT_BARCODE("Input Barcode component"),
@@ -64,6 +66,4 @@ enum class ActionInputs(val label: String) {
     NO_COMPONENT_SELECTED("No component selected"),
 }
 
-fun getCurrentScreen(label: String): ActionInputs {
-    return ActionInputs.entries.firstOrNull { it.label == label } ?: ActionInputs.INPUT_BARCODE
-}
+fun getCurrentScreen(label: String): ActionInputs = ActionInputs.entries.firstOrNull { it.label == label } ?: ActionInputs.INPUT_BARCODE

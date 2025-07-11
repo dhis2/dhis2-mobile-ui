@@ -57,17 +57,18 @@ fun InputChip(
     focusRequester: FocusRequester? = null,
 ) {
     Box(modifier = modifier) {
-        val filterChipColors = if (hasTransparentBackground) {
-            FilterChipDefaults.filterChipColors(
-                containerColor = Color.Transparent,
-                selectedContainerColor = Color.Transparent,
-            )
-        } else {
-            FilterChipDefaults.filterChipColors(
-                containerColor = SurfaceColor.SurfaceBright,
-                selectedContainerColor = SurfaceColor.Container,
-            )
-        }
+        val filterChipColors =
+            if (hasTransparentBackground) {
+                FilterChipDefaults.filterChipColors(
+                    containerColor = Color.Transparent,
+                    selectedContainerColor = Color.Transparent,
+                )
+            } else {
+                FilterChipDefaults.filterChipColors(
+                    containerColor = SurfaceColor.SurfaceBright,
+                    selectedContainerColor = SurfaceColor.Container,
+                )
+            }
 
         CompositionLocalProvider(LocalRippleConfiguration provides customRippleConfiguration()) {
             androidx.compose.material3.InputChip(
@@ -79,47 +80,52 @@ fun InputChip(
                 label = {
                     Text(
                         label,
-                        color = if (enabled) {
-                            TextColor.OnSurfaceVariant
-                        } else {
-                            TextColor.OnDisabledSurface
-                        },
+                        color =
+                            if (enabled) {
+                                TextColor.OnSurfaceVariant
+                            } else {
+                                TextColor.OnDisabledSurface
+                            },
                     )
                 },
                 selected = selected,
                 colors = filterChipColors,
-                border = FilterChipDefaults.filterChipBorder(
-                    borderColor = Outline.Dark,
-                    disabledBorderColor = Outline.Medium,
-                    enabled = enabled,
-                    selected = selected,
-                ),
-                trailingIcon = if (withTrailingIcon && enabled) {
-                    {
-                        Icon(
-                            imageVector = Icons.Outlined.Close,
-                            tint = TextColor.OnSurfaceVariant,
-                            contentDescription = "Close icon",
-                            modifier = Modifier
-                                .size(FilterChipDefaults.IconSize)
-                                .clickable {
-                                    focusRequester?.requestFocus()
-                                    onIconSelected?.invoke()
-                                },
-                        )
-                    }
-                } else {
-                    null
-                },
+                border =
+                    FilterChipDefaults.filterChipBorder(
+                        borderColor = Outline.Dark,
+                        disabledBorderColor = Outline.Medium,
+                        enabled = enabled,
+                        selected = selected,
+                    ),
+                trailingIcon =
+                    if (withTrailingIcon && enabled) {
+                        {
+                            Icon(
+                                imageVector = Icons.Outlined.Close,
+                                tint = TextColor.OnSurfaceVariant,
+                                contentDescription = "Close icon",
+                                modifier =
+                                    Modifier
+                                        .size(FilterChipDefaults.IconSize)
+                                        .clickable {
+                                            focusRequester?.requestFocus()
+                                            onIconSelected?.invoke()
+                                        },
+                            )
+                        }
+                    } else {
+                        null
+                    },
             )
         }
         badge?.let {
             var offset by remember { mutableStateOf(IntOffset(0, 0)) }
             Badge(
-                modifier = Modifier
-                    .align(Alignment.TopEnd)
-                    .onSizeChanged { offset = IntOffset(it.width / 3, it.height / 3) }
-                    .offset { offset },
+                modifier =
+                    Modifier
+                        .align(Alignment.TopEnd)
+                        .onSizeChanged { offset = IntOffset(it.width / 3, it.height / 3) }
+                        .offset { offset },
                 text = badge,
             )
         }

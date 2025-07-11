@@ -15,7 +15,6 @@ import org.junit.Rule
 import org.junit.Test
 
 class InputPolygonTest {
-
     @get:Rule
     val rule = createComposeRule()
 

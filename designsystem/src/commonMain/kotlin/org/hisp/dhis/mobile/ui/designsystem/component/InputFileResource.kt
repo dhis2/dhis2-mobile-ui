@@ -75,24 +75,25 @@ fun InputFileResource(
 ) {
     val focusRequester = remember { FocusRequester() }
 
-    val primaryButton: @Composable (() -> Unit)? = if (uploadFileState == LOADED && inputShellState != InputShellState.DISABLED) {
-        {
-            IconButton(
-                modifier = Modifier.testTag(INPUT_FILE_TEST_TAG + CLEAR_BUTTON_TEST_TAG),
-                icon = {
-                    Icon(
-                        imageVector = Icons.Outlined.Cancel,
-                        contentDescription = "Icon Button",
-                    )
-                },
-                onClick = {
-                    onClear.invoke()
-                },
-            )
+    val primaryButton: @Composable (() -> Unit)? =
+        if (uploadFileState == LOADED && inputShellState != InputShellState.DISABLED) {
+            {
+                IconButton(
+                    modifier = Modifier.testTag(INPUT_FILE_TEST_TAG + CLEAR_BUTTON_TEST_TAG),
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Outlined.Cancel,
+                            contentDescription = "Icon Button",
+                        )
+                    },
+                    onClick = {
+                        onClear.invoke()
+                    },
+                )
+            }
+        } else {
+            null
         }
-    } else {
-        null
-    }
 
     val secondaryButton: @Composable (() -> Unit)? =
         if (uploadFileState == LOADED) {
@@ -121,7 +122,8 @@ fun InputFileResource(
             legendData?.let {
                 Legend(legendData, modifier.testTag("INPUT_FILE_RESOURCE_LEGEND"))
             }
-        }, supportingText = {
+        },
+        supportingText = {
             supportingText?.forEach { label ->
                 SupportingText(
                     label.text,
@@ -138,10 +140,11 @@ fun InputFileResource(
                         primaryButton = {
                             Button(
                                 enabled = inputShellState != InputShellState.DISABLED,
-                                modifier = Modifier
-                                    .testTag(INPUT_FILE_TEST_TAG + ADD_BUTTON_TEST_TAG)
-                                    .padding(end = Spacing.Spacing16)
-                                    .fillMaxWidth(),
+                                modifier =
+                                    Modifier
+                                        .testTag(INPUT_FILE_TEST_TAG + ADD_BUTTON_TEST_TAG)
+                                        .padding(end = Spacing.Spacing16)
+                                        .fillMaxWidth(),
                                 style = ButtonStyle.KEYBOARDKEY,
                                 text = buttonText,
                                 icon = {
@@ -183,7 +186,14 @@ fun InputFileResource(
                         fileName?.let {
                             Text(
                                 text = it,
-                                color = if (inputShellState != InputShellState.DISABLED) TextColor.OnSurface else TextColor.OnDisabledSurface,
+                                color =
+                                    if (inputShellState !=
+                                        InputShellState.DISABLED
+                                    ) {
+                                        TextColor.OnSurface
+                                    } else {
+                                        TextColor.OnDisabledSurface
+                                    },
                                 maxLines = 1,
                                 overflow = TextOverflow.Ellipsis,
                                 modifier = Modifier.testTag(INPUT_FILE_TEST_TAG + UPLOAD_TEXT_FILE_NAME_TEST_TAG).weight(1f),

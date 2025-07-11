@@ -16,143 +16,156 @@ import org.hisp.dhis.mobile.designsystem.generated.resources.roboto_medium
 import org.hisp.dhis.mobile.designsystem.generated.resources.roboto_regular
 import org.jetbrains.compose.resources.Font
 
-val DHIS2LightColorScheme = lightColorScheme(
-    primary = SurfaceColor.Primary,
-    onPrimary = TextColor.OnPrimary,
-    primaryContainer = SurfaceColor.PrimaryContainer,
-    onPrimaryContainer = TextColor.OnPrimaryContainer,
-    error = SurfaceColor.Error,
-    onError = TextColor.OnError,
-    errorContainer = SurfaceColor.ErrorContainer,
-    onErrorContainer = TextColor.OnErrorContainer,
-    background = SurfaceColor.SurfaceBright,
-    onBackground = TextColor.OnSurface,
-    surface = SurfaceColor.Surface,
-    onSurface = TextColor.OnSurface,
-    surfaceVariant = SurfaceColor.SurfaceDim,
-    onSurfaceVariant = TextColor.OnSurfaceVariant,
-    outline = Outline.Dark,
-    outlineVariant = Outline.Light,
-    scrim = SurfaceColor.Scrim,
-    surfaceContainer = SurfaceColor.Container,
-    surfaceContainerLow = SurfaceColor.ContainerLow,
-    surfaceContainerHigh = SurfaceColor.ContainerHigh,
-    surfaceContainerHighest = SurfaceColor.ContainerHighest,
-    surfaceDim = SurfaceColor.SurfaceDim,
-    surfaceBright = SurfaceColor.SurfaceBright,
-)
+val DHIS2LightColorScheme =
+    lightColorScheme(
+        primary = SurfaceColor.Primary,
+        onPrimary = TextColor.OnPrimary,
+        primaryContainer = SurfaceColor.PrimaryContainer,
+        onPrimaryContainer = TextColor.OnPrimaryContainer,
+        error = SurfaceColor.Error,
+        onError = TextColor.OnError,
+        errorContainer = SurfaceColor.ErrorContainer,
+        onErrorContainer = TextColor.OnErrorContainer,
+        background = SurfaceColor.SurfaceBright,
+        onBackground = TextColor.OnSurface,
+        surface = SurfaceColor.Surface,
+        onSurface = TextColor.OnSurface,
+        surfaceVariant = SurfaceColor.SurfaceDim,
+        onSurfaceVariant = TextColor.OnSurfaceVariant,
+        outline = Outline.Dark,
+        outlineVariant = Outline.Light,
+        scrim = SurfaceColor.Scrim,
+        surfaceContainer = SurfaceColor.Container,
+        surfaceContainerLow = SurfaceColor.ContainerLow,
+        surfaceContainerHigh = SurfaceColor.ContainerHigh,
+        surfaceContainerHighest = SurfaceColor.ContainerHighest,
+        surfaceDim = SurfaceColor.SurfaceDim,
+        surfaceBright = SurfaceColor.SurfaceBright,
+    )
 
 @Composable
 fun DHIS2Theme(content: @Composable () -> Unit) {
     MaterialTheme(
         colorScheme = DHIS2LightColorScheme,
-        typography = Typography(
-            headlineLarge = TextStyle(
-                fontSize = 32.sp,
-                lineHeight = 40.sp,
-                lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
-                fontFamily = FontFamily(Font(Res.font.roboto_regular)),
-                fontWeight = FontWeight.Normal,
-                color = TextColor.OnSurface,
+        typography =
+            Typography(
+                headlineLarge =
+                    TextStyle(
+                        fontSize = 32.sp,
+                        lineHeight = 40.sp,
+                        lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
+                        fontFamily = FontFamily(Font(Res.font.roboto_regular)),
+                        fontWeight = FontWeight.Normal,
+                        color = TextColor.OnSurface,
+                    ),
+                headlineMedium =
+                    TextStyle(
+                        fontSize = 28.sp,
+                        lineHeight = 36.sp,
+                        lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
+                        fontFamily = FontFamily(Font(Res.font.roboto_regular)),
+                        fontWeight = FontWeight.Normal,
+                        color = TextColor.OnSurface,
+                    ),
+                headlineSmall =
+                    TextStyle(
+                        fontSize = 24.sp,
+                        lineHeight = 32.sp,
+                        lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
+                        fontFamily = FontFamily(Font(Res.font.roboto_regular)),
+                        fontWeight = FontWeight.Normal,
+                        color = TextColor.OnSurface,
+                    ),
+                titleLarge =
+                    TextStyle(
+                        fontSize = 20.sp,
+                        lineHeight = 28.sp,
+                        lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
+                        fontFamily = FontFamily(Font(Res.font.roboto_medium)),
+                        fontWeight = FontWeight.Medium,
+                        color = TextColor.OnSurface,
+                    ),
+                titleMedium =
+                    TextStyle(
+                        fontSize = 16.sp,
+                        lineHeight = 24.sp,
+                        lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
+                        fontFamily = FontFamily(Font(Res.font.roboto_medium)),
+                        fontWeight = FontWeight.Medium,
+                        color = TextColor.OnSurface,
+                        letterSpacing = 0.15.sp,
+                    ),
+                titleSmall =
+                    TextStyle(
+                        fontSize = 14.sp,
+                        lineHeight = 20.sp,
+                        lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
+                        fontFamily = FontFamily(Font(Res.font.roboto_medium)),
+                        fontWeight = FontWeight.Medium,
+                        color = TextColor.OnSurface,
+                        letterSpacing = 0.1.sp,
+                    ),
+                labelLarge =
+                    TextStyle(
+                        fontSize = 14.sp,
+                        lineHeight = 20.sp,
+                        lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
+                        fontFamily = FontFamily(Font(Res.font.roboto_medium)),
+                        fontWeight = FontWeight.Medium,
+                        color = TextColor.OnSurface,
+                        letterSpacing = 0.1.sp,
+                    ),
+                labelMedium =
+                    TextStyle(
+                        fontSize = 12.sp,
+                        lineHeight = 16.sp,
+                        lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
+                        fontFamily = FontFamily(Font(Res.font.roboto_medium)),
+                        fontWeight = FontWeight.Medium,
+                        color = TextColor.OnSurface,
+                        letterSpacing = 0.5.sp,
+                    ),
+                labelSmall =
+                    TextStyle(
+                        fontSize = 11.sp,
+                        lineHeight = 16.sp,
+                        lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
+                        fontFamily = FontFamily(Font(Res.font.roboto_medium)),
+                        fontWeight = FontWeight.Medium,
+                        color = TextColor.OnSurface,
+                        letterSpacing = 0.5.sp,
+                    ),
+                bodyLarge =
+                    TextStyle(
+                        fontSize = 16.sp,
+                        lineHeight = 24.sp,
+                        lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
+                        fontFamily = FontFamily(Font(Res.font.roboto_regular)),
+                        fontWeight = FontWeight.Normal,
+                        color = TextColor.OnSurface,
+                        letterSpacing = 0.5.sp,
+                    ),
+                bodyMedium =
+                    TextStyle(
+                        fontSize = 14.sp,
+                        lineHeight = 20.sp,
+                        lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
+                        fontFamily = FontFamily(Font(Res.font.roboto_regular)),
+                        fontWeight = FontWeight.Normal,
+                        color = TextColor.OnSurface,
+                        letterSpacing = 0.25.sp,
+                    ),
+                bodySmall =
+                    TextStyle(
+                        fontSize = 12.sp,
+                        lineHeight = 16.sp,
+                        lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
+                        fontFamily = FontFamily(Font(Res.font.roboto_regular)),
+                        fontWeight = FontWeight.Normal,
+                        color = TextColor.OnSurface,
+                        letterSpacing = 0.4.sp,
+                    ),
             ),
-            headlineMedium = TextStyle(
-                fontSize = 28.sp,
-                lineHeight = 36.sp,
-                lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
-                fontFamily = FontFamily(Font(Res.font.roboto_regular)),
-                fontWeight = FontWeight.Normal,
-                color = TextColor.OnSurface,
-            ),
-            headlineSmall = TextStyle(
-                fontSize = 24.sp,
-                lineHeight = 32.sp,
-                lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
-                fontFamily = FontFamily(Font(Res.font.roboto_regular)),
-                fontWeight = FontWeight.Normal,
-                color = TextColor.OnSurface,
-            ),
-            titleLarge = TextStyle(
-                fontSize = 20.sp,
-                lineHeight = 28.sp,
-                lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
-                fontFamily = FontFamily(Font(Res.font.roboto_medium)),
-                fontWeight = FontWeight.Medium,
-                color = TextColor.OnSurface,
-            ),
-            titleMedium = TextStyle(
-                fontSize = 16.sp,
-                lineHeight = 24.sp,
-                lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
-                fontFamily = FontFamily(Font(Res.font.roboto_medium)),
-                fontWeight = FontWeight.Medium,
-                color = TextColor.OnSurface,
-                letterSpacing = 0.15.sp,
-            ),
-
-            titleSmall = TextStyle(
-                fontSize = 14.sp,
-                lineHeight = 20.sp,
-                lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
-                fontFamily = FontFamily(Font(Res.font.roboto_medium)),
-                fontWeight = FontWeight.Medium,
-                color = TextColor.OnSurface,
-                letterSpacing = 0.1.sp,
-            ),
-            labelLarge = TextStyle(
-                fontSize = 14.sp,
-                lineHeight = 20.sp,
-                lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
-                fontFamily = FontFamily(Font(Res.font.roboto_medium)),
-                fontWeight = FontWeight.Medium,
-                color = TextColor.OnSurface,
-                letterSpacing = 0.1.sp,
-            ),
-            labelMedium = TextStyle(
-                fontSize = 12.sp,
-                lineHeight = 16.sp,
-                lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
-                fontFamily = FontFamily(Font(Res.font.roboto_medium)),
-                fontWeight = FontWeight.Medium,
-                color = TextColor.OnSurface,
-                letterSpacing = 0.5.sp,
-            ),
-            labelSmall = TextStyle(
-                fontSize = 11.sp,
-                lineHeight = 16.sp,
-                lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
-                fontFamily = FontFamily(Font(Res.font.roboto_medium)),
-                fontWeight = FontWeight.Medium,
-                color = TextColor.OnSurface,
-                letterSpacing = 0.5.sp,
-            ),
-            bodyLarge = TextStyle(
-                fontSize = 16.sp,
-                lineHeight = 24.sp,
-                lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
-                fontFamily = FontFamily(Font(Res.font.roboto_regular)),
-                fontWeight = FontWeight.Normal,
-                color = TextColor.OnSurface,
-                letterSpacing = 0.5.sp,
-            ),
-            bodyMedium = TextStyle(
-                fontSize = 14.sp,
-                lineHeight = 20.sp,
-                lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
-                fontFamily = FontFamily(Font(Res.font.roboto_regular)),
-                fontWeight = FontWeight.Normal,
-                color = TextColor.OnSurface,
-                letterSpacing = 0.25.sp,
-            ),
-            bodySmall = TextStyle(
-                fontSize = 12.sp,
-                lineHeight = 16.sp,
-                lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
-                fontFamily = FontFamily(Font(Res.font.roboto_regular)),
-                fontWeight = FontWeight.Normal,
-                color = TextColor.OnSurface,
-                letterSpacing = 0.4.sp,
-            ),
-        ),
         shapes = DHISShapes,
         content = content,
     )
@@ -174,8 +187,8 @@ enum class DHIS2TextStyle {
 }
 
 @Composable
-fun getTextStyle(style: DHIS2TextStyle): TextStyle {
-    return when (style) {
+fun getTextStyle(style: DHIS2TextStyle): TextStyle =
+    when (style) {
         DHIS2TextStyle.HEADLINE_LARGE -> {
             MaterialTheme.typography.headlineLarge
         }
@@ -224,67 +237,74 @@ fun getTextStyle(style: DHIS2TextStyle): TextStyle {
             MaterialTheme.typography.bodySmall
         }
     }
-}
 
 internal object DHIS2SCustomTextStyles {
+    val titleMediumBold =
+        TextStyle(
+            fontSize = 16.sp,
+            lineHeight = 24.sp,
+            lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
+            fontWeight = FontWeight.Bold,
+            color = TextColor.OnSurface,
+            letterSpacing = 0.15.sp,
+        )
 
-    val titleMediumBold = TextStyle(
-        fontSize = 16.sp,
-        lineHeight = 24.sp,
-        lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
-        fontWeight = FontWeight.Bold,
-        color = TextColor.OnSurface,
-        letterSpacing = 0.15.sp,
-    )
+    val bodyLargeBold =
+        TextStyle(
+            fontSize = 16.sp,
+            lineHeight = 24.sp,
+            lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
+            fontWeight = FontWeight.Bold,
+            color = TextColor.OnSurface,
+            letterSpacing = 0.5.sp,
+        )
 
-    val bodyLargeBold = TextStyle(
-        fontSize = 16.sp,
-        lineHeight = 24.sp,
-        lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
-        fontWeight = FontWeight.Bold,
-        color = TextColor.OnSurface,
-        letterSpacing = 0.5.sp,
-    )
+    val clickableSupportingText =
+        SpanStyle(
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Medium,
+            letterSpacing = 0.1.sp,
+            textDecoration = TextDecoration.Underline,
+        )
 
-    val clickableSupportingText = SpanStyle(
-        fontSize = 14.sp,
-        fontWeight = FontWeight.Medium,
-        letterSpacing = 0.1.sp,
-        textDecoration = TextDecoration.Underline,
-    )
+    val regularSupportingText =
+        SpanStyle(
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Normal,
+            letterSpacing = 0.25.sp,
+            textDecoration = TextDecoration.None,
+        )
 
-    val regularSupportingText = SpanStyle(
-        fontSize = 14.sp,
-        fontWeight = FontWeight.Normal,
-        letterSpacing = 0.25.sp,
-        textDecoration = TextDecoration.None,
-    )
+    val inputFieldHelper =
+        SpanStyle(
+            fontSize = 16.sp,
+            fontWeight = FontWeight.Normal,
+            color = TextColor.OnDisabledSurface,
+        )
 
-    val inputFieldHelper = SpanStyle(
-        fontSize = 16.sp,
-        fontWeight = FontWeight.Normal,
-        color = TextColor.OnDisabledSurface,
-    )
-
-    val listCardKey = SpanStyle(
-        fontSize = 14.sp,
-        fontWeight = FontWeight.Normal,
-        color = TextColor.OnSurfaceLight,
-    )
-    val listCardValue = SpanStyle(
-        fontSize = 14.sp,
-        fontWeight = FontWeight.Normal,
-        color = TextColor.OnSurface,
-    )
-    val inputField = SpanStyle(
-        fontSize = 16.sp,
-        fontWeight = FontWeight.Normal,
-    )
+    val listCardKey =
+        SpanStyle(
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Normal,
+            color = TextColor.OnSurfaceLight,
+        )
+    val listCardValue =
+        SpanStyle(
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Normal,
+            color = TextColor.OnSurface,
+        )
+    val inputField =
+        SpanStyle(
+            fontSize = 16.sp,
+            fontWeight = FontWeight.Normal,
+        )
 }
 
 internal object LineHeightStyles {
-    val CentreAlignNoTrim = LineHeightStyle(
-        LineHeightStyle.Alignment.Center,
-        LineHeightStyle.Trim.None,
-    )
+    val CentreAlignNoTrim =
+        LineHeightStyle(
+            LineHeightStyle.Alignment.Center,
+            LineHeightStyle.Trim.None,
+        )
 }

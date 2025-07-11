@@ -52,35 +52,39 @@ fun FilterChip(
                 onClick = { onSelected?.invoke(!selected) },
                 label = { Text(label, color = TextColor.OnSurfaceVariant) },
                 selected = selected,
-                colors = FilterChipDefaults.filterChipColors(
-                    containerColor = SurfaceColor.SurfaceBright,
-                    selectedContainerColor = SurfaceColor.Container,
-                ),
-                border = FilterChipDefaults.filterChipBorder(
-                    borderColor = Outline.Dark,
-                    enabled = true,
-                    selected = selected,
-                ),
-                leadingIcon = if (selected) {
-                    {
-                        Icon(
-                            imageVector = Icons.Filled.Done,
-                            contentDescription = "Done icon",
-                            modifier = Modifier.size(FilterChipDefaults.IconSize),
-                        )
-                    }
-                } else {
-                    null
-                },
+                colors =
+                    FilterChipDefaults.filterChipColors(
+                        containerColor = SurfaceColor.SurfaceBright,
+                        selectedContainerColor = SurfaceColor.Container,
+                    ),
+                border =
+                    FilterChipDefaults.filterChipBorder(
+                        borderColor = Outline.Dark,
+                        enabled = true,
+                        selected = selected,
+                    ),
+                leadingIcon =
+                    if (selected) {
+                        {
+                            Icon(
+                                imageVector = Icons.Filled.Done,
+                                contentDescription = "Done icon",
+                                modifier = Modifier.size(FilterChipDefaults.IconSize),
+                            )
+                        }
+                    } else {
+                        null
+                    },
             )
         }
         badge?.let {
             var offset by remember { mutableStateOf(IntOffset(0, 0)) }
             Badge(
-                modifier = Modifier
-                    .align(Alignment.TopEnd)
-                    .onSizeChanged { offset = IntOffset(it.width / 3, it.height / 3) }
-                    .offset { offset },
+                modifier =
+                    Modifier
+                        .align(Alignment.TopEnd)
+                        .onSizeChanged { offset = IntOffset(it.width / 3, it.height / 3) }
+                        .offset { offset },
                 text = badge,
             )
         }

@@ -105,12 +105,11 @@ fun <T> InputSignature(
 internal fun <T> getUploadState(
     painterFor: (@Composable (T) -> Painter)? = null,
     isBottomSheetOpened: Boolean,
-): UploadState {
-    return if (isBottomSheetOpened && painterFor == null) {
+): UploadState =
+    if (isBottomSheetOpened && painterFor == null) {
         UploadState.UPLOADING
     } else if (painterFor == null) {
         UploadState.ADD
     } else {
         UploadState.LOADED
     }
-}

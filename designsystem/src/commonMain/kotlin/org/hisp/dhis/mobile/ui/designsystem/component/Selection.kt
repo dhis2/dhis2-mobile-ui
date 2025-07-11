@@ -22,24 +22,24 @@ enum class SelectionState {
     NONE,
     ;
 
-    fun changeState(): SelectionState {
-        return when (this) {
+    fun changeState(): SelectionState =
+        when (this) {
             SELECTABLE -> SELECTED
             SELECTED -> SELECTABLE
             NONE -> SELECTED
         }
-    }
 }
 
 @Composable
 fun UnselectedItemIcon(modifier: Modifier = Modifier) {
     Box(
-        modifier = modifier
-            .size(Spacing.Spacing40)
-            .background(
-                color = SurfaceColor.PrimaryContainer,
-                shape = RoundedCornerShape(Radius.Full),
-            ),
+        modifier =
+            modifier
+                .size(Spacing.Spacing40)
+                .background(
+                    color = SurfaceColor.PrimaryContainer,
+                    shape = RoundedCornerShape(Radius.Full),
+                ),
         contentAlignment = Alignment.Center,
     ) {
         Icon(
@@ -53,12 +53,13 @@ fun UnselectedItemIcon(modifier: Modifier = Modifier) {
 @Composable
 fun SelectedItemIcon(modifier: Modifier = Modifier) {
     Box(
-        modifier = modifier
-            .size(Spacing.Spacing40)
-            .background(
-                color = SurfaceColor.Primary,
-                shape = RoundedCornerShape(Radius.Full),
-            ),
+        modifier =
+            modifier
+                .size(Spacing.Spacing40)
+                .background(
+                    color = SurfaceColor.Primary,
+                    shape = RoundedCornerShape(Radius.Full),
+                ),
         contentAlignment = Alignment.Center,
     ) {
         Icon(

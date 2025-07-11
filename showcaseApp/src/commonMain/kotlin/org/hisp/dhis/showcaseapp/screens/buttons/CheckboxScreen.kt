@@ -32,23 +32,25 @@ fun CheckboxScreen() {
     var state7 by remember { mutableStateOf(false) }
     var state8 by remember { mutableStateOf(false) }
 
-    val checkBoxesStatesHorizontal = remember {
-        mutableStateListOf(
-            CheckBoxData("4", checked = true, enabled = true, textInput = option1),
-            CheckBoxData("5", checked = false, enabled = true, textInput = option2),
-            CheckBoxData("6", checked = true, enabled = false, textInput = option3),
-            CheckBoxData("7", checked = false, enabled = false, textInput = option4),
-        )
-    }
+    val checkBoxesStatesHorizontal =
+        remember {
+            mutableStateListOf(
+                CheckBoxData("4", checked = true, enabled = true, textInput = option1),
+                CheckBoxData("5", checked = false, enabled = true, textInput = option2),
+                CheckBoxData("6", checked = true, enabled = false, textInput = option3),
+                CheckBoxData("7", checked = false, enabled = false, textInput = option4),
+            )
+        }
 
-    val checkBoxesStatesVertical = remember {
-        mutableStateListOf(
-            CheckBoxData("0", checked = true, enabled = true, textInput = option1),
-            CheckBoxData("1", checked = false, enabled = true, textInput = option2),
-            CheckBoxData("2", checked = true, enabled = false, textInput = option3),
-            CheckBoxData("3", checked = false, enabled = false, textInput = option4),
-        )
-    }
+    val checkBoxesStatesVertical =
+        remember {
+            mutableStateListOf(
+                CheckBoxData("0", checked = true, enabled = true, textInput = option1),
+                CheckBoxData("1", checked = false, enabled = true, textInput = option2),
+                CheckBoxData("2", checked = true, enabled = false, textInput = option3),
+                CheckBoxData("3", checked = false, enabled = false, textInput = option4),
+            )
+        }
 
     ColumnScreenContainer(
         title = ButtonScreens.CHECK_BOX.label,

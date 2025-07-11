@@ -39,7 +39,9 @@ fun ToggleableInputsScreen(imageBitmapLoader: (() -> ImageBitmap)?) {
     }
 }
 
-enum class ToggleableInputs(val label: String) {
+enum class ToggleableInputs(
+    val label: String,
+) {
     INPUT_RADIO_BUTTON("Input Radio Button component"),
     INPUT_MATRIX("Input Matrix component"),
     INPUT_SEQUENTIAL("Input Sequential component"),
@@ -52,6 +54,7 @@ enum class ToggleableInputs(val label: String) {
     NO_COMPONENT_SELECTED("No component selected"),
 }
 
-fun getCurrentScreen(label: String): ToggleableInputs {
-    return ToggleableInputs.entries.firstOrNull { it.label == label } ?: ToggleableInputs.INPUT_RADIO_BUTTON
-}
+fun getCurrentScreen(label: String): ToggleableInputs =
+    ToggleableInputs.entries.firstOrNull {
+        it.label == label
+    } ?: ToggleableInputs.INPUT_RADIO_BUTTON

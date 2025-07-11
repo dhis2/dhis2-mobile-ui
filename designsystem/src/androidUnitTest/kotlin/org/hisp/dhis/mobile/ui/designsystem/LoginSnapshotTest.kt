@@ -19,7 +19,6 @@ import org.junit.Rule
 import org.junit.Test
 
 class LoginSnapshotTest {
-
     @get:Rule
     val paparazzi = paparazzi()
 

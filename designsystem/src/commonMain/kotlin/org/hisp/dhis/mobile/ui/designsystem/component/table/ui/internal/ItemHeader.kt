@@ -56,8 +56,7 @@ internal fun ItemHeader(
         Modifier
             .defaultMinSize(
                 minHeight = TableTheme.dimensions.defaultCellHeight,
-            )
-            .width(uiState.width)
+            ).width(uiState.width)
             .fillMaxHeight()
             .background(uiState.cellStyle.backgroundColor())
             .semantics {
@@ -65,8 +64,7 @@ internal fun ItemHeader(
                 tableIdSemantic = uiState.tableId
                 rowIndexSemantic = uiState.rowHeader.row
                 rowBackground = uiState.cellStyle.backgroundColor()
-            }
-            .clickable(
+            }.clickable(
                 role = Role.Button,
                 indication = ripple(),
                 interactionSource = clickableInteraction,
@@ -77,9 +75,10 @@ internal fun ItemHeader(
         contentAlignment = Alignment.Center,
     ) {
         Text(
-            modifier = Modifier
-                .align(Alignment.CenterStart)
-                .padding(TableTheme.dimensions.headerCellPaddingValues),
+            modifier =
+                Modifier
+                    .align(Alignment.CenterStart)
+                    .padding(TableTheme.dimensions.headerCellPaddingValues),
             text = uiState.rowHeader.title,
             color = uiState.cellStyle.mainColor(),
             fontSize = TableTheme.dimensions.defaultRowHeaderTextSize,
@@ -94,29 +93,33 @@ internal fun ItemHeader(
             color = TableTheme.colors.primary,
         )
 
-        val isSelected = tableSelection !is TableSelection.AllCellSelection &&
-            tableSelection.isRowSelected(
-                selectedTableId = uiState.tableId,
-                rowHeaderIndexes = uiState.headerIndexes,
-            )
+        val isSelected =
+            tableSelection !is TableSelection.AllCellSelection &&
+                tableSelection.isRowSelected(
+                    selectedTableId = uiState.tableId,
+                    rowHeaderIndexes = uiState.headerIndexes,
+                )
 
         HorizontalDivider(
-            modifier = Modifier
-                .padding(end = Spacing.Spacing1)
-                .align(Alignment.BottomCenter),
+            modifier =
+                Modifier
+                    .padding(end = Spacing.Spacing1)
+                    .align(Alignment.BottomCenter),
             thickness = Spacing.Spacing1,
-            color = if (isSelected) {
-                MaterialTheme.colorScheme.primary
-            } else {
-                DividerDefaults.color
-            },
+            color =
+                if (isSelected) {
+                    MaterialTheme.colorScheme.primary
+                } else {
+                    DividerDefaults.color
+                },
         )
 
         if (isSelected) {
             val config = TableTheme.configuration
             VerticalResizingRule(
-                modifier = Modifier
-                    .align(Alignment.CenterEnd),
+                modifier =
+                    Modifier
+                        .align(Alignment.CenterEnd),
                 checkMaxMinCondition = { dimensions, currentOffsetX ->
                     dimensions.canUpdateRowHeaderWidth(
                         groupedTables = config.groupTables,

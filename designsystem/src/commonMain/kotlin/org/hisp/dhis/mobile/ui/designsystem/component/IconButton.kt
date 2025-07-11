@@ -82,25 +82,26 @@ fun SquareIconButton(
         interactionSource = interactionSource,
         onClick = onClick,
         elevation = ButtonDefaults.elevatedButtonElevation(0.dp),
-        modifier = modifier
-            .size(InternalSizeValues.Size48)
-            .padding(Spacing.Spacing4)
-            .iconButtonshadow(shadowColor, Radius.S)
-            .offset {
-                IntOffset(
-                    0,
-                    topPadding.value,
-                )
-            }
-            .hoverPointerIcon(enabled),
+        modifier =
+            modifier
+                .size(InternalSizeValues.Size48)
+                .padding(Spacing.Spacing4)
+                .iconButtonshadow(shadowColor, Radius.S)
+                .offset {
+                    IntOffset(
+                        0,
+                        topPadding.value,
+                    )
+                }.hoverPointerIcon(enabled),
         enabled = enabled,
         shape = Shape.Small,
-        colors = ButtonDefaults.elevatedButtonColors(
-            disabledContainerColor = Color.Transparent,
-            containerColor = SurfaceColor.Container,
-            contentColor = SurfaceColor.Primary,
-            disabledContentColor = TextColor.OnDisabledSurface,
-        ),
+        colors =
+            ButtonDefaults.elevatedButtonColors(
+                disabledContainerColor = Color.Transparent,
+                containerColor = SurfaceColor.Container,
+                contentColor = SurfaceColor.Primary,
+                disabledContentColor = TextColor.OnDisabledSurface,
+            ),
         contentPadding = PaddingValues(Spacing.Spacing8),
     ) {
         Box(Modifier.size(Spacing.Spacing24)) {
@@ -130,10 +131,42 @@ fun IconButton(
     val interactionSource = remember { MutableInteractionSource() }
     val scope = rememberCoroutineScope()
     when (style) {
-        IconButtonStyle.FILLED -> FilledIconButton(enabled, icon, modifier = modifier, onClick = onClick, interactionSource = interactionSource, scope = scope)
-        IconButtonStyle.TONAL -> FilledTonalIconButton(enabled, icon, modifier, onClick = onClick, interactionSource = interactionSource, scope = scope)
-        IconButtonStyle.OUTLINED -> OutlinedIconButton(enabled, icon, modifier = modifier, onClick = onClick, interactionSource = interactionSource, scope = scope)
-        else -> StandardIconButton(enabled, icon, modifier = modifier, onClick = onClick, interactionSource = interactionSource, scope = scope)
+        IconButtonStyle.FILLED ->
+            FilledIconButton(
+                enabled,
+                icon,
+                modifier = modifier,
+                onClick = onClick,
+                interactionSource = interactionSource,
+                scope = scope,
+            )
+        IconButtonStyle.TONAL ->
+            FilledTonalIconButton(
+                enabled,
+                icon,
+                modifier,
+                onClick = onClick,
+                interactionSource = interactionSource,
+                scope = scope,
+            )
+        IconButtonStyle.OUTLINED ->
+            OutlinedIconButton(
+                enabled,
+                icon,
+                modifier = modifier,
+                onClick = onClick,
+                interactionSource = interactionSource,
+                scope = scope,
+            )
+        else ->
+            StandardIconButton(
+                enabled,
+                icon,
+                modifier = modifier,
+                onClick = onClick,
+                interactionSource = interactionSource,
+                scope = scope,
+            )
     }
 }
 
@@ -155,12 +188,19 @@ internal fun BottomSheetIconButton(
 ) {
     FilledIconButton(
         onClick = onClick,
-        modifier = modifier
-            .size(InternalSizeValues.Size48)
-            .padding(Spacing.Spacing4)
-            .hoverPointerIcon(enabled),
+        modifier =
+            modifier
+                .size(InternalSizeValues.Size48)
+                .padding(Spacing.Spacing4)
+                .hoverPointerIcon(enabled),
         enabled = enabled,
-        colors = IconButtonDefaults.iconButtonColors(SurfaceColor.Scrim.copy(alpha = 0.34f), SurfaceColor.SurfaceBright, SurfaceColor.DisabledSurface, TextColor.OnDisabledSurface),
+        colors =
+            IconButtonDefaults.iconButtonColors(
+                SurfaceColor.Scrim.copy(alpha = 0.34f),
+                SurfaceColor.SurfaceBright,
+                SurfaceColor.DisabledSurface,
+                TextColor.OnDisabledSurface,
+            ),
     ) {
         Box(Modifier.size(Spacing.Spacing24)) {
             icon()
@@ -206,7 +246,13 @@ private fun StandardIconButton(
                 onClick = onClick,
                 modifier = modifier.iconButton(enabled),
                 enabled = enabled,
-                colors = IconButtonDefaults.iconButtonColors(Color.Transparent, TextColor.OnSurfaceVariant, Color.Transparent, TextColor.OnDisabledSurface),
+                colors =
+                    IconButtonDefaults.iconButtonColors(
+                        Color.Transparent,
+                        TextColor.OnSurfaceVariant,
+                        Color.Transparent,
+                        TextColor.OnDisabledSurface,
+                    ),
             ) {
                 Box(Modifier.size(Spacing.Spacing24)) {
                     icon()
@@ -253,12 +299,13 @@ private fun FilledIconButton(
             onClick = onClick,
             modifier = modifier.iconButton(enabled),
             enabled = enabled,
-            colors = IconButtonDefaults.iconButtonColors(
-                SurfaceColor.Primary,
-                TextColor.OnPrimary,
-                SurfaceColor.DisabledSurface,
-                TextColor.OnDisabledSurface,
-            ),
+            colors =
+                IconButtonDefaults.iconButtonColors(
+                    SurfaceColor.Primary,
+                    TextColor.OnPrimary,
+                    SurfaceColor.DisabledSurface,
+                    TextColor.OnDisabledSurface,
+                ),
         ) {
             Box(Modifier.size(Spacing.Spacing24)) {
                 icon()
@@ -307,12 +354,13 @@ private fun FilledTonalIconButton(
                 modifier = modifier.iconButton(enabled),
                 enabled = enabled,
                 shape = CircleShape,
-                colors = IconButtonDefaults.filledTonalIconButtonColors(
-                    SurfaceColor.PrimaryContainer,
-                    TextColor.OnPrimaryContainer,
-                    SurfaceColor.DisabledSurface,
-                    TextColor.OnDisabledSurface,
-                ),
+                colors =
+                    IconButtonDefaults.filledTonalIconButtonColors(
+                        SurfaceColor.PrimaryContainer,
+                        TextColor.OnPrimaryContainer,
+                        SurfaceColor.DisabledSurface,
+                        TextColor.OnDisabledSurface,
+                    ),
             ) {
                 Box(Modifier.size(Spacing.Spacing24)) {
                     icon()
@@ -361,18 +409,21 @@ private fun OutlinedIconButton(
             OutlinedIconButton(
                 onClick = onClick,
                 interactionSource = interactionSource,
-                modifier = modifier
-                    .iconButton(enabled),
+                modifier =
+                    modifier
+                        .iconButton(enabled),
                 enabled = enabled,
                 shape = CircleShape,
-                border = BorderStroke(
-                    Border.Thin,
-                    if (enabled) Outline.Dark else SurfaceColor.DisabledSurface,
-                ),
-                colors = IconButtonDefaults.outlinedIconButtonColors(
-                    Color.Transparent,
-                    TextColor.OnPrimaryContainer,
-                ),
+                border =
+                    BorderStroke(
+                        Border.Thin,
+                        if (enabled) Outline.Dark else SurfaceColor.DisabledSurface,
+                    ),
+                colors =
+                    IconButtonDefaults.outlinedIconButtonColors(
+                        Color.Transparent,
+                        TextColor.OnPrimaryContainer,
+                    ),
             ) {
                 Box(Modifier.size(Spacing.Spacing24)) {
                     icon()
@@ -382,7 +433,10 @@ private fun OutlinedIconButton(
     }
 }
 
-private fun emitPressInteraction(coroutineScope: CoroutineScope, interactionSource: MutableInteractionSource) {
+private fun emitPressInteraction(
+    coroutineScope: CoroutineScope,
+    interactionSource: MutableInteractionSource,
+) {
     coroutineScope.launch {
         val pressInteraction = PressInteraction.Press(Offset.Zero)
         interactionSource.emit(pressInteraction)
@@ -391,5 +445,8 @@ private fun emitPressInteraction(coroutineScope: CoroutineScope, interactionSour
 }
 
 enum class IconButtonStyle {
-    STANDARD, FILLED, TONAL, OUTLINED
+    STANDARD,
+    FILLED,
+    TONAL,
+    OUTLINED,
 }

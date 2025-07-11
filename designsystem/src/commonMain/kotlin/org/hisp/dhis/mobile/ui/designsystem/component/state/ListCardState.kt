@@ -21,6 +21,7 @@ interface ListCardState {
     val selectionState: SelectionState
 
     fun descriptionBasedOnLoading() = description?.takeIf { !loading }
+
     fun lastUpdateBasedOnLoading() = lastUpdated?.takeIf { !loading }
 }
 
@@ -48,23 +49,24 @@ fun rememberListCardState(
     expandable: Boolean = false,
     itemVerticalPadding: Dp? = null,
     selectionState: SelectionState = SelectionState.NONE,
-): ListCardState = remember(
-    description,
-    itemVerticalPadding,
-    loading,
-    additionalInfoColumnState,
-    lastUpdated,
-    selectionState,
-) {
-    ListCardStateImpl(
-        title,
+): ListCardState =
+    remember(
         description,
-        lastUpdated,
-        additionalInfoColumnState,
-        loading,
-        shadow,
-        expandable,
         itemVerticalPadding,
+        loading,
+        additionalInfoColumnState,
+        lastUpdated,
         selectionState,
-    )
-}
+    ) {
+        ListCardStateImpl(
+            title,
+            description,
+            lastUpdated,
+            additionalInfoColumnState,
+            loading,
+            shadow,
+            expandable,
+            itemVerticalPadding,
+            selectionState,
+        )
+    }

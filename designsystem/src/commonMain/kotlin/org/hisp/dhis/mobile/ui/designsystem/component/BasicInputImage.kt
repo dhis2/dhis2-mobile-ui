@@ -105,10 +105,11 @@ internal fun <T> BasicInputImage(
                                         tint = if (state != InputShellState.DISABLED) SurfaceColor.Primary else TextColor.OnDisabledSurface,
                                     )
                                 },
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(end = Spacing.Spacing16)
-                                    .testTag("INPUT_" + testTag + "_ADD_BUTTON"),
+                                modifier =
+                                    Modifier
+                                        .fillMaxWidth()
+                                        .padding(end = Spacing.Spacing16)
+                                        .testTag("INPUT_" + testTag + "_ADD_BUTTON"),
                             ) {
                                 onAddButtonClicked.invoke()
                                 focusRequester.requestFocus()
@@ -119,8 +120,9 @@ internal fun <T> BasicInputImage(
 
                 UploadState.UPLOADING -> {
                     Row(
-                        modifier = Modifier
-                            .fillMaxWidth(),
+                        modifier =
+                            Modifier
+                                .fillMaxWidth(),
                         horizontalArrangement = Arrangement.Center,
                     ) {
                         Box(
@@ -146,37 +148,40 @@ internal fun <T> BasicInputImage(
                             },
                             onShareButtonClick = onShareButtonClick,
                             downloadButtonVisible = downloadButtonVisible,
-                            modifier = Modifier.padding(
-                                end = if (state == InputShellState.DISABLED) {
-                                    Spacing.Spacing12
-                                } else {
-                                    Spacing.Spacing0
-                                },
-                            ),
+                            modifier =
+                                Modifier.padding(
+                                    end =
+                                        if (state == InputShellState.DISABLED) {
+                                            Spacing.Spacing12
+                                        } else {
+                                            Spacing.Spacing0
+                                        },
+                                ),
                         )
                     }
                 }
             }
         },
-        primaryButton = if (
-            uploadState == UploadState.LOADED &&
-            state != InputShellState.DISABLED
-        ) {
-            {
-                IconButton(
-                    modifier = Modifier.testTag("INPUT_" + testTag + "_RESET_BUTTON"),
-                    icon = {
-                        Icon(
-                            imageVector = Icons.Outlined.Cancel,
-                            contentDescription = "Reset Button",
-                        )
-                    },
-                    onClick = onResetButtonClicked,
-                )
-            }
-        } else {
-            null
-        },
+        primaryButton =
+            if (
+                uploadState == UploadState.LOADED &&
+                state != InputShellState.DISABLED
+            ) {
+                {
+                    IconButton(
+                        modifier = Modifier.testTag("INPUT_" + testTag + "_RESET_BUTTON"),
+                        icon = {
+                            Icon(
+                                imageVector = Icons.Outlined.Cancel,
+                                contentDescription = "Reset Button",
+                            )
+                        },
+                        onClick = onResetButtonClicked,
+                    )
+                }
+            } else {
+                null
+            },
         inputStyle = inputStyle,
     )
 }

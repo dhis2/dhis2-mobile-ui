@@ -37,7 +37,9 @@ fun TabsScreen() {
     }
 }
 
-enum class Tabs(val label: String) {
+enum class Tabs(
+    val label: String,
+) {
     VERTICAL_TONAL_TABS_LABEL_ONLY("Vertical tabs: Tonal label only"),
     VERTICAL_TONAL_TABS_ICON_ONLY("Vertical tabs: Tonal icon only"),
     VERTICAL_TONAL_TABS_ICON_LABEL("Vertical tabs: Tonal icon and label"),
@@ -47,6 +49,4 @@ enum class Tabs(val label: String) {
     NO_COMPONENT_SELECTED("No component selected"),
 }
 
-fun getCurrentScreen(label: String): Tabs {
-    return Tabs.entries.firstOrNull { it.label == label } ?: Tabs.NO_COMPONENT_SELECTED
-}
+fun getCurrentScreen(label: String): Tabs = Tabs.entries.firstOrNull { it.label == label } ?: Tabs.NO_COMPONENT_SELECTED

@@ -25,7 +25,6 @@ if (project.hasProperty("removeSnapshotSuffix")) {
 allprojects {
     apply(plugin = "org.jlleitschuh.gradle.ktlint")
     ktlint {
-        version.set("0.50.0")
         verbose.set(true)
         outputToConsole.set(true)
         filter {
@@ -51,13 +50,17 @@ subprojects {
                 freeCompilerArgs.addAll(
                     "-P",
                     "plugin:androidx.compose.compiler.plugins.kotlin:reportsDestination=" +
-                        layout.buildDirectory.asFile.get().absolutePath +
+                        layout.buildDirectory.asFile
+                            .get()
+                            .absolutePath +
                         "/compose_metrics",
                 )
                 freeCompilerArgs.addAll(
                     "-P",
                     "plugin:androidx.compose.compiler.plugins.kotlin:metricsDestination=" +
-                        layout.buildDirectory.asFile.get().absolutePath +
+                        layout.buildDirectory.asFile
+                            .get()
+                            .absolutePath +
                         "/compose_metrics",
                 )
             }

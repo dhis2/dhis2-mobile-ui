@@ -71,24 +71,25 @@ fun InputCustomIntent(
 ) {
     val focusRequester = remember { FocusRequester() }
 
-    val primaryButton: @Composable (() -> Unit)? = if (customIntentState == LOADED && inputShellState != InputShellState.DISABLED) {
-        {
-            IconButton(
-                modifier = Modifier.testTag(INPUT_CUSTOM_INTENT_TEST_TAG + INPUT_CUSTOM_INTENT_CLEAR_BUTTON_TEST_TAG),
-                icon = {
-                    Icon(
-                        imageVector = Icons.Outlined.Cancel,
-                        contentDescription = "Cancel icon Button",
-                    )
-                },
-                onClick = {
-                    onClear.invoke()
-                },
-            )
+    val primaryButton: @Composable (() -> Unit)? =
+        if (customIntentState == LOADED && inputShellState != InputShellState.DISABLED) {
+            {
+                IconButton(
+                    modifier = Modifier.testTag(INPUT_CUSTOM_INTENT_TEST_TAG + INPUT_CUSTOM_INTENT_CLEAR_BUTTON_TEST_TAG),
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Outlined.Cancel,
+                            contentDescription = "Cancel icon Button",
+                        )
+                    },
+                    onClick = {
+                        onClear.invoke()
+                    },
+                )
+            }
+        } else {
+            null
         }
-    } else {
-        null
-    }
 
     val secondaryButton: @Composable (() -> Unit)? =
         if (customIntentState == LOADED && inputShellState != InputShellState.DISABLED) {
@@ -117,7 +118,8 @@ fun InputCustomIntent(
             legendData?.let {
                 Legend(legendData, modifier.testTag(INPUT_CUSTOM_INTENT_TEST_TAG + LEGEND_TEST_TAG))
             }
-        }, supportingText = {
+        },
+        supportingText = {
             supportingText?.forEach { label ->
                 SupportingText(
                     label.text,
@@ -134,10 +136,11 @@ fun InputCustomIntent(
                         primaryButton = {
                             Button(
                                 enabled = inputShellState != InputShellState.DISABLED,
-                                modifier = Modifier
-                                    .testTag(INPUT_CUSTOM_INTENT_TEST_TAG + LAUNCH_BUTTON_TEST_TAG)
-                                    .padding(end = Spacing.Spacing16)
-                                    .fillMaxWidth(),
+                                modifier =
+                                    Modifier
+                                        .testTag(INPUT_CUSTOM_INTENT_TEST_TAG + LAUNCH_BUTTON_TEST_TAG)
+                                        .padding(end = Spacing.Spacing16)
+                                        .fillMaxWidth(),
                                 style = ButtonStyle.KEYBOARDKEY,
                                 text = buttonText,
                                 icon = {
@@ -182,7 +185,14 @@ fun InputCustomIntent(
                                 ) {
                                     Text(
                                         text = values[0],
-                                        color = if (inputShellState != InputShellState.DISABLED) TextColor.OnSurface else TextColor.OnDisabledSurface,
+                                        color =
+                                            if (inputShellState !=
+                                                InputShellState.DISABLED
+                                            ) {
+                                                TextColor.OnSurface
+                                            } else {
+                                                TextColor.OnDisabledSurface
+                                            },
                                         maxLines = 1,
                                         modifier = Modifier.testTag(INPUT_CUSTOM_INTENT_TEST_TAG + VALUE_TEST_TAG),
                                     )

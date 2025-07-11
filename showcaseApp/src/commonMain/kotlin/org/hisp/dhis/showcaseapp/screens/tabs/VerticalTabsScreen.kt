@@ -31,27 +31,30 @@ fun VerticalTabsScreen(
     tabStyle: TabStyle,
     tabColorStyle: TabColorStyle,
 ) {
-    val modifier = if (tabStyle is TabStyle.IconOnly) {
-        Modifier.width(100.dp)
-    } else {
-        Modifier.fillMaxSize()
-    }
+    val modifier =
+        if (tabStyle is TabStyle.IconOnly) {
+            Modifier.width(100.dp)
+        } else {
+            Modifier.fillMaxSize()
+        }
 
     ColumnScreenContainer(scrollable = false) {
         VerticalTabs(
-            modifier = modifier
-                .padding(Spacing.Spacing16),
-            tabs = buildList {
-                repeat(drawableOutlinedList.size) { index ->
-                    add(
-                        Tab(
-                            id = "${index + 1}",
-                            label = "Tab ${index + 1}",
-                            iconData = getIcon(index),
-                        ),
-                    )
-                }
-            },
+            modifier =
+                modifier
+                    .padding(Spacing.Spacing16),
+            tabs =
+                buildList {
+                    repeat(drawableOutlinedList.size) { index ->
+                        add(
+                            Tab(
+                                id = "${index + 1}",
+                                label = "Tab ${index + 1}",
+                                iconData = getIcon(index),
+                            ),
+                        )
+                    }
+                },
             tabStyle = tabStyle,
             tabColorStyle = tabColorStyle,
             onSectionSelected = {
@@ -61,20 +64,22 @@ fun VerticalTabsScreen(
     }
 }
 
-private val drawableOutlinedList = listOf(
-    Icons.Outlined.Home,
-    Icons.Outlined.Bookmarks,
-    Icons.Outlined.Event,
-    Icons.Outlined.AccountCircle,
-    Icons.Outlined.Settings,
-)
+private val drawableOutlinedList =
+    listOf(
+        Icons.Outlined.Home,
+        Icons.Outlined.Bookmarks,
+        Icons.Outlined.Event,
+        Icons.Outlined.AccountCircle,
+        Icons.Outlined.Settings,
+    )
 
-private val drawableFilledList = listOf(
-    Icons.Filled.Home,
-    Icons.Filled.Bookmarks,
-    Icons.Filled.Event,
-    Icons.Filled.AccountCircle,
-    Icons.Filled.Settings,
-)
+private val drawableFilledList =
+    listOf(
+        Icons.Filled.Home,
+        Icons.Filled.Bookmarks,
+        Icons.Filled.Event,
+        Icons.Filled.AccountCircle,
+        Icons.Filled.Settings,
+    )
 
 private fun getIcon(index: Int) = IconData(drawableOutlinedList[index], drawableFilledList[index])

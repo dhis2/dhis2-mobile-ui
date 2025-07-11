@@ -45,43 +45,48 @@ internal fun InputDialogContainer(
 ) {
     Column(
         verticalArrangement = Arrangement.Bottom,
-        modifier = Modifier.animateContentSize(
-            animationSpec = tween(durationMillis = 400),
-
-        ),
+        modifier =
+            Modifier.animateContentSize(
+                animationSpec = tween(durationMillis = 400),
+            ),
     ) {
         Box(
-            modifier = Modifier
-                .wrapContentSize(),
+            modifier =
+                Modifier
+                    .wrapContentSize(),
             contentAlignment = Alignment.BottomCenter,
         ) {
             Box(
-                modifier = Modifier
-                    .matchParentSize(),
+                modifier =
+                    Modifier
+                        .matchParentSize(),
                 contentAlignment = Alignment.BottomCenter,
             ) {
                 Column(verticalArrangement = Arrangement.Bottom) {
                     Box(
-                        modifier = Modifier
-                            .height(Spacing.Spacing24)
-                            .fillMaxWidth()
-                            .background(
-                                brush = Brush.verticalGradient(
-                                    colors = listOf(
-                                        SurfaceColor.Primary.copy(alpha = 0f),
-                                        SurfaceColor.Primary.copy(alpha = 0.20f),
-                                    ),
+                        modifier =
+                            Modifier
+                                .height(Spacing.Spacing24)
+                                .fillMaxWidth()
+                                .background(
+                                    brush =
+                                        Brush.verticalGradient(
+                                            colors =
+                                                listOf(
+                                                    SurfaceColor.Primary.copy(alpha = 0f),
+                                                    SurfaceColor.Primary.copy(alpha = 0.20f),
+                                                ),
+                                        ),
                                 ),
-                            ),
-
                     )
 
                     Box(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .background(
-                                color = SurfaceColor.Primary.copy(alpha = 0.20f),
-                            ),
+                        modifier =
+                            Modifier
+                                .fillMaxSize()
+                                .background(
+                                    color = SurfaceColor.Primary.copy(alpha = 0.20f),
+                                ),
                     )
                 }
             }
@@ -91,18 +96,21 @@ internal fun InputDialogContainer(
             }
             if (isFullyExpanded) {
                 Box(
-                    modifier = Modifier
-                        .align(Alignment.TopCenter)
-                        .requiredHeight(Spacing.Spacing24)
-                        .fillMaxWidth()
-                        .background(
-                            brush = Brush.verticalGradient(
-                                colors = listOf(
-                                    SurfaceColor.Primary.copy(alpha = 0.20f),
-                                    SurfaceColor.Primary.copy(alpha = 0f),
-                                ),
+                    modifier =
+                        Modifier
+                            .align(Alignment.TopCenter)
+                            .requiredHeight(Spacing.Spacing24)
+                            .fillMaxWidth()
+                            .background(
+                                brush =
+                                    Brush.verticalGradient(
+                                        colors =
+                                            listOf(
+                                                SurfaceColor.Primary.copy(alpha = 0.20f),
+                                                SurfaceColor.Primary.copy(alpha = 0f),
+                                            ),
+                                    ),
                             ),
-                        ),
                 )
             }
         }

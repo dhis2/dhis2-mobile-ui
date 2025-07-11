@@ -95,22 +95,25 @@ class SectionTest {
                 },
             )
         }
-        rule.onNode(
-            hasTestTag(SectionTestTag.HEADER)
-                .and(SemanticsMatcher.expectValue(SectionSemantics.State, SectionState.CLOSE)),
-        ).assertExists()
+        rule
+            .onNode(
+                hasTestTag(SectionTestTag.HEADER)
+                    .and(SemanticsMatcher.expectValue(SectionSemantics.State, SectionState.CLOSE)),
+            ).assertExists()
         rule.onNodeWithTag(SectionTestTag.CONTENT, useUnmergedTree = true).assertDoesNotExist()
         rule.onNodeWithTag(SectionTestTag.HEADER).performClick()
-        rule.onNode(
-            hasTestTag(SectionTestTag.HEADER)
-                .and(SemanticsMatcher.expectValue(SectionSemantics.State, SectionState.OPEN)),
-        ).assertExists()
+        rule
+            .onNode(
+                hasTestTag(SectionTestTag.HEADER)
+                    .and(SemanticsMatcher.expectValue(SectionSemantics.State, SectionState.OPEN)),
+            ).assertExists()
         rule.onNodeWithTag(SectionTestTag.CONTENT, useUnmergedTree = true).assertExists()
         rule.onNodeWithTag(SectionTestTag.HEADER).performClick()
-        rule.onNode(
-            hasTestTag(SectionTestTag.HEADER)
-                .and(SemanticsMatcher.expectValue(SectionSemantics.State, SectionState.CLOSE)),
-        ).assertExists()
+        rule
+            .onNode(
+                hasTestTag(SectionTestTag.HEADER)
+                    .and(SemanticsMatcher.expectValue(SectionSemantics.State, SectionState.CLOSE)),
+            ).assertExists()
         rule.onNodeWithTag(SectionTestTag.CONTENT, useUnmergedTree = true).assertDoesNotExist()
     }
 
@@ -133,16 +136,18 @@ class SectionTest {
             )
         }
 
-        rule.onNode(
-            hasTestTag(SectionTestTag.HEADER)
-                .and(SemanticsMatcher.expectValue(SectionSemantics.State, SectionState.FIXED)),
-        ).assertExists()
+        rule
+            .onNode(
+                hasTestTag(SectionTestTag.HEADER)
+                    .and(SemanticsMatcher.expectValue(SectionSemantics.State, SectionState.FIXED)),
+            ).assertExists()
         rule.onNodeWithTag(SectionTestTag.CONTENT, useUnmergedTree = true).assertExists()
         rule.onNodeWithTag(SectionTestTag.HEADER).performClick()
-        rule.onNode(
-            hasTestTag(SectionTestTag.HEADER)
-                .and(SemanticsMatcher.expectValue(SectionSemantics.State, SectionState.FIXED)),
-        ).assertExists()
+        rule
+            .onNode(
+                hasTestTag(SectionTestTag.HEADER)
+                    .and(SemanticsMatcher.expectValue(SectionSemantics.State, SectionState.FIXED)),
+            ).assertExists()
         rule.onNodeWithTag(SectionTestTag.CONTENT, useUnmergedTree = true).assertExists()
     }
 }

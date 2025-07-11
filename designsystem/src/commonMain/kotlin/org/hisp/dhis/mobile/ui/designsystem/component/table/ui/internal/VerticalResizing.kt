@@ -53,8 +53,7 @@ internal fun VerticalResizingView(
             modifier
                 .onGloballyPositioned {
                     tableOffset = it.positionInRoot()
-                }
-                .offset { IntOffset(offsetX.roundToInt() + 2.dp.roundToPx(), 0) }
+                }.offset { IntOffset(offsetX.roundToInt() + 2.dp.roundToPx(), 0) }
                 .fillMaxHeight()
                 .drawBehind {
                     drawRect(
@@ -62,25 +61,23 @@ internal fun VerticalResizingView(
                         topLeft = Offset(0f, 0f),
                         size = Size(2.dp.toPx(), size.height),
                     )
-                }
-                .graphicsLayer(clip = false),
+                }.graphicsLayer(clip = false),
         ) {
             tableOffset?.let {
                 Icon(
-                    modifier = Modifier
-                        .align(Alignment.TopCenter)
-                        .offset {
-                            IntOffset(
-                                x = -19.dp.roundToPx(),
-                                y = resizingCell.initialPosition.y.roundToInt() - it.y.roundToInt(),
-                            )
-                        }
-                        .background(
-                            color = colorPrimary,
-                            shape = CircleShape,
-                        )
-                        .size(Spacing.Spacing40)
-                        .padding(8.dp),
+                    modifier =
+                        Modifier
+                            .align(Alignment.TopCenter)
+                            .offset {
+                                IntOffset(
+                                    x = -19.dp.roundToPx(),
+                                    y = resizingCell.initialPosition.y.roundToInt() - it.y.roundToInt(),
+                                )
+                            }.background(
+                                color = colorPrimary,
+                                shape = CircleShape,
+                            ).size(Spacing.Spacing40)
+                            .padding(8.dp),
                     imageVector = Icons.Outlined.SwapHorizontalCircle,
                     contentDescription = "",
                     tint = Color.White,
@@ -121,10 +118,11 @@ internal fun VerticalResizingRule(
                     },
                 ) { change, dragAmount ->
                     change.consume()
-                    val offsetChange = when (inverse) {
-                        true -> offsetX - dragAmount.x
-                        false -> offsetX + dragAmount.x
-                    }
+                    val offsetChange =
+                        when (inverse) {
+                            true -> offsetX - dragAmount.x
+                            false -> offsetX + dragAmount.x
+                        }
                     if (checkMaxMinCondition(dimensions!!, offsetChange)) {
                         offsetX = offsetChange
                     }
@@ -136,21 +134,21 @@ internal fun VerticalResizingRule(
             },
     ) {
         IconButton(
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .background(
-                    color = TableTheme.colors.primary,
-                    shape = CircleShape,
-                )
-                .size(Spacing.Spacing40),
+            modifier =
+                Modifier
+                    .align(Alignment.BottomCenter)
+                    .background(
+                        color = TableTheme.colors.primary,
+                        shape = CircleShape,
+                    ).size(Spacing.Spacing40),
             onClick = {},
         ) {
             Icon(
-                modifier = Modifier
-                    .onGloballyPositioned { coordinates ->
-                        positionInRoot = coordinates.positionInRoot()
-                    }
-                    .padding(8.dp),
+                modifier =
+                    Modifier
+                        .onGloballyPositioned { coordinates ->
+                            positionInRoot = coordinates.positionInRoot()
+                        }.padding(8.dp),
                 imageVector = Icons.Outlined.SwapHorizontalCircle,
                 contentDescription = "",
                 tint = Color.White,

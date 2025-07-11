@@ -46,13 +46,20 @@ fun InputYesOnlySwitch(
     val focusRequester = remember { FocusRequester() }
     var indicatorColor by remember { mutableStateOf(InputShellState.UNFOCUSED.color) }
     InputShell(
-        modifier = modifier
-            .focusRequester(focusRequester)
-            .onFocusChanged {
-                indicatorColor =
-                    if (it.isFocused && state != InputShellState.ERROR && state != InputShellState.WARNING) InputShellState.FOCUSED.color else state.color
-            }
-            .testTag("INPUT_YES_ONLY_SWITCH"),
+        modifier =
+            modifier
+                .focusRequester(focusRequester)
+                .onFocusChanged {
+                    indicatorColor =
+                        if (it.isFocused &&
+                            state != InputShellState.ERROR &&
+                            state != InputShellState.WARNING
+                        ) {
+                            InputShellState.FOCUSED.color
+                        } else {
+                            state.color
+                        }
+                }.testTag("INPUT_YES_ONLY_SWITCH"),
         isRequiredField = isRequired,
         title = "",
         state = state,
@@ -72,10 +79,11 @@ fun InputYesOnlySwitch(
         },
         inputField = {
             Row(
-                modifier = Modifier
-                    .focusable()
-                    .fillMaxWidth()
-                    .padding(end = Spacing.Spacing12, bottom = Spacing.Spacing4),
+                modifier =
+                    Modifier
+                        .focusable()
+                        .fillMaxWidth()
+                        .padding(end = Spacing.Spacing12, bottom = Spacing.Spacing4),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween,
             ) {

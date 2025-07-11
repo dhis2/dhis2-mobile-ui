@@ -25,8 +25,9 @@ class AssistChipSnapshotTest {
                         Icon(
                             imageVector = Icons.Filled.Search,
                             contentDescription = "search icon",
-                            modifier = Modifier
-                                .size(AssistChipDefaults.IconSize),
+                            modifier =
+                                Modifier
+                                    .size(AssistChipDefaults.IconSize),
                         )
                     },
                     onClick = {},
@@ -43,8 +44,9 @@ class AssistChipSnapshotTest {
                         Icon(
                             imageVector = Icons.Filled.Search,
                             contentDescription = "search icon",
-                            modifier = Modifier
-                                .size(AssistChipDefaults.IconSize),
+                            modifier =
+                                Modifier
+                                    .size(AssistChipDefaults.IconSize),
                         )
                     },
                     onClick = {},
@@ -59,8 +61,9 @@ class AssistChipSnapshotTest {
                         Icon(
                             imageVector = Icons.Filled.Search,
                             contentDescription = "search icon",
-                            modifier = Modifier
-                                .size(AssistChipDefaults.IconSize),
+                            modifier =
+                                Modifier
+                                    .size(AssistChipDefaults.IconSize),
                         )
                     },
                     enabled = false,
@@ -77,8 +80,9 @@ class AssistChipSnapshotTest {
                         Icon(
                             imageVector = Icons.Filled.Search,
                             contentDescription = "search icon",
-                            modifier = Modifier
-                                .size(AssistChipDefaults.IconSize),
+                            modifier =
+                                Modifier
+                                    .size(AssistChipDefaults.IconSize),
                         )
                     },
                     enabled = false,

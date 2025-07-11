@@ -35,7 +35,10 @@ actual fun SignatureCanvas(
 }
 
 @Composable
-fun SignatureCanvas(modifier: Modifier = Modifier, drawing: MutableState<Offset?>) {
+fun SignatureCanvas(
+    modifier: Modifier = Modifier,
+    drawing: MutableState<Offset?>,
+) {
     val path by remember { mutableStateOf(Path()) }
 
     val actionIdle = 0
@@ -44,35 +47,37 @@ fun SignatureCanvas(modifier: Modifier = Modifier, drawing: MutableState<Offset?
     val actionUp = 3
     var motionEvent by remember { mutableIntStateOf(actionIdle) }
     var currentPosition by remember { mutableStateOf(Offset.Unspecified) }
-    val drawModifier = modifier
-        .fillMaxSize()
-        .pointerInput(Unit) {
-            awaitEachGesture {
-                val down: PointerInputChange = awaitFirstDown().also {
-                    motionEvent = actionDown
-                    currentPosition = it.position
-                }
-                do {
-                    val event: PointerEvent = awaitPointerEvent()
-
-                    var eventChanges =
-                        "DOWN changedToDown: ${down.changedToDown()} changedUp: ${down.changedToUp()}\n"
-                    event.changes
-                        .forEachIndexed { index: Int, pointerInputChange: PointerInputChange ->
-                            eventChanges += "Index: $index, id: ${pointerInputChange.id}, " +
-                                "changedUp: ${pointerInputChange.changedToUp()}" +
-                                "pos: ${pointerInputChange.position}\n"
-
-                            if (pointerInputChange.positionChange() != Offset.Zero) pointerInputChange.consume()
+    val drawModifier =
+        modifier
+            .fillMaxSize()
+            .pointerInput(Unit) {
+                awaitEachGesture {
+                    val down: PointerInputChange =
+                        awaitFirstDown().also {
+                            motionEvent = actionDown
+                            currentPosition = it.position
                         }
+                    do {
+                        val event: PointerEvent = awaitPointerEvent()
 
-                    motionEvent = actionMove
-                    currentPosition = event.changes.first().position
-                } while (event.changes.any { it.pressed })
+                        var eventChanges =
+                            "DOWN changedToDown: ${down.changedToDown()} changedUp: ${down.changedToUp()}\n"
+                        event.changes
+                            .forEachIndexed { index: Int, pointerInputChange: PointerInputChange ->
+                                eventChanges += "Index: $index, id: ${pointerInputChange.id}, " +
+                                    "changedUp: ${pointerInputChange.changedToUp()}" +
+                                    "pos: ${pointerInputChange.position}\n"
 
-                motionEvent = actionUp
+                                if (pointerInputChange.positionChange() != Offset.Zero) pointerInputChange.consume()
+                            }
+
+                        motionEvent = actionMove
+                        currentPosition = event.changes.first().position
+                    } while (event.changes.any { it.pressed })
+
+                    motionEvent = actionUp
+                }
             }
-        }
 
     Canvas(
         modifier = drawModifier,

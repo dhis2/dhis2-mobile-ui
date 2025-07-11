@@ -29,10 +29,12 @@ fun GroupComponentDropDown(
         selectedItem = selectedItem,
         state = InputShellState.UNFOCUSED,
         useDropDown = false,
-        inputStyle = InputStyle.DataInputStyle()
-            .apply { backGroundColor = SurfaceColor.SurfaceBright },
+        inputStyle =
+            InputStyle
+                .DataInputStyle()
+                .apply { backGroundColor = SurfaceColor.SurfaceBright },
         loadOptions = {
-            /*no-op*/
+            // no-op
         },
     )
 }

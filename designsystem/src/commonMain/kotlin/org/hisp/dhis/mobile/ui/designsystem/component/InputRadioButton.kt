@@ -49,9 +49,10 @@ fun InputRadioButton(
 ) {
     val focusRequester = remember { FocusRequester() }
     InputShell(
-        modifier = modifier
-            .focusRequester(focusRequester)
-            .testTag("RADIO_BUTTON_INPUT"),
+        modifier =
+            modifier
+                .focusRequester(focusRequester)
+                .testTag("RADIO_BUTTON_INPUT"),
         isRequiredField = isRequired,
         title = title,
         state = state,

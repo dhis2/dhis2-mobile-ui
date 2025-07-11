@@ -30,9 +30,7 @@ class InputUserTest {
                 InputUserModel(
                     title = "Label",
                     state = InputShellState.UNFOCUSED,
-
                 ),
-
             )
         }
         rule.onNodeWithTag(InputUserModel.MAIN).assertExists()
@@ -53,7 +51,6 @@ class InputUserTest {
                     },
                     state = InputShellState.UNFOCUSED,
                 ),
-
             )
         }
         rule.onNodeWithTag(InputUserModel.MAIN).assertExists()
@@ -69,7 +66,6 @@ class InputUserTest {
                     title = "Label",
                     state = InputShellState.DISABLED,
                 ),
-
             )
         }
         rule.onNodeWithTag(InputUserModel.MAIN).assertExists()
@@ -89,7 +85,6 @@ class InputUserTest {
                     },
                     state = InputShellState.UNFOCUSED,
                 ),
-
             )
         }
         rule.onNodeWithTag(InputUserModel.MAIN).assertExists()
@@ -112,7 +107,6 @@ class InputUserTest {
                     },
                     state = InputShellState.UNFOCUSED,
                 ),
-
             )
         }
         rule.onNodeWithTag(InputUserModel.MAIN).assertExists()
@@ -135,7 +129,6 @@ class InputUserTest {
                         inputValue = it ?: TextFieldValue()
                     },
                 ),
-
             )
         }
         rule.onNodeWithTag(InputUserModel.MAIN).assertExists()

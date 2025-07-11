@@ -27,7 +27,6 @@ fun LocationSearchBarScreen(
     onSearchLocation: (
         locationQuery: String,
         locationSearchCallback: (List<LocationItemModel>) -> Unit,
-
     ) -> Unit,
 ) {
     var itemList: List<LocationItemModel> by remember {
@@ -60,9 +59,11 @@ fun LocationSearchBarScreen(
             var searching by remember { mutableStateOf(false) }
 
             Box(
-                modifier = Modifier.fillMaxSize()
-                    .background(Color.White)
-                    .padding(16.dp),
+                modifier =
+                    Modifier
+                        .fillMaxSize()
+                        .background(Color.White)
+                        .padding(16.dp),
                 contentAlignment = TopCenter,
             ) {
                 LocationBar(
@@ -91,9 +92,11 @@ fun LocationSearchBarScreen(
             var searching by remember { mutableStateOf(false) }
 
             Box(
-                modifier = Modifier.fillMaxSize()
-                    .background(Color.White)
-                    .padding(16.dp),
+                modifier =
+                    Modifier
+                        .fillMaxSize()
+                        .background(Color.White)
+                        .padding(16.dp),
                 contentAlignment = TopCenter,
             ) {
                 LocationBar(
@@ -121,27 +124,29 @@ fun LocationSearchBarScreen(
     }
 }
 
-private val defaultLocationItems = listOf(
-    LocationItemModel.StoredResult(
-        storedTitle = "Location #1",
-        storedSubtitle = "Location description, location description, location description",
-        storedLatitude = 0.0,
-        storedLongitude = 0.0,
-    ),
-    LocationItemModel.StoredResult(
-        storedTitle = "Location #2",
-        storedSubtitle = "Location description, location description, location description",
-        storedLatitude = 0.0,
-        storedLongitude = 0.0,
-    ),
-)
+private val defaultLocationItems =
+    listOf(
+        LocationItemModel.StoredResult(
+            storedTitle = "Location #1",
+            storedSubtitle = "Location description, location description, location description",
+            storedLatitude = 0.0,
+            storedLongitude = 0.0,
+        ),
+        LocationItemModel.StoredResult(
+            storedTitle = "Location #2",
+            storedSubtitle = "Location description, location description, location description",
+            storedLatitude = 0.0,
+            storedLongitude = 0.0,
+        ),
+    )
 
-private enum class LocationSearchBarOptions(val label: String) {
+private enum class LocationSearchBarOptions(
+    val label: String,
+) {
     DEFAULT_BEHAVIOUR("Default behaviour"),
     AUTOSELECT_ON_ONE_ITEM_FOUND("Autoselect on one item found"),
 }
 
-private fun getCurrentScreen(label: String): LocationSearchBarOptions {
-    return LocationSearchBarOptions.entries.firstOrNull { it.label == label }
+private fun getCurrentScreen(label: String): LocationSearchBarOptions =
+    LocationSearchBarOptions.entries.firstOrNull { it.label == label }
         ?: LocationSearchBarOptions.DEFAULT_BEHAVIOUR
-}

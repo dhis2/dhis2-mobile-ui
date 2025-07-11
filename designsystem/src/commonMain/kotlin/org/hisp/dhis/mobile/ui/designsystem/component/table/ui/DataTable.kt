@@ -56,17 +56,18 @@ fun DataTable(
     onResizedActions: TableResizeActions? = null,
     topContent: @Composable (() -> Unit)? = null,
     bottomContent: @Composable (() -> Unit)? = null,
-    contentPadding: PaddingValues = if (
-        !TableTheme.configuration.editable &&
-        !tableList.all { it.areAllValuesEmpty() }
-    ) {
-        PaddingValues(
-            vertical = LocalTableDimensions.current.tableVerticalPadding,
-            horizontal = LocalTableDimensions.current.tableHorizontalPadding,
-        )
-    } else {
-        PaddingValues(bottom = TableTheme.dimensions.tableBottomPadding)
-    },
+    contentPadding: PaddingValues =
+        if (
+            !TableTheme.configuration.editable &&
+            !tableList.all { it.areAllValuesEmpty() }
+        ) {
+            PaddingValues(
+                vertical = LocalTableDimensions.current.tableVerticalPadding,
+                horizontal = LocalTableDimensions.current.tableHorizontalPadding,
+            )
+        } else {
+            PaddingValues(bottom = TableTheme.dimensions.tableBottomPadding)
+        },
     loading: Boolean = false,
 ) {
     val totalTableColumns by remember(tableList) {
@@ -88,9 +89,10 @@ fun DataTable(
 
     val rowHeadersAreAllSameSize by remember(tableList) {
         derivedStateOf {
-            val allHeaderSizes = tableList.flatMap { tableModel ->
-                tableModel.tableRows.map { it.rowHeaders.size }
-            }
+            val allHeaderSizes =
+                tableList.flatMap { tableModel ->
+                    tableModel.tableRows.map { it.rowHeaders.size }
+                }
             allHeaderSizes.isNotEmpty() && allHeaderSizes.distinct().size == 1
         }
     }
@@ -106,10 +108,11 @@ fun DataTable(
         mutableStateOf(
             object : TableInteractions {
                 override fun onSelectionChange(newTableSelection: TableSelection) {
-                    tableSelection = when {
-                        tableSelection != newTableSelection -> newTableSelection
-                        else -> TableSelection.Unselected()
-                    }
+                    tableSelection =
+                        when {
+                            tableSelection != newTableSelection -> newTableSelection
+                            else -> TableSelection.Unselected()
+                        }
                     tableInteractions?.onSelectionChange(newTableSelection)
                 }
 
@@ -122,7 +125,11 @@ fun DataTable(
                     tableInteractions?.onClick(tableCell)
                 }
 
-                override fun onOptionSelected(cell: TableCell, code: String, label: String) {
+                override fun onOptionSelected(
+                    cell: TableCell,
+                    code: String,
+                    label: String,
+                ) {
                     updatingCell = cell
                     tableInteractions?.onOptionSelected(cell, code, label)
                 }
@@ -138,13 +145,17 @@ fun DataTable(
                     onResizedActions?.onTableWidthChanged(width)
                 }
 
-                override fun onRowHeaderResize(tableId: String, newValue: Float) {
+                override fun onRowHeaderResize(
+                    tableId: String,
+                    newValue: Float,
+                ) {
                     with(localDensity) {
-                        dimensions = dimensions.updateHeaderWidth(
-                            groupedTables = config.groupTables,
-                            tableId = tableId,
-                            widthOffset = newValue,
-                        )
+                        dimensions =
+                            dimensions.updateHeaderWidth(
+                                groupedTables = config.groupTables,
+                                tableId = tableId,
+                                widthOffset = newValue,
+                            )
                         val widthDpValue =
                             dimensions.getRowHeaderWidth(config.groupTables, tableId).toDp().value
 
@@ -155,19 +166,27 @@ fun DataTable(
                     }
                 }
 
-                override fun onColumnHeaderResize(tableId: String, column: Int, newValue: Float) {
+                override fun onColumnHeaderResize(
+                    tableId: String,
+                    column: Int,
+                    newValue: Float,
+                ) {
                     with(localDensity) {
-                        dimensions = dimensions.updateColumnWidth(
-                            groupedTables = config.groupTables,
-                            tableId = tableId,
-                            column = column,
-                            widthOffset = newValue,
-                        )
-                        val widthDpValue = dimensions.getColumnWidth(
-                            groupedTables = config.groupTables,
-                            tableId = tableId,
-                            column = column,
-                        ).toDp().value
+                        dimensions =
+                            dimensions.updateColumnWidth(
+                                groupedTables = config.groupTables,
+                                tableId = tableId,
+                                column = column,
+                                widthOffset = newValue,
+                            )
+                        val widthDpValue =
+                            dimensions
+                                .getColumnWidth(
+                                    groupedTables = config.groupTables,
+                                    tableId = tableId,
+                                    column = column,
+                                ).toDp()
+                                .value
                         onResizedActions?.onColumnHeaderResize(
                             tableId = tableId.takeIf { config.groupTables.not() } ?: GROUPED_ID,
                             column = column,
@@ -176,13 +195,17 @@ fun DataTable(
                     }
                 }
 
-                override fun onTableDimensionResize(tableId: String, newValue: Float) {
+                override fun onTableDimensionResize(
+                    tableId: String,
+                    newValue: Float,
+                ) {
                     with(localDensity) {
-                        dimensions = dimensions.updateAllWidthBy(
-                            groupedTables = config.groupTables,
-                            tableId = tableId,
-                            widthOffset = newValue,
-                        )
+                        dimensions =
+                            dimensions.updateAllWidthBy(
+                                groupedTables = config.groupTables,
+                                tableId = tableId,
+                                widthOffset = newValue,
+                            )
                         val widthDpValue =
                             dimensions.getExtraWidths(tableId).toDp().value
                         onResizedActions?.onTableDimensionResize(
@@ -193,10 +216,11 @@ fun DataTable(
                 }
 
                 override fun onTableDimensionReset(tableId: String) {
-                    dimensions = dimensions.resetWidth(
-                        config.groupTables,
-                        tableId,
-                    )
+                    dimensions =
+                        dimensions.resetWidth(
+                            config.groupTables,
+                            tableId,
+                        )
                     onResizedActions?.onTableDimensionReset(
                         tableId = tableId.takeIf { config.groupTables.not() } ?: GROUPED_ID,
                     )
@@ -205,11 +229,12 @@ fun DataTable(
         )
     }
     var resizingCell: ResizingCell? by remember { mutableStateOf(null) }
-    val horizontalScrollConfig = if (TableTheme.configuration.groupTables) {
-        HorizontalScrollConfig.Grouped(rememberScrollState())
-    } else {
-        HorizontalScrollConfig.Individual(tableList.map { rememberScrollState() })
-    }
+    val horizontalScrollConfig =
+        if (TableTheme.configuration.groupTables) {
+            HorizontalScrollConfig.Grouped(rememberScrollState())
+        } else {
+            HorizontalScrollConfig.Individual(tableList.map { rememberScrollState() })
+        }
 
     CompositionLocalProvider(
         LocalTableDimensions provides dimensions,
@@ -220,26 +245,32 @@ fun DataTable(
         Table(
             tableList = tableList,
             tableHeaderRow = { index, tableModel ->
-                val isSingleValue = tableModel.tableRows.firstOrNull()?.values?.size == 1
+                val isSingleValue =
+                    tableModel.tableRows
+                        .firstOrNull()
+                        ?.values
+                        ?.size == 1
                 TableHeaderRow(
-                    modifier = Modifier
-                        .zIndex(2f)
-                        .background(Color.White)
-                        .padding(start = Spacing.Spacing16, end = Spacing.Spacing16)
-                        .onSizeChanged {
-                            tableResizeActions.onTableWidthChanged(it.width)
-                        },
-                    cornerUiState = TableCornerUiState(
-                        isSelected = tableSelection.isCornerSelected(tableModel.id),
-                        onTableResize = {
-                            tableResizeActions.onRowHeaderResize(
-                                tableModel.id,
-                                it,
-                            )
-                        },
-                        onResizing = { resizingCell = it },
-                        singleValueTable = isSingleValue,
-                    ),
+                    modifier =
+                        Modifier
+                            .zIndex(2f)
+                            .background(Color.White)
+                            .padding(start = Spacing.Spacing16, end = Spacing.Spacing16)
+                            .onSizeChanged {
+                                tableResizeActions.onTableWidthChanged(it.width)
+                            },
+                    cornerUiState =
+                        TableCornerUiState(
+                            isSelected = tableSelection.isCornerSelected(tableModel.id),
+                            onTableResize = {
+                                tableResizeActions.onRowHeaderResize(
+                                    tableModel.id,
+                                    it,
+                                )
+                            },
+                            onResizing = { resizingCell = it },
+                            singleValueTable = isSingleValue,
+                        ),
                     tableModel = tableModel,
                     horizontalScrollState = horizontalScrollConfig.getScrollState(index),
                     totalTableColumns = totalTableColumns ?: 0,
@@ -248,16 +279,18 @@ fun DataTable(
                         styleForColumnHeader(
                             isDisabled = disabled,
                             isCornerSelected = tableSelection.isCornerSelected(tableModel.id),
-                            isSelected = tableSelection.isHeaderSelected(
-                                selectedTableId = tableModel.id,
-                                columnIndex = columnIndex,
-                                columnHeaderRowIndex = rowIndex,
-                            ),
-                            isParentSelected = tableSelection.isParentHeaderSelected(
-                                selectedTableId = tableModel.id,
-                                columnIndex = columnIndex,
-                                columnHeaderRowIndex = rowIndex,
-                            ),
+                            isSelected =
+                                tableSelection.isHeaderSelected(
+                                    selectedTableId = tableModel.id,
+                                    columnIndex = columnIndex,
+                                    columnHeaderRowIndex = rowIndex,
+                                ),
+                            isParentSelected =
+                                tableSelection.isParentHeaderSelected(
+                                    selectedTableId = tableModel.id,
+                                    columnIndex = columnIndex,
+                                    columnHeaderRowIndex = rowIndex,
+                                ),
                             columnIndex = columnIndex,
                         )
                     },
@@ -273,10 +306,10 @@ fun DataTable(
                                 columnIndex = headerColumnIndex,
                                 columnHeaderRow = headerRowIndex,
                                 childrenOfSelectedHeader =
-                                tableModel.countChildrenOfSelectedHeader(
-                                    headerRowIndex,
-                                    headerColumnIndex,
-                                ),
+                                    tableModel.countChildrenOfSelectedHeader(
+                                        headerRowIndex,
+                                        headerColumnIndex,
+                                    ),
                             ),
                         )
                     },
@@ -302,15 +335,17 @@ fun DataTable(
                         styleForRowHeader(
                             isDisabled = disabled,
                             isCornerSelected = tableSelection.isCornerSelected(tableModel.id),
-                            isSelected = tableSelection.isRowSelected(
-                                selectedTableId = tableModel.id,
-                                rowHeaderIndexes = rowHeaderIndexes,
-                            ),
-                            isOtherRowSelected = tableSelection.isOtherRowSelected(
-                                selectedTableId = tableModel.id,
-                                rowHeaderIndexes = rowHeaderIndexes,
-                                rowHeaderColumnIndex = rowColumnIndex ?: -1,
-                            ),
+                            isSelected =
+                                tableSelection.isRowSelected(
+                                    selectedTableId = tableModel.id,
+                                    rowHeaderIndexes = rowHeaderIndexes,
+                                ),
+                            isOtherRowSelected =
+                                tableSelection.isOtherRowSelected(
+                                    selectedTableId = tableModel.id,
+                                    rowHeaderIndexes = rowHeaderIndexes,
+                                    rowHeaderColumnIndex = rowColumnIndex ?: -1,
+                                ),
                         )
                     },
                     onRowHeaderClick = { rowHeaderIndexes, rowHeaderColumnIndex ->
@@ -336,14 +371,15 @@ fun DataTable(
             },
             verticalResizingView = { tableHeight ->
                 VerticalResizingView(
-                    modifier = tableHeight?.let {
-                        Modifier
-                            .height(
-                                with(LocalDensity.current) {
-                                    it.toDp()
-                                },
-                            )
-                    } ?: Modifier,
+                    modifier =
+                        tableHeight?.let {
+                            Modifier
+                                .height(
+                                    with(LocalDensity.current) {
+                                        it.toDp()
+                                    },
+                                )
+                        } ?: Modifier,
                     provideResizingCell = { resizingCell },
                 )
             },

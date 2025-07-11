@@ -8,7 +8,6 @@ import org.junit.Rule
 import org.junit.Test
 
 class OrgBottomSheetTest {
-
     @get:Rule
     val rule = createComposeRule()
 
@@ -16,18 +15,19 @@ class OrgBottomSheetTest {
     fun clearAllButtonShouldBeDisabledWhenThereAreNoSelectedItems() {
         rule.setContent {
             OrgBottomSheet(
-                orgTreeItems = listOf(
-                    OrgTreeItem(
-                        uid = "1",
-                        label = "Item 1",
-                        selected = false,
+                orgTreeItems =
+                    listOf(
+                        OrgTreeItem(
+                            uid = "1",
+                            label = "Item 1",
+                            selected = false,
+                        ),
+                        OrgTreeItem(
+                            uid = "2",
+                            label = "Item 2",
+                            selected = false,
+                        ),
                     ),
-                    OrgTreeItem(
-                        uid = "2",
-                        label = "Item 2",
-                        selected = false,
-                    ),
-                ),
                 onDismiss = {
                     // no-op
                 },
@@ -53,18 +53,19 @@ class OrgBottomSheetTest {
     fun clearAllButtonShouldBeEnabledWhenThereIsOneSelectedItems() {
         rule.setContent {
             OrgBottomSheet(
-                orgTreeItems = listOf(
-                    OrgTreeItem(
-                        uid = "1",
-                        label = "Item 1",
-                        selected = true,
+                orgTreeItems =
+                    listOf(
+                        OrgTreeItem(
+                            uid = "1",
+                            label = "Item 1",
+                            selected = true,
+                        ),
+                        OrgTreeItem(
+                            uid = "2",
+                            label = "Item 2",
+                            selected = false,
+                        ),
                     ),
-                    OrgTreeItem(
-                        uid = "2",
-                        label = "Item 2",
-                        selected = false,
-                    ),
-                ),
                 onDismiss = {
                     // no-op
                 },
@@ -90,18 +91,19 @@ class OrgBottomSheetTest {
     fun showCheckBoxIfItemCanBeSelected() {
         rule.setContent {
             OrgBottomSheet(
-                orgTreeItems = listOf(
-                    OrgTreeItem(
-                        uid = "1",
-                        label = "Item 1",
-                        canBeSelected = true,
+                orgTreeItems =
+                    listOf(
+                        OrgTreeItem(
+                            uid = "1",
+                            label = "Item 1",
+                            canBeSelected = true,
+                        ),
+                        OrgTreeItem(
+                            uid = "2",
+                            label = "Item 2",
+                            canBeSelected = false,
+                        ),
                     ),
-                    OrgTreeItem(
-                        uid = "2",
-                        label = "Item 2",
-                        canBeSelected = false,
-                    ),
-                ),
                 onDismiss = {
                     // no-op
                 },
@@ -128,18 +130,19 @@ class OrgBottomSheetTest {
     fun shouldHideClearButtonWhenOnClearAllMethodIsNotProvided() {
         rule.setContent {
             OrgBottomSheet(
-                orgTreeItems = listOf(
-                    OrgTreeItem(
-                        uid = "1",
-                        label = "Item 1",
-                        canBeSelected = true,
+                orgTreeItems =
+                    listOf(
+                        OrgTreeItem(
+                            uid = "1",
+                            label = "Item 1",
+                            canBeSelected = true,
+                        ),
+                        OrgTreeItem(
+                            uid = "2",
+                            label = "Item 2",
+                            canBeSelected = false,
+                        ),
                     ),
-                    OrgTreeItem(
-                        uid = "2",
-                        label = "Item 2",
-                        canBeSelected = false,
-                    ),
-                ),
                 onDismiss = {
                     // no-op
                 },

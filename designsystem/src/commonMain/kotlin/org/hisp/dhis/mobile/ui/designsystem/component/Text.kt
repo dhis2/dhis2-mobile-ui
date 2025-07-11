@@ -192,7 +192,6 @@ internal fun ListCardLastUpdated(
 internal fun CarouselButtonText(
     text: String,
     modifier: Modifier = Modifier,
-
 ) {
     Text(
         text,

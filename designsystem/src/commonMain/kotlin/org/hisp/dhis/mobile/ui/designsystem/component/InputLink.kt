@@ -61,10 +61,11 @@ fun InputLink(
         isRequiredField = isRequiredField,
         onNextClicked = onNextClicked,
         onValueChanged = onValueChanged,
-        keyboardOptions = KeyboardOptions(
-            imeAction = imeAction,
-            keyboardType = KeyboardType.Uri,
-        ),
+        keyboardOptions =
+            KeyboardOptions(
+                imeAction = imeAction,
+                keyboardType = KeyboardType.Uri,
+            ),
         modifier = modifier,
         testTag = "LINK",
         onFocusChanged = onFocusChanged,
@@ -86,8 +87,11 @@ fun InputLink(
     )
 }
 
-private fun isButtonEnabled(inputStyle: InputStyle, isValidUrl: Boolean, state: InputShellState) =
-    when (inputStyle) {
-        is InputStyle.DataInputStyle -> isValidUrl && state != InputShellState.DISABLED
-        is InputStyle.ParameterInputStyle -> false
-    }
+private fun isButtonEnabled(
+    inputStyle: InputStyle,
+    isValidUrl: Boolean,
+    state: InputShellState,
+) = when (inputStyle) {
+    is InputStyle.DataInputStyle -> isValidUrl && state != InputShellState.DISABLED
+    is InputStyle.ParameterInputStyle -> false
+}

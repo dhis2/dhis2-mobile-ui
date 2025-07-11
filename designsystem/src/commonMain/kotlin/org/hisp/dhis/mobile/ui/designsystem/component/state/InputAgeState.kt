@@ -36,20 +36,21 @@ fun rememberInputAgeState(
     inputState: InputShellState = InputShellState.UNFOCUSED,
     legendData: LegendData? = null,
     supportingText: List<SupportingTextData>? = null,
-): InputAgeState = remember(
-    inputType,
-    inputState,
-    legendData,
-    supportingText,
-) {
-    InputAgeStateImpl(
-        inputAgeData,
+): InputAgeState =
+    remember(
         inputType,
         inputState,
         legendData,
         supportingText,
-    )
-}
+    ) {
+        InputAgeStateImpl(
+            inputAgeData,
+            inputType,
+            inputState,
+            legendData,
+            supportingText,
+        )
+    }
 
 data class InputAgeData(
     val title: String,

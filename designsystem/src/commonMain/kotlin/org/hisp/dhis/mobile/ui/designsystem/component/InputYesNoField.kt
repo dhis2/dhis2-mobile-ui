@@ -43,9 +43,10 @@ fun InputYesNoField(
     val focusRequester = remember { FocusRequester() }
 
     InputShell(
-        modifier = modifier
-            .focusRequester(focusRequester)
-            .testTag("INPUT_YES_NO_FIELD"),
+        modifier =
+            modifier
+                .focusRequester(focusRequester)
+                .testTag("INPUT_YES_NO_FIELD"),
         isRequiredField = isRequired,
         title = title,
         state = state,
@@ -64,14 +65,15 @@ fun InputYesNoField(
             }
         },
         inputField = {
-            val options = InputYesNoFieldValues.entries.map {
-                RadioButtonData(
-                    it.value,
-                    itemSelected == it,
-                    state != InputShellState.DISABLED,
-                    provideStringResource(it.value.lowercase(Locale.getDefault())),
-                )
-            }
+            val options =
+                InputYesNoFieldValues.entries.map {
+                    RadioButtonData(
+                        it.value,
+                        itemSelected == it,
+                        state != InputShellState.DISABLED,
+                        provideStringResource(it.value.lowercase(Locale.getDefault())),
+                    )
+                }
             RadioButtonBlock(
                 Orientation.HORIZONTAL,
                 options,
@@ -106,7 +108,9 @@ fun InputYesNoField(
     )
 }
 
-enum class InputYesNoFieldValues(val value: String) {
+enum class InputYesNoFieldValues(
+    val value: String,
+) {
     YES("Yes"),
     NO("No"),
 }

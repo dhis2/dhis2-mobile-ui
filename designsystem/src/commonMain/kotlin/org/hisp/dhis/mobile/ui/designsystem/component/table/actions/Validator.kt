@@ -8,13 +8,10 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.model.ValidationResu
  * Implementations of this interface should provide specific validation logic.
  */
 interface Validator {
-
     /**
      * Validates the given [tableCell].
      * @param tableCell The cell to be validated.
      * @return A [ValidationResult] indicating the outcome of the validation.
      */
-    fun validate(tableCell: TableCell): ValidationResult {
-        return ValidationResult.Success(tableCell.value)
-    }
+    fun validate(tableCell: TableCell): ValidationResult = ValidationResult.Success(tableCell.value)
 }

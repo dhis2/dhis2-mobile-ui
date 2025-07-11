@@ -36,7 +36,9 @@ fun ButtonsScreen() {
     }
 }
 
-enum class ButtonScreens(val label: String) {
+enum class ButtonScreens(
+    val label: String,
+) {
     BUTTON("Button component"),
     BUTTON_BLOCK("Button block component"),
     CAROUSEL_BUTTONS("Carousel button component"),
@@ -48,6 +50,4 @@ enum class ButtonScreens(val label: String) {
     NO_COMPONENT_SELECTED("No component selected"),
 }
 
-fun getCurrentScreen(label: String): ButtonScreens {
-    return ButtonScreens.entries.firstOrNull { it.label == label } ?: ButtonScreens.BUTTON
-}
+fun getCurrentScreen(label: String): ButtonScreens = ButtonScreens.entries.firstOrNull { it.label == label } ?: ButtonScreens.BUTTON

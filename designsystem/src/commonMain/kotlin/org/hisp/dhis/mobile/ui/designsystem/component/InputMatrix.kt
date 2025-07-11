@@ -65,14 +65,16 @@ fun InputMatrix(
                 itemCount = data.size,
                 horizontalArrangement = Arrangement.spacedBy(Spacing.Spacing8),
                 verticalArrangement = Arrangement.spacedBy(Spacing.Spacing8),
-                modifier = Modifier.padding(
-                    PaddingValues(
-                        start = Spacing.Spacing0,
-                        top = Spacing.Spacing8,
-                        end = Spacing.Spacing12,
-                        bottom = Spacing.Spacing8,
-                    ),
-                ).testTag("ICON_CARD_INPUT_MATRIX_$testTag"),
+                modifier =
+                    Modifier
+                        .padding(
+                            PaddingValues(
+                                start = Spacing.Spacing0,
+                                top = Spacing.Spacing8,
+                                end = Spacing.Spacing12,
+                                bottom = Spacing.Spacing8,
+                            ),
+                        ).testTag("ICON_CARD_INPUT_MATRIX_$testTag"),
             ) { index ->
                 val iconCardData = data[index]
                 MatrixIconCard(
@@ -121,9 +123,10 @@ private fun MatrixIconCard(
         onClick = onClick,
     ) {
         Column(
-            modifier = Modifier
-                .padding(Spacing.Spacing8)
-                .align(Alignment.CenterHorizontally),
+            modifier =
+                Modifier
+                    .padding(Spacing.Spacing8)
+                    .align(Alignment.CenterHorizontally),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(Spacing.Spacing8),
         ) {
@@ -172,8 +175,7 @@ private fun iconTint(
 }
 
 @ReadOnlyComposable
-private fun iconCardTextColor(enabled: Boolean) =
-    if (enabled) TextColor.OnSurface else TextColor.OnDisabledSurface
+private fun iconCardTextColor(enabled: Boolean) = if (enabled) TextColor.OnSurface else TextColor.OnDisabledSurface
 
 @Composable
 private fun iconCardTextStyle(selected: Boolean) =

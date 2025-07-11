@@ -21,8 +21,14 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 
 sealed class AvatarStyleData {
-    data class Text(val textAvatar: String) : AvatarStyleData()
-    data class Image(val imagePainter: Painter) : AvatarStyleData()
+    data class Text(
+        val textAvatar: String,
+    ) : AvatarStyleData()
+
+    data class Image(
+        val imagePainter: Painter,
+    ) : AvatarStyleData()
+
     data class Metadata(
         val imageCardData: ImageCardData,
         val avatarSize: MetadataAvatarSize,
@@ -46,12 +52,13 @@ fun Avatar(
     when (style) {
         is AvatarStyleData.Text -> {
             Box(
-                modifier = modifier
-                    .size(Spacing.Spacing40)
-                    .background(
-                        color = SurfaceColor.PrimaryContainer,
-                        shape = RoundedCornerShape(Radius.Full),
-                    ),
+                modifier =
+                    modifier
+                        .size(Spacing.Spacing40)
+                        .background(
+                            color = SurfaceColor.PrimaryContainer,
+                            shape = RoundedCornerShape(Radius.Full),
+                        ),
                 contentAlignment = Alignment.Center,
             ) {
                 Text(
@@ -81,10 +88,11 @@ fun Avatar(
                 painter = style.imagePainter,
                 contentDescription = "avatarImage",
                 contentScale = ContentScale.Crop,
-                modifier = modifier
-                    .size(Spacing.Spacing40)
-                    .clip(CircleShape)
-                    .clickable(onClick = { onImageClick?.invoke() }),
+                modifier =
+                    modifier
+                        .size(Spacing.Spacing40)
+                        .clip(CircleShape)
+                        .clickable(onClick = { onImageClick?.invoke() }),
             )
         }
     }

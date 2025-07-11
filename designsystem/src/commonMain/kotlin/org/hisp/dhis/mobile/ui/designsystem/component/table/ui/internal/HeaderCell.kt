@@ -40,27 +40,28 @@ internal fun HeaderCell(
     modifier: Modifier = Modifier,
 ) {
     Box(
-        modifier = modifier
-            .width(with(LocalDensity.current) { itemHeaderUiState.headerMeasures.width.toDp() })
-            .fillMaxHeight()
-            .background(itemHeaderUiState.cellStyle.backgroundColor())
-            .testTag(itemHeaderUiState.testTag)
-            .semantics {
-                itemHeaderUiState.tableId?.let { tableIdColumnHeader = it }
-                columnIndexHeader = itemHeaderUiState.columnIndex
-                rowIndexHeader = itemHeaderUiState.rowIndex
-                columnBackground = itemHeaderUiState.cellStyle.backgroundColor()
-            }
-            .clickable {
-                itemHeaderUiState.onCellSelected(itemHeaderUiState.columnIndex)
-            },
+        modifier =
+            modifier
+                .width(with(LocalDensity.current) { itemHeaderUiState.headerMeasures.width.toDp() })
+                .fillMaxHeight()
+                .background(itemHeaderUiState.cellStyle.backgroundColor())
+                .testTag(itemHeaderUiState.testTag)
+                .semantics {
+                    itemHeaderUiState.tableId?.let { tableIdColumnHeader = it }
+                    columnIndexHeader = itemHeaderUiState.columnIndex
+                    rowIndexHeader = itemHeaderUiState.rowIndex
+                    columnBackground = itemHeaderUiState.cellStyle.backgroundColor()
+                }.clickable {
+                    itemHeaderUiState.onCellSelected(itemHeaderUiState.columnIndex)
+                },
         contentAlignment = Alignment.Center,
     ) {
         Text(
-            modifier = Modifier
-                .padding(itemHeaderUiState.paddingValues)
-                .fillMaxWidth()
-                .align(Alignment.Center),
+            modifier =
+                Modifier
+                    .padding(itemHeaderUiState.paddingValues)
+                    .fillMaxWidth()
+                    .align(Alignment.Center),
             color = itemHeaderUiState.cellStyle.mainColor(),
             text = itemHeaderUiState.headerCell.value,
             textAlign = TextAlign.Center,
@@ -72,29 +73,32 @@ internal fun HeaderCell(
         )
         HorizontalDivider(
             color = itemHeaderUiState.cellStyle.dividerColor,
-            modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.BottomCenter),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .align(Alignment.BottomCenter),
         )
-        val isSelected = when (LocalTableSelection.current) {
-            is TableSelection.AllCellSelection -> false
-            else -> LocalTableSelection.current.isHeaderSelected(
-                selectedTableId = itemHeaderUiState.tableId ?: "",
-                columnIndex = itemHeaderUiState.columnIndex,
-                columnHeaderRowIndex = itemHeaderUiState.rowIndex,
-            )
-        }
+        val isSelected =
+            when (LocalTableSelection.current) {
+                is TableSelection.AllCellSelection -> false
+                else ->
+                    LocalTableSelection.current.isHeaderSelected(
+                        selectedTableId = itemHeaderUiState.tableId ?: "",
+                        columnIndex = itemHeaderUiState.columnIndex,
+                        columnHeaderRowIndex = itemHeaderUiState.rowIndex,
+                    )
+            }
         if (isSelected) {
             VerticalResizingRule(
-                modifier = Modifier
-                    .align(
-                        if (itemHeaderUiState.isLastColumn) {
-                            Alignment.CenterStart
-                        } else {
-                            Alignment.CenterEnd
-                        },
-                    )
-                    .zIndex(2f),
+                modifier =
+                    Modifier
+                        .align(
+                            if (itemHeaderUiState.isLastColumn) {
+                                Alignment.CenterStart
+                            } else {
+                                Alignment.CenterEnd
+                            },
+                        ).zIndex(2f),
                 checkMaxMinCondition = itemHeaderUiState.checkMaxCondition,
                 onHeaderResize = { newValue ->
                     itemHeaderUiState.onHeaderResize(

@@ -10,7 +10,6 @@ import org.junit.Rule
 import org.junit.Test
 
 class ProgressIndicatorSnapshotTest {
-
     @get:Rule
     val paparazzi = paparazzi()
 

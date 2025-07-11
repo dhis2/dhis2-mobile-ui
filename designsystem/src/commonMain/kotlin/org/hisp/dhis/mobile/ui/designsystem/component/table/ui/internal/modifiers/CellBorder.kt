@@ -90,19 +90,18 @@ internal fun Modifier.rowSupportForCellBorder(
         } else {
             subRowCount + 1f
         },
-    )
-        .drawBehind {
-            drawCircle(
-                color = if (isFirstCellOnRowSelected) Color.White else Color.Unspecified,
-                radius = 4.dp.toPx(),
-                center = Offset(0.5.dp.toPx(), 0.5.dp.toPx()),
-                blendMode = BlendMode.SrcAtop,
-            )
-            drawCircle(
-                color = if (isFirstCellOnRowSelected) borderColor else Color.Unspecified,
-                radius = 2.dp.toPx(),
-                center = Offset(0.5.dp.toPx(), 0.5.dp.toPx()),
-                blendMode = BlendMode.SrcAtop,
-            )
-        },
+    ).drawBehind {
+        drawCircle(
+            color = if (isFirstCellOnRowSelected) Color.White else Color.Unspecified,
+            radius = 4.dp.toPx(),
+            center = Offset(0.5.dp.toPx(), 0.5.dp.toPx()),
+            blendMode = BlendMode.SrcAtop,
+        )
+        drawCircle(
+            color = if (isFirstCellOnRowSelected) borderColor else Color.Unspecified,
+            radius = 2.dp.toPx(),
+            center = Offset(0.5.dp.toPx(), 0.5.dp.toPx()),
+            blendMode = BlendMode.SrcAtop,
+        )
+    },
 )

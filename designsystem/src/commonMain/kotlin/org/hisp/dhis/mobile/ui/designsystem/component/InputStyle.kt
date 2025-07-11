@@ -22,19 +22,21 @@ sealed class InputStyle(
     val unfocusedIndicatorColor: Color?,
     val disabledIndicatorColor: Color?,
 ) {
-    class DataInputStyle : InputStyle(
-        startIndent = Spacing.Spacing0,
-        backGroundColor = SurfaceColor.Surface,
-        disabledBackGroundColor = SurfaceColor.DisabledSurface,
-        unfocusedIndicatorColor = null,
-        disabledIndicatorColor = null,
-    )
+    class DataInputStyle :
+        InputStyle(
+            startIndent = Spacing.Spacing0,
+            backGroundColor = SurfaceColor.Surface,
+            disabledBackGroundColor = SurfaceColor.DisabledSurface,
+            unfocusedIndicatorColor = null,
+            disabledIndicatorColor = null,
+        )
 
-    class ParameterInputStyle : InputStyle(
-        startIndent = Spacing.Spacing40,
-        backGroundColor = Color.Transparent,
-        disabledBackGroundColor = Color.Transparent,
-        unfocusedIndicatorColor = Outline.Light,
-        disabledIndicatorColor = Outline.Light,
-    )
+    class ParameterInputStyle :
+        InputStyle(
+            startIndent = Spacing.Spacing40,
+            backGroundColor = Color.Transparent,
+            disabledBackGroundColor = Color.Transparent,
+            unfocusedIndicatorColor = Outline.Light,
+            disabledIndicatorColor = Outline.Light,
+        )
 }

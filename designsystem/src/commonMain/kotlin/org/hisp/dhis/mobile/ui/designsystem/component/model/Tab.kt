@@ -7,8 +7,7 @@ data class Tab(
     val label: String,
     private val iconData: IconData? = null,
 ) {
-    fun icon(selected: Boolean) =
-        iconData?.selectedIcon?.takeIf { selected } ?: iconData?.defaultIcon
+    fun icon(selected: Boolean) = iconData?.selectedIcon?.takeIf { selected } ?: iconData?.defaultIcon
 }
 
 data class IconData(

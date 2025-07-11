@@ -74,34 +74,35 @@ fun BaseCard(
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     Row(
-        modifier = modifier
-            .conditional(
-                selectionMode != SelectionState.SELECTED && showShadow,
-                { dropShadow(RoundedCornerShape(Radius.S)) },
-            )
-            .background(
-                color = when (selectionMode) {
-                    SelectionState.SELECTED -> SurfaceColor.ContainerLow
-                    else -> SurfaceColor.SurfaceBright
-                },
-                shape = RoundedCornerShape(Radius.S),
-            )
-            .clip(shape = RoundedCornerShape(Radius.S))
-            .combinedClickable(
-                role = Role.Button,
-                interactionSource = interactionSource,
-                indication = ripple(
-                    color = SurfaceColor.Primary,
-                ),
-                onClick = when {
-                    selectionMode != SelectionState.NONE -> onCardSelected
-                    else -> onCardClick
-                },
-                onLongClick = onCardSelected,
-            )
-            .hoverPointerIcon(true)
-            .padding(paddingValues)
-            .animateContentSize(),
+        modifier =
+            modifier
+                .conditional(
+                    selectionMode != SelectionState.SELECTED && showShadow,
+                    { dropShadow(RoundedCornerShape(Radius.S)) },
+                ).background(
+                    color =
+                        when (selectionMode) {
+                            SelectionState.SELECTED -> SurfaceColor.ContainerLow
+                            else -> SurfaceColor.SurfaceBright
+                        },
+                    shape = RoundedCornerShape(Radius.S),
+                ).clip(shape = RoundedCornerShape(Radius.S))
+                .combinedClickable(
+                    role = Role.Button,
+                    interactionSource = interactionSource,
+                    indication =
+                        ripple(
+                            color = SurfaceColor.Primary,
+                        ),
+                    onClick =
+                        when {
+                            selectionMode != SelectionState.NONE -> onCardSelected
+                            else -> onCardClick
+                        },
+                    onLongClick = onCardSelected,
+                ).hoverPointerIcon(true)
+                .padding(paddingValues)
+                .animateContentSize(),
     ) {
         if (expandable) {
             requireNotNull(itemVerticalPadding) { "If expandable is true itemVerticalPadding must not be null" }
@@ -140,18 +141,20 @@ fun <T> ExpandableItemColumn(
 
     val itemVerticalPadding by remember(childrenSize) {
         derivedStateOf {
-            val value = if (childrenSize.size == itemCount) {
-                var availableHeight = parentSize -
-                    childrenSize.values.sum() -
-                    with(density) {
-                        itemSpacing.toPx() * (itemCount - 1) + contentPadding.toPx() * 2
-                    }
-                if (itemCount == 1) availableHeight /= 4
-                with(density) { (availableHeight / (2 * itemCount)).toDp() }.takeIf { it >= 16.dp }
-                    ?: 16.dp
-            } else {
-                16.dp
-            }
+            val value =
+                if (childrenSize.size == itemCount) {
+                    var availableHeight =
+                        parentSize -
+                            childrenSize.values.sum() -
+                            with(density) {
+                                itemSpacing.toPx() * (itemCount - 1) + contentPadding.toPx() * 2
+                            }
+                    if (itemCount == 1) availableHeight /= 4
+                    with(density) { (availableHeight / (2 * itemCount)).toDp() }.takeIf { it >= 16.dp }
+                        ?: 16.dp
+                } else {
+                    16.dp
+                }
             value
         }
     }
@@ -159,15 +162,16 @@ fun <T> ExpandableItemColumn(
     val scrollState = rememberLazyListState()
 
     LazyColumn(
-        modifier = modifier
-            .onSizeChanged {
-                if (parentSize == -1) {
-                    parentSize = it.height
-                }
-            }.draggableList(
-                scrollState = scrollState,
-                draggableType = DraggableType.Vertical,
-            ),
+        modifier =
+            modifier
+                .onSizeChanged {
+                    if (parentSize == -1) {
+                        parentSize = it.height
+                    }
+                }.draggableList(
+                    scrollState = scrollState,
+                    draggableType = DraggableType.Vertical,
+                ),
         state = scrollState,
         verticalArrangement = spacedBy(itemSpacing),
         contentPadding = PaddingValues(contentPadding),
@@ -191,12 +195,12 @@ internal fun ExpandableBox(
     content: @Composable BoxScope.() -> Unit,
 ) {
     Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(
-                vertical = itemVerticalPadding,
-            )
-            .onSizeChanged(onSizeChanged),
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(
+                    vertical = itemVerticalPadding,
+                ).onSizeChanged(onSizeChanged),
         contentAlignment = Alignment.Center,
         content = content,
     )
@@ -224,11 +228,11 @@ fun ToggleInfoTextButton(
                 },
                 role = Role.Button,
                 interactionSource = interactionSource,
-                indication = ripple(
-                    color = SurfaceColor.Primary,
-                ),
-            )
-            .padding(end = Spacing.Spacing2)
+                indication =
+                    ripple(
+                        color = SurfaceColor.Primary,
+                    ),
+            ).padding(end = Spacing.Spacing2)
             .offset(x = (-3).dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
@@ -246,24 +250,22 @@ fun ToggleInfoTextButton(
     }
 }
 
-private fun getSectionState(sectionState: SectionState): SectionState {
-    return if (sectionState == SectionState.CLOSE) SectionState.OPEN else SectionState.CLOSE
-}
+private fun getSectionState(sectionState: SectionState): SectionState =
+    if (sectionState == SectionState.CLOSE) SectionState.OPEN else SectionState.CLOSE
 
-private fun getIconVector(sectionState: SectionState): ImageVector {
-    return if (sectionState == SectionState.CLOSE) {
+private fun getIconVector(sectionState: SectionState): ImageVector =
+    if (sectionState == SectionState.CLOSE) {
         Icons.Filled.KeyboardArrowDown
     } else {
         Icons.Filled.KeyboardArrowUp
     }
-}
 
 @Composable
 fun ColumnScope.ExpandShrinkAnimatedVisibility(
     expanded: Boolean,
     content:
-    @Composable()
-    (AnimatedVisibilityScope.() -> Unit),
+        @Composable()
+        (AnimatedVisibilityScope.() -> Unit),
 ) {
     AnimatedVisibility(
         visible = expanded,

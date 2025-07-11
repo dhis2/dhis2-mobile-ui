@@ -38,35 +38,38 @@ internal fun ItemValues(
 ) {
     val extraColumns = totalTableColumns - tableHeaderModel.tableMaxColumns()
     Row(
-        modifier = modifier
-            .horizontalScroll(state = horizontalScrollState)
-            .draggableList(
-                scrollState = horizontalScrollState,
-                draggableType = DraggableType.Horizontal,
-            ),
+        modifier =
+            modifier
+                .horizontalScroll(state = horizontalScrollState)
+                .draggableList(
+                    scrollState = horizontalScrollState,
+                    draggableType = DraggableType.Horizontal,
+                ),
     ) {
         repeat(
             times = totalTableColumns,
             action = { columnIndex ->
-                val cellValue = cellValues[columnIndex] ?: TableCell(
-                    id = "",
-                    editable = false,
-                    value = "",
-                    column = columnIndex,
-                )
+                val cellValue =
+                    cellValues[columnIndex] ?: TableCell(
+                        id = "",
+                        editable = false,
+                        value = "",
+                        column = columnIndex,
+                    )
 
                 key("$tableId$CELL_TEST_TAG${cellValue.row}${cellValue.column}") {
                     TableCell(
                         tableId = tableId,
                         cell = cellValue,
                         maxLines = maxLines,
-                        headerExtraSize = TableTheme.dimensions.extraSize(
-                            groupedTables = TableTheme.configuration.groupTables,
-                            tableId = tableId,
-                            totalColumns = totalTableColumns,
-                            totalHeaderRows = totalHeaderRows,
-                            column = columnIndex,
-                        ),
+                        headerExtraSize =
+                            TableTheme.dimensions.extraSize(
+                                groupedTables = TableTheme.configuration.groupTables,
+                                tableId = tableId,
+                                totalColumns = totalTableColumns,
+                                totalHeaderRows = totalHeaderRows,
+                                column = columnIndex,
+                            ),
                     )
                 }
             },

@@ -21,7 +21,11 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme
  * @param actionIcons A composable function to display the action icons.
  */
 @Composable
-internal fun TableActions(modifier: Modifier, title: String, actionIcons: @Composable () -> Unit) {
+internal fun TableActions(
+    modifier: Modifier,
+    title: String,
+    actionIcons: @Composable () -> Unit,
+) {
     Row(
         modifier = modifier,
         horizontalArrangement = Arrangement.Absolute.spacedBy(8.dp),

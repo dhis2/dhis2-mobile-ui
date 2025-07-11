@@ -17,7 +17,6 @@ import org.junit.Rule
 import org.junit.Test
 
 class InputPhoneNumberTest {
-
     @get:Rule
     val rule = createComposeRule()
 

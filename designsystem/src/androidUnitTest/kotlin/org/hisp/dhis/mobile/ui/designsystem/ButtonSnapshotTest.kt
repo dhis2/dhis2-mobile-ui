@@ -18,7 +18,6 @@ import org.junit.Rule
 import org.junit.Test
 
 class ButtonSnapshotTest {
-
     @get:Rule
     val paparazzi = paparazzi()
 
@@ -28,7 +27,7 @@ class ButtonSnapshotTest {
             ColumnScreenContainer {
                 Title("Buttons")
                 SubTitle("Filled")
-                RowComponentContainer() {
+                RowComponentContainer {
                     Button(text = "Label", style = ButtonStyle.FILLED, onClick = {})
                     Button(text = "Label", style = ButtonStyle.FILLED, enabled = false, onClick = {})
                 }
@@ -49,11 +48,11 @@ class ButtonSnapshotTest {
 
                 Spacer(Modifier.size(Spacing.Spacing18))
                 SubTitle("Outlined")
-                RowComponentContainer() {
+                RowComponentContainer {
                     Button(text = "Label", style = ButtonStyle.OUTLINED, onClick = {})
                     Button(text = "Label", style = ButtonStyle.OUTLINED, enabled = false, onClick = {})
                 }
-                RowComponentContainer() {
+                RowComponentContainer {
                     Button(text = "Label", style = ButtonStyle.OUTLINED, onClick = {}, icon = {
                         Icon(
                             imageVector = Icons.Filled.Add,
@@ -70,11 +69,11 @@ class ButtonSnapshotTest {
                 Spacer(Modifier.size(Spacing.Spacing18))
 
                 SubTitle("Text")
-                RowComponentContainer() {
+                RowComponentContainer {
                     Button(text = "Label", style = ButtonStyle.TEXT, enabled = true, onClick = {})
                     Button(text = "Label", style = ButtonStyle.TEXT, enabled = false, onClick = {})
                 }
-                RowComponentContainer() {
+                RowComponentContainer {
                     Button(text = "Label", style = ButtonStyle.TEXT, enabled = true, onClick = {}, icon = {
                         Icon(
                             imageVector = Icons.Filled.Add,
@@ -91,11 +90,11 @@ class ButtonSnapshotTest {
                 Spacer(Modifier.size(Spacing.Spacing18))
 
                 SubTitle("Elevated")
-                RowComponentContainer() {
+                RowComponentContainer {
                     Button(text = "Label", style = ButtonStyle.ELEVATED, enabled = true, onClick = {})
                     Button(text = "Label", style = ButtonStyle.ELEVATED, enabled = false, onClick = {})
                 }
-                RowComponentContainer() {
+                RowComponentContainer {
                     Button(text = "Label", style = ButtonStyle.ELEVATED, enabled = true, onClick = {}, icon = {
                         Icon(
                             imageVector = Icons.Filled.Add,
@@ -112,11 +111,11 @@ class ButtonSnapshotTest {
                 Spacer(Modifier.size(Spacing.Spacing18))
 
                 SubTitle("Tonal")
-                RowComponentContainer() {
+                RowComponentContainer {
                     Button(text = "Label", style = ButtonStyle.TONAL, enabled = true, onClick = {})
                     Button(text = "Label", style = ButtonStyle.TONAL, enabled = false, onClick = {})
                 }
-                RowComponentContainer() {
+                RowComponentContainer {
                     Button(text = "Label", style = ButtonStyle.TONAL, enabled = true, onClick = {}, icon = {
                         Icon(
                             imageVector = Icons.Filled.Add,
@@ -133,11 +132,11 @@ class ButtonSnapshotTest {
                 Spacer(Modifier.size(Spacing.Spacing18))
 
                 SubTitle("Keyboard")
-                RowComponentContainer() {
+                RowComponentContainer {
                     Button(text = "Label", style = ButtonStyle.KEYBOARDKEY, onClick = {})
                     Button(text = "Label", style = ButtonStyle.KEYBOARDKEY, enabled = false, onClick = {})
                 }
-                RowComponentContainer() {
+                RowComponentContainer {
                     Button(text = "Label", style = ButtonStyle.KEYBOARDKEY, onClick = {}, icon = {
                         Icon(
                             imageVector = Icons.Filled.Add,
@@ -154,7 +153,7 @@ class ButtonSnapshotTest {
 
                 Title("Error Buttons")
                 SubTitle("Filled")
-                RowComponentContainer() {
+                RowComponentContainer {
                     Button(text = "Label", style = ButtonStyle.FILLED, enabled = true, colorStyle = ColorStyle.ERROR, onClick = {})
                     Button(text = "Label", style = ButtonStyle.FILLED, enabled = false, colorStyle = ColorStyle.ERROR, onClick = {})
                 }
@@ -165,7 +164,8 @@ class ButtonSnapshotTest {
                             contentDescription = "Button",
                         )
                     })
-                    Button(text = "Label", style = ButtonStyle.FILLED, enabled = false, colorStyle = ColorStyle.ERROR, onClick = {}, icon = {
+                    Button(text = "Label", style = ButtonStyle.FILLED, enabled = false, colorStyle = ColorStyle.ERROR, onClick = {
+                    }, icon = {
                         Icon(
                             imageVector = Icons.Filled.Add,
                             contentDescription = "Button",
@@ -175,18 +175,20 @@ class ButtonSnapshotTest {
 
                 Spacer(Modifier.size(Spacing.Spacing18))
                 SubTitle("Outlined")
-                RowComponentContainer() {
+                RowComponentContainer {
                     Button(text = "Label", style = ButtonStyle.OUTLINED, enabled = true, colorStyle = ColorStyle.ERROR, onClick = {})
                     Button(text = "Label", style = ButtonStyle.OUTLINED, enabled = false, colorStyle = ColorStyle.ERROR, onClick = {})
                 }
-                RowComponentContainer() {
-                    Button(text = "Label", style = ButtonStyle.OUTLINED, enabled = true, colorStyle = ColorStyle.ERROR, onClick = {}, icon = {
+                RowComponentContainer {
+                    Button(text = "Label", style = ButtonStyle.OUTLINED, enabled = true, colorStyle = ColorStyle.ERROR, onClick = {
+                    }, icon = {
                         Icon(
                             imageVector = Icons.Filled.Add,
                             contentDescription = "Button",
                         )
                     })
-                    Button(text = "Label", style = ButtonStyle.OUTLINED, enabled = false, colorStyle = ColorStyle.ERROR, onClick = {}, icon = {
+                    Button(text = "Label", style = ButtonStyle.OUTLINED, enabled = false, colorStyle = ColorStyle.ERROR, onClick = {
+                    }, icon = {
                         Icon(
                             imageVector = Icons.Filled.Add,
                             contentDescription = "Button",
@@ -196,11 +198,11 @@ class ButtonSnapshotTest {
                 Spacer(Modifier.size(Spacing.Spacing18))
 
                 SubTitle("Text")
-                RowComponentContainer() {
+                RowComponentContainer {
                     Button(text = "Label", style = ButtonStyle.TEXT, enabled = true, colorStyle = ColorStyle.ERROR, onClick = {})
                     Button(text = "Label", style = ButtonStyle.TEXT, enabled = false, colorStyle = ColorStyle.ERROR, onClick = {})
                 }
-                RowComponentContainer() {
+                RowComponentContainer {
                     Button(text = "Label", style = ButtonStyle.TEXT, enabled = true, colorStyle = ColorStyle.ERROR, onClick = {}, icon = {
                         Icon(
                             imageVector = Icons.Filled.Add,
@@ -218,18 +220,20 @@ class ButtonSnapshotTest {
 
                 Title("Warning Buttons")
                 SubTitle("Filled")
-                RowComponentContainer() {
+                RowComponentContainer {
                     Button(text = "Label", style = ButtonStyle.FILLED, enabled = true, colorStyle = ColorStyle.WARNING, onClick = {})
                     Button(text = "Label", style = ButtonStyle.FILLED, enabled = false, colorStyle = ColorStyle.WARNING, onClick = {})
                 }
                 RowComponentContainer {
-                    Button(text = "Label", style = ButtonStyle.FILLED, enabled = true, colorStyle = ColorStyle.WARNING, onClick = {}, icon = {
+                    Button(text = "Label", style = ButtonStyle.FILLED, enabled = true, colorStyle = ColorStyle.WARNING, onClick = {
+                    }, icon = {
                         Icon(
                             imageVector = Icons.Filled.Add,
                             contentDescription = "Button",
                         )
                     })
-                    Button(text = "Label", style = ButtonStyle.FILLED, enabled = false, colorStyle = ColorStyle.WARNING, onClick = {}, icon = {
+                    Button(text = "Label", style = ButtonStyle.FILLED, enabled = false, colorStyle = ColorStyle.WARNING, onClick = {
+                    }, icon = {
                         Icon(
                             imageVector = Icons.Filled.Add,
                             contentDescription = "Button",
@@ -239,18 +243,20 @@ class ButtonSnapshotTest {
 
                 Spacer(Modifier.size(Spacing.Spacing18))
                 SubTitle("Outlined")
-                RowComponentContainer() {
+                RowComponentContainer {
                     Button(text = "Label", style = ButtonStyle.OUTLINED, enabled = true, colorStyle = ColorStyle.WARNING, onClick = {})
                     Button(text = "Label", style = ButtonStyle.OUTLINED, enabled = false, colorStyle = ColorStyle.WARNING, onClick = {})
                 }
-                RowComponentContainer() {
-                    Button(text = "Label", style = ButtonStyle.OUTLINED, enabled = true, colorStyle = ColorStyle.WARNING, onClick = {}, icon = {
+                RowComponentContainer {
+                    Button(text = "Label", style = ButtonStyle.OUTLINED, enabled = true, colorStyle = ColorStyle.WARNING, onClick = {
+                    }, icon = {
                         Icon(
                             imageVector = Icons.Filled.Add,
                             contentDescription = "Button",
                         )
                     })
-                    Button(text = "Label", style = ButtonStyle.OUTLINED, enabled = false, colorStyle = ColorStyle.WARNING, onClick = {}, icon = {
+                    Button(text = "Label", style = ButtonStyle.OUTLINED, enabled = false, colorStyle = ColorStyle.WARNING, onClick = {
+                    }, icon = {
                         Icon(
                             imageVector = Icons.Filled.Add,
                             contentDescription = "Button",
@@ -260,18 +266,19 @@ class ButtonSnapshotTest {
                 Spacer(Modifier.size(Spacing.Spacing18))
 
                 SubTitle("Text")
-                RowComponentContainer() {
+                RowComponentContainer {
                     Button(text = "Label", style = ButtonStyle.TEXT, enabled = true, colorStyle = ColorStyle.WARNING, onClick = {})
                     Button(text = "Label", style = ButtonStyle.TEXT, enabled = false, colorStyle = ColorStyle.WARNING, onClick = {})
                 }
-                RowComponentContainer() {
+                RowComponentContainer {
                     Button(text = "Label", style = ButtonStyle.TEXT, enabled = true, colorStyle = ColorStyle.WARNING, onClick = {}, icon = {
                         Icon(
                             imageVector = Icons.Filled.Add,
                             contentDescription = "Button",
                         )
                     })
-                    Button(text = "Label", style = ButtonStyle.TEXT, enabled = false, colorStyle = ColorStyle.WARNING, onClick = {}, icon = {
+                    Button(text = "Label", style = ButtonStyle.TEXT, enabled = false, colorStyle = ColorStyle.WARNING, onClick = {
+                    }, icon = {
                         Icon(
                             imageVector = Icons.Filled.Add,
                             contentDescription = "Button",

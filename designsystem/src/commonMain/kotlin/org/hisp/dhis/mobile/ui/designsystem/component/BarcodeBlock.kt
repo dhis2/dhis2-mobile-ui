@@ -36,9 +36,11 @@ fun BarcodeBlock(
 ) {
     if (data.isNotBlank()) {
         Column(
-            modifier = modifier.padding(vertical = Spacing.Spacing16)
-                .requiredSizeIn(maxWidth = barcodeSize.width)
-                .testTag("BARCODE_BLOCK_CONTAINER"),
+            modifier =
+                modifier
+                    .padding(vertical = Spacing.Spacing16)
+                    .requiredSizeIn(maxWidth = barcodeSize.width)
+                    .testTag("BARCODE_BLOCK_CONTAINER"),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             val barcode by rememberBarcodeGenerator(data)

@@ -36,22 +36,28 @@ fun ProgressIndicator(
 ) {
     when (type) {
         ProgressIndicatorType.LINEAR -> LinearIndicator(modifier, progress, hasError)
-        ProgressIndicatorType.CIRCULAR -> CircularIndicator(
-            modifier = modifier,
-            progress = progress,
-            hasError = hasError,
-        )
-        ProgressIndicatorType.CIRCULAR_SMALL -> CircularIndicator(
-            modifier = modifier,
-            strokeWidth = Border.Regular,
-            progress = progress,
-            hasError = hasError,
-        )
+        ProgressIndicatorType.CIRCULAR ->
+            CircularIndicator(
+                modifier = modifier,
+                progress = progress,
+                hasError = hasError,
+            )
+        ProgressIndicatorType.CIRCULAR_SMALL ->
+            CircularIndicator(
+                modifier = modifier,
+                strokeWidth = Border.Regular,
+                progress = progress,
+                hasError = hasError,
+            )
     }
 }
 
 @Composable
-internal fun LinearIndicator(modifier: Modifier, progress: Float?, hasError: Boolean) {
+internal fun LinearIndicator(
+    modifier: Modifier,
+    progress: Float?,
+    hasError: Boolean,
+) {
     val color = if (hasError) SurfaceColor.Error else SurfaceColor.Primary
     val trackColor = if (hasError) SurfaceColor.ErrorContainer else SurfaceColor.Container
     if (progress != null) {

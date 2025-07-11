@@ -58,8 +58,7 @@ internal fun TableHeaderRow(
     horizontalScrollState: ScrollState,
     totalTableColumns: Int,
     maxRowColumnHeaders: Int,
-    cellStyle: @Composable
-    (headerColumnIndex: Int, headerRowIndex: Int, disabled: Boolean) -> CellStyle.HeaderStyle,
+    cellStyle: @Composable (headerColumnIndex: Int, headerRowIndex: Int, disabled: Boolean) -> CellStyle.HeaderStyle,
     onTableCornerClick: () -> Unit = {},
     onHeaderCellClick: (headerColumnIndex: Int, headerRowIndex: Int) -> Unit = { _, _ -> },
     onHeaderResize: (Int, Float) -> Unit,
@@ -73,9 +72,10 @@ internal fun TableHeaderRow(
 
         if (isHeaderActionEnabled) {
             TableActions(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = Spacing.Spacing24),
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = Spacing.Spacing24),
                 title = tableModel.title,
                 actionIcons = {
                     if (TableTheme.dimensions.hasOverriddenWidths(tableModel.id)) {
@@ -97,16 +97,19 @@ internal fun TableHeaderRow(
             var headersHeight by remember { mutableStateOf(0.dp) }
             val density = LocalDensity.current
             TableCorner(
-                modifier = Modifier
-                    .heightIn(max = headersHeight)
-                    .semantics {
-                        testTag = cornerTestTag(tableModel.id)
-                        tableIdSemantic = tableModel.id
-                    }
-                    .zIndex(1f),
+                modifier =
+                    Modifier
+                        .heightIn(max = headersHeight)
+                        .semantics {
+                            testTag = cornerTestTag(tableModel.id)
+                            tableIdSemantic = tableModel.id
+                        }.zIndex(1f),
                 tableCornerUiState = cornerUiState,
                 maxRowColumnHeaders = maxRowColumnHeaders,
-                rowColumnHeaders = tableModel.tableRows.first().rowHeaders.size,
+                rowColumnHeaders =
+                    tableModel.tableRows
+                        .first()
+                        .rowHeaders.size,
                 tableId = tableModel.id,
                 label = tableModel.title,
                 onClick = onTableCornerClick,
@@ -114,9 +117,10 @@ internal fun TableHeaderRow(
 
             TableHeader(
                 tableId = tableModel.id,
-                modifier = Modifier.onGloballyPositioned {
-                    headersHeight = with(density) { it.size.height.toDp() }
-                },
+                modifier =
+                    Modifier.onGloballyPositioned {
+                        headersHeight = with(density) { it.size.height.toDp() }
+                    },
                 tableHeaderModel = tableModel.tableHeaderModel,
                 horizontalScrollState = horizontalScrollState,
                 cellStyle = cellStyle,

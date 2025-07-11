@@ -68,8 +68,10 @@ fun TwoPaneLayoutScreen() {
 @Composable
 private fun PrimaryPane() {
     Box(
-        modifier = Modifier.fillMaxSize()
-            .background(MaterialTheme.colorScheme.surfaceContainerHighest),
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.surfaceContainerHighest),
         contentAlignment = Alignment.Center,
     ) {
         Text(text = "Primary pane")
@@ -79,8 +81,10 @@ private fun PrimaryPane() {
 @Composable
 private fun SecondaryPane() {
     Box(
-        modifier = Modifier.fillMaxSize()
-            .background(MaterialTheme.colorScheme.surfaceContainerHigh),
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.surfaceContainerHigh),
         contentAlignment = Alignment.Center,
     ) {
         Text(text = "Secondary pane")

@@ -99,11 +99,12 @@ fun ListCard(
         onCardSelected = {
             onCardSelected?.invoke(listCardState.selectionState.changeState())
         },
-        paddingValues = getPaddingValues(
-            expandable = listCardState.expandable,
-            hasShadow = listCardState.shadow,
-            hasAvatar = listAvatar != null,
-        ),
+        paddingValues =
+            getPaddingValues(
+                expandable = listCardState.expandable,
+                hasShadow = listCardState.shadow,
+                hasAvatar = listAvatar != null,
+            ),
     ) {
         Row(horizontalArrangement = spacedBy(Spacing.Spacing16)) {
             when (listCardState.selectionState) {
@@ -116,7 +117,8 @@ fun ListCard(
                 Row(horizontalArrangement = Arrangement.SpaceBetween) {
                     ListCardTitle(
                         title = listCardState.title,
-                        Modifier.weight(1f)
+                        Modifier
+                            .weight(1f)
                             .padding(bottom = if (listCardState.description?.text != null) Spacing.Spacing0 else Spacing4),
                     )
                     listCardState.lastUpdateBasedOnLoading()?.let { ListCardLastUpdated(it) }
@@ -160,11 +162,12 @@ fun VerticalInfoListCard(
         modifier = modifier,
         showShadow = listCardState.shadow,
         onCardClick = onCardClick,
-        paddingValues = getPaddingValues(
-            listCardState.expandable,
-            hasShadow = listCardState.shadow,
-            hasAvatar = listAvatar != null,
-        ),
+        paddingValues =
+            getPaddingValues(
+                listCardState.expandable,
+                hasShadow = listCardState.shadow,
+                hasAvatar = listAvatar != null,
+            ),
         expandable = listCardState.expandable,
         itemVerticalPadding = listCardState.itemVerticalPadding,
         selectionMode = SelectionState.NONE,
@@ -231,23 +234,25 @@ fun CardDetail(
     showLoading: Boolean = false,
     modifier: Modifier = Modifier,
 ) {
-    val additionalInfoColumnState = rememberAdditionalInfoColumnState(
-        additionalInfoList = additionalInfoList,
-        syncProgressItem = AdditionalInfoItem(
-            icon = {
-                Icon(
-                    imageVector = Icons.Outlined.Sync,
-                    contentDescription = "Icon Button",
-                    tint = SurfaceColor.Primary,
-                )
-            },
-            value = "Syncing...",
-            color = SurfaceColor.Primary,
-            isConstantItem = false,
-        ),
-        expandLabelText = expandLabelText,
-        shrinkLabelText = shrinkLabelText,
-    )
+    val additionalInfoColumnState =
+        rememberAdditionalInfoColumnState(
+            additionalInfoList = additionalInfoList,
+            syncProgressItem =
+                AdditionalInfoItem(
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Outlined.Sync,
+                            contentDescription = "Icon Button",
+                            tint = SurfaceColor.Primary,
+                        )
+                    },
+                    value = "Syncing...",
+                    color = SurfaceColor.Primary,
+                    isConstantItem = false,
+                ),
+            expandLabelText = expandLabelText,
+            shrinkLabelText = shrinkLabelText,
+        )
 
     val expandableItemList = mutableListOf<AdditionalInfoItem>()
     val constantItemList = mutableListOf<AdditionalInfoItem>()
@@ -260,10 +265,11 @@ fun CardDetail(
         }
     }
     Row(
-        modifier = modifier
-            .background(color = TextColor.OnPrimary)
-            .clip(shape = RoundedCornerShape(Radius.S))
-            .padding(Spacing.Spacing16),
+        modifier =
+            modifier
+                .background(color = TextColor.OnPrimary)
+                .clip(shape = RoundedCornerShape(Radius.S))
+                .padding(Spacing.Spacing16),
     ) {
         Column(Modifier.fillMaxWidth().weight(1f)) {
             Row(horizontalArrangement = Arrangement.SpaceBetween) {
@@ -315,22 +321,24 @@ private fun ColumnScope.AdditionalInfoColumn(
         }
     }
 
-    val items = when (additionalInfoColumnState.currentSectionState()) {
-        SectionState.CLOSE -> additionalInfoColumnState.visibleExpandableItemList()
-        SectionState.OPEN -> additionalInfoColumnState.expandableItemList()
-        else -> null
-    } ?: emptyList()
+    val items =
+        when (additionalInfoColumnState.currentSectionState()) {
+            SectionState.CLOSE -> additionalInfoColumnState.visibleExpandableItemList()
+            SectionState.OPEN -> additionalInfoColumnState.expandableItemList()
+            else -> null
+        } ?: emptyList()
 
     KeyValueList(
-        modifier = columnModifier
-            .fillMaxWidth()
-            .testTag("LIST_CARD_ADDITIONAL_INFO_COLUMN")
-            .conditional(
-                additionalInfoColumnState.isExpanded() and additionalInfoColumnState.scrollableContent,
-                {
-                    fadingEdges(scrollState)
-                },
-            ),
+        modifier =
+            columnModifier
+                .fillMaxWidth()
+                .testTag("LIST_CARD_ADDITIONAL_INFO_COLUMN")
+                .conditional(
+                    additionalInfoColumnState.isExpanded() and additionalInfoColumnState.scrollableContent,
+                    {
+                        fadingEdges(scrollState)
+                    },
+                ),
         itemList = items,
         isDetailCard = isDetailCard,
         verticalArrangement = verticalArrangement,
@@ -392,55 +400,58 @@ fun ProvideKeyValueItem(
     val finalAnnotatedString: AnnotatedString =
         getKeyValueAnnotatedString(keyTrimmedText, additionalInfoItem, isDetailCard)
 
-    val inlineContent = mapOf(
-        Pair(
-            "ItemIcon",
-            InlineTextContent(
-
-                Placeholder(
-                    width = 20.sp,
-                    height = 20.sp,
-                    placeholderVerticalAlign = PlaceholderVerticalAlign.Center,
-                ),
-            ) {
-                Box(
-                    Modifier.background(color = Color.Transparent).size(InternalSizeValues.Size20),
+    val inlineContent =
+        mapOf(
+            Pair(
+                "ItemIcon",
+                InlineTextContent(
+                    Placeholder(
+                        width = 20.sp,
+                        height = 20.sp,
+                        placeholderVerticalAlign = PlaceholderVerticalAlign.Center,
+                    ),
                 ) {
-                    additionalInfoItem.icon?.invoke()
-                }
-            },
-        ),
-    )
+                    Box(
+                        Modifier.background(color = Color.Transparent).size(InternalSizeValues.Size20),
+                    ) {
+                        additionalInfoItem.icon?.invoke()
+                    }
+                },
+            ),
+        )
 
     Row(
-        modifier = Modifier
-            .clip(shape = RoundedCornerShape(Radius.XS))
-            .conditional(additionalInfoItem.action != null && isDetailCard, {
-                clickable(
-                    role = Role.Button,
-                    interactionSource = interactionSource,
-                    indication = ripple(
-                        color = SurfaceColor.Primary,
-                    ),
-                    onClick = additionalInfoItem.action ?: {},
-                )
-            }),
+        modifier =
+            Modifier
+                .clip(shape = RoundedCornerShape(Radius.XS))
+                .conditional(additionalInfoItem.action != null && isDetailCard, {
+                    clickable(
+                        role = Role.Button,
+                        interactionSource = interactionSource,
+                        indication =
+                            ripple(
+                                color = SurfaceColor.Primary,
+                            ),
+                        onClick = additionalInfoItem.action ?: {},
+                    )
+                }),
     ) {
         Text(
             inlineContent = inlineContent,
             text = finalAnnotatedString,
             textAlign = TextAlign.Start,
             style = MaterialTheme.typography.bodyMedium,
-            overflow = when {
-                additionalInfoItem.truncate -> TextOverflow.Ellipsis
-                else -> TextOverflow.Clip
-            },
-            maxLines = when {
-                additionalInfoItem.truncate -> 2
-                else -> Int.MAX_VALUE
-            },
+            overflow =
+                when {
+                    additionalInfoItem.truncate -> TextOverflow.Ellipsis
+                    else -> TextOverflow.Clip
+                },
+            maxLines =
+                when {
+                    additionalInfoItem.truncate -> 2
+                    else -> Int.MAX_VALUE
+                },
             modifier = Modifier,
-
         )
     }
 }
@@ -480,9 +491,10 @@ fun getKeyValueAnnotatedString(
     }
 }
 
-fun formatText(text: String?, withSpace: Boolean): String {
-    return if (withSpace) " $text" else text ?: ""
-}
+fun formatText(
+    text: String?,
+    withSpace: Boolean,
+): String = if (withSpace) " $text" else text ?: ""
 
 fun getValueColor(additionalInfoItem: AdditionalInfoItem?): Color {
     var valueColor = additionalInfoItem?.color ?: AdditionalInfoItemColor.DEFAULT_VALUE.color
@@ -520,40 +532,51 @@ private fun getPaddingValues(
     hasShadow: Boolean,
     hasAvatar: Boolean,
 ): PaddingValues {
-    val expandedVerticalPadding = if (expandable) {
-        0.dp
-    } else {
-        null
-    }
+    val expandedVerticalPadding =
+        if (expandable) {
+            0.dp
+        } else {
+            null
+        }
     return when {
-        !hasShadow -> PaddingValues(
-            vertical = expandedVerticalPadding ?: Spacing.Spacing8,
-            horizontal = Spacing.Spacing8,
-        )
+        !hasShadow ->
+            PaddingValues(
+                vertical = expandedVerticalPadding ?: Spacing.Spacing8,
+                horizontal = Spacing.Spacing8,
+            )
 
-        hasShadow && hasAvatar -> PaddingValues(
-            start = if (expandable) Spacing.Spacing16 else Spacing.Spacing8,
-            top = expandedVerticalPadding ?: Spacing.Spacing16,
-            end = Spacing.Spacing16,
-            bottom = expandedVerticalPadding ?: Spacing.Spacing16,
-        )
+        hasShadow && hasAvatar ->
+            PaddingValues(
+                start = if (expandable) Spacing.Spacing16 else Spacing.Spacing8,
+                top = expandedVerticalPadding ?: Spacing.Spacing16,
+                end = Spacing.Spacing16,
+                bottom = expandedVerticalPadding ?: Spacing.Spacing16,
+            )
 
-        else -> PaddingValues(
-            vertical = expandedVerticalPadding ?: Spacing.Spacing16,
-            horizontal = Spacing.Spacing16,
-        )
+        else ->
+            PaddingValues(
+                vertical = expandedVerticalPadding ?: Spacing.Spacing16,
+                horizontal = Spacing.Spacing16,
+            )
     }
 }
 
 @Composable
-fun measureTextWidth(text: String, textMeasurer: TextMeasurer): Dp {
+fun measureTextWidth(
+    text: String,
+    textMeasurer: TextMeasurer,
+): Dp {
     val widthInPixels = textMeasurer.measure(text, MaterialTheme.typography.bodyMedium).size.width
     return with(LocalDensity.current) { widthInPixels.toDp() }
 }
 
 @Composable
-fun getKeyTrimmedText(text: String, maxKeyWidth: Dp, textMeasurer: TextMeasurer): String {
-    return if (measureTextWidth(text, textMeasurer) > maxKeyWidth) {
+fun getKeyTrimmedText(
+    text: String,
+    maxKeyWidth: Dp,
+    textMeasurer: TextMeasurer,
+): String =
+    if (measureTextWidth(text, textMeasurer) > maxKeyWidth) {
         var lastCharIndex = 2
         var trimmedText = remember { text.substring(IntRange(0, lastCharIndex)) }
         var newKeyWidth = measureTextWidth(trimmedText, textMeasurer)
@@ -567,7 +590,6 @@ fun getKeyTrimmedText(text: String, maxKeyWidth: Dp, textMeasurer: TextMeasurer)
     } else {
         text + if (text.isNotEmpty()) ": " else ""
     }
-}
 
 data class AdditionalInfoItem(
     val icon: (@Composable () -> Unit)? = null, // The avatar,
@@ -594,7 +616,9 @@ data class ListCardDescriptionModel(
     val modifier: Modifier = Modifier,
 )
 
-enum class AdditionalInfoItemColor(val color: Color) {
+enum class AdditionalInfoItemColor(
+    val color: Color,
+) {
     DEFAULT_KEY(TextColor.OnSurfaceLight),
     DEFAULT_VALUE(TextColor.OnSurface),
     ERROR(SurfaceColor.Error),

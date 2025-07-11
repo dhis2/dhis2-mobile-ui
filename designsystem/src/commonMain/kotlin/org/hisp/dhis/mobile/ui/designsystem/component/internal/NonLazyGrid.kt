@@ -38,10 +38,11 @@ internal fun VerticalGrid(
                 for (columnId in 0 until columns) {
                     val index = firstIndex + columnId
                     Box(
-                        modifier = Modifier
-                            .fillMaxHeight()
-                            .fillMaxWidth()
-                            .weight(1f),
+                        modifier =
+                            Modifier
+                                .fillMaxHeight()
+                                .fillMaxWidth()
+                                .weight(1f),
                     ) {
                         if (index < itemCount) {
                             content.invoke(this, index)

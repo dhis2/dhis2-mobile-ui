@@ -63,35 +63,37 @@ fun AssistChip(
                 },
                 modifier = modifier,
                 enabled = enabled,
-                colors = if (isPressed) {
-                    AssistChipDefaults.assistChipColors(
-                        containerColor = SurfaceColor.Container,
-                        leadingIconContentColor = TextColor.OnSurfaceVariant,
-                    )
-                } else {
-                    AssistChipDefaults.assistChipColors(
-                        containerColor = SurfaceColor.SurfaceBright,
-                        leadingIconContentColor = TextColor.OnSurfaceVariant,
-                    )
-                },
-                border = AssistChipDefaults.assistChipBorder(
-                    borderColor = Outline.Dark,
-                    enabled = enabled,
-                ),
+                colors =
+                    if (isPressed) {
+                        AssistChipDefaults.assistChipColors(
+                            containerColor = SurfaceColor.Container,
+                            leadingIconContentColor = TextColor.OnSurfaceVariant,
+                        )
+                    } else {
+                        AssistChipDefaults.assistChipColors(
+                            containerColor = SurfaceColor.SurfaceBright,
+                            leadingIconContentColor = TextColor.OnSurfaceVariant,
+                        )
+                    },
+                border =
+                    AssistChipDefaults.assistChipBorder(
+                        borderColor = Outline.Dark,
+                        enabled = enabled,
+                    ),
                 leadingIcon = {
                     icon?.invoke()
                 },
-
             )
         }
         badge?.let {
             var offset by remember { mutableStateOf(IntOffset(0, 0)) }
             Badge(
-                modifier = Modifier
-                    .align(Alignment.TopEnd)
-                    .onSizeChanged { offset = IntOffset(it.width / 3, it.height / 3) }
-                    .offset { offset }
-                    .testTag("ASSIST_CHIP_BADGE"),
+                modifier =
+                    Modifier
+                        .align(Alignment.TopEnd)
+                        .onSizeChanged { offset = IntOffset(it.width / 3, it.height / 3) }
+                        .offset { offset }
+                        .testTag("ASSIST_CHIP_BADGE"),
                 text = badge,
             )
         }

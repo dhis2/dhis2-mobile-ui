@@ -12,24 +12,26 @@ import com.google.zxing.common.BitMatrix
 import com.google.zxing.datamatrix.DataMatrixWriter
 
 internal actual class QrCodeGenerator {
-
-    actual fun generate(data: String, isDataMatrix: Boolean): ImageBitmap? {
-        return try {
+    actual fun generate(
+        data: String,
+        isDataMatrix: Boolean,
+    ): ImageBitmap? =
+        try {
             val writer = if (!isDataMatrix) MultiFormatWriter() else DataMatrixWriter()
-            val bitMatrix = writer.encode(
-                data,
-                if (isDataMatrix) BarcodeFormat.DATA_MATRIX else BarcodeFormat.QR_CODE,
-                QR_CODE_SIZE,
-                QR_CODE_SIZE,
-                mapOf(Pair(EncodeHintType.MARGIN, 1)),
-            )
+            val bitMatrix =
+                writer.encode(
+                    data,
+                    if (isDataMatrix) BarcodeFormat.DATA_MATRIX else BarcodeFormat.QR_CODE,
+                    QR_CODE_SIZE,
+                    QR_CODE_SIZE,
+                    mapOf(Pair(EncodeHintType.MARGIN, 1)),
+                )
             val bitmap = createAndroidBitmap(bitMatrix)
 
             bitmap.asImageBitmap()
         } catch (e: WriterException) {
             null
         }
-    }
 
     private fun createAndroidBitmap(bitMatrix: BitMatrix): Bitmap {
         val width = bitMatrix.width

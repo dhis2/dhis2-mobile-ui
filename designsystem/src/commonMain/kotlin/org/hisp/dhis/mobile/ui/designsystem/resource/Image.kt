@@ -13,12 +13,10 @@ import org.jetbrains.compose.resources.painterResource
  * @param resourceName the name of the icon
  */
 @Composable
-fun provideDHIS2Icon(resourceName: String): Painter {
-    return painterResource(
+fun provideDHIS2Icon(resourceName: String): Painter =
+    painterResource(
         drawableResource(resourceName) ?: Res.drawable.dhis2_default_outline,
     )
-}
 
 @OptIn(ExperimentalResourceApi::class)
-internal fun drawableResource(resourceName: String) =
-    Res.allDrawableResources[resourceName]
+internal fun drawableResource(resourceName: String) = Res.allDrawableResources[resourceName]

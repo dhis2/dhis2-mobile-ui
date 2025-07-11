@@ -21,7 +21,6 @@ import org.junit.Rule
 import org.junit.Test
 
 class InputTextTest {
-
     @get:Rule
     val rule = createComposeRule()
 

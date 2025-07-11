@@ -37,9 +37,11 @@ fun QrCodeBlock(
 ) {
     if (data.isNotBlank()) {
         Column(
-            modifier = modifier.padding(vertical = Spacing.Spacing16)
-                .requiredWidthIn(max = qrCodeSize)
-                .testTag("QR_CODE_BLOCK_CONTAINER"),
+            modifier =
+                modifier
+                    .padding(vertical = Spacing.Spacing16)
+                    .requiredWidthIn(max = qrCodeSize)
+                    .testTag("QR_CODE_BLOCK_CONTAINER"),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             val qrCode by rememberQrCodeGenerator(data, isDataMatrix)

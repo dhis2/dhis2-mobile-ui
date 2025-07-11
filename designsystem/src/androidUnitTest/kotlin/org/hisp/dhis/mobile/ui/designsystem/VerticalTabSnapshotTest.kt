@@ -40,9 +40,10 @@ class VerticalTabSnapshotTest {
                     tabStyles.forEach { tabStyle ->
                         tabColorStyle.forEach { tabColorStyle ->
                             Row(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .requiredHeight(50.dp),
+                                modifier =
+                                    Modifier
+                                        .fillMaxWidth()
+                                        .requiredHeight(50.dp),
                                 horizontalArrangement = spacedBy(Spacing.Spacing16),
                             ) {
                                 selection.forEach { selected ->
@@ -52,8 +53,9 @@ class VerticalTabSnapshotTest {
                                             .requiredHeight(50.dp),
                                     ) {
                                         VerticalTabs(
-                                            modifier = Modifier
-                                                .fillMaxWidth(),
+                                            modifier =
+                                                Modifier
+                                                    .fillMaxWidth(),
                                             tabColorStyle = tabColorStyle,
                                             tabStyle = tabStyle,
                                             backgroundShape = RectangleShape,

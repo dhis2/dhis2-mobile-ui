@@ -46,18 +46,27 @@ fun InputPassword(
     val focusManager = LocalFocusManager.current
 
     InputShell(
-        modifier = modifier.testTag(InputPasswordModel.MAIN)
-            .focusRequester(focusRequester),
+        modifier =
+            modifier
+                .testTag(InputPasswordModel.MAIN)
+                .focusRequester(focusRequester),
         title = uiModel.title,
         state = uiModel.state,
         isRequiredField = uiModel.isRequiredField,
         onFocusChanged = uiModel.onFocusChanged,
         inputField = {
             BasicTextField(
-                modifier = Modifier
-                    .testTag(InputPasswordModel.TEXT_FIELD)
-                    .fillMaxWidth(),
-                inputTextValue = TextFieldValue(uiModel.inputTextFieldValue?.text ?: "", TextRange(uiModel.inputTextFieldValue?.text?.length ?: 0)),
+                modifier =
+                    Modifier
+                        .testTag(InputPasswordModel.TEXT_FIELD)
+                        .fillMaxWidth(),
+                inputTextValue =
+                    TextFieldValue(
+                        uiModel.inputTextFieldValue?.text ?: "",
+                        TextRange(
+                            uiModel.inputTextFieldValue?.text?.length ?: 0,
+                        ),
+                    ),
                 isSingleLine = true,
                 onInputChanged = { newText ->
 
@@ -95,8 +104,10 @@ fun InputPassword(
         },
         secondaryButton = {
             SquareIconButton(
-                modifier = Modifier.testTag(InputPasswordModel.ACTION_BUTTON)
-                    .focusable(),
+                modifier =
+                    Modifier
+                        .testTag(InputPasswordModel.ACTION_BUTTON)
+                        .focusable(),
                 icon = {
                     Icon(
                         imageVector = if (showPassword.value) Icons.Outlined.Visibility else Icons.Outlined.VisibilityOff,
@@ -110,15 +121,15 @@ fun InputPassword(
             )
         },
         supportingText =
-        {
-            supportingTextList.forEach { item ->
-                SupportingText(
-                    item.text,
-                    item.state,
-                    modifier = Modifier.testTag(InputPasswordModel.SUPPORTING_TEXT),
-                )
-            }
-        },
+            {
+                supportingTextList.forEach { item ->
+                    SupportingText(
+                        item.text,
+                        item.state,
+                        modifier = Modifier.testTag(InputPasswordModel.SUPPORTING_TEXT),
+                    )
+                }
+            },
         legend = {
             uiModel.legendData?.let {
                 Legend(uiModel.legendData, Modifier.testTag(InputPasswordModel.LEGEND))

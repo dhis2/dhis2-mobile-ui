@@ -32,40 +32,44 @@ class InputCheckboxSnapshotTest {
             val option5 = "Option 5"
             val option6 = "Option 6"
 
-            val checkBoxDataItemsVertical = remember {
-                mutableStateListOf(
-                    CheckBoxData("0", checked = true, enabled = true, textInput = option1),
-                    CheckBoxData("1", checked = false, enabled = true, textInput = option2),
-                    CheckBoxData("2", checked = false, enabled = true, textInput = option3),
-                )
-            }
+            val checkBoxDataItemsVertical =
+                remember {
+                    mutableStateListOf(
+                        CheckBoxData("0", checked = true, enabled = true, textInput = option1),
+                        CheckBoxData("1", checked = false, enabled = true, textInput = option2),
+                        CheckBoxData("2", checked = false, enabled = true, textInput = option3),
+                    )
+                }
 
-            val checkBoxDataItemsError = remember {
-                mutableStateListOf(
-                    CheckBoxData("3", checked = true, enabled = true, textInput = option1),
-                    CheckBoxData("4", checked = false, enabled = true, textInput = option2),
-                    CheckBoxData("5", checked = false, enabled = true, textInput = option3),
-                )
-            }
+            val checkBoxDataItemsError =
+                remember {
+                    mutableStateListOf(
+                        CheckBoxData("3", checked = true, enabled = true, textInput = option1),
+                        CheckBoxData("4", checked = false, enabled = true, textInput = option2),
+                        CheckBoxData("5", checked = false, enabled = true, textInput = option3),
+                    )
+                }
 
-            val checkBoxDataItemsDisabled = remember {
-                mutableStateListOf(
-                    CheckBoxData("6", checked = true, enabled = true, textInput = option1),
-                    CheckBoxData("7", checked = false, enabled = true, textInput = option2),
-                    CheckBoxData("8", checked = false, enabled = true, textInput = option3),
-                )
-            }
+            val checkBoxDataItemsDisabled =
+                remember {
+                    mutableStateListOf(
+                        CheckBoxData("6", checked = true, enabled = true, textInput = option1),
+                        CheckBoxData("7", checked = false, enabled = true, textInput = option2),
+                        CheckBoxData("8", checked = false, enabled = true, textInput = option3),
+                    )
+                }
 
-            val checkBoxDataItemsHorizontal = remember {
-                mutableStateListOf(
-                    CheckBoxData("9", checked = true, enabled = true, textInput = option1),
-                    CheckBoxData("10", checked = false, enabled = true, textInput = option2),
-                    CheckBoxData("11", checked = false, enabled = true, textInput = option3),
-                    CheckBoxData("12", checked = false, enabled = true, textInput = option4),
-                    CheckBoxData("13", checked = false, enabled = true, textInput = option5),
-                    CheckBoxData("14", checked = false, enabled = true, textInput = option6),
-                )
-            }
+            val checkBoxDataItemsHorizontal =
+                remember {
+                    mutableStateListOf(
+                        CheckBoxData("9", checked = true, enabled = true, textInput = option1),
+                        CheckBoxData("10", checked = false, enabled = true, textInput = option2),
+                        CheckBoxData("11", checked = false, enabled = true, textInput = option3),
+                        CheckBoxData("12", checked = false, enabled = true, textInput = option4),
+                        CheckBoxData("13", checked = false, enabled = true, textInput = option5),
+                        CheckBoxData("14", checked = false, enabled = true, textInput = option6),
+                    )
+                }
 
             val focusRequester = remember { FocusRequester() }
 

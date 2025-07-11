@@ -6,18 +6,19 @@ import org.hisp.dhis.mobile.ui.designsystem.component.SelectableDates
 import org.junit.Test
 
 class DateTimeUtilsTest {
-
     @Test
     fun shouldReturnTrueIfDateIsWithinSelectedDatesRangeAndFalseIfNot() {
-        var selectedDates = SelectableDates(
-            initialDate = "01011990",
-            endDate = "01012040",
-        )
+        var selectedDates =
+            SelectableDates(
+                initialDate = "01011990",
+                endDate = "01012040",
+            )
         assert(dateIsInRange(System.currentTimeMillis(), selectedDates))
-        selectedDates = SelectableDates(
-            initialDate = "01011990",
-            endDate = "01011993",
-        )
+        selectedDates =
+            SelectableDates(
+                initialDate = "01011990",
+                endDate = "01011993",
+            )
         assert(!dateIsInRange(System.currentTimeMillis(), selectedDates))
     }
 

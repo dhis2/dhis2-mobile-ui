@@ -17,18 +17,18 @@ import org.junit.Rule
 import org.junit.Test
 
 class InputRadioButtonTest {
-
     @get:Rule
     val rule = createComposeRule()
 
     @Test
     fun shouldDisplayRadioInputCorrectly() {
         rule.setContent {
-            val radioButtonData = listOf(
-                RadioButtonData("0", selected = false, enabled = true, textInput = "Option 1"),
-                RadioButtonData("1", selected = false, enabled = true, textInput = "Option 2"),
-                RadioButtonData("2", selected = false, enabled = true, textInput = "Option 3"),
-            )
+            val radioButtonData =
+                listOf(
+                    RadioButtonData("0", selected = false, enabled = true, textInput = "Option 1"),
+                    RadioButtonData("1", selected = false, enabled = true, textInput = "Option 2"),
+                    RadioButtonData("2", selected = false, enabled = true, textInput = "Option 3"),
+                )
             var selectedItem by remember {
                 mutableStateOf<RadioButtonData?>(radioButtonData[0])
             }
@@ -51,11 +51,12 @@ class InputRadioButtonTest {
     @Test
     fun shouldAllowUserSelectionWhenEnabled() {
         rule.setContent {
-            val radioButtonData = listOf(
-                RadioButtonData("0", selected = false, enabled = true, textInput = "Option 1"),
-                RadioButtonData("1", selected = false, enabled = true, textInput = "Option 2"),
-                RadioButtonData("2", selected = false, enabled = true, textInput = "Option 3"),
-            )
+            val radioButtonData =
+                listOf(
+                    RadioButtonData("0", selected = false, enabled = true, textInput = "Option 1"),
+                    RadioButtonData("1", selected = false, enabled = true, textInput = "Option 2"),
+                    RadioButtonData("2", selected = false, enabled = true, textInput = "Option 3"),
+                )
             var selectedItem by remember {
                 mutableStateOf<RadioButtonData?>(radioButtonData[0])
             }
@@ -78,11 +79,12 @@ class InputRadioButtonTest {
     @Test
     fun shouldNotAllowUserSelectionWhenDisabled() {
         rule.setContent {
-            val radioButtonData = listOf(
-                RadioButtonData("0", selected = false, enabled = true, textInput = "Option 1"),
-                RadioButtonData("1", selected = false, enabled = true, textInput = "Option 2"),
-                RadioButtonData("2", selected = false, enabled = true, textInput = "Option 3"),
-            )
+            val radioButtonData =
+                listOf(
+                    RadioButtonData("0", selected = false, enabled = true, textInput = "Option 1"),
+                    RadioButtonData("1", selected = false, enabled = true, textInput = "Option 2"),
+                    RadioButtonData("2", selected = false, enabled = true, textInput = "Option 3"),
+                )
             var selectedItem by remember {
                 mutableStateOf<RadioButtonData?>(radioButtonData[0])
             }
@@ -105,11 +107,12 @@ class InputRadioButtonTest {
     @Test
     fun shouldShowClearButtonWhenItemSelected() {
         rule.setContent {
-            val radioButtonData = listOf(
-                RadioButtonData("0", selected = false, enabled = true, textInput = "Option 1"),
-                RadioButtonData("1", selected = false, enabled = true, textInput = "Option 2"),
-                RadioButtonData("2", selected = false, enabled = true, textInput = "Option 3"),
-            )
+            val radioButtonData =
+                listOf(
+                    RadioButtonData("0", selected = false, enabled = true, textInput = "Option 1"),
+                    RadioButtonData("1", selected = false, enabled = true, textInput = "Option 2"),
+                    RadioButtonData("2", selected = false, enabled = true, textInput = "Option 3"),
+                )
             var selectedItem by remember {
                 mutableStateOf<RadioButtonData?>(radioButtonData[0])
             }
@@ -131,11 +134,12 @@ class InputRadioButtonTest {
     @Test
     fun shouldHideClearButtonWhenNoItemIsSelected() {
         rule.setContent {
-            val radioButtonData = listOf(
-                RadioButtonData("0", selected = false, enabled = true, textInput = "Option 1"),
-                RadioButtonData("1", selected = false, enabled = true, textInput = "Option 2"),
-                RadioButtonData("2", selected = false, enabled = true, textInput = "Option 3"),
-            )
+            val radioButtonData =
+                listOf(
+                    RadioButtonData("0", selected = false, enabled = true, textInput = "Option 1"),
+                    RadioButtonData("1", selected = false, enabled = true, textInput = "Option 2"),
+                    RadioButtonData("2", selected = false, enabled = true, textInput = "Option 3"),
+                )
             var selectedItem by remember {
                 mutableStateOf<RadioButtonData?>(null)
             }
@@ -156,11 +160,12 @@ class InputRadioButtonTest {
     @Test
     fun shouldHideClearButtonWhenDisabled() {
         rule.setContent {
-            val radioButtonData = listOf(
-                RadioButtonData("0", selected = false, enabled = true, textInput = "Option 1"),
-                RadioButtonData("1", selected = false, enabled = true, textInput = "Option 2"),
-                RadioButtonData("2", selected = false, enabled = true, textInput = "Option 3"),
-            )
+            val radioButtonData =
+                listOf(
+                    RadioButtonData("0", selected = false, enabled = true, textInput = "Option 1"),
+                    RadioButtonData("1", selected = false, enabled = true, textInput = "Option 2"),
+                    RadioButtonData("2", selected = false, enabled = true, textInput = "Option 3"),
+                )
             var selectedItem by remember {
                 mutableStateOf<RadioButtonData?>(radioButtonData[0])
             }
@@ -182,11 +187,12 @@ class InputRadioButtonTest {
     @Test
     fun shouldClearSelectionWhenClearButtonIsClickedAndHideClearButton() {
         rule.setContent {
-            val radioButtonData = listOf(
-                RadioButtonData("0", selected = false, enabled = true, textInput = "Option 1"),
-                RadioButtonData("1", selected = false, enabled = true, textInput = "Option 2"),
-                RadioButtonData("2", selected = false, enabled = true, textInput = "Option 3"),
-            )
+            val radioButtonData =
+                listOf(
+                    RadioButtonData("0", selected = false, enabled = true, textInput = "Option 1"),
+                    RadioButtonData("1", selected = false, enabled = true, textInput = "Option 2"),
+                    RadioButtonData("2", selected = false, enabled = true, textInput = "Option 3"),
+                )
             var selectedItem by remember {
                 mutableStateOf<RadioButtonData?>(radioButtonData[0])
             }
@@ -211,11 +217,12 @@ class InputRadioButtonTest {
     @Test
     fun shouldShowLegendCorrectly() {
         rule.setContent {
-            val radioButtonData = listOf(
-                RadioButtonData("0", selected = false, enabled = true, textInput = "Option 1"),
-                RadioButtonData("1", selected = false, enabled = true, textInput = "Option 2"),
-                RadioButtonData("2", selected = false, enabled = true, textInput = "Option 3"),
-            )
+            val radioButtonData =
+                listOf(
+                    RadioButtonData("0", selected = false, enabled = true, textInput = "Option 1"),
+                    RadioButtonData("1", selected = false, enabled = true, textInput = "Option 2"),
+                    RadioButtonData("2", selected = false, enabled = true, textInput = "Option 3"),
+                )
             InputRadioButton(
                 title = "Label",
                 radioButtonData = radioButtonData,
@@ -233,11 +240,12 @@ class InputRadioButtonTest {
     @Test
     fun shouldShowSupportingTextCorrectly() {
         rule.setContent {
-            val radioButtonData = listOf(
-                RadioButtonData("0", selected = false, enabled = true, textInput = "Option 1"),
-                RadioButtonData("1", selected = false, enabled = true, textInput = "Option 2"),
-                RadioButtonData("2", selected = false, enabled = true, textInput = "Option 3"),
-            )
+            val radioButtonData =
+                listOf(
+                    RadioButtonData("0", selected = false, enabled = true, textInput = "Option 1"),
+                    RadioButtonData("1", selected = false, enabled = true, textInput = "Option 2"),
+                    RadioButtonData("2", selected = false, enabled = true, textInput = "Option 3"),
+                )
             InputRadioButton(
                 title = "Label",
                 radioButtonData = radioButtonData,

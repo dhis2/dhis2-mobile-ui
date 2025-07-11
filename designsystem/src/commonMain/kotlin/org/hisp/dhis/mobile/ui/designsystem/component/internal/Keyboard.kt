@@ -4,7 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 
 internal enum class Keyboard {
-    Opened, Closed
+    Opened,
+    Closed,
 }
 
 @Composable

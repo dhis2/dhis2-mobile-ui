@@ -32,33 +32,34 @@ internal fun ExtendDivider(
     val config = TableTheme.configuration
     Row(modifier = Modifier.fillMaxWidth().padding(horizontal = Spacing.Spacing16)) {
         Box(
-            modifier = Modifier
-                .width(
-                    with(LocalDensity.current) {
-                        (
-                            TableTheme.dimensions
-                                .rowHeaderWidth(
-                                    groupedTables = config.groupTables,
-                                    tableId = tableId,
-                                ) * rowHeaderCount
+            modifier =
+                Modifier
+                    .width(
+                        with(LocalDensity.current) {
+                            (
+                                TableTheme.dimensions
+                                    .rowHeaderWidth(
+                                        groupedTables = config.groupTables,
+                                        tableId = tableId,
+                                    ) * rowHeaderCount
                             ).toDp()
+                        },
+                    ).height(8.dp)
+                    .background(Color.White)
+                    .drawBehind {
+                        drawRect(
+                            color = background,
+                            topLeft = Offset(size.width - 1.dp.toPx(), 0f),
+                            size = Size(1.dp.toPx(), size.height),
+                        )
                     },
-                )
-                .height(8.dp)
-                .background(Color.White)
-                .drawBehind {
-                    drawRect(
-                        color = background,
-                        topLeft = Offset(size.width - 1.dp.toPx(), 0f),
-                        size = Size(1.dp.toPx(), size.height),
-                    )
-                },
         )
         Box(
-            modifier = Modifier
-                .weight(1f)
-                .height(8.dp)
-                .background(Color.White),
+            modifier =
+                Modifier
+                    .weight(1f)
+                    .height(8.dp)
+                    .background(Color.White),
         )
     }
 }

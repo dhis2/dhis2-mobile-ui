@@ -26,28 +26,31 @@ class MainActivity : AppCompatActivity() {
             App(
                 sizeClass = size,
                 imageBitmapLoader = {
-                    BitmapFactory.decodeResource(
-                        res,
-                        android.R.drawable.ic_search_category_default,
-                        BitmapFactory.Options()
-                            .also { it.inPreferredConfig = Bitmap.Config.ARGB_8888 },
-                    ).asImageBitmap()
+                    BitmapFactory
+                        .decodeResource(
+                            res,
+                            android.R.drawable.ic_search_category_default,
+                            BitmapFactory
+                                .Options()
+                                .also { it.inPreferredConfig = Bitmap.Config.ARGB_8888 },
+                        ).asImageBitmap()
                 },
                 onLocationRequest = { locationQuery, locationSearchCallback ->
 
                     if (locationQuery.isNotBlank()) {
-                        val fakeList = buildList<LocationItemModel> {
-                            repeat(20) {
-                                add(
-                                    LocationItemModel.SearchResult(
-                                        "Fake Location Title #$it",
-                                        "Fake Location Address, Fake Country, Fake City",
-                                        0.0,
-                                        0.0,
-                                    ),
-                                )
+                        val fakeList =
+                            buildList<LocationItemModel> {
+                                repeat(20) {
+                                    add(
+                                        LocationItemModel.SearchResult(
+                                            "Fake Location Title #$it",
+                                            "Fake Location Address, Fake Country, Fake City",
+                                            0.0,
+                                            0.0,
+                                        ),
+                                    )
+                                }
                             }
-                        }
                         locationSearchCallback(fakeList)
                     } else {
                         locationSearchCallback(emptyList())

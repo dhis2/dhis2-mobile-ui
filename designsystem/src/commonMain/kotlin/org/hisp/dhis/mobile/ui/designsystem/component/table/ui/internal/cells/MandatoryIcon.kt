@@ -24,10 +24,11 @@ fun MandatoryIcon(
     Icon(
         imageVector = Icons.Default.Emergency,
         contentDescription = "mandatory",
-        modifier = modifier
-            .testTag(MANDATORY_ICON_TEST_TAG)
-            .padding(style.paddingValues)
-            .size(Spacing.Spacing10),
+        modifier =
+            modifier
+                .testTag(MANDATORY_ICON_TEST_TAG)
+                .padding(style.paddingValues)
+                .size(Spacing.Spacing10),
         tint = style.color,
     )
 }

@@ -14,7 +14,6 @@ import org.junit.Rule
 import org.junit.Test
 
 class InputBarCodeTest {
-
     @get:Rule
     val rule = createComposeRule()
 

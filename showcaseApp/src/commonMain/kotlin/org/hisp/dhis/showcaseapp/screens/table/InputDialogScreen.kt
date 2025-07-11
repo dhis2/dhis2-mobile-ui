@@ -69,15 +69,15 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
-import org.hisp.dhis.showcaseapp.screens.previews.lorem
-import org.hisp.dhis.showcaseapp.screens.previews.lorem_short
+import org.hisp.dhis.showcaseapp.screens.previews.LOREM
+import org.hisp.dhis.showcaseapp.screens.previews.LOREM_SHORT
 import org.hisp.dhis.showcaseapp.screens.previews.regularLegendList
 
 @Composable
 fun InputDialogScreen() {
     var showInputDialogWithContent by remember { mutableStateOf(false) }
 
-    var inputValue1 by remember() {
+    var inputValue1 by remember {
         mutableStateOf(
             TextFieldValue("Label", selection = TextRange(5, 5)),
         )
@@ -85,7 +85,7 @@ fun InputDialogScreen() {
 
     var showInputDialogWithSmallContent by remember { mutableStateOf(false) }
 
-    var inputValue5 by remember() {
+    var inputValue5 by remember {
         mutableStateOf(
             TextFieldValue("Label", selection = TextRange(5, 5)),
         )
@@ -93,7 +93,7 @@ fun InputDialogScreen() {
 
     var showInputDialogWithoutContent by remember { mutableStateOf(false) }
 
-    var inputValue2 by remember() {
+    var inputValue2 by remember {
         mutableStateOf(
             TextFieldValue("Label", selection = TextRange(5, 5)),
         )
@@ -101,7 +101,7 @@ fun InputDialogScreen() {
 
     var showInputDialogWithSupportingText by remember { mutableStateOf(false) }
 
-    var inputValue3 by remember() {
+    var inputValue3 by remember {
         mutableStateOf(
             TextFieldValue("Label", selection = TextRange(5, 5)),
         )
@@ -126,10 +126,12 @@ fun InputDialogScreen() {
         contentAlignment = Alignment.BottomCenter,
     ) {
         Column(
-            modifier = Modifier.fillMaxSize()
-                .background(Color.White, Shape.LargeTop)
-                .padding(horizontal = Spacing.Spacing16)
-                .align(Alignment.TopCenter),
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .background(Color.White, Shape.LargeTop)
+                    .padding(horizontal = Spacing.Spacing16)
+                    .align(Alignment.TopCenter),
         ) {
             Title(
                 text = "Input Data Entry",
@@ -247,14 +249,16 @@ fun InputDialogScreen() {
 
         AnimatedVisibility(
             visible = showInputDialogWithContent,
-            enter = slideInVertically(
-                initialOffsetY = { it },
-                animationSpec = tween(durationMillis = 400),
-            ),
-            exit = slideOutVertically(
-                targetOffsetY = { it },
-                animationSpec = tween(durationMillis = 400),
-            ),
+            enter =
+                slideInVertically(
+                    initialOffsetY = { it },
+                    animationSpec = tween(durationMillis = 400),
+                ),
+            exit =
+                slideOutVertically(
+                    targetOffsetY = { it },
+                    animationSpec = tween(durationMillis = 400),
+                ),
         ) {
             val focusRequester = remember { FocusRequester() }
 
@@ -310,14 +314,16 @@ fun InputDialogScreen() {
 
         AnimatedVisibility(
             visible = showInputDialogWithSmallContent,
-            enter = slideInVertically(
-                initialOffsetY = { it },
-                animationSpec = tween(durationMillis = 400),
-            ),
-            exit = slideOutVertically(
-                targetOffsetY = { it },
-                animationSpec = tween(durationMillis = 400),
-            ),
+            enter =
+                slideInVertically(
+                    initialOffsetY = { it },
+                    animationSpec = tween(durationMillis = 400),
+                ),
+            exit =
+                slideOutVertically(
+                    targetOffsetY = { it },
+                    animationSpec = tween(durationMillis = 400),
+                ),
         ) {
             val focusRequester = remember { FocusRequester() }
 
@@ -373,14 +379,16 @@ fun InputDialogScreen() {
 
         AnimatedVisibility(
             visible = showInputDialogWithoutContent,
-            enter = slideInVertically(
-                initialOffsetY = { it },
-                animationSpec = tween(durationMillis = 400),
-            ),
-            exit = slideOutVertically(
-                targetOffsetY = { it },
-                animationSpec = tween(durationMillis = 400),
-            ),
+            enter =
+                slideInVertically(
+                    initialOffsetY = { it },
+                    animationSpec = tween(durationMillis = 400),
+                ),
+            exit =
+                slideOutVertically(
+                    targetOffsetY = { it },
+                    animationSpec = tween(durationMillis = 400),
+                ),
         ) {
             val focusRequester = remember { FocusRequester() }
 
@@ -433,14 +441,16 @@ fun InputDialogScreen() {
 
         AnimatedVisibility(
             visible = showInputDialogWithError,
-            enter = slideInVertically(
-                initialOffsetY = { it },
-                animationSpec = tween(durationMillis = 400),
-            ),
-            exit = slideOutVertically(
-                targetOffsetY = { it },
-                animationSpec = tween(durationMillis = 400),
-            ),
+            enter =
+                slideInVertically(
+                    initialOffsetY = { it },
+                    animationSpec = tween(durationMillis = 400),
+                ),
+            exit =
+                slideOutVertically(
+                    targetOffsetY = { it },
+                    animationSpec = tween(durationMillis = 400),
+                ),
         ) {
             Column(
                 verticalArrangement = Arrangement.Bottom,
@@ -484,14 +494,16 @@ fun InputDialogScreen() {
 
         AnimatedVisibility(
             visible = showInputDialogWithSupportingText,
-            enter = slideInVertically(
-                initialOffsetY = { it },
-                animationSpec = tween(durationMillis = 400),
-            ),
-            exit = slideOutVertically(
-                targetOffsetY = { it },
-                animationSpec = tween(durationMillis = 400),
-            ),
+            enter =
+                slideInVertically(
+                    initialOffsetY = { it },
+                    animationSpec = tween(durationMillis = 400),
+                ),
+            exit =
+                slideOutVertically(
+                    targetOffsetY = { it },
+                    animationSpec = tween(durationMillis = 400),
+                ),
         ) {
             val focusRequester = remember { FocusRequester() }
 
@@ -510,20 +522,21 @@ fun InputDialogScreen() {
                                     inputValue3 = it
                                 }
                             },
-                            supportingText = listOf(
-                                SupportingTextData(
-                                    lorem,
-                                    SupportingTextState.DEFAULT,
+                            supportingText =
+                                listOf(
+                                    SupportingTextData(
+                                        LOREM,
+                                        SupportingTextState.DEFAULT,
+                                    ),
+                                    SupportingTextData(
+                                        "Supporting Text",
+                                        SupportingTextState.ERROR,
+                                    ),
+                                    SupportingTextData(
+                                        "Supporting Text",
+                                        SupportingTextState.WARNING,
+                                    ),
                                 ),
-                                SupportingTextData(
-                                    "Supporting Text",
-                                    SupportingTextState.ERROR,
-                                ),
-                                SupportingTextData(
-                                    "Supporting Text",
-                                    SupportingTextState.WARNING,
-                                ),
-                            ),
                             state = InputShellState.FOCUSED,
                             onFocusChanged = {
                             },
@@ -558,14 +571,16 @@ fun InputDialogScreen() {
 
         AnimatedVisibility(
             visible = showInputDialogWithSupportingTextAndLegend,
-            enter = slideInVertically(
-                initialOffsetY = { it },
-                animationSpec = tween(durationMillis = 400),
-            ),
-            exit = slideOutVertically(
-                targetOffsetY = { it },
-                animationSpec = tween(durationMillis = 400),
-            ),
+            enter =
+                slideInVertically(
+                    initialOffsetY = { it },
+                    animationSpec = tween(durationMillis = 400),
+                ),
+            exit =
+                slideOutVertically(
+                    targetOffsetY = { it },
+                    animationSpec = tween(durationMillis = 400),
+                ),
         ) {
             Column(
                 verticalArrangement = Arrangement.Bottom,
@@ -580,13 +595,13 @@ fun InputDialogScreen() {
                             onItemChange = {
                                 selectedItem2 = it
                             },
-                            supportingText = listOf(
-                                SupportingTextData(
-                                    lorem_short,
-                                    SupportingTextState.DEFAULT,
+                            supportingText =
+                                listOf(
+                                    SupportingTextData(
+                                        LOREM_SHORT,
+                                        SupportingTextState.DEFAULT,
+                                    ),
                                 ),
-
-                            ),
                             legendData = LegendData(SurfaceColor.CustomGreen, "Legend", popUpLegendDescriptionData = regularLegendList),
                         )
                     },
@@ -616,14 +631,16 @@ fun InputDialogScreen() {
 
         AnimatedVisibility(
             visible = showInputDialogWithBigOptionSet,
-            enter = slideInVertically(
-                initialOffsetY = { it },
-                animationSpec = tween(durationMillis = 400),
-            ),
-            exit = slideOutVertically(
-                targetOffsetY = { it },
-                animationSpec = tween(durationMillis = 400),
-            ),
+            enter =
+                slideInVertically(
+                    initialOffsetY = { it },
+                    animationSpec = tween(durationMillis = 400),
+                ),
+            exit =
+                slideOutVertically(
+                    targetOffsetY = { it },
+                    animationSpec = tween(durationMillis = 400),
+                ),
         ) {
             Column(
                 verticalArrangement = Arrangement.Bottom,
@@ -631,50 +648,51 @@ fun InputDialogScreen() {
             ) {
                 InputDialog(
                     input = {
-                        val multiSelect2Items = mutableStateListOf(
-                            CheckBoxData(
-                                uid = "uid-1",
-                                checked = true,
-                                enabled = true,
-                                textInput = "Option 1",
-                            ),
-                            CheckBoxData(
-                                uid = "uid-2",
-                                checked = true,
-                                enabled = true,
-                                textInput = "Option 2",
-                            ),
-                            CheckBoxData(
-                                uid = "uid-3",
-                                checked = true,
-                                enabled = true,
-                                textInput = "Opt. 3",
-                            ),
-                            CheckBoxData(
-                                uid = "uid-4",
-                                checked = false,
-                                enabled = true,
-                                textInput = "Option 4",
-                            ),
-                            CheckBoxData(
-                                uid = "uid-5",
-                                checked = false,
-                                enabled = true,
-                                textInput = "Option 5",
-                            ),
-                            CheckBoxData(
-                                uid = "uid-6",
-                                checked = false,
-                                enabled = true,
-                                textInput = "Opt. 6",
-                            ),
-                            CheckBoxData(
-                                uid = "uid-7",
-                                checked = false,
-                                enabled = true,
-                                textInput = "Opt. 7",
-                            ),
-                        )
+                        val multiSelect2Items =
+                            mutableStateListOf(
+                                CheckBoxData(
+                                    uid = "uid-1",
+                                    checked = true,
+                                    enabled = true,
+                                    textInput = "Option 1",
+                                ),
+                                CheckBoxData(
+                                    uid = "uid-2",
+                                    checked = true,
+                                    enabled = true,
+                                    textInput = "Option 2",
+                                ),
+                                CheckBoxData(
+                                    uid = "uid-3",
+                                    checked = true,
+                                    enabled = true,
+                                    textInput = "Opt. 3",
+                                ),
+                                CheckBoxData(
+                                    uid = "uid-4",
+                                    checked = false,
+                                    enabled = true,
+                                    textInput = "Option 4",
+                                ),
+                                CheckBoxData(
+                                    uid = "uid-5",
+                                    checked = false,
+                                    enabled = true,
+                                    textInput = "Option 5",
+                                ),
+                                CheckBoxData(
+                                    uid = "uid-6",
+                                    checked = false,
+                                    enabled = true,
+                                    textInput = "Opt. 6",
+                                ),
+                                CheckBoxData(
+                                    uid = "uid-7",
+                                    checked = false,
+                                    enabled = true,
+                                    textInput = "Opt. 7",
+                                ),
+                            )
                         InputMultiSelection(
                             items = multiSelect2Items,
                             title = "Multi Select 2",
@@ -726,13 +744,16 @@ fun InputDialogDetails() {
 
         Card(
             shape = Shape.Large,
-            modifier = Modifier.clip(Shape.Large)
-                .background(color = SurfaceColor.Primary.copy(alpha = 0.2f)),
-
+            modifier =
+                Modifier
+                    .clip(Shape.Large)
+                    .background(color = SurfaceColor.Primary.copy(alpha = 0.2f)),
         ) {
             Column(
-                modifier = Modifier.background(SurfaceColor.SurfaceBright)
-                    .padding(Spacing.Spacing16),
+                modifier =
+                    Modifier
+                        .background(SurfaceColor.SurfaceBright)
+                        .padding(Spacing.Spacing16),
             ) {
                 Row(
                     horizontalArrangement = Arrangement.SpaceBetween,
@@ -833,12 +854,16 @@ fun InputDialogDetails() {
         Spacer(Modifier.size(Spacing.Spacing8))
         Card(
             shape = Shape.Large,
-            modifier = Modifier.clip(Shape.Large)
-                .background(color = SurfaceColor.Primary.copy(alpha = 0.2f)),
+            modifier =
+                Modifier
+                    .clip(Shape.Large)
+                    .background(color = SurfaceColor.Primary.copy(alpha = 0.2f)),
         ) {
             Column(
-                modifier = Modifier.background(SurfaceColor.SurfaceBright)
-                    .padding(Spacing.Spacing16),
+                modifier =
+                    Modifier
+                        .background(SurfaceColor.SurfaceBright)
+                        .padding(Spacing.Spacing16),
             ) {
                 Row(
                     horizontalArrangement = Arrangement.SpaceBetween,
@@ -869,65 +894,89 @@ fun InputDialogDetails() {
                 }
                 Spacer(Modifier.size(Spacing.Spacing10))
                 ListCard(
-                    listCardState = rememberListCardState(
-                        title = ListCardTitleModel(text = "@user"),
-                        lastUpdated = "2 days ago",
-                        additionalInfoColumnState = rememberAdditionalInfoColumnState(
-                            additionalInfoList = emptyList(),
-                            syncProgressItem = AdditionalInfoItem(
-                                value = "syncing",
-                            ),
+                    listCardState =
+                        rememberListCardState(
+                            title = ListCardTitleModel(text = "@user"),
+                            lastUpdated = "2 days ago",
+                            additionalInfoColumnState =
+                                rememberAdditionalInfoColumnState(
+                                    additionalInfoList = emptyList(),
+                                    syncProgressItem =
+                                        AdditionalInfoItem(
+                                            value = "syncing",
+                                        ),
+                                ),
+                            description =
+                                ListCardDescriptionModel(
+                                    text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor inci",
+                                ),
                         ),
-                        description = ListCardDescriptionModel(text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor inci"),
-                    ),
                     onCardClick = {},
                 )
                 Spacer(Modifier.size(Spacing.Spacing16))
 
                 ListCard(
-                    listCardState = rememberListCardState(
-                        title = ListCardTitleModel(text = "@user"),
-                        lastUpdated = "2 days ago",
-                        additionalInfoColumnState = rememberAdditionalInfoColumnState(
-                            additionalInfoList = emptyList(),
-                            syncProgressItem = AdditionalInfoItem(
-                                value = "syncing",
-                            ),
+                    listCardState =
+                        rememberListCardState(
+                            title = ListCardTitleModel(text = "@user"),
+                            lastUpdated = "2 days ago",
+                            additionalInfoColumnState =
+                                rememberAdditionalInfoColumnState(
+                                    additionalInfoList = emptyList(),
+                                    syncProgressItem =
+                                        AdditionalInfoItem(
+                                            value = "syncing",
+                                        ),
+                                ),
+                            description =
+                                ListCardDescriptionModel(
+                                    text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor inci",
+                                ),
                         ),
-                        description = ListCardDescriptionModel(text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor inci"),
-                    ),
                     onCardClick = {},
                 )
                 Spacer(Modifier.size(Spacing.Spacing16))
 
                 ListCard(
-                    listCardState = rememberListCardState(
-                        title = ListCardTitleModel(text = "@user"),
-                        lastUpdated = "2 days ago",
-                        additionalInfoColumnState = rememberAdditionalInfoColumnState(
-                            additionalInfoList = emptyList(),
-                            syncProgressItem = AdditionalInfoItem(
-                                value = "syncing",
-                            ),
+                    listCardState =
+                        rememberListCardState(
+                            title = ListCardTitleModel(text = "@user"),
+                            lastUpdated = "2 days ago",
+                            additionalInfoColumnState =
+                                rememberAdditionalInfoColumnState(
+                                    additionalInfoList = emptyList(),
+                                    syncProgressItem =
+                                        AdditionalInfoItem(
+                                            value = "syncing",
+                                        ),
+                                ),
+                            description =
+                                ListCardDescriptionModel(
+                                    text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor inci",
+                                ),
                         ),
-                        description = ListCardDescriptionModel(text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor inci"),
-                    ),
                     onCardClick = {},
                 )
                 Spacer(Modifier.size(Spacing.Spacing16))
 
                 ListCard(
-                    listCardState = rememberListCardState(
-                        title = ListCardTitleModel(text = "@user"),
-                        lastUpdated = "2 days ago",
-                        additionalInfoColumnState = rememberAdditionalInfoColumnState(
-                            additionalInfoList = emptyList(),
-                            syncProgressItem = AdditionalInfoItem(
-                                value = "syncing",
-                            ),
+                    listCardState =
+                        rememberListCardState(
+                            title = ListCardTitleModel(text = "@user"),
+                            lastUpdated = "2 days ago",
+                            additionalInfoColumnState =
+                                rememberAdditionalInfoColumnState(
+                                    additionalInfoList = emptyList(),
+                                    syncProgressItem =
+                                        AdditionalInfoItem(
+                                            value = "syncing",
+                                        ),
+                                ),
+                            description =
+                                ListCardDescriptionModel(
+                                    text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor inci",
+                                ),
                         ),
-                        description = ListCardDescriptionModel(text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor inci"),
-                    ),
                     onCardClick = {},
                 )
                 Spacer(Modifier.size(Spacing.Spacing16))
@@ -957,13 +1006,16 @@ fun InputDialogDetailsSmall() {
 
         Card(
             shape = Shape.Large,
-            modifier = Modifier.clip(Shape.Large)
-                .background(color = SurfaceColor.Primary.copy(alpha = 0.2f)),
-
+            modifier =
+                Modifier
+                    .clip(Shape.Large)
+                    .background(color = SurfaceColor.Primary.copy(alpha = 0.2f)),
         ) {
             Column(
-                modifier = Modifier.background(SurfaceColor.SurfaceBright)
-                    .padding(Spacing.Spacing16),
+                modifier =
+                    Modifier
+                        .background(SurfaceColor.SurfaceBright)
+                        .padding(Spacing.Spacing16),
             ) {
                 Row(
                     horizontalArrangement = Arrangement.SpaceBetween,

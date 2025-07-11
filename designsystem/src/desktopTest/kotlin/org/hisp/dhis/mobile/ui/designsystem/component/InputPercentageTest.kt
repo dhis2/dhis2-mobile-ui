@@ -19,7 +19,6 @@ import org.junit.Rule
 import org.junit.Test
 
 class InputPercentageTest {
-
     @get:Rule
     val rule = createComposeRule()
 

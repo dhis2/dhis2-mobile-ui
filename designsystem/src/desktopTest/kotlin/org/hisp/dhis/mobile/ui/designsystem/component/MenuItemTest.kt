@@ -27,10 +27,11 @@ class MenuItemTest {
     fun shouldDisplayMenuItemWithLabelCorrectly() {
         rule.setContent {
             MenuItem(
-                menuItemData = MenuItemData(
-                    id = "menu_item",
-                    label = "Menu Item",
-                ),
+                menuItemData =
+                    MenuItemData(
+                        id = "menu_item",
+                        label = "Menu Item",
+                    ),
             ) {}
         }
         rule.onNodeWithTag(MENU_ITEM_CONTAINER).assertExists()
@@ -41,11 +42,12 @@ class MenuItemTest {
     fun shouldDisplaySupportingTextCorrectly() {
         rule.setContent {
             MenuItem(
-                menuItemData = MenuItemData(
-                    id = "menu_item",
-                    label = "Menu Item",
-                    supportingText = "Supporting Text",
-                ),
+                menuItemData =
+                    MenuItemData(
+                        id = "menu_item",
+                        label = "Menu Item",
+                        supportingText = "Supporting Text",
+                    ),
             ) {}
         }
         rule.onNodeWithTag(MENU_ITEM_CONTAINER).assertExists()
@@ -56,11 +58,12 @@ class MenuItemTest {
     fun shouldDisplayDividerCorrectly() {
         rule.setContent {
             MenuItem(
-                menuItemData = MenuItemData(
-                    id = "menu_item",
-                    label = "Menu Item",
-                    showDivider = true,
-                ),
+                menuItemData =
+                    MenuItemData(
+                        id = "menu_item",
+                        label = "Menu Item",
+                        showDivider = true,
+                    ),
             ) {}
         }
         rule.onNodeWithTag(MENU_ITEM_CONTAINER).assertExists()
@@ -71,11 +74,12 @@ class MenuItemTest {
     fun shouldDisplayLeadingIndentCorrectly() {
         rule.setContent {
             MenuItem(
-                menuItemData = MenuItemData(
-                    id = "menu_item",
-                    label = "Menu Item",
-                    leadingElement = MenuLeadingElement.Indent,
-                ),
+                menuItemData =
+                    MenuItemData(
+                        id = "menu_item",
+                        label = "Menu Item",
+                        leadingElement = MenuLeadingElement.Indent,
+                    ),
             ) {}
         }
         rule.onNodeWithTag(MENU_ITEM_CONTAINER).assertExists()
@@ -86,13 +90,15 @@ class MenuItemTest {
     fun shouldDisplayLeadingIconCorrectly() {
         rule.setContent {
             MenuItem(
-                menuItemData = MenuItemData(
-                    id = "menu_item",
-                    label = "Menu Item",
-                    leadingElement = MenuLeadingElement.Icon(
-                        icon = Icons.Outlined.Done,
+                menuItemData =
+                    MenuItemData(
+                        id = "menu_item",
+                        label = "Menu Item",
+                        leadingElement =
+                            MenuLeadingElement.Icon(
+                                icon = Icons.Outlined.Done,
+                            ),
                     ),
-                ),
             ) {}
         }
         rule.onNodeWithTag(MENU_ITEM_CONTAINER).assertExists()
@@ -103,13 +109,15 @@ class MenuItemTest {
     fun shouldDisplayTrailingIconCorrectly() {
         rule.setContent {
             MenuItem(
-                menuItemData = MenuItemData(
-                    id = "menu_item",
-                    label = "Menu Item",
-                    trailingElement = MenuTrailingElement.Icon(
-                        icon = Icons.Outlined.Done,
+                menuItemData =
+                    MenuItemData(
+                        id = "menu_item",
+                        label = "Menu Item",
+                        trailingElement =
+                            MenuTrailingElement.Icon(
+                                icon = Icons.Outlined.Done,
+                            ),
                     ),
-                ),
             ) {}
         }
         rule.onNodeWithTag(MENU_ITEM_CONTAINER).assertExists()
@@ -120,13 +128,15 @@ class MenuItemTest {
     fun shouldDisplayTrailingTextCorrectly() {
         rule.setContent {
             MenuItem(
-                menuItemData = MenuItemData(
-                    id = "menu_item",
-                    label = "Menu Item",
-                    trailingElement = MenuTrailingElement.Text(
-                        text = "Trailing Text",
+                menuItemData =
+                    MenuItemData(
+                        id = "menu_item",
+                        label = "Menu Item",
+                        trailingElement =
+                            MenuTrailingElement.Text(
+                                text = "Trailing Text",
+                            ),
                     ),
-                ),
             ) {}
         }
         rule.onNodeWithTag(MENU_ITEM_CONTAINER).assertExists()

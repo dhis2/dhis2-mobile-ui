@@ -57,16 +57,19 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
 enum class SectionState {
-    OPEN, CLOSE, FIXED, NO_HEADER;
+    OPEN,
+    CLOSE,
+    FIXED,
+    NO_HEADER,
+    ;
 
-    fun getNextState(): SectionState {
-        return when (this) {
+    fun getNextState(): SectionState =
+        when (this) {
             OPEN -> CLOSE
             CLOSE -> OPEN
             FIXED -> FIXED
             NO_HEADER -> NO_HEADER
         }
-    }
 }
 
 /**
@@ -105,23 +108,24 @@ fun Section(
 ) {
     when (state) {
         SectionState.NO_HEADER -> SectionContent(spacedBy(Spacing24)) { content() }
-        else -> SectionBlock(
-            modifier = modifier,
-            isLastSection = isLastSection,
-            title = title,
-            description = description,
-            completedFields = completedFields,
-            totalFields = totalFields,
-            state = state,
-            errorCount = errorCount,
-            errorMessage = errorMessage,
-            warningCount = warningCount,
-            warningMessage = warningMessage,
-            onNextSection = onNextSection,
-            onSectionClick = onSectionClick,
-        ) {
-            content()
-        }
+        else ->
+            SectionBlock(
+                modifier = modifier,
+                isLastSection = isLastSection,
+                title = title,
+                description = description,
+                completedFields = completedFields,
+                totalFields = totalFields,
+                state = state,
+                errorCount = errorCount,
+                errorMessage = errorMessage,
+                warningCount = warningCount,
+                warningMessage = warningMessage,
+                onNextSection = onNextSection,
+                onSectionClick = onSectionClick,
+            ) {
+                content()
+            }
     }
 }
 
@@ -144,23 +148,24 @@ internal fun SectionBlock(
 ) {
     var sectionState by remember(state) { mutableStateOf(state) }
 
-    val bottomPadding = when (sectionState) {
-        SectionState.FIXED -> Spacing.Spacing40
-        else -> Spacing16
-    }
+    val bottomPadding =
+        when (sectionState) {
+            SectionState.FIXED -> Spacing.Spacing40
+            else -> Spacing16
+        }
 
     Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .background(Color.White)
-            .run {
-                if (sectionState != SectionState.FIXED) {
-                    bottomBorder(1.dp, Ash600)
-                } else {
-                    this
-                }
-            }
-            .padding(top = Spacing.Spacing8, bottom = bottomPadding),
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .background(Color.White)
+                .run {
+                    if (sectionState != SectionState.FIXED) {
+                        bottomBorder(1.dp, Ash600)
+                    } else {
+                        this
+                    }
+                }.padding(top = Spacing.Spacing8, bottom = bottomPadding),
         verticalArrangement = spacedBy(Spacing24),
     ) {
         SectionHeader(
@@ -197,13 +202,14 @@ internal fun SectionBlock(
 internal fun SectionContent(
     verticalArrangement: Arrangement.HorizontalOrVertical,
     content:
-    @Composable
-    (ColumnScope.() -> Unit),
+        @Composable
+        (ColumnScope.() -> Unit),
 ) {
     Column(
-        modifier = Modifier
-            .testTag(SectionTestTag.CONTENT)
-            .fillMaxWidth(),
+        modifier =
+            Modifier
+                .testTag(SectionTestTag.CONTENT)
+                .fillMaxWidth(),
         verticalArrangement = verticalArrangement,
     ) {
         content()
@@ -251,30 +257,30 @@ internal fun SectionHeader(
     val interactionSource = remember { MutableInteractionSource() }
 
     Column(
-        modifier = modifier
-            .testTag(SectionTestTag.HEADER)
-            .semantics {
-                stateSemantic = sectionState
-            }
-            .fillMaxWidth()
-            .background(color = Color.White, Shape.Small)
-            .clip(Shape.Small)
-            .let {
-                if (sectionState == SectionState.FIXED) {
-                    it
-                } else {
-                    it.clickable(
-                        role = Role.Button,
-                        interactionSource = interactionSource,
-                        indication = ripple(
-                            color = SurfaceColor.Primary,
-                        ),
-                    ) {
-                        onSectionClick()
+        modifier =
+            modifier
+                .testTag(SectionTestTag.HEADER)
+                .semantics {
+                    stateSemantic = sectionState
+                }.fillMaxWidth()
+                .background(color = Color.White, Shape.Small)
+                .clip(Shape.Small)
+                .let {
+                    if (sectionState == SectionState.FIXED) {
+                        it
+                    } else {
+                        it.clickable(
+                            role = Role.Button,
+                            interactionSource = interactionSource,
+                            indication =
+                                ripple(
+                                    color = SurfaceColor.Primary,
+                                ),
+                        ) {
+                            onSectionClick()
+                        }
                     }
-                }
-            }
-            .padding(vertical = Spacing.Spacing8),
+                }.padding(vertical = Spacing.Spacing8),
     ) {
         Row(
             verticalAlignment = Alignment.Top,
@@ -283,7 +289,8 @@ internal fun SectionHeader(
                 modifier = Modifier.weight(1f),
             ) {
                 SectionTitle(
-                    modifier.fillMaxWidth()
+                    modifier
+                        .fillMaxWidth()
                         .testTag(SectionTestTag.TITLE),
                     title = title,
                 )
@@ -357,11 +364,12 @@ internal fun CompletionLabel(
     totalFields: Int,
 ) {
     Box(
-        modifier = Modifier.padding(
-            start = Spacing.Spacing8,
-            top = Spacing.Spacing4,
-            bottom = Spacing.Spacing4,
-        ),
+        modifier =
+            Modifier.padding(
+                start = Spacing.Spacing8,
+                top = Spacing.Spacing4,
+                bottom = Spacing.Spacing4,
+            ),
     ) {
         Text(
             modifier = modifier,
@@ -373,12 +381,16 @@ internal fun CompletionLabel(
 }
 
 @Composable
-internal fun StateIndicator(label: String, icon: ImageVector?) {
+internal fun StateIndicator(
+    label: String,
+    icon: ImageVector?,
+) {
     Row(
-        modifier = Modifier
-            .testTag(SectionTestTag.STATE_LABEL)
-            .requiredHeight(20.dp)
-            .padding(end = Spacing.Spacing4),
+        modifier =
+            Modifier
+                .testTag(SectionTestTag.STATE_LABEL)
+                .requiredHeight(20.dp)
+                .padding(end = Spacing.Spacing4),
         horizontalArrangement = spacedBy(Spacing.Spacing8),
     ) {
         icon?.let {

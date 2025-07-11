@@ -12,7 +12,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.InputLongText
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextData
 import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextState
-import org.hisp.dhis.showcaseapp.screens.previews.lorem_medium
+import org.hisp.dhis.showcaseapp.screens.previews.LOREM_MEDIUM
 
 @Composable
 fun InputLongTextScreen() {
@@ -20,7 +20,7 @@ fun InputLongTextScreen() {
         ColumnComponentContainer(" Basic Input Long Text") {
             var inputValue1 by rememberSaveable(stateSaver = TextFieldValue.Saver) {
                 mutableStateOf(
-                    TextFieldValue(lorem_medium),
+                    TextFieldValue(LOREM_MEDIUM),
                 )
             }
             InputLongText(
@@ -38,7 +38,7 @@ fun InputLongTextScreen() {
         ColumnComponentContainer(" Basic Input Long Text with error message") {
             var inputValueError by rememberSaveable(stateSaver = TextFieldValue.Saver) {
                 mutableStateOf(
-                    TextFieldValue(lorem_medium),
+                    TextFieldValue(LOREM_MEDIUM),
                 )
             }
             InputLongText(
@@ -49,12 +49,13 @@ fun InputLongTextScreen() {
                         inputValueError = it
                     }
                 },
-                supportingText = listOf(
-                    SupportingTextData(
-                        "100000/1000000 characters used",
-                        state = SupportingTextState.ERROR,
+                supportingText =
+                    listOf(
+                        SupportingTextData(
+                            "100000/1000000 characters used",
+                            state = SupportingTextState.ERROR,
+                        ),
                     ),
-                ),
                 state = InputShellState.ERROR,
             )
         }

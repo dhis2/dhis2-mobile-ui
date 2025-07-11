@@ -9,26 +9,25 @@ import com.google.zxing.common.BitMatrix
 import java.awt.image.BufferedImage
 
 internal actual class BarcodeGenerator {
-
     private val colorBlack = 0xFF000000.toInt()
     private val colorWhite = 0xFFFFFFFF.toInt()
 
-    actual fun generate(data: String): ImageBitmap? {
-        return try {
+    actual fun generate(data: String): ImageBitmap? =
+        try {
             val writer = MultiFormatWriter()
-            val bitMatrix = writer.encode(
-                data,
-                BarcodeFormat.CODE_128,
-                BARCODE_WIDTH,
-                BARCODE_HEIGHT,
-            )
+            val bitMatrix =
+                writer.encode(
+                    data,
+                    BarcodeFormat.CODE_128,
+                    BARCODE_WIDTH,
+                    BARCODE_HEIGHT,
+                )
             val image = createBufferedImage(bitMatrix)
 
             image.toComposeImageBitmap()
         } catch (e: WriterException) {
             null
         }
-    }
 
     private fun createBufferedImage(bitMatrix: BitMatrix): BufferedImage {
         val width = bitMatrix.width

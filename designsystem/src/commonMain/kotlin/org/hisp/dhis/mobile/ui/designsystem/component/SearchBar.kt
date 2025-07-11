@@ -79,11 +79,12 @@ fun SearchBar(
     val keyboardController = LocalSoftwareKeyboardController.current
     val focusManager = LocalFocusManager.current
 
-    val containerColor = if (!isPressed) {
-        SurfaceColor.ContainerLow
-    } else {
-        SurfaceColor.Container
-    }
+    val containerColor =
+        if (!isPressed) {
+            SurfaceColor.ContainerLow
+        } else {
+            SurfaceColor.Container
+        }
     val cursorColor by remember {
         if (state == InputShellState.UNFOCUSED || state == InputShellState.FOCUSED) {
             mutableStateOf(InputShellState.FOCUSED.color)
@@ -94,43 +95,44 @@ fun SearchBar(
     BasicTextField(
         value = text,
         onValueChange = onQueryChange,
-        modifier = modifier
-            .testTag("SEARCH_INPUT")
-            .height(SearchBarDefaults.InputFieldHeight)
-            .fillMaxWidth()
-            .background(containerColor, Shape.Full)
-            .clip(Shape.Full)
-            .focusRequester(focusRequester)
-            .clickable(
-                onClick = {},
-                role = Role.Button,
-                interactionSource = interactionSource,
-                indication = ripple(
-                    true,
-                    color = SurfaceColor.Primary,
-                ),
-            )
-            .onFocusChanged { if (it.isFocused) onActiveChange(true) }
-            .onKeyEvent {
-                if (it.key == Key.Escape && it.type == KeyEventType.KeyDown) {
-                    onActiveChange(false)
-                    true
-                } else {
-                    false
-                }
-            }
-            .padding(horizontal = Spacing.Spacing4)
-            .semantics {
-                contentDescription = "Search"
-            },
+        modifier =
+            modifier
+                .testTag("SEARCH_INPUT")
+                .height(SearchBarDefaults.InputFieldHeight)
+                .fillMaxWidth()
+                .background(containerColor, Shape.Full)
+                .clip(Shape.Full)
+                .focusRequester(focusRequester)
+                .clickable(
+                    onClick = {},
+                    role = Role.Button,
+                    interactionSource = interactionSource,
+                    indication =
+                        ripple(
+                            true,
+                            color = SurfaceColor.Primary,
+                        ),
+                ).onFocusChanged { if (it.isFocused) onActiveChange(true) }
+                .onKeyEvent {
+                    if (it.key == Key.Escape && it.type == KeyEventType.KeyDown) {
+                        onActiveChange(false)
+                        true
+                    } else {
+                        false
+                    }
+                }.padding(horizontal = Spacing.Spacing4)
+                .semantics {
+                    contentDescription = "Search"
+                },
         enabled = true,
         singleLine = true,
         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
-        keyboardActions = KeyboardActions(onSearch = {
-            keyboardController?.hide()
-            focusManager.clearFocus()
-            onSearch(text)
-        }),
+        keyboardActions =
+            KeyboardActions(onSearch = {
+                keyboardController?.hide()
+                focusManager.clearFocus()
+                onSearch(text)
+            }),
         interactionSource = interactionSource,
         textStyle = MaterialTheme.typography.bodyLarge,
         decorationBox = @Composable { innerTextField ->
@@ -151,8 +153,9 @@ fun SearchBar(
                 trailingIcon = {
                     if (text != "") {
                         IconButton(
-                            modifier = Modifier
-                                .testTag("CANCEL_BUTTON"),
+                            modifier =
+                                Modifier
+                                    .testTag("CANCEL_BUTTON"),
                             icon = {
                                 Icon(
                                     imageVector = Icons.Outlined.Cancel,
@@ -165,8 +168,9 @@ fun SearchBar(
                         )
                     } else {
                         IconButton(
-                            modifier = Modifier
-                                .testTag("SEARCH_BUTTON"),
+                            modifier =
+                                Modifier
+                                    .testTag("SEARCH_BUTTON"),
                             icon = {
                                 Icon(
                                     imageVector = Icons.Outlined.Search,

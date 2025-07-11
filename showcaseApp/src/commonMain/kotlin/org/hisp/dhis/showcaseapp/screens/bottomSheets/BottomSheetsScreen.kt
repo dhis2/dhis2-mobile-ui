@@ -31,13 +31,13 @@ fun BottomSheetsScreen() {
     }
 }
 
-enum class BottomSheets(val label: String) {
+enum class BottomSheets(
+    val label: String,
+) {
     BOTTOM_SHEET("Bottom Sheet component"),
     BOTTOM_SHEET_HEADER("Bottom Sheet Header component"),
     ORG_TREE_BOTTOM_SHEET("Org Tree Bottom Sheet component"),
     NO_COMPONENT_SELECTED("No component selected"),
 }
 
-fun getCurrentScreen(label: String): BottomSheets {
-    return BottomSheets.entries.firstOrNull { it.label == label } ?: BottomSheets.BOTTOM_SHEET
-}
+fun getCurrentScreen(label: String): BottomSheets = BottomSheets.entries.firstOrNull { it.label == label } ?: BottomSheets.BOTTOM_SHEET

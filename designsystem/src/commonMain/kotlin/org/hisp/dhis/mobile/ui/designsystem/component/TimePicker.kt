@@ -52,19 +52,22 @@ fun TimePicker(
 ) {
     Dialog(
         onDismissRequest = { onDismissRequest() },
-        properties = DialogProperties(
-            dismissOnBackPress = true,
-            dismissOnClickOutside = true,
-            usePlatformDefaultWidth = true,
-        ),
+        properties =
+            DialogProperties(
+                dismissOnBackPress = true,
+                dismissOnClickOutside = true,
+                usePlatformDefaultWidth = true,
+            ),
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = modifier.background(
-                color = SurfaceColor.Container,
-                shape = RoundedCornerShape(Radius.L),
-            ).testTag("TIME_PICKER")
-                .padding(vertical = Spacing.Spacing16, horizontal = Spacing.Spacing24),
+            modifier =
+                modifier
+                    .background(
+                        color = SurfaceColor.Container,
+                        shape = RoundedCornerShape(Radius.L),
+                    ).testTag("TIME_PICKER")
+                    .padding(vertical = Spacing.Spacing16, horizontal = Spacing.Spacing24),
         ) {
             Text(
                 text = title,

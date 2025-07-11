@@ -23,7 +23,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.state.rememberAdditionalIn
 import org.hisp.dhis.mobile.ui.designsystem.component.state.rememberListCardState
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
-import org.hisp.dhis.showcaseapp.screens.previews.lorem
+import org.hisp.dhis.showcaseapp.screens.previews.LOREM
 
 @Composable
 fun ExpandableListCardScreen() {
@@ -33,73 +33,80 @@ fun ExpandableListCardScreen() {
         itemList = items,
     ) { item, verticalPadding, onSizeChanged ->
         val index = items.indexOf(item)
-        val additionalInfoList = buildList {
-            if (index != 0) {
+        val additionalInfoList =
+            buildList {
+                if (index != 0) {
+                    add(
+                        AdditionalInfoItem(
+                            icon = {
+                                Icon(
+                                    imageVector = Icons.Outlined.SyncDisabled,
+                                    contentDescription = "Sync disabled",
+                                    tint = TextColor.OnSurfaceLight,
+                                )
+                            },
+                            value = "Not synced",
+                            color = TextColor.OnSurfaceLight,
+                        ),
+                    )
+                }
                 add(
                     AdditionalInfoItem(
-                        icon = {
-                            Icon(
-                                imageVector = Icons.Outlined.SyncDisabled,
-                                contentDescription = "Sync disabled",
-                                tint = TextColor.OnSurfaceLight,
-                            )
-                        },
-                        value = "Not synced",
+                        value = LOREM,
                         color = TextColor.OnSurfaceLight,
+                        truncate = false,
                     ),
                 )
             }
-            add(
-                AdditionalInfoItem(
-                    value = lorem,
-                    color = TextColor.OnSurfaceLight,
-                    truncate = false,
-                ),
-            )
-        }
         VerticalInfoListCard(
-            listCardState = rememberListCardState(
-                title = ListCardTitleModel(text = item),
-                description = ListCardDescriptionModel(text = "200 patients"),
-                lastUpdated = "12 min",
-                additionalInfoColumnState = rememberAdditionalInfoColumnState(
-                    additionalInfoList = additionalInfoList,
-                    syncProgressItem = AdditionalInfoItem(
-                        icon = {
-                            Icon(
-                                imageVector = Icons.Outlined.Sync,
-                                contentDescription = "Icon Button",
-                                tint = SurfaceColor.Primary,
-                            )
-                        },
-                        value = "Syncing...",
-                        color = SurfaceColor.Primary,
-                        isConstantItem = false,
-                    ),
-                    shrinkLabelText = "Hide description",
-                    expandLabelText = "Show description",
-                    minItemsToShow = when (additionalInfoList.size) {
-                        1 -> 0
-                        else -> 1
-                    },
+            listCardState =
+                rememberListCardState(
+                    title = ListCardTitleModel(text = item),
+                    description = ListCardDescriptionModel(text = "200 patients"),
+                    lastUpdated = "12 min",
+                    additionalInfoColumnState =
+                        rememberAdditionalInfoColumnState(
+                            additionalInfoList = additionalInfoList,
+                            syncProgressItem =
+                                AdditionalInfoItem(
+                                    icon = {
+                                        Icon(
+                                            imageVector = Icons.Outlined.Sync,
+                                            contentDescription = "Icon Button",
+                                            tint = SurfaceColor.Primary,
+                                        )
+                                    },
+                                    value = "Syncing...",
+                                    color = SurfaceColor.Primary,
+                                    isConstantItem = false,
+                                ),
+                            shrinkLabelText = "Hide description",
+                            expandLabelText = "Show description",
+                            minItemsToShow =
+                                when (additionalInfoList.size) {
+                                    1 -> 0
+                                    else -> 1
+                                },
+                        ),
+                    loading = false,
+                    shadow = true,
+                    expandable = true,
+                    itemVerticalPadding = verticalPadding,
                 ),
-                loading = false,
-                shadow = true,
-                expandable = true,
-                itemVerticalPadding = verticalPadding,
-            ),
             listAvatar = {
                 Avatar(
-                    style = AvatarStyleData.Metadata(
-                        imageCardData = ImageCardData.IconCardData(
-                            uid = "",
-                            label = "",
-                            iconRes = "dhis2_microscope_outline",
-                            iconTint = SurfaceColor.Primary,
+                    style =
+                        AvatarStyleData.Metadata(
+                            imageCardData =
+                                ImageCardData.IconCardData(
+                                    uid = "",
+                                    label = "",
+                                    iconRes = "dhis2_microscope_outline",
+                                    iconTint = SurfaceColor.Primary,
+                                ),
+                            avatarSize = MetadataAvatarSize.L(),
+                            tintColor = SurfaceColor.Primary,
                         ),
-                        avatarSize = MetadataAvatarSize.L(),
-                        tintColor = SurfaceColor.Primary,
-                    ),
                 )
             },
             onCardClick = {},

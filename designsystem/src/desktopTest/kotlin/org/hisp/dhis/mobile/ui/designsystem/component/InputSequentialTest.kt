@@ -12,30 +12,30 @@ import org.junit.Rule
 import org.junit.Test
 
 class InputSequentialTest {
-
     @get:Rule
     val rule = createComposeRule()
 
-    private val data = listOf(
-        ImageCardData.IconCardData(
-            uid = "7e0cb105-c276-4f12-9f56-a26af8314121",
-            label = "Stethoscope",
-            iconRes = "dhis2_stethoscope_positive",
-            iconTint = Color(0xFFFF8400),
-        ),
-        ImageCardData.IconCardData(
-            uid = "72269f6b-6b99-4d2e-a667-09f20c2097e0",
-            label = "Medicines",
-            iconRes = "dhis2_medicines_positive",
-            iconTint = Color(0xFFEB0085),
-        ),
-        ImageCardData.IconCardData(
-            uid = "37b81748-e9b4-4f74-a50a-59b945e54aa4",
-            label = "Sayana press",
-            iconRes = "dhis2_sayana_press_positive",
-            iconTint = Color(0xFF1FDB00),
-        ),
-    )
+    private val data =
+        listOf(
+            ImageCardData.IconCardData(
+                uid = "7e0cb105-c276-4f12-9f56-a26af8314121",
+                label = "Stethoscope",
+                iconRes = "dhis2_stethoscope_positive",
+                iconTint = Color(0xFFFF8400),
+            ),
+            ImageCardData.IconCardData(
+                uid = "72269f6b-6b99-4d2e-a667-09f20c2097e0",
+                label = "Medicines",
+                iconRes = "dhis2_medicines_positive",
+                iconTint = Color(0xFFEB0085),
+            ),
+            ImageCardData.IconCardData(
+                uid = "37b81748-e9b4-4f74-a50a-59b945e54aa4",
+                label = "Sayana press",
+                iconRes = "dhis2_sayana_press_positive",
+                iconTint = Color(0xFF1FDB00),
+            ),
+        )
 
     @Test
     fun shouldNotAllowSequentialUserInputWhenDisabled() {

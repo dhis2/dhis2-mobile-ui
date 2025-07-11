@@ -24,7 +24,6 @@ import org.junit.Rule
 import org.junit.Test
 
 class NavigationBarTest {
-
     @get:Rule
     val rule = createComposeRule()
 
@@ -41,21 +40,22 @@ class NavigationBarTest {
     @Test
     fun shouldDisplayNavigationBarCorrectly() {
         rule.setContent {
-            val items = listOf(
-                NavigationBarItem(
-                    id = NavigationItem.DESCRIPTION,
-                    icon = Icons.Outlined.Description,
-                    selectedIcon = Icons.Filled.Description,
-                    label = "Description",
-                ),
-                NavigationBarItem(
-                    id = NavigationItem.VISUALIZATION,
-                    icon = Icons.Outlined.BarChart,
-                    selectedIcon = Icons.Filled.BarChart,
-                    label = "Charts",
-                    showBadge = true,
-                ),
-            )
+            val items =
+                listOf(
+                    NavigationBarItem(
+                        id = NavigationItem.DESCRIPTION,
+                        icon = Icons.Outlined.Description,
+                        selectedIcon = Icons.Filled.Description,
+                        label = "Description",
+                    ),
+                    NavigationBarItem(
+                        id = NavigationItem.VISUALIZATION,
+                        icon = Icons.Outlined.BarChart,
+                        selectedIcon = Icons.Filled.BarChart,
+                        label = "Charts",
+                        showBadge = true,
+                    ),
+                )
             NavigationBar(
                 items = items,
                 selectedItemIndex = null,
@@ -69,9 +69,11 @@ class NavigationBarTest {
         rule.onNodeWithTag("${NAVIGATION_BAR_ITEM_PREFIX}Description", true).assertExists()
         rule.onNodeWithTag("${NAVIGATION_BAR_ITEM_LABEL_PREFIX}Description", true).assertExists()
         rule.onNodeWithTag("NAVIGATION_BAR_ITEM_DEFAULT_ICON_Description", true).assertExists()
-        rule.onNodeWithTag("NAVIGATION_BAR_ITEM_SELECTED_ICON_Description", true)
+        rule
+            .onNodeWithTag("NAVIGATION_BAR_ITEM_SELECTED_ICON_Description", true)
             .assertDoesNotExist()
-        rule.onNodeWithTag("${NAVIGATION_BAR_ITEM_BADGE_PREFIX}Description", true)
+        rule
+            .onNodeWithTag("${NAVIGATION_BAR_ITEM_BADGE_PREFIX}Description", true)
             .assertDoesNotExist()
         rule.onNodeWithTag("${NAVIGATION_BAR_ITEM_PREFIX}Charts", true).assertExists()
         rule.onNodeWithTag("${NAVIGATION_BAR_ITEM_LABEL_PREFIX}Charts", true).assertExists()
@@ -83,21 +85,22 @@ class NavigationBarTest {
     @Test
     fun shouldUpdateNavigationBarIconCorrectlyOnSelection() {
         rule.setContent {
-            val items = listOf(
-                NavigationBarItem(
-                    id = NavigationItem.DESCRIPTION,
-                    icon = Icons.Outlined.Description,
-                    selectedIcon = Icons.Filled.Description,
-                    label = "Description",
-                ),
-                NavigationBarItem(
-                    id = NavigationItem.VISUALIZATION,
-                    icon = Icons.Outlined.BarChart,
-                    selectedIcon = Icons.Filled.BarChart,
-                    label = "Charts",
-                    showBadge = true,
-                ),
-            )
+            val items =
+                listOf(
+                    NavigationBarItem(
+                        id = NavigationItem.DESCRIPTION,
+                        icon = Icons.Outlined.Description,
+                        selectedIcon = Icons.Filled.Description,
+                        label = "Description",
+                    ),
+                    NavigationBarItem(
+                        id = NavigationItem.VISUALIZATION,
+                        icon = Icons.Outlined.BarChart,
+                        selectedIcon = Icons.Filled.BarChart,
+                        label = "Charts",
+                        showBadge = true,
+                    ),
+                )
             var selectedItemIndex by remember { mutableStateOf<Int?>(null) }
             NavigationBar(
                 items = items,
@@ -108,10 +111,12 @@ class NavigationBarTest {
         }
 
         rule.onNodeWithTag("NAVIGATION_BAR_ITEM_DEFAULT_ICON_Description", true).assertExists()
-        rule.onNodeWithTag("NAVIGATION_BAR_ITEM_SELECTED_ICON_Description", true)
+        rule
+            .onNodeWithTag("NAVIGATION_BAR_ITEM_SELECTED_ICON_Description", true)
             .assertDoesNotExist()
         rule.onNodeWithTag("${NAVIGATION_BAR_ITEM_PREFIX}Description", true).performClick()
-        rule.onNodeWithTag("NAVIGATION_BAR_ITEM_DEFAULT_ICON_Description", true)
+        rule
+            .onNodeWithTag("NAVIGATION_BAR_ITEM_DEFAULT_ICON_Description", true)
             .assertDoesNotExist()
         rule.onNodeWithTag("NAVIGATION_BAR_ITEM_SELECTED_ICON_Description", true).assertExists()
     }
@@ -119,20 +124,21 @@ class NavigationBarTest {
     @Test
     fun shouldResetSelectedIconToDefaultWhenNewItemIsClicked() {
         rule.setContent {
-            val items = listOf(
-                NavigationBarItem(
-                    id = NavigationItem.DESCRIPTION,
-                    icon = Icons.Outlined.Description,
-                    label = "Description",
-                ),
-                NavigationBarItem(
-                    id = NavigationItem.VISUALIZATION,
-                    icon = Icons.Outlined.BarChart,
-                    selectedIcon = Icons.Filled.BarChart,
-                    label = "Charts",
-                    showBadge = true,
-                ),
-            )
+            val items =
+                listOf(
+                    NavigationBarItem(
+                        id = NavigationItem.DESCRIPTION,
+                        icon = Icons.Outlined.Description,
+                        label = "Description",
+                    ),
+                    NavigationBarItem(
+                        id = NavigationItem.VISUALIZATION,
+                        icon = Icons.Outlined.BarChart,
+                        selectedIcon = Icons.Filled.BarChart,
+                        label = "Charts",
+                        showBadge = true,
+                    ),
+                )
             var selectedItemIndex by remember { mutableStateOf(0) }
             NavigationBar(
                 items = items,
@@ -142,14 +148,16 @@ class NavigationBarTest {
             }
         }
 
-        rule.onNodeWithTag("NAVIGATION_BAR_ITEM_DEFAULT_ICON_Description", true)
+        rule
+            .onNodeWithTag("NAVIGATION_BAR_ITEM_DEFAULT_ICON_Description", true)
             .assertDoesNotExist()
         rule.onNodeWithTag("NAVIGATION_BAR_ITEM_SELECTED_ICON_Description", true).assertExists()
         rule.onNodeWithTag("NAVIGATION_BAR_ITEM_DEFAULT_ICON_Charts", true).assertExists()
         rule.onNodeWithTag("NAVIGATION_BAR_ITEM_SELECTED_ICON_Charts", true).assertDoesNotExist()
         rule.onNodeWithTag("${NAVIGATION_BAR_ITEM_PREFIX}Charts", true).performClick()
         rule.onNodeWithTag("NAVIGATION_BAR_ITEM_DEFAULT_ICON_Description", true).assertExists()
-        rule.onNodeWithTag("NAVIGATION_BAR_ITEM_SELECTED_ICON_Description", true)
+        rule
+            .onNodeWithTag("NAVIGATION_BAR_ITEM_SELECTED_ICON_Description", true)
             .assertDoesNotExist()
         rule.onNodeWithTag("NAVIGATION_BAR_ITEM_DEFAULT_ICON_Charts", true).assertDoesNotExist()
         rule.onNodeWithTag("NAVIGATION_BAR_ITEM_SELECTED_ICON_Charts", true).assertExists()

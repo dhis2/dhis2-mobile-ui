@@ -17,19 +17,20 @@ fun ButtonCarouselScreen() {
     ColumnScreenContainer(title = ButtonScreens.CAROUSEL_BUTTONS.label) {
         ColumnComponentContainer("Simple Carousel Button") {
             ButtonCarousel(
-                carouselButtonList = listOf(
-                    CarouselButtonData(
-                        enabled = true,
-                        text = "Label",
-                        icon = {
-                            Icon(
-                                imageVector = Icons.Outlined.FileDownload,
-                                contentDescription = "Carousel Button",
-                            )
-                        },
-                        onClick = {},
+                carouselButtonList =
+                    listOf(
+                        CarouselButtonData(
+                            enabled = true,
+                            text = "Label",
+                            icon = {
+                                Icon(
+                                    imageVector = Icons.Outlined.FileDownload,
+                                    contentDescription = "Carousel Button",
+                                )
+                            },
+                            onClick = {},
+                        ),
                     ),
-                ),
             )
         }
 

@@ -22,7 +22,6 @@ import org.junit.Rule
 import org.junit.Test
 
 class InputDateTimeTest {
-
     @get:Rule
     val rule = createComposeRule()
 
@@ -31,20 +30,19 @@ class InputDateTimeTest {
         var input by mutableStateOf(TextFieldValue())
         rule.setContent {
             InputDateTime(
-                state = rememberInputDateTimeState(
-                    inputDateTimeData =
-                    InputDateTimeData(
-                        title = "label",
-                        visualTransformation = DateTransformation(),
-                        actionType = DateTimeActionType.DATE,
+                state =
+                    rememberInputDateTimeState(
+                        inputDateTimeData =
+                            InputDateTimeData(
+                                title = "label",
+                                visualTransformation = DateTransformation(),
+                                actionType = DateTimeActionType.DATE,
+                            ),
+                        inputTextFieldValue = input,
                     ),
-                    inputTextFieldValue = input,
-                ),
-
                 onValueChanged = {
                     input = it ?: TextFieldValue()
                 },
-
             )
         }
 
@@ -59,20 +57,19 @@ class InputDateTimeTest {
 
         rule.setContent {
             InputDateTime(
-                state = rememberInputDateTimeState(
-                    inputDateTimeData =
-                    InputDateTimeData(
-                        title = "label",
-                        visualTransformation = DateTransformation(),
-                        actionType = DateTimeActionType.DATE,
+                state =
+                    rememberInputDateTimeState(
+                        inputDateTimeData =
+                            InputDateTimeData(
+                                title = "label",
+                                visualTransformation = DateTransformation(),
+                                actionType = DateTimeActionType.DATE,
+                            ),
+                        inputTextFieldValue = input,
                     ),
-                    inputTextFieldValue = input,
-                ),
-
                 onValueChanged = {
                     input = it ?: TextFieldValue()
                 },
-
             )
         }
 
@@ -85,20 +82,19 @@ class InputDateTimeTest {
 
         rule.setContent {
             InputDateTime(
-                state = rememberInputDateTimeState(
-                    inputDateTimeData =
-                    InputDateTimeData(
-                        title = "label",
-                        visualTransformation = TimeTransformation(),
-                        actionType = DateTimeActionType.TIME,
+                state =
+                    rememberInputDateTimeState(
+                        inputDateTimeData =
+                            InputDateTimeData(
+                                title = "label",
+                                visualTransformation = TimeTransformation(),
+                                actionType = DateTimeActionType.TIME,
+                            ),
+                        inputTextFieldValue = input,
                     ),
-                    inputTextFieldValue = input,
-                ),
-
                 onValueChanged = {
                     input = it ?: TextFieldValue()
                 },
-
             )
         }
 
@@ -113,21 +109,20 @@ class InputDateTimeTest {
 
         rule.setContent {
             InputDateTime(
-                state = rememberInputDateTimeState(
-                    inputDateTimeData =
-                    InputDateTimeData(
-                        title = "label",
-                        visualTransformation = DateTransformation(),
-                        actionType = DateTimeActionType.DATE,
-                        selectableDates = SelectableDates("01092024", "12122024"),
+                state =
+                    rememberInputDateTimeState(
+                        inputDateTimeData =
+                            InputDateTimeData(
+                                title = "label",
+                                visualTransformation = DateTransformation(),
+                                actionType = DateTimeActionType.DATE,
+                                selectableDates = SelectableDates("01092024", "12122024"),
+                            ),
+                        inputTextFieldValue = input,
                     ),
-                    inputTextFieldValue = input,
-                ),
-
                 onValueChanged = {
                     input = it ?: TextFieldValue()
                 },
-
             )
         }
 
@@ -142,21 +137,20 @@ class InputDateTimeTest {
 
         rule.setContent {
             InputDateTime(
-                state = rememberInputDateTimeState(
-                    inputDateTimeData =
-                    InputDateTimeData(
-                        title = "label",
-                        visualTransformation = TimeTransformation(),
-                        actionType = DateTimeActionType.TIME,
-                        selectableDates = SelectableDates("01092024", "12122024"),
+                state =
+                    rememberInputDateTimeState(
+                        inputDateTimeData =
+                            InputDateTimeData(
+                                title = "label",
+                                visualTransformation = TimeTransformation(),
+                                actionType = DateTimeActionType.TIME,
+                                selectableDates = SelectableDates("01092024", "12122024"),
+                            ),
+                        inputTextFieldValue = input,
                     ),
-                    inputTextFieldValue = input,
-                ),
-
                 onValueChanged = {
                     input = it ?: TextFieldValue()
                 },
-
             )
         }
 

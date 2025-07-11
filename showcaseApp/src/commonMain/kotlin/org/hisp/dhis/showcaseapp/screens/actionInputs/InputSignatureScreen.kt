@@ -26,11 +26,12 @@ fun InputSignatureScreen() {
             InputSignature(
                 title = "Label",
                 load = { sampleSignature0 },
-                painterFor = sampleSignature0?.let { imageBitmap ->
-                    {
-                        BitmapPainter(imageBitmap)
-                    }
-                },
+                painterFor =
+                    sampleSignature0?.let { imageBitmap ->
+                        {
+                            BitmapPainter(imageBitmap)
+                        }
+                    },
                 onDownloadButtonClick = {},
                 onShareButtonClick = {},
                 onResetButtonClicked = {
@@ -86,5 +87,4 @@ fun InputSignatureScreen() {
 }
 
 @Composable
-private fun provideSampleImage(): Painter =
-    painterResource(Res.drawable.sample_signature)
+private fun provideSampleImage(): Painter = painterResource(Res.drawable.sample_signature)
