@@ -294,22 +294,24 @@ data class TableDimensions(
         totalColumns: Int,
         groupedTables: Boolean,
     ): Boolean {
-        val desiredDimension = updateColumnWidth(
-            groupedTables = groupedTables,
-            tableId = tableId,
-            widthOffset = currentOffsetX,
-            column = columnIndex,
-        )
+        val desiredDimension =
+            updateColumnWidth(
+                groupedTables = groupedTables,
+                tableId = tableId,
+                widthOffset = currentOffsetX,
+                column = columnIndex,
+            )
         return desiredDimension.columnWidthWithTableExtra(
             groupedTables = groupedTables,
             tableId = tableId,
             column = columnIndex,
-        ) + extraSize(
-            groupedTables = groupedTables,
-            tableId = tableId,
-            totalColumns = totalColumns,
-            column = columnIndex,
-        ) in minColumnWidth..maxColumnWidth
+        ) +
+            desiredDimension.extraSize(
+                groupedTables = groupedTables,
+                tableId = tableId,
+                totalColumns = totalColumns,
+                column = columnIndex,
+            ) in minColumnWidth..maxColumnWidth
     }
 
     internal fun canUpdateAllWidths(
