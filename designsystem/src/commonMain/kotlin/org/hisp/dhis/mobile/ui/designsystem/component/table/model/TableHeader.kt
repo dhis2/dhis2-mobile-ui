@@ -9,8 +9,10 @@ import kotlinx.serialization.Serializable
  * @property extraColumns Extra columns to add at the end of the table.
  */
 @Serializable
-data class TableHeader(val rows: List<TableHeaderRow>, val extraColumns: List<TableHeaderCell>) {
-
+data class TableHeader(
+    val rows: List<TableHeaderRow>,
+    val extraColumns: List<TableHeaderCell>,
+) {
     /**
      * Calculates the number of columns for a given row index.
      *
@@ -54,8 +56,7 @@ data class TableHeader(val rows: List<TableHeaderRow>, val extraColumns: List<Ta
      * @param headerRowIndex The index of the header row.
      * @return The number of sub columns for a given header row.
      * */
-    fun numberOfSubColumns(headerRowIndex: Int): Int {
-        return tableMaxColumns()
+    fun numberOfSubColumns(headerRowIndex: Int): Int =
+        tableMaxColumns()
             .div(numberOfColumns(headerRowIndex) + extraColumns.size)
-    }
 }

@@ -41,6 +41,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.state.rememberListCardStat
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
+import org.hisp.dhis.showcaseapp.screens.previews.LOREM
 import org.hisp.dhis.showcaseapp.screens.previews.basicAdditionalItemList
 import org.hisp.dhis.showcaseapp.screens.previews.basicAdditionalItemListWithLongKeyText
 import org.hisp.dhis.showcaseapp.screens.previews.basicAdditionalItemListWithLongValue
@@ -48,7 +49,6 @@ import org.hisp.dhis.showcaseapp.screens.previews.basicAdditionalItemListWithMed
 import org.hisp.dhis.showcaseapp.screens.previews.enrollmentCompletedList
 import org.hisp.dhis.showcaseapp.screens.previews.fullItemList
 import org.hisp.dhis.showcaseapp.screens.previews.largeItemList
-import org.hisp.dhis.showcaseapp.screens.previews.lorem
 
 const val LAST_UPDATED_MINS = "24 min"
 const val LAST_UPDATED_HOURS = "5 hours"
@@ -69,16 +69,18 @@ fun ListCardScreen(horizontal: Boolean) {
             ) {
                 items(count = 4) { index ->
                     ListCard(
-                        listCardState = rememberListCardState(
-                            title = ListCardTitleModel(text = DEFAULT_NAME),
-                            lastUpdated = LAST_UPDATED_HOURS,
-                            additionalInfoColumnState = rememberAdditionalInfoColumnState(
-                                additionalInfoList = largeItemList,
-                                syncProgressItem = syncProgressItem(),
-                                scrollableContent = true,
+                        listCardState =
+                            rememberListCardState(
+                                title = ListCardTitleModel(text = DEFAULT_NAME),
+                                lastUpdated = LAST_UPDATED_HOURS,
+                                additionalInfoColumnState =
+                                    rememberAdditionalInfoColumnState(
+                                        additionalInfoList = largeItemList,
+                                        syncProgressItem = syncProgressItem(),
+                                        scrollableContent = true,
+                                    ),
+                                loading = false,
                             ),
-                            loading = false,
-                        ),
                         modifier = Modifier.fillParentMaxWidth(),
                         listAvatar = {
                             Avatar(
@@ -93,33 +95,37 @@ fun ListCardScreen(horizontal: Boolean) {
             var showLoading1 by remember {
                 mutableStateOf(false)
             }
-            val eventsTimelineTeiDashboardList = remember {
-                mutableStateListOf(
-                    AdditionalInfoItem(key = "Date of birth", value = "12/12/1945"),
-                )
-            }
+            val eventsTimelineTeiDashboardList =
+                remember {
+                    mutableStateListOf(
+                        AdditionalInfoItem(key = "Date of birth", value = "12/12/1945"),
+                    )
+                }
             ColumnComponentContainer("Tei list with shadow") {
                 ListCard(
-                    listCardState = rememberListCardState(
-                        title = ListCardTitleModel(text = "Kunal Choudary, M, 55"),
-                        lastUpdated = LAST_UPDATED_MINS,
-                        additionalInfoColumnState = rememberAdditionalInfoColumnState(
-                            additionalInfoList = enrollmentCompletedList.toMutableList(),
-                            syncProgressItem = AdditionalInfoItem(
-                                icon = {
-                                    Icon(
-                                        imageVector = Icons.Outlined.Sync,
-                                        contentDescription = ICON_BUTTON_DESCRIPTION,
-                                        tint = SurfaceColor.Primary,
-                                    )
-                                },
-                                value = "Syncing...",
-                                color = SurfaceColor.Primary,
-                                isConstantItem = false,
-                            ),
+                    listCardState =
+                        rememberListCardState(
+                            title = ListCardTitleModel(text = "Kunal Choudary, M, 55"),
+                            lastUpdated = LAST_UPDATED_MINS,
+                            additionalInfoColumnState =
+                                rememberAdditionalInfoColumnState(
+                                    additionalInfoList = enrollmentCompletedList.toMutableList(),
+                                    syncProgressItem =
+                                        AdditionalInfoItem(
+                                            icon = {
+                                                Icon(
+                                                    imageVector = Icons.Outlined.Sync,
+                                                    contentDescription = ICON_BUTTON_DESCRIPTION,
+                                                    tint = SurfaceColor.Primary,
+                                                )
+                                            },
+                                            value = "Syncing...",
+                                            color = SurfaceColor.Primary,
+                                            isConstantItem = false,
+                                        ),
+                                ),
+                            loading = true,
                         ),
-                        loading = true,
-                    ),
                     listAvatar = {
                         Avatar(
                             style = AvatarStyleData.Image(provideDHIS2Icon("dhis2_microscope_outline")),
@@ -129,15 +135,17 @@ fun ListCardScreen(horizontal: Boolean) {
                 )
 
                 ListCard(
-                    listCardState = rememberListCardState(
-                        title = ListCardTitleModel(text = DEFAULT_NAME),
-                        lastUpdated = LAST_UPDATED_HOURS,
-                        additionalInfoColumnState = rememberAdditionalInfoColumnState(
-                            additionalInfoList = basicAdditionalItemList.toMutableList(),
-                            syncProgressItem = syncProgressItem(),
+                    listCardState =
+                        rememberListCardState(
+                            title = ListCardTitleModel(text = DEFAULT_NAME),
+                            lastUpdated = LAST_UPDATED_HOURS,
+                            additionalInfoColumnState =
+                                rememberAdditionalInfoColumnState(
+                                    additionalInfoList = basicAdditionalItemList.toMutableList(),
+                                    syncProgressItem = syncProgressItem(),
+                                ),
+                            loading = showLoading1,
                         ),
-                        loading = showLoading1,
-                    ),
                     listAvatar = {
                         Avatar(
                             style = AvatarStyleData.Text("P"),
@@ -164,15 +172,17 @@ fun ListCardScreen(horizontal: Boolean) {
                     mutableStateOf(false)
                 }
                 ListCard(
-                    listCardState = rememberListCardState(
-                        title = ListCardTitleModel(text = DEFAULT_NAME),
-                        lastUpdated = LAST_UPDATED_HOURS,
-                        additionalInfoColumnState = rememberAdditionalInfoColumnState(
-                            additionalInfoList = basicAdditionalItemListWithLongKeyText.toMutableList(),
-                            syncProgressItem = syncProgressItem(),
+                    listCardState =
+                        rememberListCardState(
+                            title = ListCardTitleModel(text = DEFAULT_NAME),
+                            lastUpdated = LAST_UPDATED_HOURS,
+                            additionalInfoColumnState =
+                                rememberAdditionalInfoColumnState(
+                                    additionalInfoList = basicAdditionalItemListWithLongKeyText.toMutableList(),
+                                    syncProgressItem = syncProgressItem(),
+                                ),
+                            loading = showLoading2,
                         ),
-                        loading = showLoading2,
-                    ),
                     listAvatar = {
                         Avatar(
                             style = AvatarStyleData.Text("P"),
@@ -199,15 +209,17 @@ fun ListCardScreen(horizontal: Boolean) {
                     mutableStateOf(false)
                 }
                 ListCard(
-                    listCardState = rememberListCardState(
-                        title = ListCardTitleModel(text = DEFAULT_NAME),
-                        lastUpdated = LAST_UPDATED_HOURS,
-                        additionalInfoColumnState = rememberAdditionalInfoColumnState(
-                            additionalInfoList = basicAdditionalItemListWithMediumKeyText.toMutableList(),
-                            syncProgressItem = syncProgressItem(),
+                    listCardState =
+                        rememberListCardState(
+                            title = ListCardTitleModel(text = DEFAULT_NAME),
+                            lastUpdated = LAST_UPDATED_HOURS,
+                            additionalInfoColumnState =
+                                rememberAdditionalInfoColumnState(
+                                    additionalInfoList = basicAdditionalItemListWithMediumKeyText.toMutableList(),
+                                    syncProgressItem = syncProgressItem(),
+                                ),
+                            loading = showLoading3,
                         ),
-                        loading = showLoading3,
-                    ),
                     listAvatar = {
                         Avatar(
                             style = AvatarStyleData.Text("P"),
@@ -234,15 +246,17 @@ fun ListCardScreen(horizontal: Boolean) {
                     mutableStateOf(false)
                 }
                 ListCard(
-                    listCardState = rememberListCardState(
-                        title = ListCardTitleModel(text = DEFAULT_NAME),
-                        lastUpdated = LAST_UPDATED_HOURS,
-                        additionalInfoColumnState = rememberAdditionalInfoColumnState(
-                            additionalInfoList = basicAdditionalItemListWithLongValue.toMutableList(),
-                            syncProgressItem = syncProgressItem(),
+                    listCardState =
+                        rememberListCardState(
+                            title = ListCardTitleModel(text = DEFAULT_NAME),
+                            lastUpdated = LAST_UPDATED_HOURS,
+                            additionalInfoColumnState =
+                                rememberAdditionalInfoColumnState(
+                                    additionalInfoList = basicAdditionalItemListWithLongValue.toMutableList(),
+                                    syncProgressItem = syncProgressItem(),
+                                ),
+                            loading = showLoading4,
                         ),
-                        loading = showLoading4,
-                    ),
                     listAvatar = {
                         Avatar(
                             style = AvatarStyleData.Text("P"),
@@ -269,15 +283,17 @@ fun ListCardScreen(horizontal: Boolean) {
                     mutableStateOf(false)
                 }
                 ListCard(
-                    listCardState = rememberListCardState(
-                        title = ListCardTitleModel(text = "Kunal Choudary, M, 55"),
-                        lastUpdated = LAST_UPDATED_MINS,
-                        additionalInfoColumnState = rememberAdditionalInfoColumnState(
-                            additionalInfoList = enrollmentCompletedList.toMutableList(),
-                            syncProgressItem = syncProgressItem(),
+                    listCardState =
+                        rememberListCardState(
+                            title = ListCardTitleModel(text = "Kunal Choudary, M, 55"),
+                            lastUpdated = LAST_UPDATED_MINS,
+                            additionalInfoColumnState =
+                                rememberAdditionalInfoColumnState(
+                                    additionalInfoList = enrollmentCompletedList.toMutableList(),
+                                    syncProgressItem = syncProgressItem(),
+                                ),
+                            loading = showLoading5,
                         ),
-                        loading = showLoading5,
-                    ),
                     listAvatar = {
                         Avatar(
                             style = AvatarStyleData.Image(provideDHIS2Icon("dhis2_microscope_outline")),
@@ -302,15 +318,17 @@ fun ListCardScreen(horizontal: Boolean) {
                 )
                 SubTitle(text = "Long title with overflow")
                 ListCard(
-                    listCardState = rememberListCardState(
-                        title = ListCardTitleModel(text = lorem, allowOverflow = true),
-                        lastUpdated = LAST_UPDATED_MINS,
-                        additionalInfoColumnState = rememberAdditionalInfoColumnState(
-                            additionalInfoList = enrollmentCompletedList.toMutableList(),
-                            syncProgressItem = syncProgressItem(),
+                    listCardState =
+                        rememberListCardState(
+                            title = ListCardTitleModel(text = LOREM, allowOverflow = true),
+                            lastUpdated = LAST_UPDATED_MINS,
+                            additionalInfoColumnState =
+                                rememberAdditionalInfoColumnState(
+                                    additionalInfoList = enrollmentCompletedList.toMutableList(),
+                                    syncProgressItem = syncProgressItem(),
+                                ),
+                            loading = showLoading5,
                         ),
-                        loading = showLoading5,
-                    ),
                     listAvatar = {
                         Avatar(
                             style = AvatarStyleData.Image(provideDHIS2Icon("dhis2_microscope_outline")),
@@ -336,15 +354,17 @@ fun ListCardScreen(horizontal: Boolean) {
 
                 SubTitle(text = "Long title without overflow")
                 ListCard(
-                    listCardState = rememberListCardState(
-                        title = ListCardTitleModel(text = lorem, allowOverflow = false),
-                        lastUpdated = LAST_UPDATED_MINS,
-                        additionalInfoColumnState = rememberAdditionalInfoColumnState(
-                            additionalInfoList = enrollmentCompletedList.toMutableList(),
-                            syncProgressItem = syncProgressItem(),
+                    listCardState =
+                        rememberListCardState(
+                            title = ListCardTitleModel(text = LOREM, allowOverflow = false),
+                            lastUpdated = LAST_UPDATED_MINS,
+                            additionalInfoColumnState =
+                                rememberAdditionalInfoColumnState(
+                                    additionalInfoList = enrollmentCompletedList.toMutableList(),
+                                    syncProgressItem = syncProgressItem(),
+                                ),
+                            loading = showLoading5,
                         ),
-                        loading = showLoading5,
-                    ),
                     listAvatar = {
                         Avatar(
                             style = AvatarStyleData.Image(provideDHIS2Icon("dhis2_microscope_outline")),
@@ -374,28 +394,32 @@ fun ListCardScreen(horizontal: Boolean) {
                     mutableStateOf(false)
                 }
                 ListCard(
-                    listCardState = rememberListCardState(
-                        shadow = false,
-                        title = ListCardTitleModel(text = "Anita Mathews, F, 72"),
-                        lastUpdated = LAST_UPDATED_HOURS,
-                        additionalInfoColumnState = rememberAdditionalInfoColumnState(
-                            additionalInfoList = fullItemList.toMutableList(),
-                            syncProgressItem = syncProgressItem(),
+                    listCardState =
+                        rememberListCardState(
+                            shadow = false,
+                            title = ListCardTitleModel(text = "Anita Mathews, F, 72"),
+                            lastUpdated = LAST_UPDATED_HOURS,
+                            additionalInfoColumnState =
+                                rememberAdditionalInfoColumnState(
+                                    additionalInfoList = fullItemList.toMutableList(),
+                                    syncProgressItem = syncProgressItem(),
+                                ),
+                            loading = showLoading6,
                         ),
-                        loading = showLoading6,
-                    ),
                     listAvatar = {
                         Avatar(
-                            style = AvatarStyleData.Metadata(
-                                imageCardData = ImageCardData.IconCardData(
-                                    uid = "",
-                                    label = "",
-                                    iconRes = "dhis2_microscope_outline",
-                                    iconTint = SurfaceColor.Primary,
+                            style =
+                                AvatarStyleData.Metadata(
+                                    imageCardData =
+                                        ImageCardData.IconCardData(
+                                            uid = "",
+                                            label = "",
+                                            iconRes = "dhis2_microscope_outline",
+                                            iconTint = SurfaceColor.Primary,
+                                        ),
+                                    avatarSize = MetadataAvatarSize.S(),
+                                    tintColor = SurfaceColor.Primary,
                                 ),
-                                avatarSize = MetadataAvatarSize.S(),
-                                tintColor = SurfaceColor.Primary,
-                            ),
                         )
                     },
                     actionButton = {
@@ -419,36 +443,40 @@ fun ListCardScreen(horizontal: Boolean) {
                 var showLoading7 by remember {
                     mutableStateOf(false)
                 }
-                val errorList = remember {
-                    mutableStateListOf(
-                        AdditionalInfoItem(key = "Phone", value = "+234 123 111 6785"),
-                        AdditionalInfoItem(key = "Date of birth", value = "12/12/1945"),
-                    )
-                }
-
-                val errorItem = AdditionalInfoItem(
-                    icon = {
-                        Icon(
-                            imageVector = Icons.Outlined.SyncProblem,
-                            contentDescription = ICON_BUTTON_DESCRIPTION,
-                            tint = AdditionalInfoItemColor.ERROR.color,
+                val errorList =
+                    remember {
+                        mutableStateListOf(
+                            AdditionalInfoItem(key = "Phone", value = "+234 123 111 6785"),
+                            AdditionalInfoItem(key = "Date of birth", value = "12/12/1945"),
                         )
-                    },
-                    value = "Sync warning",
-                    color = AdditionalInfoItemColor.ERROR.color,
-                    isConstantItem = true,
-                )
+                    }
+
+                val errorItem =
+                    AdditionalInfoItem(
+                        icon = {
+                            Icon(
+                                imageVector = Icons.Outlined.SyncProblem,
+                                contentDescription = ICON_BUTTON_DESCRIPTION,
+                                tint = AdditionalInfoItemColor.ERROR.color,
+                            )
+                        },
+                        value = "Sync warning",
+                        color = AdditionalInfoItemColor.ERROR.color,
+                        isConstantItem = true,
+                    )
 
                 ListCard(
-                    listCardState = rememberListCardState(
-                        title = ListCardTitleModel(text = "Aditi Singh, F, 61"),
-                        lastUpdated = LAST_UPDATED_HOURS,
-                        additionalInfoColumnState = rememberAdditionalInfoColumnState(
-                            additionalInfoList = errorList,
-                            syncProgressItem = syncProgressItem(),
+                    listCardState =
+                        rememberListCardState(
+                            title = ListCardTitleModel(text = "Aditi Singh, F, 61"),
+                            lastUpdated = LAST_UPDATED_HOURS,
+                            additionalInfoColumnState =
+                                rememberAdditionalInfoColumnState(
+                                    additionalInfoList = errorList,
+                                    syncProgressItem = syncProgressItem(),
+                                ),
+                            loading = showLoading7,
                         ),
-                        loading = showLoading7,
-                    ),
                     listAvatar = {
                         Avatar(style = AvatarStyleData.Text("A"))
                     },
@@ -480,14 +508,16 @@ fun ListCardScreen(horizontal: Boolean) {
 
             ColumnComponentContainer("Single events list with shadow") {
                 ListCard(
-                    listCardState = rememberListCardState(
-                        title = ListCardTitleModel(text = "12/18/2021"),
-                        lastUpdated = "now",
-                        additionalInfoColumnState = rememberAdditionalInfoColumnState(
-                            additionalInfoList = basicAdditionalItemList,
-                            syncProgressItem = syncProgressItem(),
+                    listCardState =
+                        rememberListCardState(
+                            title = ListCardTitleModel(text = "12/18/2021"),
+                            lastUpdated = "now",
+                            additionalInfoColumnState =
+                                rememberAdditionalInfoColumnState(
+                                    additionalInfoList = basicAdditionalItemList,
+                                    syncProgressItem = syncProgressItem(),
+                                ),
                         ),
-                    ),
                     actionButton = {
                         Button(
                             style = ButtonStyle.TONAL,
@@ -509,15 +539,17 @@ fun ListCardScreen(horizontal: Boolean) {
 
             ColumnComponentContainer("Single events list without shadow:") {
                 ListCard(
-                    listCardState = rememberListCardState(
-                        shadow = false,
-                        title = ListCardTitleModel(text = "12/18/2021"),
-                        lastUpdated = "now",
-                        additionalInfoColumnState = rememberAdditionalInfoColumnState(
-                            additionalInfoList = basicAdditionalItemList,
-                            syncProgressItem = syncProgressItem(),
+                    listCardState =
+                        rememberListCardState(
+                            shadow = false,
+                            title = ListCardTitleModel(text = "12/18/2021"),
+                            lastUpdated = "now",
+                            additionalInfoColumnState =
+                                rememberAdditionalInfoColumnState(
+                                    additionalInfoList = basicAdditionalItemList,
+                                    syncProgressItem = syncProgressItem(),
+                                ),
                         ),
-                    ),
                     actionButton = {
                         Button(
                             style = ButtonStyle.TONAL,
@@ -539,26 +571,30 @@ fun ListCardScreen(horizontal: Boolean) {
 
             ColumnComponentContainer("Events in timeline in TEI dashboard with shadow") {
                 ListCard(
-                    listCardState = rememberListCardState(
-                        title = ListCardTitleModel(text = "12/18/2021 at 16:30"),
-                        lastUpdated = "now",
-                        additionalInfoColumnState = rememberAdditionalInfoColumnState(
-                            additionalInfoList = eventsTimelineTeiDashboardList,
-                            syncProgressItem = syncProgressItem(),
+                    listCardState =
+                        rememberListCardState(
+                            title = ListCardTitleModel(text = "12/18/2021 at 16:30"),
+                            lastUpdated = "now",
+                            additionalInfoColumnState =
+                                rememberAdditionalInfoColumnState(
+                                    additionalInfoList = eventsTimelineTeiDashboardList,
+                                    syncProgressItem = syncProgressItem(),
+                                ),
                         ),
-                    ),
                     listAvatar = {
                         Avatar(
-                            style = AvatarStyleData.Metadata(
-                                imageCardData = ImageCardData.IconCardData(
-                                    uid = "",
-                                    label = "",
-                                    iconRes = "dhis2_baby_male_0203m_positive",
-                                    iconTint = Color(0xFF11D9D9),
+                            style =
+                                AvatarStyleData.Metadata(
+                                    imageCardData =
+                                        ImageCardData.IconCardData(
+                                            uid = "",
+                                            label = "",
+                                            iconRes = "dhis2_baby_male_0203m_positive",
+                                            iconTint = Color(0xFF11D9D9),
+                                        ),
+                                    avatarSize = MetadataAvatarSize.M(),
+                                    tintColor = Color(0xFF11D9D9),
                                 ),
-                                avatarSize = MetadataAvatarSize.M(),
-                                tintColor = Color(0xFF11D9D9),
-                            ),
                         )
                     },
                     actionButton = {
@@ -582,28 +618,32 @@ fun ListCardScreen(horizontal: Boolean) {
 
             ColumnComponentContainer("Events in timeline in TEI dashboard without shadow:") {
                 ListCard(
-                    listCardState = rememberListCardState(
-                        shadow = false,
-                        title = ListCardTitleModel(text = "12/18/2021 at 16:30"),
-                        description = ListCardDescriptionModel(text = "Birth"),
-                        lastUpdated = "now",
-                        additionalInfoColumnState = rememberAdditionalInfoColumnState(
-                            additionalInfoList = eventsTimelineTeiDashboardList,
-                            syncProgressItem = syncProgressItem(),
+                    listCardState =
+                        rememberListCardState(
+                            shadow = false,
+                            title = ListCardTitleModel(text = "12/18/2021 at 16:30"),
+                            description = ListCardDescriptionModel(text = "Birth"),
+                            lastUpdated = "now",
+                            additionalInfoColumnState =
+                                rememberAdditionalInfoColumnState(
+                                    additionalInfoList = eventsTimelineTeiDashboardList,
+                                    syncProgressItem = syncProgressItem(),
+                                ),
                         ),
-                    ),
                     listAvatar = {
                         Avatar(
-                            style = AvatarStyleData.Metadata(
-                                imageCardData = ImageCardData.IconCardData(
-                                    uid = "",
-                                    label = "",
-                                    iconRes = "dhis2_baby_male_0203m_positive",
-                                    iconTint = Color(0xFF11D9D9),
+                            style =
+                                AvatarStyleData.Metadata(
+                                    imageCardData =
+                                        ImageCardData.IconCardData(
+                                            uid = "",
+                                            label = "",
+                                            iconRes = "dhis2_baby_male_0203m_positive",
+                                            iconTint = Color(0xFF11D9D9),
+                                        ),
+                                    avatarSize = MetadataAvatarSize.M(),
+                                    tintColor = Color(0xFF11D9D9),
                                 ),
-                                avatarSize = MetadataAvatarSize.M(),
-                                tintColor = Color(0xFF11D9D9),
-                            ),
                         )
                     },
                     onCardClick = {},
@@ -614,114 +654,128 @@ fun ListCardScreen(horizontal: Boolean) {
                 val eventsInTeiDashboardTitleStyle = MaterialTheme.typography.titleSmall
 
                 ListCard(
-                    listCardState = rememberListCardState(
-                        title = ListCardTitleModel(
-                            text = "Scheduled for 09/18/2021",
-                            style = eventsInTeiDashboardTitleStyle,
-                            color = TextColor.OnSurface,
-                        ),
-                        additionalInfoColumnState = rememberAdditionalInfoColumnState(
-                            additionalInfoList = listOf(
-                                AdditionalInfoItem(
-                                    icon = {
-                                        Icon(
-                                            imageVector = Icons.Outlined.Event,
-                                            contentDescription = ICON_BUTTON_DESCRIPTION,
-                                            tint = AdditionalInfoItemColor.SUCCESS.color,
-                                        )
-                                    },
-                                    value = DUE_DATE,
-                                    color = AdditionalInfoItemColor.SUCCESS.color,
-                                    isConstantItem = true,
+                    listCardState =
+                        rememberListCardState(
+                            title =
+                                ListCardTitleModel(
+                                    text = "Scheduled for 09/18/2021",
+                                    style = eventsInTeiDashboardTitleStyle,
+                                    color = TextColor.OnSurface,
                                 ),
-                            ),
-                            syncProgressItem = syncProgressItem(),
+                            additionalInfoColumnState =
+                                rememberAdditionalInfoColumnState(
+                                    additionalInfoList =
+                                        listOf(
+                                            AdditionalInfoItem(
+                                                icon = {
+                                                    Icon(
+                                                        imageVector = Icons.Outlined.Event,
+                                                        contentDescription = ICON_BUTTON_DESCRIPTION,
+                                                        tint = AdditionalInfoItemColor.SUCCESS.color,
+                                                    )
+                                                },
+                                                value = DUE_DATE,
+                                                color = AdditionalInfoItemColor.SUCCESS.color,
+                                                isConstantItem = true,
+                                            ),
+                                        ),
+                                    syncProgressItem = syncProgressItem(),
+                                ),
                         ),
-                    ),
                     onCardClick = {},
                 )
 
                 ListCard(
-                    listCardState = rememberListCardState(
-                        title = ListCardTitleModel(
-                            text = "09/18/2021",
-                            style = eventsInTeiDashboardTitleStyle,
-                            color = TextColor.OnSurface,
+                    listCardState =
+                        rememberListCardState(
+                            title =
+                                ListCardTitleModel(
+                                    text = "09/18/2021",
+                                    style = eventsInTeiDashboardTitleStyle,
+                                    color = TextColor.OnSurface,
+                                ),
+                            description = ListCardDescriptionModel(text = "Treatment visits"),
+                            additionalInfoColumnState =
+                                rememberAdditionalInfoColumnState(
+                                    additionalInfoList =
+                                        listOf(
+                                            AdditionalInfoItem(
+                                                icon = {
+                                                    Icon(
+                                                        imageVector = Icons.Outlined.Event,
+                                                        contentDescription = ICON_BUTTON_DESCRIPTION,
+                                                        tint = AdditionalInfoItemColor.SUCCESS.color,
+                                                    )
+                                                },
+                                                value = DUE_DATE,
+                                                color = AdditionalInfoItemColor.SUCCESS.color,
+                                                isConstantItem = true,
+                                            ),
+                                            AdditionalInfoItem(
+                                                key = "Drug resistance",
+                                                value = "Monoresistance",
+                                            ),
+                                            AdditionalInfoItem(
+                                                key = "treatment",
+                                                value = "Initial regiment- first-line drugs",
+                                            ),
+                                        ),
+                                    syncProgressItem = syncProgressItem(),
+                                ),
                         ),
-                        description = ListCardDescriptionModel(text = "Treatment visits"),
-                        additionalInfoColumnState = rememberAdditionalInfoColumnState(
-                            additionalInfoList = listOf(
-                                AdditionalInfoItem(
-                                    icon = {
-                                        Icon(
-                                            imageVector = Icons.Outlined.Event,
-                                            contentDescription = ICON_BUTTON_DESCRIPTION,
-                                            tint = AdditionalInfoItemColor.SUCCESS.color,
-                                        )
-                                    },
-                                    value = DUE_DATE,
-                                    color = AdditionalInfoItemColor.SUCCESS.color,
-                                    isConstantItem = true,
-                                ),
-                                AdditionalInfoItem(
-                                    key = "Drug resistance",
-                                    value = "Monoresistance",
-                                ),
-                                AdditionalInfoItem(
-                                    key = "treatment",
-                                    value = "Initial regiment- first-line drugs",
-                                ),
-                            ),
-                            syncProgressItem = syncProgressItem(),
-                        ),
-                    ),
                     onCardClick = {},
                 )
                 ListCard(
-                    listCardState = rememberListCardState(
-                        title = ListCardTitleModel(
-                            text = "Scheduled for 09/18/2021",
-                            style = eventsInTeiDashboardTitleStyle,
-                            color = TextColor.OnSurface,
+                    listCardState =
+                        rememberListCardState(
+                            title =
+                                ListCardTitleModel(
+                                    text = "Scheduled for 09/18/2021",
+                                    style = eventsInTeiDashboardTitleStyle,
+                                    color = TextColor.OnSurface,
+                                ),
+                            additionalInfoColumnState =
+                                rememberAdditionalInfoColumnState(
+                                    additionalInfoList =
+                                        listOf(
+                                            AdditionalInfoItem(
+                                                icon = {
+                                                    Icon(
+                                                        imageVector = Icons.Outlined.Event,
+                                                        contentDescription = ICON_BUTTON_DESCRIPTION,
+                                                        tint = AdditionalInfoItemColor.SUCCESS.color,
+                                                    )
+                                                },
+                                                value = DUE_DATE,
+                                                color = AdditionalInfoItemColor.SUCCESS.color,
+                                                isConstantItem = true,
+                                            ),
+                                            AdditionalInfoItem(
+                                                key = "Drug resistance",
+                                                value = "Monoresistance",
+                                            ),
+                                            AdditionalInfoItem(
+                                                key = "treatment",
+                                                value = "Initial regiment- first-line drugs",
+                                            ),
+                                        ),
+                                    syncProgressItem = syncProgressItem(),
+                                ),
                         ),
-                        additionalInfoColumnState = rememberAdditionalInfoColumnState(
-                            additionalInfoList = listOf(
-                                AdditionalInfoItem(
-                                    icon = {
-                                        Icon(
-                                            imageVector = Icons.Outlined.Event,
-                                            contentDescription = ICON_BUTTON_DESCRIPTION,
-                                            tint = AdditionalInfoItemColor.SUCCESS.color,
-                                        )
-                                    },
-                                    value = DUE_DATE,
-                                    color = AdditionalInfoItemColor.SUCCESS.color,
-                                    isConstantItem = true,
-                                ),
-                                AdditionalInfoItem(
-                                    key = "Drug resistance",
-                                    value = "Monoresistance",
-                                ),
-                                AdditionalInfoItem(
-                                    key = "treatment",
-                                    value = "Initial regiment- first-line drugs",
-                                ),
-                            ),
-                            syncProgressItem = syncProgressItem(),
-                        ),
-                    ),
                     listAvatar = {
                         Avatar(
-                            style = AvatarStyleData.Metadata(
-                                imageCardData = ImageCardData.IconCardData(
-                                    uid = "",
-                                    label = "",
-                                    iconRes = "dhis2_microscope_outline",
-                                    iconTint = SurfaceColor.Primary,
+                            style =
+                                AvatarStyleData.Metadata(
+                                    imageCardData =
+                                        ImageCardData.IconCardData(
+                                            uid = "",
+                                            label = "",
+                                            iconRes = "dhis2_microscope_outline",
+                                            iconTint = SurfaceColor.Primary,
+                                        ),
+                                    avatarSize = MetadataAvatarSize.M(),
+                                    tintColor = SurfaceColor.Primary,
                                 ),
-                                avatarSize = MetadataAvatarSize.M(),
-                                tintColor = SurfaceColor.Primary,
-                            ),
                         )
                     },
                     onCardClick = {},
@@ -734,15 +788,17 @@ fun ListCardScreen(horizontal: Boolean) {
                 }
 
                 ListCard(
-                    listCardState = rememberListCardState(
-                        title = ListCardTitleModel(text = DEFAULT_NAME),
-                        lastUpdated = LAST_UPDATED_HOURS,
-                        additionalInfoColumnState = rememberAdditionalInfoColumnState(
-                            additionalInfoList = basicAdditionalItemList.toMutableList(),
-                            syncProgressItem = syncProgressItem(),
+                    listCardState =
+                        rememberListCardState(
+                            title = ListCardTitleModel(text = DEFAULT_NAME),
+                            lastUpdated = LAST_UPDATED_HOURS,
+                            additionalInfoColumnState =
+                                rememberAdditionalInfoColumnState(
+                                    additionalInfoList = basicAdditionalItemList.toMutableList(),
+                                    syncProgressItem = syncProgressItem(),
+                                ),
+                            selectionState = selectionState,
                         ),
-                        selectionState = selectionState,
-                    ),
                     listAvatar = {
                         Avatar(
                             style = AvatarStyleData.Text("P"),
@@ -756,15 +812,17 @@ fun ListCardScreen(horizontal: Boolean) {
                 }
 
                 ListCard(
-                    listCardState = rememberListCardState(
-                        title = ListCardTitleModel(text = DEFAULT_NAME),
-                        lastUpdated = LAST_UPDATED_HOURS,
-                        additionalInfoColumnState = rememberAdditionalInfoColumnState(
-                            additionalInfoList = basicAdditionalItemListWithLongKeyText.toMutableList(),
-                            syncProgressItem = syncProgressItem(),
+                    listCardState =
+                        rememberListCardState(
+                            title = ListCardTitleModel(text = DEFAULT_NAME),
+                            lastUpdated = LAST_UPDATED_HOURS,
+                            additionalInfoColumnState =
+                                rememberAdditionalInfoColumnState(
+                                    additionalInfoList = basicAdditionalItemListWithLongKeyText.toMutableList(),
+                                    syncProgressItem = syncProgressItem(),
+                                ),
+                            selectionState = selectionState2,
                         ),
-                        selectionState = selectionState2,
-                    ),
                     listAvatar = {
                         Avatar(
                             style = AvatarStyleData.Text("P"),
@@ -778,15 +836,16 @@ fun ListCardScreen(horizontal: Boolean) {
     }
 }
 
-private fun syncProgressItem() = AdditionalInfoItem(
-    icon = {
-        Icon(
-            imageVector = Icons.Outlined.Sync,
-            contentDescription = ICON_BUTTON_DESCRIPTION,
-            tint = SurfaceColor.Primary,
-        )
-    },
-    value = "Syncing...",
-    color = SurfaceColor.Primary,
-    isConstantItem = false,
-)
+private fun syncProgressItem() =
+    AdditionalInfoItem(
+        icon = {
+            Icon(
+                imageVector = Icons.Outlined.Sync,
+                contentDescription = ICON_BUTTON_DESCRIPTION,
+                tint = SurfaceColor.Primary,
+            )
+        },
+        value = "Syncing...",
+        color = SurfaceColor.Primary,
+        isConstantItem = false,
+    )

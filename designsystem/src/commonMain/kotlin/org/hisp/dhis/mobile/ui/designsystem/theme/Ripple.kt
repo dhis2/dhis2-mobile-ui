@@ -8,12 +8,13 @@ import androidx.compose.ui.graphics.Color
 @OptIn(ExperimentalMaterial3Api::class)
 internal fun customRippleConfiguration(
     color: Color = SurfaceColor.Primary,
-    alpha: RippleAlpha = RippleAlpha(
-        focusedAlpha = 0.16f,
-        draggedAlpha = 0.16f,
-        hoveredAlpha = 0.04f,
-        pressedAlpha = 0.16f,
-    ),
+    alpha: RippleAlpha =
+        RippleAlpha(
+            focusedAlpha = 0.16f,
+            draggedAlpha = 0.16f,
+            hoveredAlpha = 0.04f,
+            pressedAlpha = 0.16f,
+        ),
 ) = RippleConfiguration(
     color,
     alpha,

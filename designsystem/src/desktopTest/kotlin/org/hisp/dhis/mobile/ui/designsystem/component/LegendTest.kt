@@ -11,7 +11,6 @@ import org.junit.Rule
 import org.junit.Test
 
 class LegendTest {
-
     @get:Rule
     val rule = createComposeRule()
 
@@ -19,17 +18,19 @@ class LegendTest {
     fun legendShouldBeClickableIfItHasPopupDescription() {
         rule.setContent {
             Legend(
-                legendData = LegendData(
-                    SurfaceColor.CustomGreen,
-                    "Legend",
-                    popUpLegendDescriptionData = listOf(
-                        LegendDescriptionData(
-                            color = SurfaceColor.CustomGreen,
-                            text = "Item 1",
-                            range = 0..300,
-                        ),
+                legendData =
+                    LegendData(
+                        SurfaceColor.CustomGreen,
+                        "Legend",
+                        popUpLegendDescriptionData =
+                            listOf(
+                                LegendDescriptionData(
+                                    color = SurfaceColor.CustomGreen,
+                                    text = "Item 1",
+                                    range = 0..300,
+                                ),
+                            ),
                     ),
-                ),
             )
         }
 

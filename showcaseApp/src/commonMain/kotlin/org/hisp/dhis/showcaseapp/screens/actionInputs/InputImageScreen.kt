@@ -89,5 +89,4 @@ fun InputImageScreen() {
 }
 
 @Composable
-private fun provideSampleImage(): Painter =
-    painterResource(Res.drawable.sample)
+private fun provideSampleImage(): Painter = painterResource(Res.drawable.sample)

@@ -24,13 +24,14 @@ class InputCheckBoxTest {
     @Test
     fun shouldDisplayInputCheckBoxCorrectly() {
         rule.setContent {
-            val checkBoxDataList = remember {
-                mutableStateListOf(
-                    CheckBoxData("0", checked = true, enabled = true, textInput = "Option 1"),
-                    CheckBoxData("1", checked = false, enabled = false, textInput = "Option 2"),
-                    CheckBoxData("2", checked = false, enabled = true, textInput = "Option 3"),
-                )
-            }
+            val checkBoxDataList =
+                remember {
+                    mutableStateListOf(
+                        CheckBoxData("0", checked = true, enabled = true, textInput = "Option 1"),
+                        CheckBoxData("1", checked = false, enabled = false, textInput = "Option 2"),
+                        CheckBoxData("2", checked = false, enabled = true, textInput = "Option 3"),
+                    )
+                }
 
             InputCheckBox(
                 title = "Label",
@@ -52,13 +53,14 @@ class InputCheckBoxTest {
     @Test
     fun shouldAllowUserSelectionWhenEnabled() {
         rule.setContent {
-            val checkBoxDataList = remember {
-                mutableStateListOf(
-                    CheckBoxData("0", checked = true, enabled = true, textInput = "Option 1"),
-                    CheckBoxData("1", checked = false, enabled = true, textInput = "Option 2"),
-                    CheckBoxData("2", checked = false, enabled = true, textInput = "Option 3"),
-                )
-            }
+            val checkBoxDataList =
+                remember {
+                    mutableStateListOf(
+                        CheckBoxData("0", checked = true, enabled = true, textInput = "Option 1"),
+                        CheckBoxData("1", checked = false, enabled = true, textInput = "Option 2"),
+                        CheckBoxData("2", checked = false, enabled = true, textInput = "Option 3"),
+                    )
+                }
 
             InputCheckBox(
                 title = "Label",
@@ -80,13 +82,14 @@ class InputCheckBoxTest {
     @Test
     fun shouldNotAllowUserSelectionWhenDisabled() {
         rule.setContent {
-            val checkBoxDataList = remember {
-                mutableStateListOf(
-                    CheckBoxData("0", checked = true, enabled = true, textInput = "Option 1"),
-                    CheckBoxData("1", checked = false, enabled = false, textInput = "Option 2"),
-                    CheckBoxData("2", checked = false, enabled = true, textInput = "Option 3"),
-                )
-            }
+            val checkBoxDataList =
+                remember {
+                    mutableStateListOf(
+                        CheckBoxData("0", checked = true, enabled = true, textInput = "Option 1"),
+                        CheckBoxData("1", checked = false, enabled = false, textInput = "Option 2"),
+                        CheckBoxData("2", checked = false, enabled = true, textInput = "Option 3"),
+                    )
+                }
 
             InputCheckBox(
                 title = "Label",
@@ -106,13 +109,14 @@ class InputCheckBoxTest {
     @Test
     fun shouldShowClearButtonWhenItemChecked() {
         rule.setContent {
-            val checkBoxDataList = remember {
-                mutableStateListOf(
-                    CheckBoxData("0", checked = true, enabled = true, textInput = "Option 1"),
-                    CheckBoxData("1", checked = false, enabled = false, textInput = "Option 2"),
-                    CheckBoxData("2", checked = false, enabled = true, textInput = "Option 3"),
-                )
-            }
+            val checkBoxDataList =
+                remember {
+                    mutableStateListOf(
+                        CheckBoxData("0", checked = true, enabled = true, textInput = "Option 1"),
+                        CheckBoxData("1", checked = false, enabled = false, textInput = "Option 2"),
+                        CheckBoxData("2", checked = false, enabled = true, textInput = "Option 3"),
+                    )
+                }
 
             InputCheckBox(
                 title = "Label",
@@ -133,13 +137,14 @@ class InputCheckBoxTest {
     @Test
     fun shouldHideClearButtonWhenNoItemChecked() {
         rule.setContent {
-            val checkBoxDataList = remember {
-                mutableStateListOf(
-                    CheckBoxData("0", checked = false, enabled = true, textInput = "Option 1"),
-                    CheckBoxData("1", checked = false, enabled = false, textInput = "Option 2"),
-                    CheckBoxData("2", checked = false, enabled = true, textInput = "Option 3"),
-                )
-            }
+            val checkBoxDataList =
+                remember {
+                    mutableStateListOf(
+                        CheckBoxData("0", checked = false, enabled = true, textInput = "Option 1"),
+                        CheckBoxData("1", checked = false, enabled = false, textInput = "Option 2"),
+                        CheckBoxData("2", checked = false, enabled = true, textInput = "Option 3"),
+                    )
+                }
 
             InputCheckBox(
                 title = "Label",
@@ -160,13 +165,14 @@ class InputCheckBoxTest {
     @Test
     fun shouldHideClearButtonWhenDisabled() {
         rule.setContent {
-            val checkBoxDataList = remember {
-                mutableStateListOf(
-                    CheckBoxData("0", checked = true, enabled = true, textInput = "Option 1"),
-                    CheckBoxData("1", checked = false, enabled = false, textInput = "Option 2"),
-                    CheckBoxData("2", checked = false, enabled = true, textInput = "Option 3"),
-                )
-            }
+            val checkBoxDataList =
+                remember {
+                    mutableStateListOf(
+                        CheckBoxData("0", checked = true, enabled = true, textInput = "Option 1"),
+                        CheckBoxData("1", checked = false, enabled = false, textInput = "Option 2"),
+                        CheckBoxData("2", checked = false, enabled = true, textInput = "Option 3"),
+                    )
+                }
 
             InputCheckBox(
                 title = "Label",
@@ -184,13 +190,14 @@ class InputCheckBoxTest {
     @Test
     fun shouldClearSelectionWhenClearButtonIsClickedAndHideClearButton() {
         rule.setContent {
-            val checkBoxDataList = remember {
-                mutableStateListOf(
-                    CheckBoxData("0", checked = true, enabled = true, textInput = "Option 1"),
-                    CheckBoxData("1", checked = true, enabled = true, textInput = "Option 2"),
-                    CheckBoxData("2", checked = false, enabled = true, textInput = "Option 3"),
-                )
-            }
+            val checkBoxDataList =
+                remember {
+                    mutableStateListOf(
+                        CheckBoxData("0", checked = true, enabled = true, textInput = "Option 1"),
+                        CheckBoxData("1", checked = true, enabled = true, textInput = "Option 2"),
+                        CheckBoxData("2", checked = false, enabled = true, textInput = "Option 3"),
+                    )
+                }
 
             InputCheckBox(
                 title = "Label",
@@ -215,13 +222,14 @@ class InputCheckBoxTest {
     @Test
     fun shouldShowLegendCorrectly() {
         rule.setContent {
-            val checkBoxDataList = remember {
-                mutableStateListOf(
-                    CheckBoxData("0", checked = true, enabled = true, textInput = "Option 1"),
-                    CheckBoxData("1", checked = true, enabled = false, textInput = "Option 2"),
-                    CheckBoxData("2", checked = false, enabled = true, textInput = "Option 3"),
-                )
-            }
+            val checkBoxDataList =
+                remember {
+                    mutableStateListOf(
+                        CheckBoxData("0", checked = true, enabled = true, textInput = "Option 1"),
+                        CheckBoxData("1", checked = true, enabled = false, textInput = "Option 2"),
+                        CheckBoxData("2", checked = false, enabled = true, textInput = "Option 3"),
+                    )
+                }
 
             InputCheckBox(
                 title = "Label",
@@ -241,13 +249,14 @@ class InputCheckBoxTest {
     @Test
     fun shouldShowSupportingTextCorrectly() {
         rule.setContent {
-            val checkBoxDataList = remember {
-                mutableStateListOf(
-                    CheckBoxData("0", checked = true, enabled = true, textInput = "Option 1"),
-                    CheckBoxData("1", checked = true, enabled = false, textInput = "Option 2"),
-                    CheckBoxData("2", checked = false, enabled = true, textInput = "Option 3"),
-                )
-            }
+            val checkBoxDataList =
+                remember {
+                    mutableStateListOf(
+                        CheckBoxData("0", checked = true, enabled = true, textInput = "Option 1"),
+                        CheckBoxData("1", checked = true, enabled = false, textInput = "Option 2"),
+                        CheckBoxData("2", checked = false, enabled = true, textInput = "Option 3"),
+                    )
+                }
 
             InputCheckBox(
                 title = "Label",

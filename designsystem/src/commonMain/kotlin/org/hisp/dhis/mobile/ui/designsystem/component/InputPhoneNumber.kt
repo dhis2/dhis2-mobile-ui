@@ -75,10 +75,11 @@ fun InputPhoneNumber(
                 // no-op
             }
         },
-        keyboardOptions = KeyboardOptions(
-            imeAction = imeAction,
-            keyboardType = KeyboardType.Phone,
-        ),
+        keyboardOptions =
+            KeyboardOptions(
+                imeAction = imeAction,
+                keyboardType = KeyboardType.Phone,
+            ),
         allowedCharacters = allowedCharacters.regex,
         modifier = modifier,
         testTag = "PHONE_NUMBER",
@@ -103,8 +104,10 @@ fun InputPhoneNumber(
     )
 }
 
-private fun isButtonEnabled(inputStyle: InputStyle, hasMinimumPhoneNumberInput: Boolean) =
-    when (inputStyle) {
-        is InputStyle.DataInputStyle -> hasMinimumPhoneNumberInput
-        is InputStyle.ParameterInputStyle -> false
-    }
+private fun isButtonEnabled(
+    inputStyle: InputStyle,
+    hasMinimumPhoneNumberInput: Boolean,
+) = when (inputStyle) {
+    is InputStyle.DataInputStyle -> hasMinimumPhoneNumberInput
+    is InputStyle.ParameterInputStyle -> false
+}

@@ -53,13 +53,14 @@ fun <T> ImageBlock(
     var isFullScreen by remember { mutableStateOf(false) }
 
     val image: T? by produceState<T?>(null) {
-        value = withContext(Dispatchers.IO) {
-            try {
-                load()
-            } catch (e: IOException) {
-                null
+        value =
+            withContext(Dispatchers.IO) {
+                try {
+                    load()
+                } catch (e: IOException) {
+                    null
+                }
             }
-        }
     }
 
     if (image != null) {
@@ -75,28 +76,31 @@ fun <T> ImageBlock(
             )
         }
         Box(
-            modifier = modifier
-                .padding(vertical = Spacing.Spacing8)
-                .testTag("IMAGE_BLOCK_CONTAINER"),
+            modifier =
+                modifier
+                    .padding(vertical = Spacing.Spacing8)
+                    .testTag("IMAGE_BLOCK_CONTAINER"),
         ) {
             Image(
                 painter = painterFor(image!!),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clip(shape = RoundedCornerShape(Radius.S))
-                    .height(160.dp)
-                    .clickable {
-                        isFullScreen = !isFullScreen
-                    },
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .clip(shape = RoundedCornerShape(Radius.S))
+                        .height(160.dp)
+                        .clickable {
+                            isFullScreen = !isFullScreen
+                        },
             )
             if (downloadButtonVisible) {
                 SquareIconButton(
                     enabled = true,
-                    modifier = Modifier
-                        .align(Alignment.BottomEnd)
-                        .padding(Spacing.Spacing4),
+                    modifier =
+                        Modifier
+                            .align(Alignment.BottomEnd)
+                            .padding(Spacing.Spacing4),
                     icon = {
                         Icon(
                             imageVector = Icons.Outlined.FileDownload,

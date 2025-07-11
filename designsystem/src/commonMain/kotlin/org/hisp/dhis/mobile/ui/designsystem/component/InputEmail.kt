@@ -60,10 +60,11 @@ fun InputEmail(
         isRequiredField = isRequiredField,
         onNextClicked = onNextClicked,
         onValueChanged = onValueChanged,
-        keyboardOptions = KeyboardOptions(
-            imeAction = imeAction,
-            keyboardType = KeyboardType.Email,
-        ),
+        keyboardOptions =
+            KeyboardOptions(
+                imeAction = imeAction,
+                keyboardType = KeyboardType.Email,
+            ),
         modifier = modifier,
         testTag = "EMAIL",
         onFocusChanged = onFocusChanged,
@@ -86,8 +87,10 @@ fun InputEmail(
     )
 }
 
-private fun isButtonEnabled(inputStyle: InputStyle, isValidEmailAddress: Boolean) =
-    when (inputStyle) {
-        is InputStyle.DataInputStyle -> isValidEmailAddress
-        is InputStyle.ParameterInputStyle -> false
-    }
+private fun isButtonEnabled(
+    inputStyle: InputStyle,
+    isValidEmailAddress: Boolean,
+) = when (inputStyle) {
+    is InputStyle.DataInputStyle -> isValidEmailAddress
+    is InputStyle.ParameterInputStyle -> false
+}

@@ -48,18 +48,19 @@ fun RadioButton(
     Row(
         horizontalArrangement = Arrangement.spacedBy(Spacing.Spacing0, Alignment.Start),
         verticalAlignment = Alignment.CenterVertically,
-        modifier = modifier
-            .focusable()
-            .clickable(
-                interactionSource = interactionSource,
-                indication = null,
-                onClick = {
-                    if (radioButtonData.enabled) {
-                        onClick.invoke(!radioButtonData.selected)
-                    }
-                },
-                enabled = radioButtonData.enabled,
-            ),
+        modifier =
+            modifier
+                .focusable()
+                .clickable(
+                    interactionSource = interactionSource,
+                    indication = null,
+                    onClick = {
+                        if (radioButtonData.enabled) {
+                            onClick.invoke(!radioButtonData.selected)
+                        }
+                    },
+                    enabled = radioButtonData.enabled,
+                ),
     ) {
         CompositionLocalProvider(LocalRippleConfiguration provides customRippleConfiguration()) {
             RadioButton(
@@ -71,30 +72,34 @@ fun RadioButton(
                 },
                 enabled = radioButtonData.enabled,
                 interactionSource = interactionSource,
-                modifier = Modifier
-                    .size(InternalSizeValues.Size40)
-                    .hoverPointerIcon(radioButtonData.enabled)
-                    .testTag("RADIO_BUTTON_${radioButtonData.uid}"),
-                colors = RadioButtonDefaults.colors(
-                    selectedColor = SurfaceColor.Primary,
-                    unselectedColor = Outline.Dark,
-                    disabledSelectedColor = TextColor.OnDisabledSurface,
-                    disabledUnselectedColor = TextColor.OnDisabledSurface,
-                ),
+                modifier =
+                    Modifier
+                        .size(InternalSizeValues.Size40)
+                        .hoverPointerIcon(radioButtonData.enabled)
+                        .testTag("RADIO_BUTTON_${radioButtonData.uid}"),
+                colors =
+                    RadioButtonDefaults.colors(
+                        selectedColor = SurfaceColor.Primary,
+                        unselectedColor = Outline.Dark,
+                        disabledSelectedColor = TextColor.OnDisabledSurface,
+                        disabledUnselectedColor = TextColor.OnDisabledSurface,
+                    ),
             )
         }
 
         if (!radioButtonData.textInput.isNullOrBlank()) {
             Text(
-                modifier = Modifier
-                    .padding(top = Spacing.Spacing8, bottom = Spacing.Spacing8)
-                    .hoverPointerIcon(radioButtonData.enabled),
+                modifier =
+                    Modifier
+                        .padding(top = Spacing.Spacing8, bottom = Spacing.Spacing8)
+                        .hoverPointerIcon(radioButtonData.enabled),
                 text = radioButtonData.textInput,
-                color = if (radioButtonData.enabled) {
-                    TextColor.OnSurface
-                } else {
-                    TextColor.OnDisabledSurface
-                },
+                color =
+                    if (radioButtonData.enabled) {
+                        TextColor.OnSurface
+                    } else {
+                        TextColor.OnDisabledSurface
+                    },
                 style = MaterialTheme.typography.bodyLarge,
             )
         }
@@ -176,7 +181,6 @@ data class RadioButtonData(
     val enabled: Boolean,
     val textInput: AnnotatedString?,
 ) {
-
     constructor(uid: String, selected: Boolean, enabled: Boolean, textInput: String) : this(
         uid = uid,
         selected = selected,

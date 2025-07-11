@@ -7,7 +7,6 @@ import org.junit.Rule
 import org.junit.Test
 
 class MultiSelectInputTest {
-
     @get:Rule
     val composeRule = createComposeRule()
 
@@ -35,20 +34,21 @@ class MultiSelectInputTest {
 
     @Test
     fun when_items_are_less_than_required_then_show_multiselect_list_in_input() {
-        val multiSelect1Items = listOf(
-            CheckBoxData(
-                uid = "uid-1",
-                checked = false,
-                enabled = true,
-                textInput = "Item 1",
-            ),
-            CheckBoxData(
-                uid = "uid-2",
-                checked = false,
-                enabled = true,
-                textInput = "Item 2",
-            ),
-        )
+        val multiSelect1Items =
+            listOf(
+                CheckBoxData(
+                    uid = "uid-1",
+                    checked = false,
+                    enabled = true,
+                    textInput = "Item 1",
+                ),
+                CheckBoxData(
+                    uid = "uid-2",
+                    checked = false,
+                    enabled = true,
+                    textInput = "Item 2",
+                ),
+            )
 
         composeRule.setContent {
             InputMultiSelection(
@@ -73,20 +73,21 @@ class MultiSelectInputTest {
 
     @Test
     fun when_items_are_less_than_required_and_no_items_are_selected_then_hide_clear_button_in_input() {
-        val multiSelect1Items = listOf(
-            CheckBoxData(
-                uid = "uid-1",
-                checked = false,
-                enabled = true,
-                textInput = "Item 1",
-            ),
-            CheckBoxData(
-                uid = "uid-2",
-                checked = false,
-                enabled = true,
-                textInput = "Item 2",
-            ),
-        )
+        val multiSelect1Items =
+            listOf(
+                CheckBoxData(
+                    uid = "uid-1",
+                    checked = false,
+                    enabled = true,
+                    textInput = "Item 1",
+                ),
+                CheckBoxData(
+                    uid = "uid-2",
+                    checked = false,
+                    enabled = true,
+                    textInput = "Item 2",
+                ),
+            )
 
         composeRule.setContent {
             InputMultiSelection(
@@ -110,20 +111,21 @@ class MultiSelectInputTest {
 
     @Test
     fun when_items_are_less_than_required_and_at_least_one_item_is_selected_then_show_clear_button_in_input() {
-        val multiSelect1Items = listOf(
-            CheckBoxData(
-                uid = "uid-1",
-                checked = true,
-                enabled = true,
-                textInput = "Item 1",
-            ),
-            CheckBoxData(
-                uid = "uid-2",
-                checked = false,
-                enabled = true,
-                textInput = "Item 2",
-            ),
-        )
+        val multiSelect1Items =
+            listOf(
+                CheckBoxData(
+                    uid = "uid-1",
+                    checked = true,
+                    enabled = true,
+                    textInput = "Item 1",
+                ),
+                CheckBoxData(
+                    uid = "uid-2",
+                    checked = false,
+                    enabled = true,
+                    textInput = "Item 2",
+                ),
+            )
 
         composeRule.setContent {
             InputMultiSelection(
@@ -147,50 +149,51 @@ class MultiSelectInputTest {
 
     @Test
     fun when_items_are_more_than_required_then_show_dropdown_button() {
-        val multiSelect1Items = listOf(
-            CheckBoxData(
-                uid = "uid-1",
-                checked = false,
-                enabled = true,
-                textInput = "Item 1",
-            ),
-            CheckBoxData(
-                uid = "uid-2",
-                checked = false,
-                enabled = true,
-                textInput = "Item 2",
-            ),
-            CheckBoxData(
-                uid = "uid-3",
-                checked = false,
-                enabled = true,
-                textInput = "Item 3",
-            ),
-            CheckBoxData(
-                uid = "uid-4",
-                checked = false,
-                enabled = true,
-                textInput = "Item 4",
-            ),
-            CheckBoxData(
-                uid = "uid-5",
-                checked = false,
-                enabled = true,
-                textInput = "Item 5",
-            ),
-            CheckBoxData(
-                uid = "uid-6",
-                checked = false,
-                enabled = true,
-                textInput = "Item 6",
-            ),
-            CheckBoxData(
-                uid = "uid-7",
-                checked = false,
-                enabled = true,
-                textInput = "Item 7",
-            ),
-        )
+        val multiSelect1Items =
+            listOf(
+                CheckBoxData(
+                    uid = "uid-1",
+                    checked = false,
+                    enabled = true,
+                    textInput = "Item 1",
+                ),
+                CheckBoxData(
+                    uid = "uid-2",
+                    checked = false,
+                    enabled = true,
+                    textInput = "Item 2",
+                ),
+                CheckBoxData(
+                    uid = "uid-3",
+                    checked = false,
+                    enabled = true,
+                    textInput = "Item 3",
+                ),
+                CheckBoxData(
+                    uid = "uid-4",
+                    checked = false,
+                    enabled = true,
+                    textInput = "Item 4",
+                ),
+                CheckBoxData(
+                    uid = "uid-5",
+                    checked = false,
+                    enabled = true,
+                    textInput = "Item 5",
+                ),
+                CheckBoxData(
+                    uid = "uid-6",
+                    checked = false,
+                    enabled = true,
+                    textInput = "Item 6",
+                ),
+                CheckBoxData(
+                    uid = "uid-7",
+                    checked = false,
+                    enabled = true,
+                    textInput = "Item 7",
+                ),
+            )
 
         composeRule.setContent {
             InputMultiSelection(
@@ -214,50 +217,51 @@ class MultiSelectInputTest {
 
     @Test
     fun when_items_are_more_than_required_then_show_inline_chip_items_if_item_are_selected() {
-        val multiSelect1Items = listOf(
-            CheckBoxData(
-                uid = "uid-1",
-                checked = true,
-                enabled = true,
-                textInput = "Item 1",
-            ),
-            CheckBoxData(
-                uid = "uid-2",
-                checked = true,
-                enabled = true,
-                textInput = "Item 2",
-            ),
-            CheckBoxData(
-                uid = "uid-3",
-                checked = false,
-                enabled = true,
-                textInput = "Item 3",
-            ),
-            CheckBoxData(
-                uid = "uid-4",
-                checked = false,
-                enabled = true,
-                textInput = "Item 4",
-            ),
-            CheckBoxData(
-                uid = "uid-5",
-                checked = false,
-                enabled = true,
-                textInput = "Item 5",
-            ),
-            CheckBoxData(
-                uid = "uid-6",
-                checked = false,
-                enabled = true,
-                textInput = "Item 6",
-            ),
-            CheckBoxData(
-                uid = "uid-7",
-                checked = false,
-                enabled = true,
-                textInput = "Item 7",
-            ),
-        )
+        val multiSelect1Items =
+            listOf(
+                CheckBoxData(
+                    uid = "uid-1",
+                    checked = true,
+                    enabled = true,
+                    textInput = "Item 1",
+                ),
+                CheckBoxData(
+                    uid = "uid-2",
+                    checked = true,
+                    enabled = true,
+                    textInput = "Item 2",
+                ),
+                CheckBoxData(
+                    uid = "uid-3",
+                    checked = false,
+                    enabled = true,
+                    textInput = "Item 3",
+                ),
+                CheckBoxData(
+                    uid = "uid-4",
+                    checked = false,
+                    enabled = true,
+                    textInput = "Item 4",
+                ),
+                CheckBoxData(
+                    uid = "uid-5",
+                    checked = false,
+                    enabled = true,
+                    textInput = "Item 5",
+                ),
+                CheckBoxData(
+                    uid = "uid-6",
+                    checked = false,
+                    enabled = true,
+                    textInput = "Item 6",
+                ),
+                CheckBoxData(
+                    uid = "uid-7",
+                    checked = false,
+                    enabled = true,
+                    textInput = "Item 7",
+                ),
+            )
 
         composeRule.setContent {
             InputMultiSelection(
@@ -287,50 +291,51 @@ class MultiSelectInputTest {
 
     @Test
     fun when_dropdown_button_is_clicked_then_show_bottom_sheet() {
-        val multiSelect1Items = listOf(
-            CheckBoxData(
-                uid = "uid-1",
-                checked = false,
-                enabled = true,
-                textInput = "Item 1",
-            ),
-            CheckBoxData(
-                uid = "uid-2",
-                checked = false,
-                enabled = true,
-                textInput = "Item 2",
-            ),
-            CheckBoxData(
-                uid = "uid-3",
-                checked = false,
-                enabled = true,
-                textInput = "Item 3",
-            ),
-            CheckBoxData(
-                uid = "uid-4",
-                checked = false,
-                enabled = true,
-                textInput = "Item 4",
-            ),
-            CheckBoxData(
-                uid = "uid-5",
-                checked = false,
-                enabled = true,
-                textInput = "Item 5",
-            ),
-            CheckBoxData(
-                uid = "uid-6",
-                checked = false,
-                enabled = true,
-                textInput = "Item 6",
-            ),
-            CheckBoxData(
-                uid = "uid-7",
-                checked = false,
-                enabled = true,
-                textInput = "Item 7",
-            ),
-        )
+        val multiSelect1Items =
+            listOf(
+                CheckBoxData(
+                    uid = "uid-1",
+                    checked = false,
+                    enabled = true,
+                    textInput = "Item 1",
+                ),
+                CheckBoxData(
+                    uid = "uid-2",
+                    checked = false,
+                    enabled = true,
+                    textInput = "Item 2",
+                ),
+                CheckBoxData(
+                    uid = "uid-3",
+                    checked = false,
+                    enabled = true,
+                    textInput = "Item 3",
+                ),
+                CheckBoxData(
+                    uid = "uid-4",
+                    checked = false,
+                    enabled = true,
+                    textInput = "Item 4",
+                ),
+                CheckBoxData(
+                    uid = "uid-5",
+                    checked = false,
+                    enabled = true,
+                    textInput = "Item 5",
+                ),
+                CheckBoxData(
+                    uid = "uid-6",
+                    checked = false,
+                    enabled = true,
+                    textInput = "Item 6",
+                ),
+                CheckBoxData(
+                    uid = "uid-7",
+                    checked = false,
+                    enabled = true,
+                    textInput = "Item 7",
+                ),
+            )
 
         composeRule.setContent {
             InputMultiSelection(
@@ -356,50 +361,51 @@ class MultiSelectInputTest {
 
     @Test
     fun when_there_are_more_than_required_items_and_input_is_clicked_then_show_bottom_sheet() {
-        val multiSelect1Items = listOf(
-            CheckBoxData(
-                uid = "uid-1",
-                checked = false,
-                enabled = true,
-                textInput = "Item 1",
-            ),
-            CheckBoxData(
-                uid = "uid-2",
-                checked = false,
-                enabled = true,
-                textInput = "Item 2",
-            ),
-            CheckBoxData(
-                uid = "uid-3",
-                checked = false,
-                enabled = true,
-                textInput = "Item 3",
-            ),
-            CheckBoxData(
-                uid = "uid-4",
-                checked = false,
-                enabled = true,
-                textInput = "Item 4",
-            ),
-            CheckBoxData(
-                uid = "uid-5",
-                checked = false,
-                enabled = true,
-                textInput = "Item 5",
-            ),
-            CheckBoxData(
-                uid = "uid-6",
-                checked = false,
-                enabled = true,
-                textInput = "Item 6",
-            ),
-            CheckBoxData(
-                uid = "uid-7",
-                checked = false,
-                enabled = true,
-                textInput = "Item 7",
-            ),
-        )
+        val multiSelect1Items =
+            listOf(
+                CheckBoxData(
+                    uid = "uid-1",
+                    checked = false,
+                    enabled = true,
+                    textInput = "Item 1",
+                ),
+                CheckBoxData(
+                    uid = "uid-2",
+                    checked = false,
+                    enabled = true,
+                    textInput = "Item 2",
+                ),
+                CheckBoxData(
+                    uid = "uid-3",
+                    checked = false,
+                    enabled = true,
+                    textInput = "Item 3",
+                ),
+                CheckBoxData(
+                    uid = "uid-4",
+                    checked = false,
+                    enabled = true,
+                    textInput = "Item 4",
+                ),
+                CheckBoxData(
+                    uid = "uid-5",
+                    checked = false,
+                    enabled = true,
+                    textInput = "Item 5",
+                ),
+                CheckBoxData(
+                    uid = "uid-6",
+                    checked = false,
+                    enabled = true,
+                    textInput = "Item 6",
+                ),
+                CheckBoxData(
+                    uid = "uid-7",
+                    checked = false,
+                    enabled = true,
+                    textInput = "Item 7",
+                ),
+            )
 
         composeRule.setContent {
             InputMultiSelection(

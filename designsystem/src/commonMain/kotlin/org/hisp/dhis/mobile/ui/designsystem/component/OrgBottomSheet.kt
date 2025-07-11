@@ -108,16 +108,17 @@ fun OrgBottomSheet(
     val orgTreeHeightInDp = with(LocalDensity.current) { orgTreeHeight.toDp() }
     val contentScrollState = rememberScrollState()
     BottomSheetShell(
-        uiState = BottomSheetShellUIState(
-            title = title,
-            subtitle = subtitle,
-            description = description,
-            headerTextAlignment = headerTextAlignment,
-            searchQuery = searchQuery,
-            scrollableContainerMaxHeight = maxOf(orgTreeHeightInDp, InternalSizeValues.Size386),
-            scrollableContainerMinHeight = InternalSizeValues.Size316,
-            bottomPadding = bottomSheetLowerPadding,
-        ),
+        uiState =
+            BottomSheetShellUIState(
+                title = title,
+                subtitle = subtitle,
+                description = description,
+                headerTextAlignment = headerTextAlignment,
+                searchQuery = searchQuery,
+                scrollableContainerMaxHeight = maxOf(orgTreeHeightInDp, InternalSizeValues.Size386),
+                scrollableContainerMinHeight = InternalSizeValues.Size316,
+                bottomPadding = bottomSheetLowerPadding,
+            ),
         modifier = modifier,
         contentScrollState = contentScrollState,
         content = {
@@ -128,13 +129,14 @@ fun OrgBottomSheet(
                 onItemClick = onItemClick,
                 onItemSelected = onItemSelected,
                 scrollState = contentScrollState,
-                modifier = Modifier
-                    .onGloballyPositioned { coordinates ->
-                        val treeHeight = coordinates.size.height
-                        if (treeHeight > orgTreeHeight) {
-                            orgTreeHeight = treeHeight
-                        }
-                    },
+                modifier =
+                    Modifier
+                        .onGloballyPositioned { coordinates ->
+                            val treeHeight = coordinates.size.height
+                            if (treeHeight > orgTreeHeight) {
+                                orgTreeHeight = treeHeight
+                            }
+                        },
             )
         },
         windowInsets = windowInsets,
@@ -146,8 +148,10 @@ fun OrgBottomSheet(
             ) {
                 if (onClearAll != null) {
                     Button(
-                        modifier = Modifier.weight(1f)
-                            .testTag("CLEAR_ALL_BUTTON"),
+                        modifier =
+                            Modifier
+                                .weight(1f)
+                                .testTag("CLEAR_ALL_BUTTON"),
                         onClick = onClearAll,
                         icon = {
                             Icon(
@@ -199,11 +203,12 @@ private fun OrgTreeList(
     val hasSearchQuery by derivedStateOf { searchQuery.isNotBlank() }
     if (orgTreeItems.isEmpty() && hasSearchQuery) {
         Text(
-            modifier = modifier
-                .fillMaxWidth()
-                .padding(horizontal = Spacing.Spacing24)
-                .padding(vertical = Spacing.Spacing24)
-                .testTag("ORG_TREE_NO_RESULTS_FOUND"),
+            modifier =
+                modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = Spacing.Spacing24)
+                    .padding(vertical = Spacing.Spacing24)
+                    .testTag("ORG_TREE_NO_RESULTS_FOUND"),
             textAlign = TextAlign.Center,
             text = noResultsFoundText,
             color = TextColor.OnSurfaceVariant,
@@ -211,10 +216,11 @@ private fun OrgTreeList(
         )
     } else {
         Column(
-            modifier = modifier
-                .fillMaxWidth()
-                .testTag("ORG_TREE_LIST")
-                .horizontalScroll(scrollState),
+            modifier =
+                modifier
+                    .fillMaxWidth()
+                    .testTag("ORG_TREE_LIST")
+                    .horizontalScroll(scrollState),
             horizontalAlignment = Alignment.Start,
         ) {
             orgTreeItems.forEach { item ->
@@ -242,19 +248,20 @@ fun OrgUnitSelectorItem(
     onItemSelected: (uid: String, checked: Boolean) -> Unit,
 ) {
     Row(
-        modifier = modifier
-            .testTag("$ITEM_TEST_TAG${orgTreeItem.label}")
-            .fillMaxWidth()
-            .clickable(
-                enabled = orgTreeItem.hasChildren,
-                interactionSource = remember {
-                    MutableInteractionSource()
-                },
-                indication = ripple(bounded = true),
-            ) {
-                onItemClick(orgTreeItem.uid)
-            }
-            .padding(start = ((orgTreeItem.level - higherLevel) * 16).dp),
+        modifier =
+            modifier
+                .testTag("$ITEM_TEST_TAG${orgTreeItem.label}")
+                .fillMaxWidth()
+                .clickable(
+                    enabled = orgTreeItem.hasChildren,
+                    interactionSource =
+                        remember {
+                            MutableInteractionSource()
+                        },
+                    indication = ripple(bounded = true),
+                ) {
+                    onItemClick(orgTreeItem.uid)
+                }.padding(start = ((orgTreeItem.level - higherLevel) * 16).dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         OrgTreeItemIcon(
@@ -262,18 +269,19 @@ fun OrgUnitSelectorItem(
             orgTreeItem = orgTreeItem,
         )
 
-        val clickableModifier = if (orgTreeItem.canBeSelected) {
-            Modifier
-                .clickable(
-                    interactionSource = remember { MutableInteractionSource() },
-                    indication = null,
-                    onClick = {
-                        onItemSelected(orgTreeItem.uid, !orgTreeItem.selected)
-                    },
-                )
-        } else {
-            Modifier
-        }
+        val clickableModifier =
+            if (orgTreeItem.canBeSelected) {
+                Modifier
+                    .clickable(
+                        interactionSource = remember { MutableInteractionSource() },
+                        indication = null,
+                        onClick = {
+                            onItemSelected(orgTreeItem.uid, !orgTreeItem.selected)
+                        },
+                    )
+            } else {
+                Modifier
+            }
 
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -293,18 +301,21 @@ fun OrgUnitSelectorItem(
             }
 
             Text(
-                text = orgTreeItemLabel(
-                    orgTreeItem = orgTreeItem,
-                    searchQuery = searchQuery,
-                ),
+                text =
+                    orgTreeItemLabel(
+                        orgTreeItem = orgTreeItem,
+                        searchQuery = searchQuery,
+                    ),
                 maxLines = 1,
-                style = DHIS2SCustomTextStyles.bodyLargeBold.copy(
-                    fontWeight = if (orgTreeItem.selectedChildrenCount > 0 || orgTreeItem.selected) {
-                        FontWeight.Bold
-                    } else {
-                        FontWeight.Normal
-                    },
-                ),
+                style =
+                    DHIS2SCustomTextStyles.bodyLargeBold.copy(
+                        fontWeight =
+                            if (orgTreeItem.selectedChildrenCount > 0 || orgTreeItem.selected) {
+                                FontWeight.Bold
+                            } else {
+                                FontWeight.Normal
+                            },
+                    ),
             )
         }
     }
@@ -343,24 +354,25 @@ private fun orgTreeItemLabel(
     orgTreeItem: OrgTreeItem,
     searchQuery: String,
 ): AnnotatedString {
-    val label = buildAnnotatedString {
-        val highlightIndexStart = orgTreeItem.label.indexOf(searchQuery, ignoreCase = true)
-        val highlightIndexEnd = highlightIndexStart + searchQuery.length
+    val label =
+        buildAnnotatedString {
+            val highlightIndexStart = orgTreeItem.label.indexOf(searchQuery, ignoreCase = true)
+            val highlightIndexEnd = highlightIndexStart + searchQuery.length
 
-        if (highlightIndexStart >= 0) {
-            appendHighlightedString(
-                orgTreeItem = orgTreeItem,
-                highlightIndexStart = highlightIndexStart,
-                highlightIndexEnd = highlightIndexEnd,
-            )
-        } else {
-            append(orgTreeItem.label)
-        }
+            if (highlightIndexStart >= 0) {
+                appendHighlightedString(
+                    orgTreeItem = orgTreeItem,
+                    highlightIndexStart = highlightIndexStart,
+                    highlightIndexEnd = highlightIndexEnd,
+                )
+            } else {
+                append(orgTreeItem.label)
+            }
 
-        if (orgTreeItem.selectedChildrenCount > 0 && orgTreeItem.hasChildren) {
-            append(" (${orgTreeItem.selectedChildrenCount})")
+            if (orgTreeItem.selectedChildrenCount > 0 && orgTreeItem.hasChildren) {
+                append(" (${orgTreeItem.selectedChildrenCount})")
+            }
         }
-    }
 
     return label
 }

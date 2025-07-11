@@ -82,12 +82,15 @@ fun InputBarCode(
     )
 }
 
-private fun isButtonEnabled(inputStyle: InputStyle, state: InputShellState, inputText: String?) =
-    when (inputStyle) {
-        is InputStyle.DataInputStyle -> {
-            (state == InputShellState.DISABLED && !inputText.isNullOrEmpty()) ||
-                state != InputShellState.DISABLED
-        }
-
-        is InputStyle.ParameterInputStyle -> inputText.isNullOrEmpty()
+private fun isButtonEnabled(
+    inputStyle: InputStyle,
+    state: InputShellState,
+    inputText: String?,
+) = when (inputStyle) {
+    is InputStyle.DataInputStyle -> {
+        (state == InputShellState.DISABLED && !inputText.isNullOrEmpty()) ||
+            state != InputShellState.DISABLED
     }
+
+    is InputStyle.ParameterInputStyle -> inputText.isNullOrEmpty()
+}

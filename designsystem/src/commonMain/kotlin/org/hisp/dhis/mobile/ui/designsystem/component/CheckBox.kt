@@ -46,28 +46,29 @@ fun CheckBox(
 ) {
     val interactionSource =
         if (checkBoxData.enabled) remember { MutableInteractionSource() } else MutableInteractionSource()
-    val textColor = if (checkBoxData.enabled) {
-        TextColor.OnSurface
-    } else {
-        TextColor.OnDisabledSurface
-    }
+    val textColor =
+        if (checkBoxData.enabled) {
+            TextColor.OnSurface
+        } else {
+            TextColor.OnDisabledSurface
+        }
 
     Row(
         horizontalArrangement = Arrangement.spacedBy(Spacing.Spacing0, Alignment.Start),
         verticalAlignment = Alignment.CenterVertically,
-        modifier = modifier
-            .focusable()
-            .clickable(
-                interactionSource = interactionSource,
-                indication = null,
-                onClick = {
-                    if (checkBoxData.enabled) {
-                        onCheckedChange.invoke(!checkBoxData.checked)
-                    }
-                },
-                enabled = checkBoxData.enabled,
-            )
-            .hoverPointerIcon(checkBoxData.enabled),
+        modifier =
+            modifier
+                .focusable()
+                .clickable(
+                    interactionSource = interactionSource,
+                    indication = null,
+                    onClick = {
+                        if (checkBoxData.enabled) {
+                            onCheckedChange.invoke(!checkBoxData.checked)
+                        }
+                    },
+                    enabled = checkBoxData.enabled,
+                ).hoverPointerIcon(checkBoxData.enabled),
     ) {
         CompositionLocalProvider(LocalRippleConfiguration provides customRippleConfiguration()) {
             Checkbox(
@@ -79,23 +80,26 @@ fun CheckBox(
                 },
                 interactionSource = interactionSource,
                 enabled = checkBoxData.enabled,
-                modifier = Modifier
-                    .size(InternalSizeValues.Size40)
-                    .testTag("CHECK_BOX_${checkBoxData.uid}"),
-                colors = CheckboxDefaults.colors(
-                    checkedColor = SurfaceColor.Primary,
-                    uncheckedColor = Outline.Dark,
-                    disabledCheckedColor = TextColor.OnDisabledSurface,
-                    disabledUncheckedColor = TextColor.OnDisabledSurface,
-                ),
+                modifier =
+                    Modifier
+                        .size(InternalSizeValues.Size40)
+                        .testTag("CHECK_BOX_${checkBoxData.uid}"),
+                colors =
+                    CheckboxDefaults.colors(
+                        checkedColor = SurfaceColor.Primary,
+                        uncheckedColor = Outline.Dark,
+                        disabledCheckedColor = TextColor.OnDisabledSurface,
+                        disabledUncheckedColor = TextColor.OnDisabledSurface,
+                    ),
             )
         }
 
         if (!checkBoxData.textInput.isNullOrBlank()) {
             Text(
-                modifier = Modifier
-                    .padding(top = Spacing.Spacing8, bottom = Spacing.Spacing8)
-                    .hoverPointerIcon(checkBoxData.enabled),
+                modifier =
+                    Modifier
+                        .padding(top = Spacing.Spacing8, bottom = Spacing.Spacing8)
+                        .hoverPointerIcon(checkBoxData.enabled),
                 text = checkBoxData.textInput,
                 color = textColor,
                 style = MaterialTheme.typography.bodyLarge,
@@ -165,7 +169,6 @@ data class CheckBoxData(
     val enabled: Boolean,
     val textInput: AnnotatedString?,
 ) {
-
     constructor(uid: String, checked: Boolean, enabled: Boolean, textInput: String) : this(
         uid = uid,
         checked = checked,

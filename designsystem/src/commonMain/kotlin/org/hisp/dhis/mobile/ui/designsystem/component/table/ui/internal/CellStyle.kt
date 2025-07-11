@@ -10,7 +10,6 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 
 internal sealed class CellStyle {
-
     /**
      * Style for header cells.
      *
@@ -30,27 +29,32 @@ internal sealed class CellStyle {
      * @property backgroundColor The background color of the cell.
      * @property borderColor The border color of the cell.
      */
-    data class CellBorderStyle(val backgroundColor: Color, val borderColor: Color) : CellStyle()
+    data class CellBorderStyle(
+        val backgroundColor: Color,
+        val borderColor: Color,
+    ) : CellStyle()
 
     /**
      * Returns the background color of the cell.
      *
      * @return The background color.
      */
-    fun backgroundColor() = when (this) {
-        is CellBorderStyle -> backgroundColor
-        is HeaderStyle -> backgroundColor
-    }
+    fun backgroundColor() =
+        when (this) {
+            is CellBorderStyle -> backgroundColor
+            is HeaderStyle -> backgroundColor
+        }
 
     /**
      * Returns the main color of the cell (text or border color).
      *
      * @return The main color.
      */
-    fun mainColor() = when (this) {
-        is CellBorderStyle -> borderColor
-        is HeaderStyle -> textColor
-    }
+    fun mainColor() =
+        when (this) {
+            is CellBorderStyle -> borderColor
+            is HeaderStyle -> textColor
+        }
 }
 
 /**
@@ -68,44 +72,50 @@ internal fun styleForColumnHeader(
     isSelected: Boolean,
     isParentSelected: Boolean,
     columnIndex: Int,
-): CellStyle.HeaderStyle = when {
-    isCornerSelected -> CellStyle.HeaderStyle(
-        backgroundColor = TableTheme.colors.primaryLight,
-        textColor = TableTheme.colors.primary,
-        dividerColor = TableTheme.colors.primary,
-    )
+): CellStyle.HeaderStyle =
+    when {
+        isCornerSelected ->
+            CellStyle.HeaderStyle(
+                backgroundColor = TableTheme.colors.primaryLight,
+                textColor = TableTheme.colors.primary,
+                dividerColor = TableTheme.colors.primary,
+            )
 
-    isSelected -> CellStyle.HeaderStyle(
-        backgroundColor = TableTheme.colors.primary,
-        textColor = TableTheme.colors.onPrimary,
-        dividerColor = TableTheme.colors.primary,
-    )
+        isSelected ->
+            CellStyle.HeaderStyle(
+                backgroundColor = TableTheme.colors.primary,
+                textColor = TableTheme.colors.onPrimary,
+                dividerColor = TableTheme.colors.primary,
+            )
 
-    isParentSelected -> CellStyle.HeaderStyle(
-        backgroundColor = TableTheme.colors.primaryLight,
-        textColor = TableTheme.colors.headerText,
-        dividerColor = TableTheme.colors.primary,
-    )
+        isParentSelected ->
+            CellStyle.HeaderStyle(
+                backgroundColor = TableTheme.colors.primaryLight,
+                textColor = TableTheme.colors.headerText,
+                dividerColor = TableTheme.colors.primary,
+            )
 
-    isDisabled -> CellStyle.HeaderStyle(
-        backgroundColor = TableTheme.colors.disabledCellBackground,
-        textColor = TableTheme.colors.disabledCellText,
-        dividerColor = Outline.Light,
-    )
+        isDisabled ->
+            CellStyle.HeaderStyle(
+                backgroundColor = TableTheme.colors.disabledCellBackground,
+                textColor = TableTheme.colors.disabledCellText,
+                dividerColor = Outline.Light,
+            )
 
-    columnIndex % 2 == 0 -> CellStyle.HeaderStyle(
-        backgroundColor = TableTheme.colors.headerBackground1,
-        textColor = TableTheme.colors.headerText,
-        dividerColor = TableTheme.colors.primary,
-    )
+        columnIndex % 2 == 0 ->
+            CellStyle.HeaderStyle(
+                backgroundColor = TableTheme.colors.headerBackground1,
+                textColor = TableTheme.colors.headerText,
+                dividerColor = TableTheme.colors.primary,
+            )
 
-    else ->
-        CellStyle.HeaderStyle(
-            backgroundColor = LocalTableColors.current.headerBackground2,
-            textColor = LocalTableColors.current.headerText,
-            dividerColor = TableTheme.colors.primary,
-        )
-}
+        else ->
+            CellStyle.HeaderStyle(
+                backgroundColor = LocalTableColors.current.headerBackground2,
+                textColor = LocalTableColors.current.headerText,
+                dividerColor = TableTheme.colors.primary,
+            )
+    }
 
 /**
  * Returns the style for column header cells based on their selection state and index.
@@ -121,37 +131,43 @@ internal fun styleForRowHeader(
     isCornerSelected: Boolean,
     isSelected: Boolean,
     isOtherRowSelected: Boolean,
-): CellStyle = when {
-    isCornerSelected -> CellStyle.HeaderStyle(
-        backgroundColor = MaterialTheme.colorScheme.surfaceContainerHighest,
-        textColor = MaterialTheme.colorScheme.primary,
-        dividerColor = Outline.Light,
-    )
+): CellStyle =
+    when {
+        isCornerSelected ->
+            CellStyle.HeaderStyle(
+                backgroundColor = MaterialTheme.colorScheme.surfaceContainerHighest,
+                textColor = MaterialTheme.colorScheme.primary,
+                dividerColor = Outline.Light,
+            )
 
-    isSelected -> CellStyle.HeaderStyle(
-        TableTheme.colors.primary,
-        TableTheme.colors.onPrimary,
-        dividerColor = TableTheme.colors.primary,
-    )
+        isSelected ->
+            CellStyle.HeaderStyle(
+                TableTheme.colors.primary,
+                TableTheme.colors.onPrimary,
+                dividerColor = TableTheme.colors.primary,
+            )
 
-    isOtherRowSelected -> CellStyle.HeaderStyle(
-        backgroundColor = MaterialTheme.colorScheme.surfaceContainerHighest,
-        textColor = TableTheme.colors.primary,
-        dividerColor = Outline.Light,
-    )
+        isOtherRowSelected ->
+            CellStyle.HeaderStyle(
+                backgroundColor = MaterialTheme.colorScheme.surfaceContainerHighest,
+                textColor = TableTheme.colors.primary,
+                dividerColor = Outline.Light,
+            )
 
-    isDisabled -> CellStyle.HeaderStyle(
-        backgroundColor = TableTheme.colors.disabledCellBackground,
-        textColor = TableTheme.colors.disabledCellText,
-        dividerColor = Outline.Light,
-    )
+        isDisabled ->
+            CellStyle.HeaderStyle(
+                backgroundColor = TableTheme.colors.disabledCellBackground,
+                textColor = TableTheme.colors.disabledCellText,
+                dividerColor = Outline.Light,
+            )
 
-    else -> CellStyle.HeaderStyle(
-        backgroundColor = TableTheme.colors.tableBackground,
-        textColor = TableTheme.colors.primary,
-        dividerColor = Outline.Light,
-    )
-}
+        else ->
+            CellStyle.HeaderStyle(
+                backgroundColor = TableTheme.colors.tableBackground,
+                textColor = TableTheme.colors.primary,
+                dividerColor = Outline.Light,
+            )
+    }
 
 /**
  * Returns the style for table cells based on various states and properties.
@@ -174,18 +190,20 @@ internal fun styleForCell(
     isEditable: Boolean,
     legendColor: Int?,
 ) = CellStyle.CellBorderStyle(
-    borderColor = when {
-        hasError -> SurfaceColor.Error
-        hasWarning -> SurfaceColor.Warning
-        else -> tableColorProvider().primary
-    },
-    backgroundColor = when {
-        isParentSelected -> tableColorProvider().selectedCell
-        hasError -> SurfaceColor.ErrorContainer
-        hasWarning -> SurfaceColor.WarningContainer
-        legendColor != null -> Color(legendColor).copy(alpha = 0.3f)
-        !isEditable -> tableColorProvider().disabledCellBackground
-        isSelected -> tableColorProvider().tableBackground
-        else -> tableColorProvider().tableBackground
-    },
+    borderColor =
+        when {
+            hasError -> SurfaceColor.Error
+            hasWarning -> SurfaceColor.Warning
+            else -> tableColorProvider().primary
+        },
+    backgroundColor =
+        when {
+            isParentSelected -> tableColorProvider().selectedCell
+            hasError -> SurfaceColor.ErrorContainer
+            hasWarning -> SurfaceColor.WarningContainer
+            legendColor != null -> Color(legendColor).copy(alpha = 0.3f)
+            !isEditable -> tableColorProvider().disabledCellBackground
+            isSelected -> tableColorProvider().tableBackground
+            else -> tableColorProvider().tableBackground
+        },
 )

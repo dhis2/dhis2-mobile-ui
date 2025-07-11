@@ -23,32 +23,38 @@ internal fun IconCard(
     onClick: () -> Unit,
     content: @Composable ColumnScope.() -> Unit,
 ) {
-    val cardShadowColor = when {
-        !selected && enabled -> {
-            Outline.Light
+    val cardShadowColor =
+        when {
+            !selected && enabled -> {
+                Outline.Light
+            }
+            else -> {
+                Color.Unspecified
+            }
         }
-        else -> {
-            Color.Unspecified
-        }
-    }
 
-    val cardShadowModifier = Modifier.clip(DHISShapes.medium)
-        .iconCardShadow(color = cardShadowColor)
+    val cardShadowModifier =
+        Modifier
+            .clip(DHISShapes.medium)
+            .iconCardShadow(color = cardShadowColor)
 
     Card(
         modifier = modifier.then(cardShadowModifier),
-        colors = CardDefaults.cardColors(
-            containerColor = if (selected) SurfaceColor.Container else SurfaceColor.SurfaceBright,
-            disabledContainerColor = if (selected) SurfaceColor.DisabledSurface else SurfaceColor.DisabledSurfaceBright,
-        ),
-        border = BorderStroke(
-            width = if (selected) Spacing.Spacing1 else Spacing.Spacing0,
-            color = if (enabled) {
-                if (selected) SurfaceColor.Primary else Color.Unspecified
-            } else {
-                if (selected) Outline.Medium else Color.Unspecified
-            },
-        ),
+        colors =
+            CardDefaults.cardColors(
+                containerColor = if (selected) SurfaceColor.Container else SurfaceColor.SurfaceBright,
+                disabledContainerColor = if (selected) SurfaceColor.DisabledSurface else SurfaceColor.DisabledSurfaceBright,
+            ),
+        border =
+            BorderStroke(
+                width = if (selected) Spacing.Spacing1 else Spacing.Spacing0,
+                color =
+                    if (enabled) {
+                        if (selected) SurfaceColor.Primary else Color.Unspecified
+                    } else {
+                        if (selected) Outline.Medium else Color.Unspecified
+                    },
+            ),
         enabled = enabled,
         onClick = onClick,
     ) {
@@ -61,13 +67,17 @@ internal fun IconCard(
  * @param uid for item.
  * @param label option text.
  */
-sealed class ImageCardData(open val uid: String, open val label: String) {
+sealed class ImageCardData(
+    open val uid: String,
+    open val label: String,
+) {
     data class IconCardData(
         override val uid: String,
         override val label: String,
         val iconRes: String,
         val iconTint: Color,
     ) : ImageCardData(uid, label)
+
     data class CustomIconData(
         override val uid: String,
         override val label: String,

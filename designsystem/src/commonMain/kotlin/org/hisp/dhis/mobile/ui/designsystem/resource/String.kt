@@ -9,21 +9,24 @@ import org.jetbrains.compose.resources.stringResource
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
-fun provideStringResource(resourceName: String): String {
-    return if (resourceExists(resourceName, ResourceType.STRING)) {
+fun provideStringResource(resourceName: String): String =
+    if (resourceExists(resourceName, ResourceType.STRING)) {
         stringResource(Res.allStringResources[resourceName]!!)
     } else {
         "Key not found"
     }
-}
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
-fun provideQuantityStringResource(resourceName: String, quantity: Int): String {
-    val formattedName = when (quantity) {
-        1 -> "${resourceName}_one"
-        else -> "${resourceName}_other"
-    }
+fun provideQuantityStringResource(
+    resourceName: String,
+    quantity: Int,
+): String {
+    val formattedName =
+        when (quantity) {
+            1 -> "${resourceName}_one"
+            else -> "${resourceName}_other"
+        }
     return if (resourceExists(formattedName, ResourceType.STRING)) {
         stringResource(Res.allStringResources[formattedName]!!, quantity)
     } else {
@@ -33,12 +36,14 @@ fun provideQuantityStringResource(resourceName: String, quantity: Int): String {
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
-fun resourceExists(resourceName: String, resourceType: ResourceType = ResourceType.DRAWABLE): Boolean {
-    return when (resourceType) {
+fun resourceExists(
+    resourceName: String,
+    resourceType: ResourceType = ResourceType.DRAWABLE,
+): Boolean =
+    when (resourceType) {
         ResourceType.DRAWABLE -> Res.allDrawableResources.containsKey(resourceName)
         ResourceType.STRING -> Res.allStringResources.containsKey(resourceName)
     }
-}
 
 enum class ResourceType {
     DRAWABLE,

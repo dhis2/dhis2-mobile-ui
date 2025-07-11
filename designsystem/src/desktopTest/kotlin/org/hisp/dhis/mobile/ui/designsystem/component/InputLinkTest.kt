@@ -22,7 +22,6 @@ import org.junit.Rule
 import org.junit.Test
 
 class InputLinkTest {
-
     @get:Rule
     val rule = createComposeRule()
 

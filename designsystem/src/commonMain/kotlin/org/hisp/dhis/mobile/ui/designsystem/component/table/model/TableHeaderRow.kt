@@ -8,4 +8,6 @@ import kotlinx.serialization.Serializable
  * @property value The value displayed in the header cell.
  */
 @Serializable
-data class TableHeaderRow(val cells: List<TableHeaderCell>)
+data class TableHeaderRow(
+    val cells: List<TableHeaderCell>,
+)

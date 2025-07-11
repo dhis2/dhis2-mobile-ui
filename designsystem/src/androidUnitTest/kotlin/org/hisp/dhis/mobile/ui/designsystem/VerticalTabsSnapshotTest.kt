@@ -25,16 +25,18 @@ class VerticalTabsSnapshotTest {
                         .padding(Spacing.Spacing16),
                 ) {
                     VerticalTabs(
-                        modifier = Modifier
-                            .fillMaxSize(),
+                        modifier =
+                            Modifier
+                                .fillMaxSize(),
                         initialSelectedTabIndex = 1,
-                        tabs = listOf(
-                            Tab(id = "1", label = "Tab 1"),
-                            Tab(id = "2", label = "Tab 2"),
-                            Tab(id = "3", label = "Tab 3"),
-                            Tab(id = "3", label = "Tab 4"),
-                            Tab(id = "3", label = "Tab 5"),
-                        ),
+                        tabs =
+                            listOf(
+                                Tab(id = "1", label = "Tab 1"),
+                                Tab(id = "2", label = "Tab 2"),
+                                Tab(id = "3", label = "Tab 3"),
+                                Tab(id = "3", label = "Tab 4"),
+                                Tab(id = "3", label = "Tab 5"),
+                            ),
                         onSectionSelected = {
                         },
                     )

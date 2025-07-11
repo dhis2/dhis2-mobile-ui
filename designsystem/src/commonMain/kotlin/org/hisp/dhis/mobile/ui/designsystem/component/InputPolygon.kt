@@ -54,9 +54,10 @@ fun InputPolygon(
 ) {
     val focusRequester = remember { FocusRequester() }
     InputShell(
-        modifier = modifier
-            .focusRequester(focusRequester)
-            .testTag("INPUT_POLYGON"),
+        modifier =
+            modifier
+                .focusRequester(focusRequester)
+                .testTag("INPUT_POLYGON"),
         title = title,
         state = state,
         isRequiredField = isRequired,
@@ -79,13 +80,15 @@ fun InputPolygon(
                 Text(
                     modifier = Modifier.focusable(),
                     text = polygonText!!,
-                    style = MaterialTheme.typography.bodyLarge.copy(
-                        color = if (state != InputShellState.DISABLED) {
-                            TextColor.OnSurface
-                        } else {
-                            TextColor.OnDisabledSurface
-                        },
-                    ),
+                    style =
+                        MaterialTheme.typography.bodyLarge.copy(
+                            color =
+                                if (state != InputShellState.DISABLED) {
+                                    TextColor.OnSurface
+                                } else {
+                                    TextColor.OnDisabledSurface
+                                },
+                        ),
                 )
             } else {
                 Button(
@@ -111,45 +114,47 @@ fun InputPolygon(
                 }
             }
         },
-        primaryButton = if (polygonAdded && state != InputShellState.DISABLED) {
-            {
-                IconButton(
-                    modifier = Modifier.testTag("INPUT_POLYGON_RESET_BUTTON"),
-                    icon = {
-                        Icon(
-                            imageVector = Icons.Outlined.Cancel,
-                            contentDescription = "Reset Button",
-                        )
-                    },
-                    onClick = {
-                        focusRequester.requestFocus()
-                        onResetButtonClicked.invoke()
-                    },
-                )
-            }
-        } else {
-            null
-        },
-        secondaryButton = if (polygonAdded && state != InputShellState.DISABLED) {
-            {
-                SquareIconButton(
-                    modifier = Modifier.testTag("INPUT_POLYGON_EDIT_BUTTON"),
-                    enabled = true,
-                    icon = {
-                        Icon(
-                            imageVector = Icons.Outlined.EditLocationAlt,
-                            contentDescription = "edit_polygon",
-                        )
-                    },
-                    onClick = {
-                        focusRequester.requestFocus()
-                        onUpdateButtonClicked.invoke()
-                    },
-                )
-            }
-        } else {
-            null
-        },
+        primaryButton =
+            if (polygonAdded && state != InputShellState.DISABLED) {
+                {
+                    IconButton(
+                        modifier = Modifier.testTag("INPUT_POLYGON_RESET_BUTTON"),
+                        icon = {
+                            Icon(
+                                imageVector = Icons.Outlined.Cancel,
+                                contentDescription = "Reset Button",
+                            )
+                        },
+                        onClick = {
+                            focusRequester.requestFocus()
+                            onResetButtonClicked.invoke()
+                        },
+                    )
+                }
+            } else {
+                null
+            },
+        secondaryButton =
+            if (polygonAdded && state != InputShellState.DISABLED) {
+                {
+                    SquareIconButton(
+                        modifier = Modifier.testTag("INPUT_POLYGON_EDIT_BUTTON"),
+                        enabled = true,
+                        icon = {
+                            Icon(
+                                imageVector = Icons.Outlined.EditLocationAlt,
+                                contentDescription = "edit_polygon",
+                            )
+                        },
+                        onClick = {
+                            focusRequester.requestFocus()
+                            onUpdateButtonClicked.invoke()
+                        },
+                    )
+                }
+            } else {
+                null
+            },
         inputStyle = inputStyle,
     )
 }

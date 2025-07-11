@@ -48,16 +48,13 @@ data class BottomSheetShellUIState(
  * Provides default values and configurations for the BottomSheet component.
  */
 class BottomSheetShellDefaults {
-
     companion object {
         /**
          * Returns the default padding values for the button block in the BottomSheet.
          *
          * @return PaddingValues with top, bottom, start, and end padding.
          */
-        fun buttonBlockPaddings(): PaddingValues {
-            return PaddingValues(top = Spacing0, bottom = Spacing24, start = Spacing24, end = Spacing24)
-        }
+        fun buttonBlockPaddings(): PaddingValues = PaddingValues(top = Spacing0, bottom = Spacing24, start = Spacing24, end = Spacing24)
 
         /**
          * Returns the appropriate window insets for the BottomSheet based on whether edge-to-edge mode is enabled.
@@ -67,9 +64,12 @@ class BottomSheetShellDefaults {
          */
         @Composable
         @OptIn(ExperimentalMaterial3Api::class)
-        fun windowInsets(isEdgeToEdgeEnabled: Boolean): WindowInsets {
-            return if (isEdgeToEdgeEnabled) WindowInsets(0, 0, 0, 0) else { BottomSheetDefaults.windowInsets }
-        }
+        fun windowInsets(isEdgeToEdgeEnabled: Boolean): WindowInsets =
+            if (isEdgeToEdgeEnabled) {
+                WindowInsets(0, 0, 0, 0)
+            } else {
+                BottomSheetDefaults.windowInsets
+            }
 
         /**
          * Returns the appropriate lower padding for the BottomSheet based on whether edge-to-edge mode is enabled.
@@ -77,8 +77,6 @@ class BottomSheetShellDefaults {
          * @param isEdgeToEdgeEnabled Boolean indicating if edge-to-edge mode is enabled.
          * @return a dp value based on the edge-to-edge mode.
          */
-        fun lowerPadding(isEdgeToEdgeEnabled: Boolean): Dp {
-            return if (isEdgeToEdgeEnabled) Spacing16 else Spacing0
-        }
+        fun lowerPadding(isEdgeToEdgeEnabled: Boolean): Dp = if (isEdgeToEdgeEnabled) Spacing16 else Spacing0
     }
 }

@@ -81,10 +81,11 @@ fun PickersScreen() {
             onCancel = { showTimePicker = false },
             onAccept = {
                 showTimePicker = false
-                timePickerValue = formatTime(
-                    timePickerState.hour,
-                    timePickerState.minute,
-                )
+                timePickerValue =
+                    formatTime(
+                        timePickerState.hour,
+                        timePickerState.minute,
+                    )
             },
             acceptText = "Accept",
             cancelText = "Cancel",
@@ -92,18 +93,27 @@ fun PickersScreen() {
     }
 }
 
-private fun formatDate(millis: Long, pattern: String = "dd/MM/yyyy"): String {
+private fun formatDate(
+    millis: Long,
+    pattern: String = "dd/MM/yyyy",
+): String {
     val date = Date(millis)
     val formatter = SimpleDateFormat(pattern, Locale.getDefault())
     return formatter.format(date)
 }
 
-private fun formatTime(hour: Int, minute: Int, second: Int = 0, pattern: String = "HH:mm:ss"): String {
-    val calendar = Calendar.getInstance().apply {
-        set(Calendar.HOUR_OF_DAY, hour)
-        set(Calendar.MINUTE, minute)
-        set(Calendar.SECOND, second)
-    }
+private fun formatTime(
+    hour: Int,
+    minute: Int,
+    second: Int = 0,
+    pattern: String = "HH:mm:ss",
+): String {
+    val calendar =
+        Calendar.getInstance().apply {
+            set(Calendar.HOUR_OF_DAY, hour)
+            set(Calendar.MINUTE, minute)
+            set(Calendar.SECOND, second)
+        }
     val formatter = SimpleDateFormat(pattern, Locale.getDefault())
     return formatter.format(calendar.time)
 }

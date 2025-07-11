@@ -38,74 +38,41 @@ class MenuItemSnapshotTest {
                         ) {
                             MenuItem(
                                 modifier = Modifier.weight(1f),
-                                menuItemData = MenuItemData(
-                                    id = "menu_item",
-                                    label = "Label",
-                                    supportingText = "Support Text",
-                                    showDivider = true,
-                                    leadingElement = MenuLeadingElement.Icon(
-                                        icon = Icons.Outlined.Done,
+                                menuItemData =
+                                    MenuItemData(
+                                        id = "menu_item",
+                                        label = "Label",
+                                        supportingText = "Support Text",
+                                        showDivider = true,
+                                        leadingElement =
+                                            MenuLeadingElement.Icon(
+                                                icon = Icons.Outlined.Done,
+                                            ),
+                                        trailingElement =
+                                            MenuTrailingElement.Icon(
+                                                icon = Icons.AutoMirrored.Outlined.ArrowRight,
+                                            ),
                                     ),
-                                    trailingElement = MenuTrailingElement.Icon(
-                                        icon = Icons.AutoMirrored.Outlined.ArrowRight,
-                                    ),
-                                ),
                             ) {}
 
                             MenuItem(
                                 modifier = Modifier.weight(1f),
-                                menuItemData = MenuItemData(
-                                    id = "menu_item",
-                                    label = "Label",
-                                    supportingText = "Support Text",
-                                    showDivider = true,
-                                    style = MenuItemStyle.ALERT,
-                                    leadingElement = MenuLeadingElement.Icon(
-                                        icon = Icons.Outlined.Done,
+                                menuItemData =
+                                    MenuItemData(
+                                        id = "menu_item",
+                                        label = "Label",
+                                        supportingText = "Support Text",
+                                        showDivider = true,
+                                        style = MenuItemStyle.ALERT,
+                                        leadingElement =
+                                            MenuLeadingElement.Icon(
+                                                icon = Icons.Outlined.Done,
+                                            ),
+                                        trailingElement =
+                                            MenuTrailingElement.Icon(
+                                                icon = Icons.AutoMirrored.Outlined.ArrowRight,
+                                            ),
                                     ),
-                                    trailingElement = MenuTrailingElement.Icon(
-                                        icon = Icons.AutoMirrored.Outlined.ArrowRight,
-                                    ),
-                                ),
-                            ) {}
-                        }
-
-                        Row(
-                            horizontalArrangement = Arrangement.spacedBy(20.dp),
-                        ) {
-                            MenuItem(
-                                modifier = Modifier.weight(1f),
-                                menuItemData = MenuItemData(
-                                    id = "menu_item",
-                                    label = "Label",
-                                    supportingText = "Support Text",
-                                    showDivider = true,
-                                    state = MenuItemState.SELECTED,
-                                    leadingElement = MenuLeadingElement.Icon(
-                                        icon = Icons.Outlined.Done,
-                                    ),
-                                    trailingElement = MenuTrailingElement.Icon(
-                                        icon = Icons.AutoMirrored.Outlined.ArrowRight,
-                                    ),
-                                ),
-                            ) {}
-
-                            MenuItem(
-                                modifier = Modifier.weight(1f),
-                                menuItemData = MenuItemData(
-                                    id = "menu_item",
-                                    label = "Label",
-                                    supportingText = "Support Text",
-                                    showDivider = true,
-                                    state = MenuItemState.SELECTED,
-                                    style = MenuItemStyle.ALERT,
-                                    leadingElement = MenuLeadingElement.Icon(
-                                        icon = Icons.Outlined.Done,
-                                    ),
-                                    trailingElement = MenuTrailingElement.Icon(
-                                        icon = Icons.AutoMirrored.Outlined.ArrowRight,
-                                    ),
-                                ),
                             ) {}
                         }
 
@@ -114,37 +81,88 @@ class MenuItemSnapshotTest {
                         ) {
                             MenuItem(
                                 modifier = Modifier.weight(1f),
-                                menuItemData = MenuItemData(
-                                    id = "menu_item",
-                                    label = "Label",
-                                    supportingText = "Support Text",
-                                    showDivider = true,
-                                    state = MenuItemState.DISABLED,
-                                    leadingElement = MenuLeadingElement.Icon(
-                                        icon = Icons.Outlined.Done,
+                                menuItemData =
+                                    MenuItemData(
+                                        id = "menu_item",
+                                        label = "Label",
+                                        supportingText = "Support Text",
+                                        showDivider = true,
+                                        state = MenuItemState.SELECTED,
+                                        leadingElement =
+                                            MenuLeadingElement.Icon(
+                                                icon = Icons.Outlined.Done,
+                                            ),
+                                        trailingElement =
+                                            MenuTrailingElement.Icon(
+                                                icon = Icons.AutoMirrored.Outlined.ArrowRight,
+                                            ),
                                     ),
-                                    trailingElement = MenuTrailingElement.Icon(
-                                        icon = Icons.AutoMirrored.Outlined.ArrowRight,
-                                    ),
-                                ),
                             ) {}
 
                             MenuItem(
                                 modifier = Modifier.weight(1f),
-                                menuItemData = MenuItemData(
-                                    id = "menu_item",
-                                    label = "Label",
-                                    supportingText = "Support Text",
-                                    showDivider = true,
-                                    state = MenuItemState.DISABLED,
-                                    style = MenuItemStyle.ALERT,
-                                    leadingElement = MenuLeadingElement.Icon(
-                                        icon = Icons.Outlined.Done,
+                                menuItemData =
+                                    MenuItemData(
+                                        id = "menu_item",
+                                        label = "Label",
+                                        supportingText = "Support Text",
+                                        showDivider = true,
+                                        state = MenuItemState.SELECTED,
+                                        style = MenuItemStyle.ALERT,
+                                        leadingElement =
+                                            MenuLeadingElement.Icon(
+                                                icon = Icons.Outlined.Done,
+                                            ),
+                                        trailingElement =
+                                            MenuTrailingElement.Icon(
+                                                icon = Icons.AutoMirrored.Outlined.ArrowRight,
+                                            ),
                                     ),
-                                    trailingElement = MenuTrailingElement.Icon(
-                                        icon = Icons.AutoMirrored.Outlined.ArrowRight,
+                            ) {}
+                        }
+
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(20.dp),
+                        ) {
+                            MenuItem(
+                                modifier = Modifier.weight(1f),
+                                menuItemData =
+                                    MenuItemData(
+                                        id = "menu_item",
+                                        label = "Label",
+                                        supportingText = "Support Text",
+                                        showDivider = true,
+                                        state = MenuItemState.DISABLED,
+                                        leadingElement =
+                                            MenuLeadingElement.Icon(
+                                                icon = Icons.Outlined.Done,
+                                            ),
+                                        trailingElement =
+                                            MenuTrailingElement.Icon(
+                                                icon = Icons.AutoMirrored.Outlined.ArrowRight,
+                                            ),
                                     ),
-                                ),
+                            ) {}
+
+                            MenuItem(
+                                modifier = Modifier.weight(1f),
+                                menuItemData =
+                                    MenuItemData(
+                                        id = "menu_item",
+                                        label = "Label",
+                                        supportingText = "Support Text",
+                                        showDivider = true,
+                                        state = MenuItemState.DISABLED,
+                                        style = MenuItemStyle.ALERT,
+                                        leadingElement =
+                                            MenuLeadingElement.Icon(
+                                                icon = Icons.Outlined.Done,
+                                            ),
+                                        trailingElement =
+                                            MenuTrailingElement.Icon(
+                                                icon = Icons.AutoMirrored.Outlined.ArrowRight,
+                                            ),
+                                    ),
                             ) {}
                         }
                     }

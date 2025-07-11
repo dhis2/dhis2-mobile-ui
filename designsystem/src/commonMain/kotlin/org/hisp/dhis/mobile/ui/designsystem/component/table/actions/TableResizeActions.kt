@@ -5,7 +5,6 @@ package org.hisp.dhis.mobile.ui.designsystem.component.table.actions
  * Implementations of this interface should provide specific logic for handling table resize events.
  */
 interface TableResizeActions {
-
     /**
      * Called when the table width changes.
      * @param width The new width of the table.
@@ -17,7 +16,10 @@ interface TableResizeActions {
      * @param tableId The ID of the table.
      * @param newValue The new value of the row header.
      */
-    fun onRowHeaderResize(tableId: String, newValue: Float) = run {}
+    fun onRowHeaderResize(
+        tableId: String,
+        newValue: Float,
+    ) = run {}
 
     /**
      * Called when a column header is resized.
@@ -25,14 +27,21 @@ interface TableResizeActions {
      * @param column The index of the column.
      * @param newValue The new value of the column header.
      */
-    fun onColumnHeaderResize(tableId: String, column: Int, newValue: Float) = run {}
+    fun onColumnHeaderResize(
+        tableId: String,
+        column: Int,
+        newValue: Float,
+    ) = run {}
 
     /**
      * Called when a table dimension is resized.
      * @param tableId The ID of the table.
      * @param newValue The new value of the table dimension.
      */
-    fun onTableDimensionResize(tableId: String, newValue: Float) = run {}
+    fun onTableDimensionResize(
+        tableId: String,
+        newValue: Float,
+    ) = run {}
 
     /**
      * Called when a table dimension is reset.

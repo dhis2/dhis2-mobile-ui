@@ -40,13 +40,20 @@ fun InputYesOnlyCheckBox(
 
     var indicatorColor by remember { mutableStateOf(InputShellState.UNFOCUSED.color) }
     InputShell(
-        modifier = modifier
-            .focusRequester(focusRequester)
-            .onFocusChanged {
-                indicatorColor =
-                    if (it.isFocused && state != InputShellState.ERROR && state != InputShellState.WARNING) InputShellState.FOCUSED.color else state.color
-            }
-            .testTag("INPUT_YES_ONLY_CHECKBOX"),
+        modifier =
+            modifier
+                .focusRequester(focusRequester)
+                .onFocusChanged {
+                    indicatorColor =
+                        if (it.isFocused &&
+                            state != InputShellState.ERROR &&
+                            state != InputShellState.WARNING
+                        ) {
+                            InputShellState.FOCUSED.color
+                        } else {
+                            state.color
+                        }
+                }.testTag("INPUT_YES_ONLY_CHECKBOX"),
         isRequiredField = isRequired,
         title = "",
         state = state,
@@ -66,14 +73,16 @@ fun InputYesOnlyCheckBox(
         },
         inputField = {
             CheckBox(
-                modifier = Modifier
-                    .offset(x = -Spacing.Spacing8),
-                checkBoxData = CheckBoxData(
-                    uid = checkBoxData.uid,
-                    checked = checkBoxData.checked,
-                    enabled = if (state == InputShellState.DISABLED) false else checkBoxData.enabled,
-                    textInput = checkBoxData.textInput,
-                ),
+                modifier =
+                    Modifier
+                        .offset(x = -Spacing.Spacing8),
+                checkBoxData =
+                    CheckBoxData(
+                        uid = checkBoxData.uid,
+                        checked = checkBoxData.checked,
+                        enabled = if (state == InputShellState.DISABLED) false else checkBoxData.enabled,
+                        textInput = checkBoxData.textInput,
+                    ),
             ) {
                 focusRequester.requestFocus()
                 onClick.invoke(it)

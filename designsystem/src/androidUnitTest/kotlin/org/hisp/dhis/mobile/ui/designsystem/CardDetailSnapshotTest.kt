@@ -24,43 +24,46 @@ class CardDetailSnapshotTest {
     val lorem =
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas dolor lacus, aliquam. Lorem ipsum dolor sit amet, consectetur adipiscing elit."
 
-    val teiDetailList = listOf(
-        AdditionalInfoItem(key = "National ID:", value = "001-224-789"),
-        AdditionalInfoItem(
-            key = lorem,
-            value = "+234 554",
-            icon = {
-                Icon(
-                    imageVector = Icons.Filled.PhoneEnabled,
-                    contentDescription = "Icon Button",
-                    tint = SurfaceColor.Primary,
-                )
-            },
-            color = SurfaceColor.Primary,
-            action = {},
-        ),
-        AdditionalInfoItem(key = lorem, value = lorem),
-        AdditionalInfoItem(key = "Enrolled in:", value = "PHC Blueberry", isConstantItem = true),
-        AdditionalInfoItem(
-            value = "PHC Blueberry",
-            isConstantItem = true,
-        ),
-        AdditionalInfoItem(
-            key = lorem,
-            value = "Tuberculosis, Nutrition, " +
-                "Assistance Program, Malaria Diagnosis",
-            action = {},
-            color = SurfaceColor.Primary,
-            isConstantItem = true,
-        ),
-        AdditionalInfoItem(
-            key = lorem,
-            value = "Tuberculosis, Nutrition, " +
-                "Assistance Program, Malaria Diagnosis",
-            action = {},
-            color = SurfaceColor.Primary,
-        ),
-    )
+    val teiDetailList =
+        listOf(
+            AdditionalInfoItem(key = "National ID:", value = "001-224-789"),
+            AdditionalInfoItem(
+                key = lorem,
+                value = "+234 554",
+                icon = {
+                    Icon(
+                        imageVector = Icons.Filled.PhoneEnabled,
+                        contentDescription = "Icon Button",
+                        tint = SurfaceColor.Primary,
+                    )
+                },
+                color = SurfaceColor.Primary,
+                action = {},
+            ),
+            AdditionalInfoItem(key = lorem, value = lorem),
+            AdditionalInfoItem(key = "Enrolled in:", value = "PHC Blueberry", isConstantItem = true),
+            AdditionalInfoItem(
+                value = "PHC Blueberry",
+                isConstantItem = true,
+            ),
+            AdditionalInfoItem(
+                key = lorem,
+                value =
+                    "Tuberculosis, Nutrition, " +
+                        "Assistance Program, Malaria Diagnosis",
+                action = {},
+                color = SurfaceColor.Primary,
+                isConstantItem = true,
+            ),
+            AdditionalInfoItem(
+                key = lorem,
+                value =
+                    "Tuberculosis, Nutrition, " +
+                        "Assistance Program, Malaria Diagnosis",
+                action = {},
+                color = SurfaceColor.Primary,
+            ),
+        )
 
     @Test
     fun launchCardDetail() {

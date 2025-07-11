@@ -41,7 +41,9 @@ fun BasicTextInputsScreen() {
     }
 }
 
-enum class BasicTextInputs(val label: String) {
+enum class BasicTextInputs(
+    val label: String,
+) {
     FORM_SHELLS("Form Shells component"),
     INPUT_INTEGER("Input Integer component"),
     INPUT_LETTER("Input Letter component"),
@@ -58,6 +60,7 @@ enum class BasicTextInputs(val label: String) {
     NO_COMPONENT_SELECTED("No component selected"),
 }
 
-fun getCurrentScreen(label: String): BasicTextInputs {
-    return BasicTextInputs.entries.firstOrNull { it.label == label } ?: BasicTextInputs.INPUT_TEXT
-}
+fun getCurrentScreen(label: String): BasicTextInputs =
+    BasicTextInputs.entries.firstOrNull {
+        it.label == label
+    } ?: BasicTextInputs.INPUT_TEXT

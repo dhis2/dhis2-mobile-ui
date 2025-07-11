@@ -7,7 +7,6 @@ import org.junit.Rule
 import org.junit.Test
 
 class InputIndicatorSnapshotTest {
-
     @get:Rule
     val paparazzi = paparazzi()
 

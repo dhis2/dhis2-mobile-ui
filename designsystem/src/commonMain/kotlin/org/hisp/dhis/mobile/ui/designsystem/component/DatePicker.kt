@@ -43,9 +43,10 @@ fun DatePicker(
     modifier: Modifier = Modifier,
 ) {
     MaterialTheme(
-        colorScheme = DHIS2LightColorScheme.copy(
-            outlineVariant = Outline.Medium,
-        ),
+        colorScheme =
+            DHIS2LightColorScheme.copy(
+                outlineVariant = Outline.Medium,
+            ),
     ) {
         DatePickerDialog(
             modifier = modifier.testTag("DATE_PICKER"),
@@ -71,21 +72,23 @@ fun DatePicker(
                     onCancel()
                 }
             },
-            properties = DialogProperties(
-                dismissOnBackPress = true,
-                dismissOnClickOutside = true,
-                usePlatformDefaultWidth = true,
-            ),
+            properties =
+                DialogProperties(
+                    dismissOnBackPress = true,
+                    dismissOnClickOutside = true,
+                    usePlatformDefaultWidth = true,
+                ),
         ) {
             Material3DatePicker(
                 title = {
                     Text(
                         text = title,
                         style = MaterialTheme.typography.bodyLarge,
-                        modifier = Modifier.padding(
-                            start = Spacing.Spacing24,
-                            top = Spacing.Spacing24,
-                        ),
+                        modifier =
+                            Modifier.padding(
+                                start = Spacing.Spacing24,
+                                top = Spacing.Spacing24,
+                            ),
                     )
                 },
                 state = state,

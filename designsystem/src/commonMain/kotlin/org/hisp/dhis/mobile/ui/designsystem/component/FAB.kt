@@ -35,14 +35,14 @@ fun FAB(
     icon: @Composable () -> Unit,
 ) {
     FloatingActionButton(
-        modifier = modifier
-            .dropShadow(
-                shape = MaterialTheme.shapes.small.copy(CornerSize(Radius.L)),
-                offsetY = 4.dp,
-                blur = 4.dp,
-                color = SurfaceColor.Primary.copy(alpha = 0.25f),
-            )
-            .testTag("FAB"),
+        modifier =
+            modifier
+                .dropShadow(
+                    shape = MaterialTheme.shapes.small.copy(CornerSize(Radius.L)),
+                    offsetY = 4.dp,
+                    blur = 4.dp,
+                    color = SurfaceColor.Primary.copy(alpha = 0.25f),
+                ).testTag("FAB"),
         onClick = onClick,
         shape = MaterialTheme.shapes.small.copy(CornerSize(Radius.L)),
         containerColor = getContainerColor(style),
@@ -73,22 +73,21 @@ fun ExtendedFAB(
     icon: @Composable () -> Unit,
 ) {
     ExtendedFloatingActionButton(
-        modifier = modifier
-            .dropShadow(
-                shape = MaterialTheme.shapes.small.copy(CornerSize(Radius.L)),
-                offsetY = 2.dp,
-                blur = 4.dp,
-                spread = (-2).dp,
-                color = SurfaceColor.Primary.copy(alpha = 0.3f),
-            )
-            .dropShadow(
-                shape = MaterialTheme.shapes.small.copy(CornerSize(Radius.L)),
-                offsetY = 4.dp,
-                blur = 8.dp,
-                spread = 3.dp,
-                color = SurfaceColor.Primary.copy(alpha = 0.15f),
-            )
-            .testTag("EXTENDED_FAB_$text"),
+        modifier =
+            modifier
+                .dropShadow(
+                    shape = MaterialTheme.shapes.small.copy(CornerSize(Radius.L)),
+                    offsetY = 2.dp,
+                    blur = 4.dp,
+                    spread = (-2).dp,
+                    color = SurfaceColor.Primary.copy(alpha = 0.3f),
+                ).dropShadow(
+                    shape = MaterialTheme.shapes.small.copy(CornerSize(Radius.L)),
+                    offsetY = 4.dp,
+                    blur = 8.dp,
+                    spread = 3.dp,
+                    color = SurfaceColor.Primary.copy(alpha = 0.15f),
+                ).testTag("EXTENDED_FAB_$text"),
         icon = icon,
         text = {
             Text(
@@ -105,22 +104,22 @@ fun ExtendedFAB(
     )
 }
 
-private fun getContainerColor(style: FABStyle): Color {
-    return when (style) {
+private fun getContainerColor(style: FABStyle): Color =
+    when (style) {
         FABStyle.SURFACE -> SurfaceColor.Surface
         FABStyle.PRIMARY -> SurfaceColor.Primary
         FABStyle.SECONDARY -> SurfaceColor.PrimaryContainer
     }
-}
 
-private fun getContentColor(style: FABStyle): Color {
-    return when (style) {
+private fun getContentColor(style: FABStyle): Color =
+    when (style) {
         FABStyle.SURFACE -> TextColor.OnSurfaceVariant
         FABStyle.PRIMARY -> TextColor.OnPrimary
         FABStyle.SECONDARY -> TextColor.OnPrimaryContainer
     }
-}
 
 enum class FABStyle {
-    SURFACE, PRIMARY, SECONDARY
+    SURFACE,
+    PRIMARY,
+    SECONDARY,
 }

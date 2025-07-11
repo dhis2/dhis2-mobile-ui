@@ -83,36 +83,41 @@ fun InputDateTime(
 ) {
     val uiData = state.uiData
 
-    val uiValue = remember(state.inputTextFieldValue) {
-        formatStoredDateToUI(
-            state.inputTextFieldValue ?: TextFieldValue(),
-            uiData.actionType,
-        )
-    }
+    val uiValue =
+        remember(state.inputTextFieldValue) {
+            formatStoredDateToUI(
+                state.inputTextFieldValue ?: TextFieldValue(),
+                uiData.actionType,
+            )
+        }
     val focusManager = LocalFocusManager.current
     val focusRequester = remember { FocusRequester() }
     var showDatePicker by rememberSaveable { mutableStateOf(false) }
     var showTimePicker by rememberSaveable { mutableStateOf(false) }
     var dateOutOfRangeText = uiData.outOfRangeText ?: provideStringResource("date_out_of_range")
 
-    dateOutOfRangeText = "$dateOutOfRangeText (" + formatStringToDate(
-        uiData.selectableDates.initialDate,
-    ) + " - " +
+    dateOutOfRangeText = "$dateOutOfRangeText (" +
+        formatStringToDate(
+            uiData.selectableDates.initialDate,
+        ) + " - " +
         formatStringToDate(uiData.selectableDates.endDate) + ")"
     val incorrectHourFormat =
         uiData.incorrectHourFormatText ?: provideStringResource("wrong_hour_format")
-    val incorrectHourFormatItem = SupportingTextData(
-        text = incorrectHourFormat,
-        SupportingTextState.ERROR,
-    )
-    val incorrectDateFormatItem = SupportingTextData(
-        text = provideStringResource("incorrect_date_format"),
-        SupportingTextState.ERROR,
-    )
-    val dateOutOfRangeItem = SupportingTextData(
-        text = dateOutOfRangeText,
-        SupportingTextState.ERROR,
-    )
+    val incorrectHourFormatItem =
+        SupportingTextData(
+            text = incorrectHourFormat,
+            SupportingTextState.ERROR,
+        )
+    val incorrectDateFormatItem =
+        SupportingTextData(
+            text = provideStringResource("incorrect_date_format"),
+            SupportingTextState.ERROR,
+        )
+    val dateOutOfRangeItem =
+        SupportingTextData(
+            text = dateOutOfRangeText,
+            SupportingTextState.ERROR,
+        )
     val supportingTextList =
         getSupportingTextList(
             state,
@@ -124,23 +129,27 @@ fun InputDateTime(
         )
 
     InputShell(
-        modifier = modifier.testTag("INPUT_DATE_TIME")
-            .focusRequester(focusRequester),
+        modifier =
+            modifier
+                .testTag("INPUT_DATE_TIME")
+                .focusRequester(focusRequester),
         title = uiData.title,
-        state = getInputState(
-            supportingTextList,
-            dateOutOfRangeItem,
-            incorrectDateFormatItem,
-            state.inputState,
-        ),
+        state =
+            getInputState(
+                supportingTextList,
+                dateOutOfRangeItem,
+                incorrectDateFormatItem,
+                state.inputState,
+            ),
         isRequiredField = uiData.isRequired,
         onFocusChanged = onFocusChanged,
         inputField = {
             if (uiData.allowsManualInput) {
                 BasicTextField(
-                    modifier = Modifier
-                        .testTag("INPUT_DATE_TIME_TEXT_FIELD")
-                        .fillMaxWidth(),
+                    modifier =
+                        Modifier
+                            .testTag("INPUT_DATE_TIME_TEXT_FIELD")
+                            .fillMaxWidth(),
                     inputTextValue = uiValue,
                     isSingleLine = true,
                     onInputChanged = { newText ->
@@ -152,10 +161,11 @@ fun InputDateTime(
                     },
                     enabled = state.inputState != InputShellState.DISABLED,
                     state = state.inputState,
-                    keyboardOptions = KeyboardOptions(
-                        imeAction = uiData.imeAction,
-                        keyboardType = KeyboardType.Number,
-                    ),
+                    keyboardOptions =
+                        KeyboardOptions(
+                            imeAction = uiData.imeAction,
+                            keyboardType = KeyboardType.Number,
+                        ),
                     visualTransformation = uiData.visualTransformation,
                     onNextClicked = {
                         manageOnNext(focusManager, onNextClicked)
@@ -164,28 +174,31 @@ fun InputDateTime(
             } else {
                 Box {
                     Text(
-                        modifier = Modifier
-                            .testTag("INPUT_DATE_TIME_TEXT")
-                            .fillMaxWidth(),
+                        modifier =
+                            Modifier
+                                .testTag("INPUT_DATE_TIME_TEXT")
+                                .fillMaxWidth(),
                         text = uiData.visualTransformation.filter(AnnotatedString(uiValue.text)).text,
-                        style = MaterialTheme.typography.bodyLarge.copy(
-                            color = getTextColor(state.inputState, state.inputTextFieldValue),
-                        ),
+                        style =
+                            MaterialTheme.typography.bodyLarge.copy(
+                                color = getTextColor(state.inputState, state.inputTextFieldValue),
+                            ),
                     )
                     Box(
-                        modifier = Modifier
-                            .matchParentSize()
-                            .alpha(0f)
-                            .clickable(
-                                enabled = state.inputState != InputShellState.DISABLED,
-                                onClick = {
-                                    if (uiData.actionType == DateTimeActionType.TIME) {
-                                        showTimePicker = !showTimePicker
-                                    } else {
-                                        showDatePicker = !showDatePicker
-                                    }
-                                },
-                            ),
+                        modifier =
+                            Modifier
+                                .matchParentSize()
+                                .alpha(0f)
+                                .clickable(
+                                    enabled = state.inputState != InputShellState.DISABLED,
+                                    onClick = {
+                                        if (uiData.actionType == DateTimeActionType.TIME) {
+                                            showTimePicker = !showTimePicker
+                                        } else {
+                                            showDatePicker = !showDatePicker
+                                        }
+                                    },
+                                ),
                     )
                 }
             }
@@ -197,8 +210,10 @@ fun InputDateTime(
             val icon = getActionButtonIcon(uiData.actionType)
 
             SquareIconButton(
-                modifier = Modifier.testTag("INPUT_DATE_TIME_ACTION_BUTTON")
-                    .focusable(),
+                modifier =
+                    Modifier
+                        .testTag("INPUT_DATE_TIME_ACTION_BUTTON")
+                        .focusable(),
                 icon = {
                     Icon(
                         imageVector = icon,
@@ -219,15 +234,15 @@ fun InputDateTime(
             )
         },
         supportingText =
-        {
-            supportingTextList.forEach { item ->
-                SupportingText(
-                    item.text,
-                    item.state,
-                    modifier = Modifier.testTag("INPUT_DATE_TIME_SUPPORTING_TEXT" + item.text),
-                )
-            }
-        },
+            {
+                supportingTextList.forEach { item ->
+                    SupportingText(
+                        item.text,
+                        item.state,
+                        modifier = Modifier.testTag("INPUT_DATE_TIME_SUPPORTING_TEXT" + item.text),
+                    )
+                }
+            },
         legend = {
             state.legendData?.let {
                 Legend(it, Modifier.testTag("INPUT_DATE_TIME_LEGEND"))
@@ -247,9 +262,10 @@ fun InputDateTime(
                         manageOnValueChanged(
                             TextFieldValue(
                                 getDate(it),
-                                selection = TextRange(
-                                    state.inputTextFieldValue?.text?.length ?: 0,
-                                ),
+                                selection =
+                                    TextRange(
+                                        state.inputTextFieldValue?.text?.length ?: 0,
+                                    ),
                             ),
                             onValueChanged,
                             uiData.actionType,
@@ -305,8 +321,9 @@ private fun getInputState(
     dateOutOfRangeItem: SupportingTextData,
     incorrectDateFormatItem: SupportingTextData,
     currentState: InputShellState,
-): InputShellState {
-    return if (supportingTextList.contains(dateOutOfRangeItem) || supportingTextList.contains(
+): InputShellState =
+    if (supportingTextList.contains(dateOutOfRangeItem) ||
+        supportingTextList.contains(
             incorrectDateFormatItem,
         )
     ) {
@@ -314,14 +331,12 @@ private fun getInputState(
     } else {
         currentState
     }
-}
 
-private fun getActionButtonIcon(actionType: DateTimeActionType): ImageVector {
-    return when (actionType) {
+private fun getActionButtonIcon(actionType: DateTimeActionType): ImageVector =
+    when (actionType) {
         DateTimeActionType.DATE, DateTimeActionType.DATE_TIME -> Icons.Filled.Event
         DateTimeActionType.TIME -> Icons.Filled.Schedule
     }
-}
 
 @Composable
 fun InputDateResetButton(
@@ -346,15 +361,20 @@ fun InputDateResetButton(
     }
 }
 
-fun getTextColor(inputState: InputShellState, inputTextFieldValue: TextFieldValue?): Color {
-    return if (inputState != InputShellState.DISABLED && !inputTextFieldValue?.text.isNullOrEmpty()) {
+fun getTextColor(
+    inputState: InputShellState,
+    inputTextFieldValue: TextFieldValue?,
+): Color =
+    if (inputState != InputShellState.DISABLED && !inputTextFieldValue?.text.isNullOrEmpty()) {
         TextColor.OnSurface
     } else {
         TextColor.OnDisabledSurface
     }
-}
 
-fun manageOnNext(focusManager: FocusManager, onNextClicked: (() -> Unit)?) {
+fun manageOnNext(
+    focusManager: FocusManager,
+    onNextClicked: (() -> Unit)?,
+) {
     if (onNextClicked != null) {
         onNextClicked.invoke()
     } else {
@@ -390,15 +410,15 @@ private fun manageOnValueChangedFromDateTimePicker(
                 ),
                 actionType,
             ),
-
         )
     } else {
         onValueChanged(
             formatUIDateToStored(
                 TextFieldValue(
-                    getDate(datePickerState.selectedDateMillis) + getTime(
-                        timePickerState,
-                    ),
+                    getDate(datePickerState.selectedDateMillis) +
+                        getTime(
+                            timePickerState,
+                        ),
                     selection = TextRange(newValue?.text?.length ?: 0),
                 ),
                 actionType,
@@ -409,8 +429,8 @@ private fun manageOnValueChangedFromDateTimePicker(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun datePickerColors(): DatePickerColors {
-    return DatePickerDefaults.colors(
+fun datePickerColors(): DatePickerColors =
+    DatePickerDefaults.colors(
         selectedDayContainerColor = SurfaceColor.Primary,
         selectedDayContentColor = TextColor.OnPrimary,
         todayDateBorderColor = SurfaceColor.Primary,
@@ -418,9 +438,11 @@ fun datePickerColors(): DatePickerColors {
         selectedYearContentColor = TextColor.OnPrimary,
         disabledDayContentColor = TextColor.OnDisabledSurface,
     )
-}
 
-internal fun getDate(milliSeconds: Long?, format: String = "ddMMyyyy"): String {
+internal fun getDate(
+    milliSeconds: Long?,
+    format: String = "ddMMyyyy",
+): String {
     if (milliSeconds == null) {
         return ""
     }
@@ -436,16 +458,16 @@ internal fun getDate(milliSeconds: Long?, format: String = "ddMMyyyy"): String {
     return formatter.format(date)
 }
 
-fun formatStringToDate(dateString: String): String {
-    return if (dateString.length == 8) {
-        dateString.substring(0, 2) + "/" + dateString.substring(
-            2,
-            4,
-        ) + "/" + dateString.substring(4, 8)
+fun formatStringToDate(dateString: String): String =
+    if (dateString.length == 8) {
+        dateString.substring(0, 2) + "/" +
+            dateString.substring(
+                2,
+                4,
+            ) + "/" + dateString.substring(4, 8)
     } else {
         dateString
     }
-}
 
 data class SelectableDates(
     val initialDate: String,
@@ -453,5 +475,7 @@ data class SelectableDates(
 )
 
 enum class DateTimeActionType {
-    DATE, TIME, DATE_TIME
+    DATE,
+    TIME,
+    DATE_TIME,
 }

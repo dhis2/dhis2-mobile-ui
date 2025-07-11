@@ -79,54 +79,60 @@ fun InputAge(
     val maxAgeCharLimit = 3
     var showDatePicker by rememberSaveable { mutableStateOf(false) }
 
-    val helperText = remember(inputType) {
-        if (inputType is Age) {
-            inputType.unit.value
+    val helperText =
+        remember(inputType) {
+            if (inputType is Age) {
+                inputType.unit.value
+            } else {
+                null
+            }
+        }
+    val helperStyle =
+        remember(inputType) {
+            when (inputType) {
+                None -> HelperStyle.NONE
+                is DateOfBirth -> HelperStyle.WITH_DATE_OF_BIRTH_HELPER
+                is Age -> HelperStyle.WITH_HELPER_AFTER
+            }
+        }
+    val selectableDates =
+        uiData.selectableDates ?: SelectableDates(
+            MIN_DATE,
+            SimpleDateFormat(DATE_FORMAT).format(Calendar.getInstance().time),
+        )
+
+    val datePickerState =
+        uiValue.text
+            .takeIf {
+                it.isNotEmpty() && isValidDate(it) && dateIsInRange(parseStringDateToMillis(it), selectableDates)
+            }?.let {
+                rememberDatePickerState(
+                    initialSelectedDateMillis = parseStringDateToMillis(it),
+                    selectableDates = getSelectableDates(selectableDates),
+                )
+            } ?: rememberDatePickerState(selectableDates = getSelectableDates(selectableDates))
+
+    val calendarButton: (@Composable () -> Unit)? =
+        if (inputType is DateOfBirth) {
+            @Composable {
+                SquareIconButton(
+                    modifier = Modifier.testTag("INPUT_AGE_OPEN_CALENDAR_BUTTON"),
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Filled.Event,
+                            contentDescription = null,
+                        )
+                    },
+                    onClick = {
+                        focusRequester.requestFocus()
+                        showDatePicker = !showDatePicker
+                    },
+                    enabled = state.inputState != InputShellState.DISABLED,
+                )
+            }
         } else {
             null
         }
-    }
-    val helperStyle = remember(inputType) {
-        when (inputType) {
-            None -> HelperStyle.NONE
-            is DateOfBirth -> HelperStyle.WITH_DATE_OF_BIRTH_HELPER
-            is Age -> HelperStyle.WITH_HELPER_AFTER
-        }
-    }
-    val selectableDates = uiData.selectableDates ?: SelectableDates(
-        MIN_DATE,
-        SimpleDateFormat(DATE_FORMAT).format(Calendar.getInstance().time),
-    )
-
-    val datePickerState = uiValue.text.takeIf {
-        it.isNotEmpty() && isValidDate(it) && dateIsInRange(parseStringDateToMillis(it), selectableDates)
-    }?.let {
-        rememberDatePickerState(
-            initialSelectedDateMillis = parseStringDateToMillis(it),
-            selectableDates = getSelectableDates(selectableDates),
-        )
-    } ?: rememberDatePickerState(selectableDates = getSelectableDates(selectableDates))
-
-    val calendarButton: (@Composable () -> Unit)? = if (inputType is DateOfBirth) {
-        @Composable {
-            SquareIconButton(
-                modifier = Modifier.testTag("INPUT_AGE_OPEN_CALENDAR_BUTTON"),
-                icon = {
-                    Icon(
-                        imageVector = Icons.Filled.Event,
-                        contentDescription = null,
-                    )
-                },
-                onClick = {
-                    focusRequester.requestFocus()
-                    showDatePicker = !showDatePicker
-                },
-                enabled = state.inputState != InputShellState.DISABLED,
-            )
-        }
-    } else {
-        null
-    }
 
     var previousInputType by remember { mutableStateOf(inputType) }
     LaunchedEffect(inputType) {
@@ -145,26 +151,30 @@ fun InputAge(
         }
     }
 
-    val dateOutOfRangeText = "${provideStringResource("date_out_of_range")} (" +
-        formatStringToDate(selectableDates.initialDate) + " - " +
-        formatStringToDate(selectableDates.endDate) + ")"
-    val dateOutOfRangeItem = SupportingTextData(
-        text = dateOutOfRangeText,
-        SupportingTextState.ERROR,
-    )
-    val incorrectDateFormatItem = SupportingTextData(
-        text = provideStringResource("incorrect_date_format"),
-        SupportingTextState.ERROR,
-    )
+    val dateOutOfRangeText =
+        "${provideStringResource("date_out_of_range")} (" +
+            formatStringToDate(selectableDates.initialDate) + " - " +
+            formatStringToDate(selectableDates.endDate) + ")"
+    val dateOutOfRangeItem =
+        SupportingTextData(
+            text = dateOutOfRangeText,
+            SupportingTextState.ERROR,
+        )
+    val incorrectDateFormatItem =
+        SupportingTextData(
+            text = provideStringResource("incorrect_date_format"),
+            SupportingTextState.ERROR,
+        )
 
-    val supportingTextList = provideSupportingText(
-        inputType,
-        uiValue,
-        state.supportingText,
-        dateOutOfRangeItem,
-        incorrectDateFormatItem,
-        selectableDates,
-    )
+    val supportingTextList =
+        provideSupportingText(
+            inputType,
+            uiValue,
+            state.supportingText,
+            dateOutOfRangeItem,
+            incorrectDateFormatItem,
+            selectableDates,
+        )
 
     InputShell(
         modifier = modifier.testTag("INPUT_AGE").focusRequester(focusRequester),
@@ -191,9 +201,10 @@ fun InputAge(
 
                 is DateOfBirth, is Age -> {
                     BasicTextField(
-                        modifier = Modifier
-                            .testTag("INPUT_AGE_TEXT_FIELD")
-                            .fillMaxWidth(),
+                        modifier =
+                            Modifier
+                                .testTag("INPUT_AGE_TEXT_FIELD")
+                                .fillMaxWidth(),
                         inputTextValue = uiValue,
                         helper = if (helperText != null) provideStringResource(helperText).lowercase() else null,
                         isSingleLine = true,
@@ -250,8 +261,10 @@ fun InputAge(
         legend = {
             if (inputType is Age) {
                 TimeUnitSelector(
-                    modifier = Modifier.fillMaxWidth()
-                        .testTag("INPUT_AGE_TIME_UNIT_SELECTOR"),
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .testTag("INPUT_AGE_TIME_UNIT_SELECTOR"),
                     orientation = Orientation.HORIZONTAL,
                     optionSelected = YEARS,
                     enabled = state.inputState != InputShellState.DISABLED,
@@ -270,9 +283,10 @@ fun InputAge(
 
     if (showDatePicker) {
         MaterialTheme(
-            colorScheme = DHIS2LightColorScheme.copy(
-                outlineVariant = Outline.Medium,
-            ),
+            colorScheme =
+                DHIS2LightColorScheme.copy(
+                    outlineVariant = Outline.Medium,
+                ),
         ) {
             DatePickerDialog(
                 modifier = Modifier.testTag("DATE_PICKER"),
@@ -287,9 +301,13 @@ fun InputAge(
                         showDatePicker = false
                         if (inputType is DateOfBirth) {
                             datePickerState.selectedDateMillis?.let {
-                                val newInputType: AgeInputType = DateOfBirth(
-                                    formatUIDateToStored(TextFieldValue(getDate(it), TextRange(getDate(it).length)), DateTimeActionType.DATE),
-                                )
+                                val newInputType: AgeInputType =
+                                    DateOfBirth(
+                                        formatUIDateToStored(
+                                            TextFieldValue(getDate(it), TextRange(getDate(it).length)),
+                                            DateTimeActionType.DATE,
+                                        ),
+                                    )
                                 onValueChanged.invoke(newInputType)
                             }
                         }
@@ -306,11 +324,12 @@ fun InputAge(
                         showDatePicker = false
                     }
                 },
-                properties = DialogProperties(
-                    dismissOnBackPress = true,
-                    dismissOnClickOutside = true,
-                    usePlatformDefaultWidth = true,
-                ),
+                properties =
+                    DialogProperties(
+                        dismissOnBackPress = true,
+                        dismissOnClickOutside = true,
+                        usePlatformDefaultWidth = true,
+                    ),
             ) {
                 DatePicker(
                     title = {
@@ -334,9 +353,14 @@ private fun getInputState(
     dateOutOfRangeItem: SupportingTextData,
     incorrectDateFormatItem: SupportingTextData,
     currentState: InputShellState,
-): InputShellState {
-    return if (supportingTextList.contains(dateOutOfRangeItem) || supportingTextList.contains(incorrectDateFormatItem)) InputShellState.ERROR else currentState
-}
+): InputShellState =
+    if (supportingTextList.contains(dateOutOfRangeItem) ||
+        supportingTextList.contains(incorrectDateFormatItem)
+    ) {
+        InputShellState.ERROR
+    } else {
+        currentState
+    }
 
 @Composable
 private fun provideSupportingText(
@@ -362,7 +386,11 @@ private fun provideSupportingText(
     } ?: supportingTextList
 }
 
-private fun manageOnValueChanged(newText: TextFieldValue, inputType: AgeInputType, onValueChanged: (AgeInputType?) -> Unit) {
+private fun manageOnValueChanged(
+    newText: TextFieldValue,
+    inputType: AgeInputType,
+    onValueChanged: (AgeInputType?) -> Unit,
+) {
     val allowedCharacters = RegExValidations.DATE_TIME.regex
     if (allowedCharacters.containsMatchIn(newText.text) || newText.text.isBlank()) {
         when (inputType) {
@@ -373,21 +401,19 @@ private fun manageOnValueChanged(newText: TextFieldValue, inputType: AgeInputTyp
     }
 }
 
-private fun transformInputText(inputType: AgeInputType): String {
-    return when (inputType) {
+private fun transformInputText(inputType: AgeInputType): String =
+    when (inputType) {
         is Age -> inputType.value.text
         is DateOfBirth -> inputType.value.text
         None -> ""
     }
-}
 
-private fun getTextFieldValue(inputType: AgeInputType): TextFieldValue {
-    return when (inputType) {
+private fun getTextFieldValue(inputType: AgeInputType): TextFieldValue =
+    when (inputType) {
         is Age -> TextFieldValue(transformInputText(inputType), inputType.value.selection)
         is DateOfBirth -> TextFieldValue(transformInputText(inputType), inputType.value.selection)
         None -> TextFieldValue()
     }
-}
 
 internal const val MIN_DATE = "10111901"
 internal const val MIN_YEAR = 1901
@@ -397,13 +423,18 @@ internal const val DATE_FORMAT = "ddMMYYYY"
 sealed interface AgeInputType {
     data object None : AgeInputType
 
-    data class DateOfBirth(val value: TextFieldValue) : AgeInputType {
+    data class DateOfBirth(
+        val value: TextFieldValue,
+    ) : AgeInputType {
         companion object {
             val EMPTY = DateOfBirth(TextFieldValue())
         }
     }
 
-    data class Age(val value: TextFieldValue, val unit: TimeUnitValues) : AgeInputType {
+    data class Age(
+        val value: TextFieldValue,
+        val unit: TimeUnitValues,
+    ) : AgeInputType {
         companion object {
             val EMPTY = Age(TextFieldValue(), YEARS)
         }

@@ -57,11 +57,12 @@ fun InputLetter(
         isRequiredField = isRequiredField,
         onNextClicked = onNextClicked,
         onValueChanged = onValueChanged,
-        keyboardOptions = KeyboardOptions(
-            imeAction = imeAction,
-            keyboardType = KeyboardType.Text,
-            capitalization = KeyboardCapitalization.Characters,
-        ),
+        keyboardOptions =
+            KeyboardOptions(
+                imeAction = imeAction,
+                keyboardType = KeyboardType.Text,
+                capitalization = KeyboardCapitalization.Characters,
+            ),
         allowedCharacters = RegExValidations.SINGLE_LETTER.regex,
         modifier = modifier,
         testTag = "LETTER",

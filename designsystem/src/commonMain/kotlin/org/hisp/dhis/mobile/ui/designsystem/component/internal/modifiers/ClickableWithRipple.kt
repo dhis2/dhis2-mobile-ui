@@ -15,11 +15,12 @@ internal fun Modifier.clickableWithRipple(
     role: Role = Role.Button,
     color: Color = SurfaceColor.Primary,
     onClick: () -> Unit,
-): Modifier = this.then(
-    Modifier.clickable(
-        role = role,
-        interactionSource = remember { MutableInteractionSource() },
-        indication = ripple(color = color),
-        onClick = onClick,
-    ),
-)
+): Modifier =
+    this.then(
+        Modifier.clickable(
+            role = role,
+            interactionSource = remember { MutableInteractionSource() },
+            indication = ripple(color = color),
+            onClick = onClick,
+        ),
+    )

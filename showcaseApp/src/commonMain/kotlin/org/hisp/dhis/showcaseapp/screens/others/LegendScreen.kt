@@ -37,18 +37,19 @@ fun LegendScreen() {
                 LegendData(
                     color = SurfaceColor.CustomGreen,
                     title = "Legend with popup",
-                    popUpLegendDescriptionData = listOf(
-                        LegendDescriptionData(
-                            color = SurfaceColor.CustomGreen,
-                            text = "Item 1",
-                            range = 0..300,
+                    popUpLegendDescriptionData =
+                        listOf(
+                            LegendDescriptionData(
+                                color = SurfaceColor.CustomGreen,
+                                text = "Item 1",
+                                range = 0..300,
+                            ),
+                            LegendDescriptionData(
+                                color = SurfaceColor.CustomGreen,
+                                text = "Item 2",
+                                range = 301..600,
+                            ),
                         ),
-                        LegendDescriptionData(
-                            color = SurfaceColor.CustomGreen,
-                            text = "Item 2",
-                            range = 301..600,
-                        ),
-                    ),
                 ),
             )
 

@@ -11,77 +11,79 @@ import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 @Composable
 fun MultiSelectInputScreen() {
     ColumnScreenContainer(title = ToggleableInputs.MULTI_SELECT.label) {
-        val multiSelect1Items = mutableStateListOf(
-            CheckBoxData(
-                uid = "uid-1",
-                checked = false,
-                enabled = true,
-                textInput = "Item 1",
-            ),
-            CheckBoxData(
-                uid = "uid-2",
-                checked = false,
-                enabled = true,
-                textInput = "Item 2",
-            ),
-            CheckBoxData(
-                uid = "uid-3",
-                checked = false,
-                enabled = true,
-                textInput = "Item 3",
-            ),
-            CheckBoxData(
-                uid = "uid-4",
-                checked = false,
-                enabled = true,
-                textInput = "Item 4",
-            ),
-        )
+        val multiSelect1Items =
+            mutableStateListOf(
+                CheckBoxData(
+                    uid = "uid-1",
+                    checked = false,
+                    enabled = true,
+                    textInput = "Item 1",
+                ),
+                CheckBoxData(
+                    uid = "uid-2",
+                    checked = false,
+                    enabled = true,
+                    textInput = "Item 2",
+                ),
+                CheckBoxData(
+                    uid = "uid-3",
+                    checked = false,
+                    enabled = true,
+                    textInput = "Item 3",
+                ),
+                CheckBoxData(
+                    uid = "uid-4",
+                    checked = false,
+                    enabled = true,
+                    textInput = "Item 4",
+                ),
+            )
 
-        val multiSelect2Items = mutableStateListOf(
-            CheckBoxData(
-                uid = "uid-1",
-                checked = true,
-                enabled = true,
-                textInput = "Option 1",
-            ),
-            CheckBoxData(
-                uid = "uid-2",
-                checked = true,
-                enabled = true,
-                textInput = "Option 2",
-            ),
-            CheckBoxData(
-                uid = "uid-3",
-                checked = true,
-                enabled = true,
-                textInput = "Opt. 3",
-            ),
-            CheckBoxData(
-                uid = "uid-4",
-                checked = false,
-                enabled = true,
-                textInput = "Option 4",
-            ),
-            CheckBoxData(
-                uid = "uid-5",
-                checked = false,
-                enabled = true,
-                textInput = "Option 5",
-            ),
-            CheckBoxData(
-                uid = "uid-6",
-                checked = false,
-                enabled = true,
-                textInput = "Opt. 6",
-            ),
-            CheckBoxData(
-                uid = "uid-7",
-                checked = false,
-                enabled = true,
-                textInput = "Opt. 7",
-            ),
-        )
+        val multiSelect2Items =
+            mutableStateListOf(
+                CheckBoxData(
+                    uid = "uid-1",
+                    checked = true,
+                    enabled = true,
+                    textInput = "Option 1",
+                ),
+                CheckBoxData(
+                    uid = "uid-2",
+                    checked = true,
+                    enabled = true,
+                    textInput = "Option 2",
+                ),
+                CheckBoxData(
+                    uid = "uid-3",
+                    checked = true,
+                    enabled = true,
+                    textInput = "Opt. 3",
+                ),
+                CheckBoxData(
+                    uid = "uid-4",
+                    checked = false,
+                    enabled = true,
+                    textInput = "Option 4",
+                ),
+                CheckBoxData(
+                    uid = "uid-5",
+                    checked = false,
+                    enabled = true,
+                    textInput = "Option 5",
+                ),
+                CheckBoxData(
+                    uid = "uid-6",
+                    checked = false,
+                    enabled = true,
+                    textInput = "Opt. 6",
+                ),
+                CheckBoxData(
+                    uid = "uid-7",
+                    checked = false,
+                    enabled = true,
+                    textInput = "Opt. 7",
+                ),
+            )
 
         ColumnComponentContainer("Basic state with no inputs") {
             InputMultiSelection(

@@ -14,13 +14,13 @@ internal fun Modifier.cornerBackground(
     selectedColor: Color = MaterialTheme.colorScheme.primary,
     defaultColor: Color = LocalTableColors.current.tableBackground,
     labelledColor: Color = LocalTableColors.current.headerBackground2,
-) =
-    this.then(
-        background(
-            color = when {
+) = this.then(
+    background(
+        color =
+            when {
                 isSelected -> selectedColor
                 hasLabel -> labelledColor
                 else -> defaultColor
             },
-        ),
-    )
+    ),
+)
