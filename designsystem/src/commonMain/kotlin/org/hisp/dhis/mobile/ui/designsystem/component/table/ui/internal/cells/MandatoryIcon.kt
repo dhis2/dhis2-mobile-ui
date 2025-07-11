@@ -48,4 +48,10 @@ sealed class MandatoryIconStyle(
         color = SurfaceColor.Error,
         alignment = Alignment.CenterStart,
     )
+
+    data object ComponentMandatoryStyle : MandatoryIconStyle(
+        paddingValues = PaddingValues(all = Spacing.Spacing2),
+        color = SurfaceColor.Error,
+        alignment = Alignment.TopStart,
+    )
 }
