@@ -75,9 +75,9 @@ fun App(
     imageBitmapLoader: (() -> ImageBitmap)? = null,
     onLocationRequest: (
         (
-        locationQuery: String,
-        locationSearchCallback: (List<LocationItemModel>) -> Unit,
-    ) -> Unit
+            locationQuery: String,
+            locationSearchCallback: (List<LocationItemModel>) -> Unit,
+        ) -> Unit
     )? = null,
 ) {
     DHIS2Theme {
@@ -85,42 +85,42 @@ fun App(
 
         Scaffold(
             modifier = Modifier.fillMaxSize(),
-            containerColor = when (currentScreen) {
-                Groups.NO_GROUP_SELECTED -> Color.White
-                else -> SurfaceColor.Container
-            },
+            containerColor =
+                when (currentScreen) {
+                    Groups.NO_GROUP_SELECTED -> Color.White
+                    else -> SurfaceColor.Container
+                },
             bottomBar = {
-                Box{}
-            }
+                Box {}
+            },
         ) { innerPadding ->
             SharedTransitionLayout(modifier = Modifier.padding(innerPadding)) {
-
                 AnimatedContent(
                     sizeClass.widthSizeClass,
                     label = "content_size_transition",
                 ) { widthSizeClass ->
                     when (widthSizeClass) {
                         WindowWidthSizeClass.Expanded ->
-                        ExpandedMain(
-                            currentScreen = currentScreen,
-                            imageBitmapLoader = imageBitmapLoader,
-                            onLocationRequest = onLocationRequest,
-                            animatedVisibilityScope = this,
-                            sharedTransitionScope = this@SharedTransitionLayout,
-                        ) {
-                            currentScreen = it
-                        }
+                            ExpandedMain(
+                                currentScreen = currentScreen,
+                                imageBitmapLoader = imageBitmapLoader,
+                                onLocationRequest = onLocationRequest,
+                                animatedVisibilityScope = this,
+                                sharedTransitionScope = this@SharedTransitionLayout,
+                            ) {
+                                currentScreen = it
+                            }
 
                         else ->
-                        Main(
-                            currentScreen = currentScreen,
-                            imageBitmapLoader = imageBitmapLoader,
-                            onLocationRequest = onLocationRequest,
-                            animatedVisibilityScope = this,
-                            sharedTransitionScope = this@SharedTransitionLayout,
-                        ) {
-                            currentScreen = it
-                        }
+                            Main(
+                                currentScreen = currentScreen,
+                                imageBitmapLoader = imageBitmapLoader,
+                                onLocationRequest = onLocationRequest,
+                                animatedVisibilityScope = this,
+                                sharedTransitionScope = this@SharedTransitionLayout,
+                            ) {
+                                currentScreen = it
+                            }
                     }
                 }
             }
@@ -134,9 +134,9 @@ fun ExpandedMain(
     imageBitmapLoader: (() -> ImageBitmap)?,
     onLocationRequest: (
         (
-        locationQuery: String,
-        locationSearchCallback: (List<LocationItemModel>) -> Unit,
-    ) -> Unit
+            locationQuery: String,
+            locationSearchCallback: (List<LocationItemModel>) -> Unit,
+        ) -> Unit
     )?,
     animatedVisibilityScope: AnimatedVisibilityScope,
     sharedTransitionScope: SharedTransitionScope,
@@ -200,9 +200,9 @@ fun Main(
     imageBitmapLoader: (() -> ImageBitmap)?,
     onLocationRequest: (
         (
-        locationQuery: String,
-        locationSearchCallback: (List<LocationItemModel>) -> Unit,
-    ) -> Unit
+            locationQuery: String,
+            locationSearchCallback: (List<LocationItemModel>) -> Unit,
+        ) -> Unit
     )?,
     animatedVisibilityScope: AnimatedVisibilityScope,
     sharedTransitionScope: SharedTransitionScope,
