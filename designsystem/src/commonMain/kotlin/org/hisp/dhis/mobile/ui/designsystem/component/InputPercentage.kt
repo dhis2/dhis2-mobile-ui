@@ -51,18 +51,20 @@ fun InputPercentage(
         inputStyle = inputStyle,
         supportingText = supportingText,
         legendData = legendData,
-        inputTextFieldValue = inputTextFieldValue?.copy(
-            text = inputTextFieldValue.text.replace("%", ""),
-        ),
+        inputTextFieldValue =
+            inputTextFieldValue?.copy(
+                text = inputTextFieldValue.text.replace("%", ""),
+            ),
         isRequiredField = isRequiredField,
         onNextClicked = onNextClicked,
         onValueChanged = onValueChanged,
         helperStyle = HelperStyle.WITH_HELPER_AFTER,
         helper = "%",
-        keyboardOptions = KeyboardOptions(
-            imeAction = imeAction,
-            keyboardType = KeyboardType.Number,
-        ),
+        keyboardOptions =
+            KeyboardOptions(
+                imeAction = imeAction,
+                keyboardType = KeyboardType.Number,
+            ),
         allowedCharacters = RegExValidations.PERCENTAGE.regex,
         modifier = modifier,
         testTag = "PERCENTAGE",

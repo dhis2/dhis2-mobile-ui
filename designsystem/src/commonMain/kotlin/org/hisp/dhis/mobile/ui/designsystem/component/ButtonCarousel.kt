@@ -45,21 +45,23 @@ fun CarouselButton(
 ) {
     CompositionLocalProvider(LocalRippleConfiguration provides customRippleConfiguration()) {
         Box(
-            modifier = modifier
-                .size(Spacing.Spacing80)
-                .hoverPointerIcon(buttonData.enabled).clip(RoundedCornerShape(Radius.Full))
-                .clickable(
-                    interactionSource = remember { MutableInteractionSource() },
-                    onClick = {
-                        buttonData.onClick.invoke()
-                    },
-                    indication = ripple(
-                        color = SurfaceColor.Primary,
+            modifier =
+                modifier
+                    .size(Spacing.Spacing80)
+                    .hoverPointerIcon(buttonData.enabled)
+                    .clip(RoundedCornerShape(Radius.Full))
+                    .clickable(
+                        interactionSource = remember { MutableInteractionSource() },
+                        onClick = {
+                            buttonData.onClick.invoke()
+                        },
+                        indication =
+                            ripple(
+                                color = SurfaceColor.Primary,
+                            ),
+                        enabled = buttonData.enabled,
                     ),
-                    enabled = buttonData.enabled,
-                ),
             contentAlignment = Alignment.Center,
-
         ) {
             Box(
                 contentAlignment = Alignment.Center,
@@ -68,7 +70,6 @@ fun CarouselButton(
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center,
-
                 ) {
                     buttonData.icon.invoke()
                     Spacer(Modifier.size(Spacing.Spacing8))
@@ -97,8 +98,7 @@ fun ButtonCarousel(
             .padding(horizontal = Spacing24),
         horizontalArrangement = Arrangement.Center,
     ) {
-        carouselButtonList.map {
-                buttonData ->
+        carouselButtonList.map { buttonData ->
             CarouselButton(buttonData)
             Spacer(Modifier.size(Spacing16))
         }

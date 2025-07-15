@@ -69,47 +69,52 @@ private fun EmptyParameterField(
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     Column(
-        modifier = modifier
-            .background(color = Color.Transparent)
-            .fillMaxWidth()
-            .clickable(
-                role = Role.Button,
-                interactionSource = interactionSource,
-                indication = ripple(
-                    color = SurfaceColor.Primary,
-                ),
-                onClick = onClick,
-            )
-            .hoverPointerIcon(true),
+        modifier =
+            modifier
+                .background(color = Color.Transparent)
+                .fillMaxWidth()
+                .clickable(
+                    role = Role.Button,
+                    interactionSource = interactionSource,
+                    indication =
+                        ripple(
+                            color = SurfaceColor.Primary,
+                        ),
+                    onClick = onClick,
+                ).hoverPointerIcon(true),
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(
-                    start = Spacing.Spacing8,
-                    top = Spacing.Spacing8,
-                    end = Spacing.Spacing16,
-                    bottom = Spacing.Spacing8,
-                ),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(
+                        start = Spacing.Spacing8,
+                        top = Spacing.Spacing8,
+                        end = Spacing.Spacing16,
+                        bottom = Spacing.Spacing8,
+                    ),
         ) {
             IconButton(
-                modifier = Modifier
-                    .padding(Spacing.Spacing8)
-                    .wrapContentWidth(),
+                modifier =
+                    Modifier
+                        .padding(Spacing.Spacing8)
+                        .wrapContentWidth(),
                 icon = model.icon,
                 onClick = onClick,
             )
             Text(
-                modifier = Modifier
-                    .weight(1f),
+                modifier =
+                    Modifier
+                        .weight(1f),
                 text = model.label,
                 color = SurfaceColor.Primary,
             )
 
             Text(
-                modifier = Modifier
-                    .wrapContentWidth(),
+                modifier =
+                    Modifier
+                        .wrapContentWidth(),
                 text = model.helper,
                 color = TextColor.OnDisabledSurface,
                 style = MaterialTheme.typography.bodySmall,

@@ -60,21 +60,22 @@ internal fun SignatureBottomSheet(
     var isSigning by rememberSaveable { mutableStateOf(false) }
 
     BottomSheetShell(
-        uiState = BottomSheetShellUIState(
-            title = title,
-            showTopSectionDivider = false,
-            bottomPadding = bottomSheetLowerPadding,
-        ),
+        uiState =
+            BottomSheetShellUIState(
+                title = title,
+                showTopSectionDivider = false,
+                bottomPadding = bottomSheetLowerPadding,
+            ),
         modifier = Modifier.testTag("INPUT_SIGNATURE_BOTTOM_SHEET"),
         content = {
             Box(
-                modifier = Modifier
-                    .dashedBorder(
-                        Border.Thin,
-                        Color.Ash600,
-                        Radius.S,
-                    )
-                    .height(200.dp),
+                modifier =
+                    Modifier
+                        .dashedBorder(
+                            Border.Thin,
+                            Color.Ash600,
+                            Radius.S,
+                        ).height(200.dp),
             ) {
                 SignatureCanvas(
                     onReady = {
@@ -86,19 +87,19 @@ internal fun SignatureBottomSheet(
                 )
 
                 Text(
-                    modifier = Modifier
-                        .padding(Spacing.Spacing8)
-                        .align(Alignment.TopEnd)
-                        .background(
-                            SurfaceColor.Surface,
-                            RoundedCornerShape(
-                                topStart = Radius.S,
-                                topEnd = Radius.S,
-                                bottomStart = Radius.NoRounding,
-                                bottomEnd = Radius.S,
-                            ),
-                        )
-                        .padding(Spacing.Spacing8, Spacing.Spacing4),
+                    modifier =
+                        Modifier
+                            .padding(Spacing.Spacing8)
+                            .align(Alignment.TopEnd)
+                            .background(
+                                SurfaceColor.Surface,
+                                RoundedCornerShape(
+                                    topStart = Radius.S,
+                                    topEnd = Radius.S,
+                                    bottomStart = Radius.NoRounding,
+                                    bottomEnd = Radius.S,
+                                ),
+                            ).padding(Spacing.Spacing8, Spacing.Spacing4),
                     text = drawHereText,
                     style = MaterialTheme.typography.bodySmall,
                     color = TextColor.OnSurfaceLight,

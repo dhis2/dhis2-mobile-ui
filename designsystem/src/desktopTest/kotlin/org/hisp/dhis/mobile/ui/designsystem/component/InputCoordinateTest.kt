@@ -15,7 +15,6 @@ import org.junit.Rule
 import org.junit.Test
 
 class InputCoordinateTest {
-
     @get:Rule
     val rule = createComposeRule()
 

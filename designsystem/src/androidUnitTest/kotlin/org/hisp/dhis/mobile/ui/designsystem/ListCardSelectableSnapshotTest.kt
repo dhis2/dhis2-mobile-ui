@@ -26,7 +26,6 @@ import org.junit.Rule
 import org.junit.Test
 
 class ListCardSelectableSnapshotTest {
-
     @get:Rule
     val paparazzi = paparazzi()
 
@@ -43,27 +42,30 @@ class ListCardSelectableSnapshotTest {
             ) {
                 SelectionState.entries.forEach { selectionState ->
                     ListCard(
-                        listCardState = rememberListCardState(
-                            title = ListCardTitleModel(text = "Kunal Choudary, M, 55"),
-                            lastUpdated = "24 min",
-                            additionalInfoColumnState = rememberAdditionalInfoColumnState(
-                                additionalInfoList = emptyList(),
-                                syncProgressItem = AdditionalInfoItem(
-                                    icon = {
-                                        Icon(
-                                            imageVector = Icons.Outlined.Sync,
-                                            contentDescription = "Icon Button",
-                                            tint = SurfaceColor.Primary,
-                                        )
-                                    },
-                                    value = "Syncing...",
-                                    color = SurfaceColor.Primary,
-                                    isConstantItem = false,
-                                ),
+                        listCardState =
+                            rememberListCardState(
+                                title = ListCardTitleModel(text = "Kunal Choudary, M, 55"),
+                                lastUpdated = "24 min",
+                                additionalInfoColumnState =
+                                    rememberAdditionalInfoColumnState(
+                                        additionalInfoList = emptyList(),
+                                        syncProgressItem =
+                                            AdditionalInfoItem(
+                                                icon = {
+                                                    Icon(
+                                                        imageVector = Icons.Outlined.Sync,
+                                                        contentDescription = "Icon Button",
+                                                        tint = SurfaceColor.Primary,
+                                                    )
+                                                },
+                                                value = "Syncing...",
+                                                color = SurfaceColor.Primary,
+                                                isConstantItem = false,
+                                            ),
+                                    ),
+                                selectionState = selectionState,
+                                loading = true,
                             ),
-                            selectionState = selectionState,
-                            loading = true,
-                        ),
                         listAvatar = {
                             Avatar(
                                 style = AvatarStyleData.Image(provideDHIS2Icon("dhis2_microscope_outline")),

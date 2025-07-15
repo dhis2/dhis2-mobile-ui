@@ -47,9 +47,10 @@ fun InputCheckBox(
     val focusRequester = remember { FocusRequester() }
 
     InputShell(
-        modifier = modifier
-            .focusRequester(focusRequester)
-            .testTag("INPUT_CHECK_BOX"),
+        modifier =
+            modifier
+                .focusRequester(focusRequester)
+                .testTag("INPUT_CHECK_BOX"),
         isRequiredField = isRequired,
         title = title,
         state = state,

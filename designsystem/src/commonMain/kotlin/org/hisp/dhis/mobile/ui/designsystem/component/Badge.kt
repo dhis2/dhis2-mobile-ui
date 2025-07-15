@@ -27,16 +27,17 @@ fun Badge(
     androidx.compose.material3.Badge(
         modifier = modifier,
         containerColor = color,
-        content = if (text != null) {
-            {
-                Text(
-                    text = text,
-                    color = textColor,
-                )
-            }
-        } else {
-            null
-        },
+        content =
+            if (text != null) {
+                {
+                    Text(
+                        text = text,
+                        color = textColor,
+                    )
+                }
+            } else {
+                null
+            },
     )
 }
 

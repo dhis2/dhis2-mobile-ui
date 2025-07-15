@@ -40,28 +40,31 @@ fun Tag(
     defaultTextColor: Color = TextColor.OnPrimaryContainer,
 ) {
     Box(
-        modifier = modifier
-            .wrapContentSize()
-            .background(
-                color = when (type) {
-                    TagType.ERROR -> SurfaceColor.ErrorContainer
-                    TagType.WARNING -> SurfaceColor.WarningContainer
-                    TagType.SUCCESS -> SurfaceColor.CustomGreen.copy(0.1f)
-                    TagType.DEFAULT -> defaultBackgroundColor
-                },
-                shape = Shape.ExtraSmall,
-            ).padding(horizontal = Spacing.Spacing8),
+        modifier =
+            modifier
+                .wrapContentSize()
+                .background(
+                    color =
+                        when (type) {
+                            TagType.ERROR -> SurfaceColor.ErrorContainer
+                            TagType.WARNING -> SurfaceColor.WarningContainer
+                            TagType.SUCCESS -> SurfaceColor.CustomGreen.copy(0.1f)
+                            TagType.DEFAULT -> defaultBackgroundColor
+                        },
+                    shape = Shape.ExtraSmall,
+                ).padding(horizontal = Spacing.Spacing8),
     ) {
         Text(
             modifier = Modifier.wrapContentSize(),
             text = label,
             style = MaterialTheme.typography.labelLarge,
-            color = when (type) {
-                TagType.ERROR -> TextColor.OnErrorContainer
-                TagType.WARNING -> TextColor.OnWarningContainer
-                TagType.SUCCESS -> SurfaceColor.CustomGreen
-                TagType.DEFAULT -> defaultTextColor
-            },
+            color =
+                when (type) {
+                    TagType.ERROR -> TextColor.OnErrorContainer
+                    TagType.WARNING -> TextColor.OnWarningContainer
+                    TagType.SUCCESS -> SurfaceColor.CustomGreen
+                    TagType.DEFAULT -> defaultTextColor
+                },
         )
     }
 }

@@ -87,25 +87,27 @@ fun App(
                 label = "content_size_transition",
             ) { widthSizeClass ->
                 when (widthSizeClass) {
-                    WindowWidthSizeClass.Expanded -> ExpandedMain(
-                        currentScreen = currentScreen,
-                        imageBitmapLoader = imageBitmapLoader,
-                        onLocationRequest = onLocationRequest,
-                        animatedVisibilityScope = this,
-                        sharedTransitionScope = this@SharedTransitionLayout,
-                    ) {
-                        currentScreen = it
-                    }
+                    WindowWidthSizeClass.Expanded ->
+                        ExpandedMain(
+                            currentScreen = currentScreen,
+                            imageBitmapLoader = imageBitmapLoader,
+                            onLocationRequest = onLocationRequest,
+                            animatedVisibilityScope = this,
+                            sharedTransitionScope = this@SharedTransitionLayout,
+                        ) {
+                            currentScreen = it
+                        }
 
-                    else -> Main(
-                        currentScreen = currentScreen,
-                        imageBitmapLoader = imageBitmapLoader,
-                        onLocationRequest = onLocationRequest,
-                        animatedVisibilityScope = this,
-                        sharedTransitionScope = this@SharedTransitionLayout,
-                    ) {
-                        currentScreen = it
-                    }
+                    else ->
+                        Main(
+                            currentScreen = currentScreen,
+                            imageBitmapLoader = imageBitmapLoader,
+                            onLocationRequest = onLocationRequest,
+                            animatedVisibilityScope = this,
+                            sharedTransitionScope = this@SharedTransitionLayout,
+                        ) {
+                            currentScreen = it
+                        }
                 }
             }
         }
@@ -130,10 +132,12 @@ fun ExpandedMain(
         paneConfig = TwoPaneConfig.SecondaryPaneFixedSize(200.dp),
         primaryPane = {
             Column(
-                modifier = Modifier.fillMaxSize()
-                    .padding(Spacing.Spacing16)
-                    .background(SurfaceColor.Container)
-                    .padding(Spacing.Spacing16),
+                modifier =
+                    Modifier
+                        .fillMaxSize()
+                        .padding(Spacing.Spacing16)
+                        .background(SurfaceColor.Container)
+                        .padding(Spacing.Spacing16),
                 verticalArrangement = Arrangement.spacedBy(Spacing.Spacing16),
             ) {
                 ScreenProvider(
@@ -148,14 +152,15 @@ fun ExpandedMain(
         secondaryPane = {
             val tabs by remember {
                 derivedStateOf {
-                    Groups.entries.map {
-                        Tab(
-                            id = it.name,
-                            label = it.label,
-                        )
-                    }.sortedBy {
-                        it.label
-                    }
+                    Groups.entries
+                        .map {
+                            Tab(
+                                id = it.name,
+                                label = it.label,
+                            )
+                        }.sortedBy {
+                            it.label
+                        }
                 }
             }
             val selectedTabIndex by remember(currentScreen) {
@@ -195,8 +200,9 @@ fun Main(
 
     Column(
         verticalArrangement = Arrangement.spacedBy(Spacing.Spacing16),
-        modifier = Modifier
-            .background(SurfaceColor.Container),
+        modifier =
+            Modifier
+                .background(SurfaceColor.Container),
     ) {
         var screenDropdownItemList by remember {
             mutableStateOf(emptyList<DropdownItem>())
@@ -204,22 +210,24 @@ fun Main(
 
         if (isComponentSelected) {
             InputDropDown(
-                modifier = Modifier.padding(
-                    start = Spacing.Spacing16,
-                    end = Spacing.Spacing16,
-                    top = Spacing.Spacing16,
-                ),
+                modifier =
+                    Modifier.padding(
+                        start = Spacing.Spacing16,
+                        end = Spacing.Spacing16,
+                        top = Spacing.Spacing16,
+                    ),
                 title = "Group",
                 fetchItem = { index -> screenDropdownItemList[index] },
                 itemCount = screenDropdownItemList.size,
                 onSearchOption = { query ->
-                    screenDropdownItemList = if (query.isNotEmpty()) {
-                        screenDropdownItemList.filter { it.label.contains(query) }
-                    } else {
-                        Groups.entries.map {
-                            DropdownItem(it.label)
+                    screenDropdownItemList =
+                        if (query.isNotEmpty()) {
+                            screenDropdownItemList.filter { it.label.contains(query) }
+                        } else {
+                            Groups.entries.map {
+                                DropdownItem(it.label)
+                            }
                         }
-                    }
                 },
                 useDropDown = false,
                 onItemSelected = { _, item -> onSectionChanged(getCurrentScreen(item.label)) },
@@ -227,12 +235,15 @@ fun Main(
                 state = InputShellState.UNFOCUSED,
                 expanded = currentScreen == Groups.NO_GROUP_SELECTED,
                 selectedItem = DropdownItem(currentScreen.label),
-                inputStyle = InputStyle.DataInputStyle()
-                    .apply { backGroundColor = SurfaceColor.SurfaceBright },
+                inputStyle =
+                    InputStyle
+                        .DataInputStyle()
+                        .apply { backGroundColor = SurfaceColor.SurfaceBright },
                 loadOptions = {
-                    screenDropdownItemList = Groups.entries.map {
-                        DropdownItem(it.label)
-                    }
+                    screenDropdownItemList =
+                        Groups.entries.map {
+                            DropdownItem(it.label)
+                        }
                 },
             )
 
@@ -245,8 +256,9 @@ fun Main(
             )
         } else {
             NoComponentSelectedScreen(
-                modifier = Modifier
-                    .background(Color.White, Shape.NoRounding),
+                modifier =
+                    Modifier
+                        .background(Color.White, Shape.NoRounding),
             ) {
                 isComponentSelected = !isComponentSelected
             }
@@ -264,11 +276,12 @@ fun ScreenProvider(
 ) {
     with(sharedTransitionScope) {
         Column(
-            modifier = Modifier
-                .sharedElement(
-                    rememberSharedContentState(key = "screen"),
-                    animatedVisibilityScope = animatedVisibilityScope,
-                ),
+            modifier =
+                Modifier
+                    .sharedElement(
+                        rememberSharedContentState(key = "screen"),
+                        animatedVisibilityScope = animatedVisibilityScope,
+                    ),
             verticalArrangement = spacedBy(Spacing.Spacing16),
         ) {
             when (screen) {
@@ -292,9 +305,10 @@ fun ScreenProvider(
                 Groups.MENU -> MenuScreen()
                 Groups.NO_GROUP_SELECTED -> NoComponentSelectedScreen()
                 Groups.TOP_BAR -> TopBarScreen()
-                Groups.LOCATION_SEARCH_BAR -> LocationSearchBarScreen { locationQuery, locationCallback ->
-                    onLocationRequest?.invoke(locationQuery, locationCallback)
-                }
+                Groups.LOCATION_SEARCH_BAR ->
+                    LocationSearchBarScreen { locationQuery, locationCallback ->
+                        onLocationRequest?.invoke(locationQuery, locationCallback)
+                    }
 
                 Groups.TABLE -> TableScreen()
                 Groups.INPUT_DIALOG -> InputDialogScreen()
@@ -305,14 +319,13 @@ fun ScreenProvider(
     }
 }
 
-fun getCurrentScreen(label: String): Groups {
-    return Groups.entries.firstOrNull { it.label == label } ?: Groups.ACTION_INPUTS
-}
+fun getCurrentScreen(label: String): Groups = Groups.entries.firstOrNull { it.label == label } ?: Groups.ACTION_INPUTS
 
-fun getAvailableMetadataAvatarSizes() = listOf(
-    MetadataAvatarSize.XS(),
-    MetadataAvatarSize.S(),
-    MetadataAvatarSize.M(),
-    MetadataAvatarSize.L(),
-    MetadataAvatarSize.XL(),
-)
+fun getAvailableMetadataAvatarSizes() =
+    listOf(
+        MetadataAvatarSize.XS(),
+        MetadataAvatarSize.S(),
+        MetadataAvatarSize.M(),
+        MetadataAvatarSize.L(),
+        MetadataAvatarSize.XL(),
+    )

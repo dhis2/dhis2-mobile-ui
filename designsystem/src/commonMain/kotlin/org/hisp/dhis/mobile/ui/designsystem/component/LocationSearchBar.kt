@@ -104,6 +104,7 @@ fun LocationBar(
 ) {
     var currentMode by remember { mutableStateOf(mode) }
     var currentSearch: String by remember { mutableStateOf("") }
+
     fun selectItem(item: LocationItemModel) {
         currentSearch = item.title
         currentMode = SearchBarMode.BUTTON
@@ -116,47 +117,51 @@ fun LocationBar(
 
     LaunchedEffect(searchAction, currentResults) {
         if (searchAction == OnSearchAction.OnOneItemSelect) {
-            currentResults.filterIsInstance<LocationItemModel.SearchResult>()
-                .takeIf { it.size == 1 }?.let {
+            currentResults
+                .filterIsInstance<LocationItemModel.SearchResult>()
+                .takeIf { it.size == 1 }
+                ?.let {
                     selectItem(it.first())
                 }
         }
     }
 
     when (currentMode) {
-        SearchBarMode.BUTTON -> LocationSearchBarButton(
-            currentSearch = currentSearch,
-            onBackClicked = onBackClicked,
-            onClearLocation = {
-                currentSearch = ""
-                onClearLocation()
-            },
-            onClick = {
-                currentMode = SearchBarMode.SEARCH
-            },
-        )
+        SearchBarMode.BUTTON ->
+            LocationSearchBarButton(
+                currentSearch = currentSearch,
+                onBackClicked = onBackClicked,
+                onClearLocation = {
+                    currentSearch = ""
+                    onClearLocation()
+                },
+                onClick = {
+                    currentMode = SearchBarMode.SEARCH
+                },
+            )
 
-        SearchBarMode.SEARCH -> LocationSearchBar(
-            currentSearch = currentSearch,
-            currentResults = currentResults,
-            activeSearching = searching,
-            onSearchChanged = {
-                currentSearch = it
-                onSearchLocation(currentSearch)
-            },
-            onBackClicked = {
-                currentMode = SearchBarMode.BUTTON
-            },
-            onSearch = { searchQuery ->
-                currentMode = SearchBarMode.BUTTON
-            },
-            onLocationSelected = {
-                selectItem(it)
-                currentSearch = it.title
-                currentMode = SearchBarMode.BUTTON
-                onLocationSelected(it)
-            },
-        )
+        SearchBarMode.SEARCH ->
+            LocationSearchBar(
+                currentSearch = currentSearch,
+                currentResults = currentResults,
+                activeSearching = searching,
+                onSearchChanged = {
+                    currentSearch = it
+                    onSearchLocation(currentSearch)
+                },
+                onBackClicked = {
+                    currentMode = SearchBarMode.BUTTON
+                },
+                onSearch = { searchQuery ->
+                    currentMode = SearchBarMode.BUTTON
+                },
+                onLocationSelected = {
+                    selectItem(it)
+                    currentSearch = it.title
+                    currentMode = SearchBarMode.BUTTON
+                    onLocationSelected(it)
+                },
+            )
     }
 }
 
@@ -168,17 +173,17 @@ private fun LocationSearchBarButton(
     onClick: () -> Unit,
 ) {
     Row(
-        modifier = Modifier
-            .testTag("SEARCH_BAR_BUTTON")
-            .fillMaxWidth()
-            .wrapContentHeight()
-            .clip(Shape.Full)
-            .clickable(onClick = onClick)
-            .background(
-                color = SurfaceColor.ContainerLow,
-                shape = Shape.Full,
-            )
-            .padding(Spacing.Spacing4),
+        modifier =
+            Modifier
+                .testTag("SEARCH_BAR_BUTTON")
+                .fillMaxWidth()
+                .wrapContentHeight()
+                .clip(Shape.Full)
+                .clickable(onClick = onClick)
+                .background(
+                    color = SurfaceColor.ContainerLow,
+                    shape = Shape.Full,
+                ).padding(Spacing.Spacing4),
         verticalAlignment = CenterVertically,
         horizontalArrangement = spacedBy(4.dp),
     ) {
@@ -193,11 +198,12 @@ private fun LocationSearchBarButton(
             modifier = Modifier.weight(1f),
             text = currentSearch.takeIf { it.isNotBlank() } ?: "Search location",
             style = MaterialTheme.typography.bodyLarge,
-            color = if (currentSearch.isBlank()) {
-                TextColor.OnDisabledSurface
-            } else {
-                TextColor.OnSurface
-            },
+            color =
+                if (currentSearch.isBlank()) {
+                    TextColor.OnDisabledSurface
+                } else {
+                    TextColor.OnSurface
+                },
         )
         if (currentSearch.isEmpty()) {
             IconButton(
@@ -271,11 +277,13 @@ private fun LocationSearchBar(
         }
 
         LazyColumn(
-            modifier = Modifier.fillMaxWidth()
-                .draggableList(
-                    scrollState = scrollState,
-                    draggableType = DraggableType.Vertical,
-                ),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .draggableList(
+                        scrollState = scrollState,
+                        draggableType = DraggableType.Vertical,
+                    ),
             state = scrollState,
         ) {
             when {
@@ -338,11 +346,12 @@ fun LocationItem(
     onClick: () -> Unit,
 ) {
     Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .clip(Shape.Small)
-            .clickableWithRipple(onClick = onClick)
-            .padding(Spacing.Spacing8),
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .clip(Shape.Small)
+                .clickableWithRipple(onClick = onClick)
+                .padding(Spacing.Spacing8),
         horizontalArrangement = spacedBy(Spacing.Spacing16),
         verticalAlignment = Top,
     ) {
@@ -373,19 +382,22 @@ private fun SearchResultLocationItem(
     locationItemModel: LocationItemModel,
     onClick: () -> Unit,
 ) {
-    val icon = when (locationItemModel) {
-        is LocationItemModel.StoredResult -> Icons.Outlined.WatchLater
-        is LocationItemModel.SearchResult -> Icons.Outlined.Place
-    }
-    val tintedColor = when (locationItemModel) {
-        is LocationItemModel.StoredResult -> SurfaceColor.Warning
-        is LocationItemModel.SearchResult -> SurfaceColor.Primary
-    }
+    val icon =
+        when (locationItemModel) {
+            is LocationItemModel.StoredResult -> Icons.Outlined.WatchLater
+            is LocationItemModel.SearchResult -> Icons.Outlined.Place
+        }
+    val tintedColor =
+        when (locationItemModel) {
+            is LocationItemModel.StoredResult -> SurfaceColor.Warning
+            is LocationItemModel.SearchResult -> SurfaceColor.Primary
+        }
 
-    val bgColor = when (locationItemModel) {
-        is LocationItemModel.StoredResult -> SurfaceColor.WarningContainer
-        is LocationItemModel.SearchResult -> SurfaceColor.PrimaryContainer
-    }
+    val bgColor =
+        when (locationItemModel) {
+            is LocationItemModel.StoredResult -> SurfaceColor.WarningContainer
+            is LocationItemModel.SearchResult -> SurfaceColor.PrimaryContainer
+        }
 
     LocationItem(
         modifier = modifier,
@@ -414,9 +426,11 @@ fun LocationItemIcon(
     bgColor: Color,
 ) {
     Box(
-        modifier = Modifier.size(Spacing.Spacing40)
-            .clip(Shape.Full)
-            .background(color = bgColor, shape = Shape.Full),
+        modifier =
+            Modifier
+                .size(Spacing.Spacing40)
+                .clip(Shape.Full)
+                .background(color = bgColor, shape = Shape.Full),
         contentAlignment = Center,
     ) {
         Icon(
@@ -429,17 +443,19 @@ fun LocationItemIcon(
 
 @Composable
 private fun NoResultsMessage(isSearching: Boolean) {
-    val message = if (!isSearching) {
-        provideStringResource("no_recent_results")
-    } else {
-        provideStringResource("no_results")
-    }
+    val message =
+        if (!isSearching) {
+            provideStringResource("no_recent_results")
+        } else {
+            provideStringResource("no_results")
+        }
 
     Column(
-        modifier = Modifier
-            .testTag(if (!isSearching) "NO_RECENT_RESULTS" else "NO_RESULTS")
-            .fillMaxWidth()
-            .padding(vertical = 64.dp),
+        modifier =
+            Modifier
+                .testTag(if (!isSearching) "NO_RECENT_RESULTS" else "NO_RESULTS")
+                .fillMaxWidth()
+                .padding(vertical = 64.dp),
         verticalArrangement = spacedBy(16.dp),
         horizontalAlignment = CenterHorizontally,
     ) {
@@ -462,10 +478,11 @@ private fun SearchProgressMessage() {
     val message = provideStringResource("searching_location")
 
     Column(
-        modifier = Modifier
-            .testTag("SEARCHING_LOCATION")
-            .fillMaxWidth()
-            .padding(vertical = 64.dp),
+        modifier =
+            Modifier
+                .testTag("SEARCHING_LOCATION")
+                .fillMaxWidth()
+                .padding(vertical = 64.dp),
         verticalArrangement = spacedBy(16.dp),
         horizontalAlignment = CenterHorizontally,
     ) {

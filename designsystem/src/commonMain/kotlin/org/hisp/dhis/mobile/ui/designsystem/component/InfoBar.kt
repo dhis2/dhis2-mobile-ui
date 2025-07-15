@@ -41,11 +41,12 @@ fun InfoBar(
     modifier: Modifier = Modifier,
 ) {
     Row(
-        modifier = modifier
-            .clip(shape = RoundedCornerShape(Radius.XL))
-            .background(color = infoBarData.backgroundColor)
-            .padding(Spacing.Spacing8)
-            .fillMaxWidth(),
+        modifier =
+            modifier
+                .clip(shape = RoundedCornerShape(Radius.XL))
+                .background(color = infoBarData.backgroundColor)
+                .padding(Spacing.Spacing8)
+                .fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Column(Modifier.align(Alignment.Top)) {

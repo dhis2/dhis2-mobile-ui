@@ -29,7 +29,6 @@ internal class InputDateTimeStateImpl(
     override val inputState: InputShellState,
     override val legendData: LegendData?,
     override val supportingText: List<SupportingTextData>?,
-
 ) : InputDateTimeState
 
 @Composable
@@ -39,21 +38,22 @@ fun rememberInputDateTimeState(
     inputState: InputShellState = InputShellState.UNFOCUSED,
     legendData: LegendData? = null,
     supportingText: List<SupportingTextData>? = null,
-): InputDateTimeState = remember(
-    inputTextFieldValue,
-    inputState,
-    legendData,
-    supportingText,
-    inputDateTimeData,
-) {
-    InputDateTimeStateImpl(
-        inputDateTimeData,
+): InputDateTimeState =
+    remember(
         inputTextFieldValue,
         inputState,
         legendData,
         supportingText,
-    )
-}
+        inputDateTimeData,
+    ) {
+        InputDateTimeStateImpl(
+            inputDateTimeData,
+            inputTextFieldValue,
+            inputState,
+            legendData,
+            supportingText,
+        )
+    }
 
 data class InputDateTimeData(
     val title: String,
@@ -70,5 +70,4 @@ data class InputDateTimeData(
     val incorrectHourFormatText: String? = null,
     val selectableDates: SelectableDates = SelectableDates("01011940", "12312300"),
     val yearRange: IntRange = IntRange(1970, 2100),
-
 )

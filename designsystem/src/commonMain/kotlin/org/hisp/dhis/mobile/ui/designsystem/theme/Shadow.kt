@@ -32,33 +32,35 @@ internal fun Modifier.iconButtonshadow(
     modifier: Modifier = Modifier,
     size: Dp = DEFAULT_SIZE.dp,
 ) = this.then(
-    modifier.drawBehind {
-        this.drawIntoCanvas {
-            val paint = Paint()
-            val frameworkPaint = paint.asFrameworkPaint()
-            val spreadPixel = spread.toPx()
-            val leftPixel = DEFAULT_PADDING
-            val topPixel = InternalFloatValues.Zero
-            val rightPixel = (this.size.width - InternalFloatValues.Point_5)
-            val bottomPixel = (this.size.height + spreadPixel)
+    modifier
+        .drawBehind {
+            this.drawIntoCanvas {
+                val paint = Paint()
+                val frameworkPaint = paint.asFrameworkPaint()
+                val spreadPixel = spread.toPx()
+                val leftPixel = DEFAULT_PADDING
+                val topPixel = InternalFloatValues.Zero
+                val rightPixel = (this.size.width - InternalFloatValues.Point_5)
+                val bottomPixel = (this.size.height + spreadPixel)
 
-            frameworkPaint.color = color.value.toArgb()
-            it.drawRoundRect(
-                left = leftPixel,
-                top = topPixel,
-                right = rightPixel,
-                bottom = bottomPixel,
-                radiusX = borderRadius.toPx(),
-                radiusY = borderRadius.toPx(),
-                paint,
-            )
-        }
-    }.size(size),
+                frameworkPaint.color = color.value.toArgb()
+                it.drawRoundRect(
+                    left = leftPixel,
+                    top = topPixel,
+                    right = rightPixel,
+                    bottom = bottomPixel,
+                    radiusX = borderRadius.toPx(),
+                    radiusY = borderRadius.toPx(),
+                    paint,
+                )
+            }
+        }.size(size),
 )
 
 expect val leftPixel: Float
 expect val topPixel: Float
 expect val spreadPixel: Float
+
 internal fun Modifier.buttonShadow(
     color: MutableState<Color> = mutableStateOf(SurfaceColor.ContainerHighest),
     borderRadius: Dp = Radius.NoRounding,
@@ -85,39 +87,38 @@ internal fun Modifier.buttonShadow(
     },
 )
 
-internal fun Modifier.innerShadow(
-    blur: Dp = 10.dp,
-): Modifier = this.then(
-    drawBehind {
-        val shadowSize = Size(size.width, 32.dp.toPx())
-        val shadowOutline = RectangleShape.createOutline(shadowSize, layoutDirection, this)
+internal fun Modifier.innerShadow(blur: Dp = 10.dp): Modifier =
+    this.then(
+        drawBehind {
+            val shadowSize = Size(size.width, 32.dp.toPx())
+            val shadowOutline = RectangleShape.createOutline(shadowSize, layoutDirection, this)
 
-        // Create a Paint object
-        val paint = Paint()
-        // Apply specified color
-        paint.color = SurfaceColor.CustomShadow.copy(alpha = 0.16f)
+            // Create a Paint object
+            val paint = Paint()
+            // Apply specified color
+            paint.color = SurfaceColor.CustomShadow.copy(alpha = 0.16f)
 
-        // Check for valid blur radius
-        if (blur.toPx() > 0) {
-            paint.asFrameworkPaint().apply {
-                // Apply blur to the Paint
-                paintBlur(blur.toPx())
+            // Check for valid blur radius
+            if (blur.toPx() > 0) {
+                paint.asFrameworkPaint().apply {
+                    // Apply blur to the Paint
+                    paintBlur(blur.toPx())
+                }
             }
-        }
 
-        drawIntoCanvas { canvas ->
-            // Save the canvas state
-            canvas.save()
-            // Translate to specified offsets
-            canvas.translate(Spacing.Spacing0.toPx(), size.height)
-            canvas.clipRect(0f, 0f, size.width, size.height, ClipOp.Difference)
-            // Draw the shadow
-            canvas.drawOutline(shadowOutline, paint)
-            // Restore the canvas state
-            canvas.restore()
-        }
-    },
-)
+            drawIntoCanvas { canvas ->
+                // Save the canvas state
+                canvas.save()
+                // Translate to specified offsets
+                canvas.translate(Spacing.Spacing0.toPx(), size.height)
+                canvas.clipRect(0f, 0f, size.width, size.height, ClipOp.Difference)
+                // Draw the shadow
+                canvas.drawOutline(shadowOutline, paint)
+                // Restore the canvas state
+                canvas.restore()
+            }
+        },
+    )
 
 internal fun Modifier.iconCardShadow(
     color: Color = SurfaceColor.ContainerHighest,
@@ -141,35 +142,36 @@ fun Modifier.dropShadow(
     offsetY: Dp = 4.dp,
     offsetX: Dp = 0.dp,
     spread: Dp = 0.dp,
-): Modifier = this.then(
-    drawBehind {
-        val shadowSize = Size(size.width + spread.toPx(), size.height + spread.toPx())
-        val shadowOutline = shape.createOutline(shadowSize, layoutDirection, this)
+): Modifier =
+    this.then(
+        drawBehind {
+            val shadowSize = Size(size.width + spread.toPx(), size.height + spread.toPx())
+            val shadowOutline = shape.createOutline(shadowSize, layoutDirection, this)
 
-        // Create a Paint object
-        val paint = Paint()
-        // Apply specified color
-        paint.color = color
+            // Create a Paint object
+            val paint = Paint()
+            // Apply specified color
+            paint.color = color
 
-        // Check for valid blur radius
-        if (blur.toPx() > 0) {
-            paint.asFrameworkPaint().apply {
-                // Apply blur to the Paint
-                paintBlur(blur.toPx())
+            // Check for valid blur radius
+            if (blur.toPx() > 0) {
+                paint.asFrameworkPaint().apply {
+                    // Apply blur to the Paint
+                    paintBlur(blur.toPx())
+                }
             }
-        }
 
-        drawIntoCanvas { canvas ->
-            // Save the canvas state
-            canvas.save()
-            // Translate to specified offsets
-            canvas.translate(offsetX.toPx(), offsetY.toPx())
-            // Draw the shadow
-            canvas.drawOutline(shadowOutline, paint)
-            // Restore the canvas state
-            canvas.restore()
-        }
-    },
-)
+            drawIntoCanvas { canvas ->
+                // Save the canvas state
+                canvas.save()
+                // Translate to specified offsets
+                canvas.translate(offsetX.toPx(), offsetY.toPx())
+                // Draw the shadow
+                canvas.drawOutline(shadowOutline, paint)
+                // Restore the canvas state
+                canvas.restore()
+            }
+        },
+    )
 
 internal expect fun NativePaint.paintBlur(blur: Float): NativePaint

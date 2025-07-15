@@ -5,6 +5,7 @@ import androidx.compose.ui.graphics.ImageBitmap
 
 interface Signature {
     fun clear()
+
     fun getBitmap(): ImageBitmap
 }
 

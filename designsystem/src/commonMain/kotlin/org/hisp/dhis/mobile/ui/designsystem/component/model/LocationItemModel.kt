@@ -19,11 +19,11 @@ sealed class LocationItemModel(
         private val storedLatitude: Double,
         private val storedLongitude: Double,
     ) : LocationItemModel(
-        title = storedTitle,
-        subtitle = storedSubtitle,
-        latitude = storedLatitude,
-        longitude = storedLongitude,
-    )
+            title = storedTitle,
+            subtitle = storedSubtitle,
+            latitude = storedLatitude,
+            longitude = storedLongitude,
+        )
 
     /**
      * UiModel used for Location Items which are provided by external apis.
@@ -38,9 +38,9 @@ sealed class LocationItemModel(
         private val searchedLatitude: Double,
         private val searchedLongitude: Double,
     ) : LocationItemModel(
-        title = searchedTitle,
-        subtitle = searchedSubtitle,
-        latitude = searchedLatitude,
-        longitude = searchedLongitude,
-    )
+            title = searchedTitle,
+            subtitle = searchedSubtitle,
+            latitude = searchedLatitude,
+            longitude = searchedLongitude,
+        )
 }

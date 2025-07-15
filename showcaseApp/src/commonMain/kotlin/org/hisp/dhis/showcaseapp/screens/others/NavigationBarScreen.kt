@@ -37,92 +37,96 @@ enum class NavigationItem {
 
 @Composable
 fun NavigationBarScreen() {
-    val homeItems = listOf(
-        NavigationBarItem(
-            id = NavigationItem.DESCRIPTION,
-            icon = Icons.Outlined.Description,
-            label = "Description",
-        ),
-        NavigationBarItem(
-            id = NavigationItem.VISUALIZATION,
-            icon = Icons.Outlined.BarChart,
-            label = "Charts",
-            showBadge = true,
-        ),
-    )
+    val homeItems =
+        listOf(
+            NavigationBarItem(
+                id = NavigationItem.DESCRIPTION,
+                icon = Icons.Outlined.Description,
+                label = "Description",
+            ),
+            NavigationBarItem(
+                id = NavigationItem.VISUALIZATION,
+                icon = Icons.Outlined.BarChart,
+                label = "Charts",
+                showBadge = true,
+            ),
+        )
 
-    val programItems = listOf(
-        NavigationBarItem(
-            id = NavigationItem.LIST,
-            icon = Icons.AutoMirrored.Outlined.List,
-            label = "List",
-        ),
-        NavigationBarItem(
-            id = NavigationItem.MAPS,
-            icon = Icons.Outlined.Map,
-            selectedIcon = Icons.Filled.Map,
-            label = "Maps",
-        ),
-        NavigationBarItem(
-            id = NavigationItem.VISUALIZATION,
-            icon = Icons.Outlined.BarChart,
-            selectedIcon = Icons.Filled.BarChart,
-            label = "Charts",
-            showBadge = true,
-            badgeText = "32",
-        ),
-    )
+    val programItems =
+        listOf(
+            NavigationBarItem(
+                id = NavigationItem.LIST,
+                icon = Icons.AutoMirrored.Outlined.List,
+                label = "List",
+            ),
+            NavigationBarItem(
+                id = NavigationItem.MAPS,
+                icon = Icons.Outlined.Map,
+                selectedIcon = Icons.Filled.Map,
+                label = "Maps",
+            ),
+            NavigationBarItem(
+                id = NavigationItem.VISUALIZATION,
+                icon = Icons.Outlined.BarChart,
+                selectedIcon = Icons.Filled.BarChart,
+                label = "Charts",
+                showBadge = true,
+                badgeText = "32",
+            ),
+        )
 
-    val enrollmentItems = listOf(
-        NavigationBarItem(
-            id = NavigationItem.ASSIGNMENT,
-            icon = Icons.AutoMirrored.Outlined.Assignment,
-            selectedIcon = Icons.AutoMirrored.Filled.Assignment,
-            label = "Details",
-        ),
-        NavigationBarItem(
-            id = NavigationItem.VISUALIZATION,
-            icon = Icons.Outlined.BarChart,
-            selectedIcon = Icons.Filled.BarChart,
-            label = "Charts",
-        ),
-        NavigationBarItem(
-            id = NavigationItem.RELATIONSHIPS,
-            icon = Icons.Outlined.Hub,
-            selectedIcon = Icons.Filled.Hub,
-            label = "Relationships",
-        ),
-        NavigationBarItem(
-            id = NavigationItem.NOTES,
-            icon = Icons.AutoMirrored.Outlined.StickyNote2,
-            selectedIcon = Icons.AutoMirrored.Filled.StickyNote2,
-            label = "Notes",
-            showBadge = true,
-        ),
-    )
+    val enrollmentItems =
+        listOf(
+            NavigationBarItem(
+                id = NavigationItem.ASSIGNMENT,
+                icon = Icons.AutoMirrored.Outlined.Assignment,
+                selectedIcon = Icons.AutoMirrored.Filled.Assignment,
+                label = "Details",
+            ),
+            NavigationBarItem(
+                id = NavigationItem.VISUALIZATION,
+                icon = Icons.Outlined.BarChart,
+                selectedIcon = Icons.Filled.BarChart,
+                label = "Charts",
+            ),
+            NavigationBarItem(
+                id = NavigationItem.RELATIONSHIPS,
+                icon = Icons.Outlined.Hub,
+                selectedIcon = Icons.Filled.Hub,
+                label = "Relationships",
+            ),
+            NavigationBarItem(
+                id = NavigationItem.NOTES,
+                icon = Icons.AutoMirrored.Outlined.StickyNote2,
+                selectedIcon = Icons.AutoMirrored.Filled.StickyNote2,
+                label = "Notes",
+                showBadge = true,
+            ),
+        )
 
-    val formItems = listOf(
-        NavigationBarItem(
-            id = NavigationItem.DESCRIPTION,
-            icon = Icons.Outlined.Description,
-            selectedIcon = Icons.Filled.Description,
-            label = "Description",
-        ),
-        NavigationBarItem(
-            id = NavigationItem.VISUALIZATION,
-            icon = Icons.Outlined.BarChart,
-            selectedIcon = Icons.Filled.BarChart,
-            label = "Charts",
-        ),
-        NavigationBarItem(
-            id = NavigationItem.NOTES,
-            icon = Icons.AutoMirrored.Outlined.StickyNote2,
-            selectedIcon = Icons.AutoMirrored.Filled.StickyNote2,
-            label = "Notes",
-            showBadge = true,
-            badgeText = "3",
-        ),
-    )
+    val formItems =
+        listOf(
+            NavigationBarItem(
+                id = NavigationItem.DESCRIPTION,
+                icon = Icons.Outlined.Description,
+                selectedIcon = Icons.Filled.Description,
+                label = "Description",
+            ),
+            NavigationBarItem(
+                id = NavigationItem.VISUALIZATION,
+                icon = Icons.Outlined.BarChart,
+                selectedIcon = Icons.Filled.BarChart,
+                label = "Charts",
+            ),
+            NavigationBarItem(
+                id = NavigationItem.NOTES,
+                icon = Icons.AutoMirrored.Outlined.StickyNote2,
+                selectedIcon = Icons.AutoMirrored.Filled.StickyNote2,
+                label = "Notes",
+                showBadge = true,
+                badgeText = "3",
+            ),
+        )
 
     ColumnScreenContainer(
         title = Groups.NAVIGATION_BAR.label,

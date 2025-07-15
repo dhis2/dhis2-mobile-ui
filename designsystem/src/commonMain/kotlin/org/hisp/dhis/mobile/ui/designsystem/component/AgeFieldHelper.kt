@@ -31,27 +31,30 @@ internal fun TimeUnitSelector(
     enabled: Boolean = true,
     onClick: (TimeUnitValues) -> Unit,
 ) {
-    val backgroundColor = if (enabled) {
-        SurfaceColor.Surface
-    } else {
-        SurfaceColor.DisabledSurface
-    }
+    val backgroundColor =
+        if (enabled) {
+            SurfaceColor.Surface
+        } else {
+            SurfaceColor.DisabledSurface
+        }
 
-    val options = TimeUnitValues.entries.map {
-        RadioButtonData(it.name, optionSelected == it, enabled, provideStringResource(it.value))
-    }
+    val options =
+        TimeUnitValues.entries.map {
+            RadioButtonData(it.name, optionSelected == it, enabled, provideStringResource(it.value))
+        }
 
     var selectedOption by remember {
         mutableStateOf(options.find { it.selected } ?: options[0])
     }
 
     RowComponentContainer(
-        modifier = modifier
-            .background(color = backgroundColor, Shape.SmallBottom)
-            .padding(
-                start = Spacing.Spacing8,
-                end = Spacing.Spacing8,
-            ),
+        modifier =
+            modifier
+                .background(color = backgroundColor, Shape.SmallBottom)
+                .padding(
+                    start = Spacing.Spacing8,
+                    end = Spacing.Spacing8,
+                ),
     ) {
         RadioButtonBlock(orientation, options, selectedOption) {
             selectedOption = it
@@ -61,7 +64,9 @@ internal fun TimeUnitSelector(
     }
 }
 
-enum class TimeUnitValues(val value: String) {
+enum class TimeUnitValues(
+    val value: String,
+) {
     YEARS("years"),
     MONTHS("months"),
     DAYS("days"),

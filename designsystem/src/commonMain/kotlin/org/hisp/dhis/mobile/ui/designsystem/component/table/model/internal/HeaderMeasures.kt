@@ -6,4 +6,7 @@ package org.hisp.dhis.mobile.ui.designsystem.component.table.model.internal
  * @property width The width of the header.
  * @property height The height of the header.
  */
-internal data class HeaderMeasures(val width: Int, val height: Int)
+internal data class HeaderMeasures(
+    val width: Int,
+    val height: Int,
+)

@@ -70,10 +70,11 @@ fun FullScreenImage(
     }
 
     Dialog(
-        properties = DialogProperties(
-            usePlatformDefaultWidth = false,
-            dismissOnClickOutside = false,
-        ),
+        properties =
+            DialogProperties(
+                usePlatformDefaultWidth = false,
+                dismissOnClickOutside = false,
+            ),
         onDismissRequest = onDismiss,
     ) {
         Scaffold(
@@ -81,9 +82,10 @@ fun FullScreenImage(
             containerColor = animatedColor,
             topBar = {
                 TopAppBar(
-                    colors = TopAppBarDefaults.topAppBarColors(
-                        containerColor = Color(0xFF000000).copy(0.4f),
-                    ),
+                    colors =
+                        TopAppBarDefaults.topAppBarColors(
+                            containerColor = Color(0xFF000000).copy(0.4f),
+                        ),
                     navigationIcon = {
                         IconButton(
                             onClick = onDismiss,
@@ -133,13 +135,14 @@ fun FullScreenImage(
         ) {
             ZoomableImage(
                 painter = painter,
-                modifier = Modifier
-                    .testTag("FULL_SCREEN_IMAGE")
-                    .fillMaxSize()
-                    .graphicsLayer {
-                        scaleX = animatedScale
-                        scaleY = animatedScale
-                    },
+                modifier =
+                    Modifier
+                        .testTag("FULL_SCREEN_IMAGE")
+                        .fillMaxSize()
+                        .graphicsLayer {
+                            scaleX = animatedScale
+                            scaleY = animatedScale
+                        },
             )
         }
     }

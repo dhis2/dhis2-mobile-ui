@@ -5,10 +5,9 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import java.io.File
 
-actual fun provideImage(file: File): ImageBitmap? {
-    return try {
+actual fun provideImage(file: File): ImageBitmap? =
+    try {
         BitmapFactory.decodeFile(file.absolutePath).asImageBitmap()
     } catch (ex: Exception) {
         null
     }
-}

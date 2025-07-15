@@ -30,9 +30,7 @@ class InputPasswordTest {
                 InputPasswordModel(
                     title = "Label",
                     state = InputShellState.UNFOCUSED,
-
                 ),
-
             )
         }
         rule.onNodeWithTag(InputPasswordModel.MAIN).assertExists()
@@ -53,7 +51,6 @@ class InputPasswordTest {
                     },
                     state = InputShellState.UNFOCUSED,
                 ),
-
             )
         }
         rule.onNodeWithTag(InputPasswordModel.MAIN).assertExists()
@@ -70,7 +67,6 @@ class InputPasswordTest {
                     title = "Label",
                     state = InputShellState.DISABLED,
                 ),
-
             )
         }
         rule.onNodeWithTag(InputPasswordModel.MAIN).assertExists()
@@ -90,7 +86,6 @@ class InputPasswordTest {
                     },
                     state = InputShellState.UNFOCUSED,
                 ),
-
             )
         }
         rule.onNodeWithTag(InputPasswordModel.MAIN).assertExists()
@@ -113,7 +108,6 @@ class InputPasswordTest {
                     },
                     state = InputShellState.UNFOCUSED,
                 ),
-
             )
         }
         rule.onNodeWithTag(InputPasswordModel.MAIN).assertExists()
@@ -136,7 +130,6 @@ class InputPasswordTest {
                         inputValue = it ?: TextFieldValue()
                     },
                 ),
-
             )
         }
         rule.onNodeWithTag(InputPasswordModel.MAIN).assertExists()

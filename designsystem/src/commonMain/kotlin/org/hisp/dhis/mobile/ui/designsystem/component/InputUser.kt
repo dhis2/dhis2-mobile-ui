@@ -30,10 +30,11 @@ fun InputUser(
         isRequiredField = uiModel.isRequiredField,
         onNextClicked = uiModel.onNextClicked,
         onValueChanged = uiModel.onValueChanged,
-        keyboardOptions = KeyboardOptions(
-            imeAction = uiModel.imeAction,
-            keyboardType = KeyboardType.Text,
-        ),
+        keyboardOptions =
+            KeyboardOptions(
+                imeAction = uiModel.imeAction,
+                keyboardType = KeyboardType.Text,
+            ),
         modifier = modifier,
         testTag = InputUserModel.INPUT_TYPE,
         onFocusChanged = uiModel.onFocusChanged,

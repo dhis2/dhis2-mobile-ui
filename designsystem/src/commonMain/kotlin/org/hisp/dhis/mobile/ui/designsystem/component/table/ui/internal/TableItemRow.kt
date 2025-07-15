@@ -45,8 +45,7 @@ internal fun TableItemRow(
     tableModel: TableModel,
     horizontalScrollState: ScrollState,
     rowModels: List<TableRowModel>,
-    rowHeaderCellStyle: @Composable
-    (
+    rowHeaderCellStyle: @Composable (
         rowHeaderIndex: List<Int>,
         rowHeaderColumnIndex: Int?,
         disabled: Boolean,
@@ -60,11 +59,12 @@ internal fun TableItemRow(
 ) {
     val tableSelection = LocalTableSelection.current
 
-    val isCellSelectedOnRow = rowModels.any { rowModel ->
-        rowModel.values.any {
-            tableSelection.isCellSelected(tableModel.id, it.value.column, rowModel.row())
+    val isCellSelectedOnRow =
+        rowModels.any { rowModel ->
+            rowModel.values.any {
+                tableSelection.isCellSelected(tableModel.id, it.value.column, rowModel.row())
+            }
         }
-    }
     val config = TableTheme.configuration
     val rowModel = rowModels.first()
 
@@ -74,8 +74,7 @@ internal fun TableItemRow(
                 testTag = rowTestTag(tableModel.id, rowModel.id())
                 tableIdSemantic = tableModel.id
                 rowIndexSemantic = rowModel.row()
-            }
-            .width(IntrinsicSize.Min)
+            }.width(IntrinsicSize.Min)
             .height(IntrinsicSize.Min)
             .padding(start = Spacing.Spacing16, end = Spacing.Spacing16)
             .zIndex(if (isCellSelectedOnRow) 1f else 0f),
@@ -84,73 +83,84 @@ internal fun TableItemRow(
 
             val rowHeaders = getRowHeaders(rowModels, rowHeaderColumnIndex)
 
-            val isAnyHeaderSelectedInColumn = rowHeaders.any { rowHeader ->
-                TableTheme.tableSelection.isRowSelected(
-                    selectedTableId = tableModel.id,
-                    rowHeaderIndexes = getSelectedIndexes(
-                        rowHeader.row,
-                        rowModels,
-                        rowHeaderColumnIndex,
-                    ),
-                )
-            }
+            val isAnyHeaderSelectedInColumn =
+                rowHeaders.any { rowHeader ->
+                    TableTheme.tableSelection.isRowSelected(
+                        selectedTableId = tableModel.id,
+                        rowHeaderIndexes =
+                            getSelectedIndexes(
+                                rowHeader.row,
+                                rowModels,
+                                rowHeaderColumnIndex,
+                            ),
+                    )
+                }
             Column(
-                modifier = Modifier.zIndex(
-                    if (isAnyHeaderSelectedInColumn) {
-                        rowModel.rowHeaders.size + 2f
-                    } else {
-                        (rowModel.rowHeaders.size - rowHeaderColumnIndex).toFloat()
-                    },
-                ),
+                modifier =
+                    Modifier.zIndex(
+                        if (isAnyHeaderSelectedInColumn) {
+                            rowModel.rowHeaders.size + 2f
+                        } else {
+                            (rowModel.rowHeaders.size - rowHeaderColumnIndex).toFloat()
+                        },
+                    ),
             ) {
                 rowHeaders.forEach { rowHeader ->
                     Box(
                         modifier = Modifier.weight(1f),
                     ) {
                         ItemHeader(
-                            uiState = ItemHeaderUiState(
-                                tableId = tableModel.id,
-                                totalColumns = rowModel.rowHeaders.size,
-                                rowHeader = rowHeader,
-                                cellStyle = rowHeaderCellStyle(
-                                    getSelectedIndexes(
-                                        rowHeader.row,
-                                        rowModels,
-                                        rowHeaderColumnIndex,
-                                    ),
-                                    rowHeaderColumnIndex,
-                                    rowHeader.disabled,
-                                ),
-                                width = when {
-                                    maxRowColumnHeaders == rowModel.rowHeaders.size ->
-                                        with(LocalDensity.current) {
-                                            TableTheme.dimensions.rowHeaderWidth(
-                                                groupedTables = config.groupTables,
-                                                tableId = tableModel.id,
-                                            ).toDp()
-                                        }
+                            uiState =
+                                ItemHeaderUiState(
+                                    tableId = tableModel.id,
+                                    totalColumns = rowModel.rowHeaders.size,
+                                    rowHeader = rowHeader,
+                                    cellStyle =
+                                        rowHeaderCellStyle(
+                                            getSelectedIndexes(
+                                                rowHeader.row,
+                                                rowModels,
+                                                rowHeaderColumnIndex,
+                                            ),
+                                            rowHeaderColumnIndex,
+                                            rowHeader.disabled,
+                                        ),
+                                    width =
+                                        when {
+                                            maxRowColumnHeaders == rowModel.rowHeaders.size ->
+                                                with(LocalDensity.current) {
+                                                    TableTheme.dimensions
+                                                        .rowHeaderWidth(
+                                                            groupedTables = config.groupTables,
+                                                            tableId = tableModel.id,
+                                                        ).toDp()
+                                                }
 
-                                    else ->
-                                        with(LocalDensity.current) {
-                                            TableTheme.dimensions.rowHeaderWidth(
-                                                groupedTables = config.groupTables,
-                                                tableId = tableModel.id,
-                                            ).times(maxRowColumnHeaders).toDp()
-                                        }
-                                },
-                                maxLines = rowModel.maxLines,
-                                headerIndexes = getSelectedIndexes(
-                                    rowHeader.row,
-                                    rowModels,
-                                    rowHeaderColumnIndex,
+                                            else ->
+                                                with(LocalDensity.current) {
+                                                    TableTheme.dimensions
+                                                        .rowHeaderWidth(
+                                                            groupedTables = config.groupTables,
+                                                            tableId = tableModel.id,
+                                                        ).times(maxRowColumnHeaders)
+                                                        .toDp()
+                                                }
+                                        },
+                                    maxLines = rowModel.maxLines,
+                                    headerIndexes =
+                                        getSelectedIndexes(
+                                            rowHeader.row,
+                                            rowModels,
+                                            rowHeaderColumnIndex,
+                                        ),
                                 ),
-                            ),
                             onCellSelected = { rowIndex ->
-                                val indexes = getSelectedIndexes(
-                                    rowIndex = rowIndex,
-                                    rowModels = rowModels,
-                                    rowHeaderColumnIndex = rowHeaderColumnIndex,
-                                )
+                                val indexes =
+                                    getSelectedIndexes(
+                                        rowIndex = rowIndex,
+                                        rowModels = rowModels,
+                                        rowHeaderColumnIndex = rowHeaderColumnIndex,
+                                    )
                                 if (!rowHeader.disabled) {
                                     onRowHeaderClick(
                                         indexes,
@@ -178,23 +188,24 @@ internal fun TableItemRow(
                         rowModels[subRowIndex].values[0]?.row ?: -1,
                     )
 
-                val cellSelectedOnRow = tableRowModel.values.any {
-                    tableSelection.isCellSelected(tableModel.id, it.value.column, rowModel.row())
-                }
+                val cellSelectedOnRow =
+                    tableRowModel.values.any {
+                        tableSelection.isCellSelected(tableModel.id, it.value.column, rowModel.row())
+                    }
 
                 ItemValues(
-                    modifier = Modifier
-                        .semantics {
-                            testTag = rowValuesTestTag(tableModel.id, rowModel.id())
-                        }
-                        .weight(1f)
-                        .rowSupportForCellBorder(
-                            isCellSelectedOnRow = cellSelectedOnRow,
-                            isFirstCellOnRowSelected = firstCellSelected && horizontalScrollState.value == 0,
-                            borderColor = TableTheme.colors.primary,
-                            subRowCount = tableModel.tableRows.size,
-                            subRowIndex = subRowIndex,
-                        ),
+                    modifier =
+                        Modifier
+                            .semantics {
+                                testTag = rowValuesTestTag(tableModel.id, rowModel.id())
+                            }.weight(1f)
+                            .rowSupportForCellBorder(
+                                isCellSelectedOnRow = cellSelectedOnRow,
+                                isFirstCellOnRowSelected = firstCellSelected && horizontalScrollState.value == 0,
+                                borderColor = TableTheme.colors.primary,
+                                subRowCount = tableModel.tableRows.size,
+                                subRowIndex = subRowIndex,
+                            ),
                     tableId = tableModel.id,
                     horizontalScrollState = horizontalScrollState,
                     cellValues = tableRowModel.values,
@@ -208,8 +219,11 @@ internal fun TableItemRow(
     }
 }
 
-private fun getRowHeaders(rowModels: List<TableRowModel>, rowHeaderColumnIndex: Int) =
-    rowModels.mapNotNull {
+private fun getRowHeaders(
+    rowModels: List<TableRowModel>,
+    rowHeaderColumnIndex: Int,
+) = rowModels
+    .mapNotNull {
         it.rowHeaders.getOrNull(rowHeaderColumnIndex)
     }.distinctBy { it.id }
 

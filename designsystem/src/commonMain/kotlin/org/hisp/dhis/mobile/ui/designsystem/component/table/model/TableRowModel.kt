@@ -16,5 +16,6 @@ data class TableRowModel(
     val maxLines: Int = 3,
 ) {
     fun id(): String = rowHeaders.map { it.id }.joinToString("_")
+
     fun row() = rowHeaders.first().row
 }

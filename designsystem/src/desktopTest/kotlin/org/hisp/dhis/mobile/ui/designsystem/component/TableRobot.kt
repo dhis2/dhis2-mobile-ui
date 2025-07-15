@@ -41,10 +41,7 @@ fun tableRobot(
 class TableRobot(
     private val composeTestRule: ComposeContentTestRule,
 ) {
-
-    fun initTable(
-        table: List<TableModel>,
-    ) {
+    fun initTable(table: List<TableModel>) {
         composeTestRule.setContent {
             DataTable(tableList = table)
         }
@@ -54,11 +51,13 @@ class TableRobot(
         tableId: String,
         rowIndex: Int,
     ) {
-        composeTestRule.onNode(
-            SemanticsMatcher.expectValue(TableId, tableId)
-                .and(SemanticsMatcher.expectValue(RowIndex, rowIndex))
-                .and(SemanticsMatcher.expectValue(RowBackground, SurfaceColor.Primary)),
-        ).assertExists()
+        composeTestRule
+            .onNode(
+                SemanticsMatcher
+                    .expectValue(TableId, tableId)
+                    .and(SemanticsMatcher.expectValue(RowIndex, rowIndex))
+                    .and(SemanticsMatcher.expectValue(RowBackground, SurfaceColor.Primary)),
+            ).assertExists()
     }
 
     fun assertColumnHeaderBackgroundColor(
@@ -67,105 +66,147 @@ class TableRobot(
         columnIndex: Int,
         color: Color,
     ) {
-        composeTestRule.onNode(
-            SemanticsMatcher.expectValue(TableIdColumnHeader, tableId)
-                .and(SemanticsMatcher.expectValue(RowIndexHeader, rowIndex))
-                .and(SemanticsMatcher.expectValue(ColumnIndexHeader, columnIndex))
-                .and(SemanticsMatcher.expectValue(ColumnBackground, color)),
-        ).assertExists()
+        composeTestRule
+            .onNode(
+                SemanticsMatcher
+                    .expectValue(TableIdColumnHeader, tableId)
+                    .and(SemanticsMatcher.expectValue(RowIndexHeader, rowIndex))
+                    .and(SemanticsMatcher.expectValue(ColumnIndexHeader, columnIndex))
+                    .and(SemanticsMatcher.expectValue(ColumnBackground, color)),
+            ).assertExists()
     }
 
-    fun clickOnCell(tableId: String, cellId: String) {
-        composeTestRule.onNodeWithTag(cellTestTag(tableId, cellId), true)
+    fun clickOnCell(
+        tableId: String,
+        cellId: String,
+    ) {
+        composeTestRule
+            .onNodeWithTag(cellTestTag(tableId, cellId), true)
             .performScrollTo()
             .performClick()
     }
 
-    fun clickOnHeaderElement(tableId: String, rowIndex: Int, columnIndex: Int) {
-        composeTestRule.onNodeWithTag(
-            headerTestTag(tableId, rowIndex, columnIndex),
-            true,
-        ).performClick()
+    fun clickOnHeaderElement(
+        tableId: String,
+        rowIndex: Int,
+        columnIndex: Int,
+    ) {
+        composeTestRule
+            .onNodeWithTag(
+                headerTestTag(tableId, rowIndex, columnIndex),
+                true,
+            ).performClick()
         composeTestRule.waitForIdle()
     }
 
-    fun clickOnRowHeader(tableId: String, rowHeaderId: String) {
+    fun clickOnRowHeader(
+        tableId: String,
+        rowHeaderId: String,
+    ) {
         composeTestRule.onNodeWithTag(rowHeaderTestTag(tableId, rowHeaderId)).performClick()
         composeTestRule.waitForIdle()
     }
 
-    fun assertRowHeaderText(tableId: String, text: String, rowHeaderId: String) {
+    fun assertRowHeaderText(
+        tableId: String,
+        text: String,
+        rowHeaderId: String,
+    ) {
         composeTestRule.onNodeWithTag(rowHeaderTestTag(tableId, rowHeaderId)).assertTextEquals(text)
     }
 
-    fun assertRowHeaderIsClickable(tableId: String, rowHeaderId: String) {
+    fun assertRowHeaderIsClickable(
+        tableId: String,
+        rowHeaderId: String,
+    ) {
         composeTestRule.onNodeWithTag(rowHeaderTestTag(tableId, rowHeaderId)).assertIsEnabled()
     }
 
-    fun assertCellHasMandatoryIcon(tableId: String, cellId: String) {
-        composeTestRule.onNode(
-            hasParent(hasTestTag(cellTestTag(tableId, cellId)))
-                and
-                hasTestTag(MANDATORY_ICON_TEST_TAG),
-            true,
-        )
-            .assertIsDisplayed()
+    fun assertCellHasMandatoryIcon(
+        tableId: String,
+        cellId: String,
+    ) {
+        composeTestRule
+            .onNode(
+                hasParent(hasTestTag(cellTestTag(tableId, cellId)))
+                    and
+                    hasTestTag(MANDATORY_ICON_TEST_TAG),
+                true,
+            ).assertIsDisplayed()
     }
 
-    fun assertCellBlockedCell(tableId: String, cellId: String) {
+    fun assertCellBlockedCell(
+        tableId: String,
+        cellId: String,
+    ) {
         composeTestRule
             .onNode(
                 hasTestTag(cellTestTag(tableId, cellId))
                     and
                     SemanticsMatcher.expectValue(IsBlocked, true),
                 true,
-            )
-            .assertIsDisplayed()
+            ).assertIsDisplayed()
     }
 
-    fun assertCellIsSelected(tableId: String, cellId: String) {
-        composeTestRule.onNode(
-            hasTestTag(cellTestTag(tableId, cellId))
-                and
-                SemanticsMatcher.expectValue(CellSelected, true)
-                and
-                SemanticsMatcher.expectValue(HasError, false)
-                and
-                SemanticsMatcher.expectValue(RowBackground, SurfaceColor.SurfaceBright),
-            true,
-        ).assertIsDisplayed()
+    fun assertCellIsSelected(
+        tableId: String,
+        cellId: String,
+    ) {
+        composeTestRule
+            .onNode(
+                hasTestTag(cellTestTag(tableId, cellId))
+                    and
+                    SemanticsMatcher.expectValue(CellSelected, true)
+                    and
+                    SemanticsMatcher.expectValue(HasError, false)
+                    and
+                    SemanticsMatcher.expectValue(RowBackground, SurfaceColor.SurfaceBright),
+                true,
+            ).assertIsDisplayed()
     }
 
-    fun assertCellErrorStyle(tableId: String, cellId: String) {
-        composeTestRule.onNode(
-            hasTestTag(cellTestTag(tableId, cellId))
-                and
-                SemanticsMatcher.expectValue(HasError, true)
-                and
-                SemanticsMatcher.expectValue(RowBackground, SurfaceColor.ErrorContainer),
-            true,
-        ).assertIsDisplayed()
+    fun assertCellErrorStyle(
+        tableId: String,
+        cellId: String,
+    ) {
+        composeTestRule
+            .onNode(
+                hasTestTag(cellTestTag(tableId, cellId))
+                    and
+                    SemanticsMatcher.expectValue(HasError, true)
+                    and
+                    SemanticsMatcher.expectValue(RowBackground, SurfaceColor.ErrorContainer),
+                true,
+            ).assertIsDisplayed()
     }
 
-    fun assertCellWarningStyle(tableId: String, cellId: String) {
-        composeTestRule.onNode(
-            hasTestTag(cellTestTag(tableId, cellId))
-                and
-                SemanticsMatcher.expectValue(HasError, true)
-                and
-                SemanticsMatcher.expectValue(RowBackground, SurfaceColor.WarningContainer),
-            true,
-        ).assertIsDisplayed()
+    fun assertCellWarningStyle(
+        tableId: String,
+        cellId: String,
+    ) {
+        composeTestRule
+            .onNode(
+                hasTestTag(cellTestTag(tableId, cellId))
+                    and
+                    SemanticsMatcher.expectValue(HasError, true)
+                    and
+                    SemanticsMatcher.expectValue(RowBackground, SurfaceColor.WarningContainer),
+                true,
+            ).assertIsDisplayed()
     }
 
-    fun assertCellDisabledStyle(tableId: String, cellId: String) {
-        composeTestRule.onNode(
-            hasTestTag(cellTestTag(tableId, cellId))
-                and
-                SemanticsMatcher.expectValue(IsBlocked, true)
-                and
-                SemanticsMatcher.expectValue(RowBackground, SurfaceColor.DisabledSurfaceBright),
-            true,
-        ).assertIsDisplayed()
+    fun assertCellDisabledStyle(
+        tableId: String,
+        cellId: String,
+    ) {
+        composeTestRule
+            .onNode(
+                hasTestTag(cellTestTag(tableId, cellId))
+                    and
+                    SemanticsMatcher.expectValue(IsBlocked, true)
+                    and
+                    SemanticsMatcher.expectValue(RowBackground, SurfaceColor.DisabledSurfaceBright),
+                true,
+            ).assertIsDisplayed()
     }
 }

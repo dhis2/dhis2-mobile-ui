@@ -26,19 +26,21 @@ fun RadioButtonScreen() {
         mutableStateOf(option1)
     }
 
-    val radioButtonDataItemsHorizontal = listOf(
-        RadioButtonData("4", selected = true, enabled = true, textInput = option1),
-        RadioButtonData("5", selected = false, enabled = true, textInput = option2),
-        RadioButtonData("6", selected = true, enabled = false, textInput = option3),
-        RadioButtonData("7", selected = false, enabled = false, textInput = option4),
-    )
+    val radioButtonDataItemsHorizontal =
+        listOf(
+            RadioButtonData("4", selected = true, enabled = true, textInput = option1),
+            RadioButtonData("5", selected = false, enabled = true, textInput = option2),
+            RadioButtonData("6", selected = true, enabled = false, textInput = option3),
+            RadioButtonData("7", selected = false, enabled = false, textInput = option4),
+        )
 
-    val radioButtonDataItemsVertical = listOf(
-        RadioButtonData("0", selected = true, enabled = true, textInput = option1),
-        RadioButtonData("1", selected = false, enabled = true, textInput = option2),
-        RadioButtonData("2", selected = true, enabled = false, textInput = option3),
-        RadioButtonData("3", selected = false, enabled = false, textInput = option4),
-    )
+    val radioButtonDataItemsVertical =
+        listOf(
+            RadioButtonData("0", selected = true, enabled = true, textInput = option1),
+            RadioButtonData("1", selected = false, enabled = true, textInput = option2),
+            RadioButtonData("2", selected = true, enabled = false, textInput = option3),
+            RadioButtonData("3", selected = false, enabled = false, textInput = option4),
+        )
 
     var selectedItemVertical by remember {
         mutableStateOf(radioButtonDataItemsVertical[0])

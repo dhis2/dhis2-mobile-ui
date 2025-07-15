@@ -17,7 +17,10 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
 
-internal fun Modifier.bottomBorder(strokeWidth: Dp, color: Color) = composed(
+internal fun Modifier.bottomBorder(
+    strokeWidth: Dp,
+    color: Color,
+) = composed(
     factory = {
         val density = LocalDensity.current
         val strokeWidthPx = density.run { strokeWidth.toPx() }
@@ -40,7 +43,8 @@ internal fun Modifier.iconButton(
     enabled: Boolean = true,
     modifier: Modifier = Modifier,
 ) = this.then(
-    modifier.size(InternalSizeValues.Size48)
+    modifier
+        .size(InternalSizeValues.Size48)
         .padding(Spacing.Spacing4)
         .hoverPointerIcon(enabled),
 )
@@ -49,11 +53,12 @@ internal inline fun Modifier.conditional(
     condition: Boolean,
     ifTrue: Modifier.() -> Modifier,
     ifFalse: Modifier.() -> Modifier = { this },
-): Modifier = if (condition) {
-    then(ifTrue(Modifier))
-} else {
-    then(ifFalse(Modifier))
-}
+): Modifier =
+    if (condition) {
+        then(ifTrue(Modifier))
+    } else {
+        then(ifFalse(Modifier))
+    }
 
 /**
  * For a modifier that draw a dashed border around the content.
@@ -61,7 +66,11 @@ internal inline fun Modifier.conditional(
  * @param color controls the color of the border
  * @param cornerRadiusDp controls the corner radius of the border
  */
-internal fun Modifier.dashedBorder(strokeWidth: Dp, color: Color, cornerRadiusDp: Dp) = composed(
+internal fun Modifier.dashedBorder(
+    strokeWidth: Dp,
+    color: Color,
+    cornerRadiusDp: Dp,
+) = composed(
     factory = {
         val density = LocalDensity.current
         val strokeWidthPx = density.run { strokeWidth.toPx() }
@@ -70,10 +79,11 @@ internal fun Modifier.dashedBorder(strokeWidth: Dp, color: Color, cornerRadiusDp
         this.then(
             Modifier.drawWithCache {
                 onDrawBehind {
-                    val stroke = Stroke(
-                        width = strokeWidthPx,
-                        pathEffect = PathEffect.dashPathEffect(floatArrayOf(10f, 10f), 0f),
-                    )
+                    val stroke =
+                        Stroke(
+                            width = strokeWidthPx,
+                            pathEffect = PathEffect.dashPathEffect(floatArrayOf(10f, 10f), 0f),
+                        )
 
                     drawRoundRect(
                         color = color,

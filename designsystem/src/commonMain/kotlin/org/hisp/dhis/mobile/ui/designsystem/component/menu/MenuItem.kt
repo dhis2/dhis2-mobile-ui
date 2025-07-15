@@ -47,34 +47,35 @@ fun <T> MenuItem(
     menuItemData: MenuItemData<T>,
     onItemClick: (T) -> Unit,
 ) {
-    val itemContainerBackground = when (menuItemData.state) {
-        MenuItemState.SELECTED -> {
-            if (menuItemData.style == MenuItemStyle.ALERT) {
-                SurfaceColor.ErrorContainer
-            } else {
-                SurfaceColor.Container
+    val itemContainerBackground =
+        when (menuItemData.state) {
+            MenuItemState.SELECTED -> {
+                if (menuItemData.style == MenuItemStyle.ALERT) {
+                    SurfaceColor.ErrorContainer
+                } else {
+                    SurfaceColor.Container
+                }
             }
-        }
 
-        else -> Color.Transparent
-    }
+            else -> Color.Transparent
+        }
 
     Column(
         modifier = modifier.testTag(MENU_ITEM_CONTAINER),
     ) {
         Row(
-            modifier = Modifier
-                .background(itemContainerBackground)
-                .alpha(if (menuItemData.state != MenuItemState.DISABLED) 1f else 0.38f)
-                .clickable(
-                    enabled = menuItemData.state != MenuItemState.DISABLED,
-                    onClick = {
-                        onItemClick(menuItemData.id)
-                    },
-                )
-                .hoverPointerIcon(menuItemData.state != MenuItemState.DISABLED)
-                .height(Spacing.Spacing48)
-                .padding(horizontal = Spacing.Spacing12),
+            modifier =
+                Modifier
+                    .background(itemContainerBackground)
+                    .alpha(if (menuItemData.state != MenuItemState.DISABLED) 1f else 0.38f)
+                    .clickable(
+                        enabled = menuItemData.state != MenuItemState.DISABLED,
+                        onClick = {
+                            onItemClick(menuItemData.id)
+                        },
+                    ).hoverPointerIcon(menuItemData.state != MenuItemState.DISABLED)
+                    .height(Spacing.Spacing48)
+                    .padding(horizontal = Spacing.Spacing12),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             MenuItemLeadingElement(
@@ -112,9 +113,10 @@ fun <T> MenuItem(
         }
         if (menuItemData.showDivider) {
             HorizontalDivider(
-                modifier = modifier
-                    .testTag(MENU_ITEM_DIVIDER)
-                    .padding(vertical = Spacing.Spacing8),
+                modifier =
+                    modifier
+                        .testTag(MENU_ITEM_DIVIDER)
+                        .padding(vertical = Spacing.Spacing8),
                 thickness = Border.Thin,
                 color = Outline.Medium,
             )
@@ -131,35 +133,39 @@ private fun MenuItemLeadingElement(
     when (leadingElement) {
         is MenuLeadingElement.Indent -> {
             Box(
-                modifier = Modifier
-                    .testTag(MENU_ITEM_LEADING_INDENT)
-                    .padding(end = Spacing.Spacing12)
-                    .size(Spacing.Spacing24),
+                modifier =
+                    Modifier
+                        .testTag(MENU_ITEM_LEADING_INDENT)
+                        .padding(end = Spacing.Spacing12)
+                        .size(Spacing.Spacing24),
             )
         }
 
         is MenuLeadingElement.Icon -> {
-            val iconTint = when (state) {
-                MenuItemState.SELECTED -> {
-                    if (style == MenuItemStyle.ALERT) {
-                        leadingElement.selectedErrorTintColor
-                    } else {
-                        leadingElement.selectedTintColor
+            val iconTint =
+                when (state) {
+                    MenuItemState.SELECTED -> {
+                        if (style == MenuItemStyle.ALERT) {
+                            leadingElement.selectedErrorTintColor
+                        } else {
+                            leadingElement.selectedTintColor
+                        }
                     }
-                }
 
-                else -> if (style == MenuItemStyle.ALERT) {
-                    leadingElement.defaultErrorTintColor
-                } else {
-                    leadingElement.defaultTintColor
+                    else ->
+                        if (style == MenuItemStyle.ALERT) {
+                            leadingElement.defaultErrorTintColor
+                        } else {
+                            leadingElement.defaultTintColor
+                        }
                 }
-            }
             Icon(
                 imageVector = leadingElement.icon,
-                modifier = Modifier
-                    .testTag(MENU_ITEM_LEADING_ICON)
-                    .padding(end = Spacing.Spacing12)
-                    .size(Spacing.Spacing24),
+                modifier =
+                    Modifier
+                        .testTag(MENU_ITEM_LEADING_ICON)
+                        .padding(end = Spacing.Spacing12)
+                        .size(Spacing.Spacing24),
                 contentDescription = null,
                 tint = iconTint,
             )
@@ -177,10 +183,11 @@ private fun MenuItemTrailingElement(
     when (trailingElement) {
         is MenuTrailingElement.Icon -> {
             Icon(
-                modifier = Modifier
-                    .testTag(MENU_ITEM_TRAILING_ICON)
-                    .padding(start = Spacing.Spacing12)
-                    .size(Spacing.Spacing24),
+                modifier =
+                    Modifier
+                        .testTag(MENU_ITEM_TRAILING_ICON)
+                        .padding(start = Spacing.Spacing12)
+                        .size(Spacing.Spacing24),
                 imageVector = trailingElement.icon,
                 contentDescription = null,
                 tint = if (state == MenuItemState.SELECTED) trailingElement.selectedTintColor else trailingElement.defaultTintColor,
@@ -189,9 +196,10 @@ private fun MenuItemTrailingElement(
 
         is MenuTrailingElement.Text -> {
             Text(
-                modifier = Modifier
-                    .testTag(MENU_ITEM_TRAILING_TEXT)
-                    .padding(start = Spacing.Spacing12),
+                modifier =
+                    Modifier
+                        .testTag(MENU_ITEM_TRAILING_TEXT)
+                        .padding(start = Spacing.Spacing12),
                 style = MaterialTheme.typography.bodyLarge,
                 color = if (state == MenuItemState.SELECTED) TextColor.OnSurface else TextColor.OnSurfaceVariant,
                 text = trailingElement.text,

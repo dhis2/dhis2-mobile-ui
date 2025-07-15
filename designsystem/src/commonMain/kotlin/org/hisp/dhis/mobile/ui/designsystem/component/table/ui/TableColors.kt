@@ -36,7 +36,6 @@ data class TableColors(
     val onPrimary: Color = TextColor.OnPrimary,
     val selectedCell: Color = SurfaceColor.ContainerHighest,
 ) {
-
     /**
      * Returns the appropriate cell text color based on error, warning, and editability states.
      *
@@ -45,7 +44,11 @@ data class TableColors(
      * @param isEditable Indicates if the cell is editable.
      * @return The color to be used for the cell text.
      */
-    fun cellTextColor(hasError: Boolean, hasWarning: Boolean, isEditable: Boolean) = when {
+    fun cellTextColor(
+        hasError: Boolean,
+        hasWarning: Boolean,
+        isEditable: Boolean,
+    ) = when {
         hasError -> TextColor.OnErrorContainer
         hasWarning -> TextColor.OnWarningContainer
         !isEditable -> disabledCellText

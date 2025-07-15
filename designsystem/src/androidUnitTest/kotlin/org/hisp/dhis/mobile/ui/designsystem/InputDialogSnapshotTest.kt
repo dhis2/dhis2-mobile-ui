@@ -32,45 +32,45 @@ import org.junit.Rule
 import org.junit.Test
 
 class InputDialogSnapshotTest {
-
     @get:Rule
     val paparazzi = paparazzi()
 
     @OptIn(ExperimentalResourceApi::class)
     @Test
     fun launchInputDialog() {
-        val regularLegendList = listOf(
-            LegendDescriptionData(
-                SurfaceColor.CustomGreen,
-                "Low",
-                IntRange(0, 5),
-            ),
-            LegendDescriptionData(
-                SurfaceColor.CustomYellow,
-                "Medium",
-                IntRange(5, 10),
-            ),
-            LegendDescriptionData(
-                SurfaceColor.Warning,
-                "High",
-                IntRange(10, 20),
-            ),
-            LegendDescriptionData(
-                SurfaceColor.CustomPink,
-                "Very high",
-                IntRange(20, 40),
-            ),
-            LegendDescriptionData(
-                SurfaceColor.CustomBrown,
-                "Extreme",
-                IntRange(40, 120),
-            ),
-            LegendDescriptionData(
-                SurfaceColor.CustomGray,
-                text = "Lorem ipsum dolor sit amet",
-                IntRange(120, 1000),
-            ),
-        )
+        val regularLegendList =
+            listOf(
+                LegendDescriptionData(
+                    SurfaceColor.CustomGreen,
+                    "Low",
+                    IntRange(0, 5),
+                ),
+                LegendDescriptionData(
+                    SurfaceColor.CustomYellow,
+                    "Medium",
+                    IntRange(5, 10),
+                ),
+                LegendDescriptionData(
+                    SurfaceColor.Warning,
+                    "High",
+                    IntRange(10, 20),
+                ),
+                LegendDescriptionData(
+                    SurfaceColor.CustomPink,
+                    "Very high",
+                    IntRange(20, 40),
+                ),
+                LegendDescriptionData(
+                    SurfaceColor.CustomBrown,
+                    "Extreme",
+                    IntRange(40, 120),
+                ),
+                LegendDescriptionData(
+                    SurfaceColor.CustomGray,
+                    text = "Lorem ipsum dolor sit amet",
+                    IntRange(120, 1000),
+                ),
+            )
 
         paparazzi.snapshot {
             CompositionLocalProvider(LocalInspectionMode provides true) {
@@ -117,12 +117,13 @@ class InputDialogSnapshotTest {
                         InputYesNoField(
                             title = "Label",
                             state = InputShellState.ERROR,
-                            supportingText = listOf(
-                                SupportingTextData(
-                                    "Error text",
-                                    SupportingTextState.ERROR,
+                            supportingText =
+                                listOf(
+                                    SupportingTextData(
+                                        "Error text",
+                                        SupportingTextState.ERROR,
+                                    ),
                                 ),
-                            ),
                             itemSelected = InputYesNoFieldValues.YES,
                             onItemChange = {
                             },
@@ -156,17 +157,19 @@ class InputDialogSnapshotTest {
                             itemSelected = InputYesNoFieldValues.YES,
                             onItemChange = {
                             },
-                            supportingText = listOf(
-                                SupportingTextData(
-                                    "Supporting text",
-                                    SupportingTextState.DEFAULT,
+                            supportingText =
+                                listOf(
+                                    SupportingTextData(
+                                        "Supporting text",
+                                        SupportingTextState.DEFAULT,
+                                    ),
                                 ),
-                            ),
-                            legendData = LegendData(
-                                SurfaceColor.CustomGreen,
-                                "Legend",
-                                popUpLegendDescriptionData = regularLegendList,
-                            ),
+                            legendData =
+                                LegendData(
+                                    SurfaceColor.CustomGreen,
+                                    "Legend",
+                                    popUpLegendDescriptionData = regularLegendList,
+                                ),
                         )
                     },
                     actionButton = {

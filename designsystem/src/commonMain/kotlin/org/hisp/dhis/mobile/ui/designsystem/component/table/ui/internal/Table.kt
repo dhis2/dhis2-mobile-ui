@@ -101,13 +101,13 @@ internal fun Table(
     loading: Boolean = false,
 ) {
     Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(
-                color = TableTheme.colors.tableBackground,
-                shape = MaterialTheme.shapes.small,
-            )
-            .clip(MaterialTheme.shapes.small),
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .background(
+                    color = TableTheme.colors.tableBackground,
+                    shape = MaterialTheme.shapes.small,
+                ).clip(MaterialTheme.shapes.small),
     ) {
         val resizeActions = LocalTableResizeActions.current
         var tableHeight: Int? by remember { mutableStateOf(null) }
@@ -124,23 +124,26 @@ internal fun Table(
             ) {
                 tableList.forEachIndexed { tableIndex, tableModel ->
                     val isLastTable = tableList.lastIndex == tableIndex
-                    tableHeaderRow?.takeIf { tableModel.hasHeaders() }
+                    tableHeaderRow
+                        ?.takeIf { tableModel.hasHeaders() }
                         ?.invoke(tableIndex, tableModel)
                     tableModel.tableRows.forEachIndexed { rowIndex, tableRowModel ->
                         val isLastRow = tableModel.tableRows.lastIndex == rowIndex
                         tableItemRow?.invoke(tableIndex, tableModel, listOf(tableRowModel))
                         if (!isLastRow or TableTheme.configuration.groupTables) {
                             HorizontalDivider(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(end = TableTheme.dimensions.tableEndExtraScroll),
+                                modifier =
+                                    Modifier
+                                        .fillMaxWidth()
+                                        .padding(end = TableTheme.dimensions.tableEndExtraScroll),
                             )
                         }
-                        val showExtendedDivider = if (TableTheme.configuration.groupTables) {
-                            isLastTable && isLastRow
-                        } else {
-                            isLastRow
-                        }
+                        val showExtendedDivider =
+                            if (TableTheme.configuration.groupTables) {
+                                isLastTable && isLastRow
+                            } else {
+                                isLastRow
+                            }
                         if (showExtendedDivider) {
                             ExtendDivider(
                                 tableId = tableModel.id,
@@ -159,9 +162,10 @@ internal fun Table(
                 var selectedIndex = tableSelection.getSelectedCellRowIndex(tableSelection.tableId)
                 val isCellSelection = tableSelection is TableSelection.CellSelection
                 val isKeyboardOpen = keyboardState == Keyboard.Opened
-                val isItemVisible = verticalScrollState.layoutInfo.visibleItemsInfo.any { itemInfo ->
-                    itemInfo.index == selectedIndex && itemInfo.offset >= 0
-                }
+                val isItemVisible =
+                    verticalScrollState.layoutInfo.visibleItemsInfo.any { itemInfo ->
+                        itemInfo.index == selectedIndex && itemInfo.offset >= 0
+                    }
                 if (selectedIndex == 0) selectedIndex++
                 val shouldScroll = isItemVisible && (isCellSelection || isKeyboardOpen)
                 if (shouldScroll) {
@@ -184,32 +188,35 @@ internal fun Table(
             }
 
             val offset by animateIntOffsetAsState(
-                targetValue = if (isFirstItemHidden) {
-                    with(LocalDensity.current) {
-                        IntOffset(0, Spacing.Spacing16.roundToPx())
-                    }
-                } else {
-                    IntOffset.Zero
-                },
+                targetValue =
+                    if (isFirstItemHidden) {
+                        with(LocalDensity.current) {
+                            IntOffset(0, Spacing.Spacing16.roundToPx())
+                        }
+                    } else {
+                        IntOffset.Zero
+                    },
                 label = "offset",
             )
 
             LazyColumn(
-                modifier = Modifier
-                    .testTag("TABLE_SCROLLABLE_COLUMN")
-                    .background(Color.Transparent)
-                    .fillMaxWidth()
-                    .draggableList(
-                        scrollState = verticalScrollState,
-                        draggableType = DraggableType.Vertical,
-                    ).offset { offset },
-                verticalArrangement = spacedBy(
-                    if (TableTheme.configuration.groupTables) {
-                        0.dp
-                    } else {
-                        TableTheme.dimensions.tableVerticalPadding
-                    },
-                ),
+                modifier =
+                    Modifier
+                        .testTag("TABLE_SCROLLABLE_COLUMN")
+                        .background(Color.Transparent)
+                        .fillMaxWidth()
+                        .draggableList(
+                            scrollState = verticalScrollState,
+                            draggableType = DraggableType.Vertical,
+                        ).offset { offset },
+                verticalArrangement =
+                    spacedBy(
+                        if (TableTheme.configuration.groupTables) {
+                            0.dp
+                        } else {
+                            TableTheme.dimensions.tableVerticalPadding
+                        },
+                    ),
                 contentPadding = PaddingValues(bottom = contentPadding.calculateBottomPadding()),
                 state = verticalScrollState,
             ) {
@@ -235,7 +242,10 @@ internal fun Table(
                             )
                         }
                         val rowItems =
-                            tableModel.tableRows.groupBy { it.rowHeaders.first().id }.values.toList()
+                            tableModel.tableRows
+                                .groupBy { it.rowHeaders.first().id }
+                                .values
+                                .toList()
                                 .dropLast(1)
                         itemsIndexed(
                             items = rowItems,
@@ -244,7 +254,10 @@ internal fun Table(
                             tableItemRow?.invoke(tableIndex, tableModel, tableRowModel)
                         }
                         val lastItem =
-                            tableModel.tableRows.groupBy { it.rowHeaders.first().id }.values.toList()
+                            tableModel.tableRows
+                                .groupBy { it.rowHeaders.first().id }
+                                .values
+                                .toList()
                                 .last()
 
                         fixedStickyHeader(
@@ -255,11 +268,12 @@ internal fun Table(
                                 tableModel,
                                 lastItem,
                             )
-                            val showExtendedDivider = if (TableTheme.configuration.groupTables) {
-                                isLastTable
-                            } else {
-                                true
-                            }
+                            val showExtendedDivider =
+                                if (TableTheme.configuration.groupTables) {
+                                    isLastTable
+                                } else {
+                                    true
+                                }
                             if (showExtendedDivider) {
                                 ExtendDivider(
                                     tableId = tableModel.id,
@@ -282,9 +296,10 @@ internal fun Table(
         verticalResizingView?.invoke(tableHeight)
 
         AnimatedVisibility(
-            modifier = Modifier
-                .align(alignment = Alignment.BottomCenter)
-                .fillMaxWidth(),
+            modifier =
+                Modifier
+                    .align(alignment = Alignment.BottomCenter)
+                    .fillMaxWidth(),
             visible = TableTheme.dimensions.hasOverriddenWidths(GROUPED_ID) && TableTheme.tableSelection.canDisplayReset(),
         ) {
             Box(
@@ -321,9 +336,10 @@ private fun LazyListScope.stickyFooter(
     if (showFooter) {
         stickyHeader(key = key) {
             Spacer(
-                modifier = Modifier
-                    .height(16.dp)
-                    .background(color = Color.White),
+                modifier =
+                    Modifier
+                        .height(16.dp)
+                        .background(color = Color.White),
             )
         }
     }

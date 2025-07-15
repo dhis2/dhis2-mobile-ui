@@ -56,65 +56,71 @@ class ExpandableItemColumnSnapshotTest {
                 print("itemVerticalPadding: $verticalPadding")
                 val index = items.indexOf(item)
                 VerticalInfoListCard(
-                    listCardState = rememberListCardState(
-                        title = ListCardTitleModel(text = item),
-                        lastUpdated = "12 min",
-                        description = ListCardDescriptionModel(text = "200 patients"),
-                        additionalInfoColumnState = rememberAdditionalInfoColumnState(
-                            additionalInfoList = buildList {
-                                if (index != 0) {
-                                    add(
+                    listCardState =
+                        rememberListCardState(
+                            title = ListCardTitleModel(text = item),
+                            lastUpdated = "12 min",
+                            description = ListCardDescriptionModel(text = "200 patients"),
+                            additionalInfoColumnState =
+                                rememberAdditionalInfoColumnState(
+                                    additionalInfoList =
+                                        buildList {
+                                            if (index != 0) {
+                                                add(
+                                                    AdditionalInfoItem(
+                                                        icon = {
+                                                            Icon(
+                                                                imageVector = Icons.Outlined.SyncDisabled,
+                                                                contentDescription = "Sync disabled",
+                                                                tint = TextColor.OnSurfaceLight,
+                                                            )
+                                                        },
+                                                        value = "Not synced",
+                                                        color = TextColor.OnSurfaceLight,
+                                                    ),
+                                                )
+                                            }
+                                            add(
+                                                AdditionalInfoItem(
+                                                    value = "this is a description",
+                                                    color = TextColor.OnSurfaceLight,
+                                                ),
+                                            )
+                                        },
+                                    expandLabelText = "Show description",
+                                    shrinkLabelText = "Hide description",
+                                    syncProgressItem =
                                         AdditionalInfoItem(
                                             icon = {
                                                 Icon(
-                                                    imageVector = Icons.Outlined.SyncDisabled,
-                                                    contentDescription = "Sync disabled",
-                                                    tint = TextColor.OnSurfaceLight,
+                                                    imageVector = Icons.Outlined.Sync,
+                                                    contentDescription = "Icon Button",
+                                                    tint = SurfaceColor.Primary,
                                                 )
                                             },
-                                            value = "Not synced",
-                                            color = TextColor.OnSurfaceLight,
+                                            value = "Syncing...",
+                                            color = SurfaceColor.Primary,
+                                            isConstantItem = false,
                                         ),
-                                    )
-                                }
-                                add(
-                                    AdditionalInfoItem(
-                                        value = "this is a description",
-                                        color = TextColor.OnSurfaceLight,
-                                    ),
-                                )
-                            },
-                            expandLabelText = "Show description",
-                            shrinkLabelText = "Hide description",
-                            syncProgressItem = AdditionalInfoItem(
-                                icon = {
-                                    Icon(
-                                        imageVector = Icons.Outlined.Sync,
-                                        contentDescription = "Icon Button",
-                                        tint = SurfaceColor.Primary,
-                                    )
-                                },
-                                value = "Syncing...",
-                                color = SurfaceColor.Primary,
-                                isConstantItem = false,
-                            ),
+                                ),
+                            loading = false,
+                            expandable = true,
+                            itemVerticalPadding = verticalPadding,
                         ),
-                        loading = false,
-                        expandable = true,
-                        itemVerticalPadding = verticalPadding,
-                    ),
                     listAvatar = {
                         Avatar(
-                            style = AvatarStyleData.Metadata(
-                                imageCardData = ImageCardData.IconCardData(
-                                    uid = "",
-                                    label = "",
-                                    iconRes = "dhis2_microscope_outline",
-                                    iconTint = SurfaceColor.Primary,
+                            style =
+                                AvatarStyleData.Metadata(
+                                    imageCardData =
+                                        ImageCardData.IconCardData(
+                                            uid = "",
+                                            label = "",
+                                            iconRes = "dhis2_microscope_outline",
+                                            iconTint = SurfaceColor.Primary,
+                                        ),
+                                    avatarSize = MetadataAvatarSize.L(),
+                                    tintColor = SurfaceColor.Primary,
                                 ),
-                                avatarSize = MetadataAvatarSize.L(),
-                                tintColor = SurfaceColor.Primary,
-                            ),
                         )
                     },
                     onCardClick = {},
