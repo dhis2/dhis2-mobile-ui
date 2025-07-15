@@ -10,6 +10,7 @@ import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Arrangement.spacedBy
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -74,18 +75,25 @@ fun App(
     imageBitmapLoader: (() -> ImageBitmap)? = null,
     onLocationRequest: (
         (
-            locationQuery: String,
-            locationSearchCallback: (List<LocationItemModel>) -> Unit,
-        ) -> Unit
+        locationQuery: String,
+        locationSearchCallback: (List<LocationItemModel>) -> Unit,
+    ) -> Unit
     )? = null,
 ) {
     DHIS2Theme {
+        var currentScreen by remember { mutableStateOf(Groups.NO_GROUP_SELECTED) }
+
         Scaffold(
             modifier = Modifier.fillMaxSize(),
-            containerColor = Color.Transparent,
+            containerColor = when (currentScreen) {
+                Groups.NO_GROUP_SELECTED -> Color.White
+                else -> SurfaceColor.Container
+            },
+            bottomBar = {
+                Box{}
+            }
         ) { innerPadding ->
             SharedTransitionLayout(modifier = Modifier.padding(innerPadding)) {
-                var currentScreen by remember { mutableStateOf(Groups.NO_GROUP_SELECTED) }
 
                 AnimatedContent(
                     sizeClass.widthSizeClass,
@@ -126,9 +134,9 @@ fun ExpandedMain(
     imageBitmapLoader: (() -> ImageBitmap)?,
     onLocationRequest: (
         (
-            locationQuery: String,
-            locationSearchCallback: (List<LocationItemModel>) -> Unit,
-        ) -> Unit
+        locationQuery: String,
+        locationSearchCallback: (List<LocationItemModel>) -> Unit,
+    ) -> Unit
     )?,
     animatedVisibilityScope: AnimatedVisibilityScope,
     sharedTransitionScope: SharedTransitionScope,
@@ -192,9 +200,9 @@ fun Main(
     imageBitmapLoader: (() -> ImageBitmap)?,
     onLocationRequest: (
         (
-            locationQuery: String,
-            locationSearchCallback: (List<LocationItemModel>) -> Unit,
-        ) -> Unit
+        locationQuery: String,
+        locationSearchCallback: (List<LocationItemModel>) -> Unit,
+    ) -> Unit
     )?,
     animatedVisibilityScope: AnimatedVisibilityScope,
     sharedTransitionScope: SharedTransitionScope,
