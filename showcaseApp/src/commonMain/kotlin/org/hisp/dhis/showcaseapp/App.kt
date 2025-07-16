@@ -10,9 +10,11 @@ import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Arrangement.spacedBy
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
@@ -79,35 +81,47 @@ fun App(
     )? = null,
 ) {
     DHIS2Theme {
-        SharedTransitionLayout {
-            var currentScreen by remember { mutableStateOf(Groups.NO_GROUP_SELECTED) }
+        var currentScreen by remember { mutableStateOf(Groups.NO_GROUP_SELECTED) }
 
-            AnimatedContent(
-                sizeClass.widthSizeClass,
-                label = "content_size_transition",
-            ) { widthSizeClass ->
-                when (widthSizeClass) {
-                    WindowWidthSizeClass.Expanded ->
-                        ExpandedMain(
-                            currentScreen = currentScreen,
-                            imageBitmapLoader = imageBitmapLoader,
-                            onLocationRequest = onLocationRequest,
-                            animatedVisibilityScope = this,
-                            sharedTransitionScope = this@SharedTransitionLayout,
-                        ) {
-                            currentScreen = it
-                        }
+        Scaffold(
+            modifier = Modifier.fillMaxSize(),
+            containerColor =
+                when (currentScreen) {
+                    Groups.NO_GROUP_SELECTED -> Color.White
+                    else -> SurfaceColor.Container
+                },
+            bottomBar = {
+                Box {}
+            },
+        ) { innerPadding ->
+            SharedTransitionLayout(modifier = Modifier.padding(innerPadding)) {
+                AnimatedContent(
+                    sizeClass.widthSizeClass,
+                    label = "content_size_transition",
+                ) { widthSizeClass ->
+                    when (widthSizeClass) {
+                        WindowWidthSizeClass.Expanded ->
+                            ExpandedMain(
+                                currentScreen = currentScreen,
+                                imageBitmapLoader = imageBitmapLoader,
+                                onLocationRequest = onLocationRequest,
+                                animatedVisibilityScope = this,
+                                sharedTransitionScope = this@SharedTransitionLayout,
+                            ) {
+                                currentScreen = it
+                            }
 
-                    else ->
-                        Main(
-                            currentScreen = currentScreen,
-                            imageBitmapLoader = imageBitmapLoader,
-                            onLocationRequest = onLocationRequest,
-                            animatedVisibilityScope = this,
-                            sharedTransitionScope = this@SharedTransitionLayout,
-                        ) {
-                            currentScreen = it
-                        }
+                        else ->
+                            Main(
+                                currentScreen = currentScreen,
+                                imageBitmapLoader = imageBitmapLoader,
+                                onLocationRequest = onLocationRequest,
+                                animatedVisibilityScope = this,
+                                sharedTransitionScope = this@SharedTransitionLayout,
+                            ) {
+                                currentScreen = it
+                            }
+                    }
                 }
             }
         }
