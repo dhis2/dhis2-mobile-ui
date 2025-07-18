@@ -2036,6 +2036,66 @@
           }
         },
         "maxLines": 3
+      },
+      {
+        "rowHeaders": [
+          {
+            "id": "yes_only_disabled_empty",
+            "title": "YESONLY Disabled empty",
+            "row": 4,
+            "column": 0,
+            "description": null,
+            "disabled": false
+          }
+        ],
+        "values": {
+          "0": {
+            "id": "3PGRlPlREZWlGdU9SR2hlOjxjb2M+SGxsdlg1MGNYQzA=4",
+            "row": 4,
+            "column": 0,
+            "content": {
+              "type": "org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableCellContent.Checkbox",
+              "isChecked": false
+            },
+            "editable": false,
+            "mandatory": false,
+            "error": null,
+            "warning": null,
+            "legendColor": null,
+            "isMultiText": false
+          }
+        },
+        "maxLines": 3
+      },
+      {
+        "rowHeaders": [
+          {
+            "id": "yes_only_disabled_filled",
+            "title": "YESONLY Disabled filled",
+            "row": 5,
+            "column": 0,
+            "description": null,
+            "disabled": false
+          }
+        ],
+        "values": {
+          "0": {
+            "id": "3PGRlPlREZWlGdU9SR2hlOjxjb2M+SGxsdlg1MGNYQzA=5",
+            "row": 5,
+            "column": 0,
+            "content": {
+              "type": "org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableCellContent.Checkbox",
+              "isChecked": true
+            },
+            "editable": false,
+            "mandatory": false,
+            "error": null,
+            "warning": null,
+            "legendColor": null,
+            "isMultiText": false
+          }
+        },
+        "maxLines": 3
       }
     ]
   }
