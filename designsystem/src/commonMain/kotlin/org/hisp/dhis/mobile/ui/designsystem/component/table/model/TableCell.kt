@@ -29,12 +29,12 @@ data class TableCell(
     val legendColor: Int? = null,
     val isMultiText: Boolean = false,
 ) {
-
     val value: String?
-        get() = when (content) {
-            is TableCellContent.Text -> content.value
-            is TableCellContent.Checkbox -> content.isChecked.toString()
-        }
+        get() =
+            when (content) {
+                is TableCellContent.Text -> content.value
+                is TableCellContent.Checkbox -> content.isChecked.toString()
+            }
 
     /**
      * Checks if the cell has either an error or a warning.

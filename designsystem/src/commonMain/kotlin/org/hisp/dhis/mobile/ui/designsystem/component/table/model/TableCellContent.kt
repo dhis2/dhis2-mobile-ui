@@ -7,10 +7,13 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 sealed class TableCellContent {
+    @Serializable
+    data class Text(
+        val value: String?,
+    ) : TableCellContent()
 
     @Serializable
-    data class Text(val value: String?) : TableCellContent()
-
-    @Serializable
-    data class Checkbox(val isChecked: Boolean) : TableCellContent()
+    data class Checkbox(
+        val isChecked: Boolean,
+    ) : TableCellContent()
 }

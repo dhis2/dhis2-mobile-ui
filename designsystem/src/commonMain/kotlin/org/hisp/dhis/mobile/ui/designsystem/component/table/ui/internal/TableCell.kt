@@ -142,12 +142,13 @@ internal fun TableCell(
         when (cell.content) {
             is TableCellContent.Checkbox -> {
                 CheckBoxCell(
-                    checkBoxData = CheckBoxData(
-                        uid = cell.id,
-                        checked = cell.content.isChecked,
-                        enabled = cell.editable,
-                        textInput = "",
-                    ),
+                    checkBoxData =
+                        CheckBoxData(
+                            uid = cell.id,
+                            checked = cell.content.isChecked,
+                            enabled = cell.editable,
+                            textInput = "",
+                        ),
                 )
             }
 
@@ -156,16 +157,19 @@ internal fun TableCell(
             }
         }
         if (cell.mandatory == true) {
-            val mandatoryStyle = when (cell.content) {
-                is TableCellContent.Checkbox -> when {
-                    cell.content.isChecked -> MandatoryIconStyle.FilledMandatoryStyle
-                    else -> MandatoryIconStyle.ComponentMandatoryStyle
+            val mandatoryStyle =
+                when (cell.content) {
+                    is TableCellContent.Checkbox ->
+                        when {
+                            cell.content.isChecked -> MandatoryIconStyle.FilledMandatoryStyle
+                            else -> MandatoryIconStyle.ComponentMandatoryStyle
+                        }
+                    is TableCellContent.Text ->
+                        when {
+                            cell.value?.isNotEmpty() == true -> MandatoryIconStyle.FilledMandatoryStyle
+                            else -> MandatoryIconStyle.DefaultMandatoryStyle
+                        }
                 }
-                is TableCellContent.Text -> when {
-                    cell.value?.isNotEmpty() == true -> MandatoryIconStyle.FilledMandatoryStyle
-                    else -> MandatoryIconStyle.DefaultMandatoryStyle
-                }
-            }
 
             MandatoryIcon(
                 style = mandatoryStyle,

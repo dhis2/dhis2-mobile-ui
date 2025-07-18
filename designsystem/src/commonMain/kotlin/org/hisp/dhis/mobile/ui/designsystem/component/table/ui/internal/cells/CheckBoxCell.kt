@@ -19,10 +19,11 @@ internal fun CheckBoxCell(
 ) {
     val localInteraction = LocalInteraction.current
     CheckBox(
-        modifier = modifier
-            .testTag(CELL_VALUE_TEST_TAG)
-            .padding(TableTheme.dimensions.cellPaddingValues)
-            .wrapContentHeight(Alignment.CenterVertically),
+        modifier =
+            modifier
+                .testTag(CELL_VALUE_TEST_TAG)
+                .padding(TableTheme.dimensions.cellPaddingValues)
+                .wrapContentHeight(Alignment.CenterVertically),
         checkBoxData = checkBoxData,
         onCheckedChange = {
             localInteraction.onChecked(it)

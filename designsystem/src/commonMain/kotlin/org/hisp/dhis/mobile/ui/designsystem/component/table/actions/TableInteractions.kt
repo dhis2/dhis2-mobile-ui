@@ -33,7 +33,11 @@ interface TableInteractions {
      * @param code The code of the selected option.
      * @param label The label of the selected option.
      */
-    fun onOptionSelected(cell: TableCell, code: String, label: String) = run { }
+    fun onOptionSelected(
+        cell: TableCell,
+        code: String,
+        label: String,
+    ) = run { }
 
     /**
      * Handles the event when a checkbox component is checked or unchecked.
