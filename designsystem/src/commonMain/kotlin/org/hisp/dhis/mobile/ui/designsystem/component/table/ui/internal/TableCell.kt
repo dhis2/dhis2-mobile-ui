@@ -24,7 +24,6 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTag
 import kotlinx.coroutines.launch
-import org.hisp.dhis.mobile.ui.designsystem.component.CheckBoxData
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableCell
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableCellContent
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.LocalTableSelection
@@ -141,15 +140,7 @@ internal fun TableCell(
     ) {
         when (cell.content) {
             is TableCellContent.Checkbox -> {
-                CheckBoxCell(
-                    checkBoxData =
-                        CheckBoxData(
-                            uid = cell.id,
-                            checked = cell.content.isChecked,
-                            enabled = cell.editable,
-                            textInput = "",
-                        ),
-                )
+                CheckBoxCell(cell = cell)
             }
 
             else -> {
@@ -164,6 +155,7 @@ internal fun TableCell(
                             cell.content.isChecked -> MandatoryIconStyle.FilledMandatoryStyle
                             else -> MandatoryIconStyle.ComponentMandatoryStyle
                         }
+
                     is TableCellContent.Text ->
                         when {
                             cell.value?.isNotEmpty() == true -> MandatoryIconStyle.FilledMandatoryStyle

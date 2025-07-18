@@ -131,8 +131,11 @@ fun DataTable(
                     tableInteractions?.onOptionSelected(cell, code, label)
                 }
 
-                override fun onChecked(checked: Boolean) {
-                    tableInteractions?.onChecked(checked)
+                override fun onChecked(
+                    tableCell: TableCell,
+                    checked: Boolean,
+                ) {
+                    tableInteractions?.onChecked(tableCell, checked)
                 }
             },
         )

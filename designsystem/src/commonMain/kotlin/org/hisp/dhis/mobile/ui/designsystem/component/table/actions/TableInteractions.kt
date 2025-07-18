@@ -46,5 +46,8 @@ interface TableInteractions {
      *                - `true` if the checkbox is checked.
      *                - `false` if the checkbox is unchecked.
      */
-    fun onChecked(checked: Boolean) = run { }
+    fun onChecked(
+        tableCell: TableCell,
+        checked: Boolean,
+    ) = run { }
 }
