@@ -19,7 +19,6 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantic
 
 @Composable
 internal fun TextCell(
-    cellValue: String,
     maxLines: Int,
     cell: TableCell,
     modifier: Modifier = Modifier,
@@ -31,13 +30,13 @@ internal fun TextCell(
                 .testTag(CELL_VALUE_TEST_TAG)
                 .padding(TableTheme.dimensions.cellPaddingValues)
                 .wrapContentHeight(Alignment.CenterVertically),
-        text = cellValue,
+        text = cell.value ?: "",
         maxLines = maxLines,
         overflow = TextOverflow.Ellipsis,
         style =
             TextStyle.Default.copy(
                 fontSize = TableTheme.dimensions.defaultCellTextSize,
-                textAlign = if (cellValue.isNumeric()) TextAlign.End else TextAlign.Start,
+                textAlign = if (cell.value.isNumeric()) TextAlign.End else TextAlign.Start,
                 color =
                     LocalTableColors.current.cellTextColor(
                         hasError = cell.error != null,

@@ -103,7 +103,6 @@ fun DataTable(
         dimensions = themeDimensions
     }
     var tableSelection by remember(currentSelection) { mutableStateOf(currentSelection) }
-    var updatingCell by remember { mutableStateOf<TableCell?>(null) }
     val defaultsTableInteractions by remember {
         mutableStateOf(
             object : TableInteractions {
@@ -121,7 +120,6 @@ fun DataTable(
                 }
 
                 override fun onClick(tableCell: TableCell) {
-                    updatingCell = tableCell
                     tableInteractions?.onClick(tableCell)
                 }
 
@@ -130,8 +128,14 @@ fun DataTable(
                     code: String,
                     label: String,
                 ) {
-                    updatingCell = cell
                     tableInteractions?.onOptionSelected(cell, code, label)
+                }
+
+                override fun onChecked(
+                    tableCell: TableCell,
+                    checked: Boolean,
+                ) {
+                    tableInteractions?.onChecked(tableCell, checked)
                 }
             },
         )

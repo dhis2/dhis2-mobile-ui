@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import org.hisp.dhis.mobile.ui.designsystem.component.model.DraggableType
 import org.hisp.dhis.mobile.ui.designsystem.component.modifier.draggableList
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableCell
+import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableCellContent
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableHeader
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.CELL_TEST_TAG
@@ -36,7 +37,6 @@ internal fun ItemValues(
     totalTableColumns: Int,
     totalHeaderRows: Int,
 ) {
-    val extraColumns = totalTableColumns - tableHeaderModel.tableMaxColumns()
     Row(
         modifier =
             modifier
@@ -53,7 +53,7 @@ internal fun ItemValues(
                     cellValues[columnIndex] ?: TableCell(
                         id = "",
                         editable = false,
-                        value = "",
+                        content = TableCellContent.Text(""),
                         column = columnIndex,
                     )
 

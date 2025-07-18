@@ -38,4 +38,16 @@ interface TableInteractions {
         code: String,
         label: String,
     ) = run { }
+
+    /**
+     * Handles the event when a checkbox component is checked or unchecked.
+     *
+     * @param checked A boolean indicating the state of the checkbox:
+     *                - `true` if the checkbox is checked.
+     *                - `false` if the checkbox is unchecked.
+     */
+    fun onChecked(
+        tableCell: TableCell,
+        checked: Boolean,
+    ) = run { }
 }
