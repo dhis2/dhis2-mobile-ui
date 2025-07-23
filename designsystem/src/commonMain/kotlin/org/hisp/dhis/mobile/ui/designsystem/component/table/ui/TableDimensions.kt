@@ -62,8 +62,8 @@ data class TableDimensions(
     val extraWidths: Map<String, Int> = emptyMap(),
     val rowHeaderWidths: Map<String, Int> = emptyMap(),
     val columnWidth: Map<String, Map<Int, Int>> = emptyMap(),
-    val minRowHeaderWidth: Int = 130,
-    val minColumnWidth: Int = 130,
+    val minRowHeaderWidth: Int = 100,
+    val minColumnWidth: Int = 100,
     val maxRowHeaderWidth: Int = Int.MAX_VALUE,
     val maxColumnWidth: Int = Int.MAX_VALUE,
     val tableEndExtraScroll: Dp = Spacing.Spacing6,
@@ -313,7 +313,7 @@ data class TableDimensions(
             tableId = tableId,
             column = columnIndex,
         ) +
-            extraSize(
+            desiredDimension.extraSize(
                 groupedTables = groupedTables,
                 tableId = tableId,
                 totalColumns = totalColumns,

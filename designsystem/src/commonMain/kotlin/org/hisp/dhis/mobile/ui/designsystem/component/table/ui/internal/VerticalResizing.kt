@@ -58,7 +58,7 @@ internal fun VerticalResizingView(
                 .drawBehind {
                     drawRect(
                         color = colorPrimary,
-                        topLeft = Offset(0f, 0f),
+                        topLeft = Offset(19.dp.toPx() - (tableOffset?.x ?: 0f), 0f),
                         size = Size(2.dp.toPx(), size.height),
                     )
                 }.graphicsLayer(clip = false),
@@ -70,7 +70,7 @@ internal fun VerticalResizingView(
                             .align(Alignment.TopCenter)
                             .offset {
                                 IntOffset(
-                                    x = -19.dp.roundToPx(),
+                                    x = -it.x.roundToInt(),
                                     y = resizingCell.initialPosition.y.roundToInt() - it.y.roundToInt(),
                                 )
                             }.background(
