@@ -28,4 +28,5 @@ enum class Groups(
     INPUT_DIALOG("Input Dialog"),
     TABS("Tabs"),
     TWO_PANE_LAYOUT("Two pane layout"),
+    INFO_BAR("Info bar"),
 }
