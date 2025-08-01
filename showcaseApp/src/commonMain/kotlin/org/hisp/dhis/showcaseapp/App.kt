@@ -8,7 +8,6 @@ import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -54,6 +53,7 @@ import org.hisp.dhis.showcaseapp.screens.menu.MenuScreen
 import org.hisp.dhis.showcaseapp.screens.others.BadgesScreen
 import org.hisp.dhis.showcaseapp.screens.others.ChipsScreen
 import org.hisp.dhis.showcaseapp.screens.others.IndicatorScreen
+import org.hisp.dhis.showcaseapp.screens.others.InfoBarScreen
 import org.hisp.dhis.showcaseapp.screens.others.LegendScreen
 import org.hisp.dhis.showcaseapp.screens.others.MetadataAvatarScreen
 import org.hisp.dhis.showcaseapp.screens.others.NavigationBarScreen
@@ -152,7 +152,7 @@ fun ExpandedMain(
                         .padding(Spacing.Spacing16)
                         .background(SurfaceColor.Container)
                         .padding(Spacing.Spacing16),
-                verticalArrangement = Arrangement.spacedBy(Spacing.Spacing16),
+                verticalArrangement = spacedBy(Spacing.Spacing16),
             ) {
                 ScreenProvider(
                     screen = currentScreen,
@@ -213,7 +213,7 @@ fun Main(
     }
 
     Column(
-        verticalArrangement = Arrangement.spacedBy(Spacing.Spacing16),
+        verticalArrangement = spacedBy(Spacing.Spacing16),
         modifier =
             Modifier
                 .background(SurfaceColor.Container),
@@ -328,6 +328,7 @@ fun ScreenProvider(
                 Groups.INPUT_DIALOG -> InputDialogScreen()
                 Groups.TABS -> TabsScreen()
                 Groups.TWO_PANE_LAYOUT -> TwoPaneLayoutScreen()
+                Groups.INFO_BAR -> InfoBarScreen()
             }
         }
     }

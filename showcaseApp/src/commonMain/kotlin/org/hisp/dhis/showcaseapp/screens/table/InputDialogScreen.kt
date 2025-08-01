@@ -29,7 +29,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -48,7 +47,6 @@ import org.hisp.dhis.mobile.ui.designsystem.component.CheckBoxData
 import org.hisp.dhis.mobile.ui.designsystem.component.IconButton
 import org.hisp.dhis.mobile.ui.designsystem.component.IconButtonStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.InfoBar
-import org.hisp.dhis.mobile.ui.designsystem.component.InfoBarData
 import org.hisp.dhis.mobile.ui.designsystem.component.InputDialog
 import org.hisp.dhis.mobile.ui.designsystem.component.InputMultiSelection
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
@@ -72,6 +70,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import org.hisp.dhis.showcaseapp.screens.previews.LOREM
 import org.hisp.dhis.showcaseapp.screens.previews.LOREM_SHORT
 import org.hisp.dhis.showcaseapp.screens.previews.regularLegendList
+import kotlin.collections.listOf
 
 @Composable
 fun InputDialogScreen() {
@@ -225,7 +224,8 @@ fun InputDialogScreen() {
                     style = ButtonStyle.FILLED,
                     text = "Show Input Dialog with supporting text and legend",
                     onClick = {
-                        showInputDialogWithSupportingTextAndLegend = !showInputDialogWithSupportingTextAndLegend
+                        showInputDialogWithSupportingTextAndLegend =
+                            !showInputDialogWithSupportingTextAndLegend
                     },
                 )
                 Spacer(Modifier.size(Spacing.Spacing8))
@@ -461,7 +461,13 @@ fun InputDialogScreen() {
                         InputYesNoField(
                             title = "Label",
                             state = InputShellState.ERROR,
-                            supportingText = listOf(SupportingTextData("Error text", SupportingTextState.ERROR)),
+                            supportingText =
+                                listOf(
+                                    SupportingTextData(
+                                        "Error text",
+                                        SupportingTextState.ERROR,
+                                    ),
+                                ),
                             itemSelected = selectedItem,
                             onItemChange = {
                                 selectedItem = it
@@ -591,7 +597,7 @@ fun InputDialogScreen() {
                         InputYesNoField(
                             title = "Label",
                             state = InputShellState.ERROR,
-                            itemSelected = selectedItem,
+                            itemSelected = selectedItem2,
                             onItemChange = {
                                 selectedItem2 = it
                             },
@@ -602,7 +608,12 @@ fun InputDialogScreen() {
                                         SupportingTextState.DEFAULT,
                                     ),
                                 ),
-                            legendData = LegendData(SurfaceColor.CustomGreen, "Legend", popUpLegendDescriptionData = regularLegendList),
+                            legendData =
+                                LegendData(
+                                    SurfaceColor.CustomGreen,
+                                    "Legend",
+                                    popUpLegendDescriptionData = regularLegendList,
+                                ),
                         )
                     },
                     actionButton = {
@@ -648,63 +659,74 @@ fun InputDialogScreen() {
             ) {
                 InputDialog(
                     input = {
-                        val multiSelect2Items =
-                            mutableStateListOf(
-                                CheckBoxData(
-                                    uid = "uid-1",
-                                    checked = true,
-                                    enabled = true,
-                                    textInput = "Option 1",
-                                ),
-                                CheckBoxData(
-                                    uid = "uid-2",
-                                    checked = true,
-                                    enabled = true,
-                                    textInput = "Option 2",
-                                ),
-                                CheckBoxData(
-                                    uid = "uid-3",
-                                    checked = true,
-                                    enabled = true,
-                                    textInput = "Opt. 3",
-                                ),
-                                CheckBoxData(
-                                    uid = "uid-4",
-                                    checked = false,
-                                    enabled = true,
-                                    textInput = "Option 4",
-                                ),
-                                CheckBoxData(
-                                    uid = "uid-5",
-                                    checked = false,
-                                    enabled = true,
-                                    textInput = "Option 5",
-                                ),
-                                CheckBoxData(
-                                    uid = "uid-6",
-                                    checked = false,
-                                    enabled = true,
-                                    textInput = "Opt. 6",
-                                ),
-                                CheckBoxData(
-                                    uid = "uid-7",
-                                    checked = false,
-                                    enabled = true,
-                                    textInput = "Opt. 7",
+                        var multiSelect2Items by remember {
+                            mutableStateOf(
+                                listOf(
+                                    CheckBoxData(
+                                        uid = "uid-1",
+                                        checked = true,
+                                        enabled = true,
+                                        textInput = "Option 1",
+                                    ),
+                                    CheckBoxData(
+                                        uid = "uid-2",
+                                        checked = true,
+                                        enabled = true,
+                                        textInput = "Option 2",
+                                    ),
+                                    CheckBoxData(
+                                        uid = "uid-3",
+                                        checked = true,
+                                        enabled = true,
+                                        textInput = "Opt. 3",
+                                    ),
+                                    CheckBoxData(
+                                        uid = "uid-4",
+                                        checked = false,
+                                        enabled = true,
+                                        textInput = "Option 4",
+                                    ),
+                                    CheckBoxData(
+                                        uid = "uid-5",
+                                        checked = false,
+                                        enabled = true,
+                                        textInput = "Option 5",
+                                    ),
+                                    CheckBoxData(
+                                        uid = "uid-6",
+                                        checked = false,
+                                        enabled = true,
+                                        textInput = "Opt. 6",
+                                    ),
+                                    CheckBoxData(
+                                        uid = "uid-7",
+                                        checked = false,
+                                        enabled = true,
+                                        textInput = "Opt. 7",
+                                    ),
                                 ),
                             )
+                        }
+
                         InputMultiSelection(
                             items = multiSelect2Items,
                             title = "Multi Select 2",
                             state = InputShellState.UNFOCUSED,
                             onItemsSelected = { selectedItems ->
                                 selectedItems.forEach { selectedItem ->
-                                    val index = multiSelect2Items.indexOfFirst { it.uid == selectedItem.uid }
-                                    multiSelect2Items[index] = selectedItem
+                                    val index =
+                                        multiSelect2Items.indexOfFirst { it.uid == selectedItem.uid }
+                                    multiSelect2Items =
+                                        multiSelect2Items.toMutableList().apply {
+                                            this[index] = selectedItem
+                                        }
                                 }
                             },
                             onClearItemSelection = {
-                                multiSelect2Items.replaceAll { it.copy(checked = false) }
+                                multiSelect2Items =
+                                    multiSelect2Items.toMutableList().map {
+                                        it.copy(checked = false)
+                                    }
                             },
                             isRequired = false,
                             legendData = null,
@@ -833,20 +855,18 @@ fun InputDialogDetails() {
 
                 Spacer(Modifier.size(Spacing.Spacing16))
                 InfoBar(
-                    InfoBarData(
-                        text = "Marked for follow up",
-                        icon = {
-                            Icon(
-                                imageVector = Icons.Filled.Flag,
-                                contentDescription = "not synced",
-                                tint = SurfaceColor.CustomOrange,
-                            )
-                        },
-                        color = TextColor.OnSurfaceLight,
-                        backgroundColor = SurfaceColor.Surface,
-                        actionText = "Remove",
-                        onClick = {},
-                    ),
+                    text = "Marked for follow up",
+                    textColor = TextColor.OnSurfaceLight,
+                    backgroundColor = SurfaceColor.Surface,
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Filled.Flag,
+                            contentDescription = "not synced",
+                            tint = SurfaceColor.CustomOrange,
+                        )
+                    },
+                    actionText = "Remove",
+                    onActionClick = {},
                 )
                 Spacer(Modifier.size(Spacing.Spacing16))
             }
@@ -1095,20 +1115,18 @@ fun InputDialogDetailsSmall() {
 
                 Spacer(Modifier.size(Spacing.Spacing16))
                 InfoBar(
-                    InfoBarData(
-                        text = "Marked for follow up",
-                        icon = {
-                            Icon(
-                                imageVector = Icons.Filled.Flag,
-                                contentDescription = "not synced",
-                                tint = SurfaceColor.CustomOrange,
-                            )
-                        },
-                        color = TextColor.OnSurfaceLight,
-                        backgroundColor = SurfaceColor.Surface,
-                        actionText = "Remove",
-                        onClick = {},
-                    ),
+                    text = "Marked for follow up",
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Filled.Flag,
+                            contentDescription = "not synced",
+                            tint = SurfaceColor.CustomOrange,
+                        )
+                    },
+                    textColor = TextColor.OnSurfaceLight,
+                    backgroundColor = SurfaceColor.Surface,
+                    actionText = "Remove",
+                    onActionClick = {},
                 )
                 Spacer(Modifier.size(Spacing.Spacing16))
             }
