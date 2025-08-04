@@ -38,6 +38,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.SelectionState
 import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
 import org.hisp.dhis.mobile.ui.designsystem.component.state.rememberAdditionalInfoColumnState
 import org.hisp.dhis.mobile.ui.designsystem.component.state.rememberListCardState
+import org.hisp.dhis.mobile.ui.designsystem.files.buildPainterForFile
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
@@ -128,7 +129,7 @@ fun ListCardScreen(horizontal: Boolean) {
                         ),
                     listAvatar = {
                         Avatar(
-                            style = AvatarStyleData.Image(provideDHIS2Icon("dhis2_microscope_outline")),
+                            style = AvatarStyleData.Image(buildPainterForFile("non_existing_file")),
                         )
                     },
                     onCardClick = {},
