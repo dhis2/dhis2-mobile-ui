@@ -12,6 +12,7 @@ plugins {
     alias(libs.plugins.ktlint)
     alias(libs.plugins.dokka)
     alias(libs.plugins.nexus)
+    alias(libs.plugins.screenshot) apply false
 }
 
 /**

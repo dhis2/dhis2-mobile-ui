@@ -1,20 +1,22 @@
 [versions]
 
 kotlin = "2.2.0"
-agp = "8.10.1"
-compose = "1.8.1"
+agp = "8.12.0"
+compose = "1.8.2"
 kotlinxSerializationJson = "1.9.0"
 paparazzi = "2.0.0-alpha02"
 zxing = "3.5.3"
 junit = "4.13.2"
 signaturepad = "0.1.4"
-activityCompose = "1.10.0"
-appCompat = "1.7.0"
+activityCompose = "1.10.1"
+appCompat = "1.7.1"
 coreKtx = "1.16.0"
 ktlint = "13.0.0"
 dokka = "2.0.0"
 nexus = "2.0.0"
-composeHotReload = "1.0.0-beta03"
+composeHotReload = "1.0.0-beta04"
+screenshot = "0.0.1-alpha10"
+ui-tooling = "1.8.3"
 
 [libraries]
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
@@ -25,6 +27,8 @@ kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serializa
 signature-pad = { module = "se.warting.signature:signature-pad", version.ref = "signaturepad" }
 zxing-core = { module = "com.google.zxing:core", version.ref = "zxing" }
 test-junit = { module = "junit:junit", version.ref = "junit" }
+screenshot-validation-api = { group = "com.android.tools.screenshot", name = "screenshot-validation-api", version.ref = "screenshot" }
+androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling", version.ref = "ui-tooling" }
 
 [plugins]
 composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
@@ -38,3 +42,4 @@ ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
 composeMultiplatform = { id = "org.jetbrains.compose", version.ref = "compose" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 testing-snapshot-paparazzi = { id = "app.cash.paparazzi", version.ref = "paparazzi" }
+screenshot = { id = "com.android.compose.screenshot", version.ref = "screenshot" }
