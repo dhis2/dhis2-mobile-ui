@@ -46,6 +46,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.internal.formatUIDateToSto
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.getSupportingTextList
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.getTime
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.getTimePickerState
+import org.hisp.dhis.mobile.ui.designsystem.component.internal.normalizeToGregorian
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.provideDatePickerState
 import org.hisp.dhis.mobile.ui.designsystem.component.model.RegExValidations
 import org.hisp.dhis.mobile.ui.designsystem.component.state.InputDateTimeState
@@ -387,8 +388,9 @@ private fun manageOnValueChanged(
     onValueChanged: (TextFieldValue?) -> Unit,
     actionType: DateTimeActionType,
 ) {
+    val normalizeText = normalizeToGregorian(newText.text)
     val allowedCharacters = RegExValidations.DATE_TIME.regex
-    if (allowedCharacters.containsMatchIn(newText.text) || newText.text.isBlank()) {
+    if (allowedCharacters.containsMatchIn(normalizeText) || normalizeText.isBlank()) {
         onValueChanged.invoke(formatUIDateToStored(newText, actionType))
     }
 }
