@@ -43,3 +43,53 @@ local.properties
 /java_pid44785.hprof
 
 .kotlin
+
+# Xcode
+#
+# gitignore contributors: remember to keep syncing with OSXStack.gitignore
+# https://github.com/github/gitignore/blob/master/Global/OSX.gitignore
+# and Global/Xcode.gitignore
+# https://github.com/github/gitignore/blob/main/Global/Xcode.gitignore
+
+## User Dependant Files
+*.xcodeproj/project.xcworkspace/xcuserdata/
+*.xcodeproj/xcuserdata/
+*.xcworkspace/xcuserdata/
+*.xcuserdatad/
+
+## Xcode Build Output
+DerivedData/
+
+## Schemes, User State
+# Only shared schemes should be committed
+*.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
+# UserInterfaceState.xcuserstate (covered by general xcuserdata)
+
+# Cocoapods
+Pods/
+Gemfile.lock # If you're using fastlane or other Ruby tools, your team might decide to commit this
+# Podfile.lock is often committed
+
+# Carthage
+Carthage/Build/
+Carthage/Checkouts/
+
+# Swift Package Manager
+.swiftpm/build/
+Packages/ # If you are not using .resolved file to pin versions for others
+*.resolved # Usually committed to ensure consistent dependency versions
+
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/
+fastlane/test_output/
+
+# Extra
+*.moved-aside
+*~
+
+# User-specific workspace or project settings files
+# (These are often nested within xcuserdata but good to be explicit if they appear elsewhere)
+contents.xcworkspacedata
+UserInterfaceState.xcuserstate
