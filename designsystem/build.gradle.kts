@@ -31,10 +31,10 @@ kotlin {
     ).forEach {
         it.binaries.framework {
             baseName = "designsystem"
+            isStatic = true
             xcf.add(this)
         }
     }
-
     sourceSets {
         val commonMain by getting {
             dependencies {

@@ -17,7 +17,6 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.drawOutline
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
-import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
@@ -36,14 +35,13 @@ internal fun Modifier.iconButtonshadow(
         .drawBehind {
             this.drawIntoCanvas {
                 val paint = Paint()
-                val frameworkPaint = paint.asFrameworkPaint()
+                paint.color = color.value
                 val spreadPixel = spread.toPx()
                 val leftPixel = DEFAULT_PADDING
                 val topPixel = InternalFloatValues.Zero
                 val rightPixel = (this.size.width - InternalFloatValues.Point_5)
                 val bottomPixel = (this.size.height + spreadPixel)
 
-                frameworkPaint.color = color.value.toArgb()
                 it.drawRoundRect(
                     left = leftPixel,
                     top = topPixel,
@@ -69,8 +67,7 @@ internal fun Modifier.buttonShadow(
     modifier.drawBehind {
         this.drawIntoCanvas {
             val paint = Paint()
-            val frameworkPaint = paint.asFrameworkPaint()
-            frameworkPaint.color = color.value.toArgb()
+            paint.color = color.value
 
             val rightPixel = (this.size.width - leftPixel)
             val bottomPixel = (this.size.height - spreadPixel)
