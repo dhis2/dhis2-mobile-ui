@@ -48,8 +48,6 @@ import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2LightColorScheme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-import java.text.SimpleDateFormat
-import java.util.Calendar
 
 /**
  * DHIS2 Input Age

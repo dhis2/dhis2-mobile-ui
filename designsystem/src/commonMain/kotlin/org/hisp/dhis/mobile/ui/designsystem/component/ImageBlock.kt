@@ -24,10 +24,10 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.withContext
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-import java.io.IOException
 
 /**
  * DHIS2 Image Block. Wraps compose [Image].
@@ -57,7 +57,7 @@ fun <T> ImageBlock(
             withContext(Dispatchers.IO) {
                 try {
                     load()
-                } catch (e: IOException) {
+                } catch (_: Exception) {
                     null
                 }
             }
