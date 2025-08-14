@@ -1,4 +1,9 @@
+@file:OptIn(ExperimentalKotlinGradlePluginApi::class)
+
 import org.jetbrains.dokka.gradle.DokkaTask
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
 
 version = rootProject.version
 group = rootProject.group
@@ -12,11 +17,16 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.testing.snapshot.paparazzi)
     id("convention.publication")
+    alias(libs.plugins.screenshot)
 }
 
 kotlin {
     androidTarget {
         publishLibraryVariants("release")
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_17)
+        }
+        instrumentedTestVariant.sourceSetTree.set(KotlinSourceSetTree.test)
     }
 
     jvm("desktop")
@@ -86,6 +96,8 @@ android {
         abortOnError = false
         warningsAsErrors = false
     }
+
+    experimentalProperties["android.experimental.enableScreenshotTest"] = true
 }
 
 tasks.withType(DokkaTask::class).configureEach {
@@ -104,4 +116,9 @@ tasks.withType(DokkaTask::class).configureEach {
             "org.jetbrains.dokka.base.DokkaBase" to dokkaBaseConfiguration,
         ),
     )
+}
+
+dependencies {
+    screenshotTestImplementation(libs.screenshot.validation.api)
+    screenshotTestImplementation(libs.androidx.ui.tooling)
 }
