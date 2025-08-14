@@ -413,7 +413,7 @@ internal fun getTimePickerState(
         rememberTimePickerState(0, 0, is24Hour = uiData.is24hourFormat)
     }
 
-private fun normalizeToGregorian(input: String): String {
+internal fun normalizeToGregorian(input: String): String {
     val symbols = DecimalFormatSymbols(Locale.getDefault())
     val zeroDigit = symbols.zeroDigit
     val arabicToGregorianMap =
