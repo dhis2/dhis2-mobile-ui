@@ -46,11 +46,11 @@ import org.hisp.dhis.mobile.ui.designsystem.component.internal.formatUIDateToSto
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.getSupportingTextList
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.getTime
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.getTimePickerState
-import org.hisp.dhis.mobile.ui.designsystem.component.internal.normalizeToGregorian
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.provideDatePickerState
 import org.hisp.dhis.mobile.ui.designsystem.component.model.RegExValidations
 import org.hisp.dhis.mobile.ui.designsystem.component.state.InputDateTimeState
 import org.hisp.dhis.mobile.ui.designsystem.platform.dates.getDate
+import org.hisp.dhis.mobile.ui.designsystem.platform.dates.normalizeToGregorian
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
