@@ -3,6 +3,7 @@ package org.hisp.dhis.mobile.ui.designsystem.component.internal
 import androidx.compose.ui.text.input.TextFieldValue
 import org.hisp.dhis.mobile.ui.designsystem.component.DateTimeActionType
 import org.hisp.dhis.mobile.ui.designsystem.component.SelectableDates
+import org.hisp.dhis.mobile.ui.designsystem.platform.dates.isValidDate
 import org.junit.Test
 
 class DateTimeUtilsTest {
