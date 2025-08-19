@@ -39,11 +39,14 @@ import org.hisp.dhis.mobile.ui.designsystem.component.internal.formatStoredDateT
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.formatUIDateToStored
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.getDateSupportingText
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.getSelectableDates
-import org.hisp.dhis.mobile.ui.designsystem.component.internal.isValidDate
-import org.hisp.dhis.mobile.ui.designsystem.component.internal.parseStringDateToMillis
 import org.hisp.dhis.mobile.ui.designsystem.component.model.DateTransformation.Companion.DATE_MASK
 import org.hisp.dhis.mobile.ui.designsystem.component.model.RegExValidations
 import org.hisp.dhis.mobile.ui.designsystem.component.state.InputAgeState
+import org.hisp.dhis.mobile.ui.designsystem.platform.dates.currentYear
+import org.hisp.dhis.mobile.ui.designsystem.platform.dates.formatDate
+import org.hisp.dhis.mobile.ui.designsystem.platform.dates.getDate
+import org.hisp.dhis.mobile.ui.designsystem.platform.dates.isValidDate
+import org.hisp.dhis.mobile.ui.designsystem.platform.dates.parseStringDateToMillis
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2LightColorScheme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
@@ -96,7 +99,7 @@ fun InputAge(
     val selectableDates =
         uiData.selectableDates ?: SelectableDates(
             MIN_DATE,
-            SimpleDateFormat(DATE_FORMAT).format(Calendar.getInstance().time),
+            formatDate(DATE_FORMAT),
         )
 
     val datePickerState =
@@ -392,7 +395,7 @@ private fun manageOnValueChanged(
     val allowedCharacters = RegExValidations.DATE_TIME.regex
     if (allowedCharacters.containsMatchIn(newText.text) || newText.text.isBlank()) {
         when (inputType) {
-            is Age -> onValueChanged.invoke((inputType as? Age)?.copy(value = newText))
+            is Age -> onValueChanged.invoke(inputType.copy(value = newText))
             is DateOfBirth -> onValueChanged.invoke(DateOfBirth(formatUIDateToStored(newText, DateTimeActionType.DATE)))
             None -> onValueChanged.invoke(None)
         }
@@ -415,7 +418,7 @@ private fun getTextFieldValue(inputType: AgeInputType): TextFieldValue =
 
 internal const val MIN_DATE = "10111901"
 internal const val MIN_YEAR = 1901
-internal val MAX_YEAR = Calendar.getInstance().get(Calendar.YEAR)
+internal val MAX_YEAR = currentYear
 internal const val DATE_FORMAT = "ddMMYYYY"
 
 sealed interface AgeInputType {
