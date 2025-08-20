@@ -5,11 +5,13 @@ import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.ui.window.ComposeUIViewController
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
-fun MainViewController() = ComposeUIViewController (
-    configure = {
-        enforceStrictPlistSanityCheck = false
+@Suppress("FunctionName")
+fun MainViewController() =
+    ComposeUIViewController(
+        configure = {
+            enforceStrictPlistSanityCheck = false
+        },
+    ) {
+        val size = calculateWindowSizeClass()
+        App(sizeClass = size)
     }
-){
-    val size = calculateWindowSizeClass()
-    App(sizeClass = size)
-}

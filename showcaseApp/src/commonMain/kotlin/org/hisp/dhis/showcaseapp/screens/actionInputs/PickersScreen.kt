@@ -59,10 +59,11 @@ fun PickersScreen() {
                 showDatePicker = false
                 datePickerState = updatedState
                 datePickerState.selectedDateMillis?.let {
-                    datePickerValue = formatDate(
-                        dateFormat = "",
-                        dateInMillis = datePickerState.selectedDateMillis!!
-                    )
+                    datePickerValue =
+                        formatDate(
+                            dateFormat = "",
+                            dateInMillis = datePickerState.selectedDateMillis!!,
+                        )
                 }
             },
             onCancel = { showDatePicker = false },
