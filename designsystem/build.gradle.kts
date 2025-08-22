@@ -1,4 +1,5 @@
 import org.jetbrains.dokka.gradle.DokkaTask
+import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
 
 version = rootProject.version
 group = rootProject.group
@@ -21,6 +22,19 @@ kotlin {
 
     jvm("desktop")
 
+    val xcf = XCFramework()
+
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64(),
+    ).forEach {
+        it.binaries.framework {
+            baseName = "designsystem"
+            isStatic = true
+            xcf.add(this)
+        }
+    }
     sourceSets {
         val commonMain by getting {
             dependencies {
@@ -33,6 +47,8 @@ kotlin {
                 implementation(libs.kotlinx.serialization.json)
             }
         }
+
+        val commonTest by getting
 
         val androidMain by getting {
             dependencies {

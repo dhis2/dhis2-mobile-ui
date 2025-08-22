@@ -5,9 +5,9 @@ import androidx.compose.ui.graphics.toComposeImageBitmap
 import org.jetbrains.skia.Image
 import java.io.File
 
-actual fun provideImage(file: File): ImageBitmap? =
+actual fun provideImage(filePath: String): ImageBitmap? =
     try {
-        Image.makeFromEncoded(file.readBytes()).toComposeImageBitmap()
-    } catch (ex: Exception) {
+        Image.makeFromEncoded(File(filePath).readBytes()).toComposeImageBitmap()
+    } catch (_: Exception) {
         null
     }

@@ -46,19 +46,15 @@ import org.hisp.dhis.mobile.ui.designsystem.component.internal.formatUIDateToSto
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.getSupportingTextList
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.getTime
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.getTimePickerState
-import org.hisp.dhis.mobile.ui.designsystem.component.internal.normalizeToGregorian
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.provideDatePickerState
 import org.hisp.dhis.mobile.ui.designsystem.component.model.RegExValidations
 import org.hisp.dhis.mobile.ui.designsystem.component.state.InputDateTimeState
+import org.hisp.dhis.mobile.ui.designsystem.platform.dates.getDate
+import org.hisp.dhis.mobile.ui.designsystem.platform.dates.normalizeToGregorian
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.GregorianCalendar
-import java.util.Locale
-import java.util.TimeZone
 import org.hisp.dhis.mobile.ui.designsystem.component.DatePicker as DHIS2DatePicker
 import org.hisp.dhis.mobile.ui.designsystem.component.TimePicker as DHIS2TimePicker
 
@@ -440,25 +436,6 @@ fun datePickerColors(): DatePickerColors =
         selectedYearContentColor = TextColor.OnPrimary,
         disabledDayContentColor = TextColor.OnDisabledSurface,
     )
-
-internal fun getDate(
-    milliSeconds: Long?,
-    format: String = "ddMMyyyy",
-): String {
-    if (milliSeconds == null) {
-        return ""
-    }
-
-    val calendar = GregorianCalendar(TimeZone.getTimeZone("UTC"), Locale.getDefault())
-    calendar.timeInMillis = milliSeconds
-
-    val formatter = SimpleDateFormat(format, Locale.getDefault())
-    formatter.timeZone = TimeZone.getTimeZone("UTC")
-    formatter.calendar = calendar
-
-    val date = Date(milliSeconds)
-    return formatter.format(date)
-}
 
 fun formatStringToDate(dateString: String): String =
     if (dateString.length == 8) {

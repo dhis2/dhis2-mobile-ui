@@ -14,6 +14,18 @@ kotlin {
 
     androidTarget()
 
+    // Add iOS targets
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64(),
+    ).forEach {
+        it.binaries.framework {
+            baseName = "ShowcaseApp" // Or your desired framework name
+            isStatic = true // Set to true if you need a static framework
+        }
+    }
+
     sourceSets {
         commonMain.dependencies {
             implementation(compose.runtime)

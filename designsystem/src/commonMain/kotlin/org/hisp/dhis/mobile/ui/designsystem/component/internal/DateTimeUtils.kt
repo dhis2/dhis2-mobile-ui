@@ -15,16 +15,13 @@ import org.hisp.dhis.mobile.ui.designsystem.component.SelectableDates
 import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextData
 import org.hisp.dhis.mobile.ui.designsystem.component.state.InputDateTimeData
 import org.hisp.dhis.mobile.ui.designsystem.component.state.InputDateTimeState
+import org.hisp.dhis.mobile.ui.designsystem.platform.dates.isValidDate
+import org.hisp.dhis.mobile.ui.designsystem.platform.dates.localeUsesLatinDigits
+import org.hisp.dhis.mobile.ui.designsystem.platform.dates.normalizeToGregorian
+import org.hisp.dhis.mobile.ui.designsystem.platform.dates.parseStringDateToMillis
+import org.hisp.dhis.mobile.ui.designsystem.platform.dates.yearInDate
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
-import java.text.DecimalFormatSymbols
-import java.text.NumberFormat
-import java.text.ParseException
-import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Date
-import java.util.Locale
-import java.util.TimeZone
 
 internal fun formatStoredDateToUI(
     textFieldValue: TextFieldValue,
@@ -84,7 +81,7 @@ internal fun formatStoredDateToUI(
                 TextFieldValue(dateValue, textFieldValue.selection, textFieldValue.composition)
             }
         }
-    } catch (e: Exception) {
+    } catch (_: Exception) {
         return textFieldValue
     }
 }
@@ -98,28 +95,11 @@ internal fun dateIsInRange(
             date <= parseStringDateToMillis(allowedDates.endDate)
     )
 
-internal fun parseStringDateToMillis(
-    dateString: String,
-    pattern: String = "ddMMyyyy",
-): Long {
-    val cal = Calendar.getInstance()
-    return dateString.parseDate(pattern)?.let {
-        cal.time = it
-        cal.timeInMillis
-    } ?: 0L
-}
-
 internal fun yearIsInRange(
     date: String,
     pattern: String,
     yearRange: IntRange,
-): Boolean {
-    val cal = Calendar.getInstance()
-    return date.parseDate(pattern)?.let {
-        cal.time = it
-        yearRange.contains(cal.get(Calendar.YEAR))
-    } ?: false
-}
+): Boolean = yearRange.contains(yearInDate(date, pattern))
 
 internal fun isValidHourFormat(timeString: String): Boolean {
     val hourRange = IntRange(0, 24)
@@ -128,18 +108,6 @@ internal fun isValidHourFormat(timeString: String): Boolean {
     return timeString.length == 4 &&
         hourRange.contains(timeString.substring(0, 2).toInt()) &&
         minuteRange.contains(timeString.substring(2, 4).toInt())
-}
-
-internal fun isValidDate(text: String): Boolean {
-    if (text.length != 8) return false
-    val format = SimpleDateFormat("ddMMyyyy")
-    format.isLenient = false
-    return try {
-        format.parse(text)
-        true
-    } catch (e: ParseException) {
-        false
-    }
 }
 
 @Composable
@@ -228,15 +196,6 @@ internal fun formatUIDateToStored(
     }
 }
 
-internal fun String.parseDate(pattern: String): Date? =
-    if (isNotEmpty() && length == pattern.length) {
-        val sdf = SimpleDateFormat(pattern, Locale.getDefault())
-        sdf.timeZone = TimeZone.getTimeZone("UTC")
-        sdf.parse(this)
-    } else {
-        null
-    }
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun timePickerColors(): TimePickerColors =
@@ -257,19 +216,10 @@ internal fun timePickerColors(): TimePickerColors =
     )
 
 @OptIn(ExperimentalMaterial3Api::class)
-internal fun getTime(
-    timePickerState: TimePickerState,
-    format: String = "HHmm",
-): String {
-    val cal = Calendar.getInstance()
-    cal.set(Calendar.HOUR_OF_DAY, timePickerState.hour)
-    cal.set(Calendar.MINUTE, timePickerState.minute)
-    cal.set(Calendar.SECOND, 0)
-    cal.set(Calendar.MILLISECOND, 0)
-
-    val formater = SimpleDateFormat(format)
-    return formater.format(cal.time)
-}
+internal fun getTime(timePickerState: TimePickerState): String =
+    with(timePickerState) {
+        "${hour.toString().padStart(2,'0')}${minute.toString().padStart(2,'0')}"
+    }
 
 @OptIn(ExperimentalMaterial3Api::class)
 internal fun getSelectableDates(selectableDates: SelectableDates): androidx.compose.material3.SelectableDates =
@@ -412,21 +362,3 @@ internal fun getTimePickerState(
     } else {
         rememberTimePickerState(0, 0, is24Hour = uiData.is24hourFormat)
     }
-
-internal fun normalizeToGregorian(input: String): String {
-    val symbols = DecimalFormatSymbols(Locale.getDefault())
-    val zeroDigit = symbols.zeroDigit
-    val arabicToGregorianMap =
-        (0..9).associate {
-            (zeroDigit + it) to ('0' + it)
-        }
-    return input.map { arabicToGregorianMap[it] ?: it }.joinToString("")
-}
-
-private fun localeUsesLatinDigits(): Boolean {
-    val locale = Locale.getDefault()
-    val numberFormat = NumberFormat.getInstance(locale)
-    val formatted = numberFormat.format(1234567890)
-    val digitsOnly = formatted.filter { it.isDigit() }
-    return digitsOnly.all { it in '0'..'9' }
-}

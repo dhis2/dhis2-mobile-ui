@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
+import androidx.compose.material3.TimePickerState
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
@@ -18,11 +19,8 @@ import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.DatePicker
 import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
 import org.hisp.dhis.mobile.ui.designsystem.component.TimePicker
+import org.hisp.dhis.mobile.ui.designsystem.platform.dates.formatDate
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Date
-import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -61,7 +59,11 @@ fun PickersScreen() {
                 showDatePicker = false
                 datePickerState = updatedState
                 datePickerState.selectedDateMillis?.let {
-                    datePickerValue = formatDate(datePickerState.selectedDateMillis!!)
+                    datePickerValue =
+                        formatDate(
+                            dateFormat = "",
+                            dateInMillis = datePickerState.selectedDateMillis!!,
+                        )
                 }
             },
             onCancel = { showDatePicker = false },
@@ -83,8 +85,7 @@ fun PickersScreen() {
                 showTimePicker = false
                 timePickerValue =
                     formatTime(
-                        timePickerState.hour,
-                        timePickerState.minute,
+                        timePickerState,
                     )
             },
             acceptText = "Accept",
@@ -93,27 +94,8 @@ fun PickersScreen() {
     }
 }
 
-private fun formatDate(
-    millis: Long,
-    pattern: String = "dd/MM/yyyy",
-): String {
-    val date = Date(millis)
-    val formatter = SimpleDateFormat(pattern, Locale.getDefault())
-    return formatter.format(date)
-}
-
-private fun formatTime(
-    hour: Int,
-    minute: Int,
-    second: Int = 0,
-    pattern: String = "HH:mm:ss",
-): String {
-    val calendar =
-        Calendar.getInstance().apply {
-            set(Calendar.HOUR_OF_DAY, hour)
-            set(Calendar.MINUTE, minute)
-            set(Calendar.SECOND, second)
-        }
-    val formatter = SimpleDateFormat(pattern, Locale.getDefault())
-    return formatter.format(calendar.time)
-}
+@OptIn(ExperimentalMaterial3Api::class)
+private fun formatTime(timePickerState: TimePickerState): String =
+    with(timePickerState) {
+        "${hour.toString().padStart(2,'0')}${minute.toString().padStart(2,'0')}"
+    }

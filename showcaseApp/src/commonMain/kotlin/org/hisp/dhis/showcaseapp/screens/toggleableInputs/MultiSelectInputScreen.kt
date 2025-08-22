@@ -234,3 +234,9 @@ fun MultiSelectInputScreen() {
         }
     }
 }
+
+fun <T> MutableList<T>.replaceAll(newValueFrom: (T) -> T) {
+    this.map {
+        newValueFrom(it)
+    }
+}

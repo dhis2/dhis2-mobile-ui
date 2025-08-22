@@ -10,7 +10,6 @@ import androidx.compose.ui.test.performClick
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.image.provideImage
 import org.junit.Rule
 import org.junit.Test
-import java.io.File
 
 class ImageBlockTest {
     @get:Rule
@@ -21,7 +20,7 @@ class ImageBlockTest {
         rule.setContent {
             ImageBlock(
                 title = "title",
-                load = { provideImage(File("")) },
+                load = { provideImage("") },
                 painterFor = { BitmapPainter(it!!) },
                 onDownloadButtonClick = {},
                 onShareButtonClick = {},
