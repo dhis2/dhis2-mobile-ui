@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
@@ -32,6 +33,7 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.theme.Border
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
@@ -66,13 +68,19 @@ internal fun InputShell(
     legend: @Composable (ColumnScope.() -> Unit)?,
     onFocusChanged: ((Boolean) -> Unit)? = null,
     isRequiredField: Boolean,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier.fillMaxWidth(),
     inputStyle: InputStyle,
+    paddingValues: PaddingValues =
+        PaddingValues(
+            start = Spacing.Spacing16,
+            top = Spacing.Spacing8,
+            end = Spacing.Spacing0,
+            bottom = Spacing.Spacing8,
+        ),
 ) {
     Column(
         modifier =
             modifier
-                .fillMaxWidth()
                 .clip(shape = RoundedCornerShape(Radius.XS, Radius.XS))
                 .animateContentSize(),
     ) {
@@ -130,7 +138,8 @@ internal fun InputShell(
                                     else -> Border.Thin
                                 }
                             onFocusChanged?.invoke(it.isFocused)
-                        }.padding(start = inputStyle.startIndent),
+                        }.padding(start = 0.dp),
+                paddingValues = paddingValues,
                 backgroundColor = backgroundColor,
             ) {
                 Column(
@@ -195,6 +204,7 @@ internal fun InputShell(
 private fun InputShellRow(
     modifier: Modifier = Modifier,
     backgroundColor: Color,
+    paddingValues: PaddingValues,
     content: @Composable (RowScope.() -> Unit),
 ) {
     Row(
@@ -203,12 +213,7 @@ private fun InputShellRow(
             modifier
                 .fillMaxWidth()
                 .background(backgroundColor)
-                .padding(
-                    start = Spacing.Spacing16,
-                    top = Spacing.Spacing8,
-                    end = Spacing.Spacing0,
-                    bottom = Spacing.Spacing8,
-                ),
+                .padding(paddingValues),
     ) {
         content()
     }
