@@ -92,7 +92,12 @@ fun InputSegmentedShell(
                             .weight(1f)
                             .focusRequester(focusRequesterList[index]),
                     title = "",
-                    state = if (currentFocus == index) InputShellState.FOCUSED else InputShellState.UNFOCUSED,
+                    state =
+                        when {
+                            currentFocus == index -> InputShellState.FOCUSED
+                            supportingTextData?.state == SupportingTextState.ERROR -> InputShellState.ERROR
+                            else -> InputShellState.UNFOCUSED
+                        },
                     supportingText = null,
                     legend = null,
                     isRequiredField = false,
