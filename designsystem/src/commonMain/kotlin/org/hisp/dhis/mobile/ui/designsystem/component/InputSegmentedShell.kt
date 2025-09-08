@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -27,6 +28,7 @@ import androidx.compose.ui.input.key.onPreviewKeyEvent
 import androidx.compose.ui.input.key.type
 import androidx.compose.ui.platform.LocalClipboard
 import androidx.compose.ui.text.TextRange
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -87,6 +89,15 @@ fun InputSegmentedShell(
     fun updateFullValue() {
         val fullValue = segmentValues.joinToString("") { it.text.ifEmpty { "-" } }
         onValueChanged(fullValue)
+    }
+
+    fun focusNextSegment(currentIndex: Int) {
+        currentFocus =
+            when {
+                currentIndex == segmentCount - 1 -> currentIndex
+                currentIndex < segmentCount - 1 -> currentIndex + 1
+                else -> -1
+            }
     }
 
     Column(
@@ -153,6 +164,14 @@ fun InputSegmentedShell(
                                         return@onPreviewKeyEvent false
                                     },
                             isSingleLine = true,
+                            keyboardOptions =
+                                KeyboardOptions(
+                                    imeAction = if (index == segmentCount - 1) ImeAction.Done else ImeAction.Next,
+                                    keyboardType = segmentedShellType.keyboardType,
+                                ),
+                            onNextClicked = {
+                                focusNextSegment(index)
+                            },
                             inputTextValue = segmentValues[index],
                             textStyle = MaterialTheme.typography.headlineMedium.copy(textAlign = TextAlign.Center),
                             onInputChanged = { newTextFieldValue ->
@@ -194,12 +213,7 @@ fun InputSegmentedShell(
                                         updateFullValue()
 
                                         if (newTextFieldValue.text.isNotEmpty() && !isCopiedValue) {
-                                            currentFocus =
-                                                when {
-                                                    index == segmentCount - 1 -> index
-                                                    index < segmentCount - 1 -> index + 1
-                                                    else -> -1
-                                                }
+                                            focusNextSegment(index)
                                         }
                                     }
                                 }
