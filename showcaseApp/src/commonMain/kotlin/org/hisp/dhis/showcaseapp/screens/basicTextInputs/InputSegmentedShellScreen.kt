@@ -1,8 +1,15 @@
 package org.hisp.dhis.showcaseapp.screens.basicTextInputs
 
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import org.hisp.dhis.mobile.ui.designsystem.component.Button
+import org.hisp.dhis.mobile.ui.designsystem.component.ButtonStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InputSegmentedShell
@@ -24,16 +31,35 @@ fun InputSegmentedShellScreen() {
                         state = SupportingTextState.DEFAULT,
                     ),
             )
-            InputSegmentedShell(
-                modifier = Modifier.fillMaxWidth(),
-                segmentCount = 6,
-                initialValue = "123456",
-                supportingTextData =
+            var newValue by remember { mutableStateOf("123456") }
+            var supportingTextData by remember(newValue) {
+                mutableStateOf(
                     SupportingTextData(
                         text = "This is an error message",
                         state = SupportingTextState.ERROR,
                     ),
+                )
+            }
+            var savedValue by remember { mutableStateOf("") }
+            InputSegmentedShell(
+                modifier = Modifier.fillMaxWidth(),
+                segmentCount = 6,
+                initialValue = newValue,
+                supportingTextData = supportingTextData,
+                onValueChanged = {
+                    savedValue = it
+                },
             )
+            Row(modifier = Modifier.fillMaxWidth()) {
+                Button(
+                    enabled = true,
+                    style = ButtonStyle.FILLED,
+                    text = "Validate",
+                    onClick = {
+                        newValue = savedValue
+                    },
+                )
+            }
             InputSegmentedShell(
                 modifier = Modifier.fillMaxWidth(),
                 segmentCount = 4,
