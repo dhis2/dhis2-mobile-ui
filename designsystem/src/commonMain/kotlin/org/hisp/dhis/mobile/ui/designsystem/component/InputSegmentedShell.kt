@@ -167,7 +167,7 @@ fun InputSegmentedShell(
                             keyboardOptions =
                                 KeyboardOptions(
                                     imeAction = if (index == segmentCount - 1) ImeAction.Done else ImeAction.Next,
-                                    keyboardType = segmentedShellType.keyboardType,
+                                    keyboardType = segmentedShellType.keyboardType(),
                                 ),
                             onNextClicked = {
                                 focusNextSegment(index)
