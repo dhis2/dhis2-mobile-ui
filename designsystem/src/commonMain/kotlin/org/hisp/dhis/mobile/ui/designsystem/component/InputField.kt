@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
@@ -61,6 +62,7 @@ fun BasicTextField(
     state: InputShellState = InputShellState.FOCUSED,
     keyboardOptions: KeyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
     visualTransformation: VisualTransformation? = null,
+    textStyle: TextStyle = MaterialTheme.typography.bodyLarge,
     onNextClicked: (() -> Unit)? = null,
     onSearchClicked: (() -> Unit)? = null,
 ) {
@@ -112,7 +114,7 @@ fun BasicTextField(
                 onInputChanged.invoke(it)
             },
             enabled = enabled,
-            textStyle = MaterialTheme.typography.bodyLarge.copy(color = if (enabled) TextColor.OnSurface else TextColor.OnDisabledSurface),
+            textStyle = textStyle.copy(color = if (enabled) TextColor.OnSurface else TextColor.OnDisabledSurface),
             singleLine = isSingleLine,
             decorationBox = { innerTextField ->
                 Row(

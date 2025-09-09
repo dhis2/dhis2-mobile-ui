@@ -38,6 +38,7 @@ fun BasicTextInputsScreen() {
         BasicTextInputs.INPUT_UNIT_INTERVAL -> InputUnitIntervalScreen()
         BasicTextInputs.SUPPORTING_TEXT -> SupportingTextScreen()
         BasicTextInputs.NO_COMPONENT_SELECTED -> NoComponentSelectedScreen()
+        BasicTextInputs.INPUT_SEGMENTED_SHELL -> InputSegmentedShellScreen()
     }
 }
 
@@ -57,6 +58,7 @@ enum class BasicTextInputs(
     INPUT_TEXT("Input Text component"),
     INPUT_UNIT_INTERVAL("Input Unit Interval component"),
     SUPPORTING_TEXT("Supporting Text component"),
+    INPUT_SEGMENTED_SHELL("Input Segmented Shell component"),
     NO_COMPONENT_SELECTED("No component selected"),
 }
 
