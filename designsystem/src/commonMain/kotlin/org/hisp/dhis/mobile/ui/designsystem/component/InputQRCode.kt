@@ -30,6 +30,7 @@ import androidx.compose.ui.text.input.TextFieldValue
  * @param onFocusChanged: gives access to the onFocusChanged returns true if
  * item is focused,
  * @param imeAction: controls the imeAction button to be shown.
+ * @param displayQRCapturedIcon: controls if should change button icon when text is not empty.
  * @param modifier: allows a modifier to be passed externally.
  */
 @Composable
@@ -48,10 +49,16 @@ fun InputQRCode(
     onValueChanged: ((TextFieldValue?) -> Unit)? = null,
     onFocusChanged: ((Boolean) -> Unit)? = null,
     imeAction: ImeAction = ImeAction.Next,
+    displayQRCapturedIcon: Boolean = true,
     modifier: Modifier = Modifier,
 ) {
     val actionButtonIconVector =
-        mutableStateOf(if (!inputTextFieldValue?.text.isNullOrEmpty()) Icons.Outlined.QrCode2 else Icons.Outlined.QrCodeScanner)
+        if (!inputTextFieldValue?.text.isNullOrEmpty() && displayQRCapturedIcon) {
+            Icons.Outlined.QrCode2
+        } else {
+            Icons.Outlined.QrCodeScanner
+        }
+
     BasicTextInput(
         title = title,
         state = state,
@@ -72,7 +79,7 @@ fun InputQRCode(
                 enabled = isButtonEnabled(inputStyle, state, inputTextFieldValue?.text),
                 icon = {
                     Icon(
-                        imageVector = actionButtonIconVector.value,
+                        imageVector = actionButtonIconVector,
                         contentDescription = null,
                     )
                 },
