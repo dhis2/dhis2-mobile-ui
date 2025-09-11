@@ -6,7 +6,6 @@ import androidx.compose.material.icons.outlined.QrCode2
 import androidx.compose.material.icons.outlined.QrCodeScanner
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.ImeAction
