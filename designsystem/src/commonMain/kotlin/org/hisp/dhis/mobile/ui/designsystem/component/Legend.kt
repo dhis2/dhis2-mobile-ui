@@ -35,12 +35,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.unit.Dp
 import org.hisp.dhis.mobile.ui.designsystem.component.state.BottomSheetShellUIState
 import org.hisp.dhis.mobile.ui.designsystem.theme.Border
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing0
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
 
@@ -136,7 +134,6 @@ fun Legend(
             uiState =
                 BottomSheetShellUIState(
                     title = legendData.title,
-                    bottomPadding = legendData.bottomSheetLowerPadding,
                 ),
             modifier = Modifier.testTag("LEGEND_BOTTOM_SHEET"),
             content = {
@@ -247,5 +244,4 @@ data class LegendData
         val title: String,
         val popUpLegendDescriptionData: List<LegendDescriptionData>? = null,
         val windowInsets: @Composable () -> WindowInsets = { BottomSheetDefaults.windowInsets },
-        val bottomSheetLowerPadding: Dp = Spacing0,
     )

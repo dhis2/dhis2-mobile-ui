@@ -9,7 +9,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing0
-import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing16
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing24
 
 /**
@@ -21,7 +20,6 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing24
  * @property searchQuery The search query to be displayed in the search bar.
  * @property showTopSectionDivider Whether to show the top section divider.
  * @property showBottomSectionDivider Whether to show the bottom section divider.
- * @property bottomPadding The lower padding for the bottom sheet shell.
  * @property headerTextAlignment The alignment for the header text.
  * @property scrollableContainerMinHeight The minimum height for the scrollable content container.
  * @property scrollableContainerMaxHeight The maximum height for the scrollable content container.
@@ -36,7 +34,6 @@ data class BottomSheetShellUIState(
     val searchQuery: String? = null,
     val showTopSectionDivider: Boolean = true,
     val showBottomSectionDivider: Boolean = true,
-    val bottomPadding: Dp = Spacing0,
     val headerTextAlignment: TextAlign = TextAlign.Center,
     val scrollableContainerMinHeight: Dp = Spacing0,
     val scrollableContainerMaxHeight: Dp = InternalSizeValues.Size386,
@@ -72,11 +69,14 @@ class BottomSheetShellDefaults {
             }
 
         /**
-         * Returns the appropriate lower padding for the BottomSheet based on whether edge-to-edge mode is enabled.
+         * Returns the appropriate lower padding for the BottomSheet based on device's navigation bar height.
          *
-         * @param isEdgeToEdgeEnabled Boolean indicating if edge-to-edge mode is enabled.
          * @return a dp value based on the edge-to-edge mode.
          */
-        fun lowerPadding(isEdgeToEdgeEnabled: Boolean): Dp = if (isEdgeToEdgeEnabled) Spacing16 else Spacing0
+        @Composable
+        fun safePadding() = safeLowerPadding()
     }
 }
+
+@Composable
+internal expect fun safeLowerPadding(): Dp

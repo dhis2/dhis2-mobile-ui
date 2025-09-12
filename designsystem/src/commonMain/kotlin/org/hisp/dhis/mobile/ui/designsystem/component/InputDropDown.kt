@@ -83,7 +83,6 @@ private const val MAX_DROPDOWN_ITEMS_TO_SHOW = 50
  * @param useDropDown: use dropdown if true. Bottomsheet with search capability otherwise.
  * @param onDismiss: gives access to the onDismiss event.
  * @param windowInsets: The insets to use for the bottom sheet shell.
- * @param bottomSheetLowerPadding the lower padding to use for the bottom sheet
  * @param noResultsFoundString: text to be shown in pop up when no results are found.
  */
 @OptIn(ExperimentalMaterial3Api::class)
@@ -109,7 +108,6 @@ fun InputDropDown(
     loadOptions: () -> Unit,
     onDismiss: () -> Unit = {},
     windowInsets: @Composable () -> WindowInsets = { BottomSheetDefaults.windowInsets },
-    bottomSheetLowerPadding: Dp = Spacing0,
     noResultsFoundString: String = provideStringResource("no_results_found"),
     searchToFindMoreString: String = provideStringResource("search_to_see_more"),
 ) {
@@ -150,7 +148,6 @@ fun InputDropDown(
                         BottomSheetShellUIState(
                             showBottomSectionDivider = true,
                             showTopSectionDivider = true,
-                            bottomPadding = bottomSheetLowerPadding,
                             title = title,
                             searchQuery =
                                 if (showSearchBar) {

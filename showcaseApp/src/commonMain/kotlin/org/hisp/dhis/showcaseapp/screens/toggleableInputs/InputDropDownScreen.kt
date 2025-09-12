@@ -140,7 +140,6 @@ fun InputDropDownScreen() {
                 loadOptions = {
                     // no-op
                 },
-                bottomSheetLowerPadding = BottomSheetShellDefaults.lowerPadding(isEdgeToEdgeEnabled = true),
                 windowInsets = { BottomSheetShellDefaults.windowInsets(true) },
             )
         }

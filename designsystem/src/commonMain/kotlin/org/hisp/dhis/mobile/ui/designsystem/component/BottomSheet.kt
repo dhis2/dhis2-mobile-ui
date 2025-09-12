@@ -44,6 +44,7 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.Keyboard
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.keyboardAsState
+import org.hisp.dhis.mobile.ui.designsystem.component.state.BottomSheetShellDefaults
 import org.hisp.dhis.mobile.ui.designsystem.component.state.BottomSheetShellUIState
 import org.hisp.dhis.mobile.ui.designsystem.theme.Border
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
@@ -73,9 +74,7 @@ fun BottomSheetHeader(
     title: String,
     subTitle: String? = null,
     description: String? = null,
-    icon:
-        @Composable
-        (() -> Unit)? = null,
+    icon: @Composable (() -> Unit)? = null,
     hasSearch: Boolean = false,
     headerTextAlignment: TextAlign = TextAlign.Center,
     modifier: Modifier = Modifier,
@@ -422,7 +421,7 @@ fun BottomSheetShell(
             buttonBlock?.let {
                 buttonBlock.invoke()
             }
-            Spacer(Modifier.requiredHeight(uiState.bottomPadding))
+            Spacer(Modifier.requiredHeight(BottomSheetShellDefaults.safePadding()))
         }
     }
 }
