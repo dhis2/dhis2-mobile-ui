@@ -177,7 +177,6 @@ fun BottomSheetScreen() {
             uiState =
                 BottomSheetShellUIState(
                     title = "Legend name ",
-                    bottomPadding = BottomSheetShellDefaults.lowerPadding(true),
                     subtitle = "Subtitle",
                     description = LOREM + LOREM,
                 ),

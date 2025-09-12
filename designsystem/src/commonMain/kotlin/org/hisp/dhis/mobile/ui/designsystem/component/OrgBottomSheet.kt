@@ -49,7 +49,6 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.component.state.BottomSheetShellDefaults
 import org.hisp.dhis.mobile.ui.designsystem.component.state.BottomSheetShellUIState
@@ -58,7 +57,6 @@ import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2SCustomTextStyles
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing0
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
@@ -73,7 +71,6 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
  * @param doneButtonText text for accept button.
  * @param doneButtonIcon icon for accept button.
  * @param windowInsets The insets to use for the bottom sheet shell.
- * @param bottomSheetLowerPadding padding for the bottom sheet.
  * @param noResultsFoundText text for no results found.
  * @param headerTextAlignment [Alignment] for header text.
  * @param icon optional icon to be shown above the header .
@@ -97,7 +94,6 @@ fun OrgBottomSheet(
     doneButtonText: String? = null,
     doneButtonIcon: ImageVector = Icons.Filled.Check,
     windowInsets: @Composable () -> WindowInsets = { BottomSheetDefaults.windowInsets },
-    bottomSheetLowerPadding: Dp = Spacing0,
     noResultsFoundText: String = provideStringResource("no_results_found"),
     headerTextAlignment: TextAlign = TextAlign.Center,
     icon: @Composable (() -> Unit)? = null,
@@ -129,7 +125,6 @@ fun OrgBottomSheet(
                 searchQuery = searchQuery,
                 scrollableContainerMaxHeight = maxOf(orgTreeHeightInDp, InternalSizeValues.Size386),
                 scrollableContainerMinHeight = InternalSizeValues.Size186,
-                bottomPadding = bottomSheetLowerPadding,
             ),
         modifier = modifier,
         contentScrollState = contentScrollState,
