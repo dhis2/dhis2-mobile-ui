@@ -13,10 +13,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.unit.Dp
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.signature.SignatureBottomSheet
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
-import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing0
 
 /**
  * DHIS2 Input signature. Wraps DHIS · [BasicInputImage].
@@ -24,7 +22,6 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing0
  * @param state: manages the InputShell state.
  * @param inputStyle: manages the InputShell style.
  * @param windowInsets: the insets for the bottom sheet shell.
- * @param bottomSheetLowerPadding the padding for the bottom sheet shell.
  * @param supportingText: is a list of SupportingTextData that.
  * manages all the messages to be shown.
  * @param legendData: manages the legendComponent.
@@ -47,7 +44,6 @@ fun <T> InputSignature(
     state: InputShellState = InputShellState.UNFOCUSED,
     inputStyle: InputStyle = InputStyle.DataInputStyle(),
     windowInsets: @Composable () -> WindowInsets = { BottomSheetDefaults.windowInsets },
-    bottomSheetLowerPadding: Dp = Spacing0,
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
     addSignatureBtnText: String = provideStringResource("add_signature"),
@@ -97,7 +93,6 @@ fun <T> InputSignature(
                 showBottomSheet = false
             },
             windowInsets = windowInsets,
-            bottomSheetLowerPadding = bottomSheetLowerPadding,
         )
     }
 }

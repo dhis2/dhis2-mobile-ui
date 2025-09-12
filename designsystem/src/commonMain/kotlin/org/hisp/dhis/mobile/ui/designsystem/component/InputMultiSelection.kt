@@ -250,7 +250,6 @@ fun InputMultiSelection(
         if (showMultiSelectBottomSheet) {
             MultiSelectBottomSheet(
                 windowInsets = windowInsets,
-                bottomSheetLowerPadding = bottomSheetLowerPadding,
                 items = items,
                 title = title,
                 maxItemsToShow = maxItemsToShow,
@@ -306,7 +305,6 @@ fun MultiSelectBottomSheet(
     searchToFindMoreString: String,
     doneButtonText: String,
     windowInsets: @Composable () -> WindowInsets = { BottomSheetDefaults.windowInsets },
-    bottomSheetLowerPadding: Dp = Spacing0,
     onItemsSelected: (List<CheckBoxData>) -> Unit,
     onDismiss: () -> Unit,
 ) {
@@ -323,7 +321,6 @@ fun MultiSelectBottomSheet(
         uiState =
             BottomSheetShellUIState(
                 title = title,
-                bottomPadding = bottomSheetLowerPadding,
                 searchQuery = searchQuery,
             ),
         modifier = Modifier.testTag("INPUT_MULTI_SELECT_BOTTOM_SHEET"),
