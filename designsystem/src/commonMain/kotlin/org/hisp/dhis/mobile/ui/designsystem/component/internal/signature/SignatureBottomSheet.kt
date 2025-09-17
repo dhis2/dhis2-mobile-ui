@@ -10,7 +10,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.RestartAlt
-import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -49,7 +48,7 @@ internal fun SignatureBottomSheet(
     drawHereText: String = provideStringResource("draw_here"),
     resetButtonText: String = provideStringResource("reset"),
     doneButtonText: String = provideStringResource("done"),
-    windowInsets: @Composable () -> WindowInsets = { BottomSheetDefaults.windowInsets },
+    windowInsets: @Composable () -> WindowInsets = { BottomSheetShellDefaults.windowInsets() },
     onDismiss: () -> Unit,
     onSave: (ImageBitmap) -> Unit,
 ) {

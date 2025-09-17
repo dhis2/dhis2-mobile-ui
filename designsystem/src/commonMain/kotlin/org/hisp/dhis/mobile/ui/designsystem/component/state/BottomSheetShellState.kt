@@ -2,7 +2,6 @@ package org.hisp.dhis.mobile.ui.designsystem.component.state
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.style.TextAlign
@@ -10,6 +9,7 @@ import androidx.compose.ui.unit.Dp
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing0
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing24
+import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing8
 
 /**
  * Data class representing the UI state for the BottomSheetShell component.
@@ -51,22 +51,16 @@ class BottomSheetShellDefaults {
          *
          * @return PaddingValues with top, bottom, start, and end padding.
          */
-        fun buttonBlockPaddings(): PaddingValues = PaddingValues(top = Spacing0, bottom = Spacing24, start = Spacing24, end = Spacing24)
+        fun buttonBlockPaddings(): PaddingValues = PaddingValues(top = Spacing0, bottom = Spacing8, start = Spacing24, end = Spacing24)
 
         /**
-         * Returns the appropriate window insets for the BottomSheet based on whether edge-to-edge mode is enabled.
+         * Returns the appropriate window insets for the BottomSheet.
          *
-         * @param isEdgeToEdgeEnabled Boolean indicating if edge-to-edge mode is enabled.
          * @return WindowInsets with appropriate values based on the edge-to-edge mode.
          */
         @Composable
         @OptIn(ExperimentalMaterial3Api::class)
-        fun windowInsets(isEdgeToEdgeEnabled: Boolean): WindowInsets =
-            if (isEdgeToEdgeEnabled) {
-                WindowInsets(0, 0, 0, 0)
-            } else {
-                BottomSheetDefaults.windowInsets
-            }
+        fun windowInsets(): WindowInsets = WindowInsets(0, 0, 0, 0)
 
         /**
          * Returns the appropriate lower padding for the BottomSheet based on device's navigation bar height.

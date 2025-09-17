@@ -21,7 +21,6 @@ import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.ClearAll
 import androidx.compose.material.icons.filled.KeyboardArrowDown
-import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -93,7 +92,7 @@ fun OrgBottomSheet(
     clearAllButtonText: String = provideStringResource("clear_all"),
     doneButtonText: String? = null,
     doneButtonIcon: ImageVector = Icons.Filled.Check,
-    windowInsets: @Composable () -> WindowInsets = { BottomSheetDefaults.windowInsets },
+    windowInsets: @Composable () -> WindowInsets = { BottomSheetShellDefaults.windowInsets() },
     noResultsFoundText: String = provideStringResource("no_results_found"),
     headerTextAlignment: TextAlign = TextAlign.Center,
     icon: @Composable (() -> Unit)? = null,

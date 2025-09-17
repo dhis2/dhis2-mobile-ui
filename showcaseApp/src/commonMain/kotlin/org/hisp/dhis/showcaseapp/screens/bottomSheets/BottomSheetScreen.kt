@@ -187,7 +187,6 @@ fun BottomSheetScreen() {
                     )
                 }
             },
-            windowInsets = { BottomSheetShellDefaults.windowInsets(true) },
             icon = {
                 Icon(
                     imageVector = Icons.Outlined.Info,
