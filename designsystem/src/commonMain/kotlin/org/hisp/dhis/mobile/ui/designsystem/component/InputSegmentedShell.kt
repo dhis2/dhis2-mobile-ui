@@ -27,6 +27,7 @@ import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.onPreviewKeyEvent
 import androidx.compose.ui.input.key.type
 import androidx.compose.ui.platform.LocalClipboard
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
@@ -48,6 +49,7 @@ fun InputSegmentedShell(
     onValueChanged: (String) -> Unit = {},
 ) {
     val clipboard = LocalClipboard.current
+    val focusManager = LocalFocusManager.current
     val scope = rememberCoroutineScope()
     var hasError by remember(initialValue, supportingTextData) {
         mutableStateOf(
@@ -94,7 +96,6 @@ fun InputSegmentedShell(
     fun focusNextSegment(currentIndex: Int) {
         currentFocus =
             when {
-                currentIndex == segmentCount - 1 -> currentIndex
                 currentIndex < segmentCount - 1 -> currentIndex + 1
                 else -> -1
             }
@@ -172,6 +173,10 @@ fun InputSegmentedShell(
                             onNextClicked = {
                                 focusNextSegment(index)
                             },
+                            onDoneClicked = {
+                                focusNextSegment(index)
+                                focusManager.clearFocus()
+                            },
                             inputTextValue = segmentValues[index],
                             textStyle = MaterialTheme.typography.headlineMedium.copy(textAlign = TextAlign.Center),
                             onInputChanged = { newTextFieldValue ->
@@ -181,6 +186,7 @@ fun InputSegmentedShell(
                                     val copiedValue = clipboard.getClipEntry()?.getText()
                                     val isCopiedValue =
                                         copiedValue != null && copiedValue == newTextFieldValue.text
+                                    val valueChanged = segmentValues[index].text != newTextFieldValue.text
                                     if (newTextFieldValue.text.all {
                                             segmentedShellType.isAllowed(
                                                 it,
@@ -212,8 +218,11 @@ fun InputSegmentedShell(
                                         hasError = false
                                         updateFullValue()
 
-                                        if (newTextFieldValue.text.isNotEmpty() && !isCopiedValue) {
+                                        if (valueChanged && newTextFieldValue.text.isNotEmpty() && !isCopiedValue) {
                                             focusNextSegment(index)
+                                            if (index == segmentCount - 1) {
+                                                focusManager.clearFocus()
+                                            }
                                         }
                                     }
                                 }
