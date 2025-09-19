@@ -14,6 +14,9 @@ updates:
     open-pull-requests-limit: 5
     commit-message:
       prefix: "deps"
+    ignore:
+      - dependency-name: "*"
+        versions: [ "*+*" ]
     groups:
       gradle-updates:
         patterns:
