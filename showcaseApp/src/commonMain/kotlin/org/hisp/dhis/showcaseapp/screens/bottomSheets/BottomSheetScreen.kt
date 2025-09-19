@@ -173,6 +173,8 @@ fun BottomSheetScreen() {
     }
 
     if (showBottomSheetWithAndroid35Paddings) {
+        val scrollState = rememberScrollState()
+
         BottomSheetShell(
             uiState =
                 BottomSheetShellUIState(
@@ -181,7 +183,7 @@ fun BottomSheetScreen() {
                     description = LOREM + LOREM,
                 ),
             content = {
-                Column {
+                Column(modifier = Modifier.verticalScroll(state = scrollState)) {
                     LegendRange(
                         longLegendList,
                     )
@@ -220,7 +222,7 @@ fun BottomSheetScreen() {
                 )
             },
         ) {
-            showBottomSheetShellMaxExpansion = false
+            showBottomSheetWithAndroid35Paddings = false
         }
     }
 
