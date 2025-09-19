@@ -64,6 +64,7 @@ fun BasicTextField(
     visualTransformation: VisualTransformation? = null,
     textStyle: TextStyle = MaterialTheme.typography.bodyLarge,
     onNextClicked: (() -> Unit)? = null,
+    onDoneClicked: (() -> Unit)? = null,
     onSearchClicked: (() -> Unit)? = null,
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -135,6 +136,7 @@ fun BasicTextField(
                         onSearchClicked?.invoke()
                     },
                     onDone = {
+                        onDoneClicked?.invoke()
                         keyboardController?.hide()
                     },
                 ),
