@@ -19,7 +19,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.outlined.Cancel
-import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -73,7 +72,7 @@ fun InputMultiSelection(
     items: List<CheckBoxData>,
     title: String,
     state: InputShellState,
-    windowInsets: @Composable () -> WindowInsets = { BottomSheetDefaults.windowInsets },
+    windowInsets: @Composable () -> WindowInsets = { BottomSheetShellDefaults.windowInsets() },
     bottomSheetLowerPadding: Dp = Spacing0,
     supportingTextData: List<SupportingTextData>?,
     legendData: LegendData?,
@@ -250,7 +249,6 @@ fun InputMultiSelection(
         if (showMultiSelectBottomSheet) {
             MultiSelectBottomSheet(
                 windowInsets = windowInsets,
-                bottomSheetLowerPadding = bottomSheetLowerPadding,
                 items = items,
                 title = title,
                 maxItemsToShow = maxItemsToShow,
@@ -305,8 +303,7 @@ fun MultiSelectBottomSheet(
     noResultsFoundString: String,
     searchToFindMoreString: String,
     doneButtonText: String,
-    windowInsets: @Composable () -> WindowInsets = { BottomSheetDefaults.windowInsets },
-    bottomSheetLowerPadding: Dp = Spacing0,
+    windowInsets: @Composable () -> WindowInsets = { BottomSheetShellDefaults.windowInsets() },
     onItemsSelected: (List<CheckBoxData>) -> Unit,
     onDismiss: () -> Unit,
 ) {
@@ -323,7 +320,6 @@ fun MultiSelectBottomSheet(
         uiState =
             BottomSheetShellUIState(
                 title = title,
-                bottomPadding = bottomSheetLowerPadding,
                 searchQuery = searchQuery,
             ),
         modifier = Modifier.testTag("INPUT_MULTI_SELECT_BOTTOM_SHEET"),

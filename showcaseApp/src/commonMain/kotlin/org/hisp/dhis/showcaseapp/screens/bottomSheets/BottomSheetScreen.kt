@@ -173,22 +173,22 @@ fun BottomSheetScreen() {
     }
 
     if (showBottomSheetWithAndroid35Paddings) {
+        val scrollState = rememberScrollState()
+
         BottomSheetShell(
             uiState =
                 BottomSheetShellUIState(
                     title = "Legend name ",
-                    bottomPadding = BottomSheetShellDefaults.lowerPadding(true),
                     subtitle = "Subtitle",
                     description = LOREM + LOREM,
                 ),
             content = {
-                Column {
+                Column(modifier = Modifier.verticalScroll(state = scrollState)) {
                     LegendRange(
                         longLegendList,
                     )
                 }
             },
-            windowInsets = { BottomSheetShellDefaults.windowInsets(true) },
             icon = {
                 Icon(
                     imageVector = Icons.Outlined.Info,
@@ -222,7 +222,7 @@ fun BottomSheetScreen() {
                 )
             },
         ) {
-            showBottomSheetShellMaxExpansion = false
+            showBottomSheetWithAndroid35Paddings = false
         }
     }
 

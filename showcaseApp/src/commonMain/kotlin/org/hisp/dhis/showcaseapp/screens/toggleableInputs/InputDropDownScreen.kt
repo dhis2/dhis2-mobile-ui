@@ -12,7 +12,6 @@ import org.hisp.dhis.mobile.ui.designsystem.component.InputDropDown
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.InputStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextData
-import org.hisp.dhis.mobile.ui.designsystem.component.state.BottomSheetShellDefaults
 
 @Composable
 fun InputDropDownScreen() {
@@ -140,8 +139,6 @@ fun InputDropDownScreen() {
                 loadOptions = {
                     // no-op
                 },
-                bottomSheetLowerPadding = BottomSheetShellDefaults.lowerPadding(isEdgeToEdgeEnabled = true),
-                windowInsets = { BottomSheetShellDefaults.windowInsets(true) },
             )
         }
 

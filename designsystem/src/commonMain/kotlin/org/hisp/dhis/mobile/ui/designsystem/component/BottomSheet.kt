@@ -18,7 +18,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Close
-import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -44,6 +43,7 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.Keyboard
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.keyboardAsState
+import org.hisp.dhis.mobile.ui.designsystem.component.state.BottomSheetShellDefaults
 import org.hisp.dhis.mobile.ui.designsystem.component.state.BottomSheetShellUIState
 import org.hisp.dhis.mobile.ui.designsystem.theme.Border
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
@@ -73,9 +73,7 @@ fun BottomSheetHeader(
     title: String,
     subTitle: String? = null,
     description: String? = null,
-    icon:
-        @Composable
-        (() -> Unit)? = null,
+    icon: @Composable (() -> Unit)? = null,
     hasSearch: Boolean = false,
     headerTextAlignment: TextAlign = TextAlign.Center,
     modifier: Modifier = Modifier,
@@ -225,7 +223,7 @@ fun BottomSheetShell(
     uiState: BottomSheetShellUIState,
     modifier: Modifier = Modifier,
     content: @Composable (() -> Unit)?,
-    windowInsets: @Composable () -> WindowInsets = { BottomSheetDefaults.windowInsets },
+    windowInsets: @Composable () -> WindowInsets = { BottomSheetShellDefaults.windowInsets() },
     contentScrollState: ScrollableState? = null,
     icon: @Composable (() -> Unit)? = null,
     buttonBlock: @Composable (() -> Unit)? = null,
@@ -422,7 +420,7 @@ fun BottomSheetShell(
             buttonBlock?.let {
                 buttonBlock.invoke()
             }
-            Spacer(Modifier.requiredHeight(uiState.bottomPadding))
+            Spacer(Modifier.requiredHeight(BottomSheetShellDefaults.safePadding()))
         }
     }
 }

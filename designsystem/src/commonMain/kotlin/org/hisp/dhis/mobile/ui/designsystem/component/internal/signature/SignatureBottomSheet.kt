@@ -10,7 +10,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.RestartAlt
-import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -24,7 +23,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.component.BottomSheetShell
 import org.hisp.dhis.mobile.ui.designsystem.component.Button
@@ -40,7 +38,6 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Border
 import org.hisp.dhis.mobile.ui.designsystem.theme.Color
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing0
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
@@ -51,8 +48,7 @@ internal fun SignatureBottomSheet(
     drawHereText: String = provideStringResource("draw_here"),
     resetButtonText: String = provideStringResource("reset"),
     doneButtonText: String = provideStringResource("done"),
-    bottomSheetLowerPadding: Dp = Spacing0,
-    windowInsets: @Composable () -> WindowInsets = { BottomSheetDefaults.windowInsets },
+    windowInsets: @Composable () -> WindowInsets = { BottomSheetShellDefaults.windowInsets() },
     onDismiss: () -> Unit,
     onSave: (ImageBitmap) -> Unit,
 ) {
@@ -64,7 +60,6 @@ internal fun SignatureBottomSheet(
             BottomSheetShellUIState(
                 title = title,
                 showTopSectionDivider = false,
-                bottomPadding = bottomSheetLowerPadding,
             ),
         modifier = Modifier.testTag("INPUT_SIGNATURE_BOTTOM_SHEET"),
         content = {
