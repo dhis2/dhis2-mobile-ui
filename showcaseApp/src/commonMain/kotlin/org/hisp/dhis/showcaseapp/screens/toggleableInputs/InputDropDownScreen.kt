@@ -164,6 +164,29 @@ fun InputDropDownScreen() {
             )
         }
 
+        ColumnComponentContainer("Basic Input Dropdown with content and no reset button ") {
+            var selectedItem1 by remember { mutableStateOf<DropdownItem?>(options[0]) }
+            InputDropDown(
+                title = "Label",
+                state = InputShellState.UNFOCUSED,
+                itemCount = options.size,
+                onSearchOption = {},
+                fetchItem = { index -> options[index] },
+                useDropDown = false,
+                onResetButtonClicked = {
+                    selectedItem1 = null
+                },
+                onItemSelected = { _, item ->
+                    selectedItem1 = item
+                },
+                selectedItem = selectedItem1,
+                loadOptions = {
+                    // no-op
+                },
+                showDeleteButton = false,
+            )
+        }
+
         ColumnComponentContainer("Error Input Dropdown ") {
             var selectedItem2 by remember { mutableStateOf<DropdownItem?>(null) }
             InputDropDown(
