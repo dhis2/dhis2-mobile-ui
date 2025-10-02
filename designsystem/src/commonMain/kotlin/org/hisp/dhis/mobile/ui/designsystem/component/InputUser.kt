@@ -14,11 +14,13 @@ import org.hisp.dhis.mobile.ui.designsystem.component.model.InputUserModel
  * DHIS2 Input User. Wraps DHIS · [BasicTextInput].
  * @param uiModel: [InputUserModel] with all parameters for component
  * @param modifier: optional modifier.
+ * @param showDeleteButton: controls whether the delete button is shown or not.
  */
 @Composable
 fun InputUser(
     uiModel: InputUserModel,
     modifier: Modifier = Modifier,
+    showDeleteButton: Boolean = true,
 ) {
     BasicTextInput(
         title = uiModel.title,
@@ -55,5 +57,6 @@ fun InputUser(
         },
         autoCompleteList = uiModel.autoCompleteList,
         autoCompleteItemSelected = uiModel.autoCompleteItemSelected,
+        showDeleteButton = showDeleteButton,
     )
 }

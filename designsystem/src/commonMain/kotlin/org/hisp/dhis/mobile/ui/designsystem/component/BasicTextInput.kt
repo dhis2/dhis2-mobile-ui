@@ -85,7 +85,7 @@ internal fun BasicTextInput(
     actionButton: @Composable (() -> Unit)? = null,
     modifier: Modifier = Modifier,
     inputStyle: InputStyle,
-    showDeleteButton: Boolean = true,
+    showDeleteButton: Boolean,
 ) {
     var inputValue by remember(inputTextFieldValue) { mutableStateOf(inputTextFieldValue) }
 
@@ -202,7 +202,12 @@ internal fun BasicTextInput(
                             inputValue = newValue
                             deleteButtonIsVisible = newValue.text.isNotEmpty()
                         }
-                        expanded = (!filteredList.isNullOrEmpty() && filteredList.any { it == newValue.text || it.contains(newValue.text) })
+                        expanded = (
+                            !filteredList.isNullOrEmpty() &&
+                                filteredList.any {
+                                    it == newValue.text || it.contains(newValue.text)
+                                }
+                        )
                     },
                     enabled = state != InputShellState.DISABLED,
                     state = state,
@@ -217,7 +222,10 @@ internal fun BasicTextInput(
                 )
                 if (expanded && !filteredList.isNullOrEmpty()) {
                     DropdownMenu(
-                        modifier = Modifier.exposedDropdownSize().background(SurfaceColor.SurfaceBright),
+                        modifier =
+                            Modifier
+                                .exposedDropdownSize()
+                                .background(SurfaceColor.SurfaceBright),
                         expanded = expanded,
                         onDismissRequest = { expanded = false },
                         offset = DpOffset(x = -16.dp, y = Spacing.Spacing12),

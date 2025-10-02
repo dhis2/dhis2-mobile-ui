@@ -29,6 +29,7 @@ import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
  * @param imeAction: controls the imeAction button to be shown.
  * @param modifier: allows a modifier to be passed externally.
  * @param inputStyle: manages the InputShell style.
+ * @param showDeleteButton: controls whether the delete button is shown or not.
  */
 @Composable
 fun InputBarCode(
@@ -47,6 +48,7 @@ fun InputBarCode(
     imeAction: ImeAction = ImeAction.Next,
     modifier: Modifier = Modifier,
     inputStyle: InputStyle = InputStyle.DataInputStyle(),
+    showDeleteButton: Boolean = true,
 ) {
     val actionButtonIconVector =
         mutableStateOf(if (inputTextFieldValue?.text.isNullOrEmpty()) "material_barcode_scanner" else "material_barcode")
@@ -79,6 +81,7 @@ fun InputBarCode(
         autoCompleteList = autoCompleteList,
         autoCompleteItemSelected = autoCompleteItemSelected,
         inputStyle = inputStyle,
+        showDeleteButton = showDeleteButton,
     )
 }
 

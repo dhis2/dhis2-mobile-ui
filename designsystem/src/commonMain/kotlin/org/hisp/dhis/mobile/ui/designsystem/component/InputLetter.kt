@@ -29,6 +29,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.model.RegExValidations
  * item is focused.
  * @param imeAction: controls the imeAction button to be shown.
  * @param modifier: allows a modifier to be passed externally.
+ * @param showDeleteButton: controls whether the delete button is shown or not.
  */
 @Composable
 fun InputLetter(
@@ -46,6 +47,7 @@ fun InputLetter(
     onFocusChanged: ((Boolean) -> Unit)? = null,
     imeAction: ImeAction = ImeAction.Next,
     modifier: Modifier = Modifier,
+    showDeleteButton: Boolean = true,
 ) {
     BasicTextInput(
         title = title,
@@ -69,5 +71,6 @@ fun InputLetter(
         onFocusChanged = onFocusChanged,
         autoCompleteList = autoCompleteList,
         autoCompleteItemSelected = autoCompleteItemSelected,
+        showDeleteButton = showDeleteButton,
     )
 }
