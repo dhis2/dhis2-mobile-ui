@@ -31,6 +31,7 @@ import androidx.compose.ui.text.input.TextFieldValue
  * @param imeAction: controls the imeAction button to be shown.
  * @param displayQRCapturedIcon: controls if should change button icon when text is not empty.
  * @param modifier: allows a modifier to be passed externally.
+ * @param showDeleteButton: controls whether the delete button is shown or not.
  */
 @Composable
 fun InputQRCode(
@@ -50,6 +51,7 @@ fun InputQRCode(
     imeAction: ImeAction = ImeAction.Next,
     displayQRCapturedIcon: Boolean = true,
     modifier: Modifier = Modifier,
+    showDeleteButton: Boolean = true,
 ) {
     val actionButtonIconVector =
         if (!inputTextFieldValue?.text.isNullOrEmpty() && displayQRCapturedIcon) {
@@ -87,6 +89,7 @@ fun InputQRCode(
         },
         autoCompleteList = autoCompleteList,
         autoCompleteItemSelected = autoCompleteItemSelected,
+        showDeleteButton = showDeleteButton,
     )
 }
 

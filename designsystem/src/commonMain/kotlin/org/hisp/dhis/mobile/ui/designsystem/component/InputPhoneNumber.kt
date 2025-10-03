@@ -36,6 +36,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.model.RegExValidations
  * @param allowedCharacters: the characters to allow.
  * @param supportingText: is a list of SupportingTextData that
  * manages all the messages to be shown.
+ * @param showDeleteButton: controls whether the delete button is shown or not.
  */
 @Composable
 fun InputPhoneNumber(
@@ -57,6 +58,7 @@ fun InputPhoneNumber(
     imeAction: ImeAction = ImeAction.Next,
     supportingText: List<SupportingTextData>? = emptyList(),
     allowedCharacters: RegExValidations = RegExValidations.PHONE_NUMBER,
+    showDeleteButton: Boolean = true,
 ) {
     val hasMinimumPhoneNumberInput = inputTextFieldValue?.text.orEmpty().length >= minLength
     BasicTextInput(
@@ -101,6 +103,7 @@ fun InputPhoneNumber(
         onFocusChanged = onFocusChanged,
         autoCompleteList = autoCompleteList,
         autoCompleteItemSelected = autoCompleteItemSelected,
+        showDeleteButton = showDeleteButton,
     )
 }
 

@@ -60,6 +60,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
  * @param inputStyle:  for the [InputShell] used.
  * @param modifier: allows a modifier to be passed externally.
  * @param actionButton: controls action button composable, if null will show nothing.
+ * @param showDeleteButton: controls whether the delete button is shown or not.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -84,6 +85,7 @@ internal fun BasicTextInput(
     actionButton: @Composable (() -> Unit)? = null,
     modifier: Modifier = Modifier,
     inputStyle: InputStyle,
+    showDeleteButton: Boolean,
 ) {
     var inputValue by remember(inputTextFieldValue) { mutableStateOf(inputTextFieldValue) }
 
@@ -100,7 +102,7 @@ internal fun BasicTextInput(
     var deleteButton:
         @Composable()
         (() -> Unit)? = null
-    if (deleteButtonIsVisible) {
+    if (deleteButtonIsVisible && showDeleteButton) {
         deleteButton = {
             IconButton(
                 modifier =
@@ -200,7 +202,12 @@ internal fun BasicTextInput(
                             inputValue = newValue
                             deleteButtonIsVisible = newValue.text.isNotEmpty()
                         }
-                        expanded = (!filteredList.isNullOrEmpty() && filteredList.any { it == newValue.text || it.contains(newValue.text) })
+                        expanded = (
+                            !filteredList.isNullOrEmpty() &&
+                                filteredList.any {
+                                    it == newValue.text || it.contains(newValue.text)
+                                }
+                        )
                     },
                     enabled = state != InputShellState.DISABLED,
                     state = state,
@@ -215,7 +222,10 @@ internal fun BasicTextInput(
                 )
                 if (expanded && !filteredList.isNullOrEmpty()) {
                     DropdownMenu(
-                        modifier = Modifier.exposedDropdownSize().background(SurfaceColor.SurfaceBright),
+                        modifier =
+                            Modifier
+                                .exposedDropdownSize()
+                                .background(SurfaceColor.SurfaceBright),
                         expanded = expanded,
                         onDismissRequest = { expanded = false },
                         offset = DpOffset(x = -16.dp, y = Spacing.Spacing12),

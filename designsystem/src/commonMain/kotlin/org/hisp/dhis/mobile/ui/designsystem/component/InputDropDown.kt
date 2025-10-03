@@ -110,6 +110,7 @@ fun InputDropDown(
     windowInsets: @Composable () -> WindowInsets = { BottomSheetShellDefaults.windowInsets() },
     noResultsFoundString: String = provideStringResource("no_results_found"),
     searchToFindMoreString: String = provideStringResource("search_to_see_more"),
+    showDeleteButton: Boolean = true,
 ) {
     val focusRequester = remember { FocusRequester() }
     var showDropdown by remember { mutableStateOf(expanded) }
@@ -132,6 +133,7 @@ fun InputDropDown(
             onDropdownIconClick = {
                 showDropdown = !showDropdown
             },
+            showDeleteButton = showDeleteButton,
         )
     }
 
@@ -311,6 +313,7 @@ private fun dropdownStartPadding(inputStyle: InputStyle): Dp =
  * @param onDropdownIconClick: callback to when action button is clicked.
  * @param expanded: will control the action button.
  * @param focusRequester: [FocusRequester] to be used.
+ * @param showDeleteButton: controls whether the delete button is shown or not.
  */
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -329,6 +332,7 @@ fun DropdownInputField(
     onResetButtonClicked: () -> Unit,
     onDropdownIconClick: () -> Unit,
     modifier: Modifier = Modifier,
+    showDeleteButton: Boolean = true,
 ) {
     Box {
         InputShell(
@@ -392,7 +396,7 @@ fun DropdownInputField(
                 )
             },
             secondaryButton =
-                if (selectedItem != null && state != InputShellState.DISABLED) {
+                if (selectedItem != null && state != InputShellState.DISABLED && showDeleteButton) {
                     {
                         IconButton(
                             modifier = Modifier.testTag("INPUT_DROPDOWN_RESET_BUTTON"),

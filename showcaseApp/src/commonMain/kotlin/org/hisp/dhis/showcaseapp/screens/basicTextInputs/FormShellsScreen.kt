@@ -145,6 +145,22 @@ fun FormShellsScreen() {
         )
         Spacer(Modifier.size(Spacing.Spacing18))
 
+        Description("Reset button not displayed", TextColor.OnSurface)
+        var inputValue17 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("Input")) }
+
+        InputText(
+            "Label",
+            inputTextFieldValue = inputValue17,
+            onValueChanged = {
+                if (it != null) {
+                    inputValue17 = it
+                }
+            },
+            state = InputShellState.UNFOCUSED,
+            showDeleteButton = false,
+        )
+        Spacer(Modifier.size(Spacing.Spacing18))
+
         SubTitle("Supporting text", TextColor.OnSurface)
         Description("Short text", TextColor.OnSurface)
         var inputValue9 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("")) }

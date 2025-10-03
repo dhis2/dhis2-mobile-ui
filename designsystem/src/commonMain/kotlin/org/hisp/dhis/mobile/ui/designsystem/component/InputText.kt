@@ -24,6 +24,7 @@ import androidx.compose.ui.text.input.TextFieldValue
  * @param imeAction: controls the imeAction button to be shown.
  * @param modifier: allows a modifier to be passed externally.
  * @param inputStyle: manages the InputShell style.
+ * @param showDeleteButton: controls whether the delete button is shown or not.
  */
 @Composable
 fun InputText(
@@ -41,6 +42,7 @@ fun InputText(
     imeAction: ImeAction = ImeAction.Next,
     modifier: Modifier = Modifier,
     inputStyle: InputStyle = InputStyle.DataInputStyle(),
+    showDeleteButton: Boolean = true,
 ) {
     BasicTextInput(
         title = title,
@@ -58,5 +60,6 @@ fun InputText(
         onFocusChanged = onFocusChanged,
         autoCompleteItemSelected = onAutoCompleteItemSelected,
         inputStyle = inputStyle,
+        showDeleteButton = showDeleteButton,
     )
 }
