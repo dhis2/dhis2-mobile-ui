@@ -10,15 +10,16 @@ import androidx.compose.material.icons.outlined.Visibility
 import androidx.compose.material.icons.outlined.VisibilityOff
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
@@ -42,7 +43,7 @@ fun InputPassword(
     uiModel.supportingText?.forEach { item ->
         supportingTextList.add(item)
     }
-    val showPassword = mutableStateOf(false)
+    var showPassword by remember { mutableStateOf(false) }
     val focusManager = LocalFocusManager.current
 
     InputShell(
@@ -60,22 +61,15 @@ fun InputPassword(
                     Modifier
                         .testTag(InputPasswordModel.TEXT_FIELD)
                         .fillMaxWidth(),
-                inputTextValue =
-                    TextFieldValue(
-                        uiModel.inputTextFieldValue?.text ?: "",
-                        TextRange(
-                            uiModel.inputTextFieldValue?.text?.length ?: 0,
-                        ),
-                    ),
+                inputTextValue = uiModel.inputTextFieldValue,
                 isSingleLine = true,
                 onInputChanged = { newText ->
-
                     uiModel.onValueChanged?.invoke(newText)
                 },
                 enabled = uiModel.state != InputShellState.DISABLED,
                 state = uiModel.state,
-                keyboardOptions = KeyboardOptions(imeAction = uiModel.imeAction, keyboardType = KeyboardType.Text),
-                visualTransformation = if (showPassword.value) VisualTransformation.None else PasswordVisualTransformation(),
+                keyboardOptions = KeyboardOptions(imeAction = uiModel.imeAction, keyboardType = KeyboardType.Password),
+                visualTransformation = if (showPassword) VisualTransformation.None else PasswordVisualTransformation(),
                 onNextClicked = {
                     if (uiModel.onNextClicked != null) {
                         uiModel.onNextClicked.invoke()
@@ -110,12 +104,12 @@ fun InputPassword(
                         .focusable(),
                 icon = {
                     Icon(
-                        imageVector = if (showPassword.value) Icons.Outlined.Visibility else Icons.Outlined.VisibilityOff,
+                        imageVector = if (showPassword) Icons.Outlined.Visibility else Icons.Outlined.VisibilityOff,
                         contentDescription = null,
                     )
                 },
                 onClick = {
-                    showPassword.value = !showPassword.value
+                    showPassword = !showPassword
                 },
                 enabled = uiModel.state != InputShellState.DISABLED,
             )
