@@ -1,4 +1,8 @@
+@file:OptIn(ExperimentalWasmDsl::class)
+
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
+import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -13,6 +17,29 @@ kotlin {
     jvm("desktop")
 
     androidTarget()
+
+    wasmJs {
+        browser {
+            commonWebpackConfig {
+                outputModuleName = "showcaseApp"
+                outputFileName = "showcaseApp.js"
+                devServer =
+                    (devServer ?: KotlinWebpackConfig.DevServer()).apply {
+                        static =
+                            (static ?: mutableListOf()).apply {
+                                // Serve sources to debug inside browser
+                                add(project.rootDir.path)
+                                add(project.projectDir.path)
+                            }
+                    }
+                sourceMaps = true
+            }
+            testTask {
+                enabled = false
+            }
+        }
+        binaries.executable()
+    }
 
     // Add iOS targets
     listOf(
@@ -58,6 +85,16 @@ kotlin {
         }
 
         val desktopTest by getting
+
+        val wasmJsMain by getting {
+            dependencies {
+                implementation(compose.runtime)
+                implementation(compose.foundation)
+                implementation(compose.ui)
+                implementation(compose.material3)
+                implementation(compose.components.resources)
+            }
+        }
     }
 }
 

@@ -22,6 +22,10 @@ kotlin {
 
     jvm("desktop")
 
+    wasmJs {
+        browser()
+    }
+
     val xcf = XCFramework()
 
     listOf(
@@ -38,6 +42,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
+                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.7.1")
                 implementation(compose.runtime)
                 implementation(compose.foundation)
                 implementation(compose.ui)
@@ -74,6 +79,16 @@ kotlin {
             dependencies {
                 implementation(compose.desktop.uiTestJUnit4)
                 implementation(compose.desktop.currentOs)
+            }
+        }
+
+        val wasmJsMain by getting {
+            dependencies {
+                implementation(compose.runtime)
+                implementation(compose.foundation)
+                implementation(compose.ui)
+                implementation(compose.material3)
+                implementation(compose.components.resources)
             }
         }
     }

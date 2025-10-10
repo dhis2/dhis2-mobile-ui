@@ -1,21 +1,24 @@
 package org.hisp.dhis.mobile.ui.designsystem.component.internal.clipboard
 
-import androidx.compose.ui.platform.ClipEntry
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import org.hisp.dhis.mobile.ui.designsystem.platform.dispatcher.ioDispatcher
+import java.awt.Toolkit
 import java.awt.datatransfer.DataFlavor
-import java.awt.datatransfer.Transferable
+import java.awt.datatransfer.StringSelection
 
-actual suspend fun ClipEntry.getText(): String? =
-    withContext(Dispatchers.IO) {
-        try {
-            val transferable = nativeClipEntry as? Transferable
-            if (transferable != null && transferable.isDataFlavorSupported(DataFlavor.stringFlavor)) {
-                transferable.getTransferData(DataFlavor.stringFlavor) as? String
-            } else {
-                null
-            }
-        } catch (_: Exception) {
+internal fun copyToClipboard(text: String) {
+    val selection = StringSelection(text)
+    val clipboard = Toolkit.getDefaultToolkit().systemClipboard
+    clipboard.setContents(selection, selection)
+}
+
+internal suspend fun pasteFromClipboard(): String? {
+    return withContext(ioDispatcher) {
+        val clipboard = Toolkit.getDefaultToolkit().systemClipboard
+        if (clipboard.isDataFlavorAvailable(DataFlavor.stringFlavor)) {
+            clipboard.getData(DataFlavor.stringFlavor) as? String
+        } else {
             null
         }
     }
+}

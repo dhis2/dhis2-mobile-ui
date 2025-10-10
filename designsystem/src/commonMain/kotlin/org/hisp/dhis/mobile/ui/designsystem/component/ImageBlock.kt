@@ -23,9 +23,8 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.IO
 import kotlinx.coroutines.withContext
+import org.hisp.dhis.mobile.ui.designsystem.platform.dispatcher.ioDispatcher
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
@@ -54,7 +53,7 @@ fun <T> ImageBlock(
 
     val image: T? by produceState<T?>(null) {
         value =
-            withContext(Dispatchers.IO) {
+            withContext(ioDispatcher) {
                 try {
                     load()
                 } catch (_: Exception) {
