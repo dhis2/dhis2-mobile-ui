@@ -96,7 +96,11 @@ internal fun BasicTextInput(
     }
     val focusManager = LocalFocusManager.current
     val focusRequester = remember { FocusRequester() }
-    val filteredList = autoCompleteList?.filter { it.contains(inputValue?.text ?: "") }
+    val filteredList =
+        autoCompleteList?.filter {
+            val input = inputValue?.text ?: ""
+            it.contains(input) && it != input
+        }
     var expanded by remember { mutableStateOf(false) }
 
     var deleteButton:
