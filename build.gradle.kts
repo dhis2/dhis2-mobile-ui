@@ -46,6 +46,12 @@ subprojects {
             // Treat all Kotlin warnings as errors
             allWarningsAsErrors.set(true)
 
+            // Suppress KLIB duplicate library warnings for metadata compilation
+            // These occur due to androidx.* and org.jetbrains.androidx.* library overlaps
+            if (name.contains("Metadata", ignoreCase = true)) {
+                allWarningsAsErrors.set(false)
+            }
+
             if (project.providers.gradleProperty("enableComposeCompilerReports").isPresent) {
                 freeCompilerArgs.addAll(
                     "-P",

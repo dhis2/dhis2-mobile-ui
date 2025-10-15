@@ -1,26 +1,27 @@
 [versions]
 
-kotlin = "2.2.10"
-agp = "8.12.2"
-compose = "1.8.2"
+kotlin = "2.2.20"
+agp = "8.13.0"
+compose = "1.9.1"
 kotlinxSerializationJson = "1.9.0"
 paparazzi = "2.0.0-alpha02"
 zxing = "3.5.3"
 junit = "4.13.2"
 signaturepad = "0.1.4"
-activityCompose = "1.10.1"
+activityCompose = "1.11.0"
 appCompat = "1.7.1"
 coreKtx = "1.17.0"
 ktlint = "13.1.0"
 dokka = "2.0.0"
 nexus = "2.0.0"
-composeHotReload = "1.0.0-beta06"
+composeHotReload = "1.0.0-rc02"
+materialWindowCompose = "1.8.2"
 
 [libraries]
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appCompat" }
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
-compose-material3-windowsizeclass = { module = "org.jetbrains.compose.material3:material3-window-size-class", version.ref = "compose" }
+compose-material3-windowsizeclass = { module = "org.jetbrains.compose.material3:material3-window-size-class", version.ref = "materialWindowCompose" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 signature-pad = { module = "se.warting.signature:signature-pad", version.ref = "signaturepad" }
 zxing-core = { module = "com.google.zxing:core", version.ref = "zxing" }
