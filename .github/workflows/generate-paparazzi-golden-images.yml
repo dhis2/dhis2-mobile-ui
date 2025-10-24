@@ -12,11 +12,13 @@ jobs:
   ci_job:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout Repository
       - uses: actions/checkout@v5
         with:
           lfs: 'true'
           fetch-depth: 0
           persist-credentials: false
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set Up JDK
         uses: actions/setup-java@v5
@@ -28,20 +30,36 @@ jobs:
       - name: Change wrapper permissions
         run: chmod +x ./gradlew
 
-      - name: Generate Golden Images
-        run: ./gradlew designsystem:recordPaparazziDebug
+      - name: Validate existing Paparazzi images
+        id: verify
+        run: ./gradlew ${{ env.main_project_module }}:verifyPaparazziDebug --no-daemon
+        continue-on-error: true
 
-      - uses: actions/upload-artifact@v4.6.2
-        with:
-          name: GoldenImages
-          path: ./designsystem/src/test/snapshots/
-          if-no-files-found: 'error'
+      - name: Check Verification Status
+        if: steps.verify.outcome == 'failure'
+        run: |
+          echo "::warning::Existing tests failed verification. This might indicate:"
+          echo "  - New tests were added that need golden images"
+          echo "  - Existing tests have been modified"
+          echo "  - There are legitimate test failures"
+          echo ""
+          echo "Proceeding with golden image generation..."
+
+      - name: Generate Golden images
+        if: steps.verify.outcome == 'failure'
+        run: ./gradlew ${{ env.main_project_module }}:recordPaparazziDebug
+
+      - name: Revalidate with new recorded images
+        if: steps.verify.outcome == 'failure'
+        run: ./gradlew ${{ env.main_project_module }}:verifyPaparazziDebug --no-daemon
 
       - name: Commit Changes
+        if: steps.verify.outcome == 'failure'
         run: .github/workflows/scripts/commit-changes.sh
 
       - name: Push changes
+        if: steps.verify.outcome == 'failure'
         uses: ad-m/github-push-action@master
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.ref }}
