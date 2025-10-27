@@ -1,8 +1,8 @@
 [versions]
 
-kotlin = "2.2.20"
+kotlin = "2.2.21"
 agp = "8.13.0"
-compose = "1.9.1"
+compose = "1.10.0+dev3105"
 kotlinxSerializationJson = "1.9.0"
 paparazzi = "2.0.0-alpha02"
 zxing = "3.5.3"
@@ -12,10 +12,10 @@ activityCompose = "1.11.0"
 appCompat = "1.7.1"
 coreKtx = "1.17.0"
 ktlint = "13.1.0"
-dokka = "2.0.0"
+dokka = "2.1.0"
 nexus = "2.0.0"
 composeHotReload = "1.0.0-rc02"
-materialWindowCompose = "1.8.2"
+materialWindowCompose = "1.10.0+dev3105"
 
 [libraries]
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
