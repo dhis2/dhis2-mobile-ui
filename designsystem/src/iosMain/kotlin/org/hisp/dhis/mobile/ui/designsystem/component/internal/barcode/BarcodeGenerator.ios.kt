@@ -15,8 +15,8 @@ internal actual class BarcodeGenerator actual constructor() {
     @OptIn(BetaInteropApi::class)
     actual fun generate(data: String): ImageBitmap? {
         // 1. Convert the input String to NSData
-        val nsString = NSString.create(data)
-        val nsData = nsString.dataUsingEncoding(NSUTF8StringEncoding) ?: return null
+        val nsString: NSString? = NSString.create(data)
+        val nsData = nsString?.dataUsingEncoding(NSUTF8StringEncoding) ?: return null
 
         // 2. Create the Core Image filter for a specific barcode type.
         // Core Image supports several. "CICode128BarcodeGenerator" is common and versatile.
