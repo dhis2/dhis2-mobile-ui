@@ -247,6 +247,7 @@ internal fun BasicTextInput(
                                     text = { Text(it) },
                                     modifier = Modifier,
                                     onClick = {
+                                        autoCompleteItemSelected?.invoke(it)
                                         onValueChanged?.invoke(
                                             TextFieldValue(
                                                 it,
@@ -254,7 +255,6 @@ internal fun BasicTextInput(
                                                 TextRange(0),
                                             ),
                                         )
-                                        autoCompleteItemSelected?.invoke(it)
                                         expanded = false
                                     },
                                 )
