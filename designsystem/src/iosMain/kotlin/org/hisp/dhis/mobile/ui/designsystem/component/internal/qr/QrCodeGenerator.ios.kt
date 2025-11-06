@@ -18,8 +18,8 @@ internal actual class QrCodeGenerator actual constructor() {
         isDataMatrix: Boolean,
     ): ImageBitmap? {
         // 1. Convert the input String to NSData
-        val nsString = NSString.create(data)
-        val nsData = nsString.dataUsingEncoding(NSUTF8StringEncoding) ?: return null
+        val nsString: NSString? = NSString.create(data)
+        val nsData = nsString?.dataUsingEncoding(NSUTF8StringEncoding) ?: return null
 
         // 2. Create the Core Image filter
         val filterName = if (isDataMatrix) "CIDataMatrixCodeGenerator" else "CIQRCodeGenerator"
