@@ -70,8 +70,10 @@ fun SupportingText(
 ) {
     var isExpanded by remember { mutableStateOf(false) }
     val textLayoutResultState = remember { mutableStateOf<TextLayoutResult?>(null) }
-    val nonClickableTextStyle = DHIS2SCustomTextStyles.regularSupportingText.copy(color = state.color)
-    val clickableTextStyle = DHIS2SCustomTextStyles.clickableSupportingText.copy(color = state.color)
+    val nonClickableTextStyle =
+        DHIS2SCustomTextStyles.regularSupportingText.copy(color = state.color)
+    val clickableTextStyle =
+        DHIS2SCustomTextStyles.clickableSupportingText.copy(color = state.color)
     var isClickable by remember { mutableStateOf(false) }
     var annotatedText by remember(text) {
         mutableStateOf(
@@ -113,7 +115,7 @@ fun SupportingText(
             }
 
         when {
-            !isExpanded && textLayoutResult.hasVisualOverflow -> {
+            !isExpanded && textLayoutResult.hasVisualOverflow && textLayoutResult.lineCount >= maxLines -> {
                 val lastCharIndex = textLayoutResult.getLineEnd(maxLines - 1)
                 val adjustedText =
                     text
