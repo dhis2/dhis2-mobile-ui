@@ -39,7 +39,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.Keyboard
@@ -47,7 +46,6 @@ import org.hisp.dhis.mobile.ui.designsystem.component.internal.keyboardAsState
 import org.hisp.dhis.mobile.ui.designsystem.component.state.BottomSheetShellDefaults
 import org.hisp.dhis.mobile.ui.designsystem.component.state.BottomSheetShellUIState
 import org.hisp.dhis.mobile.ui.designsystem.theme.Border
-import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing0
@@ -126,78 +124,6 @@ fun BottomSheetHeader(
             )
         }
     }
-}
-
-/**
- * DHIS2 BottomSheetShell. Wraps compose · [ModalBottomSheet].
- * desktop version to be implemented
- *
- * Need to override [searchQuery], [onSearchQueryChanged] & [onSearch] in order
- * to show the search bar. (TODO: We can add lint check for this)
- *
- * @param title: title to be shown.
- * @param subtitle: subTitle to be shown.
- * @param description: PopUp description.
- * @param searchQuery: Search query to be displayed in the search bar.
- * @param showSectionDivider: whether to show the divider or not.
- * @param icon: the icon to be shown.
- * @param buttonBlock: Space for the lower buttons.
- * @param content: to be shown under the header.
- * @param contentScrollState: Pass custom scroll state when content is
- * scrollable. For example, pass configure it when using `LazyColumn` to `Modifier.verticalScroll`
- * for content.
- * @param onSearchQueryChanged: Callback when search query is changed.
- * @param onSearch: Callback when search action is triggered.
- * @param onDismiss: gives access to the onDismiss event.
- * @param modifier allows a modifier to be passed externally.
- * @param headerTextAlignment [Alignment] for header text.
- * @param scrollableContainerMinHeight: Min size for scrollable content.
- * @param scrollableContainerMaxHeight: Max size for scrollable content.
- */
-@Deprecated("Use the new BottomSheetShell with the new parameters")
-@Composable
-fun BottomSheetShell(
-    content: @Composable (() -> Unit)?,
-    title: String? = null,
-    subtitle: String? = null,
-    description: String? = null,
-    searchQuery: String? = null,
-    showSectionDivider: Boolean = true,
-    contentScrollState: ScrollableState? = null,
-    icon: @Composable (() -> Unit)? = null,
-    buttonBlock: @Composable (() -> Unit)? = null,
-    modifier: Modifier = Modifier,
-    headerTextAlignment: TextAlign = TextAlign.Center,
-    scrollableContainerMinHeight: Dp = Spacing0,
-    scrollableContainerMaxHeight: Dp = InternalSizeValues.Size386,
-    animateHeaderOnKeyboardAppearance: Boolean = true,
-    onSearchQueryChanged: ((String) -> Unit)? = null,
-    onSearch: ((String) -> Unit)? = null,
-    onDismiss: () -> Unit,
-) {
-    BottomSheetShell(
-        uiState =
-            BottomSheetShellUIState(
-                title = title,
-                subtitle = subtitle,
-                description = description,
-                searchQuery = searchQuery,
-                showTopSectionDivider = showSectionDivider,
-                showBottomSectionDivider = showSectionDivider,
-                headerTextAlignment = headerTextAlignment,
-                scrollableContainerMinHeight = scrollableContainerMinHeight,
-                scrollableContainerMaxHeight = scrollableContainerMaxHeight,
-                animateHeaderOnKeyboardAppearance = animateHeaderOnKeyboardAppearance,
-            ),
-        modifier = modifier,
-        content = content,
-        contentScrollState = contentScrollState,
-        icon = icon,
-        buttonBlock = buttonBlock,
-        onSearchQueryChanged = onSearchQueryChanged,
-        onSearch = onSearch,
-        onDismiss = onDismiss,
-    )
 }
 
 /**
