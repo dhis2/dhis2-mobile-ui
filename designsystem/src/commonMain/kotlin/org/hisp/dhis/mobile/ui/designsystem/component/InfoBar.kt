@@ -26,41 +26,6 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 /**
  * DHIS2 InfoBar.
  * InfoBars provide brief messages about app status.
- * @param infoBarData: a data class [InfoBarData] with all
- * parameters for component.
- * @param modifier: optional modifier.
- */
-@OptIn(ExperimentalMaterial3Api::class)
-@Deprecated("Use constructor without InfoBarData")
-@Composable
-fun InfoBar(
-    infoBarData: InfoBarData,
-    modifier: Modifier = Modifier,
-) {
-    if (infoBarData.actionText != null && infoBarData.onClick != null) {
-        InfoBar(
-            modifier = modifier,
-            text = infoBarData.text,
-            actionText = infoBarData.actionText,
-            onActionClick = infoBarData.onClick,
-            textColor = infoBarData.color,
-            backgroundColor = infoBarData.backgroundColor,
-            icon = infoBarData.icon,
-        )
-    } else {
-        InfoBar(
-            modifier = modifier,
-            text = infoBarData.text,
-            textColor = infoBarData.color,
-            backgroundColor = infoBarData.backgroundColor,
-            icon = infoBarData.icon,
-        )
-    }
-}
-
-/**
- * DHIS2 InfoBar.
- * InfoBars provide brief messages about app status.
  * @param modifier: optional modifier.
  * @param text: main text to be displayed within the item.
  * @param textColor: text color.
