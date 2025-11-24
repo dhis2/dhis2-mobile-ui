@@ -22,7 +22,7 @@ jobs:
   ci_job:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           lfs: 'true'
 
@@ -57,7 +57,7 @@ jobs:
     needs: ci_job
     if: github.event_name == 'pull_request' && needs.ci_job.result == 'success'
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       # Set Current Date As Env Variable
       - name: Set current date as env variable
