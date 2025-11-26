@@ -14,15 +14,12 @@ updates:
     open-pull-requests-limit: 5
     commit-message:
       prefix: "deps"
-    ignore:
-      - dependency-name: "*"
-        versions: [ "*+*" ]
     groups:
       gradle-updates:
         patterns:
           - "*"                       # Group all Gradle updates into one PR
         update-types:
-          - "patch"
+          - "patch"                   # Only include patch updates (no major or minor versions)
 
   # GitHub Actions updates (optional)
   - package-ecosystem: "github-actions"
@@ -30,3 +27,4 @@ updates:
     schedule:
       interval: "weekly"
     target-branch: "develop"
+    open-pull-requests-limit: 5
