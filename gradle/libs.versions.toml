@@ -15,7 +15,7 @@ ktlint = "13.1.0"
 dokka = "2.0.0"
 nexus = "2.0.0"
 composeHotReload = "1.0.0-rc02"
-materialWindowCompose = "1.8.2"
+materialWindowCompose = "1.10.0+dev3105"
 
 [libraries]
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
