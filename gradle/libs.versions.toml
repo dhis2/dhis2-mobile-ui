@@ -14,7 +14,7 @@ coreKtx = "1.17.0"
 ktlint = "13.1.0"
 dokka = "2.0.0"
 nexus = "2.0.0"
-composeHotReload = "1.0.0-rc02"
+composeHotReload = "1.0.0"
 materialWindowCompose = "1.8.2"
 
 [libraries]
