@@ -2,7 +2,7 @@
 
 kotlin = "2.2.20"
 agp = "8.13.0"
-compose = "1.9.1"
+compose = "1.10.0+dev3105"
 kotlinxSerializationJson = "1.9.0"
 paparazzi = "2.0.0-alpha02"
 zxing = "3.5.3"
