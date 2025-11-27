@@ -28,17 +28,18 @@ class TableTest {
      * maximum number of columns (`MAX_COLUMNS`).
      */
     @Test
-    fun shouldAllColumnsBuildProperly() = runBlocking {
-        val table = loadTableFromJson("multi_header_table_list.json")
-        tableRobot(composeTestRule) {
-            initTable(table)
-            val columnsFirstTable = table[0].tableHeaderModel.tableMaxColumns()
-            val columnsSecondTable = table[1].tableHeaderModel.tableMaxColumns()
+    fun shouldAllColumnsBuildProperly() =
+        runBlocking {
+            val table = loadTableFromJson("multi_header_table_list.json")
+            tableRobot(composeTestRule) {
+                initTable(table)
+                val columnsFirstTable = table[0].tableHeaderModel.tableMaxColumns()
+                val columnsSecondTable = table[1].tableHeaderModel.tableMaxColumns()
 
-            assert(columnsFirstTable == MAX_COLUMNS)
-            assert(columnsSecondTable == MAX_COLUMNS)
+                assert(columnsFirstTable == MAX_COLUMNS)
+                assert(columnsSecondTable == MAX_COLUMNS)
+            }
         }
-    }
 
     /**
      * Loads a table from a JSON file.
@@ -48,16 +49,17 @@ class TableTest {
      * highlight color (`SurfaceColor.Primary`).
      */
     @Test
-    fun shouldHighlightColumnHeaderWhenClickingOnHeader() = runBlocking {
-        val table = loadTableFromJson("multi_header_table_list.json")
-        tableRobot(composeTestRule) {
-            initTable(table)
-            val firstTableId = table[0].id
+    fun shouldHighlightColumnHeaderWhenClickingOnHeader() =
+        runBlocking {
+            val table = loadTableFromJson("multi_header_table_list.json")
+            tableRobot(composeTestRule) {
+                initTable(table)
+                val firstTableId = table[0].id
 
-            clickOnHeaderElement(firstTableId, 2, 2)
-            assertColumnHeaderBackgroundColor(firstTableId, 2, 2, SurfaceColor.Primary)
+                clickOnHeaderElement(firstTableId, 2, 2)
+                assertColumnHeaderBackgroundColor(firstTableId, 2, 2, SurfaceColor.Primary)
+            }
         }
-    }
 
     /**
      * Loads a table from a JSON file.
@@ -69,43 +71,44 @@ class TableTest {
      * (`tableColors.headerBackground1` and `tableColors.headerBackground2`).
      */
     @Test
-    fun shouldHighlightChildrenColumnWhenSelectingParent() = runBlocking {
-        val table = loadTableFromJson("multi_header_table_list.json")
+    fun shouldHighlightChildrenColumnWhenSelectingParent() =
+        runBlocking {
+            val table = loadTableFromJson("multi_header_table_list.json")
 
-        tableRobot(composeTestRule) {
-            initTable(table)
-            val firstTableId = table[0].id!!
-            val sonColumnsHighlight = 3
-            val grandsonColumnsHighlight = 12
-            val maxColumnGrandSon = MAX_COLUMNS
+            tableRobot(composeTestRule) {
+                initTable(table)
+                val firstTableId = table[0].id!!
+                val sonColumnsHighlight = 3
+                val grandsonColumnsHighlight = 12
+                val maxColumnGrandSon = MAX_COLUMNS
 
-            clickOnHeaderElement(firstTableId, 0, 0)
-            for (i in 0 until sonColumnsHighlight) {
-                assertColumnHeaderBackgroundColor(firstTableId, 1, i, SurfaceColor.ContainerHighest)
-            }
-            for (i in 0 until grandsonColumnsHighlight) {
-                assertColumnHeaderBackgroundColor(firstTableId, 2, i, SurfaceColor.ContainerHighest)
-            }
-            val firstNonHighlightColumn = grandsonColumnsHighlight + 1
-            for (i in firstNonHighlightColumn until maxColumnGrandSon) {
-                if (i % 2 == 0) {
-                    assertColumnHeaderBackgroundColor(
-                        firstTableId,
-                        2,
-                        i,
-                        tableColors.headerBackground1,
-                    )
-                } else {
-                    assertColumnHeaderBackgroundColor(
-                        firstTableId,
-                        2,
-                        i,
-                        tableColors.headerBackground2,
-                    )
+                clickOnHeaderElement(firstTableId, 0, 0)
+                for (i in 0 until sonColumnsHighlight) {
+                    assertColumnHeaderBackgroundColor(firstTableId, 1, i, SurfaceColor.ContainerHighest)
+                }
+                for (i in 0 until grandsonColumnsHighlight) {
+                    assertColumnHeaderBackgroundColor(firstTableId, 2, i, SurfaceColor.ContainerHighest)
+                }
+                val firstNonHighlightColumn = grandsonColumnsHighlight + 1
+                for (i in firstNonHighlightColumn until maxColumnGrandSon) {
+                    if (i % 2 == 0) {
+                        assertColumnHeaderBackgroundColor(
+                            firstTableId,
+                            2,
+                            i,
+                            tableColors.headerBackground1,
+                        )
+                    } else {
+                        assertColumnHeaderBackgroundColor(
+                            firstTableId,
+                            2,
+                            i,
+                            tableColors.headerBackground2,
+                        )
+                    }
                 }
             }
         }
-    }
 
     /**
      * Loads a table from a JSON file.
@@ -114,59 +117,60 @@ class TableTest {
      * (`tableColors.headerBackground1` and `tableColors.headerBackground2`) for the first, second, and third rows.
      */
     @Test
-    fun shouldAssertHeaderColumnColorsEvenOdd() = runBlocking {
-        val table = loadTableFromJson("multi_header_table_list.json")
+    fun shouldAssertHeaderColumnColorsEvenOdd() =
+        runBlocking {
+            val table = loadTableFromJson("multi_header_table_list.json")
 
-        tableRobot(composeTestRule) {
-            initTable(table)
-            val firstTableId = table[0].id!!
-            val secondRowHeaderChildren = 12
-            val thirdRowHeaderChildren = 48
+            tableRobot(composeTestRule) {
+                initTable(table)
+                val firstTableId = table[0].id!!
+                val secondRowHeaderChildren = 12
+                val thirdRowHeaderChildren = 48
 
-            // Assert first column rows
-            assertColumnHeaderBackgroundColor(firstTableId, 0, 0, tableColors.headerBackground1)
-            assertColumnHeaderBackgroundColor(firstTableId, 0, 1, tableColors.headerBackground2)
-            assertColumnHeaderBackgroundColor(firstTableId, 0, 2, tableColors.headerBackground1)
+                // Assert first column rows
+                assertColumnHeaderBackgroundColor(firstTableId, 0, 0, tableColors.headerBackground1)
+                assertColumnHeaderBackgroundColor(firstTableId, 0, 1, tableColors.headerBackground2)
+                assertColumnHeaderBackgroundColor(firstTableId, 0, 2, tableColors.headerBackground1)
 
-            // Assert second column rows
-            for (i in 0 until secondRowHeaderChildren) {
-                if (i % 2 == 0) {
-                    assertColumnHeaderBackgroundColor(
-                        firstTableId,
-                        1,
-                        i,
-                        tableColors.headerBackground1,
-                    )
-                } else {
-                    assertColumnHeaderBackgroundColor(
-                        firstTableId,
-                        1,
-                        i,
-                        tableColors.headerBackground2,
-                    )
+                // Assert second column rows
+                for (i in 0 until secondRowHeaderChildren) {
+                    if (i % 2 == 0) {
+                        assertColumnHeaderBackgroundColor(
+                            firstTableId,
+                            1,
+                            i,
+                            tableColors.headerBackground1,
+                        )
+                    } else {
+                        assertColumnHeaderBackgroundColor(
+                            firstTableId,
+                            1,
+                            i,
+                            tableColors.headerBackground2,
+                        )
+                    }
                 }
-            }
 
-            // Assert third column rows
-            for (i in 0 until thirdRowHeaderChildren) {
-                if (i % 2 == 0) {
-                    assertColumnHeaderBackgroundColor(
-                        firstTableId,
-                        2,
-                        i,
-                        tableColors.headerBackground1,
-                    )
-                } else {
-                    assertColumnHeaderBackgroundColor(
-                        firstTableId,
-                        2,
-                        i,
-                        tableColors.headerBackground2,
-                    )
+                // Assert third column rows
+                for (i in 0 until thirdRowHeaderChildren) {
+                    if (i % 2 == 0) {
+                        assertColumnHeaderBackgroundColor(
+                            firstTableId,
+                            2,
+                            i,
+                            tableColors.headerBackground1,
+                        )
+                    } else {
+                        assertColumnHeaderBackgroundColor(
+                            firstTableId,
+                            2,
+                            i,
+                            tableColors.headerBackground2,
+                        )
+                    }
                 }
             }
         }
-    }
 
     /**
      * Loads a table from a JSON file.
@@ -175,18 +179,19 @@ class TableTest {
      * Asserts that the clicked row element changes is mandatory.
      */
     @Test
-    fun shouldDisplayMandatoryIcon() = runBlocking {
-        val table = loadTableFromJson("mandatory_cell_table_list.json")
+    fun shouldDisplayMandatoryIcon() =
+        runBlocking {
+            val table = loadTableFromJson("mandatory_cell_table_list.json")
 
-        tableRobot(composeTestRule) {
-            initTable(table)
-            with(table.first()) {
-                val cellId = tableRows.first().values[0]?.id!!
-                clickOnCell(id, cellId)
-                assertCellHasMandatoryIcon(id, cellId)
+            tableRobot(composeTestRule) {
+                initTable(table)
+                with(table.first()) {
+                    val cellId = tableRows.first().values[0]?.id!!
+                    clickOnCell(id, cellId)
+                    assertCellHasMandatoryIcon(id, cellId)
+                }
             }
         }
-    }
 
     /**
      * Loads a table from a JSON file.
@@ -196,102 +201,115 @@ class TableTest {
      * Asserts that the header elements of the first and second tables are clickable.
      */
     @Test
-    fun shouldAllRowsBuildProperly() = runBlocking {
-        val tables = loadTableFromJson("multi_header_table_list.json")
+    fun shouldAllRowsBuildProperly() =
+        runBlocking {
+            val tables = loadTableFromJson("multi_header_table_list.json")
 
-        tableRobot(composeTestRule) {
-            initTable(tables)
+            tableRobot(composeTestRule) {
+                initTable(tables)
 
-            assert(tables[0].tableRows.size == 3)
-            assert(tables[1].tableRows.size == 5)
+                assert(tables[0].tableRows.size == 3)
+                assert(tables[1].tableRows.size == 5)
 
-            tables.forEach { table ->
-                table.tableRows.forEach { row ->
-                    assertRowHeaderText(
-                        table.id,
-                        row.rowHeaders.first().title,
-                        row.rowHeaders.first().id,
-                    )
-                    assertRowHeaderIsClickable(table.id, row.rowHeaders.first().id)
+                tables.forEach { table ->
+                    table.tableRows.forEach { row ->
+                        assertRowHeaderText(
+                            table.id,
+                            row.rowHeaders.first().title,
+                            row.rowHeaders.first().id,
+                        )
+                        assertRowHeaderIsClickable(table.id, row.rowHeaders.first().id)
+                    }
                 }
             }
         }
-    }
 
     @Test
-    fun shouldClickOnFirstRowElementAndHighlightAllElements() = runBlocking {
-        val table = loadTableFromJson("multi_header_table_list.json")
+    fun shouldClickOnFirstRowElementAndHighlightAllElements() =
+        runBlocking {
+            val table = loadTableFromJson("multi_header_table_list.json")
 
-        tableRobot(composeTestRule) {
-            initTable(table)
+            tableRobot(composeTestRule) {
+                initTable(table)
 
-            with(table.first()) {
-                composeTestRule.waitForIdle()
-                clickOnRowHeader(id, tableRows.first().rowHeaders.first().id)
-                assertRowHeaderBackgroundChangeToPrimary(id, 0)
+                with(table.first()) {
+                    composeTestRule.waitForIdle()
+                    clickOnRowHeader(
+                        id,
+                        tableRows
+                            .first()
+                            .rowHeaders
+                            .first()
+                            .id,
+                    )
+                    assertRowHeaderBackgroundChangeToPrimary(id, 0)
+                }
             }
         }
-    }
 
     @Test
-    fun shouldSelectCell() = runBlocking {
-        val table = loadTableFromJson("mandatory_cell_table_list.json")
+    fun shouldSelectCell() =
+        runBlocking {
+            val table = loadTableFromJson("mandatory_cell_table_list.json")
 
-        tableRobot(composeTestRule) {
-            initTable(table)
-            with(table.first()) {
-                val cellId = tableRows.first().values[0]?.id!!
-                clickOnCell(id, cellId)
-                assertCellIsSelected(id, cellId)
+            tableRobot(composeTestRule) {
+                initTable(table)
+                with(table.first()) {
+                    val cellId = tableRows.first().values[0]?.id!!
+                    clickOnCell(id, cellId)
+                    assertCellIsSelected(id, cellId)
+                }
             }
         }
-    }
 
     @Test
-    fun shouldBlockClickAndSetCorrectColorIfNonEditable() = runBlocking {
-        val tables = loadTableFromJson("multi_header_table_list.json")
+    fun shouldBlockClickAndSetCorrectColorIfNonEditable() =
+        runBlocking {
+            val tables = loadTableFromJson("multi_header_table_list.json")
 
-        tableRobot(composeTestRule) {
-            initTable(tables)
+            tableRobot(composeTestRule) {
+                initTable(tables)
 
-            with(tables.first()) {
-                val cellId = tableRows.first().values[1]?.id!!
-                clickOnCell(id, cellId)
-                assertCellBlockedCell(id, cellId)
+                with(tables.first()) {
+                    val cellId = tableRows.first().values[1]?.id!!
+                    clickOnCell(id, cellId)
+                    assertCellBlockedCell(id, cellId)
+                }
             }
         }
-    }
 
     @Test
-    fun shouldSetCorrectCellColors() = runBlocking {
-        val table = loadTableFromJson("mandatory_cell_table_list.json")
+    fun shouldSetCorrectCellColors() =
+        runBlocking {
+            val table = loadTableFromJson("mandatory_cell_table_list.json")
 
-        tableRobot(composeTestRule) {
-            initTable(table)
-            with(table.first()) {
-                assertCellErrorStyle(id, tableRows[2].values[0]?.id!!)
-                assertCellDisabledStyle(id, tableRows[2].values[1]?.id!!)
-                assertCellWarningStyle(id, tableRows[2].values[2]?.id!!)
+            tableRobot(composeTestRule) {
+                initTable(table)
+                with(table.first()) {
+                    assertCellErrorStyle(id, tableRows[2].values[0]?.id!!)
+                    assertCellDisabledStyle(id, tableRows[2].values[1]?.id!!)
+                    assertCellWarningStyle(id, tableRows[2].values[2]?.id!!)
+                }
             }
         }
-    }
 
     @Test
-    fun shouldCalculateCorrectColumnIndexes() = runBlocking {
-        val table = loadTableFromJson("mandatory_cell_table_list.json")
-        tableRobot(composeTestRule) {
-            initTable(table)
-            with(table.first()) {
-                assertEquals(Pair(0, 12), tableHeaderModel.columnIndexes(0, 0))
-                assertEquals(Pair(12, 24), tableHeaderModel.columnIndexes(0, 1))
-                assertEquals(Pair(24, 36), tableHeaderModel.columnIndexes(0, 2))
-                assertEquals(Pair(0, 4), tableHeaderModel.columnIndexes(1, 0))
-                assertEquals(Pair(4, 8), tableHeaderModel.columnIndexes(1, 1))
-                assertEquals(Pair(0, 1), tableHeaderModel.columnIndexes(2, 0))
-                assertEquals(Pair(1, 2), tableHeaderModel.columnIndexes(2, 1))
+    fun shouldCalculateCorrectColumnIndexes() =
+        runBlocking {
+            val table = loadTableFromJson("mandatory_cell_table_list.json")
+            tableRobot(composeTestRule) {
+                initTable(table)
+                with(table.first()) {
+                    assertEquals(Pair(0, 12), tableHeaderModel.columnIndexes(0, 0))
+                    assertEquals(Pair(12, 24), tableHeaderModel.columnIndexes(0, 1))
+                    assertEquals(Pair(24, 36), tableHeaderModel.columnIndexes(0, 2))
+                    assertEquals(Pair(0, 4), tableHeaderModel.columnIndexes(1, 0))
+                    assertEquals(Pair(4, 8), tableHeaderModel.columnIndexes(1, 1))
+                    assertEquals(Pair(0, 1), tableHeaderModel.columnIndexes(2, 0))
+                    assertEquals(Pair(1, 2), tableHeaderModel.columnIndexes(2, 1))
+                }
             }
         }
-    }
 
     private suspend fun loadTableFromJson(fileName: String): List<TableModel> {
         val bytes = Res.readBytes("files/json/$fileName")

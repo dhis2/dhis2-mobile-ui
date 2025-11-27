@@ -47,49 +47,49 @@ internal fun TableCorner(
     val colorPrimary = MaterialTheme.colorScheme.primary
 
     Box(
-        modifier = modifier
-            .cornerBackground(
-                hasLabel = !label.isNullOrEmpty(),
-                isSelected = isSelected,
-            )
-            .width(
-                with(LocalDensity.current) {
-                    (
-                        maxRowColumnHeaders * TableTheme.dimensions
-                            .rowHeaderWidth(
-                                groupedTables = config.groupTables,
-                                tableId = tableId,
-                            )
+        modifier =
+            modifier
+                .cornerBackground(
+                    hasLabel = !label.isNullOrEmpty(),
+                    isSelected = isSelected,
+                ).width(
+                    with(LocalDensity.current) {
+                        (
+                            maxRowColumnHeaders *
+                                TableTheme.dimensions
+                                    .rowHeaderWidth(
+                                        groupedTables = config.groupTables,
+                                        tableId = tableId,
+                                    )
                         ).toDp()
-                },
-            )
-            .drawBehind {
-                repeat(rowColumnHeaders) { index ->
-                    val xOffset = (size.width / rowColumnHeaders) * (index + 1)
-                    drawRect(
-                        color = colorPrimary,
-                        topLeft = Offset((xOffset - 1.dp.toPx()), 0f),
-                        size = Size(1.dp.toPx(), size.height),
-                    )
-                }
-            }
-            .clickable { onClick() },
+                    },
+                ).drawBehind {
+                    repeat(rowColumnHeaders) { index ->
+                        val xOffset = (size.width / rowColumnHeaders) * (index + 1)
+                        drawRect(
+                            color = colorPrimary,
+                            topLeft = Offset((xOffset - 1.dp.toPx()), 0f),
+                            size = Size(1.dp.toPx(), size.height),
+                        )
+                    }
+                }.clickable { onClick() },
         contentAlignment = Alignment.CenterEnd,
     ) {
         label?.takeIf { it.isNotEmpty() }?.let { label ->
             Text(
-                modifier = Modifier
-                    .padding(
-                        horizontal = Spacing.Spacing8,
-                        vertical = Spacing.Spacing12,
-                    )
-                    .fillMaxWidth()
-                    .align(Alignment.Center),
-                color = if (isSelected) {
-                    MaterialTheme.colorScheme.onPrimary
-                } else {
-                    TableTheme.colors.headerText
-                },
+                modifier =
+                    Modifier
+                        .padding(
+                            horizontal = Spacing.Spacing8,
+                            vertical = Spacing.Spacing12,
+                        ).fillMaxWidth()
+                        .align(Alignment.Center),
+                color =
+                    if (isSelected) {
+                        MaterialTheme.colorScheme.onPrimary
+                    } else {
+                        TableTheme.colors.headerText
+                    },
                 text = label,
                 textAlign = TextAlign.Start,
                 fontSize = TableTheme.dimensions.defaultHeaderTextSize,
@@ -106,9 +106,10 @@ internal fun TableCorner(
         )
         if (isSelected) {
             VerticalResizingRule(
-                modifier = Modifier
-                    .align(Alignment.CenterEnd)
-                    .zIndex(1f),
+                modifier =
+                    Modifier
+                        .align(Alignment.CenterEnd)
+                        .zIndex(1f),
                 checkMaxMinCondition = { dimensions, currentOffsetX ->
                     if (tableCornerUiState.singleValueTable) {
                         dimensions.canUpdateRowHeaderWidth(

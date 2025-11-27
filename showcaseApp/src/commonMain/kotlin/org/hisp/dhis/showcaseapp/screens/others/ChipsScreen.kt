@@ -74,8 +74,9 @@ fun ChipsScreen() {
                     Icon(
                         imageVector = Icons.Filled.Search,
                         contentDescription = "search icon",
-                        modifier = Modifier
-                            .size(AssistChipDefaults.IconSize),
+                        modifier =
+                            Modifier
+                                .size(AssistChipDefaults.IconSize),
                     )
                 },
                 onClick = { },
@@ -89,8 +90,9 @@ fun ChipsScreen() {
                     Icon(
                         imageVector = Icons.Filled.Search,
                         contentDescription = "search icon",
-                        modifier = Modifier
-                            .size(AssistChipDefaults.IconSize),
+                        modifier =
+                            Modifier
+                                .size(AssistChipDefaults.IconSize),
                     )
                 },
                 onClick = {},

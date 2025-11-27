@@ -27,6 +27,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.model.RegExValidations
  * item is focused.
  * @param imeAction: controls the imeAction button to be shown.
  * @param modifier: allows a modifier to be passed externally.
+ * @param showDeleteButton: controls whether the delete button is shown or not.
  */
 @Composable
 fun InputPercentage(
@@ -44,6 +45,7 @@ fun InputPercentage(
     onFocusChanged: ((Boolean) -> Unit)? = null,
     imeAction: ImeAction = ImeAction.Next,
     modifier: Modifier = Modifier,
+    showDeleteButton: Boolean = true,
 ) {
     BasicTextInput(
         title = title,
@@ -51,23 +53,26 @@ fun InputPercentage(
         inputStyle = inputStyle,
         supportingText = supportingText,
         legendData = legendData,
-        inputTextFieldValue = inputTextFieldValue?.copy(
-            text = inputTextFieldValue.text.replace("%", ""),
-        ),
+        inputTextFieldValue =
+            inputTextFieldValue?.copy(
+                text = inputTextFieldValue.text.replace("%", ""),
+            ),
         isRequiredField = isRequiredField,
         onNextClicked = onNextClicked,
         onValueChanged = onValueChanged,
         helperStyle = HelperStyle.WITH_HELPER_AFTER,
         helper = "%",
-        keyboardOptions = KeyboardOptions(
-            imeAction = imeAction,
-            keyboardType = KeyboardType.Number,
-        ),
+        keyboardOptions =
+            KeyboardOptions(
+                imeAction = imeAction,
+                keyboardType = KeyboardType.Number,
+            ),
         allowedCharacters = RegExValidations.PERCENTAGE.regex,
         modifier = modifier,
         testTag = "PERCENTAGE",
         onFocusChanged = onFocusChanged,
         autoCompleteList = autoCompleteList,
         autoCompleteItemSelected = autoCompleteItemSelected,
+        showDeleteButton = showDeleteButton,
     )
 }

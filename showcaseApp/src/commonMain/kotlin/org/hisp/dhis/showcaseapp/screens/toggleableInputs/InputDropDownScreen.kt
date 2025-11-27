@@ -12,23 +12,23 @@ import org.hisp.dhis.mobile.ui.designsystem.component.InputDropDown
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.InputStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextData
-import org.hisp.dhis.mobile.ui.designsystem.component.state.BottomSheetShellDefaults
 
 @Composable
 fun InputDropDownScreen() {
     ColumnScreenContainer(title = ToggleableInputs.INPUT_DROPDOWN.label) {
-        val options = listOf(
-            DropdownItem("Option 1"),
-            DropdownItem("Option 2"),
-            DropdownItem("Option 3"),
-            DropdownItem("Option 4"),
-            DropdownItem("Option 5"),
-            DropdownItem("Option 6"),
-            DropdownItem("Option 7"),
-            DropdownItem("Option 8"),
-            DropdownItem("Option 9"),
-            DropdownItem("Option 10"),
-        )
+        val options =
+            listOf(
+                DropdownItem("Option 1"),
+                DropdownItem("Option 2"),
+                DropdownItem("Option 3"),
+                DropdownItem("Option 4"),
+                DropdownItem("Option 5"),
+                DropdownItem("Option 6"),
+                DropdownItem("Option 7"),
+                DropdownItem("Option 8"),
+                DropdownItem("Option 9"),
+                DropdownItem("Option 10"),
+            )
         var selectedItem by remember { mutableStateOf<DropdownItem?>(null) }
 
         ColumnComponentContainer("Basic Input Dropdown") {
@@ -46,7 +46,7 @@ fun InputDropDownScreen() {
                 },
                 selectedItem = selectedItem,
                 loadOptions = {
-                    /*no-op*/
+                    // no-op
                 },
             )
 
@@ -63,11 +63,12 @@ fun InputDropDownScreen() {
                     selectedItem = item
                 },
                 selectedItem = selectedItem,
-                supportingTextData = listOf(
-                    SupportingTextData(text = "Options"),
-                ),
+                supportingTextData =
+                    listOf(
+                        SupportingTextData(text = "Options"),
+                    ),
                 loadOptions = {
-                    /*no-op*/
+                    // no-op
                 },
             )
 
@@ -86,7 +87,7 @@ fun InputDropDownScreen() {
                 },
                 selectedItem = selectedItem,
                 loadOptions = {
-                    /*no-op*/
+                    // no-op
                 },
             )
         }
@@ -111,7 +112,7 @@ fun InputDropDownScreen() {
                 },
                 selectedItem = selectedItem4,
                 loadOptions = {
-                    /*no-op*/
+                    // no-op
                 },
             )
         }
@@ -136,10 +137,8 @@ fun InputDropDownScreen() {
                 },
                 selectedItem = selectedItem4,
                 loadOptions = {
-                    /*no-op*/
+                    // no-op
                 },
-                bottomSheetLowerPadding = BottomSheetShellDefaults.lowerPadding(isEdgeToEdgeEnabled = true),
-                windowInsets = { BottomSheetShellDefaults.windowInsets(true) },
             )
         }
 
@@ -160,8 +159,31 @@ fun InputDropDownScreen() {
                 },
                 selectedItem = selectedItem1,
                 loadOptions = {
-                    /*no-op*/
+                    // no-op
                 },
+            )
+        }
+
+        ColumnComponentContainer("Basic Input Dropdown with content and no reset button ") {
+            var selectedItem1 by remember { mutableStateOf<DropdownItem?>(options[0]) }
+            InputDropDown(
+                title = "Label",
+                state = InputShellState.UNFOCUSED,
+                itemCount = options.size,
+                onSearchOption = {},
+                fetchItem = { index -> options[index] },
+                useDropDown = false,
+                onResetButtonClicked = {
+                    selectedItem1 = null
+                },
+                onItemSelected = { _, item ->
+                    selectedItem1 = item
+                },
+                selectedItem = selectedItem1,
+                loadOptions = {
+                    // no-op
+                },
+                showDeleteButton = false,
             )
         }
 
@@ -182,7 +204,7 @@ fun InputDropDownScreen() {
                 },
                 selectedItem = selectedItem2,
                 loadOptions = {
-                    /*no-op*/
+                    // no-op
                 },
             )
         }
@@ -204,7 +226,7 @@ fun InputDropDownScreen() {
                 },
                 selectedItem = selectedItem3,
                 loadOptions = {
-                    /*no-op*/
+                    // no-op
                 },
             )
         }
@@ -230,7 +252,7 @@ fun InputDropDownScreen() {
                 },
                 selectedItem = selectedItem,
                 loadOptions = {
-                    /*no-op*/
+                    // no-op
                 },
             )
         }

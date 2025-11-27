@@ -17,7 +17,6 @@ import org.junit.Rule
 import org.junit.Test
 
 class BasicInputImageTest {
-
     @get:Rule
     val rule = createComposeRule()
 
@@ -128,7 +127,6 @@ class BasicInputImageTest {
                 },
                 onAddButtonClicked = {
                 },
-
             )
         }
         rule.onNodeWithTag("INPUT_IMAGE").assertExists()
@@ -155,7 +153,6 @@ class BasicInputImageTest {
                 },
                 onAddButtonClicked = {
                 },
-
             )
         }
         rule.onNodeWithTag("INPUT_IMAGE").assertExists()
@@ -183,7 +180,6 @@ class BasicInputImageTest {
                 },
                 onAddButtonClicked = {
                 },
-
             )
         }
         rule.onNodeWithTag("INPUT_IMAGE").assertExists()

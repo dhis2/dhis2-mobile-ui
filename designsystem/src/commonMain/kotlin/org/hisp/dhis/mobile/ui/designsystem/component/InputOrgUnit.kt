@@ -71,9 +71,10 @@ fun InputOrgUnit(
     if (deleteButtonIsVisible) {
         primaryButton = {
             IconButton(
-                modifier = Modifier
-                    .testTag("INPUT_ORG_UNIT_RESET_BUTTON")
-                    .padding(Spacing.Spacing0),
+                modifier =
+                    Modifier
+                        .testTag("INPUT_ORG_UNIT_RESET_BUTTON")
+                        .padding(Spacing.Spacing0),
                 icon = {
                     Icon(
                         imageVector = Icons.Outlined.Cancel,
@@ -91,9 +92,10 @@ fun InputOrgUnit(
     } else {
         primaryButton = {
             IconButton(
-                modifier = Modifier
-                    .testTag("INPUT_ORG_UNIT_DROPDOWN_BUTTON")
-                    .padding(Spacing.Spacing0),
+                modifier =
+                    Modifier
+                        .testTag("INPUT_ORG_UNIT_DROPDOWN_BUTTON")
+                        .padding(Spacing.Spacing0),
                 icon = {
                     Icon(
                         imageVector = Icons.Outlined.ArrowDropDown,
@@ -110,9 +112,10 @@ fun InputOrgUnit(
     }
     Box {
         InputShell(
-            modifier = modifier
-                .testTag("INPUT_ORG_UNIT")
-                .focusRequester(focusRequester),
+            modifier =
+                modifier
+                    .testTag("INPUT_ORG_UNIT")
+                    .focusRequester(focusRequester),
             isRequiredField = isRequiredField,
             title = title,
             primaryButton = primaryButton,
@@ -150,19 +153,21 @@ fun InputOrgUnit(
             inputField = {
                 val enabled = state != InputShellState.DISABLED
                 androidx.compose.foundation.text.BasicTextField(
-
-                    modifier = modifier
-                        .background(
-                            Color.Transparent,
-                        )
-                        .fillMaxWidth()
-                        .textFieldHoverPointerIcon(enabled)
-                        .testTag("INPUT_ORG_UNIT_TEXT"),
+                    modifier =
+                        modifier
+                            .background(
+                                Color.Transparent,
+                            ).fillMaxWidth()
+                            .textFieldHoverPointerIcon(enabled)
+                            .testTag("INPUT_ORG_UNIT_TEXT"),
                     value = inputText ?: "",
                     onValueChange = { onValueChanged?.invoke(it) },
                     readOnly = true,
                     enabled = enabled,
-                    textStyle = MaterialTheme.typography.bodyLarge.copy(color = if (enabled) TextColor.OnSurface else TextColor.OnDisabledSurface),
+                    textStyle =
+                        MaterialTheme.typography.bodyLarge.copy(
+                            color = if (enabled) TextColor.OnSurface else TextColor.OnDisabledSurface,
+                        ),
                     singleLine = true,
                     decorationBox = { innerTextField ->
                         Row(
@@ -179,18 +184,19 @@ fun InputOrgUnit(
             inputStyle = inputStyle,
         )
         Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(Spacing64)
-                .padding(end = Spacing112)
-                .alpha(0f)
-                .clickable(
-                    enabled = state != InputShellState.DISABLED,
-                    onClick = {
-                        focusRequester.requestFocus()
-                        onOrgUnitActionCLicked.invoke()
-                    },
-                ),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .height(Spacing64)
+                    .padding(end = Spacing112)
+                    .alpha(0f)
+                    .clickable(
+                        enabled = state != InputShellState.DISABLED,
+                        onClick = {
+                            focusRequester.requestFocus()
+                            onOrgUnitActionCLicked.invoke()
+                        },
+                    ),
         )
     }
 }

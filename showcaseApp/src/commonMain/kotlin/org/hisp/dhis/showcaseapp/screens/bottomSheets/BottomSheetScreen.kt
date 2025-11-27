@@ -41,8 +41,8 @@ import org.hisp.dhis.mobile.ui.designsystem.component.state.BottomSheetShellDefa
 import org.hisp.dhis.mobile.ui.designsystem.component.state.BottomSheetShellUIState
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
+import org.hisp.dhis.showcaseapp.screens.previews.LOREM
 import org.hisp.dhis.showcaseapp.screens.previews.longLegendList
-import org.hisp.dhis.showcaseapp.screens.previews.lorem
 import org.hisp.dhis.showcaseapp.screens.previews.regularLegendList
 
 @Composable
@@ -60,9 +60,10 @@ fun BottomSheetScreen() {
 
     if (showLegendBottomSheetShell) {
         BottomSheetShell(
-            uiState = BottomSheetShellUIState(
-                title = "Legend name ",
-            ),
+            uiState =
+                BottomSheetShellUIState(
+                    title = "Legend name ",
+                ),
             content = {
                 Column {
                     LegendRange(
@@ -84,15 +85,17 @@ fun BottomSheetScreen() {
     if (showBottomSheetShellScrollableContent) {
         val scrollState = rememberLazyListState()
         BottomSheetShell(
-            uiState = BottomSheetShellUIState(
-                title = "Legend name ",
-            ),
+            uiState =
+                BottomSheetShellUIState(
+                    title = "Legend name ",
+                ),
             content = {
                 LazyColumn(
-                    modifier = Modifier.draggableList(
-                        scrollState = scrollState,
-                        draggableType = DraggableType.Vertical,
-                    ),
+                    modifier =
+                        Modifier.draggableList(
+                            scrollState = scrollState,
+                            draggableType = DraggableType.Vertical,
+                        ),
                     state = scrollState,
                 ) {
                     items(longLegendList) { item ->
@@ -122,11 +125,12 @@ fun BottomSheetScreen() {
         val scrollState = rememberScrollState()
 
         BottomSheetShell(
-            uiState = BottomSheetShellUIState(
-                title = "Legend name ",
-                subtitle = "Subtitle",
-                description = lorem + lorem,
-            ),
+            uiState =
+                BottomSheetShellUIState(
+                    title = "Legend name ",
+                    subtitle = "Subtitle",
+                    description = LOREM + LOREM,
+                ),
             content = {
                 Column(modifier = Modifier.verticalScroll(state = scrollState)) {
                     LegendRange(
@@ -169,21 +173,22 @@ fun BottomSheetScreen() {
     }
 
     if (showBottomSheetWithAndroid35Paddings) {
+        val scrollState = rememberScrollState()
+
         BottomSheetShell(
-            uiState = BottomSheetShellUIState(
-                title = "Legend name ",
-                bottomPadding = BottomSheetShellDefaults.lowerPadding(true),
-                subtitle = "Subtitle",
-                description = lorem + lorem,
-            ),
+            uiState =
+                BottomSheetShellUIState(
+                    title = "Legend name ",
+                    subtitle = "Subtitle",
+                    description = LOREM + LOREM,
+                ),
             content = {
-                Column {
+                Column(modifier = Modifier.verticalScroll(state = scrollState)) {
                     LegendRange(
                         longLegendList,
                     )
                 }
             },
-            windowInsets = { BottomSheetShellDefaults.windowInsets(true) },
             icon = {
                 Icon(
                     imageVector = Icons.Outlined.Info,
@@ -193,9 +198,10 @@ fun BottomSheetScreen() {
             },
             buttonBlock = {
                 ButtonBlock(
-                    modifier = Modifier.padding(
-                        BottomSheetShellDefaults.buttonBlockPaddings(),
-                    ),
+                    modifier =
+                        Modifier.padding(
+                            BottomSheetShellDefaults.buttonBlockPaddings(),
+                        ),
                     primaryButton = {
                         Button(
                             style = ButtonStyle.FILLED,
@@ -216,17 +222,18 @@ fun BottomSheetScreen() {
                 )
             },
         ) {
-            showBottomSheetShellMaxExpansion = false
+            showBottomSheetWithAndroid35Paddings = false
         }
     }
 
     if (showBottomSheetShellSingleButton) {
         BottomSheetShell(
-            uiState = BottomSheetShellUIState(
-                title = "Legend name ",
-                subtitle = "Subtitle",
-                description = lorem,
-            ),
+            uiState =
+                BottomSheetShellUIState(
+                    title = "Legend name ",
+                    subtitle = "Subtitle",
+                    description = LOREM,
+                ),
             content = {
                 Column {
                     LegendRange(
@@ -270,11 +277,12 @@ fun BottomSheetScreen() {
 
     if (showBottomSheetShellTwoButtons) {
         BottomSheetShell(
-            uiState = BottomSheetShellUIState(
-                title = "Legend name ",
-                subtitle = "Subtitle",
-                description = lorem,
-            ),
+            uiState =
+                BottomSheetShellUIState(
+                    title = "Legend name ",
+                    subtitle = "Subtitle",
+                    description = LOREM,
+                ),
             content = {
                 Column {
                     LegendRange(
@@ -309,13 +317,11 @@ fun BottomSheetScreen() {
                         onClick = {
                             showBottomSheetShellTwoButtons = false
                         },
-
                     )
 
                     Spacer(Modifier.size(Spacing.Spacing8))
                     Button(
                         modifier = Modifier.weight(0.5f),
-
                         style = ButtonStyle.FILLED,
                         icon = {
                             Icon(
@@ -339,11 +345,12 @@ fun BottomSheetScreen() {
         var searchQuery by rememberSaveable { mutableStateOf("") }
 
         BottomSheetShell(
-            uiState = BottomSheetShellUIState(
-                title = "Bottom Sheet with Search Bar",
-                subtitle = "Subtitle",
-                description = lorem,
-            ),
+            uiState =
+                BottomSheetShellUIState(
+                    title = "Bottom Sheet with Search Bar",
+                    subtitle = "Subtitle",
+                    description = LOREM,
+                ),
             content = {
                 Column {
                     LegendRange(
@@ -432,10 +439,11 @@ fun BottomSheetScreen() {
 
     if (showBottomSheetWithoutContent) {
         BottomSheetShell(
-            uiState = BottomSheetShellUIState(
-                showTopSectionDivider = true,
-                showBottomSectionDivider = false,
-            ),
+            uiState =
+                BottomSheetShellUIState(
+                    showTopSectionDivider = true,
+                    showBottomSectionDivider = false,
+                ),
             content = null,
             icon = {
                 Icon(

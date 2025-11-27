@@ -10,9 +10,9 @@ import androidx.compose.material.icons.outlined.Cancel
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuAnchorType
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MenuAnchorType
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -34,7 +34,6 @@ import org.hisp.dhis.mobile.ui.designsystem.component.model.RegExValidations
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
-import java.util.Locale
 
 /**
  * DHIS2 BasicTextInput. Wraps DHIS · [InputShell].
@@ -61,6 +60,7 @@ import java.util.Locale
  * @param inputStyle:  for the [InputShell] used.
  * @param modifier: allows a modifier to be passed externally.
  * @param actionButton: controls action button composable, if null will show nothing.
+ * @param showDeleteButton: controls whether the delete button is shown or not.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -85,24 +85,34 @@ internal fun BasicTextInput(
     actionButton: @Composable (() -> Unit)? = null,
     modifier: Modifier = Modifier,
     inputStyle: InputStyle,
+    showDeleteButton: Boolean,
 ) {
     var inputValue by remember(inputTextFieldValue) { mutableStateOf(inputTextFieldValue) }
 
-    var deleteButtonIsVisible by remember(inputTextFieldValue) { mutableStateOf(!inputTextFieldValue?.text.isNullOrEmpty() && state != InputShellState.DISABLED) }
+    var deleteButtonIsVisible by remember(inputTextFieldValue) {
+        mutableStateOf(
+            !inputTextFieldValue?.text.isNullOrEmpty() && state != InputShellState.DISABLED,
+        )
+    }
     val focusManager = LocalFocusManager.current
     val focusRequester = remember { FocusRequester() }
-    val filteredList = autoCompleteList?.filter { it.contains(inputValue?.text ?: "") }
+    val filteredList =
+        autoCompleteList?.filter {
+            val input = inputValue?.text ?: ""
+            it.contains(input) && it != input
+        }
     var expanded by remember { mutableStateOf(false) }
 
     var deleteButton:
         @Composable()
         (() -> Unit)? = null
-    if (deleteButtonIsVisible) {
+    if (deleteButtonIsVisible && showDeleteButton) {
         deleteButton = {
             IconButton(
-                modifier = Modifier
-                    .testTag("INPUT_" + testTag + "_RESET_BUTTON")
-                    .padding(Spacing.Spacing0),
+                modifier =
+                    Modifier
+                        .testTag("INPUT_" + testTag + "_RESET_BUTTON")
+                        .padding(Spacing.Spacing0),
                 icon = {
                     Icon(
                         imageVector = Icons.Outlined.Cancel,
@@ -125,10 +135,11 @@ internal fun BasicTextInput(
         onExpandedChange = { },
     ) {
         InputShell(
-            modifier = modifier
-                .testTag("INPUT_$testTag")
-                .focusRequester(focusRequester)
-                .menuAnchor(MenuAnchorType.PrimaryEditable),
+            modifier =
+                modifier
+                    .testTag("INPUT_$testTag")
+                    .focusRequester(focusRequester)
+                    .menuAnchor(ExposedDropdownMenuAnchorType.PrimaryEditable),
             isRequiredField = isRequiredField,
             title = title,
             primaryButton = deleteButton,
@@ -150,10 +161,11 @@ internal fun BasicTextInput(
             },
             inputField = {
                 BasicTextField(
-                    modifier = Modifier
-                        .testTag("INPUT_" + testTag + "_FIELD")
-                        .fillMaxWidth()
-                        .heightIn(Spacing.Spacing0, InternalSizeValues.Size300),
+                    modifier =
+                        Modifier
+                            .testTag("INPUT_" + testTag + "_FIELD")
+                            .fillMaxWidth()
+                            .heightIn(Spacing.Spacing0, InternalSizeValues.Size300),
                     inputTextValue = inputValue ?: TextFieldValue(),
                     helper = helper,
                     isSingleLine = isSingleLine,
@@ -161,11 +173,24 @@ internal fun BasicTextInput(
                     onInputChanged = { newValue ->
                         if (allowedCharacters != null) {
                             if (allowedCharacters == RegExValidations.SINGLE_LETTER.regex) {
-                                if (newValue.text.uppercase(Locale.getDefault())
-                                        .matches(allowedCharacters) || newValue.text.isEmpty()
+                                if (newValue.text
+                                        .uppercase()
+                                        .matches(allowedCharacters) ||
+                                    newValue.text.isEmpty()
                                 ) {
-                                    onValueChanged?.invoke(TextFieldValue(newValue.text.uppercase(Locale.getDefault()), newValue.selection, newValue.composition))
-                                    inputValue = TextFieldValue(newValue.text.uppercase(Locale.getDefault()), newValue.selection, newValue.composition)
+                                    onValueChanged?.invoke(
+                                        TextFieldValue(
+                                            newValue.text.uppercase(),
+                                            newValue.selection,
+                                            newValue.composition,
+                                        ),
+                                    )
+                                    inputValue =
+                                        TextFieldValue(
+                                            newValue.text.uppercase(),
+                                            newValue.selection,
+                                            newValue.composition,
+                                        )
 
                                     deleteButtonIsVisible = newValue.text.isNotEmpty()
                                 }
@@ -181,7 +206,12 @@ internal fun BasicTextInput(
                             inputValue = newValue
                             deleteButtonIsVisible = newValue.text.isNotEmpty()
                         }
-                        expanded = (!filteredList.isNullOrEmpty() && filteredList.any { it == newValue.text || it.contains(newValue.text) })
+                        expanded = (
+                            !filteredList.isNullOrEmpty() &&
+                                filteredList.any {
+                                    it == newValue.text || it.contains(newValue.text)
+                                }
+                        )
                     },
                     enabled = state != InputShellState.DISABLED,
                     state = state,
@@ -196,11 +226,20 @@ internal fun BasicTextInput(
                 )
                 if (expanded && !filteredList.isNullOrEmpty()) {
                     DropdownMenu(
-                        modifier = Modifier.exposedDropdownSize().background(SurfaceColor.SurfaceBright),
+                        modifier =
+                            Modifier
+                                .exposedDropdownSize()
+                                .background(SurfaceColor.SurfaceBright),
                         expanded = expanded,
                         onDismissRequest = { expanded = false },
                         offset = DpOffset(x = -16.dp, y = Spacing.Spacing12),
-                        properties = PopupProperties(focusable = false, dismissOnBackPress = true, dismissOnClickOutside = true, clippingEnabled = true),
+                        properties =
+                            PopupProperties(
+                                focusable = false,
+                                dismissOnBackPress = true,
+                                dismissOnClickOutside = true,
+                                clippingEnabled = true,
+                            ),
                     ) {
                         filteredList.forEach {
                             if (filteredList.indexOf(it) <= 4) {
@@ -208,6 +247,7 @@ internal fun BasicTextInput(
                                     text = { Text(it) },
                                     modifier = Modifier,
                                     onClick = {
+                                        autoCompleteItemSelected?.invoke(it)
                                         onValueChanged?.invoke(
                                             TextFieldValue(
                                                 it,
@@ -215,7 +255,6 @@ internal fun BasicTextInput(
                                                 TextRange(0),
                                             ),
                                         )
-                                        autoCompleteItemSelected?.invoke(it)
                                         expanded = false
                                     },
                                 )

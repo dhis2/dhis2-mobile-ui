@@ -17,7 +17,6 @@ import org.junit.Rule
 import org.junit.Test
 
 class LocationSearchBarTest {
-
     @get:Rule
     val rule = createComposeRule()
 
@@ -49,14 +48,15 @@ class LocationSearchBarTest {
     fun shouldDisplaySearchBarWithResults() {
         rule.setContent {
             LocationBar(
-                currentResults = listOf(
-                    LocationItemModel.StoredResult(
-                        "title",
-                        "subtitle",
-                        0.0,
-                        0.0,
+                currentResults =
+                    listOf(
+                        LocationItemModel.StoredResult(
+                            "title",
+                            "subtitle",
+                            0.0,
+                            0.0,
+                        ),
                     ),
-                ),
                 onBackClicked = {},
                 onClearLocation = {},
                 onSearchLocation = {},
@@ -137,14 +137,15 @@ class LocationSearchBarTest {
                 onBackClicked = {},
                 onClearLocation = {},
                 onSearchLocation = {
-                    items = listOf(
-                        LocationItemModel.SearchResult(
-                            "title search result",
-                            "subtitle search result",
-                            0.0,
-                            0.0,
-                        ),
-                    )
+                    items =
+                        listOf(
+                            LocationItemModel.SearchResult(
+                                "title search result",
+                                "subtitle search result",
+                                0.0,
+                                0.0,
+                            ),
+                        )
                 },
                 onLocationSelected = {},
                 searching = false,
@@ -186,14 +187,15 @@ class LocationSearchBarTest {
                 onBackClicked = {},
                 onClearLocation = {},
                 onSearchLocation = {
-                    items = listOf(
-                        LocationItemModel.SearchResult(
-                            "title search result",
-                            "subtitle search result",
-                            0.0,
-                            0.0,
-                        ),
-                    )
+                    items =
+                        listOf(
+                            LocationItemModel.SearchResult(
+                                "title search result",
+                                "subtitle search result",
+                                0.0,
+                                0.0,
+                            ),
+                        )
                 },
                 onLocationSelected = {},
                 searching = false,

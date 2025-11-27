@@ -28,6 +28,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.InputText
 import org.hisp.dhis.mobile.ui.designsystem.component.table.actions.TableInteractions
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableCell
+import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableCellContent
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableModel
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.DataTable
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
@@ -53,22 +54,26 @@ fun TableScreen() {
         val scope = rememberCoroutineScope()
 
         Box(
-            modifier = Modifier.fillMaxSize()
-                .padding(horizontal = Spacing.Spacing16),
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .padding(horizontal = Spacing.Spacing16),
             contentAlignment = Alignment.BottomCenter,
         ) {
             DataTable(
                 tableList = data,
-                tableInteractions = object : TableInteractions {
-                    override fun onClick(tableCell: TableCell) {
-                        super.onClick(tableCell)
-                        selectedTableCell = if (selectedTableCell?.id == tableCell.id) {
-                            null
-                        } else {
-                            tableCell
+                tableInteractions =
+                    object : TableInteractions {
+                        override fun onClick(tableCell: TableCell) {
+                            super.onClick(tableCell)
+                            selectedTableCell =
+                                if (selectedTableCell?.id == tableCell.id) {
+                                    null
+                                } else {
+                                    tableCell
+                                }
                         }
-                    }
-                },
+                    },
             )
 
             selectedTableCell?.let {
@@ -94,33 +99,67 @@ fun TableScreen() {
                             onValueChanged = { fieldValue ->
                                 textFieldValue = fieldValue ?: TextFieldValue()
                                 scope.launch {
-                                    data = data.map { table ->
-                                        val hasTotal = table.tableHeaderModel.extraColumns.isNotEmpty()
-                                        val tableRows = table.tableRows.map { tableRowModel ->
-                                            val cell =
-                                                tableRowModel.values.values.find { tableCell ->
-                                                    tableCell.id == it.id
-                                                }
-                                            val totalsCell = tableRowModel.values.values.last().takeIf { hasTotal }
-                                            if (cell != null) {
-                                                val updatedValues =
-                                                    tableRowModel.values.toMutableMap()
-                                                updatedValues[cell.column] = cell.copy(
-                                                    value = textFieldValue.text.takeIf { value -> value.isNotEmpty() },
-                                                )
-                                                totalsCell?.let { totalCell ->
-                                                    val totalValue = updatedValues.values.toList().dropLast(1).sumOf { tableCell -> tableCell.value?.toDoubleOrNull() ?: 0.0 }
+                                    data =
+                                        data.map { table ->
+                                            val hasTotal = table.tableHeaderModel.extraColumns.isNotEmpty()
+                                            val tableRows =
+                                                table.tableRows.map { tableRowModel ->
+                                                    val cell =
+                                                        tableRowModel.values.values.find { tableCell ->
+                                                            tableCell.id == it.id
+                                                        }
+                                                    val totalsCell =
+                                                        tableRowModel.values.values
+                                                            .last()
+                                                            .takeIf { hasTotal }
+                                                    if (cell != null) {
+                                                        val updatedValues =
+                                                            tableRowModel.values.toMutableMap()
 
-                                                    updatedValues[tableRowModel.values.size - 1] =
-                                                        totalCell.copy(value = totalValue.toString())
+                                                        updatedValues[cell.column] =
+                                                            cell.copy(
+                                                                content =
+                                                                    when (cell.content) {
+                                                                        is TableCellContent.Checkbox ->
+                                                                            TableCellContent.Checkbox(
+                                                                                isChecked = textFieldValue.text.toBoolean(),
+                                                                            )
+
+                                                                        is TableCellContent.Text ->
+                                                                            TableCellContent.Text(
+                                                                                value =
+                                                                                    textFieldValue.text
+                                                                                        .takeIf { value ->
+                                                                                            value.isNotEmpty()
+                                                                                        },
+                                                                            )
+                                                                    },
+                                                            )
+
+                                                        totalsCell?.let { totalCell ->
+                                                            val totalValue =
+                                                                updatedValues.values
+                                                                    .toList()
+                                                                    .dropLast(1)
+                                                                    .sumOf { tableCell ->
+                                                                        tableCell.value?.toDoubleOrNull() ?: 0.0
+                                                                    }
+
+                                                            updatedValues[tableRowModel.values.size - 1] =
+                                                                totalCell.copy(
+                                                                    content =
+                                                                        TableCellContent.Text(
+                                                                            value = totalValue.toString(),
+                                                                        ),
+                                                                )
+                                                        }
+                                                        tableRowModel.copy(values = updatedValues)
+                                                    } else {
+                                                        tableRowModel
+                                                    }
                                                 }
-                                                tableRowModel.copy(values = updatedValues)
-                                            } else {
-                                                tableRowModel
-                                            }
+                                            table.copy(tableRows = tableRows)
                                         }
-                                        table.copy(tableRows = tableRows)
-                                    }
                                 }
                             },
                             state = InputShellState.FOCUSED,
@@ -154,8 +193,9 @@ fun TableScreen() {
 }
 
 fun parseJson(jsonString: String): List<TableModel> {
-    val json = Json {
-        ignoreUnknownKeys = true
-    }
+    val json =
+        Json {
+            ignoreUnknownKeys = true
+        }
     return json.decodeFromString(jsonString)
 }

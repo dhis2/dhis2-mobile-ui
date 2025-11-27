@@ -24,6 +24,7 @@ import androidx.compose.ui.text.input.TextFieldValue
  * item is focused.
  * @param imeAction: controls the ImeAction to show in the keyboard.
  * @param modifier: allows a modifier to be passed externally.
+ * @param showDeleteButton: controls whether the delete button is shown or not.
  */
 @Composable
 fun InputLongText(
@@ -41,6 +42,7 @@ fun InputLongText(
     onFocusChanged: ((Boolean) -> Unit)? = null,
     imeAction: ImeAction = ImeAction.Next,
     modifier: Modifier = Modifier,
+    showDeleteButton: Boolean = true,
 ) {
     BasicTextInput(
         title = title,
@@ -59,5 +61,6 @@ fun InputLongText(
         onFocusChanged = onFocusChanged,
         autoCompleteList = autoCompleteList,
         autoCompleteItemSelected = autoCompleteItemSelected,
+        showDeleteButton = showDeleteButton,
     )
 }

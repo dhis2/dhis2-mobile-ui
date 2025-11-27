@@ -64,9 +64,10 @@ fun InputCoordinate(
     val focusRequester = remember { FocusRequester() }
 
     InputShell(
-        modifier = modifier
-            .focusRequester(focusRequester)
-            .testTag("INPUT_COORDINATE"),
+        modifier =
+            modifier
+                .focusRequester(focusRequester)
+                .testTag("INPUT_COORDINATE"),
         title = title,
         state = state,
         isRequiredField = isRequired,
@@ -120,8 +121,7 @@ fun InputCoordinate(
                             end = Spacing.Spacing12,
                             top = Spacing.Spacing8,
                             bottom = Spacing.Spacing8,
-                        )
-                        .focusable()
+                        ).focusable()
                         .testTag("INPUT_COORDINATE_ADD_BUTTON"),
                 ) {
                     focusRequester.requestFocus()
@@ -129,65 +129,74 @@ fun InputCoordinate(
                 }
             }
         },
-        primaryButton = if (coordinates != null && state != InputShellState.DISABLED) {
-            {
-                IconButton(
-                    modifier = Modifier.testTag("INPUT_COORDINATE_RESET_BUTTON"),
-                    icon = {
-                        Icon(
-                            imageVector = Icons.Outlined.Cancel,
-                            contentDescription = "Reset Button",
-                        )
-                    },
-                    onClick = {
-                        focusRequester.requestFocus()
-                        onResetButtonClicked.invoke()
-                    },
-                )
-            }
-        } else {
-            null
-        },
-        secondaryButton = if (coordinates != null && state != InputShellState.DISABLED) {
-            {
-                SquareIconButton(
-                    modifier = Modifier.testTag("INPUT_COORDINATE_EDIT_BUTTON"),
-                    enabled = true,
-                    icon = {
-                        Icon(
-                            imageVector = Icons.Outlined.EditLocationAlt,
-                            contentDescription = "edit_location",
-                        )
-                    },
-                    onClick = {
-                        focusRequester.requestFocus()
-                        onUpdateButtonClicked.invoke()
-                    },
-                )
-            }
-        } else {
-            null
-        },
+        primaryButton =
+            if (coordinates != null && state != InputShellState.DISABLED) {
+                {
+                    IconButton(
+                        modifier = Modifier.testTag("INPUT_COORDINATE_RESET_BUTTON"),
+                        icon = {
+                            Icon(
+                                imageVector = Icons.Outlined.Cancel,
+                                contentDescription = "Reset Button",
+                            )
+                        },
+                        onClick = {
+                            focusRequester.requestFocus()
+                            onResetButtonClicked.invoke()
+                        },
+                    )
+                }
+            } else {
+                null
+            },
+        secondaryButton =
+            if (coordinates != null && state != InputShellState.DISABLED) {
+                {
+                    SquareIconButton(
+                        modifier = Modifier.testTag("INPUT_COORDINATE_EDIT_BUTTON"),
+                        enabled = true,
+                        icon = {
+                            Icon(
+                                imageVector = Icons.Outlined.EditLocationAlt,
+                                contentDescription = "edit_location",
+                            )
+                        },
+                        onClick = {
+                            focusRequester.requestFocus()
+                            onUpdateButtonClicked.invoke()
+                        },
+                    )
+                }
+            } else {
+                null
+            },
         inputStyle = inputStyle,
     )
 }
 
 @Composable
-fun CoordinateText(text: String, value: String, isDisabled: Boolean) {
+fun CoordinateText(
+    text: String,
+    value: String,
+    isDisabled: Boolean,
+) {
     Text(
-        style = MaterialTheme.typography.bodyLarge.copy(
-            color = if (!isDisabled) {
-                TextColor.OnSurface
-            } else {
-                TextColor.OnDisabledSurface
+        style =
+            MaterialTheme.typography.bodyLarge.copy(
+                color =
+                    if (!isDisabled) {
+                        TextColor.OnSurface
+                    } else {
+                        TextColor.OnDisabledSurface
+                    },
+            ),
+        text =
+            buildAnnotatedString {
+                withStyle(style = SpanStyle(color = TextColor.OnDisabledSurface)) {
+                    append("$text: ")
+                }
+                append(value)
             },
-        ),
-        text = buildAnnotatedString {
-            withStyle(style = SpanStyle(color = TextColor.OnDisabledSurface)) {
-                append("$text: ")
-            }
-            append(value)
-        },
     )
 }
 

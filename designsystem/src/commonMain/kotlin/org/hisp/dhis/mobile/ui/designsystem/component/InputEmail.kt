@@ -31,6 +31,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.model.RegExValidations
  * @param modifier: allows a modifier to be passed externally.
  * @param onEmailActionCLicked: callback to when email button is clicked.
  * @param inputStyle: manages the InputShell style.
+ * @param showDeleteButton: controls whether the delete button is shown or not.
  */
 @Composable
 fun InputEmail(
@@ -49,6 +50,7 @@ fun InputEmail(
     modifier: Modifier = Modifier,
     onEmailActionCLicked: () -> Unit,
     inputStyle: InputStyle = InputStyle.DataInputStyle(),
+    showDeleteButton: Boolean = true,
 ) {
     val isValidEmailAddress = RegExValidations.EMAIL.regex.matches(inputTextFieldValue?.text.orEmpty())
     BasicTextInput(
@@ -60,10 +62,11 @@ fun InputEmail(
         isRequiredField = isRequiredField,
         onNextClicked = onNextClicked,
         onValueChanged = onValueChanged,
-        keyboardOptions = KeyboardOptions(
-            imeAction = imeAction,
-            keyboardType = KeyboardType.Email,
-        ),
+        keyboardOptions =
+            KeyboardOptions(
+                imeAction = imeAction,
+                keyboardType = KeyboardType.Email,
+            ),
         modifier = modifier,
         testTag = "EMAIL",
         onFocusChanged = onFocusChanged,
@@ -83,11 +86,14 @@ fun InputEmail(
         autoCompleteList = autoCompleteList,
         autoCompleteItemSelected = autoCompleteItemSelected,
         inputStyle = inputStyle,
+        showDeleteButton = showDeleteButton,
     )
 }
 
-private fun isButtonEnabled(inputStyle: InputStyle, isValidEmailAddress: Boolean) =
-    when (inputStyle) {
-        is InputStyle.DataInputStyle -> isValidEmailAddress
-        is InputStyle.ParameterInputStyle -> false
-    }
+private fun isButtonEnabled(
+    inputStyle: InputStyle,
+    isValidEmailAddress: Boolean,
+) = when (inputStyle) {
+    is InputStyle.DataInputStyle -> isValidEmailAddress
+    is InputStyle.ParameterInputStyle -> false
+}

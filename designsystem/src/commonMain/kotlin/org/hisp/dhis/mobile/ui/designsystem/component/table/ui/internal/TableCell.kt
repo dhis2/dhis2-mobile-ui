@@ -14,24 +14,23 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTag
 import kotlinx.coroutines.launch
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableCell
+import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableCellContent
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.LocalTableSelection
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableSelection
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.compositions.LocalInteraction
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.cells.CheckBoxCell
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.cells.MandatoryIcon
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.cells.MandatoryIconStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.cells.TextCell
@@ -61,23 +60,20 @@ internal fun TableCell(
     val localInteraction = LocalInteraction.current
     val tableSelection = LocalTableSelection.current
 
-    val cellValue by remember(cell.value) {
-        mutableStateOf(cell.value)
-    }
-
     val bringIntoViewRequester = remember { BringIntoViewRequester() }
 
     val backgroundColor = TableTheme.colors.disabledCellBackground
     val coroutineScope = rememberCoroutineScope()
     val isSelected = tableSelection.isCellSelected(tableId, cell.column, cell.row ?: -1)
-    val isParentSelected = tableSelection.isCellParentSelected(
-        selectedTableId = tableId,
-        columnIndex = cell.column,
-        rowIndex = cell.row ?: -1,
-    )
+    val isParentSelected =
+        tableSelection.isCellParentSelected(
+            selectedTableId = tableId,
+            columnIndex = cell.column,
+            rowIndex = cell.row ?: -1,
+        )
     val colors = TableTheme.colors
 
-    val style by remember(cellValue, isSelected, isParentSelected) {
+    val style by remember(cell.value, isSelected, isParentSelected) {
         derivedStateOf {
             styleForCell(
                 tableColorProvider = { colors },
@@ -102,8 +98,7 @@ internal fun TableCell(
                         groupedTables = config.groupTables,
                         tableId = tableId,
                         column = cell.column,
-                    )
-                    .plus(headerExtraSize)
+                    ).plus(headerExtraSize)
                     .toDp()
             }
         }
@@ -112,48 +107,62 @@ internal fun TableCell(
     var currentCellHeight = 0
 
     Box(
-        modifier = Modifier
-            .onSizeChanged { currentCellHeight = it.height }
-            .width(cellWidth)
-            .fillMaxHeight()
-            .defaultMinSize(minHeight = dimensions.defaultCellHeight)
-            .semantics {
-                testTag = cellTestTag(tableId, cell.id)
-                rowBackground = style.backgroundColor()
-                cellSelected = isSelected
-                hasError = cell.hasErrorOrWarning()
-                isBlocked = style.backgroundColor() == backgroundColor
-            }
-            .cellBorder(
-                selected = isSelected,
-                borderColor = style.mainColor(),
-                backgroundColor = style.backgroundColor(),
-                dividerColor = cell.legendColor?.let { Color(it) } ?: DividerDefaults.color,
-            )
-            .bringIntoViewRequester(bringIntoViewRequester)
-            .focusable()
-            .clickable(cell.editable) {
-                localInteraction.onSelectionChange(
-                    TableSelection.CellSelection(
-                        tableId = tableId,
-                        columnIndex = cell.column,
-                        rowIndex = cell.row ?: -1,
-                        globalIndex = 0,
-                    ),
-                )
-                localInteraction.onClick(cell)
-            },
+        modifier =
+            Modifier
+                .onSizeChanged { currentCellHeight = it.height }
+                .width(cellWidth)
+                .fillMaxHeight()
+                .defaultMinSize(minHeight = dimensions.defaultCellHeight)
+                .semantics {
+                    testTag = cellTestTag(tableId, cell.id)
+                    rowBackground = style.backgroundColor()
+                    cellSelected = isSelected
+                    hasError = cell.hasErrorOrWarning()
+                    isBlocked = style.backgroundColor() == backgroundColor
+                }.cellBorder(
+                    selected = isSelected,
+                    borderColor = style.mainColor(),
+                    backgroundColor = style.backgroundColor(),
+                    dividerColor = cell.legendColor?.let { Color(it) } ?: DividerDefaults.color,
+                ).bringIntoViewRequester(bringIntoViewRequester)
+                .focusable()
+                .clickable(cell.editable) {
+                    localInteraction.onSelectionChange(
+                        TableSelection.CellSelection(
+                            tableId = tableId,
+                            columnIndex = cell.column,
+                            rowIndex = cell.row ?: -1,
+                            globalIndex = 0,
+                        ),
+                    )
+                    localInteraction.onClick(cell)
+                },
     ) {
-        TextCell(
-            cellValue = cellValue ?: "",
-            maxLines = maxLines,
-            cell = cell,
-        )
-        if (cell.mandatory == true) {
-            val mandatoryStyle = when {
-                cellValue?.isNotEmpty() == true -> MandatoryIconStyle.FilledMandatoryStyle
-                else -> MandatoryIconStyle.DefaultMandatoryStyle
+        when (cell.content) {
+            is TableCellContent.Checkbox -> {
+                CheckBoxCell(cell = cell)
             }
+
+            else -> {
+                TextCell(cell = cell, maxLines = maxLines)
+            }
+        }
+        if (cell.mandatory == true) {
+            val mandatoryStyle =
+                when (cell.content) {
+                    is TableCellContent.Checkbox ->
+                        when {
+                            cell.content.isChecked -> MandatoryIconStyle.FilledMandatoryStyle
+                            else -> MandatoryIconStyle.ComponentMandatoryStyle
+                        }
+
+                    is TableCellContent.Text ->
+                        when {
+                            cell.value?.isNotEmpty() == true -> MandatoryIconStyle.FilledMandatoryStyle
+                            else -> MandatoryIconStyle.DefaultMandatoryStyle
+                        }
+                }
+
             MandatoryIcon(
                 style = mandatoryStyle,
                 modifier = Modifier.align(mandatoryStyle.alignment),
@@ -163,12 +172,13 @@ internal fun TableCell(
 
     LaunchedEffect(key1 = isSelected) {
         if (isSelected) {
-            val marginCoordinates = Rect(
-                0f,
-                0f,
-                dimensions.defaultCellWidth * 2f,
-                dimensions.textInputHeight.toFloat() + currentCellHeight,
-            )
+            val marginCoordinates =
+                Rect(
+                    0f,
+                    0f,
+                    dimensions.defaultCellWidth * 2f,
+                    dimensions.textInputHeight.toFloat() + currentCellHeight,
+                )
             coroutineScope.launch {
                 bringIntoViewRequester.bringIntoView(marginCoordinates)
             }

@@ -1,16 +1,18 @@
 import org.jetbrains.dokka.gradle.DokkaTask
+import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
 
 version = rootProject.version
 group = rootProject.group
 
 plugins {
-    kotlin("multiplatform")
-    id("org.jetbrains.compose")
-    id("com.android.library")
+    alias(libs.plugins.kotlinMultiplatform)
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.composeHotReload)
+    alias(libs.plugins.composeMultiplatform)
+    alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.testing.snapshot.paparazzi)
     id("convention.publication")
-    id("org.jetbrains.kotlin.plugin.serialization").version("2.0.20")
-    id("app.cash.paparazzi").version("1.3.5")
-    alias(libs.plugins.compose.compiler)
 }
 
 kotlin {
@@ -20,6 +22,19 @@ kotlin {
 
     jvm("desktop")
 
+    val xcf = XCFramework()
+
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64(),
+    ).forEach {
+        it.binaries.framework {
+            baseName = "designsystem"
+            isStatic = true
+            xcf.add(this)
+        }
+    }
     sourceSets {
         val commonMain by getting {
             dependencies {
@@ -28,32 +43,30 @@ kotlin {
                 implementation(compose.ui)
                 implementation(compose.material3)
                 api(compose.materialIconsExtended)
-                @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
+                implementation(libs.kotlinx.serialization.json)
             }
         }
 
+        val commonTest by getting
+
         val androidMain by getting {
             dependencies {
-                api("androidx.activity:activity-compose:1.9.3")
-                api("androidx.appcompat:appcompat:1.7.0")
-                api("androidx.core:core-ktx:1.15.0")
-                implementation("com.google.zxing:core:3.5.2")
-                implementation("se.warting.signature:signature-pad:0.1.2")
+                implementation(libs.zxing.core)
+                implementation(libs.signature.pad)
             }
         }
 
         val androidUnitTest by getting {
             dependencies {
-                implementation("junit:junit:4.13.2")
+                implementation(libs.test.junit)
             }
         }
 
         val desktopMain by getting {
             dependencies {
                 implementation(compose.desktop.common)
-                implementation("com.google.zxing:core:3.5.2")
+                implementation(libs.zxing.core)
             }
         }
 

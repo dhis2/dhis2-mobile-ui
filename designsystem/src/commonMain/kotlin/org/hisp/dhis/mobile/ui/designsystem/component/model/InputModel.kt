@@ -58,7 +58,6 @@ data class InputUserModel(
     override val imeAction: ImeAction = ImeAction.Next,
 ) : BasicTextInputModel() {
     companion object {
-
         const val MAIN = "INPUT_USER"
         const val INPUT_TYPE = "USER"
         const val RESET_BUTTON = "INPUT_USER_RESET_BUTTON"

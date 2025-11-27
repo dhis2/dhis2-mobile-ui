@@ -22,7 +22,6 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 
 class InputAgeTest {
-
     @get:Rule
     val rule = createComposeRule()
 
@@ -30,11 +29,13 @@ class InputAgeTest {
     fun modeSelectionShouldBeShownWhenComponentIsInitialised() {
         rule.setContent {
             InputAge(
-                state = rememberInputAgeState(
-                    inputAgeData = InputAgeData(
-                        title = "Label",
+                state =
+                    rememberInputAgeState(
+                        inputAgeData =
+                            InputAgeData(
+                                title = "Label",
+                            ),
                     ),
-                ),
                 onValueChanged = {
                     // no-op
                 },
@@ -52,12 +53,14 @@ class InputAgeTest {
     fun dateOfBirthFieldShouldBeShownCorrectly() {
         rule.setContent {
             InputAge(
-                state = rememberInputAgeState(
-                    inputAgeData = InputAgeData(
-                        title = "Label",
+                state =
+                    rememberInputAgeState(
+                        inputAgeData =
+                            InputAgeData(
+                                title = "Label",
+                            ),
+                        inputType = AgeInputType.DateOfBirth.EMPTY,
                     ),
-                    inputType = AgeInputType.DateOfBirth.EMPTY,
-                ),
                 onValueChanged = {
                     // no-op
                 },
@@ -76,12 +79,14 @@ class InputAgeTest {
         var inputType by mutableStateOf<AgeInputType>(AgeInputType.None)
         rule.setContent {
             InputAge(
-                state = rememberInputAgeState(
-                    inputAgeData = InputAgeData(
-                        title = "Label",
+                state =
+                    rememberInputAgeState(
+                        inputAgeData =
+                            InputAgeData(
+                                title = "Label",
+                            ),
+                        inputType = AgeInputType.DateOfBirth.EMPTY,
                     ),
-                    inputType = AgeInputType.DateOfBirth.EMPTY,
-                ),
                 onValueChanged = {
                     inputType = it ?: AgeInputType.None
                 },
@@ -98,12 +103,14 @@ class InputAgeTest {
     fun ageFieldShouldBeShownCorrectly() {
         rule.setContent {
             InputAge(
-                state = rememberInputAgeState(
-                    inputAgeData = InputAgeData(
-                        title = "Label",
+                state =
+                    rememberInputAgeState(
+                        inputAgeData =
+                            InputAgeData(
+                                title = "Label",
+                            ),
+                        inputType = AgeInputType.Age.EMPTY,
                     ),
-                    inputType = AgeInputType.Age.EMPTY,
-                ),
                 onValueChanged = {
                     // no-op
                 },
@@ -122,12 +129,14 @@ class InputAgeTest {
         var inputType by mutableStateOf<AgeInputType>(AgeInputType.None)
         rule.setContent {
             InputAge(
-                state = rememberInputAgeState(
-                    inputAgeData = InputAgeData(
-                        title = "Label",
+                state =
+                    rememberInputAgeState(
+                        inputAgeData =
+                            InputAgeData(
+                                title = "Label",
+                            ),
+                        inputType = AgeInputType.Age.EMPTY,
                     ),
-                    inputType = AgeInputType.Age.EMPTY,
-                ),
                 onValueChanged = {
                     inputType = it ?: AgeInputType.None
                 },
@@ -145,12 +154,14 @@ class InputAgeTest {
 
         rule.setContent {
             InputAge(
-                state = rememberInputAgeState(
-                    inputAgeData = InputAgeData(
-                        title = "Label",
+                state =
+                    rememberInputAgeState(
+                        inputAgeData =
+                            InputAgeData(
+                                title = "Label",
+                            ),
+                        inputType = inputType,
                     ),
-                    inputType = inputType,
-                ),
                 onValueChanged = {
                     inputType = it ?: AgeInputType.None
                 },
@@ -172,14 +183,16 @@ class InputAgeTest {
 
         rule.setContent {
             InputAge(
-                state = rememberInputAgeState(
-                    inputAgeData = InputAgeData(
-                        title = "Label",
+                state =
+                    rememberInputAgeState(
+                        inputAgeData =
+                            InputAgeData(
+                                title = "Label",
+                            ),
+                        inputType = input,
                     ),
-                    inputType = input,
-                ),
                 onValueChanged = {
-                    /* no-op */
+                    // no-op
                 },
             )
         }
@@ -191,20 +204,23 @@ class InputAgeTest {
 
     @Test
     fun shouldShowErrorMessageWhenAgeIsOnFuture() {
-        val calendar = Calendar.getInstance().apply {
-            add(Calendar.DAY_OF_MONTH, 1)
-        }
+        val calendar =
+            Calendar.getInstance().apply {
+                add(Calendar.DAY_OF_MONTH, 1)
+            }
         val futureDate = SimpleDateFormat(DATE_FORMAT).format(calendar.time)
         var inputType by mutableStateOf<AgeInputType>(AgeInputType.DateOfBirth.EMPTY)
 
         rule.setContent {
             InputAge(
-                state = rememberInputAgeState(
-                    inputAgeData = InputAgeData(
-                        title = "Label",
+                state =
+                    rememberInputAgeState(
+                        inputAgeData =
+                            InputAgeData(
+                                title = "Label",
+                            ),
+                        inputType = inputType,
                     ),
-                    inputType = inputType,
-                ),
                 onValueChanged = {
                     inputType = it ?: AgeInputType.None
                 },
@@ -222,12 +238,14 @@ class InputAgeTest {
 
         rule.setContent {
             InputAge(
-                state = rememberInputAgeState(
-                    inputAgeData = InputAgeData(
-                        title = "Label",
+                state =
+                    rememberInputAgeState(
+                        inputAgeData =
+                            InputAgeData(
+                                title = "Label",
+                            ),
+                        inputType = inputType,
                     ),
-                    inputType = inputType,
-                ),
                 onValueChanged = {
                     inputType = it ?: AgeInputType.None
                 },
@@ -257,12 +275,14 @@ class InputAgeTest {
     fun shouldFormatDateCorrectly() {
         rule.setContent {
             InputAge(
-                state = rememberInputAgeState(
-                    inputAgeData = InputAgeData(
-                        title = "Label",
+                state =
+                    rememberInputAgeState(
+                        inputAgeData =
+                            InputAgeData(
+                                title = "Label",
+                            ),
+                        inputType = AgeInputType.DateOfBirth(TextFieldValue("1991-11-27")),
                     ),
-                    inputType = AgeInputType.DateOfBirth(TextFieldValue("1991-11-27")),
-                ),
                 onValueChanged = {
                     // no-op
                 },
@@ -274,21 +294,30 @@ class InputAgeTest {
 
     @Test
     fun shouldShowErrorForOutsideRangeDate() {
+        val calendar =
+            Calendar.getInstance().apply {
+                add(Calendar.DAY_OF_MONTH, 1)
+            }
+        val futureDate = SimpleDateFormat("yyyy-MM-dd").format(calendar.time)
+        val formattedDate = SimpleDateFormat("dd/MM/yyyy").format(calendar.time)
+
         rule.setContent {
             InputAge(
-                state = rememberInputAgeState(
-                    inputAgeData = InputAgeData(
-                        title = "Label",
+                state =
+                    rememberInputAgeState(
+                        inputAgeData =
+                            InputAgeData(
+                                title = "Label",
+                            ),
+                        inputType = AgeInputType.DateOfBirth(TextFieldValue(futureDate)),
                     ),
-                    inputType = AgeInputType.DateOfBirth(TextFieldValue("2025-11-27")),
-                ),
                 onValueChanged = {
                     // no-op
                 },
             )
         }
 
-        rule.onNodeWithTag("INPUT_AGE_TEXT_FIELD").assertExists().assertTextEquals("27/11/2025")
+        rule.onNodeWithTag("INPUT_AGE_TEXT_FIELD").assertExists().assertTextEquals(formattedDate)
         rule.onNodeWithTag("INPUT_AGE_SUPPORTING_TEXT").assertExists()
     }
 
@@ -296,12 +325,14 @@ class InputAgeTest {
     fun shouldWorkWithInvalidDate() {
         rule.setContent {
             InputAge(
-                state = rememberInputAgeState(
-                    inputAgeData = InputAgeData(
-                        title = "Label",
+                state =
+                    rememberInputAgeState(
+                        inputAgeData =
+                            InputAgeData(
+                                title = "Label",
+                            ),
+                        inputType = AgeInputType.DateOfBirth(TextFieldValue("1004-9999-9999")),
                     ),
-                    inputType = AgeInputType.DateOfBirth(TextFieldValue("1004-9999-9999")),
-                ),
                 onValueChanged = {
                     // no-op
                 },

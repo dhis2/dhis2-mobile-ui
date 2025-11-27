@@ -27,7 +27,6 @@ import org.junit.Rule
 import org.junit.Test
 
 class InputDropDownSnapshotTest {
-
     @get:Rule
     val paparazzi = paparazzi()
 
@@ -39,18 +38,19 @@ class InputDropDownSnapshotTest {
                 PreviewContextConfigurationEffect()
             }
             ColumnScreenContainer {
-                val options = listOf(
-                    DropdownItem("Option 1"),
-                    DropdownItem("Option 2"),
-                    DropdownItem("Option 3"),
-                    DropdownItem("Option 4"),
-                    DropdownItem("Option 5"),
-                    DropdownItem("Option 6"),
-                    DropdownItem("Option 7"),
-                    DropdownItem("Option 8"),
-                    DropdownItem("Option 9"),
-                    DropdownItem("Option 10"),
-                )
+                val options =
+                    listOf(
+                        DropdownItem("Option 1"),
+                        DropdownItem("Option 2"),
+                        DropdownItem("Option 3"),
+                        DropdownItem("Option 4"),
+                        DropdownItem("Option 5"),
+                        DropdownItem("Option 6"),
+                        DropdownItem("Option 7"),
+                        DropdownItem("Option 8"),
+                        DropdownItem("Option 9"),
+                        DropdownItem("Option 10"),
+                    )
                 Title("Input Dropdown", textColor = TextColor.OnSurfaceVariant)
 
                 SubTitle(

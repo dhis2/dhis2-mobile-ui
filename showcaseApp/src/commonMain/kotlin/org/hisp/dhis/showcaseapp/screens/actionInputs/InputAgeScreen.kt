@@ -25,12 +25,14 @@ fun InputAgeScreen() {
 
         ColumnComponentContainer("Input Age Component - Idle") {
             InputAge(
-                state = rememberInputAgeState(
-                    inputAgeData = InputAgeData(
-                        title = "Label",
+                state =
+                    rememberInputAgeState(
+                        inputAgeData =
+                            InputAgeData(
+                                title = "Label",
+                            ),
+                        inputType = inputType,
                     ),
-                    inputType = inputType,
-                ),
                 onValueChanged = { newInputType ->
                     inputType = newInputType ?: AgeInputType.None
                 },
@@ -39,12 +41,14 @@ fun InputAgeScreen() {
 
         ColumnComponentContainer("Input Age Component - Idle Disabled") {
             InputAge(
-                state = rememberInputAgeState(
-                    inputAgeData = InputAgeData(
-                        title = "Label",
+                state =
+                    rememberInputAgeState(
+                        inputAgeData =
+                            InputAgeData(
+                                title = "Label",
+                            ),
+                        inputState = InputShellState.DISABLED,
                     ),
-                    inputState = InputShellState.DISABLED,
-                ),
                 onValueChanged = { newInputType ->
                     inputType = newInputType ?: AgeInputType.None
                 },
@@ -53,13 +57,15 @@ fun InputAgeScreen() {
 
         ColumnComponentContainer("Input Age Component - Date Of Birth") {
             InputAge(
-                state = rememberInputAgeState(
-                    inputAgeData = InputAgeData(
-                        title = "Label",
+                state =
+                    rememberInputAgeState(
+                        inputAgeData =
+                            InputAgeData(
+                                title = "Label",
+                            ),
+                        inputType = AgeInputType.DateOfBirth(TextFieldValue("01011985")),
+                        inputState = InputShellState.DISABLED,
                     ),
-                    inputType = AgeInputType.DateOfBirth(TextFieldValue("01011985")),
-                    inputState = InputShellState.DISABLED,
-                ),
                 onValueChanged = { newInputType ->
                     inputType = newInputType ?: AgeInputType.None
                 },
@@ -68,14 +74,16 @@ fun InputAgeScreen() {
 
         ColumnComponentContainer("Input Age Component - Date Of Birth Required Error") {
             InputAge(
-                state = rememberInputAgeState(
-                    inputAgeData = InputAgeData(
-                        title = "Label",
-                        isRequired = true,
+                state =
+                    rememberInputAgeState(
+                        inputAgeData =
+                            InputAgeData(
+                                title = "Label",
+                                isRequired = true,
+                            ),
+                        inputType = AgeInputType.DateOfBirth(TextFieldValue("010")),
+                        inputState = InputShellState.ERROR,
                     ),
-                    inputType = AgeInputType.DateOfBirth(TextFieldValue("010")),
-                    inputState = InputShellState.ERROR,
-                ),
                 onValueChanged = {
                     // no-op
                 },
@@ -84,13 +92,15 @@ fun InputAgeScreen() {
 
         ColumnComponentContainer("Input Age Component - Age Disabled") {
             InputAge(
-                state = rememberInputAgeState(
-                    inputAgeData = InputAgeData(
-                        title = "Label",
+                state =
+                    rememberInputAgeState(
+                        inputAgeData =
+                            InputAgeData(
+                                title = "Label",
+                            ),
+                        inputType = AgeInputType.Age(value = TextFieldValue("56"), unit = TimeUnitValues.YEARS),
+                        inputState = InputShellState.DISABLED,
                     ),
-                    inputType = AgeInputType.Age(value = TextFieldValue("56"), unit = TimeUnitValues.YEARS),
-                    inputState = InputShellState.DISABLED,
-                ),
                 onValueChanged = { newInputType ->
                     inputType = newInputType ?: AgeInputType.None
                 },
@@ -99,14 +109,16 @@ fun InputAgeScreen() {
 
         ColumnComponentContainer("Input Age Component - Age Required Error") {
             InputAge(
-                state = rememberInputAgeState(
-                    inputAgeData = InputAgeData(
-                        title = "Label",
-                        isRequired = true,
+                state =
+                    rememberInputAgeState(
+                        inputAgeData =
+                            InputAgeData(
+                                title = "Label",
+                                isRequired = true,
+                            ),
+                        inputType = AgeInputType.Age(value = TextFieldValue("56"), unit = TimeUnitValues.YEARS),
+                        inputState = InputShellState.ERROR,
                     ),
-                    inputType = AgeInputType.Age(value = TextFieldValue("56"), unit = TimeUnitValues.YEARS),
-                    inputState = InputShellState.ERROR,
-                ),
                 onValueChanged = {
                     // no-op
                 },
@@ -115,15 +127,17 @@ fun InputAgeScreen() {
 
         ColumnComponentContainer("Input Age Component - Legend") {
             InputAge(
-                state = rememberInputAgeState(
-                    inputAgeData = InputAgeData(
-                        title = "Label",
-                        isRequired = true,
+                state =
+                    rememberInputAgeState(
+                        inputAgeData =
+                            InputAgeData(
+                                title = "Label",
+                                isRequired = true,
+                            ),
+                        inputType = AgeInputType.Age(value = TextFieldValue("56"), unit = TimeUnitValues.YEARS),
+                        inputState = InputShellState.ERROR,
+                        legendData = LegendData(SurfaceColor.CustomGreen, "Legend", popUpLegendDescriptionData = regularLegendList),
                     ),
-                    inputType = AgeInputType.Age(value = TextFieldValue("56"), unit = TimeUnitValues.YEARS),
-                    inputState = InputShellState.ERROR,
-                    legendData = LegendData(SurfaceColor.CustomGreen, "Legend", popUpLegendDescriptionData = regularLegendList),
-                ),
                 onValueChanged = {
                     // no-op
                 },

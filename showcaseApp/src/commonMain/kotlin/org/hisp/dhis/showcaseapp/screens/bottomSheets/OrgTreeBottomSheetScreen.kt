@@ -23,9 +23,9 @@ import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.OrgBottomSheet
 import org.hisp.dhis.mobile.ui.designsystem.component.OrgTreeItem
-import org.hisp.dhis.showcaseapp.screens.previews.lorem
-import org.hisp.dhis.showcaseapp.screens.previews.lorem_medium
-import org.hisp.dhis.showcaseapp.screens.previews.lorem_short
+import org.hisp.dhis.showcaseapp.screens.previews.LOREM
+import org.hisp.dhis.showcaseapp.screens.previews.LOREM_MEDIUM
+import org.hisp.dhis.showcaseapp.screens.previews.LOREM_SHORT
 
 @Composable
 fun OrgTreeBottomSheetScreen() {
@@ -198,175 +198,177 @@ fun OrgTreeBottomSheetScreen() {
 }
 
 private class OrgTreeItemsFakeRepo {
-    private val originalOrgTreeItems = listOf(
-        OrgTreeItem(
-            uid = "12",
-            label = "Krishna",
-            isOpen = true,
-            hasChildren = true,
-        ),
-        OrgTreeItem(
-            uid = "21",
-            label = "Guntur",
-            isOpen = false,
-            hasChildren = false,
-        ),
-        OrgTreeItem(
-            uid = "31",
-            label = lorem_medium,
-            isOpen = false,
-            hasChildren = false,
-        ),
-        OrgTreeItem(
-            uid = "41",
-            label = lorem,
-            isOpen = false,
-            hasChildren = false,
-        ),
-        OrgTreeItem(
-            uid = "51",
-            label = "UHC Alphabet",
-            isOpen = false,
-            hasChildren = false,
-        ),
-        OrgTreeItem(
-            uid = "61",
-            label = lorem_short,
-            isOpen = false,
-            hasChildren = false,
-        ),
-        OrgTreeItem(
-            uid = "71",
-            label = "UHC TEST 1",
-            isOpen = false,
-            hasChildren = false,
-        ),
-        OrgTreeItem(
-            uid = "81",
-            label = "UHC TEST 2",
-            isOpen = false,
-            hasChildren = false,
-        ),
-        OrgTreeItem(
-            uid = "81",
-            label = "UHC TEST 2",
-            isOpen = false,
-            hasChildren = false,
-        ),
-        OrgTreeItem(
-            uid = "81",
-            label = "UHC TEST 2",
-            isOpen = false,
-            hasChildren = false,
-        ),
-        OrgTreeItem(
-            uid = "81",
-            label = "UHC TEST 2",
-            isOpen = false,
-            hasChildren = false,
-        ),
-        OrgTreeItem(
-            uid = "81",
-            label = "UHC TEST 2",
-            isOpen = false,
-            hasChildren = false,
-        ),
-        OrgTreeItem(
-            uid = "81",
-            label = "UHC TEST 2",
-            isOpen = false,
-            hasChildren = false,
-        ),
-        OrgTreeItem(
-            uid = "81",
-            label = "UHC TEST 2",
-            isOpen = false,
-            hasChildren = false,
-        ),
-        OrgTreeItem(
-            uid = "81",
-            label = "UHC TEST 2",
-            isOpen = false,
-            hasChildren = false,
-        ),
-        OrgTreeItem(
-            uid = "81",
-            label = "UHC TEST 2",
-            isOpen = false,
-            hasChildren = false,
-        ),
-        OrgTreeItem(
-            uid = "81",
-            label = "UHC TEST 2",
-            isOpen = false,
-            hasChildren = false,
-        ),
-        OrgTreeItem(
-            uid = "81",
-            label = "UHC TEST 2",
-            isOpen = false,
-            hasChildren = false,
-        ),
-        OrgTreeItem(
-            uid = "81",
-            label = "UHC TEST 2",
-            isOpen = false,
-            hasChildren = false,
-        ),
-        OrgTreeItem(
-            uid = "81",
-            label = "UHC TEST 2",
-            isOpen = false,
-            hasChildren = false,
-        ),
-        OrgTreeItem(
-            uid = "81",
-            label = "UHC TEST 2",
-            isOpen = false,
-            hasChildren = false,
-        ),
-        OrgTreeItem(
-            uid = "81",
-            label = "UHC TEST 2",
-            isOpen = false,
-            hasChildren = false,
-        ),
-        OrgTreeItem(
-            uid = "81",
-            label = "UHC TEST 2",
-            isOpen = false,
-            hasChildren = false,
-        ),
-        OrgTreeItem(
-            uid = "81",
-            label = "UHC TEST 2",
-            isOpen = false,
-            hasChildren = false,
-        ),
-        OrgTreeItem(
-            uid = "81",
-            label = "UHC TEST 2",
-            isOpen = false,
-            hasChildren = false,
-        ),
-    )
+    private val originalOrgTreeItems =
+        listOf(
+            OrgTreeItem(
+                uid = "12",
+                label = "Krishna",
+                isOpen = true,
+                hasChildren = true,
+            ),
+            OrgTreeItem(
+                uid = "21",
+                label = "Guntur",
+                isOpen = false,
+                hasChildren = false,
+            ),
+            OrgTreeItem(
+                uid = "31",
+                label = LOREM_MEDIUM,
+                isOpen = false,
+                hasChildren = false,
+            ),
+            OrgTreeItem(
+                uid = "41",
+                label = LOREM,
+                isOpen = false,
+                hasChildren = false,
+            ),
+            OrgTreeItem(
+                uid = "51",
+                label = "UHC Alphabet",
+                isOpen = false,
+                hasChildren = false,
+            ),
+            OrgTreeItem(
+                uid = "61",
+                label = LOREM_SHORT,
+                isOpen = false,
+                hasChildren = false,
+            ),
+            OrgTreeItem(
+                uid = "71",
+                label = "UHC TEST 1",
+                isOpen = false,
+                hasChildren = false,
+            ),
+            OrgTreeItem(
+                uid = "81",
+                label = "UHC TEST 2",
+                isOpen = false,
+                hasChildren = false,
+            ),
+            OrgTreeItem(
+                uid = "81",
+                label = "UHC TEST 2",
+                isOpen = false,
+                hasChildren = false,
+            ),
+            OrgTreeItem(
+                uid = "81",
+                label = "UHC TEST 2",
+                isOpen = false,
+                hasChildren = false,
+            ),
+            OrgTreeItem(
+                uid = "81",
+                label = "UHC TEST 2",
+                isOpen = false,
+                hasChildren = false,
+            ),
+            OrgTreeItem(
+                uid = "81",
+                label = "UHC TEST 2",
+                isOpen = false,
+                hasChildren = false,
+            ),
+            OrgTreeItem(
+                uid = "81",
+                label = "UHC TEST 2",
+                isOpen = false,
+                hasChildren = false,
+            ),
+            OrgTreeItem(
+                uid = "81",
+                label = "UHC TEST 2",
+                isOpen = false,
+                hasChildren = false,
+            ),
+            OrgTreeItem(
+                uid = "81",
+                label = "UHC TEST 2",
+                isOpen = false,
+                hasChildren = false,
+            ),
+            OrgTreeItem(
+                uid = "81",
+                label = "UHC TEST 2",
+                isOpen = false,
+                hasChildren = false,
+            ),
+            OrgTreeItem(
+                uid = "81",
+                label = "UHC TEST 2",
+                isOpen = false,
+                hasChildren = false,
+            ),
+            OrgTreeItem(
+                uid = "81",
+                label = "UHC TEST 2",
+                isOpen = false,
+                hasChildren = false,
+            ),
+            OrgTreeItem(
+                uid = "81",
+                label = "UHC TEST 2",
+                isOpen = false,
+                hasChildren = false,
+            ),
+            OrgTreeItem(
+                uid = "81",
+                label = "UHC TEST 2",
+                isOpen = false,
+                hasChildren = false,
+            ),
+            OrgTreeItem(
+                uid = "81",
+                label = "UHC TEST 2",
+                isOpen = false,
+                hasChildren = false,
+            ),
+            OrgTreeItem(
+                uid = "81",
+                label = "UHC TEST 2",
+                isOpen = false,
+                hasChildren = false,
+            ),
+            OrgTreeItem(
+                uid = "81",
+                label = "UHC TEST 2",
+                isOpen = false,
+                hasChildren = false,
+            ),
+            OrgTreeItem(
+                uid = "81",
+                label = "UHC TEST 2",
+                isOpen = false,
+                hasChildren = false,
+            ),
+            OrgTreeItem(
+                uid = "81",
+                label = "UHC TEST 2",
+                isOpen = false,
+                hasChildren = false,
+            ),
+        )
 
-    private val childrenOrgItems = listOf(
-        OrgTreeItem(
-            uid = "12-1",
-            label = "Vijayawada-$lorem",
-            isOpen = false,
-            level = 1,
-            hasChildren = false,
-        ),
-        OrgTreeItem(
-            uid = "12-2",
-            label = "Gudivada",
-            isOpen = false,
-            level = 1,
-            hasChildren = false,
-        ),
-    )
+    private val childrenOrgItems =
+        listOf(
+            OrgTreeItem(
+                uid = "12-1",
+                label = "Vijayawada-$LOREM",
+                isOpen = false,
+                level = 1,
+                hasChildren = false,
+            ),
+            OrgTreeItem(
+                uid = "12-2",
+                label = "Gudivada",
+                isOpen = false,
+                level = 1,
+                hasChildren = false,
+            ),
+        )
 
     private val coroutineScope = CoroutineScope(Dispatchers.Default)
 
@@ -391,55 +393,62 @@ private class OrgTreeItemsFakeRepo {
 
     fun toggleItemExpansion(uid: String) {
         coroutineScope.launch {
-            val updatedList = _state.value
-                .map {
-                    if (it.hasChildren && it.uid == uid) {
-                        it.copy(isOpen = !it.isOpen)
-                    } else {
-                        it
+            val updatedList =
+                _state.value
+                    .map {
+                        if (it.hasChildren && it.uid == uid) {
+                            it.copy(isOpen = !it.isOpen)
+                        } else {
+                            it
+                        }
                     }
-                }
             val parentItem = updatedList.first { it.uid == uid }
 
-            val newList = if (parentItem.isOpen) {
-                createList(updatedList, childrenOrgItems)
-            } else {
-                updatedList.filterNot { it.uid.contains(uid) && it.level > 0 }
-            }
+            val newList =
+                if (parentItem.isOpen) {
+                    createList(updatedList, childrenOrgItems)
+                } else {
+                    updatedList.filterNot { it.uid.contains(uid) && it.level > 0 }
+                }
 
             _state.emit(newList)
         }
     }
 
-    fun toggleItemSelection(uid: String, selected: Boolean) {
+    fun toggleItemSelection(
+        uid: String,
+        selected: Boolean,
+    ) {
         coroutineScope.launch {
-            val selectionToggledList = _state.value.map {
-                if (it.uid.contains(uid, ignoreCase = true)) {
-                    val selectedChildrenCount =
-                        _state.value.count { it.uid.contains("12") && it.level > 0 && it.selected }
+            val selectionToggledList =
+                _state.value.map {
+                    if (it.uid.contains(uid, ignoreCase = true)) {
+                        val selectedChildrenCount =
+                            _state.value.count { it.uid.contains("12") && it.level > 0 && it.selected }
 
-                    it.copy(selected = selected, selectedChildrenCount = selectedChildrenCount)
-                } else {
-                    it
-                }
-            }
-
-            val newList = selectionToggledList.map {
-                if (!uid.contains("12")) {
-                    return@map it
-                }
-
-                when (it.uid) {
-                    "12" -> {
-                        val selectedChildrenCount = getSelectedChildrenCount(selectionToggledList, it)
-                        it.copy(selectedChildrenCount = selectedChildrenCount)
-                    }
-
-                    else -> {
-                        it.copy(selectedChildrenCount = 0)
+                        it.copy(selected = selected, selectedChildrenCount = selectedChildrenCount)
+                    } else {
+                        it
                     }
                 }
-            }
+
+            val newList =
+                selectionToggledList.map {
+                    if (!uid.contains("12")) {
+                        return@map it
+                    }
+
+                    when (it.uid) {
+                        "12" -> {
+                            val selectedChildrenCount = getSelectedChildrenCount(selectionToggledList, it)
+                            it.copy(selectedChildrenCount = selectedChildrenCount)
+                        }
+
+                        else -> {
+                            it.copy(selectedChildrenCount = 0)
+                        }
+                    }
+                }
 
             _state.emit(newList)
         }
@@ -464,14 +473,18 @@ private class OrgTreeItemsFakeRepo {
         }
     }
 
-    private fun createList(parentItems: List<OrgTreeItem>, childrenItems: List<OrgTreeItem>): List<OrgTreeItem> {
-        val updatedChildrenItems = childrenItems.map {
-            if (parentItems.first { it.uid == "12" }.selected) {
-                it.copy(selected = true)
-            } else {
-                it
+    private fun createList(
+        parentItems: List<OrgTreeItem>,
+        childrenItems: List<OrgTreeItem>,
+    ): List<OrgTreeItem> {
+        val updatedChildrenItems =
+            childrenItems.map {
+                if (parentItems.first { it.uid == "12" }.selected) {
+                    it.copy(selected = true)
+                } else {
+                    it
+                }
             }
-        }
 
         return (parentItems + updatedChildrenItems).sortedBy { it.uid }
     }

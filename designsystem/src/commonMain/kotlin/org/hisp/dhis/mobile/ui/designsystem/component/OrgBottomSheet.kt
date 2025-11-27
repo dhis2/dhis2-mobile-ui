@@ -1,9 +1,12 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
-import androidx.compose.foundation.ScrollState
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -18,13 +21,14 @@ import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.ClearAll
 import androidx.compose.material.icons.filled.KeyboardArrowDown
-import androidx.compose.material3.BottomSheetDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
@@ -44,7 +48,6 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.component.state.BottomSheetShellDefaults
 import org.hisp.dhis.mobile.ui.designsystem.component.state.BottomSheetShellUIState
@@ -53,7 +56,6 @@ import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2SCustomTextStyles
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing0
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
@@ -68,7 +70,6 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
  * @param doneButtonText text for accept button.
  * @param doneButtonIcon icon for accept button.
  * @param windowInsets The insets to use for the bottom sheet shell.
- * @param bottomSheetLowerPadding padding for the bottom sheet.
  * @param noResultsFoundText text for no results found.
  * @param headerTextAlignment [Alignment] for header text.
  * @param icon optional icon to be shown above the header .
@@ -91,8 +92,7 @@ fun OrgBottomSheet(
     clearAllButtonText: String = provideStringResource("clear_all"),
     doneButtonText: String? = null,
     doneButtonIcon: ImageVector = Icons.Filled.Check,
-    windowInsets: @Composable () -> WindowInsets = { BottomSheetDefaults.windowInsets },
-    bottomSheetLowerPadding: Dp = Spacing0,
+    windowInsets: @Composable () -> WindowInsets = { BottomSheetShellDefaults.windowInsets() },
     noResultsFoundText: String = provideStringResource("no_results_found"),
     headerTextAlignment: TextAlign = TextAlign.Center,
     icon: @Composable (() -> Unit)? = null,
@@ -107,35 +107,65 @@ fun OrgBottomSheet(
     var orgTreeHeight by remember { mutableStateOf(0) }
     val orgTreeHeightInDp = with(LocalDensity.current) { orgTreeHeight.toDp() }
     val contentScrollState = rememberScrollState()
+    var isContentReady by remember { mutableStateOf(false) }
+
+    LaunchedEffect(orgTreeItems.size) {
+        isContentReady = false
+        kotlinx.coroutines.delay(300)
+        isContentReady = true
+    }
     BottomSheetShell(
-        uiState = BottomSheetShellUIState(
-            title = title,
-            subtitle = subtitle,
-            description = description,
-            headerTextAlignment = headerTextAlignment,
-            searchQuery = searchQuery,
-            scrollableContainerMaxHeight = maxOf(orgTreeHeightInDp, InternalSizeValues.Size386),
-            scrollableContainerMinHeight = InternalSizeValues.Size316,
-            bottomPadding = bottomSheetLowerPadding,
-        ),
+        uiState =
+            BottomSheetShellUIState(
+                title = title,
+                subtitle = subtitle,
+                description = description,
+                headerTextAlignment = headerTextAlignment,
+                searchQuery = searchQuery,
+                scrollableContainerMaxHeight = maxOf(orgTreeHeightInDp, InternalSizeValues.Size386),
+                scrollableContainerMinHeight = InternalSizeValues.Size186,
+            ),
         modifier = modifier,
         contentScrollState = contentScrollState,
         content = {
-            OrgTreeList(
-                orgTreeItems = orgTreeItems,
-                searchQuery = searchQuery,
-                noResultsFoundText = noResultsFoundText,
-                onItemClick = onItemClick,
-                onItemSelected = onItemSelected,
-                scrollState = contentScrollState,
-                modifier = Modifier
-                    .onGloballyPositioned { coordinates ->
-                        val treeHeight = coordinates.size.height
-                        if (treeHeight > orgTreeHeight) {
-                            orgTreeHeight = treeHeight
-                        }
-                    },
-            )
+            Box {
+                AnimatedVisibility(
+                    visible = !isContentReady,
+                    enter = fadeIn(),
+                    exit = fadeOut(),
+                ) {
+                    Box(
+                        modifier =
+                            Modifier
+                                .fillMaxWidth()
+                                .padding(vertical = Spacing.Spacing24),
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        CircularProgressIndicator()
+                    }
+                }
+                AnimatedVisibility(
+                    visible = isContentReady,
+                    enter = fadeIn(),
+                    exit = fadeOut(),
+                ) {
+                    OrgTreeList(
+                        orgTreeItems = orgTreeItems,
+                        searchQuery = searchQuery,
+                        noResultsFoundText = noResultsFoundText,
+                        onItemClick = onItemClick,
+                        onItemSelected = onItemSelected,
+                        modifier =
+                            Modifier
+                                .onGloballyPositioned { coordinates ->
+                                    val treeHeight = coordinates.size.height
+                                    if (treeHeight > orgTreeHeight) {
+                                        orgTreeHeight = treeHeight
+                                    }
+                                },
+                    )
+                }
+            }
         },
         windowInsets = windowInsets,
         icon = icon,
@@ -146,8 +176,10 @@ fun OrgBottomSheet(
             ) {
                 if (onClearAll != null) {
                     Button(
-                        modifier = Modifier.weight(1f)
-                            .testTag("CLEAR_ALL_BUTTON"),
+                        modifier =
+                            Modifier
+                                .weight(1f)
+                                .testTag("CLEAR_ALL_BUTTON"),
                         onClick = onClearAll,
                         icon = {
                             Icon(
@@ -192,18 +224,19 @@ private fun OrgTreeList(
     searchQuery: String,
     noResultsFoundText: String,
     modifier: Modifier = Modifier,
-    scrollState: ScrollState = rememberScrollState(),
     onItemClick: (orgUnitUid: String) -> Unit,
     onItemSelected: (orgUnitUid: String, checked: Boolean) -> Unit,
 ) {
     val hasSearchQuery by derivedStateOf { searchQuery.isNotBlank() }
+    val horizontalScrollState = rememberScrollState()
     if (orgTreeItems.isEmpty() && hasSearchQuery) {
         Text(
-            modifier = modifier
-                .fillMaxWidth()
-                .padding(horizontal = Spacing.Spacing24)
-                .padding(vertical = Spacing.Spacing24)
-                .testTag("ORG_TREE_NO_RESULTS_FOUND"),
+            modifier =
+                modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = Spacing.Spacing24)
+                    .padding(vertical = Spacing.Spacing24)
+                    .testTag("ORG_TREE_NO_RESULTS_FOUND"),
             textAlign = TextAlign.Center,
             text = noResultsFoundText,
             color = TextColor.OnSurfaceVariant,
@@ -211,10 +244,11 @@ private fun OrgTreeList(
         )
     } else {
         Column(
-            modifier = modifier
-                .fillMaxWidth()
-                .testTag("ORG_TREE_LIST")
-                .horizontalScroll(scrollState),
+            modifier =
+                modifier
+                    .fillMaxWidth()
+                    .testTag("ORG_TREE_LIST")
+                    .horizontalScroll(horizontalScrollState),
             horizontalAlignment = Alignment.Start,
         ) {
             orgTreeItems.forEach { item ->
@@ -242,19 +276,20 @@ fun OrgUnitSelectorItem(
     onItemSelected: (uid: String, checked: Boolean) -> Unit,
 ) {
     Row(
-        modifier = modifier
-            .testTag("$ITEM_TEST_TAG${orgTreeItem.label}")
-            .fillMaxWidth()
-            .clickable(
-                enabled = orgTreeItem.hasChildren,
-                interactionSource = remember {
-                    MutableInteractionSource()
-                },
-                indication = ripple(bounded = true),
-            ) {
-                onItemClick(orgTreeItem.uid)
-            }
-            .padding(start = ((orgTreeItem.level - higherLevel) * 16).dp),
+        modifier =
+            modifier
+                .testTag("$ITEM_TEST_TAG${orgTreeItem.label}")
+                .fillMaxWidth()
+                .clickable(
+                    enabled = orgTreeItem.hasChildren,
+                    interactionSource =
+                        remember {
+                            MutableInteractionSource()
+                        },
+                    indication = ripple(bounded = true),
+                ) {
+                    onItemClick(orgTreeItem.uid)
+                }.padding(start = ((orgTreeItem.level - higherLevel) * 16).dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         OrgTreeItemIcon(
@@ -262,18 +297,19 @@ fun OrgUnitSelectorItem(
             orgTreeItem = orgTreeItem,
         )
 
-        val clickableModifier = if (orgTreeItem.canBeSelected) {
-            Modifier
-                .clickable(
-                    interactionSource = remember { MutableInteractionSource() },
-                    indication = null,
-                    onClick = {
-                        onItemSelected(orgTreeItem.uid, !orgTreeItem.selected)
-                    },
-                )
-        } else {
-            Modifier
-        }
+        val clickableModifier =
+            if (orgTreeItem.canBeSelected) {
+                Modifier
+                    .clickable(
+                        interactionSource = remember { MutableInteractionSource() },
+                        indication = null,
+                        onClick = {
+                            onItemSelected(orgTreeItem.uid, !orgTreeItem.selected)
+                        },
+                    )
+            } else {
+                Modifier
+            }
 
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -293,18 +329,21 @@ fun OrgUnitSelectorItem(
             }
 
             Text(
-                text = orgTreeItemLabel(
-                    orgTreeItem = orgTreeItem,
-                    searchQuery = searchQuery,
-                ),
+                text =
+                    orgTreeItemLabel(
+                        orgTreeItem = orgTreeItem,
+                        searchQuery = searchQuery,
+                    ),
                 maxLines = 1,
-                style = DHIS2SCustomTextStyles.bodyLargeBold.copy(
-                    fontWeight = if (orgTreeItem.selectedChildrenCount > 0 || orgTreeItem.selected) {
-                        FontWeight.Bold
-                    } else {
-                        FontWeight.Normal
-                    },
-                ),
+                style =
+                    DHIS2SCustomTextStyles.bodyLargeBold.copy(
+                        fontWeight =
+                            if (orgTreeItem.selectedChildrenCount > 0 || orgTreeItem.selected) {
+                                FontWeight.Bold
+                            } else {
+                                FontWeight.Normal
+                            },
+                    ),
             )
         }
     }
@@ -343,24 +382,25 @@ private fun orgTreeItemLabel(
     orgTreeItem: OrgTreeItem,
     searchQuery: String,
 ): AnnotatedString {
-    val label = buildAnnotatedString {
-        val highlightIndexStart = orgTreeItem.label.indexOf(searchQuery, ignoreCase = true)
-        val highlightIndexEnd = highlightIndexStart + searchQuery.length
+    val label =
+        buildAnnotatedString {
+            val highlightIndexStart = orgTreeItem.label.indexOf(searchQuery, ignoreCase = true)
+            val highlightIndexEnd = highlightIndexStart + searchQuery.length
 
-        if (highlightIndexStart >= 0) {
-            appendHighlightedString(
-                orgTreeItem = orgTreeItem,
-                highlightIndexStart = highlightIndexStart,
-                highlightIndexEnd = highlightIndexEnd,
-            )
-        } else {
-            append(orgTreeItem.label)
-        }
+            if (highlightIndexStart >= 0) {
+                appendHighlightedString(
+                    orgTreeItem = orgTreeItem,
+                    highlightIndexStart = highlightIndexStart,
+                    highlightIndexEnd = highlightIndexEnd,
+                )
+            } else {
+                append(orgTreeItem.label)
+            }
 
-        if (orgTreeItem.selectedChildrenCount > 0 && orgTreeItem.hasChildren) {
-            append(" (${orgTreeItem.selectedChildrenCount})")
+            if (orgTreeItem.selectedChildrenCount > 0 && orgTreeItem.hasChildren) {
+                append(" (${orgTreeItem.selectedChildrenCount})")
+            }
         }
-    }
 
     return label
 }

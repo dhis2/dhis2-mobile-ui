@@ -34,19 +34,21 @@ fun MetadataAvatar(
     backgroundColor: Color = Color.Unspecified,
     size: MetadataAvatarSize,
 ) {
-    val boxBackgroundColor = if (backgroundColor != Color.Unspecified) {
-        backgroundColor
-    } else {
-        iconTint.copy(alpha = 0.1f)
-    }
+    val boxBackgroundColor =
+        if (backgroundColor != Color.Unspecified) {
+            backgroundColor
+        } else {
+            iconTint.copy(alpha = 0.1f)
+        }
 
     Box(
-        modifier = modifier
-            .clip(RoundedCornerShape(size.cornerRadius))
-            .background(color = Color.White)
-            .background(color = boxBackgroundColor)
-            .padding(size.padding)
-            .size(size.size),
+        modifier =
+            modifier
+                .clip(RoundedCornerShape(size.cornerRadius))
+                .background(color = Color.White)
+                .background(color = boxBackgroundColor)
+                .padding(size.padding)
+                .size(size.size),
         contentAlignment = Alignment.Center,
     ) {
         CompositionLocalProvider(
@@ -66,8 +68,9 @@ sealed class MetadataAvatarSize(
     val cornerRadius: Dp,
     val padding: Dp,
 ) {
-    data class XS(val xsNameLabel: String = "VerySmall") :
-        MetadataAvatarSize(
+    data class XS(
+        val xsNameLabel: String = "VerySmall",
+    ) : MetadataAvatarSize(
             xsNameLabel,
             InternalSizeValues.Size24,
             InternalSizeValues.Size24,
@@ -75,8 +78,9 @@ sealed class MetadataAvatarSize(
             Spacing.Spacing0,
         )
 
-    data class S(val sNameLabel: String = "Small") :
-        MetadataAvatarSize(
+    data class S(
+        val sNameLabel: String = "Small",
+    ) : MetadataAvatarSize(
             sNameLabel,
             InternalSizeValues.Size40,
             InternalSizeValues.Size40,
@@ -84,8 +88,9 @@ sealed class MetadataAvatarSize(
             Spacing.Spacing0,
         )
 
-    data class M(val mNameLabel: String = "Medium") :
-        MetadataAvatarSize(
+    data class M(
+        val mNameLabel: String = "Medium",
+    ) : MetadataAvatarSize(
             mNameLabel,
             InternalSizeValues.Size48,
             InternalSizeValues.Size48,
@@ -93,8 +98,9 @@ sealed class MetadataAvatarSize(
             Spacing.Spacing4,
         )
 
-    data class L(val lNameLabel: String = "Large") :
-        MetadataAvatarSize(
+    data class L(
+        val lNameLabel: String = "Large",
+    ) : MetadataAvatarSize(
             lNameLabel,
             InternalSizeValues.Size60,
             InternalSizeValues.Size60,
@@ -102,8 +108,9 @@ sealed class MetadataAvatarSize(
             Spacing.Spacing0,
         )
 
-    data class XL(val xlNameLabel: String = "VeryLarge") :
-        MetadataAvatarSize(
+    data class XL(
+        val xlNameLabel: String = "VeryLarge",
+    ) : MetadataAvatarSize(
             xlNameLabel,
             InternalSizeValues.Size120,
             InternalSizeValues.Size120,

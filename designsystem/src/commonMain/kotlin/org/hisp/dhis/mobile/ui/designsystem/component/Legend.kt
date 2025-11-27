@@ -16,7 +16,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.HelpOutline
 import androidx.compose.material.icons.outlined.Info
-import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -35,12 +34,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.unit.Dp
+import org.hisp.dhis.mobile.ui.designsystem.component.state.BottomSheetShellDefaults
 import org.hisp.dhis.mobile.ui.designsystem.component.state.BottomSheetShellUIState
 import org.hisp.dhis.mobile.ui.designsystem.theme.Border
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing0
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
 
@@ -62,47 +60,53 @@ fun Legend(
 
     val hasPopupLegendDescriptionData = legendData.popUpLegendDescriptionData.orEmpty().isNotEmpty()
     val interactionSource = remember { MutableInteractionSource() }
-    val clickableModifier = if (hasPopupLegendDescriptionData) {
-        Modifier
-            .clickable(
-                onClick = {
-                    legendData.popUpLegendDescriptionData?.let {
-                        showBottomSheetShell = true
-                    }
-                },
-                role = Role.Button,
-                interactionSource = interactionSource,
-                indication = ripple(
-                    color = SurfaceColor.Primary,
-                ),
-            )
-            .hoverPointerIcon(true)
-    } else {
-        Modifier
-    }
+    val clickableModifier =
+        if (hasPopupLegendDescriptionData) {
+            Modifier
+                .clickable(
+                    onClick = {
+                        legendData.popUpLegendDescriptionData?.let {
+                            showBottomSheetShell = true
+                        }
+                    },
+                    role = Role.Button,
+                    interactionSource = interactionSource,
+                    indication =
+                        ripple(
+                            color = SurfaceColor.Primary,
+                        ),
+                ).hoverPointerIcon(true)
+        } else {
+            Modifier
+        }
 
     Column(
-        modifier = modifier
-            .then(clickableModifier)
-            .testTag("LEGEND"),
+        modifier =
+            modifier
+                .then(clickableModifier)
+                .testTag("LEGEND"),
     ) {
         Row(
-            modifier = Modifier
-                .padding(Spacing.Spacing16, Spacing.Spacing8, Spacing.Spacing8, Spacing.Spacing6),
+            modifier =
+                Modifier
+                    .padding(Spacing.Spacing16, Spacing.Spacing8, Spacing.Spacing8, Spacing.Spacing6),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Column(modifier = Modifier.align(Alignment.Top)) {
                 Spacer(modifier = Modifier.size(Spacing.Spacing4).padding(end = Spacing.Spacing8))
                 Box(
-                    modifier = Modifier.size(InternalSizeValues.Size12)
-                        .clip(CircleShape)
-                        .background(legendData.color),
+                    modifier =
+                        Modifier
+                            .size(InternalSizeValues.Size12)
+                            .clip(CircleShape)
+                            .background(legendData.color),
                 )
             }
             Text(
                 legendData.title,
-                Modifier.padding(start = Spacing.Spacing8)
+                Modifier
+                    .padding(start = Spacing.Spacing8)
                     .weight(2f, true),
                 style = MaterialTheme.typography.bodyMedium,
             )
@@ -116,9 +120,10 @@ fun Legend(
             }
         }
         HorizontalDivider(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(),
             thickness = Border.Regular,
             color = legendData.color,
         )
@@ -126,10 +131,10 @@ fun Legend(
 
     if (showBottomSheetShell) {
         BottomSheetShell(
-            uiState = BottomSheetShellUIState(
-                title = legendData.title,
-                bottomPadding = legendData.bottomSheetLowerPadding,
-            ),
+            uiState =
+                BottomSheetShellUIState(
+                    title = legendData.title,
+                ),
             modifier = Modifier.testTag("LEGEND_BOTTOM_SHEET"),
             content = {
                 legendData.popUpLegendDescriptionData?.let { LegendRange(it) }
@@ -157,23 +162,34 @@ fun Legend(
  * @param modifier: optional modifier.
  */
 @Composable
-internal fun LegendDescription(color: Color, text: String, range: IntRange, modifier: Modifier = Modifier) {
+internal fun LegendDescription(
+    color: Color,
+    text: String,
+    range: IntRange,
+    modifier: Modifier = Modifier,
+) {
     Row(
-        modifier = modifier
-            .padding(Spacing.Spacing0, Spacing.Spacing8, Spacing.Spacing8, Spacing.Spacing6),
+        modifier =
+            modifier
+                .padding(Spacing.Spacing0, Spacing.Spacing8, Spacing.Spacing8, Spacing.Spacing6),
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.Top,
     ) {
-        Column(modifier = Modifier.align(Alignment.Top).padding(end = Spacing.Spacing8, top = Spacing.Spacing4, bottom = Spacing.Spacing4)) {
+        Column(
+            modifier = Modifier.align(Alignment.Top).padding(end = Spacing.Spacing8, top = Spacing.Spacing4, bottom = Spacing.Spacing4),
+        ) {
             Box(
-                modifier = Modifier.size(Spacing.Spacing12)
-                    .clip(CircleShape)
-                    .background(color),
+                modifier =
+                    Modifier
+                        .size(Spacing.Spacing12)
+                        .clip(CircleShape)
+                        .background(color),
             )
         }
         Text(
             text,
-            Modifier.padding(start = Spacing.Spacing8, end = Spacing.Spacing16)
+            Modifier
+                .padding(start = Spacing.Spacing8, end = Spacing.Spacing16)
                 .weight(2f, true),
             style = MaterialTheme.typography.bodyMedium,
         )
@@ -222,11 +238,10 @@ data class LegendDescriptionData(
  * legend range description pop up.
  */
 data class LegendData
-@OptIn(ExperimentalMaterial3Api::class)
-constructor(
-    val color: Color,
-    val title: String,
-    val popUpLegendDescriptionData: List<LegendDescriptionData>? = null,
-    val windowInsets: @Composable () -> WindowInsets = { BottomSheetDefaults.windowInsets },
-    val bottomSheetLowerPadding: Dp = Spacing0,
-)
+    @OptIn(ExperimentalMaterial3Api::class)
+    constructor(
+        val color: Color,
+        val title: String,
+        val popUpLegendDescriptionData: List<LegendDescriptionData>? = null,
+        val windowInsets: @Composable () -> WindowInsets = { BottomSheetShellDefaults.windowInsets() },
+    )

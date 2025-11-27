@@ -22,6 +22,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.model.RegExValidations
  * @param imeAction: controls the imeAction button to be shown.
  * @param modifier: allows a modifier to be passed externally.
  * @param inputStyle: manages the InputShell style.
+ * @param showDeleteButton: controls whether the delete button is shown or not.
  */
 @Composable
 fun InputUnitInterval(
@@ -36,6 +37,7 @@ fun InputUnitInterval(
     onValueChanged: ((TextFieldValue?) -> Unit)? = null,
     imeAction: ImeAction = ImeAction.Next,
     modifier: Modifier = Modifier,
+    showDeleteButton: Boolean = true,
 ) {
     BasicTextInput(
         title = title,
@@ -51,5 +53,6 @@ fun InputUnitInterval(
         allowedCharacters = RegExValidations.UNIT_INTERVAL_BETWEEN_0_AND_1.regex,
         modifier = modifier,
         testTag = "UNIT_INTERVAL",
+        showDeleteButton = showDeleteButton,
     )
 }

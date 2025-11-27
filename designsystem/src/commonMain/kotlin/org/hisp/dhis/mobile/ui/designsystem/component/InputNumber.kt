@@ -29,6 +29,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.model.RegExValidations
  * @param imeAction: controls the imeAction button to be shown.
  * @param notation: controls the decimal notation to be used, will be European
  * by default.
+ * @param showDeleteButton: controls whether the delete button is shown or not.
  */
 @Composable
 fun InputNumber(
@@ -47,6 +48,7 @@ fun InputNumber(
     imeAction: ImeAction = ImeAction.Next,
     notation: RegExValidations = RegExValidations.EUROPEAN_DECIMAL_NOTATION,
     modifier: Modifier = Modifier,
+    showDeleteButton: Boolean = true,
 ) {
     BasicTextInput(
         title = title,
@@ -65,5 +67,6 @@ fun InputNumber(
         onFocusChanged = onFocusChanged,
         autoCompleteList = autoCompleteList,
         autoCompleteItemSelected = autoCompleteItemSelected,
+        showDeleteButton = showDeleteButton,
     )
 }

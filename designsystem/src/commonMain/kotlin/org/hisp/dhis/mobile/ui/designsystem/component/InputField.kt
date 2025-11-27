@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
@@ -61,7 +62,9 @@ fun BasicTextField(
     state: InputShellState = InputShellState.FOCUSED,
     keyboardOptions: KeyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
     visualTransformation: VisualTransformation? = null,
+    textStyle: TextStyle = MaterialTheme.typography.bodyLarge,
     onNextClicked: (() -> Unit)? = null,
+    onDoneClicked: (() -> Unit)? = null,
     onSearchClicked: (() -> Unit)? = null,
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -93,26 +96,26 @@ fun BasicTextField(
         }
     }
 
-    val customTextSelectionColors = TextSelectionColors(
-        handleColor = cursorColor,
-        backgroundColor = Blue300,
-    )
+    val customTextSelectionColors =
+        TextSelectionColors(
+            handleColor = cursorColor,
+            backgroundColor = Blue300,
+        )
 
     CompositionLocalProvider(LocalTextSelectionColors provides customTextSelectionColors) {
         BasicTextField(
-
-            modifier = modifier
-                .background(
-                    Color.Transparent,
-                )
-                .fillMaxWidth()
-                .textFieldHoverPointerIcon(enabled),
+            modifier =
+                modifier
+                    .background(
+                        Color.Transparent,
+                    ).fillMaxWidth()
+                    .textFieldHoverPointerIcon(enabled),
             value = inputTextValue ?: TextFieldValue(),
             onValueChange = {
                 onInputChanged.invoke(it)
             },
             enabled = enabled,
-            textStyle = MaterialTheme.typography.bodyLarge.copy(color = if (enabled) TextColor.OnSurface else TextColor.OnDisabledSurface),
+            textStyle = textStyle.copy(color = if (enabled) TextColor.OnSurface else TextColor.OnDisabledSurface),
             singleLine = isSingleLine,
             decorationBox = { innerTextField ->
                 Row(
@@ -124,17 +127,19 @@ fun BasicTextField(
                 }
             },
             keyboardOptions = keyboardOptions,
-            keyboardActions = KeyboardActions(
-                onNext = {
-                    onNextClicked?.invoke()
-                },
-                onSearch = {
-                    onSearchClicked?.invoke()
-                },
-                onDone = {
-                    keyboardController?.hide()
-                },
-            ),
+            keyboardActions =
+                KeyboardActions(
+                    onNext = {
+                        onNextClicked?.invoke()
+                    },
+                    onSearch = {
+                        onSearchClicked?.invoke()
+                    },
+                    onDone = {
+                        onDoneClicked?.invoke()
+                        keyboardController?.hide()
+                    },
+                ),
             visualTransformation = textFieldVisualTransformation,
             cursorBrush = SolidColor(cursorColor),
         )

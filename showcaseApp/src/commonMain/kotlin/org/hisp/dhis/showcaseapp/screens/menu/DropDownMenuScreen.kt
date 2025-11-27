@@ -86,21 +86,23 @@ fun DropDownMenuScreen() {
                         MenuItemData(
                             id = EnrollmentMenuItem.COMPLETE,
                             label = "Complete",
-                            leadingElement = MenuLeadingElement.Icon(
-                                icon = Icons.Outlined.CheckCircle,
-                                defaultTintColor = SurfaceColor.CustomGreen,
-                                selectedTintColor = SurfaceColor.CustomGreen,
-                            ),
+                            leadingElement =
+                                MenuLeadingElement.Icon(
+                                    icon = Icons.Outlined.CheckCircle,
+                                    defaultTintColor = SurfaceColor.CustomGreen,
+                                    selectedTintColor = SurfaceColor.CustomGreen,
+                                ),
                         ),
                         MenuItemData(
                             id = EnrollmentMenuItem.DEACTIVATE,
                             label = "Deactivate",
                             showDivider = true,
-                            leadingElement = MenuLeadingElement.Icon(
-                                icon = Icons.Outlined.Cancel,
-                                defaultTintColor = TextColor.OnDisabledSurface,
-                                selectedTintColor = TextColor.OnDisabledSurface,
-                            ),
+                            leadingElement =
+                                MenuLeadingElement.Icon(
+                                    icon = Icons.Outlined.Cancel,
+                                    defaultTintColor = TextColor.OnDisabledSurface,
+                                    selectedTintColor = TextColor.OnDisabledSurface,
+                                ),
                         ),
                         MenuItemData(
                             id = EnrollmentMenuItem.REMOVE,

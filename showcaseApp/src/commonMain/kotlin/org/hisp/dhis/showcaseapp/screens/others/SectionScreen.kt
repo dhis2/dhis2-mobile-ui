@@ -12,9 +12,9 @@ import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.InputText
 import org.hisp.dhis.mobile.ui.designsystem.component.Section
 import org.hisp.dhis.mobile.ui.designsystem.component.SectionState
-import org.hisp.dhis.showcaseapp.screens.previews.lorem
-import org.hisp.dhis.showcaseapp.screens.previews.lorem_medium
-import org.hisp.dhis.showcaseapp.screens.previews.lorem_short
+import org.hisp.dhis.showcaseapp.screens.previews.LOREM
+import org.hisp.dhis.showcaseapp.screens.previews.LOREM_MEDIUM
+import org.hisp.dhis.showcaseapp.screens.previews.LOREM_SHORT
 
 @Composable
 fun SectionScreen() {
@@ -34,7 +34,7 @@ fun SectionScreen() {
             )
             Section(
                 title = "Section title",
-                description = lorem,
+                description = LOREM,
                 completedFields = 2,
                 totalFields = 3,
                 state = SectionState.CLOSE,
@@ -46,7 +46,7 @@ fun SectionScreen() {
             )
             Section(
                 title = "Section title",
-                description = lorem_short,
+                description = LOREM_SHORT,
                 completedFields = 2,
                 totalFields = 3,
                 state = SectionState.CLOSE,
@@ -58,7 +58,7 @@ fun SectionScreen() {
             )
             Section(
                 title = "Section title",
-                description = lorem_medium,
+                description = LOREM_MEDIUM,
                 completedFields = 2,
                 totalFields = 3,
                 state = SectionState.CLOSE,
@@ -97,7 +97,7 @@ fun SectionScreen() {
             )
             Section(
                 title = "Section title",
-                description = lorem,
+                description = LOREM,
                 completedFields = 2,
                 totalFields = 3,
                 state = SectionState.FIXED,
@@ -109,7 +109,7 @@ fun SectionScreen() {
             )
             Section(
                 title = "Section title",
-                description = lorem_short,
+                description = LOREM_SHORT,
                 completedFields = 2,
                 totalFields = 3,
                 state = SectionState.FIXED,
@@ -121,7 +121,7 @@ fun SectionScreen() {
             )
             Section(
                 title = "Section title",
-                description = lorem_medium,
+                description = LOREM_MEDIUM,
                 completedFields = 2,
                 totalFields = 3,
                 state = SectionState.FIXED,
@@ -133,7 +133,7 @@ fun SectionScreen() {
             )
             Section(
                 title = "Section title Section title Section title Section title Section title",
-                description = lorem_medium,
+                description = LOREM_MEDIUM,
                 completedFields = 2,
                 totalFields = 3,
                 state = SectionState.FIXED,

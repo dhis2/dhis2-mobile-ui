@@ -7,14 +7,9 @@ import androidx.compose.runtime.Composable
 
 @ExperimentalFoundationApi
 internal fun LazyListScope.fixedStickyHeader(
-    fixHeader: Boolean = true,
     key: Any? = null,
     contentType: Any? = null,
-    content: @Composable LazyItemScope.() -> Unit,
+    content: @Composable LazyItemScope.(index: Int) -> Unit,
 ) {
-    if (fixHeader) {
-        stickyHeader("${key}_sticky", contentType = contentType, content = content)
-    } else {
-        item("${key}_non_sticky", contentType = contentType, content = content)
-    }
+    stickyHeader("${key}_sticky", contentType = contentType, content = content)
 }

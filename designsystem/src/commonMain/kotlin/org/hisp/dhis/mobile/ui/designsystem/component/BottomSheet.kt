@@ -18,7 +18,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Close
-import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -44,6 +43,7 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.Keyboard
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.keyboardAsState
+import org.hisp.dhis.mobile.ui.designsystem.component.state.BottomSheetShellDefaults
 import org.hisp.dhis.mobile.ui.designsystem.component.state.BottomSheetShellUIState
 import org.hisp.dhis.mobile.ui.designsystem.theme.Border
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
@@ -73,9 +73,7 @@ fun BottomSheetHeader(
     title: String,
     subTitle: String? = null,
     description: String? = null,
-    icon:
-    @Composable
-    (() -> Unit)? = null,
+    icon: @Composable (() -> Unit)? = null,
     hasSearch: Boolean = false,
     headerTextAlignment: TextAlign = TextAlign.Center,
     modifier: Modifier = Modifier,
@@ -83,8 +81,10 @@ fun BottomSheetHeader(
     val horizontalAlignment =
         if (icon != null || hasSearch) Alignment.CenterHorizontally else Alignment.Start
     Column(
-        modifier = modifier.padding(horizontal = Spacing24, vertical = Spacing0)
-            .fillMaxWidth(),
+        modifier =
+            modifier
+                .padding(horizontal = Spacing24, vertical = Spacing0)
+                .fillMaxWidth(),
         horizontalAlignment = horizontalAlignment,
     ) {
         icon?.let {
@@ -175,18 +175,19 @@ fun BottomSheetShell(
     onDismiss: () -> Unit,
 ) {
     BottomSheetShell(
-        uiState = BottomSheetShellUIState(
-            title = title,
-            subtitle = subtitle,
-            description = description,
-            searchQuery = searchQuery,
-            showTopSectionDivider = showSectionDivider,
-            showBottomSectionDivider = showSectionDivider,
-            headerTextAlignment = headerTextAlignment,
-            scrollableContainerMinHeight = scrollableContainerMinHeight,
-            scrollableContainerMaxHeight = scrollableContainerMaxHeight,
-            animateHeaderOnKeyboardAppearance = animateHeaderOnKeyboardAppearance,
-        ),
+        uiState =
+            BottomSheetShellUIState(
+                title = title,
+                subtitle = subtitle,
+                description = description,
+                searchQuery = searchQuery,
+                showTopSectionDivider = showSectionDivider,
+                showBottomSectionDivider = showSectionDivider,
+                headerTextAlignment = headerTextAlignment,
+                scrollableContainerMinHeight = scrollableContainerMinHeight,
+                scrollableContainerMaxHeight = scrollableContainerMaxHeight,
+                animateHeaderOnKeyboardAppearance = animateHeaderOnKeyboardAppearance,
+            ),
         modifier = modifier,
         content = content,
         contentScrollState = contentScrollState,
@@ -222,7 +223,7 @@ fun BottomSheetShell(
     uiState: BottomSheetShellUIState,
     modifier: Modifier = Modifier,
     content: @Composable (() -> Unit)?,
-    windowInsets: @Composable () -> WindowInsets = { BottomSheetDefaults.windowInsets },
+    windowInsets: @Composable () -> WindowInsets = { BottomSheetShellDefaults.windowInsets() },
     contentScrollState: ScrollableState? = null,
     icon: @Composable (() -> Unit)? = null,
     buttonBlock: @Composable (() -> Unit)? = null,
@@ -233,17 +234,17 @@ fun BottomSheetShell(
     val scope = rememberCoroutineScope()
     val keyboardState by keyboardAsState()
     val canDismissByDragging = contentScrollState == null
-    val sheetState = rememberModalBottomSheetState(
-        skipPartiallyExpanded = true,
-        confirmValueChange = {
-            when (it) {
-                SheetValue.Hidden -> canDismissByDragging
-                SheetValue.Expanded -> true
-                SheetValue.PartiallyExpanded -> true
-                else -> true
-            }
-        },
-    )
+    val sheetState =
+        rememberModalBottomSheetState(
+            skipPartiallyExpanded = true,
+            confirmValueChange = {
+                when (it) {
+                    SheetValue.Hidden -> canDismissByDragging
+                    SheetValue.Expanded -> true
+                    SheetValue.PartiallyExpanded -> true
+                }
+            },
+        )
 
     var isKeyboardOpen by remember { mutableStateOf(false) }
     val showHeader by remember {
@@ -270,14 +271,14 @@ fun BottomSheetShell(
         sheetState = sheetState,
         dragHandle = {
             Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clickable(
-                        interactionSource = null,
-                        onClick = onDismiss,
-                        indication = null,
-                    )
-                    .padding(top = Spacing.Spacing72),
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .clickable(
+                            interactionSource = null,
+                            onClick = onDismiss,
+                            indication = null,
+                        ).padding(top = Spacing.Spacing72),
                 contentAlignment = Alignment.BottomCenter,
             ) {
                 BottomSheetIconButton(
@@ -300,18 +301,22 @@ fun BottomSheetShell(
         val canScrollForward by derivedStateOf { contentScrollState?.canScrollForward == true }
 
         Column(
-            modifier = Modifier.padding(bottom = Spacing0)
-                .background(SurfaceColor.SurfaceBright, Shape.ExtraLargeTop),
-        ) {
-            val scrollColumnShadow = if (canScrollForward) {
-                Modifier.innerShadow(blur = 32.dp)
-            } else {
+            modifier =
                 Modifier
-            }
+                    .padding(bottom = Spacing0)
+                    .background(SurfaceColor.SurfaceBright, Shape.ExtraLargeTop),
+        ) {
+            val scrollColumnShadow =
+                if (canScrollForward) {
+                    Modifier.innerShadow(blur = 32.dp)
+                } else {
+                    Modifier
+                }
             Column(
-                modifier = Modifier
-                    .weight(1f, fill = false)
-                    .padding(top = Spacing24),
+                modifier =
+                    Modifier
+                        .weight(1f, fill = false)
+                        .padding(top = Spacing24),
             ) {
                 val hasSearch =
                     uiState.searchQuery != null && onSearchQueryChanged != null && onSearch != null
@@ -325,9 +330,10 @@ fun BottomSheetShell(
                         icon = icon,
                         hasSearch = hasSearch,
                         headerTextAlignment = uiState.headerTextAlignment,
-                        modifier = Modifier
-                            .padding(vertical = Spacing0)
-                            .align(Alignment.CenterHorizontally),
+                        modifier =
+                            Modifier
+                                .padding(vertical = Spacing0)
+                                .align(Alignment.CenterHorizontally),
                     )
                 }
 
@@ -347,13 +353,15 @@ fun BottomSheetShell(
                 if (showHeader || hasSearch) {
                     if (uiState.showTopSectionDivider) {
                         HorizontalDivider(
-                            modifier = Modifier.fillMaxWidth()
-                                .padding(
-                                    top = Spacing24,
-                                    start = Spacing24,
-                                    end = Spacing24,
-                                    bottom = Spacing0,
-                                ),
+                            modifier =
+                                Modifier
+                                    .fillMaxWidth()
+                                    .padding(
+                                        top = Spacing24,
+                                        start = Spacing24,
+                                        end = Spacing24,
+                                        bottom = Spacing0,
+                                    ),
                             color = TextColor.OnDisabledSurface,
                             thickness = Border.Thin,
                         )
@@ -363,11 +371,12 @@ fun BottomSheetShell(
                 }
 
                 content?.let {
-                    val scrollModifier = if ((contentScrollState as? ScrollState) != null) {
-                        Modifier.verticalScroll(contentScrollState)
-                    } else {
-                        Modifier
-                    }
+                    val scrollModifier =
+                        if ((contentScrollState as? ScrollState) != null) {
+                            Modifier.verticalScroll(contentScrollState)
+                        } else {
+                            Modifier
+                        }
                     Column(
                         Modifier.then(scrollColumnShadow).padding(Spacing0),
                         horizontalAlignment = Alignment.CenterHorizontally,
@@ -376,13 +385,13 @@ fun BottomSheetShell(
                             Spacer(Modifier.requiredHeight(Spacing8))
                         }
                         Column(
-                            modifier = Modifier
-                                .padding(uiState.contentPadding)
-                                .heightIn(
-                                    uiState.scrollableContainerMinHeight,
-                                    uiState.scrollableContainerMaxHeight,
-                                )
-                                .then(scrollModifier),
+                            modifier =
+                                Modifier
+                                    .padding(uiState.contentPadding)
+                                    .heightIn(
+                                        uiState.scrollableContainerMinHeight,
+                                        uiState.scrollableContainerMaxHeight,
+                                    ).then(scrollModifier),
                             horizontalAlignment = Alignment.CenterHorizontally,
                             verticalArrangement = spacedBy(Spacing8),
                         ) {
@@ -393,12 +402,13 @@ fun BottomSheetShell(
                         }
                         if (uiState.showBottomSectionDivider && !canScrollForward) {
                             HorizontalDivider(
-                                modifier = Modifier.fillMaxWidth().padding(
-                                    start = Spacing24,
-                                    end = Spacing24,
-                                    bottom = Spacing0,
-                                    top = Spacing0,
-                                ),
+                                modifier =
+                                    Modifier.fillMaxWidth().padding(
+                                        start = Spacing24,
+                                        end = Spacing24,
+                                        bottom = Spacing0,
+                                        top = Spacing0,
+                                    ),
                                 color = TextColor.OnDisabledSurface,
                                 thickness = Border.Thin,
                             )
@@ -410,7 +420,7 @@ fun BottomSheetShell(
             buttonBlock?.let {
                 buttonBlock.invoke()
             }
-            Spacer(Modifier.requiredHeight(uiState.bottomPadding))
+            Spacer(Modifier.requiredHeight(BottomSheetShellDefaults.safePadding()))
         }
     }
 }

@@ -6,7 +6,6 @@ import androidx.compose.material.icons.outlined.QrCode2
 import androidx.compose.material.icons.outlined.QrCodeScanner
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.ImeAction
@@ -30,7 +29,9 @@ import androidx.compose.ui.text.input.TextFieldValue
  * @param onFocusChanged: gives access to the onFocusChanged returns true if
  * item is focused,
  * @param imeAction: controls the imeAction button to be shown.
+ * @param displayQRCapturedIcon: controls if should change button icon when text is not empty.
  * @param modifier: allows a modifier to be passed externally.
+ * @param showDeleteButton: controls whether the delete button is shown or not.
  */
 @Composable
 fun InputQRCode(
@@ -48,10 +49,17 @@ fun InputQRCode(
     onValueChanged: ((TextFieldValue?) -> Unit)? = null,
     onFocusChanged: ((Boolean) -> Unit)? = null,
     imeAction: ImeAction = ImeAction.Next,
+    displayQRCapturedIcon: Boolean = true,
     modifier: Modifier = Modifier,
+    showDeleteButton: Boolean = true,
 ) {
     val actionButtonIconVector =
-        mutableStateOf(if (!inputTextFieldValue?.text.isNullOrEmpty()) Icons.Outlined.QrCode2 else Icons.Outlined.QrCodeScanner)
+        if (!inputTextFieldValue?.text.isNullOrEmpty() && displayQRCapturedIcon) {
+            Icons.Outlined.QrCode2
+        } else {
+            Icons.Outlined.QrCodeScanner
+        }
+
     BasicTextInput(
         title = title,
         state = state,
@@ -72,7 +80,7 @@ fun InputQRCode(
                 enabled = isButtonEnabled(inputStyle, state, inputTextFieldValue?.text),
                 icon = {
                     Icon(
-                        imageVector = actionButtonIconVector.value,
+                        imageVector = actionButtonIconVector,
                         contentDescription = null,
                     )
                 },
@@ -81,11 +89,15 @@ fun InputQRCode(
         },
         autoCompleteList = autoCompleteList,
         autoCompleteItemSelected = autoCompleteItemSelected,
+        showDeleteButton = showDeleteButton,
     )
 }
 
-private fun isButtonEnabled(inputStyle: InputStyle, state: InputShellState, inputText: String?) =
-    when (inputStyle) {
-        is InputStyle.DataInputStyle -> state != InputShellState.DISABLED
-        is InputStyle.ParameterInputStyle -> inputText.isNullOrEmpty()
-    }
+private fun isButtonEnabled(
+    inputStyle: InputStyle,
+    state: InputShellState,
+    inputText: String?,
+) = when (inputStyle) {
+    is InputStyle.DataInputStyle -> state != InputShellState.DISABLED
+    is InputStyle.ParameterInputStyle -> inputText.isNullOrEmpty()
+}

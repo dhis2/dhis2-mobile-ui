@@ -31,6 +31,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.model.RegExValidations
  * @param imeAction controls the imeAction button to be shown.
  * @param modifier allows a modifier to be passed externally.
  * @param onLinkActionCLicked callback to when link button is clicked.
+ * @param showDeleteButton: controls whether the delete button is shown or not.
  */
 @Composable
 fun InputLink(
@@ -49,6 +50,7 @@ fun InputLink(
     imeAction: ImeAction = ImeAction.Next,
     modifier: Modifier = Modifier,
     onLinkActionCLicked: () -> Unit,
+    showDeleteButton: Boolean = true,
 ) {
     val isValidUrl = RegExValidations.LINK.regex.matches(inputTextFieldValue?.text.orEmpty())
     BasicTextInput(
@@ -61,10 +63,11 @@ fun InputLink(
         isRequiredField = isRequiredField,
         onNextClicked = onNextClicked,
         onValueChanged = onValueChanged,
-        keyboardOptions = KeyboardOptions(
-            imeAction = imeAction,
-            keyboardType = KeyboardType.Uri,
-        ),
+        keyboardOptions =
+            KeyboardOptions(
+                imeAction = imeAction,
+                keyboardType = KeyboardType.Uri,
+            ),
         modifier = modifier,
         testTag = "LINK",
         onFocusChanged = onFocusChanged,
@@ -83,11 +86,15 @@ fun InputLink(
         },
         autoCompleteList = autoCompleteList,
         autoCompleteItemSelected = autoCompleteItemSelected,
+        showDeleteButton = showDeleteButton,
     )
 }
 
-private fun isButtonEnabled(inputStyle: InputStyle, isValidUrl: Boolean, state: InputShellState) =
-    when (inputStyle) {
-        is InputStyle.DataInputStyle -> isValidUrl && state != InputShellState.DISABLED
-        is InputStyle.ParameterInputStyle -> false
-    }
+private fun isButtonEnabled(
+    inputStyle: InputStyle,
+    isValidUrl: Boolean,
+    state: InputShellState,
+) = when (inputStyle) {
+    is InputStyle.DataInputStyle -> isValidUrl && state != InputShellState.DISABLED
+    is InputStyle.ParameterInputStyle -> false
+}

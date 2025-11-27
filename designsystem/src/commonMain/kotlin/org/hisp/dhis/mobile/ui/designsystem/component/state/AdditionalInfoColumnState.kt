@@ -20,12 +20,19 @@ interface AdditionalInfoColumnState {
     val scrollableContent: Boolean
 
     fun expandableItemList(): List<AdditionalInfoItem>
+
     fun visibleExpandableItemList(): List<AdditionalInfoItem>
+
     fun hiddenExpandableItemList(): List<AdditionalInfoItem>
+
     fun constantItemList(): List<AdditionalInfoItem>
+
     fun showExpandableContent(): Boolean
+
     fun updateSectionState(sectionState: SectionState)
+
     fun isExpanded(): Boolean
+
     fun currentSectionState(): SectionState
 }
 
@@ -53,18 +60,21 @@ internal class AdditionalInfoColumnStateImpl(
     }
 
     override fun expandableItemList() = expandableItemList
+
     override fun visibleExpandableItemList() = expandableItemList.take(minItemsToShow)
+
     override fun hiddenExpandableItemList() = expandableItemList.drop(minItemsToShow)
+
     override fun constantItemList(): List<AdditionalInfoItem> = constantItemList
-    override fun showExpandableContent(): Boolean {
-        return expandableItemList.size > minItemsToShow
-    }
+
+    override fun showExpandableContent(): Boolean = expandableItemList.size > minItemsToShow
 
     override fun updateSectionState(sectionState: SectionState) {
         this.sectionState = sectionState
     }
 
     override fun isExpanded() = this.sectionState != SectionState.CLOSE
+
     override fun currentSectionState() = sectionState
 }
 

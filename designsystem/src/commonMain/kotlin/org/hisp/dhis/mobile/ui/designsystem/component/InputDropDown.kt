@@ -14,13 +14,12 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Cancel
-import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuAnchorType
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.MenuAnchorType
 import androidx.compose.material3.Shapes
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -46,6 +45,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.component.model.DraggableType
 import org.hisp.dhis.mobile.ui.designsystem.component.modifier.draggableList
+import org.hisp.dhis.mobile.ui.designsystem.component.state.BottomSheetShellDefaults
 import org.hisp.dhis.mobile.ui.designsystem.component.state.BottomSheetShellUIState
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2SCustomTextStyles
@@ -83,7 +83,6 @@ private const val MAX_DROPDOWN_ITEMS_TO_SHOW = 50
  * @param useDropDown: use dropdown if true. Bottomsheet with search capability otherwise.
  * @param onDismiss: gives access to the onDismiss event.
  * @param windowInsets: The insets to use for the bottom sheet shell.
- * @param bottomSheetLowerPadding the lower padding to use for the bottom sheet
  * @param noResultsFoundString: text to be shown in pop up when no results are found.
  */
 @OptIn(ExperimentalMaterial3Api::class)
@@ -108,10 +107,10 @@ fun InputDropDown(
     useDropDown: Boolean = true,
     loadOptions: () -> Unit,
     onDismiss: () -> Unit = {},
-    windowInsets: @Composable () -> WindowInsets = { BottomSheetDefaults.windowInsets },
-    bottomSheetLowerPadding: Dp = Spacing0,
+    windowInsets: @Composable () -> WindowInsets = { BottomSheetShellDefaults.windowInsets() },
     noResultsFoundString: String = provideStringResource("no_results_found"),
     searchToFindMoreString: String = provideStringResource("search_to_see_more"),
+    showDeleteButton: Boolean = true,
 ) {
     val focusRequester = remember { FocusRequester() }
     var showDropdown by remember { mutableStateOf(expanded) }
@@ -134,6 +133,7 @@ fun InputDropDown(
             onDropdownIconClick = {
                 showDropdown = !showDropdown
             },
+            showDeleteButton = showDeleteButton,
         )
     }
 
@@ -146,28 +146,30 @@ fun InputDropDown(
 
                 val scrollState = rememberLazyListState()
                 BottomSheetShell(
-                    uiState = BottomSheetShellUIState(
-                        showBottomSectionDivider = true,
-                        showTopSectionDivider = true,
-                        bottomPadding = bottomSheetLowerPadding,
-                        title = title,
-                        searchQuery = if (showSearchBar) {
-                            searchQuery
-                        } else {
-                            null
-                        },
-                    ),
+                    uiState =
+                        BottomSheetShellUIState(
+                            showBottomSectionDivider = true,
+                            showTopSectionDivider = true,
+                            title = title,
+                            searchQuery =
+                                if (showSearchBar) {
+                                    searchQuery
+                                } else {
+                                    null
+                                },
+                        ),
                     modifier = Modifier.testTag("INPUT_DROPDOWN_BOTTOM_SHEET"),
                     content = {
                         LazyColumn(
-                            modifier = Modifier
-                                .testTag("INPUT_DROPDOWN_BOTTOM_SHEET_ITEMS")
-                                .semantics {
-                                    dropDownItemCount = itemCount
-                                }.draggableList(
-                                    scrollState = scrollState,
-                                    draggableType = DraggableType.Vertical,
-                                ),
+                            modifier =
+                                Modifier
+                                    .testTag("INPUT_DROPDOWN_BOTTOM_SHEET_ITEMS")
+                                    .semantics {
+                                        dropDownItemCount = itemCount
+                                    }.draggableList(
+                                        scrollState = scrollState,
+                                        draggableType = DraggableType.Vertical,
+                                    ),
                             state = scrollState,
                         ) {
                             when {
@@ -201,9 +203,10 @@ fun InputDropDown(
                                         Text(
                                             text = noResultsFoundString,
                                             textAlign = TextAlign.Center,
-                                            modifier = Modifier
-                                                .fillMaxWidth()
-                                                .padding(24.dp),
+                                            modifier =
+                                                Modifier
+                                                    .fillMaxWidth()
+                                                    .padding(24.dp),
                                         )
                                     }
                             }
@@ -230,13 +233,14 @@ fun InputDropDown(
         ExposedDropdownMenuBox(
             expanded = showDropdown,
             onExpandedChange = { },
-            modifier = modifier
-                .background(
-                    color = SurfaceColor.SurfaceBright,
-                    shape = RoundedCornerShape(Spacing8),
-                ),
+            modifier =
+                modifier
+                    .background(
+                        color = SurfaceColor.SurfaceBright,
+                        shape = RoundedCornerShape(Spacing8),
+                    ),
         ) {
-            inputField(Modifier.menuAnchor(MenuAnchorType.PrimaryEditable))
+            inputField(Modifier.menuAnchor(ExposedDropdownMenuAnchorType.PrimaryEditable))
 
             MaterialTheme(
                 shapes = Shapes(extraSmall = RoundedCornerShape(Spacing8)),
@@ -247,23 +251,29 @@ fun InputDropDown(
                         showDropdown = false
                         onDismiss()
                     },
-                    modifier = Modifier.background(
-                        color = SurfaceColor.SurfaceBright,
-                        shape = RoundedCornerShape(Spacing8),
-                    ).exposedDropdownSize().testTag("INPUT_DROPDOWN_MENU"),
+                    modifier =
+                        Modifier
+                            .background(
+                                color = SurfaceColor.SurfaceBright,
+                                shape = RoundedCornerShape(Spacing8),
+                            ).exposedDropdownSize()
+                            .testTag("INPUT_DROPDOWN_MENU"),
                 ) {
                     repeat(itemCount) { index ->
                         with(fetchItem(index)) {
                             DropdownListItem(
-                                modifier = Modifier.testTag("INPUT_DROPDOWN_MENU_ITEM_$index")
-                                    .fillMaxWidth()
-                                    .padding(start = dropdownStartPadding(inputStyle) + 8.dp),
+                                modifier =
+                                    Modifier
+                                        .testTag("INPUT_DROPDOWN_MENU_ITEM_$index")
+                                        .fillMaxWidth()
+                                        .padding(start = dropdownStartPadding(inputStyle) + 8.dp),
                                 item = this,
                                 selected = selectedItem == this,
-                                contentPadding = PaddingValues(
-                                    horizontal = Spacing8,
-                                    vertical = Spacing16,
-                                ),
+                                contentPadding =
+                                    PaddingValues(
+                                        horizontal = Spacing8,
+                                        vertical = Spacing16,
+                                    ),
                                 onItemClick = {
                                     currentItem = this
                                     onItemSelected(index, this)
@@ -279,13 +289,12 @@ fun InputDropDown(
     }
 }
 
-private fun dropdownStartPadding(inputStyle: InputStyle): Dp {
-    return if (inputStyle is InputStyle.ParameterInputStyle) {
+private fun dropdownStartPadding(inputStyle: InputStyle): Dp =
+    if (inputStyle is InputStyle.ParameterInputStyle) {
         inputStyle.startIndent
     } else {
         Spacing0
     }
-}
 
 /**
  * DHIS2 DropDownInputField. Wraps DHIS · [InputShell].
@@ -304,8 +313,9 @@ private fun dropdownStartPadding(inputStyle: InputStyle): Dp {
  * @param onDropdownIconClick: callback to when action button is clicked.
  * @param expanded: will control the action button.
  * @param focusRequester: [FocusRequester] to be used.
+ * @param showDeleteButton: controls whether the delete button is shown or not.
  */
-// TODO make private when a period selector input is designed
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DropdownInputField(
@@ -322,12 +332,14 @@ fun DropdownInputField(
     onResetButtonClicked: () -> Unit,
     onDropdownIconClick: () -> Unit,
     modifier: Modifier = Modifier,
+    showDeleteButton: Boolean = true,
 ) {
     Box {
         InputShell(
-            modifier = modifier
-                .testTag("INPUT_DROPDOWN")
-                .focusRequester(focusRequester),
+            modifier =
+                modifier
+                    .testTag("INPUT_DROPDOWN")
+                    .focusRequester(focusRequester),
             title = title,
             state = state,
             isRequiredField = isRequiredField,
@@ -348,27 +360,31 @@ fun DropdownInputField(
             },
             inputField = {
                 Text(
-                    modifier = Modifier
-                        .testTag("INPUT_DROPDOWN_TEXT")
-                        .focusable(true)
-                        .fillMaxWidth(),
+                    modifier =
+                        Modifier
+                            .testTag("INPUT_DROPDOWN_TEXT")
+                            .focusable(true)
+                            .fillMaxWidth(),
                     text = selectedItem?.label.orEmpty(),
-                    style = MaterialTheme.typography.bodyLarge.copy(
-                        color = if (state != InputShellState.DISABLED) {
-                            TextColor.OnSurface
-                        } else {
-                            TextColor.OnDisabledSurface
-                        },
-                    ),
+                    style =
+                        MaterialTheme.typography.bodyLarge.copy(
+                            color =
+                                if (state != InputShellState.DISABLED) {
+                                    TextColor.OnSurface
+                                } else {
+                                    TextColor.OnDisabledSurface
+                                },
+                        ),
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                 )
             },
             primaryButton = {
                 IconButton(
-                    modifier = Modifier.testTag("INPUT_DROPDOWN_ARROW_BUTTON").onFocusChanged {
-                        onFocusChanged?.invoke(it.isFocused)
-                    },
+                    modifier =
+                        Modifier.testTag("INPUT_DROPDOWN_ARROW_BUTTON").onFocusChanged {
+                            onFocusChanged?.invoke(it.isFocused)
+                        },
                     enabled = state != InputShellState.DISABLED,
                     icon = {
                         ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
@@ -380,40 +396,41 @@ fun DropdownInputField(
                 )
             },
             secondaryButton =
-            if (selectedItem != null && state != InputShellState.DISABLED) {
-                {
-                    IconButton(
-                        modifier = Modifier.testTag("INPUT_DROPDOWN_RESET_BUTTON"),
-                        icon = {
-                            Icon(
-                                imageVector = Icons.Outlined.Cancel,
-                                contentDescription = "Reset Button",
-                            )
-                        },
-                        onClick = {
-                            focusRequester.requestFocus()
-                            onResetButtonClicked.invoke()
-                        },
-                    )
-                }
-            } else {
-                null
-            },
+                if (selectedItem != null && state != InputShellState.DISABLED && showDeleteButton) {
+                    {
+                        IconButton(
+                            modifier = Modifier.testTag("INPUT_DROPDOWN_RESET_BUTTON"),
+                            icon = {
+                                Icon(
+                                    imageVector = Icons.Outlined.Cancel,
+                                    contentDescription = "Reset Button",
+                                )
+                            },
+                            onClick = {
+                                focusRequester.requestFocus()
+                                onResetButtonClicked.invoke()
+                            },
+                        )
+                    }
+                } else {
+                    null
+                },
             inputStyle = inputStyle,
         )
         Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(Spacing64)
-                .padding(end = Spacing56)
-                .alpha(0f)
-                .clickable(
-                    enabled = state != InputShellState.DISABLED,
-                    onClick = {
-                        focusRequester.requestFocus()
-                        onDropdownIconClick()
-                    },
-                ),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .height(Spacing64)
+                    .padding(end = Spacing56)
+                    .alpha(0f)
+                    .clickable(
+                        enabled = state != InputShellState.DISABLED,
+                        onClick = {
+                            focusRequester.requestFocus()
+                            onDropdownIconClick()
+                        },
+                    ),
         )
     }
 }
@@ -438,35 +455,40 @@ fun DropdownListItem(
     onItemClick: () -> Unit,
 ) {
     Box(
-        modifier = modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(Spacing8))
-            .clickable(enabled = enabled, onClick = onItemClick)
-            .background(
-                color = if (selected) {
-                    SurfaceColor.PrimaryContainer
-                } else {
-                    Color.Unspecified
-                },
-            )
-            .padding(contentPadding),
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(Spacing8))
+                .clickable(enabled = enabled, onClick = onItemClick)
+                .background(
+                    color =
+                        if (selected) {
+                            SurfaceColor.PrimaryContainer
+                        } else {
+                            Color.Unspecified
+                        },
+                ).padding(contentPadding),
     ) {
         Text(
             text = item.label,
-            style = if (selected) {
-                DHIS2SCustomTextStyles.bodyLargeBold
-            } else {
-                MaterialTheme.typography.bodyLarge
-            },
+            style =
+                if (selected) {
+                    DHIS2SCustomTextStyles.bodyLargeBold
+                } else {
+                    MaterialTheme.typography.bodyLarge
+                },
             color = if (enabled) TextColor.OnSurface else TextColor.OnDisabledSurface,
         )
     }
 }
 
 @Immutable
-data class DropdownItem(val label: String)
-
-val DropDownItemCount = SemanticsPropertyKey<Int>(
-    name = "DropDownItemCount",
+data class DropdownItem(
+    val label: String,
 )
+
+val DropDownItemCount =
+    SemanticsPropertyKey<Int>(
+        name = "DropDownItemCount",
+    )
 var SemanticsPropertyReceiver.dropDownItemCount by DropDownItemCount

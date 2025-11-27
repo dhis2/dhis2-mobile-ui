@@ -16,8 +16,8 @@ actual fun Modifier.draggableList(
     coroutineScope: CoroutineScope,
     scrollState: ScrollableState,
     draggableType: DraggableType,
-): Modifier {
-    return this.then(
+): Modifier =
+    this.then(
         Modifier.pointerInput(Unit) {
             when (draggableType) {
                 is DraggableType.Vertical ->
@@ -40,4 +40,3 @@ actual fun Modifier.draggableList(
             }
         },
     )
-}

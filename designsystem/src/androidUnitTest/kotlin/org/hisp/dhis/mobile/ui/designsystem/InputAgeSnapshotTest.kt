@@ -17,7 +17,6 @@ import org.junit.Rule
 import org.junit.Test
 
 class InputAgeSnapshotTest {
-
     @get:Rule
     val paparazzi = paparazzi()
 
@@ -31,94 +30,111 @@ class InputAgeSnapshotTest {
             ColumnScreenContainer {
                 SubTitle("Input Age Component - Idle")
                 InputAge(
-                    state = rememberInputAgeState(
-                        inputAgeData = InputAgeData(
-                            title = "Label",
+                    state =
+                        rememberInputAgeState(
+                            inputAgeData =
+                                InputAgeData(
+                                    title = "Label",
+                                ),
                         ),
-                    ),
                     onValueChanged = {
                     },
                 )
 
                 SubTitle("Input Age Component - Idle Disabled")
                 InputAge(
-                    state = rememberInputAgeState(
-                        inputAgeData = InputAgeData(
-                            title = "Label",
+                    state =
+                        rememberInputAgeState(
+                            inputAgeData =
+                                InputAgeData(
+                                    title = "Label",
+                                ),
+                            inputState = InputShellState.DISABLED,
                         ),
-                        inputState = InputShellState.DISABLED,
-                    ),
                     onValueChanged = {
                     },
                 )
 
                 SubTitle("Input Age Component - Invalid Date Of Birth")
                 InputAge(
-                    state = rememberInputAgeState(
-                        inputAgeData = InputAgeData(
-                            title = "Label",
+                    state =
+                        rememberInputAgeState(
+                            inputAgeData =
+                                InputAgeData(
+                                    title = "Label",
+                                ),
+                            inputType =
+                                AgeInputType.DateOfBirth(
+                                    TextFieldValue("01011985"),
+                                ),
+                            inputState = InputShellState.DISABLED,
                         ),
-                        inputType = AgeInputType.DateOfBirth(
-                            TextFieldValue("01011985"),
-                        ),
-                        inputState = InputShellState.DISABLED,
-                    ),
                     onValueChanged = {
                     },
                 )
 
                 SubTitle("Input Age Component - Date Of Birth")
                 InputAge(
-                    state = rememberInputAgeState(
-                        inputAgeData = InputAgeData(
-                            title = "Label",
+                    state =
+                        rememberInputAgeState(
+                            inputAgeData =
+                                InputAgeData(
+                                    title = "Label",
+                                ),
+                            inputType =
+                                AgeInputType.DateOfBirth(
+                                    TextFieldValue("1991-11-27"),
+                                ),
+                            inputState = InputShellState.DISABLED,
                         ),
-                        inputType = AgeInputType.DateOfBirth(
-                            TextFieldValue("1991-11-27"),
-                        ),
-                        inputState = InputShellState.DISABLED,
-                    ),
                     onValueChanged = {
                     },
                 )
 
                 SubTitle("Input Age Component - Date Of Birth Required Error")
                 InputAge(
-                    state = rememberInputAgeState(
-                        inputAgeData = InputAgeData(
-                            title = "Label",
+                    state =
+                        rememberInputAgeState(
+                            inputAgeData =
+                                InputAgeData(
+                                    title = "Label",
+                                ),
+                            inputType =
+                                AgeInputType.DateOfBirth(
+                                    TextFieldValue("010"),
+                                ),
+                            inputState = InputShellState.ERROR,
                         ),
-                        inputType = AgeInputType.DateOfBirth(
-                            TextFieldValue("010"),
-                        ),
-                        inputState = InputShellState.ERROR,
-                    ),
                     onValueChanged = {
                     },
                 )
 
                 SubTitle("Input Age Component - Age Disabled")
                 InputAge(
-                    state = rememberInputAgeState(
-                        inputAgeData = InputAgeData(
-                            title = "Label",
+                    state =
+                        rememberInputAgeState(
+                            inputAgeData =
+                                InputAgeData(
+                                    title = "Label",
+                                ),
+                            inputType = AgeInputType.Age(value = TextFieldValue("56"), unit = TimeUnitValues.YEARS),
+                            inputState = InputShellState.DISABLED,
                         ),
-                        inputType = AgeInputType.Age(value = TextFieldValue("56"), unit = TimeUnitValues.YEARS),
-                        inputState = InputShellState.DISABLED,
-                    ),
                     onValueChanged = {
                     },
                 )
 
                 SubTitle("Input Age Component - Age Required Error")
                 InputAge(
-                    state = rememberInputAgeState(
-                        inputAgeData = InputAgeData(
-                            title = "Label",
+                    state =
+                        rememberInputAgeState(
+                            inputAgeData =
+                                InputAgeData(
+                                    title = "Label",
+                                ),
+                            inputType = AgeInputType.Age(value = TextFieldValue("56"), unit = TimeUnitValues.YEARS),
+                            inputState = InputShellState.ERROR,
                         ),
-                        inputType = AgeInputType.Age(value = TextFieldValue("56"), unit = TimeUnitValues.YEARS),
-                        inputState = InputShellState.ERROR,
-                    ),
                     onValueChanged = {
                     },
                 )

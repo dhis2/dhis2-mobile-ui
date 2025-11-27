@@ -40,16 +40,19 @@ fun Indicator(
     val backgroundColor = indicatorColor.copy(alpha = 0.1f)
 
     Row(
-        modifier = modifier.fillMaxWidth()
-            .height(IntrinsicSize.Max)
-            .clip(RoundedCornerShape(Spacing.Spacing8))
-            .background(backgroundColor),
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .height(IntrinsicSize.Max)
+                .clip(RoundedCornerShape(Spacing.Spacing8))
+                .background(backgroundColor),
     ) {
         Box(
-            Modifier.padding(
-                horizontal = Spacing.Spacing16,
-                vertical = Spacing.Spacing8,
-            ).weight(1f),
+            Modifier
+                .padding(
+                    horizontal = Spacing.Spacing16,
+                    vertical = Spacing.Spacing8,
+                ).weight(1f),
         ) {
             Column {
                 Text(

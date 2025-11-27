@@ -1,17 +1,17 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 
-version = "0.5.1-SNAPSHOT"
+version = "0.6.0-SNAPSHOT"
 group = "org.hisp.dhis.mobile"
 
 plugins {
-    kotlin("multiplatform") apply false
-    id("com.android.application") apply false
-    id("com.android.library") apply false
-    id("org.jetbrains.compose") apply false
-    id("org.jlleitschuh.gradle.ktlint") version "12.1.2"
-    id("org.jetbrains.dokka") version "1.9.20"
-    id("io.github.gradle-nexus.publish-plugin") version "1.3.0"
-    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.android.library) apply false
+    alias(libs.plugins.composeMultiplatform) apply false
+    alias(libs.plugins.composeCompiler) apply false
+    alias(libs.plugins.kotlinMultiplatform) apply false
+    alias(libs.plugins.ktlint)
+    alias(libs.plugins.dokka)
+    alias(libs.plugins.nexus)
 }
 
 /**
@@ -25,7 +25,6 @@ if (project.hasProperty("removeSnapshotSuffix")) {
 allprojects {
     apply(plugin = "org.jlleitschuh.gradle.ktlint")
     ktlint {
-        version.set("0.50.0")
         verbose.set(true)
         outputToConsole.set(true)
         filter {
@@ -47,17 +46,27 @@ subprojects {
             // Treat all Kotlin warnings as errors
             allWarningsAsErrors.set(true)
 
+            // Suppress KLIB duplicate library warnings for metadata compilation
+            // These occur due to androidx.* and org.jetbrains.androidx.* library overlaps
+            if (name.contains("Metadata", ignoreCase = true)) {
+                allWarningsAsErrors.set(false)
+            }
+
             if (project.providers.gradleProperty("enableComposeCompilerReports").isPresent) {
                 freeCompilerArgs.addAll(
                     "-P",
                     "plugin:androidx.compose.compiler.plugins.kotlin:reportsDestination=" +
-                        layout.buildDirectory.asFile.get().absolutePath +
+                        layout.buildDirectory.asFile
+                            .get()
+                            .absolutePath +
                         "/compose_metrics",
                 )
                 freeCompilerArgs.addAll(
                     "-P",
                     "plugin:androidx.compose.compiler.plugins.kotlin:metricsDestination=" +
-                        layout.buildDirectory.asFile.get().absolutePath +
+                        layout.buildDirectory.asFile
+                            .get()
+                            .absolutePath +
                         "/compose_metrics",
                 )
             }

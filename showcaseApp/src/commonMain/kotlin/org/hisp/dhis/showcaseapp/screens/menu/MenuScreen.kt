@@ -30,12 +30,12 @@ fun MenuScreen() {
     }
 }
 
-enum class MENU(val label: String) {
+enum class MENU(
+    val label: String,
+) {
     DROPDOWN_MENU("Drop down menu"),
     MENU_ITEM("Menu item"),
     NO_COMPONENT_SELECTED("No component selected"),
 }
 
-fun getCurrentScreen(label: String): MENU {
-    return MENU.entries.firstOrNull { it.label == label } ?: MENU.DROPDOWN_MENU
-}
+fun getCurrentScreen(label: String): MENU = MENU.entries.firstOrNull { it.label == label } ?: MENU.DROPDOWN_MENU

@@ -12,7 +12,7 @@ on:
     inputs:
       release_version:
         description: 'Please, enter the release version'
-        required: true
+        required: false
         type: string
 
 jobs:
@@ -21,10 +21,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
 
       - name: Set Up JDK
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v5
         with:
           distribution: 'zulu'
           java-version: '17'
@@ -46,10 +46,10 @@ jobs:
     if: ${{ (inputs.release_version) && (inputs.release_version != '') }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up JDK 17
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           java-version: 17
           distribution: temurin
@@ -67,7 +67,7 @@ jobs:
 
 
       - name: Github Release
-        uses: ncipollo/release-action@v1.14.0
+        uses: ncipollo/release-action@v1.20.0
         with:
           allowUpdates: true
           draft: true

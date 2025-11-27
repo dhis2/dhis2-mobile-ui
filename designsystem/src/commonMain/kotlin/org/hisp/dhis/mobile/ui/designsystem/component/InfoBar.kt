@@ -1,76 +1,190 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.LocalRippleConfiguration
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
-import org.hisp.dhis.mobile.ui.designsystem.theme.customRippleConfiguration
 
 /**
- * DHIS2 InfoBar. Wraps compose [Row].
+ * DHIS2 InfoBar.
  * InfoBars provide brief messages about app status.
  * @param infoBarData: a data class [InfoBarData] with all
  * parameters for component.
  * @param modifier: optional modifier.
  */
 @OptIn(ExperimentalMaterial3Api::class)
+@Deprecated("Use constructor without InfoBarData")
 @Composable
 fun InfoBar(
     infoBarData: InfoBarData,
     modifier: Modifier = Modifier,
 ) {
+    if (infoBarData.actionText != null && infoBarData.onClick != null) {
+        InfoBar(
+            modifier = modifier,
+            text = infoBarData.text,
+            actionText = infoBarData.actionText,
+            onActionClick = infoBarData.onClick,
+            textColor = infoBarData.color,
+            backgroundColor = infoBarData.backgroundColor,
+            icon = infoBarData.icon,
+        )
+    } else {
+        InfoBar(
+            modifier = modifier,
+            text = infoBarData.text,
+            textColor = infoBarData.color,
+            backgroundColor = infoBarData.backgroundColor,
+            icon = infoBarData.icon,
+        )
+    }
+}
+
+/**
+ * DHIS2 InfoBar.
+ * InfoBars provide brief messages about app status.
+ * @param modifier: optional modifier.
+ * @param text: main text to be displayed within the item.
+ * @param textColor: text color.
+ * @param backgroundColor: background color.
+ * @param icon: the icon to be displayed before the text.
+ * @param displayProgress: whether to display a progress indicator on the top-end corner.
+ */
+@Composable
+fun InfoBar(
+    modifier: Modifier = Modifier,
+    text: String,
+    textColor: Color,
+    backgroundColor: Color,
+    displayProgress: Boolean = false,
+    icon: @Composable (() -> Unit)? = null,
+) {
+    BasicInfoBar(
+        modifier = modifier,
+        text = text,
+        textColor = textColor,
+        actionText = null,
+        backgroundColor = backgroundColor,
+        icon = icon,
+        displayProgress = displayProgress,
+    )
+}
+
+/**
+ * DHIS2 InfoBar.
+ * InfoBars provide brief messages about app status and provides an action button.
+ * @param modifier: optional modifier.
+ * @param text: main text to be displayed within the item.
+ * @param textColor: text color.
+ * @param backgroundColor: background color.
+ * @param icon: the icon to be displayed before the text.
+ * @param actionText: the text to be used for action button.
+ * @param onActionClick: callback for the action button.
+ */
+@Composable
+fun InfoBar(
+    modifier: Modifier = Modifier,
+    text: String,
+    textColor: Color,
+    actionText: String,
+    backgroundColor: Color,
+    icon: @Composable (() -> Unit)? = null,
+    onActionClick: () -> Unit,
+) {
+    BasicInfoBar(
+        modifier = modifier,
+        text = text,
+        textColor = textColor,
+        actionText = actionText,
+        backgroundColor = backgroundColor,
+        icon = icon,
+        onActionClick = onActionClick,
+        displayProgress = false,
+    )
+}
+
+@Composable
+private fun BasicInfoBar(
+    modifier: Modifier = Modifier,
+    text: String,
+    textColor: Color,
+    actionText: String?,
+    backgroundColor: Color,
+    displayProgress: Boolean,
+    icon: @Composable (() -> Unit)? = null,
+    onActionClick: () -> Unit = {},
+) {
     Row(
-        modifier = modifier
-            .clip(shape = RoundedCornerShape(Radius.XL))
-            .background(color = infoBarData.backgroundColor)
-            .padding(Spacing.Spacing8)
-            .fillMaxWidth(),
+        modifier =
+            modifier
+                .clip(shape = RoundedCornerShape(Radius.XL))
+                .background(color = backgroundColor)
+                .fillMaxWidth()
+                .heightIn(min = InfoBarDefaults.minHeigh),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Column(Modifier.align(Alignment.Top)) {
-            infoBarData.icon?.invoke()
-        }
-        Spacer(Modifier.size(Spacing.Spacing8))
-        Text(color = infoBarData.color, text = infoBarData.text, style = MaterialTheme.typography.bodyMedium)
-        Spacer(Modifier.weight(1f))
-        if (infoBarData.onClick != null && infoBarData.actionText?.isNotEmpty() == true) {
-            CompositionLocalProvider(LocalRippleConfiguration provides customRippleConfiguration()) {
-                Column(
-                    Modifier
-                        .clip(shape = RoundedCornerShape(Radius.L))
-                        .clickable(onClick = infoBarData.onClick)
-                        .fillMaxHeight(),
-                    verticalArrangement = Arrangement.Center,
-                ) {
-                    Text(
-                        color = SurfaceColor.Primary,
-                        text = infoBarData.actionText,
-                        style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.SemiBold),
-                        modifier = Modifier.padding(start = Spacing.Spacing8, end = Spacing.Spacing16, bottom = Spacing.Spacing2),
-                    )
-                }
+        Row(
+            modifier =
+                Modifier
+                    .weight(1f)
+                    .padding(Spacing.Spacing8),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = spacedBy(Spacing.Spacing8),
+        ) {
+            Column(Modifier.align(Alignment.Top)) {
+                icon?.invoke()
             }
+            Text(
+                modifier = Modifier.weight(1f),
+                color = textColor,
+                text = text,
+                style = MaterialTheme.typography.bodyMedium,
+            )
+        }
+
+        if (displayProgress) {
+            Column(
+                Modifier
+                    .padding(Spacing.Spacing8)
+                    .align(Alignment.Top),
+            ) {
+                ProgressIndicator(
+                    modifier = Modifier.size(InfoBarDefaults.progressIndicatorSize),
+                    type = ProgressIndicatorType.CIRCULAR_SMALL,
+                )
+            }
+        }
+
+        actionText?.let {
+            Button(
+                modifier = Modifier.height(InfoBarDefaults.actionButtonHeight),
+                style = ButtonStyle.TEXT,
+                text = actionText,
+                paddingValues =
+                    PaddingValues(
+                        horizontal = Spacing.Spacing16,
+                        vertical = Spacing.Spacing0,
+                    ),
+                onClick = onActionClick,
+            )
         }
     }
 }
@@ -92,3 +206,9 @@ data class InfoBarData(
     val actionText: String? = null,
     val onClick: (() -> Unit)? = null,
 )
+
+object InfoBarDefaults {
+    val minHeigh = 40.dp
+    val progressIndicatorSize = 24.dp
+    val actionButtonHeight = 40.dp
+}

@@ -14,9 +14,7 @@ class AndroidSignature(
         signaturePadAdapter.clear()
     }
 
-    override fun getBitmap(): ImageBitmap {
-        return signaturePadAdapter.getSignatureBitmap().asImageBitmap()
-    }
+    override fun getBitmap(): ImageBitmap = signaturePadAdapter.getSignatureBitmap().asImageBitmap()
 }
 
 @Composable

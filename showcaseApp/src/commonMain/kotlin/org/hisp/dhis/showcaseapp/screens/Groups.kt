@@ -1,6 +1,8 @@
 package org.hisp.dhis.showcaseapp.screens
 
-enum class Groups(val label: String) {
+enum class Groups(
+    val label: String,
+) {
     ACTION_INPUTS("Action inputs"),
     BASIC_TEXT_INPUTS("Basic text Inputs"),
     BOTTOM_SHEETS("Bottom sheet components"),
@@ -26,4 +28,5 @@ enum class Groups(val label: String) {
     INPUT_DIALOG("Input Dialog"),
     TABS("Tabs"),
     TWO_PANE_LAYOUT("Two pane layout"),
+    INFO_BAR("Info bar"),
 }

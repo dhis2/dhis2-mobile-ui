@@ -38,10 +38,13 @@ fun BasicTextInputsScreen() {
         BasicTextInputs.INPUT_UNIT_INTERVAL -> InputUnitIntervalScreen()
         BasicTextInputs.SUPPORTING_TEXT -> SupportingTextScreen()
         BasicTextInputs.NO_COMPONENT_SELECTED -> NoComponentSelectedScreen()
+        BasicTextInputs.INPUT_SEGMENTED_SHELL -> InputSegmentedShellScreen()
     }
 }
 
-enum class BasicTextInputs(val label: String) {
+enum class BasicTextInputs(
+    val label: String,
+) {
     FORM_SHELLS("Form Shells component"),
     INPUT_INTEGER("Input Integer component"),
     INPUT_LETTER("Input Letter component"),
@@ -55,9 +58,11 @@ enum class BasicTextInputs(val label: String) {
     INPUT_TEXT("Input Text component"),
     INPUT_UNIT_INTERVAL("Input Unit Interval component"),
     SUPPORTING_TEXT("Supporting Text component"),
+    INPUT_SEGMENTED_SHELL("Input Segmented Shell component"),
     NO_COMPONENT_SELECTED("No component selected"),
 }
 
-fun getCurrentScreen(label: String): BasicTextInputs {
-    return BasicTextInputs.entries.firstOrNull { it.label == label } ?: BasicTextInputs.INPUT_TEXT
-}
+fun getCurrentScreen(label: String): BasicTextInputs =
+    BasicTextInputs.entries.firstOrNull {
+        it.label == label
+    } ?: BasicTextInputs.INPUT_TEXT

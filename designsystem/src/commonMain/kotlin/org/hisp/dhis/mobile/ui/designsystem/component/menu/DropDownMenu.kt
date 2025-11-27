@@ -24,22 +24,25 @@ fun <T> DropDownMenu(
 ) {
     MaterialTheme(shapes = DHISShapes.copy(extraSmall = Shape.Small)) {
         DropdownMenu(
-            modifier = modifier
-                .background(SurfaceColor.ContainerLow)
-                .widthIn(min = 270.dp),
+            modifier =
+                modifier
+                    .background(SurfaceColor.ContainerLow)
+                    .widthIn(min = 270.dp),
             expanded = expanded,
             onDismissRequest = onDismissRequest,
             offset = offset,
         ) {
             items.forEachIndexed { index, item ->
                 MenuItem(
-                    menuItemData = item.copy(
-                        state = if (selectedItemIndex == index) {
-                            MenuItemState.SELECTED
-                        } else {
-                            item.state
-                        },
-                    ),
+                    menuItemData =
+                        item.copy(
+                            state =
+                                if (selectedItemIndex == index) {
+                                    MenuItemState.SELECTED
+                                } else {
+                                    item.state
+                                },
+                        ),
                 ) {
                     onItemClick(item.id)
                 }

@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
@@ -66,61 +67,78 @@ internal fun InputShell(
     legend: @Composable (ColumnScope.() -> Unit)?,
     onFocusChanged: ((Boolean) -> Unit)? = null,
     isRequiredField: Boolean,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier.fillMaxWidth(),
     inputStyle: InputStyle,
+    paddingValues: PaddingValues =
+        PaddingValues(
+            start = Spacing.Spacing16,
+            top = Spacing.Spacing8,
+            end = Spacing.Spacing0,
+            bottom = Spacing.Spacing8,
+        ),
 ) {
     Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .clip(shape = RoundedCornerShape(Radius.XS, Radius.XS))
-            .animateContentSize(),
+        modifier =
+            modifier
+                .clip(shape = RoundedCornerShape(Radius.XS, Radius.XS))
+                .animateContentSize(),
     ) {
         var labelColor by remember(state) { mutableStateOf(state.color) }
         var indicatorColor by remember(state) { mutableStateOf(state.color) }
         var indicatorThickness by remember { mutableStateOf(Border.Thin) }
-        val backgroundColor = when {
-            state != InputShellState.DISABLED -> inputStyle.backGroundColor
-            else -> inputStyle.disabledBackGroundColor
-        }
+        val backgroundColor =
+            when {
+                state != InputShellState.DISABLED -> inputStyle.backGroundColor
+                else -> inputStyle.disabledBackGroundColor
+            }
         val focusRequester = remember { FocusRequester() }
 
         Box {
             InputShellRow(
-                modifier = Modifier
-                    .focusRequester(focusRequester)
-                    .pointerInput(Unit) {
-                        if (state != InputShellState.DISABLED) {
-                            detectTapGestures(
-                                onTap = { focusRequester.requestFocus() },
-                            )
-                        }
-                    }
-                    .onFocusChanged {
-                        labelColor = when {
-                            state == InputShellState.DISABLED -> InputShellState.DISABLED.color
-                            it.isFocused && state != InputShellState.ERROR && state != InputShellState.WARNING -> InputShellState.FOCUSED.color
-                            else -> state.color
-                        }
-                        indicatorColor =
-                            when {
-                                state == InputShellState.DISABLED ->
-                                    inputStyle.disabledIndicatorColor
-                                        ?: InputShellState.DISABLED.color
-
-                                it.isFocused && state != InputShellState.ERROR && state != InputShellState.WARNING -> InputShellState.FOCUSED.color
-                                state == InputShellState.UNFOCUSED ->
-                                    inputStyle.unfocusedIndicatorColor
-                                        ?: state.color
-
-                                else -> state.color
+                modifier =
+                    Modifier
+                        .focusRequester(focusRequester)
+                        .pointerInput(Unit) {
+                            if (state != InputShellState.DISABLED) {
+                                detectTapGestures(
+                                    onTap = { focusRequester.requestFocus() },
+                                )
                             }
-                        indicatorThickness = when {
-                            state == InputShellState.DISABLED -> Border.Thin
-                            it.isFocused -> Border.Regular
-                            else -> Border.Thin
-                        }
-                        onFocusChanged?.invoke(it.isFocused)
-                    }.padding(start = inputStyle.startIndent),
+                        }.onFocusChanged {
+                            labelColor =
+                                when {
+                                    state == InputShellState.DISABLED -> InputShellState.DISABLED.color
+                                    it.isFocused &&
+                                        state != InputShellState.ERROR &&
+                                        state != InputShellState.WARNING -> InputShellState.FOCUSED.color
+
+                                    else -> state.color
+                                }
+                            indicatorColor =
+                                when {
+                                    state == InputShellState.DISABLED ->
+                                        inputStyle.disabledIndicatorColor
+                                            ?: InputShellState.DISABLED.color
+
+                                    it.isFocused &&
+                                        state != InputShellState.ERROR &&
+                                        state != InputShellState.WARNING -> InputShellState.FOCUSED.color
+
+                                    state == InputShellState.UNFOCUSED ->
+                                        inputStyle.unfocusedIndicatorColor
+                                            ?: state.color
+
+                                    else -> state.color
+                                }
+                            indicatorThickness =
+                                when {
+                                    state == InputShellState.DISABLED -> Border.Thin
+                                    it.isFocused -> Border.Regular
+                                    else -> Border.Thin
+                                }
+                            onFocusChanged?.invoke(it.isFocused)
+                        }.padding(start = inputStyle.startIndent),
+                paddingValues = paddingValues,
                 backgroundColor = backgroundColor,
             ) {
                 Column(
@@ -148,7 +166,8 @@ internal fun InputShell(
                     secondaryButton?.let {
                         Box(
                             Modifier
-                                .padding(end = Spacing.Spacing4).size(Spacing.Spacing48),
+                                .padding(end = Spacing.Spacing4)
+                                .size(Spacing.Spacing48),
                         ) {
                             it.invoke()
                         }
@@ -184,18 +203,16 @@ internal fun InputShell(
 private fun InputShellRow(
     modifier: Modifier = Modifier,
     backgroundColor: Color,
+    paddingValues: PaddingValues,
     content: @Composable (RowScope.() -> Unit),
 ) {
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
-        modifier = modifier.fillMaxWidth()
-            .background(backgroundColor)
-            .padding(
-                start = Spacing.Spacing16,
-                top = Spacing.Spacing8,
-                end = Spacing.Spacing0,
-                bottom = Spacing.Spacing8,
-            ),
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .background(backgroundColor)
+                .padding(paddingValues),
     ) {
         content()
     }
@@ -206,14 +223,13 @@ private fun InputShellRow(
  * used in the [InputShell] component
  */
 @Composable
-private fun InputShellButtonSeparator(
-    modifier: Modifier = Modifier,
-) {
+private fun InputShellButtonSeparator(modifier: Modifier = Modifier) {
     VerticalDivider(
         color = Outline.Medium,
         thickness = Border.Thin,
-        modifier = modifier
-            .height(Spacing.Spacing40),
+        modifier =
+            modifier
+                .height(Spacing.Spacing40),
     )
 }
 
@@ -238,7 +254,9 @@ private fun InputShellIndicator(
  * DHIS2 InputShellState,
  *  enum class to control the state [InputShell] component
  */
-enum class InputShellState(val color: Color) {
+enum class InputShellState(
+    val color: Color,
+) {
     FOCUSED(SurfaceColor.Primary),
     UNFOCUSED(TextColor.OnSurfaceVariant),
     ERROR(SurfaceColor.Error),

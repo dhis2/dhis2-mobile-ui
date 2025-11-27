@@ -37,32 +37,36 @@ class InputRadioButtonSnapshotTest {
             val option5 = "Option 5"
             val option6 = "Option 6"
 
-            val radioButtonDataItemsVertical = listOf(
-                RadioButtonData("0", selected = true, enabled = true, textInput = option1),
-                RadioButtonData("1", selected = false, enabled = true, textInput = option2),
-                RadioButtonData("2", selected = false, enabled = true, textInput = option3),
-            )
+            val radioButtonDataItemsVertical =
+                listOf(
+                    RadioButtonData("0", selected = true, enabled = true, textInput = option1),
+                    RadioButtonData("1", selected = false, enabled = true, textInput = option2),
+                    RadioButtonData("2", selected = false, enabled = true, textInput = option3),
+                )
 
-            val radioButtonDataItemsError = listOf(
-                RadioButtonData("3", selected = false, enabled = true, textInput = option1),
-                RadioButtonData("4", selected = false, enabled = true, textInput = option2),
-                RadioButtonData("5", selected = false, enabled = true, textInput = option3),
-            )
+            val radioButtonDataItemsError =
+                listOf(
+                    RadioButtonData("3", selected = false, enabled = true, textInput = option1),
+                    RadioButtonData("4", selected = false, enabled = true, textInput = option2),
+                    RadioButtonData("5", selected = false, enabled = true, textInput = option3),
+                )
 
-            val radioButtonDataItemsDisabled = listOf(
-                RadioButtonData("6", selected = true, enabled = true, textInput = option1),
-                RadioButtonData("7", selected = false, enabled = true, textInput = option2),
-                RadioButtonData("8", selected = false, enabled = true, textInput = option3),
-            )
+            val radioButtonDataItemsDisabled =
+                listOf(
+                    RadioButtonData("6", selected = true, enabled = true, textInput = option1),
+                    RadioButtonData("7", selected = false, enabled = true, textInput = option2),
+                    RadioButtonData("8", selected = false, enabled = true, textInput = option3),
+                )
 
-            val radioButtonDataItemsHorizontal = listOf(
-                RadioButtonData("9", selected = true, enabled = true, textInput = option1),
-                RadioButtonData("10", selected = false, enabled = true, textInput = option2),
-                RadioButtonData("11", selected = false, enabled = true, textInput = option3),
-                RadioButtonData("12", selected = false, enabled = true, textInput = option4),
-                RadioButtonData("13", selected = false, enabled = true, textInput = option5),
-                RadioButtonData("14", selected = false, enabled = true, textInput = option6),
-            )
+            val radioButtonDataItemsHorizontal =
+                listOf(
+                    RadioButtonData("9", selected = true, enabled = true, textInput = option1),
+                    RadioButtonData("10", selected = false, enabled = true, textInput = option2),
+                    RadioButtonData("11", selected = false, enabled = true, textInput = option3),
+                    RadioButtonData("12", selected = false, enabled = true, textInput = option4),
+                    RadioButtonData("13", selected = false, enabled = true, textInput = option5),
+                    RadioButtonData("14", selected = false, enabled = true, textInput = option6),
+                )
 
             var selectedItemVertical by remember {
                 mutableStateOf<RadioButtonData?>(radioButtonDataItemsVertical[0])
@@ -100,14 +104,15 @@ class InputRadioButtonSnapshotTest {
                         selectedItemVertical = it
                     },
                     state = InputShellState.UNFOCUSED,
-                    supportingText = if (showSupportingText) {
-                        listOf(
-                            SupportingTextData("Required", state = SupportingTextState.ERROR),
-                            SupportingTextData("Test Warning", state = SupportingTextState.WARNING),
-                        )
-                    } else {
-                        emptyList()
-                    },
+                    supportingText =
+                        if (showSupportingText) {
+                            listOf(
+                                SupportingTextData("Required", state = SupportingTextState.ERROR),
+                                SupportingTextData("Test Warning", state = SupportingTextState.WARNING),
+                            )
+                        } else {
+                            emptyList()
+                        },
                 )
                 Spacer(Modifier.size(Spacing.Spacing18))
                 InputRadioButton(

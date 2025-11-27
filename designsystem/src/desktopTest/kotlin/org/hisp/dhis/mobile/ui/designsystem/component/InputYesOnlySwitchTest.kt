@@ -17,7 +17,6 @@ import org.junit.Rule
 import org.junit.Test
 
 class InputYesOnlySwitchTest {
-
     @get:Rule
     val rule = createComposeRule()
 

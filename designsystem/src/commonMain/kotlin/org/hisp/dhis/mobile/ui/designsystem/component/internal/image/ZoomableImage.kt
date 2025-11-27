@@ -51,45 +51,48 @@ internal fun ZoomableImage(
         painter = painter,
         contentDescription = null,
         contentScale = contentScale,
-        modifier = modifier
-            .clipToBounds()
-            .pointerInput(Unit) {
-                detectTransformGestures { centroid, pan, zoom, _ ->
-                    isDoubleTapped = false
-                    scale = maxOf(1f, scale * zoom)
-                    offset = offset.calculateNewOffset(
-                        centroid, pan, scale, zoom, size,
+        modifier =
+            modifier
+                .clipToBounds()
+                .pointerInput(Unit) {
+                    detectTransformGestures { centroid, pan, zoom, _ ->
+                        isDoubleTapped = false
+                        scale = maxOf(1f, scale * zoom)
+                        offset =
+                            offset.calculateNewOffset(
+                                centroid,
+                                pan,
+                                scale,
+                                zoom,
+                                size,
+                            )
+                    }
+                }.pointerInput(Unit) {
+                    detectTapGestures(
+                        onDoubleTap = { tapOffset ->
+                            isDoubleTapped = true
+                            val srcSize = Size(painter.intrinsicSize.width, painter.intrinsicSize.height)
+                            scale = calculateDoubleTapScale(scale, srcSize, size)
+                            offset = calculateDoubleTapOffset(scale, size, tapOffset)
+                        },
                     )
-                }
-            }
-            .pointerInput(Unit) {
-                detectTapGestures(
-                    onDoubleTap = { tapOffset ->
-                        isDoubleTapped = true
-                        val srcSize = Size(painter.intrinsicSize.width, painter.intrinsicSize.height)
-                        scale = calculateDoubleTapScale(scale, srcSize, size)
-                        offset = calculateDoubleTapOffset(scale, size, tapOffset)
-                    },
-                )
-            }
-            .graphicsLayer {
-                translationX = -animatedOffset.x * animatedScale
-                translationY = -animatedOffset.y * animatedScale
-                scaleX = animatedScale
-                scaleY = animatedScale
-                transformOrigin = TransformOrigin(0f, 0f)
-            },
+                }.graphicsLayer {
+                    translationX = -animatedOffset.x * animatedScale
+                    translationY = -animatedOffset.y * animatedScale
+                    scaleX = animatedScale
+                    scaleY = animatedScale
+                    transformOrigin = TransformOrigin(0f, 0f)
+                },
     )
 }
 
 @Composable
-private fun <T> getAnimationSpec(showAnimation: Boolean): FiniteAnimationSpec<T> {
-    return if (showAnimation) {
+private fun <T> getAnimationSpec(showAnimation: Boolean): FiniteAnimationSpec<T> =
+    if (showAnimation) {
         spring(stiffness = Spring.StiffnessLow)
     } else {
         tween(0)
     }
-}
 
 private fun Offset.calculateNewOffset(
     centroid: Offset,

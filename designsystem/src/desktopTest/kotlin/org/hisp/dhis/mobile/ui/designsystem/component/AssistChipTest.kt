@@ -12,7 +12,6 @@ import org.junit.Rule
 import org.junit.Test
 
 class AssistChipTest {
-
     @get:Rule
     val rule = createComposeRule()
 
@@ -25,8 +24,9 @@ class AssistChipTest {
                     Icon(
                         imageVector = Icons.Filled.Search,
                         contentDescription = "search icon",
-                        modifier = Modifier
-                            .size(AssistChipDefaults.IconSize),
+                        modifier =
+                            Modifier
+                                .size(AssistChipDefaults.IconSize),
                     )
                 },
                 onClick = {},

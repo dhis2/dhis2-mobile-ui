@@ -60,17 +60,20 @@ fun SupportingText(
     showMoreText: String = provideStringResource("show_more"),
     showLessText: String = provideStringResource("show_less"),
     modifier: Modifier = Modifier,
-    paddingValues: PaddingValues = PaddingValues(
-        start = Spacing.Spacing16,
-        top = Spacing.Spacing4,
-        end = Spacing.Spacing16,
-    ),
+    paddingValues: PaddingValues =
+        PaddingValues(
+            start = Spacing.Spacing16,
+            top = Spacing.Spacing4,
+            end = Spacing.Spacing16,
+        ),
     onNoInteraction: (() -> Pair<MutableInteractionSource, () -> Unit>)? = null,
 ) {
     var isExpanded by remember { mutableStateOf(false) }
     val textLayoutResultState = remember { mutableStateOf<TextLayoutResult?>(null) }
-    val nonClickableTextStyle = DHIS2SCustomTextStyles.regularSupportingText.copy(color = state.color)
-    val clickableTextStyle = DHIS2SCustomTextStyles.clickableSupportingText.copy(color = state.color)
+    val nonClickableTextStyle =
+        DHIS2SCustomTextStyles.regularSupportingText.copy(color = state.color)
+    val clickableTextStyle =
+        DHIS2SCustomTextStyles.clickableSupportingText.copy(color = state.color)
     var isClickable by remember { mutableStateOf(false) }
     var annotatedText by remember(text) {
         mutableStateOf(
@@ -86,79 +89,84 @@ fun SupportingText(
     LaunchedEffect(textLayoutResult) {
         if (textLayoutResult == null) return@LaunchedEffect
 
-        val link = LinkAnnotation.Clickable(
-            tag = seeMoreTag,
-            styles = TextLinkStyles(
-                clickableTextStyle.copy(fontWeight = FontWeight.SemiBold),
-            ),
-        ) {
-            val link = it as LinkAnnotation.Clickable
-            if (link.tag == seeMoreTag) {
-                if (isClickable) {
-                    isExpanded = !isExpanded
-                }
-            } else {
-                onNoInteraction?.invoke()?.let { (interactionSource, action) ->
-                    scope.launch {
-                        action.invoke()
-                        val pressInteraction = PressInteraction.Press(Offset.Zero)
-                        interactionSource.emit(pressInteraction)
-                        interactionSource.emit(PressInteraction.Release(pressInteraction))
+        val link =
+            LinkAnnotation.Clickable(
+                tag = seeMoreTag,
+                styles =
+                    TextLinkStyles(
+                        clickableTextStyle.copy(fontWeight = FontWeight.SemiBold),
+                    ),
+            ) {
+                val link = it as LinkAnnotation.Clickable
+                if (link.tag == seeMoreTag) {
+                    if (isClickable) {
+                        isExpanded = !isExpanded
+                    }
+                } else {
+                    onNoInteraction?.invoke()?.let { (interactionSource, action) ->
+                        scope.launch {
+                            action.invoke()
+                            val pressInteraction = PressInteraction.Press(Offset.Zero)
+                            interactionSource.emit(pressInteraction)
+                            interactionSource.emit(PressInteraction.Release(pressInteraction))
+                        }
                     }
                 }
             }
-        }
 
         when {
-            !isExpanded && textLayoutResult.hasVisualOverflow -> {
+            !isExpanded && textLayoutResult.hasVisualOverflow && textLayoutResult.lineCount >= maxLines -> {
                 val lastCharIndex = textLayoutResult.getLineEnd(maxLines - 1)
-                val adjustedText = text
-                    .substring(startIndex = 0, endIndex = lastCharIndex)
-                    .dropLast(showLessText.length + 5)
-                    .dropLastWhile { it == ' ' || it == '.' }
+                val adjustedText =
+                    text
+                        .substring(startIndex = 0, endIndex = lastCharIndex)
+                        .dropLast(showLessText.length + 5)
+                        .dropLastWhile { it == ' ' || it == '.' }
 
                 val unexpandedText = "$adjustedText...   "
 
-                annotatedText = buildAnnotatedString {
-                    withStyle(style = ParagraphStyle(lineHeight = 20.sp)) {
-                        withStyle(style = nonClickableTextStyle) {
-                            append(unexpandedText)
+                annotatedText =
+                    buildAnnotatedString {
+                        withStyle(style = ParagraphStyle(lineHeight = 20.sp)) {
+                            withStyle(style = nonClickableTextStyle) {
+                                append(unexpandedText)
+                            }
+                            withLink(link) {
+                                append(showMoreText)
+                            }
                         }
-                        withLink(link) {
-                            append(showMoreText)
-                        }
+                        addStringAnnotation(
+                            tag = seeMoreTag,
+                            annotation = "Show more tag",
+                            start = unexpandedText.length,
+                            end = unexpandedText.length + showMoreText.length,
+                        )
                     }
-                    addStringAnnotation(
-                        tag = seeMoreTag,
-                        annotation = "Show more tag",
-                        start = unexpandedText.length,
-                        end = unexpandedText.length + showMoreText.length,
-                    )
-                }
 
                 isClickable = true
             }
 
             isExpanded -> {
-                annotatedText = buildAnnotatedString {
-                    val expandedText = "$text "
-                    withStyle(style = ParagraphStyle(lineHeight = 20.sp)) {
-                        withStyle(
-                            style = nonClickableTextStyle,
-                        ) {
-                            append(expandedText)
+                annotatedText =
+                    buildAnnotatedString {
+                        val expandedText = "$text "
+                        withStyle(style = ParagraphStyle(lineHeight = 20.sp)) {
+                            withStyle(
+                                style = nonClickableTextStyle,
+                            ) {
+                                append(expandedText)
+                            }
+                            withLink(link) {
+                                append(showLessText)
+                            }
                         }
-                        withLink(link) {
-                            append(showLessText)
-                        }
+                        addStringAnnotation(
+                            tag = seeMoreTag,
+                            annotation = "Show less tag",
+                            start = expandedText.length,
+                            end = expandedText.length + showLessText.length,
+                        )
                     }
-                    addStringAnnotation(
-                        tag = seeMoreTag,
-                        annotation = "Show less tag",
-                        start = expandedText.length,
-                        end = expandedText.length + showLessText.length,
-                    )
-                }
             }
         }
     }
@@ -173,10 +181,15 @@ fun SupportingText(
     }
 }
 
-enum class SupportingTextState(val color: Color) {
+enum class SupportingTextState(
+    val color: Color,
+) {
     DEFAULT(TextColor.OnSurfaceVariant),
     WARNING(SurfaceColor.Warning),
     ERROR(SurfaceColor.Error),
 }
 
-data class SupportingTextData(val text: String, val state: SupportingTextState = SupportingTextState.DEFAULT)
+data class SupportingTextData(
+    val text: String,
+    val state: SupportingTextState = SupportingTextState.DEFAULT,
+)

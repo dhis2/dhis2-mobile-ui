@@ -21,7 +21,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextState
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
-import org.hisp.dhis.showcaseapp.screens.previews.lorem
+import org.hisp.dhis.showcaseapp.screens.previews.LOREM
 import org.hisp.dhis.showcaseapp.screens.previews.regularLegendList
 
 @Composable
@@ -145,17 +145,34 @@ fun FormShellsScreen() {
         )
         Spacer(Modifier.size(Spacing.Spacing18))
 
+        Description("Reset button not displayed", TextColor.OnSurface)
+        var inputValue17 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("Input")) }
+
+        InputText(
+            "Label",
+            inputTextFieldValue = inputValue17,
+            onValueChanged = {
+                if (it != null) {
+                    inputValue17 = it
+                }
+            },
+            state = InputShellState.UNFOCUSED,
+            showDeleteButton = false,
+        )
+        Spacer(Modifier.size(Spacing.Spacing18))
+
         SubTitle("Supporting text", TextColor.OnSurface)
         Description("Short text", TextColor.OnSurface)
         var inputValue9 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("")) }
         InputText(
             "Label",
-            supportingText = listOf(
-                SupportingTextData(
-                    "Supporting text",
-                    SupportingTextState.DEFAULT,
+            supportingText =
+                listOf(
+                    SupportingTextData(
+                        "Supporting text",
+                        SupportingTextState.DEFAULT,
+                    ),
                 ),
-            ),
             inputTextFieldValue = inputValue9,
             onValueChanged = {
                 if (it != null) {
@@ -170,12 +187,13 @@ fun FormShellsScreen() {
         var inputValue10 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue()) }
         InputText(
             "Label",
-            supportingText = listOf(
-                SupportingTextData(
-                    lorem,
-                    SupportingTextState.DEFAULT,
+            supportingText =
+                listOf(
+                    SupportingTextData(
+                        LOREM,
+                        SupportingTextState.DEFAULT,
+                    ),
                 ),
-            ),
             inputTextFieldValue = inputValue10,
             onValueChanged = {
                 if (it != null) {
@@ -191,12 +209,13 @@ fun FormShellsScreen() {
         InputText(
             "Label",
             inputTextFieldValue = inputValue11,
-            supportingText = listOf(
-                SupportingTextData(
-                    "Supporting Text",
-                    SupportingTextState.ERROR,
+            supportingText =
+                listOf(
+                    SupportingTextData(
+                        "Supporting Text",
+                        SupportingTextState.ERROR,
+                    ),
                 ),
-            ),
             state = InputShellState.ERROR,
             onValueChanged = {
                 if (it != null) {
@@ -211,12 +230,13 @@ fun FormShellsScreen() {
         InputText(
             "Label",
             inputTextFieldValue = inputValue12,
-            supportingText = listOf(
-                SupportingTextData(
-                    "Supporting Text",
-                    SupportingTextState.WARNING,
+            supportingText =
+                listOf(
+                    SupportingTextData(
+                        "Supporting Text",
+                        SupportingTextState.WARNING,
+                    ),
                 ),
-            ),
             state = InputShellState.WARNING,
             onValueChanged = {
                 if (it != null) {
@@ -231,20 +251,21 @@ fun FormShellsScreen() {
         InputText(
             "Label",
             inputTextFieldValue = inputValue13,
-            supportingText = listOf(
-                SupportingTextData(
-                    lorem,
-                    SupportingTextState.DEFAULT,
+            supportingText =
+                listOf(
+                    SupportingTextData(
+                        LOREM,
+                        SupportingTextState.DEFAULT,
+                    ),
+                    SupportingTextData(
+                        "Supporting Text",
+                        SupportingTextState.ERROR,
+                    ),
+                    SupportingTextData(
+                        "Supporting Text",
+                        SupportingTextState.WARNING,
+                    ),
                 ),
-                SupportingTextData(
-                    "Supporting Text",
-                    SupportingTextState.ERROR,
-                ),
-                SupportingTextData(
-                    "Supporting Text",
-                    SupportingTextState.WARNING,
-                ),
-            ),
             state = InputShellState.ERROR,
             onValueChanged = {
                 if (it != null) {
@@ -291,12 +312,13 @@ fun FormShellsScreen() {
             "Label",
             inputTextFieldValue = inputValue16,
             legendData = LegendData(SurfaceColor.CustomYellow, "Legend", popUpLegendDescriptionData = regularLegendList),
-            supportingText = listOf(
-                SupportingTextData(
-                    "Supporting Text",
-                    SupportingTextState.DEFAULT,
+            supportingText =
+                listOf(
+                    SupportingTextData(
+                        "Supporting Text",
+                        SupportingTextState.DEFAULT,
+                    ),
                 ),
-            ),
             imeAction = ImeAction.Done,
             onValueChanged = {
                 if (it != null) {

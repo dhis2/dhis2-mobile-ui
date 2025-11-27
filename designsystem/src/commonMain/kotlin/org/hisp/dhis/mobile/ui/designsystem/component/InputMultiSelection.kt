@@ -19,7 +19,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.outlined.Cancel
-import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -73,7 +72,7 @@ fun InputMultiSelection(
     items: List<CheckBoxData>,
     title: String,
     state: InputShellState,
-    windowInsets: @Composable () -> WindowInsets = { BottomSheetDefaults.windowInsets },
+    windowInsets: @Composable () -> WindowInsets = { BottomSheetShellDefaults.windowInsets() },
     bottomSheetLowerPadding: Dp = Spacing0,
     supportingTextData: List<SupportingTextData>?,
     legendData: LegendData?,
@@ -95,8 +94,10 @@ fun InputMultiSelection(
         if (items.any { it.checked } && state != InputShellState.DISABLED) {
             {
                 IconButton(
-                    modifier = Modifier.testTag("INPUT_MULTI_SELECT_CLEAR_ICON_BUTTON")
-                        .padding(Spacing.Spacing0),
+                    modifier =
+                        Modifier
+                            .testTag("INPUT_MULTI_SELECT_CLEAR_ICON_BUTTON")
+                            .padding(Spacing.Spacing0),
                     icon = {
                         Icon(
                             imageVector = Icons.Outlined.Cancel,
@@ -115,8 +116,10 @@ fun InputMultiSelection(
 
     val bottomSheetDropdownButton: (@Composable () -> Unit) = {
         IconButton(
-            modifier = Modifier.testTag("INPUT_MULTI_SELECT_DROP_DOWN_ICON_BUTTON")
-                .padding(Spacing.Spacing0),
+            modifier =
+                Modifier
+                    .testTag("INPUT_MULTI_SELECT_DROP_DOWN_ICON_BUTTON")
+                    .padding(Spacing.Spacing0),
             enabled = state != InputShellState.DISABLED,
             icon = {
                 Icon(
@@ -137,35 +140,42 @@ fun InputMultiSelection(
             state = state,
             modifier = modifier.testTag("INPUT_MULTI_SELECT").focusRequester(focusRequester),
             inputStyle = inputStyle,
-            supportingText = supportingTextData?.let {
-                {
-                    it.forEach { supportTextData ->
-                        SupportingTextData(
-                            text = supportTextData.text,
-                            state = supportTextData.state,
-                        )
+            supportingText =
+                supportingTextData?.let {
+                    {
+                        it.forEach { supportTextData ->
+                            SupportingTextData(
+                                text = supportTextData.text,
+                                state = supportTextData.state,
+                            )
+                        }
                     }
-                }
-            },
-            legend = legendData?.let { legendData ->
-                {
-                    Legend(legendData = legendData)
-                }
-            },
+                },
+            legend =
+                legendData?.let { legendData ->
+                    {
+                        Legend(legendData = legendData)
+                    }
+                },
             isRequiredField = isRequired,
             inputField = {
                 if (items.size <= INLINE_CHECKBOXES_MIN_REQ_ITEMS) {
                     Column(
-                        modifier = Modifier.testTag("INPUT_MULTI_SELECT_CHECKBOX_LIST")
-                            .offset(x = -Spacing.Spacing8),
+                        modifier =
+                            Modifier
+                                .testTag("INPUT_MULTI_SELECT_CHECKBOX_LIST")
+                                .offset(x = -Spacing.Spacing8),
                     ) {
                         items.forEachIndexed { index, item ->
                             CheckBox(
-                                modifier = Modifier.testTag("INPUT_MULTI_SELECT_CHECKBOX_LIST_ITEM_$index")
-                                    .fillMaxWidth(),
-                                checkBoxData = item.copy(
-                                    enabled = state != InputShellState.DISABLED,
-                                ),
+                                modifier =
+                                    Modifier
+                                        .testTag("INPUT_MULTI_SELECT_CHECKBOX_LIST_ITEM_$index")
+                                        .fillMaxWidth(),
+                                checkBoxData =
+                                    item.copy(
+                                        enabled = state != InputShellState.DISABLED,
+                                    ),
                                 onCheckedChange = { checked ->
                                     focusRequester.requestFocus()
                                     onItemsSelected(
@@ -184,19 +194,21 @@ fun InputMultiSelection(
                 } else {
                     Box(Modifier.fillMaxWidth().focusable()) {
                         Box(
-                            modifier = Modifier
-                                .testTag("INPUT_MULTI_SELECT_CLICKABLE")
-                                .matchParentSize()
-                                .requiredHeightIn(min = Spacing.Spacing48)
-                                .alpha(0f)
-                                .clickable(
-                                    enabled = state != InputShellState.DISABLED &&
-                                        items.size > INLINE_CHECKBOXES_MIN_REQ_ITEMS,
-                                    onClick = {
-                                        focusRequester.requestFocus()
-                                        showMultiSelectBottomSheet = true
-                                    },
-                                ),
+                            modifier =
+                                Modifier
+                                    .testTag("INPUT_MULTI_SELECT_CLICKABLE")
+                                    .matchParentSize()
+                                    .requiredHeightIn(min = Spacing.Spacing48)
+                                    .alpha(0f)
+                                    .clickable(
+                                        enabled =
+                                            state != InputShellState.DISABLED &&
+                                                items.size > INLINE_CHECKBOXES_MIN_REQ_ITEMS,
+                                        onClick = {
+                                            focusRequester.requestFocus()
+                                            showMultiSelectBottomSheet = true
+                                        },
+                                    ),
                         )
 
                         FlowRow(
@@ -237,7 +249,6 @@ fun InputMultiSelection(
         if (showMultiSelectBottomSheet) {
             MultiSelectBottomSheet(
                 windowInsets = windowInsets,
-                bottomSheetLowerPadding = bottomSheetLowerPadding,
                 items = items,
                 title = title,
                 maxItemsToShow = maxItemsToShow,
@@ -267,8 +278,9 @@ private fun SelectedItemChip(
 ) {
     if (item.checked) {
         InputChip(
-            modifier = modifier
-                .testTag("INPUT_MULTI_SELECT_CHECKBOX_CHIP_ITEM_$index"),
+            modifier =
+                modifier
+                    .testTag("INPUT_MULTI_SELECT_CHECKBOX_CHIP_ITEM_$index"),
             label = item.textInput!!.toString(),
             selected = false,
             enabled = enabled,
@@ -291,41 +303,44 @@ fun MultiSelectBottomSheet(
     noResultsFoundString: String,
     searchToFindMoreString: String,
     doneButtonText: String,
-    windowInsets: @Composable () -> WindowInsets = { BottomSheetDefaults.windowInsets },
-    bottomSheetLowerPadding: Dp = Spacing0,
+    windowInsets: @Composable () -> WindowInsets = { BottomSheetShellDefaults.windowInsets() },
     onItemsSelected: (List<CheckBoxData>) -> Unit,
     onDismiss: () -> Unit,
 ) {
     var searchQuery by remember { mutableStateOf("") }
 
-    val filteredOptions = items
-        .filter { it.textInput!!.contains(searchQuery, ignoreCase = true) }
-        .toMutableStateList()
+    val filteredOptions =
+        items
+            .filter { it.textInput!!.contains(searchQuery, ignoreCase = true) }
+            .toMutableStateList()
 
     val itemsModified = remember { items.toMutableList() }
 
     BottomSheetShell(
-        uiState = BottomSheetShellUIState(
-            title = title,
-            bottomPadding = bottomSheetLowerPadding,
-            searchQuery = searchQuery,
-        ),
+        uiState =
+            BottomSheetShellUIState(
+                title = title,
+                searchQuery = searchQuery,
+            ),
         modifier = Modifier.testTag("INPUT_MULTI_SELECT_BOTTOM_SHEET"),
         content = {
             LazyColumn(
-                modifier = Modifier
-                    .padding(top = Spacing.Spacing8),
+                modifier =
+                    Modifier
+                        .padding(top = Spacing.Spacing8),
             ) {
                 when {
                     filteredOptions.take(maxItemsToShow).isNotEmpty() -> {
                         itemsIndexed(items = filteredOptions) { index, item ->
                             CheckBox(
-                                checkBoxData = item.copy(
-                                    textInput = bottomSheetItemLabel(
-                                        text = item.textInput!!,
-                                        searchQuery = searchQuery,
+                                checkBoxData =
+                                    item.copy(
+                                        textInput =
+                                            bottomSheetItemLabel(
+                                                text = item.textInput!!,
+                                                searchQuery = searchQuery,
+                                            ),
                                     ),
-                                ),
                                 onCheckedChange = {
                                     filteredOptions[index] = item.copy(checked = it)
                                     itemsModified[index] = item.copy(checked = it)
@@ -338,9 +353,10 @@ fun MultiSelectBottomSheet(
                                 Text(
                                     text = searchToFindMoreString,
                                     textAlign = TextAlign.Center,
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(24.dp),
+                                    modifier =
+                                        Modifier
+                                            .fillMaxWidth()
+                                            .padding(24.dp),
                                 )
                             }
                         }
@@ -351,9 +367,10 @@ fun MultiSelectBottomSheet(
                             Text(
                                 text = noResultsFoundString,
                                 textAlign = TextAlign.Center,
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(24.dp),
+                                modifier =
+                                    Modifier
+                                        .fillMaxWidth()
+                                        .padding(24.dp),
                             )
                         }
                 }
@@ -362,8 +379,10 @@ fun MultiSelectBottomSheet(
         windowInsets = windowInsets,
         buttonBlock = {
             Button(
-                modifier = Modifier.fillMaxWidth()
-                    .padding(BottomSheetShellDefaults.buttonBlockPaddings()),
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(BottomSheetShellDefaults.buttonBlockPaddings()),
                 onClick = {
                     onItemsSelected(
                         items.map { item ->
@@ -391,34 +410,35 @@ private fun bottomSheetItemLabel(
     text: AnnotatedString,
     searchQuery: String,
 ): AnnotatedString {
-    val label = buildAnnotatedString {
-        val highlightIndexStart = text.indexOf(searchQuery, ignoreCase = true)
-        val highlightIndexEnd = highlightIndexStart + searchQuery.length
+    val label =
+        buildAnnotatedString {
+            val highlightIndexStart = text.indexOf(searchQuery, ignoreCase = true)
+            val highlightIndexEnd = highlightIndexStart + searchQuery.length
 
-        if (highlightIndexStart >= 0) {
-            append(text.substring(0, highlightIndexStart))
+            if (highlightIndexStart >= 0) {
+                append(text.substring(0, highlightIndexStart))
 
-            withStyle(
-                SpanStyle(background = SurfaceColor.Primary.copy(alpha = 0.1f)),
-            ) {
+                withStyle(
+                    SpanStyle(background = SurfaceColor.Primary.copy(alpha = 0.1f)),
+                ) {
+                    append(
+                        text.substring(
+                            startIndex = highlightIndexStart,
+                            endIndex = highlightIndexEnd,
+                        ),
+                    )
+                }
+
                 append(
                     text.substring(
-                        startIndex = highlightIndexStart,
-                        endIndex = highlightIndexEnd,
+                        startIndex = highlightIndexEnd,
+                        endIndex = text.length,
                     ),
                 )
+            } else {
+                append(text)
             }
-
-            append(
-                text.substring(
-                    startIndex = highlightIndexEnd,
-                    endIndex = text.length,
-                ),
-            )
-        } else {
-            append(text)
         }
-    }
 
     return label
 }

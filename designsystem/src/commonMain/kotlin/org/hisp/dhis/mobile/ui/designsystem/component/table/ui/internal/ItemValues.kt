@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import org.hisp.dhis.mobile.ui.designsystem.component.model.DraggableType
 import org.hisp.dhis.mobile.ui.designsystem.component.modifier.draggableList
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableCell
+import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableCellContent
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableHeader
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.CELL_TEST_TAG
@@ -36,37 +37,39 @@ internal fun ItemValues(
     totalTableColumns: Int,
     totalHeaderRows: Int,
 ) {
-    val extraColumns = totalTableColumns - tableHeaderModel.tableMaxColumns()
     Row(
-        modifier = modifier
-            .horizontalScroll(state = horizontalScrollState)
-            .draggableList(
-                scrollState = horizontalScrollState,
-                draggableType = DraggableType.Horizontal,
-            ),
+        modifier =
+            modifier
+                .horizontalScroll(state = horizontalScrollState)
+                .draggableList(
+                    scrollState = horizontalScrollState,
+                    draggableType = DraggableType.Horizontal,
+                ),
     ) {
         repeat(
             times = totalTableColumns,
             action = { columnIndex ->
-                val cellValue = cellValues[columnIndex] ?: TableCell(
-                    id = "",
-                    editable = false,
-                    value = "",
-                    column = columnIndex,
-                )
+                val cellValue =
+                    cellValues[columnIndex] ?: TableCell(
+                        id = "",
+                        editable = false,
+                        content = TableCellContent.Text(""),
+                        column = columnIndex,
+                    )
 
                 key("$tableId$CELL_TEST_TAG${cellValue.row}${cellValue.column}") {
                     TableCell(
                         tableId = tableId,
                         cell = cellValue,
                         maxLines = maxLines,
-                        headerExtraSize = TableTheme.dimensions.extraSize(
-                            groupedTables = TableTheme.configuration.groupTables,
-                            tableId = tableId,
-                            totalColumns = totalTableColumns,
-                            totalHeaderRows = totalHeaderRows,
-                            column = columnIndex,
-                        ),
+                        headerExtraSize =
+                            TableTheme.dimensions.extraSize(
+                                groupedTables = TableTheme.configuration.groupTables,
+                                tableId = tableId,
+                                totalColumns = totalTableColumns,
+                                totalHeaderRows = totalHeaderRows,
+                                column = columnIndex,
+                            ),
                     )
                 }
             },

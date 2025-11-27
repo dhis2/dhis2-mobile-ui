@@ -8,11 +8,12 @@ import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Arrangement.spacedBy
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
@@ -52,6 +53,7 @@ import org.hisp.dhis.showcaseapp.screens.menu.MenuScreen
 import org.hisp.dhis.showcaseapp.screens.others.BadgesScreen
 import org.hisp.dhis.showcaseapp.screens.others.ChipsScreen
 import org.hisp.dhis.showcaseapp.screens.others.IndicatorScreen
+import org.hisp.dhis.showcaseapp.screens.others.InfoBarScreen
 import org.hisp.dhis.showcaseapp.screens.others.LegendScreen
 import org.hisp.dhis.showcaseapp.screens.others.MetadataAvatarScreen
 import org.hisp.dhis.showcaseapp.screens.others.NavigationBarScreen
@@ -79,32 +81,46 @@ fun App(
     )? = null,
 ) {
     DHIS2Theme {
-        SharedTransitionLayout {
-            var currentScreen by remember { mutableStateOf(Groups.NO_GROUP_SELECTED) }
+        var currentScreen by remember { mutableStateOf(Groups.NO_GROUP_SELECTED) }
 
-            AnimatedContent(
-                sizeClass.widthSizeClass,
-                label = "content_size_transition",
-            ) { widthSizeClass ->
-                when (widthSizeClass) {
-                    WindowWidthSizeClass.Expanded -> ExpandedMain(
-                        currentScreen = currentScreen,
-                        imageBitmapLoader = imageBitmapLoader,
-                        onLocationRequest = onLocationRequest,
-                        animatedVisibilityScope = this,
-                        sharedTransitionScope = this@SharedTransitionLayout,
-                    ) {
-                        currentScreen = it
-                    }
+        Scaffold(
+            modifier = Modifier.fillMaxSize(),
+            containerColor =
+                when (currentScreen) {
+                    Groups.NO_GROUP_SELECTED -> Color.White
+                    else -> SurfaceColor.Container
+                },
+            bottomBar = {
+                Box {}
+            },
+        ) { innerPadding ->
+            SharedTransitionLayout(modifier = Modifier.padding(innerPadding)) {
+                AnimatedContent(
+                    sizeClass.widthSizeClass,
+                    label = "content_size_transition",
+                ) { widthSizeClass ->
+                    when (widthSizeClass) {
+                        WindowWidthSizeClass.Expanded ->
+                            ExpandedMain(
+                                currentScreen = currentScreen,
+                                imageBitmapLoader = imageBitmapLoader,
+                                onLocationRequest = onLocationRequest,
+                                animatedVisibilityScope = this,
+                                sharedTransitionScope = this@SharedTransitionLayout,
+                            ) {
+                                currentScreen = it
+                            }
 
-                    else -> Main(
-                        currentScreen = currentScreen,
-                        imageBitmapLoader = imageBitmapLoader,
-                        onLocationRequest = onLocationRequest,
-                        animatedVisibilityScope = this,
-                        sharedTransitionScope = this@SharedTransitionLayout,
-                    ) {
-                        currentScreen = it
+                        else ->
+                            Main(
+                                currentScreen = currentScreen,
+                                imageBitmapLoader = imageBitmapLoader,
+                                onLocationRequest = onLocationRequest,
+                                animatedVisibilityScope = this,
+                                sharedTransitionScope = this@SharedTransitionLayout,
+                            ) {
+                                currentScreen = it
+                            }
                     }
                 }
             }
@@ -130,11 +146,13 @@ fun ExpandedMain(
         paneConfig = TwoPaneConfig.SecondaryPaneFixedSize(200.dp),
         primaryPane = {
             Column(
-                modifier = Modifier.fillMaxSize()
-                    .padding(Spacing.Spacing16)
-                    .background(SurfaceColor.Container)
-                    .padding(Spacing.Spacing16),
-                verticalArrangement = Arrangement.spacedBy(Spacing.Spacing16),
+                modifier =
+                    Modifier
+                        .fillMaxSize()
+                        .padding(Spacing.Spacing16)
+                        .background(SurfaceColor.Container)
+                        .padding(Spacing.Spacing16),
+                verticalArrangement = spacedBy(Spacing.Spacing16),
             ) {
                 ScreenProvider(
                     screen = currentScreen,
@@ -148,14 +166,15 @@ fun ExpandedMain(
         secondaryPane = {
             val tabs by remember {
                 derivedStateOf {
-                    Groups.entries.map {
-                        Tab(
-                            id = it.name,
-                            label = it.label,
-                        )
-                    }.sortedBy {
-                        it.label
-                    }
+                    Groups.entries
+                        .map {
+                            Tab(
+                                id = it.name,
+                                label = it.label,
+                            )
+                        }.sortedBy {
+                            it.label
+                        }
                 }
             }
             val selectedTabIndex by remember(currentScreen) {
@@ -194,9 +213,10 @@ fun Main(
     }
 
     Column(
-        verticalArrangement = Arrangement.spacedBy(Spacing.Spacing16),
-        modifier = Modifier
-            .background(SurfaceColor.Container),
+        verticalArrangement = spacedBy(Spacing.Spacing16),
+        modifier =
+            Modifier
+                .background(SurfaceColor.Container),
     ) {
         var screenDropdownItemList by remember {
             mutableStateOf(emptyList<DropdownItem>())
@@ -204,22 +224,24 @@ fun Main(
 
         if (isComponentSelected) {
             InputDropDown(
-                modifier = Modifier.padding(
-                    start = Spacing.Spacing16,
-                    end = Spacing.Spacing16,
-                    top = Spacing.Spacing16,
-                ),
+                modifier =
+                    Modifier.padding(
+                        start = Spacing.Spacing16,
+                        end = Spacing.Spacing16,
+                        top = Spacing.Spacing16,
+                    ),
                 title = "Group",
                 fetchItem = { index -> screenDropdownItemList[index] },
                 itemCount = screenDropdownItemList.size,
                 onSearchOption = { query ->
-                    screenDropdownItemList = if (query.isNotEmpty()) {
-                        screenDropdownItemList.filter { it.label.contains(query) }
-                    } else {
-                        Groups.entries.map {
-                            DropdownItem(it.label)
+                    screenDropdownItemList =
+                        if (query.isNotEmpty()) {
+                            screenDropdownItemList.filter { it.label.contains(query) }
+                        } else {
+                            Groups.entries.map {
+                                DropdownItem(it.label)
+                            }
                         }
-                    }
                 },
                 useDropDown = false,
                 onItemSelected = { _, item -> onSectionChanged(getCurrentScreen(item.label)) },
@@ -227,12 +249,15 @@ fun Main(
                 state = InputShellState.UNFOCUSED,
                 expanded = currentScreen == Groups.NO_GROUP_SELECTED,
                 selectedItem = DropdownItem(currentScreen.label),
-                inputStyle = InputStyle.DataInputStyle()
-                    .apply { backGroundColor = SurfaceColor.SurfaceBright },
+                inputStyle =
+                    InputStyle
+                        .DataInputStyle()
+                        .apply { backGroundColor = SurfaceColor.SurfaceBright },
                 loadOptions = {
-                    screenDropdownItemList = Groups.entries.map {
-                        DropdownItem(it.label)
-                    }
+                    screenDropdownItemList =
+                        Groups.entries.map {
+                            DropdownItem(it.label)
+                        }
                 },
             )
 
@@ -245,8 +270,9 @@ fun Main(
             )
         } else {
             NoComponentSelectedScreen(
-                modifier = Modifier
-                    .background(Color.White, Shape.NoRounding),
+                modifier =
+                    Modifier
+                        .background(Color.White, Shape.NoRounding),
             ) {
                 isComponentSelected = !isComponentSelected
             }
@@ -264,11 +290,12 @@ fun ScreenProvider(
 ) {
     with(sharedTransitionScope) {
         Column(
-            modifier = Modifier
-                .sharedElement(
-                    rememberSharedContentState(key = "screen"),
-                    animatedVisibilityScope = animatedVisibilityScope,
-                ),
+            modifier =
+                Modifier
+                    .sharedElement(
+                        rememberSharedContentState(key = "screen"),
+                        animatedVisibilityScope = animatedVisibilityScope,
+                    ),
             verticalArrangement = spacedBy(Spacing.Spacing16),
         ) {
             when (screen) {
@@ -292,27 +319,28 @@ fun ScreenProvider(
                 Groups.MENU -> MenuScreen()
                 Groups.NO_GROUP_SELECTED -> NoComponentSelectedScreen()
                 Groups.TOP_BAR -> TopBarScreen()
-                Groups.LOCATION_SEARCH_BAR -> LocationSearchBarScreen { locationQuery, locationCallback ->
-                    onLocationRequest?.invoke(locationQuery, locationCallback)
-                }
+                Groups.LOCATION_SEARCH_BAR ->
+                    LocationSearchBarScreen { locationQuery, locationCallback ->
+                        onLocationRequest?.invoke(locationQuery, locationCallback)
+                    }
 
                 Groups.TABLE -> TableScreen()
                 Groups.INPUT_DIALOG -> InputDialogScreen()
                 Groups.TABS -> TabsScreen()
                 Groups.TWO_PANE_LAYOUT -> TwoPaneLayoutScreen()
+                Groups.INFO_BAR -> InfoBarScreen()
             }
         }
     }
 }
 
-fun getCurrentScreen(label: String): Groups {
-    return Groups.entries.firstOrNull { it.label == label } ?: Groups.ACTION_INPUTS
-}
+fun getCurrentScreen(label: String): Groups = Groups.entries.firstOrNull { it.label == label } ?: Groups.ACTION_INPUTS
 
-fun getAvailableMetadataAvatarSizes() = listOf(
-    MetadataAvatarSize.XS(),
-    MetadataAvatarSize.S(),
-    MetadataAvatarSize.M(),
-    MetadataAvatarSize.L(),
-    MetadataAvatarSize.XL(),
-)
+fun getAvailableMetadataAvatarSizes() =
+    listOf(
+        MetadataAvatarSize.XS(),
+        MetadataAvatarSize.S(),
+        MetadataAvatarSize.M(),
+        MetadataAvatarSize.L(),
+        MetadataAvatarSize.XL(),
+    )

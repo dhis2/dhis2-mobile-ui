@@ -3,21 +3,23 @@ package org.hisp.dhis.mobile.ui.designsystem.component.internal
 import androidx.compose.ui.text.input.TextFieldValue
 import org.hisp.dhis.mobile.ui.designsystem.component.DateTimeActionType
 import org.hisp.dhis.mobile.ui.designsystem.component.SelectableDates
+import org.hisp.dhis.mobile.ui.designsystem.platform.dates.isValidDate
 import org.junit.Test
 
 class DateTimeUtilsTest {
-
     @Test
     fun shouldReturnTrueIfDateIsWithinSelectedDatesRangeAndFalseIfNot() {
-        var selectedDates = SelectableDates(
-            initialDate = "01011990",
-            endDate = "01012040",
-        )
+        var selectedDates =
+            SelectableDates(
+                initialDate = "01011990",
+                endDate = "01012040",
+            )
         assert(dateIsInRange(System.currentTimeMillis(), selectedDates))
-        selectedDates = SelectableDates(
-            initialDate = "01011990",
-            endDate = "01011993",
-        )
+        selectedDates =
+            SelectableDates(
+                initialDate = "01011990",
+                endDate = "01011993",
+            )
         assert(!dateIsInRange(System.currentTimeMillis(), selectedDates))
     }
 

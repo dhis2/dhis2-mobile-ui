@@ -9,7 +9,6 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableSelection
  * Implementations of this interface should provide specific logic for each interaction.
  */
 interface TableInteractions {
-
     /**
      * Called when the table selection changes.
      * @param newTableSelection The new table selection.
@@ -34,5 +33,21 @@ interface TableInteractions {
      * @param code The code of the selected option.
      * @param label The label of the selected option.
      */
-    fun onOptionSelected(cell: TableCell, code: String, label: String) = run { }
+    fun onOptionSelected(
+        cell: TableCell,
+        code: String,
+        label: String,
+    ) = run { }
+
+    /**
+     * Handles the event when a checkbox component is checked or unchecked.
+     *
+     * @param checked A boolean indicating the state of the checkbox:
+     *                - `true` if the checkbox is checked.
+     *                - `false` if the checkbox is unchecked.
+     */
+    fun onChecked(
+        tableCell: TableCell,
+        checked: Boolean,
+    ) = run { }
 }
