@@ -1,39 +1,33 @@
 ### Bug
 
-[ANDROAPP-6906](https://dhis2.atlassian.net/browse/ANDROAPP-6906) Incorrect initial width of tables without category combination
+[ANDROAPP-7108](https://dhis2.atlassian.net/browse/ANDROAPP-7108) Unable to scroll in org unit component once an org unit is selected
 
-[ANDROAPP-6912](https://dhis2.atlassian.net/browse/ANDROAPP-6912) Incorrect render of rowHeader total
+[ANDROAPP-7110](https://dhis2.atlassian.net/browse/ANDROAPP-7110) Column resizing allows excessive shrinking beyond limits in data set tables
 
-[ANDROAPP-7023](https://dhis2.atlassian.net/browse/ANDROAPP-7023) Non gregorian numbers in InputAge and InputDate
+[ANDROAPP-7162](https://dhis2.atlassian.net/browse/ANDROAPP-7162) unable to select date when language is arabic
 
-[ANDROAPP-7025](https://dhis2.atlassian.net/browse/ANDROAPP-7025) Manage table loading internally and sticky row header offset
+[ANDROAPP-7228](https://dhis2.atlassian.net/browse/ANDROAPP-7228) Save message edge 2 edge - BottomSheet
 
-[ANDROAPP-7096](https://dhis2.atlassian.net/browse/ANDROAPP-7096) Review Mobile ui github publish step
+[ANDROAPP-7270](https://dhis2.atlassian.net/browse/ANDROAPP-7270) \[Mobile-UI\] - Unable to edit Password without deleting
 
-[ANDROAPP-6899](https://dhis2.atlassian.net/browse/ANDROAPP-6899) Implement persist table resizing layout
+### Feature
 
-[ANDROAPP-7080](https://dhis2.atlassian.net/browse/ANDROAPP-7080) Data set top row irregular navigation
+[ANDROAPP-7128](https://dhis2.atlassian.net/browse/ANDROAPP-7128) Add checkbox content to table cell
 
-[ANDROAPP-7065](https://dhis2.atlassian.net/browse/ANDROAPP-7065) Add Text Transformation for specific value types in cell
-
-[ANDROAPP-6961](https://dhis2.atlassian.net/browse/ANDROAPP-6961) Cannot use calendar (date picker) when database language is in Arabic
-
-[ANDROAPP-6885](https://dhis2.atlassian.net/browse/ANDROAPP-6885) Scrolling in dataset with keyboard open
-
-[ANDROAPP-6937](https://dhis2.atlassian.net/browse/ANDROAPP-6937) Reset Table Layout Button Visibility
-
-[ANDROAPP-6906](https://dhis2.atlassian.net/browse/ANDROAPP-6906) Incorrect initial width of tables without category combination
-
-[ANDROAPP-6278](https://dhis2.atlassian.net/browse/ANDROAPP-6278) Incorrect date assignment (due to device time zone)
-
-[ANDROAPP-7029](https://dhis2.atlassian.net/browse/ANDROAPP-7029) Cannot enter 0 in integer data type
-
-[ANDROAPP-6977](https://dhis2.atlassian.net/browse/ANDROAPP-6977) DS crash when an empty category combination is assigned to a data element
-
+[ANDROAPP-7237](https://dhis2.atlassian.net/browse/ANDROAPP-7237) Allow control on reset button visibility in inputs
 
 ### Task
 
-[ANDROAPP-6969](https://dhis2.atlassian.net/browse/ANDROAPP-6969) Group sample app in showcase module
+[ANDROAPP-7046](https://dhis2.atlassian.net/browse/ANDROAPP-7046) Remove deprecated Inputs \(date time and age\)
 
-[ANDROAPP-6487](https://dhis2.atlassian.net/browse/ANDROAPP-7096) Transifex integration
+[ANDROAPP-7049](https://dhis2.atlassian.net/browse/ANDROAPP-7049) Update mobile ui kotlin, Gradle and AGP version
 
+[ANDROAPP-7077](https://dhis2.atlassian.net/browse/ANDROAPP-7077) Update mobile ui android SDK version to v36
+
+[ANDROAPP-7158](https://dhis2.atlassian.net/browse/ANDROAPP-7158) Support iOS in Mobile UI
+
+[ANDROAPP-7166](https://dhis2.atlassian.net/browse/ANDROAPP-7166) InfoBar add action loading
+
+[ANDROAPP-7171](https://dhis2.atlassian.net/browse/ANDROAPP-7171) Expose method to generate bitmap painter from file path
+
+[ANDROAPP-7185](https://dhis2.atlassian.net/browse/ANDROAPP-7185) Create Segmented Input Shell component
