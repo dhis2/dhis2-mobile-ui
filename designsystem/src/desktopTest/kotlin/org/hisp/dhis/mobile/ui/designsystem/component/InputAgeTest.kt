@@ -294,6 +294,13 @@ class InputAgeTest {
 
     @Test
     fun shouldShowErrorForOutsideRangeDate() {
+        val calendar =
+            Calendar.getInstance().apply {
+                add(Calendar.DAY_OF_MONTH, 1)
+            }
+        val futureDate = SimpleDateFormat("yyyy-MM-dd").format(calendar.time)
+        val formattedDate = SimpleDateFormat("dd/MM/yyyy").format(calendar.time)
+
         rule.setContent {
             InputAge(
                 state =
@@ -302,7 +309,7 @@ class InputAgeTest {
                             InputAgeData(
                                 title = "Label",
                             ),
-                        inputType = AgeInputType.DateOfBirth(TextFieldValue("2025-11-27")),
+                        inputType = AgeInputType.DateOfBirth(TextFieldValue(futureDate)),
                     ),
                 onValueChanged = {
                     // no-op
@@ -310,7 +317,7 @@ class InputAgeTest {
             )
         }
 
-        rule.onNodeWithTag("INPUT_AGE_TEXT_FIELD").assertExists().assertTextEquals("27/11/2025")
+        rule.onNodeWithTag("INPUT_AGE_TEXT_FIELD").assertExists().assertTextEquals(formattedDate)
         rule.onNodeWithTag("INPUT_AGE_SUPPORTING_TEXT").assertExists()
     }
 
