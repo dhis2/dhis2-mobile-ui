@@ -1,5 +1,8 @@
 # DHIS2 Mobile UI
 
+[![Maven Central](https://img.shields.io/maven-central/v/org.hisp.dhis.mobile/designsystem?label=maven%20central)](https://central.sonatype.com/artifact/org.hisp.dhis.mobile/designsystem)
+[![KDoc link](https://img.shields.io/badge/API_reference-KDoc-blue)](https://dhis2.github.io/dhis2-mobile-ui/api/)
+
 Dhis2 Mobile UI library documentation, installation and usage is explained in [DHIS2 Developer portal](https://developers.dhis2.org/docs/mobile/mobile-ui/overview)
 
 ## Compose Compiler Reports
