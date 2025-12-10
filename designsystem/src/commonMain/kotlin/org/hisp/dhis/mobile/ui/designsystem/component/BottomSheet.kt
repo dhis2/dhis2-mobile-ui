@@ -205,7 +205,7 @@ fun BottomSheetShell(
                             interactionSource = null,
                             onClick = onDismiss,
                             indication = null,
-                        ).padding(top = Spacing.Spacing72),
+                        ).padding(top = Spacing8),
                 contentAlignment = Alignment.BottomCenter,
             ) {
                 BottomSheetIconButton(
@@ -271,9 +271,9 @@ fun BottomSheetShell(
                 if (hasSearch) {
                     SearchBar(
                         modifier = Modifier.fillMaxWidth().padding(horizontal = Spacing24),
-                        text = uiState.searchQuery!!,
-                        onQueryChange = onSearchQueryChanged!!,
-                        onSearch = onSearch!!,
+                        text = uiState.searchQuery,
+                        onQueryChange = onSearchQueryChanged,
+                        onSearch = onSearch,
                     )
                 }
 
