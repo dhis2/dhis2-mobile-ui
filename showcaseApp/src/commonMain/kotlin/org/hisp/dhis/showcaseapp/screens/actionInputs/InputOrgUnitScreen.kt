@@ -89,7 +89,7 @@ fun InputOrgUnitScreen() {
                     }
                 },
                 onOrgUnitActionCLicked = {},
-                showResetButton = false
+                showResetButton = false,
             )
         }
     }
