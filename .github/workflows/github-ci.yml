@@ -83,7 +83,7 @@ jobs:
 
       # Upload Artifact Build
       - name: Upload Android artifacts
-        uses: actions/upload-artifact@v5.0.0
+        uses: actions/upload-artifact@v6.0.0
         with:
           name: ${{ env.repository_name }} - Android APK
           path: ${{ env.main_project_module }}/build/outputs/apk/debug/showcaseApp-debug.apk
@@ -94,7 +94,7 @@ jobs:
 
       #Upload binaries artifact
       - name: Upload Desktop artifacts
-        uses: actions/upload-artifact@v5.0.0
+        uses: actions/upload-artifact@v6.0.0
         with:
           name: ${{ env.repository_name }} - Desktop jar - Windows
           path: ${{ env.main_project_module }}/build/compose/jars/mobile-ui-windows-x64-1.0.0.jar
