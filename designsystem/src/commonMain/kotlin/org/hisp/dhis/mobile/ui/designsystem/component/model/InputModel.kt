@@ -19,10 +19,13 @@ sealed class BasicTextInputModel : InputModel {
     abstract val isRequiredField: Boolean
     abstract val autoCompleteList: List<String>?
     abstract val autoCompleteItemSelected: ((String?) -> Unit)?
+
+    @Deprecated("Use onImeActionClick instead")
     abstract val onNextClicked: (() -> Unit)?
     abstract val onValueChanged: ((TextFieldValue?) -> Unit)?
     abstract val onFocusChanged: ((Boolean) -> Unit)?
     abstract val imeAction: ImeAction
+    abstract val onImeActionClick: ((ImeAction) -> Unit)?
 }
 
 /**
@@ -52,10 +55,16 @@ data class InputUserModel(
     override val isRequiredField: Boolean = false,
     override val autoCompleteList: List<String>? = null,
     override val autoCompleteItemSelected: ((String?) -> Unit)? = null,
+    @Deprecated("Use onImeActionClick instead")
     override val onNextClicked: (() -> Unit)? = null,
     override val onValueChanged: ((TextFieldValue?) -> Unit)? = null,
     override val onFocusChanged: ((Boolean) -> Unit)? = null,
     override val imeAction: ImeAction = ImeAction.Next,
+    override val onImeActionClick: ((ImeAction) -> Unit)? = { imeAction ->
+        if (imeAction == ImeAction.Next) {
+            onNextClicked?.invoke()
+        }
+    },
 ) : BasicTextInputModel() {
     companion object {
         const val MAIN = "INPUT_USER"
@@ -94,10 +103,16 @@ data class InputPasswordModel(
     override val isRequiredField: Boolean = false,
     override val autoCompleteList: List<String>? = null,
     override val autoCompleteItemSelected: ((String?) -> Unit)? = null,
+    @Deprecated("Use onImeActionClick instead")
     override val onNextClicked: (() -> Unit)? = null,
     override val onValueChanged: ((TextFieldValue?) -> Unit)? = null,
     override val onFocusChanged: ((Boolean) -> Unit)? = null,
     override val imeAction: ImeAction = ImeAction.Next,
+    override val onImeActionClick: ((ImeAction) -> Unit)? = { imeAction ->
+        if (imeAction == ImeAction.Next) {
+            onNextClicked?.invoke()
+        }
+    },
 ) : BasicTextInputModel() {
     companion object {
         const val MAIN = "INPUT_PASSWORD"

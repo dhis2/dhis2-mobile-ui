@@ -27,6 +27,7 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.TextRange
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.window.DialogProperties
@@ -68,7 +69,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 fun InputAge(
     state: InputAgeState,
     onValueChanged: (AgeInputType?) -> Unit,
-    onNextClicked: (() -> Unit)? = null,
+    onImeActionClick: ((ImeAction) -> Unit)? = null,
     modifier: Modifier = Modifier,
 ) {
     val uiData = state.uiData
@@ -221,9 +222,9 @@ fun InputAge(
                         enabled = state.inputState != InputShellState.DISABLED,
                         state = state.inputState,
                         keyboardOptions = KeyboardOptions(imeAction = uiData.imeAction, keyboardType = KeyboardType.Number),
-                        onNextClicked = {
-                            if (onNextClicked != null) {
-                                onNextClicked.invoke()
+                        onImeActionClick = {
+                            if (onImeActionClick != null) {
+                                onImeActionClick.invoke(it)
                             } else {
                                 focusManager.moveFocus(FocusDirection.Down)
                             }
@@ -347,6 +348,37 @@ fun InputAge(
             }
         }
     }
+}
+
+/**
+ * DHIS2 Input Age
+ * Input field to enter age. It will format content based on given visual
+ * transformation.
+ * component uses Material 3 [DatePicker]
+ * input formats supported are mentioned in the age input ui model documentation.
+ * [DatePicker] Input mode  will always follow locale format.
+ * @param state: an [InputAgeState] with all the parameters for the input
+ * @param modifier: optional modifier.
+ */
+@Deprecated("Use with onImeActionClick instead of onNextClicked")
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun InputAge(
+    state: InputAgeState,
+    onValueChanged: (AgeInputType?) -> Unit,
+    onNextClicked: (() -> Unit)?,
+    modifier: Modifier = Modifier,
+) {
+    InputAge(
+        state = state,
+        onValueChanged = onValueChanged,
+        onImeActionClick = { imeAction ->
+            if (imeAction == ImeAction.Next) {
+                onNextClicked?.invoke()
+            }
+        },
+        modifier = modifier,
+    )
 }
 
 private fun getInputState(
