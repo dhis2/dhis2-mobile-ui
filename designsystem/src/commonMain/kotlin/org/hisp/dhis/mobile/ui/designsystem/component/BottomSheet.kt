@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
-import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.size
@@ -230,7 +229,6 @@ fun BottomSheetShell(
         Column(
             modifier =
                 Modifier
-                    .imePadding()
                     .padding(bottom = Spacing0)
                     .background(SurfaceColor.SurfaceBright, Shape.ExtraLargeTop),
         ) {
@@ -243,6 +241,7 @@ fun BottomSheetShell(
             Column(
                 modifier =
                     Modifier
+                        .weight(1f, fill = false)
                         .padding(top = Spacing24),
             ) {
                 val hasSearch =
