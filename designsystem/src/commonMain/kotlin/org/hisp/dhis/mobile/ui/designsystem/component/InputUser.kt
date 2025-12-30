@@ -30,7 +30,7 @@ fun InputUser(
         legendData = uiModel.legendData,
         inputTextFieldValue = uiModel.inputTextFieldValue,
         isRequiredField = uiModel.isRequiredField,
-        onNextClicked = uiModel.onNextClicked,
+        onImeActionClick = uiModel.onImeActionClick,
         onValueChanged = uiModel.onValueChanged,
         keyboardOptions =
             KeyboardOptions(

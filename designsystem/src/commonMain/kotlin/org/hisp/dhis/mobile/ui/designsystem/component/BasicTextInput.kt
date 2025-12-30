@@ -26,6 +26,7 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.TextRange
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
@@ -46,7 +47,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
  * @param legendData: manages the legendComponent.
  * @param inputTextFieldValue: manages the value of the text in the input field.
  * @param isRequiredField: controls whether the field is mandatory or not.
- * @param onNextClicked: gives access to the imeAction event.
+ * @param onImeActionClick: gives access to the imeAction event.
  * @param onValueChanged: gives access to the onValueChanged event.
  * @param onFocusChanged: gives access to the onFocusChanged event.
  * @param autoCompleteList: a list of strings to be used for autocomplete functionality.
@@ -71,7 +72,7 @@ internal fun BasicTextInput(
     legendData: LegendData? = null,
     inputTextFieldValue: TextFieldValue? = null,
     isRequiredField: Boolean = false,
-    onNextClicked: (() -> Unit)? = null,
+    onImeActionClick: ((ImeAction) -> Unit)? = null,
     onValueChanged: ((TextFieldValue) -> Unit)? = null,
     onFocusChanged: ((Boolean) -> Unit)? = null,
     autoCompleteList: List<String>? = null,
@@ -216,9 +217,9 @@ internal fun BasicTextInput(
                     enabled = state != InputShellState.DISABLED,
                     state = state,
                     keyboardOptions = keyboardOptions,
-                    onNextClicked = {
-                        if (onNextClicked != null) {
-                            onNextClicked.invoke()
+                    onImeActionClick = { imeAction ->
+                        if (onImeActionClick != null) {
+                            onImeActionClick.invoke(imeAction)
                         } else {
                             focusManager.moveFocus(FocusDirection.Down)
                         }

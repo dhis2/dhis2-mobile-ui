@@ -170,12 +170,14 @@ fun InputSegmentedShell(
                                     imeAction = if (index == segmentCount - 1) ImeAction.Done else ImeAction.Next,
                                     keyboardType = segmentedShellType.keyboardType(),
                                 ),
-                            onNextClicked = {
-                                focusNextSegment(index)
-                            },
-                            onDoneClicked = {
-                                focusNextSegment(index)
-                                focusManager.clearFocus()
+                            onImeActionClick = { imeAction ->
+                                when (imeAction) {
+                                    ImeAction.Next -> focusNextSegment(index)
+                                    ImeAction.Done -> {
+                                        focusNextSegment(index)
+                                        focusManager.clearFocus()
+                                    }
+                                }
                             },
                             inputTextValue = segmentValues[index],
                             textStyle = MaterialTheme.typography.headlineMedium.copy(textAlign = TextAlign.Center),
