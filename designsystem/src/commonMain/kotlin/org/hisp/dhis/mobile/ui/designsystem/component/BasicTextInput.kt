@@ -151,15 +151,8 @@ internal fun BasicTextInput(
                     Legend(legendData, Modifier.testTag("INPUT_" + testTag + "_LEGEND"))
                 }
             },
-            supportingText = {
-                supportingText?.forEach { label ->
-                    SupportingText(
-                        label.text,
-                        label.state,
-                        modifier = Modifier.testTag("INPUT_" + testTag + "_SUPPORTING_TEXT"),
-                    )
-                }
-            },
+            supportingText = supportingText,
+            supportingTextTestTag = "INPUT_" + testTag + "_SUPPORTING_TEXT",
             inputField = {
                 BasicTextField(
                     modifier =

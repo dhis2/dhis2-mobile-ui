@@ -251,15 +251,8 @@ fun InputAge(
             }
         },
         secondaryButton = calendarButton,
-        supportingText = {
-            supportingTextList.forEach { label ->
-                SupportingText(
-                    label.text,
-                    label.state,
-                    modifier = Modifier.testTag("INPUT_AGE_SUPPORTING_TEXT"),
-                )
-            }
-        },
+        supportingText = supportingTextList,
+        supportingTextTestTag = "INPUT_AGE_SUPPORTING_TEXT",
         legend = {
             if (inputType is Age) {
                 TimeUnitSelector(
