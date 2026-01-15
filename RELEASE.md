@@ -1,5 +1,3 @@
-### Bug
-
 # Release notes - Android App for DHIS2 - UI: 0.6.1
 
 ### Bug
