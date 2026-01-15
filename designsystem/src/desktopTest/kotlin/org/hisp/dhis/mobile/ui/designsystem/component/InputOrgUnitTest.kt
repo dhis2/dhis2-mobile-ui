@@ -201,4 +201,26 @@ class InputOrgUnitTest {
         }
         rule.onNodeWithTag("ORG_UNIT_BUTTON").assertIsNotEnabled()
     }
+
+    @Test
+    fun shouldNotShowResetButtonEvenWithText() {
+        rule.setContent {
+            var inputValue by remember { mutableStateOf("PHC fake") }
+
+            InputOrgUnit(
+                title = "Label",
+                state = InputShellState.DISABLED,
+                inputText = inputValue,
+                onValueChanged = {
+                    if (it != null) {
+                        inputValue = it
+                    }
+                },
+                onOrgUnitActionCLicked = {},
+                showResetButton = false,
+            )
+        }
+        rule.onNodeWithTag("INPUT_ORG_UNIT").assertExists()
+        rule.onNodeWithTag("INPUT_ORG_UNIT_RESET_BUTTON").assertDoesNotExist()
+    }
 }

@@ -77,5 +77,20 @@ fun InputOrgUnitScreen() {
                 onOrgUnitActionCLicked = {},
             )
         }
+
+        ColumnComponentContainer("Org. unit with content without reset button") {
+            var inputText6 by rememberSaveable { mutableStateOf("PHC Fakename") }
+            InputOrgUnit(
+                title = "Label",
+                inputText = inputText6,
+                onValueChanged = {
+                    if (it != null) {
+                        inputText6 = it
+                    }
+                },
+                onOrgUnitActionCLicked = {},
+                showResetButton = false,
+            )
+        }
     }
 }

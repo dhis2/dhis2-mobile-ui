@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,41 +21,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-
-/**
- * DHIS2 InfoBar.
- * InfoBars provide brief messages about app status.
- * @param infoBarData: a data class [InfoBarData] with all
- * parameters for component.
- * @param modifier: optional modifier.
- */
-@OptIn(ExperimentalMaterial3Api::class)
-@Deprecated("Use constructor without InfoBarData")
-@Composable
-fun InfoBar(
-    infoBarData: InfoBarData,
-    modifier: Modifier = Modifier,
-) {
-    if (infoBarData.actionText != null && infoBarData.onClick != null) {
-        InfoBar(
-            modifier = modifier,
-            text = infoBarData.text,
-            actionText = infoBarData.actionText,
-            onActionClick = infoBarData.onClick,
-            textColor = infoBarData.color,
-            backgroundColor = infoBarData.backgroundColor,
-            icon = infoBarData.icon,
-        )
-    } else {
-        InfoBar(
-            modifier = modifier,
-            text = infoBarData.text,
-            textColor = infoBarData.color,
-            backgroundColor = infoBarData.backgroundColor,
-            icon = infoBarData.icon,
-        )
-    }
-}
 
 /**
  * DHIS2 InfoBar.

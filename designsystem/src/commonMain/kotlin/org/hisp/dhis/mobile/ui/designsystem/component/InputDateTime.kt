@@ -29,7 +29,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.focus.FocusDirection
-import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
@@ -38,6 +37,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextRange
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.convertStringToTextFieldValue
@@ -74,7 +74,7 @@ fun InputDateTime(
     state: InputDateTimeState,
     onFocusChanged: ((Boolean) -> Unit) = {},
     onValueChanged: (TextFieldValue?) -> Unit,
-    onNextClicked: (() -> Unit)? = null,
+    onImeActionClick: ((ImeAction) -> Unit)? = null,
     onActionClicked: (() -> Unit)? = null,
     modifier: Modifier = Modifier,
 ) {
@@ -164,8 +164,12 @@ fun InputDateTime(
                             keyboardType = KeyboardType.Number,
                         ),
                     visualTransformation = uiData.visualTransformation,
-                    onNextClicked = {
-                        manageOnNext(focusManager, onNextClicked)
+                    onImeActionClick = {
+                        if (onImeActionClick != null) {
+                            onImeActionClick.invoke(it)
+                        } else {
+                            focusManager.moveFocus(FocusDirection.Down)
+                        }
                     },
                 )
             } else {
@@ -358,6 +362,41 @@ fun InputDateResetButton(
     }
 }
 
+/**
+ * DHIS2 Input Date Time
+ * Input field to enter date, time or date&time. It will format content based on given visual
+ * transformation.
+ * component uses Material 3 [DatePicker] and [TimePicker]
+ * input formats supported are mentioned in the date time input ui model documentation.
+ * [DatePicker] Input mode  will always follow locale format.
+ * @param state: an [InputDateTimeState] with all the parameters for the input
+ * @param modifier: optional modifier.
+ */
+@OptIn(ExperimentalMaterial3Api::class)
+@Deprecated("Use with onImeActionClick instead of onNextClicked")
+@Composable
+fun InputDateTime(
+    state: InputDateTimeState,
+    onFocusChanged: ((Boolean) -> Unit) = {},
+    onValueChanged: (TextFieldValue?) -> Unit,
+    onNextClicked: (() -> Unit)?,
+    onActionClicked: (() -> Unit)? = null,
+    modifier: Modifier = Modifier,
+) {
+    InputDateTime(
+        state = state,
+        onFocusChanged = onFocusChanged,
+        onValueChanged = onValueChanged,
+        onImeActionClick = { imeAction ->
+            if (imeAction == ImeAction.Next) {
+                onNextClicked?.invoke()
+            }
+        },
+        onActionClicked = onActionClicked,
+        modifier = modifier,
+    )
+}
+
 fun getTextColor(
     inputState: InputShellState,
     inputTextFieldValue: TextFieldValue?,
@@ -367,17 +406,6 @@ fun getTextColor(
     } else {
         TextColor.OnDisabledSurface
     }
-
-fun manageOnNext(
-    focusManager: FocusManager,
-    onNextClicked: (() -> Unit)?,
-) {
-    if (onNextClicked != null) {
-        onNextClicked.invoke()
-    } else {
-        focusManager.moveFocus(FocusDirection.Down)
-    }
-}
 
 private fun manageOnValueChanged(
     newText: TextFieldValue,

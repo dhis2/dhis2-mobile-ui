@@ -15,10 +15,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -44,7 +42,6 @@ fun InputPassword(
         supportingTextList.add(item)
     }
     var showPassword by remember { mutableStateOf(false) }
-    val focusManager = LocalFocusManager.current
 
     InputShell(
         modifier =
@@ -70,13 +67,7 @@ fun InputPassword(
                 state = uiModel.state,
                 keyboardOptions = KeyboardOptions(imeAction = uiModel.imeAction, keyboardType = KeyboardType.Password),
                 visualTransformation = if (showPassword) VisualTransformation.None else PasswordVisualTransformation(),
-                onNextClicked = {
-                    if (uiModel.onNextClicked != null) {
-                        uiModel.onNextClicked.invoke()
-                    } else {
-                        focusManager.moveFocus(FocusDirection.Down)
-                    }
-                },
+                onImeActionClick = uiModel.onImeActionClick,
             )
         },
         primaryButton = {

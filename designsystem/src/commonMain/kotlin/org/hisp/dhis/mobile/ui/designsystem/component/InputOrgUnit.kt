@@ -61,6 +61,7 @@ fun InputOrgUnit(
     onFocusChanged: ((Boolean) -> Unit)? = null,
     modifier: Modifier = Modifier,
     onOrgUnitActionCLicked: () -> Unit,
+    showResetButton: Boolean = true,
 ) {
     var deleteButtonIsVisible by remember(inputText) { mutableStateOf(!inputText.isNullOrEmpty() && state != InputShellState.DISABLED) }
     val focusRequester = remember { FocusRequester() }
@@ -68,7 +69,7 @@ fun InputOrgUnit(
     val primaryButton:
         @Composable()
         (() -> Unit)?
-    if (deleteButtonIsVisible) {
+    if (deleteButtonIsVisible && showResetButton) {
         primaryButton = {
             IconButton(
                 modifier =

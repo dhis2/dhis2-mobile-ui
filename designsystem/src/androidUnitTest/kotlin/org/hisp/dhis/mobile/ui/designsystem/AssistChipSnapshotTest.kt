@@ -2,6 +2,7 @@ package org.hisp.dhis.mobile.ui.designsystem
 
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.material3.Icon
@@ -88,6 +89,21 @@ class AssistChipSnapshotTest {
                     enabled = false,
                     onClick = {},
                     badge = "3",
+                )
+                AssistChip(
+                    label = "Label",
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Filled.Add,
+                            contentDescription = "search icon",
+                            modifier =
+                                Modifier
+                                    .size(AssistChipDefaults.IconSize),
+                        )
+                    },
+                    enabled = false,
+                    onClick = {},
+                    badge = "6",
                 )
                 AssistChip(
                     label = "Label",
