@@ -1,33 +1,19 @@
 ### Bug
 
-[ANDROAPP-7108](https://dhis2.atlassian.net/browse/ANDROAPP-7108) Unable to scroll in org unit component once an org unit is selected
+# Release notes - Android App for DHIS2 - UI: 0.6.1
 
-[ANDROAPP-7110](https://dhis2.atlassian.net/browse/ANDROAPP-7110) Column resizing allows excessive shrinking beyond limits in data set tables
+### Bug
 
-[ANDROAPP-7162](https://dhis2.atlassian.net/browse/ANDROAPP-7162) unable to select date when language is arabic
+[ANDROAPP-7293](https://dhis2.atlassian.net/browse/ANDROAPP-7293) Bottomsheet landscape behavior
 
-[ANDROAPP-7228](https://dhis2.atlassian.net/browse/ANDROAPP-7228) Save message edge 2 edge - BottomSheet
-
-[ANDROAPP-7270](https://dhis2.atlassian.net/browse/ANDROAPP-7270) \[Mobile-UI\] - Unable to edit Password without deleting
-
-### Feature
-
-[ANDROAPP-7128](https://dhis2.atlassian.net/browse/ANDROAPP-7128) Add checkbox content to table cell
-
-[ANDROAPP-7237](https://dhis2.atlassian.net/browse/ANDROAPP-7237) Allow control on reset button visibility in inputs
+[ANDROAPP-7296](https://dhis2.atlassian.net/browse/ANDROAPP-7296) \[Mobile UI\] Inputs ime action callbacks not working
 
 ### Task
 
-[ANDROAPP-7046](https://dhis2.atlassian.net/browse/ANDROAPP-7046) Remove deprecated Inputs \(date time and age\)
+[ANDROAPP-6677](https://dhis2.atlassian.net/browse/ANDROAPP-6677) Remove deprecated methods for next release
 
-[ANDROAPP-7049](https://dhis2.atlassian.net/browse/ANDROAPP-7049) Update mobile ui kotlin, Gradle and AGP version
+[ANDROAPP-7173](https://dhis2.atlassian.net/browse/ANDROAPP-7173) Evaluate Compose Preview Snapshot Testing
 
-[ANDROAPP-7077](https://dhis2.atlassian.net/browse/ANDROAPP-7077) Update mobile ui android SDK version to v36
+[ANDROAPP-7397](https://dhis2.atlassian.net/browse/ANDROAPP-7397) Remove text color on design system typography
 
-[ANDROAPP-7158](https://dhis2.atlassian.net/browse/ANDROAPP-7158) Support iOS in Mobile UI
-
-[ANDROAPP-7166](https://dhis2.atlassian.net/browse/ANDROAPP-7166) InfoBar add action loading
-
-[ANDROAPP-7171](https://dhis2.atlassian.net/browse/ANDROAPP-7171) Expose method to generate bitmap painter from file path
-
-[ANDROAPP-7185](https://dhis2.atlassian.net/browse/ANDROAPP-7185) Create Segmented Input Shell component
+[ANDROAPP-7423](https://dhis2.atlassian.net/browse/ANDROAPP-7423) Add reset button visibility property to OrgUnit Input field
