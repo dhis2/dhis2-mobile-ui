@@ -41,6 +41,8 @@ import org.hisp.dhis.mobile.ui.designsystem.component.InputText
 import org.hisp.dhis.mobile.ui.designsystem.component.ProgressIndicator
 import org.hisp.dhis.mobile.ui.designsystem.component.ProgressIndicatorType
 import org.hisp.dhis.mobile.ui.designsystem.component.RadioButtonData
+import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextData
+import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextState
 import org.hisp.dhis.mobile.ui.designsystem.component.model.DateTimeTransformation
 import org.hisp.dhis.mobile.ui.designsystem.component.parameter.ParameterSelectorItem
 import org.hisp.dhis.mobile.ui.designsystem.component.parameter.model.ParameterSelectorItemModel
@@ -62,6 +64,19 @@ fun ParameterSelectorScreen() {
     var inputTextStatus by remember(inputTextValue.text) {
         mutableStateOf(
             if (inputTextValue.text.isEmpty()) {
+                CLOSED
+            } else {
+                UNFOCUSED
+            },
+        )
+    }
+
+    var inputTextValueWithSupportingText by rememberSaveable(stateSaver = TextFieldValue.Saver) {
+        mutableStateOf(TextFieldValue(""))
+    }
+    var inputTextStatusWithSupportingText by remember(inputTextValueWithSupportingText.text) {
+        mutableStateOf(
+            if (inputTextValueWithSupportingText.text.isEmpty()) {
                 CLOSED
             } else {
                 UNFOCUSED
@@ -457,6 +472,66 @@ fun ParameterSelectorScreen() {
                     )
                 },
                 onExpand = {},
+            ),
+            ParameterSelectorItemModel(
+                label = "Text parameter with supporting text",
+                helper = "Optional",
+                inputField = {
+                    InputText(
+                        title = "Text parameter",
+                        state = InputShellState.UNFOCUSED,
+                        inputTextFieldValue = inputTextValueWithSupportingText,
+                        inputStyle = InputStyle.ParameterInputStyle(),
+                        onValueChanged = {
+                            inputTextValueWithSupportingText = it ?: TextFieldValue()
+                        },
+                        supportingText =
+                            listOf(
+                                SupportingTextData(
+                                    text = "Exact match only",
+                                    state = SupportingTextState.INFO,
+                                ),
+                            ),
+                    )
+                },
+                status = inputTextStatusWithSupportingText,
+                onExpand = {
+                    inputTextStatusWithSupportingText = FOCUSED
+                },
+            ),
+            ParameterSelectorItemModel(
+                label = "Text parameter with error supporting text",
+                helper = "Optional",
+                inputField = {
+                    InputText(
+                        title = "Text parameter",
+                        state = InputShellState.ERROR,
+                        inputTextFieldValue = inputTextValue,
+                        inputStyle = InputStyle.ParameterInputStyle(),
+                        onValueChanged = {
+                            inputTextValue = it ?: TextFieldValue()
+                        },
+                        supportingText =
+                            listOf(
+                                SupportingTextData(
+                                    text = "Exact match only",
+                                    state = SupportingTextState.INFO,
+                                ),
+                                SupportingTextData(
+                                    text = "Warning",
+                                    state = SupportingTextState.WARNING,
+                                ),
+                                SupportingTextData(
+                                    text = "Error",
+                                    state = SupportingTextState.ERROR,
+                                ),
+                            ),
+                    )
+                },
+                status = inputTextStatus,
+                onExpand = {
+                    inputTextStatus = FOCUSED
+                },
             ),
         )
 

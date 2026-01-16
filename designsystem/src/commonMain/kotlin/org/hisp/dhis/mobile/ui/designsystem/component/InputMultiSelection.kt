@@ -140,17 +140,7 @@ fun InputMultiSelection(
             state = state,
             modifier = modifier.testTag("INPUT_MULTI_SELECT").focusRequester(focusRequester),
             inputStyle = inputStyle,
-            supportingText =
-                supportingTextData?.let {
-                    {
-                        it.forEach { supportTextData ->
-                            SupportingTextData(
-                                text = supportTextData.text,
-                                state = supportTextData.state,
-                            )
-                        }
-                    }
-                },
+            supportingText = supportingTextData,
             legend =
                 legendData?.let { legendData ->
                     {

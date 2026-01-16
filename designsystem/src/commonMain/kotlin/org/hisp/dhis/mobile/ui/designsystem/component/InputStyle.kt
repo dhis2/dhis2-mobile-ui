@@ -22,6 +22,8 @@ sealed class InputStyle(
     val unfocusedIndicatorColor: Color?,
     val disabledIndicatorColor: Color?,
 ) {
+    abstract fun supportingTextBackgroundColor(supportingText: List<SupportingTextData>?): Color
+
     class DataInputStyle :
         InputStyle(
             startIndent = Spacing.Spacing0,
@@ -29,7 +31,9 @@ sealed class InputStyle(
             disabledBackGroundColor = SurfaceColor.DisabledSurface,
             unfocusedIndicatorColor = null,
             disabledIndicatorColor = null,
-        )
+        ) {
+        override fun supportingTextBackgroundColor(supportingText: List<SupportingTextData>?): Color = Color.Transparent
+    }
 
     class ParameterInputStyle :
         InputStyle(
@@ -38,5 +42,13 @@ sealed class InputStyle(
             disabledBackGroundColor = Color.Transparent,
             unfocusedIndicatorColor = Outline.Light,
             disabledIndicatorColor = Outline.Light,
-        )
+        ) {
+        override fun supportingTextBackgroundColor(supportingText: List<SupportingTextData>?): Color =
+            when {
+                supportingText?.any { it.state == SupportingTextState.ERROR } == true -> SupportingTextState.ERROR.backgroundColor
+                supportingText?.any { it.state == SupportingTextState.WARNING } == true -> SupportingTextState.WARNING.backgroundColor
+                supportingText?.any { it.state == SupportingTextState.INFO } == true -> SupportingTextState.INFO.backgroundColor
+                else -> SupportingTextState.DEFAULT.backgroundColor
+            }
+    }
 }

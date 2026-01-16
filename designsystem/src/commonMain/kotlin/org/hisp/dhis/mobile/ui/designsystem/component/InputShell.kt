@@ -32,6 +32,7 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.Dp
 import org.hisp.dhis.mobile.ui.designsystem.theme.Border
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
@@ -48,7 +49,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
  * @param primaryButton: controls the primary button composable if null will show nothing.
  * @param secondaryButton: controls  action button composable, if null will show nothing.
  * @param inputField: controls the input field composable.
- * @param supportingText: controls the supporting text composable.
+ * @param supportingText: controls the supporting text data.
  * @param legend: controls the optional legend composable.
  * @param onFocusChanged: gives access to the onFocusChanged returns true if
  * item is focused.
@@ -63,8 +64,9 @@ internal fun InputShell(
     primaryButton: @Composable (() -> Unit)? = null,
     secondaryButton: @Composable (() -> Unit)? = null,
     inputField: @Composable (() -> Unit)? = null,
-    supportingText: @Composable (() -> Unit)?,
     legend: @Composable (ColumnScope.() -> Unit)?,
+    supportingText: List<SupportingTextData>? = null,
+    supportingTextTestTag: String = "",
     onFocusChanged: ((Boolean) -> Unit)? = null,
     isRequiredField: Boolean,
     modifier: Modifier = Modifier.fillMaxWidth(),
@@ -182,7 +184,22 @@ internal fun InputShell(
         }
 
         legend?.invoke(this)
-        if (state != InputShellState.DISABLED) supportingText?.invoke()
+        Column(
+            Modifier
+                .background(inputStyle.supportingTextBackgroundColor(supportingText))
+                .padding(start = inputStyle.startIndent)
+                .fillMaxWidth(),
+        ) {
+            if (state != InputShellState.DISABLED) {
+                supportingText?.forEach { label ->
+                    SupportingText(
+                        label.text,
+                        label.state,
+                        modifier = Modifier.testTag(supportingTextTestTag),
+                    )
+                }
+            }
+        }
         if (isRequiredField && state == InputShellState.ERROR && supportingText == null) {
             SupportingText(
                 "Required",

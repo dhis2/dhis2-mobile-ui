@@ -65,6 +65,7 @@ fun SupportingText(
             start = Spacing.Spacing16,
             top = Spacing.Spacing4,
             end = Spacing.Spacing16,
+            bottom = Spacing.Spacing4,
         ),
     onNoInteraction: (() -> Pair<MutableInteractionSource, () -> Unit>)? = null,
 ) {
@@ -183,10 +184,12 @@ fun SupportingText(
 
 enum class SupportingTextState(
     val color: Color,
+    val backgroundColor: Color,
 ) {
-    DEFAULT(TextColor.OnSurfaceVariant),
-    WARNING(SurfaceColor.Warning),
-    ERROR(SurfaceColor.Error),
+    DEFAULT(TextColor.OnSurfaceVariant, SurfaceColor.Surface),
+    WARNING(SurfaceColor.Warning, SurfaceColor.WarningContainer),
+    ERROR(SurfaceColor.Error, SurfaceColor.ErrorContainer),
+    INFO(TextColor.OnSurfaceVariant, SurfaceColor.Container),
 }
 
 data class SupportingTextData(
