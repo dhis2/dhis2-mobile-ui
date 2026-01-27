@@ -65,7 +65,6 @@ fun SupportingText(
             start = Spacing.Spacing16,
             top = Spacing.Spacing4,
             end = Spacing.Spacing16,
-            bottom = Spacing.Spacing4,
         ),
     onNoInteraction: (() -> Pair<MutableInteractionSource, () -> Unit>)? = null,
 ) {
@@ -120,7 +119,7 @@ fun SupportingText(
                 val lastCharIndex = textLayoutResult.getLineEnd(maxLines - 1)
                 val adjustedText =
                     text
-                        .substring(startIndex = 0, endIndex = lastCharIndex)
+                        .take(lastCharIndex)
                         .dropLast(showLessText.length + 5)
                         .dropLastWhile { it == ' ' || it == '.' }
 
@@ -175,12 +174,17 @@ fun SupportingText(
     CompositionLocalProvider(LocalRippleConfiguration provides customRippleConfiguration()) {
         Text(
             text = annotatedText,
-            maxLines = if (isExpanded) Int.MAX_VALUE else maxLines,
+            maxLines = maxLines(isExpanded, maxLines),
             onTextLayout = { textLayoutResultState.value = it },
             modifier = modifier.padding(paddingValues).animateContentSize(),
         )
     }
 }
+
+fun maxLines(
+    isExpanded: Boolean,
+    defaultMaxLines: Int,
+): Int = if (isExpanded) Int.MAX_VALUE else defaultMaxLines
 
 enum class SupportingTextState(
     val color: Color,

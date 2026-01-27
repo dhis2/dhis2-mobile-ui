@@ -18,6 +18,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 sealed class InputStyle(
     val startIndent: Dp,
     var backGroundColor: Color,
+    var supportingTextLowerPadding: Dp,
     val disabledBackGroundColor: Color,
     val unfocusedIndicatorColor: Color?,
     val disabledIndicatorColor: Color?,
@@ -28,6 +29,7 @@ sealed class InputStyle(
         InputStyle(
             startIndent = Spacing.Spacing0,
             backGroundColor = SurfaceColor.Surface,
+            supportingTextLowerPadding = Spacing.Spacing0,
             disabledBackGroundColor = SurfaceColor.DisabledSurface,
             unfocusedIndicatorColor = null,
             disabledIndicatorColor = null,
@@ -38,6 +40,7 @@ sealed class InputStyle(
     class ParameterInputStyle :
         InputStyle(
             startIndent = Spacing.Spacing40,
+            supportingTextLowerPadding = Spacing.Spacing4,
             backGroundColor = Color.Transparent,
             disabledBackGroundColor = Color.Transparent,
             unfocusedIndicatorColor = Outline.Light,
