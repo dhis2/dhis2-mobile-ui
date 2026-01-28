@@ -61,15 +61,8 @@ fun InputRadioButton(
                 Legend(legendData, modifier.testTag("RADIO_BUTTON_INPUT_LEGEND"))
             }
         },
-        supportingText = {
-            supportingText?.forEach { label ->
-                SupportingText(
-                    label.text,
-                    label.state,
-                    modifier = modifier.testTag("RADIO_BUTTON_INPUT_SUPPORTING_TEXT"),
-                )
-            }
-        },
+        supportingText = supportingText,
+        supportingTextTestTag = "RADIO_BUTTON_INPUT_SUPPORTING_TEXT",
         inputField = {
             val updatedRadioButtonData = mutableListOf<RadioButtonData>()
             radioButtonData.forEach {

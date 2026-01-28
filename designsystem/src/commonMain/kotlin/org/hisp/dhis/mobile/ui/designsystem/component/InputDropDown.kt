@@ -344,15 +344,8 @@ fun DropdownInputField(
             state = state,
             isRequiredField = isRequiredField,
             onFocusChanged = onFocusChanged,
-            supportingText = {
-                supportingTextData?.forEach { label ->
-                    SupportingText(
-                        label.text,
-                        label.state,
-                        modifier = Modifier.testTag("INPUT_DROPDOWN_SUPPORTING_TEXT"),
-                    )
-                }
-            },
+            supportingText = supportingTextData,
+            supportingTextTestTag = "INPUT_DROPDOWN_SUPPORTING_TEXT",
             legend = {
                 legendData?.let {
                     Legend(legendData, Modifier.testTag("INPUT_DROPDOWN_LEGEND"))

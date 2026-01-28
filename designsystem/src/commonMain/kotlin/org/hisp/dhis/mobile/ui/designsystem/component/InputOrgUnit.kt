@@ -142,15 +142,8 @@ fun InputOrgUnit(
                     Legend(legendData, Modifier.testTag("INPUT_ORG_UNIT_LEGEND"))
                 }
             },
-            supportingText = {
-                supportingText?.forEach { label ->
-                    SupportingText(
-                        label.text,
-                        label.state,
-                        modifier = Modifier.testTag("INPUT_ORG_UNIT_SUPPORTING_TEXT"),
-                    )
-                }
-            },
+            supportingText = supportingText,
+            supportingTextTestTag = "INPUT_ORG_UNIT_SUPPORTING_TEXT",
             inputField = {
                 val enabled = state != InputShellState.DISABLED
                 androidx.compose.foundation.text.BasicTextField(

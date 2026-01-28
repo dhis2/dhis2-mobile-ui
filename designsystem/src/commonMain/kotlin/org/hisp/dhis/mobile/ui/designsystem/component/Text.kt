@@ -55,17 +55,21 @@ internal fun ButtonText(
  */
 @Composable
 internal fun InputShellLabelText(
-    text: String,
+    title: String,
     textColor: Color,
+    isRequiredField: Boolean,
     modifier: Modifier = Modifier,
 ) {
-    Text(
-        text,
-        modifier = modifier.padding(vertical = Spacing.Spacing2),
-        color = textColor,
-        style = MaterialTheme.typography.bodyMedium,
-        textAlign = TextAlign.Start,
-    )
+    if (title.isNotEmpty()) {
+        val titleText = if (isRequiredField) "$title *" else title
+        Text(
+            titleText,
+            modifier = modifier.padding(vertical = Spacing.Spacing2),
+            color = textColor,
+            style = MaterialTheme.typography.bodyMedium,
+            textAlign = TextAlign.Start,
+        )
+    }
 }
 
 @Composable

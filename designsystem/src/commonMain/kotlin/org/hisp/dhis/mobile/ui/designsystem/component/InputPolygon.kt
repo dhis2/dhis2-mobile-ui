@@ -66,15 +66,8 @@ fun InputPolygon(
                 Legend(legendData, modifier.testTag("INPUT_POLYGON_LEGEND"))
             }
         },
-        supportingText = {
-            supportingText?.forEach { label ->
-                SupportingText(
-                    label.text,
-                    label.state,
-                    modifier = modifier.testTag("INPUT_POLYGON_SUPPORTING_TEXT"),
-                )
-            }
-        },
+        supportingText = supportingText,
+        supportingTextTestTag = "INPUT_POLYGON_SUPPORTING_TEXT",
         inputField = {
             if (polygonAdded) {
                 Text(

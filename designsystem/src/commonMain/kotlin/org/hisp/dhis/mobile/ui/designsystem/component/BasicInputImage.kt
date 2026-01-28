@@ -79,15 +79,8 @@ internal fun <T> BasicInputImage(
                 Legend(legendData, modifier.testTag("INPUT_" + testTag + "_LEGEND"))
             }
         },
-        supportingText = {
-            supportingText?.forEach { label ->
-                SupportingText(
-                    label.text,
-                    label.state,
-                    modifier = modifier.testTag("INPUT_" + testTag + "_SUPPORTING_TEXT"),
-                )
-            }
-        },
+        supportingText = supportingText,
+        supportingTextTestTag = "INPUT_" + testTag + "_SUPPORTING_TEXT",
         inputField = {
             when (uploadState) {
                 UploadState.ADD -> {
