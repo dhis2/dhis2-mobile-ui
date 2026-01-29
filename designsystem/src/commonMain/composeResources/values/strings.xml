@@ -50,4 +50,5 @@
     <string name="searching_location">Searching...</string>
     <string name="hide_details">Hide details</string>
     <string name="reset_table_layout">Reset table layout</string>
+    <string name="transifex_testing_resource">Testing Resource. Do not translate.</string>
 </resources>
