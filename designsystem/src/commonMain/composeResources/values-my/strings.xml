@@ -10,4 +10,5 @@
     <string name="ok">လက်ခံသည်</string>
     <string name="cancel">ပယ်ဖျက်သည်</string>
     <string name="hide_details">အတိအကျဖော်ပြချက်များကိုဖွက်ထားပါ</string>
-    </resources>
+    <string name="required">ဖြည့်သွင်းရန်လိုအပ်သည်</string>
+</resources>

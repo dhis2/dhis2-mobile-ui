@@ -44,4 +44,5 @@
     <string name="no_results">Натижа йўқ</string>
     <string name="accept">Қабул қилинг</string>
     <string name="hide_details">Деталларни беркитиш</string>
-    </resources>
+    <string name="required">Мажбурий</string>
+</resources>

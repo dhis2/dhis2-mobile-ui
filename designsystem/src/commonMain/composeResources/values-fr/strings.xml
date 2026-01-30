@@ -18,16 +18,19 @@
     <string name="add_file">Ajouter un fichier</string>
     <string name="yes">Oui</string>
     <string name="no">Non</string>
-    <string name="enter_phone_number">Entrez le numéro de téléphone</string>
+    <string name="enter_phone_number">Saisir le numéro de téléphone</string>
     <string name="qr_code">Code QR</string>
     <string name="sync">Synchronisation</string>
     <string name="add_polygon">Ajouter un polygone</string>
     <string name="polygon_captured">Le polygône a été défini</string>
     <string name="add_location">Ajouter un lieu</string>
+    <string name="latitude">Lat</string>
+    <string name="longitude">Long</string>
     <string name="add_signature">Ajouter une signature</string>
     <string name="add_image">Ajouter une image</string>
     <string name="not_supported">Non supporté</string>
     <string name="search">Rechercher</string>
+    <string name="draw_here">Dessinez ici</string>
     <string name="reset">Réinitialiser</string>
     <string name="done">Terminé</string>
     <string name="clear_all">Tout effacer</string>
@@ -35,8 +38,17 @@
     <string name="ok">Ok</string>
     <string name="cancel">Annuler</string>
     <string name="select_date">Sélectionner la date</string>
+    <string name="date_out_of_range">Date hors de la fourchette </string>
+    <string name="incorrect_date_format">Format de date incorrect </string>
     <string name="wrong_hour_format">Format d\'heure incorrect </string>
+    <string name="search_to_see_more">Toutes les options ne sont pas affichées.\n Faites une recherche pour en voir plus.</string>
+    <string name="search_location">Rechercher le lieu</string>
+    <string name="select_in_map">Sélectionner sur la carte</string>
+    <string name="no_recent_results">Pas de résultats récents</string>
     <string name="no_results">Aucun résultat</string>
     <string name="accept">Accepter</string>
+    <string name="searching_location">Recherche...</string>
     <string name="hide_details">Masquer les détails</string>
-    </resources>
+    <string name="reset_table_layout">Réinitialiser la disposition du tableau</string>
+    <string name="required">Requis</string>
+</resources>

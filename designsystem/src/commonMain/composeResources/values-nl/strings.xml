@@ -26,4 +26,5 @@
     <string name="no_results">Geen resultaten</string>
     <string name="accept">Aanvaarden</string>
     <string name="hide_details">Verberg details</string>
-    </resources>
+    <string name="required">Vereist</string>
+</resources>

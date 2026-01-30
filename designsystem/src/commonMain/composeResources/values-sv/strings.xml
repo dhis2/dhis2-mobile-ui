@@ -17,4 +17,5 @@
     <string name="cancel">Avbryt</string>
     <string name="accept">Acceptera</string>
     <string name="hide_details">Gömma detaljer</string>
-    </resources>
+    <string name="required">Nödvändig</string>
+</resources>
