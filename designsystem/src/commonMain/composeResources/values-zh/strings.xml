@@ -47,7 +47,8 @@
     <string name="no_recent_results">无最新结果</string>
     <string name="no_results">无结果</string>
     <string name="accept">接受</string>
-    <string name="searching_location">搜索…</string>
+    <string name="searching_location">搜索...</string>
     <string name="hide_details">隐藏细节</string>
     <string name="reset_table_layout">重置表格布局</string>
+    <string name="required">必须的</string>
 </resources>

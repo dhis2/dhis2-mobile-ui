@@ -25,4 +25,5 @@
     <string name="no_results">Ingen resultater</string>
     <string name="accept">Aksepter</string>
     <string name="hide_details">Skjul detaljer</string>
-    </resources>
+    <string name="required">Påkrevd</string>
+</resources>

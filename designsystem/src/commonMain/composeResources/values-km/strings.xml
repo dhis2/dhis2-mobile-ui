@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <resources>
+    <string name="show_more">បង្ហាញច្រើនទៀត</string>
     <string name="years">ឆ្នាំ</string>
     <string name="months">ខែ</string>
     <string name="days">ថ្ងៃ</string>
@@ -8,6 +9,7 @@
     <string name="yes">បាទ/ចាស</string>
     <string name="no">ទេ</string>
     <string name="sync">បញ្ចូន</string>
+    <string name="not_supported">មិនគាំទ្រ​ / មិនអាចធ្វើឡើងបានទេ</string>
     <string name="search">ស្វែងរក</string>
     <string name="done">Done</string>
     <string name="no_results_found">មិនមានលទ្ធផលបង្ហាញ</string>
@@ -15,4 +17,5 @@
     <string name="cancel">បោះបង់</string>
     <string name="accept">ទទួលយក</string>
     <string name="hide_details">លាក់​ព័ត៌មាន​លម្អិត</string>
-    </resources>
+    <string name="required">ទាមទារ</string>
+</resources>

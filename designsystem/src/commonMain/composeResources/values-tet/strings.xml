@@ -8,4 +8,5 @@
     <string name="ok">OK</string>
     <string name="cancel">Kansela</string>
     <string name="hide_details">Subar detalles</string>
-    </resources>
+    <string name="required">Nesesáriu</string>
+</resources>

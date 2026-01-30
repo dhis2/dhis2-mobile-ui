@@ -47,4 +47,5 @@
     <string name="searching_location">Пошук...</string>
     <string name="hide_details">Сховати деталі</string>
     <string name="reset_table_layout">Скинути макет таблиці</string>
+    <string name="required">Обов\'язкове поле</string>
 </resources>

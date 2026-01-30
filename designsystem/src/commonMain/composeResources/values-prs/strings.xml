@@ -16,4 +16,5 @@
     <string name="cancel">انصراف</string>
     <string name="accept">پذیرش</string>
     <string name="hide_details">پنهان کردن جزئیات</string>
-    </resources>
+    <string name="required">ضروری</string>
+</resources>

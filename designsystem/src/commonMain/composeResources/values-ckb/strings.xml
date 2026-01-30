@@ -12,4 +12,5 @@
     <string name="cancel">لابردن</string>
     <string name="no_results">هیچ ئەنجامێک بەردەست نیە</string>
     <string name="accept">پەسندکردن</string>
-    </resources>
+    <string name="required">ثيويست</string>
+</resources>

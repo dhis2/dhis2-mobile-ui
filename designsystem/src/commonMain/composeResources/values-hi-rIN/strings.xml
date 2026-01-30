@@ -1,11 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <resources>
+    <string name="show_more">और दिखाएँ</string>
+    <string name="show_less">कम दिखाएँ</string>
+    <string name="years">वर्ष</string>
+    <string name="months">महीने</string>
     <string name="days">दिन</string>
     <string name="action_next">आगे</string>
+    <string name="add_file">फ़ाइल जोड़ें</string>
     <string name="yes">हाँ</string>
     <string name="no">नहीं</string>
+    <string name="add_location">लोकेशन</string>
+    <string name="search">सर्च करें / खोजें</string>
+    <string name="draw_here">यहाँ चित्र बनाएँ</string>
     <string name="reset">रीसेट करें</string>
     <string name="done">पूरा हुआ</string>
+    <string name="no_results_found">कोई परिणाम नहीं मिला</string>
     <string name="ok">ठीक है</string>
     <string name="cancel">रद्द करें</string>
-    </resources>
+    <string name="no_results">कोई परिणाम नहीं</string>
+    <string name="accept">स्वीकार करें</string>
+    <string name="hide_details">विवरण छुपाएँ</string>
+    <string name="required">आवश्यकता है</string>
+</resources>

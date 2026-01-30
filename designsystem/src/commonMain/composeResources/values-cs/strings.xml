@@ -39,9 +39,16 @@
     <string name="cancel">Zrušit</string>
     <string name="select_date">Zvolte datum</string>
     <string name="date_out_of_range">Datum mimo rozsah </string>
+    <string name="incorrect_date_format">Nesprávný formát data </string>
     <string name="wrong_hour_format">Nesprávný formát času </string>
     <string name="search_to_see_more">Nezobrazují se všechny možnosti.\n Pro zobrazení dalších možností použijte vyhledávání.</string>
+    <string name="search_location">Hledat lokalitu</string>
+    <string name="select_in_map">Vybrat na mapě</string>
+    <string name="no_recent_results">Žádné aktuální výsledky</string>
     <string name="no_results">Žádné výsledky</string>
     <string name="accept">Přijmout</string>
+    <string name="searching_location">Hledání...</string>
     <string name="hide_details">Skrýt detaily</string>
-    </resources>
+    <string name="reset_table_layout">Obnovit rozložení tabulky</string>
+    <string name="required">Vyžadováno</string>
+</resources>
