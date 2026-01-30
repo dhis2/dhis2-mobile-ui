@@ -68,15 +68,8 @@ fun InputYesOnlySwitch(
                 Legend(legendData, modifier.testTag("INPUT_YES_ONLY_SWITCH_LEGEND"))
             }
         },
-        supportingText = {
-            supportingText?.forEach { label ->
-                SupportingText(
-                    label.text,
-                    label.state,
-                    modifier = modifier.testTag("INPUT_YES_ONLY_SWITCH_SUPPORTING_TEXT"),
-                )
-            }
-        },
+        supportingText = supportingText,
+        supportingTextTestTag = "INPUT_YES_ONLY_SWITCH_SUPPORTING_TEXT",
         inputField = {
             Row(
                 modifier =

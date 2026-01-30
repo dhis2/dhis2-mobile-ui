@@ -76,15 +76,8 @@ fun InputCoordinate(
                 Legend(legendData, modifier.testTag("INPUT_COORDINATE_LEGEND"))
             }
         },
-        supportingText = {
-            supportingText?.forEach { label ->
-                SupportingText(
-                    label.text,
-                    label.state,
-                    modifier = modifier.testTag("INPUT_COORDINATE_SUPPORTING_TEXT"),
-                )
-            }
-        },
+        supportingText = supportingText,
+        supportingTextTestTag = "INPUT_COORDINATE_SUPPORTING_TEXT",
         inputField = {
             if (coordinates != null) {
                 FlowRow(

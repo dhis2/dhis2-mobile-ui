@@ -54,15 +54,8 @@ fun InputYesNoField(
                 Legend(legendData, modifier.testTag("INPUT_YES_NO_FIELD_LEGEND"))
             }
         },
-        supportingText = {
-            supportingText?.forEach { label ->
-                SupportingText(
-                    label.text,
-                    label.state,
-                    modifier = modifier.testTag("INPUT_YES_NO_FIELD_SUPPORTING_TEXT"),
-                )
-            }
-        },
+        supportingText = supportingText,
+        supportingTextTestTag = "INPUT_YES_NO_FIELD_SUPPORTING_TEXT",
         inputField = {
             val options =
                 InputYesNoFieldValues.entries.map {
