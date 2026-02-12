@@ -9,7 +9,9 @@
     <string name="add_file">फ़ाइल जोड़ें</string>
     <string name="yes">हाँ</string>
     <string name="no">नहीं</string>
+    <string name="enter_phone_number">फ़ोन नंबर दर्ज करें</string>
     <string name="add_location">लोकेशन</string>
+    <string name="not_supported">सपोर्टेड नहीं है</string>
     <string name="search">सर्च करें / खोजें</string>
     <string name="draw_here">यहाँ चित्र बनाएँ</string>
     <string name="reset">रीसेट करें</string>
