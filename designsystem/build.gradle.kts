@@ -45,6 +45,9 @@ kotlin {
                 api(compose.materialIconsExtended)
                 implementation(compose.components.resources)
                 implementation(libs.kotlinx.serialization.json)
+                implementation(libs.multiplatform.markdown.renderer)
+                implementation(libs.multiplatform.markdown.renderer.m3)
+                implementation(libs.multiplatform.markdown.renderer.coil3)
             }
         }
 
