@@ -22,9 +22,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.mikepenz.markdown.coil3.Coil3ImageTransformerImpl
-import com.mikepenz.markdown.compose.components.markdownComponents
 import com.mikepenz.markdown.m3.Markdown
 import com.mikepenz.markdown.m3.markdownTypography
 import com.mikepenz.markdown.model.markdownDimens
@@ -58,7 +56,6 @@ fun Indicator(
         )
 
     DHIS2Theme {
-
         val markdownDimensions =
             markdownDimens(
                 tableCellPadding = 8.dp,
@@ -113,15 +110,16 @@ fun Indicator(
                                 Markdown(
                                     content = title,
                                     imageTransformer = Coil3ImageTransformerImpl,
-                                    typography = markdownTypography(
-                                        h1 = DHIS2MarkdownTextStyles.h1,
-                                        h2 = DHIS2MarkdownTextStyles.h2,
-                                        h3 = DHIS2MarkdownTextStyles.h3,
-                                        h4 = DHIS2MarkdownTextStyles.h4,
-                                        h5 = DHIS2MarkdownTextStyles.h5,
-                                        h6 = DHIS2MarkdownTextStyles.h6,
-                                        paragraph = DHIS2MarkdownTextStyles.paragraph,
-                                    ),
+                                    typography =
+                                        markdownTypography(
+                                            h1 = DHIS2MarkdownTextStyles.h1,
+                                            h2 = DHIS2MarkdownTextStyles.h2,
+                                            h3 = DHIS2MarkdownTextStyles.h3,
+                                            h4 = DHIS2MarkdownTextStyles.h4,
+                                            h5 = DHIS2MarkdownTextStyles.h5,
+                                            h6 = DHIS2MarkdownTextStyles.h6,
+                                            paragraph = DHIS2MarkdownTextStyles.paragraph,
+                                        ),
                                     dimens = markdownDimensions,
                                     padding = padding,
                                     modifier = Modifier.padding(0.dp),
@@ -145,15 +143,16 @@ fun Indicator(
                                     Markdown(
                                         content,
                                         imageTransformer = Coil3ImageTransformerImpl,
-                                        typography = markdownTypography(
-                                            h1 = DHIS2MarkdownTextStyles.h1,
-                                            h2 = DHIS2MarkdownTextStyles.h2,
-                                            h3 = DHIS2MarkdownTextStyles.h3,
-                                            h4 = DHIS2MarkdownTextStyles.h4,
-                                            h5 = DHIS2MarkdownTextStyles.h5,
-                                            h6 = DHIS2MarkdownTextStyles.h6,
-                                            paragraph = DHIS2MarkdownTextStyles.paragraphLarge,
-                                        ),
+                                        typography =
+                                            markdownTypography(
+                                                h1 = DHIS2MarkdownTextStyles.h1,
+                                                h2 = DHIS2MarkdownTextStyles.h2,
+                                                h3 = DHIS2MarkdownTextStyles.h3,
+                                                h4 = DHIS2MarkdownTextStyles.h4,
+                                                h5 = DHIS2MarkdownTextStyles.h5,
+                                                h6 = DHIS2MarkdownTextStyles.h6,
+                                                paragraph = DHIS2MarkdownTextStyles.paragraphLarge,
+                                            ),
                                         dimens = markdownDimensions,
                                         padding = padding,
                                         modifier = Modifier.padding(0.dp),
