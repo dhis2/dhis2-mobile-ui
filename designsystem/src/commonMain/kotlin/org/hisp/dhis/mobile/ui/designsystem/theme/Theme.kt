@@ -228,6 +228,59 @@ fun getTextStyle(style: DHIS2TextStyle): TextStyle =
         }
     }
 
+internal object DHIS2MarkdownTextStyles {
+    val h1 = TextStyle(
+        fontSize = 24.sp,
+        lineHeight = 28.sp,
+        lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
+        fontWeight = FontWeight.Medium,
+    )
+    val h2 = TextStyle(
+        fontSize = 22.sp,
+        lineHeight = 26.sp,
+        lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
+        fontWeight = FontWeight.Medium,
+    )
+    val h3 = TextStyle(
+        fontSize = 20.sp,
+        lineHeight = 24.sp,
+        lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
+        fontWeight = FontWeight.Medium,
+    )
+    val h4 = TextStyle(
+        fontSize = 18.sp,
+        lineHeight = 22.sp,
+        lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
+        fontWeight = FontWeight.Medium,
+    )
+    val h5 = TextStyle(
+        fontSize = 16.sp,
+        lineHeight = 20.sp,
+        lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
+        fontWeight = FontWeight.Medium,
+    )
+    val h6 = TextStyle(
+        fontSize = 14.sp,
+        lineHeight = 20.sp,
+        lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
+        fontWeight = FontWeight.Medium,
+    )
+    val paragraph = TextStyle(
+        fontSize = 14.sp,
+        lineHeight = 20.sp,
+        lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
+        fontWeight = FontWeight.Normal,
+        letterSpacing = 0.sp,
+    )
+    val paragraphLarge = TextStyle(
+        fontSize = 16.sp,
+        lineHeight = 24.sp,
+        lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
+        fontWeight = FontWeight.Normal,
+        letterSpacing = 0.sp,
+    )
+}
+
 internal object DHIS2SCustomTextStyles {
     val titleMediumBold =
         TextStyle(

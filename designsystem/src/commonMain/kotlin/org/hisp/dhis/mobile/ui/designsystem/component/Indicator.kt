@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,6 +29,7 @@ import com.mikepenz.markdown.m3.Markdown
 import com.mikepenz.markdown.m3.markdownTypography
 import com.mikepenz.markdown.model.markdownDimens
 import com.mikepenz.markdown.model.markdownPadding
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2MarkdownTextStyles
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
@@ -45,9 +47,10 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 @Composable
 fun Indicator(
     title: String,
-    content: String? = "",
+    content: String? = null,
     modifier: Modifier = Modifier,
     indicatorColor: Color = SurfaceColor.ContainerHigh,
+    useMarkdown: Boolean = false,
 ) {
     val backgroundColor =
         indicatorColor.copy(
@@ -55,79 +58,6 @@ fun Indicator(
         )
 
     DHIS2Theme {
-        val mdTypographyKey =
-            markdownTypography(
-                h1 =
-                    MaterialTheme.typography.titleLarge.copy(
-                        fontSize = 24.sp,
-                    ),
-                h2 =
-                    MaterialTheme.typography.titleLarge.copy(
-                        fontSize = 22.sp,
-                        lineHeight = 26.sp,
-                    ),
-                h3 =
-                    MaterialTheme.typography.titleLarge.copy(
-                        fontSize = 20.sp,
-                        lineHeight = 24.sp,
-                    ),
-                h4 =
-                    MaterialTheme.typography.titleLarge.copy(
-                        fontSize = 18.sp,
-                        lineHeight = 22.sp,
-                    ),
-                h5 =
-                    MaterialTheme.typography.titleLarge.copy(
-                        fontSize = 16.sp,
-                        lineHeight = 20.sp,
-                    ),
-                h6 =
-                    MaterialTheme.typography.titleLarge.copy(
-                        fontSize = 14.sp,
-                        lineHeight = 20.sp,
-                    ),
-                paragraph =
-                    MaterialTheme.typography.bodyMedium.copy(
-                        letterSpacing = 0.sp,
-                    ),
-            )
-
-        val mdTypographyValue =
-            markdownTypography(
-                h1 =
-                    MaterialTheme.typography.titleLarge.copy(
-                        fontSize = 24.sp,
-                    ),
-                h2 =
-                    MaterialTheme.typography.titleLarge.copy(
-                        fontSize = 22.sp,
-                        lineHeight = 26.sp,
-                    ),
-                h3 =
-                    MaterialTheme.typography.titleLarge.copy(
-                        fontSize = 20.sp,
-                        lineHeight = 24.sp,
-                    ),
-                h4 =
-                    MaterialTheme.typography.titleLarge.copy(
-                        fontSize = 18.sp,
-                        lineHeight = 22.sp,
-                    ),
-                h5 =
-                    MaterialTheme.typography.titleLarge.copy(
-                        fontSize = 16.sp,
-                        lineHeight = 20.sp,
-                    ),
-                h6 =
-                    MaterialTheme.typography.titleLarge.copy(
-                        fontSize = 14.sp,
-                        lineHeight = 20.sp,
-                    ),
-                paragraph =
-                    MaterialTheme.typography.bodyLarge.copy(
-                        letterSpacing = 0.sp,
-                    ),
-            )
 
         val markdownDimensions =
             markdownDimens(
@@ -139,8 +69,6 @@ fun Indicator(
                 listItemTop = 0.dp,
                 listItemBottom = 0.dp,
             )
-
-        val components = markdownComponents()
 
         Row(
             modifier =
@@ -181,15 +109,29 @@ fun Indicator(
                         Box(
                             modifier = Modifier.weight(1f),
                         ) {
-                            Markdown(
-                                content = title,
-                                imageTransformer = Coil3ImageTransformerImpl,
-                                typography = mdTypographyKey,
-                                dimens = markdownDimensions,
-                                padding = padding,
-                                components = components,
-                                modifier = Modifier.padding(0.dp),
-                            )
+                            if (useMarkdown) {
+                                Markdown(
+                                    content = title,
+                                    imageTransformer = Coil3ImageTransformerImpl,
+                                    typography = markdownTypography(
+                                        h1 = DHIS2MarkdownTextStyles.h1,
+                                        h2 = DHIS2MarkdownTextStyles.h2,
+                                        h3 = DHIS2MarkdownTextStyles.h3,
+                                        h4 = DHIS2MarkdownTextStyles.h4,
+                                        h5 = DHIS2MarkdownTextStyles.h5,
+                                        h6 = DHIS2MarkdownTextStyles.h6,
+                                        paragraph = DHIS2MarkdownTextStyles.paragraph,
+                                    ),
+                                    dimens = markdownDimensions,
+                                    padding = padding,
+                                    modifier = Modifier.padding(0.dp),
+                                )
+                            } else {
+                                Text(
+                                    text = title,
+                                    style = MaterialTheme.typography.bodyMedium,
+                                )
+                            }
                         }
                         if (content.isNullOrEmpty().not()) {
                             Spacer(Modifier.width(8.dp))
@@ -199,15 +141,29 @@ fun Indicator(
                                         .widthIn(max = halfWidth)
                                         .wrapContentWidth(Alignment.End),
                             ) {
-                                Markdown(
-                                    content,
-                                    imageTransformer = Coil3ImageTransformerImpl,
-                                    typography = mdTypographyValue,
-                                    dimens = markdownDimensions,
-                                    padding = padding,
-                                    components = components,
-                                    modifier = Modifier.padding(0.dp),
-                                )
+                                if (useMarkdown) {
+                                    Markdown(
+                                        content,
+                                        imageTransformer = Coil3ImageTransformerImpl,
+                                        typography = markdownTypography(
+                                            h1 = DHIS2MarkdownTextStyles.h1,
+                                            h2 = DHIS2MarkdownTextStyles.h2,
+                                            h3 = DHIS2MarkdownTextStyles.h3,
+                                            h4 = DHIS2MarkdownTextStyles.h4,
+                                            h5 = DHIS2MarkdownTextStyles.h5,
+                                            h6 = DHIS2MarkdownTextStyles.h6,
+                                            paragraph = DHIS2MarkdownTextStyles.paragraphLarge,
+                                        ),
+                                        dimens = markdownDimensions,
+                                        padding = padding,
+                                        modifier = Modifier.padding(0.dp),
+                                    )
+                                } else {
+                                    Text(
+                                        text = content,
+                                        style = MaterialTheme.typography.bodyLarge,
+                                    )
+                                }
                             }
                         }
                     }

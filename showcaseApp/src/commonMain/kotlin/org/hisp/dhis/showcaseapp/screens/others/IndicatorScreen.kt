@@ -50,6 +50,7 @@ fun IndicatorScreen() {
                 - **Initial visit**: assess and treat.
                 - **Follow-up visit**: assess and *advise* to complete medication, change medication or refer
                 """.trimIndent(),
+            useMarkdown = true,
         )
         Indicator(
             title =
@@ -62,6 +63,7 @@ fun IndicatorScreen() {
                 ###### H6 - Roboto - Medium 14/20 . 0
                 p  - Roboto - Regular 14/20 . 0
                 """.trimIndent(),
+            useMarkdown = true,
         )
         Indicator(
             title =
@@ -71,6 +73,7 @@ fun IndicatorScreen() {
                 | 1 | John Doe | 18 |
                 | 2 | Mary Smith| 24 |
                 """.trimIndent(),
+            useMarkdown = true,
         )
     }
 }
