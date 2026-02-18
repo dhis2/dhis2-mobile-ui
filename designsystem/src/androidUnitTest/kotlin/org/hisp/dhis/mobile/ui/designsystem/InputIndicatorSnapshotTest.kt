@@ -1,10 +1,6 @@
 package org.hisp.dhis.mobile.ui.designsystem
 
-import androidx.compose.ui.graphics.Color
-import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
-import org.hisp.dhis.mobile.ui.designsystem.component.Indicator
 import org.junit.Rule
-import org.junit.Test
 
 class InputIndicatorSnapshotTest {
     @get:Rule
