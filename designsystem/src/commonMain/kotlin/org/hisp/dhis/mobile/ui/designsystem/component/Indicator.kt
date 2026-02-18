@@ -191,7 +191,7 @@ fun Indicator(
                                 modifier = Modifier.padding(0.dp),
                             )
                         }
-                        content?.let {
+                        if (content.isNullOrEmpty().not()) {
                             Spacer(Modifier.width(8.dp))
                             Box(
                                 modifier =

@@ -37,6 +37,13 @@ fun IndicatorScreen() {
             content = "Lorem Ipsum is simply dummy text of the printing",
         )
         Indicator(
+            title = "L o r e m I p s u m i s s i m p l y d u m m y t e x t o f t h e p r i n t i n g",
+            content = "L o r e m I p s u m i s s i m p l y d u m m y t e x t o f t h e p r i n t i n g",
+        )
+        Indicator(
+            title = "L o r e m I p s u m i s s i m p l y d u m m y t e x t o f t h e p r i n t i n g",
+        )
+        Indicator(
             title =
                 """
                 **Provider asks reason for visiting health facility:**
