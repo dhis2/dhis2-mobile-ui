@@ -4,6 +4,7 @@ kotlin = "2.2.21"
 agp = "8.13.0"
 compose = "1.9.3"
 kotlinxSerializationJson = "1.9.0"
+multiplatformMarkdownRenderer = "0.38.1"
 paparazzi = "2.0.0-alpha02"
 zxing = "3.5.4"
 junit = "4.13.2"
@@ -23,6 +24,9 @@ androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "a
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
 compose-material3-windowsizeclass = { module = "org.jetbrains.compose.material3:material3-window-size-class", version.ref = "materialWindowCompose" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
+multiplatform-markdown-renderer = { module = "com.mikepenz:multiplatform-markdown-renderer", version.ref = "multiplatformMarkdownRenderer" }
+multiplatform-markdown-renderer-m3 = { module = "com.mikepenz:multiplatform-markdown-renderer-m3", version.ref = "multiplatformMarkdownRenderer" }
+multiplatform-markdown-renderer-coil3 = { module = "com.mikepenz:multiplatform-markdown-renderer-coil3", version.ref = "multiplatformMarkdownRenderer" }
 signature-pad = { module = "se.warting.signature:signature-pad", version.ref = "signaturepad" }
 zxing-core = { module = "com.google.zxing:core", version.ref = "zxing" }
 test-junit = { module = "junit:junit", version.ref = "junit" }
