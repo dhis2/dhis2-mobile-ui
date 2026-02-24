@@ -6,6 +6,7 @@ import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -32,6 +33,8 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.times
@@ -39,11 +42,12 @@ import com.mikepenz.markdown.annotator.AnnotatorSettings
 import com.mikepenz.markdown.annotator.annotatorSettings
 import com.mikepenz.markdown.coil3.Coil3ImageTransformerImpl
 import com.mikepenz.markdown.compose.LocalMarkdownColors
+import com.mikepenz.markdown.compose.LocalMarkdownComponents
 import com.mikepenz.markdown.compose.LocalMarkdownDimens
+import com.mikepenz.markdown.compose.MarkdownElement
 import com.mikepenz.markdown.compose.components.markdownComponents
 import com.mikepenz.markdown.compose.elements.MarkdownDivider
-import com.mikepenz.markdown.compose.elements.MarkdownTableHeader
-import com.mikepenz.markdown.compose.elements.MarkdownTableRow
+import com.mikepenz.markdown.compose.elements.MarkdownTableBasicText
 import com.mikepenz.markdown.m3.Markdown
 import com.mikepenz.markdown.m3.markdownTypography
 import com.mikepenz.markdown.model.markdownDimens
@@ -51,6 +55,7 @@ import com.mikepenz.markdown.model.markdownPadding
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2MarkdownTextStyles
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
+import org.intellij.markdown.MarkdownElementTypes.IMAGE
 import org.intellij.markdown.ast.ASTNode
 import org.intellij.markdown.ast.findChildOfType
 import org.intellij.markdown.flavours.gfm.GFMElementTypes.HEADER
@@ -217,7 +222,7 @@ fun CustomMarkdownTable(
     style: TextStyle,
     annotatorSettings: AnnotatorSettings = annotatorSettings(),
     headerBlock: @Composable (String, ASTNode, Dp, TextStyle) -> Unit = { content, header, tableWidth, style ->
-        MarkdownTableHeader(
+        CustomMarkdownTableHeader(
             content = content,
             header = header,
             tableWidth = tableWidth,
@@ -226,7 +231,7 @@ fun CustomMarkdownTable(
         )
     },
     rowBlock: @Composable (String, ASTNode, Dp, TextStyle) -> Unit = { content, header, tableWidth, style ->
-        MarkdownTableRow(
+        CustomMarkdownTableRow(
             content = content,
             header = header,
             tableWidth = tableWidth,
@@ -280,6 +285,82 @@ fun CustomMarkdownTable(
                 scrollState = scrollState,
                 barModifier = Modifier.align(Alignment.BottomStart),
             )
+        }
+    }
+}
+
+@Composable
+fun CustomMarkdownTableHeader(
+    content: String,
+    header: ASTNode,
+    tableWidth: Dp,
+    style: TextStyle,
+    verticalAlignment: Alignment.Vertical = Alignment.CenterVertically,
+    maxLines: Int = 1,
+    overflow: TextOverflow = TextOverflow.Ellipsis,
+    annotatorSettings: AnnotatorSettings = annotatorSettings(),
+) {
+    val markdownComponents = LocalMarkdownComponents.current
+    val tableCellPadding = LocalMarkdownDimens.current.tableCellPadding
+    Row(
+        verticalAlignment = verticalAlignment,
+        modifier = Modifier.widthIn(tableWidth).height(IntrinsicSize.Max),
+    ) {
+        header.children.filter { it.type == CELL }.forEach { cell ->
+            Column(
+                modifier = Modifier.weight(1f).padding(tableCellPadding),
+            ) {
+                if (cell.children.any { it.type == IMAGE }) {
+                    MarkdownElement(node = cell, components = markdownComponents, content = content, includeSpacer = false)
+                } else {
+                    MarkdownTableBasicText(
+                        content = content,
+                        cell = cell,
+                        style = style.copy(fontWeight = FontWeight.Bold),
+                        maxLines = maxLines,
+                        overflow = overflow,
+                        annotatorSettings = annotatorSettings,
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun CustomMarkdownTableRow(
+    content: String,
+    header: ASTNode,
+    tableWidth: Dp,
+    style: TextStyle,
+    verticalAlignment: Alignment.Vertical = Alignment.CenterVertically,
+    maxLines: Int = 1,
+    overflow: TextOverflow = TextOverflow.Ellipsis,
+    annotatorSettings: AnnotatorSettings = annotatorSettings(),
+) {
+    val markdownComponents = LocalMarkdownComponents.current
+    val tableCellPadding = LocalMarkdownDimens.current.tableCellPadding
+    Row(
+        verticalAlignment = verticalAlignment,
+        modifier = Modifier.widthIn(tableWidth),
+    ) {
+        header.children.filter { it.type == CELL }.forEach { cell ->
+            Column(
+                modifier = Modifier.weight(1f).padding(tableCellPadding),
+            ) {
+                if (cell.children.any { it.type == IMAGE }) {
+                    MarkdownElement(node = cell, components = markdownComponents, content = content, includeSpacer = false)
+                } else {
+                    MarkdownTableBasicText(
+                        content = content,
+                        cell = cell,
+                        style = style,
+                        maxLines = maxLines,
+                        overflow = overflow,
+                        annotatorSettings = annotatorSettings,
+                    )
+                }
+            }
         }
     }
 }
