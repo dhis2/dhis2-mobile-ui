@@ -161,5 +161,5 @@ private fun isButtonEnabled(
     state: InputShellState,
 ) = when (inputStyle) {
     is InputStyle.DataInputStyle -> isValidUrl && state != InputShellState.DISABLED
-    is InputStyle.ParameterInputStyle -> false
+    else -> false
 }

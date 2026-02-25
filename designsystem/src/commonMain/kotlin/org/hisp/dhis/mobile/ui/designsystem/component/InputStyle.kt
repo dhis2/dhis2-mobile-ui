@@ -5,6 +5,7 @@ import androidx.compose.ui.unit.Dp
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
+import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
 /**
  * DHIS2 Input Shell style.
@@ -54,4 +55,14 @@ sealed class InputStyle(
                 else -> SupportingTextState.DEFAULT.backgroundColor
             }
     }
+        )
+
+    class SegmentedInputStyle :
+        InputStyle(
+            startIndent = Spacing.Spacing0,
+            backGroundColor = SurfaceColor.SurfaceBright,
+            disabledBackGroundColor = SurfaceColor.SurfaceBright,
+            unfocusedIndicatorColor = Outline.Dark,
+            disabledIndicatorColor = TextColor.OnDisabledSurface,
+        )
 }

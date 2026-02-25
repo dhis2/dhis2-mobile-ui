@@ -188,5 +188,5 @@ private fun isButtonEnabled(
     hasMinimumPhoneNumberInput: Boolean,
 ) = when (inputStyle) {
     is InputStyle.DataInputStyle -> hasMinimumPhoneNumberInput
-    is InputStyle.ParameterInputStyle -> false
+    else -> false
 }

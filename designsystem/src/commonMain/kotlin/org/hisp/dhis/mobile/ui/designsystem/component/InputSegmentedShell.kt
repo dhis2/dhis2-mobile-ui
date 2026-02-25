@@ -46,6 +46,7 @@ fun InputSegmentedShell(
     initialValue: String? = null,
     supportingTextData: SupportingTextData?,
     segmentedShellType: SegmentedShellType = SegmentedShellType.Numeric,
+    inputStyle: InputStyle = InputStyle.DataInputStyle(),
     onValueChanged: (String) -> Unit = {},
 ) {
     val clipboard = LocalClipboard.current
@@ -129,7 +130,7 @@ fun InputSegmentedShell(
                     supportingText = null,
                     legend = null,
                     isRequiredField = false,
-                    inputStyle = InputStyle.DataInputStyle(),
+                    inputStyle = inputStyle,
                     paddingValues =
                         PaddingValues(
                             start = Spacing.Spacing0,

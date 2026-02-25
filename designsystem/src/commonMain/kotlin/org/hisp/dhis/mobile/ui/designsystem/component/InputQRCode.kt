@@ -167,5 +167,5 @@ private fun isButtonEnabled(
     inputText: String?,
 ) = when (inputStyle) {
     is InputStyle.DataInputStyle -> state != InputShellState.DISABLED
-    is InputStyle.ParameterInputStyle -> inputText.isNullOrEmpty()
+    else -> inputText.isNullOrEmpty()
 }
