@@ -55,14 +55,16 @@ sealed class InputStyle(
                 else -> SupportingTextState.DEFAULT.backgroundColor
             }
     }
-        )
 
     class SegmentedInputStyle :
         InputStyle(
             startIndent = Spacing.Spacing0,
+            supportingTextLowerPadding = Spacing.Spacing0,
             backGroundColor = SurfaceColor.SurfaceBright,
             disabledBackGroundColor = SurfaceColor.SurfaceBright,
             unfocusedIndicatorColor = Outline.Dark,
             disabledIndicatorColor = TextColor.OnDisabledSurface,
-        )
+        ) {
+        override fun supportingTextBackgroundColor(supportingText: List<SupportingTextData>?): Color = Color.Transparent
+    }
 }
