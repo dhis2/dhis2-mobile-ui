@@ -160,5 +160,5 @@ private fun isButtonEnabled(
     isValidEmailAddress: Boolean,
 ) = when (inputStyle) {
     is InputStyle.DataInputStyle -> isValidEmailAddress
-    is InputStyle.ParameterInputStyle -> false
+    else -> false
 }
