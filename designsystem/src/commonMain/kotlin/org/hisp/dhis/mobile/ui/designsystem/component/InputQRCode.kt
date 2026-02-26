@@ -37,7 +37,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 fun InputQRCode(
     title: String,
     state: InputShellState,
-    inputStyle: InputStyle = InputStyle.DataInputStyle(),
+    inputStyle: InputStyle = InputStyle.DarkInputStyle(),
     onQRButtonClicked: () -> Unit,
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
@@ -120,7 +120,7 @@ fun InputQRCode(
 fun InputQRCode(
     title: String,
     state: InputShellState,
-    inputStyle: InputStyle = InputStyle.DataInputStyle(),
+    inputStyle: InputStyle = InputStyle.DarkInputStyle(),
     onQRButtonClicked: () -> Unit,
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
@@ -166,6 +166,6 @@ private fun isButtonEnabled(
     state: InputShellState,
     inputText: String?,
 ) = when (inputStyle) {
-    is InputStyle.DataInputStyle -> state != InputShellState.DISABLED
+    is InputStyle.DarkInputStyle -> state != InputShellState.DISABLED
     else -> inputText.isNullOrEmpty()
 }

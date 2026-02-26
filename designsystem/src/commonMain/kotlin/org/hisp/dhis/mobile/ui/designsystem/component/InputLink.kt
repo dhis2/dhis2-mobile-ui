@@ -37,7 +37,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.model.RegExValidations
 fun InputLink(
     title: String,
     state: InputShellState,
-    inputStyle: InputStyle = InputStyle.DataInputStyle(),
+    inputStyle: InputStyle = InputStyle.DarkInputStyle(),
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
     inputTextFieldValue: TextFieldValue? = null,
@@ -116,7 +116,7 @@ fun InputLink(
 fun InputLink(
     title: String,
     state: InputShellState,
-    inputStyle: InputStyle = InputStyle.DataInputStyle(),
+    inputStyle: InputStyle = InputStyle.DarkInputStyle(),
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
     inputTextFieldValue: TextFieldValue? = null,
@@ -160,6 +160,6 @@ private fun isButtonEnabled(
     isValidUrl: Boolean,
     state: InputShellState,
 ) = when (inputStyle) {
-    is InputStyle.DataInputStyle -> isValidUrl && state != InputShellState.DISABLED
+    is InputStyle.DarkInputStyle -> isValidUrl && state != InputShellState.DISABLED
     else -> false
 }

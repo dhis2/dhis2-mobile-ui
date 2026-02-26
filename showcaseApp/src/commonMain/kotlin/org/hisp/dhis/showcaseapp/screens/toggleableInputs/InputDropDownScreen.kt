@@ -10,8 +10,8 @@ import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.DropdownItem
 import org.hisp.dhis.mobile.ui.designsystem.component.InputDropDown
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
-import org.hisp.dhis.mobile.ui.designsystem.component.InputStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextData
+import org.hisp.dhis.mobile.ui.designsystem.component.parameter.ParameterInputStyle
 
 @Composable
 fun InputDropDownScreen() {
@@ -74,7 +74,7 @@ fun InputDropDownScreen() {
 
             InputDropDown(
                 title = "Label - Parameter Style",
-                inputStyle = InputStyle.ParameterInputStyle(),
+                inputStyle = ParameterInputStyle(),
                 state = InputShellState.UNFOCUSED,
                 itemCount = options.size,
                 onSearchOption = {},

@@ -46,7 +46,7 @@ fun InputPhoneNumber(
     maxLength: Int = 12,
     minLength: Int = 4,
     state: InputShellState,
-    inputStyle: InputStyle = InputStyle.DataInputStyle(),
+    inputStyle: InputStyle = InputStyle.DarkInputStyle(),
     legendData: LegendData? = null,
     inputTextFieldValue: TextFieldValue? = null,
     isRequiredField: Boolean = false,
@@ -142,7 +142,7 @@ fun InputPhoneNumber(
     maxLength: Int = 12,
     minLength: Int = 4,
     state: InputShellState,
-    inputStyle: InputStyle = InputStyle.DataInputStyle(),
+    inputStyle: InputStyle = InputStyle.DarkInputStyle(),
     legendData: LegendData? = null,
     inputTextFieldValue: TextFieldValue? = null,
     isRequiredField: Boolean = false,
@@ -187,6 +187,6 @@ private fun isButtonEnabled(
     inputStyle: InputStyle,
     hasMinimumPhoneNumberInput: Boolean,
 ) = when (inputStyle) {
-    is InputStyle.DataInputStyle -> hasMinimumPhoneNumberInput
+    is InputStyle.DarkInputStyle -> hasMinimumPhoneNumberInput
     else -> false
 }

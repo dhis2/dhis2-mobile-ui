@@ -57,7 +57,7 @@ fun rememberInputDateTimeState(
 
 data class InputDateTimeData(
     val title: String,
-    val inputStyle: InputStyle = InputStyle.DataInputStyle(),
+    val inputStyle: InputStyle = InputStyle.DarkInputStyle(),
     val imeAction: ImeAction = ImeAction.Next,
     val isRequired: Boolean = false,
     val actionType: DateTimeActionType = DateTimeActionType.DATE_TIME,

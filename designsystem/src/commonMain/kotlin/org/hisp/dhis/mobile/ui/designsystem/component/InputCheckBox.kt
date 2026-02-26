@@ -40,7 +40,7 @@ fun InputCheckBox(
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
     isRequired: Boolean = false,
-    inputStyle: InputStyle = InputStyle.DataInputStyle(),
+    inputStyle: InputStyle = InputStyle.DarkInputStyle(),
     onItemChange: (CheckBoxData) -> Unit,
     onClearSelection: () -> Unit,
 ) {

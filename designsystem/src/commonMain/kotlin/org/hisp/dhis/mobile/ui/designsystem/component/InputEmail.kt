@@ -49,7 +49,7 @@ fun InputEmail(
     imeAction: ImeAction = ImeAction.Next,
     modifier: Modifier = Modifier,
     onEmailActionCLicked: () -> Unit,
-    inputStyle: InputStyle = InputStyle.DataInputStyle(),
+    inputStyle: InputStyle = InputStyle.DarkInputStyle(),
     showDeleteButton: Boolean = true,
 ) {
     val isValidEmailAddress = RegExValidations.EMAIL.regex.matches(inputTextFieldValue?.text.orEmpty())
@@ -128,7 +128,7 @@ fun InputEmail(
     imeAction: ImeAction = ImeAction.Next,
     modifier: Modifier = Modifier,
     onEmailActionCLicked: () -> Unit,
-    inputStyle: InputStyle = InputStyle.DataInputStyle(),
+    inputStyle: InputStyle = InputStyle.DarkInputStyle(),
     showDeleteButton: Boolean = true,
 ) {
     InputEmail(
@@ -159,6 +159,6 @@ private fun isButtonEnabled(
     inputStyle: InputStyle,
     isValidEmailAddress: Boolean,
 ) = when (inputStyle) {
-    is InputStyle.DataInputStyle -> isValidEmailAddress
+    is InputStyle.DarkInputStyle -> isValidEmailAddress
     else -> false
 }
