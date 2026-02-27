@@ -8,6 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
+import org.hisp.dhis.mobile.ui.designsystem.component.parameter.ParameterInputStyle
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
 
 /**
@@ -155,10 +156,9 @@ private fun isButtonEnabled(
     state: InputShellState,
     inputText: String?,
 ) = when (inputStyle) {
-    is InputStyle.DarkInputStyle -> {
+    is ParameterInputStyle -> inputText.isNullOrEmpty()
+    else -> {
         (state == InputShellState.DISABLED && !inputText.isNullOrEmpty()) ||
             state != InputShellState.DISABLED
     }
-
-    else -> inputText.isNullOrEmpty()
 }

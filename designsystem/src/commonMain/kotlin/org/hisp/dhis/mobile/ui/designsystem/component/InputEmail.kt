@@ -11,6 +11,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import org.hisp.dhis.mobile.ui.designsystem.component.model.RegExValidations
+import org.hisp.dhis.mobile.ui.designsystem.component.parameter.ParameterInputStyle
 
 /**
  * DHIS2 Input email. Wraps DHIS · [BasicTextInput].
@@ -159,6 +160,6 @@ private fun isButtonEnabled(
     inputStyle: InputStyle,
     isValidEmailAddress: Boolean,
 ) = when (inputStyle) {
-    is InputStyle.DarkInputStyle -> isValidEmailAddress
-    else -> false
+    is ParameterInputStyle -> false
+    else -> isValidEmailAddress
 }
