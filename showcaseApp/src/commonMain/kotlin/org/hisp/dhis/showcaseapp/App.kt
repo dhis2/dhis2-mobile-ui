@@ -251,7 +251,7 @@ fun Main(
                 selectedItem = DropdownItem(currentScreen.label),
                 inputStyle =
                     InputStyle
-                        .DataInputStyle()
+                        .DarkInputStyle()
                         .apply { backGroundColor = SurfaceColor.SurfaceBright },
                 loadOptions = {
                     screenDropdownItemList =

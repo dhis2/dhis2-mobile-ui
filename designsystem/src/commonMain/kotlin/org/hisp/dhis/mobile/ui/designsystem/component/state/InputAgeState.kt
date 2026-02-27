@@ -54,7 +54,7 @@ fun rememberInputAgeState(
 
 data class InputAgeData(
     val title: String,
-    val inputStyle: InputStyle = InputStyle.DataInputStyle(),
+    val inputStyle: InputStyle = InputStyle.DarkInputStyle(),
     val isRequired: Boolean = false,
     val imeAction: ImeAction = ImeAction.Next,
     val dateOfBirthLabel: String? = null,

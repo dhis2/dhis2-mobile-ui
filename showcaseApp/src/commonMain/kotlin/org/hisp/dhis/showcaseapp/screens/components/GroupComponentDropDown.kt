@@ -31,7 +31,7 @@ fun GroupComponentDropDown(
         useDropDown = false,
         inputStyle =
             InputStyle
-                .DataInputStyle()
+                .DarkInputStyle()
                 .apply { backGroundColor = SurfaceColor.SurfaceBright },
         loadOptions = {
             // no-op

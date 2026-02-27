@@ -49,7 +49,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 fun InputCoordinate(
     title: String,
     state: InputShellState = InputShellState.UNFOCUSED,
-    inputStyle: InputStyle = InputStyle.DataInputStyle(),
+    inputStyle: InputStyle = InputStyle.DarkInputStyle(),
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
     coordinates: Coordinates? = null,

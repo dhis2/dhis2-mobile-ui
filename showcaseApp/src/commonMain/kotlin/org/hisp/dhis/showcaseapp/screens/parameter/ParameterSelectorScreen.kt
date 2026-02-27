@@ -36,7 +36,6 @@ import org.hisp.dhis.mobile.ui.designsystem.component.InputPhoneNumber
 import org.hisp.dhis.mobile.ui.designsystem.component.InputQRCode
 import org.hisp.dhis.mobile.ui.designsystem.component.InputRadioButton
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
-import org.hisp.dhis.mobile.ui.designsystem.component.InputStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.InputText
 import org.hisp.dhis.mobile.ui.designsystem.component.ProgressIndicator
 import org.hisp.dhis.mobile.ui.designsystem.component.ProgressIndicatorType
@@ -44,6 +43,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.RadioButtonData
 import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextData
 import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextState
 import org.hisp.dhis.mobile.ui.designsystem.component.model.DateTimeTransformation
+import org.hisp.dhis.mobile.ui.designsystem.component.parameter.ParameterInputStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.parameter.ParameterSelectorItem
 import org.hisp.dhis.mobile.ui.designsystem.component.parameter.model.ParameterSelectorItemModel
 import org.hisp.dhis.mobile.ui.designsystem.component.parameter.model.ParameterSelectorItemModel.Status.CLOSED
@@ -125,7 +125,7 @@ fun ParameterSelectorScreen() {
                         title = "Text parameter",
                         state = InputShellState.UNFOCUSED,
                         inputTextFieldValue = inputTextValue,
-                        inputStyle = InputStyle.ParameterInputStyle(),
+                        inputStyle = ParameterInputStyle(),
                         onValueChanged = {
                             inputTextValue = it ?: TextFieldValue()
                         },
@@ -151,7 +151,7 @@ fun ParameterSelectorScreen() {
                         title = "QRCode parameter",
                         state = InputShellState.UNFOCUSED,
                         inputTextFieldValue = inputQRCodeValue,
-                        inputStyle = InputStyle.ParameterInputStyle(),
+                        inputStyle = ParameterInputStyle(),
                         onQRButtonClicked = {},
                         onValueChanged = {
                             inputQRCodeValue = it ?: TextFieldValue()
@@ -173,7 +173,7 @@ fun ParameterSelectorScreen() {
                                 inputAgeData =
                                     InputAgeData(
                                         title = "Age parameter",
-                                        inputStyle = InputStyle.ParameterInputStyle(),
+                                        inputStyle = ParameterInputStyle(),
                                     ),
                                 inputType = ageInputType,
                             ),
@@ -203,7 +203,7 @@ fun ParameterSelectorScreen() {
                     InputBarCode(
                         title = "Barcode parameter",
                         inputTextFieldValue = TextFieldValue("12345678900"),
-                        inputStyle = InputStyle.ParameterInputStyle(),
+                        inputStyle = ParameterInputStyle(),
                         onActionButtonClicked = {},
                         onValueChanged = {},
                     )
@@ -231,7 +231,7 @@ fun ParameterSelectorScreen() {
                         title = "Custom intent parameter",
                         values = inputCustomIntentValue,
                         customIntentState = CustomIntentState.LOADED,
-                        inputStyle = InputStyle.ParameterInputStyle(),
+                        inputStyle = ParameterInputStyle(),
                         onLaunch = {
                             inputCustomIntentValue = listOf("option 1", "option 2", "option 3")
                         },
@@ -255,7 +255,7 @@ fun ParameterSelectorScreen() {
                     InputCheckBox(
                         title = "CheckBox parameter",
                         state = InputShellState.UNFOCUSED,
-                        inputStyle = InputStyle.ParameterInputStyle(),
+                        inputStyle = ParameterInputStyle(),
                         checkBoxData =
                             listOf(
                                 CheckBoxData(
@@ -289,7 +289,7 @@ fun ParameterSelectorScreen() {
                                         title = "DateTime parameter",
                                         visualTransformation = DateTimeTransformation(),
                                         actionType = DateTimeActionType.DATE_TIME,
-                                        inputStyle = InputStyle.ParameterInputStyle(),
+                                        inputStyle = ParameterInputStyle(),
                                     ),
                                 inputTextFieldValue = TextFieldValue(),
                             ),
@@ -307,7 +307,7 @@ fun ParameterSelectorScreen() {
                     InputDropDown(
                         title = "DropDown parameter",
                         state = InputShellState.UNFOCUSED,
-                        inputStyle = InputStyle.ParameterInputStyle(),
+                        inputStyle = ParameterInputStyle(),
                         itemCount = 2,
                         onSearchOption = {},
                         fetchItem = { index ->
@@ -330,7 +330,7 @@ fun ParameterSelectorScreen() {
                         title = "Email parameter",
                         state = InputShellState.UNFOCUSED,
                         inputTextFieldValue = TextFieldValue("android@dhis2.org"),
-                        inputStyle = InputStyle.ParameterInputStyle(),
+                        inputStyle = ParameterInputStyle(),
                         onEmailActionCLicked = {},
                     )
                 },
@@ -344,7 +344,7 @@ fun ParameterSelectorScreen() {
                         title = "Link parameter",
                         state = InputShellState.UNFOCUSED,
                         inputTextFieldValue = TextFieldValue("http://dhis2.org"),
-                        inputStyle = InputStyle.ParameterInputStyle(),
+                        inputStyle = ParameterInputStyle(),
                         onLinkActionCLicked = {},
                     )
                 },
@@ -358,7 +358,7 @@ fun ParameterSelectorScreen() {
                         title = "Integer parameter",
                         state = InputShellState.UNFOCUSED,
                         inputTextFieldValue = TextFieldValue("123456"),
-                        inputStyle = InputStyle.ParameterInputStyle(),
+                        inputStyle = ParameterInputStyle(),
                     )
                 },
                 onExpand = {},
@@ -374,7 +374,7 @@ fun ParameterSelectorScreen() {
                             TextFieldValue(
                                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
                             ),
-                        inputStyle = InputStyle.ParameterInputStyle(),
+                        inputStyle = ParameterInputStyle(),
                     )
                 },
                 onExpand = {},
@@ -386,7 +386,7 @@ fun ParameterSelectorScreen() {
                     InputMatrix(
                         title = "Matrix parameter",
                         state = InputShellState.UNFOCUSED,
-                        inputStyle = InputStyle.ParameterInputStyle(),
+                        inputStyle = ParameterInputStyle(),
                         data =
                             listOf(
                                 ImageCardData.IconCardData(
@@ -414,7 +414,7 @@ fun ParameterSelectorScreen() {
                     InputNotSupported(
                         title = "Not supported parameter",
                         notSupportedString = "Not supported",
-                        inputStyle = InputStyle.ParameterInputStyle(),
+                        inputStyle = ParameterInputStyle(),
                     )
                 },
                 onExpand = {},
@@ -425,7 +425,7 @@ fun ParameterSelectorScreen() {
                 inputField = {
                     InputOrgUnit(
                         title = "Org unit parameter",
-                        inputStyle = InputStyle.ParameterInputStyle(),
+                        inputStyle = ParameterInputStyle(),
                         onOrgUnitActionCLicked = {},
                     )
                 },
@@ -439,7 +439,7 @@ fun ParameterSelectorScreen() {
                         title = "Phone number parameter",
                         state = InputShellState.UNFOCUSED,
                         inputTextFieldValue = TextFieldValue("999 666 888"),
-                        inputStyle = InputStyle.ParameterInputStyle(),
+                        inputStyle = ParameterInputStyle(),
                         onCallActionClicked = {},
                     )
                 },
@@ -452,7 +452,7 @@ fun ParameterSelectorScreen() {
                     InputRadioButton(
                         title = "Radio button parameter",
                         state = InputShellState.UNFOCUSED,
-                        inputStyle = InputStyle.ParameterInputStyle(),
+                        inputStyle = ParameterInputStyle(),
                         radioButtonData =
                             listOf(
                                 RadioButtonData(
@@ -481,7 +481,7 @@ fun ParameterSelectorScreen() {
                         title = "Text parameter",
                         state = InputShellState.UNFOCUSED,
                         inputTextFieldValue = inputTextValueWithSupportingText,
-                        inputStyle = InputStyle.ParameterInputStyle(),
+                        inputStyle = ParameterInputStyle(),
                         onValueChanged = {
                             inputTextValueWithSupportingText = it ?: TextFieldValue()
                         },
@@ -507,7 +507,7 @@ fun ParameterSelectorScreen() {
                         title = "Text parameter",
                         state = InputShellState.ERROR,
                         inputTextFieldValue = inputTextValue,
-                        inputStyle = InputStyle.ParameterInputStyle(),
+                        inputStyle = ParameterInputStyle(),
                         onValueChanged = {
                             inputTextValue = it ?: TextFieldValue()
                         },
