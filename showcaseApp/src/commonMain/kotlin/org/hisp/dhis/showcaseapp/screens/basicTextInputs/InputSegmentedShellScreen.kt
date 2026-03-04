@@ -112,9 +112,10 @@ fun InputSegmentedShellScreen() {
             InputSegmentedShell(
                 modifier = Modifier.fillMaxWidth(),
                 segmentCount = 4,
-                initialValue = null,
+                initialValue = "1234",
                 supportingTextData = null,
                 inputStyle = inputStyle,
+                enabled = false,
             )
 
             InputSegmentedShell(

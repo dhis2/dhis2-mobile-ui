@@ -45,6 +45,7 @@ fun InputSegmentedShell(
     segmentCount: Int,
     initialValue: String? = null,
     supportingTextData: SupportingTextData?,
+    enabled: Boolean = true,
     segmentedShellType: SegmentedShellType = SegmentedShellType.Numeric,
     inputStyle: InputStyle = InputStyle.DarkInputStyle(),
     onValueChanged: (String) -> Unit = {},
@@ -111,9 +112,10 @@ fun InputSegmentedShell(
             horizontalArrangement = spacedBy(Spacing.Spacing12),
         ) {
             repeat(segmentCount) { index ->
-                var segmentState by remember(currentFocus, hasError) {
+                var segmentState by remember(currentFocus, hasError, enabled) {
                     mutableStateOf(
                         when {
+                            !enabled -> InputShellState.DISABLED
                             hasError -> InputShellState.ERROR
                             currentFocus == index -> InputShellState.FOCUSED
                             else -> InputShellState.UNFOCUSED
@@ -181,6 +183,8 @@ fun InputSegmentedShell(
                                 }
                             },
                             inputTextValue = segmentValues[index],
+                            state = segmentState,
+                            enabled = enabled,
                             textStyle = MaterialTheme.typography.headlineMedium.copy(textAlign = TextAlign.Center),
                             onInputChanged = { newTextFieldValue ->
                                 scope.launch {
