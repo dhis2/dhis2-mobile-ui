@@ -16,6 +16,11 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 
+internal expect fun fullScreenDialogProperties(): DialogProperties
+
+@Composable
+internal expect fun ConfigureDialogSystemBars()
+
 /**
  * DHIS2 Full Screen Dialog.
  * @param modifier: allows a modifier to be passed externally.
@@ -29,13 +34,10 @@ fun FullScreenDialog(
     content: @Composable ColumnScope.() -> Unit,
 ) {
     Dialog(
-        properties =
-            DialogProperties(
-                usePlatformDefaultWidth = false,
-                dismissOnClickOutside = false,
-            ),
+        properties = fullScreenDialogProperties(),
         onDismissRequest = onDismiss,
     ) {
+        ConfigureDialogSystemBars()
         Scaffold(
             modifier = modifier,
             containerColor = SurfaceColor.SurfaceBright,
