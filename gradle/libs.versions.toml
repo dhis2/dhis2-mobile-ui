@@ -2,7 +2,7 @@
 
 kotlin = "2.2.21"
 agp = "8.13.0"
-compose = "1.9.3"
+compose = "1.10.1"
 kotlinxSerializationJson = "1.9.0"
 multiplatformMarkdownRenderer = "0.38.1"
 paparazzi = "2.0.0-alpha02"
@@ -15,7 +15,6 @@ coreKtx = "1.17.0"
 ktlint = "13.1.0"
 dokka = "2.0.0"
 nexus = "2.0.0"
-composeHotReload = "1.0.0"
 materialWindowCompose = "1.8.2"
 
 [libraries]
@@ -33,7 +32,6 @@ test-junit = { module = "junit:junit", version.ref = "junit" }
 
 [plugins]
 composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-composeHotReload = { id = "org.jetbrains.compose.hot-reload", version.ref = "composeHotReload" }
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 nexus = { id = "io.github.gradle-nexus.publish-plugin", version.ref = "nexus" }
