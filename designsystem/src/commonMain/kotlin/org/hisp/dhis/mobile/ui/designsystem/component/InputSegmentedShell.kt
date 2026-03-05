@@ -104,11 +104,11 @@ fun InputSegmentedShell(
     }
 
     Column(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier,
         verticalArrangement = spacedBy(Spacing.Spacing4),
     ) {
         Row(
-            modifier = modifier.width(IntrinsicSize.Min),
+            modifier = Modifier.fillMaxWidth().width(IntrinsicSize.Min),
             horizontalArrangement = spacedBy(Spacing.Spacing12),
         ) {
             repeat(segmentCount) { index ->
