@@ -1,13 +1,16 @@
 package org.hisp.dhis.mobile.ui.designsystem
 
 import androidx.compose.foundation.layout.padding
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalInspectionMode
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InputSegmentedShell
 import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextData
 import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextState
 import org.hisp.dhis.mobile.ui.designsystem.component.model.SegmentedShellType
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
+import org.jetbrains.compose.resources.PreviewContextConfigurationEffect
 import org.junit.Rule
 import org.junit.Test
 
@@ -18,6 +21,9 @@ class InputSegmentedShellSnapshotTest {
     @Test
     fun launchInputSegmentedShellTest() {
         paparazzi.snapshot {
+            CompositionLocalProvider(LocalInspectionMode provides true) {
+                PreviewContextConfigurationEffect()
+            }
             ColumnScreenContainer(modifier = Modifier.padding(Spacing.Spacing10)) {
                 InputSegmentedShell(
                     segmentCount = 4,
