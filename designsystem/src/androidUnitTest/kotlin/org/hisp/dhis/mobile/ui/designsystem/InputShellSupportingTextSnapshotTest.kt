@@ -8,10 +8,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.text.input.TextFieldValue
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
-import org.hisp.dhis.mobile.ui.designsystem.component.InputStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.InputText
 import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextData
 import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextState
+import org.hisp.dhis.mobile.ui.designsystem.component.parameter.ParameterInputStyle
 import org.jetbrains.compose.resources.PreviewContextConfigurationEffect
 import org.junit.Rule
 import org.junit.Test
@@ -69,7 +69,7 @@ class InputShellSupportingTextSnapshotTest {
                         ),
                     ),
                 state = InputShellState.FOCUSED,
-                inputStyle = InputStyle.ParameterInputStyle(),
+                inputStyle = ParameterInputStyle(),
                 onValueChanged = {},
             )
         }

@@ -50,7 +50,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 internal fun <T> BasicInputImage(
     title: String,
     state: InputShellState = InputShellState.UNFOCUSED,
-    inputStyle: InputStyle = InputStyle.DataInputStyle(),
+    inputStyle: InputStyle = InputStyle.DarkInputStyle(),
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
     uploadState: UploadState = UploadState.ADD,

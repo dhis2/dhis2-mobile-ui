@@ -42,7 +42,7 @@ import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 fun <T> InputSignature(
     title: String,
     state: InputShellState = InputShellState.UNFOCUSED,
-    inputStyle: InputStyle = InputStyle.DataInputStyle(),
+    inputStyle: InputStyle = InputStyle.DarkInputStyle(),
     windowInsets: @Composable () -> WindowInsets = { BottomSheetShellDefaults.windowInsets() },
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,

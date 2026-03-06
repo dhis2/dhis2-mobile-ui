@@ -11,6 +11,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import org.hisp.dhis.mobile.ui.designsystem.component.model.RegExValidations
+import org.hisp.dhis.mobile.ui.designsystem.component.parameter.ParameterInputStyle
 
 /**
  * DHIS2 Input link. Wraps DHIS · [BasicTextInput].
@@ -37,7 +38,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.model.RegExValidations
 fun InputLink(
     title: String,
     state: InputShellState,
-    inputStyle: InputStyle = InputStyle.DataInputStyle(),
+    inputStyle: InputStyle = InputStyle.DarkInputStyle(),
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
     inputTextFieldValue: TextFieldValue? = null,
@@ -116,7 +117,7 @@ fun InputLink(
 fun InputLink(
     title: String,
     state: InputShellState,
-    inputStyle: InputStyle = InputStyle.DataInputStyle(),
+    inputStyle: InputStyle = InputStyle.DarkInputStyle(),
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
     inputTextFieldValue: TextFieldValue? = null,
@@ -160,6 +161,6 @@ private fun isButtonEnabled(
     isValidUrl: Boolean,
     state: InputShellState,
 ) = when (inputStyle) {
-    is InputStyle.DataInputStyle -> isValidUrl && state != InputShellState.DISABLED
-    is InputStyle.ParameterInputStyle -> false
+    is ParameterInputStyle -> false
+    else -> isValidUrl && state != InputShellState.DISABLED
 }

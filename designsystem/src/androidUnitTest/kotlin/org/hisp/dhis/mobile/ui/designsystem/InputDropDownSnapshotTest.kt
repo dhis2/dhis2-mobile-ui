@@ -16,9 +16,9 @@ import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.DropdownItem
 import org.hisp.dhis.mobile.ui.designsystem.component.InputDropDown
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
-import org.hisp.dhis.mobile.ui.designsystem.component.InputStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
 import org.hisp.dhis.mobile.ui.designsystem.component.Title
+import org.hisp.dhis.mobile.ui.designsystem.component.parameter.ParameterInputStyle
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import org.jetbrains.compose.resources.ExperimentalResourceApi
@@ -89,7 +89,7 @@ class InputDropDownSnapshotTest {
 
                 InputDropDown(
                     title = "Label - Parameter Style",
-                    inputStyle = InputStyle.ParameterInputStyle(),
+                    inputStyle = ParameterInputStyle(),
                     state = InputShellState.UNFOCUSED,
                     itemCount = sixOptions.size,
                     fetchItem = { index ->

@@ -48,7 +48,7 @@ sealed class BasicTextInputModel : InputModel {
 data class InputUserModel(
     override val title: String,
     override val state: InputShellState,
-    override val inputStyle: InputStyle = InputStyle.DataInputStyle(),
+    override val inputStyle: InputStyle = InputStyle.DarkInputStyle(),
     override val supportingText: List<SupportingTextData>? = null,
     override val legendData: LegendData? = null,
     override val inputTextFieldValue: TextFieldValue? = null,
@@ -96,7 +96,7 @@ data class InputUserModel(
 data class InputPasswordModel(
     override val title: String,
     override val state: InputShellState,
-    override val inputStyle: InputStyle = InputStyle.DataInputStyle(),
+    override val inputStyle: InputStyle = InputStyle.DarkInputStyle(),
     override val supportingText: List<SupportingTextData>? = null,
     override val legendData: LegendData? = null,
     override val inputTextFieldValue: TextFieldValue? = null,

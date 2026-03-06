@@ -11,6 +11,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import org.hisp.dhis.mobile.ui.designsystem.component.model.RegExValidations
+import org.hisp.dhis.mobile.ui.designsystem.component.parameter.ParameterInputStyle
 
 /**
  * DHIS2 Input Phone Number. Wraps DHIS · [BasicTextInput].
@@ -46,7 +47,7 @@ fun InputPhoneNumber(
     maxLength: Int = 12,
     minLength: Int = 4,
     state: InputShellState,
-    inputStyle: InputStyle = InputStyle.DataInputStyle(),
+    inputStyle: InputStyle = InputStyle.DarkInputStyle(),
     legendData: LegendData? = null,
     inputTextFieldValue: TextFieldValue? = null,
     isRequiredField: Boolean = false,
@@ -142,7 +143,7 @@ fun InputPhoneNumber(
     maxLength: Int = 12,
     minLength: Int = 4,
     state: InputShellState,
-    inputStyle: InputStyle = InputStyle.DataInputStyle(),
+    inputStyle: InputStyle = InputStyle.DarkInputStyle(),
     legendData: LegendData? = null,
     inputTextFieldValue: TextFieldValue? = null,
     isRequiredField: Boolean = false,
@@ -187,6 +188,6 @@ private fun isButtonEnabled(
     inputStyle: InputStyle,
     hasMinimumPhoneNumberInput: Boolean,
 ) = when (inputStyle) {
-    is InputStyle.DataInputStyle -> hasMinimumPhoneNumberInput
-    is InputStyle.ParameterInputStyle -> false
+    is ParameterInputStyle -> false
+    else -> hasMinimumPhoneNumberInput
 }

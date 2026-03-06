@@ -2,12 +2,11 @@ package org.hisp.dhis.mobile.ui.designsystem.component
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
-import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 
 /**
- * DHIS2 Input Shell style.
+ * DHIS2 InputShell style.
  * Used internally by [InputShell].
  * @param startIndent: value of the indent to be used at start.
  * @param backGroundColor: component background color.
@@ -25,7 +24,7 @@ sealed class InputStyle(
 ) {
     abstract fun supportingTextBackgroundColor(supportingText: List<SupportingTextData>?): Color
 
-    class DataInputStyle :
+    class DarkInputStyle :
         InputStyle(
             startIndent = Spacing.Spacing0,
             backGroundColor = SurfaceColor.Surface,
@@ -37,14 +36,32 @@ sealed class InputStyle(
         override fun supportingTextBackgroundColor(supportingText: List<SupportingTextData>?): Color = Color.Transparent
     }
 
-    class ParameterInputStyle :
+    class BrightInputStyle :
         InputStyle(
-            startIndent = Spacing.Spacing40,
-            supportingTextLowerPadding = Spacing.Spacing4,
-            backGroundColor = Color.Transparent,
-            disabledBackGroundColor = Color.Transparent,
-            unfocusedIndicatorColor = Outline.Light,
-            disabledIndicatorColor = Outline.Light,
+            startIndent = Spacing.Spacing0,
+            supportingTextLowerPadding = Spacing.Spacing0,
+            backGroundColor = SurfaceColor.SurfaceBright,
+            disabledBackGroundColor = SurfaceColor.SurfaceBright,
+            unfocusedIndicatorColor = null,
+            disabledIndicatorColor = null,
+        ) {
+        override fun supportingTextBackgroundColor(supportingText: List<SupportingTextData>?): Color = Color.Transparent
+    }
+
+    open class CustomInputStyle(
+        startIndent: Dp,
+        backGroundColor: Color,
+        supportingTextLowerPadding: Dp,
+        disabledBackGroundColor: Color,
+        unfocusedIndicatorColor: Color?,
+        disabledIndicatorColor: Color?,
+    ) : InputStyle(
+            startIndent = startIndent,
+            supportingTextLowerPadding = supportingTextLowerPadding,
+            backGroundColor = backGroundColor,
+            disabledBackGroundColor = disabledBackGroundColor,
+            unfocusedIndicatorColor = unfocusedIndicatorColor,
+            disabledIndicatorColor = disabledIndicatorColor,
         ) {
         override fun supportingTextBackgroundColor(supportingText: List<SupportingTextData>?): Color =
             when {
