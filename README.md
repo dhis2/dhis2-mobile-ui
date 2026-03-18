@@ -52,19 +52,24 @@ class InputChipSnapshotTest {
 Runs tests and generates an HTML report at `/build/reports/paparazzi/` showing all test runs
 and snapshots.
 
-### Saving golden images to repo
-
-`./gradlew designsystem:recordPaparazziDebug`
-
-Saves snapshots as golden values to a predefined source-controlled location (defaults to
-`/src/test/snapshots`).
-
-### Verifying
+### Verifying golden images
 
 `./gradlew designsystem:verifyPaparazziDebug`
 
-Runs tests and verifies against previously-recorded golden values. Failures generate diffs at
-`/build/paparazzi/failures`.
+Runs screenshot tests and verifies them against committed golden images. Failures generate diffs
+at `/build/paparazzi/failures`.
+
+### Updating golden images (CI only)
+
+Golden images are generated and committed by GitHub Actions, not locally.
+
+1. Push your screenshot test changes your working a branch.
+2. Run the **Generate Paparazzi Golden Images** workflow from the Actions tab in GitHub.
+3. If verification fails, the workflow records new images, re-runs verification, and commits the
+   updated snapshots to the same branch.
+4. Re-run CI (or `./gradlew designsystem:verifyPaparazziDebug` locally) to confirm everything is green.
+
+If you cannot trigger workflows on the upstream repository, run the workflow on your fork branch and include the generated snapshot commit in your pull request.
 
 # Documentation
 
@@ -89,4 +94,3 @@ Steps to test:
 3. Change the branch in the Mobile UI block in the file `docs-migrate.js` to point to your branch.
 4. Follow the instructions in [CONTRIBUTING](https://github.com/dhis2/developer-portal/blob/main/CONTRIBUTING.md) 
 to build the docs.
-
