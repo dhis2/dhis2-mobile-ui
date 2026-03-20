@@ -116,7 +116,7 @@ fun SupportingText(
 
         when {
             !isExpanded && textLayoutResult.hasVisualOverflow && textLayoutResult.lineCount >= maxLines -> {
-                val lastCharIndex = textLayoutResult.getLineEnd(maxLines - 1)
+                val lastCharIndex = textLayoutResult.getLineEnd(maxLines - 1).coerceAtMost(text.length)
                 val adjustedText =
                     text
                         .take(lastCharIndex)
