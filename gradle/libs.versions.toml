@@ -2,7 +2,7 @@
 
 kotlin = "2.2.21"
 agp = "8.13.0"
-compose = "1.10.2"
+compose = "1.10.3"
 kotlinxSerializationJson = "1.9.0"
 multiplatformMarkdownRenderer = "0.38.1"
 paparazzi = "2.0.0-alpha02"
