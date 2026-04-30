@@ -50,7 +50,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 internal fun <T> BasicInputImage(
     title: String,
     state: InputShellState = InputShellState.UNFOCUSED,
-    inputStyle: InputStyle = InputStyle.DataInputStyle(),
+    inputStyle: InputStyle = InputStyle.DarkInputStyle(),
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
     uploadState: UploadState = UploadState.ADD,
@@ -79,15 +79,8 @@ internal fun <T> BasicInputImage(
                 Legend(legendData, modifier.testTag("INPUT_" + testTag + "_LEGEND"))
             }
         },
-        supportingText = {
-            supportingText?.forEach { label ->
-                SupportingText(
-                    label.text,
-                    label.state,
-                    modifier = modifier.testTag("INPUT_" + testTag + "_SUPPORTING_TEXT"),
-                )
-            }
-        },
+        supportingText = supportingText,
+        supportingTextTestTag = "INPUT_" + testTag + "_SUPPORTING_TEXT",
         inputField = {
             when (uploadState) {
                 UploadState.ADD -> {

@@ -40,7 +40,7 @@ fun InputCheckBox(
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
     isRequired: Boolean = false,
-    inputStyle: InputStyle = InputStyle.DataInputStyle(),
+    inputStyle: InputStyle = InputStyle.DarkInputStyle(),
     onItemChange: (CheckBoxData) -> Unit,
     onClearSelection: () -> Unit,
 ) {
@@ -59,15 +59,8 @@ fun InputCheckBox(
                 Legend(legendData, modifier.testTag("INPUT_CHECK_BOX_LEGEND"))
             }
         },
-        supportingText = {
-            supportingText?.forEach { label ->
-                SupportingText(
-                    label.text,
-                    label.state,
-                    modifier = modifier.testTag("INPUT_CHECK_BOX_SUPPORTING_TEXT"),
-                )
-            }
-        },
+        supportingText = supportingText,
+        supportingTextTestTag = "INPUT_CHECK_BOX_SUPPORTING_TEXT",
         inputField = {
             val updatedCheckBoxData = mutableListOf<CheckBoxData>()
             checkBoxData.forEach {

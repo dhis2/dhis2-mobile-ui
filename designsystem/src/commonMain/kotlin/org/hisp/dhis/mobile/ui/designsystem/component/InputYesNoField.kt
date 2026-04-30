@@ -32,7 +32,7 @@ fun InputYesNoField(
     title: String,
     modifier: Modifier = Modifier,
     state: InputShellState,
-    inputStyle: InputStyle = InputStyle.DataInputStyle(),
+    inputStyle: InputStyle = InputStyle.DarkInputStyle(),
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
     isRequired: Boolean = false,
@@ -54,15 +54,8 @@ fun InputYesNoField(
                 Legend(legendData, modifier.testTag("INPUT_YES_NO_FIELD_LEGEND"))
             }
         },
-        supportingText = {
-            supportingText?.forEach { label ->
-                SupportingText(
-                    label.text,
-                    label.state,
-                    modifier = modifier.testTag("INPUT_YES_NO_FIELD_SUPPORTING_TEXT"),
-                )
-            }
-        },
+        supportingText = supportingText,
+        supportingTextTestTag = "INPUT_YES_NO_FIELD_SUPPORTING_TEXT",
         inputField = {
             val options =
                 InputYesNoFieldValues.entries.map {

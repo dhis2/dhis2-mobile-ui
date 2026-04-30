@@ -45,6 +45,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.component.model.DraggableType
 import org.hisp.dhis.mobile.ui.designsystem.component.modifier.draggableList
+import org.hisp.dhis.mobile.ui.designsystem.component.parameter.ParameterInputStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.state.BottomSheetShellDefaults
 import org.hisp.dhis.mobile.ui.designsystem.component.state.BottomSheetShellUIState
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
@@ -90,7 +91,7 @@ private const val MAX_DROPDOWN_ITEMS_TO_SHOW = 50
 fun InputDropDown(
     title: String,
     state: InputShellState,
-    inputStyle: InputStyle = InputStyle.DataInputStyle(),
+    inputStyle: InputStyle = InputStyle.DarkInputStyle(),
     itemCount: Int,
     onSearchOption: (String) -> Unit,
     fetchItem: (index: Int) -> DropdownItem,
@@ -290,7 +291,7 @@ fun InputDropDown(
 }
 
 private fun dropdownStartPadding(inputStyle: InputStyle): Dp =
-    if (inputStyle is InputStyle.ParameterInputStyle) {
+    if (inputStyle is ParameterInputStyle) {
         inputStyle.startIndent
     } else {
         Spacing0
@@ -321,7 +322,7 @@ private fun dropdownStartPadding(inputStyle: InputStyle): Dp =
 fun DropdownInputField(
     title: String,
     state: InputShellState,
-    inputStyle: InputStyle = InputStyle.DataInputStyle(),
+    inputStyle: InputStyle = InputStyle.DarkInputStyle(),
     isRequiredField: Boolean,
     expanded: Boolean,
     focusRequester: FocusRequester,
@@ -344,15 +345,8 @@ fun DropdownInputField(
             state = state,
             isRequiredField = isRequiredField,
             onFocusChanged = onFocusChanged,
-            supportingText = {
-                supportingTextData?.forEach { label ->
-                    SupportingText(
-                        label.text,
-                        label.state,
-                        modifier = Modifier.testTag("INPUT_DROPDOWN_SUPPORTING_TEXT"),
-                    )
-                }
-            },
+            supportingText = supportingTextData,
+            supportingTextTestTag = "INPUT_DROPDOWN_SUPPORTING_TEXT",
             legend = {
                 legendData?.let {
                     Legend(legendData, Modifier.testTag("INPUT_DROPDOWN_LEGEND"))

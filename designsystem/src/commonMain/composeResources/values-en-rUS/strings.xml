@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="show_less">Show less</string>
+    <string name="years">Years</string>
+    <string name="months">Months</string>
+    <string name="days">Days</string>
+    <string name="add_file">Add file</string>
+    <string name="enter_phone_number">Enter phone number</string>
+    <string name="qr_code">QR code</string>
+    <string name="polygon_captured">Polygon captured</string>
+    <string name="add_location">Add location</string>
+    <string name="not_supported">Not supported</string>
+    <string name="done">Done</string>
+    <string name="no_results_found">No results found</string>
+    <string name="accept">Accept</string>
+    <string name="required">Required</string>
+</resources>

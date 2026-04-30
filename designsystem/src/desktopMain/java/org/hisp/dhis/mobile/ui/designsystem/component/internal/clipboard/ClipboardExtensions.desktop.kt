@@ -1,11 +1,13 @@
 package org.hisp.dhis.mobile.ui.designsystem.component.internal.clipboard
 
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.platform.ClipEntry
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.awt.datatransfer.DataFlavor
 import java.awt.datatransfer.Transferable
 
+@OptIn(ExperimentalComposeUiApi::class)
 actual suspend fun ClipEntry.getText(): String? =
     withContext(Dispatchers.IO) {
         try {

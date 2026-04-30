@@ -31,4 +31,5 @@
     <string name="no_results">لا توجد نتائج</string>
     <string name="accept">قبول</string>
     <string name="hide_details">إخفاء التفاصيل</string>
-    </resources>
+    <string name="required">مطلوب</string>
+</resources>

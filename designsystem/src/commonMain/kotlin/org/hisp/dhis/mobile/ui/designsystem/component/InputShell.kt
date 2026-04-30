@@ -32,7 +32,9 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.Dp
+import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.Border
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
@@ -48,7 +50,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
  * @param primaryButton: controls the primary button composable if null will show nothing.
  * @param secondaryButton: controls  action button composable, if null will show nothing.
  * @param inputField: controls the input field composable.
- * @param supportingText: controls the supporting text composable.
+ * @param supportingText: controls the supporting text data.
  * @param legend: controls the optional legend composable.
  * @param onFocusChanged: gives access to the onFocusChanged returns true if
  * item is focused.
@@ -63,8 +65,9 @@ internal fun InputShell(
     primaryButton: @Composable (() -> Unit)? = null,
     secondaryButton: @Composable (() -> Unit)? = null,
     inputField: @Composable (() -> Unit)? = null,
-    supportingText: @Composable (() -> Unit)?,
     legend: @Composable (ColumnScope.() -> Unit)?,
+    supportingText: List<SupportingTextData>? = null,
+    supportingTextTestTag: String = "",
     onFocusChanged: ((Boolean) -> Unit)? = null,
     isRequiredField: Boolean,
     modifier: Modifier = Modifier.fillMaxWidth(),
@@ -86,11 +89,8 @@ internal fun InputShell(
         var labelColor by remember(state) { mutableStateOf(state.color) }
         var indicatorColor by remember(state) { mutableStateOf(state.color) }
         var indicatorThickness by remember { mutableStateOf(Border.Thin) }
-        val backgroundColor =
-            when {
-                state != InputShellState.DISABLED -> inputStyle.backGroundColor
-                else -> inputStyle.disabledBackGroundColor
-            }
+        val backgroundColor = getBackgroundColor(state, inputStyle)
+
         val focusRequester = remember { FocusRequester() }
 
         Box {
@@ -105,37 +105,11 @@ internal fun InputShell(
                                 )
                             }
                         }.onFocusChanged {
-                            labelColor =
-                                when {
-                                    state == InputShellState.DISABLED -> InputShellState.DISABLED.color
-                                    it.isFocused &&
-                                        state != InputShellState.ERROR &&
-                                        state != InputShellState.WARNING -> InputShellState.FOCUSED.color
+                            labelColor = getLabelColor(state, it.isFocused)
+                            indicatorColor = getIndicatorColor(state, it.isFocused, inputStyle)
 
-                                    else -> state.color
-                                }
-                            indicatorColor =
-                                when {
-                                    state == InputShellState.DISABLED ->
-                                        inputStyle.disabledIndicatorColor
-                                            ?: InputShellState.DISABLED.color
+                            indicatorThickness = getIndicatorThickness(state, it.isFocused)
 
-                                    it.isFocused &&
-                                        state != InputShellState.ERROR &&
-                                        state != InputShellState.WARNING -> InputShellState.FOCUSED.color
-
-                                    state == InputShellState.UNFOCUSED ->
-                                        inputStyle.unfocusedIndicatorColor
-                                            ?: state.color
-
-                                    else -> state.color
-                                }
-                            indicatorThickness =
-                                when {
-                                    state == InputShellState.DISABLED -> Border.Thin
-                                    it.isFocused -> Border.Regular
-                                    else -> Border.Thin
-                                }
                             onFocusChanged?.invoke(it.isFocused)
                         }.padding(start = inputStyle.startIndent),
                 paddingValues = paddingValues,
@@ -148,10 +122,13 @@ internal fun InputShell(
                         .fillMaxWidth(1f),
                     verticalArrangement = Arrangement.Center,
                 ) {
-                    if (title.isNotEmpty()) {
-                        val titleText = if (isRequiredField) "$title *" else title
-                        InputShellLabelText(titleText, textColor = labelColor)
-                    }
+                    InputShellLabelText(
+                        title,
+                        textColor = labelColor,
+                        isRequiredField =
+                        isRequiredField,
+                    )
+
                     inputField?.invoke()
                 }
                 Row(
@@ -182,15 +159,103 @@ internal fun InputShell(
         }
 
         legend?.invoke(this)
-        if (state != InputShellState.DISABLED) supportingText?.invoke()
-        if (isRequiredField && state == InputShellState.ERROR && supportingText == null) {
-            SupportingText(
-                "Required",
-                state = SupportingTextState.ERROR,
-            )
-        }
+        SupportingTextSection(
+            supportingText = supportingText,
+            state = state,
+            inputStyle = inputStyle,
+            supportingTextTestTag = supportingTextTestTag,
+            isRequiredField = isRequiredField,
+        )
     }
 }
+
+private fun getBackgroundColor(
+    state: InputShellState,
+    inputStyle: InputStyle,
+): Color =
+    when {
+        state != InputShellState.DISABLED -> inputStyle.backGroundColor
+        else -> inputStyle.disabledBackGroundColor
+    }
+
+@Composable
+fun SupportingTextSection(
+    supportingText: List<SupportingTextData>?,
+    state: InputShellState,
+    inputStyle: InputStyle,
+    supportingTextTestTag: String,
+    isRequiredField: Boolean,
+) {
+    supportingText?.let {
+        Column(
+            Modifier
+                .background(inputStyle.supportingTextBackgroundColor(supportingText))
+                .padding(start = inputStyle.startIndent, bottom = inputStyle.supportingTextLowerPadding)
+                .fillMaxWidth(),
+        ) {
+            if (state != InputShellState.DISABLED) {
+                it.forEach { label ->
+                    SupportingText(
+                        label.text,
+                        label.state,
+                        modifier = Modifier.testTag(supportingTextTestTag),
+                    )
+                }
+            }
+        }
+    }
+
+    if (isRequiredField && state == InputShellState.ERROR && supportingText == null) {
+        SupportingText(
+            provideStringResource("required"),
+            state = SupportingTextState.ERROR,
+        )
+    }
+}
+
+private fun getIndicatorThickness(
+    state: InputShellState,
+    isFocused: Boolean,
+): Dp =
+    when {
+        state == InputShellState.DISABLED -> Border.Thin
+        isFocused -> Border.Regular
+        else -> Border.Thin
+    }
+
+private fun getIndicatorColor(
+    state: InputShellState,
+    isFocused: Boolean,
+    inputStyle: InputStyle,
+): Color =
+    when {
+        state == InputShellState.DISABLED ->
+            inputStyle.disabledIndicatorColor
+                ?: InputShellState.DISABLED.color
+
+        isFocused &&
+            state != InputShellState.ERROR &&
+            state != InputShellState.WARNING -> InputShellState.FOCUSED.color
+
+        state == InputShellState.UNFOCUSED ->
+            inputStyle.unfocusedIndicatorColor
+                ?: state.color
+
+        else -> state.color
+    }
+
+private fun getLabelColor(
+    state: InputShellState,
+    isFocused: Boolean,
+): Color =
+    when {
+        state == InputShellState.DISABLED -> InputShellState.DISABLED.color
+        isFocused &&
+            state != InputShellState.ERROR &&
+            state != InputShellState.WARNING -> InputShellState.FOCUSED.color
+
+        else -> state.color
+    }
 
 /**
  * DHIS2 InputShellRow, wraps Compose [Row]

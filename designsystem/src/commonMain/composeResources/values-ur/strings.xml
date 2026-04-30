@@ -15,4 +15,5 @@
     <string name="ok">ٹھیک</string>
     <string name="cancel">منسوخ</string>
     <string name="hide_details">تفصیل چھپاؤ</string>
-    </resources>
+    <string name="required">لازمی</string>
+</resources>

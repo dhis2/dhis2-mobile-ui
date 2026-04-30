@@ -30,7 +30,7 @@ fun InputYesOnlyCheckBox(
     checkBoxData: CheckBoxData,
     modifier: Modifier = Modifier,
     state: InputShellState,
-    inputStyle: InputStyle = InputStyle.DataInputStyle(),
+    inputStyle: InputStyle = InputStyle.DarkInputStyle(),
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
     isRequired: Boolean = false,
@@ -62,15 +62,8 @@ fun InputYesOnlyCheckBox(
                 Legend(legendData, modifier.testTag("INPUT_YES_ONLY_CHECKBOX_LEGEND"))
             }
         },
-        supportingText = {
-            supportingText?.forEach { label ->
-                SupportingText(
-                    label.text,
-                    label.state,
-                    modifier = modifier.testTag("INPUT_YES_ONLY_CHECKBOX_SUPPORTING_TEXT"),
-                )
-            }
-        },
+        supportingText = supportingText,
+        supportingTextTestTag = "INPUT_YES_ONLY_CHECKBOX_SUPPORTING_TEXT",
         inputField = {
             CheckBox(
                 modifier =

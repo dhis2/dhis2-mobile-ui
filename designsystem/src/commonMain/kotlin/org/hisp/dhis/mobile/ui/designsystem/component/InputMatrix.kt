@@ -44,7 +44,7 @@ fun InputMatrix(
     selectedData: ImageCardData? = null,
     modifier: Modifier = Modifier,
     state: InputShellState,
-    inputStyle: InputStyle = InputStyle.DataInputStyle(),
+    inputStyle: InputStyle = InputStyle.DarkInputStyle(),
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
     isRequired: Boolean = false,
@@ -89,15 +89,8 @@ fun InputMatrix(
                 )
             }
         },
-        supportingText = {
-            supportingText?.forEach { label ->
-                SupportingText(
-                    label.text,
-                    label.state,
-                    modifier = Modifier.testTag("ICON_CARDS_INPUT_" + testTag + "_SUPPORTING_TEXT"),
-                )
-            }
-        },
+        supportingText = supportingText,
+        supportingTextTestTag = "ICON_CARDS_INPUT_" + testTag + "_SUPPORTING_TEXT",
         legend = {
             legendData?.let {
                 Legend(legendData, Modifier.testTag("ICON_CARDS_INPUT_" + testTag + "_LEGEND"))

@@ -7,7 +7,6 @@ group = rootProject.group
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.android.library)
-    alias(libs.plugins.composeHotReload)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.kotlin.serialization)
@@ -45,6 +44,9 @@ kotlin {
                 api(compose.materialIconsExtended)
                 implementation(compose.components.resources)
                 implementation(libs.kotlinx.serialization.json)
+                implementation(libs.multiplatform.markdown.renderer)
+                implementation(libs.multiplatform.markdown.renderer.m3)
+                implementation(libs.multiplatform.markdown.renderer.coil3)
             }
         }
 

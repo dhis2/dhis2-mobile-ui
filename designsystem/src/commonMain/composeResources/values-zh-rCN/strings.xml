@@ -33,4 +33,5 @@
     <string name="no_results">无结果</string>
     <string name="accept">接受</string>
     <string name="hide_details">隐藏细节</string>
-    </resources>
+    <string name="required">必须的</string>
+</resources>

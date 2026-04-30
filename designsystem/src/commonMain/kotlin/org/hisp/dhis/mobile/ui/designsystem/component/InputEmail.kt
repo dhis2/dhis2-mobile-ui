@@ -11,6 +11,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import org.hisp.dhis.mobile.ui.designsystem.component.model.RegExValidations
+import org.hisp.dhis.mobile.ui.designsystem.component.parameter.ParameterInputStyle
 
 /**
  * DHIS2 Input email. Wraps DHIS · [BasicTextInput].
@@ -49,7 +50,7 @@ fun InputEmail(
     imeAction: ImeAction = ImeAction.Next,
     modifier: Modifier = Modifier,
     onEmailActionCLicked: () -> Unit,
-    inputStyle: InputStyle = InputStyle.DataInputStyle(),
+    inputStyle: InputStyle = InputStyle.DarkInputStyle(),
     showDeleteButton: Boolean = true,
 ) {
     val isValidEmailAddress = RegExValidations.EMAIL.regex.matches(inputTextFieldValue?.text.orEmpty())
@@ -128,7 +129,7 @@ fun InputEmail(
     imeAction: ImeAction = ImeAction.Next,
     modifier: Modifier = Modifier,
     onEmailActionCLicked: () -> Unit,
-    inputStyle: InputStyle = InputStyle.DataInputStyle(),
+    inputStyle: InputStyle = InputStyle.DarkInputStyle(),
     showDeleteButton: Boolean = true,
 ) {
     InputEmail(
@@ -159,6 +160,6 @@ private fun isButtonEnabled(
     inputStyle: InputStyle,
     isValidEmailAddress: Boolean,
 ) = when (inputStyle) {
-    is InputStyle.DataInputStyle -> isValidEmailAddress
-    is InputStyle.ParameterInputStyle -> false
+    is ParameterInputStyle -> false
+    else -> isValidEmailAddress
 }

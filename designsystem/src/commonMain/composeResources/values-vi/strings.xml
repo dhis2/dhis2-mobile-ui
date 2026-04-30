@@ -18,6 +18,8 @@
     <string name="sync">Đồng bộ</string>
     <string name="polygon_captured">Đã thêm bản đồ ranh giới</string>
     <string name="add_location">Thêm vị trí</string>
+    <string name="latitude">Vĩ độ</string>
+    <string name="longitude">Kinh độ</string>
     <string name="add_signature">Thêm chữ ký</string>
     <string name="not_supported">Không được hỗ trợ</string>
     <string name="search">Tìm kiếm</string>
@@ -31,4 +33,5 @@
     <string name="no_results">Không có kết quả</string>
     <string name="accept">Chấp nhận</string>
     <string name="hide_details">Ẩn chi tiết</string>
-    </resources>
+    <string name="required">Bắt buộc</string>
+</resources>

@@ -67,7 +67,7 @@ fun InputFileResource(
     onClear: () -> Unit = {},
     uploadFileState: UploadFileState = ADD,
     inputShellState: InputShellState = InputShellState.UNFOCUSED,
-    inputStyle: InputStyle = InputStyle.DataInputStyle(),
+    inputStyle: InputStyle = InputStyle.DarkInputStyle(),
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
     isRequired: Boolean = false,
@@ -123,15 +123,8 @@ fun InputFileResource(
                 Legend(legendData, modifier.testTag("INPUT_FILE_RESOURCE_LEGEND"))
             }
         },
-        supportingText = {
-            supportingText?.forEach { label ->
-                SupportingText(
-                    label.text,
-                    label.state,
-                    modifier = modifier.testTag(INPUT_FILE_TEST_TAG + SUPPORTING_TEXT_TEST_TAG),
-                )
-            }
-        },
+        supportingText = supportingText,
+        supportingTextTestTag = INPUT_FILE_TEST_TAG + SUPPORTING_TEXT_TEST_TAG,
         inputField = {
             when (uploadFileState) {
                 ADD -> {

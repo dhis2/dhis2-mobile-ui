@@ -49,7 +49,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 fun InputCoordinate(
     title: String,
     state: InputShellState = InputShellState.UNFOCUSED,
-    inputStyle: InputStyle = InputStyle.DataInputStyle(),
+    inputStyle: InputStyle = InputStyle.DarkInputStyle(),
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
     coordinates: Coordinates? = null,
@@ -76,15 +76,8 @@ fun InputCoordinate(
                 Legend(legendData, modifier.testTag("INPUT_COORDINATE_LEGEND"))
             }
         },
-        supportingText = {
-            supportingText?.forEach { label ->
-                SupportingText(
-                    label.text,
-                    label.state,
-                    modifier = modifier.testTag("INPUT_COORDINATE_SUPPORTING_TEXT"),
-                )
-            }
-        },
+        supportingText = supportingText,
+        supportingTextTestTag = "INPUT_COORDINATE_SUPPORTING_TEXT",
         inputField = {
             if (coordinates != null) {
                 FlowRow(

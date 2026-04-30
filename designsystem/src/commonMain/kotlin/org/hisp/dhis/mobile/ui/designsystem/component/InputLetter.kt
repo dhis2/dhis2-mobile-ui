@@ -35,7 +35,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.model.RegExValidations
 fun InputLetter(
     title: String,
     state: InputShellState,
-    inputStyle: InputStyle = InputStyle.DataInputStyle(),
+    inputStyle: InputStyle = InputStyle.DarkInputStyle(),
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
     inputTextFieldValue: TextFieldValue? = null,
@@ -102,7 +102,7 @@ fun InputLetter(
 fun InputLetter(
     title: String,
     state: InputShellState,
-    inputStyle: InputStyle = InputStyle.DataInputStyle(),
+    inputStyle: InputStyle = InputStyle.DarkInputStyle(),
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
     inputTextFieldValue: TextFieldValue? = null,

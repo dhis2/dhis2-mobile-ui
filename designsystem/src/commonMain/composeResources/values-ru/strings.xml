@@ -46,7 +46,8 @@
     <string name="no_recent_results">Нет последних результатов</string>
     <string name="no_results">Результатов нет</string>
     <string name="accept">Принять</string>
-    <string name="searching_location">Поиск…</string>
+    <string name="searching_location">Поиск...</string>
     <string name="hide_details">Скрыть детали</string>
     <string name="reset_table_layout">Сброс макета таблицы</string>
+    <string name="required">Обязательный</string>
 </resources>

@@ -1,7 +1,9 @@
 package org.hisp.dhis.showcaseapp.screens.basicTextInputs
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -13,14 +15,59 @@ import org.hisp.dhis.mobile.ui.designsystem.component.ButtonStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InputSegmentedShell
+import org.hisp.dhis.mobile.ui.designsystem.component.InputStyle
+import org.hisp.dhis.mobile.ui.designsystem.component.Orientation
+import org.hisp.dhis.mobile.ui.designsystem.component.RadioButtonBlock
+import org.hisp.dhis.mobile.ui.designsystem.component.RadioButtonData
 import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextData
 import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextState
 import org.hisp.dhis.mobile.ui.designsystem.component.model.SegmentedShellType
+import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
+import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
+import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 
 @Composable
 fun InputSegmentedShellScreen() {
+    val styleOptions =
+        remember {
+            listOf(
+                RadioButtonData(
+                    uid = "DarkInputStyle",
+                    selected = true,
+                    enabled = true,
+                    textInput = "Dark",
+                ),
+                RadioButtonData(
+                    uid = "BrightInputStyle",
+                    selected = false,
+                    enabled = true,
+                    textInput = "Bright",
+                ),
+            )
+        }
+    var selectedStyle by remember { mutableStateOf(styleOptions[0]) }
+    val (inputStyle, backgroundColor) =
+        when (selectedStyle.uid) {
+            "DarkInputStyle" -> InputStyle.DarkInputStyle() to SurfaceColor.SurfaceBright
+            else -> InputStyle.BrightInputStyle() to SurfaceColor.Surface
+        }
+
     ColumnScreenContainer(title = BasicTextInputs.INPUT_SEGMENTED_SHELL.label) {
-        ColumnComponentContainer("Numeric") {
+        ColumnComponentContainer("Input Style") {
+            RadioButtonBlock(
+                orientation = Orientation.HORIZONTAL,
+                content = styleOptions,
+                itemSelected = selectedStyle,
+                onItemChange = { selectedStyle = it },
+            )
+        }
+        ColumnComponentContainer(
+            modifier =
+                Modifier
+                    .background(backgroundColor, Shape.Large)
+                    .padding(Spacing.Spacing8),
+            subTitle = "Numeric",
+        ) {
             InputSegmentedShell(
                 modifier = Modifier.fillMaxWidth(),
                 segmentCount = 5,
@@ -30,6 +77,7 @@ fun InputSegmentedShellScreen() {
                         text = "This is a message",
                         state = SupportingTextState.DEFAULT,
                     ),
+                inputStyle = inputStyle,
             )
             var newValue by remember { mutableStateOf("123456") }
             var supportingTextData by remember(newValue) {
@@ -46,6 +94,7 @@ fun InputSegmentedShellScreen() {
                 segmentCount = 6,
                 initialValue = newValue,
                 supportingTextData = supportingTextData,
+                inputStyle = inputStyle,
                 onValueChanged = {
                     savedValue = it
                 },
@@ -63,8 +112,10 @@ fun InputSegmentedShellScreen() {
             InputSegmentedShell(
                 modifier = Modifier.fillMaxWidth(),
                 segmentCount = 4,
-                initialValue = null,
+                initialValue = "1234",
                 supportingTextData = null,
+                inputStyle = inputStyle,
+                enabled = false,
             )
 
             InputSegmentedShell(
@@ -72,10 +123,17 @@ fun InputSegmentedShellScreen() {
                 segmentCount = 9,
                 initialValue = null,
                 supportingTextData = null,
+                inputStyle = inputStyle,
             )
         }
 
-        ColumnComponentContainer("Numbers and letters") {
+        ColumnComponentContainer(
+            modifier =
+                Modifier
+                    .background(backgroundColor, Shape.Large)
+                    .padding(Spacing.Spacing8),
+            subTitle = "Numbers and letters",
+        ) {
             InputSegmentedShell(
                 modifier = Modifier.fillMaxWidth(),
                 segmentCount = 5,
@@ -86,6 +144,7 @@ fun InputSegmentedShellScreen() {
                         state = SupportingTextState.DEFAULT,
                     ),
                 segmentedShellType = SegmentedShellType.LettersAndNumbers,
+                inputStyle = inputStyle,
             )
             InputSegmentedShell(
                 modifier = Modifier.fillMaxWidth(),
@@ -97,6 +156,7 @@ fun InputSegmentedShellScreen() {
                         state = SupportingTextState.ERROR,
                     ),
                 segmentedShellType = SegmentedShellType.LettersAndNumbers,
+                inputStyle = inputStyle,
             )
             InputSegmentedShell(
                 modifier = Modifier.fillMaxWidth(),
@@ -104,6 +164,7 @@ fun InputSegmentedShellScreen() {
                 initialValue = null,
                 supportingTextData = null,
                 segmentedShellType = SegmentedShellType.LettersAndNumbers,
+                inputStyle = inputStyle,
             )
 
             InputSegmentedShell(
@@ -112,10 +173,17 @@ fun InputSegmentedShellScreen() {
                 initialValue = null,
                 supportingTextData = null,
                 segmentedShellType = SegmentedShellType.LettersAndNumbers,
+                inputStyle = inputStyle,
             )
         }
 
-        ColumnComponentContainer("Letters") {
+        ColumnComponentContainer(
+            modifier =
+                Modifier
+                    .background(backgroundColor, Shape.Large)
+                    .padding(Spacing.Spacing8),
+            subTitle = "Letters",
+        ) {
             InputSegmentedShell(
                 modifier = Modifier.fillMaxWidth(),
                 segmentCount = 5,
@@ -126,6 +194,7 @@ fun InputSegmentedShellScreen() {
                         state = SupportingTextState.DEFAULT,
                     ),
                 segmentedShellType = SegmentedShellType.Letters,
+                inputStyle = inputStyle,
             )
             InputSegmentedShell(
                 modifier = Modifier.fillMaxWidth(),
@@ -137,6 +206,7 @@ fun InputSegmentedShellScreen() {
                         state = SupportingTextState.ERROR,
                     ),
                 segmentedShellType = SegmentedShellType.Letters,
+                inputStyle = inputStyle,
             )
             InputSegmentedShell(
                 modifier = Modifier.fillMaxWidth(),
@@ -144,6 +214,7 @@ fun InputSegmentedShellScreen() {
                 initialValue = null,
                 supportingTextData = null,
                 segmentedShellType = SegmentedShellType.Letters,
+                inputStyle = inputStyle,
             )
 
             InputSegmentedShell(
@@ -152,6 +223,7 @@ fun InputSegmentedShellScreen() {
                 initialValue = null,
                 supportingTextData = null,
                 segmentedShellType = SegmentedShellType.Letters,
+                inputStyle = inputStyle,
             )
         }
     }

@@ -45,7 +45,9 @@ fun InputSegmentedShell(
     segmentCount: Int,
     initialValue: String? = null,
     supportingTextData: SupportingTextData?,
+    enabled: Boolean = true,
     segmentedShellType: SegmentedShellType = SegmentedShellType.Numeric,
+    inputStyle: InputStyle = InputStyle.DarkInputStyle(),
     onValueChanged: (String) -> Unit = {},
 ) {
     val clipboard = LocalClipboard.current
@@ -102,17 +104,18 @@ fun InputSegmentedShell(
     }
 
     Column(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier,
         verticalArrangement = spacedBy(Spacing.Spacing4),
     ) {
         Row(
-            modifier = modifier.width(IntrinsicSize.Min),
+            modifier = Modifier.fillMaxWidth().width(IntrinsicSize.Min),
             horizontalArrangement = spacedBy(Spacing.Spacing12),
         ) {
             repeat(segmentCount) { index ->
-                var segmentState by remember(currentFocus, hasError) {
+                var segmentState by remember(currentFocus, hasError, enabled) {
                     mutableStateOf(
                         when {
+                            !enabled -> InputShellState.DISABLED
                             hasError -> InputShellState.ERROR
                             currentFocus == index -> InputShellState.FOCUSED
                             else -> InputShellState.UNFOCUSED
@@ -129,7 +132,7 @@ fun InputSegmentedShell(
                     supportingText = null,
                     legend = null,
                     isRequiredField = false,
-                    inputStyle = InputStyle.DataInputStyle(),
+                    inputStyle = inputStyle,
                     paddingValues =
                         PaddingValues(
                             start = Spacing.Spacing0,
@@ -180,6 +183,8 @@ fun InputSegmentedShell(
                                 }
                             },
                             inputTextValue = segmentValues[index],
+                            state = segmentState,
+                            enabled = enabled,
                             textStyle = MaterialTheme.typography.headlineMedium.copy(textAlign = TextAlign.Center),
                             onInputChanged = { newTextFieldValue ->
                                 scope.launch {

@@ -15,4 +15,5 @@
     <string name="cancel">رد یې کړئ [ ژباړه ـ ردول ]</string>
     <string name="accept">د منلو وړ</string>
     <string name="hide_details">توضیحات پټ کړئ</string>
-    </resources>
+    <string name="required">اړین دي</string>
+</resources>

@@ -82,7 +82,7 @@ fun InputMultiSelection(
     noResultsFoundString: String = provideStringResource("no_results_found"),
     searchToFindMoreString: String = provideStringResource("search_to_see_more"),
     doneButtonText: String = provideStringResource("done"),
-    inputStyle: InputStyle = InputStyle.DataInputStyle(),
+    inputStyle: InputStyle = InputStyle.DarkInputStyle(),
     onClearItemSelection: () -> Unit,
     bottomSheetExpanded: Boolean = false,
     maxItemsToShow: Int = MAX_CHECKBOXES_ITEMS_TO_SHOW,
@@ -140,17 +140,7 @@ fun InputMultiSelection(
             state = state,
             modifier = modifier.testTag("INPUT_MULTI_SELECT").focusRequester(focusRequester),
             inputStyle = inputStyle,
-            supportingText =
-                supportingTextData?.let {
-                    {
-                        it.forEach { supportTextData ->
-                            SupportingTextData(
-                                text = supportTextData.text,
-                                state = supportTextData.state,
-                            )
-                        }
-                    }
-                },
+            supportingText = supportingTextData,
             legend =
                 legendData?.let { legendData ->
                     {

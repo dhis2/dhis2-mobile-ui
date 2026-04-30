@@ -105,16 +105,8 @@ fun InputPassword(
                 enabled = uiModel.state != InputShellState.DISABLED,
             )
         },
-        supportingText =
-            {
-                supportingTextList.forEach { item ->
-                    SupportingText(
-                        item.text,
-                        item.state,
-                        modifier = Modifier.testTag(InputPasswordModel.SUPPORTING_TEXT),
-                    )
-                }
-            },
+        supportingText = supportingTextList,
+        supportingTextTestTag = InputPasswordModel.SUPPORTING_TEXT,
         legend = {
             uiModel.legendData?.let {
                 Legend(uiModel.legendData, Modifier.testTag(InputPasswordModel.LEGEND))

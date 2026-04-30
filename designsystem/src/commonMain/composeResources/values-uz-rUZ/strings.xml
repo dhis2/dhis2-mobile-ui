@@ -20,4 +20,5 @@
     <string name="no_results">Natija yoʼq</string>
     <string name="accept">Qabul qiling</string>
     <string name="hide_details">Detallarni berkitish</string>
-    </resources>
+    <string name="required">Majburiy</string>
+</resources>
