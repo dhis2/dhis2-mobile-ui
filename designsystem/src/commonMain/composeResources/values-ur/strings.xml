@@ -8,6 +8,9 @@
     <string name="action_next">اگلہ</string>
     <string name="yes">Ø¬Û ÛØ§Úº</string>
     <string name="no">ÙÛÛÚº</string>
+    <string name="polygon_captured">کثیر الاضلاع (حدود) محفوظ کر لی گئیں</string>
+    <string name="latitude">عرض البلد</string>
+    <string name="longitude">طول البلد</string>
     <string name="search">تلاش کریں</string>
     <string name="reset">ری سیٹ کریں</string>
     <string name="done">ہو گیا</string>
