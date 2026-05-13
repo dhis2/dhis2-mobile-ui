@@ -24,12 +24,28 @@ fun InputRadioButtonScreen() {
     val option4 = "Option 4"
     val option5 = "Option 5"
     val option6 = "Option 6"
+    val option7 = "Option 7"
+    val option8 = "Option 8"
+    val option9 = "Option 9"
 
     val radioButtonDataItemsVertical =
         listOf(
             RadioButtonData("0", selected = true, enabled = true, textInput = option1),
             RadioButtonData("1", selected = false, enabled = true, textInput = option2),
             RadioButtonData("2", selected = false, enabled = true, textInput = option3),
+        )
+
+    val radioButtonDataItemsLarge =
+        listOf(
+            RadioButtonData("0", selected = false, enabled = true, textInput = option1),
+            RadioButtonData("1", selected = false, enabled = true, textInput = option2),
+            RadioButtonData("2", selected = false, enabled = true, textInput = option3),
+            RadioButtonData("3", selected = true, enabled = true, textInput = option4),
+            RadioButtonData("4", selected = false, enabled = true, textInput = option5),
+            RadioButtonData("5", selected = false, enabled = true, textInput = option6),
+            RadioButtonData("6", selected = false, enabled = true, textInput = option7),
+            RadioButtonData("7", selected = false, enabled = true, textInput = option8),
+            RadioButtonData("8", selected = false, enabled = true, textInput = option9),
         )
 
     val radioButtonDataItemsError =
@@ -60,6 +76,10 @@ fun InputRadioButtonScreen() {
         mutableStateOf<RadioButtonData?>(radioButtonDataItemsVertical[0])
     }
 
+    var selectedItemLarge by remember {
+        mutableStateOf<RadioButtonData?>(radioButtonDataItemsLarge[0])
+    }
+
     var selectedItemError by remember {
         mutableStateOf<RadioButtonData?>(null)
     }
@@ -85,6 +105,27 @@ fun InputRadioButtonScreen() {
                 onItemChange = {
                     selectedItemVertical = it
                 },
+                state = InputShellState.UNFOCUSED,
+                supportingText =
+                    if (showSupportingText) {
+                        listOf(
+                            SupportingTextData("Required", state = SupportingTextState.ERROR),
+                            SupportingTextData(LOREM + LOREM + LOREM, state = SupportingTextState.WARNING),
+                        )
+                    } else {
+                        emptyList()
+                    },
+            )
+        }
+        ColumnComponentContainer("Basic state with large options") {
+            InputRadioButton(
+                title = "Label",
+                radioButtonData = radioButtonDataItemsLarge,
+                itemSelected = selectedItemLarge,
+                onItemChange = {
+                    selectedItemLarge = it
+                },
+                orientation = Orientation.HORIZONTAL,
                 state = InputShellState.UNFOCUSED,
                 supportingText =
                     if (showSupportingText) {
