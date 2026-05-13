@@ -180,7 +180,8 @@ fun InputRadioButton(
         secondaryButton =
             if (
                 radioButtonData.size > MAX_INLINE_OPTIONS_TO_DISPLAY &&
-                state != DISABLED && itemSelected != null
+                state != DISABLED &&
+                itemSelected != null
             ) {
                 {
                     IconButton(

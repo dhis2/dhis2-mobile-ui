@@ -137,7 +137,8 @@ fun InputCheckBox(
         },
         primaryButton = {
             if (checkBoxData.size <= MAX_INLINE_OPTIONS_TO_DISPLAY) {
-                val isClearButtonVisible = checkBoxData.firstOrNull { it.checked } != null && state != DISABLED
+                val isClearButtonVisible =
+                    checkBoxData.firstOrNull { it.checked } != null && state != DISABLED
                 if (isClearButtonVisible) {
                     IconButton(
                         modifier = Modifier.testTag("INPUT_CHECK_BOX_CLEAR_BUTTON"),
@@ -177,7 +178,8 @@ fun InputCheckBox(
         },
         secondaryButton =
             if (
-                checkBoxData.size > MAX_INLINE_OPTIONS_TO_DISPLAY && state != DISABLED &&
+                checkBoxData.size > MAX_INLINE_OPTIONS_TO_DISPLAY &&
+                state != DISABLED &&
                 checkBoxData.any { it.checked }
             ) {
                 {
