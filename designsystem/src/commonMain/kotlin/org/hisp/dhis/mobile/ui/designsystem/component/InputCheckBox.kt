@@ -104,6 +104,7 @@ fun InputCheckBox(
                 Box(
                     modifier =
                         Modifier
+                            .testTag("INPUT_MULTI_SELECT_CLICKABLE")
                             .fillMaxSize()
                             .alpha(0f)
                             .clickable(

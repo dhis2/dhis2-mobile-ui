@@ -80,6 +80,7 @@ fun OptionsBottomSheet(
                 modifier =
                     Modifier
                         .fillMaxWidth()
+                        .testTag("OPTIONS_BOTTOM_SHEET_DONE_BUTTON")
                         .padding(BottomSheetShellDefaults.buttonBlockPaddings()),
                 onClick = onDismiss,
                 icon = {
