@@ -47,14 +47,17 @@ import org.hisp.dhis.mobile.ui.designsystem.component.internal.getSupportingText
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.getTime
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.getTimePickerState
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.provideDatePickerState
+import org.hisp.dhis.mobile.ui.designsystem.component.model.CalendarSystem
 import org.hisp.dhis.mobile.ui.designsystem.component.model.RegExValidations
 import org.hisp.dhis.mobile.ui.designsystem.component.state.InputDateTimeState
+import org.hisp.dhis.mobile.ui.designsystem.component.state.rememberCalendarPickerState
 import org.hisp.dhis.mobile.ui.designsystem.platform.dates.getDate
 import org.hisp.dhis.mobile.ui.designsystem.platform.dates.normalizeToGregorian
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
+import kotlin.time.ExperimentalTime
 import org.hisp.dhis.mobile.ui.designsystem.component.DatePicker as DHIS2DatePicker
 import org.hisp.dhis.mobile.ui.designsystem.component.TimePicker as DHIS2TimePicker
 
@@ -68,7 +71,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.TimePicker as DHIS2TimePic
  * @param state: an [InputDateTimeState] with all the parameters for the input
  * @param modifier: optional modifier.
  */
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalTime::class)
 @Composable
 fun InputDateTime(
     state: InputDateTimeState,
@@ -246,7 +249,23 @@ fun InputDateTime(
     var datePickerState = provideDatePickerState(uiValue, uiData)
 
     if (showDatePicker) {
-        DHIS2DatePicker(
+        CalendarPickerModal(
+            state = rememberCalendarPickerState(
+                calendarSystem = NepaliCalendar(),
+            ),
+            title = state.uiData.title,
+            onConfirm = { millis->
+
+            },
+            onCancel = {
+                showDatePicker = false
+            },
+            onDismissRequest = {
+                showDatePicker = false
+            },
+            modifier = Modifier
+        )
+        /*DHIS2DatePicker(
             onConfirm = { updatedState ->
                 datePickerState = updatedState
                 showDatePicker = false
@@ -276,7 +295,7 @@ fun InputDateTime(
             title = uiData.title,
             acceptText = uiData.acceptText,
             cancelText = uiData.cancelText,
-        )
+        )*/
     }
 
     if (showTimePicker) {
