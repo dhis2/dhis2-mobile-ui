@@ -30,8 +30,8 @@ class InputNegativeIntegerTest {
             )
         }
         rule.onNodeWithTag("INPUT_NEGATIVE_INTEGER").assertExists()
-        rule.onNodeWithTag("INPUT_NEGATIVE_INTEGER_LEGEND").assertDoesNotExist()
-        rule.onNodeWithTag("INPUT_NEGATIVE_INTEGER_SUPPORTING_TEXT").assertDoesNotExist()
+        rule.onNodeWithTag("INPUT_NEGATIVE_INTEGER_LEGEND", useUnmergedTree = true).assertDoesNotExist()
+        rule.onNodeWithTag("INPUT_NEGATIVE_INTEGER_SUPPORTING_TEXT", useUnmergedTree = true).assertDoesNotExist()
     }
 
     @Test
@@ -50,8 +50,8 @@ class InputNegativeIntegerTest {
             )
         }
         rule.onNodeWithTag("INPUT_NEGATIVE_INTEGER").assertExists()
-        rule.onNodeWithTag("INPUT_NEGATIVE_INTEGER_FIELD").performTextInput("1234")
-        rule.onNodeWithTag("INPUT_NEGATIVE_INTEGER_FIELD").assert(hasText("- 1234"))
+        rule.onNodeWithTag("INPUT_NEGATIVE_INTEGER_FIELD", useUnmergedTree = true).performTextInput("1234")
+        rule.onNodeWithTag("INPUT_NEGATIVE_INTEGER_FIELD", useUnmergedTree = true).assert(hasText("- 1234"))
     }
 
     @Test
@@ -63,7 +63,7 @@ class InputNegativeIntegerTest {
             )
         }
         rule.onNodeWithTag("INPUT_NEGATIVE_INTEGER").assertExists()
-        rule.onNodeWithTag("INPUT_NEGATIVE_INTEGER_FIELD").assertIsNotEnabled()
+        rule.onNodeWithTag("INPUT_NEGATIVE_INTEGER_FIELD", useUnmergedTree = true).assertIsNotEnabled()
     }
 
     @Test
@@ -82,8 +82,8 @@ class InputNegativeIntegerTest {
             )
         }
         rule.onNodeWithTag("INPUT_NEGATIVE_INTEGER").assertExists()
-        rule.onNodeWithTag("INPUT_NEGATIVE_INTEGER_FIELD").assertExists()
-        rule.onNodeWithTag("INPUT_NEGATIVE_INTEGER_FIELD").performTextInput("1234")
+        rule.onNodeWithTag("INPUT_NEGATIVE_INTEGER_FIELD", useUnmergedTree = true).assertExists()
+        rule.onNodeWithTag("INPUT_NEGATIVE_INTEGER_FIELD", useUnmergedTree = true).performTextInput("1234")
         rule.onNodeWithTag("INPUT_NEGATIVE_INTEGER_RESET_BUTTON").assertExists()
     }
 
@@ -120,8 +120,8 @@ class InputNegativeIntegerTest {
             )
         }
         rule.onNodeWithTag("INPUT_NEGATIVE_INTEGER").assertExists()
-        rule.onNodeWithTag("INPUT_NEGATIVE_INTEGER_LEGEND").assertExists()
-        rule.onNodeWithTag("INPUT_NEGATIVE_INTEGER_LEGEND").assertHasNoClickAction()
+        rule.onNodeWithTag("INPUT_NEGATIVE_INTEGER_LEGEND", useUnmergedTree = true).assertExists()
+        rule.onNodeWithTag("INPUT_NEGATIVE_INTEGER_LEGEND", useUnmergedTree = true).assertHasNoClickAction()
     }
 
     @Test
@@ -135,7 +135,7 @@ class InputNegativeIntegerTest {
             )
         }
         rule.onNodeWithTag("INPUT_NEGATIVE_INTEGER").assertExists()
-        rule.onNodeWithTag("INPUT_NEGATIVE_INTEGER_SUPPORTING_TEXT").assertExists()
+        rule.onNodeWithTag("INPUT_NEGATIVE_INTEGER_SUPPORTING_TEXT", useUnmergedTree = true).assertExists()
     }
 
     @Test
@@ -154,8 +154,8 @@ class InputNegativeIntegerTest {
             )
         }
         rule.onNodeWithTag("INPUT_NEGATIVE_INTEGER").assertExists()
-        rule.onNodeWithTag("INPUT_NEGATIVE_INTEGER_FIELD").performTextInput("12.12")
-        rule.onNodeWithTag("INPUT_NEGATIVE_INTEGER_FIELD").assert(hasText("- "))
+        rule.onNodeWithTag("INPUT_NEGATIVE_INTEGER_FIELD", useUnmergedTree = true).performTextInput("12.12")
+        rule.onNodeWithTag("INPUT_NEGATIVE_INTEGER_FIELD", useUnmergedTree = true).assert(hasText("- "))
     }
 
     @Test
@@ -174,7 +174,7 @@ class InputNegativeIntegerTest {
             )
         }
         rule.onNodeWithTag("INPUT_NEGATIVE_INTEGER").assertExists()
-        rule.onNodeWithTag("INPUT_NEGATIVE_INTEGER_FIELD").performTextInput("01212")
+        rule.onNodeWithTag("INPUT_NEGATIVE_INTEGER_FIELD", useUnmergedTree = true).performTextInput("01212")
         rule.onNodeWithTag("INPUT_NEGATIVE_INTEGER_FIELD").assert(hasText("- "))
     }
 }
