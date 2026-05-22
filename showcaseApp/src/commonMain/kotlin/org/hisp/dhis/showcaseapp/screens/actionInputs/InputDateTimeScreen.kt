@@ -32,8 +32,8 @@ fun InputDateTimeScreen() {
             mutableStateOf(
                 TextFieldValue(
                     "2024-11-12",
-                    selection = TextRange(8)
-                )
+                    selection = TextRange(8),
+                ),
             )
         }
         var time by remember { mutableStateOf(TextFieldValue("09:30")) }
@@ -50,21 +50,21 @@ fun InputDateTimeScreen() {
                         uid = "gregorian",
                         selected = selectedCalendarSystem == null,
                         enabled = true,
-                        textInput = "Gregorian"
+                        textInput = "Gregorian",
                     ),
                     RadioButtonData(
                         uid = "nepali",
                         selected = selectedCalendarSystem is NepaliCalendar,
                         enabled = true,
-                        textInput = "Nepali"
+                        textInput = "Nepali",
                     ),
                     RadioButtonData(
                         uid = "ethiopian",
                         selected = selectedCalendarSystem is EthiopianCalendar,
                         enabled = true,
-                        textInput = "Ethiopian"
-                    )
-                )
+                        textInput = "Ethiopian",
+                    ),
+                ),
             )
         }
 
@@ -75,12 +75,13 @@ fun InputDateTimeScreen() {
             state = InputShellState.UNFOCUSED,
             itemSelected = calendarData.find { it.selected },
             onItemChange = { data ->
-                selectedCalendarSystem = when (data?.uid) {
-                    "nepali" -> NepaliCalendar()
-                    "ethiopian" -> EthiopianCalendar()
-                    else -> null
-                }
-            }
+                selectedCalendarSystem =
+                    when (data?.uid) {
+                        "nepali" -> NepaliCalendar()
+                        "ethiopian" -> EthiopianCalendar()
+                        else -> null
+                    }
+            },
         )
 
         ColumnComponentContainer("Date Input (allowed dates from 01/09/2024 to 12/12/2025)") {
