@@ -25,7 +25,7 @@ class NepaliCalendar(
 
     // Canonical order: Mon=0, Tue=1, Wed=2, Thu=3, Fri=4, Sat=5, Sun=6
     private val canonicalDayNames =
-        listOf("सोमबार", "मंगलबार", "बुधबार", "बिहीबार", "शुक्रबार", "शनिबार", "आइतबार")
+        listOf("सोम", "मंगल", "बुध", "बिही", "शुक्र", "शनि", "आइत")
 
     // Index of weekStart in the canonical Mon-first order
     private val weekStartIndex: Int = when (weekStart) {
