@@ -58,7 +58,6 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import kotlin.time.ExperimentalTime
-import org.hisp.dhis.mobile.ui.designsystem.component.DatePicker as DHIS2DatePicker
 import org.hisp.dhis.mobile.ui.designsystem.component.TimePicker as DHIS2TimePicker
 
 /**
@@ -80,6 +79,7 @@ fun InputDateTime(
     onImeActionClick: ((ImeAction) -> Unit)? = null,
     onActionClicked: (() -> Unit)? = null,
     modifier: Modifier = Modifier,
+    calendarSystem: CalendarSystem? = null,
 ) {
     val uiData = state.uiData
 
@@ -97,10 +97,10 @@ fun InputDateTime(
     var dateOutOfRangeText = uiData.outOfRangeText ?: provideStringResource("date_out_of_range")
 
     dateOutOfRangeText = "$dateOutOfRangeText (" +
-        formatStringToDate(
-            uiData.selectableDates.initialDate,
-        ) + " - " +
-        formatStringToDate(uiData.selectableDates.endDate) + ")"
+            formatStringToDate(
+                uiData.selectableDates.initialDate,
+            ) + " - " +
+            formatStringToDate(uiData.selectableDates.endDate) + ")"
     val incorrectHourFormat =
         uiData.incorrectHourFormatText ?: provideStringResource("wrong_hour_format")
     val incorrectHourFormatItem =
@@ -249,53 +249,66 @@ fun InputDateTime(
     var datePickerState = provideDatePickerState(uiValue, uiData)
 
     if (showDatePicker) {
-        CalendarPickerModal(
-            state = rememberCalendarPickerState(
-                calendarSystem = NepaliCalendar(),
-            ),
-            title = state.uiData.title,
-            onConfirm = { millis->
-
-            },
-            onCancel = {
-                showDatePicker = false
-            },
-            onDismissRequest = {
-                showDatePicker = false
-            },
-            modifier = Modifier
-        )
-        /*DHIS2DatePicker(
-            onConfirm = { updatedState ->
-                datePickerState = updatedState
-                showDatePicker = false
-                if (uiData.actionType != DateTimeActionType.DATE_TIME) {
-                    datePickerState.selectedDateMillis?.let {
-                        manageOnValueChanged(
-                            TextFieldValue(
-                                getDate(it),
-                                selection =
-                                    TextRange(
-                                        state.inputTextFieldValue?.text?.length ?: 0,
-                                    ),
-                            ),
-                            onValueChanged,
-                            uiData.actionType,
-                        )
+        if (calendarSystem != null) {
+            CalendarPickerModal(
+                state = rememberCalendarPickerState(
+                    calendarSystem = NepaliCalendar(),
+                ),
+                title = state.uiData.title,
+                onConfirm = { selectedDateMillis ->
+                    manageOnValueChanged(
+                        TextFieldValue(
+                            getDate(selectedDateMillis),
+                            selection =
+                                TextRange(
+                                    state.inputTextFieldValue?.text?.length ?: 0,
+                                ),
+                        ),
+                        onValueChanged,
+                        uiData.actionType,
+                    )
+                },
+                onCancel = {
+                    showDatePicker = false
+                },
+                onDismissRequest = {
+                    showDatePicker = false
+                },
+                modifier = Modifier
+            )
+        } else {
+            DatePicker(
+                onConfirm = { updatedState ->
+                    datePickerState = updatedState
+                    showDatePicker = false
+                    if (uiData.actionType != DateTimeActionType.DATE_TIME) {
+                        datePickerState.selectedDateMillis?.let {
+                            manageOnValueChanged(
+                                TextFieldValue(
+                                    getDate(it),
+                                    selection =
+                                        TextRange(
+                                            state.inputTextFieldValue?.text?.length ?: 0,
+                                        ),
+                                ),
+                                onValueChanged,
+                                uiData.actionType,
+                            )
+                        }
+                    } else {
+                        showTimePicker = true
                     }
-                } else {
-                    showTimePicker = true
-                }
-            },
-            onCancel = {
-                showDatePicker = false
-            },
-            onDismissRequest = { showDatePicker = false },
-            state = datePickerState,
-            title = uiData.title,
-            acceptText = uiData.acceptText,
-            cancelText = uiData.cancelText,
-        )*/
+                },
+                onCancel = {
+                    showDatePicker = false
+                },
+                onDismissRequest = { showDatePicker = false },
+                state = datePickerState,
+                title = uiData.title,
+                acceptText = uiData.acceptText,
+                cancelText = uiData.cancelText,
+            )
+        }
     }
 
     if (showTimePicker) {
@@ -453,9 +466,9 @@ private fun manageOnValueChangedFromDateTimePicker(
             formatUIDateToStored(
                 TextFieldValue(
                     getDate(datePickerState.selectedDateMillis) +
-                        getTime(
-                            timePickerState,
-                        ),
+                            getTime(
+                                timePickerState,
+                            ),
                     selection = TextRange(newValue?.text?.length ?: 0),
                 ),
                 actionType,
@@ -479,10 +492,10 @@ fun datePickerColors(): DatePickerColors =
 fun formatStringToDate(dateString: String): String =
     if (dateString.length == 8) {
         dateString.substring(0, 2) + "/" +
-            dateString.substring(
-                2,
-                4,
-            ) + "/" + dateString.substring(4, 8)
+                dateString.substring(
+                    2,
+                    4,
+                ) + "/" + dateString.substring(4, 8)
     } else {
         dateString
     }

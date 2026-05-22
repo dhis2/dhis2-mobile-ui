@@ -64,7 +64,6 @@ internal fun CalendarPickerHeader(
 
     Column(
         modifier = modifier
-            .background(SurfaceColor.ContainerHighest)
             .height(HeaderHeight)
             .padding(
                 start = Spacing.Spacing24,

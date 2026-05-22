@@ -76,7 +76,7 @@ fun CalendarPickerModal(
                 .widthIn(max = 360.dp)
                 .fillMaxWidth()
                 .background(
-                    color = SurfaceColor.Container,
+                    color = SurfaceColor.ContainerHigh,
                     shape = RoundedCornerShape(Radius.XXL),
                 )
                 .clip(RoundedCornerShape(Radius.XXL))
