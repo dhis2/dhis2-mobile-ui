@@ -29,6 +29,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
@@ -122,7 +123,7 @@ fun OrgBottomSheet(
                 description = description,
                 headerTextAlignment = headerTextAlignment,
                 searchQuery = searchQuery,
-                scrollableContainerMaxHeight = maxOf(orgTreeHeightInDp, InternalSizeValues.Size386),
+                scrollableContainerMaxHeight = maxOf(minOf(orgTreeHeightInDp, InternalSizeValues.Size386), InternalSizeValues.Size186),
                 scrollableContainerMinHeight = InternalSizeValues.Size186,
             ),
         modifier = modifier,
@@ -443,6 +444,7 @@ private fun AnnotatedString.Builder.appendHighlightedString(
  * @param selectedChildrenCount: number of selected children.
  * @param canBeSelected: whether the item is selectable or not.
  */
+@Stable
 data class OrgTreeItem(
     val uid: String,
     val label: String,
