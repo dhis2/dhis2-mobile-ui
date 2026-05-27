@@ -34,8 +34,8 @@ class InputTextTest {
             )
         }
         rule.onNodeWithTag("INPUT_TEXT").assertExists()
-        rule.onNodeWithTag("INPUT_TEXT_LEGEND").assertDoesNotExist()
-        rule.onNodeWithTag("INPUT_TEXT_SUPPORTING_TEXT").assertDoesNotExist()
+        rule.onNodeWithTag("INPUT_TEXT_LEGEND", useUnmergedTree = true).assertDoesNotExist()
+        rule.onNodeWithTag("INPUT_TEXT_SUPPORTING_TEXT", useUnmergedTree = true).assertDoesNotExist()
     }
 
     @Test
@@ -55,8 +55,8 @@ class InputTextTest {
             )
         }
         rule.onNodeWithTag("INPUT_TEXT").assertExists()
-        rule.onNodeWithTag("INPUT_TEXT_FIELD").performTextInput("Input")
-        rule.onNodeWithTag("INPUT_TEXT_FIELD").assert(hasText("Input"))
+        rule.onNodeWithTag("INPUT_TEXT_FIELD", useUnmergedTree = true).performTextInput("Input")
+        rule.onNodeWithTag("INPUT_TEXT_FIELD", useUnmergedTree = true).assert(hasText("Input"))
     }
 
     @Test
@@ -69,7 +69,7 @@ class InputTextTest {
             )
         }
         rule.onNodeWithTag("INPUT_TEXT").assertExists()
-        rule.onNodeWithTag("INPUT_TEXT_FIELD").assertIsNotEnabled()
+        rule.onNodeWithTag("INPUT_TEXT_FIELD", useUnmergedTree = true).assertIsNotEnabled()
     }
 
     @Test
@@ -89,8 +89,8 @@ class InputTextTest {
             )
         }
         rule.onNodeWithTag("INPUT_TEXT").assertExists()
-        rule.onNodeWithTag("INPUT_TEXT_FIELD").assertExists()
-        rule.onNodeWithTag("INPUT_TEXT_FIELD").performTextInput("Input")
+        rule.onNodeWithTag("INPUT_TEXT_FIELD", useUnmergedTree = true).assertExists()
+        rule.onNodeWithTag("INPUT_TEXT_FIELD", useUnmergedTree = true).performTextInput("Input")
         rule.onNodeWithTag("INPUT_TEXT_RESET_BUTTON").assertExists()
     }
 
@@ -114,7 +114,7 @@ class InputTextTest {
         rule.onNodeWithTag("INPUT_TEXT").assertExists()
         rule.onNodeWithTag("INPUT_TEXT_RESET_BUTTON").assertExists()
         rule.onNodeWithTag("INPUT_TEXT_RESET_BUTTON").performClick()
-        rule.onNodeWithTag("INPUT_TEXT_FIELD").assertTextEquals("")
+        rule.onNodeWithTag("INPUT_TEXT_FIELD", useUnmergedTree = true).assertTextEquals("")
         rule.onNodeWithTag("INPUT_TEXT_RESET_BUTTON").assertDoesNotExist()
     }
 
@@ -130,8 +130,8 @@ class InputTextTest {
             )
         }
         rule.onNodeWithTag("INPUT_TEXT").assertExists()
-        rule.onNodeWithTag("INPUT_TEXT_LEGEND").assertExists()
-        rule.onNodeWithTag("INPUT_TEXT_LEGEND").assertHasNoClickAction()
+        rule.onNodeWithTag("INPUT_TEXT_LEGEND", useUnmergedTree = true).assertExists()
+        rule.onNodeWithTag("INPUT_TEXT_LEGEND", useUnmergedTree = true).assertHasNoClickAction()
     }
 
     @Test
@@ -146,6 +146,6 @@ class InputTextTest {
             )
         }
         rule.onNodeWithTag("INPUT_TEXT").assertExists()
-        rule.onNodeWithTag("INPUT_TEXT_SUPPORTING_TEXT").assertExists()
+        rule.onNodeWithTag("INPUT_TEXT_SUPPORTING_TEXT", useUnmergedTree = true).assertExists()
     }
 }

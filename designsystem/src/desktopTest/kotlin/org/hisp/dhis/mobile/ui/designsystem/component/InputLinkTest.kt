@@ -35,8 +35,8 @@ class InputLinkTest {
             )
         }
         rule.onNodeWithTag("INPUT_LINK").assertExists()
-        rule.onNodeWithTag("INPUT_LINK_LEGEND").assertDoesNotExist()
-        rule.onNodeWithTag("INPUT_LINK_SUPPORTING_TEXT").assertDoesNotExist()
+        rule.onNodeWithTag("INPUT_LINK_LEGEND", useUnmergedTree = true).assertDoesNotExist()
+        rule.onNodeWithTag("INPUT_LINK_SUPPORTING_TEXT", useUnmergedTree = true).assertDoesNotExist()
     }
 
     @Test
@@ -56,8 +56,8 @@ class InputLinkTest {
             )
         }
         rule.onNodeWithTag("INPUT_LINK").assertExists()
-        rule.onNodeWithTag("INPUT_LINK_FIELD").performTextInput("example.com")
-        rule.onNodeWithTag("INPUT_LINK_FIELD").assert(hasText("example.com"))
+        rule.onNodeWithTag("INPUT_LINK_FIELD", useUnmergedTree = true).performTextInput("example.com")
+        rule.onNodeWithTag("INPUT_LINK_FIELD", useUnmergedTree = true).assert(hasText("example.com"))
     }
 
     @Test
@@ -70,7 +70,7 @@ class InputLinkTest {
             )
         }
         rule.onNodeWithTag("INPUT_LINK").assertExists()
-        rule.onNodeWithTag("INPUT_LINK_FIELD").assertIsNotEnabled()
+        rule.onNodeWithTag("INPUT_LINK_FIELD", useUnmergedTree = true).assertIsNotEnabled()
     }
 
     @Test
@@ -90,8 +90,8 @@ class InputLinkTest {
             )
         }
         rule.onNodeWithTag("INPUT_LINK").assertExists()
-        rule.onNodeWithTag("INPUT_LINK_FIELD").assertExists()
-        rule.onNodeWithTag("INPUT_LINK_FIELD").performTextInput("example.com")
+        rule.onNodeWithTag("INPUT_LINK_FIELD", useUnmergedTree = true).assertExists()
+        rule.onNodeWithTag("INPUT_LINK_FIELD", useUnmergedTree = true).performTextInput("example.com")
         rule.onNodeWithTag("INPUT_LINK_RESET_BUTTON").assertExists()
     }
 
@@ -115,7 +115,7 @@ class InputLinkTest {
         rule.onNodeWithTag("INPUT_LINK").assertExists()
         rule.onNodeWithTag("INPUT_LINK_RESET_BUTTON").assertExists()
         rule.onNodeWithTag("INPUT_LINK_RESET_BUTTON").performClick()
-        rule.onNodeWithTag("INPUT_LINK_FIELD").assertTextEquals("")
+        rule.onNodeWithTag("INPUT_LINK_FIELD", useUnmergedTree = true).assertTextEquals("")
         rule.onNodeWithTag("INPUT_LINK_RESET_BUTTON").assertDoesNotExist()
     }
 
@@ -151,8 +151,8 @@ class InputLinkTest {
             )
         }
         rule.onNodeWithTag("INPUT_LINK").assertExists()
-        rule.onNodeWithTag("INPUT_LINK_LEGEND").assertExists()
-        rule.onNodeWithTag("INPUT_LINK_LEGEND").assertHasNoClickAction()
+        rule.onNodeWithTag("INPUT_LINK_LEGEND", useUnmergedTree = true).assertExists()
+        rule.onNodeWithTag("INPUT_LINK_LEGEND", useUnmergedTree = true).assertHasNoClickAction()
     }
 
     @Test
@@ -167,7 +167,7 @@ class InputLinkTest {
             )
         }
         rule.onNodeWithTag("INPUT_LINK").assertExists()
-        rule.onNodeWithTag("INPUT_LINK_SUPPORTING_TEXT").assertExists()
+        rule.onNodeWithTag("INPUT_LINK_SUPPORTING_TEXT", useUnmergedTree = true).assertExists()
     }
 
     @Test
@@ -189,19 +189,19 @@ class InputLinkTest {
         }
         rule.onNodeWithTag("LINK_BUTTON").assertIsNotEnabled()
 
-        rule.onNodeWithTag("INPUT_LINK_FIELD").performTextInput("example.com")
+        rule.onNodeWithTag("INPUT_LINK_FIELD", useUnmergedTree = true).performTextInput("example.com")
         rule.onNodeWithTag("LINK_BUTTON").assertIsEnabled()
 
-        rule.onNodeWithTag("INPUT_LINK_FIELD").performTextClearance()
-        rule.onNodeWithTag("INPUT_LINK_FIELD").performTextInput("https://www.example.com")
+        rule.onNodeWithTag("INPUT_LINK_FIELD", useUnmergedTree = true).performTextClearance()
+        rule.onNodeWithTag("INPUT_LINK_FIELD", useUnmergedTree = true).performTextInput("https://www.example.com")
         rule.onNodeWithTag("LINK_BUTTON").assertIsEnabled()
 
-        rule.onNodeWithTag("INPUT_LINK_FIELD").performTextClearance()
-        rule.onNodeWithTag("INPUT_LINK_FIELD").performTextInput("https://google.us.edi?34535/534534?dfg=g&fg")
+        rule.onNodeWithTag("INPUT_LINK_FIELD", useUnmergedTree = true).performTextClearance()
+        rule.onNodeWithTag("INPUT_LINK_FIELD", useUnmergedTree = true).performTextInput("https://google.us.edi?34535/534534?dfg=g&fg")
         rule.onNodeWithTag("LINK_BUTTON").assertIsEnabled()
 
-        rule.onNodeWithTag("INPUT_LINK_FIELD").performTextClearance()
-        rule.onNodeWithTag("INPUT_LINK_FIELD").performTextInput("https://abcd.com")
+        rule.onNodeWithTag("INPUT_LINK_FIELD", useUnmergedTree = true).performTextClearance()
+        rule.onNodeWithTag("INPUT_LINK_FIELD", useUnmergedTree = true).performTextInput("https://abcd.com")
         rule.onNodeWithTag("LINK_BUTTON").assertIsEnabled()
     }
 
@@ -224,16 +224,16 @@ class InputLinkTest {
         }
         rule.onNodeWithTag("LINK_BUTTON").assertIsEnabled()
 
-        rule.onNodeWithTag("INPUT_LINK_FIELD").performTextClearance()
-        rule.onNodeWithTag("INPUT_LINK_FIELD").performTextInput("htps://example.com")
+        rule.onNodeWithTag("INPUT_LINK_FIELD", useUnmergedTree = true).performTextClearance()
+        rule.onNodeWithTag("INPUT_LINK_FIELD", useUnmergedTree = true).performTextInput("htps://example.com")
         rule.onNodeWithTag("LINK_BUTTON").assertIsNotEnabled()
 
-        rule.onNodeWithTag("INPUT_LINK_FIELD").performTextClearance()
-        rule.onNodeWithTag("INPUT_LINK_FIELD").performTextInput("example.")
+        rule.onNodeWithTag("INPUT_LINK_FIELD", useUnmergedTree = true).performTextClearance()
+        rule.onNodeWithTag("INPUT_LINK_FIELD", useUnmergedTree = true).performTextInput("example.")
         rule.onNodeWithTag("LINK_BUTTON").assertIsNotEnabled()
 
-        rule.onNodeWithTag("INPUT_LINK_FIELD").performTextClearance()
-        rule.onNodeWithTag("INPUT_LINK_FIELD").performTextInput("")
+        rule.onNodeWithTag("INPUT_LINK_FIELD", useUnmergedTree = true).performTextClearance()
+        rule.onNodeWithTag("INPUT_LINK_FIELD", useUnmergedTree = true).performTextInput("")
         rule.onNodeWithTag("LINK_BUTTON").assertIsNotEnabled()
     }
 }

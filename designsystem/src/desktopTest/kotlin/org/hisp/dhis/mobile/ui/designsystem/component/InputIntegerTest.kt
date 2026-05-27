@@ -31,8 +31,8 @@ class InputIntegerTest {
             )
         }
         rule.onNodeWithTag("INPUT_INTEGER").assertExists()
-        rule.onNodeWithTag("INPUT_INTEGER_LEGEND").assertDoesNotExist()
-        rule.onNodeWithTag("INPUT_INTEGER_SUPPORTING_TEXT").assertDoesNotExist()
+        rule.onNodeWithTag("INPUT_INTEGER_LEGEND", useUnmergedTree = true).assertDoesNotExist()
+        rule.onNodeWithTag("INPUT_INTEGER_SUPPORTING_TEXT", useUnmergedTree = true).assertDoesNotExist()
     }
 
     @Test
@@ -49,8 +49,8 @@ class InputIntegerTest {
             )
         }
         rule.onNodeWithTag("INPUT_INTEGER").assertExists()
-        rule.onNodeWithTag("INPUT_INTEGER_FIELD").performTextInput("1234")
-        rule.onNodeWithTag("INPUT_INTEGER_FIELD").assert(hasText("1234"))
+        rule.onNodeWithTag("INPUT_INTEGER_FIELD", useUnmergedTree = true).performTextInput("1234")
+        rule.onNodeWithTag("INPUT_INTEGER_FIELD", useUnmergedTree = true).assert(hasText("1234"))
     }
 
     @Test
@@ -62,7 +62,7 @@ class InputIntegerTest {
             )
         }
         rule.onNodeWithTag("INPUT_INTEGER").assertExists()
-        rule.onNodeWithTag("INPUT_INTEGER_FIELD").assertIsNotEnabled()
+        rule.onNodeWithTag("INPUT_INTEGER_FIELD", useUnmergedTree = true).assertIsNotEnabled()
     }
 
     @Test
@@ -79,8 +79,8 @@ class InputIntegerTest {
             )
         }
         rule.onNodeWithTag("INPUT_INTEGER").assertExists()
-        rule.onNodeWithTag("INPUT_INTEGER_FIELD").assertExists()
-        rule.onNodeWithTag("INPUT_INTEGER_FIELD").performTextInput("1234")
+        rule.onNodeWithTag("INPUT_INTEGER_FIELD", useUnmergedTree = true).assertExists()
+        rule.onNodeWithTag("INPUT_INTEGER_FIELD", useUnmergedTree = true).performTextInput("1234")
         rule.onNodeWithTag("INPUT_INTEGER_RESET_BUTTON").assertExists()
     }
 
@@ -101,7 +101,7 @@ class InputIntegerTest {
         rule.onNodeWithTag("INPUT_INTEGER").assertExists()
         rule.onNodeWithTag("INPUT_INTEGER_RESET_BUTTON").assertExists()
         rule.onNodeWithTag("INPUT_INTEGER_RESET_BUTTON").performClick()
-        rule.onNodeWithTag("INPUT_INTEGER_FIELD").assertTextEquals("")
+        rule.onNodeWithTag("INPUT_INTEGER_FIELD", useUnmergedTree = true).assertTextEquals("")
         rule.onNodeWithTag("INPUT_INTEGER_RESET_BUTTON").assertDoesNotExist()
     }
 
@@ -116,8 +116,8 @@ class InputIntegerTest {
             )
         }
         rule.onNodeWithTag("INPUT_INTEGER").assertExists()
-        rule.onNodeWithTag("INPUT_INTEGER_LEGEND").assertExists()
-        rule.onNodeWithTag("INPUT_INTEGER_LEGEND").assertHasNoClickAction()
+        rule.onNodeWithTag("INPUT_INTEGER_LEGEND", useUnmergedTree = true).assertExists()
+        rule.onNodeWithTag("INPUT_INTEGER_LEGEND", useUnmergedTree = true).assertHasNoClickAction()
     }
 
     @Test
@@ -131,7 +131,7 @@ class InputIntegerTest {
             )
         }
         rule.onNodeWithTag("INPUT_INTEGER").assertExists()
-        rule.onNodeWithTag("INPUT_INTEGER_SUPPORTING_TEXT").assertExists()
+        rule.onNodeWithTag("INPUT_INTEGER_SUPPORTING_TEXT", useUnmergedTree = true).assertExists()
     }
 
     @Test
@@ -148,11 +148,11 @@ class InputIntegerTest {
             )
         }
         rule.onNodeWithTag("INPUT_INTEGER").assertExists()
-        rule.onNodeWithTag("INPUT_INTEGER_FIELD").assertExists()
-        rule.onNodeWithTag("INPUT_INTEGER_FIELD").performTextInput("0")
-        rule.onNodeWithTag("INPUT_INTEGER_FIELD").assert(hasText("0"))
-        rule.onNodeWithTag("INPUT_INTEGER_FIELD").performTextInput("1")
-        rule.onNodeWithTag("INPUT_INTEGER_FIELD").assert(hasText("0"))
+        rule.onNodeWithTag("INPUT_INTEGER_FIELD", useUnmergedTree = true).assertExists()
+        rule.onNodeWithTag("INPUT_INTEGER_FIELD", useUnmergedTree = true).performTextInput("0")
+        rule.onNodeWithTag("INPUT_INTEGER_FIELD", useUnmergedTree = true).assert(hasText("0"))
+        rule.onNodeWithTag("INPUT_INTEGER_FIELD", useUnmergedTree = true).performTextInput("1")
+        rule.onNodeWithTag("INPUT_INTEGER_FIELD", useUnmergedTree = true).assert(hasText("0"))
     }
 
     @Test
@@ -169,9 +169,9 @@ class InputIntegerTest {
             )
         }
         rule.onNodeWithTag("INPUT_INTEGER").assertExists()
-        rule.onNodeWithTag("INPUT_INTEGER_FIELD").assertExists()
-        rule.onNodeWithTag("INPUT_INTEGER_FIELD").performTextInput("0.1")
-        rule.onNodeWithTag("INPUT_INTEGER_FIELD").assert(hasText(""))
+        rule.onNodeWithTag("INPUT_INTEGER_FIELD", useUnmergedTree = true).assertExists()
+        rule.onNodeWithTag("INPUT_INTEGER_FIELD", useUnmergedTree = true).performTextInput("0.1")
+        rule.onNodeWithTag("INPUT_INTEGER_FIELD", useUnmergedTree = true).assert(hasText(""))
     }
 
     @Test
@@ -188,8 +188,8 @@ class InputIntegerTest {
             )
         }
         rule.onNodeWithTag("INPUT_INTEGER").assertExists()
-        rule.onNodeWithTag("INPUT_INTEGER_FIELD").assertExists()
-        rule.onNodeWithTag("INPUT_INTEGER_FIELD").performTextInput("-23")
-        rule.onNodeWithTag("INPUT_INTEGER_FIELD").assert(hasText("-23"))
+        rule.onNodeWithTag("INPUT_INTEGER_FIELD", useUnmergedTree = true).assertExists()
+        rule.onNodeWithTag("INPUT_INTEGER_FIELD", useUnmergedTree = true).performTextInput("-23")
+        rule.onNodeWithTag("INPUT_INTEGER_FIELD", useUnmergedTree = true).assert(hasText("-23"))
     }
 }

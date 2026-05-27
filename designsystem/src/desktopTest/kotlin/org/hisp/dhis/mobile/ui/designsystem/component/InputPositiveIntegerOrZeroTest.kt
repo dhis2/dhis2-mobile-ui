@@ -31,8 +31,8 @@ class InputPositiveIntegerOrZeroTest {
             )
         }
         rule.onNodeWithTag("INPUT_POSITIVE_INTEGER_OR_ZERO").assertExists()
-        rule.onNodeWithTag("INPUT_POSITIVE_INTEGER_OR_ZERO_LEGEND").assertDoesNotExist()
-        rule.onNodeWithTag("INPUT_POSITIVE_INTEGER_OR_ZERO_SUPPORTING_TEXT").assertDoesNotExist()
+        rule.onNodeWithTag("INPUT_POSITIVE_INTEGER_OR_ZERO_LEGEND", useUnmergedTree = true).assertDoesNotExist()
+        rule.onNodeWithTag("INPUT_POSITIVE_INTEGER_OR_ZERO_SUPPORTING_TEXT", useUnmergedTree = true).assertDoesNotExist()
     }
 
     @Test
@@ -51,8 +51,8 @@ class InputPositiveIntegerOrZeroTest {
             )
         }
         rule.onNodeWithTag("INPUT_POSITIVE_INTEGER_OR_ZERO").assertExists()
-        rule.onNodeWithTag("INPUT_POSITIVE_INTEGER_OR_ZERO_FIELD").performTextInput("1234")
-        rule.onNodeWithTag("INPUT_POSITIVE_INTEGER_OR_ZERO_FIELD").assert(hasText("1234"))
+        rule.onNodeWithTag("INPUT_POSITIVE_INTEGER_OR_ZERO_FIELD", useUnmergedTree = true).performTextInput("1234")
+        rule.onNodeWithTag("INPUT_POSITIVE_INTEGER_OR_ZERO_FIELD", useUnmergedTree = true).assert(hasText("1234"))
     }
 
     @Test
@@ -64,7 +64,7 @@ class InputPositiveIntegerOrZeroTest {
             )
         }
         rule.onNodeWithTag("INPUT_POSITIVE_INTEGER_OR_ZERO").assertExists()
-        rule.onNodeWithTag("INPUT_POSITIVE_INTEGER_OR_ZERO_FIELD").assertIsNotEnabled()
+        rule.onNodeWithTag("INPUT_POSITIVE_INTEGER_OR_ZERO_FIELD", useUnmergedTree = true).assertIsNotEnabled()
     }
 
     @Test
@@ -83,8 +83,8 @@ class InputPositiveIntegerOrZeroTest {
             )
         }
         rule.onNodeWithTag("INPUT_POSITIVE_INTEGER_OR_ZERO").assertExists()
-        rule.onNodeWithTag("INPUT_POSITIVE_INTEGER_OR_ZERO_FIELD").assertExists()
-        rule.onNodeWithTag("INPUT_POSITIVE_INTEGER_OR_ZERO_FIELD").performTextInput("1234")
+        rule.onNodeWithTag("INPUT_POSITIVE_INTEGER_OR_ZERO_FIELD", useUnmergedTree = true).assertExists()
+        rule.onNodeWithTag("INPUT_POSITIVE_INTEGER_OR_ZERO_FIELD", useUnmergedTree = true).performTextInput("1234")
         rule.onNodeWithTag("INPUT_POSITIVE_INTEGER_OR_ZERO_RESET_BUTTON").assertExists()
     }
 
@@ -107,7 +107,7 @@ class InputPositiveIntegerOrZeroTest {
         rule.onNodeWithTag("INPUT_POSITIVE_INTEGER_OR_ZERO").assertExists()
         rule.onNodeWithTag("INPUT_POSITIVE_INTEGER_OR_ZERO_RESET_BUTTON").assertExists()
         rule.onNodeWithTag("INPUT_POSITIVE_INTEGER_OR_ZERO_RESET_BUTTON").performClick()
-        rule.onNodeWithTag("INPUT_POSITIVE_INTEGER_OR_ZERO_FIELD").assertTextEquals("")
+        rule.onNodeWithTag("INPUT_POSITIVE_INTEGER_OR_ZERO_FIELD", useUnmergedTree = true).assertTextEquals("")
         rule.onNodeWithTag("INPUT_POSITIVE_INTEGER_OR_ZERO_RESET_BUTTON").assertDoesNotExist()
     }
 
@@ -122,8 +122,8 @@ class InputPositiveIntegerOrZeroTest {
             )
         }
         rule.onNodeWithTag("INPUT_POSITIVE_INTEGER_OR_ZERO").assertExists()
-        rule.onNodeWithTag("INPUT_POSITIVE_INTEGER_OR_ZERO_LEGEND").assertExists()
-        rule.onNodeWithTag("INPUT_POSITIVE_INTEGER_OR_ZERO_LEGEND").assertHasNoClickAction()
+        rule.onNodeWithTag("INPUT_POSITIVE_INTEGER_OR_ZERO_LEGEND", useUnmergedTree = true).assertExists()
+        rule.onNodeWithTag("INPUT_POSITIVE_INTEGER_OR_ZERO_LEGEND", useUnmergedTree = true).assertHasNoClickAction()
     }
 
     @Test
@@ -137,7 +137,7 @@ class InputPositiveIntegerOrZeroTest {
             )
         }
         rule.onNodeWithTag("INPUT_POSITIVE_INTEGER_OR_ZERO").assertExists()
-        rule.onNodeWithTag("INPUT_POSITIVE_INTEGER_OR_ZERO_SUPPORTING_TEXT").assertExists()
+        rule.onNodeWithTag("INPUT_POSITIVE_INTEGER_OR_ZERO_SUPPORTING_TEXT", useUnmergedTree = true).assertExists()
     }
 
     @Test
@@ -156,8 +156,8 @@ class InputPositiveIntegerOrZeroTest {
             )
         }
         rule.onNodeWithTag("INPUT_POSITIVE_INTEGER_OR_ZERO").assertExists()
-        rule.onNodeWithTag("INPUT_POSITIVE_INTEGER_OR_ZERO_FIELD").performTextInput("12.12")
-        rule.onNodeWithTag("INPUT_POSITIVE_INTEGER_OR_ZERO_FIELD").assert(hasText(""))
+        rule.onNodeWithTag("INPUT_POSITIVE_INTEGER_OR_ZERO_FIELD", useUnmergedTree = true).performTextInput("12.12")
+        rule.onNodeWithTag("INPUT_POSITIVE_INTEGER_OR_ZERO_FIELD", useUnmergedTree = true).assert(hasText(""))
     }
 
     @Test

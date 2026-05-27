@@ -34,8 +34,8 @@ class InputLetterTest {
             )
         }
         rule.onNodeWithTag("INPUT_LETTER").assertExists()
-        rule.onNodeWithTag("INPUT_LETTER_LEGEND").assertDoesNotExist()
-        rule.onNodeWithTag("INPUT_LETTER_SUPPORTING_TEXT").assertDoesNotExist()
+        rule.onNodeWithTag("INPUT_LETTER_LEGEND", useUnmergedTree = true).assertDoesNotExist()
+        rule.onNodeWithTag("INPUT_LETTER_SUPPORTING_TEXT", useUnmergedTree = true).assertDoesNotExist()
     }
 
     @Test
@@ -124,8 +124,8 @@ class InputLetterTest {
             )
         }
         rule.onNodeWithTag("INPUT_LETTER").assertExists()
-        rule.onNodeWithTag("INPUT_LETTER_LEGEND").assertExists()
-        rule.onNodeWithTag("INPUT_LETTER_LEGEND").assertHasNoClickAction()
+        rule.onNodeWithTag("INPUT_LETTER_LEGEND", useUnmergedTree = true).assertExists()
+        rule.onNodeWithTag("INPUT_LETTER_LEGEND", useUnmergedTree = true).assertHasNoClickAction()
     }
 
     @Test
@@ -140,7 +140,7 @@ class InputLetterTest {
             )
         }
         rule.onNodeWithTag("INPUT_LETTER").assertExists()
-        rule.onNodeWithTag("INPUT_LETTER_SUPPORTING_TEXT").assertExists()
+        rule.onNodeWithTag("INPUT_LETTER_SUPPORTING_TEXT", useUnmergedTree = true).assertExists()
     }
 
     @Test

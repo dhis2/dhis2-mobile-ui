@@ -31,8 +31,8 @@ class InputUnitIntervalTest {
             )
         }
         rule.onNodeWithTag("INPUT_UNIT_INTERVAL").assertExists()
-        rule.onNodeWithTag("INPUT_UNIT_INTERVAL_LEGEND").assertDoesNotExist()
-        rule.onNodeWithTag("INPUT_UNIT_INTERVAL_SUPPORTING_TEXT").assertDoesNotExist()
+        rule.onNodeWithTag("INPUT_UNIT_INTERVAL_LEGEND", useUnmergedTree = true).assertDoesNotExist()
+        rule.onNodeWithTag("INPUT_UNIT_INTERVAL_SUPPORTING_TEXT", useUnmergedTree = true).assertDoesNotExist()
     }
 
     @Test
@@ -121,8 +121,8 @@ class InputUnitIntervalTest {
             )
         }
         rule.onNodeWithTag("INPUT_UNIT_INTERVAL").assertExists()
-        rule.onNodeWithTag("INPUT_UNIT_INTERVAL_LEGEND").assertExists()
-        rule.onNodeWithTag("INPUT_UNIT_INTERVAL_LEGEND").assertHasNoClickAction()
+        rule.onNodeWithTag("INPUT_UNIT_INTERVAL_LEGEND", useUnmergedTree = true).assertExists()
+        rule.onNodeWithTag("INPUT_UNIT_INTERVAL_LEGEND", useUnmergedTree = true).assertHasNoClickAction()
     }
 
     @Test
@@ -136,7 +136,7 @@ class InputUnitIntervalTest {
             )
         }
         rule.onNodeWithTag("INPUT_UNIT_INTERVAL").assertExists()
-        rule.onNodeWithTag("INPUT_UNIT_INTERVAL_SUPPORTING_TEXT").assertExists()
+        rule.onNodeWithTag("INPUT_UNIT_INTERVAL_SUPPORTING_TEXT", useUnmergedTree = true).assertExists()
     }
 
     @Test

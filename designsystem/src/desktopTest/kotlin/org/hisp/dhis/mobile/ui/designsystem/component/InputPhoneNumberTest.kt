@@ -39,11 +39,11 @@ class InputPhoneNumberTest {
                 state = InputShellState.UNFOCUSED,
             )
         }
-        rule.onNodeWithTag("INPUT_PHONE_NUMBER_FIELD").assertTextEquals("")
-        rule.onNodeWithTag("INPUT_PHONE_NUMBER_FIELD").performTextInput("1111")
-        rule.onNodeWithTag("INPUT_PHONE_NUMBER_FIELD").assertTextEquals("1111")
-        rule.onNodeWithTag("INPUT_PHONE_NUMBER_FIELD").performTextInput("1111a")
-        rule.onNodeWithTag("INPUT_PHONE_NUMBER_FIELD").assertTextEquals("1111")
+        rule.onNodeWithTag("INPUT_PHONE_NUMBER_FIELD", useUnmergedTree = true).assertTextEquals("")
+        rule.onNodeWithTag("INPUT_PHONE_NUMBER_FIELD", useUnmergedTree = true).performTextInput("1111")
+        rule.onNodeWithTag("INPUT_PHONE_NUMBER_FIELD", useUnmergedTree = true).assertTextEquals("1111")
+        rule.onNodeWithTag("INPUT_PHONE_NUMBER_FIELD", useUnmergedTree = true).performTextInput("1111a")
+        rule.onNodeWithTag("INPUT_PHONE_NUMBER_FIELD", useUnmergedTree = true).assertTextEquals("1111")
     }
 
     @Test
@@ -65,9 +65,9 @@ class InputPhoneNumberTest {
                 state = InputShellState.UNFOCUSED,
             )
         }
-        rule.onNodeWithTag("INPUT_PHONE_NUMBER_FIELD").assertTextEquals("")
-        rule.onNodeWithTag("INPUT_PHONE_NUMBER_FIELD").performTextInput("(+91)-9876543210")
-        rule.onNodeWithTag("INPUT_PHONE_NUMBER_FIELD").assertTextEquals("(+91)-9876543210")
+        rule.onNodeWithTag("INPUT_PHONE_NUMBER_FIELD", useUnmergedTree = true).assertTextEquals("")
+        rule.onNodeWithTag("INPUT_PHONE_NUMBER_FIELD", useUnmergedTree = true).performTextInput("(+91)-9876543210")
+        rule.onNodeWithTag("INPUT_PHONE_NUMBER_FIELD", useUnmergedTree = true).assertTextEquals("(+91)-9876543210")
     }
 
     @Test
@@ -91,9 +91,9 @@ class InputPhoneNumberTest {
             )
         }
         rule.onNodeWithTag("CALL_PHONE_NUMBER_BUTTON").assertIsNotEnabled()
-        rule.onNodeWithTag("INPUT_PHONE_NUMBER_FIELD").performTextInput("9876543210")
+        rule.onNodeWithTag("INPUT_PHONE_NUMBER_FIELD", useUnmergedTree = true).performTextInput("9876543210")
         rule.onNodeWithTag("CALL_PHONE_NUMBER_BUTTON").assertIsEnabled()
-        rule.onNodeWithTag("INPUT_PHONE_NUMBER_FIELD").performTextClearance()
+        rule.onNodeWithTag("INPUT_PHONE_NUMBER_FIELD", useUnmergedTree = true).performTextClearance()
         rule.onNodeWithTag("INPUT_PHONE_NUMBER_FIELD").performTextInput("987654321")
         rule.onNodeWithTag("CALL_PHONE_NUMBER_BUTTON").assertIsNotEnabled()
     }
@@ -113,7 +113,7 @@ class InputPhoneNumberTest {
                 },
             )
         }
-        rule.onNodeWithTag("INPUT_PHONE_NUMBER_SUPPORTING_TEXT").assertDoesNotExist()
+        rule.onNodeWithTag("INPUT_PHONE_NUMBER_SUPPORTING_TEXT", useUnmergedTree = true).assertDoesNotExist()
 
         rule.setContent {
             InputPhoneNumber(
@@ -129,7 +129,7 @@ class InputPhoneNumberTest {
                 supportingText = listOf(SupportingTextData("Error", SupportingTextState.ERROR)),
             )
         }
-        rule.onNodeWithTag("INPUT_PHONE_NUMBER_SUPPORTING_TEXT").assertExists()
+        rule.onNodeWithTag("INPUT_PHONE_NUMBER_SUPPORTING_TEXT", useUnmergedTree = true).assertExists()
     }
 
     @Test
