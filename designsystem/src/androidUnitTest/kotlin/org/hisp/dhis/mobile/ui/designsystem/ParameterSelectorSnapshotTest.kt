@@ -33,60 +33,61 @@ class ParameterSelectorSnapshotTest {
             ColumnScreenContainer {
                 SubTitle("Parameter Selector Component  - Date (collapsed)")
                 ParameterSelectorItem(
-                    model = ParameterSelectorItemModel(
-                        label = "Date parameter",
-                        helper = "Optional",
-                        inputField = {
-                            InputDateTime(
-                                state =
-                                    rememberInputDateTimeState(
-                                        inputDateTimeData =
-                                            InputDateTimeData(
-                                                title = "Date parameter",
-                                                visualTransformation = DateTransformation(),
-                                                actionType = DateTimeActionType.DATE_TIME,
-                                                inputStyle = ParameterInputStyle(),
-                                            ),
-                                        inputTextFieldValue = TextFieldValue(""),
-                                        inputState = InputShellState.UNFOCUSED,
-                                    ),
-                                onValueChanged = {
-                                },
-                            )
-                        },
-                        status = ParameterSelectorItemModel.Status.CLOSED,
-                        onExpand = {},
-                    ),
+                    model =
+                        ParameterSelectorItemModel(
+                            label = "Date parameter",
+                            helper = "Optional",
+                            inputField = {
+                                InputDateTime(
+                                    state =
+                                        rememberInputDateTimeState(
+                                            inputDateTimeData =
+                                                InputDateTimeData(
+                                                    title = "Date parameter",
+                                                    visualTransformation = DateTransformation(),
+                                                    actionType = DateTimeActionType.DATE_TIME,
+                                                    inputStyle = ParameterInputStyle(),
+                                                ),
+                                            inputTextFieldValue = TextFieldValue(""),
+                                            inputState = InputShellState.UNFOCUSED,
+                                        ),
+                                    onValueChanged = {
+                                    },
+                                )
+                            },
+                            status = ParameterSelectorItemModel.Status.CLOSED,
+                            onExpand = {},
+                        ),
                 )
 
                 SubTitle("Parameter Selector Component  - Date (Expanded)")
                 ParameterSelectorItem(
-                    model = ParameterSelectorItemModel(
-                        label = "Date parameter",
-                        helper = "Optional",
-                        inputField = {
-                            InputDateTime(
-                                state =
-                                    rememberInputDateTimeState(
-                                        inputDateTimeData =
-                                            InputDateTimeData(
-                                                title = "Date parameter",
-                                                visualTransformation = DateTransformation(),
-                                                actionType = DateTimeActionType.DATE_TIME,
-                                                inputStyle = ParameterInputStyle(),
-                                            ),
-                                        inputTextFieldValue = TextFieldValue(""),
-                                        inputState = InputShellState.FOCUSED,
-                                    ),
-                                onValueChanged = {
-                                },
-                            )
-                        },
-                        status = ParameterSelectorItemModel.Status.FOCUSED,
-                        onExpand = {},
-                    ),
+                    model =
+                        ParameterSelectorItemModel(
+                            label = "Date parameter",
+                            helper = "Optional",
+                            inputField = {
+                                InputDateTime(
+                                    state =
+                                        rememberInputDateTimeState(
+                                            inputDateTimeData =
+                                                InputDateTimeData(
+                                                    title = "Date parameter",
+                                                    visualTransformation = DateTransformation(),
+                                                    actionType = DateTimeActionType.DATE_TIME,
+                                                    inputStyle = ParameterInputStyle(),
+                                                ),
+                                            inputTextFieldValue = TextFieldValue(""),
+                                            inputState = InputShellState.FOCUSED,
+                                        ),
+                                    onValueChanged = {
+                                    },
+                                )
+                            },
+                            status = ParameterSelectorItemModel.Status.FOCUSED,
+                            onExpand = {},
+                        ),
                 )
-
             }
         }
     }
