@@ -190,17 +190,17 @@ fun SupportingTextSection(
         Column(
             Modifier
                 .background(inputStyle.supportingTextBackgroundColor(supportingText))
-                .padding(start = inputStyle.startIndent, bottom = inputStyle.supportingTextLowerPadding)
-                .fillMaxWidth(),
+                .padding(
+                    start = inputStyle.startIndent,
+                    bottom = inputStyle.supportingTextLowerPadding,
+                ).fillMaxWidth(),
         ) {
-            if (state != InputShellState.DISABLED) {
-                it.forEach { label ->
-                    SupportingText(
-                        label.text,
-                        label.state,
-                        modifier = Modifier.testTag(supportingTextTestTag),
-                    )
-                }
+            it.forEach { label ->
+                SupportingText(
+                    label.text,
+                    label.state,
+                    modifier = Modifier.testTag(supportingTextTestTag),
+                )
             }
         }
     }

@@ -98,6 +98,7 @@ fun FormShellsScreen() {
                     inputValue5 = it
                 }
             },
+            supportingText = listOf(SupportingTextData("Disabled description should be displayed", SupportingTextState.DEFAULT)),
         )
         Spacer(Modifier.size(Spacing.Spacing18))
 
