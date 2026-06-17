@@ -65,22 +65,23 @@ fun CalendarPickerModal(
 ) {
     Dialog(
         onDismissRequest = onDismissRequest,
-        properties = DialogProperties(
-            dismissOnBackPress = true,
-            dismissOnClickOutside = true,
-            usePlatformDefaultWidth = false,
-        ),
+        properties =
+            DialogProperties(
+                dismissOnBackPress = true,
+                dismissOnClickOutside = true,
+                usePlatformDefaultWidth = false,
+            ),
     ) {
         Column(
-            modifier = modifier
-                .widthIn(max = 360.dp)
-                .fillMaxWidth()
-                .background(
-                    color = SurfaceColor.ContainerHigh,
-                    shape = RoundedCornerShape(Radius.XXL),
-                )
-                .clip(RoundedCornerShape(Radius.XXL))
-                .testTag("CALENDAR_PICKER_MODAL"),
+            modifier =
+                modifier
+                    .widthIn(max = 360.dp)
+                    .fillMaxWidth()
+                    .background(
+                        color = SurfaceColor.ContainerHigh,
+                        shape = RoundedCornerShape(Radius.XXL),
+                    ).clip(RoundedCornerShape(Radius.XXL))
+                    .testTag("CALENDAR_PICKER_MODAL"),
         ) {
             CalendarPickerHeader(
                 state = state,
@@ -94,35 +95,39 @@ fun CalendarPickerModal(
                 CalendarPickerViewMode.DAY ->
                     CalendarDayView(
                         state = state,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = Spacing.Spacing12),
+                        modifier =
+                            Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = Spacing.Spacing12),
                     )
 
                 CalendarPickerViewMode.YEAR ->
                     CalendarYearView(
                         state = state,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = Spacing.Spacing12),
+                        modifier =
+                            Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = Spacing.Spacing12),
                     )
 
                 CalendarPickerViewMode.MONTH ->
                     CalendarMonthView(
                         state = state,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = Spacing.Spacing12),
+                        modifier =
+                            Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = Spacing.Spacing12),
                     )
             }
 
             Row(
-                modifier = Modifier
-                    .align(Alignment.End)
-                    .padding(
-                        end = Spacing.Spacing12,
-                        bottom = Spacing.Spacing8,
-                    ),
+                modifier =
+                    Modifier
+                        .align(Alignment.End)
+                        .padding(
+                            end = Spacing.Spacing12,
+                            bottom = Spacing.Spacing8,
+                        ),
             ) {
                 Button(
                     enabled = true,

@@ -8,9 +8,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import kotlin.time.Clock
 import org.hisp.dhis.mobile.ui.designsystem.component.model.CalendarDate
 import org.hisp.dhis.mobile.ui.designsystem.component.model.CalendarSystem
+import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
 
 enum class CalendarPickerViewMode { DAY, YEAR, MONTH }
@@ -33,25 +33,28 @@ interface CalendarPickerState {
     var viewMode: CalendarPickerViewMode
 
     val selectedEpochMillis: Long?
-        get() = selectedDate?.let {
-            calendarSystem.toEpochMillis(it.year, it.month, it.day)
-        }
+        get() =
+            selectedDate?.let {
+                calendarSystem.toEpochMillis(it.year, it.month, it.day)
+            }
 }
 
 @Composable
 fun rememberCalendarPickerState(
     calendarSystem: CalendarSystem,
     initialSelectedDate: CalendarDate? = null,
-): CalendarPickerState = remember(calendarSystem, initialSelectedDate) {
-    val display = initialSelectedDate
-        ?: calendarSystem.fromEpochMillis(Clock.System.now().toEpochMilliseconds())
-    CalendarPickerStateImpl(
-        calendarSystem = calendarSystem,
-        initialYear = display.year,
-        initialMonth = display.month,
-        initialSelectedDate = initialSelectedDate,
-    )
-}
+): CalendarPickerState =
+    remember(calendarSystem, initialSelectedDate) {
+        val display =
+            initialSelectedDate
+                ?: calendarSystem.fromEpochMillis(Clock.System.now().toEpochMilliseconds())
+        CalendarPickerStateImpl(
+            calendarSystem = calendarSystem,
+            initialYear = display.year,
+            initialMonth = display.month,
+            initialSelectedDate = initialSelectedDate,
+        )
+    }
 
 internal class CalendarPickerStateImpl(
     override val calendarSystem: CalendarSystem,

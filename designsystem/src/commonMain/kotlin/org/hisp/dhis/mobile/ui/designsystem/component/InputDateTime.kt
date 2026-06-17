@@ -97,10 +97,10 @@ fun InputDateTime(
     var dateOutOfRangeText = uiData.outOfRangeText ?: provideStringResource("date_out_of_range")
 
     dateOutOfRangeText = "$dateOutOfRangeText (" +
-            formatStringToDate(
-                uiData.selectableDates.initialDate,
-            ) + " - " +
-            formatStringToDate(uiData.selectableDates.endDate) + ")"
+        formatStringToDate(
+            uiData.selectableDates.initialDate,
+        ) + " - " +
+        formatStringToDate(uiData.selectableDates.endDate) + ")"
     val incorrectHourFormat =
         uiData.incorrectHourFormatText ?: provideStringResource("wrong_hour_format")
     val incorrectHourFormatItem =
@@ -251,9 +251,10 @@ fun InputDateTime(
     if (showDatePicker) {
         if (calendarSystem != null) {
             CalendarPickerModal(
-                state = rememberCalendarPickerState(
-                    calendarSystem = NepaliCalendar(),
-                ),
+                state =
+                    rememberCalendarPickerState(
+                        calendarSystem = NepaliCalendar(),
+                    ),
                 title = state.uiData.title,
                 onConfirm = { selectedDateMillis ->
                     manageOnValueChanged(
@@ -274,7 +275,7 @@ fun InputDateTime(
                 onDismissRequest = {
                     showDatePicker = false
                 },
-                modifier = Modifier
+                modifier = Modifier,
             )
         } else {
             DatePicker(
@@ -466,9 +467,9 @@ private fun manageOnValueChangedFromDateTimePicker(
             formatUIDateToStored(
                 TextFieldValue(
                     getDate(datePickerState.selectedDateMillis) +
-                            getTime(
-                                timePickerState,
-                            ),
+                        getTime(
+                            timePickerState,
+                        ),
                     selection = TextRange(newValue?.text?.length ?: 0),
                 ),
                 actionType,
@@ -492,10 +493,10 @@ fun datePickerColors(): DatePickerColors =
 fun formatStringToDate(dateString: String): String =
     if (dateString.length == 8) {
         dateString.substring(0, 2) + "/" +
-                dateString.substring(
-                    2,
-                    4,
-                ) + "/" + dateString.substring(4, 8)
+            dateString.substring(
+                2,
+                4,
+            ) + "/" + dateString.substring(4, 8)
     } else {
         dateString
     }

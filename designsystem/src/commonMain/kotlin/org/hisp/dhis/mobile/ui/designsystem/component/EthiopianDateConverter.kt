@@ -4,6 +4,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.model.CalendarDate
 
 object EthiopianDateConverter {
     private const val JDOFFSET = 1723856
+
     @Throws(Exception::class)
     fun toEthiopianDate(localDate: CalendarDate): CalendarDate {
         val jdn = toJDN(localDate)
@@ -19,7 +20,7 @@ object EthiopianDateConverter {
 
     @Throws(Exception::class)
     private fun toEthiopianDate(jdn: Int): CalendarDate {
-        //Formula from Dr. Berhanu Beyene and Manfred Kudlek
+        // Formula from Dr. Berhanu Beyene and Manfred Kudlek
         val year: Int
         val month: Int
         val day: Int
@@ -32,7 +33,11 @@ object EthiopianDateConverter {
     }
 
     @Throws(Exception::class)
-    fun toGregorianDate(year: Int, month: Int, day: Int): CalendarDate {
+    fun toGregorianDate(
+        year: Int,
+        month: Int,
+        day: Int,
+    ): CalendarDate {
         validate(year, month, day)
         val jdn = fromEthiopianDateToJDN(year, month, day)
         return toGregorianDate(jdn)
@@ -66,13 +71,19 @@ object EthiopianDateConverter {
     }
 
     @Throws(Exception::class)
-    private fun validate(year: Int, month: Int, day: Int) {
+    private fun validate(
+        year: Int,
+        month: Int,
+        day: Int,
+    ) {
         if (month !in 1..13 || month == 13 && year % 4 == 3 && day > 6 || month == 13 && year % 4 != 3 && day > 5 || day < 1 || day > 30) {
             throw Exception("Year, Month, and Day parameters describe an un-representable EthiopianDateTime.")
         }
     }
 
-    private fun fromEthiopianDateToJDN(year: Int, month: Int, day: Int): Int {
-        return JDOFFSET + 365 + 365 * (year - 1) + year / 4 + 30 * month + day - 31
-    }
+    private fun fromEthiopianDateToJDN(
+        year: Int,
+        month: Int,
+        day: Int,
+    ): Int = JDOFFSET + 365 + 365 * (year - 1) + year / 4 + 30 * month + day - 31
 }

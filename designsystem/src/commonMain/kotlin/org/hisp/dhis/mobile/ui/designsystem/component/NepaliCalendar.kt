@@ -7,32 +7,33 @@ import org.hisp.dhis.mobile.ui.designsystem.component.model.WeekStart
 class NepaliCalendar(
     override val weekStart: WeekStart = WeekStart.SUNDAY,
 ) : CalendarSystem {
-
-    private val monthNames = listOf(
-        "बैशाख",
-        "जेठ",
-        "असार",
-        "साउन",
-        "भदौ",
-        "असोज",
-        "कार्तिक",
-        "मंसिर",
-        "पौष",
-        "माघ",
-        "फागुन",
-        "चैत",
-    )
+    private val monthNames =
+        listOf(
+            "बैशाख",
+            "जेठ",
+            "असार",
+            "साउन",
+            "भदौ",
+            "असोज",
+            "कार्तिक",
+            "मंसिर",
+            "पौष",
+            "माघ",
+            "फागुन",
+            "चैत",
+        )
 
     // Canonical order: Mon=0, Tue=1, Wed=2, Thu=3, Fri=4, Sat=5, Sun=6
     private val canonicalDayNames =
         listOf("सोम", "मंगल", "बुध", "बिही", "शुक्र", "शनि", "आइत")
 
     // Index of weekStart in the canonical Mon-first order
-    private val weekStartIndex: Int = when (weekStart) {
-        WeekStart.MONDAY -> 0
-        WeekStart.SATURDAY -> 5
-        WeekStart.SUNDAY -> 6
-    }
+    private val weekStartIndex: Int =
+        when (weekStart) {
+            WeekStart.MONDAY -> 0
+            WeekStart.SATURDAY -> 5
+            WeekStart.SUNDAY -> 6
+        }
 
     override val id: String = "nepali"
     override val monthsPerYear = monthNames.size
@@ -42,18 +43,31 @@ class NepaliCalendar(
     override val yearRange: IntRange =
         IntRange(NEPALI_CALENDAR_DATA.keys.min(), NEPALI_CALENDAR_DATA.keys.max())
 
-    override fun monthName(year: Int, month: Int) = monthNames[month - 1]
+    override fun monthName(
+        year: Int,
+        month: Int,
+    ) = monthNames[month - 1]
 
-    override fun daysInMonth(year: Int, month: Int) = NEPALI_CALENDAR_DATA[year]?.get(month) ?: 0
+    override fun daysInMonth(
+        year: Int,
+        month: Int,
+    ) = NEPALI_CALENDAR_DATA[year]?.get(month) ?: 0
 
-    override fun firstWeekDayOfMonth(year: Int, month: Int): Int {
+    override fun firstWeekDayOfMonth(
+        year: Int,
+        month: Int,
+    ): Int {
         val millis = toEpochMillis(year, month, 1)
         val jdn = (millis / MILLIS_PER_DAY).toInt() + UNIX_EPOCH_JDN
         // JDN % 7: 0=Monday … 5=Saturday, 6=Sunday. Subtract weekStartIndex so 0 aligns with weekDayNames[0].
         return (jdn % 7 - weekStartIndex + 7) % 7
     }
 
-    override fun toEpochMillis(year: Int, month: Int, day: Int): Long {
+    override fun toEpochMillis(
+        year: Int,
+        month: Int,
+        day: Int,
+    ): Long {
         var days = 0
         for (y in yearRange.first until year) {
             val yearData = NEPALI_CALENDAR_DATA[y] ?: break

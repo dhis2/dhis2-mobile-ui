@@ -38,7 +38,6 @@ import org.hisp.dhis.mobile.ui.designsystem.component.state.CalendarPickerState
 import org.hisp.dhis.mobile.ui.designsystem.component.state.CalendarPickerViewMode
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
@@ -63,14 +62,15 @@ internal fun CalendarPickerHeader(
     val selected = state.selectedDate
 
     Column(
-        modifier = modifier
-            .height(HeaderHeight)
-            .padding(
-                start = Spacing.Spacing24,
-                end = Spacing.Spacing24,
-                top = Spacing.Spacing16,
-                bottom = Spacing.Spacing12,
-            ),
+        modifier =
+            modifier
+                .height(HeaderHeight)
+                .padding(
+                    start = Spacing.Spacing24,
+                    end = Spacing.Spacing24,
+                    top = Spacing.Spacing16,
+                    bottom = Spacing.Spacing12,
+                ),
         verticalArrangement = Arrangement.Bottom,
     ) {
         Text(
@@ -83,11 +83,12 @@ internal fun CalendarPickerHeader(
 
         // TODO: format using CalendarSystem-specific conventions (weekday abbreviation, etc.)
         Text(
-            text = if (selected != null) {
-                "${cal.monthName(selected.year, selected.month)} ${selected.day}, ${selected.year}"
-            } else {
-                "— — —"
-            },
+            text =
+                if (selected != null) {
+                    "${cal.monthName(selected.year, selected.month)} ${selected.day}, ${selected.year}"
+                } else {
+                    "— — —"
+                },
             style = MaterialTheme.typography.displaySmall,
             color = TextColor.OnSurface,
         )
@@ -148,12 +149,12 @@ private fun CalendarMonthNavigation(
 
         // Month chip — tapping switches to the month picker
         Row(
-            modifier = Modifier
-                .clip(RoundedCornerShape(Radius.S))
-                .clickable(role = Role.Button) {
-                    state.viewMode = CalendarPickerViewMode.MONTH
-                }
-                .padding(horizontal = Spacing.Spacing4),
+            modifier =
+                Modifier
+                    .clip(RoundedCornerShape(Radius.S))
+                    .clickable(role = Role.Button) {
+                        state.viewMode = CalendarPickerViewMode.MONTH
+                    }.padding(horizontal = Spacing.Spacing4),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
@@ -168,12 +169,12 @@ private fun CalendarMonthNavigation(
 
         // Year chip — tapping switches to the year picker
         Row(
-            modifier = Modifier
-                .clip(RoundedCornerShape(Radius.S))
-                .clickable(role = Role.Button) {
-                    state.viewMode = CalendarPickerViewMode.YEAR
-                }
-                .padding(horizontal = Spacing.Spacing4),
+            modifier =
+                Modifier
+                    .clip(RoundedCornerShape(Radius.S))
+                    .clickable(role = Role.Button) {
+                        state.viewMode = CalendarPickerViewMode.YEAR
+                    }.padding(horizontal = Spacing.Spacing4),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
@@ -266,9 +267,10 @@ private fun CalendarDayGrid(
                 repeat(daysPerWeek) { weekDay ->
                     val day = week * daysPerWeek + weekDay - firstWeekDay + 1
                     if (day in 1..daysInMonth) {
-                        val now = cal.fromEpochMillis(
-                            Clock.System.now().toEpochMilliseconds()
-                        )
+                        val now =
+                            cal.fromEpochMillis(
+                                Clock.System.now().toEpochMilliseconds(),
+                            )
                         CalendarDayCell(
                             day = day,
                             isSelected = state.selectedDate == CalendarDate(year, month, day),
@@ -297,26 +299,29 @@ private fun CalendarDayCell(
     modifier: Modifier = Modifier,
 ) {
     val background = if (isSelected) MaterialTheme.colorScheme.primary else Color.Transparent
-    val todayBorderMod = if (isToday && !isSelected) {
-        Modifier.border(width = 1.dp, color = MaterialTheme.colorScheme.primary, shape = CircleShape)
-    } else {
-        Modifier
-    }
-    val textColor = when {
-        !isEnabled -> TextColor.OnSurface.copy(alpha = 0.38f)
-        isSelected -> MaterialTheme.colorScheme.onPrimary
-        isToday -> MaterialTheme.colorScheme.primary
-        else -> TextColor.OnSurface
-    }
+    val todayBorderMod =
+        if (isToday && !isSelected) {
+            Modifier.border(width = 1.dp, color = MaterialTheme.colorScheme.primary, shape = CircleShape)
+        } else {
+            Modifier
+        }
+    val textColor =
+        when {
+            !isEnabled -> TextColor.OnSurface.copy(alpha = 0.38f)
+            isSelected -> MaterialTheme.colorScheme.onPrimary
+            isToday -> MaterialTheme.colorScheme.primary
+            else -> TextColor.OnSurface
+        }
 
     Box(
         contentAlignment = Alignment.Center,
-        modifier = modifier
-            .size(DayCellSize)
-            .clip(CircleShape)
-            .then(todayBorderMod)
-            .background(color = background, shape = CircleShape)
-            .clickable(enabled = isEnabled, role = Role.Button, onClick = onClick),
+        modifier =
+            modifier
+                .size(DayCellSize)
+                .clip(CircleShape)
+                .then(todayBorderMod)
+                .background(color = background, shape = CircleShape)
+                .clickable(enabled = isEnabled, role = Role.Button, onClick = onClick),
     ) {
         Text(
             text = day.toString(),
@@ -340,9 +345,10 @@ internal fun CalendarYearView(
 
     LazyVerticalGrid(
         columns = GridCells.Fixed(3),
-        modifier = modifier
-            .height(Spacing.Spacing200)
-            .padding(vertical = Spacing.Spacing8),
+        modifier =
+            modifier
+                .height(Spacing.Spacing200)
+                .padding(vertical = Spacing.Spacing8),
     ) {
         itemsIndexed(
             items = List(yearCount) { cal.yearRange.first + it },
@@ -371,9 +377,10 @@ internal fun CalendarMonthView(
 
     LazyVerticalGrid(
         columns = GridCells.Fixed(3),
-        modifier = modifier
-            .height(Spacing.Spacing200)
-            .padding(vertical = Spacing.Spacing8),
+        modifier =
+            modifier
+                .height(Spacing.Spacing200)
+                .padding(vertical = Spacing.Spacing8),
     ) {
         itemsIndexed(
             items = List(cal.monthsPerYear) { it + 1 },
@@ -402,12 +409,13 @@ private fun CalendarYearCell(
 
     Box(
         contentAlignment = Alignment.Center,
-        modifier = modifier
-            .padding(Spacing.Spacing4)
-            .clip(RoundedCornerShape(Radius.Full))
-            .background(color = background)
-            .clickable(role = Role.Button, onClick = onClick)
-            .padding(vertical = Spacing.Spacing8),
+        modifier =
+            modifier
+                .padding(Spacing.Spacing4)
+                .clip(RoundedCornerShape(Radius.Full))
+                .background(color = background)
+                .clickable(role = Role.Button, onClick = onClick)
+                .padding(vertical = Spacing.Spacing8),
     ) {
         Text(
             text = year.toString(),
@@ -430,12 +438,13 @@ private fun CalendarMonthCell(
 
     Box(
         contentAlignment = Alignment.Center,
-        modifier = modifier
-            .padding(Spacing.Spacing4)
-            .clip(RoundedCornerShape(Radius.Full))
-            .background(color = background)
-            .clickable(role = Role.Button, onClick = onClick)
-            .padding(vertical = Spacing.Spacing8),
+        modifier =
+            modifier
+                .padding(Spacing.Spacing4)
+                .clip(RoundedCornerShape(Radius.Full))
+                .background(color = background)
+                .clickable(role = Role.Button, onClick = onClick)
+                .padding(vertical = Spacing.Spacing8),
     ) {
         Text(
             text = label,

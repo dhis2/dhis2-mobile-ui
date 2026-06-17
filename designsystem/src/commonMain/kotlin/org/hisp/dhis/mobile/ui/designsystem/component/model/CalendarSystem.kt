@@ -14,7 +14,6 @@ enum class WeekStart { SUNDAY, MONDAY, SATURDAY }
  * All month and day indices are **1-based** throughout this interface.
  */
 interface CalendarSystem {
-
     /** Unique identifier, e.g. "nepali", "ethiopian", "gregorian" */
     val id: String
 
@@ -46,20 +45,33 @@ interface CalendarSystem {
     val yearRange: IntRange
 
     /** Full display name for the given 1-based [month] in [year] (e.g. "Meskerem", "Baisakh") */
-    fun monthName(year: Int, month: Int): String
+    fun monthName(
+        year: Int,
+        month: Int,
+    ): String
 
     /** Number of days in the given 1-based [month] for [year] */
-    fun daysInMonth(year: Int, month: Int): Int
+    fun daysInMonth(
+        year: Int,
+        month: Int,
+    ): Int
 
     /**
      * 0-based weekday index of the first day of [month]/[year].
      * 0 corresponds to the first entry in [weekDayNames].
      * Used to calculate the leading blank cells in the day grid.
      */
-    fun firstWeekDayOfMonth(year: Int, month: Int): Int
+    fun firstWeekDayOfMonth(
+        year: Int,
+        month: Int,
+    ): Int
 
     /** Convert a calendar date (year/month/day in this system) to UTC milliseconds since epoch */
-    fun toEpochMillis(year: Int, month: Int, day: Int): Long
+    fun toEpochMillis(
+        year: Int,
+        month: Int,
+        day: Int,
+    ): Long
 
     /** Convert UTC milliseconds since epoch to a calendar date in this system */
     fun fromEpochMillis(millis: Long): CalendarDate
