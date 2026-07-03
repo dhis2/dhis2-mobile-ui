@@ -18,6 +18,9 @@ fun InputCheckBoxScreen() {
     val option4 = "Option 4"
     val option5 = "Option 5"
     val option6 = "Option 6"
+    val option7 = "Option 7"
+    val option8 = "Option 8"
+    val option9 = "Option 9"
 
     val checkBoxDataItemsVertical =
         remember {
@@ -25,6 +28,21 @@ fun InputCheckBoxScreen() {
                 CheckBoxData("0", checked = true, enabled = true, textInput = option1),
                 CheckBoxData("1", checked = false, enabled = true, textInput = option2),
                 CheckBoxData("2", checked = false, enabled = true, textInput = option3),
+            )
+        }
+
+    val checkBoxDataItemsLarge =
+        remember {
+            mutableStateListOf(
+                CheckBoxData("0", checked = false, enabled = true, textInput = option1),
+                CheckBoxData("1", checked = false, enabled = true, textInput = option2),
+                CheckBoxData("2", checked = false, enabled = true, textInput = option3),
+                CheckBoxData("3", checked = true, enabled = true, textInput = option4),
+                CheckBoxData("4", checked = false, enabled = true, textInput = option5),
+                CheckBoxData("5", checked = false, enabled = true, textInput = option6),
+                CheckBoxData("6", checked = false, enabled = true, textInput = option7),
+                CheckBoxData("7", checked = false, enabled = true, textInput = option8),
+                CheckBoxData("8", checked = false, enabled = true, textInput = option9),
             )
         }
 
@@ -68,6 +86,21 @@ fun InputCheckBoxScreen() {
                     checkBoxDataItemsVertical[index] = checkBoxData.copy(checked = !checkBoxData.checked)
                 },
                 onClearSelection = { checkBoxDataItemsVertical.replaceAll { it.copy(checked = false) } },
+                state = InputShellState.UNFOCUSED,
+            )
+        }
+        ColumnComponentContainer("Basic state with large number options") {
+            InputCheckBox(
+                title = "Label",
+                checkBoxData = checkBoxDataItemsLarge,
+                onItemChange = { checkBoxData ->
+                    val index = checkBoxDataItemsLarge.withIndex().first { it.value.uid == checkBoxData.uid }.index
+                    checkBoxDataItemsLarge.forEachIndexed { index, data ->
+                        checkBoxDataItemsLarge[index] = data.copy(checked = false)
+                    }
+                    checkBoxDataItemsLarge[index] = checkBoxData.copy(checked = !checkBoxData.checked)
+                },
+                onClearSelection = { checkBoxDataItemsLarge.replaceAll { it.copy(checked = false) } },
                 state = InputShellState.UNFOCUSED,
             )
         }

@@ -176,11 +176,11 @@ fun RadioButtonBlock(
  * @param textInput the text to be displayed.
  */
 data class RadioButtonData(
-    val uid: String,
-    val selected: Boolean,
-    val enabled: Boolean,
-    val textInput: AnnotatedString?,
-) {
+    override val uid: String,
+    override val selected: Boolean,
+    override val enabled: Boolean,
+    override val textInput: AnnotatedString?,
+) : OptionData(uid, selected, enabled, textInput) {
     constructor(uid: String, selected: Boolean, enabled: Boolean, textInput: String) : this(
         uid = uid,
         selected = selected,

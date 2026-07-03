@@ -31,8 +31,8 @@ class InputPercentageTest {
             )
         }
         rule.onNodeWithTag("INPUT_PERCENTAGE").assertExists()
-        rule.onNodeWithTag("INPUT_PERCENTAGE_LEGEND").assertDoesNotExist()
-        rule.onNodeWithTag("INPUT_PERCENTAGE_SUPPORTING_TEXT").assertDoesNotExist()
+        rule.onNodeWithTag("INPUT_PERCENTAGE_LEGEND", useUnmergedTree = true).assertDoesNotExist()
+        rule.onNodeWithTag("INPUT_PERCENTAGE_SUPPORTING_TEXT", useUnmergedTree = true).assertDoesNotExist()
     }
 
     @Test
@@ -51,8 +51,8 @@ class InputPercentageTest {
             )
         }
         rule.onNodeWithTag("INPUT_PERCENTAGE").assertExists()
-        rule.onNodeWithTag("INPUT_PERCENTAGE_FIELD").performTextInput("25")
-        rule.onNodeWithTag("INPUT_PERCENTAGE_FIELD").assert(hasText("25 %"))
+        rule.onNodeWithTag("INPUT_PERCENTAGE_FIELD", useUnmergedTree = true).performTextInput("25")
+        rule.onNodeWithTag("INPUT_PERCENTAGE_FIELD", useUnmergedTree = true).assert(hasText("25 %"))
     }
 
     @Test
@@ -121,8 +121,8 @@ class InputPercentageTest {
             )
         }
         rule.onNodeWithTag("INPUT_PERCENTAGE").assertExists()
-        rule.onNodeWithTag("INPUT_PERCENTAGE_LEGEND").assertExists()
-        rule.onNodeWithTag("INPUT_PERCENTAGE_LEGEND").assertHasNoClickAction()
+        rule.onNodeWithTag("INPUT_PERCENTAGE_LEGEND", useUnmergedTree = true).assertExists()
+        rule.onNodeWithTag("INPUT_PERCENTAGE_LEGEND", useUnmergedTree = true).assertHasNoClickAction()
     }
 
     @Test
@@ -136,7 +136,7 @@ class InputPercentageTest {
             )
         }
         rule.onNodeWithTag("INPUT_PERCENTAGE").assertExists()
-        rule.onNodeWithTag("INPUT_PERCENTAGE_SUPPORTING_TEXT").assertExists()
+        rule.onNodeWithTag("INPUT_PERCENTAGE_SUPPORTING_TEXT", useUnmergedTree = true).assertExists()
     }
 
     @Test

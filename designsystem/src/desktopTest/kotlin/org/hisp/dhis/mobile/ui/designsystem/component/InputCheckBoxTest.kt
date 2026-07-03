@@ -9,6 +9,7 @@ import androidx.compose.ui.test.assertHasNoClickAction
 import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.assertIsNotFocused
+import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.isFocused
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
@@ -269,5 +270,77 @@ class InputCheckBoxTest {
         }
         rule.onNodeWithTag("INPUT_CHECK_BOX").assertExists()
         rule.onNodeWithTag("INPUT_CHECK_BOX_SUPPORTING_TEXT").assertExists()
+    }
+
+    @Test
+    fun shouldSetValueFromBottomSheet() {
+        rule.setContent {
+            val checkBoxDataList =
+                remember {
+                    mutableStateListOf(
+                        CheckBoxData("0", checked = false, enabled = true, textInput = "Option 1"),
+                        CheckBoxData("1", checked = false, enabled = false, textInput = "Option 2"),
+                        CheckBoxData("2", checked = false, enabled = true, textInput = "Option 3"),
+                        CheckBoxData("3", checked = false, enabled = true, textInput = "Option 4"),
+                        CheckBoxData("4", checked = false, enabled = false, textInput = "Option 5"),
+                        CheckBoxData("5", checked = false, enabled = true, textInput = "Option 6"),
+                        CheckBoxData("6", checked = false, enabled = true, textInput = "Option 7"),
+                        CheckBoxData("7", checked = false, enabled = false, textInput = "Option 8"),
+                        CheckBoxData("8", checked = false, enabled = true, textInput = "Option 9"),
+                    )
+                }
+
+            InputCheckBox(
+                title = "Label",
+                checkBoxData = checkBoxDataList,
+                modifier = Modifier.testTag("INPUT_CHECK_BOX"),
+                onItemChange = { checkBoxData ->
+                    val index = checkBoxDataList.withIndex().first { it.value.uid == checkBoxData.uid }.index
+                    checkBoxDataList[index] = checkBoxData.copy(checked = !checkBoxData.checked)
+                },
+                onClearSelection = { checkBoxDataList.replaceAll { it.copy(checked = false) } },
+                state = InputShellState.UNFOCUSED,
+            )
+        }
+        rule.onNodeWithTag("INPUT_CHECK_BOX").assertExists()
+        rule.onNodeWithTag("INPUT_CHECK_BOX_DROPDOWN_TEXT").assertExists()
+        rule.onNodeWithTag("INPUT_MULTI_SELECT_CLICKABLE").performClick()
+        rule.onNodeWithTag("INPUT_OPTIONS_BOTTOM_SHEET").assertExists()
+    }
+
+    @Test
+    fun shouldShowBottomSheetForLargeOptions() {
+        rule.setContent {
+            val checkBoxDataList =
+                remember {
+                    mutableStateListOf(
+                        CheckBoxData("0", checked = false, enabled = true, textInput = "Option 1"),
+                        CheckBoxData("1", checked = false, enabled = false, textInput = "Option 2"),
+                        CheckBoxData("2", checked = false, enabled = true, textInput = "Option 3"),
+                        CheckBoxData("3", checked = false, enabled = true, textInput = "Option 4"),
+                        CheckBoxData("4", checked = false, enabled = false, textInput = "Option 5"),
+                        CheckBoxData("5", checked = false, enabled = true, textInput = "Option 6"),
+                        CheckBoxData("6", checked = false, enabled = true, textInput = "Option 7"),
+                        CheckBoxData("7", checked = false, enabled = false, textInput = "Option 8"),
+                        CheckBoxData("8", checked = false, enabled = true, textInput = "Option 9"),
+                    )
+                }
+
+            InputCheckBox(
+                title = "Label",
+                checkBoxData = checkBoxDataList,
+                modifier = Modifier.testTag("INPUT_CHECK_BOX"),
+                onItemChange = { checkBoxData ->
+                    val index = checkBoxDataList.withIndex().first { it.value.uid == checkBoxData.uid }.index
+                    checkBoxDataList[index] = checkBoxData.copy(checked = !checkBoxData.checked)
+                },
+                onClearSelection = { checkBoxDataList.replaceAll { it.copy(checked = false) } },
+                state = InputShellState.UNFOCUSED,
+            )
+        }
+        rule.onNodeWithTag("INPUT_MULTI_SELECT_CLICKABLE").performClick()
+        rule.onNodeWithTag("CHECK_BOX_2").performClick()
+        rule.onNodeWithTag("OPTIONS_BOTTOM_SHEET_DONE_BUTTON").performClick()
+        rule.onNodeWithTag("INPUT_CHECK_BOX_DROPDOWN_TEXT").assertTextEquals("Option 3")
     }
 }

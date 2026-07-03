@@ -234,7 +234,7 @@ fun InputDateTime(
                 enabled = state.inputState != InputShellState.DISABLED,
             )
         },
-        supportingText = supportingTextList,
+        supportingText = supportingTextList.ifEmpty { null },
         supportingTextTestTag = "INPUT_DATE_TIME_SUPPORTING_TEXT",
         legend = {
             state.legendData?.let {

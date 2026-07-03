@@ -164,11 +164,11 @@ fun CheckBoxBlock(
  * @param textInput: the text to be displayed.
  */
 data class CheckBoxData(
-    val uid: String,
+    override val uid: String,
     val checked: Boolean,
-    val enabled: Boolean,
-    val textInput: AnnotatedString?,
-) {
+    override val enabled: Boolean,
+    override val textInput: AnnotatedString?,
+) : OptionData(uid, checked, enabled, textInput) {
     constructor(uid: String, checked: Boolean, enabled: Boolean, textInput: String) : this(
         uid = uid,
         checked = checked,

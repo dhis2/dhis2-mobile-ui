@@ -31,8 +31,8 @@ class InputPositiveIntegerTest {
             )
         }
         rule.onNodeWithTag("INPUT_POSITIVE_INTEGER").assertExists()
-        rule.onNodeWithTag("INPUT_POSITIVE_INTEGER_LEGEND").assertDoesNotExist()
-        rule.onNodeWithTag("INPUT_POSITIVE_INTEGER_SUPPORTING_TEXT").assertDoesNotExist()
+        rule.onNodeWithTag("INPUT_POSITIVE_INTEGER_LEGEND", useUnmergedTree = true).assertDoesNotExist()
+        rule.onNodeWithTag("INPUT_POSITIVE_INTEGER_SUPPORTING_TEXT", useUnmergedTree = true).assertDoesNotExist()
     }
 
     @Test
@@ -122,8 +122,8 @@ class InputPositiveIntegerTest {
             )
         }
         rule.onNodeWithTag("INPUT_POSITIVE_INTEGER").assertExists()
-        rule.onNodeWithTag("INPUT_POSITIVE_INTEGER_LEGEND").assertExists()
-        rule.onNodeWithTag("INPUT_POSITIVE_INTEGER_LEGEND").assertHasNoClickAction()
+        rule.onNodeWithTag("INPUT_POSITIVE_INTEGER_LEGEND", useUnmergedTree = true).assertExists()
+        rule.onNodeWithTag("INPUT_POSITIVE_INTEGER_LEGEND", useUnmergedTree = true).assertHasNoClickAction()
     }
 
     @Test
@@ -137,7 +137,7 @@ class InputPositiveIntegerTest {
             )
         }
         rule.onNodeWithTag("INPUT_POSITIVE_INTEGER").assertExists()
-        rule.onNodeWithTag("INPUT_POSITIVE_INTEGER_SUPPORTING_TEXT").assertExists()
+        rule.onNodeWithTag("INPUT_POSITIVE_INTEGER_SUPPORTING_TEXT", useUnmergedTree = true).assertExists()
     }
 
     @Test

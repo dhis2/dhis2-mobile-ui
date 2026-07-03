@@ -9,6 +9,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.test.assertHasNoClickAction
 import androidx.compose.ui.test.assertIsNotSelected
 import androidx.compose.ui.test.assertIsSelected
+import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
@@ -256,5 +257,65 @@ class InputRadioButtonTest {
         }
         rule.onNodeWithTag("RADIO_BUTTON_INPUT").assertExists()
         rule.onNodeWithTag("RADIO_BUTTON_INPUT_SUPPORTING_TEXT").assertExists()
+    }
+
+    @Test
+    fun shouldSetValueFromBottomSheet() {
+        rule.setContent {
+            val radioButtonData =
+                listOf(
+                    RadioButtonData("0", selected = false, enabled = true, textInput = "Option 1"),
+                    RadioButtonData("1", selected = false, enabled = true, textInput = "Option 2"),
+                    RadioButtonData("2", selected = false, enabled = true, textInput = "Option 3"),
+                    RadioButtonData("3", selected = false, enabled = true, textInput = "Option 4"),
+                    RadioButtonData("4", selected = false, enabled = true, textInput = "Option 5"),
+                    RadioButtonData("5", selected = false, enabled = true, textInput = "Option 6"),
+                    RadioButtonData("6", selected = false, enabled = true, textInput = "Option 7"),
+                    RadioButtonData("7", selected = false, enabled = true, textInput = "Option 8"),
+                    RadioButtonData("8", selected = false, enabled = true, textInput = "Option 9"),
+                )
+            InputRadioButton(
+                title = "Label",
+                radioButtonData = radioButtonData,
+                onItemChange = {},
+                state = InputShellState.UNFOCUSED,
+            )
+        }
+        rule.onNodeWithTag("RADIO_BUTTON_INPUT").assertExists()
+        rule.onNodeWithTag("INPUT_RADIO_BUTTON_DROPDOWN_TEXT").assertExists()
+        rule.onNodeWithTag("INPUT_MULTI_SELECT_CLICKABLE").performClick()
+        rule.onNodeWithTag("INPUT_OPTIONS_BOTTOM_SHEET").assertExists()
+    }
+
+    @Test
+    fun shouldShowBottomSheetForLargeOptions() {
+        rule.setContent {
+            val radioButtonData =
+                listOf(
+                    RadioButtonData("0", selected = false, enabled = true, textInput = "Option 1"),
+                    RadioButtonData("1", selected = false, enabled = true, textInput = "Option 2"),
+                    RadioButtonData("2", selected = false, enabled = true, textInput = "Option 3"),
+                    RadioButtonData("3", selected = false, enabled = true, textInput = "Option 4"),
+                    RadioButtonData("4", selected = false, enabled = true, textInput = "Option 5"),
+                    RadioButtonData("5", selected = false, enabled = true, textInput = "Option 6"),
+                    RadioButtonData("6", selected = false, enabled = true, textInput = "Option 7"),
+                    RadioButtonData("7", selected = false, enabled = true, textInput = "Option 8"),
+                    RadioButtonData("8", selected = false, enabled = true, textInput = "Option 9"),
+                )
+            var selectedItem by remember {
+                mutableStateOf<RadioButtonData?>(radioButtonData[0])
+            }
+            InputRadioButton(
+                title = "Label",
+                radioButtonData = radioButtonData,
+                itemSelected = selectedItem,
+                onItemChange = { selectedItem = it },
+                state = InputShellState.UNFOCUSED,
+            )
+        }
+        rule.onNodeWithTag("INPUT_MULTI_SELECT_CLICKABLE").performClick()
+        rule.onNodeWithTag("RADIO_BUTTON_2").performClick()
+        rule.onNodeWithTag("OPTIONS_BOTTOM_SHEET_DONE_BUTTON").performClick()
+        rule.onNodeWithTag("INPUT_RADIO_BUTTON_DROPDOWN_TEXT").assertTextEquals("Option 3")
     }
 }

@@ -21,3 +21,6 @@ actual suspend fun ClipEntry.getText(): String? =
             null
         }
     }
+
+@OptIn(ExperimentalComposeUiApi::class)
+actual fun String.toClipEntry(): ClipEntry = ClipEntry(java.awt.datatransfer.StringSelection(this))

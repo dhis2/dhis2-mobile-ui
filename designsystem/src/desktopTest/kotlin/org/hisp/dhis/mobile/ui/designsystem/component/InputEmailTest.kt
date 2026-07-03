@@ -35,8 +35,8 @@ class InputEmailTest {
             )
         }
         rule.onNodeWithTag("INPUT_EMAIL").assertExists()
-        rule.onNodeWithTag("INPUT_EMAIL_LEGEND").assertDoesNotExist()
-        rule.onNodeWithTag("INPUT_EMAIL_SUPPORTING_TEXT").assertDoesNotExist()
+        rule.onNodeWithTag("INPUT_EMAIL_LEGEND", useUnmergedTree = true).assertDoesNotExist()
+        rule.onNodeWithTag("INPUT_EMAIL_SUPPORTING_TEXT", useUnmergedTree = true).assertDoesNotExist()
     }
 
     @Test
@@ -54,8 +54,8 @@ class InputEmailTest {
             )
         }
         rule.onNodeWithTag("INPUT_EMAIL").assertExists()
-        rule.onNodeWithTag("INPUT_EMAIL_FIELD").performTextInput("fatiman@gmail.com")
-        rule.onNodeWithTag("INPUT_EMAIL_FIELD").assert(hasText("fatiman@gmail.com"))
+        rule.onNodeWithTag("INPUT_EMAIL_FIELD", useUnmergedTree = true).performTextInput("fatiman@gmail.com")
+        rule.onNodeWithTag("INPUT_EMAIL_FIELD", useUnmergedTree = true).assert(hasText("fatiman@gmail.com"))
     }
 
     @Test
@@ -68,7 +68,7 @@ class InputEmailTest {
             )
         }
         rule.onNodeWithTag("INPUT_EMAIL").assertExists()
-        rule.onNodeWithTag("INPUT_EMAIL_FIELD").assertIsNotEnabled()
+        rule.onNodeWithTag("INPUT_EMAIL_FIELD", useUnmergedTree = true).assertIsNotEnabled()
     }
 
     @Test
@@ -86,8 +86,8 @@ class InputEmailTest {
             )
         }
         rule.onNodeWithTag("INPUT_EMAIL").assertExists()
-        rule.onNodeWithTag("INPUT_EMAIL_FIELD").assertExists()
-        rule.onNodeWithTag("INPUT_EMAIL_FIELD").performTextInput("fatiman@gmail.com")
+        rule.onNodeWithTag("INPUT_EMAIL_FIELD", useUnmergedTree = true).assertExists()
+        rule.onNodeWithTag("INPUT_EMAIL_FIELD", useUnmergedTree = true).performTextInput("fatiman@gmail.com")
         rule.onNodeWithTag("INPUT_EMAIL_RESET_BUTTON").assertExists()
     }
 
@@ -109,7 +109,7 @@ class InputEmailTest {
         rule.onNodeWithTag("INPUT_EMAIL").assertExists()
         rule.onNodeWithTag("INPUT_EMAIL_RESET_BUTTON").assertExists()
         rule.onNodeWithTag("INPUT_EMAIL_RESET_BUTTON").performClick()
-        rule.onNodeWithTag("INPUT_EMAIL_FIELD").assertTextEquals("")
+        rule.onNodeWithTag("INPUT_EMAIL_FIELD", useUnmergedTree = true).assertTextEquals("")
         rule.onNodeWithTag("INPUT_EMAIL_RESET_BUTTON").assertDoesNotExist()
     }
 
@@ -143,8 +143,8 @@ class InputEmailTest {
             )
         }
         rule.onNodeWithTag("INPUT_EMAIL").assertExists()
-        rule.onNodeWithTag("INPUT_EMAIL_LEGEND").assertExists()
-        rule.onNodeWithTag("INPUT_EMAIL_LEGEND").assertHasNoClickAction()
+        rule.onNodeWithTag("INPUT_EMAIL_LEGEND", useUnmergedTree = true).assertExists()
+        rule.onNodeWithTag("INPUT_EMAIL_LEGEND", useUnmergedTree = true).assertHasNoClickAction()
     }
 
     @Test
@@ -159,7 +159,7 @@ class InputEmailTest {
             )
         }
         rule.onNodeWithTag("INPUT_EMAIL").assertExists()
-        rule.onNodeWithTag("INPUT_EMAIL_SUPPORTING_TEXT").assertExists()
+        rule.onNodeWithTag("INPUT_EMAIL_SUPPORTING_TEXT", useUnmergedTree = true).assertExists()
     }
 
     @Test
@@ -179,19 +179,19 @@ class InputEmailTest {
         }
         rule.onNodeWithTag("EMAIL_BUTTON").assertIsNotEnabled()
 
-        rule.onNodeWithTag("INPUT_EMAIL_FIELD").performTextInput("workingexample@email.com")
+        rule.onNodeWithTag("INPUT_EMAIL_FIELD", useUnmergedTree = true).performTextInput("workingexample@email.com")
         rule.onNodeWithTag("EMAIL_BUTTON").assertIsEnabled()
 
-        rule.onNodeWithTag("INPUT_EMAIL_FIELD").performTextClearance()
-        rule.onNodeWithTag("INPUT_EMAIL_FIELD").performTextInput("another_working@somethingelse.org")
+        rule.onNodeWithTag("INPUT_EMAIL_FIELD", useUnmergedTree = true).performTextClearance()
+        rule.onNodeWithTag("INPUT_EMAIL_FIELD", useUnmergedTree = true).performTextInput("another_working@somethingelse.org")
         rule.onNodeWithTag("EMAIL_BUTTON").assertIsEnabled()
 
-        rule.onNodeWithTag("INPUT_EMAIL_FIELD").performTextClearance()
-        rule.onNodeWithTag("INPUT_EMAIL_FIELD").performTextInput("very.common@example.com")
+        rule.onNodeWithTag("INPUT_EMAIL_FIELD", useUnmergedTree = true).performTextClearance()
+        rule.onNodeWithTag("INPUT_EMAIL_FIELD", useUnmergedTree = true).performTextInput("very.common@example.com")
         rule.onNodeWithTag("EMAIL_BUTTON").assertIsEnabled()
 
-        rule.onNodeWithTag("INPUT_EMAIL_FIELD").performTextClearance()
-        rule.onNodeWithTag("INPUT_EMAIL_FIELD").performTextInput("abc@example.co.uk")
+        rule.onNodeWithTag("INPUT_EMAIL_FIELD", useUnmergedTree = true).performTextClearance()
+        rule.onNodeWithTag("INPUT_EMAIL_FIELD", useUnmergedTree = true).performTextInput("abc@example.co.uk")
         rule.onNodeWithTag("EMAIL_BUTTON").assertIsEnabled()
     }
 

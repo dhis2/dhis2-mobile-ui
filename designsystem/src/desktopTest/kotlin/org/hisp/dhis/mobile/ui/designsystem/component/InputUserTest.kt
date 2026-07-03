@@ -148,8 +148,8 @@ class InputUserTest {
             )
         }
         rule.onNodeWithTag(InputUserModel.MAIN).assertExists()
-        rule.onNodeWithTag(InputUserModel.LEGEND).assertExists()
-        rule.onNodeWithTag(InputUserModel.LEGEND).assertHasNoClickAction()
+        rule.onNodeWithTag(InputUserModel.LEGEND, useUnmergedTree = true).assertExists()
+        rule.onNodeWithTag(InputUserModel.LEGEND, useUnmergedTree = true).assertHasNoClickAction()
     }
 
     @Test
@@ -165,6 +165,6 @@ class InputUserTest {
             )
         }
         rule.onNodeWithTag(InputUserModel.MAIN).assertExists()
-        rule.onNodeWithTag(InputUserModel.SUPPORTING_TEXT).assertExists()
+        rule.onNodeWithTag(InputUserModel.SUPPORTING_TEXT, useUnmergedTree = true).assertExists()
     }
 }

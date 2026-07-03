@@ -34,8 +34,8 @@ class InputNumberTest {
             )
         }
         rule.onNodeWithTag("INPUT_NUMBER").assertExists()
-        rule.onNodeWithTag("INPUT_NUMBER_LEGEND").assertDoesNotExist()
-        rule.onNodeWithTag("INPUT_NUMBER_SUPPORTING_TEXT").assertDoesNotExist()
+        rule.onNodeWithTag("INPUT_NUMBER_LEGEND", useUnmergedTree = true).assertDoesNotExist()
+        rule.onNodeWithTag("INPUT_NUMBER_SUPPORTING_TEXT", useUnmergedTree = true).assertDoesNotExist()
     }
 
     @Test
@@ -55,8 +55,8 @@ class InputNumberTest {
             )
         }
         rule.onNodeWithTag("INPUT_NUMBER").assertExists()
-        rule.onNodeWithTag("INPUT_NUMBER_FIELD").performTextInput("3232")
-        rule.onNodeWithTag("INPUT_NUMBER_FIELD").assert(hasText("3232"))
+        rule.onNodeWithTag("INPUT_NUMBER_FIELD", useUnmergedTree = true).performTextInput("3232")
+        rule.onNodeWithTag("INPUT_NUMBER_FIELD", useUnmergedTree = true).assert(hasText("3232"))
     }
 
     @Test
@@ -130,8 +130,8 @@ class InputNumberTest {
             )
         }
         rule.onNodeWithTag("INPUT_NUMBER").assertExists()
-        rule.onNodeWithTag("INPUT_NUMBER_LEGEND").assertExists()
-        rule.onNodeWithTag("INPUT_NUMBER_LEGEND").assertHasNoClickAction()
+        rule.onNodeWithTag("INPUT_NUMBER_LEGEND", useUnmergedTree = true).assertExists()
+        rule.onNodeWithTag("INPUT_NUMBER_LEGEND", useUnmergedTree = true).assertHasNoClickAction()
     }
 
     @Test
@@ -146,7 +146,7 @@ class InputNumberTest {
             )
         }
         rule.onNodeWithTag("INPUT_NUMBER").assertExists()
-        rule.onNodeWithTag("INPUT_NUMBER_SUPPORTING_TEXT").assertExists()
+        rule.onNodeWithTag("INPUT_NUMBER_SUPPORTING_TEXT", useUnmergedTree = true).assertExists()
     }
 
     @Test
