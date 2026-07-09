@@ -1,27 +1,17 @@
-# Release notes - Android App for DHIS2 - UI: 0.7.0
+# Release notes - Android App for DHIS2 - UI: 0.7.1
 
 ### Bug
 
-[ANDROAPP-6818](https://dhis2.atlassian.net/browse/ANDROAPP-6818) Support dismiss tapping on lateral background in tablet and desktop
+[ANDROAPP-6666](https://dhis2.atlassian.net/browse/ANDROAPP-6666) Long click on text fields should copy value
+
+[ANDROAPP-7458](https://dhis2.atlassian.net/browse/ANDROAPP-7458) Cannot select lower options in large option sets with checkbox or radio button configuration
+
+[ANDROAPP-7526](https://dhis2.atlassian.net/browse/ANDROAPP-7526) StringIndexOutOfBoundsException: begin 0, end 33, length 24
+
+[ANDROAPP-7544](https://dhis2.atlassian.net/browse/ANDROAPP-7544) \[Mobile-UI\] When the DateTime input has focus a small section of the supporting Text background color is shown
+
+[ANDROAPP-7613](https://dhis2.atlassian.net/browse/ANDROAPP-7613) IllegalArgumentException: Can't represent a width of 0 and height of 276000 in Constraints
 
 ### Task
 
-[ANDROAPP-6677](https://dhis2.atlassian.net/browse/ANDROAPP-6677) Remove deprecated methods for next release
-
-[ANDROAPP-7173](https://dhis2.atlassian.net/browse/ANDROAPP-7173) Evaluate Compose Preview Snapshot Testing
-
-[ANDROAPP-7397](https://dhis2.atlassian.net/browse/ANDROAPP-7397) Remove text color on design system typography
-
-[ANDROAPP-7423](https://dhis2.atlassian.net/browse/ANDROAPP-7423) Add reset button visibility property to OrgUnit Input field
-
-[ANDROAPP-7430](https://dhis2.atlassian.net/browse/ANDROAPP-7430) Update SupportingText component to support Search Operators
-
-[ANDROAPP-7468](https://dhis2.atlassian.net/browse/ANDROAPP-7468) Transifex on mobile UI review
-
-[ANDROAPP-7475](https://dhis2.atlassian.net/browse/ANDROAPP-7475) Create full screen dialog component
-
-[ANDROAPP-7510](https://dhis2.atlassian.net/browse/ANDROAPP-7510) Update Compose Multiplatform to 1.10.1
-
-### Feature
-
-[ANDROAPP-7457](https://dhis2.atlassian.net/browse/ANDROAPP-7457) Key-value pair layout and markdown support for rule actions
+[ANDROAPP-7518](https://dhis2.atlassian.net/browse/ANDROAPP-7518) Document Screenshot test generation in design system
