@@ -50,6 +50,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.delay
 import org.hisp.dhis.mobile.ui.designsystem.component.state.BottomSheetShellDefaults
 import org.hisp.dhis.mobile.ui.designsystem.component.state.BottomSheetShellUIState
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
@@ -59,6 +60,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
+import kotlin.time.Duration.Companion.milliseconds
 
 /**
  * DHIS2 [OrgBottomSheet] component designed to be used
@@ -112,7 +114,7 @@ fun OrgBottomSheet(
 
     LaunchedEffect(orgTreeItems.size) {
         isContentReady = false
-        kotlinx.coroutines.delay(300)
+        delay(300.milliseconds)
         isContentReady = true
     }
     BottomSheetShell(
@@ -123,7 +125,14 @@ fun OrgBottomSheet(
                 description = description,
                 headerTextAlignment = headerTextAlignment,
                 searchQuery = searchQuery,
-                scrollableContainerMaxHeight = maxOf(minOf(orgTreeHeightInDp, InternalSizeValues.Size386), InternalSizeValues.Size186),
+                scrollableContainerMaxHeight =
+                    maxOf(
+                        minOf(
+                            orgTreeHeightInDp,
+                            InternalSizeValues.Size386,
+                        ),
+                        InternalSizeValues.Size186,
+                    ),
                 scrollableContainerMinHeight = InternalSizeValues.Size186,
             ),
         modifier = modifier,
@@ -268,7 +277,7 @@ private fun OrgTreeList(
 }
 
 @Composable
-fun OrgUnitSelectorItem(
+private fun OrgUnitSelectorItem(
     orgTreeItem: OrgTreeItem,
     higherLevel: Int,
     searchQuery: String,
@@ -317,7 +326,13 @@ fun OrgUnitSelectorItem(
             modifier = clickableModifier,
         ) {
             if (orgTreeItem.canBeSelected) {
-                val checkBoxData = CheckBoxData(uid = orgTreeItem.uid, enabled = true, checked = orgTreeItem.selected, textInput = null)
+                val checkBoxData =
+                    CheckBoxData(
+                        uid = orgTreeItem.uid,
+                        enabled = true,
+                        checked = orgTreeItem.selected,
+                        textInput = null,
+                    )
                 CheckBox(
                     modifier = Modifier.testTag("$ITEM_CHECK_TEST_TAG${orgTreeItem.label}"),
                     checkBoxData = checkBoxData,
@@ -346,6 +361,15 @@ fun OrgUnitSelectorItem(
                             },
                     ),
             )
+
+            Spacer(Modifier.size(size = Spacing.Spacing4))
+
+            orgTreeItem.tag?.let { tag ->
+                Tag(
+                    label = tag,
+                    type = TagType.DEFAULT,
+                )
+            }
         }
     }
 }
@@ -448,6 +472,7 @@ private fun AnnotatedString.Builder.appendHighlightedString(
 data class OrgTreeItem(
     val uid: String,
     val label: String,
+    val tag: String? = null,
     var isOpen: Boolean = true,
     val hasChildren: Boolean = false,
     val selected: Boolean = false,

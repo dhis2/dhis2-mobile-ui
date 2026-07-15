@@ -44,7 +44,7 @@ fun OrgTreeBottomSheetScreen() {
             onDismiss = {
                 showOneOrgTreeBottomSheet = false
             },
-            onSearch = orgTreeItemsRepo::search,
+            onSearch = { query -> orgTreeItemsRepo.search(query, 1) },
             onItemClick = orgTreeItemsRepo::toggleItemExpansion,
             onItemSelected = { uid, checked ->
                 orgTreeItemsRepo.toggleItemSelection(uid, checked)
@@ -65,7 +65,7 @@ fun OrgTreeBottomSheetScreen() {
             onDismiss = {
                 showTwoOrgTreeBottomSheet = false
             },
-            onSearch = orgTreeItemsRepo::search,
+            onSearch = { query -> orgTreeItemsRepo.search(query, 4) },
             onItemClick = orgTreeItemsRepo::toggleItemExpansion,
             onItemSelected = { uid, checked ->
                 orgTreeItemsRepo.toggleItemSelection(uid, checked)
@@ -86,7 +86,7 @@ fun OrgTreeBottomSheetScreen() {
             onDismiss = {
                 showMediumOrgTreeBottomSheet = false
             },
-            onSearch = orgTreeItemsRepo::search,
+            onSearch = { query -> orgTreeItemsRepo.search(query, 8) },
             onItemClick = orgTreeItemsRepo::toggleItemExpansion,
             onItemSelected = { uid, checked ->
                 orgTreeItemsRepo.toggleItemSelection(uid, checked)
@@ -107,7 +107,7 @@ fun OrgTreeBottomSheetScreen() {
             onDismiss = {
                 showLargeOrgTreeBottomSheet = false
             },
-            onSearch = orgTreeItemsRepo::search,
+            onSearch = { query -> orgTreeItemsRepo.search(query, 100) },
             onItemClick = orgTreeItemsRepo::toggleItemExpansion,
             onItemSelected = { uid, checked ->
                 orgTreeItemsRepo.toggleItemSelection(uid, checked)
@@ -133,7 +133,7 @@ fun OrgTreeBottomSheetScreen() {
             onDismiss = {
                 showTransferOrgBottomSheet = false
             },
-            onSearch = orgTreeItemsRepo::search,
+            onSearch = { query -> orgTreeItemsRepo.search(query, 100) },
             onItemClick = orgTreeItemsRepo::toggleItemExpansion,
             onItemSelected = { uid, checked ->
                 orgTreeItemsRepo.toggleItemSelection(uid, checked)
@@ -357,6 +357,7 @@ private class OrgTreeItemsFakeRepo {
             OrgTreeItem(
                 uid = "12-1",
                 label = "Vijayawada-$LOREM",
+                tag = "Short tag",
                 isOpen = false,
                 level = 1,
                 hasChildren = false,
@@ -364,6 +365,7 @@ private class OrgTreeItemsFakeRepo {
             OrgTreeItem(
                 uid = "12-2",
                 label = "Gudivada",
+                tag = "Long tag-$LOREM",
                 isOpen = false,
                 level = 1,
                 hasChildren = false,
@@ -380,13 +382,16 @@ private class OrgTreeItemsFakeRepo {
             initialValue = createList(originalOrgTreeItems, childrenOrgItems),
         )
 
-    fun search(query: String) {
+    fun search(
+        query: String,
+        initialListSize: Int,
+    ) {
         coroutineScope.launch {
             if (query.isNotBlank()) {
-                val filteredList = originalOrgTreeItems.filter { it.label.contains(query, ignoreCase = true) }
+                val filteredList = originalOrgTreeItems.take(initialListSize).filter { it.label.contains(query, ignoreCase = true) }
                 _state.emit(filteredList)
             } else {
-                _state.emit(originalOrgTreeItems)
+                _state.emit(originalOrgTreeItems.take(initialListSize))
             }
         }
     }
