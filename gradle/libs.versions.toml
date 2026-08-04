@@ -1,11 +1,11 @@
 [versions]
 
-kotlin = "2.2.21"
-agp = "8.13.0"
-compose = "1.10.3"
+kotlin = "2.4.10"
+agp = "9.3.1"
+compose = "1.11.1"
 kotlinxSerializationJson = "1.9.0"
 multiplatformMarkdownRenderer = "0.38.1"
-paparazzi = "2.0.0-alpha02"
+paparazzi = "2.0.0-alpha05"
 zxing = "3.5.4"
 junit = "4.13.2"
 signaturepad = "0.1.4"

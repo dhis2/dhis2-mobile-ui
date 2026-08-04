@@ -24,7 +24,6 @@ kotlin {
     val xcf = XCFramework()
 
     listOf(
-        iosX64(),
         iosArm64(),
         iosSimulatorArm64(),
     ).forEach {
@@ -85,9 +84,13 @@ android {
     compileSdk = (findProperty("android.compileSdk") as String).toInt()
     namespace = "org.hisp.dhis.mobile.ui.designsystem"
 
-    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
-    sourceSets["main"].res.srcDirs("src/androidMain/res", "src/commonMain/composeResources")
-    sourceSets["main"].resources.srcDirs("src/commonMain/composeResources")
+    sourceSets {
+        getByName("main") {
+            manifest.srcFile("src/androidMain/AndroidManifest.xml")
+            res.srcDirs("src/androidMain/res", "src/commonMain/composeResources")
+            resources.srcDirs("src/commonMain/composeResources")
+        }
+    }
 
     defaultConfig {
         minSdk = (findProperty("android.minSdk") as String).toInt()
@@ -104,6 +107,18 @@ android {
         abortOnError = false
         warningsAsErrors = false
     }
+}
+
+// Paparazzi 2.0.0-alpha05's runtime is compiled for Java 21, but the module's
+// toolchain stays on 17 so the published bytecode keeps targeting 17. Run only
+// the Android unit test tasks (which host the Paparazzi snapshot tests) on 21.
+val javaToolchains = extensions.getByType<JavaToolchainService>()
+tasks.withType<Test>().matching { it.name.endsWith("UnitTest") }.configureEach {
+    javaLauncher.set(
+        javaToolchains.launcherFor {
+            languageVersion.set(JavaLanguageVersion.of(21))
+        },
+    )
 }
 
 tasks.withType(DokkaTask::class).configureEach {

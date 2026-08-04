@@ -11,7 +11,6 @@ import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.ClipOp
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.NativePaint
 import androidx.compose.ui.graphics.Paint
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.Shape
@@ -97,10 +96,8 @@ internal fun Modifier.innerShadow(blur: Dp = 10.dp): Modifier =
 
             // Check for valid blur radius
             if (blur.toPx() > 0) {
-                paint.asFrameworkPaint().apply {
-                    // Apply blur to the Paint
-                    paintBlur(blur.toPx())
-                }
+                // Apply blur to the Paint
+                paint.paintBlur(blur.toPx())
             }
 
             drawIntoCanvas { canvas ->
@@ -152,10 +149,8 @@ fun Modifier.dropShadow(
 
             // Check for valid blur radius
             if (blur.toPx() > 0) {
-                paint.asFrameworkPaint().apply {
-                    // Apply blur to the Paint
-                    paintBlur(blur.toPx())
-                }
+                // Apply blur to the Paint
+                paint.paintBlur(blur.toPx())
             }
 
             drawIntoCanvas { canvas ->
@@ -171,4 +166,4 @@ fun Modifier.dropShadow(
         },
     )
 
-internal expect fun NativePaint.paintBlur(blur: Float): NativePaint
+internal expect fun Paint.paintBlur(blur: Float)

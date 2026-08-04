@@ -1,6 +1,6 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
-import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.junit4.v2.createComposeRule
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.json.Json
@@ -77,7 +77,7 @@ class TableTest {
 
             tableRobot(composeTestRule) {
                 initTable(table)
-                val firstTableId = table[0].id!!
+                val firstTableId = table[0].id
                 val sonColumnsHighlight = 3
                 val grandsonColumnsHighlight = 12
                 val maxColumnGrandSon = MAX_COLUMNS
@@ -123,7 +123,7 @@ class TableTest {
 
             tableRobot(composeTestRule) {
                 initTable(table)
-                val firstTableId = table[0].id!!
+                val firstTableId = table[0].id
                 val secondRowHeaderChildren = 12
                 val thirdRowHeaderChildren = 48
 

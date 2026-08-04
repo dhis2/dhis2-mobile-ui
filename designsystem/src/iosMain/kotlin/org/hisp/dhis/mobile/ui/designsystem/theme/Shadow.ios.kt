@@ -1,6 +1,7 @@
 package org.hisp.dhis.mobile.ui.designsystem.theme
 
-import androidx.compose.ui.graphics.NativePaint
+import androidx.compose.ui.graphics.Paint
+import androidx.compose.ui.graphics.skiaPaint
 import kotlinx.cinterop.ExperimentalForeignApi
 import org.jetbrains.skia.FilterTileMode
 import org.jetbrains.skia.ImageFilter
@@ -13,12 +14,11 @@ actual val spreadPixel: Float
     get() = 3f
 
 @OptIn(ExperimentalForeignApi::class)
-internal actual fun NativePaint.paintBlur(blur: Float): NativePaint =
-    apply {
-        imageFilter =
-            ImageFilter.makeBlur(
-                blur,
-                blur,
-                FilterTileMode.DECAL,
-            )
-    }
+internal actual fun Paint.paintBlur(blur: Float) {
+    skiaPaint.imageFilter =
+        ImageFilter.makeBlur(
+            blur,
+            blur,
+            FilterTileMode.DECAL,
+        )
+}

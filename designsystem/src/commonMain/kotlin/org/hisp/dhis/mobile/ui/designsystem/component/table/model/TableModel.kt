@@ -98,7 +98,7 @@ data class TableModel(
     fun hasCellWithId(cellId: String?): Boolean =
         tableRows.any { row ->
             row.rowHeaders.any {
-                it.id.isNullOrEmpty().not() && cellId?.contains(it.id!!) == true
+                it.id.isNullOrEmpty().not() && cellId?.contains(it.id) == true
             }
         }
 

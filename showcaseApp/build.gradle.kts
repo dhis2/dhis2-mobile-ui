@@ -15,7 +15,6 @@ kotlin {
 
     // Add iOS targets
     listOf(
-        iosX64(),
         iosArm64(),
         iosSimulatorArm64(),
     ).forEach {
@@ -64,9 +63,13 @@ android {
     compileSdk = (findProperty("android.compileSdk") as String).toInt()
     namespace = "org.hisp.dhis.mobile.ui.common"
 
-    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
-    sourceSets["main"].res.srcDirs("src/androidMain/res", "src/commonMain/composeResources")
-    sourceSets["main"].resources.srcDirs("src/commonMain/composeResources")
+    sourceSets {
+        getByName("main") {
+            manifest.srcFile("src/androidMain/AndroidManifest.xml")
+            res.srcDirs("src/androidMain/res", "src/commonMain/composeResources")
+            resources.srcDirs("src/commonMain/composeResources")
+        }
+    }
 
     defaultConfig {
         applicationId = "org.hisp.dhis.showcaseapp"
