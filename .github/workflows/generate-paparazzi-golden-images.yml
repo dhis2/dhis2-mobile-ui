@@ -11,13 +11,16 @@ on:
 jobs:
   ci_job:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v6
         with:
           lfs: 'true'
           fetch-depth: 0
-          persist-credentials: false
+          # Credentials are persisted on purpose: `git lfs push` needs them to
+          # upload the recorded snapshot objects before the commit is created.
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set Up JDK
@@ -53,13 +56,92 @@ jobs:
         if: steps.verify.outcome == 'failure'
         run: ./gradlew ${{ env.main_project_module }}:verifyPaparazziDebug --no-daemon
 
-      - name: Commit Changes
+      - name: Upload recorded images as artifact
         if: steps.verify.outcome == 'failure'
-        run: .github/workflows/scripts/commit-changes.sh
-
-      - name: Push changes
-        if: steps.verify.outcome == 'failure'
-        uses: ad-m/github-push-action@master
+        uses: actions/upload-artifact@v7.0.1
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.ref }}
+          name: paparazzi-golden-images
+          path: ${{ env.main_project_module }}/src/androidUnitTest/snapshots/images
+
+      # Stages the recorded images and uploads their LFS objects. The commit
+      # made here is local only and never pushed -- it exists so `git lfs push`
+      # has a ref to walk, and so the pointer blobs land in the object store for
+      # the API commit below to read.
+      - name: Stage changes and upload LFS objects
+        id: stage
+        if: steps.verify.outcome == 'failure'
+        run: |
+          before=$(git rev-parse HEAD)
+          .github/workflows/scripts/commit-changes.sh
+          after=$(git rev-parse HEAD)
+          if [ "$before" = "$after" ]; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No recorded image changes to commit."
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            git lfs push origin HEAD
+          fi
+
+      # The repository ruleset "Require signed commits" applies to ~ALL branches
+      # with no bypass actors, so a plain `git push` of a bot commit is rejected.
+      # Commits created through the API are signed by GitHub's web-flow key and
+      # count as Verified. LFS-tracked files must be sent as their *pointer*
+      # text -- the real bytes were uploaded by `git lfs push` above.
+      - name: Commit golden images via API (verified)
+        if: steps.verify.outcome == 'failure' && steps.stage.outputs.changed == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { execFileSync } = require('child_process');
+            const git = (...args) =>
+              execFileSync('git', args, { maxBuffer: 64 * 1024 * 1024 });
+            const gitText = (...args) => git(...args).toString().trim();
+
+            const branch = process.env.GITHUB_REF_NAME;
+            // Parent on the branch head as it is *now*, not on the commit this
+            // run checked out -- someone may have pushed while the snapshots
+            // were being recorded, and a stale parent makes updateRef fail with
+            // "Update is not a fast forward". Only the recorded images are
+            // applied on top, so re-parenting is safe.
+            const ref = await github.rest.git.getRef({
+              ...context.repo, ref: `heads/${branch}`,
+            });
+            const parent = ref.data.object.sha;
+            const names = gitText('diff', '--name-status', 'HEAD~1', 'HEAD');
+            if (!names) {
+              core.info('No changes to commit.');
+              return;
+            }
+
+            const tree = [];
+            for (const line of names.split('\n')) {
+              const [status, ...rest] = line.split('\t');
+              const path = rest[rest.length - 1];
+              if (status.startsWith('D')) {
+                tree.push({ path, mode: '100644', type: 'blob', sha: null });
+                continue;
+              }
+              // Raw stored blob: for LFS-tracked paths this is the pointer text.
+              const content = git('cat-file', 'blob', `HEAD:${path}`).toString('utf8');
+              const blob = await github.rest.git.createBlob({
+                ...context.repo, content, encoding: 'utf-8',
+              });
+              tree.push({ path, mode: '100644', type: 'blob', sha: blob.data.sha });
+            }
+
+            const parentCommit = await github.rest.git.getCommit({
+              ...context.repo, commit_sha: parent,
+            });
+            const newTree = await github.rest.git.createTree({
+              ...context.repo, base_tree: parentCommit.data.tree.sha, tree,
+            });
+            const commit = await github.rest.git.createCommit({
+              ...context.repo,
+              message: 'Paparazzi Golden Images',
+              tree: newTree.data.sha,
+              parents: [parent],
+            });
+            await github.rest.git.updateRef({
+              ...context.repo, ref: `heads/${branch}`, sha: commit.data.sha,
+            });
+            core.info(`Committed ${tree.length} file(s) as ${commit.data.sha}`);
