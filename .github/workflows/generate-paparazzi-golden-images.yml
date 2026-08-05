@@ -24,7 +24,11 @@ jobs:
         uses: actions/setup-java@v5
         with:
           distribution: 'zulu' # See 'Supported distributions' for available options
-          java-version: '21'
+          # 21 runs the build (Paparazzi needs it); 17 satisfies jvmToolchain(17).
+          # Last entry wins as JAVA_HOME, so keep 21 last.
+          java-version: |
+            17
+            21
           cache: 'gradle'
 
       - name: Change wrapper permissions
