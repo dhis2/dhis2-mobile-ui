@@ -64,42 +64,16 @@ jobs:
           name: paparazzi-golden-images
           path: ${{ env.main_project_module }}/src/androidUnitTest/snapshots/images
 
-      # gh-commit (like dhis2-android-capture-app) commits via the GitHub API, so
-      # the commit is signed with GitHub's web-flow key and counts as Verified --
-      # required because the "Require signed commits" ruleset covers ~ALL branches
-      # with no bypass actors, and a plain push of a bot commit is rejected (GH013).
-      #
-      # The catch: gh-commit reads file contents from the WORKING TREE
-      # (fs.readFileSync). The golden images are LFS-tracked, so the working tree
-      # holds real PNG bytes -- committing those would silently take the images out
-      # of LFS. So upload the LFS objects first, then replace the working-tree files
-      # with their pointer text, which is what actually belongs in the commit.
-      - name: Upload LFS objects and stage pointers
+      # Uploads the LFS objects and leaves pointer text in the working tree, which
+      # is what gh-commit below must read. See the script for why.
+      - name: Stage recorded images as LFS pointers
         if: steps.verify.outcome == 'failure'
-        run: |
-          set -euo pipefail
-          git add -A
-          mapfile -t added < <(git diff --cached --name-only --diff-filter=d)
-          if [ ${#added[@]} -eq 0 ]; then
-            echo "No recorded image changes."
-            exit 0
-          fi
-          # Push the LFS blobs before the pointers land, so the commit is never
-          # left referencing objects the server doesn't have.
-          oids=()
-          for f in "${added[@]}"; do
-            oid=$(git cat-file blob ":$f" | sed -n 's/^oid sha256://p')
-            if [ -n "$oid" ]; then oids+=("$oid"); fi
-          done
-          if [ ${#oids[@]} -gt 0 ]; then
-            git lfs push --object-id origin "${oids[@]}"
-          fi
-          # Hand gh-commit pointers instead of PNGs.
-          for f in "${added[@]}"; do
-            git cat-file blob ":$f" > "$f"
-          done
-          git reset
+        run: .github/workflows/scripts/stage-golden-images.sh
 
+      # Commits via the GitHub API (like dhis2-android-capture-app), so the commit
+      # is signed with GitHub's web-flow key and counts as Verified -- required
+      # because the "Require signed commits" ruleset covers ~ALL branches with no
+      # bypass actors, and a plain push of a bot commit is rejected with GH013.
       - name: Commit golden images
         if: steps.verify.outcome == 'failure'
         uses: flex-development/gh-commit@177be4b5bca1b102400ca7220932d9ff7980fddb
