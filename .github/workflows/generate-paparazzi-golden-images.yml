@@ -19,10 +19,17 @@ jobs:
         with:
           lfs: 'true'
           fetch-depth: 0
-          # Bot token, as in dhis2-android-capture-app: credentials are persisted
-          # so `git lfs push` can upload the recorded snapshot objects, and a bot
-          # commit (unlike a GITHUB_TOKEN one) still triggers CI.
-          token: ${{ secrets.DHIS2_BOT_GITHUB_TOKEN }}
+          # Credentials are persisted on purpose: `git lfs push` needs them to
+          # upload the recorded snapshot objects before the commit is created.
+          #
+          # dhis2-android-capture-app uses DHIS2_BOT_GITHUB_TOKEN here, but that
+          # secret is not scoped to this repository (it resolves to empty and
+          # checkout fails with "Input required and not supplied: token").
+          # GITHUB_TOKEN works; the only cost is that commits it creates do not
+          # trigger workflows, so the resulting CI run waits for approval. If the
+          # bot secret is ever granted to this repo, swapping it in here and below
+          # removes that manual step.
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set Up JDK
         uses: actions/setup-java@v5
@@ -80,4 +87,4 @@ jobs:
         with:
           message: 'Paparazzi Golden Images'
           ref: ${{ github.ref_name }}
-          token: ${{ secrets.DHIS2_BOT_GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
