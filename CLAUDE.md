@@ -92,7 +92,8 @@ Other workflows:
   ```
 
 - Golden images live under `designsystem/src/androidUnitTest/snapshots/images`. This path is derived by the Paparazzi plugin from the KMP unit-test source set — it is **not** configurable, and it moved from `src/test/snapshots` in Paparazzi 2.0.0-alpha05.
-- **Do not regenerate goldens locally.** Push your branch, then run the "Generate Paparazzi Golden Images" workflow from GitHub Actions; it records, re-verifies and commits new images to the same branch.
+- **Do not regenerate goldens locally.** Paparazzi rendering can differ between macOS and the Linux CI runner, so locally-recorded images may fail verification on CI. Push your branch, then run the "Generate Paparazzi Golden Images" workflow from GitHub Actions; it records, re-verifies and commits new images to the same branch.
+- Verification uses Paparazzi's default `OffByTwo` differ: a per-pixel tolerance of ±2 per channel, then a percentage-of-differing-pixels threshold. A Compose upgrade typically shifts *every* snapshot slightly (antialiasing and text rasterisation), so `recordPaparazziDebug` rewrites all of them while only the few that cross the threshold actually fail. Review the ones that failed rather than the whole diff.
 - Verification failures write diffs to `build/paparazzi/failures/`.
 - A root-`build.gradle.kts` `afterEvaluate` block adds a Guava `-jre` constraint on Paparazzi-enabled subprojects (workaround for cashapp/paparazzi#906). Don't remove it.
 - Any Compose Multiplatform version bump will very likely shift rendering and require regenerating every golden image. Budget for it.
