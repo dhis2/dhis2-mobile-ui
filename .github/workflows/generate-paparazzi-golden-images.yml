@@ -19,9 +19,10 @@ jobs:
         with:
           lfs: 'true'
           fetch-depth: 0
-          # Credentials are persisted on purpose: `git lfs push` needs them to
-          # upload the recorded snapshot objects before the commit is created.
-          token: ${{ secrets.GITHUB_TOKEN }}
+          # Bot token, as in dhis2-android-capture-app: credentials are persisted
+          # so `git lfs push` can upload the recorded snapshot objects, and a bot
+          # commit (unlike a GITHUB_TOKEN one) still triggers CI.
+          token: ${{ secrets.DHIS2_BOT_GITHUB_TOKEN }}
 
       - name: Set Up JDK
         uses: actions/setup-java@v5
@@ -63,85 +64,46 @@ jobs:
           name: paparazzi-golden-images
           path: ${{ env.main_project_module }}/src/androidUnitTest/snapshots/images
 
-      # Stages the recorded images and uploads their LFS objects. The commit
-      # made here is local only and never pushed -- it exists so `git lfs push`
-      # has a ref to walk, and so the pointer blobs land in the object store for
-      # the API commit below to read.
-      - name: Stage changes and upload LFS objects
-        id: stage
+      # gh-commit (like dhis2-android-capture-app) commits via the GitHub API, so
+      # the commit is signed with GitHub's web-flow key and counts as Verified --
+      # required because the "Require signed commits" ruleset covers ~ALL branches
+      # with no bypass actors, and a plain push of a bot commit is rejected (GH013).
+      #
+      # The catch: gh-commit reads file contents from the WORKING TREE
+      # (fs.readFileSync). The golden images are LFS-tracked, so the working tree
+      # holds real PNG bytes -- committing those would silently take the images out
+      # of LFS. So upload the LFS objects first, then replace the working-tree files
+      # with their pointer text, which is what actually belongs in the commit.
+      - name: Upload LFS objects and stage pointers
         if: steps.verify.outcome == 'failure'
         run: |
-          before=$(git rev-parse HEAD)
-          .github/workflows/scripts/commit-changes.sh
-          after=$(git rev-parse HEAD)
-          if [ "$before" = "$after" ]; then
-            echo "changed=false" >> "$GITHUB_OUTPUT"
-            echo "No recorded image changes to commit."
-          else
-            echo "changed=true" >> "$GITHUB_OUTPUT"
-            git lfs push origin HEAD
+          set -euo pipefail
+          git add -A
+          mapfile -t added < <(git diff --cached --name-only --diff-filter=d)
+          if [ ${#added[@]} -eq 0 ]; then
+            echo "No recorded image changes."
+            exit 0
           fi
+          # Push the LFS blobs before the pointers land, so the commit is never
+          # left referencing objects the server doesn't have.
+          oids=()
+          for f in "${added[@]}"; do
+            oid=$(git cat-file blob ":$f" | sed -n 's/^oid sha256://p')
+            if [ -n "$oid" ]; then oids+=("$oid"); fi
+          done
+          if [ ${#oids[@]} -gt 0 ]; then
+            git lfs push --object-id origin "${oids[@]}"
+          fi
+          # Hand gh-commit pointers instead of PNGs.
+          for f in "${added[@]}"; do
+            git cat-file blob ":$f" > "$f"
+          done
+          git reset
 
-      # The repository ruleset "Require signed commits" applies to ~ALL branches
-      # with no bypass actors, so a plain `git push` of a bot commit is rejected.
-      # Commits created through the API are signed by GitHub's web-flow key and
-      # count as Verified. LFS-tracked files must be sent as their *pointer*
-      # text -- the real bytes were uploaded by `git lfs push` above.
-      - name: Commit golden images via API (verified)
-        if: steps.verify.outcome == 'failure' && steps.stage.outputs.changed == 'true'
-        uses: actions/github-script@v7
+      - name: Commit golden images
+        if: steps.verify.outcome == 'failure'
+        uses: flex-development/gh-commit@177be4b5bca1b102400ca7220932d9ff7980fddb
         with:
-          script: |
-            const { execFileSync } = require('child_process');
-            const git = (...args) =>
-              execFileSync('git', args, { maxBuffer: 64 * 1024 * 1024 });
-            const gitText = (...args) => git(...args).toString().trim();
-
-            const branch = process.env.GITHUB_REF_NAME;
-            // Parent on the branch head as it is *now*, not on the commit this
-            // run checked out -- someone may have pushed while the snapshots
-            // were being recorded, and a stale parent makes updateRef fail with
-            // "Update is not a fast forward". Only the recorded images are
-            // applied on top, so re-parenting is safe.
-            const ref = await github.rest.git.getRef({
-              ...context.repo, ref: `heads/${branch}`,
-            });
-            const parent = ref.data.object.sha;
-            const names = gitText('diff', '--name-status', 'HEAD~1', 'HEAD');
-            if (!names) {
-              core.info('No changes to commit.');
-              return;
-            }
-
-            const tree = [];
-            for (const line of names.split('\n')) {
-              const [status, ...rest] = line.split('\t');
-              const path = rest[rest.length - 1];
-              if (status.startsWith('D')) {
-                tree.push({ path, mode: '100644', type: 'blob', sha: null });
-                continue;
-              }
-              // Raw stored blob: for LFS-tracked paths this is the pointer text.
-              const content = git('cat-file', 'blob', `HEAD:${path}`).toString('utf8');
-              const blob = await github.rest.git.createBlob({
-                ...context.repo, content, encoding: 'utf-8',
-              });
-              tree.push({ path, mode: '100644', type: 'blob', sha: blob.data.sha });
-            }
-
-            const parentCommit = await github.rest.git.getCommit({
-              ...context.repo, commit_sha: parent,
-            });
-            const newTree = await github.rest.git.createTree({
-              ...context.repo, base_tree: parentCommit.data.tree.sha, tree,
-            });
-            const commit = await github.rest.git.createCommit({
-              ...context.repo,
-              message: 'Paparazzi Golden Images',
-              tree: newTree.data.sha,
-              parents: [parent],
-            });
-            await github.rest.git.updateRef({
-              ...context.repo, ref: `heads/${branch}`, sha: commit.data.sha,
-            });
-            core.info(`Committed ${tree.length} file(s) as ${commit.data.sha}`);
+          message: 'Paparazzi Golden Images'
+          ref: ${{ github.ref_name }}
+          token: ${{ secrets.DHIS2_BOT_GITHUB_TOKEN }}
