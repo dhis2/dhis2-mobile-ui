@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <resources>
     <string name="show_more">បង្ហាញច្រើនទៀត</string>
+    <string name="show_less">បង្ហាញតិច</string>
     <string name="years">ឆ្នាំ</string>
     <string name="months">ខែ</string>
     <string name="days">ថ្ងៃ</string>
