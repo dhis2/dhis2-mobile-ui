@@ -15,10 +15,10 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v7.0.1
         with:
+          token: ${{ secrets.DHIS2_BOT_GITHUB_TOKEN }}
           lfs: 'true'
           fetch-depth: 0
           persist-credentials: false
-          token: ${{ secrets.DHIS2_BOT_GITHUB_TOKEN }}
 
       - name: Set Up JDK
         uses: actions/setup-java@v5
