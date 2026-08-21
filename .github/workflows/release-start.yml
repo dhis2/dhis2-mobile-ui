@@ -70,7 +70,7 @@ jobs:
         run: python .github/workflows/scripts/updateVersionName.py ${{ inputs.development_version_name }}
 
       - name: Commit and Push Changes
-        uses: flex-development/gh-commit@v1.0.0
+        uses: flex-development/gh-commit@1.0.0
         with:
           message: 'Update version to ${{ inputs.development_version_name }}'
           token: ${{ secrets.DHIS2_BOT_GITHUB_TOKEN }}

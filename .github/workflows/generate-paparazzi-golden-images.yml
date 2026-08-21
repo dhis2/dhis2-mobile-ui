@@ -55,7 +55,7 @@ jobs:
 
       - name: Commit and Push Changes
         if: steps.verify.outcome == 'failure'
-        uses: flex-development/gh-commit@v1.0.0
+        uses: flex-development/gh-commit@1.0.0
         with:
           message: 'Paparazzi Golden Images'
           token: ${{ secrets.DHIS2_BOT_GITHUB_TOKEN }}
