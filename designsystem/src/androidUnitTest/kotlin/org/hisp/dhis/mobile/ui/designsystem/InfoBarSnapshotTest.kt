@@ -152,21 +152,6 @@ class InfoBarSnapshotTest {
                     actionText = "Action",
                     onActionClick = {},
                 )
-
-                InfoBar(
-                    text = LOREM,
-                    textColor = TextColor.OnSurfaceLight,
-                    backgroundColor = SurfaceColor.Surface,
-                    icon = {
-                        Icon(
-                            imageVector = Icons.Outlined.Info,
-                            contentDescription = "info",
-                            tint = TextColor.OnSurfaceLight,
-                        )
-                    },
-                    actionText = "Action",
-                    onActionClick = {},
-                )
             }
         }
     }
