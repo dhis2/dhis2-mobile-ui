@@ -46,6 +46,7 @@ jobs:
       - name: Push
         uses: flex-development/gh-commit@1.0.0
         with:
+          message: 'Branch creation'
           token: ${{ secrets.DHIS2_BOT_GITHUB_TOKEN }}
           ref: release/${{ inputs.release_version_name }}
 
