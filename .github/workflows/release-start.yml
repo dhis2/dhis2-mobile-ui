@@ -70,6 +70,9 @@ jobs:
       - name: Create release branch
         run: git checkout -b update_version_to${{ inputs.development_version_name }}
 
+      - name: Push new branch
+        run: git push origin update_version_to${{ inputs.development_version_name }}
+
       - name: Run Python script to update base branch version
         run: python .github/workflows/scripts/updateVersionName.py ${{ inputs.development_version_name }}
 
