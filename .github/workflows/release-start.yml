@@ -25,6 +25,8 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v7
+        with:
+          token: ${{ secrets.DHIS2_BOT_GITHUB_TOKEN }}
 
       - name: Set up Python
         uses: actions/setup-python@v7
@@ -51,6 +53,8 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v7
+        with:
+          token: ${{ secrets.DHIS2_BOT_GITHUB_TOKEN }}
 
       - name: Set up Python
         uses: actions/setup-python@v7
@@ -66,16 +70,20 @@ jobs:
       - name: Create release branch
         run: git checkout -b update_version_to${{ inputs.development_version_name }}
 
+      - name: Push new branch
+        run: git push origin update_version_to${{ inputs.development_version_name }}
+
       - name: Run Python script to update base branch version
         run: python .github/workflows/scripts/updateVersionName.py ${{ inputs.development_version_name }}
 
       - name: Commit and Push Changes
-        run: |
-          git add .
-          git commit -m "Update version to ${{ inputs.development_version_name }}"
-          git push origin update_version_to${{ inputs.development_version_name }}
+        uses: flex-development/gh-commit@1.0.0
+        with:
+          message: 'Update version to ${{ inputs.development_version_name }}'
+          token: ${{ secrets.DHIS2_BOT_GITHUB_TOKEN }}
+          ref: update_version_to${{ inputs.development_version_name }}
 
       - name: create pull request
         run: gh pr create -B develop -H update_version_to${{ inputs.development_version_name }} --title 'Merge update_version_to${{ inputs.development_version_name }} into develop' --body 'Created by Github action'
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.DHIS2_BOT_GITHUB_TOKEN }}
