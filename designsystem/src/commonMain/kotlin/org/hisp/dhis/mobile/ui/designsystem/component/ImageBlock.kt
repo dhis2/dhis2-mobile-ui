@@ -35,8 +35,13 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
  * @param load to load an image stored in the resource, device memory or from network
  * we can use loadPainter, loadImageBitmap, loadSvgPainter or loadXmlImageVector
  * @param painterFor is a composable function which controls how to paint the load param,
+ * @param contentScaleFor is a composable function which controls how to scale the painted image.
  * @param modifier allows a modifier to be passed externally
  * @param downloadButtonVisible controls whether the download button is visible or not
+ * @param downloadButtonVisibleFor is a composable function which controls whether the download
+ * button is visible or not for the loaded item, defaults to [downloadButtonVisible].
+ * @param clickableFor is a composable function which controls whether the image can be tapped
+ * to open full screen, defaults to always clickable.
  * @param onDownloadButtonClick is a callback to notify when the download button is clicked.
  * @param onShareButtonClick is a callback to notify when the share button is clicked.
  */
@@ -45,8 +50,11 @@ fun <T> ImageBlock(
     title: String,
     load: suspend () -> T,
     painterFor: @Composable (T) -> Painter,
+    contentScaleFor: @Composable (T) -> ContentScale = { ContentScale.Crop },
     modifier: Modifier = Modifier,
     downloadButtonVisible: Boolean = true,
+    downloadButtonVisibleFor: @Composable (T) -> Boolean = { downloadButtonVisible },
+    clickableFor: @Composable (T) -> Boolean = { true },
     onDownloadButtonClick: () -> Unit,
     onShareButtonClick: () -> Unit,
 ) {
@@ -64,10 +72,15 @@ fun <T> ImageBlock(
     }
 
     if (image != null) {
+        val painter = painterFor(image!!)
+        val contentScale = contentScaleFor(image!!)
+        val showDownloadButton = downloadButtonVisibleFor(image!!)
+        val isClickable = clickableFor(image!!)
+
         if (isFullScreen) {
             FullScreenImage(
                 title = title,
-                painter = painterFor(image!!),
+                painter = painter,
                 onDismiss = {
                     isFullScreen = !isFullScreen
                 },
@@ -82,19 +95,19 @@ fun <T> ImageBlock(
                     .testTag("IMAGE_BLOCK_CONTAINER"),
         ) {
             Image(
-                painter = painterFor(image!!),
+                painter = painter,
                 contentDescription = null,
-                contentScale = ContentScale.Crop,
+                contentScale = contentScale,
                 modifier =
                     Modifier
                         .fillMaxWidth()
                         .clip(shape = RoundedCornerShape(Radius.S))
                         .height(160.dp)
-                        .clickable {
+                        .clickable(enabled = isClickable) {
                             isFullScreen = !isFullScreen
                         },
             )
-            if (downloadButtonVisible) {
+            if (showDownloadButton) {
                 SquareIconButton(
                     enabled = true,
                     modifier =
