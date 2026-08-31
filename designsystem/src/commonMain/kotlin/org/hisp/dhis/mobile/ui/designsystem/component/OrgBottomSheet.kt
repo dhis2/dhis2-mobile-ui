@@ -8,6 +8,7 @@ import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
@@ -40,6 +41,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
@@ -344,31 +346,46 @@ private fun OrgUnitSelectorItem(
                 Spacer(modifier = Modifier.size(Spacing.Spacing16))
             }
 
-            Text(
-                text =
-                    orgTreeItemLabel(
-                        orgTreeItem = orgTreeItem,
-                        searchQuery = searchQuery,
-                    ),
-                maxLines = 1,
-                style =
-                    DHIS2SCustomTextStyles.bodyLargeBold.copy(
-                        fontWeight =
-                            if (orgTreeItem.selectedChildrenCount > 0 || orgTreeItem.selected) {
-                                FontWeight.Bold
-                            } else {
-                                FontWeight.Normal
-                            },
-                    ),
-            )
+            var maxItems by remember { mutableStateOf(Int.MAX_VALUE) }
 
-            Spacer(Modifier.size(size = Spacing.Spacing4))
-
-            orgTreeItem.tag?.let { tag ->
-                Tag(
-                    label = tag,
-                    type = TagType.DEFAULT,
+            FlowRow(maxItemsInEachRow = maxItems, itemVerticalAlignment = Alignment.CenterVertically) {
+                Text(
+                    modifier = Modifier.padding(end = Spacing.Spacing4),
+                    text =
+                        orgTreeItemLabel(
+                            orgTreeItem = orgTreeItem,
+                            searchQuery = searchQuery,
+                        ),
+                    maxLines = 1,
+                    style =
+                        DHIS2SCustomTextStyles.bodyLargeBold.copy(
+                            fontWeight =
+                                if (orgTreeItem.selectedChildrenCount > 0 || orgTreeItem.selected) {
+                                    FontWeight.Bold
+                                } else {
+                                    FontWeight.Normal
+                                },
+                        ),
                 )
+
+                orgTreeItem.tag?.let { tag ->
+                    Tag(
+                        modifier =
+                            Modifier.onGloballyPositioned { layoutCoordinates ->
+                                val tagIsVisible =
+                                    layoutCoordinates.parentLayoutCoordinates?.let {
+                                        val parentBounds = it.boundsInWindow()
+                                        val childBounds = layoutCoordinates.boundsInWindow()
+                                        parentBounds.overlaps(childBounds)
+                                    } ?: false
+                                if (!tagIsVisible) {
+                                    maxItems = 1
+                                }
+                            },
+                        label = tag,
+                        type = TagType.DEFAULT,
+                    )
+                }
             }
         }
     }
