@@ -4,18 +4,20 @@ import android.graphics.BitmapFactory
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.painter.BitmapPainter
-import androidx.compose.ui.graphics.painter.Painter
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
 import java.io.File
 
 @Composable
-actual fun buildPainterForFile(filePath: String): Painter {
+actual fun buildPainterForFile(filePath: String): FilePainterResult =
     try {
         val file = File(filePath)
-        return BitmapPainter(
-            BitmapFactory.decodeFile(file.absolutePath).asImageBitmap(),
+        FilePainterResult(
+            painter = BitmapPainter(BitmapFactory.decodeFile(file.absolutePath).asImageBitmap()),
+            isUnsupported = false,
         )
     } catch (_: Exception) {
-        return provideDHIS2Icon("dhis2_image_not_supported")
+        FilePainterResult(
+            painter = provideDHIS2Icon("dhis2_image_not_supported"),
+            isUnsupported = true,
+        )
     }
-}

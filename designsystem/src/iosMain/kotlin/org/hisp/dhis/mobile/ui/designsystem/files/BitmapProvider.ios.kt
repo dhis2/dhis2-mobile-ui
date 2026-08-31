@@ -2,7 +2,6 @@ package org.hisp.dhis.mobile.ui.designsystem.files
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.painter.BitmapPainter
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.toComposeImageBitmap
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.refTo
@@ -17,7 +16,7 @@ import platform.UIKit.UIImagePNGRepresentation
 import platform.posix.memcpy
 
 @Composable
-actual fun buildPainterForFile(filePath: String): Painter {
+actual fun buildPainterForFile(filePath: String): FilePainterResult =
     try {
         // 1. Get NSData from the file path
         // UIImage needs data from a file URL or NSData.
@@ -39,19 +38,24 @@ actual fun buildPainterForFile(filePath: String): Painter {
         // 2. Create UIImage from NSData
         val uiImage = UIImage.imageWithData(imageData)
 
-        return if (uiImage != null) {
+        if (uiImage != null) {
             // 3. Convert UIImage to Compose ImageBitmap
             // (You'll need an expect/actual or a helper for this conversion if one doesn't exist directly)
             // Assuming you have a way to convert UIImage to ImageBitmap, for example:
-            BitmapPainter(uiImage.toComposeImageBitmap()) // This is a hypothetical extension
+            FilePainterResult(
+                painter = BitmapPainter(uiImage.toComposeImageBitmap()), // This is a hypothetical extension
+                isUnsupported = false,
+            )
         } else {
             throw Exception("file not found")
         }
     } catch (_: Exception) {
         // Log the exception if needed: println("Error loading image: ${e.message}")
-        return provideDHIS2Icon("dhis2_image_not_supported")
+        FilePainterResult(
+            painter = provideDHIS2Icon("dhis2_image_not_supported"),
+            isUnsupported = true,
+        )
     }
-}
 
 @OptIn(ExperimentalForeignApi::class)
 fun UIImage.toComposeImageBitmap(): androidx.compose.ui.graphics.ImageBitmap {

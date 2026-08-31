@@ -78,6 +78,29 @@ fun InputImageScreen() {
             )
         }
 
+        ColumnComponentContainer("Input Image with file path (invalid path)") {
+            var uploadState3 by rememberSaveable { mutableStateOf(UploadState.LOADED) }
+            val scope3 = rememberCoroutineScope()
+
+            InputImage(
+                title = "Label",
+                uploadState = uploadState3,
+                imageFilePath = "/invalid/path/does-not-exist.png",
+                onDownloadButtonClick = {},
+                onShareButtonClick = {},
+                onResetButtonClicked = {
+                    uploadState3 = UploadState.ADD
+                },
+                onAddButtonClicked = {
+                    scope3.launch {
+                        uploadState3 = UploadState.UPLOADING
+                        delay(1000)
+                        uploadState3 = UploadState.LOADED
+                    }
+                },
+            )
+        }
+
         ColumnComponentContainer("Image Block") {
             val sampleImage3 = provideSampleImage()
             ImageBlock(
