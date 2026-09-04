@@ -30,7 +30,9 @@ import androidx.compose.ui.platform.LocalClipboard
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
@@ -46,7 +48,7 @@ fun InputSegmentedShell(
     initialValue: String? = null,
     supportingTextData: SupportingTextData?,
     enabled: Boolean = true,
-    segmentedShellType: SegmentedShellType = SegmentedShellType.Numeric,
+    segmentedShellType: SegmentedShellType = SegmentedShellType.Numeric(),
     inputStyle: InputStyle = InputStyle.DarkInputStyle(),
     onValueChanged: (String) -> Unit = {},
 ) {
@@ -186,6 +188,12 @@ fun InputSegmentedShell(
                             state = segmentState,
                             enabled = enabled,
                             textStyle = MaterialTheme.typography.headlineMedium.copy(textAlign = TextAlign.Center),
+                            visualTransformation =
+                                if (segmentedShellType.obfuscated) {
+                                    PasswordVisualTransformation()
+                                } else {
+                                    VisualTransformation.None
+                                },
                             onInputChanged = { newTextFieldValue ->
                                 scope.launch {
                                     val value =

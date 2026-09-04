@@ -67,7 +67,7 @@ class InputSegmentedShellSnapshotTest {
                 InputSegmentedShell(
                     segmentCount = 5,
                     initialValue = "1A2B3",
-                    segmentedShellType = SegmentedShellType.LettersAndNumbers,
+                    segmentedShellType = SegmentedShellType.LettersAndNumbers(),
                     supportingTextData = null,
                 )
             }
