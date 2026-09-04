@@ -45,6 +45,8 @@ jobs:
 
       - name: Push
         run: git push origin release/${{ inputs.release_version_name }}
+        with:
+          token: ${{ secrets.DHIS2_BOT_GITHUB_TOKEN }}
 
   update_version:
 
