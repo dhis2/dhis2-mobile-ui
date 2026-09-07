@@ -1,4 +1,5 @@
 import org.jetbrains.dokka.gradle.DokkaTask
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
 
 version = rootProject.version
@@ -15,9 +16,24 @@ plugins {
 }
 
 kotlin {
-    androidTarget {
-        publishLibraryVariants("release")
+    android {
+        namespace = "org.hisp.dhis.mobile.ui.designsystem"
+        compileSdk = (findProperty("android.compileSdk") as String).toInt()
+        minSdk = (findProperty("android.minSdk") as String).toInt()
+
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_17)
+        }
+
+        withHostTestBuilder {}.configure {}
+
+        lint {
+            abortOnError = false
+            warningsAsErrors = false
+        }
     }
+
+    jvmToolchain(17)
 
     jvm("desktop")
 
@@ -59,7 +75,8 @@ kotlin {
             }
         }
 
-        val androidUnitTest by getting {
+        val androidHostTest by getting {
+            kotlin.srcDir("src/androidUnitTest/kotlin")
             dependencies {
                 implementation(libs.test.junit)
             }
@@ -78,31 +95,6 @@ kotlin {
                 implementation(compose.desktop.currentOs)
             }
         }
-    }
-}
-
-android {
-    compileSdk = (findProperty("android.compileSdk") as String).toInt()
-    namespace = "org.hisp.dhis.mobile.ui.designsystem"
-
-    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
-    sourceSets["main"].res.srcDirs("src/androidMain/res", "src/commonMain/composeResources")
-    sourceSets["main"].resources.srcDirs("src/commonMain/composeResources")
-
-    defaultConfig {
-        minSdk = (findProperty("android.minSdk") as String).toInt()
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-    kotlin {
-        jvmToolchain(17)
-    }
-
-    lint {
-        abortOnError = false
-        warningsAsErrors = false
     }
 }
 
