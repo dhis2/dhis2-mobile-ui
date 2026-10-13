@@ -27,11 +27,7 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            implementation(compose.runtime)
-            implementation(compose.foundation)
-            implementation(compose.ui)
-            implementation(compose.material3)
-            implementation(compose.components.resources)
+            implementation(libs.bundles.compose.common)
             api(project(":designsystem"))
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.compose.material3.windowsizeclass)
@@ -51,7 +47,7 @@ kotlin {
         }
         val desktopMain by getting {
             dependencies {
-                implementation(compose.preview)
+                implementation(libs.compose.ui.tooling.preview)
                 implementation(compose.desktop.currentOs)
             }
         }
