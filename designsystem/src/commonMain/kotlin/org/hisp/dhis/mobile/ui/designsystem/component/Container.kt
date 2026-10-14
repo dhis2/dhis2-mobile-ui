@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
@@ -19,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
+import org.hisp.dhis.mobile.ui.designsystem.component.layout.FadingLazyRow
 import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
@@ -50,7 +52,7 @@ fun ColumnScreenContainer(
                 .fillMaxSize()
                 .background(Color.White, Shape.LargeTop)
                 .padding(horizontal = Spacing.Spacing16)
-                .then(if (scrollable)Modifier.verticalScroll(rememberScrollState())else Modifier),
+                .then(if (scrollable) Modifier.verticalScroll(rememberScrollState()) else Modifier),
     ) {
         title?.let {
             Title(title, modifier = Modifier.padding(top = Spacing.Spacing16))
@@ -128,6 +130,22 @@ fun RowComponentContainer(
     ) {
         content()
     }
+}
+
+@Composable
+fun FadingRowComponentContainer(
+    title: String? = null,
+    modifier: Modifier = Modifier,
+    content: LazyListScope.() -> Unit,
+) {
+    title?.let {
+        SubTitle(title)
+    }
+    FadingLazyRow(
+        modifier = modifier,
+        horizontalArrangement = Arrangement.spacedBy(Spacing.Spacing10),
+        content = content,
+    )
 }
 
 /**
