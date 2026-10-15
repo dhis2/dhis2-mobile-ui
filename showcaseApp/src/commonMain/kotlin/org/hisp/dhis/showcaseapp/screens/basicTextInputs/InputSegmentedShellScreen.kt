@@ -125,6 +125,16 @@ fun InputSegmentedShellScreen() {
                 supportingTextData = null,
                 inputStyle = inputStyle,
             )
+
+            InputSegmentedShell(
+                modifier = Modifier.fillMaxWidth(),
+                segmentCount = 4,
+                initialValue = "1234",
+                supportingTextData = null,
+                inputStyle = inputStyle,
+                segmentedShellType = SegmentedShellType.Numeric(obfuscated = true),
+                enabled = true,
+            )
         }
 
         ColumnComponentContainer(
@@ -143,7 +153,7 @@ fun InputSegmentedShellScreen() {
                         text = "This is a message",
                         state = SupportingTextState.DEFAULT,
                     ),
-                segmentedShellType = SegmentedShellType.LettersAndNumbers,
+                segmentedShellType = SegmentedShellType.LettersAndNumbers(),
                 inputStyle = inputStyle,
             )
             InputSegmentedShell(
@@ -155,7 +165,7 @@ fun InputSegmentedShellScreen() {
                         text = "This is an error message",
                         state = SupportingTextState.ERROR,
                     ),
-                segmentedShellType = SegmentedShellType.LettersAndNumbers,
+                segmentedShellType = SegmentedShellType.LettersAndNumbers(),
                 inputStyle = inputStyle,
             )
             InputSegmentedShell(
@@ -163,7 +173,7 @@ fun InputSegmentedShellScreen() {
                 segmentCount = 4,
                 initialValue = null,
                 supportingTextData = null,
-                segmentedShellType = SegmentedShellType.LettersAndNumbers,
+                segmentedShellType = SegmentedShellType.LettersAndNumbers(),
                 inputStyle = inputStyle,
             )
 
@@ -172,7 +182,7 @@ fun InputSegmentedShellScreen() {
                 segmentCount = 9,
                 initialValue = null,
                 supportingTextData = null,
-                segmentedShellType = SegmentedShellType.LettersAndNumbers,
+                segmentedShellType = SegmentedShellType.LettersAndNumbers(obfuscated = true),
                 inputStyle = inputStyle,
             )
         }
@@ -193,7 +203,7 @@ fun InputSegmentedShellScreen() {
                         text = "This is a message",
                         state = SupportingTextState.DEFAULT,
                     ),
-                segmentedShellType = SegmentedShellType.Letters,
+                segmentedShellType = SegmentedShellType.Letters(),
                 inputStyle = inputStyle,
             )
             InputSegmentedShell(
@@ -205,7 +215,7 @@ fun InputSegmentedShellScreen() {
                         text = "This is an error message",
                         state = SupportingTextState.ERROR,
                     ),
-                segmentedShellType = SegmentedShellType.Letters,
+                segmentedShellType = SegmentedShellType.Letters(),
                 inputStyle = inputStyle,
             )
             InputSegmentedShell(
@@ -213,7 +223,7 @@ fun InputSegmentedShellScreen() {
                 segmentCount = 4,
                 initialValue = null,
                 supportingTextData = null,
-                segmentedShellType = SegmentedShellType.Letters,
+                segmentedShellType = SegmentedShellType.Letters(),
                 inputStyle = inputStyle,
             )
 
@@ -222,7 +232,7 @@ fun InputSegmentedShellScreen() {
                 segmentCount = 9,
                 initialValue = null,
                 supportingTextData = null,
-                segmentedShellType = SegmentedShellType.Letters,
+                segmentedShellType = SegmentedShellType.Letters(),
                 inputStyle = inputStyle,
             )
         }

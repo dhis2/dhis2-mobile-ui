@@ -110,5 +110,21 @@ fun InputFileResourceScreen() {
                 onUploadFile = {},
             )
         }
+
+        ColumnComponentContainer("Missing state with selected file") {
+            InputFileResource(
+                title = "Label",
+                buttonText = provideStringResource("add_file"),
+                fileName = currentFileName,
+                fileWeight = null,
+                inputShellState = InputShellState.DISABLED,
+                uploadFileState = UploadFileState.MISSING,
+                onSelectFile = {
+                    currentFileName = "file"
+                    currentFileWeight = "weight"
+                },
+                onUploadFile = {},
+            )
+        }
     }
 }

@@ -10,6 +10,7 @@ import androidx.compose.ui.test.isSelectable
 import androidx.compose.ui.test.isSelected
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextClearance
 import androidx.compose.ui.test.performTextInput
@@ -340,5 +341,87 @@ class InputAgeTest {
         }
 
         rule.onNodeWithTag("INPUT_AGE_TEXT_FIELD").assertExists().assertTextEquals("99/99/9999")
+    }
+
+    @Test
+    fun clickingModeSelectorOptionsShouldSwitchInputType() {
+        var inputType by mutableStateOf<AgeInputType>(AgeInputType.None)
+
+        rule.setContent {
+            InputAge(
+                state =
+                    rememberInputAgeState(
+                        inputAgeData =
+                            InputAgeData(
+                                title = "Label",
+                                dateOfBirthLabel = DATE_OF_BIRTH_LABEL,
+                                orLabel = "or",
+                                ageLabel = AGE_LABEL,
+                            ),
+                        inputType = inputType,
+                    ),
+                onValueChanged = {
+                    inputType = it ?: AgeInputType.None
+                },
+            )
+        }
+
+        rule.onNodeWithText(DATE_OF_BIRTH_LABEL).performClick()
+
+        assert(inputType is AgeInputType.DateOfBirth)
+        rule.onNodeWithTag("INPUT_AGE_MODE_SELECTOR").assertDoesNotExist()
+        rule.onNodeWithTag("INPUT_AGE_TEXT_FIELD").assertExists()
+        rule.onNodeWithTag("INPUT_AGE_OPEN_CALENDAR_BUTTON").assertExists()
+        rule.onNodeWithTag("INPUT_AGE_TIME_UNIT_SELECTOR").assertDoesNotExist()
+
+        // Reset so the second option can be exercised from the same composition.
+        rule.onNodeWithTag("INPUT_AGE_RESET_BUTTON").performClick()
+        rule.onNodeWithTag("INPUT_AGE_MODE_SELECTOR").assertExists()
+
+        rule.onNodeWithText(AGE_LABEL).performClick()
+
+        assert(inputType is AgeInputType.Age)
+        rule.onNodeWithTag("INPUT_AGE_MODE_SELECTOR").assertDoesNotExist()
+        rule.onNodeWithTag("INPUT_AGE_TIME_UNIT_SELECTOR").assertExists()
+        rule.onNodeWithTag("INPUT_AGE_OPEN_CALENDAR_BUTTON").assertDoesNotExist()
+    }
+
+    @Test
+    fun ageValueShouldSurviveTimeUnitChange() {
+        var inputType by mutableStateOf<AgeInputType>(AgeInputType.Age.EMPTY)
+
+        rule.setContent {
+            InputAge(
+                state =
+                    rememberInputAgeState(
+                        inputAgeData =
+                            InputAgeData(
+                                title = "Label",
+                            ),
+                        inputType = inputType,
+                    ),
+                onValueChanged = {
+                    inputType = it ?: AgeInputType.None
+                },
+            )
+        }
+
+        rule.onNodeWithTag("INPUT_AGE_TEXT_FIELD").performTextInput("6")
+
+        // Switching unit must not discard what the user already typed.
+        rule.onNodeWithTag("RADIO_BUTTON_MONTHS").performClick()
+        rule.onNodeWithTag("RADIO_BUTTON_DAYS").performClick()
+        rule.onNodeWithTag("RADIO_BUTTON_YEARS").performClick()
+
+        val currentInputType = inputType as AgeInputType.Age
+        assert(currentInputType.value.text == "6")
+        assert(currentInputType.unit == TimeUnitValues.YEARS)
+
+        rule.onNodeWithTag("INPUT_AGE_TEXT_FIELD").assertTextEquals("6 years")
+    }
+
+    companion object {
+        private const val DATE_OF_BIRTH_LABEL = "DATE OF BIRTH"
+        private const val AGE_LABEL = "AGE"
     }
 }

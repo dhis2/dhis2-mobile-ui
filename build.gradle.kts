@@ -1,6 +1,6 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 
-version = "0.7.1-SNAPSHOT"
+version = "0.8.0-SNAPSHOT"
 group = "org.hisp.dhis.mobile"
 
 plugins {

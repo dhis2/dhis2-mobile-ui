@@ -24,6 +24,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.component.UploadFileState.ADD
 import org.hisp.dhis.mobile.ui.designsystem.component.UploadFileState.LOADED
+import org.hisp.dhis.mobile.ui.designsystem.component.UploadFileState.MISSING
 import org.hisp.dhis.mobile.ui.designsystem.component.UploadFileState.UPLOADING
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
@@ -170,7 +171,7 @@ fun InputFileResource(
                         }
                     }
                 }
-                LOADED -> {
+                LOADED, MISSING -> {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = spacedBy(2.dp),
@@ -216,4 +217,5 @@ enum class UploadFileState {
     ADD,
     UPLOADING,
     LOADED,
+    MISSING,
 }

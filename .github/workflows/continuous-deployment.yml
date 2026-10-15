@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - name: Set Up JDK
         uses: actions/setup-java@v5
@@ -46,7 +46,7 @@ jobs:
     if: ${{ (inputs.release_version) && (inputs.release_version != '') }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Set up JDK 17
         uses: actions/setup-java@v5
@@ -65,13 +65,11 @@ jobs:
         run: |
           mv showcaseApp/build/outputs/apk/debug/showcaseApp-debug.apk showcaseApp/build/outputs/apk/debug/ui-components-android-${{ inputs.release_version }}.apk
 
-
       - name: Github Release
         uses: ncipollo/release-action@v1.21.0
         with:
           allowUpdates: true
           draft: true
-          bodyFile: "RELEASE.md"
-          name: "Release notes - DHIS2 Design system: ${{ inputs.release_version }}"
+          generateReleaseNotes: true
           tag: ${{ inputs.release_version }}
           artifacts: showcaseApp/build/outputs/apk/debug/ui-components-android-${{ inputs.release_version }}.apk

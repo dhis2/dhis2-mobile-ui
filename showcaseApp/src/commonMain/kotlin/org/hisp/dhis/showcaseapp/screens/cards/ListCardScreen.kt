@@ -129,7 +129,7 @@ fun ListCardScreen(horizontal: Boolean) {
                         ),
                     listAvatar = {
                         Avatar(
-                            style = AvatarStyleData.Image(buildPainterForFile("non_existing_file")),
+                            style = AvatarStyleData.Image(buildPainterForFile("non_existing_file").painter),
                         )
                     },
                     onCardClick = {},

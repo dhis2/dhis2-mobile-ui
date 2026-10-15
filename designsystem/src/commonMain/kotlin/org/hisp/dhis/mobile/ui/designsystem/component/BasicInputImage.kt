@@ -17,6 +17,7 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
@@ -33,10 +34,15 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
  * @param legendData: manages the legendComponent.
  * @param uploadState: controls whether the image is added, loading, or need to be added.
  * @param downloadButtonVisible: controls whether the download button is visible or not.
+ * @param downloadButtonVisibleFor: is a composable function which controls whether the download
+ * button is visible or not for the loaded item, defaults to [downloadButtonVisible].
  * @param isRequired: controls whether the field is mandatory or not.
  * @param load: to load an image stored in the resource, device memory or from network
  * we can use loadPainter, loadImageBitmap, loadSvgPainter or loadXmlImageVector.
  * @param painterFor: is a composable function which controls how to paint the load param.
+ * @param contentScaleFor: is a composable function which controls how to scale the painted image.
+ * @param clickableFor: is a composable function which controls whether the image can be tapped
+ * to open full screen, defaults to always clickable.
  * @param testTag: optional tag for testing purposes.
  * @param addButtonText: controls the text to be shown for the add button.
  * @param addButtonIcon: controls the icon to be shown for the add button.
@@ -55,9 +61,12 @@ internal fun <T> BasicInputImage(
     legendData: LegendData? = null,
     uploadState: UploadState = UploadState.ADD,
     downloadButtonVisible: Boolean = true,
+    downloadButtonVisibleFor: @Composable (T) -> Boolean = { downloadButtonVisible },
     isRequired: Boolean = false,
     load: suspend () -> T,
     painterFor: (@Composable (T) -> Painter)? = null,
+    contentScaleFor: @Composable (T) -> ContentScale = { ContentScale.Crop },
+    clickableFor: @Composable (T) -> Boolean = { true },
     testTag: String = "",
     addButtonText: String,
     addButtonIcon: ImageVector,
@@ -135,12 +144,15 @@ internal fun <T> BasicInputImage(
                             title = title,
                             load = load,
                             painterFor = painterFor,
+                            contentScaleFor = contentScaleFor,
+                            clickableFor = clickableFor,
                             onDownloadButtonClick = {
                                 onDownloadButtonClick.invoke()
                                 focusRequester.requestFocus()
                             },
                             onShareButtonClick = onShareButtonClick,
                             downloadButtonVisible = downloadButtonVisible,
+                            downloadButtonVisibleFor = downloadButtonVisibleFor,
                             modifier =
                                 Modifier.padding(
                                     end =

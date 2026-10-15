@@ -2,24 +2,32 @@ package org.hisp.dhis.mobile.ui.designsystem.component.model
 
 import androidx.compose.ui.text.input.KeyboardType
 
-sealed interface SegmentedShellType {
-    data object Numeric : SegmentedShellType
+sealed class SegmentedShellType(
+    open val obfuscated: Boolean = false,
+) {
+    data class Numeric(
+        override val obfuscated: Boolean = false,
+    ) : SegmentedShellType(obfuscated)
 
-    data object Letters : SegmentedShellType
+    data class Letters(
+        override val obfuscated: Boolean = false,
+    ) : SegmentedShellType(obfuscated)
 
-    data object LettersAndNumbers : SegmentedShellType
+    data class LettersAndNumbers(
+        override val obfuscated: Boolean = false,
+    ) : SegmentedShellType(obfuscated)
 
     fun isAllowed(chr: Char): Boolean =
         when (this) {
-            Letters -> chr.isLetter()
-            LettersAndNumbers -> chr.isLetterOrDigit()
-            Numeric -> chr.isDigit()
+            is Letters -> chr.isLetter()
+            is LettersAndNumbers -> chr.isLetterOrDigit()
+            is Numeric -> chr.isDigit()
         }
 
     fun keyboardType() =
         when (this) {
-            Numeric -> KeyboardType.Number
-            Letters -> KeyboardType.Text
-            LettersAndNumbers -> KeyboardType.Text
+            is Numeric -> KeyboardType.Number
+            is Letters -> KeyboardType.Text
+            is LettersAndNumbers -> KeyboardType.Text
         }
 }
