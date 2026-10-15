@@ -37,12 +37,8 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(compose.runtime)
-                implementation(compose.foundation)
-                implementation(compose.ui)
-                implementation(compose.material3)
-                api(compose.materialIconsExtended)
-                implementation(compose.components.resources)
+                implementation(libs.bundles.compose.common)
+                api(libs.compose.material.icons.extended)
                 implementation(libs.kotlinx.serialization.json)
                 implementation(libs.multiplatform.markdown.renderer)
                 implementation(libs.multiplatform.markdown.renderer.m3)
@@ -67,14 +63,14 @@ kotlin {
 
         val desktopMain by getting {
             dependencies {
-                implementation(compose.desktop.common)
+                implementation(libs.compose.desktop)
                 implementation(libs.zxing.core)
             }
         }
 
         val desktopTest by getting {
             dependencies {
-                implementation(compose.desktop.uiTestJUnit4)
+                implementation(libs.compose.ui.test.junit4)
                 implementation(compose.desktop.currentOs)
             }
         }
