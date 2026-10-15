@@ -47,6 +47,7 @@ fun FadingLazyRow(
                 .horizontalFadingEdges(
                     state = state,
                     edgeWidth = edgeWidth,
+                    reverseLayout = reverseLayout,
                 ),
         state = state,
         contentPadding = contentPadding,
@@ -78,9 +79,10 @@ fun FadingLazyColumn(
     LazyColumn(
         modifier =
             modifier
-                .horizontalFadingEdges(
+                .verticalFadingEdges(
                     state = state,
-                    edgeWidth = edgeWidth,
+                    edgeHeight = edgeWidth,
+                    reverseLayout = reverseLayout,
                 ),
         state = state,
         contentPadding = contentPadding,
@@ -101,13 +103,15 @@ fun FadingLazyColumn(
 private fun Modifier.horizontalFadingEdges(
     state: LazyListState,
     edgeWidth: Dp,
+    reverseLayout: Boolean,
 ) = graphicsLayer { compositingStrategy = CompositingStrategy.Offscreen }
     .drawWithContent {
         drawContent()
         val edgePx = edgeWidth.toPx().coerceAtMost(size.width / 2)
-        val isRtl = layoutDirection == LayoutDirection.Rtl
-        val fadeLeft = if (isRtl) state.canScrollForward else state.canScrollBackward
-        val fadeRight = if (isRtl) state.canScrollBackward else state.canScrollForward
+        // RTL and reverseLayout each mirror the scroll direction; applying both cancels out.
+        val isMirrored = (layoutDirection == LayoutDirection.Rtl) != reverseLayout
+        val fadeLeft = if (isMirrored) state.canScrollForward else state.canScrollBackward
+        val fadeRight = if (isMirrored) state.canScrollBackward else state.canScrollForward
 
         if (fadeLeft) {
             drawRect(
@@ -131,6 +135,48 @@ private fun Modifier.horizontalFadingEdges(
                     ),
                 topLeft = Offset(size.width - edgePx, 0f),
                 size = Size(edgePx, size.height),
+                blendMode = BlendMode.DstIn,
+            )
+        }
+    }
+
+/**
+* Fades out the top/bottom edges of a vertically scrollable list when there is more content
+* to scroll towards that side. Uses a DstIn mask so it works over any background.
+*/
+private fun Modifier.verticalFadingEdges(
+    state: LazyListState,
+    edgeHeight: Dp,
+    reverseLayout: Boolean,
+) = graphicsLayer { compositingStrategy = CompositingStrategy.Offscreen }
+    .drawWithContent {
+        drawContent()
+        val edgePx = edgeHeight.toPx().coerceAtMost(size.height / 2)
+        val fadeTop = if (reverseLayout) state.canScrollForward else state.canScrollBackward
+        val fadeBottom = if (reverseLayout) state.canScrollBackward else state.canScrollForward
+
+        if (fadeTop) {
+            drawRect(
+                brush =
+                    Brush.verticalGradient(
+                        colors = listOf(Color.Transparent, Color.Black),
+                        startY = 0f,
+                        endY = edgePx,
+                    ),
+                size = Size(size.width, edgePx),
+                blendMode = BlendMode.DstIn,
+            )
+        }
+        if (fadeBottom) {
+            drawRect(
+                brush =
+                    Brush.verticalGradient(
+                        colors = listOf(Color.Black, Color.Transparent),
+                        startY = size.height - edgePx,
+                        endY = size.height,
+                    ),
+                topLeft = Offset(0f, size.height - edgePx),
+                size = Size(size.width, edgePx),
                 blendMode = BlendMode.DstIn,
             )
         }
