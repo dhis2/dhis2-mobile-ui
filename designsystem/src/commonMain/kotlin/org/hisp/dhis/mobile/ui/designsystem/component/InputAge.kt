@@ -288,10 +288,13 @@ fun InputAge(
                 onDismissRequest = { showDatePicker = false },
                 confirmButton = {
                     Button(
-                        enabled = true,
-                        ButtonStyle.TEXT,
-                        ColorStyle.DEFAULT,
-                        uiData.acceptText ?: provideStringResource("ok"),
+                        state =
+                            ButtonState(
+                                text = uiData.acceptText ?: provideStringResource("ok"),
+                                enabled = true,
+                                style = ButtonStyle.TEXT,
+                                colorStyle = ColorStyle.DEFAULT,
+                            ),
                     ) {
                         showDatePicker = false
                         if (inputType is DateOfBirth) {
@@ -311,10 +314,13 @@ fun InputAge(
                 colors = datePickerColors(),
                 dismissButton = {
                     Button(
-                        enabled = true,
-                        ButtonStyle.TEXT,
-                        ColorStyle.DEFAULT,
-                        uiData.cancelText ?: provideStringResource("cancel"),
+                        state =
+                            ButtonState(
+                                text = uiData.cancelText ?: provideStringResource("cancel"),
+                                enabled = true,
+                                style = ButtonStyle.TEXT,
+                                colorStyle = ColorStyle.DEFAULT,
+                            ),
                     ) {
                         showDatePicker = false
                     }
