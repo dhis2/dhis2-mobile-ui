@@ -97,10 +97,13 @@ fun InputCoordinate(
                 }
             } else {
                 Button(
-                    enabled = state != InputShellState.DISABLED,
-                    ButtonStyle.KEYBOARDKEY,
-                    ColorStyle.DEFAULT,
-                    addLocationBtnText,
+                    state =
+                        ButtonState(
+                            text = addLocationBtnText,
+                            enabled = state != InputShellState.DISABLED,
+                            style = ButtonStyle.KEYBOARDKEY,
+                            colorStyle = ColorStyle.DEFAULT,
+                        ),
                     icon = {
                         Icon(
                             imageVector = Icons.Outlined.AddLocationAlt,
@@ -108,14 +111,15 @@ fun InputCoordinate(
                             tint = if (state != InputShellState.DISABLED) SurfaceColor.Primary else TextColor.OnDisabledSurface,
                         )
                     },
-                    Modifier
-                        .fillMaxWidth()
-                        .padding(
-                            end = Spacing.Spacing12,
-                            top = Spacing.Spacing8,
-                            bottom = Spacing.Spacing8,
-                        ).focusable()
-                        .testTag("INPUT_COORDINATE_ADD_BUTTON"),
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(
+                                end = Spacing.Spacing12,
+                                top = Spacing.Spacing8,
+                                bottom = Spacing.Spacing8,
+                            ).focusable()
+                            .testTag("INPUT_COORDINATE_ADD_BUTTON"),
                 ) {
                     focusRequester.requestFocus()
                     onUpdateButtonClicked.invoke()

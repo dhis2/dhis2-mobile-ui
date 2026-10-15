@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package org.hisp.dhis.mobile.ui.designsystem
 
 import androidx.compose.foundation.layout.Arrangement
