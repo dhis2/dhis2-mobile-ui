@@ -1,59 +1,137 @@
 name: Release start
 
-# Controls when the action will run. Workflow runs when manually triggered using the UI
-# or API.
+# Cuts a release branch. The branch name is the release version: when release/X.Y.Z is merged into
+# main, release-finish.yml publishes X.Y.Z. See RELEASING.md.
+#   release: cuts release/<develop version> from develop and opens a PR moving develop to next_version.
+#   hotfix:  cuts release/<latest tag + 1 patch> from main.
 on:
   workflow_dispatch:
-    # Inputs the workflow accepts.
     inputs:
-      release_version_name:
-        description: 'New release version name'
+      type:
+        description: 'release (cut from develop) or hotfix (cut from main)'
         required: true
+        type: choice
+        options:
+          - release
+          - hotfix
+        default: release
+
+      next_version:
+        description: 'release only: version develop moves to after the cut, e.g. 0.10.0 or 1.0.0. Defaults to the next minor'
+        required: false
         type: string
 
-      development_version_name:
-        description: 'Development version name'
-        required: true
-        type: string
+      dry_run:
+        description: 'Only print the computed versions and branch'
+        required: false
+        type: boolean
+        default: false
 
 # Every write below goes through DHIS2_BOT_GITHUB_TOKEN, so the default GITHUB_TOKEN needs nothing.
 permissions:
   contents: read
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # Cuts release/<release_version_name> off develop as-is. No version bump is needed here: the
-  # release version always matches the version already on develop.
-  create_branch:
-
+  # Computes and validates the versions. No input is ever the version being released.
+  prepare:
     runs-on: ubuntu-latest
 
-    env:
-      RELEASE_BRANCH: 'release/${{ inputs.release_version_name }}'
+    outputs:
+      base_branch: ${{ steps.versions.outputs.base_branch }}
+      release_version: ${{ steps.versions.outputs.release_version }}
+      next_version: ${{ steps.versions.outputs.next_version }}
 
     steps:
       - name: Check out code
         uses: actions/checkout@v7
         with:
+          ref: ${{ inputs.type == 'hotfix' && 'main' || 'develop' }}
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: Compute versions
+        id: versions
+        env:
+          TYPE: ${{ inputs.type }}
+          NEXT_VERSION: ${{ inputs.next_version }}
+        run: |
+          set -euo pipefail
+          semver='^[0-9]+\.[0-9]+\.[0-9]+$'
+          fail() { echo "::error::$1"; exit 1; }
+
+          if [ "$TYPE" = "release" ]; then
+            base_branch=develop
+            release=$(sed -nE 's/^version = "([0-9.]+)-SNAPSHOT"$/\1/p' build.gradle.kts)
+            next=${NEXT_VERSION%-SNAPSHOT}
+            if [ -z "$next" ]; then
+              IFS=. read -r major minor _ <<< "$release"
+              next="$major.$((minor + 1)).0"
+            fi
+            [[ $next =~ $semver ]] || fail "next_version '$next' is not X.Y.Z"
+            highest=$(printf '%s\n%s\n' "$release" "$next" | sort -V | tail -1)
+            [ "$next" != "$release" ] && [ "$highest" = "$next" ] || fail "next_version $next must be greater than $release"
+          else
+            base_branch=main
+            latest=$(git tag --list | grep -E "$semver" | sort -V | tail -1)
+            IFS=. read -r major minor patch <<< "$latest"
+            release="$major.$minor.$((patch + 1))"
+            next=""
+          fi
+
+          [[ $release =~ $semver ]] || fail "Could not compute the release version from $base_branch"
+          if git rev-parse -q --verify "refs/tags/$release" > /dev/null; then
+            fail "Tag $release already exists. Update the version on $base_branch first."
+          fi
+          if git ls-remote --exit-code --heads origin "release/$release" > /dev/null; then
+            fail "Branch release/$release already exists"
+          fi
+
+          {
+            echo "base_branch=$base_branch"
+            echo "release_version=$release"
+            echo "next_version=$next"
+          } >> "$GITHUB_OUTPUT"
+          {
+            echo "### Release start ($TYPE)"
+            echo "- Branch: \`release/$release\` from \`$base_branch\`"
+            if [ -n "$next" ]; then echo "- develop moves to \`$next-SNAPSHOT\`"; fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  # Cuts release/<release_version> off the base branch as-is. The branch never changes its version
+  # in build.gradle.kts: CI takes the version from the branch name.
+  create_branch:
+    needs: prepare
+    if: ${{ !inputs.dry_run }}
+    runs-on: ubuntu-latest
+
+    env:
+      RELEASE_BRANCH: release/${{ needs.prepare.outputs.release_version }}
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ needs.prepare.outputs.base_branch }}
           token: ${{ secrets.DHIS2_BOT_GITHUB_TOKEN }}
 
       - name: Create and push release branch
-        run: |
-          git checkout -b ${{ env.RELEASE_BRANCH }}
-          git push origin ${{ env.RELEASE_BRANCH }}
+        run: git push origin "HEAD:refs/heads/$RELEASE_BRANCH"
 
   # Bumps develop to the next development version through a PR.
   update_version:
-
+    needs: prepare
+    if: ${{ !inputs.dry_run && inputs.type == 'release' }}
     runs-on: ubuntu-latest
 
     env:
-      DEVELOPMENT_BRANCH: 'update_version_to${{ inputs.development_version_name }}'
+      NEXT_VERSION: ${{ needs.prepare.outputs.next_version }}
+      DEVELOPMENT_BRANCH: update_version_to${{ needs.prepare.outputs.next_version }}
 
     steps:
       - name: Check out code
         uses: actions/checkout@v7
         with:
+          ref: develop
           token: ${{ secrets.DHIS2_BOT_GITHUB_TOKEN }}
 
       - name: Set up Python
@@ -64,23 +142,28 @@ jobs:
         # Pushed before committing: the GH API used below can only commit to an existing branch.
       - name: Create and push development branch
         run: |
-          git checkout -b ${{ env.DEVELOPMENT_BRANCH }}
-          git push origin ${{ env.DEVELOPMENT_BRANCH }}
+          git checkout -b "$DEVELOPMENT_BRANCH"
+          git push origin "$DEVELOPMENT_BRANCH"
 
       - name: Run Python script to update base branch version
-        run: python .github/workflows/scripts/updateVersionName.py ${{ inputs.development_version_name }}
+        run: python .github/workflows/scripts/updateVersionName.py "$NEXT_VERSION"
 
         # Uses the GH API so the commit is signed by GitHub and shows as Verified.
       - name: Commit and Push Changes
         uses: flex-development/gh-commit@177be4b5bca1b102400ca7220932d9ff7980fddb # 1.0.0
         with:
-          message: 'Update version to ${{ inputs.development_version_name }}'
+          message: 'chore: update develop version to ${{ env.NEXT_VERSION }}-SNAPSHOT'
           token: ${{ secrets.DHIS2_BOT_GITHUB_TOKEN }}
           ref: ${{ env.DEVELOPMENT_BRANCH }}
 
         # Must use the bot PAT, not GITHUB_TOKEN: PRs opened with GITHUB_TOKEN do not trigger
         # workflows, so the required ci_job check would never run on this PR.
-      - name: create pull request
-        run: gh pr create -B develop -H ${{ env.DEVELOPMENT_BRANCH }} --title 'Merge ${{ env.DEVELOPMENT_BRANCH }} into develop' --body 'Created by Github action'
+      - name: Create pull request
+        run: |
+          gh label create skip-changelog --color ededed --description 'Excluded from release notes' --force
+          gh pr create -B develop -H "$DEVELOPMENT_BRANCH" \
+            --title "chore: update develop version to $NEXT_VERSION-SNAPSHOT" \
+            --body 'Created by the Release start workflow' \
+            --label skip-changelog
         env:
           GH_TOKEN: ${{ secrets.DHIS2_BOT_GITHUB_TOKEN }}

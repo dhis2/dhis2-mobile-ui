@@ -1,0 +1,22 @@
+# Groups the generated GitHub release notes. Labels are set from the PR title by pr-title.yml.
+changelog:
+  exclude:
+    labels:
+      - skip-changelog
+    authors:
+      - dependabot
+      - dependabot[bot]
+      - dhis2-bot
+  categories:
+    - title: Features
+      labels:
+        - feature
+    - title: Fixes
+      labels:
+        - bug
+    - title: Dependencies
+      labels:
+        - dependencies
+    - title: Other changes
+      labels:
+        - "*"

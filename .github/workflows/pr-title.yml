@@ -1,0 +1,56 @@
+name: PR title
+
+# PR titles become the release notes: they must follow Conventional Commits
+# (e.g. "fix: [ANDROAPP-123] Crash in InputText") and get a label that groups them in the notes
+# (see .github/release.yml).
+# pull_request_target so it can label PRs from forks and Dependabot. It never checks out PR code.
+on:
+  pull_request_target:
+    types: [opened, edited, synchronize, reopened]
+
+permissions:
+  pull-requests: write
+  issues: write
+
+jobs:
+  pr_title:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check conventional title
+        uses: amannn/action-semantic-pull-request@48f256284bd46cdaab1048c3721360e808335d50 # v6.1.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          types: |
+            feat
+            fix
+            perf
+            refactor
+            test
+            docs
+            build
+            deps
+            ci
+            chore
+            style
+            revert
+
+      - name: Label from title type
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            const [, type, scope] = pr.title.match(/^(\w+)(?:\(([^)]*)\))?!?:/) ?? [];
+            const label =
+              type === 'feat' ? 'feature' :
+              type === 'fix' ? 'bug' :
+              (type === 'deps' || scope === 'deps') ? 'dependencies' :
+              'maintenance';
+            const managed = ['feature', 'bug', 'dependencies', 'maintenance'];
+            const { owner, repo } = context.repo;
+            for (const { name } of pr.labels) {
+              if (managed.includes(name) && name !== label) {
+                await github.rest.issues.removeLabel({ owner, repo, issue_number: pr.number, name });
+              }
+            }
+            await github.rest.issues.addLabels({ owner, repo, issue_number: pr.number, labels: [label] });

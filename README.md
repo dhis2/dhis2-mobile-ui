@@ -5,6 +5,8 @@
 
 Dhis2 Mobile UI library documentation, installation and usage is explained in [DHIS2 Developer portal](https://developers.dhis2.org/docs/mobile/mobile-ui/overview)
 
+To publish a new version, see [RELEASING.md](RELEASING.md).
+
 ## Compose Compiler Reports
 
 The Compose Compiler plugin can generate reports / metrics around certain compose-specific concepts

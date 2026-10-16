@@ -30,7 +30,7 @@ In the module **build.gradle.kts**:
 
 ```kotlin
 dependencies {
-    implementation("org.hisp.dhis.mobile:designsystem-android:0.4.1")
+    implementation("org.hisp.dhis.mobile:designsystem-android:0.8.0")
 }
 ```
 
@@ -40,7 +40,7 @@ In the module **build.gradle.kts**:
 
 ```kotlin
 dependencies {
-    implementation("org.hisp.dhis.mobile:designsystem-desktop:0.4.1")
+    implementation("org.hisp.dhis.mobile:designsystem-desktop:0.8.0")
 }
 ```
 
@@ -50,7 +50,7 @@ In the module **build.gradle.kts**:
 
 ```kotlin
 dependencies {
-    implementation("org.hisp.dhis.mobile:designsystem:0.4.1")
+    implementation("org.hisp.dhis.mobile:designsystem:0.8.0")
 }
 ```
 

@@ -15,6 +15,12 @@ plugins {
 }
 
 /**
+ * Property from the Gradle command line. CI sets it from the release branch name (release/X.Y.Z),
+ * so release branches never edit the version above.
+ */
+findProperty("releaseVersion")?.let { version = it }
+
+/**
  * Property from the Gradle command line. To remove the snapshot suffix from the version.
  */
 if (project.hasProperty("removeSnapshotSuffix")) {

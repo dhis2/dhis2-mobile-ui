@@ -1,0 +1,164 @@
+name: Release finish
+
+# Runs when a release/X.Y.Z pull request is merged into main:
+#   1. publishes X.Y.Z to Maven Central
+#   2. tags the merge commit X.Y.Z and publishes the GitHub release (generated notes + showcase APK)
+#   3. opens the back-merge PR main -> develop
+# Every step checks whether it is already done, so a failed run can be re-run from the Actions tab
+# (workflow_dispatch) with the same version. See RELEASING.md.
+on:
+  pull_request:
+    types: [closed]
+    branches: [main]
+
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to (re)release from main, e.g. 0.9.0'
+        required: true
+        type: string
+
+      dry_run:
+        description: 'Only print what would be done'
+        required: false
+        type: boolean
+        default: false
+
+concurrency:
+  group: release-finish
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    if: ${{ github.event_name == 'workflow_dispatch' || (github.event.pull_request.merged && startsWith(github.head_ref, 'release/')) }}
+    runs-on: ubuntu-latest
+
+    env:
+      DRY_RUN: ${{ inputs.dry_run || false }}
+
+    steps:
+      - name: Resolve version
+        id: version
+        env:
+          HEAD_REF: ${{ github.head_ref }}
+          INPUT_VERSION: ${{ inputs.version }}
+          MERGE_SHA: ${{ github.event.pull_request.merge_commit_sha }}
+        run: |
+          set -euo pipefail
+          if [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ]; then
+            version=$INPUT_VERSION
+            ref=main
+          else
+            version=${HEAD_REF#release/}
+            ref=$MERGE_SHA
+          fi
+          if ! [[ $version =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "::error::'$version' is not X.Y.Z. Release branches must be named release/X.Y.Z."
+            exit 1
+          fi
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "ref=$ref" >> "$GITHUB_OUTPUT"
+
+      - name: Check out code
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ steps.version.outputs.ref }}
+          fetch-depth: 0
+          fetch-tags: true
+
+        # On a re-run the tag may already exist: release exactly what it points to.
+      - name: Resolve release commit
+        id: commit
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          set -euo pipefail
+          if git rev-parse -q --verify "refs/tags/$VERSION" > /dev/null; then
+            git checkout -q "refs/tags/$VERSION"
+            echo "Tag $VERSION already exists, releasing the commit it points to"
+          fi
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Set Up JDK
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+          cache: 'gradle'
+
+      - name: Change wrapper permissions
+        run: chmod +x ./gradlew
+
+      - name: Publish to Maven Central
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+          SONATYPE_USERNAME: ${{ secrets.SONATYPE_PORTAL_USERNAME }}
+          SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PORTAL_PASSWORD }}
+          SIGNING_PRIVATE_KEY: ${{ secrets.PGP_PRIVATE_KEY }}
+          SIGNING_PASSWORD: ${{ secrets.PGP_PASSPHRASE }}
+        run: |
+          set -euo pipefail
+          # Maven Central can take a few minutes to show a new version.
+          if curl -sfI "https://repo1.maven.org/maven2/org/hisp/dhis/mobile/designsystem/$VERSION/" > /dev/null; then
+            echo "$VERSION is already on Maven Central, skipping"
+          elif [ -z "$SONATYPE_USERNAME" ]; then
+            echo "::warning::Sonatype secrets are not available (fork?), skipping Maven publication"
+          elif [ "$DRY_RUN" = "true" ]; then
+            echo "Dry run: would publish $VERSION to Maven Central"
+          else
+            ./.github/workflows/scripts/publish-maven.sh release "$VERSION"
+          fi
+
+      - name: Build showcase APK
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          ./gradlew assembleDebug -PreleaseVersion="$VERSION"
+          mv showcaseApp/build/outputs/apk/debug/showcaseApp-debug.apk "showcaseApp/build/outputs/apk/debug/ui-components-android-$VERSION.apk"
+
+      - name: GitHub release
+        if: ${{ env.DRY_RUN != 'true' }}
+        uses: ncipollo/release-action@339a81892b84b4eeb0f6e744e4574d79d0d9b8dd # v1.21.0
+        with:
+          tag: ${{ steps.version.outputs.version }}
+          name: ${{ steps.version.outputs.version }}
+          commit: ${{ steps.commit.outputs.sha }}
+          draft: false
+          makeLatest: legacy
+          generateReleaseNotes: true
+          allowUpdates: true
+          artifacts: showcaseApp/build/outputs/apk/debug/ui-components-android-${{ steps.version.outputs.version }}.apk
+
+        # Must use the bot PAT, not GITHUB_TOKEN: PRs opened with GITHUB_TOKEN do not trigger
+        # workflows, so the required checks would never run on this PR.
+      - name: Open back-merge PR into develop
+        env:
+          GH_TOKEN: ${{ secrets.DHIS2_BOT_GITHUB_TOKEN }}
+          VERSION: ${{ steps.version.outputs.version }}
+          SHA: ${{ steps.commit.outputs.sha }}
+        run: |
+          set -euo pipefail
+          git fetch -q origin develop
+          if git merge-base --is-ancestor "$SHA" origin/develop; then
+            echo "develop already contains $VERSION, skipping"
+            exit 0
+          fi
+          existing=$(gh pr list --base develop --head main --state open --json url --jq '.[0].url')
+          if [ -n "$existing" ]; then
+            echo "Back-merge PR already open: $existing"
+            exit 0
+          fi
+          if [ "$DRY_RUN" = "true" ]; then
+            echo "Dry run: would open the back-merge PR main -> develop"
+            exit 0
+          fi
+          gh label create skip-changelog --color ededed --description 'Excluded from release notes' --force
+          url=$(gh pr create -B develop -H main \
+            --title "chore: back-merge $VERSION into develop" \
+            --body 'Created by the Release finish workflow. Merge it with **Create a merge commit**, never squash.' \
+            --label skip-changelog)
+          echo "Opened $url"
+          gh pr merge --auto --merge "$url" || echo "::notice::Auto-merge is not enabled. Merge $url with 'Create a merge commit'."
