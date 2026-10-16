@@ -386,8 +386,11 @@ fun MultiSelectBottomSheet(
                         contentDescription = null,
                     )
                 },
-                text = doneButtonText,
-                style = ButtonStyle.FILLED,
+                state =
+                    ButtonState(
+                        text = doneButtonText,
+                        style = ButtonStyle.FILLED,
+                    ),
             )
         },
         onSearchQueryChanged = { searchQuery = it },

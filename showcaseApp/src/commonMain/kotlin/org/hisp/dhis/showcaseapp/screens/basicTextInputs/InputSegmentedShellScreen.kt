@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package org.hisp.dhis.showcaseapp.screens.basicTextInputs
 
 import androidx.compose.foundation.background

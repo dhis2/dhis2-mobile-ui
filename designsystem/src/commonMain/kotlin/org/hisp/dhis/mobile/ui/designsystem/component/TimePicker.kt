@@ -82,18 +82,24 @@ fun TimePicker(
             )
             Row(Modifier.align(Alignment.End)) {
                 Button(
-                    enabled = true,
-                    ButtonStyle.TEXT,
-                    ColorStyle.DEFAULT,
-                    cancelText ?: provideStringResource("cancel"),
+                    state =
+                        ButtonState(
+                            text = cancelText ?: provideStringResource("cancel"),
+                            enabled = true,
+                            style = ButtonStyle.TEXT,
+                            colorStyle = ColorStyle.DEFAULT,
+                        ),
                 ) {
                     onCancel()
                 }
                 Button(
-                    enabled = true,
-                    ButtonStyle.TEXT,
-                    ColorStyle.DEFAULT,
-                    acceptText ?: provideStringResource("ok"),
+                    state =
+                        ButtonState(
+                            text = acceptText ?: provideStringResource("ok"),
+                            enabled = true,
+                            style = ButtonStyle.TEXT,
+                            colorStyle = ColorStyle.DEFAULT,
+                        ),
                 ) {
                     onAccept()
                 }
