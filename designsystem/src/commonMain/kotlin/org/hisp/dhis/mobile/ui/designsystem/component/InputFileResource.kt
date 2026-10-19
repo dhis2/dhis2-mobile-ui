@@ -133,14 +133,17 @@ fun InputFileResource(
                         modifier = Modifier.padding(top = Spacing.Spacing8, bottom = Spacing.Spacing8),
                         primaryButton = {
                             Button(
-                                enabled = inputShellState != InputShellState.DISABLED,
+                                state =
+                                    ButtonState(
+                                        text = buttonText,
+                                        enabled = inputShellState != InputShellState.DISABLED,
+                                        style = ButtonStyle.KEYBOARDKEY,
+                                    ),
                                 modifier =
                                     Modifier
                                         .testTag(INPUT_FILE_TEST_TAG + ADD_BUTTON_TEST_TAG)
                                         .padding(end = Spacing.Spacing16)
                                         .fillMaxWidth(),
-                                style = ButtonStyle.KEYBOARDKEY,
-                                text = buttonText,
                                 icon = {
                                     Icon(
                                         imageVector = Icons.Outlined.FileUpload,
