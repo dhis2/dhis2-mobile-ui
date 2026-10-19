@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import org.hisp.dhis.mobile.ui.designsystem.component.AssistChip
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
+import org.hisp.dhis.mobile.ui.designsystem.component.FadingRowComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.FilterChip
 import org.hisp.dhis.mobile.ui.designsystem.component.InputChip
 
@@ -103,6 +104,40 @@ fun ChipsScreen() {
                 onClick = {},
                 badge = "4",
             )
+        }
+
+        FadingRowComponentContainer("Fading Row Assist Chips") {
+            item {
+                AssistChip(
+                    label = "This is a Chip",
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Filled.Search,
+                            contentDescription = "search icon",
+                            modifier =
+                                Modifier
+                                    .size(AssistChipDefaults.IconSize),
+                        )
+                    },
+                    onClick = {},
+                )
+            }
+
+            item {
+                AssistChip(
+                    label = "This is a Chip with a long name to display the fading edge",
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Filled.Search,
+                            contentDescription = "search icon",
+                            modifier =
+                                Modifier
+                                    .size(AssistChipDefaults.IconSize),
+                        )
+                    },
+                    onClick = {},
+                )
+            }
         }
     }
 }
