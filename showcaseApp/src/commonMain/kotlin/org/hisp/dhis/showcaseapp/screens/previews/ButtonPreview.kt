@@ -35,14 +35,15 @@ internal fun ButtonPreview(
     textColor: Color,
 ) {
     Button(
-        state = ButtonState(
-            text = text,
-            textColor = textColor,
-            enabled = enabled,
-            style = style,
-            colorStyle = ColorStyle.DEFAULT,
-        ),
-    ){ }
+        state =
+            ButtonState(
+                text = text,
+                textColor = textColor,
+                enabled = enabled,
+                style = style,
+                colorStyle = ColorStyle.DEFAULT,
+            ),
+    ) { }
 }
 
 @Composable
