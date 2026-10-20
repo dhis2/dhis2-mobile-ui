@@ -1,13 +1,13 @@
 [versions]
 
-kotlin = "2.2.21"
-agp = "8.13.0"
+kotlin = "2.3.21"
+agp = "9.4.1"
 compose = "1.10.3"
 composeMaterial3 = "1.9.0"
 composeMaterialIcons = "1.7.3"
 kotlinxSerializationJson = "1.9.0"
 multiplatformMarkdownRenderer = "0.38.1"
-paparazzi = "2.0.0-alpha02"
+paparazzi = "2.0.0-alpha05.1"
 zxing = "3.5.4"
 junit = "4.13.2"
 signaturepad = "0.1.4"
@@ -46,7 +46,7 @@ compose-common = ["compose-runtime", "compose-foundation", "compose-ui", "compos
 [plugins]
 composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 android-application = { id = "com.android.application", version.ref = "agp" }
-android-library = { id = "com.android.library", version.ref = "agp" }
+android-kotlin-multiplatform-library = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
 nexus = { id = "io.github.gradle-nexus.publish-plugin", version.ref = "nexus" }
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }

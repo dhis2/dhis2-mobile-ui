@@ -4,7 +4,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.FileDownload
 import androidx.compose.material.icons.outlined.Menu
 import androidx.compose.material.icons.outlined.Share
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.ui.text.style.TextOverflow
@@ -22,7 +21,6 @@ class TopBarSnapshotTest {
     @get:Rule
     val paparazzi = paparazzi()
 
-    @OptIn(ExperimentalMaterial3Api::class)
     @Test
     fun launchTopBar() {
         paparazzi.snapshot {

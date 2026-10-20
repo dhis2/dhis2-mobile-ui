@@ -14,7 +14,6 @@ import org.hisp.dhis.mobile.ui.designsystem.component.parameter.ParameterSelecto
 import org.hisp.dhis.mobile.ui.designsystem.component.parameter.model.ParameterSelectorItemModel
 import org.hisp.dhis.mobile.ui.designsystem.component.state.InputDateTimeData
 import org.hisp.dhis.mobile.ui.designsystem.component.state.rememberInputDateTimeState
-import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.PreviewContextConfigurationEffect
 import org.junit.Rule
 import org.junit.Test
@@ -23,7 +22,6 @@ class ParameterSelectorSnapshotTest {
     @get:Rule
     val paparazzi = paparazzi()
 
-    @OptIn(ExperimentalResourceApi::class)
     @Test
     fun launchParameterSelectorSnapshot() {
         paparazzi.snapshot {

@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.view.WindowCompat
 import org.hisp.dhis.mobile.ui.designsystem.component.model.LocationItemModel
+import androidx.compose.ui.platform.LocalResources
 
 class MainActivity : AppCompatActivity() {
     @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
@@ -23,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContent {
             val size = calculateWindowSizeClass(this)
-            val res = LocalContext.current.resources
+            val res = LocalResources.current
             SetStatusBarColor()
             App(
                 sizeClass = size,

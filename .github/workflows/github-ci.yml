@@ -30,7 +30,7 @@ jobs:
         uses: actions/setup-java@v5
         with:
           distribution: 'zulu' # See 'Supported distributions' for available options
-          java-version: '17'
+          java-version: '21'
           cache: 'gradle'
 
       - name: Change wrapper permissions
@@ -46,7 +46,7 @@ jobs:
 
       # Run Screenshot Tests
       - name: Run screenshot tests
-        run: ./gradlew designsystem:verifyPaparazziDebug
+        run: ./gradlew designsystem:verifyPaparazziAndroidMain
 
       # Run Build Project
       - name: Build gradle project
@@ -71,7 +71,7 @@ jobs:
         uses: actions/setup-java@v5
         with:
           distribution: 'zulu' # See 'Supported distributions' for available options
-          java-version: '17'
+          java-version: '21'
           cache: 'gradle'
 
       - name: Change wrapper permissions
@@ -86,7 +86,7 @@ jobs:
         uses: actions/upload-artifact@v7.0.1
         with:
           name: ${{ env.repository_name }} - Android APK
-          path: ${{ env.main_project_module }}/build/outputs/apk/debug/showcaseApp-debug.apk
+          path: androidApp/build/outputs/apk/debug/androidApp-debug.apk
 
       #Create binaries
       - name: Create desktop jar for Windows

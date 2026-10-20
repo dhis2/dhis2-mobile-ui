@@ -20,7 +20,6 @@ import org.hisp.dhis.mobile.ui.designsystem.component.state.rememberListCardStat
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
-import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.PreviewContextConfigurationEffect
 import org.junit.Rule
 import org.junit.Test
@@ -29,7 +28,6 @@ class ListCardSelectableSnapshotTest {
     @get:Rule
     val paparazzi = paparazzi()
 
-    @OptIn(ExperimentalResourceApi::class)
     @Test
     fun launchListCard() {
         paparazzi.snapshot {

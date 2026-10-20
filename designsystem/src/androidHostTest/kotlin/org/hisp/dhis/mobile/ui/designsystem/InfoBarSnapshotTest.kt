@@ -10,7 +10,6 @@ import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InfoBar
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
-import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.junit.Rule
 import org.junit.Test
 
@@ -22,7 +21,6 @@ class InfoBarSnapshotTest {
     @get:Rule
     val paparazzi = paparazzi()
 
-    @OptIn(ExperimentalResourceApi::class)
     @Test
     fun launchInfoBarTest() {
         paparazzi.snapshot {

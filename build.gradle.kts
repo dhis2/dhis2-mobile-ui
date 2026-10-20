@@ -5,7 +5,7 @@ group = "org.hisp.dhis.mobile"
 
 plugins {
     alias(libs.plugins.android.application) apply false
-    alias(libs.plugins.android.library) apply false
+    alias(libs.plugins.android.kotlin.multiplatform.library) apply false
     alias(libs.plugins.composeMultiplatform) apply false
     alias(libs.plugins.composeCompiler) apply false
     alias(libs.plugins.kotlinMultiplatform) apply false
@@ -74,10 +74,10 @@ subprojects {
     }
 
     plugins.withId("app.cash.paparazzi") {
-        // Defer until afterEvaluate so that testImplementation is created by Android plugin.
+        // Defer until afterEvaluate so that androidHostTestImplementation is created by Android plugin.
         afterEvaluate {
             dependencies.constraints {
-                add("testImplementation", "com.google.guava:guava") {
+                add("androidHostTestImplementation", "com.google.guava:guava") {
                     attributes {
                         attribute(
                             TargetJvmEnvironment.TARGET_JVM_ENVIRONMENT_ATTRIBUTE,

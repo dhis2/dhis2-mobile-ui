@@ -2,7 +2,7 @@ import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.kotlin.multiplatform.library)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.kotlin.serialization)
@@ -11,7 +11,17 @@ plugins {
 kotlin {
     jvm("desktop")
 
-    androidTarget()
+    jvmToolchain(17)
+
+    android {
+        namespace = "org.hisp.dhis.mobile.ui.common"
+        compileSdk = (findProperty("android.compileSdk") as String).toInt()
+        minSdk = (findProperty("android.minSdk") as String).toInt()
+
+        androidResources {
+            enable = true
+        }
+    }
 
     // Add iOS targets
     listOf(
@@ -35,46 +45,10 @@ kotlin {
         commonTest.dependencies {
             implementation(kotlin("test"))
         }
-        androidMain.dependencies {
-            implementation(libs.androidx.activity.compose)
-            implementation(libs.androidx.appcompat)
-            implementation(libs.androidx.core.ktx)
+        getByName("desktopMain").dependencies {
+            implementation(libs.compose.ui.tooling.preview)
+            implementation(compose.desktop.currentOs)
         }
-        androidUnitTest.dependencies {
-            dependencies {
-                implementation(libs.test.junit)
-            }
-        }
-        val desktopMain by getting {
-            dependencies {
-                implementation(libs.compose.ui.tooling.preview)
-                implementation(compose.desktop.currentOs)
-            }
-        }
-
-        val desktopTest by getting
-    }
-}
-
-android {
-    compileSdk = (findProperty("android.compileSdk") as String).toInt()
-    namespace = "org.hisp.dhis.mobile.ui.common"
-
-    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
-    sourceSets["main"].res.srcDirs("src/androidMain/res", "src/commonMain/composeResources")
-    sourceSets["main"].resources.srcDirs("src/commonMain/composeResources")
-
-    defaultConfig {
-        applicationId = "org.hisp.dhis.showcaseapp"
-        minSdk = (findProperty("android.minSdk") as String).toInt()
-        targetSdk = (findProperty("android.targetSdk") as String).toInt()
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-    kotlin {
-        jvmToolchain(17)
     }
 }
 

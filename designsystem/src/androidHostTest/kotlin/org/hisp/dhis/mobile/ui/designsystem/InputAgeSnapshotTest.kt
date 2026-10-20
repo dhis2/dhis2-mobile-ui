@@ -11,7 +11,6 @@ import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
 import org.hisp.dhis.mobile.ui.designsystem.component.TimeUnitValues
 import org.hisp.dhis.mobile.ui.designsystem.component.state.InputAgeData
 import org.hisp.dhis.mobile.ui.designsystem.component.state.rememberInputAgeState
-import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.PreviewContextConfigurationEffect
 import org.junit.Rule
 import org.junit.Test
@@ -20,7 +19,6 @@ class InputAgeSnapshotTest {
     @get:Rule
     val paparazzi = paparazzi()
 
-    @OptIn(ExperimentalResourceApi::class)
     @Test
     fun launchInputAgeSnapshot() {
         paparazzi.snapshot {

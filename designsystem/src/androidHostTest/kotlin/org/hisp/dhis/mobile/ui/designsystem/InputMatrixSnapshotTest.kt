@@ -7,7 +7,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.painter.BitmapPainter
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalResources
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ImageCardData
 import org.hisp.dhis.mobile.ui.designsystem.component.InputMatrix
@@ -23,7 +23,7 @@ class InputMatrixSnapshotTest {
     @Test
     fun launchMatrix() {
         paparazzi.snapshot {
-            val res = LocalContext.current.resources
+            val res = LocalResources.current
 
             val image =
                 BitmapFactory

@@ -6,7 +6,7 @@ group = rootProject.group
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
-    alias(libs.plugins.android.library)
+    alias(libs.plugins.android.kotlin.multiplatform.library)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.kotlin.serialization)
@@ -15,8 +15,25 @@ plugins {
 }
 
 kotlin {
-    androidTarget {
-        publishLibraryVariants("release")
+    jvmToolchain(17)
+
+    android {
+        namespace = "org.hisp.dhis.mobile.ui.designsystem"
+        compileSdk = (findProperty("android.compileSdk") as String).toInt()
+        minSdk = (findProperty("android.minSdk") as String).toInt()
+
+        androidResources {
+            enable = true
+        }
+
+        withHostTest {
+            isIncludeAndroidResources = true
+        }
+
+        lint {
+            abortOnError = false
+            warningsAsErrors = false
+        }
     }
 
     jvm("desktop")
@@ -35,71 +52,51 @@ kotlin {
         }
     }
     sourceSets {
-        val commonMain by getting {
-            dependencies {
-                implementation(libs.bundles.compose.common)
-                api(libs.compose.material.icons.extended)
-                implementation(libs.kotlinx.serialization.json)
-                implementation(libs.multiplatform.markdown.renderer)
-                implementation(libs.multiplatform.markdown.renderer.m3)
-                implementation(libs.multiplatform.markdown.renderer.coil3)
-            }
+        commonMain.dependencies {
+            implementation(libs.bundles.compose.common)
+            api(libs.compose.material.icons.extended)
+            implementation(libs.kotlinx.serialization.json)
+            implementation(libs.multiplatform.markdown.renderer)
+            implementation(libs.multiplatform.markdown.renderer.m3)
+            implementation(libs.multiplatform.markdown.renderer.coil3)
         }
 
-        val commonTest by getting
-
-        val androidMain by getting {
-            dependencies {
-                implementation(libs.zxing.core)
-                implementation(libs.signature.pad)
-            }
+        androidMain.dependencies {
+            implementation(libs.zxing.core)
+            implementation(libs.signature.pad)
         }
 
-        val androidUnitTest by getting {
-            dependencies {
-                implementation(libs.test.junit)
-            }
+        getByName("androidHostTest").dependencies {
+            implementation(libs.test.junit)
         }
 
-        val desktopMain by getting {
-            dependencies {
-                implementation(libs.compose.desktop)
-                implementation(libs.zxing.core)
-            }
+        getByName("desktopMain").dependencies {
+            implementation(libs.compose.desktop)
+            implementation(libs.zxing.core)
         }
 
-        val desktopTest by getting {
-            dependencies {
-                implementation(libs.compose.ui.test.junit4)
-                implementation(compose.desktop.currentOs)
-            }
+        getByName("desktopTest").dependencies {
+            implementation(libs.compose.ui.test.junit4)
+            implementation(compose.desktop.currentOs)
         }
     }
 }
 
-android {
-    compileSdk = (findProperty("android.compileSdk") as String).toInt()
-    namespace = "org.hisp.dhis.mobile.ui.designsystem"
+// Keep exposing compose resources as Android resources: consumers such as the Capture app use
+// them through R (e.g. R.string.date_birth, R.font.roboto_regular).
+androidComponents {
+    onVariants { variant ->
+        variant.sources.res?.addStaticSourceDirectory("src/commonMain/composeResources")
+    }
+}
 
-    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
-    sourceSets["main"].res.srcDirs("src/androidMain/res", "src/commonMain/composeResources")
-    sourceSets["main"].resources.srcDirs("src/commonMain/composeResources")
-
-    defaultConfig {
-        minSdk = (findProperty("android.minSdk") as String).toInt()
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-    kotlin {
-        jvmToolchain(17)
-    }
-
-    lint {
-        abortOnError = false
-        warningsAsErrors = false
-    }
+// Paparazzi requires a Java 21 runtime; library bytecode stays on the Java 17 toolchain.
+tasks.withType<Test>().configureEach {
+    javaLauncher.set(
+        javaToolchains.launcherFor {
+            languageVersion.set(JavaLanguageVersion.of(21))
+        },
+    )
 }
 
 tasks.withType(DokkaTask::class).configureEach {
