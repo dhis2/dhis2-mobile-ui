@@ -71,7 +71,10 @@ jobs:
         uses: actions/setup-java@v5
         with:
           distribution: 'zulu' # See 'Supported distributions' for available options
-          java-version: '21'
+          # 17 is the project toolchain, 21 (last, so it becomes JAVA_HOME) runs the Gradle daemon
+          java-version: |
+            17
+            21
           cache: 'gradle'
 
       - name: Change wrapper permissions
@@ -79,7 +82,7 @@ jobs:
 
       # Create APK Debug
       - name: Build apk debug project (APK) - ${{ env.main_project_module }} module
-        run: ./gradlew assembleDebug
+        run: ./gradlew assembleDebug "-Porg.gradle.java.installations.fromEnv=JAVA_HOME_17_X64"
 
       # Upload Artifact Build
       - name: Upload Android artifacts
@@ -90,7 +93,7 @@ jobs:
 
       #Create binaries
       - name: Create desktop jar for Windows
-        run: ./gradlew packageUberJarForCurrentOS
+        run: ./gradlew packageUberJarForCurrentOS "-Porg.gradle.java.installations.fromEnv=JAVA_HOME_17_X64"
 
       #Upload binaries artifact
       - name: Upload Desktop artifacts
