@@ -1,6 +1,6 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
-import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.junit4.v2.createComposeRule
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.json.Json

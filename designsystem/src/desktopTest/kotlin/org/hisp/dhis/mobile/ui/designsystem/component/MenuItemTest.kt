@@ -2,7 +2,7 @@ package org.hisp.dhis.mobile.ui.designsystem.component
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Done
-import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.junit4.v2.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import org.hisp.dhis.mobile.ui.designsystem.component.menu.MenuItem
 import org.hisp.dhis.mobile.ui.designsystem.component.menu.MenuItemData
