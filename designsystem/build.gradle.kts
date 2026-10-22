@@ -12,6 +12,7 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.testing.snapshot.paparazzi)
     id("convention.publication")
+    alias(libs.plugins.cyclonedx)
 }
 
 kotlin {
@@ -97,6 +98,16 @@ tasks.withType<Test>().configureEach {
             languageVersion.set(JavaLanguageVersion.of(21))
         },
     )
+}
+
+tasks.cyclonedxDirectBom {
+    // Only include the runtime dependencies of the published targets
+    includeConfigs =
+        listOf(
+            "androidReleaseRuntimeClasspath",
+            "desktopRuntimeClasspath",
+            "ios(X64|Arm64|SimulatorArm64)CompileKlibraries",
+        )
 }
 
 tasks.withType(DokkaTask::class).configureEach {
