@@ -58,5 +58,6 @@ fun InputUser(
         autoCompleteList = uiModel.autoCompleteList,
         autoCompleteItemSelected = uiModel.autoCompleteItemSelected,
         showDeleteButton = showDeleteButton,
+        contentType = uiModel.contentType,
     )
 }

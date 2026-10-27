@@ -5,7 +5,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.autofill.ContentType
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertHasNoClickAction
 import androidx.compose.ui.test.assertIsNotEnabled
@@ -147,5 +150,32 @@ class InputTextTest {
         }
         rule.onNodeWithTag("INPUT_TEXT").assertExists()
         rule.onNodeWithTag("INPUT_TEXT_SUPPORTING_TEXT", useUnmergedTree = true).assertExists()
+    }
+
+    @Test
+    fun shouldExposeAutofillContentTypeWhenSet() {
+        rule.setContent {
+            InputText(
+                title = "Label",
+                state = InputShellState.UNFOCUSED,
+                contentType = ContentType.EmailAddress,
+            )
+        }
+        rule
+            .onNodeWithTag("INPUT_TEXT_FIELD")
+            .assert(SemanticsMatcher.expectValue(SemanticsProperties.ContentType, ContentType.EmailAddress))
+    }
+
+    @Test
+    fun shouldNotExposeAutofillContentTypeByDefault() {
+        rule.setContent {
+            InputText(
+                title = "Label",
+                state = InputShellState.UNFOCUSED,
+            )
+        }
+        rule
+            .onNodeWithTag("INPUT_TEXT_FIELD")
+            .assert(SemanticsMatcher.keyNotDefined(SemanticsProperties.ContentType))
     }
 }

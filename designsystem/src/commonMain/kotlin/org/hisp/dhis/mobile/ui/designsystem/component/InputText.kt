@@ -3,6 +3,7 @@ package org.hisp.dhis.mobile.ui.designsystem.component
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.autofill.ContentType
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 
@@ -25,6 +26,7 @@ import androidx.compose.ui.text.input.TextFieldValue
  * @param modifier: allows a modifier to be passed externally.
  * @param inputStyle: manages the InputShell style.
  * @param showDeleteButton: controls whether the delete button is shown or not.
+ * @param contentType: optional autofill [ContentType] applied to the editable text field.
  */
 @Composable
 fun InputText(
@@ -43,6 +45,7 @@ fun InputText(
     modifier: Modifier = Modifier,
     inputStyle: InputStyle = InputStyle.DarkInputStyle(),
     showDeleteButton: Boolean = true,
+    contentType: ContentType? = null,
 ) {
     BasicTextInput(
         title = title,
@@ -61,6 +64,7 @@ fun InputText(
         autoCompleteItemSelected = onAutoCompleteItemSelected,
         inputStyle = inputStyle,
         showDeleteButton = showDeleteButton,
+        contentType = contentType,
     )
 }
 
