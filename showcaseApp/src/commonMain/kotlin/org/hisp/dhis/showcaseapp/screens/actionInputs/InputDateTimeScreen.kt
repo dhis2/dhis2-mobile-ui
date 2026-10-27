@@ -10,9 +10,15 @@ import androidx.compose.ui.text.input.TextFieldValue
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.DateTimeActionType
+import org.hisp.dhis.mobile.ui.designsystem.component.EthiopianCalendar
 import org.hisp.dhis.mobile.ui.designsystem.component.InputDateTime
+import org.hisp.dhis.mobile.ui.designsystem.component.InputRadioButton
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
+import org.hisp.dhis.mobile.ui.designsystem.component.NepaliCalendar
+import org.hisp.dhis.mobile.ui.designsystem.component.Orientation
+import org.hisp.dhis.mobile.ui.designsystem.component.RadioButtonData
 import org.hisp.dhis.mobile.ui.designsystem.component.SelectableDates
+import org.hisp.dhis.mobile.ui.designsystem.component.model.CalendarSystem
 import org.hisp.dhis.mobile.ui.designsystem.component.model.DateTimeTransformation
 import org.hisp.dhis.mobile.ui.designsystem.component.model.DateTransformation
 import org.hisp.dhis.mobile.ui.designsystem.component.model.TimeTransformation
@@ -22,13 +28,61 @@ import org.hisp.dhis.mobile.ui.designsystem.component.state.rememberInputDateTim
 @Composable
 fun InputDateTimeScreen() {
     ColumnScreenContainer(title = ActionInputs.INPUT_DATE_TIME.label) {
-        var date by remember { mutableStateOf(TextFieldValue("2024-11-12", selection = TextRange(8))) }
+        var date by remember {
+            mutableStateOf(
+                TextFieldValue(
+                    "2024-11-12",
+                    selection = TextRange(8),
+                ),
+            )
+        }
         var time by remember { mutableStateOf(TextFieldValue("09:30")) }
         var dateTime by remember { mutableStateOf(TextFieldValue("1991-11-12T02:30")) }
         var dateTime24hour by remember { mutableStateOf(TextFieldValue("1991-11-12T19:30")) }
 
         var dateTimeInput by remember { mutableStateOf(TextFieldValue("09:30")) }
         var hour24time by remember { mutableStateOf(TextFieldValue("16:30")) }
+        var selectedCalendarSystem: CalendarSystem? by remember { mutableStateOf(null) }
+        val calendarData by remember(selectedCalendarSystem) {
+            mutableStateOf(
+                listOf(
+                    RadioButtonData(
+                        uid = "gregorian",
+                        selected = selectedCalendarSystem == null,
+                        enabled = true,
+                        textInput = "Gregorian",
+                    ),
+                    RadioButtonData(
+                        uid = "nepali",
+                        selected = selectedCalendarSystem is NepaliCalendar,
+                        enabled = true,
+                        textInput = "Nepali",
+                    ),
+                    RadioButtonData(
+                        uid = "ethiopian",
+                        selected = selectedCalendarSystem is EthiopianCalendar,
+                        enabled = true,
+                        textInput = "Ethiopian",
+                    ),
+                ),
+            )
+        }
+
+        InputRadioButton(
+            orientation = Orientation.HORIZONTAL,
+            title = "Current calendar",
+            radioButtonData = calendarData,
+            state = InputShellState.UNFOCUSED,
+            itemSelected = calendarData.find { it.selected },
+            onItemChange = { data ->
+                selectedCalendarSystem =
+                    when (data?.uid) {
+                        "nepali" -> NepaliCalendar()
+                        "ethiopian" -> EthiopianCalendar()
+                        else -> null
+                    }
+            },
+        )
 
         ColumnComponentContainer("Date Input (allowed dates from 01/09/2024 to 12/12/2025)") {
             InputDateTime(
@@ -44,6 +98,7 @@ fun InputDateTimeScreen() {
                         inputTextFieldValue = date,
                     ),
                 onValueChanged = { date = it ?: TextFieldValue() },
+                calendarSystem = selectedCalendarSystem,
             )
         }
 
@@ -61,6 +116,7 @@ fun InputDateTimeScreen() {
                         inputTextFieldValue = dateTimeInput,
                     ),
                 onValueChanged = { dateTimeInput = it ?: TextFieldValue() },
+                calendarSystem = selectedCalendarSystem,
             )
         }
 
@@ -78,6 +134,7 @@ fun InputDateTimeScreen() {
                         inputTextFieldValue = hour24time,
                     ),
                 onValueChanged = { hour24time = it ?: TextFieldValue() },
+                calendarSystem = selectedCalendarSystem,
             )
         }
 
@@ -95,6 +152,7 @@ fun InputDateTimeScreen() {
                         inputTextFieldValue = time,
                     ),
                 onValueChanged = { time = it ?: TextFieldValue() },
+                calendarSystem = selectedCalendarSystem,
             )
         }
 
@@ -111,6 +169,7 @@ fun InputDateTimeScreen() {
                         inputTextFieldValue = dateTime,
                     ),
                 onValueChanged = { dateTime = it ?: TextFieldValue() },
+                calendarSystem = selectedCalendarSystem,
             )
         }
 
@@ -128,6 +187,7 @@ fun InputDateTimeScreen() {
                         inputTextFieldValue = dateTime24hour,
                     ),
                 onValueChanged = { dateTime24hour = it ?: TextFieldValue() },
+                calendarSystem = selectedCalendarSystem,
             )
         }
 
@@ -147,6 +207,7 @@ fun InputDateTimeScreen() {
                 onValueChanged = {
                     // no-op
                 },
+                calendarSystem = selectedCalendarSystem,
             )
         }
 
@@ -167,6 +228,7 @@ fun InputDateTimeScreen() {
                 onValueChanged = {
                     // no-op
                 },
+                calendarSystem = selectedCalendarSystem,
             )
         }
     }
