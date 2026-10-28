@@ -4,6 +4,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.autofill.ContentType
+import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertHasNoClickAction
 import androidx.compose.ui.test.assertIsNotEnabled
@@ -167,5 +170,20 @@ class InputPasswordTest {
         }
         rule.onNodeWithTag(InputPasswordModel.MAIN).assertExists()
         rule.onNodeWithTag(InputPasswordModel.SUPPORTING_TEXT).assertExists()
+    }
+
+    @Test
+    fun shouldExposePasswordAutofillContentTypeByDefault() {
+        rule.setContent {
+            InputPassword(
+                InputPasswordModel(
+                    title = "Label",
+                    state = InputShellState.UNFOCUSED,
+                ),
+            )
+        }
+        rule
+            .onNodeWithTag(InputPasswordModel.TEXT_FIELD)
+            .assert(SemanticsMatcher.expectValue(SemanticsProperties.ContentType, ContentType.Password))
     }
 }

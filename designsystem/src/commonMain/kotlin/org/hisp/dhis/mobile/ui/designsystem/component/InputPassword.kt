@@ -57,7 +57,8 @@ fun InputPassword(
                 modifier =
                     Modifier
                         .testTag(InputPasswordModel.TEXT_FIELD)
-                        .fillMaxWidth(),
+                        .fillMaxWidth()
+                        .autofillContentType(uiModel.contentType),
                 inputTextValue = uiModel.inputTextFieldValue,
                 isSingleLine = true,
                 onInputChanged = { newText ->

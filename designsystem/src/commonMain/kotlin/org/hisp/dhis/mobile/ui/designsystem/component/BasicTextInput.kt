@@ -22,12 +22,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.autofill.ContentType
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalClipboard
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.contentType
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
@@ -67,6 +70,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
  * @param modifier: allows a modifier to be passed externally.
  * @param actionButton: controls action button composable, if null will show nothing.
  * @param showDeleteButton: controls whether the delete button is shown or not.
+ * @param contentType: optional autofill [ContentType] applied to the editable text field.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -92,6 +96,7 @@ internal fun BasicTextInput(
     modifier: Modifier = Modifier,
     inputStyle: InputStyle,
     showDeleteButton: Boolean,
+    contentType: ContentType? = null,
 ) {
     var inputValue by remember(inputTextFieldValue) { mutableStateOf(inputTextFieldValue) }
 
@@ -180,7 +185,8 @@ internal fun BasicTextInput(
                         Modifier
                             .testTag("INPUT_" + testTag + "_FIELD")
                             .fillMaxWidth()
-                            .heightIn(Spacing.Spacing0, InternalSizeValues.Size300),
+                            .heightIn(Spacing.Spacing0, InternalSizeValues.Size300)
+                            .autofillContentType(contentType),
                     inputTextValue = inputValue ?: TextFieldValue(),
                     helper = helper,
                     isSingleLine = isSingleLine,
@@ -283,3 +289,14 @@ internal fun BasicTextInput(
         )
     }
 }
+
+/**
+ * Sets the autofill [ContentType] semantics so autofill services can recognize the field.
+ * Does nothing when [contentType] is null.
+ */
+internal fun Modifier.autofillContentType(contentType: ContentType?): Modifier =
+    if (contentType != null) {
+        this.semantics { this.contentType = contentType }
+    } else {
+        this
+    }

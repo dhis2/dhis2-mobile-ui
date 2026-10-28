@@ -1,5 +1,6 @@
 package org.hisp.dhis.mobile.ui.designsystem.component.model
 
+import androidx.compose.ui.autofill.ContentType
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
@@ -43,6 +44,7 @@ sealed class BasicTextInputModel : InputModel {
  * @param onValueChanged: gives access to the onValueChanged event.
  * @param imeAction: controls the imeAction button to be shown.
  * @param onFocusChanged: gives access to the on Focus changed callback.
+ * @param contentType: autofill [ContentType] of the field. Defaults to [ContentType.Username], null opts out.
  *
  */
 data class InputUserModel(
@@ -65,6 +67,7 @@ data class InputUserModel(
             onNextClicked?.invoke()
         }
     },
+    val contentType: ContentType? = ContentType.Username,
 ) : BasicTextInputModel() {
     companion object {
         const val MAIN = "INPUT_USER"
@@ -91,6 +94,8 @@ data class InputUserModel(
  * @param onValueChanged: gives access to the onValueChanged event.
  * @param imeAction: controls the imeAction button to be shown.
  * @param onFocusChanged: gives access to the on Focus changed callback.
+ * @param contentType: autofill [ContentType] of the field. Defaults to [ContentType.Password]. Passing null
+ * removes the explicit hint, but Compose still infers [ContentType.Password] from the password keyboard type.
  *
  */
 data class InputPasswordModel(
@@ -113,6 +118,7 @@ data class InputPasswordModel(
             onNextClicked?.invoke()
         }
     },
+    val contentType: ContentType? = ContentType.Password,
 ) : BasicTextInputModel() {
     companion object {
         const val MAIN = "INPUT_PASSWORD"
