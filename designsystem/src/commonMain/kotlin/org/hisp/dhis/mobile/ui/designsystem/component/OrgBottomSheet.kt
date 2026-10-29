@@ -199,8 +199,11 @@ fun OrgBottomSheet(
                                 contentDescription = null,
                             )
                         },
-                        text = clearAllButtonText,
-                        enabled = orgTreeItems.any { it.selected },
+                        state =
+                            ButtonState(
+                                text = clearAllButtonText,
+                                enabled = orgTreeItems.any { it.selected },
+                            ),
                     )
 
                     Spacer(Modifier.requiredWidth(Spacing.Spacing16))
@@ -215,9 +218,12 @@ fun OrgBottomSheet(
                             contentDescription = null,
                         )
                     },
-                    enabled = orgTreeItems.any { it.selected },
-                    text = doneButtonText ?: provideStringResource("done"),
-                    style = ButtonStyle.FILLED,
+                    state =
+                        ButtonState(
+                            text = doneButtonText ?: provideStringResource("done"),
+                            enabled = orgTreeItems.any { it.selected },
+                            style = ButtonStyle.FILLED,
+                        ),
                 )
             }
         },

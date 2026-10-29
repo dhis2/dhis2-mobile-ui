@@ -87,8 +87,11 @@ fun InputDialog(
                                                 Modifier
                                                     .padding(Spacing.Spacing16)
                                                     .fillMaxWidth(),
-                                            text = provideStringResource("hide_details"),
-                                            style = ButtonStyle.TONAL,
+                                            state =
+                                                ButtonState(
+                                                    text = provideStringResource("hide_details"),
+                                                    style = ButtonStyle.TONAL,
+                                                ),
                                             icon = {
                                                 Icon(
                                                     imageVector = Icons.Filled.ArrowDropUp,
@@ -168,8 +171,11 @@ fun InputDialog(
                                     modifier =
                                         Modifier
                                             .fillMaxWidth(),
-                                    text = provideStringResource("hide_details"),
-                                    style = ButtonStyle.TONAL,
+                                    state =
+                                        ButtonState(
+                                            text = provideStringResource("hide_details"),
+                                            style = ButtonStyle.TONAL,
+                                        ),
                                     icon = {
                                         Icon(
                                             imageVector = Icons.Filled.ArrowDropUp,
