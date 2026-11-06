@@ -140,8 +140,11 @@ private fun BasicInfoBar(
         actionText?.let {
             Button(
                 modifier = Modifier.height(InfoBarDefaults.actionButtonHeight),
-                style = ButtonStyle.TEXT,
-                text = actionText,
+                state =
+                    ButtonState(
+                        text = actionText,
+                        style = ButtonStyle.TEXT,
+                    ),
                 paddingValues =
                     PaddingValues(
                         horizontal = Spacing.Spacing16,

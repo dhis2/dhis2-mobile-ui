@@ -1,6 +1,10 @@
 package org.hisp.dhis.showcaseapp.screens.buttons
 
+import androidx.compose.foundation.background
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.ColorStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
@@ -144,6 +148,19 @@ fun ButtonScreen() {
             RowComponentContainer {
                 ButtonPreviewWithIcon("Label", ButtonStyle.TEXT, true, ColorStyle.WARNING)
                 ButtonPreviewWithIcon("Label", ButtonStyle.TEXT, false, ColorStyle.WARNING)
+            }
+        }
+
+        Title("Overridden text color Buttons")
+        ColumnComponentContainer("Text colors") {
+            RowComponentContainer {
+                ButtonPreview("Label", ButtonStyle.TEXT, true, textColor = Color(0xFF862F75))
+            }
+            RowComponentContainer("Disabled") {
+                ButtonPreview("Label", ButtonStyle.TEXT, false, textColor = Color(0xFF862F75))
+            }
+            RowComponentContainer("On primary", modifier = Modifier.background(MaterialTheme.colorScheme.primary)) {
+                ButtonPreview("Label", ButtonStyle.TEXT, true, textColor = MaterialTheme.colorScheme.onPrimary)
             }
         }
     }

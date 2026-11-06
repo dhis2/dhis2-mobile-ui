@@ -24,7 +24,7 @@ jobs:
         uses: actions/setup-java@v5
         with:
           distribution: 'zulu' # See 'Supported distributions' for available options
-          java-version: '17'
+          java-version: '21'
           cache: 'gradle'
 
       - name: Change wrapper permissions
@@ -32,7 +32,7 @@ jobs:
 
       - name: Validate existing Paparazzi images
         id: verify
-        run: ./gradlew ${{ env.main_project_module }}:verifyPaparazziDebug --no-daemon
+        run: ./gradlew ${{ env.main_project_module }}:verifyPaparazziAndroidMain --no-daemon
         continue-on-error: true
 
       - name: Check Verification Status
@@ -47,11 +47,11 @@ jobs:
 
       - name: Generate Golden images
         if: steps.verify.outcome == 'failure'
-        run: ./gradlew ${{ env.main_project_module }}:recordPaparazziDebug
+        run: ./gradlew ${{ env.main_project_module }}:recordPaparazziAndroidMain
 
       - name: Revalidate with new recorded images
         if: steps.verify.outcome == 'failure'
-        run: ./gradlew ${{ env.main_project_module }}:verifyPaparazziDebug --no-daemon
+        run: ./gradlew ${{ env.main_project_module }}:verifyPaparazziAndroidMain --no-daemon
 
       - name: Commit and Push Changes
         if: steps.verify.outcome == 'failure'

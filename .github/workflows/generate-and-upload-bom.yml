@@ -1,0 +1,46 @@
+name: 'Dependency Tracker'
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+  create-bom:
+    name: Create and Upload SBOM
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - name: Set up JDK 17
+        uses: actions/setup-java@v5
+        with:
+          java-version: 17
+          distribution: zulu
+          cache: 'gradle'
+      - name: Change wrapper permission
+        run: chmod +x ./gradlew
+      - name: Generate BOM
+        run: ./gradlew :designsystem:cyclonedxBom
+      - name: Upload SBOM to DependencyTrack
+        env:
+          DT_API_URL: ${{ vars.DEPENDENCYTRACK_URL }}
+          DT_API_KEY: ${{ secrets.DEPENDENCYTRACK_APIKEY }}
+          PROJECT_NAME: ${{ github.event.repository.name }}
+          PROJECT_VERSION: ${{ github.ref_name }}
+        run: |
+          response=$(curl -sS -X POST "$DT_API_URL" \
+              --fail-with-body \
+              -H "X-Api-Key: $DT_API_KEY" \
+              -F "autoCreate=true" \
+              -F "projectName=$PROJECT_NAME" \
+              -F "projectVersion=$PROJECT_VERSION" \
+              -F "bom=@designsystem/build/reports/cyclonedx/bom.json")
+
+          token=$(printf '%s' "$response" | jq -r '.token // empty')
+          if [ -z "$token" ]; then
+            echo "::error::DependencyTrack returned no processing token: $response"
+            exit 1
+          fi
+          echo "Queued $PROJECT_NAME/$PROJECT_VERSION (token $token)"

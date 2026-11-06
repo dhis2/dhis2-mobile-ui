@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package org.hisp.dhis.showcaseapp.screens.toggleableInputs
 
 import androidx.compose.runtime.Composable

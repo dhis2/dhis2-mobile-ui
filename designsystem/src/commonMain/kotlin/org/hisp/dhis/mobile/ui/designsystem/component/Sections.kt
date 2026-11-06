@@ -411,8 +411,11 @@ internal fun NextSectionButton(
 ) {
     Button(
         modifier = modifier,
-        style = ButtonStyle.TEXT,
-        text = provideStringResource("action_next"),
+        state =
+            ButtonState(
+                text = provideStringResource("action_next"),
+                style = ButtonStyle.TEXT,
+            ),
         icon = {
             Icon(
                 imageVector = Icons.AutoMirrored.Filled.ArrowForward,

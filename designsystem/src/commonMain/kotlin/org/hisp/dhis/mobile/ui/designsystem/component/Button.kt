@@ -17,7 +17,6 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ElevatedButton
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LocalRippleConfiguration
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
@@ -28,9 +27,11 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.isUnspecified
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.theme.Border
@@ -43,6 +44,59 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.buttonShadow
 import org.hisp.dhis.mobile.ui.designsystem.theme.customRippleConfiguration
 import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
+
+/**
+ * DHIS2 ButtonState
+ * @param text The text to display within.
+ * @param textColor The color for the text to be used
+ * @param enabled Controls the enabled state of the button. When `false`, this button will not be
+ * clickable and will appear disabled to accessibility services.
+ * @param style Controls style of the button. Will be OUTLINED by default, but can be
+ * FILLED, TEXT, TONAL, ELEVATED or KEYBOARDKEY.
+ * @param colorStyle the button color style to be used,
+ * can be [ColorStyle.DEFAULT] or [ColorStyle.ERROR].
+ * */
+data class ButtonState(
+    val text: String,
+    val textColor: Color = Color.Unspecified,
+    val enabled: Boolean = true,
+    val style: ButtonStyle = ButtonStyle.OUTLINED,
+    val colorStyle: ColorStyle = ColorStyle.DEFAULT,
+)
+
+private val LocalTextColor = staticCompositionLocalOf { Color.Unspecified }
+
+/**
+ * DHIS2 button with generic icon slot.
+ * wraps DHIS2 [SimpleButton] which in turn wraps material 3 [Button].
+ * @param modifier: optional [Modifier].
+ * @param state: Controls the state of the button.
+ * @param icon: The button icon content.
+ * @param paddingValues: optional [PaddingValues] to be overridden.
+ * @param onClick :Will be called when the user clicks the button.
+ */
+@Composable
+fun Button(
+    modifier: Modifier = Modifier,
+    state: ButtonState,
+    icon: @Composable
+    (() -> Unit)? = null,
+    paddingValues: PaddingValues = getPaddingValues(icon != null),
+    onClick: () -> Unit,
+) {
+    CompositionLocalProvider(LocalTextColor provides state.textColor) {
+        ButtonContent(
+            modifier = modifier,
+            enabled = state.enabled,
+            style = state.style,
+            colorStyle = state.colorStyle,
+            text = state.text,
+            icon = icon,
+            paddingValues = paddingValues,
+            onClick = onClick,
+        )
+    }
+}
 
 /**
  * DHIS2 button with generic icon slot.
@@ -59,7 +113,13 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
  * @param modifier: optional [Modifier].
  * @param onClick :Will be called when the user clicks the button.
  */
-@OptIn(ExperimentalMaterial3Api::class)
+@Deprecated(
+    "Use constructor with ButtonState instead",
+    ReplaceWith(
+        "Button(modifier = modifier, state = ButtonState(text = text, enabled = enabled, style = style, " +
+            "colorStyle = colorStyle), icon = icon, paddingValues = paddingValues, onClick = onClick)",
+    ),
+)
 @Composable
 fun Button(
     enabled: Boolean = true,
@@ -70,6 +130,33 @@ fun Button(
     (() -> Unit)? = null,
     modifier: Modifier = Modifier,
     paddingValues: PaddingValues = getPaddingValues(icon != null),
+    onClick: () -> Unit,
+) {
+    Button(
+        modifier = modifier,
+        state =
+            ButtonState(
+                text = text,
+                enabled = enabled,
+                style = style,
+                colorStyle = colorStyle,
+            ),
+        icon = icon,
+        paddingValues = paddingValues,
+        onClick = onClick,
+    )
+}
+
+@Composable
+private fun ButtonContent(
+    modifier: Modifier,
+    enabled: Boolean,
+    style: ButtonStyle,
+    colorStyle: ColorStyle,
+    text: String,
+    icon: @Composable
+    (() -> Unit)?,
+    paddingValues: PaddingValues,
     onClick: () -> Unit,
 ) {
     when (style) {
@@ -102,7 +189,7 @@ fun Button(
         ButtonStyle.TEXT, ButtonStyle.TEXT_LIGHT -> {
             val buttonColors =
                 when (colorStyle) {
-                    ColorStyle.DEFAULT -> getTextButtonColors(style, enabled)
+                    ColorStyle.DEFAULT -> getTextButtonColors(style, enabled, LocalTextColor.current)
                     ColorStyle.ERROR -> getErrorTextButtonColors(style, enabled)
                     ColorStyle.WARNING -> getWarningTextButtonColors(style, enabled)
                 }
@@ -295,11 +382,11 @@ fun Button(
  */
 @Composable
 private fun SimpleButton(
+    modifier: Modifier = Modifier,
     enabled: Boolean = true,
     buttonColors: ButtonColors,
     text: String,
     textColor: Color,
-    modifier: Modifier = Modifier,
     icon: @Composable
     (() -> Unit)? = null,
     onClick: () -> Unit,
@@ -330,11 +417,11 @@ private fun SimpleButton(
  */
 @Composable
 fun TextButtonSelector(
+    modifier: Modifier = Modifier,
     enabled: Boolean = true,
     firstOptionText: String,
     middleText: String,
     secondOptionText: String,
-    modifier: Modifier = Modifier,
     onClickFirstOption: () -> Unit,
     onClickSecondOption: () -> Unit,
 ) {
@@ -439,9 +526,9 @@ enum class ColorStyle {
  */
 @Composable
 fun ButtonBlock(
+    modifier: Modifier = Modifier,
     primaryButton: @Composable (() -> Unit),
     secondaryButton: @Composable (() -> Unit)? = null,
-    modifier: Modifier = Modifier,
 ) {
     Row(
         horizontalArrangement = Arrangement.Center,
@@ -462,7 +549,7 @@ fun ButtonBlock(
     }
 }
 
-data class CustomButtonColors(
+private data class CustomButtonColors(
     val textColor: Color,
     val containerColor: Color,
     val contentColor: Color,
@@ -492,12 +579,19 @@ private fun getWarningFilledButtonColors(isEnabled: Boolean): CustomButtonColors
 private fun getTextButtonColors(
     style: ButtonStyle,
     isEnabled: Boolean,
+    currentTextColor: Color,
 ): CustomButtonColors {
     val textColor =
         when {
-            !isEnabled -> TextColor.OnDisabledSurface
-            style == ButtonStyle.TEXT_LIGHT -> TextColor.OnPrimary
-            else -> SurfaceColor.Primary
+            !isEnabled ->
+                currentTextColor.takeIf { !it.isUnspecified }?.copy(alpha = 0.7f)
+                    ?: TextColor.OnDisabledSurface
+
+            style == ButtonStyle.TEXT_LIGHT ->
+                currentTextColor.takeIf { !it.isUnspecified } ?: TextColor.OnPrimary
+
+            else ->
+                currentTextColor.takeIf { !it.isUnspecified } ?: SurfaceColor.Primary
         }
     return CustomButtonColors(
         textColor = textColor,

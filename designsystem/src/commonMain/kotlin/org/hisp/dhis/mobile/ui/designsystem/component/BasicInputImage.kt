@@ -97,9 +97,12 @@ internal fun <T> BasicInputImage(
                         modifier = Modifier.padding(vertical = Spacing.Spacing8),
                         primaryButton = {
                             Button(
-                                enabled = state != InputShellState.DISABLED,
-                                style = ButtonStyle.KEYBOARDKEY,
-                                text = addButtonText,
+                                state =
+                                    ButtonState(
+                                        text = addButtonText,
+                                        enabled = state != InputShellState.DISABLED,
+                                        style = ButtonStyle.KEYBOARDKEY,
+                                    ),
                                 icon = {
                                     Icon(
                                         imageVector = addButtonIcon,

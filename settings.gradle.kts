@@ -4,6 +4,7 @@ rootProject.name = "mobile-ui"
 
 include(":designsystem")
 include(":showcaseApp")
+include(":androidApp")
 includeBuild("convention-plugins")
 
 pluginManagement {

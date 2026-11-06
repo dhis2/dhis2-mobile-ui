@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package org.hisp.dhis.showcaseapp.screens.cards
 
 import androidx.compose.foundation.layout.fillMaxSize

@@ -322,14 +322,17 @@ private fun LocationSearchBar(
                 ) {
                     Button(
                         modifier = Modifier.fillMaxWidth(),
-                        style = ButtonStyle.TONAL,
+                        state =
+                            ButtonState(
+                                text = provideStringResource("select_in_map"),
+                                style = ButtonStyle.TONAL,
+                            ),
                         icon = {
                             Icon(
                                 imageVector = Icons.Outlined.Map,
                                 contentDescription = "touch app",
                             )
                         },
-                        text = provideStringResource("select_in_map"),
                         onClick = onBackClicked,
                     )
                 }

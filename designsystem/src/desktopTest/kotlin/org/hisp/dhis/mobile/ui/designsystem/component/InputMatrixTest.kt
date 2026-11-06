@@ -4,7 +4,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.test.assertAll
 import androidx.compose.ui.test.isEnabled
 import androidx.compose.ui.test.isNotEnabled
-import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.junit4.v2.createComposeRule
 import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onNodeWithTag
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor

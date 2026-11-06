@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.component.BottomSheetShell
 import org.hisp.dhis.mobile.ui.designsystem.component.Button
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonBlock
+import org.hisp.dhis.mobile.ui.designsystem.component.ButtonState
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.dashedBorder
 import org.hisp.dhis.mobile.ui.designsystem.component.state.BottomSheetShellDefaults
@@ -107,15 +108,18 @@ internal fun SignatureBottomSheet(
                 modifier = Modifier.padding(BottomSheetShellDefaults.buttonBlockPaddings()),
                 primaryButton = {
                     Button(
-                        style = ButtonStyle.OUTLINED,
+                        state =
+                            ButtonState(
+                                text = resetButtonText,
+                                enabled = isSigning,
+                                style = ButtonStyle.OUTLINED,
+                            ),
                         icon = {
                             Icon(
                                 imageVector = Icons.Filled.RestartAlt,
                                 contentDescription = "Reset Button",
                             )
                         },
-                        enabled = isSigning,
-                        text = resetButtonText,
                         onClick = {
                             signature?.clear()
                             isSigning = false
@@ -125,15 +129,18 @@ internal fun SignatureBottomSheet(
                 },
                 secondaryButton = {
                     Button(
-                        style = ButtonStyle.FILLED,
+                        state =
+                            ButtonState(
+                                text = doneButtonText,
+                                enabled = isSigning,
+                                style = ButtonStyle.FILLED,
+                            ),
                         icon = {
                             Icon(
                                 imageVector = Icons.Filled.Done,
                                 contentDescription = "Done Button",
                             )
                         },
-                        enabled = isSigning,
-                        text = doneButtonText,
                         onClick = {
                             signature?.getBitmap()?.let { onSave.invoke(it) }
                         },

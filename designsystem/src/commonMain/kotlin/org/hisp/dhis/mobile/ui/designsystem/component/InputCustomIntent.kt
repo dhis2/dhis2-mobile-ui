@@ -128,14 +128,17 @@ fun InputCustomIntent(
                         modifier = Modifier.padding(top = Spacing.Spacing8, bottom = Spacing.Spacing8),
                         primaryButton = {
                             Button(
-                                enabled = inputShellState != InputShellState.DISABLED,
+                                state =
+                                    ButtonState(
+                                        text = buttonText,
+                                        enabled = inputShellState != InputShellState.DISABLED,
+                                        style = ButtonStyle.KEYBOARDKEY,
+                                    ),
                                 modifier =
                                     Modifier
                                         .testTag(INPUT_CUSTOM_INTENT_TEST_TAG + LAUNCH_BUTTON_TEST_TAG)
                                         .padding(end = Spacing.Spacing16)
                                         .fillMaxWidth(),
-                                style = ButtonStyle.KEYBOARDKEY,
-                                text = buttonText,
                                 icon = {
                                     Icon(
                                         imageVector = Icons.AutoMirrored.Outlined.OpenInNew,

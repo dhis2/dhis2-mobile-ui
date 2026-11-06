@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package org.hisp.dhis.showcaseapp.screens.table
 
 import androidx.compose.animation.AnimatedVisibility

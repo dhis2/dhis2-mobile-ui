@@ -41,6 +41,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.component.Button
+import org.hisp.dhis.mobile.ui.designsystem.component.ButtonState
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.ProgressIndicator
 import org.hisp.dhis.mobile.ui.designsystem.component.ProgressIndicatorType
@@ -310,8 +311,11 @@ internal fun Table(
             ) {
                 Button(
                     modifier = Modifier.fillMaxWidth(),
-                    style = ButtonStyle.TONAL,
-                    text = provideStringResource("reset_table_layout"),
+                    state =
+                        ButtonState(
+                            text = provideStringResource("reset_table_layout"),
+                            style = ButtonStyle.TONAL,
+                        ),
                     icon = {
                         Icon(
                             imageVector = Icons.Outlined.RestartAlt,
