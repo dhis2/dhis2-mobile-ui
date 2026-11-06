@@ -354,41 +354,6 @@ fun InputDateResetButton(
     }
 }
 
-/**
- * DHIS2 Input Date Time
- * Input field to enter date, time or date&time. It will format content based on given visual
- * transformation.
- * component uses Material 3 [DatePicker] and [TimePicker]
- * input formats supported are mentioned in the date time input ui model documentation.
- * [DatePicker] Input mode  will always follow locale format.
- * @param state: an [InputDateTimeState] with all the parameters for the input
- * @param modifier: optional modifier.
- */
-@OptIn(ExperimentalMaterial3Api::class)
-@Deprecated("Use with onImeActionClick instead of onNextClicked")
-@Composable
-fun InputDateTime(
-    state: InputDateTimeState,
-    onFocusChanged: ((Boolean) -> Unit) = {},
-    onValueChanged: (TextFieldValue?) -> Unit,
-    onNextClicked: (() -> Unit)?,
-    onActionClicked: (() -> Unit)? = null,
-    modifier: Modifier = Modifier,
-) {
-    InputDateTime(
-        state = state,
-        onFocusChanged = onFocusChanged,
-        onValueChanged = onValueChanged,
-        onImeActionClick = { imeAction ->
-            if (imeAction == ImeAction.Next) {
-                onNextClicked?.invoke()
-            }
-        },
-        onActionClicked = onActionClicked,
-        modifier = modifier,
-    )
-}
-
 fun getTextColor(
     inputState: InputShellState,
     inputTextFieldValue: TextFieldValue?,
