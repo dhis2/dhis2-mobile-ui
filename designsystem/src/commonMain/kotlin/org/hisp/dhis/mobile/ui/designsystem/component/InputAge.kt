@@ -349,37 +349,6 @@ fun InputAge(
     }
 }
 
-/**
- * DHIS2 Input Age
- * Input field to enter age. It will format content based on given visual
- * transformation.
- * component uses Material 3 [DatePicker]
- * input formats supported are mentioned in the age input ui model documentation.
- * [DatePicker] Input mode  will always follow locale format.
- * @param state: an [InputAgeState] with all the parameters for the input
- * @param modifier: optional modifier.
- */
-@Deprecated("Use with onImeActionClick instead of onNextClicked")
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun InputAge(
-    state: InputAgeState,
-    onValueChanged: (AgeInputType?) -> Unit,
-    onNextClicked: (() -> Unit)?,
-    modifier: Modifier = Modifier,
-) {
-    InputAge(
-        state = state,
-        onValueChanged = onValueChanged,
-        onImeActionClick = { imeAction ->
-            if (imeAction == ImeAction.Next) {
-                onNextClicked?.invoke()
-            }
-        },
-        modifier = modifier,
-    )
-}
-
 private fun getInputState(
     supportingTextList: List<SupportingTextData>,
     dateOutOfRangeItem: SupportingTextData,

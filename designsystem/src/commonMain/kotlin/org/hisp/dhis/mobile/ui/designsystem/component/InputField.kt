@@ -154,64 +154,6 @@ fun BasicTextField(
     }
 }
 
-/**
- * DHIS2 Basic Input. Wraps Material 3· [BasicTextField].
- * @param helper: Manages the helper text to be shown.
- * @param enabled: Controls the enabled state of the component. When `false`, this component will not be
- * clickable and will appear disabled to accessibility services.
- * @param isSingleLine: manages the number of lines to be allowed in the input field.
- * @param helperStyle: manages the helper text style, NONE by default.
- * @param inputTextValue: manages the value of the input field text.
- * @param onInputChanged: gives access to the onTextChangedEvent.
- * @param modifier: to pass a modifier if necessary.
- * @param state: manages the color of cursor depending on the state of parent component.
- * @param keyboardOptions: manages the ImeAction to be shown on the keyboard.
- * @param visualTransformation: manages custom visual transformation. When null it
- * will use the visual transformation created based on helper style, when a visual transformation
- * is passed it will ignore the helper style.
- * @param onNextClicked: gives access to the ImeAction event.
- * @param onSearchClicked: gives access to the ImeAction Search event.
- * */
-@Deprecated("Use with onImeActionClick instead")
-@Composable
-fun BasicTextField(
-    helper: String? = null,
-    enabled: Boolean = true,
-    isSingleLine: Boolean = true,
-    helperStyle: HelperStyle = HelperStyle.NONE,
-    inputTextValue: TextFieldValue? = null,
-    onInputChanged: (TextFieldValue) -> Unit,
-    modifier: Modifier = Modifier,
-    state: InputShellState = InputShellState.FOCUSED,
-    keyboardOptions: KeyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
-    visualTransformation: VisualTransformation? = null,
-    textStyle: TextStyle = MaterialTheme.typography.bodyLarge,
-    onNextClicked: (() -> Unit)? = null,
-    onDoneClicked: (() -> Unit)? = null,
-    onSearchClicked: (() -> Unit)? = null,
-) {
-    BasicTextField(
-        helper = helper,
-        enabled = enabled,
-        isSingleLine = isSingleLine,
-        helperStyle = helperStyle,
-        inputTextValue = inputTextValue,
-        onInputChanged = onInputChanged,
-        modifier = modifier,
-        state = state,
-        keyboardOptions = keyboardOptions,
-        visualTransformation = visualTransformation,
-        textStyle = textStyle,
-        onImeActionClick = { imeAction ->
-            when (imeAction) {
-                ImeAction.Next -> onNextClicked?.invoke()
-                ImeAction.Done -> onDoneClicked?.invoke()
-                ImeAction.Search -> onSearchClicked?.invoke()
-            }
-        },
-    )
-}
-
 enum class HelperStyle {
     WITH_HELPER_AFTER,
     WITH_HELPER_BEFORE,
