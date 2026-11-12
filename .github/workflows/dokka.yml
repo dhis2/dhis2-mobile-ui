@@ -35,7 +35,7 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Build Java docs
-        run: ./gradlew :designsystem:dokkaHtml -PremoveSnapshotSuffix
+        run: ./gradlew :designsystem:dokkaGeneratePublicationHtml -PremoveSnapshotSuffix
 
       - name: Organize pages structure
         run: |

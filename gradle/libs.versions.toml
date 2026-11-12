@@ -15,7 +15,7 @@ activityCompose = "1.11.0"
 appCompat = "1.7.1"
 coreKtx = "1.17.0"
 ktlint = "13.1.0"
-dokka = "2.0.0"
+dokka = "2.3.0"
 nexus = "2.0.0"
 cyclonedx = "3.5.1"
 
