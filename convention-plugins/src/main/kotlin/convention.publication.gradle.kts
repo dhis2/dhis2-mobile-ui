@@ -6,11 +6,11 @@ plugins {
 val signingPrivateKey: String? = System.getenv("SIGNING_PRIVATE_KEY")
 val signingPassword: String? = System.getenv("SIGNING_PASSWORD")
 
-val dokkaHtml = tasks.findByName("dokkaHtml")!!
+// Requires the Dokka Gradle plugin (v2) to be applied before this convention plugin.
+val dokkaGeneratePublicationHtml = tasks.named("dokkaGeneratePublicationHtml")
 
 val dokkaHtmlJar = tasks.register<Jar>("dokkaHtmlJar") {
-    dependsOn(dokkaHtml)
-    from(dokkaHtml.outputs)
+    from(dokkaGeneratePublicationHtml)
     archiveClassifier.set("javadoc")
 }
 
