@@ -21,8 +21,6 @@ sealed class BasicTextInputModel : InputModel {
     abstract val autoCompleteList: List<String>?
     abstract val autoCompleteItemSelected: ((String?) -> Unit)?
 
-    @Deprecated("Use onImeActionClick instead")
-    abstract val onNextClicked: (() -> Unit)?
     abstract val onValueChanged: ((TextFieldValue?) -> Unit)?
     abstract val onFocusChanged: ((Boolean) -> Unit)?
     abstract val imeAction: ImeAction
@@ -40,7 +38,6 @@ sealed class BasicTextInputModel : InputModel {
  * @param isRequiredField: Mark this input as required.
  * @param autoCompleteList: List of strings to be used for autocomplete dropdown.
  * @param autoCompleteItemSelected: gives access to the autocomplete item selection.
- * @param onNextClicked: gives access to the on next callback.
  * @param onValueChanged: gives access to the onValueChanged event.
  * @param imeAction: controls the imeAction button to be shown.
  * @param onFocusChanged: gives access to the on Focus changed callback.
@@ -57,16 +54,10 @@ data class InputUserModel(
     override val isRequiredField: Boolean = false,
     override val autoCompleteList: List<String>? = null,
     override val autoCompleteItemSelected: ((String?) -> Unit)? = null,
-    @Deprecated("Use onImeActionClick instead")
-    override val onNextClicked: (() -> Unit)? = null,
     override val onValueChanged: ((TextFieldValue?) -> Unit)? = null,
     override val onFocusChanged: ((Boolean) -> Unit)? = null,
     override val imeAction: ImeAction = ImeAction.Next,
-    override val onImeActionClick: ((ImeAction) -> Unit)? = { imeAction ->
-        if (imeAction == ImeAction.Next) {
-            onNextClicked?.invoke()
-        }
-    },
+    override val onImeActionClick: ((ImeAction) -> Unit)? = null,
     val contentType: ContentType? = ContentType.Username,
 ) : BasicTextInputModel() {
     companion object {
@@ -90,7 +81,6 @@ data class InputUserModel(
  * @param isRequiredField: Mark this input as required.
  * @param autoCompleteList: List of strings to be used for autocomplete dropdown.
  * @param autoCompleteItemSelected: gives access to the autocomplete item selection.
- * @param onNextClicked: gives access to the on next callback.
  * @param onValueChanged: gives access to the onValueChanged event.
  * @param imeAction: controls the imeAction button to be shown.
  * @param onFocusChanged: gives access to the on Focus changed callback.
@@ -108,16 +98,10 @@ data class InputPasswordModel(
     override val isRequiredField: Boolean = false,
     override val autoCompleteList: List<String>? = null,
     override val autoCompleteItemSelected: ((String?) -> Unit)? = null,
-    @Deprecated("Use onImeActionClick instead")
-    override val onNextClicked: (() -> Unit)? = null,
     override val onValueChanged: ((TextFieldValue?) -> Unit)? = null,
     override val onFocusChanged: ((Boolean) -> Unit)? = null,
     override val imeAction: ImeAction = ImeAction.Next,
-    override val onImeActionClick: ((ImeAction) -> Unit)? = { imeAction ->
-        if (imeAction == ImeAction.Next) {
-            onNextClicked?.invoke()
-        }
-    },
+    override val onImeActionClick: ((ImeAction) -> Unit)? = null,
     val contentType: ContentType? = ContentType.Password,
 ) : BasicTextInputModel() {
     companion object {
