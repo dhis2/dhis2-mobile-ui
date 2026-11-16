@@ -33,7 +33,7 @@ internal fun TableActions(
     ) {
         Icon(
             imageVector = Icons.Default.TableChart,
-            contentDescription = "",
+            contentDescription = null,
             tint = TableTheme.colors.primary,
         )
         Text(

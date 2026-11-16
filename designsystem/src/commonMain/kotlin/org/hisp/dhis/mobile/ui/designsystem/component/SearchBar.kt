@@ -43,11 +43,15 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.VisualTransformation
+import org.hisp.dhis.mobile.designsystem.generated.resources.Res
+import org.hisp.dhis.mobile.designsystem.generated.resources.clear_search
+import org.hisp.dhis.mobile.designsystem.generated.resources.search
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
+import org.jetbrains.compose.resources.stringResource
 
 /**
  * DHIS2 Search bar.
@@ -76,6 +80,7 @@ fun SearchBar(
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     val isPressed by interactionSource.collectIsPressedAsState()
+    val searchDescription = stringResource(Res.string.search)
     val keyboardController = LocalSoftwareKeyboardController.current
     val focusManager = LocalFocusManager.current
 
@@ -122,7 +127,7 @@ fun SearchBar(
                     }
                 }.padding(horizontal = Spacing.Spacing4)
                 .semantics {
-                    contentDescription = "Search"
+                    contentDescription = searchDescription
                 },
         enabled = true,
         singleLine = true,
@@ -159,7 +164,7 @@ fun SearchBar(
                             icon = {
                                 Icon(
                                     imageVector = Icons.Outlined.Cancel,
-                                    contentDescription = "Cancel Icon",
+                                    contentDescription = stringResource(Res.string.clear_search),
                                 )
                             },
                             onClick = {
@@ -174,7 +179,7 @@ fun SearchBar(
                             icon = {
                                 Icon(
                                     imageVector = Icons.Outlined.Search,
-                                    contentDescription = "Search Icon",
+                                    contentDescription = stringResource(Res.string.search),
                                 )
                             },
                             onClick = {

@@ -40,6 +40,8 @@ import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
+import org.hisp.dhis.mobile.designsystem.generated.resources.Res
+import org.hisp.dhis.mobile.designsystem.generated.resources.clear
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.convertStringToTextFieldValue
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.formatStoredDateToUI
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.formatUIDateToStored
@@ -55,6 +57,7 @@ import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
+import org.jetbrains.compose.resources.stringResource
 import org.hisp.dhis.mobile.ui.designsystem.component.DatePicker as DHIS2DatePicker
 import org.hisp.dhis.mobile.ui.designsystem.component.TimePicker as DHIS2TimePicker
 
@@ -343,7 +346,7 @@ fun InputDateResetButton(
             icon = {
                 Icon(
                     imageVector = Icons.Outlined.Cancel,
-                    contentDescription = "Icon Button",
+                    contentDescription = stringResource(Res.string.clear),
                 )
             },
             onClick = {

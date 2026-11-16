@@ -238,7 +238,7 @@ fun ToggleInfoTextButton(
     ) {
         Icon(
             imageVector = iconVector,
-            contentDescription = "Button",
+            contentDescription = null,
             tint = expandTextColor,
         )
         Text(

@@ -19,10 +19,13 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
+import org.hisp.dhis.mobile.designsystem.generated.resources.Res
+import org.hisp.dhis.mobile.designsystem.generated.resources.clear
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
+import org.jetbrains.compose.resources.stringResource
 
 /**
  * DHIS2 BasicInputImage. Wraps DHIS · [ImageBlock].
@@ -106,7 +109,7 @@ internal fun <T> BasicInputImage(
                                 icon = {
                                     Icon(
                                         imageVector = addButtonIcon,
-                                        contentDescription = "Icon Button",
+                                        contentDescription = null,
                                         tint = if (state != InputShellState.DISABLED) SurfaceColor.Primary else TextColor.OnDisabledSurface,
                                     )
                                 },
@@ -181,7 +184,7 @@ internal fun <T> BasicInputImage(
                         icon = {
                             Icon(
                                 imageVector = Icons.Outlined.Cancel,
-                                contentDescription = "Reset Button",
+                                contentDescription = stringResource(Res.string.clear),
                             )
                         },
                         onClick = onResetButtonClicked,

@@ -26,10 +26,14 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.style.TextOverflow
+import org.hisp.dhis.mobile.designsystem.generated.resources.Res
+import org.hisp.dhis.mobile.designsystem.generated.resources.clear
+import org.hisp.dhis.mobile.designsystem.generated.resources.show_options
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState.DISABLED
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
+import org.jetbrains.compose.resources.stringResource
 
 private const val MAX_INLINE_OPTIONS_TO_DISPLAY = 7
 
@@ -146,7 +150,7 @@ fun InputCheckBox(
                         icon = {
                             Icon(
                                 imageVector = Icons.Outlined.Cancel,
-                                contentDescription = "Icon Button",
+                                contentDescription = stringResource(Res.string.clear),
                             )
                         },
                         onClick = {
@@ -167,7 +171,7 @@ fun InputCheckBox(
                     icon = {
                         Icon(
                             imageVector = Icons.Filled.ArrowDropDown,
-                            contentDescription = "Show BottomSheet",
+                            contentDescription = stringResource(Res.string.show_options),
                         )
                     },
                     onClick = {
@@ -189,7 +193,7 @@ fun InputCheckBox(
                         icon = {
                             Icon(
                                 imageVector = Icons.Outlined.Cancel,
-                                contentDescription = "Reset Button",
+                                contentDescription = stringResource(Res.string.clear),
                             )
                         },
                         onClick = {

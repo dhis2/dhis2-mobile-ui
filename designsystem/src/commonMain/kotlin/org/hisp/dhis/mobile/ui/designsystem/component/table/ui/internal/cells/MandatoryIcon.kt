@@ -12,10 +12,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.Dp
+import org.hisp.dhis.mobile.designsystem.generated.resources.Res
+import org.hisp.dhis.mobile.designsystem.generated.resources.required
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.MANDATORY_ICON_TEST_TAG
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun MandatoryIcon(
@@ -24,7 +27,7 @@ fun MandatoryIcon(
 ) {
     Icon(
         imageVector = Icons.Default.Emergency,
-        contentDescription = "mandatory",
+        contentDescription = stringResource(Res.string.required),
         modifier =
             modifier
                 .testTag(MANDATORY_ICON_TEST_TAG)

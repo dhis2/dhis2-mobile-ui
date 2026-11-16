@@ -24,6 +24,10 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
+import org.hisp.dhis.mobile.designsystem.generated.resources.Res
+import org.hisp.dhis.mobile.designsystem.generated.resources.clear
+import org.hisp.dhis.mobile.designsystem.generated.resources.select_org_unit
+import org.hisp.dhis.mobile.designsystem.generated.resources.show_options
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalFloatValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
@@ -31,6 +35,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing112
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing64
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.textFieldHoverPointerIcon
+import org.jetbrains.compose.resources.stringResource
 
 /**
  * DHIS2 Input org unit.
@@ -79,7 +84,7 @@ fun InputOrgUnit(
                 icon = {
                     Icon(
                         imageVector = Icons.Outlined.Cancel,
-                        contentDescription = "Reset Button",
+                        contentDescription = stringResource(Res.string.clear),
                     )
                 },
                 onClick = {
@@ -100,7 +105,7 @@ fun InputOrgUnit(
                 icon = {
                     Icon(
                         imageVector = Icons.Outlined.ArrowDropDown,
-                        contentDescription = "Dropdown Button",
+                        contentDescription = stringResource(Res.string.show_options),
                     )
                 },
                 onClick = {
@@ -127,7 +132,7 @@ fun InputOrgUnit(
                     icon = {
                         Icon(
                             painter = provideDHIS2Icon("org_unit"),
-                            contentDescription = "org_unit_icon",
+                            contentDescription = stringResource(Res.string.select_org_unit),
                         )
                     },
                     onClick = {

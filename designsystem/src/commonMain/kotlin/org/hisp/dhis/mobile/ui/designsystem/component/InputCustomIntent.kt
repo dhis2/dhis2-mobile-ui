@@ -20,11 +20,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.testTag
+import org.hisp.dhis.mobile.designsystem.generated.resources.Res
+import org.hisp.dhis.mobile.designsystem.generated.resources.clear
+import org.hisp.dhis.mobile.designsystem.generated.resources.launch_intent
 import org.hisp.dhis.mobile.ui.designsystem.component.CustomIntentState.LAUNCH
 import org.hisp.dhis.mobile.ui.designsystem.component.CustomIntentState.LOADED
 import org.hisp.dhis.mobile.ui.designsystem.component.CustomIntentState.LOADING
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
+import org.jetbrains.compose.resources.stringResource
 
 const val INPUT_CUSTOM_INTENT_TEST_TAG = "INPUT_CUSTOM_INTENT_"
 const val VALUE_CHIP_TEST_TAG = "VALUE_CHIP_"
@@ -79,7 +83,7 @@ fun InputCustomIntent(
                     icon = {
                         Icon(
                             imageVector = Icons.Outlined.Cancel,
-                            contentDescription = "Cancel icon Button",
+                            contentDescription = stringResource(Res.string.clear),
                         )
                     },
                     onClick = {
@@ -99,7 +103,7 @@ fun InputCustomIntent(
                     icon = {
                         Icon(
                             imageVector = Icons.AutoMirrored.Outlined.OpenInNew,
-                            contentDescription = "Launch Icon Button",
+                            contentDescription = stringResource(Res.string.launch_intent),
                         )
                     },
                 ) {
@@ -142,7 +146,7 @@ fun InputCustomIntent(
                                 icon = {
                                     Icon(
                                         imageVector = Icons.AutoMirrored.Outlined.OpenInNew,
-                                        contentDescription = "launch intent icon Button",
+                                        contentDescription = null,
                                     )
                                 },
                             ) {

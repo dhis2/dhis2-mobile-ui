@@ -22,10 +22,14 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
+import org.hisp.dhis.mobile.designsystem.generated.resources.Res
+import org.hisp.dhis.mobile.designsystem.generated.resources.clear
+import org.hisp.dhis.mobile.designsystem.generated.resources.edit_location
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
+import org.jetbrains.compose.resources.stringResource
 
 /**
  * DHIS2 Input coordinate. Wraps DHIS · [InputShell].
@@ -107,7 +111,7 @@ fun InputCoordinate(
                     icon = {
                         Icon(
                             imageVector = Icons.Outlined.AddLocationAlt,
-                            contentDescription = "Add Location Button",
+                            contentDescription = null,
                             tint = if (state != InputShellState.DISABLED) SurfaceColor.Primary else TextColor.OnDisabledSurface,
                         )
                     },
@@ -134,7 +138,7 @@ fun InputCoordinate(
                         icon = {
                             Icon(
                                 imageVector = Icons.Outlined.Cancel,
-                                contentDescription = "Reset Button",
+                                contentDescription = stringResource(Res.string.clear),
                             )
                         },
                         onClick = {
@@ -155,7 +159,7 @@ fun InputCoordinate(
                         icon = {
                             Icon(
                                 imageVector = Icons.Outlined.EditLocationAlt,
-                                contentDescription = "edit_location",
+                                contentDescription = stringResource(Res.string.edit_location),
                             )
                         },
                         onClick = {

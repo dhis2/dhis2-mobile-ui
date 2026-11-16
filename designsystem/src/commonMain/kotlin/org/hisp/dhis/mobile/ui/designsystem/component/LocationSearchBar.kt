@@ -45,6 +45,8 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import org.hisp.dhis.mobile.designsystem.generated.resources.Res
+import org.hisp.dhis.mobile.designsystem.generated.resources.search_location
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.modifiers.clickableWithRipple
 import org.hisp.dhis.mobile.ui.designsystem.component.model.DraggableType
 import org.hisp.dhis.mobile.ui.designsystem.component.model.LocationItemModel
@@ -57,6 +59,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing16
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
+import org.jetbrains.compose.resources.stringResource
 
 /**
  * DHIS2 Location Bar modes
@@ -196,7 +199,7 @@ private fun LocationSearchBarButton(
         )
         Text(
             modifier = Modifier.weight(1f),
-            text = currentSearch.takeIf { it.isNotBlank() } ?: "Search location",
+            text = currentSearch.takeIf { it.isNotBlank() } ?: stringResource(Res.string.search_location),
             style = MaterialTheme.typography.bodyLarge,
             color =
                 if (currentSearch.isBlank()) {
@@ -330,7 +333,7 @@ private fun LocationSearchBar(
                         icon = {
                             Icon(
                                 imageVector = Icons.Outlined.Map,
-                                contentDescription = "touch app",
+                                contentDescription = null,
                             )
                         },
                         onClick = onBackClicked,
@@ -439,7 +442,7 @@ fun LocationItemIcon(
         Icon(
             imageVector = icon,
             tint = tintedColor,
-            contentDescription = "location icon",
+            contentDescription = null,
         )
     }
 }
@@ -466,7 +469,7 @@ private fun NoResultsMessage(isSearching: Boolean) {
             modifier = Modifier.size(48.dp),
             imageVector = Icons.Filled.TravelExplore,
             tint = SurfaceColor.ContainerHighest,
-            contentDescription = "Travel explore",
+            contentDescription = null,
         )
         Text(
             text = message,

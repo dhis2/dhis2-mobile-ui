@@ -10,7 +10,7 @@ data class ParameterSelectorItemModel(
     val icon: @Composable (() -> Unit) = {
         Icon(
             imageVector = Icons.Outlined.AddCircleOutline,
-            contentDescription = "Icon Button",
+            contentDescription = null,
             tint = SurfaceColor.Primary,
         )
     },

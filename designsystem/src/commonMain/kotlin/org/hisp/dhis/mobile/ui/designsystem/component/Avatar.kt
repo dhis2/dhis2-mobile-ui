@@ -42,12 +42,16 @@ sealed class AvatarStyleData {
  *  must be one of the three styles given as parameters
  * @param style not nullable parameter that manages the avatar style
  * @param modifier allows a modifier to be passed externally
+ * @param onImageClick optional callback invoked when an image avatar is clicked
+ * @param contentDescription accessibility label for an image avatar. Leave null when the
+ *  avatar is decorative (e.g. shown next to the name it represents).
  */
 @Composable
 fun Avatar(
     modifier: Modifier = Modifier,
     style: AvatarStyleData = AvatarStyleData.Text(""),
     onImageClick: (() -> Unit)? = null,
+    contentDescription: String? = null,
 ) {
     when (style) {
         is AvatarStyleData.Text -> {
@@ -86,7 +90,7 @@ fun Avatar(
         is AvatarStyleData.Image -> {
             Image(
                 painter = style.imagePainter,
-                contentDescription = "avatarImage",
+                contentDescription = contentDescription,
                 contentScale = ContentScale.Crop,
                 modifier =
                     modifier

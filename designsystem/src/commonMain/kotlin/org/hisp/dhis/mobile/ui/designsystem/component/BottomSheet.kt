@@ -40,6 +40,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
+import org.hisp.dhis.mobile.designsystem.generated.resources.Res
+import org.hisp.dhis.mobile.designsystem.generated.resources.close
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.Keyboard
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.keyboardAsState
 import org.hisp.dhis.mobile.ui.designsystem.component.state.BottomSheetShellDefaults
@@ -53,6 +55,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing8
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.innerShadow
+import org.jetbrains.compose.resources.stringResource
 
 /**
  * DHIS2 [BottomSheetHeader] component designed to be used
@@ -211,7 +214,7 @@ fun BottomSheetShell(
                     icon = {
                         Icon(
                             imageVector = Icons.Outlined.Close,
-                            contentDescription = "Button",
+                            contentDescription = stringResource(Res.string.close),
                             tint = SurfaceColor.SurfaceBright,
                         )
                     },

@@ -47,7 +47,7 @@ fun InputUser(
                 icon = {
                     Icon(
                         imageVector = Icons.Outlined.Person,
-                        contentDescription = "user_icon",
+                        contentDescription = null,
                     )
                 },
                 onClick = {

@@ -242,7 +242,7 @@ fun CardDetail(
                     icon = {
                         Icon(
                             imageVector = Icons.Outlined.Sync,
-                            contentDescription = "Icon Button",
+                            contentDescription = null,
                             tint = SurfaceColor.Primary,
                         )
                     },

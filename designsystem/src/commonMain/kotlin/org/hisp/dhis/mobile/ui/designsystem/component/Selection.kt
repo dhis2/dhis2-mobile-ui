@@ -11,10 +11,14 @@ import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import org.hisp.dhis.mobile.designsystem.generated.resources.Res
+import org.hisp.dhis.mobile.designsystem.generated.resources.not_selected
+import org.hisp.dhis.mobile.designsystem.generated.resources.selected
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
+import org.jetbrains.compose.resources.stringResource
 
 enum class SelectionState {
     SELECTABLE,
@@ -44,7 +48,7 @@ fun UnselectedItemIcon(modifier: Modifier = Modifier) {
     ) {
         Icon(
             imageVector = Icons.Filled.CheckBoxOutlineBlank,
-            contentDescription = "Unselected",
+            contentDescription = stringResource(Res.string.not_selected),
             tint = SurfaceColor.ContainerHighest,
         )
     }
@@ -64,7 +68,7 @@ fun SelectedItemIcon(modifier: Modifier = Modifier) {
     ) {
         Icon(
             imageVector = Icons.Filled.Done,
-            contentDescription = "Selected",
+            contentDescription = stringResource(Res.string.selected),
             tint = TextColor.OnPrimary,
         )
     }

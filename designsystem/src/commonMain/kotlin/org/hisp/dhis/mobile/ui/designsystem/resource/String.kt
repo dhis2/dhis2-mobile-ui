@@ -18,24 +18,6 @@ fun provideStringResource(resourceName: String): String =
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
-fun provideQuantityStringResource(
-    resourceName: String,
-    quantity: Int,
-): String {
-    val formattedName =
-        when (quantity) {
-            1 -> "${resourceName}_one"
-            else -> "${resourceName}_other"
-        }
-    return if (resourceExists(formattedName, ResourceType.STRING)) {
-        stringResource(Res.allStringResources[formattedName]!!, quantity)
-    } else {
-        "Key not found"
-    }
-}
-
-@OptIn(ExperimentalResourceApi::class)
-@Composable
 fun resourceExists(
     resourceName: String,
     resourceType: ResourceType = ResourceType.DRAWABLE,

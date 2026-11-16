@@ -26,8 +26,11 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.withContext
+import org.hisp.dhis.mobile.designsystem.generated.resources.Res
+import org.hisp.dhis.mobile.designsystem.generated.resources.download
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
+import org.jetbrains.compose.resources.stringResource
 
 /**
  * DHIS2 Image Block. Wraps compose [Image].
@@ -117,7 +120,7 @@ fun <T> ImageBlock(
                     icon = {
                         Icon(
                             imageVector = Icons.Outlined.FileDownload,
-                            contentDescription = "File download Button",
+                            contentDescription = stringResource(Res.string.download),
                         )
                     },
                 ) {

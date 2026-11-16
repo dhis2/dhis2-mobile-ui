@@ -319,7 +319,7 @@ internal fun Table(
                     icon = {
                         Icon(
                             imageVector = Icons.Outlined.RestartAlt,
-                            contentDescription = "Reset table layout",
+                            contentDescription = null,
                             tint = MaterialTheme.colorScheme.onPrimaryContainer,
                         )
                     },

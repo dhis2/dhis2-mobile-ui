@@ -114,7 +114,7 @@ fun Legend(
             if (hasPopupLegendDescriptionData) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Outlined.HelpOutline,
-                    contentDescription = "Legend Icon",
+                    contentDescription = null,
                     modifier = Modifier.size(InternalSizeValues.Size18),
                 )
             }
@@ -143,7 +143,7 @@ fun Legend(
             icon = {
                 Icon(
                     imageVector = Icons.Outlined.Info,
-                    contentDescription = "Button",
+                    contentDescription = null,
                     tint = SurfaceColor.Primary,
                 )
             },

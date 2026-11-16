@@ -24,6 +24,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
+import org.hisp.dhis.mobile.designsystem.generated.resources.Res
+import org.hisp.dhis.mobile.designsystem.generated.resources.done
+import org.hisp.dhis.mobile.designsystem.generated.resources.reset
 import org.hisp.dhis.mobile.ui.designsystem.component.BottomSheetShell
 import org.hisp.dhis.mobile.ui.designsystem.component.Button
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonBlock
@@ -41,6 +44,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
+import org.jetbrains.compose.resources.stringResource
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -117,7 +121,7 @@ internal fun SignatureBottomSheet(
                         icon = {
                             Icon(
                                 imageVector = Icons.Filled.RestartAlt,
-                                contentDescription = "Reset Button",
+                                contentDescription = stringResource(Res.string.reset),
                             )
                         },
                         onClick = {
@@ -138,7 +142,7 @@ internal fun SignatureBottomSheet(
                         icon = {
                             Icon(
                                 imageVector = Icons.Filled.Done,
-                                contentDescription = "Done Button",
+                                contentDescription = stringResource(Res.string.done),
                             )
                         },
                         onClick = {
