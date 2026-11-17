@@ -8,50 +8,12 @@ on:
 
   workflow_dispatch:
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
-
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v7
-      - name: Setup Pages
-        uses: actions/configure-pages@v6
-      - name: Set up JDK 21
-        uses: actions/setup-java@v5
-        with:
-          java-version: 21
-          distribution: temurin
-          cache: 'gradle'
-      - name: Change wrapper permission
-        run: chmod +x ./gradlew
-
-      - name: Build Java docs
-        run: ./gradlew :designsystem:dokkaGeneratePublicationHtml -PremoveSnapshotSuffix
-
-      - name: Organize pages structure
-        run: |
-          mkdir _site && mkdir _site/api
-          cp -r designsystem/build/dokka/html/* _site/api
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v5
-
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+  api-docs:
+    uses: dhis2/workflows/.github/workflows/publish-dokka-to-github-pages.yml@24d1b0061f1c5b87ba84766ad58ac3d64335cc0f
+    with:
+      java_version: 21
+      dokka_version: 2
+      gradle_args: "-PremoveSnapshotSuffix"
+      gradle_module: "designsystem"
+      output_folder: "api"
