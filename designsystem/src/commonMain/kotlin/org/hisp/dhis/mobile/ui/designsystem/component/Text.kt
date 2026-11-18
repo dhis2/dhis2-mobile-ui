@@ -13,6 +13,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import org.hisp.dhis.mobile.ui.designsystem.component.internal.themedIfDefault
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
@@ -75,7 +77,7 @@ internal fun InputShellLabelText(
 @Composable
 internal fun LegendDescriptionRangeText(
     text: String,
-    textColor: Color = TextColor.OnSurfaceLight,
+    textColor: Color = DHIS2Theme.extendedColors.onSurfaceLight,
     modifier: Modifier = Modifier,
 ) {
     Text(
@@ -90,7 +92,7 @@ internal fun LegendDescriptionRangeText(
 @Composable
 fun Title(
     text: String,
-    textColor: Color = TextColor.OnSurface,
+    textColor: Color = DHIS2Theme.colorScheme.onSurface,
     modifier: Modifier = Modifier,
 ) {
     Text(
@@ -105,7 +107,7 @@ fun Title(
 @Composable
 fun SubTitle(
     text: String,
-    textColor: Color = TextColor.OnSurface,
+    textColor: Color = DHIS2Theme.colorScheme.onSurface,
     modifier: Modifier = Modifier,
 ) {
     Text(
@@ -143,7 +145,9 @@ internal fun ListCardTitle(
 
     Text(
         title.text,
-        color = title.color ?: TextColor.OnPrimaryContainer,
+        color =
+            title.color?.themedIfDefault(TextColor.OnPrimaryContainer, DHIS2Theme.colorScheme.onPrimaryContainer)
+                ?: DHIS2Theme.colorScheme.onPrimaryContainer,
         style = title.style ?: MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
         maxLines = maxLines,
         overflow = TextOverflow.Ellipsis,
@@ -159,7 +163,9 @@ internal fun ListCardDescription(
     description.text?.let {
         Text(
             description.text,
-            color = description.color ?: TextColor.OnSurface,
+            color =
+                description.color?.themedIfDefault(TextColor.OnSurface, DHIS2Theme.colorScheme.onSurface)
+                    ?: DHIS2Theme.colorScheme.onSurface,
             style = description.style ?: MaterialTheme.typography.bodyMedium,
             modifier = modifier,
         )
@@ -173,7 +179,7 @@ internal fun TEIDetailTitle(
 ) {
     Text(
         text,
-        color = TextColor.OnSurface,
+        color = DHIS2Theme.colorScheme.onSurface,
         style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
         modifier = modifier.padding(bottom = Spacing.Spacing8),
     )
@@ -186,7 +192,7 @@ internal fun ListCardLastUpdated(
 ) {
     Text(
         text,
-        color = TextColor.OnSurfaceLight,
+        color = DHIS2Theme.extendedColors.onSurfaceLight,
         style = MaterialTheme.typography.bodySmall,
         modifier = modifier,
     )

@@ -35,12 +35,10 @@ import androidx.compose.ui.graphics.isUnspecified
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.theme.Border
-import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
 import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
-import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.buttonShadow
 import org.hisp.dhis.mobile.ui.designsystem.theme.customRippleConfiguration
 import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
@@ -176,8 +174,8 @@ private fun ButtonContent(
                     ButtonDefaults.filledTonalButtonColors(
                         buttonColors.containerColor,
                         buttonColors.contentColor,
-                        SurfaceColor.DisabledSurface,
-                        TextColor.OnDisabledSurface,
+                        DHIS2Theme.extendedColors.disabledSurface,
+                        DHIS2Theme.extendedColors.onDisabledSurface,
                     ),
                 text = text,
                 textColor = buttonColors.textColor,
@@ -196,8 +194,8 @@ private fun ButtonContent(
             val rippleConfiguration =
                 when (colorStyle) {
                     ColorStyle.DEFAULT -> customRippleConfiguration()
-                    ColorStyle.ERROR -> customRippleConfiguration(SurfaceColor.Error)
-                    ColorStyle.WARNING -> customRippleConfiguration(SurfaceColor.Warning)
+                    ColorStyle.ERROR -> customRippleConfiguration(DHIS2Theme.colorScheme.error)
+                    ColorStyle.WARNING -> customRippleConfiguration(DHIS2Theme.extendedColors.warning)
                 }
             CompositionLocalProvider(LocalRippleConfiguration provides rippleConfiguration) {
                 OutlinedButton(
@@ -208,8 +206,8 @@ private fun ButtonContent(
                         ButtonDefaults.filledTonalButtonColors(
                             buttonColors.containerColor,
                             buttonColors.contentColor,
-                            SurfaceColor.DisabledSurface,
-                            TextColor.OnDisabledSurface,
+                            DHIS2Theme.extendedColors.disabledSurface,
+                            DHIS2Theme.extendedColors.onDisabledSurface,
                         ),
                     border = BorderStroke(Border.Thin, Color.Transparent),
                 ) {
@@ -221,9 +219,9 @@ private fun ButtonContent(
         ButtonStyle.ELEVATED -> {
             val textColor =
                 if (enabled) {
-                    SurfaceColor.Primary
+                    DHIS2Theme.colorScheme.primary
                 } else {
-                    TextColor.OnDisabledSurface
+                    DHIS2Theme.extendedColors.onDisabledSurface
                 }
             ElevatedButton(
                 modifier =
@@ -234,10 +232,10 @@ private fun ButtonContent(
                 enabled = enabled,
                 colors =
                     ButtonDefaults.filledTonalButtonColors(
-                        SurfaceColor.ContainerLow,
-                        SurfaceColor.Primary,
-                        SurfaceColor.DisabledSurface,
-                        TextColor.OnDisabledSurface,
+                        DHIS2Theme.colorScheme.surfaceContainerLow,
+                        DHIS2Theme.colorScheme.primary,
+                        DHIS2Theme.extendedColors.disabledSurface,
+                        DHIS2Theme.extendedColors.onDisabledSurface,
                     ),
                 shape = ButtonDefaults.outlinedShape,
                 contentPadding = paddingValues,
@@ -249,9 +247,9 @@ private fun ButtonContent(
         ButtonStyle.TONAL -> {
             val textColor =
                 if (enabled) {
-                    TextColor.OnPrimaryContainer
+                    DHIS2Theme.colorScheme.onPrimaryContainer
                 } else {
-                    TextColor.OnDisabledSurface
+                    DHIS2Theme.extendedColors.onDisabledSurface
                 }
             CompositionLocalProvider(LocalRippleConfiguration provides customRippleConfiguration()) {
                 SimpleButton(
@@ -260,10 +258,10 @@ private fun ButtonContent(
                     enabled = enabled,
                     buttonColors =
                         ButtonDefaults.filledTonalButtonColors(
-                            SurfaceColor.PrimaryContainer,
-                            TextColor.OnPrimaryContainer,
-                            SurfaceColor.DisabledSurface,
-                            TextColor.OnDisabledSurface,
+                            DHIS2Theme.colorScheme.primaryContainer,
+                            DHIS2Theme.colorScheme.onPrimaryContainer,
+                            DHIS2Theme.extendedColors.disabledSurface,
+                            DHIS2Theme.extendedColors.onDisabledSurface,
                         ),
                     text = text,
                     textColor = textColor,
@@ -276,9 +274,9 @@ private fun ButtonContent(
         ButtonStyle.KEYBOARDKEY -> {
             val textColor =
                 if (enabled) {
-                    SurfaceColor.Primary
+                    DHIS2Theme.colorScheme.primary
                 } else {
-                    TextColor.OnDisabledSurface
+                    DHIS2Theme.extendedColors.onDisabledSurface
                 }
             val interactionSource = remember { MutableInteractionSource() }
             val isPressed by interactionSource.collectIsPressedAsState()
@@ -291,9 +289,9 @@ private fun ButtonContent(
                 } else {
                     shadowColor =
                         when (colorStyle) {
-                            ColorStyle.DEFAULT -> mutableStateOf(SurfaceColor.ContainerHighest)
-                            ColorStyle.ERROR -> mutableStateOf(SurfaceColor.ErrorContainerHighest)
-                            ColorStyle.WARNING -> mutableStateOf(SurfaceColor.WarningContainer)
+                            ColorStyle.DEFAULT -> mutableStateOf(DHIS2Theme.colorScheme.surfaceContainerHighest)
+                            ColorStyle.ERROR -> mutableStateOf(DHIS2Theme.extendedColors.errorContainerHighest)
+                            ColorStyle.WARNING -> mutableStateOf(DHIS2Theme.extendedColors.warningContainer)
                         }
                     topPadding = mutableStateOf(0)
                 }
@@ -317,9 +315,9 @@ private fun ButtonContent(
                 colors =
                     ButtonDefaults.elevatedButtonColors(
                         disabledContainerColor = Color.Transparent,
-                        containerColor = SurfaceColor.Container,
-                        contentColor = SurfaceColor.Primary,
-                        disabledContentColor = TextColor.OnDisabledSurface,
+                        containerColor = DHIS2Theme.colorScheme.surfaceContainer,
+                        contentColor = DHIS2Theme.colorScheme.primary,
+                        disabledContentColor = DHIS2Theme.extendedColors.onDisabledSurface,
                     ),
             ) {
                 ButtonText(text, textColor, icon, enabled)
@@ -337,8 +335,8 @@ private fun ButtonContent(
             val rippleConfiguration =
                 when (colorStyle) {
                     ColorStyle.DEFAULT -> customRippleConfiguration()
-                    ColorStyle.ERROR -> customRippleConfiguration(SurfaceColor.Error)
-                    ColorStyle.WARNING -> customRippleConfiguration(SurfaceColor.Warning)
+                    ColorStyle.ERROR -> customRippleConfiguration(DHIS2Theme.colorScheme.error)
+                    ColorStyle.WARNING -> customRippleConfiguration(DHIS2Theme.extendedColors.warning)
                 }
             CompositionLocalProvider(LocalRippleConfiguration provides rippleConfiguration) {
                 OutlinedButton(
@@ -351,12 +349,12 @@ private fun ButtonContent(
                             buttonColors.containerColor,
                             buttonColors.contentColor,
                             Color.Transparent,
-                            TextColor.OnDisabledSurface,
+                            DHIS2Theme.extendedColors.onDisabledSurface,
                         ),
                     border =
                         BorderStroke(
                             Border.Thin,
-                            if (enabled) Outline.Dark else SurfaceColor.DisabledSurface,
+                            if (enabled) DHIS2Theme.colorScheme.outline else DHIS2Theme.extendedColors.disabledSurface,
                         ),
                     contentPadding = paddingValues,
                 ) {
@@ -433,15 +431,15 @@ fun TextButtonSelector(
 
     val clickableText1Color: MutableState<Color> =
         if (enabled) {
-            if (!isPressed1) mutableStateOf(SurfaceColor.Primary) else mutableStateOf(TextColor.OnSurfaceVariant)
+            if (!isPressed1) mutableStateOf(DHIS2Theme.colorScheme.primary) else mutableStateOf(DHIS2Theme.colorScheme.onSurfaceVariant)
         } else {
-            mutableStateOf(TextColor.OnDisabledSurface)
+            mutableStateOf(DHIS2Theme.extendedColors.onDisabledSurface)
         }
     val clickableText2Color: MutableState<Color> =
         if (enabled) {
-            if (!isPressed2) mutableStateOf(SurfaceColor.Primary) else mutableStateOf(TextColor.OnSurfaceVariant)
+            if (!isPressed2) mutableStateOf(DHIS2Theme.colorScheme.primary) else mutableStateOf(DHIS2Theme.colorScheme.onSurfaceVariant)
         } else {
-            mutableStateOf(TextColor.OnDisabledSurface)
+            mutableStateOf(DHIS2Theme.extendedColors.onDisabledSurface)
         }
 
     Row(modifier = modifier) {
@@ -463,7 +461,7 @@ fun TextButtonSelector(
             text = middleText,
             modifier = Modifier.padding(start = Spacing.Spacing8, end = Spacing.Spacing8),
             style = MaterialTheme.typography.bodyLarge,
-            color = if (enabled) TextColor.OnSurfaceVariant else TextColor.OnDisabledSurface,
+            color = if (enabled) DHIS2Theme.colorScheme.onSurfaceVariant else DHIS2Theme.extendedColors.onDisabledSurface,
         )
         Text(
             text = secondOptionText,
@@ -555,27 +553,31 @@ private data class CustomButtonColors(
     val contentColor: Color,
 )
 
+@Composable
 private fun getFilledButtonColors(isEnabled: Boolean): CustomButtonColors =
     CustomButtonColors(
-        textColor = if (isEnabled) TextColor.OnPrimary else TextColor.OnDisabledSurface,
-        containerColor = SurfaceColor.Primary,
-        contentColor = TextColor.OnPrimary,
+        textColor = if (isEnabled) DHIS2Theme.colorScheme.onPrimary else DHIS2Theme.extendedColors.onDisabledSurface,
+        containerColor = DHIS2Theme.colorScheme.primary,
+        contentColor = DHIS2Theme.colorScheme.onPrimary,
     )
 
+@Composable
 private fun getErrorFilledButtonColors(isEnabled: Boolean): CustomButtonColors =
     CustomButtonColors(
-        textColor = if (isEnabled) TextColor.OnError else TextColor.OnDisabledSurface,
-        containerColor = SurfaceColor.Error,
-        contentColor = TextColor.OnError,
+        textColor = if (isEnabled) DHIS2Theme.colorScheme.onError else DHIS2Theme.extendedColors.onDisabledSurface,
+        containerColor = DHIS2Theme.colorScheme.error,
+        contentColor = DHIS2Theme.colorScheme.onError,
     )
 
+@Composable
 private fun getWarningFilledButtonColors(isEnabled: Boolean): CustomButtonColors =
     CustomButtonColors(
-        textColor = if (isEnabled) TextColor.OnWarning else TextColor.OnDisabledSurface,
-        containerColor = SurfaceColor.Warning,
-        contentColor = TextColor.OnWarning,
+        textColor = if (isEnabled) DHIS2Theme.extendedColors.onWarning else DHIS2Theme.extendedColors.onDisabledSurface,
+        containerColor = DHIS2Theme.extendedColors.warning,
+        contentColor = DHIS2Theme.extendedColors.onWarning,
     )
 
+@Composable
 private fun getTextButtonColors(
     style: ButtonStyle,
     isEnabled: Boolean,
@@ -585,72 +587,77 @@ private fun getTextButtonColors(
         when {
             !isEnabled ->
                 currentTextColor.takeIf { !it.isUnspecified }?.copy(alpha = 0.7f)
-                    ?: TextColor.OnDisabledSurface
+                    ?: DHIS2Theme.extendedColors.onDisabledSurface
 
             style == ButtonStyle.TEXT_LIGHT ->
-                currentTextColor.takeIf { !it.isUnspecified } ?: TextColor.OnPrimary
+                currentTextColor.takeIf { !it.isUnspecified } ?: DHIS2Theme.colorScheme.onPrimary
 
             else ->
-                currentTextColor.takeIf { !it.isUnspecified } ?: SurfaceColor.Primary
+                currentTextColor.takeIf { !it.isUnspecified } ?: DHIS2Theme.colorScheme.primary
         }
     return CustomButtonColors(
         textColor = textColor,
         containerColor = Color.Transparent,
-        contentColor = SurfaceColor.Primary,
+        contentColor = DHIS2Theme.colorScheme.primary,
     )
 }
 
+@Composable
 private fun getErrorTextButtonColors(
     style: ButtonStyle,
     isEnabled: Boolean,
 ): CustomButtonColors {
     val textColor =
         when {
-            !isEnabled -> TextColor.OnDisabledSurface
-            style == ButtonStyle.TEXT_LIGHT -> TextColor.OnError
-            else -> SurfaceColor.Error
+            !isEnabled -> DHIS2Theme.extendedColors.onDisabledSurface
+            style == ButtonStyle.TEXT_LIGHT -> DHIS2Theme.colorScheme.onError
+            else -> DHIS2Theme.colorScheme.error
         }
     return CustomButtonColors(
         textColor = textColor,
         containerColor = Color.Transparent,
-        contentColor = SurfaceColor.Error,
+        contentColor = DHIS2Theme.colorScheme.error,
     )
 }
 
+@Composable
 private fun getWarningTextButtonColors(
     style: ButtonStyle,
     isEnabled: Boolean,
 ): CustomButtonColors {
     val textColor =
         when {
-            !isEnabled -> TextColor.OnDisabledSurface
-            style == ButtonStyle.TEXT_LIGHT -> TextColor.OnError
-            else -> SurfaceColor.Warning
+            !isEnabled -> DHIS2Theme.extendedColors.onDisabledSurface
+            style == ButtonStyle.TEXT_LIGHT -> DHIS2Theme.colorScheme.onError
+            else -> DHIS2Theme.extendedColors.warning
         }
     return CustomButtonColors(
         textColor = textColor,
         containerColor = Color.Transparent,
-        contentColor = SurfaceColor.Warning,
+        contentColor = DHIS2Theme.extendedColors.warning,
     )
 }
 
+@Composable
 private fun getOutlinedButtonColors(isEnabled: Boolean): CustomButtonColors =
     CustomButtonColors(
-        textColor = if (isEnabled) SurfaceColor.Primary else TextColor.OnDisabledSurface,
+        textColor = if (isEnabled) DHIS2Theme.colorScheme.primary else DHIS2Theme.extendedColors.onDisabledSurface,
         containerColor = Color.Transparent,
-        contentColor = SurfaceColor.Primary,
+        contentColor = DHIS2Theme.colorScheme.primary,
     )
 
+@Composable
 private fun getErrorOutlinedButtonColors(isEnabled: Boolean): CustomButtonColors =
     CustomButtonColors(
-        textColor = if (isEnabled) SurfaceColor.Error else TextColor.OnDisabledSurface,
+        textColor = if (isEnabled) DHIS2Theme.colorScheme.error else DHIS2Theme.extendedColors.onDisabledSurface,
         containerColor = Color.Transparent,
-        contentColor = SurfaceColor.Error,
+        contentColor = DHIS2Theme.colorScheme.error,
     )
 
+@Composable
 private fun getWarningOutlinedButtonColors(isEnabled: Boolean): CustomButtonColors =
     CustomButtonColors(
-        textColor = if (isEnabled) SurfaceColor.Warning else TextColor.OnDisabledSurface,
+        textColor = if (isEnabled) DHIS2Theme.extendedColors.warning else DHIS2Theme.extendedColors.onDisabledSurface,
         containerColor = Color.Transparent,
-        contentColor = SurfaceColor.Warning,
+        contentColor = DHIS2Theme.extendedColors.warning,
     )

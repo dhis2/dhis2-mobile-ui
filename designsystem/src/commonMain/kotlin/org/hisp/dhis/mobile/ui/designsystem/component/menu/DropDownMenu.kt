@@ -8,9 +8,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHISShapes
 import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 
 @Composable
 fun <T> DropDownMenu(
@@ -26,7 +26,7 @@ fun <T> DropDownMenu(
         DropdownMenu(
             modifier =
                 modifier
-                    .background(SurfaceColor.ContainerLow)
+                    .background(DHIS2Theme.colorScheme.surfaceContainerLow)
                     .widthIn(min = 270.dp),
             expanded = expanded,
             onDismissRequest = onDismissRequest,
