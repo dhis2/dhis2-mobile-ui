@@ -16,6 +16,15 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.core.view.WindowCompat
 import org.hisp.dhis.mobile.ui.designsystem.component.model.LocationItemModel
 import androidx.compose.ui.platform.LocalResources
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import android.graphics.Color
+import androidx.activity.SystemBarStyle
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.saveable.rememberSaveable
 
 class MainActivity : AppCompatActivity() {
     @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
@@ -25,9 +34,19 @@ class MainActivity : AppCompatActivity() {
         setContent {
             val size = calculateWindowSizeClass(this)
             val res = LocalResources.current
-            SetStatusBarColor()
+            val isSystemDark = isSystemInDarkTheme()
+            var isDarkMode by rememberSaveable { mutableStateOf(isSystemDark) }
+            LaunchedEffect(isDarkMode) {
+                // Bar scrims follow the app theme, not only the system one.
+                enableEdgeToEdge(
+                    statusBarStyle = SystemBarStyle.auto(Color.TRANSPARENT, Color.TRANSPARENT) { isDarkMode },
+                    navigationBarStyle = SystemBarStyle.auto(LIGHT_NAVIGATION_SCRIM, DARK_NAVIGATION_SCRIM) { isDarkMode },
+                )
+            }
+            SetStatusBarColor(isDarkMode)
             App(
                 sizeClass = size,
+                onDarkModeChanged = { isDarkMode = it },
                 imageBitmapLoader = {
                     BitmapFactory
                         .decodeResource(
@@ -64,15 +83,20 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
+// Same scrim colors as androidx.activity's default edge-to-edge navigation bar style.
+private val LIGHT_NAVIGATION_SCRIM = Color.argb(0xe6, 0xFF, 0xFF, 0xFF)
+private val DARK_NAVIGATION_SCRIM = Color.argb(0x80, 0x1b, 0x1b, 0x1b)
+
 @Composable
-fun SetStatusBarColor() {
+fun SetStatusBarColor(isDarkMode: Boolean) {
     val context = LocalContext.current
     val window = (context as? ComponentActivity)?.window
 
     SideEffect {
         window?.let {
             WindowCompat.getInsetsController(it, it.decorView).apply {
-                isAppearanceLightStatusBars = true
+                isAppearanceLightStatusBars = !isDarkMode
+                isAppearanceLightNavigationBars = !isDarkMode
             }
         }
     }

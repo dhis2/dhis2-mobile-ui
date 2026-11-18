@@ -15,9 +15,8 @@ import org.hisp.dhis.mobile.ui.designsystem.component.Button
 import org.hisp.dhis.mobile.ui.designsystem.component.ButtonStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.Title
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
-import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
 @Composable
 fun NoComponentSelectedScreen(
@@ -33,12 +32,12 @@ fun NoComponentSelectedScreen(
         Icon(
             modifier = Modifier.size(Spacing.Spacing48),
             imageVector = Icons.Outlined.Category,
-            tint = SurfaceColor.ContainerHighest,
+            tint = DHIS2Theme.colorScheme.surfaceContainerHighest,
             contentDescription = "Please choose an option",
         )
         Spacer(Modifier.size(Spacing.Spacing16))
 
-        Title("Please select a component", textColor = TextColor.OnSurfaceLight)
+        Title("Please select a component", textColor = DHIS2Theme.extendedColors.onSurfaceLight)
 
         if (onClick != null) {
             Spacer(Modifier.size(Spacing.Spacing24))

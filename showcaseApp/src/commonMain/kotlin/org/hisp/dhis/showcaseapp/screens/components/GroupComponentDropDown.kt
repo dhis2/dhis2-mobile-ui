@@ -7,8 +7,8 @@ import org.hisp.dhis.mobile.ui.designsystem.component.DropdownItem
 import org.hisp.dhis.mobile.ui.designsystem.component.InputDropDown
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.InputStyle
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 
 @Composable
 fun GroupComponentDropDown(
@@ -32,7 +32,7 @@ fun GroupComponentDropDown(
         inputStyle =
             InputStyle
                 .DarkInputStyle()
-                .apply { backGroundColor = SurfaceColor.SurfaceBright },
+                .apply { backGroundColor = DHIS2Theme.colorScheme.surfaceBright },
         loadOptions = {
             // no-op
         },
