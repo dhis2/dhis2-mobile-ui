@@ -3,13 +3,9 @@ package org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semanti
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.SemanticsPropertyKey
 import androidx.compose.ui.semantics.SemanticsPropertyReceiver
-import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.semantics.CellSelected
-import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.semantics.RowBackground
 
 internal const val ROW_TEST_TAG = "ROW_TEST_TAG_"
-internal const val ROW_HEADER_TEST_TAG = "ROW_HEADER_TEST_TAG_"
 internal const val ROW_VALUES_TEST_TAG = "ROW_VALUES_TEST_TAG_"
-internal const val CELL_TEST_TAG = "CELL_TEST_TAG_"
 internal const val HEADER_CELL = "HEADER_CELL"
 internal const val MANDATORY_ICON_TEST_TAG = "MANDATORY_ICON_TEST_TAG"
 internal const val CELL_VALUE_TEST_TAG = "CELL_VALUE_TEST_TAG"
@@ -17,7 +13,6 @@ internal const val CELL_ERROR_UNDERLINE_TEST_TAG = "CELL_ERROR_UNDERLINE_TEST_TA
 
 internal const val TEST_TAG_CORNER = "TEST_TAG_CORNER"
 internal const val TEST_TAG_COLUMN_HEADER_ROW = "TEST_TAG_COLUMN_HEADER_ROW"
-internal const val TEST_TAG_COLUMN_HEADER = "TEST_TAG_COLUMN_HEADER"
 internal const val TEST_TAG_TABLE_ROW = "TEST_TAG_TABLE_ROW"
 internal const val TEST_TAG_ROW_HEADER = "TEST_TAG_ROW_HEADER"
 internal const val TEST_TAG_CELL = "TEST_TAG_CELL"
@@ -34,7 +29,6 @@ internal val InfoIconId = SemanticsPropertyKey<String>("InfoIconId")
 internal var SemanticsPropertyReceiver.infoIconId by InfoIconId
 internal val RowIndex = SemanticsPropertyKey<Int?>("RowIndex")
 internal var SemanticsPropertyReceiver.rowIndexSemantic by RowIndex
-internal var SemanticsPropertyReceiver.rowBackground: Color by RowBackground
 
 internal fun rowTestTag(
     tableId: String,
@@ -66,7 +60,6 @@ internal fun headerRowTestTag(
 ) = "$TEST_TAG_COLUMN_HEADER_ROW$tableId$headerRowIndex"
 
 // Cell
-internal var SemanticsPropertyReceiver.cellSelected: Boolean by CellSelected
 internal val HasError = SemanticsPropertyKey<Boolean>("HasError")
 internal var SemanticsPropertyReceiver.hasError by HasError
 internal val IsBlocked = SemanticsPropertyKey<Boolean>("IsBlocked")
