@@ -10,7 +10,7 @@ plugins {
     alias(libs.plugins.composeCompiler) apply false
     alias(libs.plugins.kotlinMultiplatform) apply false
     alias(libs.plugins.ktlint)
-    alias(libs.plugins.dokka)
+    alias(libs.plugins.dokka) apply false
     alias(libs.plugins.nexus)
     alias(libs.plugins.cyclonedx) apply false
 }
@@ -41,7 +41,6 @@ allprojects {
 }
 
 subprojects {
-    apply(plugin = "org.jetbrains.dokka")
     tasks.withType<KotlinCompilationTask<*>>().configureEach {
         compilerOptions {
             // Treat all Kotlin warnings as errors

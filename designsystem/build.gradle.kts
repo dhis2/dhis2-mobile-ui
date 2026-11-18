@@ -1,4 +1,3 @@
-import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
 
 version = rootProject.version
@@ -11,6 +10,7 @@ plugins {
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.testing.snapshot.paparazzi)
+    alias(libs.plugins.dokka)
     id("convention.publication")
     alias(libs.plugins.cyclonedx)
 }
@@ -109,20 +109,10 @@ tasks.cyclonedxDirectBom {
         )
 }
 
-tasks.withType(DokkaTask::class).configureEach {
-    dokkaSourceSets {
-        configureEach {
-            moduleName.set("Mobile UI")
-        }
+dokka {
+    moduleName.set("Mobile UI")
+
+    pluginsConfiguration.html {
+        customAssets.from(file("../assets/logo-icon.svg"))
     }
-    val dokkaBaseConfiguration = """
-    {
-      "customAssets": ["${file("../assets/logo-icon.svg").absolutePath.replace("\\", "/")}"]
-    }
-    """
-    pluginsMapConfiguration.set(
-        mapOf(
-            "org.jetbrains.dokka.base.DokkaBase" to dokkaBaseConfiguration,
-        ),
-    )
 }
