@@ -13,8 +13,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -28,8 +26,8 @@ import org.hisp.dhis.mobile.ui.designsystem.component.internal.PrefixTransformat
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.SuffixTransformer
 import org.hisp.dhis.mobile.ui.designsystem.component.model.DateTransformation
 import org.hisp.dhis.mobile.ui.designsystem.theme.Color.Blue300
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalFloatValues
-import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.textFieldHoverPointerIcon
 
 /**
@@ -66,11 +64,12 @@ fun BasicTextField(
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     var textFieldVisualTransformation = VisualTransformation.None
+    val prefixTextColor = if (enabled) DHIS2Theme.colorScheme.onSurface else DHIS2Theme.extendedColors.onDisabledSurface
 
     if (helperStyle != HelperStyle.NONE) {
         when (helperStyle) {
             HelperStyle.WITH_HELPER_BEFORE -> {
-                helper?.let { textFieldVisualTransformation = PrefixTransformation(it, enabled) }
+                helper?.let { textFieldVisualTransformation = PrefixTransformation(it, enabled, prefixTextColor) }
             }
 
             HelperStyle.WITH_DATE_OF_BIRTH_HELPER -> {
@@ -87,13 +86,12 @@ fun BasicTextField(
 
     textFieldVisualTransformation = visualTransformation ?: textFieldVisualTransformation
 
-    val cursorColor by remember {
+    val cursorColor =
         if (state == InputShellState.UNFOCUSED || state == InputShellState.FOCUSED) {
-            mutableStateOf(InputShellState.FOCUSED.color)
+            InputShellState.FOCUSED.themedColor
         } else {
-            mutableStateOf(state.color)
+            state.themedColor
         }
-    }
 
     val customTextSelectionColors =
         TextSelectionColors(
@@ -114,7 +112,10 @@ fun BasicTextField(
                 onInputChanged.invoke(it)
             },
             enabled = enabled,
-            textStyle = textStyle.copy(color = if (enabled) TextColor.OnSurface else TextColor.OnDisabledSurface),
+            textStyle =
+                textStyle.copy(
+                    color = if (enabled) DHIS2Theme.colorScheme.onSurface else DHIS2Theme.extendedColors.onDisabledSurface,
+                ),
             singleLine = isSingleLine,
             decorationBox = { innerTextField ->
                 Row(

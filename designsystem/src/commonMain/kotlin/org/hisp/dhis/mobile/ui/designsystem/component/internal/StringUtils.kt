@@ -1,5 +1,6 @@
 package org.hisp.dhis.mobile.ui.designsystem.component.internal
 
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.OffsetMapping
@@ -12,14 +13,15 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 internal class PrefixTransformation(
     private val prefix: String,
     val enabled: Boolean,
+    private val textColor: Color = if (enabled) TextColor.OnSurface else TextColor.OnDisabledSurface,
 ) : VisualTransformation {
-    override fun filter(text: AnnotatedString): TransformedText = prefixFilter(text, prefix, enabled = enabled)
+    override fun filter(text: AnnotatedString): TransformedText = prefixFilter(text, prefix, textColor = textColor)
 }
 
 internal fun prefixFilter(
     text: AnnotatedString,
     prefix: String,
-    enabled: Boolean = true,
+    textColor: Color = TextColor.OnSurface,
 ): TransformedText {
     val out =
         AnnotatedString(
@@ -30,7 +32,7 @@ internal fun prefixFilter(
                 text.text,
                 spanStyle =
                     DHIS2SCustomTextStyles.inputField.copy(
-                        color = if (enabled) TextColor.OnSurface else TextColor.OnDisabledSurface,
+                        color = textColor,
                     ),
             ),
         )

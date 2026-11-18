@@ -51,8 +51,7 @@ import org.hisp.dhis.mobile.ui.designsystem.platform.dates.getDate
 import org.hisp.dhis.mobile.ui.designsystem.platform.dates.isValidDate
 import org.hisp.dhis.mobile.ui.designsystem.platform.dates.parseStringDateToMillis
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
-import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2LightColorScheme
-import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.jetbrains.compose.resources.stringResource
 
@@ -282,8 +281,8 @@ fun InputAge(
     if (showDatePicker) {
         MaterialTheme(
             colorScheme =
-                DHIS2LightColorScheme.copy(
-                    outlineVariant = Outline.Medium,
+                DHIS2Theme.colorScheme.copy(
+                    outlineVariant = DHIS2Theme.extendedColors.outlineMedium,
                 ),
         ) {
             DatePickerDialog(

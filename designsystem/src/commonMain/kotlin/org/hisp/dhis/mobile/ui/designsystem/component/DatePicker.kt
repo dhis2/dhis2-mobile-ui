@@ -11,8 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.window.DialogProperties
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
-import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2LightColorScheme
-import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import androidx.compose.material3.DatePicker as Material3DatePicker
 
@@ -44,8 +43,8 @@ fun DatePicker(
 ) {
     MaterialTheme(
         colorScheme =
-            DHIS2LightColorScheme.copy(
-                outlineVariant = Outline.Medium,
+            DHIS2Theme.colorScheme.copy(
+                outlineVariant = DHIS2Theme.extendedColors.outlineMedium,
             ),
     ) {
         DatePickerDialog(

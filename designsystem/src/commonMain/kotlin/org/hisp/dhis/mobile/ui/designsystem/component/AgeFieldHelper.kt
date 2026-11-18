@@ -9,9 +9,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 
 /**
  * DHIS2 age field helper ([TimeUnitSelector]).
@@ -33,9 +33,9 @@ internal fun TimeUnitSelector(
 ) {
     val backgroundColor =
         if (enabled) {
-            SurfaceColor.Surface
+            DHIS2Theme.colorScheme.surface
         } else {
-            SurfaceColor.DisabledSurface
+            DHIS2Theme.extendedColors.disabledSurface
         }
 
     val options =

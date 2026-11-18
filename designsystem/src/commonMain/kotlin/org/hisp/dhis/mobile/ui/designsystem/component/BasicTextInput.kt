@@ -42,9 +42,9 @@ import org.hisp.dhis.mobile.designsystem.generated.resources.Res
 import org.hisp.dhis.mobile.designsystem.generated.resources.clear
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.clipboard.toClipEntry
 import org.hisp.dhis.mobile.ui.designsystem.component.model.RegExValidations
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.jetbrains.compose.resources.stringResource
 
 /**
@@ -253,7 +253,7 @@ internal fun BasicTextInput(
                         modifier =
                             Modifier
                                 .exposedDropdownSize()
-                                .background(SurfaceColor.SurfaceBright),
+                                .background(DHIS2Theme.colorScheme.surfaceBright),
                         expanded = expanded,
                         onDismissRequest = { expanded = false },
                         offset = DpOffset(x = -16.dp, y = Spacing.Spacing12),

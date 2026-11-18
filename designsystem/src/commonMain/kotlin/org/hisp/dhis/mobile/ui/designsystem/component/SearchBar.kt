@@ -22,7 +22,6 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -47,10 +46,9 @@ import org.hisp.dhis.mobile.designsystem.generated.resources.Res
 import org.hisp.dhis.mobile.designsystem.generated.resources.clear_search
 import org.hisp.dhis.mobile.designsystem.generated.resources.search
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
-import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import org.jetbrains.compose.resources.stringResource
 
 /**
@@ -86,17 +84,16 @@ fun SearchBar(
 
     val containerColor =
         if (!isPressed) {
-            SurfaceColor.ContainerLow
+            DHIS2Theme.colorScheme.surfaceContainerLow
         } else {
-            SurfaceColor.Container
+            DHIS2Theme.colorScheme.surfaceContainer
         }
-    val cursorColor by remember {
+    val cursorColor =
         if (state == InputShellState.UNFOCUSED || state == InputShellState.FOCUSED) {
-            mutableStateOf(InputShellState.FOCUSED.color)
+            InputShellState.FOCUSED.themedColor
         } else {
-            mutableStateOf(state.color)
+            state.themedColor
         }
-    }
     BasicTextField(
         value = text,
         onValueChange = onQueryChange,
@@ -115,7 +112,7 @@ fun SearchBar(
                     indication =
                         ripple(
                             true,
-                            color = SurfaceColor.Primary,
+                            color = DHIS2Theme.colorScheme.primary,
                         ),
                 ).onFocusChanged { if (it.isFocused) onActiveChange(true) }
                 .onKeyEvent {
@@ -151,7 +148,7 @@ fun SearchBar(
                 placeholder = {
                     Text(
                         text = placeHolderText,
-                        color = TextColor.OnDisabledSurface,
+                        color = DHIS2Theme.extendedColors.onDisabledSurface,
                     )
                 },
                 leadingIcon = leadingIcon,

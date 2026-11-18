@@ -20,8 +20,7 @@ import org.hisp.dhis.mobile.ui.designsystem.platform.dates.localeUsesLatinDigits
 import org.hisp.dhis.mobile.ui.designsystem.platform.dates.normalizeToGregorian
 import org.hisp.dhis.mobile.ui.designsystem.platform.dates.parseStringDateToMillis
 import org.hisp.dhis.mobile.ui.designsystem.platform.dates.yearInDate
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
-import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 
 internal fun formatStoredDateToUI(
     textFieldValue: TextFieldValue,
@@ -200,19 +199,19 @@ internal fun formatUIDateToStored(
 @Composable
 internal fun timePickerColors(): TimePickerColors =
     TimePickerDefaults.colors(
-        containerColor = SurfaceColor.Container,
-        clockDialColor = SurfaceColor.ContainerHigh,
-        clockDialUnselectedContentColor = TextColor.OnSurface,
-        clockDialSelectedContentColor = TextColor.OnPrimary,
-        timeSelectorSelectedContentColor = TextColor.OnPrimaryContainer,
-        timeSelectorUnselectedContainerColor = SurfaceColor.ContainerHigh,
-        timeSelectorUnselectedContentColor = TextColor.OnSurface,
-        periodSelectorSelectedContainerColor = SurfaceColor.WarningContainer,
-        periodSelectorUnselectedContentColor = TextColor.OnSurfaceVariant,
-        periodSelectorSelectedContentColor = SurfaceColor.Warning,
-        periodSelectorUnselectedContainerColor = SurfaceColor.Container,
-        selectorColor = SurfaceColor.Primary,
-        timeSelectorSelectedContainerColor = SurfaceColor.ContainerLow,
+        containerColor = DHIS2Theme.colorScheme.surfaceContainer,
+        clockDialColor = DHIS2Theme.colorScheme.surfaceContainerHigh,
+        clockDialUnselectedContentColor = DHIS2Theme.colorScheme.onSurface,
+        clockDialSelectedContentColor = DHIS2Theme.colorScheme.onPrimary,
+        timeSelectorSelectedContentColor = DHIS2Theme.colorScheme.onPrimaryContainer,
+        timeSelectorUnselectedContainerColor = DHIS2Theme.colorScheme.surfaceContainerHigh,
+        timeSelectorUnselectedContentColor = DHIS2Theme.colorScheme.onSurface,
+        periodSelectorSelectedContainerColor = DHIS2Theme.extendedColors.warningContainer,
+        periodSelectorUnselectedContentColor = DHIS2Theme.colorScheme.onSurfaceVariant,
+        periodSelectorSelectedContentColor = DHIS2Theme.extendedColors.warning,
+        periodSelectorUnselectedContainerColor = DHIS2Theme.colorScheme.surfaceContainer,
+        selectorColor = DHIS2Theme.colorScheme.primary,
+        timeSelectorSelectedContainerColor = DHIS2Theme.colorScheme.surfaceContainerLow,
     )
 
 @OptIn(ExperimentalMaterial3Api::class)
