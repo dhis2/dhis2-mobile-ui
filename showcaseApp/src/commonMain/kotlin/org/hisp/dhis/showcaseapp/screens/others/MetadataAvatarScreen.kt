@@ -9,7 +9,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.MetadataAvatar
 import org.hisp.dhis.mobile.ui.designsystem.component.RowComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.showcaseapp.getAvailableMetadataAvatarSizes
 
 @Composable
@@ -25,7 +25,7 @@ fun MetadataAvatarScreen() {
                             contentDescription = "",
                         )
                     },
-                    iconTint = SurfaceColor.Primary,
+                    iconTint = DHIS2Theme.colorScheme.primary,
                     size = metadataAvatarSize,
                 )
             }
@@ -40,7 +40,7 @@ fun MetadataAvatarScreen() {
                             contentDescription = "",
                         )
                     },
-                    iconTint = SurfaceColor.CustomGreen,
+                    iconTint = DHIS2Theme.extendedColors.customGreen,
                     size = metadataAvatarSize,
                 )
             }

@@ -24,9 +24,9 @@ import org.hisp.dhis.mobile.ui.designsystem.component.RadioButtonData
 import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextData
 import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextState
 import org.hisp.dhis.mobile.ui.designsystem.component.model.SegmentedShellType
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 
 @Composable
 fun InputSegmentedShellScreen() {
@@ -50,8 +50,8 @@ fun InputSegmentedShellScreen() {
     var selectedStyle by remember { mutableStateOf(styleOptions[0]) }
     val (inputStyle, backgroundColor) =
         when (selectedStyle.uid) {
-            "DarkInputStyle" -> InputStyle.DarkInputStyle() to SurfaceColor.SurfaceBright
-            else -> InputStyle.BrightInputStyle() to SurfaceColor.Surface
+            "DarkInputStyle" -> InputStyle.DarkInputStyle() to DHIS2Theme.colorScheme.surfaceBright
+            else -> InputStyle.BrightInputStyle() to DHIS2Theme.colorScheme.surface
         }
 
     ColumnScreenContainer(title = BasicTextInputs.INPUT_SEGMENTED_SHELL.label) {

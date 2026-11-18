@@ -12,15 +12,14 @@ import androidx.compose.ui.text.style.TextAlign
 import org.hisp.dhis.mobile.ui.designsystem.component.BottomSheetHeader
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
-import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
 @Composable
 fun BottomSheetHeaderScreen() {
     ColumnScreenContainer(title = BottomSheets.BOTTOM_SHEET_HEADER.label) {
         ColumnComponentContainer("With Icon") {
-            Box(modifier = Modifier.border(Spacing.Spacing1, color = TextColor.OnDisabledSurface)) {
+            Box(modifier = Modifier.border(Spacing.Spacing1, color = DHIS2Theme.extendedColors.onDisabledSurface)) {
                 BottomSheetHeader(
                     title = "Title",
                     subTitle = "Subtitle",
@@ -29,7 +28,7 @@ fun BottomSheetHeaderScreen() {
                         Icon(
                             imageVector = Icons.Outlined.BookmarkBorder,
                             contentDescription = "Button",
-                            tint = SurfaceColor.Primary,
+                            tint = DHIS2Theme.colorScheme.primary,
                         )
                     },
                 )
@@ -37,7 +36,7 @@ fun BottomSheetHeaderScreen() {
         }
 
         ColumnComponentContainer("Without Icon") {
-            Box(modifier = Modifier.border(Spacing.Spacing1, color = TextColor.OnDisabledSurface)) {
+            Box(modifier = Modifier.border(Spacing.Spacing1, color = DHIS2Theme.extendedColors.onDisabledSurface)) {
                 BottomSheetHeader(
                     title = "Title",
                     subTitle = "Subtitle",
@@ -47,7 +46,7 @@ fun BottomSheetHeaderScreen() {
         }
 
         ColumnComponentContainer("Without Icon, without subtitle") {
-            Box(modifier = Modifier.border(Spacing.Spacing1, color = TextColor.OnDisabledSurface)) {
+            Box(modifier = Modifier.border(Spacing.Spacing1, color = DHIS2Theme.extendedColors.onDisabledSurface)) {
                 BottomSheetHeader(
                     title = "Title",
                     description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce convallis, urna vitae lacinia feugiat",
@@ -56,7 +55,7 @@ fun BottomSheetHeaderScreen() {
         }
 
         ColumnComponentContainer("Without Icon, subtitle or description") {
-            Box(modifier = Modifier.border(Spacing.Spacing1, color = TextColor.OnDisabledSurface)) {
+            Box(modifier = Modifier.border(Spacing.Spacing1, color = DHIS2Theme.extendedColors.onDisabledSurface)) {
                 BottomSheetHeader(
                     title = "Title",
                 )
@@ -64,14 +63,14 @@ fun BottomSheetHeaderScreen() {
         }
 
         ColumnComponentContainer("With Icon, without subtitle or description") {
-            Box(modifier = Modifier.border(Spacing.Spacing1, color = TextColor.OnDisabledSurface)) {
+            Box(modifier = Modifier.border(Spacing.Spacing1, color = DHIS2Theme.extendedColors.onDisabledSurface)) {
                 BottomSheetHeader(
                     title = "Title",
                     icon = {
                         Icon(
                             imageVector = Icons.AutoMirrored.Outlined.HelpOutline,
                             contentDescription = "Button",
-                            tint = SurfaceColor.Primary,
+                            tint = DHIS2Theme.colorScheme.primary,
                         )
                     },
                 )
@@ -79,7 +78,7 @@ fun BottomSheetHeaderScreen() {
         }
 
         ColumnComponentContainer("Bottom sheet shell with header text aligned to start") {
-            Box(modifier = Modifier.border(Spacing.Spacing1, color = TextColor.OnDisabledSurface)) {
+            Box(modifier = Modifier.border(Spacing.Spacing1, color = DHIS2Theme.extendedColors.onDisabledSurface)) {
                 BottomSheetHeader(
                     title = "Title",
                     subTitle = "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
@@ -89,7 +88,7 @@ fun BottomSheetHeaderScreen() {
                         Icon(
                             imageVector = Icons.AutoMirrored.Outlined.HelpOutline,
                             contentDescription = "Button",
-                            tint = SurfaceColor.Primary,
+                            tint = DHIS2Theme.colorScheme.primary,
                         )
                     },
                 )

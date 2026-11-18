@@ -11,8 +11,7 @@ import androidx.compose.runtime.Composable
 import org.hisp.dhis.mobile.ui.designsystem.component.AdditionalInfoItemColor
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.InfoBar
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
-import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 
 const val LOREM =
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit," +
@@ -23,25 +22,25 @@ fun InfoBarScreen() {
     ColumnScreenContainer(title = "Info Bar") {
         InfoBar(
             text = "Label",
-            textColor = TextColor.OnSurfaceLight,
-            backgroundColor = SurfaceColor.Surface,
+            textColor = DHIS2Theme.extendedColors.onSurfaceLight,
+            backgroundColor = DHIS2Theme.colorScheme.surface,
             icon = {
                 Icon(
                     imageVector = Icons.Outlined.Info,
                     contentDescription = "label",
-                    tint = TextColor.OnSurfaceLight,
+                    tint = DHIS2Theme.extendedColors.onSurfaceLight,
                 )
             },
         )
         InfoBar(
             text = LOREM,
-            textColor = TextColor.OnSurfaceLight,
-            backgroundColor = SurfaceColor.Surface,
+            textColor = DHIS2Theme.extendedColors.onSurfaceLight,
+            backgroundColor = DHIS2Theme.colorScheme.surface,
             icon = {
                 Icon(
                     imageVector = Icons.Outlined.Info,
                     contentDescription = "lorem",
-                    tint = TextColor.OnSurfaceLight,
+                    tint = DHIS2Theme.extendedColors.onSurfaceLight,
                 )
             },
         )
@@ -61,27 +60,27 @@ fun InfoBarScreen() {
 
         InfoBar(
             text = "Enrollment cancelled",
-            textColor = TextColor.OnSurfaceLight,
-            backgroundColor = SurfaceColor.Surface,
+            textColor = DHIS2Theme.extendedColors.onSurfaceLight,
+            backgroundColor = DHIS2Theme.colorScheme.surface,
             icon = {
                 Icon(
                     imageVector = Icons.Filled.Block,
                     contentDescription = "enrollment cancelled",
-                    tint = TextColor.OnSurfaceLight,
+                    tint = DHIS2Theme.extendedColors.onSurfaceLight,
                 )
             },
         )
 
         InfoBar(
             text = "Not synced",
-            textColor = TextColor.OnSurfaceLight,
-            backgroundColor = SurfaceColor.Surface,
+            textColor = DHIS2Theme.extendedColors.onSurfaceLight,
+            backgroundColor = DHIS2Theme.colorScheme.surface,
             actionText = "Sync",
             icon = {
                 Icon(
                     imageVector = Icons.Filled.Sync,
                     contentDescription = "not synced",
-                    tint = TextColor.OnSurfaceLight,
+                    tint = DHIS2Theme.extendedColors.onSurfaceLight,
                 )
             },
             onActionClick = {},
@@ -89,14 +88,14 @@ fun InfoBarScreen() {
 
         InfoBar(
             text = "Not synced",
-            textColor = TextColor.OnErrorContainer,
-            backgroundColor = SurfaceColor.ErrorContainer,
+            textColor = DHIS2Theme.colorScheme.onErrorContainer,
+            backgroundColor = DHIS2Theme.colorScheme.errorContainer,
             actionText = "Retry sync",
             icon = {
                 Icon(
                     imageVector = Icons.Filled.Sync,
                     contentDescription = "not synced error",
-                    tint = TextColor.OnErrorContainer,
+                    tint = DHIS2Theme.colorScheme.onErrorContainer,
                 )
             },
             onActionClick = {},
@@ -104,14 +103,14 @@ fun InfoBarScreen() {
 
         InfoBar(
             text = "Synce warning",
-            textColor = TextColor.OnWarningContainer,
-            backgroundColor = SurfaceColor.WarningContainer,
+            textColor = DHIS2Theme.extendedColors.onWarningContainer,
+            backgroundColor = DHIS2Theme.extendedColors.warningContainer,
             actionText = "Retry sync",
             icon = {
                 Icon(
                     imageVector = Icons.Filled.Sync,
                     contentDescription = "not synced",
-                    tint = TextColor.OnWarningContainer,
+                    tint = DHIS2Theme.extendedColors.onWarningContainer,
                 )
             },
             onActionClick = {},
@@ -119,14 +118,14 @@ fun InfoBarScreen() {
 
         InfoBar(
             text = "Marked for follow-up",
-            textColor = TextColor.OnSurfaceLight,
-            backgroundColor = SurfaceColor.Surface,
+            textColor = DHIS2Theme.extendedColors.onSurfaceLight,
+            backgroundColor = DHIS2Theme.colorScheme.surface,
             actionText = "Remove",
             icon = {
                 Icon(
                     imageVector = Icons.Filled.Flag,
                     contentDescription = "not synced",
-                    tint = SurfaceColor.CustomOrange,
+                    tint = DHIS2Theme.extendedColors.customOrange,
                 )
             },
             onActionClick = {},
@@ -134,13 +133,13 @@ fun InfoBarScreen() {
 
         InfoBar(
             text = "Downloading file resources...",
-            textColor = TextColor.OnSurfaceLight,
-            backgroundColor = SurfaceColor.Surface,
+            textColor = DHIS2Theme.extendedColors.onSurfaceLight,
+            backgroundColor = DHIS2Theme.colorScheme.surface,
             icon = {
                 Icon(
                     imageVector = Icons.Outlined.Info,
                     contentDescription = "info",
-                    tint = TextColor.OnSurfaceLight,
+                    tint = DHIS2Theme.extendedColors.onSurfaceLight,
                 )
             },
             displayProgress = true,
@@ -148,13 +147,13 @@ fun InfoBarScreen() {
 
         InfoBar(
             text = LOREM,
-            textColor = TextColor.OnSurfaceLight,
-            backgroundColor = SurfaceColor.Surface,
+            textColor = DHIS2Theme.extendedColors.onSurfaceLight,
+            backgroundColor = DHIS2Theme.colorScheme.surface,
             icon = {
                 Icon(
                     imageVector = Icons.Outlined.Info,
                     contentDescription = "info",
-                    tint = TextColor.OnSurfaceLight,
+                    tint = DHIS2Theme.extendedColors.onSurfaceLight,
                 )
             },
             displayProgress = true,
@@ -162,13 +161,13 @@ fun InfoBarScreen() {
 
         InfoBar(
             text = LOREM,
-            textColor = TextColor.OnSurfaceLight,
-            backgroundColor = SurfaceColor.Surface,
+            textColor = DHIS2Theme.extendedColors.onSurfaceLight,
+            backgroundColor = DHIS2Theme.colorScheme.surface,
             icon = {
                 Icon(
                     imageVector = Icons.Outlined.Info,
                     contentDescription = "info",
-                    tint = TextColor.OnSurfaceLight,
+                    tint = DHIS2Theme.extendedColors.onSurfaceLight,
                 )
             },
             actionText = "Action",

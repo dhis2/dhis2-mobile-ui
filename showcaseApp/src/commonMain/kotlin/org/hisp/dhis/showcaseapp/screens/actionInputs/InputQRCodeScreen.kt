@@ -24,7 +24,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextData
 import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextState
 import org.hisp.dhis.mobile.ui.designsystem.component.state.BottomSheetShellUIState
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.showcaseapp.screens.previews.threeButtonCarousel
 
 @Composable
@@ -51,7 +51,7 @@ fun InputQRCodeScreen() {
                     Icon(
                         imageVector = Icons.Outlined.Info,
                         contentDescription = "Button",
-                        tint = SurfaceColor.Primary,
+                        tint = DHIS2Theme.colorScheme.primary,
                     )
                 },
                 buttonBlock = {
