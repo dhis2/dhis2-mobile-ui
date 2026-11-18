@@ -15,7 +15,7 @@ class TagSnapshotTest {
 
     @Test
     fun launchChip() {
-        paparazzi.snapshot {
+        paparazzi.themedSnapshots {
             ColumnComponentContainer(modifier = Modifier.padding(Spacing.Spacing10)) {
                 TagType.entries.forEach {
                     Tag(

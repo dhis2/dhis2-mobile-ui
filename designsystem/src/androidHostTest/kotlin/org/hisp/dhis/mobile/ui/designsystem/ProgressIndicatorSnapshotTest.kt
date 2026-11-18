@@ -15,7 +15,7 @@ class ProgressIndicatorSnapshotTest {
 
     @Test
     fun launchChip() {
-        paparazzi.snapshot {
+        paparazzi.themedSnapshots {
             ColumnComponentContainer(modifier = Modifier.padding(Spacing.Spacing10)) {
                 ProgressIndicator(
                     type = ProgressIndicatorType.LINEAR,

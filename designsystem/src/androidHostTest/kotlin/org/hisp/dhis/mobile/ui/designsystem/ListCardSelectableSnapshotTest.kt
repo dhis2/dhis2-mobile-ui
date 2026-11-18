@@ -30,7 +30,7 @@ class ListCardSelectableSnapshotTest {
 
     @Test
     fun launchListCard() {
-        paparazzi.snapshot {
+        paparazzi.themedSnapshots {
             CompositionLocalProvider(LocalInspectionMode provides true) {
                 PreviewContextConfigurationEffect()
             }

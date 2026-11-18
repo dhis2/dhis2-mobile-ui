@@ -23,7 +23,7 @@ class TableCellSnapshotTest {
 
     @Test
     fun launchTableCell() {
-        paparazzi.snapshot {
+        paparazzi.themedSnapshots {
             DataTable(
                 tableList = listOf(tableModel()),
                 topContent = {

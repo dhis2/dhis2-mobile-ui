@@ -16,7 +16,7 @@ class FABSnapshotTest {
 
     @Test
     fun launchFAB() {
-        paparazzi.snapshot {
+        paparazzi.themedSnapshots {
             ColumnScreenContainer {
                 FAB(
                     style = FABStyle.SURFACE,

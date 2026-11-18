@@ -14,7 +14,7 @@ class InputChipSnapshotTest {
 
     @Test
     fun launchChip() {
-        paparazzi.snapshot {
+        paparazzi.themedSnapshots {
             ColumnScreenContainer(modifier = Modifier.padding(Spacing.Spacing10)) {
                 InputChip(label = "Label", selected = false, badge = "3")
                 InputChip(label = "Label", selected = true, badge = "3")

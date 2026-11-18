@@ -41,7 +41,7 @@ class NavigationBarSnapShotTest {
 
     @Test
     fun launchNavigationBar() {
-        paparazzi.snapshot {
+        paparazzi.themedSnapshots {
             val homeItems =
                 listOf(
                     NavigationBarItem(

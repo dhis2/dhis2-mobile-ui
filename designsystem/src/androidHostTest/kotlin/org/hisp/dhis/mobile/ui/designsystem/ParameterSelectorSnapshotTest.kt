@@ -24,7 +24,7 @@ class ParameterSelectorSnapshotTest {
 
     @Test
     fun launchParameterSelectorSnapshot() {
-        paparazzi.snapshot {
+        paparazzi.themedSnapshots {
             CompositionLocalProvider(LocalInspectionMode provides true) {
                 PreviewContextConfigurationEffect()
             }

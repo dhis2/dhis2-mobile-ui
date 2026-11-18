@@ -26,7 +26,7 @@ class LoginSnapshotTest {
 
     @Test
     fun launchLoginScreen() {
-        paparazzi.snapshot {
+        paparazzi.themedSnapshots {
             ColumnScreenContainer(title = "Login") {
                 InputQRCode(
                     "Server URL",

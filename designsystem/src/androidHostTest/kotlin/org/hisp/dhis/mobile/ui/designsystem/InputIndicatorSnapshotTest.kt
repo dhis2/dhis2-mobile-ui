@@ -12,7 +12,7 @@ class InputIndicatorSnapshotTest {
 
     @Test
     fun launchIndicatorInput() {
-        paparazzi.snapshot {
+        paparazzi.themedSnapshots {
             ColumnScreenContainer {
                 Indicator(
                     title = "Heart Rate",

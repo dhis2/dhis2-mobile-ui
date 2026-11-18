@@ -45,6 +45,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.model.Tab
 import org.hisp.dhis.mobile.ui.designsystem.component.model.TabColorStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.model.TabStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.modifier.draggableList
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
 @Composable
@@ -143,9 +144,9 @@ internal fun VerticalTab(
                         ripple(
                             color =
                                 if (tabColorStyle is TabColorStyle.Primary) {
-                                    MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.16f)
+                                    DHIS2Theme.colorScheme.onPrimary.copy(alpha = 0.16f)
                                 } else {
-                                    MaterialTheme.colorScheme.primary
+                                    DHIS2Theme.colorScheme.primary
                                 },
                         ),
                 ).padding(
@@ -208,21 +209,21 @@ object VerticalTabsDefaults {
     val indicatorVerticalPadding = 2.dp
 
     val textColor: Color
-        @Composable get() = MaterialTheme.colorScheme.onSurfaceVariant
+        @Composable get() = DHIS2Theme.colorScheme.onSurfaceVariant
     val textColorVariant: Color
-        @Composable get() = MaterialTheme.colorScheme.surfaceContainerHigh
+        @Composable get() = DHIS2Theme.colorScheme.surfaceContainerHigh
     val selectedTextColor: Color
-        @Composable get() = MaterialTheme.colorScheme.primary
+        @Composable get() = DHIS2Theme.colorScheme.primary
     val selectedTextColorVariant: Color
-        @Composable get() = MaterialTheme.colorScheme.surfaceBright
+        @Composable get() = DHIS2Theme.colorScheme.surfaceBright
     val backgroundColor: Color
-        @Composable get() = MaterialTheme.colorScheme.surface
+        @Composable get() = DHIS2Theme.colorScheme.surface
     val backgroundColorVariant: Color
-        @Composable get() = MaterialTheme.colorScheme.primary
+        @Composable get() = DHIS2Theme.colorScheme.primary
     val indicatorColor: Color
-        @Composable get() = MaterialTheme.colorScheme.primary
+        @Composable get() = DHIS2Theme.colorScheme.primary
     val indicatorColorVariant: Color
-        @Composable get() = MaterialTheme.colorScheme.surfaceBright
+        @Composable get() = DHIS2Theme.colorScheme.surfaceBright
 
     @Composable
     fun textColor(

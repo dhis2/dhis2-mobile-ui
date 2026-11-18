@@ -44,7 +44,7 @@ internal fun TableCorner(
 ) {
     val isSelected = TableTheme.tableSelection.isCornerSelected(tableId)
     val config = TableTheme.configuration
-    val colorPrimary = MaterialTheme.colorScheme.primary
+    val colorPrimary = TableTheme.colors.primary
 
     Box(
         modifier =
@@ -86,7 +86,7 @@ internal fun TableCorner(
                         .align(Alignment.Center),
                 color =
                     if (isSelected) {
-                        MaterialTheme.colorScheme.onPrimary
+                        TableTheme.colors.onPrimary
                     } else {
                         TableTheme.colors.headerText
                     },

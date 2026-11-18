@@ -31,7 +31,7 @@ class InputRadioButtonSnapshotTest {
 
     @Test
     fun launchInputRadioButton() {
-        paparazzi.snapshot {
+        paparazzi.themedSnapshots {
             val option1 = "Option 1"
             val option2 = "Option 2"
             val option3 = "Option 3"

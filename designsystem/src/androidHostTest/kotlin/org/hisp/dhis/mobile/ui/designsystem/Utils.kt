@@ -1,10 +1,15 @@
 package org.hisp.dhis.mobile.ui.designsystem
 
 import android.view.View
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import app.cash.paparazzi.DeviceConfig
 import app.cash.paparazzi.Paparazzi
 import app.cash.paparazzi.RenderExtension
 import com.android.ide.common.rendering.api.SessionParams
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.setResourceReaderAndroidContext
 
@@ -27,5 +32,18 @@ private object ComposeResourcesContextExtension : RenderExtension {
     override fun renderView(contentView: View): View {
         setResourceReaderAndroidContext(contentView.context)
         return contentView
+    }
+}
+
+/**
+ * Takes the snapshot of [content] inside a [DHIS2Theme] (light theme), on the theme background.
+ */
+fun Paparazzi.themedSnapshots(content: @Composable () -> Unit) {
+    snapshot {
+        DHIS2Theme(isDarkModeEnabled = false) {
+            Box(Modifier.background(DHIS2Theme.colorScheme.background)) {
+                content()
+            }
+        }
     }
 }

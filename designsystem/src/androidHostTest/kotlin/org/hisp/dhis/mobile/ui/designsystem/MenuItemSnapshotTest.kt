@@ -26,7 +26,7 @@ class MenuItemSnapshotTest {
 
     @Test
     fun launchMenuItemTest() {
-        paparazzi.snapshot {
+        paparazzi.themedSnapshots {
             ColumnScreenContainer("Menu Item") {
                 ColumnComponentContainer("Menu item") {
                     Column(

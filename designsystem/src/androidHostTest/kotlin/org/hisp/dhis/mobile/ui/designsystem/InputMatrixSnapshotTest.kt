@@ -22,7 +22,7 @@ class InputMatrixSnapshotTest {
 
     @Test
     fun launchMatrix() {
-        paparazzi.snapshot {
+        paparazzi.themedSnapshots {
             val res = LocalResources.current
 
             val image =
