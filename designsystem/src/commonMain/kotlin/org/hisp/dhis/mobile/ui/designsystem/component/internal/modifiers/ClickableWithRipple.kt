@@ -8,12 +8,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.Role
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 
 @Composable
 internal fun Modifier.clickableWithRipple(
     role: Role = Role.Button,
-    color: Color = SurfaceColor.Primary,
+    color: Color = DHIS2Theme.colorScheme.primary,
     onClick: () -> Unit,
 ): Modifier =
     this.then(

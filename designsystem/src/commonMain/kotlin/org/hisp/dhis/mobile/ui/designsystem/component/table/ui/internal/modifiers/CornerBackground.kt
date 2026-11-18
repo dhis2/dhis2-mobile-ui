@@ -5,15 +5,15 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.LocalTableColors
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme
 
 @Composable
 internal fun Modifier.cornerBackground(
     hasLabel: Boolean,
     isSelected: Boolean,
     selectedColor: Color = MaterialTheme.colorScheme.primary,
-    defaultColor: Color = LocalTableColors.current.tableBackground,
-    labelledColor: Color = LocalTableColors.current.headerBackground2,
+    defaultColor: Color = TableTheme.colors.tableBackground,
+    labelledColor: Color = TableTheme.colors.headerBackground2,
 ) = this.then(
     background(
         color =

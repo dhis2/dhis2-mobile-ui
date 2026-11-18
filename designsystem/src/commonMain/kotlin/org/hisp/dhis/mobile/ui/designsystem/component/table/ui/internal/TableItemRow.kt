@@ -205,6 +205,7 @@ internal fun TableItemRow(
                                 borderColor = TableTheme.colors.primary,
                                 subRowCount = tableModel.tableRows.size,
                                 subRowIndex = subRowIndex,
+                                haloColor = TableTheme.colors.tableBackground,
                             ),
                     tableId = tableModel.id,
                     horizontalScrollState = horizontalScrollState,

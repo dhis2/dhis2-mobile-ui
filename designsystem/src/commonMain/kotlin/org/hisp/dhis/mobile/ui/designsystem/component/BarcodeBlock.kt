@@ -18,8 +18,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.barcode.rememberBarcodeGenerator
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
 /**
  * Container to render barcode image and text for given
@@ -59,7 +59,7 @@ fun BarcodeBlock(
             Text(
                 text = data,
                 style = MaterialTheme.typography.titleMedium,
-                color = TextColor.OnSurface,
+                color = DHIS2Theme.colorScheme.onSurface,
                 textAlign = TextAlign.Center,
             )
         }

@@ -12,7 +12,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableCell
-import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.LocalTableColors
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.extensions.isNumeric
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.CELL_VALUE_TEST_TAG
@@ -38,7 +37,7 @@ internal fun TextCell(
                 fontSize = TableTheme.dimensions.defaultCellTextSize,
                 textAlign = if (cell.value.isNumeric()) TextAlign.End else TextAlign.Start,
                 color =
-                    LocalTableColors.current.cellTextColor(
+                    TableTheme.colors.cellTextColor(
                         hasError = cell.error != null,
                         hasWarning = cell.warning != null,
                         isEditable = cell.editable,

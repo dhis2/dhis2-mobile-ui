@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
@@ -45,7 +46,7 @@ fun MetadataAvatar(
         modifier =
             modifier
                 .clip(RoundedCornerShape(size.cornerRadius))
-                .background(color = Color.White)
+                .background(color = DHIS2Theme.colorScheme.surfaceBright)
                 .background(color = boxBackgroundColor)
                 .padding(size.padding)
                 .size(size.size),

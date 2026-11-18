@@ -7,6 +7,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Emergency
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -14,7 +15,9 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.Dp
 import org.hisp.dhis.mobile.designsystem.generated.resources.Res
 import org.hisp.dhis.mobile.designsystem.generated.resources.required
+import org.hisp.dhis.mobile.ui.designsystem.component.internal.themedIfDefault
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.MANDATORY_ICON_TEST_TAG
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
@@ -33,7 +36,7 @@ internal fun MandatoryIcon(
                 .testTag(MANDATORY_ICON_TEST_TAG)
                 .padding(style.paddingValues)
                 .size(style.size),
-        tint = style.color,
+        tint = style.themedColor,
     )
 }
 
@@ -64,3 +67,13 @@ internal sealed class MandatoryIconStyle(
         size = Spacing.Spacing8,
     )
 }
+
+/** Theme-aware [MandatoryIconStyle.color]. */
+internal val MandatoryIconStyle.themedColor: Color
+    @Composable
+    @ReadOnlyComposable
+    get() =
+        when (this) {
+            MandatoryIconStyle.FilledMandatoryStyle -> color.themedIfDefault(Outline.Light, DHIS2Theme.colorScheme.outlineVariant)
+            else -> color.themedIfDefault(SurfaceColor.Error, DHIS2Theme.colorScheme.error)
+        }

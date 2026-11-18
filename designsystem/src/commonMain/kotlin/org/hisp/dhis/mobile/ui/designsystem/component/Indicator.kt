@@ -53,8 +53,8 @@ import com.mikepenz.markdown.m3.markdownTypography
 import com.mikepenz.markdown.model.markdownDimens
 import com.mikepenz.markdown.model.markdownPadding
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2MarkdownTextStyles
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.intellij.markdown.MarkdownElementTypes.IMAGE
 import org.intellij.markdown.ast.ASTNode
 import org.intellij.markdown.ast.findChildOfType
@@ -79,12 +79,12 @@ fun Indicator(
     title: String,
     content: String? = null,
     modifier: Modifier = Modifier,
-    indicatorColor: Color = SurfaceColor.ContainerHigh,
+    indicatorColor: Color = DHIS2Theme.colorScheme.surfaceContainerHigh,
     useMarkdown: Boolean = false,
 ) {
     val backgroundColor =
         indicatorColor.copy(
-            alpha = if (indicatorColor == SurfaceColor.ContainerHigh) 0.2f else 0.1f,
+            alpha = if (indicatorColor == DHIS2Theme.colorScheme.surfaceContainerHigh) 0.2f else 0.1f,
         )
 
     val markdownDimensions =
@@ -114,7 +114,7 @@ fun Indicator(
             Modifier
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(Spacing.Spacing8))
-                .background(Color.White),
+                .background(DHIS2Theme.colorScheme.surfaceBright),
     ) {
         Row(
             modifier =

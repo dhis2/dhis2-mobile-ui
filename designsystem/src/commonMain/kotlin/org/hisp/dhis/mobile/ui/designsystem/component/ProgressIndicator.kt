@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import org.hisp.dhis.mobile.ui.designsystem.theme.Border
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 
 enum class ProgressIndicatorType {
     CIRCULAR,
@@ -58,8 +58,8 @@ internal fun LinearIndicator(
     progress: Float?,
     hasError: Boolean,
 ) {
-    val color = if (hasError) SurfaceColor.Error else SurfaceColor.Primary
-    val trackColor = if (hasError) SurfaceColor.ErrorContainer else SurfaceColor.Container
+    val color = if (hasError) DHIS2Theme.colorScheme.error else DHIS2Theme.colorScheme.primary
+    val trackColor = if (hasError) DHIS2Theme.colorScheme.errorContainer else DHIS2Theme.colorScheme.surfaceContainer
     if (progress != null) {
         LinearProgressIndicator(
             progress = { progress },
@@ -83,8 +83,8 @@ internal fun CircularIndicator(
     progress: Float?,
     hasError: Boolean,
 ) {
-    val color = if (hasError) SurfaceColor.Error else SurfaceColor.Primary
-    val trackColor = if (hasError) SurfaceColor.ErrorContainer else SurfaceColor.Container
+    val color = if (hasError) DHIS2Theme.colorScheme.error else DHIS2Theme.colorScheme.primary
+    val trackColor = if (hasError) DHIS2Theme.colorScheme.errorContainer else DHIS2Theme.colorScheme.surfaceContainer
     if (progress != null) {
         CircularProgressIndicator(
             progress = { progress },

@@ -16,7 +16,7 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import org.hisp.dhis.mobile.designsystem.generated.resources.Res
 import org.hisp.dhis.mobile.designsystem.generated.resources.navigate_back
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.jetbrains.compose.resources.stringResource
 
 internal expect fun fullScreenDialogProperties(): DialogProperties
@@ -43,12 +43,12 @@ fun FullScreenDialog(
         ConfigureDialogSystemBars()
         Scaffold(
             modifier = modifier,
-            containerColor = SurfaceColor.SurfaceBright,
+            containerColor = DHIS2Theme.colorScheme.surfaceBright,
             topBar = {
                 TopBar(
                     colors =
                         TopAppBarDefaults.topAppBarColors(
-                            containerColor = SurfaceColor.SurfaceBright,
+                            containerColor = DHIS2Theme.colorScheme.surfaceBright,
                         ),
                     navigationIcon = {
                         IconButton(

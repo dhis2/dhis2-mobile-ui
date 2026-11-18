@@ -59,8 +59,8 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.compositions.LocalTableResizeActions
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.extensions.fixedStickyHeader
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 
 private const val SELECTED_CELL_INDEX_SCROLL_OFFSET = -2
 private const val SCROLL_OFFSET_STICKY_HEADER = -250f
@@ -225,7 +225,7 @@ internal fun Table(
                 if (loading) {
                     item {
                         Box(
-                            modifier = Modifier.fillMaxSize().background(SurfaceColor.SurfaceBright),
+                            modifier = Modifier.fillMaxSize().background(DHIS2Theme.colorScheme.surfaceBright),
                             contentAlignment = Alignment.Center,
                         ) {
                             ProgressIndicator(type = ProgressIndicatorType.CIRCULAR)
@@ -305,7 +305,7 @@ internal fun Table(
         ) {
             Box(
                 Modifier
-                    .background(Color.White.copy(alpha = 0.8f))
+                    .background(TableTheme.colors.tableBackground.copy(alpha = 0.8f))
                     .padding(Spacing.Spacing16),
                 contentAlignment = Alignment.Center,
             ) {
@@ -343,7 +343,7 @@ private fun LazyListScope.stickyFooter(
                 modifier =
                     Modifier
                         .height(16.dp)
-                        .background(color = Color.White),
+                        .background(color = TableTheme.colors.tableBackground),
             )
         }
     }

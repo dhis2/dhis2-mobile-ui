@@ -4,8 +4,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
-import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 
 /**
  * DHIS2 [Badge]) wraps [androidx.compose.material3.Badge].
@@ -21,8 +20,8 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 fun Badge(
     modifier: Modifier = Modifier,
     text: String? = null,
-    color: Color = SurfaceColor.Primary,
-    textColor: Color = TextColor.OnPrimary,
+    color: Color = DHIS2Theme.colorScheme.primary,
+    textColor: Color = DHIS2Theme.colorScheme.onPrimary,
 ) {
     androidx.compose.material3.Badge(
         modifier = modifier,
@@ -46,5 +45,5 @@ fun ErrorBadge(
     modifier: Modifier = Modifier,
     text: String? = null,
 ) {
-    Badge(modifier, text, SurfaceColor.Error, TextColor.OnError)
+    Badge(modifier, text, DHIS2Theme.colorScheme.error, DHIS2Theme.colorScheme.onError)
 }

@@ -18,7 +18,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.semantics
@@ -34,6 +33,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.model.internal.Table
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.cornerTestTag
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.tableIdSemantic
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.jetbrains.compose.resources.stringResource
 
@@ -88,7 +88,7 @@ internal fun TableHeaderRow(
                                 Icon(
                                     imageVector = Icons.Outlined.RestartAlt,
                                     contentDescription = stringResource(Res.string.reset_table_layout),
-                                    tint = Color.Black.copy(alpha = 0.87f),
+                                    tint = DHIS2Theme.colorScheme.onSurface,
                                 )
                             },
                         )

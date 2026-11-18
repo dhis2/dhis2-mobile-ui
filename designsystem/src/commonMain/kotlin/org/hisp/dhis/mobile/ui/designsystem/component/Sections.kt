@@ -36,7 +36,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.Role
@@ -51,12 +50,11 @@ import org.hisp.dhis.mobile.ui.designsystem.component.SectionSemantics.stateSema
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.bottomBorder
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.Color.Ash600
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing16
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing24
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
-import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import org.jetbrains.compose.resources.pluralStringResource
 
 enum class SectionState {
@@ -161,7 +159,7 @@ internal fun SectionBlock(
         modifier =
             modifier
                 .fillMaxWidth()
-                .background(Color.White)
+                .background(DHIS2Theme.colorScheme.surfaceBright)
                 .run {
                     if (sectionState != SectionState.FIXED) {
                         bottomBorder(1.dp, Ash600)
@@ -266,7 +264,7 @@ internal fun SectionHeader(
                 .semantics {
                     stateSemantic = sectionState
                 }.fillMaxWidth()
-                .background(color = Color.White, Shape.Small)
+                .background(color = DHIS2Theme.colorScheme.surfaceBright, Shape.Small)
                 .clip(Shape.Small)
                 .let {
                     if (sectionState == SectionState.FIXED) {
@@ -277,7 +275,7 @@ internal fun SectionHeader(
                             interactionSource = interactionSource,
                             indication =
                                 ripple(
-                                    color = SurfaceColor.Primary,
+                                    color = DHIS2Theme.colorScheme.primary,
                                 ),
                         ) {
                             onSectionClick()
@@ -356,7 +354,7 @@ internal fun SectionTitle(
         modifier = modifier,
         text = title,
         style = MaterialTheme.typography.titleLarge,
-        color = TextColor.OnSurface,
+        color = DHIS2Theme.colorScheme.onSurface,
     )
 }
 
@@ -378,7 +376,7 @@ internal fun CompletionLabel(
             modifier = modifier,
             text = "$completedFields/$totalFields",
             style = MaterialTheme.typography.bodyMedium,
-            color = TextColor.OnSurfaceLight,
+            color = DHIS2Theme.extendedColors.onSurfaceLight,
         )
     }
 }
@@ -397,12 +395,12 @@ internal fun StateIndicator(
         horizontalArrangement = spacedBy(Spacing.Spacing8),
     ) {
         icon?.let {
-            Icon(imageVector = it, "Icon Button", tint = SurfaceColor.Primary)
+            Icon(imageVector = it, "Icon Button", tint = DHIS2Theme.colorScheme.primary)
         }
         Text(
             text = label,
             style = MaterialTheme.typography.labelLarge,
-            color = SurfaceColor.Primary,
+            color = DHIS2Theme.colorScheme.primary,
         )
     }
 }

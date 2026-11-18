@@ -16,9 +16,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 
 sealed class AvatarStyleData {
     data class Text(
@@ -60,14 +60,14 @@ fun Avatar(
                     modifier
                         .size(Spacing.Spacing40)
                         .background(
-                            color = SurfaceColor.PrimaryContainer,
+                            color = DHIS2Theme.colorScheme.primaryContainer,
                             shape = RoundedCornerShape(Radius.Full),
                         ),
                 contentAlignment = Alignment.Center,
             ) {
                 Text(
                     text = style.textAvatar,
-                    color = SurfaceColor.Primary,
+                    color = DHIS2Theme.colorScheme.primary,
                     style = MaterialTheme.typography.titleSmall,
                 )
             }

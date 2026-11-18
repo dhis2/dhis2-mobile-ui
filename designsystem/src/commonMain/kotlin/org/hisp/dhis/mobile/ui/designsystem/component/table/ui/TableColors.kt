@@ -1,8 +1,11 @@
 package org.hisp.dhis.mobile.ui.designsystem.component.table.ui
 
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
@@ -35,6 +38,8 @@ data class TableColors(
     val tableBackground: Color = SurfaceColor.SurfaceBright,
     val onPrimary: Color = TextColor.OnPrimary,
     val selectedCell: Color = SurfaceColor.ContainerHighest,
+    val errorCellText: Color = TextColor.OnErrorContainer,
+    val warningCellText: Color = TextColor.OnWarningContainer,
 ) {
     /**
      * Returns the appropriate cell text color based on error, warning, and editability states.
@@ -49,8 +54,8 @@ data class TableColors(
         hasWarning: Boolean,
         isEditable: Boolean,
     ) = when {
-        hasError -> TextColor.OnErrorContainer
-        hasWarning -> TextColor.OnWarningContainer
+        hasError -> errorCellText
+        hasWarning -> warningCellText
         !isEditable -> disabledCellText
         else -> cellText
     }
@@ -59,4 +64,29 @@ data class TableColors(
 /**
  * CompositionLocal to provide [TableColors] throughout the Compose hierarchy.
  */
-internal val LocalTableColors = staticCompositionLocalOf { TableColors() }
+internal val DefaultTableColors = TableColors()
+
+internal val LocalTableColors = staticCompositionLocalOf { DefaultTableColors }
+
+/**
+ * [TableColors] built from the current DHIS2 theme. Used by [TableTheme] when no custom colors are given.
+ */
+@Composable
+@ReadOnlyComposable
+internal fun themedTableColors(): TableColors =
+    TableColors(
+        primary = DHIS2Theme.colorScheme.primary,
+        primaryLight = DHIS2Theme.colorScheme.surfaceContainerHighest,
+        headerText = DHIS2Theme.extendedColors.onSurfaceLight,
+        headerBackground1 = DHIS2Theme.colorScheme.surfaceContainerLow,
+        headerBackground2 = DHIS2Theme.colorScheme.surfaceContainer,
+        cellText = DHIS2Theme.colorScheme.onSurfaceVariant,
+        disabledCellText = DHIS2Theme.extendedColors.onDisabledSurface,
+        disabledCellBackground = DHIS2Theme.extendedColors.disabledSurfaceBright,
+        disabledSelectedBackground = DHIS2Theme.extendedColors.disabledSurface,
+        tableBackground = DHIS2Theme.colorScheme.surfaceBright,
+        onPrimary = DHIS2Theme.colorScheme.onPrimary,
+        selectedCell = DHIS2Theme.colorScheme.surfaceContainerHighest,
+        errorCellText = DHIS2Theme.colorScheme.onErrorContainer,
+        warningCellText = DHIS2Theme.extendedColors.onWarningContainer,
+    )

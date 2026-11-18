@@ -12,7 +12,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme
@@ -45,7 +44,7 @@ internal fun ExtendDivider(
                             ).toDp()
                         },
                     ).height(8.dp)
-                    .background(Color.White)
+                    .background(TableTheme.colors.tableBackground)
                     .drawBehind {
                         drawRect(
                             color = background,
@@ -59,7 +58,7 @@ internal fun ExtendDivider(
                 Modifier
                     .weight(1f)
                     .height(8.dp)
-                    .background(Color.White),
+                    .background(TableTheme.colors.tableBackground),
         )
     }
 }
