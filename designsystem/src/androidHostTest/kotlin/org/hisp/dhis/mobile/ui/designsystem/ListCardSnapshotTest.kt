@@ -23,9 +23,8 @@ import org.hisp.dhis.mobile.ui.designsystem.component.ListCardTitleModel
 import org.hisp.dhis.mobile.ui.designsystem.component.state.rememberAdditionalInfoColumnState
 import org.hisp.dhis.mobile.ui.designsystem.component.state.rememberListCardState
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
-import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import org.junit.Rule
 import org.junit.Test
 
@@ -114,11 +113,11 @@ class ListCardSnapshotTest {
                                                 Icon(
                                                     imageVector = Icons.Outlined.Sync,
                                                     contentDescription = "Icon Button",
-                                                    tint = SurfaceColor.Primary,
+                                                    tint = DHIS2Theme.colorScheme.primary,
                                                 )
                                             },
                                             value = "Syncing...",
-                                            color = SurfaceColor.Primary,
+                                            color = DHIS2Theme.colorScheme.primary,
                                             isConstantItem = false,
                                         ),
                                 ),
@@ -146,11 +145,11 @@ class ListCardSnapshotTest {
                                                 Icon(
                                                     imageVector = Icons.Outlined.Sync,
                                                     contentDescription = "Icon Button",
-                                                    tint = SurfaceColor.Primary,
+                                                    tint = DHIS2Theme.colorScheme.primary,
                                                 )
                                             },
                                             value = "Syncing...",
-                                            color = SurfaceColor.Primary,
+                                            color = DHIS2Theme.colorScheme.primary,
                                             isConstantItem = false,
                                         ),
                                 ),
@@ -168,7 +167,7 @@ class ListCardSnapshotTest {
                                 Icon(
                                     imageVector = Icons.Outlined.Sync,
                                     contentDescription = "Icon Button",
-                                    tint = TextColor.OnPrimaryContainer,
+                                    tint = DHIS2Theme.colorScheme.onPrimaryContainer,
                                 )
                             },
                             onClick = { },
@@ -191,11 +190,11 @@ class ListCardSnapshotTest {
                                                 Icon(
                                                     imageVector = Icons.Outlined.Sync,
                                                     contentDescription = "Icon Button",
-                                                    tint = SurfaceColor.Primary,
+                                                    tint = DHIS2Theme.colorScheme.primary,
                                                 )
                                             },
                                             value = "Syncing...",
-                                            color = SurfaceColor.Primary,
+                                            color = DHIS2Theme.colorScheme.primary,
                                             isConstantItem = false,
                                         ),
                                 ),

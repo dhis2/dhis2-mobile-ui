@@ -14,7 +14,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
 import org.hisp.dhis.mobile.ui.designsystem.component.ImageCardData
 import org.hisp.dhis.mobile.ui.designsystem.component.InputSequential
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.jetbrains.compose.resources.PreviewContextConfigurationEffect
 import org.junit.Rule
 import org.junit.Test
@@ -41,6 +41,9 @@ class InputSequentialSnapshotTest {
                             .also { it.inPreferredConfig = Bitmap.Config.ARGB_8888 },
                     ).asImageBitmap()
 
+            val primaryTint = DHIS2Theme.colorScheme.primary
+            val greenTint = DHIS2Theme.extendedColors.customGreen
+            val yellowTint = DHIS2Theme.extendedColors.customYellow
             val inputCardData =
                 remember {
                     mutableStateListOf(
@@ -48,7 +51,7 @@ class InputSequentialSnapshotTest {
                             uid = "3eea3133-8a2f-4bba-a259-8b4b457d5ad0",
                             label = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas dolor lacus, aliquam.",
                             iconRes = "dhis2_boy_0105y_outline",
-                            iconTint = SurfaceColor.Primary,
+                            iconTint = primaryTint,
                         ),
                         ImageCardData.IconCardData(
                             uid = "7e0cb105-c276-4f12-9f56-a26af8314121",
@@ -72,13 +75,13 @@ class InputSequentialSnapshotTest {
                             uid = "6d6a5de8-7707-418f-8424-bb3c4557bb46",
                             label = "Happy",
                             iconRes = "dhis2_happy_positive",
-                            iconTint = SurfaceColor.CustomGreen,
+                            iconTint = greenTint,
                         ),
                         ImageCardData.IconCardData(
                             uid = "4ee5944e-b75f-4597-95bc-266b38b25604",
                             label = "Sad",
                             iconRes = "dhis2_sad_positive",
-                            iconTint = SurfaceColor.CustomYellow,
+                            iconTint = yellowTint,
                         ),
                         ImageCardData.CustomIconData(
                             uid = "4ee5944e-b75f-4597-95bc-266b38b25604",

@@ -7,7 +7,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.MetadataAvatar
 import org.hisp.dhis.mobile.ui.designsystem.component.MetadataAvatarSize
 import org.hisp.dhis.mobile.ui.designsystem.component.RowComponentContainer
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.junit.Rule
 import org.junit.Test
 
@@ -34,7 +34,7 @@ class MetadataAvatarSnapshotTest {
                                 contentDescription = "",
                             )
                         },
-                        iconTint = SurfaceColor.Primary,
+                        iconTint = DHIS2Theme.colorScheme.primary,
                         size = metadataAvatarSize,
                     )
                 }
