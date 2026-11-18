@@ -20,9 +20,8 @@ import org.hisp.dhis.mobile.designsystem.generated.resources.Res
 import org.hisp.dhis.mobile.designsystem.generated.resources.clear
 import org.hisp.dhis.mobile.designsystem.generated.resources.edit_polygon
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
-import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import org.jetbrains.compose.resources.stringResource
 
 /**
@@ -81,9 +80,9 @@ fun InputPolygon(
                         MaterialTheme.typography.bodyLarge.copy(
                             color =
                                 if (state != InputShellState.DISABLED) {
-                                    TextColor.OnSurface
+                                    DHIS2Theme.colorScheme.onSurface
                                 } else {
-                                    TextColor.OnDisabledSurface
+                                    DHIS2Theme.extendedColors.onDisabledSurface
                                 },
                         ),
                 )
@@ -100,7 +99,14 @@ fun InputPolygon(
                         Icon(
                             imageVector = Icons.Outlined.AddLocationAlt,
                             contentDescription = null,
-                            tint = if (state != InputShellState.DISABLED) SurfaceColor.Primary else TextColor.OnDisabledSurface,
+                            tint =
+                                if (state !=
+                                    InputShellState.DISABLED
+                                ) {
+                                    DHIS2Theme.colorScheme.primary
+                                } else {
+                                    DHIS2Theme.extendedColors.onDisabledSurface
+                                },
                         )
                     },
                     modifier =

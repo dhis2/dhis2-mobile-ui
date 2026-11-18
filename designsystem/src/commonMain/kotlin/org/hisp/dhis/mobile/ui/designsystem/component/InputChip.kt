@@ -25,9 +25,7 @@ import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.unit.IntOffset
 import org.hisp.dhis.mobile.designsystem.generated.resources.Res
 import org.hisp.dhis.mobile.designsystem.generated.resources.remove_item
-import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
-import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.customRippleConfiguration
 import org.jetbrains.compose.resources.stringResource
 
@@ -68,8 +66,8 @@ fun InputChip(
                 )
             } else {
                 FilterChipDefaults.filterChipColors(
-                    containerColor = SurfaceColor.SurfaceBright,
-                    selectedContainerColor = SurfaceColor.Container,
+                    containerColor = DHIS2Theme.colorScheme.surfaceBright,
+                    selectedContainerColor = DHIS2Theme.colorScheme.surfaceContainer,
                 )
             }
 
@@ -85,9 +83,9 @@ fun InputChip(
                         label,
                         color =
                             if (enabled) {
-                                TextColor.OnSurfaceVariant
+                                DHIS2Theme.colorScheme.onSurfaceVariant
                             } else {
-                                TextColor.OnDisabledSurface
+                                DHIS2Theme.extendedColors.onDisabledSurface
                             },
                     )
                 },
@@ -95,8 +93,8 @@ fun InputChip(
                 colors = filterChipColors,
                 border =
                     FilterChipDefaults.filterChipBorder(
-                        borderColor = Outline.Dark,
-                        disabledBorderColor = Outline.Medium,
+                        borderColor = DHIS2Theme.colorScheme.outline,
+                        disabledBorderColor = DHIS2Theme.extendedColors.outlineMedium,
                         enabled = enabled,
                         selected = selected,
                     ),
@@ -105,7 +103,7 @@ fun InputChip(
                         {
                             Icon(
                                 imageVector = Icons.Outlined.Close,
-                                tint = TextColor.OnSurfaceVariant,
+                                tint = DHIS2Theme.colorScheme.onSurfaceVariant,
                                 contentDescription = stringResource(Res.string.remove_item, label),
                                 modifier =
                                     Modifier

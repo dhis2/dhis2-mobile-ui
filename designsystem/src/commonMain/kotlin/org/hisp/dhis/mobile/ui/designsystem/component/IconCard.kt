@@ -9,10 +9,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHISShapes
-import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.iconCardShadow
 
 @Composable
@@ -26,7 +25,7 @@ internal fun IconCard(
     val cardShadowColor =
         when {
             !selected && enabled -> {
-                Outline.Light
+                DHIS2Theme.colorScheme.outlineVariant
             }
             else -> {
                 Color.Unspecified
@@ -42,17 +41,22 @@ internal fun IconCard(
         modifier = modifier.then(cardShadowModifier),
         colors =
             CardDefaults.cardColors(
-                containerColor = if (selected) SurfaceColor.Container else SurfaceColor.SurfaceBright,
-                disabledContainerColor = if (selected) SurfaceColor.DisabledSurface else SurfaceColor.DisabledSurfaceBright,
+                containerColor = if (selected) DHIS2Theme.colorScheme.surfaceContainer else DHIS2Theme.colorScheme.surfaceBright,
+                disabledContainerColor =
+                    if (selected) {
+                        DHIS2Theme.extendedColors.disabledSurface
+                    } else {
+                        DHIS2Theme.extendedColors.disabledSurfaceBright
+                    },
             ),
         border =
             BorderStroke(
                 width = if (selected) Spacing.Spacing1 else Spacing.Spacing0,
                 color =
                     if (enabled) {
-                        if (selected) SurfaceColor.Primary else Color.Unspecified
+                        if (selected) DHIS2Theme.colorScheme.primary else Color.Unspecified
                     } else {
-                        if (selected) Outline.Medium else Color.Unspecified
+                        if (selected) DHIS2Theme.extendedColors.outlineMedium else Color.Unspecified
                     },
             ),
         enabled = enabled,

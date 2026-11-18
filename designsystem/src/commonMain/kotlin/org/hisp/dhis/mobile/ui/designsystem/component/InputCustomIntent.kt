@@ -26,8 +26,8 @@ import org.hisp.dhis.mobile.designsystem.generated.resources.launch_intent
 import org.hisp.dhis.mobile.ui.designsystem.component.CustomIntentState.LAUNCH
 import org.hisp.dhis.mobile.ui.designsystem.component.CustomIntentState.LOADED
 import org.hisp.dhis.mobile.ui.designsystem.component.CustomIntentState.LOADING
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import org.jetbrains.compose.resources.stringResource
 
 internal const val INPUT_CUSTOM_INTENT_TEST_TAG = "INPUT_CUSTOM_INTENT_"
@@ -189,9 +189,9 @@ fun InputCustomIntent(
                                             if (inputShellState !=
                                                 InputShellState.DISABLED
                                             ) {
-                                                TextColor.OnSurface
+                                                DHIS2Theme.colorScheme.onSurface
                                             } else {
-                                                TextColor.OnDisabledSurface
+                                                DHIS2Theme.extendedColors.onDisabledSurface
                                             },
                                         maxLines = 1,
                                         modifier = Modifier.testTag(INPUT_CUSTOM_INTENT_TEST_TAG + VALUE_TEST_TAG),

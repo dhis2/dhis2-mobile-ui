@@ -31,8 +31,8 @@ import org.hisp.dhis.mobile.designsystem.generated.resources.clear
 import org.hisp.dhis.mobile.designsystem.generated.resources.show_options
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState.DISABLED
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import org.jetbrains.compose.resources.stringResource
 
 private const val MAX_INLINE_OPTIONS_TO_DISPLAY = 7
@@ -130,9 +130,9 @@ fun InputCheckBox(
                         MaterialTheme.typography.bodyLarge.copy(
                             color =
                                 if (state != DISABLED) {
-                                    TextColor.OnSurface
+                                    DHIS2Theme.colorScheme.onSurface
                                 } else {
-                                    TextColor.OnDisabledSurface
+                                    DHIS2Theme.extendedColors.onDisabledSurface
                                 },
                         ),
                     maxLines = 1,

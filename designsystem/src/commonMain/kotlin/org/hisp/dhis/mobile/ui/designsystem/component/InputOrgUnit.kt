@@ -29,11 +29,11 @@ import org.hisp.dhis.mobile.designsystem.generated.resources.clear
 import org.hisp.dhis.mobile.designsystem.generated.resources.select_org_unit
 import org.hisp.dhis.mobile.designsystem.generated.resources.show_options
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalFloatValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing112
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing64
-import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.textFieldHoverPointerIcon
 import org.jetbrains.compose.resources.stringResource
 
@@ -165,7 +165,7 @@ fun InputOrgUnit(
                     enabled = enabled,
                     textStyle =
                         MaterialTheme.typography.bodyLarge.copy(
-                            color = if (enabled) TextColor.OnSurface else TextColor.OnDisabledSurface,
+                            color = if (enabled) DHIS2Theme.colorScheme.onSurface else DHIS2Theme.extendedColors.onDisabledSurface,
                         ),
                     singleLine = true,
                     decorationBox = { innerTextField ->

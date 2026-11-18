@@ -14,10 +14,9 @@ import androidx.compose.ui.Modifier
 import org.hisp.dhis.mobile.designsystem.generated.resources.Res
 import org.hisp.dhis.mobile.designsystem.generated.resources.not_selected
 import org.hisp.dhis.mobile.designsystem.generated.resources.selected
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
-import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import org.jetbrains.compose.resources.stringResource
 
 enum class SelectionState {
@@ -41,7 +40,7 @@ internal fun UnselectedItemIcon(modifier: Modifier = Modifier) {
             modifier
                 .size(Spacing.Spacing40)
                 .background(
-                    color = SurfaceColor.PrimaryContainer,
+                    color = DHIS2Theme.colorScheme.primaryContainer,
                     shape = RoundedCornerShape(Radius.Full),
                 ),
         contentAlignment = Alignment.Center,
@@ -49,7 +48,7 @@ internal fun UnselectedItemIcon(modifier: Modifier = Modifier) {
         Icon(
             imageVector = Icons.Filled.CheckBoxOutlineBlank,
             contentDescription = stringResource(Res.string.not_selected),
-            tint = SurfaceColor.ContainerHighest,
+            tint = DHIS2Theme.colorScheme.surfaceContainerHighest,
         )
     }
 }
@@ -61,7 +60,7 @@ internal fun SelectedItemIcon(modifier: Modifier = Modifier) {
             modifier
                 .size(Spacing.Spacing40)
                 .background(
-                    color = SurfaceColor.Primary,
+                    color = DHIS2Theme.colorScheme.primary,
                     shape = RoundedCornerShape(Radius.Full),
                 ),
         contentAlignment = Alignment.Center,
@@ -69,7 +68,7 @@ internal fun SelectedItemIcon(modifier: Modifier = Modifier) {
         Icon(
             imageVector = Icons.Filled.Done,
             contentDescription = stringResource(Res.string.selected),
-            tint = TextColor.OnPrimary,
+            tint = DHIS2Theme.colorScheme.onPrimary,
         )
     }
 }

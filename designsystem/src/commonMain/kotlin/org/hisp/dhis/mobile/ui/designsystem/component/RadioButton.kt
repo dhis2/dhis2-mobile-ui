@@ -20,11 +20,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.AnnotatedString
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
-import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
-import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.customRippleConfiguration
 import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
 
@@ -79,10 +77,10 @@ fun RadioButton(
                         .testTag("RADIO_BUTTON_${radioButtonData.uid}"),
                 colors =
                     RadioButtonDefaults.colors(
-                        selectedColor = SurfaceColor.Primary,
-                        unselectedColor = Outline.Dark,
-                        disabledSelectedColor = TextColor.OnDisabledSurface,
-                        disabledUnselectedColor = TextColor.OnDisabledSurface,
+                        selectedColor = DHIS2Theme.colorScheme.primary,
+                        unselectedColor = DHIS2Theme.colorScheme.outline,
+                        disabledSelectedColor = DHIS2Theme.extendedColors.onDisabledSurface,
+                        disabledUnselectedColor = DHIS2Theme.extendedColors.onDisabledSurface,
                     ),
             )
         }
@@ -96,9 +94,9 @@ fun RadioButton(
                 text = radioButtonData.textInput,
                 color =
                     if (radioButtonData.enabled) {
-                        TextColor.OnSurface
+                        DHIS2Theme.colorScheme.onSurface
                     } else {
-                        TextColor.OnDisabledSurface
+                        DHIS2Theme.extendedColors.onDisabledSurface
                     },
                 style = MaterialTheme.typography.bodyLarge,
             )

@@ -46,9 +46,9 @@ import org.hisp.dhis.mobile.designsystem.generated.resources.show_options
 import org.hisp.dhis.mobile.ui.designsystem.component.state.BottomSheetShellDefaults
 import org.hisp.dhis.mobile.ui.designsystem.component.state.BottomSheetShellUIState
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing0
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.jetbrains.compose.resources.stringResource
 
 private const val INLINE_CHECKBOXES_MIN_REQ_ITEMS = 6
@@ -403,6 +403,7 @@ fun MultiSelectBottomSheet(
     )
 }
 
+@Composable
 private fun bottomSheetItemLabel(
     text: AnnotatedString,
     searchQuery: String,
@@ -416,7 +417,7 @@ private fun bottomSheetItemLabel(
                 append(text.substring(0, highlightIndexStart))
 
                 withStyle(
-                    SpanStyle(background = SurfaceColor.Primary.copy(alpha = 0.1f)),
+                    SpanStyle(background = DHIS2Theme.colorScheme.primary.copy(alpha = 0.1f)),
                 ) {
                     append(
                         text.substring(

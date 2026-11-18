@@ -16,9 +16,8 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.testTag
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.VerticalGrid
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2SCustomTextStyles
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
-import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
 /**
  * DHIS2 icon card matrix input component
@@ -147,6 +146,7 @@ private fun MatrixIconCard(
     }
 }
 
+@Composable
 @ReadOnlyComposable
 private fun iconBackgroundColor(
     enabled: Boolean,
@@ -154,21 +154,24 @@ private fun iconBackgroundColor(
 ) = if (enabled) {
     Color.Unspecified
 } else {
-    if (selected) SurfaceColor.SurfaceBright else SurfaceColor.DisabledSurface
+    if (selected) DHIS2Theme.colorScheme.surfaceBright else DHIS2Theme.extendedColors.disabledSurface
 }
 
+@Composable
 @ReadOnlyComposable
 private fun iconTint(
     enabled: Boolean,
     data: ImageCardData,
 ) = when {
-    !enabled -> TextColor.OnDisabledSurface
+    !enabled -> DHIS2Theme.extendedColors.onDisabledSurface
     data is ImageCardData.IconCardData && enabled -> data.iconTint
     else -> Color.Unspecified
 }
 
+@Composable
 @ReadOnlyComposable
-private fun iconCardTextColor(enabled: Boolean) = if (enabled) TextColor.OnSurface else TextColor.OnDisabledSurface
+private fun iconCardTextColor(enabled: Boolean) =
+    if (enabled) DHIS2Theme.colorScheme.onSurface else DHIS2Theme.extendedColors.onDisabledSurface
 
 @Composable
 private fun iconCardTextStyle(selected: Boolean) =

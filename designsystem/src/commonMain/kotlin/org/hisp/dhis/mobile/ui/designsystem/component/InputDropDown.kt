@@ -52,13 +52,12 @@ import org.hisp.dhis.mobile.ui.designsystem.component.state.BottomSheetShellDefa
 import org.hisp.dhis.mobile.ui.designsystem.component.state.BottomSheetShellUIState
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2SCustomTextStyles
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing0
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing16
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing56
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing64
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing8
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
-import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import org.jetbrains.compose.resources.stringResource
 
 private const val MAX_DROPDOWN_ITEMS = 6
@@ -240,7 +239,7 @@ fun InputDropDown(
             modifier =
                 modifier
                     .background(
-                        color = SurfaceColor.SurfaceBright,
+                        color = DHIS2Theme.colorScheme.surfaceBright,
                         shape = RoundedCornerShape(Spacing8),
                     ),
         ) {
@@ -258,7 +257,7 @@ fun InputDropDown(
                     modifier =
                         Modifier
                             .background(
-                                color = SurfaceColor.SurfaceBright,
+                                color = DHIS2Theme.colorScheme.surfaceBright,
                                 shape = RoundedCornerShape(Spacing8),
                             ).exposedDropdownSize()
                             .testTag("INPUT_DROPDOWN_MENU"),
@@ -367,9 +366,9 @@ fun DropdownInputField(
                         MaterialTheme.typography.bodyLarge.copy(
                             color =
                                 if (state != InputShellState.DISABLED) {
-                                    TextColor.OnSurface
+                                    DHIS2Theme.colorScheme.onSurface
                                 } else {
-                                    TextColor.OnDisabledSurface
+                                    DHIS2Theme.extendedColors.onDisabledSurface
                                 },
                         ),
                     maxLines = 1,
@@ -460,7 +459,7 @@ fun DropdownListItem(
                 .background(
                     color =
                         if (selected) {
-                            SurfaceColor.PrimaryContainer
+                            DHIS2Theme.colorScheme.primaryContainer
                         } else {
                             Color.Unspecified
                         },
@@ -474,7 +473,7 @@ fun DropdownListItem(
                 } else {
                     MaterialTheme.typography.bodyLarge
                 },
-            color = if (enabled) TextColor.OnSurface else TextColor.OnDisabledSurface,
+            color = if (enabled) DHIS2Theme.colorScheme.onSurface else DHIS2Theme.extendedColors.onDisabledSurface,
         )
     }
 }

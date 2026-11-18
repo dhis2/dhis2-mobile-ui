@@ -21,10 +21,9 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
 import org.hisp.dhis.mobile.designsystem.generated.resources.Res
 import org.hisp.dhis.mobile.designsystem.generated.resources.clear
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
-import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import org.jetbrains.compose.resources.stringResource
 
 /**
@@ -110,7 +109,14 @@ internal fun <T> BasicInputImage(
                                     Icon(
                                         imageVector = addButtonIcon,
                                         contentDescription = null,
-                                        tint = if (state != InputShellState.DISABLED) SurfaceColor.Primary else TextColor.OnDisabledSurface,
+                                        tint =
+                                            if (state !=
+                                                InputShellState.DISABLED
+                                            ) {
+                                                DHIS2Theme.colorScheme.primary
+                                            } else {
+                                                DHIS2Theme.extendedColors.onDisabledSurface
+                                            },
                                     )
                                 },
                                 modifier =

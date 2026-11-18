@@ -29,8 +29,8 @@ import org.hisp.dhis.mobile.ui.designsystem.component.UploadFileState.ADD
 import org.hisp.dhis.mobile.ui.designsystem.component.UploadFileState.LOADED
 import org.hisp.dhis.mobile.ui.designsystem.component.UploadFileState.MISSING
 import org.hisp.dhis.mobile.ui.designsystem.component.UploadFileState.UPLOADING
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import org.jetbrains.compose.resources.stringResource
 
 internal const val INPUT_FILE_TEST_TAG = "INPUT_FILE_RESOURCE_"
@@ -191,9 +191,9 @@ fun InputFileResource(
                                     if (inputShellState !=
                                         InputShellState.DISABLED
                                     ) {
-                                        TextColor.OnSurface
+                                        DHIS2Theme.colorScheme.onSurface
                                     } else {
-                                        TextColor.OnDisabledSurface
+                                        DHIS2Theme.extendedColors.onDisabledSurface
                                     },
                                 maxLines = 1,
                                 overflow = TextOverflow.Ellipsis,
@@ -203,7 +203,7 @@ fun InputFileResource(
                         fileWeight?.let {
                             Text(
                                 text = " $it",
-                                color = TextColor.OnDisabledSurface,
+                                color = DHIS2Theme.extendedColors.onDisabledSurface,
                                 maxLines = 1,
                                 modifier = Modifier.testTag(INPUT_FILE_TEST_TAG + UPLOAD_TEXT_FILE_WEIGHT_TEST_TAG),
                             )
