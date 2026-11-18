@@ -18,7 +18,7 @@ fun provideStringResource(resourceName: String): String =
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
-fun resourceExists(
+private fun resourceExists(
     resourceName: String,
     resourceType: ResourceType = ResourceType.DRAWABLE,
 ): Boolean =
@@ -27,7 +27,7 @@ fun resourceExists(
         ResourceType.STRING -> Res.allStringResources.containsKey(resourceName)
     }
 
-enum class ResourceType {
+private enum class ResourceType {
     DRAWABLE,
     STRING,
 }

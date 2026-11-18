@@ -8,7 +8,7 @@ import java.awt.datatransfer.DataFlavor
 import java.awt.datatransfer.Transferable
 
 @OptIn(ExperimentalComposeUiApi::class)
-actual suspend fun ClipEntry.getText(): String? =
+internal actual suspend fun ClipEntry.getText(): String? =
     withContext(Dispatchers.IO) {
         try {
             val transferable = nativeClipEntry as? Transferable
@@ -23,4 +23,4 @@ actual suspend fun ClipEntry.getText(): String? =
     }
 
 @OptIn(ExperimentalComposeUiApi::class)
-actual fun String.toClipEntry(): ClipEntry = ClipEntry(java.awt.datatransfer.StringSelection(this))
+internal actual fun String.toClipEntry(): ClipEntry = ClipEntry(java.awt.datatransfer.StringSelection(this))

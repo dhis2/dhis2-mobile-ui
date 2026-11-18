@@ -10,15 +10,15 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.actions.Validator
 /**
  * Composition local for table interactions.
  */
-val LocalInteraction = compositionLocalOf<TableInteractions> { object : TableInteractions {} }
+internal val LocalInteraction = compositionLocalOf<TableInteractions> { object : TableInteractions {} }
 
 /**
  * Composition local for table resize actions.
  */
-val LocalTableResizeActions =
+internal val LocalTableResizeActions =
     compositionLocalOf<TableResizeActions> { object : TableResizeActions {} }
 
 /**
  * Static composition local for the validator.
  */
-val LocalValidator = staticCompositionLocalOf<Validator> { DefaultValidator() }
+internal val LocalValidator = staticCompositionLocalOf<Validator> { DefaultValidator() }

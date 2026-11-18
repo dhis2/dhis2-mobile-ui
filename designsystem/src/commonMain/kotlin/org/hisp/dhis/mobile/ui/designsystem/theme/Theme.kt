@@ -16,7 +16,7 @@ import org.hisp.dhis.mobile.designsystem.generated.resources.roboto_medium
 import org.hisp.dhis.mobile.designsystem.generated.resources.roboto_regular
 import org.jetbrains.compose.resources.Font
 
-val DHIS2LightColorScheme =
+internal val DHIS2LightColorScheme =
     lightColorScheme(
         primary = SurfaceColor.Primary,
         onPrimary = TextColor.OnPrimary,

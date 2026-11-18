@@ -13,20 +13,20 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableModel
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.DataTable
-import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.CellSelected
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.ColumnBackground
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.ColumnIndexHeader
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.HasError
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.IsBlocked
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.MANDATORY_ICON_TEST_TAG
-import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.RowBackground
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.RowIndex
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.RowIndexHeader
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.TableId
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.TableIdColumnHeader
-import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.cellTestTag
-import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.headerTestTag
-import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.rowHeaderTestTag
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.semantics.CellSelected
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.semantics.RowBackground
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.semantics.cellTestTag
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.semantics.headerTestTag
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.semantics.rowHeaderTestTag
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 
 fun tableRobot(

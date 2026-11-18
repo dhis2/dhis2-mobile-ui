@@ -24,7 +24,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.input.pointer.positionChange
 
 @Composable
-actual fun SignatureCanvas(
+internal actual fun SignatureCanvas(
     onReady: (Signature) -> Unit,
     onStartedSigning: () -> Unit,
 ) {
@@ -35,7 +35,7 @@ actual fun SignatureCanvas(
 }
 
 @Composable
-fun SignatureCanvas(
+private fun SignatureCanvas(
     modifier: Modifier = Modifier,
     drawing: MutableState<Offset?>,
 ) {

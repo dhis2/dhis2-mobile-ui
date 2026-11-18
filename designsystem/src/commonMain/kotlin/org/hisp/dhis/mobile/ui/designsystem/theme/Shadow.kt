@@ -54,9 +54,9 @@ internal fun Modifier.iconButtonshadow(
         }.size(size),
 )
 
-expect val leftPixel: Float
-expect val topPixel: Float
-expect val spreadPixel: Float
+internal expect val leftPixel: Float
+internal expect val topPixel: Float
+internal expect val spreadPixel: Float
 
 internal fun Modifier.buttonShadow(
     color: MutableState<Color> = mutableStateOf(SurfaceColor.ContainerHighest),

@@ -3,7 +3,7 @@ package org.hisp.dhis.mobile.ui.designsystem.component.internal.clipboard
 import androidx.compose.ui.platform.ClipEntry
 import androidx.compose.ui.platform.toClipEntry
 
-actual suspend fun ClipEntry.getText(): String? =
+internal actual suspend fun ClipEntry.getText(): String? =
     try {
         val itemCount = clipData.itemCount
         var textFull = ""
@@ -19,7 +19,7 @@ actual suspend fun ClipEntry.getText(): String? =
         null
     }
 
-actual fun String.toClipEntry(): ClipEntry =
+internal actual fun String.toClipEntry(): ClipEntry =
     android.content.ClipData
         .newPlainText(this, this)
         .toClipEntry()

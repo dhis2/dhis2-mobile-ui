@@ -59,4 +59,4 @@ data class TableColors(
 /**
  * CompositionLocal to provide [TableColors] throughout the Compose hierarchy.
  */
-val LocalTableColors = staticCompositionLocalOf { TableColors() }
+internal val LocalTableColors = staticCompositionLocalOf { TableColors() }

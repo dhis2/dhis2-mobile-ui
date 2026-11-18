@@ -385,7 +385,7 @@ private fun KeyValue(
 }
 
 @Composable
-fun ProvideKeyValueItem(
+private fun ProvideKeyValueItem(
     additionalInfoItem: AdditionalInfoItem,
     maxKeyWidth: Dp,
     isDetailCard: Boolean,
@@ -456,7 +456,7 @@ fun ProvideKeyValueItem(
     }
 }
 
-fun getKeyValueAnnotatedString(
+private fun getKeyValueAnnotatedString(
     key: String,
     additionalInfoItem: AdditionalInfoItem?,
     isDetailCard: Boolean,
@@ -491,12 +491,12 @@ fun getKeyValueAnnotatedString(
     }
 }
 
-fun formatText(
+private fun formatText(
     text: String?,
     withSpace: Boolean,
 ): String = if (withSpace) " $text" else text ?: ""
 
-fun getValueColor(additionalInfoItem: AdditionalInfoItem?): Color {
+private fun getValueColor(additionalInfoItem: AdditionalInfoItem?): Color {
     var valueColor = additionalInfoItem?.color ?: AdditionalInfoItemColor.DEFAULT_VALUE.color
     valueColor = if (additionalInfoItem?.action != null) SurfaceColor.Primary else valueColor
     return valueColor
@@ -562,7 +562,7 @@ private fun getPaddingValues(
 }
 
 @Composable
-fun measureTextWidth(
+private fun measureTextWidth(
     text: String,
     textMeasurer: TextMeasurer,
 ): Dp {
@@ -571,7 +571,7 @@ fun measureTextWidth(
 }
 
 @Composable
-fun getKeyTrimmedText(
+private fun getKeyTrimmedText(
     text: String,
     maxKeyWidth: Dp,
     textMeasurer: TextMeasurer,

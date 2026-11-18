@@ -484,8 +484,8 @@ data class DropdownItem(
     val label: String,
 )
 
-val DropDownItemCount =
+internal val DropDownItemCount =
     SemanticsPropertyKey<Int>(
         name = "DropDownItemCount",
     )
-var SemanticsPropertyReceiver.dropDownItemCount by DropDownItemCount
+internal var SemanticsPropertyReceiver.dropDownItemCount by DropDownItemCount

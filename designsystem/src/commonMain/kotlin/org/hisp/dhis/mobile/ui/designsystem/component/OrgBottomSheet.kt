@@ -504,5 +504,5 @@ data class OrgTreeItem(
     val canBeSelected: Boolean = true,
 )
 
-const val ITEM_TEST_TAG = "ORG_TREE_ITEM_"
-const val ITEM_CHECK_TEST_TAG = "ORG_TREE_ITEM_CHECKBOX_"
+internal const val ITEM_TEST_TAG = "ORG_TREE_ITEM_"
+internal const val ITEM_CHECK_TEST_TAG = "ORG_TREE_ITEM_CHECKBOX_"

@@ -150,7 +150,7 @@ private fun <T> NavigationBarItem<T>.iconTestTag(selected: Boolean): String {
 }
 
 @Composable
-fun navigationBarItemColors() =
+private fun navigationBarItemColors() =
     NavigationBarItemDefaults.colors(
         selectedIconColor = SurfaceColor.Primary,
         indicatorColor = SurfaceColor.Container,

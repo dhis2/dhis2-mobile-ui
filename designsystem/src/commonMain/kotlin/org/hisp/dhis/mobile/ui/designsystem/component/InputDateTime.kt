@@ -335,7 +335,7 @@ private fun getActionButtonIcon(actionType: DateTimeActionType): ImageVector =
     }
 
 @Composable
-fun InputDateResetButton(
+private fun InputDateResetButton(
     state: InputDateTimeState,
     onValueChanged: (TextFieldValue?) -> Unit,
     focusRequester: FocusRequester,
@@ -357,7 +357,7 @@ fun InputDateResetButton(
     }
 }
 
-fun getTextColor(
+private fun getTextColor(
     inputState: InputShellState,
     inputTextFieldValue: TextFieldValue?,
 ): Color =
@@ -415,7 +415,7 @@ private fun manageOnValueChangedFromDateTimePicker(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun datePickerColors(): DatePickerColors =
+internal fun datePickerColors(): DatePickerColors =
     DatePickerDefaults.colors(
         selectedDayContainerColor = SurfaceColor.Primary,
         selectedDayContentColor = TextColor.OnPrimary,
@@ -425,7 +425,7 @@ fun datePickerColors(): DatePickerColors =
         disabledDayContentColor = TextColor.OnDisabledSurface,
     )
 
-fun formatStringToDate(dateString: String): String =
+internal fun formatStringToDate(dateString: String): String =
     if (dateString.length == 8) {
         dateString.substring(0, 2) + "/" +
             dateString.substring(

@@ -21,7 +21,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
-fun MandatoryIcon(
+internal fun MandatoryIcon(
     style: MandatoryIconStyle,
     modifier: Modifier = Modifier,
 ) {
@@ -37,7 +37,7 @@ fun MandatoryIcon(
     )
 }
 
-sealed class MandatoryIconStyle(
+internal sealed class MandatoryIconStyle(
     val paddingValues: PaddingValues,
     val color: Color,
     val alignment: Alignment,

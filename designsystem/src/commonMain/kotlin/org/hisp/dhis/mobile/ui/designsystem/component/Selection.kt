@@ -35,7 +35,7 @@ enum class SelectionState {
 }
 
 @Composable
-fun UnselectedItemIcon(modifier: Modifier = Modifier) {
+internal fun UnselectedItemIcon(modifier: Modifier = Modifier) {
     Box(
         modifier =
             modifier
@@ -55,7 +55,7 @@ fun UnselectedItemIcon(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun SelectedItemIcon(modifier: Modifier = Modifier) {
+internal fun SelectedItemIcon(modifier: Modifier = Modifier) {
     Box(
         modifier =
             modifier

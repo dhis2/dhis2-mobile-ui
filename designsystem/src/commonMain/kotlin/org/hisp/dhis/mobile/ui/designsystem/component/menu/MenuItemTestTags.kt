@@ -1,6 +1,6 @@
 package org.hisp.dhis.mobile.ui.designsystem.component.menu
 
-object MenuItemTestTags {
+internal object MenuItemTestTags {
     const val MENU_ITEM_CONTAINER = "MENU_ITEM_CONTAINER"
     const val MENU_ITEM_TEXT = "MENU_ITEM_TEXT"
     const val MENU_ITEM_SUPPORTING_TEXT = "MENU_ITEM_SUPPORTING_TEXT"

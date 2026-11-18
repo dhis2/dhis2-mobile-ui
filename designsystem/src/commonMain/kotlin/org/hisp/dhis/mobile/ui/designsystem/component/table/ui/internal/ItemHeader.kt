@@ -28,9 +28,9 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.LocalTableSelecti
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableSelection
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.rowBackground
-import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.rowHeaderTestTag
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.rowIndexSemantic
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.tableIdSemantic
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.semantics.rowHeaderTestTag
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
 /**

@@ -58,13 +58,13 @@ actual fun buildPainterForFile(filePath: String): FilePainterResult =
     }
 
 @OptIn(ExperimentalForeignApi::class)
-fun UIImage.toComposeImageBitmap(): androidx.compose.ui.graphics.ImageBitmap {
+internal fun UIImage.toComposeImageBitmap(): androidx.compose.ui.graphics.ImageBitmap {
     val data = UIImagePNGRepresentation(this) ?: error("Could not get PNG representation")
     return Image.makeFromEncoded(data.toByteArray()).toComposeImageBitmap()
 }
 
 @OptIn(ExperimentalForeignApi::class)
-fun NSData.toByteArray(): ByteArray {
+internal fun NSData.toByteArray(): ByteArray {
     val bytes = this.bytes ?: error("NSData has no bytes")
     val length = this.length.toInt()
     val byteArray = ByteArray(length)
