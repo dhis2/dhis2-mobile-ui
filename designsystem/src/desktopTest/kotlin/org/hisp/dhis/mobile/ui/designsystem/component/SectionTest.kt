@@ -5,6 +5,7 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.junit4.v2.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import org.junit.Rule
 import org.junit.Test
@@ -34,6 +35,25 @@ class SectionTest {
         rule.onNodeWithTag(SectionTestTag.STATE_LABEL, useUnmergedTree = true).assertIsDisplayed()
         rule.onNodeWithTag(SectionTestTag.ERROR_LABEL, useUnmergedTree = true).assertIsDisplayed()
         rule.onNodeWithTag(SectionTestTag.WARNING_LABEL, useUnmergedTree = true).assertIsDisplayed()
+    }
+
+    @Test
+    fun shouldDisplayPluralizedErrorAndWarningCounts() {
+        rule.setContent {
+            SectionHeader(
+                title = "Section title",
+                description = null,
+                completedFields = 0,
+                totalFields = 1,
+                sectionState = SectionState.CLOSE,
+                errorCount = 1,
+                warningCount = 3,
+                onSectionClick = {
+                },
+            )
+        }
+        rule.onNodeWithText("1 error", useUnmergedTree = true).assertIsDisplayed()
+        rule.onNodeWithText("3 warnings", useUnmergedTree = true).assertIsDisplayed()
     }
 
     @Test

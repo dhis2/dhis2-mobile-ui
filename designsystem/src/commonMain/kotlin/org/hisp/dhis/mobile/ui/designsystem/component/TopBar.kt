@@ -17,6 +17,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import org.hisp.dhis.mobile.designsystem.generated.resources.Res
+import org.hisp.dhis.mobile.designsystem.generated.resources.more_options
+import org.jetbrains.compose.resources.stringResource
 
 /**
  * A composable function that renders a top app bar. Depending on the [type], it can display either a
@@ -63,14 +66,15 @@ fun TopBar(
  *
  * @param icon The [ImageVector] representing the icon to be displayed.
  * @param tint The tint color for the icon. Default is [Color.Unspecified].
- * @param contentDescription A description of the icon for accessibility purposes.
+ * @param contentDescription A description of the action for accessibility purposes.
+ *  Should always be provided, since the icon is the only content of the button.
  * @param onClick The callback to be invoked when the icon is clicked.
  */
 @Composable
 fun TopBarActionIcon(
     icon: ImageVector,
     tint: Color = Color.Unspecified,
-    contentDescription: String = "",
+    contentDescription: String? = null,
     onClick: () -> Unit,
 ) {
     IconButton(
@@ -103,7 +107,7 @@ fun TopBarDropdownMenuIcon(
         icon = {
             Icon(
                 imageVector = Icons.Default.MoreVert,
-                contentDescription = "More",
+                contentDescription = stringResource(Res.string.more_options),
                 tint = iconTint,
             )
         },

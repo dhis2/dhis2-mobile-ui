@@ -23,10 +23,13 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.unit.IntOffset
+import org.hisp.dhis.mobile.designsystem.generated.resources.Res
+import org.hisp.dhis.mobile.designsystem.generated.resources.remove_item
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.customRippleConfiguration
+import org.jetbrains.compose.resources.stringResource
 
 /**
  * DHIS2 Input Chip. Wraps material 3 · [InputChip].
@@ -103,7 +106,7 @@ fun InputChip(
                             Icon(
                                 imageVector = Icons.Outlined.Close,
                                 tint = TextColor.OnSurfaceVariant,
-                                contentDescription = "Close icon",
+                                contentDescription = stringResource(Res.string.remove_item, label),
                                 modifier =
                                     Modifier
                                         .size(FilterChipDefaults.IconSize)

@@ -22,12 +22,16 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import org.hisp.dhis.mobile.designsystem.generated.resources.Res
+import org.hisp.dhis.mobile.designsystem.generated.resources.clear
+import org.hisp.dhis.mobile.designsystem.generated.resources.download
 import org.hisp.dhis.mobile.ui.designsystem.component.UploadFileState.ADD
 import org.hisp.dhis.mobile.ui.designsystem.component.UploadFileState.LOADED
 import org.hisp.dhis.mobile.ui.designsystem.component.UploadFileState.MISSING
 import org.hisp.dhis.mobile.ui.designsystem.component.UploadFileState.UPLOADING
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
+import org.jetbrains.compose.resources.stringResource
 
 const val INPUT_FILE_TEST_TAG = "INPUT_FILE_RESOURCE_"
 const val CLEAR_BUTTON_TEST_TAG = "CLEAR_BUTTON"
@@ -84,7 +88,7 @@ fun InputFileResource(
                     icon = {
                         Icon(
                             imageVector = Icons.Outlined.Cancel,
-                            contentDescription = "Icon Button",
+                            contentDescription = stringResource(Res.string.clear),
                         )
                     },
                     onClick = {
@@ -104,7 +108,7 @@ fun InputFileResource(
                     icon = {
                         Icon(
                             imageVector = Icons.Outlined.FileDownload,
-                            contentDescription = "Download Icon Button",
+                            contentDescription = stringResource(Res.string.download),
                         )
                     },
                 ) {
@@ -147,7 +151,7 @@ fun InputFileResource(
                                 icon = {
                                     Icon(
                                         imageVector = Icons.Outlined.FileUpload,
-                                        contentDescription = "Upload Icon Button",
+                                        contentDescription = null,
                                     )
                                 },
                             ) {

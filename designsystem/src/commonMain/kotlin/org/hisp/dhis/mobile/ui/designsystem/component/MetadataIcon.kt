@@ -33,7 +33,7 @@ fun MetadataIcon(
             Image(
                 modifier = modifier,
                 painter = painter ?: BitmapPainter(imageCardData.image),
-                contentDescription = "",
+                contentDescription = null,
                 contentScale = ContentScale.Crop,
             )
         }

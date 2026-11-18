@@ -25,6 +25,8 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
+import org.hisp.dhis.mobile.designsystem.generated.resources.Res
+import org.hisp.dhis.mobile.designsystem.generated.resources.reset_table_layout
 import org.hisp.dhis.mobile.ui.designsystem.component.IconButton
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableModel
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.internal.ResizingCell
@@ -33,6 +35,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.cornerTestTag
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.tableIdSemantic
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
+import org.jetbrains.compose.resources.stringResource
 
 /**
  * Composable function to display the table header row.
@@ -84,7 +87,7 @@ internal fun TableHeaderRow(
                             icon = {
                                 Icon(
                                     imageVector = Icons.Outlined.RestartAlt,
-                                    contentDescription = "",
+                                    contentDescription = stringResource(Res.string.reset_table_layout),
                                     tint = Color.Black.copy(alpha = 0.87f),
                                 )
                             },

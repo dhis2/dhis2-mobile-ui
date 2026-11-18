@@ -43,6 +43,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import org.hisp.dhis.mobile.designsystem.generated.resources.Res
+import org.hisp.dhis.mobile.designsystem.generated.resources.clear
 import org.hisp.dhis.mobile.ui.designsystem.component.model.DraggableType
 import org.hisp.dhis.mobile.ui.designsystem.component.modifier.draggableList
 import org.hisp.dhis.mobile.ui.designsystem.component.parameter.ParameterInputStyle
@@ -57,6 +59,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing64
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing8
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
+import org.jetbrains.compose.resources.stringResource
 
 private const val MAX_DROPDOWN_ITEMS = 6
 private const val MAX_DROPDOWN_ITEMS_TO_SHOW = 50
@@ -397,7 +400,7 @@ fun DropdownInputField(
                             icon = {
                                 Icon(
                                     imageVector = Icons.Outlined.Cancel,
-                                    contentDescription = "Reset Button",
+                                    contentDescription = stringResource(Res.string.clear),
                                 )
                             },
                             onClick = {

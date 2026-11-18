@@ -17,7 +17,6 @@ import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.junit4.v2.createComposeRule
 import androidx.compose.ui.test.onChildren
-import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
@@ -335,8 +334,6 @@ class InputDropDownTest {
                 DropdownItem("Option 10"),
             )
 
-        val searchSemantics = "Search"
-
         rule.setContent {
             var filteredOptions by remember { mutableStateOf(options) }
             InputDropDown(
@@ -372,10 +369,10 @@ class InputDropDownTest {
                     SemanticsMatcher.expectValue(DropDownItemCount, options.size),
                 ),
             ).assertExists()
-        rule.onNodeWithContentDescription(searchSemantics).assertExists()
+        rule.onNodeWithTag(SEARCH_INPUT_TAG).assertExists()
 
         // Search
-        rule.onNodeWithContentDescription(searchSemantics).performTextInput("Option 1")
+        rule.onNodeWithTag(SEARCH_INPUT_TAG).performTextInput("Option 1")
         rule
             .onNode(
                 hasTestTag("INPUT_DROPDOWN_BOTTOM_SHEET_ITEMS").and(
@@ -408,8 +405,6 @@ class InputDropDownTest {
                 DropdownItem("Option 10"),
             )
 
-        val searchSemantics = "Search"
-
         rule.setContent {
             var filteredOptions by remember { mutableStateOf(options) }
             InputDropDown(
@@ -441,10 +436,10 @@ class InputDropDownTest {
         rule.onNodeWithTag("INPUT_DROPDOWN_ARROW_BUTTON").performClick()
         rule.onNodeWithTag("INPUT_DROPDOWN_BOTTOM_SHEET").assertExists()
         rule.onNodeWithTag("INPUT_DROPDOWN_BOTTOM_SHEET_ITEMS").onChildren().assertCountEquals(10)
-        rule.onNodeWithContentDescription(searchSemantics).assertExists()
+        rule.onNodeWithTag(SEARCH_INPUT_TAG).assertExists()
 
         // Search
-        rule.onNodeWithContentDescription(searchSemantics).performTextInput("Option 50")
+        rule.onNodeWithTag(SEARCH_INPUT_TAG).performTextInput("Option 50")
         rule
             .onNode(
                 hasTestTag("INPUT_DROPDOWN_BOTTOM_SHEET_ITEMS").and(
@@ -469,8 +464,6 @@ class InputDropDownTest {
                 DropdownItem("Option 9"),
                 DropdownItem("Option 10"),
             )
-
-        val searchSemantics = "Search"
 
         rule.setContent {
             InputDropDown(
@@ -501,7 +494,7 @@ class InputDropDownTest {
         rule.onNodeWithTag("INPUT_DROPDOWN_ARROW_BUTTON").performClick()
         rule.onNodeWithTag("INPUT_DROPDOWN_BOTTOM_SHEET").assertExists()
         rule.onNodeWithTag("INPUT_DROPDOWN_BOTTOM_SHEET_ITEMS").onChildren().assertCountEquals(10)
-        rule.onNodeWithContentDescription(searchSemantics).assertDoesNotExist()
+        rule.onNodeWithTag(SEARCH_INPUT_TAG).assertDoesNotExist()
     }
 
     @Test
@@ -612,8 +605,6 @@ class InputDropDownTest {
             )
         }
 
-        val searchSemantics = "Search"
-
         rule.setContent {
             var filteredOptions by remember { mutableStateOf(options) }
 
@@ -646,7 +637,7 @@ class InputDropDownTest {
         rule.onNodeWithTag("INPUT_DROPDOWN_ARROW_BUTTON").performClick()
         rule.onNodeWithTag("INPUT_DROPDOWN_BOTTOM_SHEET").assertExists()
         rule.onNodeWithTag("INPUT_DROPDOWN_BOTTOM_SHEET_ITEMS").onChildren().assertCountEquals(10)
-        rule.onNodeWithContentDescription(searchSemantics).assertExists()
+        rule.onNodeWithTag(SEARCH_INPUT_TAG).assertExists()
 
         rule
             .onNode(
@@ -659,7 +650,7 @@ class InputDropDownTest {
             .assertDoesNotExist()
 
         // Search
-        rule.onNodeWithContentDescription(searchSemantics).performTextInput("5")
+        rule.onNodeWithTag(SEARCH_INPUT_TAG).performTextInput("5")
         rule
             .onNode(
                 hasTestTag("INPUT_DROPDOWN_BOTTOM_SHEET_ITEMS").and(
@@ -670,8 +661,8 @@ class InputDropDownTest {
             .onNodeWithText("Not all options are displayed.\\n Search to see more.")
             .assertDoesNotExist()
 
-        rule.onNodeWithContentDescription(searchSemantics).performTextClearance()
-        rule.onNodeWithContentDescription(searchSemantics).performTextInput("55")
+        rule.onNodeWithTag(SEARCH_INPUT_TAG).performTextClearance()
+        rule.onNodeWithTag(SEARCH_INPUT_TAG).performTextInput("55")
         rule
             .onNode(
                 hasTestTag("INPUT_DROPDOWN_BOTTOM_SHEET_ITEMS").and(
@@ -682,8 +673,8 @@ class InputDropDownTest {
             .onNodeWithText("Not all options are displayed.\\n Search to see more.")
             .assertDoesNotExist()
 
-        rule.onNodeWithContentDescription(searchSemantics).performTextClearance()
-        rule.onNodeWithContentDescription(searchSemantics).performTextInput("555")
+        rule.onNodeWithTag(SEARCH_INPUT_TAG).performTextClearance()
+        rule.onNodeWithTag(SEARCH_INPUT_TAG).performTextInput("555")
         rule
             .onNode(
                 hasTestTag("INPUT_DROPDOWN_BOTTOM_SHEET_ITEMS").and(
@@ -693,3 +684,5 @@ class InputDropDownTest {
         rule.onNodeWithText("No results found").assertExists()
     }
 }
+
+private const val SEARCH_INPUT_TAG = "SEARCH_INPUT"

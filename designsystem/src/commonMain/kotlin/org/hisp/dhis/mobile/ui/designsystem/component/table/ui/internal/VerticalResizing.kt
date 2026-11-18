@@ -79,7 +79,7 @@ internal fun VerticalResizingView(
                             ).size(Spacing.Spacing40)
                             .padding(8.dp),
                     imageVector = Icons.Outlined.SwapHorizontalCircle,
-                    contentDescription = "",
+                    contentDescription = null,
                     tint = Color.White,
                 )
             }
@@ -150,7 +150,7 @@ internal fun VerticalResizingRule(
                             positionInRoot = coordinates.positionInRoot()
                         }.padding(8.dp),
                 imageVector = Icons.Outlined.SwapHorizontalCircle,
-                contentDescription = "",
+                contentDescription = null,
                 tint = Color.White,
             )
         }

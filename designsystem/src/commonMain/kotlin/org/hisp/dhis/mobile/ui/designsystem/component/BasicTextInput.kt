@@ -38,11 +38,14 @@ import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.PopupProperties
 import kotlinx.coroutines.launch
+import org.hisp.dhis.mobile.designsystem.generated.resources.Res
+import org.hisp.dhis.mobile.designsystem.generated.resources.clear
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.clipboard.toClipEntry
 import org.hisp.dhis.mobile.ui.designsystem.component.model.RegExValidations
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
+import org.jetbrains.compose.resources.stringResource
 
 /**
  * DHIS2 BasicTextInput. Wraps DHIS · [InputShell].
@@ -130,7 +133,7 @@ internal fun BasicTextInput(
                 icon = {
                     Icon(
                         imageVector = Icons.Outlined.Cancel,
-                        contentDescription = "Icon Button",
+                        contentDescription = stringResource(Res.string.clear),
                     )
                 },
                 onClick = {

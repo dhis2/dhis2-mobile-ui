@@ -40,12 +40,16 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import org.hisp.dhis.mobile.designsystem.generated.resources.Res
+import org.hisp.dhis.mobile.designsystem.generated.resources.clear
+import org.hisp.dhis.mobile.designsystem.generated.resources.show_options
 import org.hisp.dhis.mobile.ui.designsystem.component.state.BottomSheetShellDefaults
 import org.hisp.dhis.mobile.ui.designsystem.component.state.BottomSheetShellUIState
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing0
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
+import org.jetbrains.compose.resources.stringResource
 
 private const val INLINE_CHECKBOXES_MIN_REQ_ITEMS = 6
 private const val MAX_CHECKBOXES_ITEMS_TO_SHOW = 50
@@ -101,7 +105,7 @@ fun InputMultiSelection(
                     icon = {
                         Icon(
                             imageVector = Icons.Outlined.Cancel,
-                            contentDescription = "Clear Selection",
+                            contentDescription = stringResource(Res.string.clear),
                         )
                     },
                     onClick = {
@@ -124,7 +128,7 @@ fun InputMultiSelection(
             icon = {
                 Icon(
                     imageVector = Icons.Filled.ArrowDropDown,
-                    contentDescription = "Show MultiSelect BottomSheet",
+                    contentDescription = stringResource(Res.string.show_options),
                 )
             },
             onClick = {

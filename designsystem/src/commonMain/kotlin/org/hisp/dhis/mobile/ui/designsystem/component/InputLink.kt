@@ -10,8 +10,11 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
+import org.hisp.dhis.mobile.designsystem.generated.resources.Res
+import org.hisp.dhis.mobile.designsystem.generated.resources.open_link
 import org.hisp.dhis.mobile.ui.designsystem.component.model.RegExValidations
 import org.hisp.dhis.mobile.ui.designsystem.component.parameter.ParameterInputStyle
+import org.jetbrains.compose.resources.stringResource
 
 /**
  * DHIS2 Input link. Wraps DHIS · [BasicTextInput].
@@ -79,7 +82,7 @@ fun InputLink(
                 icon = {
                     Icon(
                         imageVector = Icons.Outlined.Link,
-                        contentDescription = "link_icon",
+                        contentDescription = stringResource(Res.string.open_link),
                     )
                 },
                 onClick = onLinkActionCLicked,

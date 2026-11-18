@@ -29,8 +29,13 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import org.hisp.dhis.mobile.designsystem.generated.resources.Res
+import org.hisp.dhis.mobile.designsystem.generated.resources.download
+import org.hisp.dhis.mobile.designsystem.generated.resources.navigate_back
+import org.hisp.dhis.mobile.designsystem.generated.resources.share
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.image.ZoomableImage
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
+import org.jetbrains.compose.resources.stringResource
 
 /**
  * DHIS2 Full Screen Image. Wraps DHIS2 Internal [ZoomableImage].
@@ -93,7 +98,7 @@ fun FullScreenImage(
                             icon = {
                                 Icon(
                                     imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
-                                    contentDescription = "Back Button",
+                                    contentDescription = stringResource(Res.string.navigate_back),
                                     tint = SurfaceColor.SurfaceBright,
                                 )
                             },
@@ -113,7 +118,7 @@ fun FullScreenImage(
                             icon = {
                                 Icon(
                                     imageVector = Icons.Outlined.Share,
-                                    contentDescription = "Share Button",
+                                    contentDescription = stringResource(Res.string.share),
                                     tint = SurfaceColor.SurfaceBright,
                                 )
                             },
@@ -124,7 +129,7 @@ fun FullScreenImage(
                             icon = {
                                 Icon(
                                     imageVector = Icons.Outlined.FileDownload,
-                                    contentDescription = "Download Button",
+                                    contentDescription = stringResource(Res.string.download),
                                     tint = SurfaceColor.SurfaceBright,
                                 )
                             },

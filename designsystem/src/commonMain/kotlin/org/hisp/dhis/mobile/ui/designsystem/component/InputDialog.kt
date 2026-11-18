@@ -31,11 +31,15 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.testTag
+import org.hisp.dhis.mobile.designsystem.generated.resources.Res
+import org.hisp.dhis.mobile.designsystem.generated.resources.close
+import org.hisp.dhis.mobile.designsystem.generated.resources.show_details
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.InputDialogContainer
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
+import org.jetbrains.compose.resources.stringResource
 
 /**
  * DHIS2 Expandable Input Shell is a component designed to contain an Input with additional details
@@ -95,7 +99,7 @@ fun InputDialog(
                                             icon = {
                                                 Icon(
                                                     imageVector = Icons.Filled.ArrowDropUp,
-                                                    contentDescription = "Icon Button",
+                                                    contentDescription = null,
                                                 )
                                             },
                                             onClick = {
@@ -119,7 +123,7 @@ fun InputDialog(
                                                 icon = {
                                                     Icon(
                                                         imageVector = Icons.Outlined.KeyboardArrowDown,
-                                                        contentDescription = "Icon Button",
+                                                        contentDescription = stringResource(Res.string.close),
                                                     )
                                                 },
                                                 onClick = {
@@ -133,7 +137,7 @@ fun InputDialog(
                                                     icon = {
                                                         Icon(
                                                             imageVector = Icons.Outlined.Info,
-                                                            contentDescription = "Icon Button",
+                                                            contentDescription = stringResource(Res.string.show_details),
                                                         )
                                                     },
                                                     onClick = {
@@ -179,7 +183,7 @@ fun InputDialog(
                                     icon = {
                                         Icon(
                                             imageVector = Icons.Filled.ArrowDropUp,
-                                            contentDescription = "Icon Button",
+                                            contentDescription = null,
                                         )
                                     },
                                     onClick = {

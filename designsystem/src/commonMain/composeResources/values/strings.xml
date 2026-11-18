@@ -51,4 +51,30 @@
     <string name="hide_details">Hide details</string>
     <string name="reset_table_layout">Reset table layout</string>
     <string name="required">Required</string>
+    <string name="clear">Clear</string>
+    <string name="clear_search">Clear search</string>
+    <string name="show_options">Show options</string>
+    <string name="select_org_unit">Select organisation unit</string>
+    <string name="remove_item">Remove %1$s</string>
+    <string name="navigate_back">Back</string>
+    <string name="share">Share</string>
+    <string name="download">Download</string>
+    <string name="close">Close</string>
+    <string name="show_details">Show details</string>
+    <string name="more_options">More options</string>
+    <string name="edit_location">Edit location</string>
+    <string name="edit_polygon">Edit polygon</string>
+    <string name="launch_intent">Launch intent</string>
+    <string name="open_link">Open link</string>
+    <string name="send_email">Send email</string>
+    <string name="selected">Selected</string>
+    <string name="not_selected">Not selected</string>
+    <plurals name="error_count">
+        <item quantity="one">%1$d error</item>
+        <item quantity="other">%1$d errors</item>
+    </plurals>
+    <plurals name="warning_count">
+        <item quantity="one">%1$d warning</item>
+        <item quantity="other">%1$d warnings</item>
+    </plurals>
 </resources>

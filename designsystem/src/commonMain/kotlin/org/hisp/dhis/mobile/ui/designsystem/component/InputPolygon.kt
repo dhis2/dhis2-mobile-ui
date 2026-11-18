@@ -16,10 +16,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.testTag
+import org.hisp.dhis.mobile.designsystem.generated.resources.Res
+import org.hisp.dhis.mobile.designsystem.generated.resources.clear
+import org.hisp.dhis.mobile.designsystem.generated.resources.edit_polygon
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
+import org.jetbrains.compose.resources.stringResource
 
 /**
  * DHIS2 Input polygon. Wraps DHIS · [InputShell].
@@ -95,7 +99,7 @@ fun InputPolygon(
                     icon = {
                         Icon(
                             imageVector = Icons.Outlined.AddLocationAlt,
-                            contentDescription = "Add Polygon Button",
+                            contentDescription = null,
                             tint = if (state != InputShellState.DISABLED) SurfaceColor.Primary else TextColor.OnDisabledSurface,
                         )
                     },
@@ -119,7 +123,7 @@ fun InputPolygon(
                         icon = {
                             Icon(
                                 imageVector = Icons.Outlined.Cancel,
-                                contentDescription = "Reset Button",
+                                contentDescription = stringResource(Res.string.clear),
                             )
                         },
                         onClick = {
@@ -140,7 +144,7 @@ fun InputPolygon(
                         icon = {
                             Icon(
                                 imageVector = Icons.Outlined.EditLocationAlt,
-                                contentDescription = "edit_polygon",
+                                contentDescription = stringResource(Res.string.edit_polygon),
                             )
                         },
                         onClick = {

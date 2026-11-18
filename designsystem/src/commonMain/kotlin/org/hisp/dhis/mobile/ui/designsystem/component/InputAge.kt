@@ -31,6 +31,8 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.window.DialogProperties
+import org.hisp.dhis.mobile.designsystem.generated.resources.Res
+import org.hisp.dhis.mobile.designsystem.generated.resources.clear
 import org.hisp.dhis.mobile.ui.designsystem.component.AgeInputType.Age
 import org.hisp.dhis.mobile.ui.designsystem.component.AgeInputType.DateOfBirth
 import org.hisp.dhis.mobile.ui.designsystem.component.AgeInputType.None
@@ -52,6 +54,7 @@ import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2LightColorScheme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
+import org.jetbrains.compose.resources.stringResource
 
 /**
  * DHIS2 Input Age
@@ -240,7 +243,7 @@ fun InputAge(
                     icon = {
                         Icon(
                             imageVector = Icons.Outlined.Cancel,
-                            contentDescription = "Icon Button",
+                            contentDescription = stringResource(Res.string.clear),
                         )
                     },
                     onClick = {

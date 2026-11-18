@@ -44,9 +44,11 @@ import androidx.compose.ui.semantics.SemanticsPropertyKey
 import androidx.compose.ui.semantics.SemanticsPropertyReceiver
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
+import org.hisp.dhis.mobile.designsystem.generated.resources.Res
+import org.hisp.dhis.mobile.designsystem.generated.resources.error_count
+import org.hisp.dhis.mobile.designsystem.generated.resources.warning_count
 import org.hisp.dhis.mobile.ui.designsystem.component.SectionSemantics.stateSemantic
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.bottomBorder
-import org.hisp.dhis.mobile.ui.designsystem.resource.provideQuantityStringResource
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.Color.Ash600
 import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
@@ -55,6 +57,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing16
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing24
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
+import org.jetbrains.compose.resources.pluralStringResource
 
 enum class SectionState {
     OPEN,
@@ -329,14 +332,14 @@ internal fun SectionHeader(
             if (errorCount > 0 || errorMessage != null) {
                 Tag(
                     modifier = Modifier.testTag(SectionTestTag.ERROR_LABEL),
-                    label = errorMessage ?: provideQuantityStringResource("error", errorCount),
+                    label = errorMessage ?: pluralStringResource(Res.plurals.error_count, errorCount, errorCount),
                     type = TagType.ERROR,
                 )
             }
             if (warningCount > 0 || warningMessage != null) {
                 Tag(
                     modifier = Modifier.testTag(SectionTestTag.WARNING_LABEL),
-                    label = warningMessage ?: provideQuantityStringResource("warning", warningCount),
+                    label = warningMessage ?: pluralStringResource(Res.plurals.warning_count, warningCount, warningCount),
                     type = TagType.WARNING,
                 )
             }
@@ -419,7 +422,7 @@ internal fun NextSectionButton(
         icon = {
             Icon(
                 imageVector = Icons.AutoMirrored.Filled.ArrowForward,
-                contentDescription = "Icon Button",
+                contentDescription = null,
             )
         },
         onClick = onClick,

@@ -165,7 +165,7 @@ internal fun VerticalTab(
                 iconImage?.let {
                     Icon(
                         imageVector = iconImage,
-                        contentDescription = "",
+                        contentDescription = null,
                         tint = VerticalTabsDefaults.textColor(tabColorStyle, selected),
                     )
                 }
@@ -184,7 +184,7 @@ internal fun VerticalTab(
                     iconImage?.let {
                         Icon(
                             imageVector = iconImage,
-                            contentDescription = "",
+                            contentDescription = label,
                             tint = VerticalTabsDefaults.textColor(tabColorStyle, selected),
                         )
                     }
