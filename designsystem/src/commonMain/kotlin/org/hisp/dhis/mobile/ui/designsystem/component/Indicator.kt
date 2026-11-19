@@ -216,7 +216,7 @@ fun Indicator(
 }
 
 @Composable
-fun CustomMarkdownTable(
+private fun CustomMarkdownTable(
     content: String,
     node: ASTNode,
     style: TextStyle,
@@ -290,7 +290,7 @@ fun CustomMarkdownTable(
 }
 
 @Composable
-fun CustomMarkdownTableHeader(
+private fun CustomMarkdownTableHeader(
     content: String,
     header: ASTNode,
     tableWidth: Dp,
@@ -328,7 +328,7 @@ fun CustomMarkdownTableHeader(
 }
 
 @Composable
-fun CustomMarkdownTableRow(
+private fun CustomMarkdownTableRow(
     content: String,
     header: ASTNode,
     tableWidth: Dp,
@@ -366,7 +366,7 @@ fun CustomMarkdownTableRow(
 }
 
 @Composable
-fun HorizontalScrollBar(
+private fun HorizontalScrollBar(
     barWidth: Dp,
     barHeight: Dp,
     barColor: Color = Color.LightGray.copy(alpha = 0.2f),

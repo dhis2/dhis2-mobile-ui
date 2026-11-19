@@ -275,4 +275,4 @@ sealed class TableSelection(
 /**
  * CompositionLocal to provide [TableSelection] throughout the Compose hierarchy.
  */
-val LocalTableSelection = staticCompositionLocalOf<TableSelection> { TableSelection.Unselected() }
+internal val LocalTableSelection = staticCompositionLocalOf<TableSelection> { TableSelection.Unselected() }

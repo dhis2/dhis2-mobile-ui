@@ -14,9 +14,9 @@ import platform.Foundation.localTimeZone
 import platform.Foundation.numberWithInt
 import platform.Foundation.numberWithLongLong
 
-actual val currentDateInMillis: Long = (NSDate().timeIntervalSinceReferenceDate * 1000).toLong()
+internal actual val currentDateInMillis: Long = (NSDate().timeIntervalSinceReferenceDate * 1000).toLong()
 
-actual val currentYear: Int =
+internal actual val currentYear: Int =
     run {
         val calendar = NSCalendar.currentCalendar
         val components =
@@ -73,7 +73,7 @@ internal actual fun parseStringDateToMillis(
     return (formatter.dateFromString(dateString)?.timeIntervalSinceReferenceDate?.toLong() ?: 0) * 1000
 }
 
-actual fun yearInDate(
+internal actual fun yearInDate(
     dateString: String,
     dateFormat: String,
 ): Int {
@@ -93,7 +93,7 @@ actual fun yearInDate(
     return components.year.toInt()
 }
 
-actual fun isValidDate(text: String): Boolean {
+internal actual fun isValidDate(text: String): Boolean {
     val formatter =
         NSDateFormatter().apply {
             this.dateFormat = "ddMMyyyy"
@@ -178,10 +178,8 @@ internal actual fun localeUsesLatinDigits(): Boolean {
     }
 
     for (char_in in formattedNumber) {
-        if (char_in.isDigit()) {
-            if (char_in !in '0'..'9') {
-                return false
-            }
+        if (char_in.isDigit() && char_in !in '0'..'9') {
+            return false
         }
     }
     return true

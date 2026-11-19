@@ -62,8 +62,8 @@ import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 
-const val SELECTED_CELL_INDEX_SCROLL_OFFSET = -2
-const val SCROLL_OFFSET_STICKY_HEADER = -250f
+private const val SELECTED_CELL_INDEX_SCROLL_OFFSET = -2
+private const val SCROLL_OFFSET_STICKY_HEADER = -250f
 
 /**
  * Composable function to display a table.

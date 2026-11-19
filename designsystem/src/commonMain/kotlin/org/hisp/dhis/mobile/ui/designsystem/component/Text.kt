@@ -132,7 +132,7 @@ fun Description(
     )
 }
 
-const val MAX_OVERFLOW_LINES = 2
+private const val MAX_OVERFLOW_LINES = 2
 
 @Composable
 internal fun ListCardTitle(

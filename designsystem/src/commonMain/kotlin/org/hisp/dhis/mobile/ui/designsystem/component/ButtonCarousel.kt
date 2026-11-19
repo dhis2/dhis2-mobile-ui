@@ -39,7 +39,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CarouselButton(
+private fun CarouselButton(
     buttonData: CarouselButtonData,
     modifier: Modifier = Modifier,
 ) {

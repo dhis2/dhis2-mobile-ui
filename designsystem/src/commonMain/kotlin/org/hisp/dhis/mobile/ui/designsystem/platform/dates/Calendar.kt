@@ -1,19 +1,19 @@
 package org.hisp.dhis.mobile.ui.designsystem.platform.dates
 
-expect val currentDateInMillis: Long
-expect val currentYear: Int
+internal expect val currentDateInMillis: Long
+internal expect val currentYear: Int
 
 expect fun formatDate(
     dateFormat: String,
     dateInMillis: Long = currentDateInMillis,
 ): String
 
-expect fun yearInDate(
+internal expect fun yearInDate(
     dateString: String,
     dateFormat: String,
 ): Int
 
-expect fun isValidDate(text: String): Boolean
+internal expect fun isValidDate(text: String): Boolean
 
 internal expect fun parseStringDateToMillis(
     dateString: String,

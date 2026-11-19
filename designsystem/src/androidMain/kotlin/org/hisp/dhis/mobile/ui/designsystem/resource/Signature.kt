@@ -7,7 +7,7 @@ import androidx.compose.ui.unit.dp
 import se.warting.signaturepad.SignaturePadAdapter
 import se.warting.signaturepad.SignaturePadView
 
-class AndroidSignature(
+private class AndroidSignature(
     private val signaturePadAdapter: SignaturePadAdapter,
 ) : Signature {
     override fun clear() {
@@ -18,7 +18,7 @@ class AndroidSignature(
 }
 
 @Composable
-actual fun SignatureCanvas(
+internal actual fun SignatureCanvas(
     onReady: (Signature) -> Unit,
     onStartedSigning: () -> Unit,
 ) {

@@ -1,6 +1,6 @@
 package org.hisp.dhis.mobile.ui.designsystem.component.navigationBar
 
-object NavigationBarTestTags {
+internal object NavigationBarTestTags {
     const val NAVIGATION_BAR_CONTAINER = "NAVIGATION_BAR_CONTAINER"
     const val NAVIGATION_BAR_BORDER = "NAVIGATION_BAR_BORDER"
     const val NAVIGATION_BAR = "NAVIGATION_BAR"

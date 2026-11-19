@@ -10,8 +10,8 @@ import java.util.GregorianCalendar
 import java.util.Locale
 import java.util.TimeZone
 
-actual val currentDateInMillis = Calendar.getInstance().timeInMillis
-actual val currentYear: Int
+internal actual val currentDateInMillis = Calendar.getInstance().timeInMillis
+internal actual val currentYear: Int
     get() = Calendar.getInstance().get(Calendar.YEAR)
 
 actual fun formatDate(
@@ -56,7 +56,7 @@ internal fun String.parseDate(pattern: String): Date? =
         null
     }
 
-actual fun yearInDate(
+internal actual fun yearInDate(
     dateString: String,
     dateFormat: String,
 ): Int {
@@ -67,7 +67,7 @@ actual fun yearInDate(
     } ?: -1
 }
 
-actual fun isValidDate(text: String): Boolean {
+internal actual fun isValidDate(text: String): Boolean {
     if (text.length != 8) return false
     val format = SimpleDateFormat("ddMMyyyy", Locale.getDefault())
     format.isLenient = false

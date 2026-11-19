@@ -30,15 +30,15 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import org.jetbrains.compose.resources.stringResource
 
-const val INPUT_CUSTOM_INTENT_TEST_TAG = "INPUT_CUSTOM_INTENT_"
-const val VALUE_CHIP_TEST_TAG = "VALUE_CHIP_"
-const val INPUT_CUSTOM_INTENT_CLEAR_BUTTON_TEST_TAG = "CLEAR_BUTTON"
-const val LAUNCH_BUTTON_TEST_TAG = "LAUNCH_BUTTON"
-const val LAUNCH_ICON_BUTTON_TEST_TAG = "LAUNCH_ICON_BUTTON"
-const val CIRCULAR_PROGRESS_INDICATOR_TEST_TAG = "PROGRESS_INDICATOR"
-const val INPUT_CUSTOM_INTENT_SUPPORTING_TEXT_TEST_TAG = "SUPPORTING_TEXT"
-const val VALUE_TEST_TAG = "VALUE"
-const val LEGEND_TEST_TAG = "LEGEND"
+internal const val INPUT_CUSTOM_INTENT_TEST_TAG = "INPUT_CUSTOM_INTENT_"
+internal const val VALUE_CHIP_TEST_TAG = "VALUE_CHIP_"
+internal const val INPUT_CUSTOM_INTENT_CLEAR_BUTTON_TEST_TAG = "CLEAR_BUTTON"
+internal const val LAUNCH_BUTTON_TEST_TAG = "LAUNCH_BUTTON"
+internal const val LAUNCH_ICON_BUTTON_TEST_TAG = "LAUNCH_ICON_BUTTON"
+internal const val CIRCULAR_PROGRESS_INDICATOR_TEST_TAG = "PROGRESS_INDICATOR"
+internal const val INPUT_CUSTOM_INTENT_SUPPORTING_TEXT_TEST_TAG = "SUPPORTING_TEXT"
+internal const val VALUE_TEST_TAG = "VALUE"
+internal const val LEGEND_TEST_TAG = "LEGEND"
 
 /**
  * DHIS2 Input Custom Intent. Wraps DHIS · [InputShell].

@@ -156,25 +156,7 @@ private fun BasicInfoBar(
     }
 }
 
-/**
- * Data model used for DHIS2  [InfoBar] component.
- * @param text: main text to be displayed within the item.
- * @param icon: the icon to be displayed.
- * @param color: text color.
- * @param backgroundColor: background color.
- * @param actionText: the text to be used for action button.
- * @param onClick: callback for the action button.
- */
-data class InfoBarData(
-    val text: String,
-    val icon: @Composable (() -> Unit)? = null,
-    val color: Color,
-    val backgroundColor: Color,
-    val actionText: String? = null,
-    val onClick: (() -> Unit)? = null,
-)
-
-object InfoBarDefaults {
+internal object InfoBarDefaults {
     val minHeigh = 40.dp
     val progressIndicatorSize = 24.dp
     val actionButtonHeight = 40.dp

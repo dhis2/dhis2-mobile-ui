@@ -14,7 +14,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableCell
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableCellContent
 import org.hisp.dhis.mobile.ui.designsystem.component.table.model.TableHeader
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme
-import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.CELL_TEST_TAG
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.semantics.CELL_TEST_TAG
 
 /**
  * Composable function to display item values in a table row.

@@ -35,11 +35,11 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.cells.Ma
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.cells.MandatoryIconStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.cells.TextCell
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.modifiers.cellBorder
-import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.cellSelected
-import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.cellTestTag
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.hasError
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.isBlocked
-import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.rowBackground
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.semantics.cellSelected
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.semantics.cellTestTag
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.semantics.rowBackground
 
 /**
  * Composable function to display a table cell.

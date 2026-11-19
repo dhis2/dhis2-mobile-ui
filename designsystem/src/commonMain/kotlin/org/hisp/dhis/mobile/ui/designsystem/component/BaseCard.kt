@@ -60,7 +60,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun BaseCard(
+internal fun BaseCard(
     modifier: Modifier = Modifier,
     showShadow: Boolean,
     onCardClick: () -> Unit,
@@ -207,7 +207,7 @@ internal fun ExpandableBox(
 }
 
 @Composable
-fun ToggleInfoTextButton(
+internal fun ToggleInfoTextButton(
     sectionState: SectionState,
     shrinkLabelText: String,
     expandLabelText: String,
@@ -261,7 +261,7 @@ private fun getIconVector(sectionState: SectionState): ImageVector =
     }
 
 @Composable
-fun ColumnScope.ExpandShrinkAnimatedVisibility(
+internal fun ColumnScope.ExpandShrinkAnimatedVisibility(
     expanded: Boolean,
     content:
         @Composable()

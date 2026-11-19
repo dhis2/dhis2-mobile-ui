@@ -27,9 +27,9 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme.tableS
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.columnHeaderColumn
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.columnHeaderRow
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.headerRowTestTag
-import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.headerTestTag
-import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.headersTestTag
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.tableIdSemantic
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.semantics.headerTestTag
+import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.semantics.headersTestTag
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 
 /**

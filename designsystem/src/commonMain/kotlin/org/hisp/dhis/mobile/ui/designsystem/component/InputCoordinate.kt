@@ -176,7 +176,7 @@ fun InputCoordinate(
 }
 
 @Composable
-fun CoordinateText(
+private fun CoordinateText(
     text: String,
     value: String,
     isDisabled: Boolean,

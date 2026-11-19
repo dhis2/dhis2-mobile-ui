@@ -179,7 +179,7 @@ private fun getBackgroundColor(
     }
 
 @Composable
-fun SupportingTextSection(
+private fun SupportingTextSection(
     supportingText: List<SupportingTextData>?,
     state: InputShellState,
     inputStyle: InputStyle,

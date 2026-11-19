@@ -21,4 +21,4 @@ data class TableConfiguration(
 /**
  * CompositionLocal to provide [TableConfiguration] throughout the Compose hierarchy.
  */
-val LocalTableConfiguration = staticCompositionLocalOf { TableConfiguration() }
+internal val LocalTableConfiguration = staticCompositionLocalOf { TableConfiguration() }

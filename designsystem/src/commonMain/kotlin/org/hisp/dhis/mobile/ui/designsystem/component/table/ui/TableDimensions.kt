@@ -9,7 +9,7 @@ import androidx.compose.ui.unit.sp
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import kotlin.math.roundToInt
 
-const val GROUPED_ID = "GROUPED"
+internal const val GROUPED_ID = "GROUPED"
 
 /**
  * Data class representing the dimensions of the table component.
@@ -392,4 +392,4 @@ data class TableDimensions(
 /**
  * Composition local for the table dimensions.
  */
-val LocalTableDimensions = compositionLocalOf { TableDimensions() }
+internal val LocalTableDimensions = compositionLocalOf { TableDimensions() }

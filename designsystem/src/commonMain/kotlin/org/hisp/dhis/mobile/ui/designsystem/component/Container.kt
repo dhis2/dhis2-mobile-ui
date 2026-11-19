@@ -96,7 +96,7 @@ fun ColumnComponentContainer(
  * @param modifier: optional modifier.
  */
 @Composable
-fun ListCardColumn(
+private fun ListCardColumn(
     modifier: Modifier = Modifier,
     spacing: Dp = Spacing.Spacing4,
     content: @Composable (() -> Unit),
@@ -158,7 +158,7 @@ fun FadingRowComponentContainer(
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun FlowRowComponentsContainer(
+internal fun FlowRowComponentsContainer(
     title: String? = null,
     spacing: Dp,
     modifier: Modifier = Modifier,
@@ -184,7 +184,7 @@ fun FlowRowComponentsContainer(
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun FlowColumnComponentsContainer(
+internal fun FlowColumnComponentsContainer(
     title: String? = null,
     spacing: Dp,
     modifier: Modifier = Modifier,

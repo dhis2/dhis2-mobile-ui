@@ -33,14 +33,14 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import org.jetbrains.compose.resources.stringResource
 
-const val INPUT_FILE_TEST_TAG = "INPUT_FILE_RESOURCE_"
-const val CLEAR_BUTTON_TEST_TAG = "CLEAR_BUTTON"
-const val UPLOAD_BUTTON_TEST_TAG = "UPLOAD_BUTTON"
-const val ADD_BUTTON_TEST_TAG = "ADD_BUTTON"
-const val PROGRESS_INDICATOR_TEST_TAG = "PROGRESS_INDICATOR"
-const val UPLOAD_TEXT_FILE_NAME_TEST_TAG = "UPLOAD_TEXT_FILE_NAME"
-const val UPLOAD_TEXT_FILE_WEIGHT_TEST_TAG = "UPLOAD_TEXT_FILE_WEIGHT"
-const val SUPPORTING_TEXT_TEST_TAG = "SUPPORTING_TEXT"
+internal const val INPUT_FILE_TEST_TAG = "INPUT_FILE_RESOURCE_"
+internal const val CLEAR_BUTTON_TEST_TAG = "CLEAR_BUTTON"
+internal const val UPLOAD_BUTTON_TEST_TAG = "UPLOAD_BUTTON"
+internal const val ADD_BUTTON_TEST_TAG = "ADD_BUTTON"
+internal const val PROGRESS_INDICATOR_TEST_TAG = "PROGRESS_INDICATOR"
+internal const val UPLOAD_TEXT_FILE_NAME_TEST_TAG = "UPLOAD_TEXT_FILE_NAME"
+internal const val UPLOAD_TEXT_FILE_WEIGHT_TEST_TAG = "UPLOAD_TEXT_FILE_WEIGHT"
+internal const val SUPPORTING_TEXT_TEST_TAG = "SUPPORTING_TEXT"
 
 /**
  * DHIS2 Input File Resource. Wraps DHIS · [InputShell].

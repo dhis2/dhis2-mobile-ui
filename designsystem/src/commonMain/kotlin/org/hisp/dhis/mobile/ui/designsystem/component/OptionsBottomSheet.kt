@@ -22,10 +22,10 @@ import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.component.state.BottomSheetShellDefaults
 import org.hisp.dhis.mobile.ui.designsystem.component.state.BottomSheetShellUIState
 
-const val MAX_OPTIONS_ITEMS_TO_SHOW = 50
+internal const val MAX_OPTIONS_ITEMS_TO_SHOW = 50
 
 @Composable
-fun OptionsBottomSheet(
+internal fun OptionsBottomSheet(
     items: List<OptionData>,
     title: String,
     maxItemsToShow: Int,
