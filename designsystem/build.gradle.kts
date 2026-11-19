@@ -53,7 +53,7 @@ kotlin {
     }
     sourceSets {
         commonMain.dependencies {
-            implementation(libs.bundles.compose.common)
+            api(libs.bundles.compose.common)
             api(libs.compose.material.icons.extended)
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.multiplatform.markdown.renderer)

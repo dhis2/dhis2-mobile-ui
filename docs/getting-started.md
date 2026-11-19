@@ -54,6 +54,25 @@ dependencies {
 }
 ```
 
+### Dependencies provided by the design system
+
+The design system exposes the following libraries as `api` dependencies, so they are on your
+compile classpath as soon as you add the design system. Their types are part of the design
+system's public API.
+
+| Library                                                                  | Targets |
+|--------------------------------------------------------------------------|---------|
+| `org.jetbrains.compose.runtime:runtime`                                  | All     |
+| `org.jetbrains.compose.foundation:foundation`                            | All     |
+| `org.jetbrains.compose.ui:ui`                                            | All     |
+| `org.jetbrains.compose.material3:material3`                              | All     |
+| `org.jetbrains.compose.components:components-resources`                  | All     |
+| `org.jetbrains.compose.material:material-icons-extended`                 | All     |
+
+Remove your own declarations of these libraries and use the versions that come with the design
+system. If you declare them yourself with a different version, Gradle resolves the highest version
+at runtime, which may not be the version you compile against.
+
 ## 2. Usage
 
 ```kotlin 
