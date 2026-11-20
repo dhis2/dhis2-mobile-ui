@@ -41,8 +41,8 @@ import org.hisp.dhis.mobile.ui.designsystem.component.model.DraggableType
 import org.hisp.dhis.mobile.ui.designsystem.component.modifier.draggableList
 import org.hisp.dhis.mobile.ui.designsystem.component.state.BottomSheetShellDefaults
 import org.hisp.dhis.mobile.ui.designsystem.component.state.BottomSheetShellUIState
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.showcaseapp.screens.previews.LOREM
 import org.hisp.dhis.showcaseapp.screens.previews.longLegendList
 import org.hisp.dhis.showcaseapp.screens.previews.regularLegendList
@@ -77,7 +77,7 @@ fun BottomSheetScreen() {
                 Icon(
                     imageVector = Icons.Outlined.Info,
                     contentDescription = "Button",
-                    tint = SurfaceColor.Primary,
+                    tint = DHIS2Theme.colorScheme.primary,
                 )
             },
         ) {
@@ -116,7 +116,7 @@ fun BottomSheetScreen() {
                 Icon(
                     imageVector = Icons.Outlined.Info,
                     contentDescription = "Button",
-                    tint = SurfaceColor.Primary,
+                    tint = DHIS2Theme.colorScheme.primary,
                 )
             },
         ) {
@@ -144,7 +144,7 @@ fun BottomSheetScreen() {
                 Icon(
                     imageVector = Icons.Outlined.Info,
                     contentDescription = "Button",
-                    tint = SurfaceColor.Primary,
+                    tint = DHIS2Theme.colorScheme.primary,
                 )
             },
             buttonBlock = {
@@ -195,7 +195,7 @@ fun BottomSheetScreen() {
                 Icon(
                     imageVector = Icons.Outlined.Info,
                     contentDescription = "Button",
-                    tint = SurfaceColor.Primary,
+                    tint = DHIS2Theme.colorScheme.primary,
                 )
             },
             buttonBlock = {
@@ -247,7 +247,7 @@ fun BottomSheetScreen() {
                 Icon(
                     imageVector = Icons.Outlined.Info,
                     contentDescription = "Button",
-                    tint = SurfaceColor.Primary,
+                    tint = DHIS2Theme.colorScheme.primary,
                 )
             },
             buttonBlock = {
@@ -296,7 +296,7 @@ fun BottomSheetScreen() {
                 Icon(
                     imageVector = Icons.Outlined.Info,
                     contentDescription = "Button",
-                    tint = SurfaceColor.Primary,
+                    tint = DHIS2Theme.colorScheme.primary,
                 )
             },
             buttonBlock = {
@@ -364,7 +364,7 @@ fun BottomSheetScreen() {
                 Icon(
                     imageVector = Icons.Outlined.Info,
                     contentDescription = "Button",
-                    tint = SurfaceColor.Primary,
+                    tint = DHIS2Theme.colorScheme.primary,
                 )
             },
             buttonBlock = {
@@ -429,7 +429,7 @@ fun BottomSheetScreen() {
                 Icon(
                     imageVector = Icons.Outlined.Info,
                     contentDescription = "Button",
-                    tint = SurfaceColor.Primary,
+                    tint = DHIS2Theme.colorScheme.primary,
                 )
             },
             onSearchQueryChanged = { searchQuery = it },
@@ -451,7 +451,7 @@ fun BottomSheetScreen() {
                 Icon(
                     imageVector = Icons.Outlined.Info,
                     contentDescription = "Button",
-                    tint = SurfaceColor.Primary,
+                    tint = DHIS2Theme.colorScheme.primary,
                 )
             },
             buttonBlock = {

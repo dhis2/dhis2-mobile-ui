@@ -18,17 +18,16 @@ import org.hisp.dhis.mobile.ui.designsystem.component.LegendData
 import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
 import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextData
 import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextState
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
-import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import org.hisp.dhis.showcaseapp.screens.previews.LOREM
 import org.hisp.dhis.showcaseapp.screens.previews.regularLegendList
 
 @Composable
 fun FormShellsScreen() {
     ColumnScreenContainer(title = BasicTextInputs.FORM_SHELLS.label) {
-        SubTitle("Outer frames for form elements", TextColor.OnSurface)
-        Description("Focused/Unfocused", TextColor.OnSurface)
+        SubTitle("Outer frames for form elements", DHIS2Theme.colorScheme.onSurface)
+        Description("Focused/Unfocused", DHIS2Theme.colorScheme.onSurface)
         var inputValue1 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("Input")) }
 
         InputText(
@@ -43,7 +42,7 @@ fun FormShellsScreen() {
         )
         Spacer(Modifier.size(Spacing.Spacing18))
 
-        Description("Focused/Unfocused with content", TextColor.OnSurface)
+        Description("Focused/Unfocused with content", DHIS2Theme.colorScheme.onSurface)
 
         var inputValue2 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("Input")) }
         InputText(
@@ -58,7 +57,7 @@ fun FormShellsScreen() {
         )
         Spacer(Modifier.size(Spacing.Spacing18))
 
-        Description("Error", TextColor.OnSurface)
+        Description("Error", DHIS2Theme.colorScheme.onSurface)
         var inputValue3 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("")) }
         InputText(
             "Label",
@@ -72,7 +71,7 @@ fun FormShellsScreen() {
         )
         Spacer(Modifier.size(Spacing.Spacing18))
 
-        Description("Error with content", TextColor.OnSurface)
+        Description("Error with content", DHIS2Theme.colorScheme.onSurface)
         var inputValue4 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("Input")) }
 
         InputText(
@@ -87,7 +86,7 @@ fun FormShellsScreen() {
         )
         Spacer(Modifier.size(Spacing.Spacing18))
 
-        Description("Disabled", TextColor.OnSurface)
+        Description("Disabled", DHIS2Theme.colorScheme.onSurface)
         var inputValue5 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("")) }
         InputText(
             "Label",
@@ -102,7 +101,7 @@ fun FormShellsScreen() {
         )
         Spacer(Modifier.size(Spacing.Spacing18))
 
-        Description("Disabled with content", TextColor.OnSurface)
+        Description("Disabled with content", DHIS2Theme.colorScheme.onSurface)
         var inputValue6 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("Input")) }
         InputText(
             "Label",
@@ -116,7 +115,7 @@ fun FormShellsScreen() {
         )
         Spacer(Modifier.size(Spacing.Spacing18))
 
-        Description("Required field", TextColor.OnSurface)
+        Description("Required field", DHIS2Theme.colorScheme.onSurface)
         var inputValue7 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("")) }
         InputText(
             "Label",
@@ -131,7 +130,7 @@ fun FormShellsScreen() {
         )
         Spacer(Modifier.size(Spacing.Spacing18))
 
-        Description("Required field with error", TextColor.OnSurface)
+        Description("Required field with error", DHIS2Theme.colorScheme.onSurface)
         var inputValue8 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("")) }
         InputText(
             "Label",
@@ -146,7 +145,7 @@ fun FormShellsScreen() {
         )
         Spacer(Modifier.size(Spacing.Spacing18))
 
-        Description("Reset button not displayed", TextColor.OnSurface)
+        Description("Reset button not displayed", DHIS2Theme.colorScheme.onSurface)
         var inputValue17 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("Input")) }
 
         InputText(
@@ -162,8 +161,8 @@ fun FormShellsScreen() {
         )
         Spacer(Modifier.size(Spacing.Spacing18))
 
-        SubTitle("Supporting text", TextColor.OnSurface)
-        Description("Short text", TextColor.OnSurface)
+        SubTitle("Supporting text", DHIS2Theme.colorScheme.onSurface)
+        Description("Short text", DHIS2Theme.colorScheme.onSurface)
         var inputValue9 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("")) }
         InputText(
             "Label",
@@ -184,7 +183,7 @@ fun FormShellsScreen() {
         )
         Spacer(Modifier.size(Spacing.Spacing18))
 
-        Description("Long  text", TextColor.OnSurface)
+        Description("Long  text", DHIS2Theme.colorScheme.onSurface)
         var inputValue10 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue()) }
         InputText(
             "Label",
@@ -205,7 +204,7 @@ fun FormShellsScreen() {
         )
         Spacer(Modifier.size(Spacing.Spacing18))
 
-        Description("Error", TextColor.OnSurface)
+        Description("Error", DHIS2Theme.colorScheme.onSurface)
         var inputValue11 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("Input")) }
         InputText(
             "Label",
@@ -226,7 +225,7 @@ fun FormShellsScreen() {
         )
         Spacer(Modifier.size(Spacing.Spacing18))
 
-        Description("Warning", TextColor.OnSurface)
+        Description("Warning", DHIS2Theme.colorScheme.onSurface)
         var inputValue12 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("Input")) }
         InputText(
             "Label",
@@ -247,7 +246,7 @@ fun FormShellsScreen() {
         )
         Spacer(Modifier.size(Spacing.Spacing18))
 
-        Description("Error and Warning", TextColor.OnSurface)
+        Description("Error and Warning", DHIS2Theme.colorScheme.onSurface)
         var inputValue13 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("Input")) }
         InputText(
             "Label",
@@ -276,15 +275,15 @@ fun FormShellsScreen() {
         )
         Spacer(Modifier.size(Spacing.Spacing18))
 
-        SubTitle("Form with legend", TextColor.OnSurface)
+        SubTitle("Form with legend", DHIS2Theme.colorScheme.onSurface)
 
-        Description("Just legend", TextColor.OnSurface)
+        Description("Just legend", DHIS2Theme.colorScheme.onSurface)
         var inputValue14 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("Input")) }
 
         InputText(
             "Label",
             inputTextFieldValue = inputValue14,
-            legendData = LegendData(SurfaceColor.CustomGreen, "Legend", popUpLegendDescriptionData = regularLegendList),
+            legendData = LegendData(DHIS2Theme.extendedColors.customGreen, "Legend", popUpLegendDescriptionData = regularLegendList),
             onValueChanged = {
                 if (it != null) {
                     inputValue14 = it
@@ -297,7 +296,7 @@ fun FormShellsScreen() {
         InputText(
             "Label",
             inputTextFieldValue = inputValue15,
-            legendData = LegendData(SurfaceColor.CustomYellow, "Legend", popUpLegendDescriptionData = regularLegendList),
+            legendData = LegendData(DHIS2Theme.extendedColors.customYellow, "Legend", popUpLegendDescriptionData = regularLegendList),
             onValueChanged = {
                 if (it != null) {
                     inputValue15 = it
@@ -307,12 +306,12 @@ fun FormShellsScreen() {
         )
         Spacer(Modifier.size(Spacing.Spacing18))
 
-        Description("Legend and supporting text", TextColor.OnSurface)
+        Description("Legend and supporting text", DHIS2Theme.colorScheme.onSurface)
         var inputValue16 by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("Input")) }
         InputText(
             "Label",
             inputTextFieldValue = inputValue16,
-            legendData = LegendData(SurfaceColor.CustomYellow, "Legend", popUpLegendDescriptionData = regularLegendList),
+            legendData = LegendData(DHIS2Theme.extendedColors.customYellow, "Legend", popUpLegendDescriptionData = regularLegendList),
             supportingText =
                 listOf(
                     SupportingTextData(

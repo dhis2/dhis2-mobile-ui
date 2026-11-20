@@ -42,8 +42,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.state.rememberAdditionalIn
 import org.hisp.dhis.mobile.ui.designsystem.component.state.rememberListCardState
 import org.hisp.dhis.mobile.ui.designsystem.files.buildPainterForFile
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
-import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.showcaseapp.screens.previews.LOREM
 import org.hisp.dhis.showcaseapp.screens.previews.basicAdditionalItemList
 import org.hisp.dhis.showcaseapp.screens.previews.basicAdditionalItemListWithLongKeyText
@@ -119,11 +118,11 @@ fun ListCardScreen(horizontal: Boolean) {
                                                 Icon(
                                                     imageVector = Icons.Outlined.Sync,
                                                     contentDescription = ICON_BUTTON_DESCRIPTION,
-                                                    tint = SurfaceColor.Primary,
+                                                    tint = DHIS2Theme.colorScheme.primary,
                                                 )
                                             },
                                             value = "Syncing...",
-                                            color = SurfaceColor.Primary,
+                                            color = DHIS2Theme.colorScheme.primary,
                                             isConstantItem = false,
                                         ),
                                 ),
@@ -162,7 +161,7 @@ fun ListCardScreen(horizontal: Boolean) {
                                 Icon(
                                     imageVector = Icons.Outlined.Sync,
                                     contentDescription = ICON_BUTTON_DESCRIPTION,
-                                    tint = TextColor.OnPrimaryContainer,
+                                    tint = DHIS2Theme.colorScheme.onPrimaryContainer,
                                 )
                             },
                             onClick = { showLoading1 = !showLoading1 },
@@ -199,7 +198,7 @@ fun ListCardScreen(horizontal: Boolean) {
                                 Icon(
                                     imageVector = Icons.Outlined.Sync,
                                     contentDescription = ICON_BUTTON_DESCRIPTION,
-                                    tint = TextColor.OnPrimaryContainer,
+                                    tint = DHIS2Theme.colorScheme.onPrimaryContainer,
                                 )
                             },
                             onClick = { showLoading2 = !showLoading2 },
@@ -236,7 +235,7 @@ fun ListCardScreen(horizontal: Boolean) {
                                 Icon(
                                     imageVector = Icons.Outlined.Sync,
                                     contentDescription = ICON_BUTTON_DESCRIPTION,
-                                    tint = TextColor.OnPrimaryContainer,
+                                    tint = DHIS2Theme.colorScheme.onPrimaryContainer,
                                 )
                             },
                             onClick = { showLoading3 = !showLoading3 },
@@ -273,7 +272,7 @@ fun ListCardScreen(horizontal: Boolean) {
                                 Icon(
                                     imageVector = Icons.Outlined.Sync,
                                     contentDescription = ICON_BUTTON_DESCRIPTION,
-                                    tint = TextColor.OnPrimaryContainer,
+                                    tint = DHIS2Theme.colorScheme.onPrimaryContainer,
                                 )
                             },
                             onClick = { showLoading4 = !showLoading4 },
@@ -310,7 +309,7 @@ fun ListCardScreen(horizontal: Boolean) {
                                 Icon(
                                     imageVector = Icons.Outlined.Sync,
                                     contentDescription = ICON_BUTTON_DESCRIPTION,
-                                    tint = TextColor.OnPrimaryContainer,
+                                    tint = DHIS2Theme.colorScheme.onPrimaryContainer,
                                 )
                             },
                             onClick = { showLoading5 = !showLoading5 },
@@ -345,7 +344,7 @@ fun ListCardScreen(horizontal: Boolean) {
                                 Icon(
                                     imageVector = Icons.Outlined.Sync,
                                     contentDescription = ICON_BUTTON_DESCRIPTION,
-                                    tint = TextColor.OnPrimaryContainer,
+                                    tint = DHIS2Theme.colorScheme.onPrimaryContainer,
                                 )
                             },
                             onClick = { showLoading5 = !showLoading5 },
@@ -381,7 +380,7 @@ fun ListCardScreen(horizontal: Boolean) {
                                 Icon(
                                     imageVector = Icons.Outlined.Sync,
                                     contentDescription = ICON_BUTTON_DESCRIPTION,
-                                    tint = TextColor.OnPrimaryContainer,
+                                    tint = DHIS2Theme.colorScheme.onPrimaryContainer,
                                 )
                             },
                             onClick = { showLoading5 = !showLoading5 },
@@ -418,10 +417,10 @@ fun ListCardScreen(horizontal: Boolean) {
                                             uid = "",
                                             label = "",
                                             iconRes = "dhis2_microscope_outline",
-                                            iconTint = SurfaceColor.Primary,
+                                            iconTint = DHIS2Theme.colorScheme.primary,
                                         ),
                                     avatarSize = MetadataAvatarSize.S(),
-                                    tintColor = SurfaceColor.Primary,
+                                    tintColor = DHIS2Theme.colorScheme.primary,
                                 ),
                         )
                     },
@@ -433,7 +432,7 @@ fun ListCardScreen(horizontal: Boolean) {
                                 Icon(
                                     imageVector = Icons.Outlined.Sync,
                                     contentDescription = ICON_BUTTON_DESCRIPTION,
-                                    tint = TextColor.OnPrimaryContainer,
+                                    tint = DHIS2Theme.colorScheme.onPrimaryContainer,
                                 )
                             },
                             onClick = { showLoading6 = !showLoading6 },
@@ -491,7 +490,7 @@ fun ListCardScreen(horizontal: Boolean) {
                                 Icon(
                                     imageVector = Icons.Outlined.Sync,
                                     contentDescription = ICON_BUTTON_DESCRIPTION,
-                                    tint = TextColor.OnPrimaryContainer,
+                                    tint = DHIS2Theme.colorScheme.onPrimaryContainer,
                                 )
                             },
                             onClick = {
@@ -529,7 +528,7 @@ fun ListCardScreen(horizontal: Boolean) {
                                 Icon(
                                     imageVector = Icons.Outlined.Sync,
                                     contentDescription = ICON_BUTTON_DESCRIPTION,
-                                    tint = TextColor.OnPrimaryContainer,
+                                    tint = DHIS2Theme.colorScheme.onPrimaryContainer,
                                 )
                             },
                             onClick = { },
@@ -561,7 +560,7 @@ fun ListCardScreen(horizontal: Boolean) {
                                 Icon(
                                     imageVector = Icons.Outlined.Sync,
                                     contentDescription = ICON_BUTTON_DESCRIPTION,
-                                    tint = TextColor.OnPrimaryContainer,
+                                    tint = DHIS2Theme.colorScheme.onPrimaryContainer,
                                 )
                             },
                             onClick = { },
@@ -608,7 +607,7 @@ fun ListCardScreen(horizontal: Boolean) {
                                 Icon(
                                     imageVector = Icons.Outlined.Sync,
                                     contentDescription = ICON_BUTTON_DESCRIPTION,
-                                    tint = TextColor.OnPrimaryContainer,
+                                    tint = DHIS2Theme.colorScheme.onPrimaryContainer,
                                 )
                             },
                             onClick = {},
@@ -663,7 +662,7 @@ fun ListCardScreen(horizontal: Boolean) {
                                 ListCardTitleModel(
                                     text = "Scheduled for 09/18/2021",
                                     style = eventsInTeiDashboardTitleStyle,
-                                    color = TextColor.OnSurface,
+                                    color = DHIS2Theme.colorScheme.onSurface,
                                 ),
                             additionalInfoColumnState =
                                 rememberAdditionalInfoColumnState(
@@ -695,7 +694,7 @@ fun ListCardScreen(horizontal: Boolean) {
                                 ListCardTitleModel(
                                     text = "09/18/2021",
                                     style = eventsInTeiDashboardTitleStyle,
-                                    color = TextColor.OnSurface,
+                                    color = DHIS2Theme.colorScheme.onSurface,
                                 ),
                             description = ListCardDescriptionModel(text = "Treatment visits"),
                             additionalInfoColumnState =
@@ -735,7 +734,7 @@ fun ListCardScreen(horizontal: Boolean) {
                                 ListCardTitleModel(
                                     text = "Scheduled for 09/18/2021",
                                     style = eventsInTeiDashboardTitleStyle,
-                                    color = TextColor.OnSurface,
+                                    color = DHIS2Theme.colorScheme.onSurface,
                                 ),
                             additionalInfoColumnState =
                                 rememberAdditionalInfoColumnState(
@@ -774,10 +773,10 @@ fun ListCardScreen(horizontal: Boolean) {
                                             uid = "",
                                             label = "",
                                             iconRes = "dhis2_microscope_outline",
-                                            iconTint = SurfaceColor.Primary,
+                                            iconTint = DHIS2Theme.colorScheme.primary,
                                         ),
                                     avatarSize = MetadataAvatarSize.M(),
-                                    tintColor = SurfaceColor.Primary,
+                                    tintColor = DHIS2Theme.colorScheme.primary,
                                 ),
                         )
                     },
@@ -839,16 +838,17 @@ fun ListCardScreen(horizontal: Boolean) {
     }
 }
 
+@Composable
 private fun syncProgressItem() =
     AdditionalInfoItem(
         icon = {
             Icon(
                 imageVector = Icons.Outlined.Sync,
                 contentDescription = ICON_BUTTON_DESCRIPTION,
-                tint = SurfaceColor.Primary,
+                tint = DHIS2Theme.colorScheme.primary,
             )
         },
         value = "Syncing...",
-        color = SurfaceColor.Primary,
+        color = DHIS2Theme.colorScheme.primary,
         isConstantItem = false,
     )

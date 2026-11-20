@@ -7,23 +7,23 @@ import org.hisp.dhis.mobile.ui.designsystem.component.Legend
 import org.hisp.dhis.mobile.ui.designsystem.component.LegendData
 import org.hisp.dhis.mobile.ui.designsystem.component.LegendDescriptionData
 import org.hisp.dhis.mobile.ui.designsystem.component.LegendRange
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 
 @Composable
 fun LegendScreen() {
     ColumnScreenContainer(title = "Legend component") {
         ColumnComponentContainer("Green Legend") {
-            Legend(LegendData(SurfaceColor.CustomGreen, "Legend"))
+            Legend(LegendData(DHIS2Theme.extendedColors.customGreen, "Legend"))
         }
 
         ColumnComponentContainer("Orange Legend") {
-            Legend(LegendData(SurfaceColor.Warning, "Legend"))
+            Legend(LegendData(DHIS2Theme.extendedColors.warning, "Legend"))
         }
 
         ColumnComponentContainer("Pink Legend") {
             Legend(
                 LegendData(
-                    SurfaceColor.CustomPink,
+                    DHIS2Theme.extendedColors.customPink,
                     "Lorem ipsum dolor sit amet," +
                         " consectetur adipiscing elit. Maecenas dolor lacus," +
                         " aliquam. Lorem ipsum dolor sit amet," +
@@ -35,17 +35,17 @@ fun LegendScreen() {
         ColumnComponentContainer("Legend with popup description") {
             Legend(
                 LegendData(
-                    color = SurfaceColor.CustomGreen,
+                    color = DHIS2Theme.extendedColors.customGreen,
                     title = "Legend with popup",
                     popUpLegendDescriptionData =
                         listOf(
                             LegendDescriptionData(
-                                color = SurfaceColor.CustomGreen,
+                                color = DHIS2Theme.extendedColors.customGreen,
                                 text = "Item 1",
                                 range = 0..300,
                             ),
                             LegendDescriptionData(
-                                color = SurfaceColor.CustomGreen,
+                                color = DHIS2Theme.extendedColors.customGreen,
                                 text = "Item 2",
                                 range = 301..600,
                             ),
@@ -56,12 +56,12 @@ fun LegendScreen() {
             LegendRange(
                 listOf(
                     LegendDescriptionData(
-                        SurfaceColor.CustomGreen,
+                        DHIS2Theme.extendedColors.customGreen,
                         "Legend",
                         IntRange(0, 30),
                     ),
                     LegendDescriptionData(
-                        SurfaceColor.CustomGreen,
+                        DHIS2Theme.extendedColors.customGreen,
                         "Lorem ipsum dolor sit amet, " +
                             "consectetur adipiscing elit. Maecenas dolor lacus, " +
                             "aliquam. Lorem ipsum dolor sit amet, " +
@@ -77,16 +77,16 @@ fun LegendScreen() {
             LegendRange(
                 listOf(
                     LegendDescriptionData(
-                        SurfaceColor.CustomGreen,
+                        DHIS2Theme.extendedColors.customGreen,
                         "Low",
                         IntRange(0, 5),
                     ),
-                    LegendDescriptionData(SurfaceColor.CustomYellow, "Medium", IntRange(5, 10)),
-                    LegendDescriptionData(SurfaceColor.Warning, "High", IntRange(10, 20)),
-                    LegendDescriptionData(SurfaceColor.CustomPink, "Very high", IntRange(20, 40)),
-                    LegendDescriptionData(SurfaceColor.CustomBrown, "Extreme", IntRange(40, 120)),
+                    LegendDescriptionData(DHIS2Theme.extendedColors.customYellow, "Medium", IntRange(5, 10)),
+                    LegendDescriptionData(DHIS2Theme.extendedColors.warning, "High", IntRange(10, 20)),
+                    LegendDescriptionData(DHIS2Theme.extendedColors.customPink, "Very high", IntRange(20, 40)),
+                    LegendDescriptionData(DHIS2Theme.extendedColors.customBrown, "Extreme", IntRange(40, 120)),
                     LegendDescriptionData(
-                        SurfaceColor.CustomGray,
+                        DHIS2Theme.extendedColors.customGray,
                         "Lorem ipsum dolor sit amet, " +
                             "consectetur adipiscing elit. Fusce convallis",
                         IntRange(120, 1000),

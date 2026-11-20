@@ -54,7 +54,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.state.InputDateTimeData
 import org.hisp.dhis.mobile.ui.designsystem.component.state.rememberInputAgeState
 import org.hisp.dhis.mobile.ui.designsystem.component.state.rememberInputDateTimeState
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 
 @Composable
 fun ParameterSelectorScreen() {
@@ -141,7 +141,7 @@ fun ParameterSelectorScreen() {
                     Icon(
                         imageVector = Icons.Outlined.QrCode2,
                         contentDescription = "Icon Button",
-                        tint = SurfaceColor.Primary,
+                        tint = DHIS2Theme.colorScheme.primary,
                     )
                 },
                 label = "QRCode parameter",
@@ -194,7 +194,7 @@ fun ParameterSelectorScreen() {
                     Icon(
                         painter = provideDHIS2Icon("material_barcode_scanner"),
                         contentDescription = "Icon Button",
-                        tint = SurfaceColor.Primary,
+                        tint = DHIS2Theme.colorScheme.primary,
                     )
                 },
                 label = "Barcode parameter",
@@ -216,7 +216,7 @@ fun ParameterSelectorScreen() {
                         Icon(
                             imageVector = Icons.AutoMirrored.Outlined.OpenInNew,
                             contentDescription = "Icon Button",
-                            tint = SurfaceColor.Primary,
+                            tint = DHIS2Theme.colorScheme.primary,
                         )
                     } else {
                         ProgressIndicator(

@@ -12,7 +12,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment.Companion.TopCenter
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -20,6 +19,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.DropdownItem
 import org.hisp.dhis.mobile.ui.designsystem.component.LocationBar
 import org.hisp.dhis.mobile.ui.designsystem.component.OnSearchAction
 import org.hisp.dhis.mobile.ui.designsystem.component.model.LocationItemModel
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.showcaseapp.screens.components.GroupComponentDropDown
 
 @Composable
@@ -62,7 +62,7 @@ fun LocationSearchBarScreen(
                 modifier =
                     Modifier
                         .fillMaxSize()
-                        .background(Color.White)
+                        .background(DHIS2Theme.colorScheme.surfaceBright)
                         .padding(16.dp),
                 contentAlignment = TopCenter,
             ) {
@@ -95,7 +95,7 @@ fun LocationSearchBarScreen(
                 modifier =
                     Modifier
                         .fillMaxSize()
-                        .background(Color.White)
+                        .background(DHIS2Theme.colorScheme.surfaceBright)
                         .padding(16.dp),
                 contentAlignment = TopCenter,
             ) {

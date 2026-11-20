@@ -39,7 +39,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.TextFieldValue
 import org.hisp.dhis.mobile.ui.designsystem.component.AdditionalInfoItem
@@ -65,10 +64,9 @@ import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextState
 import org.hisp.dhis.mobile.ui.designsystem.component.Title
 import org.hisp.dhis.mobile.ui.designsystem.component.state.rememberAdditionalInfoColumnState
 import org.hisp.dhis.mobile.ui.designsystem.component.state.rememberListCardState
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
-import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import org.hisp.dhis.showcaseapp.screens.previews.LOREM
 import org.hisp.dhis.showcaseapp.screens.previews.LOREM_SHORT
 import org.hisp.dhis.showcaseapp.screens.previews.regularLegendList
@@ -130,7 +128,7 @@ fun InputDialogScreen() {
             modifier =
                 Modifier
                     .fillMaxSize()
-                    .background(Color.White, Shape.LargeTop)
+                    .background(DHIS2Theme.colorScheme.surfaceBright, Shape.LargeTop)
                     .padding(horizontal = Spacing.Spacing16)
                     .align(Alignment.TopCenter),
         ) {
@@ -612,7 +610,7 @@ fun InputDialogScreen() {
                                 ),
                             legendData =
                                 LegendData(
-                                    SurfaceColor.CustomGreen,
+                                    DHIS2Theme.extendedColors.customGreen,
                                     "Legend",
                                     popUpLegendDescriptionData = regularLegendList,
                                 ),
@@ -771,12 +769,12 @@ fun InputDialogDetails() {
             modifier =
                 Modifier
                     .clip(Shape.Large)
-                    .background(color = SurfaceColor.Primary.copy(alpha = 0.2f)),
+                    .background(color = DHIS2Theme.colorScheme.primary.copy(alpha = 0.2f)),
         ) {
             Column(
                 modifier =
                     Modifier
-                        .background(SurfaceColor.SurfaceBright)
+                        .background(DHIS2Theme.colorScheme.surfaceBright)
                         .padding(Spacing.Spacing16),
             ) {
                 Row(
@@ -811,7 +809,7 @@ fun InputDialogDetails() {
                 Text(
                     "Label / Label",
                     style = MaterialTheme.typography.bodyMedium,
-                    color = TextColor.OnPrimaryContainer,
+                    color = DHIS2Theme.colorScheme.onPrimaryContainer,
                 )
                 Spacer(Modifier.size(Spacing.Spacing4))
 
@@ -819,12 +817,12 @@ fun InputDialogDetails() {
                     Text(
                         "Code: ",
                         style = MaterialTheme.typography.bodyMedium,
-                        color = TextColor.OnSurfaceLight,
+                        color = DHIS2Theme.extendedColors.onSurfaceLight,
                     )
                     Text(
                         "DE_359532 ",
                         style = MaterialTheme.typography.bodyMedium,
-                        color = TextColor.OnSurface,
+                        color = DHIS2Theme.colorScheme.onSurface,
                     )
                 }
                 Spacer(Modifier.size(Spacing.Spacing4))
@@ -833,12 +831,12 @@ fun InputDialogDetails() {
                     Text(
                         "Data element id:  ",
                         style = MaterialTheme.typography.bodyMedium,
-                        color = TextColor.OnSurfaceLight,
+                        color = DHIS2Theme.extendedColors.onSurfaceLight,
                     )
                     Text(
                         "fbfJHSPpUQD ",
                         style = MaterialTheme.typography.bodyMedium,
-                        color = TextColor.OnSurface,
+                        color = DHIS2Theme.colorScheme.onSurface,
                     )
                 }
                 Spacer(Modifier.size(Spacing.Spacing4))
@@ -846,25 +844,25 @@ fun InputDialogDetails() {
                     Text(
                         "Category option combo ID: ",
                         style = MaterialTheme.typography.bodyMedium,
-                        color = TextColor.OnSurfaceLight,
+                        color = DHIS2Theme.extendedColors.onSurfaceLight,
                     )
                     Text(
                         "pq2X15kz2BY ",
                         style = MaterialTheme.typography.bodyMedium,
-                        color = TextColor.OnSurface,
+                        color = DHIS2Theme.colorScheme.onSurface,
                     )
                 }
 
                 Spacer(Modifier.size(Spacing.Spacing16))
                 InfoBar(
                     text = "Marked for follow up",
-                    textColor = TextColor.OnSurfaceLight,
-                    backgroundColor = SurfaceColor.Surface,
+                    textColor = DHIS2Theme.extendedColors.onSurfaceLight,
+                    backgroundColor = DHIS2Theme.colorScheme.surface,
                     icon = {
                         Icon(
                             imageVector = Icons.Filled.Flag,
                             contentDescription = "not synced",
-                            tint = SurfaceColor.CustomOrange,
+                            tint = DHIS2Theme.extendedColors.customOrange,
                         )
                     },
                     actionText = "Remove",
@@ -879,12 +877,12 @@ fun InputDialogDetails() {
             modifier =
                 Modifier
                     .clip(Shape.Large)
-                    .background(color = SurfaceColor.Primary.copy(alpha = 0.2f)),
+                    .background(color = DHIS2Theme.colorScheme.primary.copy(alpha = 0.2f)),
         ) {
             Column(
                 modifier =
                     Modifier
-                        .background(SurfaceColor.SurfaceBright)
+                        .background(DHIS2Theme.colorScheme.surfaceBright)
                         .padding(Spacing.Spacing16),
             ) {
                 Row(
@@ -1031,12 +1029,12 @@ fun InputDialogDetailsSmall() {
             modifier =
                 Modifier
                     .clip(Shape.Large)
-                    .background(color = SurfaceColor.Primary.copy(alpha = 0.2f)),
+                    .background(color = DHIS2Theme.colorScheme.primary.copy(alpha = 0.2f)),
         ) {
             Column(
                 modifier =
                     Modifier
-                        .background(SurfaceColor.SurfaceBright)
+                        .background(DHIS2Theme.colorScheme.surfaceBright)
                         .padding(Spacing.Spacing16),
             ) {
                 Row(
@@ -1071,7 +1069,7 @@ fun InputDialogDetailsSmall() {
                 Text(
                     "Label / Label",
                     style = MaterialTheme.typography.bodyMedium,
-                    color = TextColor.OnPrimaryContainer,
+                    color = DHIS2Theme.colorScheme.onPrimaryContainer,
                 )
                 Spacer(Modifier.size(Spacing.Spacing4))
 
@@ -1079,12 +1077,12 @@ fun InputDialogDetailsSmall() {
                     Text(
                         "Code: ",
                         style = MaterialTheme.typography.bodyMedium,
-                        color = TextColor.OnSurfaceLight,
+                        color = DHIS2Theme.extendedColors.onSurfaceLight,
                     )
                     Text(
                         "DE_359532 ",
                         style = MaterialTheme.typography.bodyMedium,
-                        color = TextColor.OnSurface,
+                        color = DHIS2Theme.colorScheme.onSurface,
                     )
                 }
                 Spacer(Modifier.size(Spacing.Spacing4))
@@ -1093,12 +1091,12 @@ fun InputDialogDetailsSmall() {
                     Text(
                         "Data element id:  ",
                         style = MaterialTheme.typography.bodyMedium,
-                        color = TextColor.OnSurfaceLight,
+                        color = DHIS2Theme.extendedColors.onSurfaceLight,
                     )
                     Text(
                         "fbfJHSPpUQD ",
                         style = MaterialTheme.typography.bodyMedium,
-                        color = TextColor.OnSurface,
+                        color = DHIS2Theme.colorScheme.onSurface,
                     )
                 }
                 Spacer(Modifier.size(Spacing.Spacing4))
@@ -1106,12 +1104,12 @@ fun InputDialogDetailsSmall() {
                     Text(
                         "Category option combo ID: ",
                         style = MaterialTheme.typography.bodyMedium,
-                        color = TextColor.OnSurfaceLight,
+                        color = DHIS2Theme.extendedColors.onSurfaceLight,
                     )
                     Text(
                         "pq2X15kz2BY ",
                         style = MaterialTheme.typography.bodyMedium,
-                        color = TextColor.OnSurface,
+                        color = DHIS2Theme.colorScheme.onSurface,
                     )
                 }
 
@@ -1122,11 +1120,11 @@ fun InputDialogDetailsSmall() {
                         Icon(
                             imageVector = Icons.Filled.Flag,
                             contentDescription = "not synced",
-                            tint = SurfaceColor.CustomOrange,
+                            tint = DHIS2Theme.extendedColors.customOrange,
                         )
                     },
-                    textColor = TextColor.OnSurfaceLight,
-                    backgroundColor = SurfaceColor.Surface,
+                    textColor = DHIS2Theme.extendedColors.onSurfaceLight,
+                    backgroundColor = DHIS2Theme.colorScheme.surface,
                     actionText = "Remove",
                     onActionClick = {},
                 )

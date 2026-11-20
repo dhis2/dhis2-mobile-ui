@@ -15,7 +15,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.LegendData
 import org.hisp.dhis.mobile.ui.designsystem.component.TimeUnitValues
 import org.hisp.dhis.mobile.ui.designsystem.component.state.InputAgeData
 import org.hisp.dhis.mobile.ui.designsystem.component.state.rememberInputAgeState
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.showcaseapp.screens.previews.regularLegendList
 
 @Composable
@@ -136,7 +136,12 @@ fun InputAgeScreen() {
                             ),
                         inputType = AgeInputType.Age(value = TextFieldValue("56"), unit = TimeUnitValues.YEARS),
                         inputState = InputShellState.ERROR,
-                        legendData = LegendData(SurfaceColor.CustomGreen, "Legend", popUpLegendDescriptionData = regularLegendList),
+                        legendData =
+                            LegendData(
+                                DHIS2Theme.extendedColors.customGreen,
+                                "Legend",
+                                popUpLegendDescriptionData = regularLegendList,
+                            ),
                     ),
                 onValueChanged = {
                     // no-op
