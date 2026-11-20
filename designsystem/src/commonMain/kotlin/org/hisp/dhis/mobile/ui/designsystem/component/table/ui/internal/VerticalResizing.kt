@@ -24,7 +24,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.onGloballyPositioned
@@ -80,7 +79,7 @@ internal fun VerticalResizingView(
                             .padding(8.dp),
                     imageVector = Icons.Outlined.SwapHorizontalCircle,
                     contentDescription = null,
-                    tint = Color.White,
+                    tint = TableTheme.colors.onPrimary,
                 )
             }
         }
@@ -151,7 +150,7 @@ internal fun VerticalResizingRule(
                         }.padding(8.dp),
                 imageVector = Icons.Outlined.SwapHorizontalCircle,
                 contentDescription = null,
-                tint = Color.White,
+                tint = TableTheme.colors.onPrimary,
             )
         }
     }

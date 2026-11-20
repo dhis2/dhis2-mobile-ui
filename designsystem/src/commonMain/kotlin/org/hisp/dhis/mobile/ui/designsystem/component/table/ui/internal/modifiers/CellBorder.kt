@@ -17,6 +17,7 @@ internal fun Modifier.cellBorder(
     borderColor: Color,
     backgroundColor: Color,
     dividerColor: Color,
+    haloColor: Color = Color.White,
 ) = this.then(
     drawBehind {
         val outBorderOffset = borderWidth.toPx()
@@ -50,7 +51,7 @@ internal fun Modifier.cellBorder(
             size = Size(width = size.width, height = borderWidth.toPx()),
         )
         drawCircle(
-            color = if (selected) Color.White else Color.Unspecified,
+            color = if (selected) haloColor else Color.Unspecified,
             radius = 4.dp.toPx(),
             center = Offset(0.5.dp.toPx(), 0.5.dp.toPx()),
             blendMode = BlendMode.SrcAtop,
@@ -62,7 +63,7 @@ internal fun Modifier.cellBorder(
             blendMode = BlendMode.SrcAtop,
         )
         drawCircle(
-            color = if (selected) Color.White else Color.Unspecified,
+            color = if (selected) haloColor else Color.Unspecified,
             radius = 4.dp.toPx(),
             center = Offset(size.width + 0.5.dp.toPx(), size.height + 0.5.dp.toPx()),
             blendMode = BlendMode.SrcAtop,
@@ -83,6 +84,7 @@ internal fun Modifier.rowSupportForCellBorder(
     borderColor: Color,
     subRowCount: Int,
     subRowIndex: Int,
+    haloColor: Color = Color.White,
 ) = this.then(
     zIndex(
         if (isCellSelectedOnRow) {
@@ -92,7 +94,7 @@ internal fun Modifier.rowSupportForCellBorder(
         },
     ).drawBehind {
         drawCircle(
-            color = if (isFirstCellOnRowSelected) Color.White else Color.Unspecified,
+            color = if (isFirstCellOnRowSelected) haloColor else Color.Unspecified,
             radius = 4.dp.toPx(),
             center = Offset(0.5.dp.toPx(), 0.5.dp.toPx()),
             blendMode = BlendMode.SrcAtop,

@@ -14,7 +14,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.zIndex
@@ -258,7 +257,7 @@ fun DataTable(
                     modifier =
                         Modifier
                             .zIndex(2f)
-                            .background(Color.White)
+                            .background(TableTheme.colors.tableBackground)
                             .padding(start = Spacing.Spacing16, end = Spacing.Spacing16)
                             .onSizeChanged {
                                 tableResizeActions.onTableWidthChanged(it.width)

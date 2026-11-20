@@ -34,7 +34,6 @@ import org.hisp.dhis.mobile.designsystem.generated.resources.download
 import org.hisp.dhis.mobile.designsystem.generated.resources.navigate_back
 import org.hisp.dhis.mobile.designsystem.generated.resources.share
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.image.ZoomableImage
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.jetbrains.compose.resources.stringResource
 
 /**
@@ -99,7 +98,7 @@ fun FullScreenImage(
                                 Icon(
                                     imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
                                     contentDescription = stringResource(Res.string.navigate_back),
-                                    tint = SurfaceColor.SurfaceBright,
+                                    tint = Color.White,
                                 )
                             },
                         )
@@ -108,7 +107,7 @@ fun FullScreenImage(
                         Text(
                             text = title,
                             style = MaterialTheme.typography.titleSmall,
-                            color = SurfaceColor.SurfaceBright,
+                            color = Color.White,
                         )
                     },
                     actions = {
@@ -119,7 +118,7 @@ fun FullScreenImage(
                                 Icon(
                                     imageVector = Icons.Outlined.Share,
                                     contentDescription = stringResource(Res.string.share),
-                                    tint = SurfaceColor.SurfaceBright,
+                                    tint = Color.White,
                                 )
                             },
                         )
@@ -130,7 +129,7 @@ fun FullScreenImage(
                                 Icon(
                                     imageVector = Icons.Outlined.FileDownload,
                                     contentDescription = stringResource(Res.string.download),
-                                    tint = SurfaceColor.SurfaceBright,
+                                    tint = Color.White,
                                 )
                             },
                         )

@@ -20,9 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.IntOffset
-import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
-import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.customRippleConfiguration
 
 /**
@@ -58,7 +56,7 @@ fun AssistChip(
                 label = {
                     Text(
                         label,
-                        color = TextColor.OnSurfaceVariant,
+                        color = DHIS2Theme.colorScheme.onSurfaceVariant,
                     )
                 },
                 modifier = modifier,
@@ -66,18 +64,18 @@ fun AssistChip(
                 colors =
                     if (isPressed) {
                         AssistChipDefaults.assistChipColors(
-                            containerColor = SurfaceColor.Container,
-                            leadingIconContentColor = TextColor.OnSurfaceVariant,
+                            containerColor = DHIS2Theme.colorScheme.surfaceContainer,
+                            leadingIconContentColor = DHIS2Theme.colorScheme.onSurfaceVariant,
                         )
                     } else {
                         AssistChipDefaults.assistChipColors(
-                            containerColor = SurfaceColor.SurfaceBright,
-                            leadingIconContentColor = TextColor.OnSurfaceVariant,
+                            containerColor = DHIS2Theme.colorScheme.surfaceBright,
+                            leadingIconContentColor = DHIS2Theme.colorScheme.onSurfaceVariant,
                         )
                     },
                 border =
                     AssistChipDefaults.assistChipBorder(
-                        borderColor = Outline.Dark,
+                        borderColor = DHIS2Theme.colorScheme.outline,
                         enabled = enabled,
                     ),
                 leadingIcon = {

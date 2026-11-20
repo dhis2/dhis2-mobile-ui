@@ -3,10 +3,9 @@ package org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.LocalTableColors
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableColors
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableTheme
-import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 
 internal sealed class CellStyle {
@@ -99,7 +98,7 @@ internal fun styleForColumnHeader(
             CellStyle.HeaderStyle(
                 backgroundColor = TableTheme.colors.disabledCellBackground,
                 textColor = TableTheme.colors.disabledCellText,
-                dividerColor = Outline.Light,
+                dividerColor = DHIS2Theme.colorScheme.outlineVariant,
             )
 
         columnIndex % 2 == 0 ->
@@ -111,8 +110,8 @@ internal fun styleForColumnHeader(
 
         else ->
             CellStyle.HeaderStyle(
-                backgroundColor = LocalTableColors.current.headerBackground2,
-                textColor = LocalTableColors.current.headerText,
+                backgroundColor = TableTheme.colors.headerBackground2,
+                textColor = TableTheme.colors.headerText,
                 dividerColor = TableTheme.colors.primary,
             )
     }
@@ -137,7 +136,7 @@ internal fun styleForRowHeader(
             CellStyle.HeaderStyle(
                 backgroundColor = MaterialTheme.colorScheme.surfaceContainerHighest,
                 textColor = MaterialTheme.colorScheme.primary,
-                dividerColor = Outline.Light,
+                dividerColor = DHIS2Theme.colorScheme.outlineVariant,
             )
 
         isSelected ->
@@ -151,21 +150,21 @@ internal fun styleForRowHeader(
             CellStyle.HeaderStyle(
                 backgroundColor = MaterialTheme.colorScheme.surfaceContainerHighest,
                 textColor = TableTheme.colors.primary,
-                dividerColor = Outline.Light,
+                dividerColor = DHIS2Theme.colorScheme.outlineVariant,
             )
 
         isDisabled ->
             CellStyle.HeaderStyle(
                 backgroundColor = TableTheme.colors.disabledCellBackground,
                 textColor = TableTheme.colors.disabledCellText,
-                dividerColor = Outline.Light,
+                dividerColor = DHIS2Theme.colorScheme.outlineVariant,
             )
 
         else ->
             CellStyle.HeaderStyle(
                 backgroundColor = TableTheme.colors.tableBackground,
                 textColor = TableTheme.colors.primary,
-                dividerColor = Outline.Light,
+                dividerColor = DHIS2Theme.colorScheme.outlineVariant,
             )
     }
 
@@ -189,18 +188,22 @@ internal fun styleForCell(
     hasWarning: Boolean,
     isEditable: Boolean,
     legendColor: Int?,
+    errorColor: Color = SurfaceColor.Error,
+    warningColor: Color = SurfaceColor.Warning,
+    errorContainerColor: Color = SurfaceColor.ErrorContainer,
+    warningContainerColor: Color = SurfaceColor.WarningContainer,
 ) = CellStyle.CellBorderStyle(
     borderColor =
         when {
-            hasError -> SurfaceColor.Error
-            hasWarning -> SurfaceColor.Warning
+            hasError -> errorColor
+            hasWarning -> warningColor
             else -> tableColorProvider().primary
         },
     backgroundColor =
         when {
             isParentSelected -> tableColorProvider().selectedCell
-            hasError -> SurfaceColor.ErrorContainer
-            hasWarning -> SurfaceColor.WarningContainer
+            hasError -> errorContainerColor
+            hasWarning -> warningContainerColor
             legendColor != null -> Color(legendColor).copy(alpha = 0.3f)
             !isEditable -> tableColorProvider().disabledCellBackground
             isSelected -> tableColorProvider().tableBackground

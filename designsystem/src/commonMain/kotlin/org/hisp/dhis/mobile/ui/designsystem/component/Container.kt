@@ -18,9 +18,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import org.hisp.dhis.mobile.ui.designsystem.component.layout.FadingLazyRow
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
@@ -50,7 +50,7 @@ fun ColumnScreenContainer(
         modifier =
             modifier
                 .fillMaxSize()
-                .background(Color.White, Shape.LargeTop)
+                .background(DHIS2Theme.colorScheme.surfaceBright, Shape.LargeTop)
                 .padding(horizontal = Spacing.Spacing16)
                 .then(if (scrollable) Modifier.verticalScroll(rememberScrollState()) else Modifier),
     ) {

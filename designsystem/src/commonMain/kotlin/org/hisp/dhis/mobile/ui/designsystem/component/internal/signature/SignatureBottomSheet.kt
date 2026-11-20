@@ -40,10 +40,9 @@ import org.hisp.dhis.mobile.ui.designsystem.resource.SignatureCanvas
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.Border
 import org.hisp.dhis.mobile.ui.designsystem.theme.Color
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
-import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import org.jetbrains.compose.resources.stringResource
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -92,7 +91,7 @@ internal fun SignatureBottomSheet(
                             .padding(Spacing.Spacing8)
                             .align(Alignment.TopEnd)
                             .background(
-                                SurfaceColor.Surface,
+                                DHIS2Theme.colorScheme.surface,
                                 RoundedCornerShape(
                                     topStart = Radius.S,
                                     topEnd = Radius.S,
@@ -102,7 +101,7 @@ internal fun SignatureBottomSheet(
                             ).padding(Spacing.Spacing8, Spacing.Spacing4),
                     text = drawHereText,
                     style = MaterialTheme.typography.bodySmall,
-                    color = TextColor.OnSurfaceLight,
+                    color = DHIS2Theme.extendedColors.onSurfaceLight,
                 )
             }
         },

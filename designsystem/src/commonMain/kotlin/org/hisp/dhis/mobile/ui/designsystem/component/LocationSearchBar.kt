@@ -53,12 +53,10 @@ import org.hisp.dhis.mobile.ui.designsystem.component.model.LocationItemModel
 import org.hisp.dhis.mobile.ui.designsystem.component.modifier.draggableList
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2SCustomTextStyles
-import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing16
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
-import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import org.jetbrains.compose.resources.stringResource
 
 /**
@@ -184,7 +182,7 @@ private fun LocationSearchBarButton(
                 .clip(Shape.Full)
                 .clickable(onClick = onClick)
                 .background(
-                    color = SurfaceColor.ContainerLow,
+                    color = DHIS2Theme.colorScheme.surfaceContainerLow,
                     shape = Shape.Full,
                 ).padding(Spacing.Spacing4),
         verticalAlignment = CenterVertically,
@@ -203,9 +201,9 @@ private fun LocationSearchBarButton(
             style = MaterialTheme.typography.bodyLarge,
             color =
                 if (currentSearch.isBlank()) {
-                    TextColor.OnDisabledSurface
+                    DHIS2Theme.extendedColors.onDisabledSurface
                 } else {
-                    TextColor.OnSurface
+                    DHIS2Theme.colorScheme.onSurface
                 },
         )
         if (currentSearch.isEmpty()) {
@@ -314,7 +312,7 @@ private fun LocationSearchBar(
             item {
                 HorizontalDivider(
                     thickness = 1.dp,
-                    color = Outline.Medium,
+                    color = DHIS2Theme.extendedColors.outlineMedium,
                     modifier = Modifier.padding(vertical = Spacing16),
                 )
             }
@@ -367,14 +365,14 @@ fun LocationItem(
             Text(
                 text = locationItemModel.title,
                 style = DHIS2SCustomTextStyles.titleMediumBold,
-                color = TextColor.OnPrimaryContainer,
+                color = DHIS2Theme.colorScheme.onPrimaryContainer,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
             )
             Text(
                 text = locationItemModel.subtitle,
                 style = MaterialTheme.typography.bodySmall,
-                color = TextColor.OnSurface,
+                color = DHIS2Theme.colorScheme.onSurface,
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis,
             )
@@ -395,14 +393,14 @@ private fun SearchResultLocationItem(
         }
     val tintedColor =
         when (locationItemModel) {
-            is LocationItemModel.StoredResult -> SurfaceColor.Warning
-            is LocationItemModel.SearchResult -> SurfaceColor.Primary
+            is LocationItemModel.StoredResult -> DHIS2Theme.extendedColors.warning
+            is LocationItemModel.SearchResult -> DHIS2Theme.colorScheme.primary
         }
 
     val bgColor =
         when (locationItemModel) {
-            is LocationItemModel.StoredResult -> SurfaceColor.WarningContainer
-            is LocationItemModel.SearchResult -> SurfaceColor.PrimaryContainer
+            is LocationItemModel.StoredResult -> DHIS2Theme.extendedColors.warningContainer
+            is LocationItemModel.SearchResult -> DHIS2Theme.colorScheme.primaryContainer
         }
 
     LocationItem(
@@ -468,13 +466,13 @@ private fun NoResultsMessage(isSearching: Boolean) {
         Icon(
             modifier = Modifier.size(48.dp),
             imageVector = Icons.Filled.TravelExplore,
-            tint = SurfaceColor.ContainerHighest,
+            tint = DHIS2Theme.colorScheme.surfaceContainerHighest,
             contentDescription = null,
         )
         Text(
             text = message,
             style = MaterialTheme.typography.bodyLarge,
-            color = TextColor.OnSurfaceVariant,
+            color = DHIS2Theme.colorScheme.onSurfaceVariant,
         )
     }
 }
@@ -496,7 +494,7 @@ private fun SearchProgressMessage() {
         Text(
             text = message,
             style = MaterialTheme.typography.bodyLarge,
-            color = TextColor.OnSurfaceVariant,
+            color = DHIS2Theme.colorScheme.onSurfaceVariant,
         )
     }
 }

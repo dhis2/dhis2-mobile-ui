@@ -17,8 +17,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 
 /* ## InputDialogContainer
 
@@ -73,8 +73,8 @@ internal fun InputDialogContainer(
                                         Brush.verticalGradient(
                                             colors =
                                                 listOf(
-                                                    SurfaceColor.Primary.copy(alpha = 0f),
-                                                    SurfaceColor.Primary.copy(alpha = 0.20f),
+                                                    DHIS2Theme.colorScheme.primary.copy(alpha = 0f),
+                                                    DHIS2Theme.colorScheme.primary.copy(alpha = 0.20f),
                                                 ),
                                         ),
                                 ),
@@ -85,7 +85,7 @@ internal fun InputDialogContainer(
                             Modifier
                                 .fillMaxSize()
                                 .background(
-                                    color = SurfaceColor.Primary.copy(alpha = 0.20f),
+                                    color = DHIS2Theme.colorScheme.primary.copy(alpha = 0.20f),
                                 ),
                     )
                 }
@@ -106,8 +106,8 @@ internal fun InputDialogContainer(
                                     Brush.verticalGradient(
                                         colors =
                                             listOf(
-                                                SurfaceColor.Primary.copy(alpha = 0.20f),
-                                                SurfaceColor.Primary.copy(alpha = 0f),
+                                                DHIS2Theme.colorScheme.primary.copy(alpha = 0.20f),
+                                                DHIS2Theme.colorScheme.primary.copy(alpha = 0f),
                                             ),
                                     ),
                             ),

@@ -30,7 +30,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantic
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.tableIdSemantic
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.semantics.headerTestTag
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.semantics.headersTestTag
-import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 
 /**
  * Composable function to display the table header.
@@ -238,7 +238,7 @@ internal fun TableHeader(
                                     CellStyle.HeaderStyle(
                                         backgroundColor = TableTheme.colors.disabledCellBackground,
                                         textColor = Color.Transparent,
-                                        dividerColor = Outline.Light,
+                                        dividerColor = DHIS2Theme.colorScheme.outlineVariant,
                                     ),
                                 onCellSelected = {},
                                 onHeaderResize = { _, _, _ -> },

@@ -21,9 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.unit.IntOffset
-import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
-import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.customRippleConfiguration
 
 /**
@@ -50,16 +48,16 @@ fun FilterChip(
         CompositionLocalProvider(LocalRippleConfiguration provides customRippleConfiguration()) {
             FilterChip(
                 onClick = { onSelected?.invoke(!selected) },
-                label = { Text(label, color = TextColor.OnSurfaceVariant) },
+                label = { Text(label, color = DHIS2Theme.colorScheme.onSurfaceVariant) },
                 selected = selected,
                 colors =
                     FilterChipDefaults.filterChipColors(
-                        containerColor = SurfaceColor.SurfaceBright,
-                        selectedContainerColor = SurfaceColor.Container,
+                        containerColor = DHIS2Theme.colorScheme.surfaceBright,
+                        selectedContainerColor = DHIS2Theme.colorScheme.surfaceContainer,
                     ),
                 border =
                     FilterChipDefaults.filterChipBorder(
-                        borderColor = Outline.Dark,
+                        borderColor = DHIS2Theme.colorScheme.outline,
                         enabled = true,
                         selected = selected,
                     ),

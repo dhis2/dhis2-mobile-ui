@@ -6,6 +6,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.actions.DefaultValid
 import org.hisp.dhis.mobile.ui.designsystem.component.table.actions.Validator
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.compositions.LocalValidator
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
+import org.hisp.dhis.mobile.ui.designsystem.theme.LocalDHIS2ThemeProvided
 
 /**
  * Composable function to provide table-related theme settings to the content.
@@ -24,15 +25,22 @@ fun TableTheme(
     tableValidator: Validator = DefaultValidator(),
     content: @Composable () -> Unit,
 ) {
-    CompositionLocalProvider(
-        LocalTableColors provides tableColors,
-        LocalTableDimensions provides tableDimensions,
-        LocalTableConfiguration provides tableConfiguration,
-        LocalValidator provides tableValidator,
-    ) {
-        DHIS2Theme(
+    // Default colors follow the current DHIS2 theme; custom colors are used as given.
+    val resolvedTableColors = if (tableColors == DefaultTableColors) themedTableColors() else tableColors
+    val tableContent: @Composable () -> Unit = {
+        CompositionLocalProvider(
+            LocalTableColors provides resolvedTableColors,
+            LocalTableDimensions provides tableDimensions,
+            LocalTableConfiguration provides tableConfiguration,
+            LocalValidator provides tableValidator,
             content = content,
         )
+    }
+    // Only set up a DHIS2Theme when there is none above, so the app's light/dark choice is kept.
+    if (LocalDHIS2ThemeProvided.current) {
+        tableContent()
+    } else {
+        DHIS2Theme(content = tableContent)
     }
 }
 
@@ -41,11 +49,12 @@ fun TableTheme(
  */
 object TableTheme {
     /**
-     * The current table colors.
+     * The current table colors. Default colors follow the current DHIS2 theme, also when the table is not
+     * wrapped in a [TableTheme].
      */
     val colors: TableColors
         @Composable
-        get() = LocalTableColors.current
+        get() = LocalTableColors.current.let { if (it == DefaultTableColors) themedTableColors() else it }
 
     /**
      * The current table dimensions.

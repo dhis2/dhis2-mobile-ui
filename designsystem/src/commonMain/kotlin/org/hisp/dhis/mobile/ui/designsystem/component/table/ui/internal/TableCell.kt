@@ -40,6 +40,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantic
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.semantics.cellSelected
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.semantics.cellTestTag
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.semantics.rowBackground
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 
 /**
  * Composable function to display a table cell.
@@ -72,8 +73,12 @@ internal fun TableCell(
             rowIndex = cell.row ?: -1,
         )
     val colors = TableTheme.colors
+    val errorColor = DHIS2Theme.colorScheme.error
+    val warningColor = DHIS2Theme.extendedColors.warning
+    val errorContainerColor = DHIS2Theme.colorScheme.errorContainer
+    val warningContainerColor = DHIS2Theme.extendedColors.warningContainer
 
-    val style by remember(cell.value, isSelected, isParentSelected) {
+    val style by remember(cell.value, isSelected, isParentSelected, colors, errorColor, warningColor) {
         derivedStateOf {
             styleForCell(
                 tableColorProvider = { colors },
@@ -83,6 +88,10 @@ internal fun TableCell(
                 hasWarning = cell.warning != null,
                 isEditable = cell.editable,
                 legendColor = cell.legendColor,
+                errorColor = errorColor,
+                warningColor = warningColor,
+                errorContainerColor = errorContainerColor,
+                warningContainerColor = warningContainerColor,
             )
         }
     }
@@ -124,6 +133,7 @@ internal fun TableCell(
                     borderColor = style.mainColor(),
                     backgroundColor = style.backgroundColor(),
                     dividerColor = cell.legendColor?.let { Color(it) } ?: DividerDefaults.color,
+                    haloColor = colors.tableBackground,
                 ).bringIntoViewRequester(bringIntoViewRequester)
                 .focusable()
                 .clickable(cell.editable) {

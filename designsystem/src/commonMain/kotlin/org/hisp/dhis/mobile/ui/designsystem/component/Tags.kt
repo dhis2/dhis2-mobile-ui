@@ -11,10 +11,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
-import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
 enum class TagType {
     ERROR,
@@ -38,8 +37,8 @@ fun Tag(
     modifier: Modifier = Modifier,
     label: String,
     type: TagType,
-    defaultBackgroundColor: Color = SurfaceColor.PrimaryContainer,
-    defaultTextColor: Color = TextColor.OnPrimaryContainer,
+    defaultBackgroundColor: Color = DHIS2Theme.colorScheme.primaryContainer,
+    defaultTextColor: Color = DHIS2Theme.colorScheme.onPrimaryContainer,
 ) {
     Box(
         modifier =
@@ -48,9 +47,9 @@ fun Tag(
                 .background(
                     color =
                         when (type) {
-                            TagType.ERROR -> SurfaceColor.ErrorContainer
-                            TagType.WARNING -> SurfaceColor.WarningContainer
-                            TagType.SUCCESS -> SurfaceColor.CustomGreen.copy(0.1f)
+                            TagType.ERROR -> DHIS2Theme.colorScheme.errorContainer
+                            TagType.WARNING -> DHIS2Theme.extendedColors.warningContainer
+                            TagType.SUCCESS -> DHIS2Theme.extendedColors.customGreen.copy(0.1f)
                             TagType.DEFAULT -> defaultBackgroundColor
                         },
                     shape = Shape.ExtraSmall,
@@ -62,9 +61,9 @@ fun Tag(
             style = MaterialTheme.typography.labelLarge,
             color =
                 when (type) {
-                    TagType.ERROR -> TextColor.OnErrorContainer
-                    TagType.WARNING -> TextColor.OnWarningContainer
-                    TagType.SUCCESS -> SurfaceColor.CustomGreen
+                    TagType.ERROR -> DHIS2Theme.colorScheme.onErrorContainer
+                    TagType.WARNING -> DHIS2Theme.extendedColors.onWarningContainer
+                    TagType.SUCCESS -> DHIS2Theme.extendedColors.customGreen
                     TagType.DEFAULT -> defaultTextColor
                 },
         )

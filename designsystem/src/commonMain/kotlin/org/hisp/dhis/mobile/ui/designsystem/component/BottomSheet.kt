@@ -47,13 +47,12 @@ import org.hisp.dhis.mobile.ui.designsystem.component.internal.keyboardAsState
 import org.hisp.dhis.mobile.ui.designsystem.component.state.BottomSheetShellDefaults
 import org.hisp.dhis.mobile.ui.designsystem.component.state.BottomSheetShellUIState
 import org.hisp.dhis.mobile.ui.designsystem.theme.Border
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing0
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing24
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing8
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
-import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.innerShadow
 import org.jetbrains.compose.resources.stringResource
 
@@ -98,7 +97,7 @@ fun BottomSheetHeader(
             modifier = Modifier.fillMaxWidth(),
             text = title,
             style = MaterialTheme.typography.headlineSmall,
-            color = TextColor.OnSurface,
+            color = DHIS2Theme.colorScheme.onSurface,
             textAlign = headerTextAlignment,
         )
 
@@ -109,7 +108,7 @@ fun BottomSheetHeader(
                 modifier = Modifier.fillMaxWidth(),
                 text = subTitle,
                 style = MaterialTheme.typography.bodySmall,
-                color = TextColor.OnDisabledSurface,
+                color = DHIS2Theme.extendedColors.onDisabledSurface,
                 textAlign = headerTextAlignment,
             )
         }
@@ -121,7 +120,7 @@ fun BottomSheetHeader(
                 modifier = Modifier.fillMaxWidth(),
                 text = description,
                 style = MaterialTheme.typography.bodyMedium,
-                color = TextColor.OnSurfaceLight,
+                color = DHIS2Theme.extendedColors.onSurfaceLight,
                 textAlign = TextAlign.Start,
             )
         }
@@ -215,7 +214,6 @@ fun BottomSheetShell(
                         Icon(
                             imageVector = Icons.Outlined.Close,
                             contentDescription = stringResource(Res.string.close),
-                            tint = SurfaceColor.SurfaceBright,
                         )
                     },
                     modifier = Modifier.padding(bottom = Spacing.Spacing4),
@@ -233,7 +231,7 @@ fun BottomSheetShell(
             modifier =
                 Modifier
                     .padding(bottom = Spacing0)
-                    .background(SurfaceColor.SurfaceBright, Shape.ExtraLargeTop),
+                    .background(DHIS2Theme.colorScheme.surfaceBright, Shape.ExtraLargeTop),
         ) {
             val scrollColumnShadow =
                 if (canScrollForward) {
@@ -291,7 +289,7 @@ fun BottomSheetShell(
                                         end = Spacing24,
                                         bottom = Spacing0,
                                     ),
-                            color = TextColor.OnDisabledSurface,
+                            color = DHIS2Theme.extendedColors.onDisabledSurface,
                             thickness = Border.Thin,
                         )
                     } else {
@@ -338,7 +336,7 @@ fun BottomSheetShell(
                                         bottom = Spacing0,
                                         top = Spacing0,
                                     ),
-                                color = TextColor.OnDisabledSurface,
+                                color = DHIS2Theme.extendedColors.onDisabledSurface,
                                 thickness = Border.Thin,
                             )
                         }

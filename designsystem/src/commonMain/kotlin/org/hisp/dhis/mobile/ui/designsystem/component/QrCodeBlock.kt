@@ -18,8 +18,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.qr.rememberQrCodeGenerator
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 
 /**
  * Container to render QR code image and text for given data
@@ -60,7 +60,7 @@ fun QrCodeBlock(
             Text(
                 text = data,
                 style = MaterialTheme.typography.titleMedium,
-                color = TextColor.OnSurface,
+                color = DHIS2Theme.colorScheme.onSurface,
                 textAlign = TextAlign.Center,
             )
         }
