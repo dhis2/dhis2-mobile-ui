@@ -52,6 +52,37 @@ jobs:
       - name: Build gradle project
         run: ./gradlew build
 
+  code_quality:
+    runs-on: ubuntu-latest
+    needs: ci_job
+    # Fork and Dependabot PRs get no access to the SonarCloud token.
+    if: >-
+      github.actor != 'dependabot[bot]' &&
+      (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          # Full history and branches so Sonar can compute new code and blame against the target branch.
+          fetch-depth: 0
+
+      - name: Set Up JDK
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'zulu'
+          java-version: '21'
+          cache: 'gradle'
+
+      - name: Change wrapper permissions
+        run: chmod +x ./gradlew
+
+      - name: SonarQube
+        env:
+          GIT_BRANCH: ${{ github.head_ref || github.ref_name }}
+          GIT_BRANCH_DEST: ${{ github.base_ref || '' }}
+          PULL_REQUEST: ${{ github.event.pull_request.number }}
+          SONAR_TOKEN: ${{ secrets.DHIS2_BOT_SONARCLOUD_TOKEN }}
+        run: ./gradlew sonar --stacktrace
+
   deployment_job:
     runs-on: windows-latest
     needs: ci_job
