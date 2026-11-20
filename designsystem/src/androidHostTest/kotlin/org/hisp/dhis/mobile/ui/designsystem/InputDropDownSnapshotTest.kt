@@ -19,8 +19,8 @@ import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.SubTitle
 import org.hisp.dhis.mobile.ui.designsystem.component.Title
 import org.hisp.dhis.mobile.ui.designsystem.component.parameter.ParameterInputStyle
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import org.jetbrains.compose.resources.PreviewContextConfigurationEffect
 import org.junit.Rule
 import org.junit.Test
@@ -49,11 +49,11 @@ class InputDropDownSnapshotTest {
                         DropdownItem("Option 9"),
                         DropdownItem("Option 10"),
                     )
-                Title("Input Dropdown", textColor = TextColor.OnSurfaceVariant)
+                Title("Input Dropdown", textColor = DHIS2Theme.colorScheme.onSurfaceVariant)
 
                 SubTitle(
                     "Basic Input Dropdown with < 7 inputs",
-                    textColor = TextColor.OnSurfaceVariant,
+                    textColor = DHIS2Theme.colorScheme.onSurfaceVariant,
                 )
                 var selectedItem by remember { mutableStateOf<DropdownItem?>(null) }
                 val focusRequester = remember { FocusRequester() }
@@ -110,7 +110,7 @@ class InputDropDownSnapshotTest {
 
                 SubTitle(
                     "Basic Input Dropdown with >= 7 inputs",
-                    textColor = TextColor.OnSurfaceVariant,
+                    textColor = DHIS2Theme.colorScheme.onSurfaceVariant,
                 )
 
                 var selectedItem4 by remember { mutableStateOf<DropdownItem?>(null) }
@@ -138,7 +138,7 @@ class InputDropDownSnapshotTest {
 
                 SubTitle(
                     "Basic Input Dropdown with content ",
-                    textColor = TextColor.OnSurfaceVariant,
+                    textColor = DHIS2Theme.colorScheme.onSurfaceVariant,
                 )
                 var selectedItem1 by remember { mutableStateOf<DropdownItem?>(options[0]) }
                 InputDropDown(
@@ -162,7 +162,7 @@ class InputDropDownSnapshotTest {
                 )
                 Spacer(Modifier.size(Spacing.Spacing18))
 
-                SubTitle("Error Input Dropdown ", textColor = TextColor.OnSurfaceVariant)
+                SubTitle("Error Input Dropdown ", textColor = DHIS2Theme.colorScheme.onSurfaceVariant)
                 var selectedItem2 by remember { mutableStateOf<DropdownItem?>(null) }
                 InputDropDown(
                     title = "Label",
@@ -187,7 +187,7 @@ class InputDropDownSnapshotTest {
 
                 SubTitle(
                     "Disabled Input Dropdown with content ",
-                    textColor = TextColor.OnSurfaceVariant,
+                    textColor = DHIS2Theme.colorScheme.onSurfaceVariant,
                 )
                 var selectedItem3 by remember { mutableStateOf<DropdownItem?>(options[1]) }
                 InputDropDown(

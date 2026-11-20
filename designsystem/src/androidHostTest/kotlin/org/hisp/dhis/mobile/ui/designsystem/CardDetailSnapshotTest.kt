@@ -3,10 +3,11 @@ package org.hisp.dhis.mobile.ui.designsystem
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PhoneEnabled
 import androidx.compose.material3.Icon
+import androidx.compose.runtime.Composable
 import org.hisp.dhis.mobile.ui.designsystem.component.AdditionalInfoItem
 import org.hisp.dhis.mobile.ui.designsystem.component.CardDetail
 import org.hisp.dhis.mobile.ui.designsystem.component.ColumnScreenContainer
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.junit.Rule
 import org.junit.Test
 
@@ -17,7 +18,8 @@ class CardDetailSnapshotTest {
     val lorem =
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas dolor lacus, aliquam. Lorem ipsum dolor sit amet, consectetur adipiscing elit."
 
-    val teiDetailList =
+    @Composable
+    private fun teiDetailList() =
         listOf(
             AdditionalInfoItem(key = "National ID:", value = "001-224-789"),
             AdditionalInfoItem(
@@ -27,10 +29,10 @@ class CardDetailSnapshotTest {
                     Icon(
                         imageVector = Icons.Filled.PhoneEnabled,
                         contentDescription = "Icon Button",
-                        tint = SurfaceColor.Primary,
+                        tint = DHIS2Theme.colorScheme.primary,
                     )
                 },
-                color = SurfaceColor.Primary,
+                color = DHIS2Theme.colorScheme.primary,
                 action = {},
             ),
             AdditionalInfoItem(key = lorem, value = lorem),
@@ -49,7 +51,7 @@ class CardDetailSnapshotTest {
                     "Tuberculosis, Nutrition, " +
                         "Assistance Program, Malaria Diagnosis",
                 action = {},
-                color = SurfaceColor.Primary,
+                color = DHIS2Theme.colorScheme.primary,
                 isConstantItem = true,
             ),
             AdditionalInfoItem(
@@ -58,7 +60,7 @@ class CardDetailSnapshotTest {
                     "Tuberculosis, Nutrition, " +
                         "Assistance Program, Malaria Diagnosis",
                 action = {},
-                color = SurfaceColor.Primary,
+                color = DHIS2Theme.colorScheme.primary,
             ),
         )
 
@@ -69,7 +71,7 @@ class CardDetailSnapshotTest {
                 CardDetail(
                     avatar = null,
                     title = "Narayan Khanna, M, 32",
-                    additionalInfoList = teiDetailList,
+                    additionalInfoList = teiDetailList(),
                     expandLabelText = "Show more",
                     shrinkLabelText = "Show less",
                 )

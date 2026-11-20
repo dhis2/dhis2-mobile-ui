@@ -18,8 +18,8 @@ import org.hisp.dhis.mobile.ui.designsystem.component.SelectionState
 import org.hisp.dhis.mobile.ui.designsystem.component.state.rememberAdditionalInfoColumnState
 import org.hisp.dhis.mobile.ui.designsystem.component.state.rememberListCardState
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.jetbrains.compose.resources.PreviewContextConfigurationEffect
 import org.junit.Rule
 import org.junit.Test
@@ -53,11 +53,11 @@ class ListCardSelectableSnapshotTest {
                                                     Icon(
                                                         imageVector = Icons.Outlined.Sync,
                                                         contentDescription = "Icon Button",
-                                                        tint = SurfaceColor.Primary,
+                                                        tint = DHIS2Theme.colorScheme.primary,
                                                     )
                                                 },
                                                 value = "Syncing...",
-                                                color = SurfaceColor.Primary,
+                                                color = DHIS2Theme.colorScheme.primary,
                                                 isConstantItem = false,
                                             ),
                                     ),

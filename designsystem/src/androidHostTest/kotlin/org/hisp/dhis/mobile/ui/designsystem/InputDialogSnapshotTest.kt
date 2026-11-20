@@ -24,8 +24,8 @@ import org.hisp.dhis.mobile.ui.designsystem.component.LegendData
 import org.hisp.dhis.mobile.ui.designsystem.component.LegendDescriptionData
 import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextData
 import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextState
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.jetbrains.compose.resources.PreviewContextConfigurationEffect
 import org.junit.Rule
 import org.junit.Test
@@ -36,41 +36,41 @@ class InputDialogSnapshotTest {
 
     @Test
     fun launchInputDialog() {
-        val regularLegendList =
-            listOf(
-                LegendDescriptionData(
-                    SurfaceColor.CustomGreen,
-                    "Low",
-                    IntRange(0, 5),
-                ),
-                LegendDescriptionData(
-                    SurfaceColor.CustomYellow,
-                    "Medium",
-                    IntRange(5, 10),
-                ),
-                LegendDescriptionData(
-                    SurfaceColor.Warning,
-                    "High",
-                    IntRange(10, 20),
-                ),
-                LegendDescriptionData(
-                    SurfaceColor.CustomPink,
-                    "Very high",
-                    IntRange(20, 40),
-                ),
-                LegendDescriptionData(
-                    SurfaceColor.CustomBrown,
-                    "Extreme",
-                    IntRange(40, 120),
-                ),
-                LegendDescriptionData(
-                    SurfaceColor.CustomGray,
-                    text = "Lorem ipsum dolor sit amet",
-                    IntRange(120, 1000),
-                ),
-            )
-
         paparazzi.themedSnapshots {
+            val regularLegendList =
+                listOf(
+                    LegendDescriptionData(
+                        DHIS2Theme.extendedColors.customGreen,
+                        "Low",
+                        IntRange(0, 5),
+                    ),
+                    LegendDescriptionData(
+                        DHIS2Theme.extendedColors.customYellow,
+                        "Medium",
+                        IntRange(5, 10),
+                    ),
+                    LegendDescriptionData(
+                        DHIS2Theme.extendedColors.warning,
+                        "High",
+                        IntRange(10, 20),
+                    ),
+                    LegendDescriptionData(
+                        DHIS2Theme.extendedColors.customPink,
+                        "Very high",
+                        IntRange(20, 40),
+                    ),
+                    LegendDescriptionData(
+                        DHIS2Theme.extendedColors.customBrown,
+                        "Extreme",
+                        IntRange(40, 120),
+                    ),
+                    LegendDescriptionData(
+                        DHIS2Theme.extendedColors.customGray,
+                        text = "Lorem ipsum dolor sit amet",
+                        IntRange(120, 1000),
+                    ),
+                )
+
             CompositionLocalProvider(LocalInspectionMode provides true) {
                 PreviewContextConfigurationEffect()
             }
@@ -164,7 +164,7 @@ class InputDialogSnapshotTest {
                                 ),
                             legendData =
                                 LegendData(
-                                    SurfaceColor.CustomGreen,
+                                    DHIS2Theme.extendedColors.customGreen,
                                     "Legend",
                                     popUpLegendDescriptionData = regularLegendList,
                                 ),

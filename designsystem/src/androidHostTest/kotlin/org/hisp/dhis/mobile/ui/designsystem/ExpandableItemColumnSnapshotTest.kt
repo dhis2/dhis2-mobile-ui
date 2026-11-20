@@ -25,8 +25,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.MetadataAvatarSize
 import org.hisp.dhis.mobile.ui.designsystem.component.VerticalInfoListCard
 import org.hisp.dhis.mobile.ui.designsystem.component.state.rememberAdditionalInfoColumnState
 import org.hisp.dhis.mobile.ui.designsystem.component.state.rememberListCardState
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
-import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.jetbrains.compose.resources.PreviewContextConfigurationEffect
 import org.junit.Ignore
 import org.junit.Rule
@@ -72,18 +71,18 @@ class ExpandableItemColumnSnapshotTest {
                                                             Icon(
                                                                 imageVector = Icons.Outlined.SyncDisabled,
                                                                 contentDescription = "Sync disabled",
-                                                                tint = TextColor.OnSurfaceLight,
+                                                                tint = DHIS2Theme.extendedColors.onSurfaceLight,
                                                             )
                                                         },
                                                         value = "Not synced",
-                                                        color = TextColor.OnSurfaceLight,
+                                                        color = DHIS2Theme.extendedColors.onSurfaceLight,
                                                     ),
                                                 )
                                             }
                                             add(
                                                 AdditionalInfoItem(
                                                     value = "this is a description",
-                                                    color = TextColor.OnSurfaceLight,
+                                                    color = DHIS2Theme.extendedColors.onSurfaceLight,
                                                 ),
                                             )
                                         },
@@ -95,11 +94,11 @@ class ExpandableItemColumnSnapshotTest {
                                                 Icon(
                                                     imageVector = Icons.Outlined.Sync,
                                                     contentDescription = "Icon Button",
-                                                    tint = SurfaceColor.Primary,
+                                                    tint = DHIS2Theme.colorScheme.primary,
                                                 )
                                             },
                                             value = "Syncing...",
-                                            color = SurfaceColor.Primary,
+                                            color = DHIS2Theme.colorScheme.primary,
                                             isConstantItem = false,
                                         ),
                                 ),
@@ -116,10 +115,10 @@ class ExpandableItemColumnSnapshotTest {
                                             uid = "",
                                             label = "",
                                             iconRes = "dhis2_microscope_outline",
-                                            iconTint = SurfaceColor.Primary,
+                                            iconTint = DHIS2Theme.colorScheme.primary,
                                         ),
                                     avatarSize = MetadataAvatarSize.L(),
-                                    tintColor = SurfaceColor.Primary,
+                                    tintColor = DHIS2Theme.colorScheme.primary,
                                 ),
                         )
                     },
@@ -133,7 +132,7 @@ class ExpandableItemColumnSnapshotTest {
                                     Icon(
                                         imageVector = Icons.Outlined.Sync,
                                         contentDescription = "Icon Button",
-                                        tint = TextColor.OnPrimaryContainer,
+                                        tint = DHIS2Theme.colorScheme.onPrimaryContainer,
                                     )
                                 },
                                 onClick = {},
