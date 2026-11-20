@@ -19,9 +19,9 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.timePickerColors
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import androidx.compose.material3.TimePicker as Material3TimePicker
 
 /**
@@ -64,7 +64,7 @@ fun TimePicker(
             modifier =
                 modifier
                     .background(
-                        color = SurfaceColor.Container,
+                        color = DHIS2Theme.colorScheme.surfaceContainer,
                         shape = RoundedCornerShape(Radius.L),
                     ).testTag("TIME_PICKER")
                     .padding(vertical = Spacing.Spacing16, horizontal = Spacing.Spacing24),

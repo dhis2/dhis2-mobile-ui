@@ -54,9 +54,8 @@ import org.hisp.dhis.mobile.ui.designsystem.component.state.InputDateTimeState
 import org.hisp.dhis.mobile.ui.designsystem.platform.dates.getDate
 import org.hisp.dhis.mobile.ui.designsystem.platform.dates.normalizeToGregorian
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
-import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import org.jetbrains.compose.resources.stringResource
 import org.hisp.dhis.mobile.ui.designsystem.component.DatePicker as DHIS2DatePicker
 import org.hisp.dhis.mobile.ui.designsystem.component.TimePicker as DHIS2TimePicker
@@ -357,14 +356,15 @@ private fun InputDateResetButton(
     }
 }
 
+@Composable
 private fun getTextColor(
     inputState: InputShellState,
     inputTextFieldValue: TextFieldValue?,
 ): Color =
     if (inputState != InputShellState.DISABLED && !inputTextFieldValue?.text.isNullOrEmpty()) {
-        TextColor.OnSurface
+        DHIS2Theme.colorScheme.onSurface
     } else {
-        TextColor.OnDisabledSurface
+        DHIS2Theme.extendedColors.onDisabledSurface
     }
 
 private fun manageOnValueChanged(
@@ -417,12 +417,12 @@ private fun manageOnValueChangedFromDateTimePicker(
 @Composable
 internal fun datePickerColors(): DatePickerColors =
     DatePickerDefaults.colors(
-        selectedDayContainerColor = SurfaceColor.Primary,
-        selectedDayContentColor = TextColor.OnPrimary,
-        todayDateBorderColor = SurfaceColor.Primary,
-        selectedYearContainerColor = SurfaceColor.Primary,
-        selectedYearContentColor = TextColor.OnPrimary,
-        disabledDayContentColor = TextColor.OnDisabledSurface,
+        selectedDayContainerColor = DHIS2Theme.colorScheme.primary,
+        selectedDayContentColor = DHIS2Theme.colorScheme.onPrimary,
+        todayDateBorderColor = DHIS2Theme.colorScheme.primary,
+        selectedYearContainerColor = DHIS2Theme.colorScheme.primary,
+        selectedYearContentColor = DHIS2Theme.colorScheme.onPrimary,
+        disabledDayContentColor = DHIS2Theme.extendedColors.onDisabledSurface,
     )
 
 internal fun formatStringToDate(dateString: String): String =

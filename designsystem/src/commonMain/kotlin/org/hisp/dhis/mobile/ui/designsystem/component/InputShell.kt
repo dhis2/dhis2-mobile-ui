@@ -20,6 +20,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -36,7 +37,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.Dp
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.Border
-import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
@@ -86,8 +87,10 @@ internal fun InputShell(
                 .clip(shape = RoundedCornerShape(Radius.XS, Radius.XS))
                 .animateContentSize(),
     ) {
-        var labelColor by remember(state) { mutableStateOf(state.color) }
-        var indicatorColor by remember(state) { mutableStateOf(state.color) }
+        // null until the first focus event after a state change, as the colors used to be reset then.
+        var isFocused by remember(state) { mutableStateOf<Boolean?>(null) }
+        val labelColor = isFocused?.let { getLabelColor(state, it) } ?: state.themedColor
+        val indicatorColor = isFocused?.let { getIndicatorColor(state, it, inputStyle) } ?: state.themedColor
         var indicatorThickness by remember { mutableStateOf(Border.Thin) }
         val backgroundColor = getBackgroundColor(state, inputStyle)
 
@@ -105,8 +108,7 @@ internal fun InputShell(
                                 )
                             }
                         }.onFocusChanged {
-                            labelColor = getLabelColor(state, it.isFocused)
-                            indicatorColor = getIndicatorColor(state, it.isFocused, inputStyle)
+                            isFocused = it.isFocused
 
                             indicatorThickness = getIndicatorThickness(state, it.isFocused)
 
@@ -169,13 +171,14 @@ internal fun InputShell(
     }
 }
 
+@Composable
 private fun getBackgroundColor(
     state: InputShellState,
     inputStyle: InputStyle,
 ): Color =
     when {
-        state != InputShellState.DISABLED -> inputStyle.backGroundColor
-        else -> inputStyle.disabledBackGroundColor
+        state != InputShellState.DISABLED -> inputStyle.themedBackGroundColor()
+        else -> inputStyle.themedDisabledBackGroundColor()
     }
 
 @Composable
@@ -189,7 +192,7 @@ private fun SupportingTextSection(
     supportingText?.let {
         Column(
             Modifier
-                .background(inputStyle.supportingTextBackgroundColor(supportingText))
+                .background(inputStyle.themedSupportingTextBackgroundColor(supportingText))
                 .padding(
                     start = inputStyle.startIndent,
                     bottom = inputStyle.supportingTextLowerPadding,
@@ -223,6 +226,7 @@ private fun getIndicatorThickness(
         else -> Border.Thin
     }
 
+@Composable
 private fun getIndicatorColor(
     state: InputShellState,
     isFocused: Boolean,
@@ -230,31 +234,32 @@ private fun getIndicatorColor(
 ): Color =
     when {
         state == InputShellState.DISABLED ->
-            inputStyle.disabledIndicatorColor
-                ?: InputShellState.DISABLED.color
+            inputStyle.themedDisabledIndicatorColor()
+                ?: InputShellState.DISABLED.themedColor
 
         isFocused &&
             state != InputShellState.ERROR &&
-            state != InputShellState.WARNING -> InputShellState.FOCUSED.color
+            state != InputShellState.WARNING -> InputShellState.FOCUSED.themedColor
 
         state == InputShellState.UNFOCUSED ->
-            inputStyle.unfocusedIndicatorColor
-                ?: state.color
+            inputStyle.themedUnfocusedIndicatorColor()
+                ?: state.themedColor
 
-        else -> state.color
+        else -> state.themedColor
     }
 
+@Composable
 private fun getLabelColor(
     state: InputShellState,
     isFocused: Boolean,
 ): Color =
     when {
-        state == InputShellState.DISABLED -> InputShellState.DISABLED.color
+        state == InputShellState.DISABLED -> InputShellState.DISABLED.themedColor
         isFocused &&
             state != InputShellState.ERROR &&
-            state != InputShellState.WARNING -> InputShellState.FOCUSED.color
+            state != InputShellState.WARNING -> InputShellState.FOCUSED.themedColor
 
-        else -> state.color
+        else -> state.themedColor
     }
 
 /**
@@ -290,7 +295,7 @@ private fun InputShellRow(
 @Composable
 private fun InputShellButtonSeparator(modifier: Modifier = Modifier) {
     VerticalDivider(
-        color = Outline.Medium,
+        color = DHIS2Theme.extendedColors.outlineMedium,
         thickness = Border.Thin,
         modifier =
             modifier
@@ -328,3 +333,19 @@ enum class InputShellState(
     DISABLED(TextColor.OnDisabledSurface),
     WARNING(SurfaceColor.Warning),
 }
+
+/**
+ * Theme-aware version of [InputShellState.color]. [InputShellState.color] keeps the light palette
+ * value for consumers that read it outside a composition.
+ */
+internal val InputShellState.themedColor: Color
+    @Composable
+    @ReadOnlyComposable
+    get() =
+        when (this) {
+            InputShellState.FOCUSED -> DHIS2Theme.colorScheme.primary
+            InputShellState.UNFOCUSED -> DHIS2Theme.colorScheme.onSurfaceVariant
+            InputShellState.ERROR -> DHIS2Theme.colorScheme.error
+            InputShellState.DISABLED -> DHIS2Theme.extendedColors.onDisabledSurface
+            InputShellState.WARNING -> DHIS2Theme.extendedColors.warning
+        }

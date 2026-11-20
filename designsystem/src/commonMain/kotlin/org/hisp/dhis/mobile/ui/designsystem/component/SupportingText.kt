@@ -12,6 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -32,6 +33,7 @@ import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.launch
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2SCustomTextStyles
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
@@ -71,11 +73,11 @@ fun SupportingText(
     var isExpanded by remember { mutableStateOf(false) }
     val textLayoutResultState = remember { mutableStateOf<TextLayoutResult?>(null) }
     val nonClickableTextStyle =
-        DHIS2SCustomTextStyles.regularSupportingText.copy(color = state.color)
+        DHIS2SCustomTextStyles.regularSupportingText.copy(color = state.themedColor)
     val clickableTextStyle =
-        DHIS2SCustomTextStyles.clickableSupportingText.copy(color = state.color)
+        DHIS2SCustomTextStyles.clickableSupportingText.copy(color = state.themedColor)
     var isClickable by remember { mutableStateOf(false) }
-    var annotatedText by remember(text) {
+    var annotatedText by remember(text, nonClickableTextStyle) {
         mutableStateOf(
             buildAnnotatedString {
                 withStyle(style = nonClickableTextStyle) { append(text) }
@@ -86,7 +88,7 @@ fun SupportingText(
     val scope = rememberCoroutineScope()
 
     val textLayoutResult = textLayoutResultState.value
-    LaunchedEffect(textLayoutResult) {
+    LaunchedEffect(textLayoutResult, nonClickableTextStyle, clickableTextStyle) {
         if (textLayoutResult == null) return@LaunchedEffect
 
         val link =
@@ -195,6 +197,29 @@ enum class SupportingTextState(
     ERROR(SurfaceColor.Error, SurfaceColor.ErrorContainer),
     INFO(TextColor.OnSurfaceVariant, SurfaceColor.Container),
 }
+
+/** Theme-aware version of [SupportingTextState.color]. */
+internal val SupportingTextState.themedColor: Color
+    @Composable
+    @ReadOnlyComposable
+    get() =
+        when (this) {
+            SupportingTextState.DEFAULT, SupportingTextState.INFO -> DHIS2Theme.colorScheme.onSurfaceVariant
+            SupportingTextState.WARNING -> DHIS2Theme.extendedColors.warning
+            SupportingTextState.ERROR -> DHIS2Theme.colorScheme.error
+        }
+
+/** Theme-aware version of [SupportingTextState.backgroundColor]. */
+internal val SupportingTextState.themedBackgroundColor: Color
+    @Composable
+    @ReadOnlyComposable
+    get() =
+        when (this) {
+            SupportingTextState.DEFAULT -> DHIS2Theme.colorScheme.surface
+            SupportingTextState.WARNING -> DHIS2Theme.extendedColors.warningContainer
+            SupportingTextState.ERROR -> DHIS2Theme.colorScheme.errorContainer
+            SupportingTextState.INFO -> DHIS2Theme.colorScheme.surfaceContainer
+        }
 
 data class SupportingTextData(
     val text: String,
