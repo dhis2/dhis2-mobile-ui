@@ -8,25 +8,34 @@ import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.DarkMode
+import androidx.compose.material.icons.outlined.LightMode
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.component.DropdownItem
+import org.hisp.dhis.mobile.ui.designsystem.component.FAB
+import org.hisp.dhis.mobile.ui.designsystem.component.FABStyle
 import org.hisp.dhis.mobile.ui.designsystem.component.InputDropDown
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.InputStyle
@@ -39,7 +48,6 @@ import org.hisp.dhis.mobile.ui.designsystem.component.model.Tab
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.showcaseapp.screens.Groups
 import org.hisp.dhis.showcaseapp.screens.NoComponentSelectedScreen
 import org.hisp.dhis.showcaseapp.screens.actionInputs.ActionInputsScreen
@@ -68,7 +76,6 @@ import org.hisp.dhis.showcaseapp.screens.table.TableScreen
 import org.hisp.dhis.showcaseapp.screens.tabs.TabsScreen
 import org.hisp.dhis.showcaseapp.screens.toggleableInputs.ToggleableInputsScreen
 
-@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 fun App(
     sizeClass: WindowSizeClass,
@@ -79,19 +86,41 @@ fun App(
             locationSearchCallback: (List<LocationItemModel>) -> Unit,
         ) -> Unit
     )? = null,
+    onDarkModeChanged: (Boolean) -> Unit = {},
 ) {
-    DHIS2Theme {
+    val isSystemDark = isSystemInDarkTheme()
+    // null follows the system theme until the user toggles it.
+    var darkModeOverride by rememberSaveable { mutableStateOf<Boolean?>(null) }
+    val isDarkModeEnabled = darkModeOverride ?: isSystemDark
+    LaunchedEffect(isDarkModeEnabled) { onDarkModeChanged(isDarkModeEnabled) }
+
+    DHIS2Theme(
+        isDarkModeEnabled = isDarkModeEnabled,
+    ) {
         var currentScreen by remember { mutableStateOf(Groups.NO_GROUP_SELECTED) }
 
         Scaffold(
             modifier = Modifier.fillMaxSize(),
             containerColor =
                 when (currentScreen) {
-                    Groups.NO_GROUP_SELECTED -> Color.White
-                    else -> SurfaceColor.Container
+                    Groups.NO_GROUP_SELECTED -> DHIS2Theme.colorScheme.surfaceBright
+                    else -> DHIS2Theme.colorScheme.surfaceContainer
                 },
             bottomBar = {
                 Box {}
+            },
+            floatingActionButton = {
+                FAB(
+                    modifier = Modifier.testTag("THEME_TOGGLE"),
+                    style = FABStyle.SURFACE,
+                    onClick = { darkModeOverride = !isDarkModeEnabled },
+                    icon = {
+                        Icon(
+                            imageVector = if (isDarkModeEnabled) Icons.Outlined.LightMode else Icons.Outlined.DarkMode,
+                            contentDescription = if (isDarkModeEnabled) "Switch to light theme" else "Switch to dark theme",
+                        )
+                    },
+                )
             },
         ) { innerPadding ->
             SharedTransitionLayout(modifier = Modifier.padding(innerPadding)) {
@@ -150,7 +179,7 @@ fun ExpandedMain(
                     Modifier
                         .fillMaxSize()
                         .padding(Spacing.Spacing16)
-                        .background(SurfaceColor.Container)
+                        .background(DHIS2Theme.colorScheme.surfaceContainer)
                         .padding(Spacing.Spacing16),
                 verticalArrangement = spacedBy(Spacing.Spacing16),
             ) {
@@ -216,7 +245,7 @@ fun Main(
         verticalArrangement = spacedBy(Spacing.Spacing16),
         modifier =
             Modifier
-                .background(SurfaceColor.Container),
+                .background(DHIS2Theme.colorScheme.surfaceContainer),
     ) {
         var screenDropdownItemList by remember {
             mutableStateOf(emptyList<DropdownItem>())
@@ -252,7 +281,7 @@ fun Main(
                 inputStyle =
                     InputStyle
                         .DarkInputStyle()
-                        .apply { backGroundColor = SurfaceColor.SurfaceBright },
+                        .apply { backGroundColor = DHIS2Theme.colorScheme.surfaceBright },
                 loadOptions = {
                     screenDropdownItemList =
                         Groups.entries.map {
@@ -272,7 +301,7 @@ fun Main(
             NoComponentSelectedScreen(
                 modifier =
                     Modifier
-                        .background(Color.White, Shape.NoRounding),
+                        .background(DHIS2Theme.colorScheme.surfaceBright, Shape.NoRounding),
             ) {
                 isComponentSelected = !isComponentSelected
             }
