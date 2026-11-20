@@ -23,12 +23,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing16
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing24
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing64
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.customRippleConfiguration
 import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
 
@@ -57,7 +57,7 @@ private fun CarouselButton(
                         },
                         indication =
                             ripple(
-                                color = SurfaceColor.Primary,
+                                color = DHIS2Theme.colorScheme.primary,
                             ),
                         enabled = buttonData.enabled,
                     ),

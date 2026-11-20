@@ -11,9 +11,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
-import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.dropShadow
 
 /**
@@ -41,7 +40,7 @@ fun FAB(
                     shape = MaterialTheme.shapes.small.copy(CornerSize(Radius.L)),
                     offsetY = 4.dp,
                     blur = 4.dp,
-                    color = SurfaceColor.Primary.copy(alpha = 0.25f),
+                    color = DHIS2Theme.colorScheme.primary.copy(alpha = 0.25f),
                 ).testTag("FAB"),
         onClick = onClick,
         shape = MaterialTheme.shapes.small.copy(CornerSize(Radius.L)),
@@ -80,13 +79,13 @@ fun ExtendedFAB(
                     offsetY = 2.dp,
                     blur = 4.dp,
                     spread = (-2).dp,
-                    color = SurfaceColor.Primary.copy(alpha = 0.3f),
+                    color = DHIS2Theme.colorScheme.primary.copy(alpha = 0.3f),
                 ).dropShadow(
                     shape = MaterialTheme.shapes.small.copy(CornerSize(Radius.L)),
                     offsetY = 4.dp,
                     blur = 8.dp,
                     spread = 3.dp,
-                    color = SurfaceColor.Primary.copy(alpha = 0.15f),
+                    color = DHIS2Theme.colorScheme.primary.copy(alpha = 0.15f),
                 ).testTag("EXTENDED_FAB_$text"),
         icon = icon,
         text = {
@@ -104,18 +103,20 @@ fun ExtendedFAB(
     )
 }
 
+@Composable
 private fun getContainerColor(style: FABStyle): Color =
     when (style) {
-        FABStyle.SURFACE -> SurfaceColor.Surface
-        FABStyle.PRIMARY -> SurfaceColor.Primary
-        FABStyle.SECONDARY -> SurfaceColor.PrimaryContainer
+        FABStyle.SURFACE -> DHIS2Theme.colorScheme.surface
+        FABStyle.PRIMARY -> DHIS2Theme.colorScheme.primary
+        FABStyle.SECONDARY -> DHIS2Theme.colorScheme.primaryContainer
     }
 
+@Composable
 private fun getContentColor(style: FABStyle): Color =
     when (style) {
-        FABStyle.SURFACE -> TextColor.OnSurfaceVariant
-        FABStyle.PRIMARY -> TextColor.OnPrimary
-        FABStyle.SECONDARY -> TextColor.OnPrimaryContainer
+        FABStyle.SURFACE -> DHIS2Theme.colorScheme.onSurfaceVariant
+        FABStyle.PRIMARY -> DHIS2Theme.colorScheme.onPrimary
+        FABStyle.SECONDARY -> DHIS2Theme.colorScheme.onPrimaryContainer
     }
 
 enum class FABStyle {

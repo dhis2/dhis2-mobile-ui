@@ -28,9 +28,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.navigationBar.NavigationBa
 import org.hisp.dhis.mobile.ui.designsystem.component.navigationBar.NavigationBarTestTags.NAVIGATION_BAR_ITEM_LABEL_PREFIX
 import org.hisp.dhis.mobile.ui.designsystem.component.navigationBar.NavigationBarTestTags.NAVIGATION_BAR_ITEM_PREFIX
 import org.hisp.dhis.mobile.ui.designsystem.component.navigationBar.NavigationBarTestTags.NAVIGATION_BAR_ITEM_SELECTED_ICON_SUFFIX
-import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
-import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.jetbrains.compose.resources.Font
 
 @Composable
@@ -46,11 +44,11 @@ fun <T> NavigationBar(
         HorizontalDivider(
             modifier = Modifier.testTag(NAVIGATION_BAR_BORDER),
             thickness = 0.6.dp,
-            color = Outline.Light,
+            color = DHIS2Theme.colorScheme.outlineVariant,
         )
         androidx.compose.material3.NavigationBar(
             modifier = Modifier.testTag(NAVIGATION_BAR),
-            containerColor = SurfaceColor.ContainerLowest,
+            containerColor = DHIS2Theme.colorScheme.surfaceContainerLowest,
         ) {
             items.forEachIndexed { index, item ->
                 val selected = selectedItemIndex == index
@@ -70,7 +68,7 @@ fun <T> NavigationBar(
                                     )
                                 } else {
                                     MaterialTheme.typography.labelMedium.copy(
-                                        color = TextColor.OnSurfaceVariant,
+                                        color = DHIS2Theme.colorScheme.onSurfaceVariant,
                                     )
                                 },
                             modifier = Modifier.testTag("$NAVIGATION_BAR_ITEM_LABEL_PREFIX${item.label}"),
@@ -110,9 +108,9 @@ private fun <T> NavigationBarItemIcon(
             contentDescription = item.label,
             tint =
                 if (selected) {
-                    SurfaceColor.Primary
+                    DHIS2Theme.colorScheme.primary
                 } else {
-                    TextColor.OnSurfaceVariant
+                    DHIS2Theme.colorScheme.onSurfaceVariant
                 },
         )
         if (item.showBadge) {
@@ -152,9 +150,9 @@ private fun <T> NavigationBarItem<T>.iconTestTag(selected: Boolean): String {
 @Composable
 private fun navigationBarItemColors() =
     NavigationBarItemDefaults.colors(
-        selectedIconColor = SurfaceColor.Primary,
-        indicatorColor = SurfaceColor.Container,
-        unselectedIconColor = TextColor.OnSurfaceVariant,
-        disabledIconColor = TextColor.OnDisabledSurface,
-        disabledTextColor = TextColor.OnDisabledSurface,
+        selectedIconColor = DHIS2Theme.colorScheme.primary,
+        indicatorColor = DHIS2Theme.colorScheme.surfaceContainer,
+        unselectedIconColor = DHIS2Theme.colorScheme.onSurfaceVariant,
+        disabledIconColor = DHIS2Theme.extendedColors.onDisabledSurface,
+        disabledTextColor = DHIS2Theme.extendedColors.onDisabledSurface,
     )

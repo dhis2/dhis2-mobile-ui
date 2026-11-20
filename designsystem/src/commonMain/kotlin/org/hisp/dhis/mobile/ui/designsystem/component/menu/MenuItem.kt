@@ -20,6 +20,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.style.TextOverflow
+import org.hisp.dhis.mobile.ui.designsystem.component.internal.themedIfDefault
 import org.hisp.dhis.mobile.ui.designsystem.component.menu.MenuItemTestTags.MENU_ITEM_CONTAINER
 import org.hisp.dhis.mobile.ui.designsystem.component.menu.MenuItemTestTags.MENU_ITEM_DIVIDER
 import org.hisp.dhis.mobile.ui.designsystem.component.menu.MenuItemTestTags.MENU_ITEM_LEADING_ICON
@@ -29,7 +30,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.menu.MenuItemTestTags.MENU
 import org.hisp.dhis.mobile.ui.designsystem.component.menu.MenuItemTestTags.MENU_ITEM_TRAILING_ICON
 import org.hisp.dhis.mobile.ui.designsystem.component.menu.MenuItemTestTags.MENU_ITEM_TRAILING_TEXT
 import org.hisp.dhis.mobile.ui.designsystem.theme.Border
-import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
@@ -51,9 +52,9 @@ fun <T> MenuItem(
         when (menuItemData.state) {
             MenuItemState.SELECTED -> {
                 if (menuItemData.style == MenuItemStyle.ALERT) {
-                    SurfaceColor.ErrorContainer
+                    DHIS2Theme.colorScheme.errorContainer
                 } else {
-                    SurfaceColor.Container
+                    DHIS2Theme.colorScheme.surfaceContainer
                 }
             }
 
@@ -91,7 +92,14 @@ fun <T> MenuItem(
                     overflow = TextOverflow.Ellipsis,
                     modifier = Modifier.testTag(MENU_ITEM_TEXT),
                     style = MaterialTheme.typography.bodyLarge,
-                    color = if (menuItemData.style == MenuItemStyle.ALERT) SurfaceColor.Error else TextColor.OnSurface,
+                    color =
+                        if (menuItemData.style ==
+                            MenuItemStyle.ALERT
+                        ) {
+                            DHIS2Theme.colorScheme.error
+                        } else {
+                            DHIS2Theme.colorScheme.onSurface
+                        },
                     text = menuItemData.label,
                 )
                 if (!menuItemData.supportingText.isNullOrEmpty()) {
@@ -100,7 +108,14 @@ fun <T> MenuItem(
                         overflow = TextOverflow.Ellipsis,
                         modifier = Modifier.testTag(MENU_ITEM_SUPPORTING_TEXT),
                         style = MaterialTheme.typography.bodyMedium,
-                        color = if (menuItemData.style == MenuItemStyle.ALERT) TextColor.OnErrorContainer else TextColor.OnSurfaceVariant,
+                        color =
+                            if (menuItemData.style ==
+                                MenuItemStyle.ALERT
+                            ) {
+                                DHIS2Theme.colorScheme.onErrorContainer
+                            } else {
+                                DHIS2Theme.colorScheme.onSurfaceVariant
+                            },
                         text = menuItemData.supportingText,
                     )
                 }
@@ -118,7 +133,7 @@ fun <T> MenuItem(
                         .testTag(MENU_ITEM_DIVIDER)
                         .padding(vertical = Spacing.Spacing8),
                 thickness = Border.Thin,
-                color = Outline.Medium,
+                color = DHIS2Theme.extendedColors.outlineMedium,
             )
         }
     }
@@ -147,16 +162,20 @@ private fun MenuItemLeadingElement(
                     MenuItemState.SELECTED -> {
                         if (style == MenuItemStyle.ALERT) {
                             leadingElement.selectedErrorTintColor
+                                .themedIfDefault(TextColor.OnErrorContainer, DHIS2Theme.colorScheme.onErrorContainer)
                         } else {
                             leadingElement.selectedTintColor
+                                .themedIfDefault(TextColor.OnPrimaryContainer, DHIS2Theme.colorScheme.onPrimaryContainer)
                         }
                     }
 
                     else ->
                         if (style == MenuItemStyle.ALERT) {
                             leadingElement.defaultErrorTintColor
+                                .themedIfDefault(SurfaceColor.Error, DHIS2Theme.colorScheme.error)
                         } else {
                             leadingElement.defaultTintColor
+                                .themedIfDefault(SurfaceColor.Primary, DHIS2Theme.colorScheme.primary)
                         }
                 }
             Icon(
@@ -190,7 +209,15 @@ private fun MenuItemTrailingElement(
                         .size(Spacing.Spacing24),
                 imageVector = trailingElement.icon,
                 contentDescription = null,
-                tint = if (state == MenuItemState.SELECTED) trailingElement.selectedTintColor else trailingElement.defaultTintColor,
+                tint =
+                    if (state == MenuItemState.SELECTED) {
+                        trailingElement.selectedTintColor.themedIfDefault(TextColor.OnSurface, DHIS2Theme.colorScheme.onSurface)
+                    } else {
+                        trailingElement.defaultTintColor.themedIfDefault(
+                            TextColor.OnSurfaceVariant,
+                            DHIS2Theme.colorScheme.onSurfaceVariant,
+                        )
+                    },
             )
         }
 
@@ -201,7 +228,7 @@ private fun MenuItemTrailingElement(
                         .testTag(MENU_ITEM_TRAILING_TEXT)
                         .padding(start = Spacing.Spacing12),
                 style = MaterialTheme.typography.bodyLarge,
-                color = if (state == MenuItemState.SELECTED) TextColor.OnSurface else TextColor.OnSurfaceVariant,
+                color = if (state == MenuItemState.SELECTED) DHIS2Theme.colorScheme.onSurface else DHIS2Theme.colorScheme.onSurfaceVariant,
                 text = trailingElement.text,
             )
         }

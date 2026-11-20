@@ -28,6 +28,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -62,6 +63,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.state.ListCardState
 import org.hisp.dhis.mobile.ui.designsystem.component.state.rememberAdditionalInfoColumnState
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2SCustomTextStyles
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
@@ -243,11 +245,11 @@ fun CardDetail(
                         Icon(
                             imageVector = Icons.Outlined.Sync,
                             contentDescription = null,
-                            tint = SurfaceColor.Primary,
+                            tint = DHIS2Theme.colorScheme.primary,
                         )
                     },
                     value = "Syncing...",
-                    color = SurfaceColor.Primary,
+                    color = DHIS2Theme.colorScheme.primary,
                     isConstantItem = false,
                 ),
             expandLabelText = expandLabelText,
@@ -267,7 +269,7 @@ fun CardDetail(
     Row(
         modifier =
             modifier
-                .background(color = TextColor.OnPrimary)
+                .background(color = DHIS2Theme.colorScheme.surfaceBright, shape = RoundedCornerShape(Radius.S))
                 .clip(shape = RoundedCornerShape(Radius.S))
                 .padding(Spacing.Spacing16),
     ) {
@@ -430,7 +432,7 @@ private fun ProvideKeyValueItem(
                         interactionSource = interactionSource,
                         indication =
                             ripple(
-                                color = SurfaceColor.Primary,
+                                color = DHIS2Theme.colorScheme.primary,
                             ),
                         onClick = additionalInfoItem.action ?: {},
                     )
@@ -456,6 +458,7 @@ private fun ProvideKeyValueItem(
     }
 }
 
+@Composable
 private fun getKeyValueAnnotatedString(
     key: String,
     additionalInfoItem: AdditionalInfoItem?,
@@ -463,7 +466,7 @@ private fun getKeyValueAnnotatedString(
 ): AnnotatedString {
     val valueText = additionalInfoItem?.value
     val keyStyle =
-        DHIS2SCustomTextStyles.listCardKey.copy(color = AdditionalInfoItemColor.DEFAULT_KEY.color)
+        DHIS2SCustomTextStyles.listCardKey.copy(color = AdditionalInfoItemColor.DEFAULT_KEY.themedColor)
 
     val valueColor = getValueColor(additionalInfoItem)
     val valueStyle = DHIS2SCustomTextStyles.listCardValue.copy(color = valueColor)
@@ -496,9 +499,14 @@ private fun formatText(
     withSpace: Boolean,
 ): String = if (withSpace) " $text" else text ?: ""
 
+@Composable
 private fun getValueColor(additionalInfoItem: AdditionalInfoItem?): Color {
-    var valueColor = additionalInfoItem?.color ?: AdditionalInfoItemColor.DEFAULT_VALUE.color
-    valueColor = if (additionalInfoItem?.action != null) SurfaceColor.Primary else valueColor
+    // Colors given as the public AdditionalInfoItemColor constants follow the current theme.
+    var valueColor =
+        additionalInfoItem?.color?.let { color ->
+            AdditionalInfoItemColor.entries.firstOrNull { it.color == color }?.themedColor ?: color
+        } ?: AdditionalInfoItemColor.DEFAULT_VALUE.themedColor
+    valueColor = if (additionalInfoItem?.action != null) DHIS2Theme.colorScheme.primary else valueColor
     return valueColor
 }
 
@@ -626,3 +634,17 @@ enum class AdditionalInfoItemColor(
     DISABLED(TextColor.OnDisabledSurface),
     SUCCESS(SurfaceColor.CustomGreen),
 }
+
+/** Theme-aware version of [AdditionalInfoItemColor.color]. */
+internal val AdditionalInfoItemColor.themedColor: Color
+    @Composable
+    @ReadOnlyComposable
+    get() =
+        when (this) {
+            AdditionalInfoItemColor.DEFAULT_KEY -> DHIS2Theme.extendedColors.onSurfaceLight
+            AdditionalInfoItemColor.DEFAULT_VALUE -> DHIS2Theme.colorScheme.onSurface
+            AdditionalInfoItemColor.ERROR -> DHIS2Theme.colorScheme.error
+            AdditionalInfoItemColor.WARNING -> DHIS2Theme.extendedColors.warning
+            AdditionalInfoItemColor.DISABLED -> DHIS2Theme.extendedColors.onDisabledSurface
+            AdditionalInfoItemColor.SUCCESS -> DHIS2Theme.extendedColors.customGreen
+        }

@@ -35,13 +35,11 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.iconButton
 import org.hisp.dhis.mobile.ui.designsystem.theme.Border
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
-import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
 import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
-import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.customRippleConfiguration
 import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
 import org.hisp.dhis.mobile.ui.designsystem.theme.iconButtonshadow
@@ -71,7 +69,7 @@ fun SquareIconButton(
             shadowColor = mutableStateOf(Color.Transparent)
             topPadding = mutableStateOf(1)
         } else {
-            shadowColor = mutableStateOf(SurfaceColor.ContainerHighest)
+            shadowColor = mutableStateOf(DHIS2Theme.colorScheme.surfaceContainerHighest)
             topPadding = mutableStateOf(0)
         }
     } else {
@@ -98,9 +96,9 @@ fun SquareIconButton(
         colors =
             ButtonDefaults.elevatedButtonColors(
                 disabledContainerColor = Color.Transparent,
-                containerColor = SurfaceColor.Container,
-                contentColor = SurfaceColor.Primary,
-                disabledContentColor = TextColor.OnDisabledSurface,
+                containerColor = DHIS2Theme.colorScheme.surfaceContainer,
+                contentColor = DHIS2Theme.colorScheme.primary,
+                disabledContentColor = DHIS2Theme.extendedColors.onDisabledSurface,
             ),
         contentPadding = PaddingValues(Spacing.Spacing8),
     ) {
@@ -196,10 +194,11 @@ internal fun BottomSheetIconButton(
         enabled = enabled,
         colors =
             IconButtonDefaults.iconButtonColors(
-                SurfaceColor.Scrim.copy(alpha = 0.34f),
-                SurfaceColor.SurfaceBright,
-                SurfaceColor.DisabledSurface,
-                TextColor.OnDisabledSurface,
+                DHIS2Theme.colorScheme.scrim.copy(alpha = 0.34f),
+                // Content sits on the scrim, which is dark in both themes.
+                Color.White,
+                DHIS2Theme.extendedColors.disabledSurface,
+                DHIS2Theme.extendedColors.onDisabledSurface,
             ),
     ) {
         Box(Modifier.size(Spacing.Spacing24)) {
@@ -249,9 +248,9 @@ private fun StandardIconButton(
                 colors =
                     IconButtonDefaults.iconButtonColors(
                         Color.Transparent,
-                        TextColor.OnSurfaceVariant,
+                        DHIS2Theme.colorScheme.onSurfaceVariant,
                         Color.Transparent,
-                        TextColor.OnDisabledSurface,
+                        DHIS2Theme.extendedColors.onDisabledSurface,
                     ),
             ) {
                 Box(Modifier.size(Spacing.Spacing24)) {
@@ -301,10 +300,10 @@ private fun FilledIconButton(
             enabled = enabled,
             colors =
                 IconButtonDefaults.iconButtonColors(
-                    SurfaceColor.Primary,
-                    TextColor.OnPrimary,
-                    SurfaceColor.DisabledSurface,
-                    TextColor.OnDisabledSurface,
+                    DHIS2Theme.colorScheme.primary,
+                    DHIS2Theme.colorScheme.onPrimary,
+                    DHIS2Theme.extendedColors.disabledSurface,
+                    DHIS2Theme.extendedColors.onDisabledSurface,
                 ),
         ) {
             Box(Modifier.size(Spacing.Spacing24)) {
@@ -356,10 +355,10 @@ private fun FilledTonalIconButton(
                 shape = CircleShape,
                 colors =
                     IconButtonDefaults.filledTonalIconButtonColors(
-                        SurfaceColor.PrimaryContainer,
-                        TextColor.OnPrimaryContainer,
-                        SurfaceColor.DisabledSurface,
-                        TextColor.OnDisabledSurface,
+                        DHIS2Theme.colorScheme.primaryContainer,
+                        DHIS2Theme.colorScheme.onPrimaryContainer,
+                        DHIS2Theme.extendedColors.disabledSurface,
+                        DHIS2Theme.extendedColors.onDisabledSurface,
                     ),
             ) {
                 Box(Modifier.size(Spacing.Spacing24)) {
@@ -417,12 +416,12 @@ private fun OutlinedIconButton(
                 border =
                     BorderStroke(
                         Border.Thin,
-                        if (enabled) Outline.Dark else SurfaceColor.DisabledSurface,
+                        if (enabled) DHIS2Theme.colorScheme.outline else DHIS2Theme.extendedColors.disabledSurface,
                     ),
                 colors =
                     IconButtonDefaults.outlinedIconButtonColors(
                         Color.Transparent,
-                        TextColor.OnPrimaryContainer,
+                        DHIS2Theme.colorScheme.onPrimaryContainer,
                     ),
             ) {
                 Box(Modifier.size(Spacing.Spacing24)) {

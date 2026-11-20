@@ -49,12 +49,11 @@ import androidx.compose.ui.unit.dp
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.conditional
 import org.hisp.dhis.mobile.ui.designsystem.component.model.DraggableType
 import org.hisp.dhis.mobile.ui.designsystem.component.modifier.draggableList
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Radius
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing16
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing.Spacing4
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
-import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.dropShadow
 import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
 
@@ -82,8 +81,8 @@ internal fun BaseCard(
                 ).background(
                     color =
                         when (selectionMode) {
-                            SelectionState.SELECTED -> SurfaceColor.ContainerLow
-                            else -> SurfaceColor.SurfaceBright
+                            SelectionState.SELECTED -> DHIS2Theme.colorScheme.surfaceContainerLow
+                            else -> DHIS2Theme.colorScheme.surfaceBright
                         },
                     shape = RoundedCornerShape(Radius.S),
                 ).clip(shape = RoundedCornerShape(Radius.S))
@@ -92,7 +91,7 @@ internal fun BaseCard(
                     interactionSource = interactionSource,
                     indication =
                         ripple(
-                            color = SurfaceColor.Primary,
+                            color = DHIS2Theme.colorScheme.primary,
                         ),
                     onClick =
                         when {
@@ -218,7 +217,7 @@ internal fun ToggleInfoTextButton(
     val interactionSource = remember { MutableInteractionSource() }
 
     val iconVector = getIconVector(sectionState)
-    val expandTextColor = TextColor.OnSurfaceLight
+    val expandTextColor = DHIS2Theme.extendedColors.onSurfaceLight
     Row(
         Modifier
             .clip(RoundedCornerShape(Radius.M))
@@ -230,7 +229,7 @@ internal fun ToggleInfoTextButton(
                 interactionSource = interactionSource,
                 indication =
                     ripple(
-                        color = SurfaceColor.Primary,
+                        color = DHIS2Theme.colorScheme.primary,
                     ),
             ).padding(end = Spacing.Spacing2)
             .offset(x = (-3).dp),
