@@ -4,8 +4,11 @@ import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Shapes
 import androidx.compose.material3.Typography
+import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
@@ -38,6 +41,7 @@ internal val DHIS2LightColorScheme =
         outline = Outline.Dark,
         outlineVariant = Outline.Light,
         scrim = SurfaceColor.Scrim,
+        surfaceContainerLowest = SurfaceColor.ContainerLowest,
         surfaceContainer = SurfaceColor.Container,
         surfaceContainerLow = SurfaceColor.ContainerLow,
         surfaceContainerHigh = SurfaceColor.ContainerHigh,
@@ -46,6 +50,49 @@ internal val DHIS2LightColorScheme =
         surfaceBright = SurfaceColor.SurfaceBright,
         inverseSurface = TextColor.OnSurface,
         inverseOnSurface = TextColor.OnPrimary,
+    )
+
+/**
+ * Dark counterpart of [DHIS2LightColorScheme].
+ * Accent colors move to lighter tones, containers to darker ones, and surfaces get lighter as their
+ * elevation increases. Text/background pairs meet WCAG AA (4.5:1), except disabled content, which WCAG exempts.
+ */
+val DHIS2DarkColorScheme =
+    darkColorScheme(
+        primary = Color.Blue300,
+        onPrimary = Color.Blue900,
+        primaryContainer = Color.Blue800,
+        onPrimaryContainer = Color.Blue150,
+        inversePrimary = Color.Blue600,
+        secondary = Color.Blue300,
+        onSecondary = Color.Blue900,
+        secondaryContainer = Color.Blue800,
+        onSecondaryContainer = Color.Blue150,
+        tertiary = Color.Blue300,
+        onTertiary = Color.Blue900,
+        error = Color.Red300,
+        onError = Color.Red900,
+        errorContainer = Color.Red800,
+        onErrorContainer = Color.Red200,
+        background = Color.Charcoal950,
+        onBackground = Color.Ash300,
+        // Same roles as the light scheme: surfaceBright is the page background, surface a slightly lighter fill.
+        surface = Color.Charcoal900,
+        onSurface = Color.Ash300,
+        surfaceVariant = Color.Charcoal700,
+        onSurfaceVariant = Color.Ash700,
+        surfaceDim = Color.Charcoal800,
+        surfaceBright = Color.Charcoal950,
+        surfaceContainerLowest = Color.Charcoal1000,
+        surfaceContainerLow = Color.Charcoal900,
+        surfaceContainer = Color.Charcoal800,
+        surfaceContainerHigh = Color.Charcoal700,
+        surfaceContainerHighest = Color.Charcoal600,
+        outline = Color.Charcoal300,
+        outlineVariant = Color.Charcoal600,
+        scrim = Color.BlackA60,
+        inverseSurface = Color.Ash300,
+        inverseOnSurface = Color.Charcoal800,
     )
 
 /**
@@ -168,23 +215,55 @@ internal fun dhis2Typography(): Typography {
 /**
  * DHIS2 theme for design system components.
  *
- * @param colorScheme Material3 color scheme. Defaults to the DHIS2 light scheme.
+ * @param isDarkModeEnabled whether to use the dark colors. Dark mode is opt-in: pass `isSystemInDarkTheme()`
+ * to follow the system setting once the app's own screens support it.
+ * @param colorScheme Material3 color scheme. Defaults to the DHIS2 light or dark scheme.
+ * @param extendedColors DHIS2 colors with no Material3 equivalent. Keep them consistent with [colorScheme].
  * @param typography Material3 typography. Defaults to the DHIS2 typography.
  * @param shapes Material3 shapes. Defaults to the DHIS2 shapes.
  */
 @Composable
 fun DHIS2Theme(
-    colorScheme: ColorScheme = DHIS2LightColorScheme,
+    isDarkModeEnabled: Boolean = false,
+    colorScheme: ColorScheme = if (isDarkModeEnabled) DHIS2DarkColorScheme else DHIS2LightColorScheme,
+    extendedColors: DHIS2ExtendedColors = if (isDarkModeEnabled) DHIS2DarkExtendedColors else DHIS2LightExtendedColors,
     typography: Typography = dhis2Typography(),
     shapes: Shapes = DHISShapes,
     content: @Composable () -> Unit,
 ) {
-    MaterialTheme(
-        colorScheme = colorScheme,
-        typography = typography,
-        shapes = shapes,
-        content = content,
-    )
+    CompositionLocalProvider(
+        LocalDHIS2ThemeProvided provides true,
+        LocalDHIS2ExtendedColors provides extendedColors,
+    ) {
+        MaterialTheme(
+            colorScheme = colorScheme,
+            typography = typography,
+            shapes = shapes,
+            content = content,
+        )
+    }
+}
+
+/**
+ * Access to the current DHIS2 theme colors from components.
+ */
+object DHIS2Theme {
+    /**
+     * The Material3 color scheme set by the closest [DHIS2Theme]. Outside a [DHIS2Theme] it falls back to
+     * [DHIS2LightColorScheme] instead of Material's baseline colors, so components keep the DHIS2 look.
+     */
+    val colorScheme: ColorScheme
+        @Composable
+        @ReadOnlyComposable
+        get() = if (LocalDHIS2ThemeProvided.current) MaterialTheme.colorScheme else DHIS2LightColorScheme
+
+    /**
+     * DHIS2 colors with no Material3 equivalent (warning, disabled, custom...).
+     */
+    val extendedColors: DHIS2ExtendedColors
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalDHIS2ExtendedColors.current
 }
 
 enum class DHIS2TextStyle {
