@@ -23,7 +23,7 @@ class InfoBarSnapshotTest {
 
     @Test
     fun launchInfoBarTest() {
-        paparazzi.snapshot {
+        paparazzi.themedSnapshots {
             ColumnScreenContainer(title = "Info Bar") {
                 InfoBar(
                     text = "Label",

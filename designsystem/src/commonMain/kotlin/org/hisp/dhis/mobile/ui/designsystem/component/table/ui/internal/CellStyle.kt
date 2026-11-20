@@ -1,6 +1,5 @@
 package org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal
 
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.TableColors
@@ -134,8 +133,8 @@ internal fun styleForRowHeader(
     when {
         isCornerSelected ->
             CellStyle.HeaderStyle(
-                backgroundColor = MaterialTheme.colorScheme.surfaceContainerHighest,
-                textColor = MaterialTheme.colorScheme.primary,
+                backgroundColor = TableTheme.colors.primaryLight,
+                textColor = TableTheme.colors.primary,
                 dividerColor = DHIS2Theme.colorScheme.outlineVariant,
             )
 
@@ -148,7 +147,7 @@ internal fun styleForRowHeader(
 
         isOtherRowSelected ->
             CellStyle.HeaderStyle(
-                backgroundColor = MaterialTheme.colorScheme.surfaceContainerHighest,
+                backgroundColor = TableTheme.colors.primaryLight,
                 textColor = TableTheme.colors.primary,
                 dividerColor = DHIS2Theme.colorScheme.outlineVariant,
             )

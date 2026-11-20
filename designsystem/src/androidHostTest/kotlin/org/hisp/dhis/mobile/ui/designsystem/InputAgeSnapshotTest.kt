@@ -21,7 +21,7 @@ class InputAgeSnapshotTest {
 
     @Test
     fun launchInputAgeSnapshot() {
-        paparazzi.snapshot {
+        paparazzi.themedSnapshots {
             CompositionLocalProvider(LocalInspectionMode provides true) {
                 PreviewContextConfigurationEffect()
             }

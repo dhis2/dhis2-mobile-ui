@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.DividerDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -31,6 +30,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantic
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.semantics.tableIdSemantic
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.semantics.rowBackground
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.semantics.rowHeaderTestTag
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
 /**
@@ -108,9 +108,9 @@ internal fun ItemHeader(
             thickness = Spacing.Spacing1,
             color =
                 if (isSelected) {
-                    MaterialTheme.colorScheme.primary
+                    TableTheme.colors.primary
                 } else {
-                    DividerDefaults.color
+                    DHIS2Theme.colorScheme.outlineVariant
                 },
         )
 

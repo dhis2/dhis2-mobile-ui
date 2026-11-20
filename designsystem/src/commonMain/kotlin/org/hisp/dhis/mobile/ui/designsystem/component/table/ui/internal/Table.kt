@@ -320,7 +320,7 @@ internal fun Table(
                         Icon(
                             imageVector = Icons.Outlined.RestartAlt,
                             contentDescription = null,
-                            tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                            tint = DHIS2Theme.colorScheme.onPrimaryContainer,
                         )
                     },
                     onClick = {

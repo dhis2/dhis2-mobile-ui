@@ -17,7 +17,7 @@ class MetadataAvatarSnapshotTest {
 
     @Test
     fun launchAvatarTest() {
-        paparazzi.snapshot {
+        paparazzi.themedSnapshots {
             RowComponentContainer {
                 listOf(
                     MetadataAvatarSize.XS(),

@@ -23,7 +23,7 @@ class TopBarSnapshotTest {
 
     @Test
     fun launchTopBar() {
-        paparazzi.snapshot {
+        paparazzi.themedSnapshots {
             ColumnScreenContainer(title = "Top bars") {
                 ColumnComponentContainer(subTitle = "Default") {
                     TopBar(

@@ -18,7 +18,7 @@ class AssistChipSnapshotTest {
 
     @Test
     fun launchAssistChip() {
-        paparazzi.snapshot {
+        paparazzi.themedSnapshots {
             ColumnScreenContainer {
                 AssistChip(
                     label = "Label",

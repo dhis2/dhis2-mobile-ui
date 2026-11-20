@@ -31,7 +31,7 @@ class InputDropDownSnapshotTest {
 
     @Test
     fun launchInputDropDown() {
-        paparazzi.snapshot {
+        paparazzi.themedSnapshots {
             CompositionLocalProvider(LocalInspectionMode provides true) {
                 PreviewContextConfigurationEffect()
             }

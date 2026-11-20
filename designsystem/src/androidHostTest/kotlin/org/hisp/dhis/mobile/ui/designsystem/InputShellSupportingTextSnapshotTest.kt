@@ -22,7 +22,7 @@ class InputShellSupportingTextSnapshotTest {
 
     @Test
     fun launchInputShellSupportingTextDataInputStyle() {
-        paparazzi.snapshot {
+        paparazzi.themedSnapshots {
             CompositionLocalProvider(LocalInspectionMode provides true) {
                 PreviewContextConfigurationEffect()
             }
@@ -49,7 +49,7 @@ class InputShellSupportingTextSnapshotTest {
 
     @Test
     fun launchInputShellSupportingTextParameterInputStyle() {
-        paparazzi.snapshot {
+        paparazzi.themedSnapshots {
             CompositionLocalProvider(LocalInspectionMode provides true) {
                 PreviewContextConfigurationEffect()
             }

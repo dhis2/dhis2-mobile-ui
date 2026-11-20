@@ -95,7 +95,7 @@ class ListCardSnapshotTest {
 
     @Test
     fun launchListCard() {
-        paparazzi.snapshot {
+        paparazzi.themedSnapshots {
             Column(
                 verticalArrangement = Arrangement.spacedBy(Spacing.Spacing4),
                 modifier = Modifier.padding(horizontal = Spacing.Spacing8),

@@ -64,7 +64,7 @@ class CardDetailSnapshotTest {
 
     @Test
     fun launchCardDetail() {
-        paparazzi.snapshot {
+        paparazzi.themedSnapshots {
             ColumnScreenContainer(title = "Card Detail and Info Bar") {
                 CardDetail(
                     avatar = null,

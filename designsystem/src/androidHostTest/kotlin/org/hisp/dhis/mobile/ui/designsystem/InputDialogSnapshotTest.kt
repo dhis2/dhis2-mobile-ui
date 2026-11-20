@@ -70,7 +70,7 @@ class InputDialogSnapshotTest {
                 ),
             )
 
-        paparazzi.snapshot {
+        paparazzi.themedSnapshots {
             CompositionLocalProvider(LocalInspectionMode provides true) {
                 PreviewContextConfigurationEffect()
             }

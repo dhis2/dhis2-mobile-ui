@@ -17,7 +17,7 @@ class InputCustomIntentTest {
 
     @Test
     fun launchInputCustomIntent() {
-        paparazzi.snapshot {
+        paparazzi.themedSnapshots {
             val value = listOf("Option")
             val values = listOf("Option 1", "Option 2", "Option 3")
 

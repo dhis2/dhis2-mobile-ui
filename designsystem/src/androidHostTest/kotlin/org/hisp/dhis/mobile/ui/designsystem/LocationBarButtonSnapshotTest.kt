@@ -10,7 +10,7 @@ class LocationBarButtonSnapshotTest {
 
     @Test
     fun launchSearchBarButtonTest() {
-        paparazzi.snapshot {
+        paparazzi.themedSnapshots {
             LocationBar(
                 currentResults = emptyList(),
                 onBackClicked = {},

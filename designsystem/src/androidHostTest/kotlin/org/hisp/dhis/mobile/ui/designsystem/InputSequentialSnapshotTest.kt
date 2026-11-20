@@ -25,7 +25,7 @@ class InputSequentialSnapshotTest {
 
     @Test
     fun launchMatrix() {
-        paparazzi.snapshot {
+        paparazzi.themedSnapshots {
             CompositionLocalProvider(LocalInspectionMode provides true) {
                 PreviewContextConfigurationEffect()
             }
