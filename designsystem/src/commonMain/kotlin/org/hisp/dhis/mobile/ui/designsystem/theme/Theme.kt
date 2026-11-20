@@ -1,9 +1,12 @@
 package org.hisp.dhis.mobile.ui.designsystem.theme
 
+import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Shapes
 import androidx.compose.material3.Typography
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
@@ -45,118 +48,141 @@ internal val DHIS2LightColorScheme =
         inverseOnSurface = TextColor.OnPrimary,
     )
 
+/**
+ * DHIS2 typography. It is only rebuilt when the font families change, not on every recomposition.
+ */
 @Composable
-fun DHIS2Theme(content: @Composable () -> Unit) {
+internal fun dhis2Typography(): Typography {
+    val regular = FontFamily(Font(Res.font.roboto_regular))
+    val medium = FontFamily(Font(Res.font.roboto_medium))
+    return remember(regular, medium) {
+        Typography(
+            headlineLarge =
+                TextStyle(
+                    fontSize = 32.sp,
+                    lineHeight = 40.sp,
+                    lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
+                    fontFamily = regular,
+                    fontWeight = FontWeight.Normal,
+                ),
+            headlineMedium =
+                TextStyle(
+                    fontSize = 28.sp,
+                    lineHeight = 36.sp,
+                    lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
+                    fontFamily = regular,
+                    fontWeight = FontWeight.Normal,
+                ),
+            headlineSmall =
+                TextStyle(
+                    fontSize = 24.sp,
+                    lineHeight = 32.sp,
+                    lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
+                    fontFamily = regular,
+                    fontWeight = FontWeight.Normal,
+                ),
+            titleLarge =
+                TextStyle(
+                    fontSize = 20.sp,
+                    lineHeight = 28.sp,
+                    lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
+                    fontFamily = medium,
+                    fontWeight = FontWeight.Medium,
+                ),
+            titleMedium =
+                TextStyle(
+                    fontSize = 16.sp,
+                    lineHeight = 24.sp,
+                    lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
+                    fontFamily = medium,
+                    fontWeight = FontWeight.Medium,
+                    letterSpacing = 0.15.sp,
+                ),
+            titleSmall =
+                TextStyle(
+                    fontSize = 14.sp,
+                    lineHeight = 20.sp,
+                    lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
+                    fontFamily = medium,
+                    fontWeight = FontWeight.Medium,
+                    letterSpacing = 0.1.sp,
+                ),
+            labelLarge =
+                TextStyle(
+                    fontSize = 14.sp,
+                    lineHeight = 20.sp,
+                    lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
+                    fontFamily = medium,
+                    fontWeight = FontWeight.Medium,
+                    letterSpacing = 0.1.sp,
+                ),
+            labelMedium =
+                TextStyle(
+                    fontSize = 12.sp,
+                    lineHeight = 16.sp,
+                    lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
+                    fontFamily = medium,
+                    fontWeight = FontWeight.Medium,
+                    letterSpacing = 0.5.sp,
+                ),
+            labelSmall =
+                TextStyle(
+                    fontSize = 11.sp,
+                    lineHeight = 16.sp,
+                    lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
+                    fontFamily = medium,
+                    fontWeight = FontWeight.Medium,
+                    letterSpacing = 0.5.sp,
+                ),
+            bodyLarge =
+                TextStyle(
+                    fontSize = 16.sp,
+                    lineHeight = 24.sp,
+                    lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
+                    fontFamily = regular,
+                    fontWeight = FontWeight.Normal,
+                    letterSpacing = 0.5.sp,
+                ),
+            bodyMedium =
+                TextStyle(
+                    fontSize = 14.sp,
+                    lineHeight = 20.sp,
+                    lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
+                    fontFamily = regular,
+                    fontWeight = FontWeight.Normal,
+                    letterSpacing = 0.25.sp,
+                ),
+            bodySmall =
+                TextStyle(
+                    fontSize = 12.sp,
+                    lineHeight = 16.sp,
+                    lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
+                    fontFamily = regular,
+                    fontWeight = FontWeight.Normal,
+                    letterSpacing = 0.4.sp,
+                ),
+        )
+    }
+}
+
+/**
+ * DHIS2 theme for design system components.
+ *
+ * @param colorScheme Material3 color scheme. Defaults to the DHIS2 light scheme.
+ * @param typography Material3 typography. Defaults to the DHIS2 typography.
+ * @param shapes Material3 shapes. Defaults to the DHIS2 shapes.
+ */
+@Composable
+fun DHIS2Theme(
+    colorScheme: ColorScheme = DHIS2LightColorScheme,
+    typography: Typography = dhis2Typography(),
+    shapes: Shapes = DHISShapes,
+    content: @Composable () -> Unit,
+) {
     MaterialTheme(
-        colorScheme = DHIS2LightColorScheme,
-        typography =
-            Typography(
-                headlineLarge =
-                    TextStyle(
-                        fontSize = 32.sp,
-                        lineHeight = 40.sp,
-                        lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
-                        fontFamily = FontFamily(Font(Res.font.roboto_regular)),
-                        fontWeight = FontWeight.Normal,
-                    ),
-                headlineMedium =
-                    TextStyle(
-                        fontSize = 28.sp,
-                        lineHeight = 36.sp,
-                        lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
-                        fontFamily = FontFamily(Font(Res.font.roboto_regular)),
-                        fontWeight = FontWeight.Normal,
-                    ),
-                headlineSmall =
-                    TextStyle(
-                        fontSize = 24.sp,
-                        lineHeight = 32.sp,
-                        lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
-                        fontFamily = FontFamily(Font(Res.font.roboto_regular)),
-                        fontWeight = FontWeight.Normal,
-                    ),
-                titleLarge =
-                    TextStyle(
-                        fontSize = 20.sp,
-                        lineHeight = 28.sp,
-                        lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
-                        fontFamily = FontFamily(Font(Res.font.roboto_medium)),
-                        fontWeight = FontWeight.Medium,
-                    ),
-                titleMedium =
-                    TextStyle(
-                        fontSize = 16.sp,
-                        lineHeight = 24.sp,
-                        lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
-                        fontFamily = FontFamily(Font(Res.font.roboto_medium)),
-                        fontWeight = FontWeight.Medium,
-                        letterSpacing = 0.15.sp,
-                    ),
-                titleSmall =
-                    TextStyle(
-                        fontSize = 14.sp,
-                        lineHeight = 20.sp,
-                        lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
-                        fontFamily = FontFamily(Font(Res.font.roboto_medium)),
-                        fontWeight = FontWeight.Medium,
-                        letterSpacing = 0.1.sp,
-                    ),
-                labelLarge =
-                    TextStyle(
-                        fontSize = 14.sp,
-                        lineHeight = 20.sp,
-                        lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
-                        fontFamily = FontFamily(Font(Res.font.roboto_medium)),
-                        fontWeight = FontWeight.Medium,
-                        letterSpacing = 0.1.sp,
-                    ),
-                labelMedium =
-                    TextStyle(
-                        fontSize = 12.sp,
-                        lineHeight = 16.sp,
-                        lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
-                        fontFamily = FontFamily(Font(Res.font.roboto_medium)),
-                        fontWeight = FontWeight.Medium,
-                        letterSpacing = 0.5.sp,
-                    ),
-                labelSmall =
-                    TextStyle(
-                        fontSize = 11.sp,
-                        lineHeight = 16.sp,
-                        lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
-                        fontFamily = FontFamily(Font(Res.font.roboto_medium)),
-                        fontWeight = FontWeight.Medium,
-                        letterSpacing = 0.5.sp,
-                    ),
-                bodyLarge =
-                    TextStyle(
-                        fontSize = 16.sp,
-                        lineHeight = 24.sp,
-                        lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
-                        fontFamily = FontFamily(Font(Res.font.roboto_regular)),
-                        fontWeight = FontWeight.Normal,
-                        letterSpacing = 0.5.sp,
-                    ),
-                bodyMedium =
-                    TextStyle(
-                        fontSize = 14.sp,
-                        lineHeight = 20.sp,
-                        lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
-                        fontFamily = FontFamily(Font(Res.font.roboto_regular)),
-                        fontWeight = FontWeight.Normal,
-                        letterSpacing = 0.25.sp,
-                    ),
-                bodySmall =
-                    TextStyle(
-                        fontSize = 12.sp,
-                        lineHeight = 16.sp,
-                        lineHeightStyle = LineHeightStyles.CentreAlignNoTrim,
-                        fontFamily = FontFamily(Font(Res.font.roboto_regular)),
-                        fontWeight = FontWeight.Normal,
-                        letterSpacing = 0.4.sp,
-                    ),
-            ),
-        shapes = DHISShapes,
+        colorScheme = colorScheme,
+        typography = typography,
+        shapes = shapes,
         content = content,
     )
 }
