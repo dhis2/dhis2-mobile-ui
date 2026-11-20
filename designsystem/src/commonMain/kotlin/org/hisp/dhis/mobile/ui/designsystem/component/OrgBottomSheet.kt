@@ -58,10 +58,9 @@ import org.hisp.dhis.mobile.ui.designsystem.component.state.BottomSheetShellUISt
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideDHIS2Icon
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
 import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2SCustomTextStyles
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
-import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import kotlin.time.Duration.Companion.milliseconds
 
 /**
@@ -257,7 +256,7 @@ private fun OrgTreeList(
                     .testTag("ORG_TREE_NO_RESULTS_FOUND"),
             textAlign = TextAlign.Center,
             text = noResultsFoundText,
-            color = TextColor.OnSurfaceVariant,
+            color = DHIS2Theme.colorScheme.onSurfaceVariant,
             style = MaterialTheme.typography.bodyMedium,
         )
     } else {
@@ -407,25 +406,26 @@ private fun OrgTreeItemIcon(
             modifier = modifier,
             painter = provideDHIS2Icon("material_circle_outline"),
             contentDescription = null,
-            tint = TextColor.OnDisabledSurface,
+            tint = DHIS2Theme.extendedColors.onDisabledSurface,
         )
     } else if (orgTreeItem.isOpen) {
         Icon(
             modifier = modifier,
             painter = rememberVectorPainter(Icons.Filled.KeyboardArrowDown),
             contentDescription = null,
-            tint = TextColor.OnDisabledSurface,
+            tint = DHIS2Theme.extendedColors.onDisabledSurface,
         )
     } else {
         Icon(
             modifier = modifier,
             painter = rememberVectorPainter(Icons.AutoMirrored.Filled.KeyboardArrowRight),
             contentDescription = null,
-            tint = TextColor.OnSurfaceVariant,
+            tint = DHIS2Theme.colorScheme.onSurfaceVariant,
         )
     }
 }
 
+@Composable
 private fun orgTreeItemLabel(
     orgTreeItem: OrgTreeItem,
     searchQuery: String,
@@ -453,6 +453,7 @@ private fun orgTreeItemLabel(
     return label
 }
 
+@Composable
 private fun AnnotatedString.Builder.appendHighlightedString(
     orgTreeItem: OrgTreeItem,
     highlightIndexStart: Int,
@@ -461,7 +462,7 @@ private fun AnnotatedString.Builder.appendHighlightedString(
     append(orgTreeItem.label.substring(0, highlightIndexStart))
 
     withStyle(
-        SpanStyle(background = SurfaceColor.Primary.copy(alpha = 0.1f)),
+        SpanStyle(background = DHIS2Theme.colorScheme.primary.copy(alpha = 0.1f)),
     ) {
         append(
             orgTreeItem.label.substring(

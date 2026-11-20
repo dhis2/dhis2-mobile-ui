@@ -36,9 +36,9 @@ import org.hisp.dhis.mobile.designsystem.generated.resources.close
 import org.hisp.dhis.mobile.designsystem.generated.resources.show_details
 import org.hisp.dhis.mobile.ui.designsystem.component.table.ui.internal.InputDialogContainer
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Shape
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.jetbrains.compose.resources.stringResource
 
 /**
@@ -82,7 +82,7 @@ fun InputDialog(
                             modifier = Modifier.clip(Shape.Large),
                             content = {
                                 Column(
-                                    modifier = Modifier.background(color = SurfaceColor.SurfaceBright),
+                                    modifier = Modifier.background(color = DHIS2Theme.colorScheme.surfaceBright),
                                 ) {
                                     input()
                                     if (detailShown) {
@@ -115,7 +115,7 @@ fun InputDialog(
                                                         top = Spacing.Spacing12,
                                                         end = Spacing.Spacing16,
                                                         bottom = Spacing.Spacing12,
-                                                    ).background(SurfaceColor.SurfaceBright),
+                                                    ).background(DHIS2Theme.colorScheme.surfaceBright),
                                         ) {
                                             IconButton(
                                                 modifier = Modifier.testTag("INPUT_DIALOG_DISMISS_TAG"),

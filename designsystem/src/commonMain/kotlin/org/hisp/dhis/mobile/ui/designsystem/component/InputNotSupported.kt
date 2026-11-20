@@ -5,7 +5,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import org.hisp.dhis.mobile.ui.designsystem.resource.provideStringResource
-import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 
 /**
  * Input for unsupported components
@@ -29,7 +29,7 @@ fun InputNotSupported(
         inputField = {
             Text(
                 text = notSupportedString,
-                color = TextColor.OnDisabledSurface,
+                color = DHIS2Theme.extendedColors.onDisabledSurface,
                 style = MaterialTheme.typography.bodyLarge,
             )
         },

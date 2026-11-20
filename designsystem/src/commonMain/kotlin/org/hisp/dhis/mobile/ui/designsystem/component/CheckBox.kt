@@ -20,11 +20,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.AnnotatedString
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
-import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
-import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.customRippleConfiguration
 import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
 
@@ -48,9 +46,9 @@ fun CheckBox(
         if (checkBoxData.enabled) remember { MutableInteractionSource() } else MutableInteractionSource()
     val textColor =
         if (checkBoxData.enabled) {
-            TextColor.OnSurface
+            DHIS2Theme.colorScheme.onSurface
         } else {
-            TextColor.OnDisabledSurface
+            DHIS2Theme.extendedColors.onDisabledSurface
         }
 
     Row(
@@ -86,10 +84,10 @@ fun CheckBox(
                         .testTag("CHECK_BOX_${checkBoxData.uid}"),
                 colors =
                     CheckboxDefaults.colors(
-                        checkedColor = SurfaceColor.Primary,
-                        uncheckedColor = Outline.Dark,
-                        disabledCheckedColor = TextColor.OnDisabledSurface,
-                        disabledUncheckedColor = TextColor.OnDisabledSurface,
+                        checkedColor = DHIS2Theme.colorScheme.primary,
+                        uncheckedColor = DHIS2Theme.colorScheme.outline,
+                        disabledCheckedColor = DHIS2Theme.extendedColors.onDisabledSurface,
+                        disabledUncheckedColor = DHIS2Theme.extendedColors.onDisabledSurface,
                     ),
             )
         }

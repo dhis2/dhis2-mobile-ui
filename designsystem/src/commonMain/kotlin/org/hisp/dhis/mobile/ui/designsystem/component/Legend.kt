@@ -37,9 +37,9 @@ import androidx.compose.ui.semantics.Role
 import org.hisp.dhis.mobile.ui.designsystem.component.state.BottomSheetShellDefaults
 import org.hisp.dhis.mobile.ui.designsystem.component.state.BottomSheetShellUIState
 import org.hisp.dhis.mobile.ui.designsystem.theme.Border
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.InternalSizeValues
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
 
 /**
@@ -73,7 +73,7 @@ fun Legend(
                     interactionSource = interactionSource,
                     indication =
                         ripple(
-                            color = SurfaceColor.Primary,
+                            color = DHIS2Theme.colorScheme.primary,
                         ),
                 ).hoverPointerIcon(true)
         } else {
@@ -144,7 +144,7 @@ fun Legend(
                 Icon(
                     imageVector = Icons.Outlined.Info,
                     contentDescription = null,
-                    tint = SurfaceColor.Primary,
+                    tint = DHIS2Theme.colorScheme.primary,
                 )
             },
         ) {

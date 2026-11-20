@@ -13,9 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
-import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
-import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.customRippleConfiguration
 
 /**
@@ -42,22 +40,22 @@ fun Switch(
             enabled = enabled,
             colors =
                 SwitchDefaults.colors(
-                    checkedThumbColor = TextColor.OnPrimary,
-                    checkedTrackColor = SurfaceColor.Primary,
-                    checkedBorderColor = SurfaceColor.Primary,
-                    checkedIconColor = SurfaceColor.Primary,
-                    uncheckedThumbColor = Outline.Dark,
-                    uncheckedTrackColor = SurfaceColor.Surface,
-                    uncheckedBorderColor = Outline.Dark,
-                    uncheckedIconColor = Outline.Dark,
-                    disabledCheckedThumbColor = SurfaceColor.Surface,
-                    disabledCheckedTrackColor = SurfaceColor.CustomGray,
-                    disabledCheckedBorderColor = SurfaceColor.CustomGray,
-                    disabledCheckedIconColor = TextColor.OnDisabledSurface,
-                    disabledUncheckedThumbColor = TextColor.OnDisabledSurface,
-                    disabledUncheckedTrackColor = SurfaceColor.DisabledSurface,
-                    disabledUncheckedBorderColor = Outline.Light,
-                    disabledUncheckedIconColor = TextColor.OnDisabledSurface,
+                    checkedThumbColor = DHIS2Theme.colorScheme.onPrimary,
+                    checkedTrackColor = DHIS2Theme.colorScheme.primary,
+                    checkedBorderColor = DHIS2Theme.colorScheme.primary,
+                    checkedIconColor = DHIS2Theme.colorScheme.primary,
+                    uncheckedThumbColor = DHIS2Theme.colorScheme.outline,
+                    uncheckedTrackColor = DHIS2Theme.colorScheme.surface,
+                    uncheckedBorderColor = DHIS2Theme.colorScheme.outline,
+                    uncheckedIconColor = DHIS2Theme.colorScheme.outline,
+                    disabledCheckedThumbColor = DHIS2Theme.colorScheme.surface,
+                    disabledCheckedTrackColor = DHIS2Theme.extendedColors.customGray,
+                    disabledCheckedBorderColor = DHIS2Theme.extendedColors.customGray,
+                    disabledCheckedIconColor = DHIS2Theme.extendedColors.onDisabledSurface,
+                    disabledUncheckedThumbColor = DHIS2Theme.extendedColors.onDisabledSurface,
+                    disabledUncheckedTrackColor = DHIS2Theme.extendedColors.disabledSurface,
+                    disabledUncheckedBorderColor = DHIS2Theme.colorScheme.outlineVariant,
+                    disabledUncheckedIconColor = DHIS2Theme.extendedColors.onDisabledSurface,
                 ),
             thumbContent = {
                 if (isChecked) {
@@ -70,7 +68,7 @@ fun Switch(
                     Icon(
                         imageVector = Icons.Outlined.Close,
                         contentDescription = null,
-                        tint = TextColor.OnPrimary,
+                        tint = DHIS2Theme.colorScheme.onPrimary,
                         modifier = Modifier.size(SwitchDefaults.IconSize),
                     )
                 }

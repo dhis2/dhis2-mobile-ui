@@ -29,9 +29,8 @@ import org.hisp.dhis.mobile.ui.designsystem.component.IconButton
 import org.hisp.dhis.mobile.ui.designsystem.component.parameter.model.ParameterSelectorItemModel
 import org.hisp.dhis.mobile.ui.designsystem.component.parameter.model.ParameterSelectorItemModel.Status.CLOSED
 import org.hisp.dhis.mobile.ui.designsystem.theme.Border
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
-import org.hisp.dhis.mobile.ui.designsystem.theme.TextColor
 import org.hisp.dhis.mobile.ui.designsystem.theme.hoverPointerIcon
 
 @Composable
@@ -78,7 +77,7 @@ private fun EmptyParameterField(
                     interactionSource = interactionSource,
                     indication =
                         ripple(
-                            color = SurfaceColor.Primary,
+                            color = DHIS2Theme.colorScheme.primary,
                         ),
                     onClick = onClick,
                 ).hoverPointerIcon(true),
@@ -108,7 +107,7 @@ private fun EmptyParameterField(
                     Modifier
                         .weight(1f),
                 text = model.label,
-                color = SurfaceColor.Primary,
+                color = DHIS2Theme.colorScheme.primary,
             )
 
             Text(
@@ -116,14 +115,14 @@ private fun EmptyParameterField(
                     Modifier
                         .wrapContentWidth(),
                 text = model.helper,
-                color = TextColor.OnDisabledSurface,
+                color = DHIS2Theme.extendedColors.onDisabledSurface,
                 style = MaterialTheme.typography.bodySmall,
             )
         }
         Box(Modifier.height(Spacing.Spacing2)) {
             HorizontalDivider(
                 modifier = Modifier.align(Alignment.BottomStart),
-                color = SurfaceColor.DisabledSurface,
+                color = DHIS2Theme.extendedColors.disabledSurface,
                 thickness = Border.Thin,
             )
         }

@@ -4,14 +4,14 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AddCircleOutline
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
-import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
+import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 
 data class ParameterSelectorItemModel(
     val icon: @Composable (() -> Unit) = {
         Icon(
             imageVector = Icons.Outlined.AddCircleOutline,
             contentDescription = null,
-            tint = SurfaceColor.Primary,
+            tint = DHIS2Theme.colorScheme.primary,
         )
     },
     val label: String,
