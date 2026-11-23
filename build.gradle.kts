@@ -52,15 +52,6 @@ sonar {
     }
 }
 
-// Under AGP 9 the scanner resolves no sources for this module.
-project(":androidApp") {
-    sonar {
-        properties {
-            property("sonar.sources", "src/main")
-        }
-    }
-}
-
 allprojects {
     apply(plugin = "org.jlleitschuh.gradle.ktlint")
     ktlint {
