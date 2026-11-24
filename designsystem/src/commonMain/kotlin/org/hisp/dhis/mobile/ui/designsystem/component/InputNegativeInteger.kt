@@ -38,7 +38,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.model.RegExValidations
 fun InputNegativeInteger(
     title: String,
     state: InputShellState,
-    inputStyle: InputStyle = InputStyle.DarkInputStyle(),
+    inputStyle: InputStyle = InputStyle.DarkInputStyle,
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
     inputTextFieldValue: TextFieldValue? = null,

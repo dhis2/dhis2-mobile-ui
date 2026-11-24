@@ -93,7 +93,7 @@ private const val MAX_DROPDOWN_ITEMS_TO_SHOW = 50
 fun InputDropDown(
     title: String,
     state: InputShellState,
-    inputStyle: InputStyle = InputStyle.DarkInputStyle(),
+    inputStyle: InputStyle = InputStyle.DarkInputStyle,
     itemCount: Int,
     onSearchOption: (String) -> Unit,
     fetchItem: (index: Int) -> DropdownItem,
@@ -324,7 +324,7 @@ private fun dropdownStartPadding(inputStyle: InputStyle): Dp =
 fun DropdownInputField(
     title: String,
     state: InputShellState,
-    inputStyle: InputStyle = InputStyle.DarkInputStyle(),
+    inputStyle: InputStyle = InputStyle.DarkInputStyle,
     isRequiredField: Boolean,
     expanded: Boolean,
     focusRequester: FocusRequester,

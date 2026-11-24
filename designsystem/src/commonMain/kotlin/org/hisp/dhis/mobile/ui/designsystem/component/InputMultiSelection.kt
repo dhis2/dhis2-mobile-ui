@@ -86,7 +86,7 @@ fun InputMultiSelection(
     noResultsFoundString: String = provideStringResource("no_results_found"),
     searchToFindMoreString: String = provideStringResource("search_to_see_more"),
     doneButtonText: String = provideStringResource("done"),
-    inputStyle: InputStyle = InputStyle.DarkInputStyle(),
+    inputStyle: InputStyle = InputStyle.DarkInputStyle,
     onClearItemSelection: () -> Unit,
     bottomSheetExpanded: Boolean = false,
     maxItemsToShow: Int = MAX_CHECKBOXES_ITEMS_TO_SHOW,

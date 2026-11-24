@@ -67,7 +67,7 @@ fun InputCustomIntent(
     onClear: () -> Unit = {},
     customIntentState: CustomIntentState = LAUNCH,
     inputShellState: InputShellState = InputShellState.UNFOCUSED,
-    inputStyle: InputStyle = InputStyle.DarkInputStyle(),
+    inputStyle: InputStyle = InputStyle.DarkInputStyle,
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
     isRequired: Boolean = false,

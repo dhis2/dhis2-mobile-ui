@@ -48,7 +48,7 @@ fun InputBarCode(
     onFocusChanged: ((Boolean) -> Unit)? = null,
     imeAction: ImeAction = ImeAction.Next,
     modifier: Modifier = Modifier,
-    inputStyle: InputStyle = InputStyle.DarkInputStyle(),
+    inputStyle: InputStyle = InputStyle.DarkInputStyle,
     showDeleteButton: Boolean = true,
 ) {
     val actionButtonIconVector =

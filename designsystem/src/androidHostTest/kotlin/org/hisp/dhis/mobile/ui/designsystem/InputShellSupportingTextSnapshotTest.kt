@@ -69,7 +69,7 @@ class InputShellSupportingTextSnapshotTest {
                         ),
                     ),
                 state = InputShellState.FOCUSED,
-                inputStyle = ParameterInputStyle(),
+                inputStyle = ParameterInputStyle,
                 onValueChanged = {},
             )
         }

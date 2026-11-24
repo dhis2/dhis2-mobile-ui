@@ -20,7 +20,7 @@ fun InputNotSupported(
     title: String,
     modifier: Modifier = Modifier,
     notSupportedString: String = provideStringResource("not_supported"),
-    inputStyle: InputStyle = InputStyle.DarkInputStyle(),
+    inputStyle: InputStyle = InputStyle.DarkInputStyle,
 ) {
     InputShell(
         modifier = modifier,

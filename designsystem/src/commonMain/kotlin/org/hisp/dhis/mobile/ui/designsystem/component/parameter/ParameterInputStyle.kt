@@ -10,7 +10,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.DHIS2Theme
 import org.hisp.dhis.mobile.ui.designsystem.theme.Outline
 import org.hisp.dhis.mobile.ui.designsystem.theme.Spacing
 
-class ParameterInputStyle :
+data object ParameterInputStyle :
     InputStyle.CustomInputStyle(
         startIndent = Spacing.Spacing40,
         supportingTextLowerPadding = Spacing.Spacing4,
@@ -19,6 +19,9 @@ class ParameterInputStyle :
         unfocusedIndicatorColor = Outline.Light,
         disabledIndicatorColor = Outline.Light,
     ) {
+    @Deprecated("Use ParameterInputStyle", ReplaceWith("ParameterInputStyle"))
+    operator fun invoke(): ParameterInputStyle = this
+
     @Composable
     override fun themedUnfocusedIndicatorColor(): Color? =
         unfocusedIndicatorColor?.themedIfDefault(Outline.Light, DHIS2Theme.colorScheme.outlineVariant)

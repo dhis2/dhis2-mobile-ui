@@ -38,7 +38,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.parameter.ParameterInputSt
 fun InputQRCode(
     title: String,
     state: InputShellState,
-    inputStyle: InputStyle = InputStyle.DarkInputStyle(),
+    inputStyle: InputStyle = InputStyle.DarkInputStyle,
     onQRButtonClicked: () -> Unit,
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
