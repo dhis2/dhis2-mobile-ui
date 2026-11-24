@@ -13,6 +13,7 @@ plugins {
     alias(libs.plugins.dokka) apply false
     alias(libs.plugins.nexus)
     alias(libs.plugins.cyclonedx) apply false
+    alias(libs.plugins.sonarqube)
 }
 
 /**
@@ -21,6 +22,34 @@ plugins {
 if (project.hasProperty("removeSnapshotSuffix")) {
     val mainVersion = (version as String).split("-SNAPSHOT")[0]
     version = mainVersion
+}
+
+sonar {
+    properties {
+        val branch = System.getenv("GIT_BRANCH")
+        val targetBranch = System.getenv("GIT_BRANCH_DEST")
+        val pullRequestId = System.getenv("PULL_REQUEST")
+
+        property("sonar.projectKey", "dhis2_dhis2-mobile-ui")
+        property("sonar.organization", "dhis2")
+        property("sonar.host.url", "https://sonarcloud.io")
+        property("sonar.projectName", "dhis2-mobile-ui")
+
+        // Compose resource accessors are generated into build/ and picked up as sources.
+        property("sonar.exclusions", "**/build/generated/**")
+
+        // GitHub Actions resolves PULL_REQUEST to an empty string on push events, so a
+        // null check alone would send push builds down the pull-request path.
+        if (pullRequestId.isNullOrEmpty()) {
+            if (!branch.isNullOrEmpty()) property("sonar.branch.name", branch)
+        } else {
+            property("sonar.pullrequest.base", targetBranch ?: "")
+            property("sonar.pullrequest.branch", branch ?: "")
+            property("sonar.pullrequest.key", pullRequestId)
+            // Fail the CI job when the PR misses the quality gate.
+            property("sonar.qualitygate.wait", true)
+        }
+    }
 }
 
 allprojects {
