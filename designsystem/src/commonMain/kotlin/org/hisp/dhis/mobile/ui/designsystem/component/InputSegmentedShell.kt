@@ -49,7 +49,7 @@ fun InputSegmentedShell(
     supportingTextData: SupportingTextData?,
     enabled: Boolean = true,
     segmentedShellType: SegmentedShellType = SegmentedShellType.Numeric(),
-    inputStyle: InputStyle = InputStyle.DarkInputStyle(),
+    inputStyle: InputStyle = InputStyle.DarkInputStyle,
     onValueChanged: (String) -> Unit = {},
 ) {
     val clipboard = LocalClipboard.current

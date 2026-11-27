@@ -74,7 +74,7 @@ fun InputDropDownScreen() {
 
             InputDropDown(
                 title = "Label - Parameter Style",
-                inputStyle = ParameterInputStyle(),
+                inputStyle = ParameterInputStyle,
                 state = InputShellState.UNFOCUSED,
                 itemCount = options.size,
                 onSearchOption = {},

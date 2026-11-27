@@ -87,7 +87,7 @@ class InputDropDownSnapshotTest {
 
                 InputDropDown(
                     title = "Label - Parameter Style",
-                    inputStyle = ParameterInputStyle(),
+                    inputStyle = ParameterInputStyle,
                     state = InputShellState.UNFOCUSED,
                     itemCount = sixOptions.size,
                     fetchItem = { index ->

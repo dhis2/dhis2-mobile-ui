@@ -43,7 +43,7 @@ fun InputText(
     onAutoCompleteItemSelected: ((String?) -> Unit)? = null,
     imeAction: ImeAction = ImeAction.Next,
     modifier: Modifier = Modifier,
-    inputStyle: InputStyle = InputStyle.DarkInputStyle(),
+    inputStyle: InputStyle = InputStyle.DarkInputStyle,
     showDeleteButton: Boolean = true,
     contentType: ContentType? = null,
 ) {
@@ -104,7 +104,7 @@ fun InputText(
     onAutoCompleteItemSelected: ((String?) -> Unit)? = null,
     imeAction: ImeAction = ImeAction.Next,
     modifier: Modifier = Modifier,
-    inputStyle: InputStyle = InputStyle.DarkInputStyle(),
+    inputStyle: InputStyle = InputStyle.DarkInputStyle,
     showDeleteButton: Boolean = true,
 ) {
     InputText(

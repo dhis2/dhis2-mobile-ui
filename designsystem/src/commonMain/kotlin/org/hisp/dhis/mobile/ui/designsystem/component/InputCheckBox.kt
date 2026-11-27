@@ -63,7 +63,7 @@ fun InputCheckBox(
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
     isRequired: Boolean = false,
-    inputStyle: InputStyle = InputStyle.DarkInputStyle(),
+    inputStyle: InputStyle = InputStyle.DarkInputStyle,
     maxItemsToShow: Int = MAX_OPTIONS_ITEMS_TO_SHOW,
     noResultsFoundString: String = provideStringResource("no_results_found"),
     searchToFindMoreString: String = provideStringResource("search_to_see_more"),

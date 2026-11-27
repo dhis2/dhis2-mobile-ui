@@ -1,6 +1,7 @@
 package org.hisp.dhis.mobile.ui.designsystem.component
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import org.hisp.dhis.mobile.ui.designsystem.component.internal.themedIfDefault
@@ -17,10 +18,11 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
  * @param unfocusedIndicatorColor: unfocused indicator color.
  * @param disabledIndicatorColor: disabled indicator color.
  */
+@Immutable
 sealed class InputStyle(
     val startIndent: Dp,
-    var backGroundColor: Color,
-    var supportingTextLowerPadding: Dp,
+    val backGroundColor: Color,
+    val supportingTextLowerPadding: Dp,
     val disabledBackGroundColor: Color,
     val unfocusedIndicatorColor: Color?,
     val disabledIndicatorColor: Color?,
@@ -53,7 +55,7 @@ sealed class InputStyle(
         return SupportingTextState.entries.firstOrNull { it.backgroundColor == color }?.themedBackgroundColor ?: color
     }
 
-    class DarkInputStyle :
+    data object DarkInputStyle :
         InputStyle(
             startIndent = Spacing.Spacing0,
             backGroundColor = SurfaceColor.Surface,
@@ -62,6 +64,9 @@ sealed class InputStyle(
             unfocusedIndicatorColor = null,
             disabledIndicatorColor = null,
         ) {
+        @Deprecated("Use InputStyle.DarkInputStyle", ReplaceWith("InputStyle.DarkInputStyle"))
+        operator fun invoke(): DarkInputStyle = this
+
         override fun supportingTextBackgroundColor(supportingText: List<SupportingTextData>?): Color = Color.Transparent
 
         @Composable
@@ -72,7 +77,7 @@ sealed class InputStyle(
             disabledBackGroundColor.themedIfDefault(SurfaceColor.DisabledSurface, DHIS2Theme.extendedColors.disabledSurface)
     }
 
-    class BrightInputStyle :
+    data object BrightInputStyle :
         InputStyle(
             startIndent = Spacing.Spacing0,
             supportingTextLowerPadding = Spacing.Spacing0,
@@ -81,6 +86,9 @@ sealed class InputStyle(
             unfocusedIndicatorColor = null,
             disabledIndicatorColor = null,
         ) {
+        @Deprecated("Use InputStyle.BrightInputStyle", ReplaceWith("InputStyle.BrightInputStyle"))
+        operator fun invoke(): BrightInputStyle = this
+
         override fun supportingTextBackgroundColor(supportingText: List<SupportingTextData>?): Color = Color.Transparent
 
         @Composable

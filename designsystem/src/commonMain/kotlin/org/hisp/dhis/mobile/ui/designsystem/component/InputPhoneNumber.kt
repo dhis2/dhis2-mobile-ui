@@ -47,7 +47,7 @@ fun InputPhoneNumber(
     maxLength: Int = 12,
     minLength: Int = 4,
     state: InputShellState,
-    inputStyle: InputStyle = InputStyle.DarkInputStyle(),
+    inputStyle: InputStyle = InputStyle.DarkInputStyle,
     legendData: LegendData? = null,
     inputTextFieldValue: TextFieldValue? = null,
     isRequiredField: Boolean = false,

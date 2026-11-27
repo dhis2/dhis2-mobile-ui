@@ -50,8 +50,8 @@ fun InputSegmentedShellScreen() {
     var selectedStyle by remember { mutableStateOf(styleOptions[0]) }
     val (inputStyle, backgroundColor) =
         when (selectedStyle.uid) {
-            "DarkInputStyle" -> InputStyle.DarkInputStyle() to DHIS2Theme.colorScheme.surfaceBright
-            else -> InputStyle.BrightInputStyle() to DHIS2Theme.colorScheme.surface
+            "DarkInputStyle" -> InputStyle.DarkInputStyle to DHIS2Theme.colorScheme.surfaceBright
+            else -> InputStyle.BrightInputStyle to DHIS2Theme.colorScheme.surface
         }
 
     ColumnScreenContainer(title = BasicTextInputs.INPUT_SEGMENTED_SHELL.label) {

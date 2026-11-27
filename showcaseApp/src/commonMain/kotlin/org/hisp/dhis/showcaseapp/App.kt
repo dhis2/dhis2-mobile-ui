@@ -278,10 +278,7 @@ fun Main(
                 state = InputShellState.UNFOCUSED,
                 expanded = currentScreen == Groups.NO_GROUP_SELECTED,
                 selectedItem = DropdownItem(currentScreen.label),
-                inputStyle =
-                    InputStyle
-                        .DarkInputStyle()
-                        .apply { backGroundColor = DHIS2Theme.colorScheme.surfaceBright },
+                inputStyle = InputStyle.BrightInputStyle,
                 loadOptions = {
                     screenDropdownItemList =
                         Groups.entries.map {

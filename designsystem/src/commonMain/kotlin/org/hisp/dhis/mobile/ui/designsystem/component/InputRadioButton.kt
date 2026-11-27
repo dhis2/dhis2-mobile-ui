@@ -62,7 +62,7 @@ fun InputRadioButton(
     modifier: Modifier = Modifier,
     orientation: Orientation = VERTICAL,
     state: InputShellState,
-    inputStyle: InputStyle = InputStyle.DarkInputStyle(),
+    inputStyle: InputStyle = InputStyle.DarkInputStyle,
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
     isRequired: Boolean = false,

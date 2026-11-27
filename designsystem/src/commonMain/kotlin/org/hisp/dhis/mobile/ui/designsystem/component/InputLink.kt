@@ -41,7 +41,7 @@ import org.jetbrains.compose.resources.stringResource
 fun InputLink(
     title: String,
     state: InputShellState,
-    inputStyle: InputStyle = InputStyle.DarkInputStyle(),
+    inputStyle: InputStyle = InputStyle.DarkInputStyle,
     supportingText: List<SupportingTextData>? = null,
     legendData: LegendData? = null,
     inputTextFieldValue: TextFieldValue? = null,
